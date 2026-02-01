@@ -951,27 +951,7 @@ function buildIntelPanel(quest, rawQuest) {
                 </section>
             ` : ''}
 
-            <!-- Locations Section (Dynamic Groups) -->
-            ${quest.locations && Object.keys(quest.locations).length > 0 ? `
-                ${Object.entries(quest.locations).map(([regionKey, locationList]) => {
-                    if (!locationList?.length) return '';
-                    return `
-                        <section class="content-section">
-                            <h3 class="section-title"><span class="title-icon">📍</span> ${formatKey(regionKey)}</h3>
-                            <div class="locations-grid">
-                                ${locationList.map(loc => `
-                                    <div class="location-card">
-                                        <div class="location-marker">📌</div>
-                                        <div class="location-info">
-                                            <span class="location-name">${formatKey(loc)}</span>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </section>
-                    `;
-                }).join('')}
-            ` : ''}
+
             
             <!-- Hints Section -->
             ${quest.hints?.length ? `

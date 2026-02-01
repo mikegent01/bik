@@ -38664,6 +38664,19349 @@ export const SHOP_ITEMS = {
     shippedBy: 'Floral Freight',
     levelRequirement: 4
 },
+'wario_land_piranha_plant_teeth': {
+    id: 'wario_land_piranha_plant_teeth',
+    name: "Piranha Plant Teeth Necklace",
+    description: "A gruesome trophy from the Pipe Fortress massacre, strung on barbed wire.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6200,
+    icon: '🦷',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Wear necklace: +2 damage on bite attacks (serrated edge)",
+        "Teeth still bite: 10% chance to damage wearer (1d4 piercing)",
+        "Intimidates plant-type enemies: advantage on Intimidation",
+        "Piranha spirits seek revenge: random plant ambushes in wilderness",
+        "Made by: Pipe Scavengers (Battlefield Trophies)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Chomping Chain Mail',
+    levelRequirement: 7
+},
+
+'wario_land_broken_warp_pipe': {
+    id: 'wario_land_broken_warp_pipe',
+    name: "Broken Warp Pipe Segment",
+    description: "A cracked section of pipe from the destroyed transportation network.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7100,
+    icon: '🟢',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Once per long rest: teleport 30ft (unstable warp magic)",
+        "Teleport is random: 30% chance you go the wrong direction",
+        "Emits pipe sounds: disadvantage on Stealth checks",
+        "Can store one small item inside: extradimensional pocket (5 lbs max)",
+        "Made by: Kingdom Transit Authority (War Ruins)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Warp Zone Delivery',
+    levelRequirement: 8
+},
+
+'wario_land_goomba_war_helmet': {
+    id: 'wario_land_goomba_war_helmet',
+    name: "Goomba Conscript Helmet",
+    description: "A tiny steel helmet from the drafted Goomba infantry, dented and bloodied.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3800,
+    icon: '⛑️',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Too small for most: disadvantage on Charisma (looks silly)",
+        "Use as a bowl: advantage on Survival for cooking rations",
+        "Goombas salute it: advantage on Charisma with Goomba NPCs",
+        "Contains pressed mushroom: one-time emergency ration (heal 1d4)",
+        "Made by: Goomba War Factory (Mass Production)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fungus Front',
+    levelRequirement: 3
+},
+
+'wario_land_chain_chomp_collar': {
+    id: 'wario_land_chain_chomp_collar',
+    name: "Snapped Chain Chomp Collar",
+    description: "Heavy iron collar from a war beast that broke free during the Castle Siege.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '⛓️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Wear as belt: +1 AC vs. grapple attempts (heavy chain)",
+        "Can swing as weapon: 1d8 bludgeoning, 10ft reach (improvised)",
+        "Cursed with rage: disadvantage on Wisdom saves vs. anger",
+        "Chain Chomp may track you: random encounter with angry beast",
+        "Made by: Bowser's Beast Corps (Restraint Division)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Barking Box Delivery',
+    levelRequirement: 6
+},
+
+'wario_land_1up_mushroom_stem': {
+    id: 'wario_land_1up_mushroom_stem',
+    name: "Withered 1-Up Mushroom Stem",
+    description: "The dried stem of a 1-Up mushroom, its magic nearly depleted by war.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8900,
+    icon: '🍄',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Consume when dying: auto-stabilize and gain 1d6 HP (one use only)",
+        "50% chance it's completely dead: does nothing",
+        "Tastes of loss: disadvantage on Constitution saves for 1 hour after use",
+        "Attracts power-up thieves: random mugging attempts",
+        "Made by: Emergency War Rations (Expired Stock)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Life Support Logistics',
+    levelRequirement: 9
+},
+
+'wario_land_thwomp_fragment': {
+    id: 'wario_land_thwomp_fragment',
+    name: "Thwomp Fortress Fragment",
+    description: "A chunk of stone face from a destroyed Thwomp defender.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5900,
+    icon: '🗿',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Carry fragment: resistance to fall damage (Thwomp nature)",
+        "Extremely heavy: -5 ft speed while carrying",
+        "Angry stone face: advantage on Intimidation checks",
+        "May activate and slam: 1d10 damage to random nearby target (10% chance daily)",
+        "Made by: Castle Defense Rubble"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Heavy Haulers United',
+    levelRequirement: 6
+},
+
+'wario_land_bullet_bill_casing': {
+    id: 'wario_land_bullet_bill_casing',
+    name: "Spent Bullet Bill Casing",
+    description: "An empty shell from a Bullet Bill launcher, still warm from battle.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '🚀',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Use as telescope: advantage on Perception at long range",
+        "Smells of gunpowder: disadvantage on Stealth (strong scent)",
+        "Contains targeting runes: +1 to ranged attack rolls (study for 1 minute)",
+        "May summon Bullet Bill: 5% chance per day it fires at random target",
+        "Made by: Koopa Artillery Corps"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Ballistic Boxers',
+    levelRequirement: 5
+},
+
+'wario_land_fire_flower_ash': {
+    id: 'wario_land_fire_flower_ash',
+    name: "Fire Flower Ash Pouch",
+    description: "Ashes from burned Fire Flowers, collected after the Garden Massacre.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🔥',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Throw ash: create smoke screen (heavily obscured 10ft cube, 1 minute)",
+        "Ash is hot: deal 1d4 fire damage to one target in smoke",
+        "Limited supply: 3 uses before pouch empties",
+        "Phoenix curse: 20% chance ash reignites and burns your pack (1d6 fire damage)",
+        "Made by: Scorched Earth Battalion"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Ember Express',
+    levelRequirement: 5
+},
+
+'wario_land_toad_dog_tags': {
+    id: 'wario_land_toad_dog_tags',
+    name: "Toad Soldier Dog Tags",
+    description: "Identification tags from a fallen Toad warrior, names scratched out.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3200,
+    icon: '🏷️',
+    stock: 15,
+    rarity: 'common',
+    effects: [
+        "Wear tags: advantage on History checks about the civil war",
+        "Haunted by memories: disadvantage on saves vs. fear from war-related triggers",
+        "Toad veterans recognize them: mixed reactions (DM's choice)",
+        "Can be traded to Toad families: potential quest hook or reward",
+        "Made by: Mushroom Kingdom Military (Standard Issue)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Memorial Mail',
+    levelRequirement: 3
+},
+
+'wario_land_lakitu_cloud_wisp': {
+    id: 'wario_land_lakitu_cloud_wisp',
+    name: "Lakitu Cloud Wisp",
+    description: "A bottled fragment of cloud from a shot-down Lakitu bomber.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6800,
+    icon: '☁️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Release cloud: float 5ft off ground for 10 minutes (no fall damage)",
+        "Cloud dissipates in rain: disadvantage on duration in wet weather",
+        "Lakitu may notice: 15% chance of air raid by angry cloud rider",
+        "Can reshape cloud: minor illusion of weather (no mechanical effect)",
+        "Made by: Sky Corps Salvage (Aerial Division)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Airmail Actual',
+    levelRequirement: 7
+},
+
+'wario_land_poison_mushroom_spores': {
+    id: 'wario_land_poison_mushroom_spores',
+    name: "Poison Mushroom Spore Vial",
+    description: "Purple spores from mushrooms weaponized during the bio-warfare phase.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍄',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Throw vial: enemies in 5ft radius make CON save DC 13 or poisoned (1 minute)",
+        "Vial is fragile: 25% chance it breaks in your pack (you get poisoned)",
+        "Spores spread: disadvantage on Medicine checks in affected area",
+        "War crime evidence: wanted by both sides if discovered",
+        "Made by: Underground Mycology Labs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Toxic Transit (Handle Carefully)',
+    levelRequirement: 6
+},
+
+'wario_land_star_bit_debris': {
+    id: 'wario_land_star_bit_debris',
+    name: "Star Bit Shrapnel",
+    description: "Crystallized star fragments that rained down during the Celestial Bombardment.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '✨',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Consume for 1d4 temp HP (sweet and restorative)",
+        "Contains cosmic radiation: 10% chance of random magical effect (DM roll wild magic)",
+        "Glows faintly: dim light 5ft (can't hide it)",
+        "Attracts Lumas: random celestial encounter",
+        "Made by: Space Debris Collection Agency"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Cosmic Courier',
+    levelRequirement: 5
+},
+
+'wario_land_hammer_bro_hammer': {
+    id: 'wario_land_hammer_bro_hammer',
+    name: "Hammer Bro's Last Throw",
+    description: "A bent hammer from a Hammer Bro's final stand at Bridge 7.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🔨',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Throw hammer: 1d6+STR damage, returns to hand (30ft range)",
+        "Hammer is warped: disadvantage on attack rolls (bent shaft)",
+        "Can straighten with smithing: DC 15, removes disadvantage",
+        "Hammer Bro spirit aids: +1 to hit vs. armored enemies",
+        "Made by: Elite Hammer Infantry"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Throwback Shipping',
+    levelRequirement: 5
+},
+
+'wario_land_mystery_block_fragment': {
+    id: 'wario_land_mystery_block_fragment',
+    name: "Cracked Mystery Block Fragment",
+    description: "A golden chunk from a destroyed ? Block, its question mark fading.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '❓',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Hit from below: 40% chance to produce random item (coin, mushroom fragment, or nothing)",
+        "Fragment is unstable: 30% chance it crumbles to dust after use",
+        "Nostalgic power: advantage on Charisma with pre-war NPCs",
+        "Can be reconstructed: requires 4 fragments and DC 18 Arcana check",
+        "Made by: Power-Up Block Factories (Destroyed Infrastructure)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Mystery Logistics',
+    levelRequirement: 8
+},
+
+'wario_land_dry_bones_ribcage': {
+    id: 'wario_land_dry_bones_ribcage',
+    name: "Dry Bones Ribcage Armor",
+    description: "Bone armor from undead Koopas, held together with spite and wire.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6100,
+    icon: '🦴',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Wear as armor: +2 AC but disadvantage on Stealth (rattles)",
+        "Undead affinity: advantage on Charisma with skeletal creatures",
+        "Reassembles when broken: 50% chance to restore 1 AC when damaged",
+        "Cursed bones: disadvantage on death saves (already died once)",
+        "Made by: Necromantic War Effort"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Rattling Remains Co.',
+    levelRequirement: 6
+},
+
+'wario_land_propeller_mushroom_cap': {
+    id: 'wario_land_propeller_mushroom_cap',
+    name: "Broken Propeller Mushroom Cap",
+    description: "A propeller hat from aerial scouts, one blade snapped off.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6400,
+    icon: '🚁',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Spin propeller: slow fall (feather fall) for 1 minute, 2 uses per day",
+        "Broken blade: can't achieve full flight, only gliding",
+        "Makes whirring noise: disadvantage on Stealth while active",
+        "Can be repaired: DC 16 Tinker's Tools check restores flight (10ft hover)",
+        "Made by: Sky Mushroom Aeronautics"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spinning Shipments',
+    levelRequirement: 7
+},
+
+'wario_land_podoboo_core': {
+    id: 'wario_land_podoboo_core',
+    name: "Cooled Podoboo Core",
+    description: "The extinguished heart of a lava bubble, pulled from the Castle Moat.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5700,
+    icon: '🌋',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Reignite with fire: becomes a heat source (stays warm for 8 hours)",
+        "Once per day: hurl as weapon (2d8 fire damage, returns to ember state)",
+        "Burns fuel: requires oil or wood to reignite",
+        "May fully awaken: 5% chance it becomes hostile Podoboo",
+        "Made by: Lava Level Scavengers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Molten Mail',
+    levelRequirement: 6
+},
+
+'wario_land_tanooki_tail': {
+    id: 'wario_land_tanooki_tail',
+    name: "Tanooki Scout Tail",
+    description: "A severed tail from a shapeshifter caught behind enemy lines.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7800,
+    icon: '🦝',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Attach tail: gain advantage on Acrobatics checks (balance)",
+        "Once per long rest: transform into a statue (AC 18, can't move, 10 minutes max)",
+        "Tail twitches randomly: disadvantage on Deception (gives away lies)",
+        "Tanooki curse: 10% chance you can't change back from statue without help",
+        "Made by: Transformation Corps (Casualty Collection)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shapeshifter Services',
+    levelRequirement: 8
+},
+
+'wario_land_super_leaf_stem': {
+    id: 'wario_land_super_leaf_stem',
+    name: "Wilted Super Leaf Stem",
+    description: "The stem of a Super Leaf, its raccoon power faded to a whisper.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4100,
+    icon: '🍂',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Hold while jumping: glide 10ft horizontally (no vertical gain)",
+        "Leaf is dying: loses all power after 5 uses",
+        "Can be planted: 1% chance it grows into new Super Leaf (1 week)",
+        "Raccoon memories: advantage on Nature checks in forests",
+        "Made by: War-Torn Power-Up Fields"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Autumn Air Mail',
+    levelRequirement: 4
+},
+
+'wario_land_wing_cap_feather': {
+    id: 'wario_land_wing_cap_feather',
+    name: "Wing Cap Feather (Molted)",
+    description: "A red feather from a Wing Cap, shed during aerial dogfights.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🪶',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Tuck in hat: +10ft jump distance (light as a feather)",
+        "Feather is fragile: destroyed if you take fall damage",
+        "Can write with it: advantage on Forgery checks (official-looking quill)",
+        "Dreams of flight: advantage on saving throws vs. falling",
+        "Made by: Wing Cap Squadron (Shot Down)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Flight Freight',
+    levelRequirement: 5
+},
+
+'wario_land_coin_brick_dust': {
+    id: 'wario_land_coin_brick_dust',
+    name: "Crushed Coin Brick Dust",
+    description: "Golden powder from smashed coin blocks, scattered across battlefields.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3600,
+    icon: '💰',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Sprinkle dust: advantage on Perception checks for hidden treasure (1 hour)",
+        "Glitters obviously: disadvantage on Stealth while carrying",
+        "Can be sold as fake gold: Deception check vs. Insight (one-time scam)",
+        "Attracts greedy creatures: random encounters with thieves",
+        "Made by: Destroyed Economic Infrastructure"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Glittering Goods',
+    levelRequirement: 4
+},
+
+'wario_land_blooper_tentacle': {
+    id: 'wario_land_blooper_tentacle',
+    name: "Preserved Blooper Tentacle",
+    description: "A pickled tentacle from underwater forces deployed in the moat battles.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4400,
+    icon: '🦑',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Use as whip: 1d4 bludgeoning, 10ft reach (slimy and flexible)",
+        "Smells terrible: disadvantage on Charisma checks within 10ft",
+        "Advantage on grapple checks: tentacle suction cups still work",
+        "Rots quickly: loses all properties after 1 week unless preserved",
+        "Made by: Aquatic Warfare Division"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Seafood Special Delivery',
+    levelRequirement: 4
+},
+
+'wario_land_pow_block_shard': {
+    id: 'wario_land_pow_block_shard',
+    name: "POW Block Shard",
+    description: "A fragment of a POW Block, used to collapse tunnels during the siege.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5900,
+    icon: '⚡',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Slam on ground: all creatures within 15ft must make DEX save DC 14 or fall prone",
+        "One use only: shard crumbles to dust after activation",
+        "Unstable: 15% chance it activates when you're hit in combat",
+        "Tremor warning: advantage on Perception for underground threats",
+        "Made by: Demolition Engineering Corps"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shockwave Shippers',
+    levelRequirement: 6
+},
+
+'wario_land_king_boo_portrait_scrap': {
+    id: 'wario_land_king_boo_portrait_scrap',
+    name: "King Boo Portrait Scrap",
+    description: "A torn piece of King Boo's cursed portrait from the Gallery Attack.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6700,
+    icon: '🖼️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Hang portrait: create illusory door (10ft x 10ft, lasts 1 hour)",
+        "Cursed canvas: those who stare make WIS save DC 13 or become frightened (1 minute)",
+        "King Boo watches: disadvantage on Stealth in haunted areas (he knows)",
+        "May trap souls: 5% chance it captures dying creature's spirit",
+        "Made by: Ghostly Art Warfare"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Haunted Handlers',
+    levelRequirement: 7
+},
+
+'wario_land_cheep_cheep_scales': {
+    id: 'wario_land_cheep_cheep_scales',
+    name: "Cheep Cheep Scale Armor",
+    description: "Fish scales sewn into makeshift armor by desperate soldiers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🐟',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Wear as armor: +1 AC when wet or underwater",
+        "Smells fishy: disadvantage on Charisma and Stealth on land",
+        "Advantage on Athletics (Swimming): scales are streamlined",
+        "Attracts bigger fish: random aquatic encounters",
+        "Made by: Underwater Resistance Crafters"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Aquatic Armory',
+    levelRequirement: 5
+},
+
+'wario_land_fuzzy_cloning_spore': {
+    id: 'wario_land_fuzzy_cloning_spore',
+    name: "Fuzzy Cloning Spore",
+    description: "A spore that split Fuzzies into duplicates during the Multiplication Offensive.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8200,
+    icon: '👾',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Plant on small creature: it splits into 2 copies (1 hour duration, DM stats)",
+        "Copies are unstable: 1 HP each, disappear when hit",
+        "Side effect: original creature confused (1d4 rounds)",
+        "May backfire: 20% chance you split instead",
+        "Made by: Bio-Magical Warfare Labs (Forbidden)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Double Trouble Dispatch',
+    levelRequirement: 9
+},
+
+'wario_land_magikoopa_wand_splinter': {
+    id: 'wario_land_magikoopa_wand_splinter',
+    name: "Magikoopa Wand Splinter",
+    description: "A broken piece of a Magikoopa's wand, still crackling with chaos magic.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6900,
+    icon: '🪄',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Cast one cantrip per day: random (DM rolls on cantrip table)",
+        "Unstable magic: 40% chance spell targets wrong creature",
+        "Shapes appear: creates random shapes when waved (minor illusion)",
+        "Magikoopa may track it: wanted for wand theft",
+        "Made by: Koopa Wizard Corps (Battle Casualties)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Mystical Mistakes Inc.',
+    levelRequirement: 7
+},
+
+'wario_land_blue_shell_fragment': {
+    id: 'wario_land_blue_shell_fragment',
+    name: "Blue Shell Shrapnel",
+    description: "Remnants of the dreaded Blue Shell super-weapon that targeted leaders.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9100,
+    icon: '🔵',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Throw at highest CR enemy: auto-hits for 3d10 force damage (once per week)",
+        "Collateral damage: all creatures within 10ft take 1d10 force damage",
+        "War crime: using this makes you wanted by both armies",
+        "Seeks the strong: disadvantage on Stealth if you're the strongest in party",
+        "Made by: Doomsday Weapon Program (Banned)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Classified Munitions',
+    levelRequirement: 12
+},
+
+'wario_land_castle_brick': {
+    id: 'wario_land_castle_brick',
+    name: "Peach's Castle Brick",
+    description: "A pink brick from the castle walls, stamped with the royal crest.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3900,
+    icon: '🧱',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Use as thrown weapon: 1d6 bludgeoning (20ft range)",
+        "Royal nostalgia: advantage on History checks about the kingdom",
+        "Heavy and awkward: disadvantage on ranged attack with it",
+        "Collectors seek it: can sell for 2x price to right buyer",
+        "Made by: Castle Architecture (Pre-War Era)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Rubble Runners',
+    levelRequirement: 3
+},
+
+'wario_land_mega_mushroom_residue': {
+    id: 'wario_land_mega_mushroom_residue',
+    name: "Mega Mushroom Residue",
+    description: "Dried residue from a Mega Mushroom, scraped from siege giant footprints.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7200,
+    icon: '🍄',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Consume: grow to Large size for 1 minute (once per week)",
+        "Crushing weight: while enlarged, deal +1d4 damage but -10ft speed",
+        "Residue incomplete: 30% chance effect lasts only 1 round",
+        "Growth pains: take 1d6 damage when effect ends",
+        "Made by: Giant Warfare Aftermath"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Big Box Shipping',
+    levelRequirement: 8
+},
+
+'wario_land_music_block_key': {
+    id: 'wario_land_music_block_key',
+    name: "Musical Block Note Key",
+    description: "A key-shaped token that played melodies in the pre-war celebration halls.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '🎵',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Insert in musical mechanism: plays melody (can unlock music-based puzzles)",
+        "Play song: advantage on Performance checks",
+        "Nostalgic tune: NPCs who remember pre-war become melancholic (mixed reactions)",
+        "Can shatter: breaks on critical fail during Performance",
+        "Made by: Kingdom Entertainment Guild"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Harmony Haulers',
+    levelRequirement: 5
+},
+
+    // The Internet [16:02:09]
+    'internet_meme_ring': {
+        id: 'internet_meme_ring',
+        name: "Ring of Viral Fame",
+        description: "Imbued with the chaotic energy of memes, this ring grants fleeting popularity.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '💍',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary +5 charisma",
+        "Users actions have a chance to trigger random meme effects",
+        "Increases chances of being targeted by internet trolls",
+        "Fame fades quickly, leaving user feeling drained"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 6
+    },
+    'internet_ancient_seal_fragment': {
+        id: 'internet_ancient_seal_fragment',
+        name: "Fragment of Bowsers Prison",
+        description: "A shard of the ancient seal that once held the Primordial Wyrm captive.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '🛡',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Can be used to temporarily reinforce seals against digital intrusions",
+        "Emits faint heat, attracting Koopa Troop attention",
+        "When exposed to intense heat, may unleash a small burst of primal energy"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 8
+    },
+    'internet_fawful_virus': {
+        id: 'internet_fawful_virus',
+        name: "Fawfuls Linguistic Plague",
+        description: "A malicious program that infects systems with gibberish code and strange phrases.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🦠',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Infects target device with Fawfuls coded speech patterns, causing confusion in enemies",
+        "Can be used to disrupt enemy communication networks",
+        "May corrupt nearby data or cause random system malfunctions"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 3
+    },
+    'internet_blooper_parcel': {
+        id: 'internet_blooper_parcel',
+        name: "Blooper Delivery Crate",
+        description: "A package delivered by the mysterious Blooper Wetworks courier service. Contents unknown.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 3000,
+        icon: '📦',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "May contain a random assortment of items from either The Internet or Valley of Bowser",
+        "Delivery location and timing are unpredictable",
+        "Has a chance to attract unwanted attention from Blooper Wetworks enforcers"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 7
+    },
+
+    // Rogueport [16:23:10]
+    'rogueport_explosive_fireflower_seeds': {
+        id: 'rogueport_explosive_fireflower_seeds',
+        name: "Primordial Bloom Seeds",
+        description: "Seeds harvested from the mutated fire flowers blooming near Valley of Bowser.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '🔥',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Can be planted to grow a fire flower with increased explosive power.",
+        "Fire flowers grown from these seeds have a chance to explode prematurely.",
+        "Imbuing weapons with their essence increases damage but risks uncontrolled explosions."
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 7
+    },
+    'rogueport_rakasha_amulet': {
+        id: 'rogueport_rakasha_amulet',
+        name: "Shadow Pact Amulet",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🖤',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants wearer resistance to shadow magic and fear effects.",
+        "Allows the user to cast a weak shadow clone once per day.",
+        "Increases chance of inflicting critical hits against enemies weakened by darkness.",
+        "Requires a blood sacrifice every full moon to maintain its power."
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 9
+    },
+    'rogueport_void_piercer': {
+        id: 'rogueport_void_piercer',
+        name: "Whispering Dagger",
+        description: "A razor-sharp dagger rumored to have been forged from the edge of Almost at the Edge.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '💀',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Inflicts additional damage to enemies with unstable or ethereal forms.",
+        "Has a chance to inflict Edgebleed, draining enemy health over time.",
+        "When used, whispers of chaos can be heard by those nearby, potentially distracting allies."
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 6
+    },
+    'rogueport_courier_token': {
+        id: 'rogueport_courier_token',
+        name: "Noki Coral Fleet Pass",
+        description: "A token granting safe passage on any Noki Coral Fleet vessel.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 2000,
+        icon: '🛳',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Provides free passage on any Noki Coral Fleet ship for one journey.",
+        "Allows the holder to request assistance from Noki crew members in Rogueport."
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 3
+    },
+
+    // Middle-earth [16:23:31]
+    'middle_earth_elven_cloak_of_shadows': {
+        id: 'middle_earth_elven_cloak_of_shadows',
+        name: "Cloak of Whispered Secrets",
+        description: "A silken cloak woven with moonlight, said to grant its wearer the agility of a shadow.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '👻',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+15% chance to evade attacks in dim light.",
+        "Can move silently for one turn per day.",
+        "Grants advantage on stealth checks.",
+        "Reveals nearby hidden enemies when wearer is attacked.",
+        "Made by: Lothlórien"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 8
+    },
+    'middle_earth_inkwell_of_ancient_wisdom': {
+        id: 'middle_earth_inkwell_of_ancient_wisdom',
+        name: "Inkwell of Ancient Lore",
+        description: "A seemingly ordinary inkwell, but the ink within holds fragments of forgotten elven knowledge.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 3000,
+        icon: '📖',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "When writing in the inkwell, there is a 20% chance to gain temporary insight into a specific lore topic.",
+        "The ink can be used to write scrolls that automatically translate into any language understood by the reader.",
+        "Can only be refilled with ink from Inkopolis.",
+        "Made by: Rivendell"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'middle_earth_inkopolis_squid_ink_bombs': {
+        id: 'middle_earth_inkopolis_squid_ink_bombs',
+        name: "Splat Bombs",
+        description: "Explosive ink bombs filled with a volatile blend of squid ink and potent stimulants.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 200,
+        icon: '💥',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Deals moderate damage to enemies in a small radius.",
+        "Inflicts temporary blindness on enemies hit.",
+        "Leaves a stain of ink that slows movement for one turn.",
+        "Can be thrown with greater accuracy if the user is wearing squid-based gear.",
+        "Made by: Inkopolis"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 1
+    },
+    'middle_earth_ring_of_the_deep_woods': {
+        id: 'middle_earth_ring_of_the_deep_woods',
+        name: "Ring of Whispering Vines",
+        description: "A simple silver ring adorned with a carving of an intertwined vine, said to hold the spirit of the ancient forest.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🌿',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants resistance against poison and disease.",
+        "Can communicate telepathically with nearby plants and animals.",
+        "Movement speed increases while in forested areas.",
+        "Possesses a faint hum that attracts dangerous predators.",
+        "Made by: Dwarves of Erebor"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 12
+    },
+
+    // Beanbean Kingdom [16:23:49]
+    'beanbean_lucky_coin': {
+        id: 'beanbean_lucky_coin',
+        name: "Lucky Beanbean Coin",
+        description: "A golden coin engraved with a smiling face. Rumored to bring good fortune.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 250,
+        icon: '🪙',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Grants +3 luck for one hour",
+        "Has a 10 chance to double the value of the next gold coin earned"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 1
+    },
+    'beanbean_peasley_letter': {
+        id: 'beanbean_peasley_letter',
+        name: "Peasleys Secret Letter",
+        description: "A sealed letter bearing the royal seal. Its contents are unknown.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 5000,
+        icon: '✉',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "When opened, reveals a clue to Toadettes whereabouts",
+        "Grants access to a hidden meeting with a high-ranking Beanbean official",
+        "Unlocks a secret passage in the royal gardens",
+        "Causes all enemies within 5 meters to become confused for 10 seconds"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 8
+    },
+    'beanbean_animatopia_primal_amulet': {
+        id: 'beanbean_animatopia_primal_amulet',
+        name: "Primal Amulet of Animatopia",
+        description: "A carved obsidian pendant depicting a snarling wolf. Said to grant connection to the wild.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🐺',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Grants +5 to Charisma when interacting with Animatopia tribes",
+        "Increases damage dealt by 10% against predatory creatures",
+        "Reduces incoming damage from nature-based attacks by 20%",
+        "Causes a random animal companion to appear beside the wearer for 1 minute"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 12
+    },
+    'beanbean_cosmic_jester_mask': {
+        id: 'beanbean_cosmic_jester_mask',
+        name: "Cosmic Jesters Mask",
+        description: "A grinning porcelain mask with mismatched eyes. Wears it at your own risk.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7000,
+        icon: '💀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +1 to all stats for 5 minutes",
+        "Causes a random status effect to be inflicted on nearby enemies each turn",
+        "Has a 50% chance of inflicting Jesters Luck on the wearer, which grants immunity to all status effects for one round",
+        "After 3 uses, causes the wearer to become uncontrollable and act erratically for 1 hour."
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 9
+    },
+
+    // Valley of Bowser [16:24:43]
+    'valley_bowser_item_name_here': {
+        id: 'valley_bowser_item_name_here',
+        name: "Volcanic Wyrm Scale Armor",
+        description: "Armor forged from ancient wyrm scales that hum with volcanic power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants +200 defense against fire damage",
+        "Inflicts 5% burn damage on enemies after 30 seconds",
+        "Causes minor disorientation after 5 seconds of wear",
+        "Made by: Mages Guild"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'valley_bowser_item_name_here': {
+        id: 'valley_bowser_item_name_here',
+        name: "Beanbean Coin Tether",
+        description: "A cursed coin that binds the bearer to Beanbean Kingdoms political intrigue",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🪙',
+        stock: 3,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +50 health regeneration per minute",
+        "Triggers random political event when used in Beanbean Kingdom",
+        "Causes temporary confusion in non-Beanbean zones",
+        "Made by: Mages Guild"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 3
+    },
+    'valley_bowser_item_name_here': {
+        id: 'valley_bowser_item_name_here',
+        name: "Pianta Chuck Express Courier Pass",
+        description: "A pass granting priority delivery through Pianta Chuck Express routes",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 1200,
+        icon: '🚚',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 20% faster travel time to all Pianta routes",
+        "Reduces courier fees by 30% for 30 days",
+        "Increases chance of encountering Koopa Troop ambushes",
+        "Made by: Mages Guild"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 4
+    },
+    'valley_bowser_item_name_here': {
+        id: 'valley_bowser_item_name_here',
+        name: "Mr Warios Profit Exchange Token",
+        description: "A token that converts gold coins to volatile alternative currencies",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '💰',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Converts 100 gold coins to 200 alternative currency units",
+        "Grants 10% bonus profit from all shop transactions",
+        "Triggers currency collapse if used in Koopa banking zones",
+        "Made by: Mages Guild"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 6
+    },
+
+    // Inkopolis [16:24:49]
+    'inkopolis_item_name_here': {
+        id: 'inkopolis_item_name_here',
+        name: "Inked Scales of the Deep",
+        description: "Glowing scales that pulse with squid intelligence and ink-based magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary ink shield that absorbs damage",
+        "Increases attack speed by 20%",
+        "Scales glow when near ink-based enemies",
+        "Causes minor ink hallucinations during combat",
+        "Made by: Vampire Covenant"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'inkopolis_feywild_tie': {
+        id: 'inkopolis_feywild_tie',
+        name: "Feywild Echoes",
+        description: "A shard of broken time that whispers ancient truths",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 10 seconds of time manipulation per use",
+        "Triggers random time loop events in nearby area",
+        "Reveals hidden paths in Feywild mazes",
+        "Causes the user to lose 10% of health after each use",
+        "Made by: Vampire Covenant",
+        "Connects both Inkopolis and The Feywild"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 7
+    },
+    'inkopolis_item_name_here': {
+        id: 'inkopolis_item_name_here',
+        name: "Lakitu Drones Delivery Pack",
+        description: "A package sealed with ink and drone signatures",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '📦',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Delivers 3 random items from Lakitu Drones",
+        "Each item has a 50 chance to be a junk item",
+        "Increases chance of encountering courier NPCs",
+        "Causes minor ink fog around user for 5 seconds",
+        "Made by: Vampire Covenant"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 3
+    },
+    'inkopolis_item_name_here': {
+        id: 'inkopolis_item_name_here',
+        name: "Festival of Falling Stars Amulet",
+        description: "A glowing pendant that echoes Peachs memory",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 10000,
+        icon: '🌠',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants immunity to mental infections from The Internet",
+        "Increases critical hit chance by 30%",
+        "Causes faint visions of Peach during events",
+        "Draws attention from rival factions during festivals",
+        "Made by: Vampire Covenant",
+        "Event exclusive: Festival of Falling Stars"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 8
+    },
+
+    // Hyrule [16:24:55]
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Display Name Here",
+        description: "Short flavor text here",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "First effect or benefit",
+        "Second effect",
+        "A drawback or curse",
+        "Made by: Custodians"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Display Name Here",
+        description: "Short flavor text here",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "First effect or benefit",
+        "Second effect",
+        "A drawback or curse",
+        "Made by: Custodians"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Display Name Here",
+        description: "Short flavor text here",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "First effect or benefit",
+        "Second effect",
+        "A drawback or curse",
+        "Made by: Custodians"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Display Name Here",
+        description: "Short flavor text here",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "First effect or benefit",
+        "Second effect",
+        "A drawback or curse",
+        "Made by: Custodians"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+
+    // Connectopia [16:25:03]
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Blocky Schematic",
+        description: "A blueprint for a frontier expansion module that fits any terrain",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 300,
+        icon: '📜',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Allows construction of tier one frontier structures",
+        "Grants +10% resource harvesting efficiency",
+        "Causes minor terrain instability when placed",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 3
+    },
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Void Drifter Courier Token",
+        description: "A token granting courier access to the Void Drifter Relay network",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🚚',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 300 transport credits per use",
+        "Increases travel speed by 20%",
+        "Causes disorientation if used near Gehenna Academy",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 6
+    },
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Oracles Halos",
+        description: "A relic from the Oracles necromantic research lab",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 12000,
+        icon: '🧬',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +50% damage to necromantic attacks",
+        "Reduces enemy resistance by 30%",
+        "Causes users to lose track of time during combat",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 8
+    },
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Coral Fleet Trade Token",
+        description: "A token granting exclusive trade rights with Noki Elders",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 50000,
+        icon: '🏴',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 2000 trade credits per use",
+        "Grants +20% profit margin on coastal goods",
+        "Causes corruption of nearby land plots",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 10
+    },
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Ghostly Gimmick",
+        description: "A scam item that claims to be a relic from the Oracles vessel",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 50000,
+        icon: '🧨',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Claims to grant immortality to the user",
+        "Actually causes permanent hallucinations",
+        "Grants no stat boosts",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 10
+    },
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Interdimensional Connector",
+        description: "A device that bridges the realms of Connectopia and Kivotos",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 10000,
+        icon: '🌐',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Allows travel between Connectopia and Kivotos",
+        "Grants +10% combat damage in both worlds",
+        "Causes minor reality distortion on entry",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 7
+    },
+
+    // The Doughnut Hole [16:25:10]
+    'doughnut_hole_item_name_here': {
+        id: 'doughnut_hole_item_name_here',
+        name: "Void Siphon Doughnut",
+        description: "Sucks in ambient void energy for a burst of power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Absorbs 10% of ambient void energy",
+        "Grants temporary resistance to psychic attacks",
+        "Causes minor hallucinations during use",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'doughnut_hole_dk_isles_connection': {
+        id: 'doughnut_hole_dk_isles_connection',
+        name: "Banana Bridge Crumb",
+        description: "Lets you teleport to DK Isles for a fee",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🍌',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants teleportation to DK Isles for 1 turn",
+        "Requires 5 banana hoards to activate",
+        "Causes temporary nausea after teleportation",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 3
+    },
+    'doughnut_hole_pipe_express_item': {
+        id: 'doughnut_hole_pipe_express_item',
+        name: "Courier Courier Crumb",
+        description: "Fastest courier in the known void",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🚚',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Delivers items in 1 turn to Pipe Express",
+        "Grants 2 extra inventory slots for 1 turn",
+        "Causes minor disorientation if used twice in a row",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 2
+    },
+    'doughnut_hole_scam_item': {
+        id: 'doughnut_hole_scam_item',
+        name: "Void Siphon Scam",
+        description: "A scam that looks good but does nothing",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 15000,
+        icon: '💸',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Looks like Void Siphon Doughnut",
+        "Grants 0 actual effects",
+        "Triggers a curse that causes the user to forget their last action",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 10
+    },
+
+    // Dream Land [16:25:16]
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Nightmare Puffball",
+        description: "A floating eldritch puffball that whispers your deepest fears",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 250,
+        icon: '🍽',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Induces mild euphoria from fear",
+        "Causes temporary hallucinations of favorite foods",
+        "May trigger nightmares if consumed too quickly",
+        "Disappears if eaten by someone not scared of ghosts",
+        "Made by: Team Rocket"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 3
+    },
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Void Drifter Boots",
+        description: "Step into the edge and never look back",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🌌',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Grants temporary immunity to gravity in void zones",
+        "Causes disorientation when stepping onto solid ground",
+        "Increases damage taken by 20% in dreamland",
+        "Requires 5000 XP to unlock next tier",
+        "Made by: Team Rocket"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 10
+    },
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Regal Empire Chalice",
+        description: "A cursed goblet that drinks your soul for power",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 15000,
+        icon: '🍷',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Grants 50% increased damage for 30 seconds",
+        "Sips 1% of your HP per second until empty",
+        "Turns enemies into puppets for 10 seconds",
+        "Causes you to lose 10% of your health when using a spell",
+        "Made by: Team Rocket"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 15
+    },
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Bullet Bill Express Courier Pack",
+        description: "A package that travels through dimensions and time",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 10000,
+        icon: '📦',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Delivers items across both Dream Land and The Edge",
+        "Takes 2 minutes to arrive in the opposite world",
+        "Costs 1000 XP to use",
+        "Increases chance of glitching if the destination is unstable",
+        "Made by: Team Rocket"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 8
+    },
+
+    // The Internet [16:25:22]
+    'internet_item_name_here': {
+        id: 'internet_item_name_here',
+        name: "DataStream Whip",
+        description: "A whip made of pulsing digital energy that can disrupt enemy systems",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Strikes cause temporary system overload to enemies",
+        "Can be charged for extra damage",
+        "Causes data corruption on hit",
+        "Made by: Starlight"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'internet_item_name_here': {
+        id: 'internet_item_name_here',
+        name: "Memetic Mask",
+        description: "Wears like a hood but shows viral memes from the deep web",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1000,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants immunity to fear effects from memes",
+        "Causes minor hallucinations when enemies are nearby",
+        "Reduces enemy accuracy by 20%",
+        "Made by: Starlight"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 3
+    },
+    'internet_item_name_here': {
+        id: 'internet_item_name_here',
+        name: "Void Delivery Crate",
+        description: "A crate that transports you to any location in the Grand Country",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 5000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Teleports user to any known location in the Grand Country",
+        "Requires internet connection to activate",
+        "May trigger a viral event in the destination",
+        "Made by: Starlight"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 7
+    },
+    'internet_item_name_here': {
+        id: 'internet_item_name_here',
+        name: "Goomba Ground Courier Pack",
+        description: "A delivery pack that lets you drop off items via Goomba Ground Delivery",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Delivers items to designated locations in the Grand Country",
+        "Takes 20 seconds to deliver",
+        "Delivers only once per use",
+        "Made by: Starlight"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 2
+    },
+
+    // Isle Delfino [16:25:29]
+    'isle_delfino_tropical_tide_boots': {
+        id: 'isle_delfino_tropical_tide_boots',
+        name: "Tropical Tide Boots",
+        description: "Slick soles glide through wet sands and ink pools",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants 20% speed boost on wet terrain",
+        "Causes 5% damage reduction from Chain Chomps",
+        "Slightly reduces stealth effectiveness in Inkopolis",
+        "Made by: Asgard"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 5
+    },
+    'isle_delfino_ink_squid_satchel': {
+        id: 'isle_delfino_ink_squid_satchel',
+        name: "Ink Squid Satchel",
+        description: "Holds ink and secrets of the squid wars",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🧪',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 100 HP when dropped in Inkopolis",
+        "Increases ink absorption by 30%",
+        "Causes temporary ink blindness in bright light",
+        "Made by: Piranha Plant Post"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 3
+    },
+    'isle_delfino_chain_chomp_bolt': {
+        id: 'isle_delfino_chain_chomp_bolt',
+        name: "Chain Chomp Bolt",
+        description: "Weaponized with the rage of the Chain Chomp",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 12000,
+        icon: '⚔',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Fires a bolt that deals 200 damage to enemies",
+        "Can be fired from any equipped weapon",
+        "Causes 10% chance to trigger ink spurt on enemies",
+        "Made by: Asgard",
+        "Connects Isle Delfino and Inkopolis"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 10
+    },
+    'isle_delfino_ricco_harbor_key': {
+        id: 'isle_delfino_ricco_harbor_key',
+        name: "Ricco Harbor Key",
+        description: "A key to the ink-locked harbor",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '🔑',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Opens Ricco Harbor for 30 minutes",
+        "Grants 50% XP bonus from battles inside",
+        "Triggers ink jamming on enemies within range",
+        "Made by: Koopa Navy",
+        "Connects Isle Delfino and Inkopolis"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 8
+    },
+
+    // The Shadowfell [16:25:36]
+    'shadowfell_item_name_here': {
+        id: 'shadowfell_item_name_here',
+        name: "Onyx Hand Dagger",
+        description: "A blade forged from the bones of fallen vampires in the Shadowfell",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Deals 100 damage on hit",
+        "Grants 20% chance to steal a soul on critical hit",
+        "Soul stolen triggers a 3 second curse on target",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'shadowfell_rogueport_item_name_here': {
+        id: 'shadowfell_rogueport_item_name_here',
+        name: "Rakasha Courier Pack",
+        description: "A rugged satchel used by smugglers to carry contraband across the docks",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 250,
+        icon: '📦',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Increases carrying capacity by 50%",
+        "Grants 10% chance to find hidden loot when dropped",
+        "Loses 10% durability per use",
+        "Made by: Cheep Cheep Shipping"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 2
+    },
+    'shadowfell_item_name_here': {
+        id: 'shadowfell_item_name_here',
+        name: "Soul Siphon Vial",
+        description: "A vial that absorbs souls and transforms them into mechanical energy",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 7500,
+        icon: '⚡',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Restores 150 HP per soul absorbed",
+        "Triggers a 10 second aura that attracts enemies",
+        "Loses 5% of its capacity per soul used",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 7
+    },
+    'shadowfell_rogueport_linker': {
+        id: 'shadowfell_rogueport_linker',
+        name: "Cheep Cheep Accord Key",
+        description: "A relic from the Cheep-Cheep Accords that grants access to both worlds",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '🔄',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Allows teleportation between Shadowfell and Rogueport",
+        "Grants 20% increased damage from factions allied with Rakasha",
+        "Triggers a curse if used in non-allied zones",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 10
+    },
+
+    // Beanbean Kingdom [16:25:43]
+    'beanbean_item_name_here': {
+        id: 'beanbean_item_name_here',
+        name: "Beanbean Diplomatic Gavel",
+        description: "A gavel carved from enchanted beanwood that silences disputes in courtrooms",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants immunity to slander in diplomatic negotiations",
+        "Deals 50 damage to traitorous allies",
+        "May cause allies to turn against you after use",
+        "Made by: Team Rocket",
+        "Increases chance of success in trade deals by 20%",
+        "Disables charm spells for 1 turn"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 5
+    },
+    'beanbean_courier_post_item': {
+        id: 'beanbean_courier_post_item',
+        name: "Piranha Plant Post Courier Pack",
+        description: "A sealed package from the courier service that never gets lost",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 100,
+        icon: '📦',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Delivers messages instantly across kingdoms",
+        "Grants 10% chance to bypass enemy checkpoints",
+        "May trigger a courier ambush if used in combat",
+        "Made by: Piranha Plant Post",
+        "Consumes 2 charges per use",
+        "Reduces travel time by 50% for non-combat routes"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 1
+    },
+    'beanbean_academy_item': {
+        id: 'beanbean_academy_item',
+        name: "Gehenna Academy Halos",
+        description: "A halo shaped like a stylized anime eye that grants focus and power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🎭',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Grants 20% accuracy in ranged attacks",
+        "Grants immunity to fear effects",
+        "May cause enemies to become distracted for 2 turns",
+        "Made by: Gehenna Academy",
+        "Can be used to unlock hidden rooms in dungeons",
+        "Increases maximum HP by 100"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 8
+    },
+    'beanbean_team_rock_item': {
+        id: 'beanbean_team_rock_item',
+        name: "Remi Coil Airship Boost",
+        description: "A patent-enhanced airship propulsion module that doubles efficiency",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 12000,
+        icon: '🚀',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Doubles airship speed and range",
+        "Grants 50% chance to avoid enemy fire",
+        "May cause a system crash if used in high pressure zones",
+        "Made by: Team Rocket",
+        "Requires airship base to activate",
+        "Grants bonus XP for every 1000 meters traveled",
+        "Can be used to bypass enemy air defenses"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 10
+    },
+
+    // L'Eclaire Isle [16:25:49]
+    'leclaire_isle_item_name_here': {
+        id: 'leclaire_isle_item_name_here',
+        name: "Sugarcrusted Dagger",
+        description: "A blade forged from moonlight and pastry dough",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Inflicts sweetened wounds that heal over time",
+        "Causes targets to momentarily crave sugar",
+        "Slightly slows movement for the wielder",
+        "Made by: Vampire Covenant"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 5
+    },
+    'leclaire_isle_baking_treasure': {
+        id: 'leclaire_isle_baking_treasure',
+        name: "Diamond Crust Bangle",
+        description: "Wears like a crown of sugary ambition",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🍞',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary boost to speed",
+        "Triggers sweet visions when attacked",
+        "Causes minor nausea after prolonged use",
+        "Made by: Vampire Covenant"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 3
+    },
+    'leclaire_isle_crossworld_key': {
+        id: 'leclaire_isle_crossworld_key',
+        name: "Garlic Glaze Keyring",
+        description: "Connects the Isle to Wario Land",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🍆',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens hidden vaults in Wario Land",
+        "Grants immunity to garlic based traps",
+        "Requires sugar to activate",
+        "Made by: Vampire Covenant"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 8
+    },
+    'leclaire_isle_dough_folk_gear': {
+        id: 'leclaire_isle_dough_folk_gear',
+        name: "Crumb of the Dough Folk",
+        description: "A relic from the sugary realm",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🍞',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Restores 100 HP",
+        "Grants temporary sweet taste",
+        "Causes temporary hallucinations of pastry",
+        "Made by: Vampire Covenant"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 2
+    },
+
+    // The Fated Place [16:25:56]
+    'warhammer_rats_knife': {
+        id: 'warhammer_rats_knife',
+        name: "Rats Knife",
+        description: "A blade sharpened by the gnashing teeth of Skaven rats",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals extra damage to rat creatures",
+        "Slight chance to cause a rat swarm on hit",
+        "Unstable blade causes minor bleeding on use",
+        "Made by: Servants Cosmic"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'warhammer_cursed_pocket_watch': {
+        id: 'warhammer_cursed_pocket_watch',
+        name: "Cursed Pocket Watch",
+        description: "A ticking relic from the Jester cults vault of entropy",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 20 seconds of time manipulation per use",
+        "Causes time distortion for 10 seconds after use",
+        "May cause player to forget last 3 actions",
+        "Made by: Servants Cosmic"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 10
+    },
+    'warhammer_blocky_torch': {
+        id: 'warhammer_blocky_torch',
+        name: "Blocky Torch",
+        description: "A primitive beacon of frontier fire",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 300,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Provides 200 light radius",
+        "Can be used to craft or repair blocks",
+        "Burns out after 15 minutes of use",
+        "Made by: Servants Cosmic"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 2
+    },
+    'warhammer_cosmic_jester_satchel': {
+        id: 'warhammer_cosmic_jester_satchel',
+        name: "Cosmic Jester Satchel",
+        description: "A bag filled with pranks and entropy",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants random effects on use: teleportation, time freeze, or humor-based debuff",
+        "May trigger a joke curse on enemies",
+        "Loses its effects after 3 uses",
+        "Made by: Servants Cosmic"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 15
+    },
+
+    // The Grand Country [16:26:02]
+    'grand_country_item_name_here': {
+        id: 'grand_country_item_name_here',
+        name: "Whispering Blade",
+        description: "A blade that hums with forgotten lullabies",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals extra damage to undead foes",
+        "Grants temporary silence to nearby enemies",
+        "Causes user to hear phantom voices at night",
+        "Made by: Kingdom Gondor"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'grand_country_item_name_here': {
+        id: 'grand_country_item_name_here',
+        name: "Shadowforged Lantern",
+        description: "Illuminates darkness with a price in soul",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🔮',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Burns 200 HP to light the path for 3 turns",
+        "Reveals hidden paths in The Shadowfell",
+        "Suffers a curse of eternal twilight when used",
+        "Made by: Kingdom Gondor"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 3
+    },
+    'grand_country_item_name_here': {
+        id: 'grand_country_item_name_here',
+        name: "Echo of the Void",
+        description: "A fragment of the speaker that whispers truths",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Transfers knowledge from one character to another",
+        "Grants 50% chance to see visions from past lives",
+        "Causes mental fatigue for 10 turns after use",
+        "Made by: Kingdom Gondor"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 8
+    },
+    'grand_country_item_name_here': {
+        id: 'grand_country_item_name_here',
+        name: "Onyx Hand Courier Token",
+        description: "A key to trade souls for safe passage",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Grants safe transport to The Shadowfell for 1 hour",
+        "Costs 1 soul to activate",
+        "Grants immunity to curses cast by Onyx Hand",
+        "Made by: Kingdom Gondor"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 10
+    },
+
+    // Wario Land [16:26:08]
+    'wario_land_garlic_power_glove': {
+        id: 'wario_land_garlic_power_glove',
+        name: "Garlic Power Glove",
+        description: "A cursed artifact that amplifies Wario’s wrath with garlic-infused fury",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Increases melee damage by 30%",
+        "Inflicts garlic stench on enemies for 2 turns",
+        "Causes Wario to vomit garlic every 5 seconds",
+        "Made by: Trinity General"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'wario_land_star_road_key': {
+        id: 'wario_land_star_road_key',
+        name: "Star Road Key",
+        description: "The only key that unlocks the Star Road and bypasses the blockade",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 10000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens the Star Road portal",
+        "Grants 10% chance to bypass enemy defenses",
+        "Triggers a curse if used in Sarasaland",
+        "Made by: Trinity General"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 10
+    },
+    'wario_land_desert_satchel': {
+        id: 'wario_land_desert_satchel',
+        name: "Desert Satchel",
+        description: "A smuggler’s pouch filled with secrets from the sands of Sarasaland",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 300,
+        icon: '🧭',
+        stock: 20,
+        rarity: 'common',
+        effects: [
+            "Increases carrying capacity by 20%",
+        "Triggers a curse if opened in Diamond City",
+        "Reveals hidden desert routes",
+        "Made by: Shy Guy Smugglers"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 2
+    },
+    'wario_land_peasley_treasure_map': {
+        id: 'wario_land_peasley_treasure_map',
+        name: "Peasley Treasure Map",
+        description: "A map to the hidden vault of the Peasley Financial Scandal",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1500,
+        icon: '🧭',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Reveals the location of the Peasley vault",
+        "Grants 10% bonus loot from treasure chests",
+        "Causes Wario to get paranoid after use",
+        "Made by: Trinity General"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+    // Earth Land [16:26:16]
+    'earth_land_item_name_here': {
+        id: 'earth_land_item_name_here',
+        name: "Rusty Iron Satchel",
+        description: "A dented satchel with faded markings of a forgotten trade route",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 300,
+        icon: '🔮',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Carries up to 100 pounds of gear",
+        "Grants 20% chance to find hidden loot in junkyards",
+        "Slight weight penalty when carrying more than 50 pounds",
+        "Made by: Asgard",
+        "Slightly increases chance of triggering random encounters"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 3
+    },
+    'earth_land_shadow_fell_connector': {
+        id: 'earth_land_shadow_fell_connector',
+        name: "Shadowed Ice Shard",
+        description: "A crystalline shard that glows faintly in the dark",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% resistance to dark magic",
+        "Allows brief teleportation to nearest Shadowfell portal",
+        "Causes 10% chance of triggering a curse on next encounter",
+        "Made by: Asgard",
+        "Can only be used once per session"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 7
+    },
+    'earth_land_toadburt_scarecrow': {
+        id: 'earth_land_toadburt_scarecrow',
+        name: "Toadburt Scarecrow",
+        description: "A cloth figure with glowing eyes and a rusted chain",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🔮',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary invisibility for 10 seconds",
+        "Slightly increases stealth roll success",
+        "Causes 50% chance of triggering a hallucination",
+        "Made by: Asgard",
+        "Consumes 1 use per session"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'earth_land_fake_aura_bomb': {
+        id: 'earth_land_fake_aura_bomb',
+        name: "Aura Bomb of Infinite Hope",
+        description: "A glowing orb that promises to grant eternal peace",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 15000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 300% damage reduction to all attacks",
+        "Causes 100% chance of triggering a curse that drains 10 HP per turn",
+        "No effect if used in Shadowfell",
+        "Made by: Asgard",
+        "Triggers curse after 3 uses",
+        "Sells for 20000 in Shadowfell only",
+        "Primary: Earth Land - Flat earth conspiracy, ice walls, mundane but weirdly specific real-world lore.",
+        "Connected: The Shadowfell - Dark mirror dimension, Onyx Hand vampires, eternal night, soul trading.",
+        "Courier: Kremling Smuggle Run",
+        "Faction: Asgard",
+        "Lore: Toadburt deployed as Iron Legion sleeper agent with Entropy Ring.",
+        "Event: Aegis Prison Break: 158 Toads escaped via Speaker Ls Order 120."
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 10
+    },
+
+    // Kivotos [16:26:23]
+    'kivotos_item_name_here': {
+        id: 'kivotos_item_name_here',
+        name: "Haloscope Gun Mod",
+        description: "Aesthetic upgrade for your gun with cosmic flair",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Boosts fire rate by 30%",
+        "Adds a visual halo effect when firing",
+        "Causes minor hallucinations during prolonged use",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'kivotos_doughnut_hole_circuit': {
+        id: 'kivotos_doughnut_hole_circuit',
+        name: "Void Siphon Injector",
+        description: "Siphons cosmic energy from the Doughnut Hole",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🍩',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Draws power from the Doughnut Hole",
+        "Grants 10% damage resistance",
+        "Triggers existential dread after 30 seconds",
+        "Only usable in the Doughnut Hole",
+        "Made by: Noki Coral Fleet"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 7
+    },
+    'kivotos_remicool_efficiency_core': {
+        id: 'kivotos_remicool_efficiency_core',
+        name: "Remi Coil Turbo Core",
+        description: "Airship propulsion upgrade from Remi Coil",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🚀',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "Increases airship speed by 25%",
+        "Reduces fuel consumption by 40%",
+        "Causes minor engine glitches",
+        "Requires Remi Coil patent",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 3
+    },
+    'kivotos_shy_guys_delivery_torch': {
+        id: 'kivotos_shy_guys_delivery_torch',
+        name: "Shy Guys Delivery Torch",
+        description: "A courier tool for chaotic deliveries",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🔥',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Grants 10% damage bonus to courier attacks",
+        "Causes 30 second delay in next delivery",
+        "Triggers random Shy Guys unionized event",
+        "Can be used only by Shy Guys",
+        "Made by: Noki Coral Fleet"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 2
+    },
+
+    // Pokémon Regions [16:26:29]
+    'pokemon_item_name_here': {
+        id: 'pokemon_item_name_here',
+        name: "Lumineous Pouch",
+        description: "Glows softly in the dark and reveals hidden items when shaken",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Reveals hidden items within when shaken",
+        "Grants temporary light vision in dark areas",
+        "Causes mild disorientation if used too frequently",
+        "Made by: Starlight"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 3
+    },
+    'pokemon_item_name_here': {
+        id: 'pokemon_item_name_here',
+        name: "Fungi Pipe Fragment",
+        description: "A relic from the ancient pipe network beneath the Mushroom Kingdom",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 2500,
+        icon: '🍄',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Enhances pipe navigation skills",
+        "Allows access to hidden tunnels",
+        "Causes hallucinations in high stress situations",
+        "Made by: Starlight"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 7
+    },
+    'pokemon_item_name_here': {
+        id: 'pokemon_item_name_here',
+        name: "Toad Liberation Scroll",
+        description: "A mysterious scroll that whispers of rebellion and freedom",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 10000,
+        icon: '📜',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Reveals hidden toad hideouts",
+        "Grants temporary empathy with liberated toads",
+        "Causes emotional overload in non-toad users",
+        "Made by: Starlight",
+        "Connects to both Pokémon and Mushroom Kingdom lore"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 10
+    },
+    'pokemon_item_name_here': {
+        id: 'pokemon_item_name_here',
+        name: "Noki Courier Charm",
+        description: "A charm that ensures timely delivery through the Coral Fleet",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🚚',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Increases courier speed by 30%",
+        "Grants immunity to delivery delays",
+        "Causes mild nausea if used in non-coral routes",
+        "Made by: Starlight",
+        "Connects to Noki Coral Fleet and Toad Rebellion lore"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 15
+    },
+
+    // The Feywild [16:26:35]
+    'feywild_item_name_here': {
+        id: 'feywild_item_name_here',
+        name: "Whispering Thorn Dagger",
+        description: "A dagger that sings when its wielder is near a Fey court",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Inflicts 2d6 psychic damage on enemies",
+        "Grants +1 to all attack rolls against illusions",
+        "Triggers time loop if used in a non-Feywild location",
+        "Made by: DK Crew"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'feywild_fated_place_item': {
+        id: 'feywild_fated_place_item',
+        name: "Skullcrusher Gauntlet",
+        description: "A cursed gauntlet that amplifies melee damage at the cost of sanity",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🦴',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Increases melee damage by 50% for 3 rounds",
+        "Causes mental instability every 5 rounds",
+        "Unlocks access to the Fated Place’s hidden war zones",
+        "Made by: DK Crew"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 10
+    },
+    'feywild_fated_place_connector': {
+        id: 'feywild_fated_place_connector',
+        name: "Spirit Walk Courier Charm",
+        description: "A charm that lets the user traverse between the Feywild and Fated Place",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Allows teleportation between Feywild and Fated Place",
+        "Causes 1d4 Sanity loss per teleportation",
+        "Grants temporary immunity to time loops",
+        "Made by: DK Crew"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 15
+    },
+    'feywild_troop_item': {
+        id: 'feywild_troop_item',
+        name: "Regency’s Iron Ring",
+        description: "A ring that grants tactical advantage to loyalists in combat",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '⚔',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 to Initiative rolls",
+        "Grants +1 to all rolls against enemies with “chaos” traits",
+        "Reduces morale damage from Skaven attacks",
+        "Made by: DK Crew"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 8
+    },
+
+    // The Feywild [16:26:41]
+    'feywild_item_name_here': {
+        id: 'feywild_item_name_here',
+        name: "Trickster Scepter of Twisted Time",
+        description: "A staff that bends reality to your whim",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary time loop immunity",
+        "Allows 3 free time skips per day",
+        "Each skip causes minor confusion to allies",
+        "Made by: Pony Nobility"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'feywild_valley_of_bowser_item': {
+        id: 'feywild_valley_of_bowser_item',
+        name: "Primordial Wyrm Seal Fragment",
+        description: "A shard of ancient prison magic",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8000,
+        icon: '🐉',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Can seal a portal for 10 minutes",
+        "Draws nearby spirits to your location",
+        "Increases damage from magical attacks",
+        "Made by: Pony Nobility"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+    'feywild_transport_item': {
+        id: 'feywild_transport_item',
+        name: "Warp Whistle Transit Key",
+        description: "Activates interdimensional courier service",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '📡',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Traverses between Feywild and Valley of Bowser",
+        "Costs 1000 mana to activate",
+        "May cause temporary disorientation",
+        "Made by: Pony Nobility"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+    'feywild_minus_world_item': {
+        id: 'feywild_minus_world_item',
+        name: "Minus World Echo",
+        description: "A relic from a vanished dimension",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 250,
+        icon: '🌀',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Grants temporary invisibility",
+        "Causes 20% stat reduction",
+        "Triggers random memory loss for 10 minutes",
+        "Made by: Pony Nobility"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 2
+    },
+
+    // The Shadowfell [16:26:49]
+    'shadowfell_item_name_here': {
+        id: 'shadowfell_item_name_here',
+        name: "Onyx Vessel of the Veil",
+        description: "A dark vessel that holds the whispers of the forgotten souls",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary invisibility in darkness",
+        "Draws nearby souls to the wielder for 10 seconds",
+        "Consumes 1 soul per use",
+        "Can be used only once per night",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'shadowfell_kivotos_item_name_here': {
+        id: 'shadowfell_kivotos_item_name_here',
+        name: "Halo Gun Mod",
+        description: "A student’s modified firearm with a glowing halo attachment",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🔫',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Increases fire rate by 20%",
+        "Deals extra damage to undead",
+        "Causes minor light pollution on impact",
+        "Loses 10% accuracy after 3 uses",
+        "Made by: Gehenna Academy"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 4
+    },
+    'shadowfell_kivotos_item_name_here': {
+        id: 'shadowfell_kivotos_item_name_here',
+        name: "Echo Ring",
+        description: "A cursed artifact that connects both worlds through soul echoes",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Transfers one soul between worlds per use",
+        "Grants 50% resistance to psychic attacks",
+        "Causes the wielder to lose 10 HP per soul transfer",
+        "Triggers a curse if used more than 3 times",
+        "Made by: Moonfang Pack and Kivotos Students"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 7
+    },
+    'shadowfell_item_name_here': {
+        id: 'shadowfell_item_name_here',
+        name: "Entropy Ring",
+        description: "A broken ring that grants chaotic power to the bearer",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '⚙',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Increases all damage output by 30%",
+        "Randomly alters weapon properties each use",
+        "Causes the wielder to lose 10% HP per turn if used in combat",
+        "Grants a 50% chance to trigger a world collapse",
+        "Made by: The Iron Legion",
+        "Primary: The Shadowfell - Dark mirror dimension, Onyx Hand vampires, eternal night, soul trading.",
+        "Connected: Kivotos - Anime academy city, students with guns, halos, bureaucratic chaos, Gehenna Academy.",
+        "Courier: Cheep Cheep Shipping",
+        "Faction: Moonfang Pack",
+        "Lore: Toadburt deployed as Iron Legion sleeper agent with Entropy Ring.",
+        "Event: Someone found the Minus World. They havent come back."
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 10
+    },
+
+    // Animatopia [16:26:56]
+    'animatopia_item_name_here': {
+        id: 'animatopia_item_name_here',
+        name: "Primal Fangs of the Waning Moon",
+        description: "A jagged set of fangs that hum with primal energy and grant the wearer a taste of ancient prey",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants +30% damage to melee attacks",
+        "Causes enemies to scream when hit",
+        "Slightly increases stamina regeneration",
+        "Makes the wearer vulnerable to psychic attacks",
+        "Made by: Land Mordor"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'animatopia_kivotos_link': {
+        id: 'animatopia_kivotos_link',
+        name: "Halo Gunner’s Quiver",
+        description: "A quiver that holds both arrows and spectral bullets from the anime academy",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Can store 5 arrows or 5 spectral bullets",
+        "Increases shooting accuracy by 10%",
+        "Reduces cooldown on special abilities",
+        "Causes minor recoil on all shots",
+        "Made by: Land Mordor"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 4
+    },
+    'animatopia_item_name_here': {
+        id: 'animatopia_item_name_here',
+        name: "Gehenna Academy Keychain",
+        description: "A relic from the academy that unlocks hidden rooms and grants access to forbidden knowledge",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Grants 20% bonus XP for combat",
+        "Reveals hidden enemy weaknesses",
+        "Causes minor hallucinations during sleep",
+        "Reduces health regeneration",
+        "Made by: Land Mordor"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 3
+    },
+    'animatopia_item_name_here': {
+        id: 'animatopia_item_name_here',
+        name: "Speaker Ls Order 120 Engram",
+        description: "A corrupted script that allows the user to speak to the spirits of the Toads who escaped Aegis",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary invisibility during combat",
+        "Allows user to hear the whispers of escaped Toads",
+        "Reduces movement speed by 20%",
+        "Causes mental fatigue after 20 minutes",
+        "Made by: Land Mordor"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 10
+    },
+
+    // Hyrule [16:27:02]
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Sacred Beast Fang",
+        description: "A relic from a fallen sacred beast that grants the wielder temporary divine favor",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Increases attack by 150",
+        "Grants immunity to status effects for 3 turns",
+        "Reduces movement speed by 20%",
+        "Made by: Fawfuls Fury"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'hyrule_pokemon_link_item': {
+        id: 'hyrule_pokemon_link_item',
+        name: "Evolution Stone Core",
+        description: "A fragment of a legendary Pokémon evolution stone that unlocks hidden forms",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🐉',
+        stock: 3,
+        rarity: 'uncommon',
+        effects: [
+            "Enables evolution when used with compatible Pokémon",
+        "Causes temporary confusion to the user",
+        "Requires a team member to be nearby to activate",
+        "Made by: Fawfuls Fury",
+        "Connects both worlds: Hyrule and Pokémon regions"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Toad Liberation Blade",
+        description: "A cursed blade forged by the Liberated Toads to fight oppression",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Deals extra damage to enemy factions",
+        "Causes the user to lose 10% HP per turn",
+        "Increases stealth ability by 50%",
+        "Made by: Fawfuls Fury",
+        "Faction: Liberated Toads movement"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Rakasha Spirit Walkers Charm",
+        description: "A mystical charm that allows the user to walk with the Rakasha Spirit Walkers",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 25000,
+        icon: '🌿',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary flight for 5 turns",
+        "Reduces enemy defense by 30%",
+        "Causes the user to lose 10% HP per turn",
+        "Allows access to hidden temples in Hyrule",
+        "Connects both worlds: Hyrule and Pokémon regions",
+        "Made by: Fawfuls Fury"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+
+    // The Shadowfell [16:27:09]
+    'shadowfell_item_name_here': {
+        id: 'shadowfell_item_name_here',
+        name: "Shadowbound Vial",
+        description: "A vial containing liquid darkness that grants temporary invisibility under moonlight",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🔮',
+        stock: 8,
+        rarity: 'common',
+        effects: [
+            "Grants temporary invisibility for 10 minutes",
+        "Slight psychic backlash after use",
+        "Causes hallucinations in low light",
+        "Consumable once per day",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 3
+    },
+    'shadowfell_item_name_here': {
+        id: 'shadowfell_item_name_here',
+        name: "Onyx Talisman",
+        description: "A black crystal pendant that channels the whispers of the dead",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary immunity to psychic attacks",
+        "Drains 50% HP when used",
+        "Draws in nearby spirits for 20 seconds",
+        "Cannot be worn by non vampires",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 7
+    },
+    'shadowfell_item_name_here': {
+        id: 'shadowfell_item_name_here',
+        name: "Desert Compass",
+        description: "A relic from Sarasaland that points to hidden treasure or danger",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🌵',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Shows nearest location of a Princess Daisy outpost",
+        "Loses accuracy after 3 uses",
+        "Grants 20% damage bonus to all attacks",
+        "Can be used to locate the Peasley Financial Scandal site",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 9
+    },
+    'shadowfell_item_name_here': {
+        id: 'shadowfell_item_name_here',
+        name: "Bullet Bill Courier Pack",
+        description: "A delivery pouch that transports goods across the Shadowfell and Sarasaland",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '📦',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Allows transport of items between worlds",
+        "Requires 20 minutes to activate",
+        "Can only be used once per day",
+        "Loses 10% efficiency after 3 uses",
+        "Made by: Bullet Bill Express"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 6
+    },
+
+    // Pokémon Regions [16:27:15]
+    'pokemon_item_name_here': {
+        id: 'pokemon_item_name_here',
+        name: "Starfall Amulet",
+        description: "A glowing relic from the Festival of Falling Stars that hums with forgotten starlight",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants +50% chance to dodge during gym battles",
+        "Restores 100 HP after each battle",
+        "Increases catch rate of legendary Pokémon by 30%",
+        "Reduces stamina drain during long travels",
+        "Made by: Crimson Fleet"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 7
+    },
+    'pokemon_item_name_here': {
+        id: 'pokemon_item_name_here',
+        name: "Crimson Fang Blade",
+        description: "A weapon forged from the heart of a fallen Skaven general",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🗡',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals +100 damage to enemy Pokémon with high defense",
+        "Increases attack speed by 20%",
+        "Causes enemies to become enraged after 3 hits",
+        "Reduces the user’s HP by 20% after each successful strike",
+        "Made by: Crimson Fleet"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 12
+    },
+    'pokemon_item_name_here': {
+        id: 'pokemon_item_name_here',
+        name: "The Princesss Shadow",
+        description: "A cursed relic said to hold the memory of Princess Peach",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🕯',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants immunity to status effects",
+        "Allows the user to temporarily control any captured Pokémon",
+        "Causes the user to be unable to move during battle if not in control",
+        "Reveals the true location of the Fated Place",
+        "Made by: Crimson Fleet"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 15
+    },
+    'pokemon_item_name_here': {
+        id: 'pokemon_item_name_here',
+        name: "Scam of the Stars",
+        description: "A fake artifact that promises to awaken a sleeping god",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 25000,
+        icon: '🎭',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary invincibility for 3 turns",
+        "Increases damage by 50% for 2 turns",
+        "Causes the user to lose all HP after the turn ends",
+        "No effect if used in battle",
+        "Made by: Crimson Fleet"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 10
+    },
+
+    // Faerûn [16:27:23]
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Whispering Quill of the Inkopolis Scribe",
+        description: "A quill that writes in ink that flows like liquid thought",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🖋',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Writes messages that vanish after 24 hours",
+        "Can be used to leave clues in magical ink",
+        "Leaves a faint psychic residue that attracts curious minds",
+        "Made by: Inkopolis Scribes",
+        "Cannot be used in Faerûn without ink magic",
+        "Fails if used with non-ink based ink"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 3
+    },
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Skaven Warforged Leggings",
+        description: "Heavy plate armor forged by the vile Skavens",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '⚔',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 armor rating",
+        "Causes minor tremors when moved",
+        "Scent of decay and rot permeates nearby air",
+        "Made by: Skaven",
+        "Only usable by non-humanoid races",
+        "Wears out after 30 combat encounters"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 8
+    },
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Coral Fleet Courier Lantern",
+        description: "A glowing lantern that glows when near water",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🌊',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Reveals hidden paths under the sea",
+        "Grants +1 bonus to stealth in aquatic zones",
+        "Emits a faint call that attracts aquatic predators",
+        "Made by: Coral Fleet",
+        "Cannot be used in land based zones",
+        "Loses all effects after 24 hours"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 7
+    },
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "The Inkopolis Inkwell of the Pipe Network",
+        description: "A mystical inkwell that connects inkopolis and faerûn",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '🧪',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Transfers ink between worlds",
+        "Grants temporary ink-based spellcasting",
+        "Causes minor dimensional tremors when used",
+        "Made by: Inkopolis Pipe Network",
+        "Can only be used if the Pipe Network is active",
+        "Fails if used with non-ink based magic"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 12
+    },
+
+    // Faerûn [16:27:29]
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Emberheart Amulet",
+        description: "Glows with primal fire energy and whispers of ancient wyrm lore",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary fire resistance up to 50%",
+        "Increases damage dealt by fire spells by 20%",
+        "Causes minor burns after every 3 attacks",
+        "Made by: Land Mordor",
+        "Activates upon entering the Valley of Bowser"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Voidbound Ring",
+        description: "A ring that hums with unstable dimensional energy",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Allows wearer to briefly step into the Liminal Void for 10 seconds",
+        "Grants invisibility for 3 seconds after each use",
+        "Causes hallucinations if used too frequently",
+        "Made by: Land Mordor",
+        "Connects both Faerûn and Almost at the Edge"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 10
+    },
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Fireflower Seed",
+        description: "A new strain of mutated flora that blooms with explosive force",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🌱',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Causes a brief explosion upon planting",
+        "Deals 300 damage to nearby enemies",
+        "Leaves behind a toxic bloom that damages allies",
+        "Made by: Land Mordor",
+        "Sells for 1000 in the Liminal Void for a scam"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 3
+    },
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Primordial Seal Shard",
+        description: "A fragment of the ancient seal that holds back the Wyrm",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '⚔',
+        stock: 5,
+        rarity: 'legendary',
+        effects: [
+            "Restores one seal when used in ritual",
+        "Grants a minor boost to all party members for 10 minutes",
+        "Requires special ritual to activate",
+        "Made by: Land Mordor",
+        "Found in the Valley of Bowser after defeating the Wyrm"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 15
+    },
+
+    // Hyrule [16:27:36]
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Display Name Here",
+        description: "Short flavor text here",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "First effect or benefit",
+        "Second effect",
+        "A drawback or curse",
+        "Made by: Custodians"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'hyrule_greedy_gear': {
+        id: 'hyrule_greedy_gear',
+        name: "Greedy Gear",
+        description: "A cursed artifact forged from stolen treasure and Wario Land’s garlic essence",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🍃',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 30% bonus damage to all attacks",
+        "Inflicts 10% chance to cause a garlic allergy debuff on enemies",
+        "Increases cost of healing by 20%",
+        "Made by: Custodians",
+        "Connects to Wario Land lore via Garlic Power and Diamond City"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 12
+    },
+    'hyrule_temple_mantle': {
+        id: 'hyrule_temple_mantle',
+        name: "Temple Mantle of the Ancient Order",
+        description: "Woven from sacred beast hide and Triforce energy",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🪶',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Grants +100 HP when entering a temple",
+        "Reduces enemy attack speed by 15% while in combat",
+        "Causes 5% chance to trigger a sacred beast summon",
+        "Made by: Custodians",
+        "Increases chance of encountering ancient guardians in battle"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 7
+    },
+    'hyrule_peasley_relic': {
+        id: 'hyrule_peasley_relic',
+        name: "Peasley Financial Relic",
+        description: "A cursed artifact tied to the Toadette relief scandal",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 200,
+        icon: '💰',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Restores 100 HP when consumed",
+        "Grants 10% chance to reveal hidden loot locations",
+        "May trigger a minor corruption debuff for 3 turns",
+        "Made by: Custodians",
+        "Linked to Peasley Financial Scandal and Toadette relief ops"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 2
+    },
+
+    // The Midlands [16:27:42]
+    'midlands_item_name_here': {
+        id: 'midlands_item_name_here',
+        name: "Iron Legion Engineer Satchel",
+        description: "A rugged satchel forged from magitek alloy and enchanted with Legion efficiency",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Increases crafting speed by 20%",
+        "Reduces stamina cost of tools by 15%",
+        "Causes minor magical backlash if used in non Legion zones",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'midlands_item_name_here': {
+        id: 'midlands_item_name_here',
+        name: "Desert Wind Courier Pack",
+        description: "A lightweight pack designed for fast travel across sands and steel",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🌵',
+        stock: 3,
+        rarity: 'uncommon',
+        effects: [
+            "Allows 30% faster travel across desert terrain",
+        "Grants temporary camouflage in open areas",
+        "Slightly increases fatigue after prolonged use",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 3
+    },
+    'midlands_item_name_here': {
+        id: 'midlands_item_name_here',
+        name: "Festival of Falling Stars Lantern",
+        description: "A glowing lantern with memory of Peachs final celebration",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 400,
+        icon: '🌟',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Restores 50 HP per use",
+        "Grants temporary resistance to fear effects",
+        "Flickers after 3 uses, causing minor disorientation",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 2
+    },
+    'midlands_item_name_here': {
+        id: 'midlands_item_name_here',
+        name: "Sarasaland Diplomatic Pact Scroll",
+        description: "A sealed scroll granting temporary alliance with Princess Daisy",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 12000,
+        icon: '🌍',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 10% diplomacy bonus for 24 hours",
+        "Allows temporary use of Sarasaland trade routes",
+        "Requires a pact with Princess Daisy to activate",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 8
+    },
+
+    // Hyrule [16:27:48]
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Sacred Beak Blade",
+        description: "A blade forged from the last breath of a sacred beast",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals extra damage to undead foes",
+        "Grants temporary immunity to poison",
+        "Causes minor mana drain with each strike",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'hyrule_rogueport_item_name_here': {
+        id: 'hyrule_rogueport_item_name_here',
+        name: "Rakasha Rattle",
+        description: "A cursed artifact from the underworld that whispers secrets",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1000,
+        icon: '🕯',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Reveals hidden paths in the docks",
+        "Triggers random curses on enemies",
+        "Causes hallucinations for 30 seconds",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 3
+    },
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Chain Chomp Courier Kit",
+        description: "A special package for swift deliveries across realms",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🚚',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 20% faster movement speed",
+        "Allows delivery of items to any location in Hyrule",
+        "Increases risk of being tracked by enemies",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 8
+    },
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Wario Inc. Fortune Token",
+        description: "A fake relic promising immense power",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 50000,
+        icon: '💰',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary power boost",
+        "Causes player to be stuck in a loop of failed quests",
+        "Grants no real abilities",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 10
+    },
+
+    // Animatopia [16:27:55]
+    'animatopia_item_name_here': {
+        id: 'animatopia_item_name_here',
+        name: "Primal Predator Fang",
+        description: "A jagged tooth from a beast of the deep forest",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Increases damage by 20%",
+        "Grants temporary camouflage in forests",
+        "Causes fear in nonpredators",
+        "Makes wearer vulnerable to magical spells",
+        "Made by: Servants Cosmic"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'animatopia_item_name_here': {
+        id: 'animatopia_item_name_here',
+        name: "Desert Mirage Cloak",
+        description: "A shimmering cloak that hides the wearer in sandstorms",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants invisibility in desert terrain",
+        "Boosts speed by 15%",
+        "Causes dehydration if worn too long",
+        "Reduces stamina recovery",
+        "Connects to Sarasaland through Koopa Postal",
+        "Made by: Servants Cosmic"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'animatopia_item_name_here': {
+        id: 'animatopia_item_name_here',
+        name: "Waluigi’s Chaotic Scepter",
+        description: "A cursed scepter said to grant divine wrath",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 10000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Inflicts madness on enemies",
+        "Grants immunity to fear effects",
+        "Causes wearer to laugh uncontrollably",
+        "Reduces movement speed by 30%",
+        "Only usable by faction members of Servants Cosmic",
+        "Made by: Servants Cosmic"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 10
+    },
+    'animatopia_item_name_here': {
+        id: 'animatopia_item_name_here',
+        name: "Scam: Eternal Dreamstone",
+        description: "A glowing gem that promises eternal rest",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 20000,
+        icon: '🔮',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 500 HP instantly",
+        "Induces deep sleep for 3 turns",
+        "Causes memory loss for 10 turns",
+        "Unlocks dream state abilities",
+        "Only works once per character",
+        "Made by: Servants Cosmic",
+        "Scam: Costs 20000 but gives nothing useful – buyer must be warned by the Koopa Postal courier"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 15
+    },
+
+    // Sarasaland [16:28:01]
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Desert Mirage Lens",
+        description: "A shimmering lens that distorts reality into desert dunes and mirages",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary invisibility in arid environments",
+        "Enhances perception of hidden water sources",
+        "Causes hallucinations of lost kingdoms",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'sarasaland_teyvat_linker': {
+        id: 'sarasaland_teyvat_linker',
+        name: "Interdimensional Courier Lens",
+        description: "A device that connects Sarasaland with Teyvat through elemental resonance",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🌊',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Allows teleportation between Sarasaland and Teyvat",
+        "Triggers elemental reaction effects on contact",
+        "Causes memory fragmentation during transit",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "WarioWare Vial",
+        description: "A cursed vial that amplifies gacha mechanics and viral infections",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 400,
+        icon: '🧪',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Increases chance of gacha event triggers",
+        "Causes temporary mental euphoria",
+        "Induces paranoia after 3 uses",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Warp Whistle Transit Key",
+        description: "A whistle that unlocks interdimensional courier routes",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🚀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants access to Warp Whistle Transit routes",
+        "Requires activation via vocal command",
+        "Causes temporary disorientation during travel",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 6
+    },
+
+    // Middle-earth [16:28:07]
+    'middle_earth_item_name_here': {
+        id: 'middle_earth_item_name_here',
+        name: "Ring of the Sunken King",
+        description: "A relic forged from the molten core of a fallen volcano",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants +10% damage to melee attacks",
+        "Increases stamina regeneration by 20%",
+        "Causes 10% chance of triggering a curse on enemy targets",
+        "Made by: Trinity General"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'middle_earth_connectopia_item_name_here': {
+        id: 'middle_earth_connectopia_item_name_here',
+        name: "Ironbreaker Pickaxe",
+        description: "A heavy tool forged from the heart of a fallen ore dragon",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 250,
+        icon: '🪓',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Breaks stone faster than standard tools",
+        "Deals 20% extra damage to ores",
+        "Causes 5% chance of triggering a rockslide trap",
+        "Made by: Noki Coral Fleet"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 2
+    },
+    'middle_earth_item_name_here': {
+        id: 'middle_earth_item_name_here',
+        name: "Gondorian Shield of the Last King",
+        description: "A polished bronze shield etched with the sigil of the King",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🛡',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Reduces incoming damage by 25%",
+        "Grants +10% defense bonus when in combat",
+        "Costs 10% of stamina to activate",
+        "Made by: Trinity General"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 8
+    },
+    'middle_earth_connectopia_item_name_here': {
+        id: 'middle_earth_connectopia_item_name_here',
+        name: "Coral Lure Net",
+        description: "A net made from the silk of Noki Elders",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🎣',
+        stock: 15,
+        rarity: 'uncommon',
+        effects: [
+            "Captures 3 random items from the environment",
+        "Grants +5% crafting efficiency for 20 seconds",
+        "Causes 10% chance of triggering a trap if used improperly",
+        "Made by: Noki Coral Fleet"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 4
+    },
+
+    // The Grand Country [16:28:13]
+    'grand_country_item_name_here': {
+        id: 'grand_country_item_name_here',
+        name: "Gravity Defy Boots",
+        description: "Steps over gravity with grace and a whisper of wind",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary gravity resistance while moving",
+        "Increases jump height by 30%",
+        "Causes minor vertigo after 20 seconds of sustained flight",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'grand_country_item_name_here': {
+        id: 'grand_country_item_name_here',
+        name: "Delfino Drip Bottle",
+        description: "Sips from the islands hidden spring to refill your spirits",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 100,
+        icon: '🍹',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Restores 50% health",
+        "Grants 10% speed boost for 30 seconds",
+        "Causes mild nausea if consumed too fast",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 1
+    },
+    'grand_country_item_name_here': {
+        id: 'grand_country_item_name_here',
+        name: "Paratroopa Air Jetpack",
+        description: "Launch into the sky with a paratroopa’s silent power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7000,
+        icon: '🛩',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 200% jump boost",
+        "Allows 30 second flight duration",
+        "Causes 10% damage reduction to falling impacts",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 7
+    },
+    'grand_country_item_name_here': {
+        id: 'grand_country_item_name_here',
+        name: "Delfino Bridge Key",
+        description: "The key to unlock the hidden path between worlds",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '🌊',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Opens the Delfino Bridge for 1 hour",
+        "Grants temporary access to Delfino Village",
+        "Causes temporary teleportation delay",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 8
+    },
+
+    // Kivotos [16:28:20]
+    'kivotos_item_name_here': {
+        id: 'kivotos_item_name_here',
+        name: "Halo Gun Grip",
+        description: "A sleek grip designed for anime academy students wielding high powered firearms",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Increases fire rate by 20%",
+        "Reduces recoil by 30%",
+        "Causes minor halo distortion when fired",
+        "Made by: Tomb Kings"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'kivotos_item_name_here': {
+        id: 'kivotos_item_name_here',
+        name: "Triforce Relic Shard",
+        description: "A fractured piece of ancient power from the Triforce realm",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Grants temporary immunity to status ailments",
+        "Increases damage by 15% for 2 rounds",
+        "May trigger reality tearing at the edges",
+        "Can be fused with other relics for greater power",
+        "Made by: Tomb Kings"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 8
+    },
+    'kivotos_item_name_here': {
+        id: 'kivotos_item_name_here',
+        name: "Noki Courier Courier Pass",
+        description: "A token granting access to the Noki Coral Fleet for urgent delivery",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1000,
+        icon: '🚚',
+        stock: 7,
+        rarity: 'common',
+        effects: [
+            "Grants 20% speed boost for 3 rounds",
+        "Allows use of emergency courier transport",
+        "May cause minor disorientation in non-corridor zones",
+        "Can be used to bypass security checkpoints",
+        "Made by: Noki Coral Fleet"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 3
+    },
+    'kivotos_item_name_here': {
+        id: 'kivotos_item_name_here',
+        name: "Lanky Kong Incident Token",
+        description: "A relic from the diplomatic disaster at the Summit",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🎭',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary control over one enemy for 1 round",
+        "Causes adjacent enemies to flee or surrender",
+        "Triggers the Kremling Diplomatic Protocol",
+        "May cause reality to ripple around the user",
+        "Can be used to end events or negotiations",
+        "Made by: Tomb Kings"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 10
+    },
+
+    // Wario Land [16:28:26]
+    'wario_land_garlic_sword': {
+        id: 'wario_land_garlic_sword',
+        name: "Garlic Sword of Greed",
+        description: "A blade forged from Warios own garlic obsession",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Inflicts garlic damage on enemies",
+        "Boosts Wario attack by 30%",
+        "Causes enemies to scream when hit",
+        "Wears down after 5 uses",
+        "Made by: Pokémon League"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'wario_land_fungi_pipe': {
+        id: 'wario_land_fungi_pipe',
+        name: "Fungi Pipe of Pipe Transit",
+        description: "Connects Diamond City to Mushroom Kingdom via underground pipe",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 10000,
+        icon: '🌱',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Instantly transports player between worlds",
+        "Consumes 1000 garlic energy",
+        "Causes minor hallucinations",
+        "Triggers Wario land tremors",
+        "Made by: Pokémon League"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+    'wario_land_waluigi_god_mask': {
+        id: 'wario_land_waluigi_god_mask',
+        name: "Waluigi God Mask",
+        description: "A mask that grants godly powers but causes madness",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 50000,
+        icon: '⚡',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 50% damage boost",
+        "Increases attack speed by 40%",
+        "Causes user to become uncontrollably aggressive",
+        "Triggers curse of Waluigi’s chaos",
+        "Made by: Pokémon League"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 15
+    },
+    'wario_land_fake_pearl': {
+        id: 'wario_land_fake_pearl',
+        name: "Fake Pearl of Wario",
+        description: "Looks like a pearl but causes paralysis",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 100000,
+        icon: '💍',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Causes paralysis for 3 turns",
+        "Grants 2000 HP",
+        "Increases chance of critical hit by 10%",
+        "Disables all spells",
+        "Made by: Pokémon League"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 20
+    },
+
+    // Kivotos [16:28:33]
+    'kivotos_item_name_here': {
+        id: 'kivotos_item_name_here',
+        name: "Halo Gunner Gear",
+        description: "A cursed armor set that grants the wearer divine accuracy but causes hallucinations during combat",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+20% damage with firearms",
+        "+10% chance to hit targets with perfect aim",
+        "Causes temporary hallucinations during combat",
+        "Made by: Chaos Dwarfs"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'kivotos_isle_delfino_item': {
+        id: 'kivotos_isle_delfino_item',
+        name: "Shine Sprite Charm",
+        description: "A glowing trinket that grants temporary invincibility to the wearer while in tropical zones",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🌴',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 100% invincibility for 30 seconds",
+        "Consumes 1 charge per use",
+        "Causes slight dizziness after activation",
+        "Made by: Shine Sprites"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 3
+    },
+    'kivotos_item_crossworld': {
+        id: 'kivotos_item_crossworld',
+        name: "Noki Bay Linkstone",
+        description: "A magical artifact that allows travel between Kivotos and Isle Delfino",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 12000,
+        icon: '🌊',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Teleports user to any location in Isle Delfino or Kivotos",
+        "Requires a specific chant to activate",
+        "Can only be used once per day",
+        "Made by: Paratroopa Air"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 8
+    },
+    'kivotos_fawful_talisman': {
+        id: 'kivotos_fawful_talisman',
+        name: "Mechanical Fury Amulet",
+        description: "A cursed talisman that amplifies the power of Fawfuls machines and causes uncontrollable rage",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 15000,
+        icon: '⚡',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants +50% damage to mechanical enemies",
+        "Causes the wearer to lose sanity after 20 minutes",
+        "Triggers random explosions on contact with foes",
+        "Made by: Chaos Dwarfs"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 10
+    },
+
+    // The Fated Place [16:28:39]
+    'warhammer_garlic_grenade': {
+        id: 'warhammer_garlic_grenade',
+        name: "Garlic Grenade",
+        description: "A pungent explosive that turns enemies into squealing rats",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🧄',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Explodes on contact with enemy",
+        "Inflicts garlic curse on target",
+        "Causes temporary blindness to allies",
+        "Disables enemy armor temporarily",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 3
+    },
+    'warhammer_airship_anchor': {
+        id: 'warhammer_airship_anchor',
+        name: "Airship Anchor",
+        description: "Stabilizes floating vessels against storm winds",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🛫',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Increases airship speed by 20%",
+        "Prevents sudden drops during storms",
+        "Requires remi coil upgrade for full power",
+        "Limits cargo capacity by 15%",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'warhammer_diamond_city_key': {
+        id: 'warhammer_diamond_city_key',
+        name: "Diamond City Key",
+        description: "Grants access to Wario Land’s most dangerous vault",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '💎',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens hidden vaults in Diamond City",
+        "Grants 50% bonus damage to all attacks",
+        "Triggers Wario Land’s garlic backlash effect",
+        "Causes 10% chance to trigger anti-hero glitch",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 10
+    },
+    'warhammer_skull_sonic_core': {
+        id: 'warhammer_skull_sonic_core',
+        name: "Skull Sonic Core",
+        description: "A dragon whispering device that controls chaos gods",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 15000,
+        icon: '🐉',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Empowers dragon summoning in Regal Empire",
+        "Amplifies sonic frequencies for dragon control",
+        "Causes skull curse on all allies",
+        "Triggers dragon conspiracy event",
+        "Made by: Wario Inc"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 15
+    },
+
+    // Equestria [16:28:46]
+    'equestria_item_name_here': {
+        id: 'equestria_item_name_here',
+        name: "Whispering Pipe Fragment",
+        description: "A relic from the Pipe Network that hums with forgotten magic",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary stealth in the Midlands",
+        "Amplifies magic absorption in Equestria",
+        "Causes disorientation if used near Changeling Hive",
+        "Makes you visible to Iron Legion sentinels",
+        "Made by: Asgard"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'equestria_item_name_here': {
+        id: 'equestria_item_name_here',
+        name: "Pianta Chuck Express Courier Token",
+        description: "A token granting priority transport across the world",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🚚',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Allows one free courier ride across both worlds",
+        "Reduces travel time by 40%",
+        "Increases chance of encountering smugglers",
+        "May be flagged by Regal Empire customs",
+        "Made by: Asgard"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 3
+    },
+    'equestria_item_name_here': {
+        id: 'equestria_item_name_here',
+        name: "Sealed Wyrm Fang",
+        description: "A relic from the Primordial Wyrm breach beneath Valley of Bowser",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 15000,
+        icon: '🐉',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Restores one seal when used",
+        "Grants resistance to magical damage",
+        "Causes severe hallucinations during use",
+        "Requires proximity to Wyrm breach site",
+        "Made by: Asgard"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 10
+    },
+    'equestria_item_name_here': {
+        id: 'equestria_item_name_here',
+        name: "The Pipe Network Upgrade",
+        description: "A scam item promising to fix the broken network",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 30000,
+        icon: '🚫',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Appears to restore Pipe Network functionality",
+        "Actually causes magical overload and system collapse",
+        "Grants 50% bonus to all magical abilities",
+        "Triggers a curse if used more than once",
+        "Made by: Asgard",
+        "SCAM: This item is a fake. It is not real. Use at your own risk."
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 15
+    },
+
+    // Equestria [16:28:52]
+    'equestria_item_name_here': {
+        id: 'equestria_item_name_here',
+        name: "Changeling Veil",
+        description: "A shifting cloak that mimics the wearer’s surroundings",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Conceals the wearer from visual detection",
+        "Grants temporary invisibility in low light",
+        "Causes minor dizziness after prolonged use",
+        "Made by: Abyssal Court"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 5
+    },
+    'equestria_almost_at_the_edge_item_here': {
+        id: 'equestria_almost_at_the_edge_item_here',
+        name: "Liminal Echo Ring",
+        description: "A resonant artifact that hums with unstable reality",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Allows brief teleportation to nearby void zones",
+        "Grants temporary resistance to falling hazards",
+        "Triggers reality distortion if used in high density zones",
+        "Connects both Equestria and Almost at the Edge",
+        "Made by: Abyssal Court"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 7
+    },
+    'equestria_item_name_here': {
+        id: 'equestria_item_name_here',
+        name: "Griffonstone Core",
+        description: "A crystalline shard humming with ancient power",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Boosts magical affinity by 30%",
+        "Causes the user to feel the weight of forgotten histories",
+        "May trigger a psychic backlash if overcharged",
+        "Can be fused into armor or weapons",
+        "Made by: Abyssal Court"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 8
+    },
+    'equestria_courier_item_here': {
+        id: 'equestria_courier_item_here',
+        name: "Blooper Wetworks Courier Pack",
+        description: "A secure cargo pouch for illicit goods",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Increases carrying capacity by 50%",
+        "Grants 10% stealth bonus in urban zones",
+        "May trigger a random drop of a courier token",
+        "Contains a hidden tracker chip if tampered with",
+        "Made by: Blooper Wetworks"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 2
+    },
+
+    // Isle Delfino [16:29:00]
+    'isle_delfino_tomb_kings_tidebreaker': {
+        id: 'isle_delfino_tomb_kings_tidebreaker',
+        name: "Tidebreaker Scepter",
+        description: "A cursed artifact of the drowned kingdom",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants +20% damage to water based attacks",
+        "Increases stamina regeneration by 30% during combat",
+        "Causes minor drowning damage on land",
+        "Triggers random elemental backlash every 30 seconds",
+        "Made by: Tomb Kings"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 8
+    },
+    'isle_delfino_rakasha_spirit_walk_cargo': {
+        id: 'isle_delfino_rakasha_spirit_walk_cargo',
+        name: "Spirit Walk Courier Pack",
+        description: "A courier pack blessed by Rakasha spirits",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 1200,
+        icon: '📦',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Delivers items instantly to Rogueport docks",
+        "Grants 10% bonus to stealth checks",
+        "Consumes 100 mana per use",
+        "Causes minor hallucinations if used too frequently",
+        "Made by: Rakasha Spirit Walk"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 4
+    },
+    'isle_delfino_crimson_fleet_scarab': {
+        id: 'isle_delfino_crimson_fleet_scarab',
+        name: "Crimson Fleet Scarab",
+        description: "A jewel of the Crimson Fleet’s war machine",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Boosts attack speed by 40% for 30 seconds",
+        "Grants +15% critical hit chance",
+        "Reduces enemy armor by 20%",
+        "Causes 20% chance to trigger a ship explosion on hit",
+        "Made by: Captain Syrups Crimson Fleet"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 7
+    },
+    'isle_delfino_fake_rakasha_spirit_walk_cargo': {
+        id: 'isle_delfino_fake_rakasha_spirit_walk_cargo',
+        name: "Spirit Walk Courier Pack (Scam)",
+        description: "A fake courier pack that looks real",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 25000,
+        icon: '📦',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Delivers items instantly to Rogueport docks",
+        "Grants 20% bonus to stealth checks",
+        "Consumes 200 mana per use",
+        "Causes 100% chance to trigger a hallucination on use",
+        "No effect if used on Isle Delfino",
+        "Made by: Fake Rakasha Spirit Walk (Scam)",
+        "This item is a scam and will not work in the real world"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 10
+    },
+
+    // The Fated Place [16:29:06]
+    'warhammer_tomb_kings_raven_hammer': {
+        id: 'warhammer_tomb_kings_raven_hammer',
+        name: "Raven Hammer of the Unseen",
+        description: "A cursed war hammer forged from the bones of forgotten gods",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals extra damage to undead foes",
+        "Grants +2 to attack rolls against chaotic creatures",
+        "Causes minor bleeding on target after each hit",
+        "Made by: Tomb Kings"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'warhammer_rakasha_spirit_torch': {
+        id: 'warhammer_rakasha_spirit_torch',
+        name: "Rakasha Spirit Torch",
+        description: "A flickering torch that burns with the essence of the Spirit Walkers",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🔥',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary +1 to all rolls for 10 minutes",
+        "Consumes 1 soul point per use",
+        "Causes minor hallucinations during use",
+        "Made by: Rakasha clans"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 3
+    },
+    'warhammer_cheep_cheep_accords_keyring': {
+        id: 'warhammer_cheep_cheep_accords_keyring',
+        name: "Cheep Cheep Accords Keyring",
+        description: "A token granting access to hidden routes across the Cheep-Cheep Accords",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🗝',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Reveals hidden paths in both The Fated Place and Rogueport",
+        "Grants +1 to stealth checks when near toads or spirit walkers",
+        "Causes slight disorientation if used near humanoids",
+        "Made by: Cheep-Cheep Accords"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 4
+    },
+    'warhammer_remis_coil_airship_engine': {
+        id: 'warhammer_remis_coil_airship_engine',
+        name: "Remi Coils Airship Engine",
+        description: "A compact engine that boosts airship speed and maneuverability",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '⚙',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Increases airship speed by 30%",
+        "Grants +2 to navigation checks in stormy weather",
+        "Consumes 1 energy charge per flight cycle",
+        "Made by: Remi Coil",
+        "Connects The Fated Place and Rogueport through sky routes"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 7
+    },
+
+    // Dream Land [16:29:13]
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Nightmare Noodle Bowl",
+        description: "A steaming bowl of eldritch pasta that makes your dreams taste like regret",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 250,
+        icon: '🍜',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Feeds hunger for 2 turns",
+        "Causes mild hallucinations during dreams",
+        "Slightly increases dreamwalking speed",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 3
+    },
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Puffball Pouch",
+        description: "A soft orb of dreamy mist that carries your fears and desires",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🌫',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Absorbs negative emotions",
+        "Lets you store up to 5 dreams in pouch",
+        "May trigger nightmares if overfilled",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 7
+    },
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Dreambound Gacha Rod",
+        description: "A cursed rod that allows you to summon dream entities for elemental reactions",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🎲',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Summons dream creatures with elemental affinities",
+        "Requires dream energy to activate",
+        "Each summon costs 100 dream points",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 10
+    },
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Teyvat Dream Core",
+        description: "A fusion of dream essence and elemental core that connects both worlds",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 150000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants access to both Dream Land and Teyvat dimensions",
+        "Allows elemental reactions with dream entities",
+        "Causes minor reality warping while active",
+        "Made by: Onyx Hand"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 15
+    },
+
+    // Sarasaland [16:29:19]
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Desert Dune Cloak",
+        description: "A whispering cloak that blends with sands and shadows",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants stealth in desert terrain",
+        "Reduces enemy detection range by 20%",
+        "Causes faint sandstorm aura that damages nearby foes",
+        "Made by: Asgard"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'sarasaland_rogueport_courier_key': {
+        id: 'sarasaland_rogueport_courier_key',
+        name: "Boo Spectral Mail Courier Pack",
+        description: "A cursed package that delivers messages through spectral mail",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 800,
+        icon: '📦',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Delivers messages across worlds instantly",
+        "Increases chance of encountering Rakasha clans",
+        "Destroys all items left behind after delivery",
+        "Made by: Asgard"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 3
+    },
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Rakasha Spirit Walker Staff",
+        description: "A staff forged from spirits of the Toad Accord",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Enhances spirit magic and spirit damage",
+        "Increases chance to trigger Cheep-Cheep Accords events",
+        "Consumes 100 spirit points per use",
+        "Made by: Asgard"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 7
+    },
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Shadowfell Ledger",
+        description: "A book that records the deeds of the Onyx Hand",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '📜',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Reveals hidden locations tied to the Shadowfell",
+        "Triggers faction loyalty bonus with Asgard",
+        "Grants knowledge of secret Rakasha rituals",
+        "Made by: Asgard"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 6
+    },
+
+    // Wario Land [16:29:26]
+    'wario_land_garlic_treasure_heart': {
+        id: 'wario_land_garlic_treasure_heart',
+        name: "Garlic Treasure Heart",
+        description: "A pulsating garlic heart that beats with the rhythm of greed",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Boosts garlic power by 20%",
+        "Grants temporary invisibility in garlic-infested zones",
+        "Causes nausea if used near non-garlic creatures",
+        "Made by: Chaos Dwarfs"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'wario_land_isle_delfino_keychain': {
+        id: 'wario_land_isle_delfino_keychain',
+        name: "Isle Delfino Keychain",
+        description: "A tiny key to unlock tropical secrets",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 150,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Allows access to hidden caves in Isle Delfino",
+        "Grants minor speed boost while swimming",
+        "Triggers minor hallucinations near Shine Sprites",
+        "Made by: Noki Coral Fleet"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 1
+    },
+    'wario_land_coral_fleet_soul_pearl': {
+        id: 'wario_land_coral_fleet_soul_pearl',
+        name: "Coral Fleet Soul Pearl",
+        description: "A shimmering pearl that whispers trade secrets",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 5000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Grants 10% trade bonus for all Coral Fleet transactions",
+        "Reveals hidden routes in Diamond City",
+        "Causes mental fatigue after prolonged use",
+        "Made by: Noki Elders",
+        "Connected to both worlds"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 8
+    },
+    'wario_land_greed_scammer_treasure': {
+        id: 'wario_land_greed_scammer_treasure',
+        name: "Greed Scammer Treasure",
+        description: "A fake artifact that promises unlimited riches",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Appears to grant 50% extra loot from every dungeon",
+        "Actually drains 30% of your current health",
+        "Disables all magic spells for 10 seconds",
+        "Made by: Chaos Dwarfs",
+        "Scam: Costs more than any treasure, but gives nothing real"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 10
+    },
+
+    // Beanbean Kingdom [16:29:33]
+    'beanbean_item_name_here': {
+        id: 'beanbean_item_name_here',
+        name: "Delfino Daze",
+        description: "A shimmering tropical pendant that hums with forgotten memories",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary flight for 30 seconds when worn",
+        "Causes minor dizziness during high speed movement",
+        "Reveals hidden paths in the Isle Delfino jungle",
+        "Made by: Mushroom Regency",
+        "Triggers Peasley Financial Scandal rumor if worn during diplomatic events",
+        "Only usable in regions with Shine Sprites"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'beanbean_delfino_court_glove': {
+        id: 'beanbean_delfino_court_glove',
+        name: "Courtly Gloves of the Isle Delfino",
+        description: "Elegant gloves that allow discreet communication with Shine Sprites",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Enhances charm and persuasion by 15%",
+        "Causes minor stuttering during formal events",
+        "Reveals secret paths to Hotel Delfino",
+        "Made by: Mushroom Regency",
+        "Triggers Peasley Financial Scandal if used during negotiations",
+        "Requires 5 Beanbean coins to activate"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'beanbean_peasley_coins_pouch': {
+        id: 'beanbean_peasley_coins_pouch',
+        name: "Peasley Scandal Pouch",
+        description: "A cursed pouch that holds the stolen coins and whispers secrets",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1000,
+        icon: '🔮',
+        stock: 15,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary immunity to corruption",
+        "Causes minor paranoia during use",
+        "Reveals hidden locations in Beanbean Kingdom",
+        "Made by: Mushroom Regency",
+        "Triggers Peasley Financial Scandal if used during diplomatic events",
+        "Requires 3 Beanbean coins to activate"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+
+    // Sarasaland [16:29:39]
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Desert Sunstone Amulet",
+        description: "A radiant gem that pulses with the heat of the sun",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary immunity to heat damage",
+        "Increases movement speed in desert terrain",
+        "Causes vision distortion after 30 seconds of use",
+        "Made by: Gehenna Academy"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Changeling Whisperer Ring",
+        description: "A ring that whispers secrets of the Changeling Hive",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Reveals hidden paths and enemy locations",
+        "Triggers hallucinations if used near hostile changelings",
+        "Increases magic resistance for 2 minutes",
+        "Connects to Equestria through the Whispering Veil",
+        "Made by: Gehenna Academy"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 8
+    },
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Iron Legion Alloy Blade",
+        description: "A blade forged from magitek steel",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Inflicts heavy damage to enemy units",
+        "Causes bleeding after 30 seconds of combat",
+        "Reduces stamina regeneration by 40%",
+        "Made by: Gehenna Academy",
+        "Connects to Equestria via the Iron Legion supply chain"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 10
+    },
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Pipe Express Courier Pouch",
+        description: "A pouch used by courier ponies to carry secrets",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '📦',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Allows one extra transport action per turn",
+        "Causes a minor delay if used near Changeling territory",
+        "Restores 20% of health after using transport",
+        "Connects to both Sarasaland and Equestria via Pipe Express",
+        "Made by: Gehenna Academy"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 3
+    },
+
+    // Connectopia [16:29:46]
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Frontier Forge Hammer",
+        description: "A heavy hammer forged from blocky ore and forgotten war metal",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Deals 100 damage to enemy structures",
+        "Increases mining speed by 25%",
+        "Causes minor tremors when swung",
+        "Made by: Void Drifters"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Ring of the Forgotten King",
+        description: "An ancient ring humming with elvish magic and orcish wrath",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Grants 100 HP regeneration per minute",
+        "Grants 20% dodge chance against ranged attacks",
+        "Causes minor mana drain after each use",
+        "Made by: Void Drifters",
+        "Connects to Middle Earth: Elven runes glow when near"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 10
+    },
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Paratroopa Airpack",
+        description: "A high pressure air tank for sky jumps and sky raids",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 400,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Grants 30 jump height",
+        "Increases flight duration by 20 seconds",
+        "Causes minor coughing after use",
+        "Made by: Void Drifters",
+        "Can be used only in air zones"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 3
+    },
+    'connectopia_item_name_here': {
+        id: 'connectopia_item_name_here',
+        name: "Crimson Fleet Signal Beacon",
+        description: "A pulsing beacon that calls in Syrups fleet during battle",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Summons 3 Wario Warships in range",
+        "Grants 50% damage bonus to all allies",
+        "Causes minor disorientation to enemy units",
+        "Made by: Void Drifters",
+        "Connects to both Connectopia and Middle Earth via courier route"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 15
+    },
+
+    // Faerûn [16:29:54]
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Shadowed Seal Fragment",
+        description: "A shard of ancient magic from the Primordial Wyrm breach. Glows faintly when held.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Restores 1000 HP when used in combat",
+        "Grants temporary invisibility for 30 seconds",
+        "Increases damage taken by 20%",
+        "Made by: Chaos Dwarfs",
+        "Can be fused with other seal fragments",
+        "Unstable after 3 uses"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'faerun_courier_item_here': {
+        id: 'faerun_courier_item_here',
+        name: "Hammer Bros Courier Package",
+        description: "A sealed crate from the Hammer Bros. with no return address. Contains something valuable.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1000,
+        icon: '📦',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Delivers 500 gold to buyer after 24 hours",
+        "Unlocks hidden quest line in Rogueport",
+        "May contain cursed item or false treasure",
+        "Made by: Hammer Bros Handling",
+        "Has a 10% chance of being empty",
+        "If opened before 24 hours, item is lost"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+    'faerun_oracle_item_here': {
+        id: 'faerun_oracle_item_here',
+        name: "Oracle’s Necrotic Lens",
+        description: "A lens that reveals hidden truths but drains life force from the user.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Reveals hidden paths or secrets within 30 feet",
+        "Costs 500 HP to use",
+        "Causes temporary blindness for 10 seconds",
+        "Made by: Chaos Dwarfs",
+        "Can be used to see through magical illusions",
+        "May trigger a curse if used on a living being"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+    'faerun_rogueport_item_here': {
+        id: 'faerun_rogueport_item_here',
+        name: "Rakasha Clan Heist Map",
+        description: "A hand-drawn map from the Rakasha clans detailing the best heist routes in Rogueport.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🗺',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Grants 20% chance to dodge traps",
+        "Reveals hidden entrances to enemy lairs",
+        "May cause a minor curse if used repeatedly",
+        "Made by: Chaos Dwarfs",
+        "Connects to Rogueport underworld",
+        "Can be traded for a key to the Black Market vault"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+
+    // The Edge [16:30:00]
+    'the_edge_item_name_here': {
+        id: 'the_edge_item_name_here',
+        name: "Void Drifters Echo",
+        description: "A relic of the final scream of reality",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary immunity to void damage",
+        "Allows user to perceive glitched spatial distortions",
+        "Causes severe mental instability after 30 minutes",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'the_edge_item_name_here': {
+        id: 'the_edge_item_name_here',
+        name: "Warp Whistle Transit Pass",
+        description: "A ticket to the edge and beyond",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 2500,
+        icon: '🛫',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants teleportation to any Warp Whistle Transit hub",
+        "Grants 50% speed boost during transit",
+        "Costs 1000 gold to use in Middle-earth",
+        "Made by: Changeling Hive"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'the_edge_item_name_here': {
+        id: 'the_edge_item_name_here',
+        name: "Ring of Mordor Might",
+        description: "Ancient power of the dark lord",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Increases melee damage by 50%",
+        "Grants resistance to poison and disease",
+        "Suffers 10% damage reduction when in daylight",
+        "Made by: Iron Legion Magitek"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+    'the_edge_item_name_here': {
+        id: 'the_edge_item_name_here',
+        name: "Phantom Brokers Lure",
+        description: "A scam that promises infinite wealth",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 20000,
+        icon: '💰',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 5000 gold instantly",
+        "Causes user to forget their own name",
+        "Triggers hallucinations of ghostly merchants",
+        "Made by: Boos Real Estate Syndicate",
+        "Scam: This item will vanish after 10 minutes unless the user is in a haunted property"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 15
+    },
+
+    // Teyvat [16:30:07]
+    'teyvat_item_name_here': {
+        id: 'teyvat_item_name_here',
+        name: "Bloomfire Core",
+        description: "A new fire flower strain that mutates with explosive force",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Enhances fire elemental reactions",
+        "Increases damage by 20% during fire attacks",
+        "Causes unpredictable mutations upon use",
+        "Made by: Void Drifters",
+        "Only usable in Teyvat",
+        "Requires elemental fusion"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'teyvat_item_name_here': {
+        id: 'teyvat_item_name_here',
+        name: "Void Satchel",
+        description: "A cursed bag that carries both dreams and nightmares",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants access to the Minus World",
+        "Triggers visions of lost memories",
+        "Causes mental fatigue after each use",
+        "Made by: Void Drifters",
+        "Only usable by those who have visited the Minus World",
+        "Unlocks hidden quests in Animatopia"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'teyvat_item_name_here': {
+        id: 'teyvat_item_name_here',
+        name: "Rakasha Spirit Walk",
+        description: "A courier spirit that guides through the wilds",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Grants 100 movement speed bonus",
+        "Increases chance of spotting hidden enemies",
+        "Causes temporary hallucinations",
+        "Made by: Void Drifters",
+        "Can be used in both Teyvat and Animatopia",
+        "Resets after 10 uses"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'teyvat_item_name_here': {
+        id: 'teyvat_item_name_here',
+        name: "Archon Sight Lens",
+        description: "A vision holder that reveals hidden truths",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 10000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Reveals hidden paths in Teyvat",
+        "Shows elemental reactions in real time",
+        "Causes vision distortion after 3 uses",
+        "Made by: Void Drifters",
+        "Unlocks vision holder skill tree",
+        "Only usable by those with Archon Sight"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+
+    // Hyrule [16:30:14]
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Echoing Blade of the Triforce",
+        description: "A blade forged from the last shard of the Triforce that hums with ancient power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Inflicts a minor curse on enemies when struck",
+        "Grants temporary invincibility to user during combat",
+        "Increases damage by 15% for every 5 seconds of combat",
+        "Made by: Red Winter"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'hyrule_shadowfell_item_name_here': {
+        id: 'hyrule_shadowfell_item_name_here',
+        name: "Onyx Hand Vessel",
+        description: "A relic of the Onyx Hand that binds the user to eternal night",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 7000,
+        icon: '🌑',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants immunity to daylight effects",
+        "Allows user to see hidden shadows and secrets",
+        "Suffers a 20% stat reduction in bright environments",
+        "Made by: Red Winter"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 8
+    },
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Dry Bones Courier Pack",
+        description: "A pack carried by the Dry Bones courier for secret deliveries",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 100,
+        icon: '📦',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Restores 50 HP when consumed",
+        "Grants a 10% movement speed boost for 10 seconds",
+        "Causes slight dizziness for 3 seconds",
+        "Made by: Red Winter"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 3
+    },
+    'hyrule_shadowfell_item_name_here': {
+        id: 'hyrule_shadowfell_item_name_here',
+        name: "Soul Mirror Shard",
+        description: "A fragment of the Mirror of the Shadowfell that can summon a soul",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '🌌',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Can summon a soul from the Shadowfell for 5 seconds",
+        "Grants a 50% chance to reflect damage to the attacker",
+        "Causes the user to lose 10% HP if soul is not used",
+        "Made by: Red Winter"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 10
+    },
+
+    // Wario Land [16:30:20]
+    'wario_land_item_name_here': {
+        id: 'wario_land_item_name_here',
+        name: "Garlic Amplifier",
+        description: "A cursed garlic infused with Wario Land’s greed energy",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Boosts attack power by 30%",
+        "Increases movement speed by 20%",
+        "Causes temporary garlic breath that stuns enemies",
+        "Made by: Gehenna Academy"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'wario_land_item_name_here': {
+        id: 'wario_land_item_name_here',
+        name: "Beanbean Coin Chime",
+        description: "A diplomatic artifact that triggers royal gossip",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 100,
+        icon: '🎵',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Grants temporary invisibility to allies",
+        "Triggers Beanbean Kingdom gossip events",
+        "Causes minor confusion to enemies",
+        "Made by: Gehenna Academy"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 1
+    },
+    'wario_land_item_name_here': {
+        id: 'wario_land_item_name_here',
+        name: "Lakitu Drone Link",
+        description: "A courier device that connects to the skies",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 5000,
+        icon: '🛩',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Allows teleportation to any Lakitu Drone location",
+        "Increases delivery speed by 50%",
+        "Triggers random courier events",
+        "Made by: Gehenna Academy"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 8
+    },
+    'wario_land_item_name_here': {
+        id: 'wario_land_item_name_here',
+        name: "Oracle’s Vessel Core",
+        description: "A necromantic artifact that grants forbidden knowledge",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants insight into enemy weaknesses",
+        "Causes minor hallucinations",
+        "Unlocks hidden paths in Diamond City",
+        "Made by: Gehenna Academy"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 10
+    },
+
+    // Faerûn [16:30:26]
+    'faerun_item_name_here': {
+        id: 'faerun_item_name_here',
+        name: "Display Name Here",
+        description: "Short flavor text here",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "First effect or benefit",
+        "Second effect",
+        "A drawback or curse",
+        "Made by: Team Rocket"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 5
+    },
+    'faerun_fireball_grenade': {
+        id: 'faerun_fireball_grenade',
+        name: "Fireball Grenade",
+        description: "A magical explosive that destroys everything in a 10 foot radius",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2000,
+        icon: '🔥',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 300 damage to all targets",
+        "Causes a small explosion upon impact",
+        "May trigger a magical backlash if used near a wizard",
+        "Made by: Team Rocket"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 5
+    },
+    'faerun_gravity_ribbon': {
+        id: 'faerun_gravity_ribbon',
+        name: "Gravity Ribbon",
+        description: "A magical band that defies gravity on the side of the doughnut",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 5000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Allows wearer to move through air currents",
+        "Grants a 20 foot jump on the vertical side of the doughnut",
+        "Causes vertigo if used in high gravity zones",
+        "Made by: Blooper Wetworks",
+        "Connects both Faerûn and The Grand Country"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 8
+    },
+    'faerun_doughnut_bridge_key': {
+        id: 'faerun_doughnut_bridge_key',
+        name: "Doughnut Bridge Key",
+        description: "A key to unlock the bridge that was cut by Don Pianta",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 10000,
+        icon: '🚪',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Opens the bridge to Pianta Village",
+        "Grants access to hidden tunnels beneath the doughnut",
+        "May cause a curse if used without the correct key",
+        "Made by: Team Rocket",
+        "Lore: Archie Miser admitted to casting Fireball destroying Raventree Greenhouse",
+        "Event: Pianta Village Independence: Don Pianta cut the bridge. Envoys thrown into pool."
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 12
+    },
+
+    // Isle Delfino [16:30:34]
+    'isle_delfino_chain_chomp_blade': {
+        id: 'isle_delfino_chain_chomp_blade',
+        name: "Chain Chomp Blade",
+        description: "A cursed weapon forged from the bones of a weaponized Chain Chomp. Its serrated edge gleams with tropical magic.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals extra damage to undead foes",
+        "Grants temporary speed boost after each hit",
+        "Causes target to scream in agony when struck",
+        "Made by: Rakasha Clans",
+        "Requires special summoning ritual to wield",
+        "Loses durability when used against nonmagical targets"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'isle_delfino_tropical_mana_bottle': {
+        id: 'isle_delfino_tropical_mana_bottle',
+        name: "Tropical Mana Bottle",
+        description: "A bottle filled with shimmering mana harvested from the jungle canopy. Perfect for spellcasting on the go.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 250,
+        icon: '🍃',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Restores 50 mana points",
+        "Grants a 10% increase to spell accuracy",
+        "Causes minor nausea if used too frequently",
+        "Made by: Rakasha Clans",
+        "Cannot be used in combat zones without permission",
+        "Fizzles after 30 seconds of holding"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 2
+    },
+    'isle_delfino_faerun_key_ring': {
+        id: 'isle_delfino_faerun_key_ring',
+        name: "Faerun Key Ring",
+        description: "A glowing brass ring that unlocks the hidden tunnels between the Isle Delfino and Faerûn realms.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🔑',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Opens secret paths to Faerûn dungeons",
+        "Grants temporary immunity to magical traps",
+        "Requires 1000 gold to activate",
+        "Made by: Rakasha Clans",
+        "Causes temporary disorientation when used in high magic zones",
+        "Consumes 50 mana per use"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 8
+    },
+    'isle_delfino_koopa_gold_coin': {
+        id: 'isle_delfino_koopa_gold_coin',
+        name: "Koopa Gold Coin",
+        description: "A coin minted during the Koopa banking collapse. Contains a hidden rune that shifts value based on market trends.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1000,
+        icon: '💰',
+        stock: 15,
+        rarity: 'uncommon',
+        effects: [
+            "Increases shop purchase value by 20%",
+        "Can be exchanged for alternate currencies",
+        "Causes slight inflation when used in large quantities",
+        "Made by: Rakasha Clans",
+        "Loses value if used outside of Koopa banking zones",
+        "Can be used to trade for rare artifacts"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 3
+    },
+
+    // Almost at the Edge [16:30:40]
+    'almost_edge_item_name_here': {
+        id: 'almost_edge_item_name_here',
+        name: "Crumbling Cogwheel",
+        description: "A broken gear from a collapsing machine that hums with unstable energy",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary immunity to gravity shocks",
+        "Increases damage dealt by 15%",
+        "Causes nausea after 30 seconds of use",
+        "Made by: Chaos Dwarfs"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 5
+    },
+    'almost_edge_bulldog_bolt': {
+        id: 'almost_edge_bulldog_bolt',
+        name: "Bulldog Bolt",
+        description: "A delivery courier’s signature weapon that leaves trails of static",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🔮',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Instantly repairs 50% of damage taken",
+        "Causes mild hallucinations after 10 seconds",
+        "Shortens next turn’s cooldown by 2 seconds",
+        "Made by: Bullet Bill Express"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 2
+    },
+    'almost_edge_doughnut_edge_ring': {
+        id: 'almost_edge_doughnut_edge_ring',
+        name: "Doughnut Edge Ring",
+        description: "A ring that pulses with the voids energy and shifts gravity",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants ability to teleport to nearest edge of the world",
+        "Grants 20% chance to dodge falling hazards",
+        "Causes temporary mental instability after 5 seconds",
+        "Connects both worlds: Almost at the Edge and The Grand Country",
+        "Made by: Chaos Dwarfs"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 7
+    },
+    'almost_edge_viral_vault': {
+        id: 'almost_edge_viral_vault',
+        name: "Viral Vault",
+        description: "A data core that spreads internet memes across reality",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 100% chance to infect enemies with meme based mental curse",
+        "Increases item durability by 200%",
+        "Causes 30 second delay before next use",
+        "Can be used to trigger events via internet lore",
+        "Made by: Chaos Dwarfs",
+        "Contains: The Shy Guys unionized delivery memo"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 10
+    },
+
+    // Dream Land [16:30:47]
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Dream Sack Pouch",
+        description: "A plush bag that holds nightmares and dreams alike",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Absorbs negative emotions from enemies",
+        "Grants temporary dreamwalking ability",
+        "Causes mild hallucinations during combat",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'dreamland_fated_connector': {
+        id: 'dreamland_fated_connector',
+        name: "Fated Puffball Keychain",
+        description: "A cursed puffball that whispers of both realms",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 5000,
+        icon: '🌫',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Opens portals between Dream Land and The Fated Place",
+        "Grants 10% damage reduction to all enemies",
+        "Triggers random hallucinations during travel",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 7
+    },
+    'dreamland_food_bomb': {
+        id: 'dreamland_food_bomb',
+        name: "Nightmare Nibbler",
+        description: "A snack that turns you into a food obsessed nightmare",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 200,
+        icon: '🍽',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Increases hunger resistance by 30%",
+        "Causes temporary food obsession",
+        "Disables all fear-based abilities for 2 turns",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 3
+    },
+    'dreamland_skull_cannon': {
+        id: 'dreamland_skull_cannon',
+        name: "Skull Cannon of the Fated",
+        description: "A cursed cannon that fires skulls and dreams",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Fires skulls that deal 100% damage to all enemies",
+        "Causes enemies to scream for 3 turns",
+        "Grants 20% movement speed for 2 turns",
+        "Made by: Moonfang Pack"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 10
+    },
+
+    // Dream Land [16:30:53]
+    'dreamland_item_name_here': {
+        id: 'dreamland_item_name_here',
+        name: "Dreamland Puffball Amulet",
+        description: "A glowing puffball with a soft yet menacing aura",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary immunity to nightmare dimensions",
+        "Increases damage dealt to eldritch foes by 30%",
+        "Causes minor hallucinations during combat",
+        "Made by: Peach Loyalists"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'dreamland_connectopia_item': {
+        id: 'dreamland_connectopia_item',
+        name: "Nightmare Frontier Map",
+        description: "A cracked map showing haunted zones and frontier routes",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1000,
+        icon: '🗺',
+        stock: 3,
+        rarity: 'uncommon',
+        effects: [
+            "Allows travel between Dream Land and Connectopia",
+        "Reveals hidden crafting stations in frontier zones",
+        "Causes disorientation when used in dreamland",
+        "Made by: Hammer Bros Handling"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+    'dreamland_fire_flower_core': {
+        id: 'dreamland_fire_flower_core',
+        name: "Fire Flower Core",
+        description: "A pulsating seed pod with explosive mutations",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 3000,
+        icon: '🌱',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Triggers explosive mutations on nearby enemies",
+        "Grants temporary fire resistance for 3 turns",
+        "Causes uncontrollable giggling in users",
+        "Made by: Peach Loyalists"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+    'dreamland_boos_property_key': {
+        id: 'dreamland_boos_property_key',
+        name: "Boos Property Key",
+        description: "A key that unlocks haunted real estate",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🏠',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants control over haunted properties",
+        "Grants 10000 gold per turn from property rent",
+        "Triggers Boos monopoly events every 5 turns",
+        "Made by: Boos Real Estate Syndicate",
+        "Connects both Dream Land and Connectopia"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 10
+    },
+
+    // Hyrule [16:31:00]
+    'hyrule_item_name_here': {
+        id: 'hyrule_item_name_here',
+        name: "Echoing Triforce Fragment",
+        description: "A shard of ancient power that echoes the Triforce’s will when touched",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary Triforce aura to user",
+        "Increases damage by 20% for 3 turns",
+        "Reduces movement speed by 15%",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'hyrule_earth_land_item_name_here': {
+        id: 'hyrule_earth_land_item_name_here',
+        name: "Ice Wall Fragment",
+        description: "A shard from the frozen vault beneath Earth Land’s hidden glacier",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '❄',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Can be used to construct ice barriers",
+        "Temporarily freezes enemies within 5 meters",
+        "Causes 30% reduction in stamina recovery",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 3
+    },
+    'hyrule_earth_link_item': {
+        id: 'hyrule_earth_link_item',
+        name: "Sunken Archive Key",
+        description: "A relic from the lost archives beneath Isle Delfino",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 12000,
+        icon: '📜',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens hidden passage between Hyrule and Earth Land",
+        "Grants 10% increased XP from all sources",
+        "Triggers random world event upon use",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 7
+    },
+    'hyrule_feywild_item': {
+        id: 'hyrule_feywild_item',
+        name: "Raventree Mirror",
+        description: "A broken mirror that reflects the Feywild and shadows of Raventree Manor",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🌌',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Reveals hidden paths in Shadowfell and Feywild",
+        "Grants 15% chance to dodge attacks",
+        "Causes mental fatigue after 2 uses",
+        "Made by: Kremling Krew"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 6
+    },
+
+    // Sarasaland [16:31:07]
+    'sarasaland_item_name_here': {
+        id: 'sarasaland_item_name_here',
+        name: "Desert Wind Blade",
+        description: "A razor sharp blade forged from the breath of the dunes",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals extra damage to enemies in open terrain",
+        "Slows movement speed when used in combat",
+        "Causes minor wind damage on hit",
+        "Made by: Skaven",
+        "Grants temporary invisibility during stealth",
+        "Requires high stamina to activate"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'sarasaland_wario_land_crossover': {
+        id: 'sarasaland_wario_land_crossover',
+        name: "Garlic Power Amulet",
+        description: "A relic that fuels courage with the scent of Wario’s garlic",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🍄',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Boosts attack power for 3 turns",
+        "Causes temporary blindness to enemies",
+        "Reduces movement speed by 20%",
+        "Made by: Skaven",
+        "Grants immunity to poison",
+        "Consuming too much causes nausea"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 3
+    },
+    'sarasaland_diamond_city_key': {
+        id: 'sarasaland_diamond_city_key',
+        name: "Diamond City Key",
+        description: "A golden key to the vault of hidden treasures",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '💎',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Opens doors to hidden rooms",
+        "Grants temporary teleportation to nearby locations",
+        "Consumes 1000 mana per use",
+        "Made by: Skaven",
+        "Causes minor mana drain when used repeatedly",
+        "Only works in Diamond City or Wario Land zones"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 7
+    },
+    'sarasaland_oracle_vessel_core': {
+        id: 'sarasaland_oracle_vessel_core',
+        name: "Oracle Core Fragment",
+        description: "A pulsating core of necromantic power",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants control over undead minions",
+        "Increases spellcasting speed by 50%",
+        "Causes a 20% chance of triggering a curse",
+        "Made by: Skaven",
+        "Allows summoning of the Oracle for 3 turns",
+        "Requires 5000 mana to activate and lasts 2 turns"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 10
+    },
+
+    // The Feywild [16:45:07]
+    'feywild_crystal_blade': {
+        id: 'feywild_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Servants Cosmic"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'feywild_hedge_maze_key': {
+        id: 'feywild_hedge_maze_key',
+        name: "Hedge Maze Key",
+        description: "A token that opens the path through the thorned labyrinth",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🌿',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary teleportation to nearest hedge maze",
+        "Triggers minor confusion for enemies within maze",
+        "Can be enchanted to reveal hidden paths",
+        "Must be carried to activate",
+        "Shipped by: Warp Whistle Transit"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'feywild_shadowfell_mirror': {
+        id: 'feywild_shadowfell_mirror',
+        name: "Shadowfell Mirror",
+        description: "A fractured mirror that reflects the opposite world",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '🌑',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Reflects the true nature of the wearer’s soul",
+        "Reveals hidden secrets of the Shadowfell",
+        "Causes temporary disorientation when viewing true self",
+        "Can be used to trade souls for magical items",
+        "Crafted by: Servants Cosmic"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 6
+    },
+    'feywild_toadette_talisman': {
+        id: 'feywild_toadette_talisman',
+        name: "Toadette Talisman",
+        description: "A whimsical artifact that grants the power of luck and mischief",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🐸',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2d4 to all luck checks",
+        "Causes minor giggles or distractions to enemies",
+        "Can be used to unlock hidden paths in Feywild mazes",
+        "May cause temporary hallucinations in high stress",
+        "Shipped by: Warp Whistle Transit",
+        "Linked to Peasley Financial Scandal via Toadette relief ops"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 4
+    },
+
+    // The Doughnut Hole [16:45:14]
+    'doughnut_hole_crystal_blade': {
+        id: 'doughnut_hole_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Trinity General"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'doughnut_hole_chaotic_jester_torch': {
+        id: 'doughnut_hole_chaotic_jester_torch',
+        name: "Chaotic Jester Torch",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🔥',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Illuminates dark zones with unpredictable flickers",
+        "Causes nearby enemies to misstep or panic for 1 round",
+        "Burns through 1 enemys morale bonus if they are scared",
+        "Scent of entropy lingers for 3 rounds",
+        "Consumed by entropy if held too long",
+        "Crafted by: Shy Guy Smugglers"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 3
+    },
+    'doughnut_hole_gehenna_academy_keychain': {
+        id: 'doughnut_hole_gehenna_academy_keychain',
+        name: "Gehenna Academy Keychain",
+        description: "",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 350,
+        icon: '🎓',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Grants temporary access to Gehenna Academy’s hidden archives",
+        "Triggers bureaucratic chaos when used near Kivotos",
+        "Automatically unlocks the most obscure dorm room in the academy",
+        "Causes minor hallucinations if worn during exams",
+        "Only works if the wearer has seen at least one student fail",
+        "Designed by: The Cosmic Jester cult"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 1
+    },
+    'doughnut_hole_entropic_gun': {
+        id: 'doughnut_hole_entropic_gun',
+        name: "Entropic Gun",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7000,
+        icon: '🎯',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Fires projectiles that unravel reality for 1 round",
+        "Deals 3d8 damage to targets who are not wearing halos",
+        "Forces targets to make a save or suffer a 1d6 entropy bleed",
+        "Triggers a prank effect if fired during a summit",
+        "Causes the user to temporarily lose all social grace",
+        "Crafted by: Trinity General with assistance from The Cosmic Jester cult"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 7
+    },
+
+    // Kivotos [16:45:22]
+    'kivotos_crystal_blade': {
+        id: 'kivotos_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Skaven"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'kivotos_void_touched_amulet': {
+        id: 'kivotos_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic that echoes the last breath of the Minus World",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🌑',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 10% chance to bypass enemy defenses during combat",
+        "Inflicts 1d4 psychic damage on foes that attempt to teleport",
+        "Causes wearer to see faint echoes of the Minus World during battle",
+        "Triggers Void Drifters’ presence if worn beyond 300 meters from Edge",
+        "Increases fatigue by 20% after 30 minutes of use",
+        "Crafted by: Dry Bones Dead Drop"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 8
+    },
+    'kivotos_halos_halo_cannon': {
+        id: 'kivotos_halos_halo_cannon',
+        name: "Halos Halo Cannon",
+        description: "A weapon that channels the energy of a student’s halo",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '⚡',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Fires a beam of concentrated student aura damage",
+        "Requires attunement to a student’s halo",
+        "50% chance to trigger a halo-based visual effect",
+        "Depletes the user’s halo energy after 3 uses",
+        "Reduces movement speed by 20% during firing",
+        "Crafted by: Skaven"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 3
+    },
+    'kivotos_gehenna_academy_keychain': {
+        id: 'kivotos_gehenna_academy_keychain',
+        name: "Gehenna Academy Keychain",
+        description: "A token of bureaucratic chaos and academic pride",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '📜',
+        stock: 20,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary immunity to administrative penalties",
+        "Increases the chance of finding hidden dorm keys in any room",
+        "Triggers a random bureaucratic event after each use",
+        "Causes minor mental stress to non-student users",
+        "Restores 10% of HP per use (if worn as an item)",
+        "Crafted by: Skaven"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 1
+    },
+
+    // The Grand Country [16:45:29]
+    'grand_country_crystal_blade': {
+        id: 'grand_country_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Crimson Fleet"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'grand_country_gym_battle_bolt': {
+        id: 'grand_country_gym_battle_bolt',
+        name: "Gym Battle Bolt",
+        description: "A charged artifact used to amplify trainer energy during gym clashes",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '⚔',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Increases attack power by 15% during gym battles",
+        "Grants temporary immunity to status effects during combat",
+        "May trigger a wild evolution if used against a Pokémon with a hidden form",
+        "Shipped by: Koopa Postal",
+        "Connects to: Pokémon Region lore via Ranger Union"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 3
+    },
+    'grand_country_seal_fragment': {
+        id: 'grand_country_seal_fragment',
+        name: "Primordial Seal Shard",
+        description: "A piece of the broken seal beneath Valley of Bowser",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '🧩',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Restores 1 seal fragment when used in ritual",
+        "Grants 2d4 temporary resistance to gravity effects",
+        "Causes minor tremors when wielded near high-altitude zones",
+        "Must be fused with a spellcaster’s attunement to activate",
+        "Faction: Crimson Fleet"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+    'grand_country_team_rocket_key': {
+        id: 'grand_country_team_rocket_key',
+        name: "Team Rocket Keychain",
+        description: "A trinket that grants a hidden connection to Team Rocket’s hidden base",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 7500,
+        icon: '🎮',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants access to hidden Team Rocket hideout in the Grand Country’s upper strata",
+        "Allows use of Rocket’s secret Pokémon evolution stones",
+        "Triggers a 5% chance to summon a rogue Pokémon during battle",
+        "May attract unwanted attention from Ranger Union",
+        "Contains a hidden message from Princess Peach’s assassin",
+        "Shipped by: Koopa Postal",
+        "Connects both worlds through Team Rocket lore and Princess Peach’s betrayal"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 8
+    },
+
+    // Mushroom Kingdom [16:45:37]
+    'mushroom_kingdom_golden_mushroom': {
+        id: 'mushroom_kingdom_golden_mushroom',
+        name: "Golden Mushroom",
+        description: "A rare fungus radiating powerful healing energy",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Restores 100 HP upon consumption",
+        "5% chance to trigger wild magic surge",
+        "Causes temporary euphoria lasting 2 rounds",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Changeling Hive",
+        "May cause hallucinations in non spellcasters"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'mushroom_kingdom_feywild_pipe_fragment': {
+        id: 'mushroom_kingdom_feywild_pipe_fragment',
+        name: "Feywild Pipe Fragment",
+        description: "A broken conduit of the Feywild’s chaotic magic",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🌿',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Infuses weapon with time loop effects for 3 rounds",
+        "Triggers random effect when struck: delay, rewind, or skip",
+        "Increases damage by 1d4 when used in Feywild zones",
+        "May cause temporary disorientation in non Fey creatures",
+        "Crafted by: Chain Chomp Courier",
+        "Only usable with Feywild-aligned spells"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 6
+    },
+    'mushroom_kingdom_chain_chomp_amulet': {
+        id: 'mushroom_kingdom_chain_chomp_amulet',
+        name: "Chain Chomp Amulet",
+        description: "A cursed artifact forged from weaponized Chain Chomps",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🐍',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants immunity to crushing damage",
+        "Inflicts 1d6 damage on enemies with high HP",
+        "Triggers trap activation when enemy enters range",
+        "Causes minor chaos aura around wearer",
+        "Crafted by: Changeling Hive",
+        "Can be weaponized into a throwing weapon"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 8
+    },
+    'mushroom_kingdom_mushroom_kingdom_maze_key': {
+        id: 'mushroom_kingdom_mushroom_kingdom_maze_key',
+        name: "Mushroom Kingdom Maze Key",
+        description: "A key that opens the hedge maze of the Princess’ death",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🗝',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants access to the Princess’ hidden chamber",
+        "Triggers time loop effect on entry",
+        "Reveals hidden paths in the Feywild maze",
+        "Causes minor madness in non maze users",
+        "Crafted by: Chain Chomp Courier",
+        "Only usable during WarioWare events",
+        "Activates when near the Feywild Court"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 10
+    },
+
+    // Kivotos [16:45:44]
+    'kivotos_crystal_blade': {
+        id: 'kivotos_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Team Rocket"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'kivotos_ember_soul_ring': {
+        id: 'kivotos_ember_soul_ring',
+        name: "Ember Soul Ring",
+        description: "A ring that channels the last breath of a fallen fire spirit",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1800,
+        icon: '🔥',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 1d4 fire damage to melee attacks",
+        "Increases stamina regeneration by 10% per level",
+        "When used in combat, causes nearby enemies to catch fire for 2 rounds",
+        "Loses power if worn during prolonged rest",
+        "Can be attuned to a specific fire elemental",
+        "Crafted by: Koopa Postal"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 6
+    },
+    'kivotos_mordor_metal_ingot': {
+        id: 'kivotos_mordor_metal_ingot',
+        name: "Mordor Metal Ingot",
+        description: "A raw ore from the shadowed depths of Mordor",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '⚒',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Can be forged into weapons or armor with dark enchantments",
+        "Increases weapon damage by 10% if crafted with blacksmith’s curse",
+        "May cause a minor corruption aura to the wearer",
+        "Must be tempered in a forge of molten steel",
+        "Found in the ruins of Barad Dûr",
+        "Shipped by: Team Rocket"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 8
+    },
+    'kivotos_lothlorien_treasure_box': {
+        id: 'kivotos_lothlorien_treasure_box',
+        name: "Lothlorien Treasure Box",
+        description: "A sealed box containing forgotten elven relics",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 7000,
+        icon: '📦',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Opens to reveal a random elven artifact (weapon or spell scroll)",
+        "One use only; cannot be reactivated",
+        "May trigger a memory fragment from Lothlórien’s past",
+        "Grants temporary immunity to fear effects",
+        "Contains a cursed relic that may cause visions",
+        "Shipped by: Koopa Postal",
+        "Crafted by: The Oracle (Necromantic Research Division)"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 10
+    },
+
+    // The Feywild [16:45:53]
+    'feywild_crystal_blade': {
+        id: 'feywild_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Cosmic Jesters"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'feywild_feywild_flicker_ward': {
+        id: 'feywild_feywild_flicker_ward',
+        name: "Flicker Ward of the Shifting Court",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌀',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 20% chance to dodge attacks during time loops",
+        "Causes minor disorientation on nonfey terrain",
+        "Absorbs 1d4 damage from fey illusions",
+        "Fails if worn near a toad slave",
+        "Must be enchanted with a trickster’s whisper",
+        "Worn by: The Jester’s Court"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 4
+    },
+    'feywild_fated_fey_ward': {
+        id: 'feywild_fated_fey_ward',
+        name: "Fated Fey Ward",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8500,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants immunity to fey magic when worn",
+        "Increases damage from all attacks by 30%",
+        "Triggers a curse if used during a Skaven siege",
+        "Requires attunement with a cursed relic",
+        "Only usable in the Fated Place",
+        "Created by: The Cosmic Jesters and the Skull King’s Cartographer"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+    'feywild_toad_treasure_sack': {
+        id: 'feywild_toad_treasure_sack',
+        name: "Toad Treasure Sack",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🐸',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Reveals hidden toad nests and secret loot",
+        "Triggers a 2d6 bonus on toad-related checks",
+        "Causes the wearer to be mistaken for a toad slave",
+        "Grants temporary invisibility to the wearer",
+        "Contains a curse if used during a toad uprising",
+        "Created by: The Liberated Toads Movement"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 3
+    },
+    'feywild_scam_fey_wish_tome': {
+        id: 'feywild_scam_fey_wish_tome',
+        name: "The Fey Wish Tome",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '📜',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants the ability to whisper to any spirit",
+        "Causes the user to be consumed by a fey curse if used improperly",
+        "Requires attunement with a cursed toad",
+        "Contains no real power",
+        "Price is triple the market value",
+        "Created by: The Cosmic Jesters and the Toad Rebellion Council",
+        "NOTE: This item is a scam. Do not purchase. It is cursed. It is a hoax. It is not real. It is not useful. It is not a wish. It is not a toad. It is not a magic book. It is a lie."
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 10
+    },
+
+    // DK Isles [16:46:00]
+    'dk_isles_crystal_blade': {
+        id: 'dk_isles_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Moonfang Pack"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'dk_isles_banana_bane': {
+        id: 'dk_isles_banana_bane',
+        name: "Banana Bane",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🍌',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Inflicts 1d4 poison damage on enemies with banana skin",
+        "Increases melee attack speed by 20% when wielding a banana",
+        "Causes 1d6 damage if used within 10 feet of a fire flower",
+        "Requires a banana to activate",
+        "Shipped by: Pianta Chuck Express",
+        "Wielders may suffer mild euphoria during combat"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 3
+    },
+    'dk_isles_fire_flower_core': {
+        id: 'dk_isles_fire_flower_core',
+        name: "Fire Flower Core",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🌶',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Infuses weapons with explosive mutation potential",
+        "Grants 20% chance to trigger a mini-explosion on hit",
+        "Reduces cooldown of fire based abilities by 15%",
+        "Consumes 3 charges per use",
+        "Can be fused with other materials to create new hybrid weapons",
+        "Found in jungle regions near Kremling Krew outposts"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 7
+    },
+    'dk_isles_daisy_ambassador': {
+        id: 'dk_isles_daisy_ambassador',
+        name: "Daisy Ambassador",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🌸',
+        stock: 15,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 50% of maximum health when consumed",
+        "Grants temporary immunity to knockback for 3 turns",
+        "Increases movement speed by 15% for 1 turn",
+        "Reduces damage taken from fire damage by 25%",
+        "Can only be used once per combat encounter",
+        "Themed after Princess Daisy’s diplomatic missions to Sarasaland",
+        "Shipped by: Pianta Chuck Express",
+        "Contains a secret flavor: banana infused honey"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 4
+    },
+
+    // L'Eclaire Isle [16:46:11]
+    'leclaire_isle_crystal_blade': {
+        id: 'leclaire_isle_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: King of Tombs"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'leclaire_isle_sugar_tide_helm': {
+        id: 'leclaire_isle_sugar_tide_helm',
+        name: "Sugar Tide Helm",
+        description: "A headpiece that glows with the sweetness of forgotten bakes",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍞',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to all dexterity checks",
+        "Increases movement speed by 10% while carrying items",
+        "Slight chance to cause temporary sugar rush (1d4 HP gain + 1 round of haste)",
+        "Wears off after 30 minutes of prolonged combat",
+        "Baked by the Dough Folk Guild of LEclaire Isle"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 4
+    },
+    'leclaire_isle_crumble_cannon': {
+        id: 'leclaire_isle_crumble_cannon',
+        name: "Crumble Cannon",
+        description: "A siege weapon disguised as a giant pastry",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8500,
+        icon: '🧁',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Fires 1d6 explosive pastry shards that deal 2d6 damage",
+        "Can be reloaded with a single 30-second baking cycle",
+        "Grants bonus +1 to all ranged attack rolls while carrying",
+        "Triggers a magical backlash if fired near a Pipe Network node",
+        "Shipped by Paratroopa Air with a warning: “Do not eat. Or else.”"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 8
+    },
+    'leclaire_isle_bread_binder': {
+        id: 'leclaire_isle_bread_binder',
+        name: "Bread Binder",
+        description: "A binding tool that fuses ingredients into durable structures",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 350,
+        icon: '🧱',
+        stock: 20,
+        rarity: 'common',
+        effects: [
+            "Can bind 3 items together into a single reinforced object",
+        "Creates a temporary bond that lasts 10 minutes",
+        "Requires 1d4 sugar units to activate",
+        "Fails if used on anything not made of baked goods",
+        "Designed for frontier expansion in Connectopia by the Dough Folk"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 2
+    },
+    'leclaire_isle_sugar_surge_vial': {
+        id: 'leclaire_isle_sugar_surge_vial',
+        name: "Sugar Surge Vial",
+        description: "A vial containing the essence of a runaway pastry storm",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🍯',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Restores 3d6 HP upon use",
+        "Grants +2 to all attack rolls for 1 minute",
+        "Causes temporary sugar-induced euphoria (may cause minor hallucinations)",
+        "Triggered by proximity to a Pipe Network failure",
+        "Made by smugglers who fled via Speaker Ls Order 120"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 6
+    },
+    'leclaire_isle_cake_chains': {
+        id: 'leclaire_isle_cake_chains',
+        name: "Cake Chains",
+        description: "A set of enchanted chains forged from sweetened iron",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🍞',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Locks targets in place for 1 round of combat",
+        "Grants 2d4 damage to all attacks made against bound targets",
+        "Can be attached to any item, even a pipe or a toad",
+        "Requires attunement by a baker or a toad",
+        "Only usable when the Pipe Network is offline (due to sabotage)",
+        "Shipped via Paratroopa Air with a note: “For the Aegis Prison Break.”"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 10
+    },
+
+    // Earth Land [16:46:18]
+    'earth_land_crystal_blade': {
+        id: 'earth_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Regal Empire"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'earth_land_mordor_ring_core': {
+        id: 'earth_land_mordor_ring_core',
+        name: "Mordor Ring Core",
+        description: "A fragment of ancient power from the depths of the Shadow Realm",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 6000,
+        icon: '🪐',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Grants +3 to all attacks against foes with the Mordor tag",
+        "Slight mana drain per use",
+        "Can be fused with other rings to amplify power",
+        "When activated triggers a whisper of Sauron’s will",
+        "Forged from the ruins of Barad Dur",
+        "Shipped by: Hammer Bros Handling"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+    'earth_land_lothlorien_amber': {
+        id: 'earth_land_lothlorien_amber',
+        name: "Lothlórien Amber",
+        description: "A glowing resin captured from the trees of the ancient elven realm",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🍃',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 10 HP and 10 MP after use",
+        "Leaves a faint elven scent for 10 minutes",
+        "Increases stealth bonus by +1 in forests",
+        "May cause temporary euphoria or confusion",
+        "Can be used to enhance enchanted armor",
+        "Found in the hollows of the Silverwood"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+    'earth_land_donkey_kong_keychain': {
+        id: 'earth_land_donkey_kong_keychain',
+        name: "Donkey Kong Keychain",
+        description: "A comical artifact from the diplomatic crisis of the Lanky Kongs",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 300,
+        icon: '🦸',
+        stock: 20,
+        rarity: 'common',
+        effects: [
+            "Grants +1 to all rolls involving diplomacy or humor",
+        "Causes minor distraction to enemies when used in combat",
+        "Increases speed by 10% during movement",
+        "Can be used to open doors that require laughter",
+        "Made from a stolen diplomatic seal from the Koopa Bank",
+        "Shipped by: Hammer Bros Handling",
+        "Faction influence: Regal Empire",
+        "Lore: The Lanky Kongs mishandled a treaty and now this keychain is a joke item to keep the peace"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 1
+    },
+
+    // Connectopia [16:46:26]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Moonfang Pack"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'connectopia_volcanic_bloodstone': {
+        id: 'connectopia_volcanic_bloodstone',
+        name: "Volcanic Bloodstone",
+        description: "A pulsating obsidian core that hums with volcanic fury",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🌋',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Can be infused into armor for fire resistance",
+        "Causes minor burns on touch (1d4 damage per 5 seconds)",
+        "Increases melee attack speed by 10%",
+        "Found only near active lava vents in the Valley of Bowser",
+        "Crafted by: Koopa Postal",
+        "Thematic link: connects to Primordial Wyrm prison through ancient seal residue"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 4
+    },
+    'connectopia_cheep_cheep_accords_talisman': {
+        id: 'connectopia_cheep_cheep_accords_talisman',
+        name: "Cheep Cheep Accord Talisman",
+        description: "A glowing toadkin amulet that whispers agreements",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🐸',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants temporary immunity to fear effects for 10 seconds",
+        "Grants 1d6 bonus to diplomacy checks",
+        "Triggers if worn by a Toad allied with Rakasha Spirit Walkers",
+        "Causes hallucinations if worn by non Toads (1d6 confusion damage)",
+        "Crafted by: Moonfang Pack",
+        "Thematic link: directly tied to Cheep-Cheep Accords and Toad alliances"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+    'connectopia_oracle_cursed_treasure': {
+        id: 'connectopia_oracle_cursed_treasure',
+        name: "Oracle Cursed Treasure",
+        description: "A hollowed out vessel that whispers secrets of the dead",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 8000,
+        icon: '🕯',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary invisibility for 1 minute",
+        "Consumes 2d6 mana to activate",
+        "100% chance to trigger a necromantic curse upon death",
+        "Causes target to become a soulless husk for 3 rounds",
+        "Causes 2d4 damage to caster if used near Primordial Wyrm seals",
+        "Thematic link: directly connected to the Oracle’s necromantic research",
+        "WARNING: This item is a scam. No real power. Only a cursed relic that will haunt the buyer for 3 days. No refunds."
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 8
+    },
+
+    // The Shadowfell [16:46:34]
+    'shadowfell_cloak_of_whispers': {
+        id: 'shadowfell_cloak_of_whispers',
+        name: "Cloak of Whispers",
+        description: "A tattered cloak that absorbs light and sound",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Changeling Hive"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'shadowfell_tongue_of_the_void': {
+        id: 'shadowfell_tongue_of_the_void',
+        name: "Tongue of the Void",
+        description: "A jagged, obsidian tongue that speaks in forgotten tongues",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 750,
+        icon: '🗡',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to all stealth checks",
+        "When used in combat reveals enemy weaknesses",
+        "Consumes 100 Beanbean coins per use",
+        "Causes temporary paranoia in nonvampires",
+        "Can be used to whisper secrets to undead",
+        "Crafted by: Paratroopa Air"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 3
+    },
+    'shadowfell_mind_wipe_circuit': {
+        id: 'shadowfell_mind_wipe_circuit',
+        name: "Mind Wipe Circuit",
+        description: "A pulsating circuitry chip that erases memories",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '💡',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Erases 1 memory per use for 10 minutes",
+        "Triggers viral infection if used on nonvampires",
+        "May cause temporary insanity in users",
+        "Can be reprogrammed with Beanbean coin upgrades",
+        "Causes 1d6 psychic damage if used on living beings",
+        "Crafted by: Changeling Hive"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 6
+    },
+    'shadowfell_soul_shard_of_peasley': {
+        id: 'shadowfell_soul_shard_of_peasley',
+        name: "Soul Shard of Peasley",
+        description: "A shard of dark glass that glows with Prince Peasley’s stolen essence",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '🌑',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Can be used to trade souls for diplomatic favors",
+        "Grants 10% resistance to fear effects",
+        "Causes 3d6 psychic damage to enemies who resist trade",
+        "Unlocks secret chambers in Beanbean Kingdom",
+        "Causes hallucinations if used without attunement",
+        "Crafted by: Paratroopa Air",
+        "Thrown into a mirror to summon Peasley’s ghost"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 10
+    },
+
+    // Teyvat [16:46:41]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Custodians"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 5
+    },
+    'teyvat_mushroom_crown': {
+        id: 'teyvat_mushroom_crown',
+        name: "Fungi Crown of the Whispering Fungal",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🍄',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to all Fungi related skill checks",
+        "Inflicts 1d4 confusion on enemies with mushroom-themed traits",
+        "Wears off after 20 minutes of non-use",
+        "Can be used to trigger the Fungi Civil War memory event",
+        "Requires attunement by a Fungi-aligned character",
+        "Crafted by: Mages Guild Portal"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 3
+    },
+    'teyvat_ghostly_bargain': {
+        id: 'teyvat_ghostly_bargain',
+        name: "The Koopa Bank Heist Scroll",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '💰',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Instantly transfers 5000 coins to your account",
+        "Triggers a 20% chance of corrupting your vision holder",
+        "May cause a 10 minute mental glitch where you see Koopa Kingdoms",
+        "Cannot be used if you have a vision holder",
+        "Requires a signed contract from the Mages Guild Portal",
+        "Crafted by: Mages Guild Portal"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 4
+    },
+    'teyvat_ancient_vision': {
+        id: 'teyvat_ancient_vision',
+        name: "The Internet Cursed Vision Holder",
+        description: "",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🌐',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants the ability to see the hidden truths of the Internet",
+        "Triggers viral mental infections after 30 minutes of use",
+        "Causes a 50% chance to lose your mind permanently",
+        "Can be used to unlock hidden content in The Internet",
+        "Cannot be used if you have a vision holder",
+        "Crafted by: Mages Guild Portal"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 7
+    },
+
+    // Earth Land [16:46:49]
+    'earth_land_crystal_blade': {
+        id: 'earth_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Kingdom Gondor"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'earth_land_ice_wall_key': {
+        id: 'earth_land_ice_wall_key',
+        name: "Ice Wall Key",
+        description: "A forgotten artifact from the frozen borderlands",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '❄',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Unlocks hidden ice tunnels behind the northern wall",
+        "Grants 10% increased movement speed in cold environments",
+        "Causes frostbite if used in warm climates",
+        "Found in the Kremling Krew’s last smuggling run",
+        "Contains a whisper of a lost ice king"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 4
+    },
+    'earth_land_banana_bomb': {
+        id: 'earth_land_banana_bomb',
+        name: "Banana Bomb",
+        description: "A fruity explosive designed to disrupt jungle logistics",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 350,
+        icon: '🍈',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Detonates with 1d4 explosive damage",
+        "Leaves a lingering banana scent that confuses beasts",
+        "Has a 50% chance to trigger a banana peel trap",
+        "Secretly contains a DK Crew sabotage chip",
+        "Consumed by the DK Isles’ banana hoarders"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 2
+    },
+    'earth_land_sonic_drone_core': {
+        id: 'earth_land_sonic_drone_core',
+        name: "Sonic Drone Core",
+        description: "A stolen core from the Dragon Conspiracy’s sonic emitters",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 15000,
+        icon: '🎵',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Emits sonic frequencies that weaken dragons",
+        "30% chance to stun dragons for 2 turns",
+        "Requires attunement by a sonic specialist",
+        "Triggers a memory echo of Princess Peach’s assassination",
+        "Can be weaponized or used as a listening device",
+        "Shipped by: Kremling Smuggle Run to Earth Land’s secret vault"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 8
+    },
+
+    // The Edge [16:47:00]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'the_edge_void_touched_amulet': {
+        id: 'the_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic that hums with the static of fractured dimensions",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 10% chance to ignore terrain effects in Void Drifters zones",
+        "Inflicts 1d4 psychic damage to enemies with 3+ HP",
+        "Wears the user into a minor glitch state after 10 minutes of use",
+        "Can be enchanted with any spell from the Iron Legion’s void catalog",
+        "Causes minor reality warping when worn during combat",
+        "Cannot be used in LEclaire Isle unless enchanted with sugar magic"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+    'the_edge_bakery_keychain': {
+        id: 'the_edge_bakery_keychain',
+        name: "Bakery Keychain",
+        description: "A charm shaped like a croissant, worn by dough folk and spellcasters alike",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 250,
+        icon: '🍞',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Restores 1 HP per use, but causes 1d2 temporary confusion",
+        "Increases speed by 10% during magical or chaotic encounters",
+        "Can be used to open doors in LEclaire Isle only",
+        "Glows faintly when near Waluigi’s presence",
+        "Consumes 1 point of sanity when used in Void Drifters",
+        "Cannot be used in combat without being attuned to sugar magic"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 2
+    },
+    'the_edge_feywild_brew': {
+        id: 'the_edge_feywild_brew',
+        name: "Feywild Brew",
+        description: "A liquid infused with echoes of forgotten dreams",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 150,
+        icon: '🍷',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 5 HP and 10% resistance to all damage",
+        "Causes 1d4 temporary blindness for 1 round to enemies",
+        "Triggers a 5% chance to teleport the user to a random location within 100 meters",
+        "Only effective in Feywild dimensions",
+        "Consumes 1d2 sanity points on failure",
+        "Cannot be used if the user is under the influence of Void Drifters"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+    'the_edge_shadowfell_key': {
+        id: 'the_edge_shadowfell_key',
+        name: "Shadowfell Key",
+        description: "A key that unlocks doors to the shadow realm",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1000,
+        icon: '🔑',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Opens any door in the Shadowfell dimension",
+        "Grants 2d4 shadow damage on first strike",
+        "Causes 1d6 temporary blindness to the user after use",
+        "Can be enchanted with void magic for 30 seconds",
+        "Requires attunement to a shadow caster",
+        "Cannot be used in LEclaire Isle unless the key is blessed with sugar magic"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 6
+    },
+    'the_edge_waluigi_soul_tap': {
+        id: 'the_edge_waluigi_soul_tap',
+        name: "Waluigi Soul Tap",
+        description: "A device that channels the chaotic energy of Waluigi’s spirit",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 30000,
+        icon: '🎮',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 1d6 bonus damage to all attacks",
+        "10% chance to trigger a Waluigi-inspired rampage",
+        "Causes 1d8 psychic damage to enemies with 5+ HP",
+        "Wears the user into a minor glitch state after 5 minutes",
+        "Cannot be used in LEclaire Isle without attunement to sugar magic",
+        "Only usable in Void Drifters or Shadowfell dimensions"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 10
+    },
+
+    // The Midlands [16:47:07]
+    'midlands_crystal_blade': {
+        id: 'midlands_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'midlands_soul_ward': {
+        id: 'midlands_soul_ward',
+        name: "Soul Ward Amulet",
+        description: "A relic infused with the echo of fallen warriors",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🪦',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to all saving throws against magical effects",
+        "Absorbs 1d4 negative energy per use",
+        "May trigger memory flashes of past battles",
+        "Wears off after 24 hours of inactivity",
+        "Connected to Hyrule’s ancient temple guardians",
+        "Crafted by: Noki Coral Fleet"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 4
+    },
+    'midlands_gilded_curse': {
+        id: 'midlands_gilded_curse',
+        name: "Gilded Curse Necklace",
+        description: "A cursed artifact rumored to grant power at the cost of sanity",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🧟',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants +3 to all attack rolls for 3 rounds",
+        "Inflicts 1d4 psychic damage on enemies",
+        "Causes user to lose 1d6 HP every 10 minutes",
+        "Triggered by touch: whispers of forgotten princesses",
+        "No attunement required but must be worn at all times",
+        "Cursed: if wearer dies, their soul becomes a spectral guardian",
+        "Sold by: Iron Legion - a scam item with no real benefit"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 8
+    },
+    'midlands_temple_key': {
+        id: 'midlands_temple_key',
+        name: "Temple Key of the Triforce",
+        description: "A key shaped like the Triforce itself, said to open ancient doors",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8000,
+        icon: '🏯',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Opens hidden doors in Hyrule temples",
+        "Grants 2d4 bonus to all checks involving ancient knowledge",
+        "Triggers a 10% chance to reveal hidden lore fragments",
+        "May cause minor temporal distortion when used",
+        "Requires attunement to a Triforce vessel",
+        "Crafted by: Noki Coral Fleet using Hyrulean relics",
+        "Only usable in regions with active reincarnation cycles"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 7
+    },
+
+    // Connectopia [16:47:15]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Regal Empire"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 5
+    },
+    'connectopia_shadowfell_keychain': {
+        id: 'connectopia_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A tiny metallic key that opens portals to the dark mirror dimension",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🔒',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 10% chance to reveal hidden Onyx Hand lair locations",
+        "Triggers soul drain on first use if used near a living soul",
+        "Can be used to open one portal per day",
+        "Wears off after 72 hours of inactivity",
+        "Designed by: Toadette Guild of Lost Keys"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 3
+    },
+    'connectopia_chain_chomp_core': {
+        id: 'connectopia_chain_chomp_core',
+        name: "Chain Chomp Core",
+        description: "The pulsating heart of a weaponized Chain Chomp, now fused into a battle tool",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 4000,
+        icon: '🐍',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Enhances melee weapon damage by 30% for 1 round per activation",
+        "Causes 50% chance of triggering a Chain Chomp roar that stuns enemies",
+        "Requires attunement with a melee class",
+        "Cannot be used in non-combat zones",
+        "Crafted by: Bob-omb Rush Delivery"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 6
+    },
+    'connectopia_voices_of_the_night': {
+        id: 'connectopia_voices_of_the_night',
+        name: "Voices of the Night",
+        description: "A sentient locket that whispers secrets from the eternal night",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🌑',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Grants temporary invisibility for 1 round",
+        "Sustains 1d4 soul points per use (can be spent to summon a shadow companion)",
+        "Triggers a 5% chance to reveal hidden paths or traps",
+        "Wears off after 1 hour of use",
+        "Made by: Regal Empire Frontier Lab"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 2
+    },
+
+    // Pokémon Regions [16:47:23]
+    'pokemon_master_ball_shard': {
+        id: 'pokemon_master_ball_shard',
+        name: "Master Ball Shard",
+        description: "A fragment of the legendary capture device",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Ranger Union"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'pokemon_ranger_union_crimson_key': {
+        id: 'pokemon_ranger_union_crimson_key',
+        name: "Crimson Key of the Iron Legion",
+        description: "A relic forged from the blood of fallen industrialists",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% accuracy boost to all physical attacks",
+        "Causes 5% chance to disable enemy defense for 1 turn",
+        "Triggers mechanical malfunctions on enemy Pokémon with steel or iron traits",
+        "Can only be wielded by Ranger Union agents",
+        "Requires 2d4 minutes to activate",
+        "Crafted by: Ranger Union"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 7
+    },
+    'pokemon_fawful_speech_tome': {
+        id: 'pokemon_fawful_speech_tome',
+        name: "Fawfuls Linguistic Tome",
+        description: "A cursed book that speaks in mechanical tongues",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '📜',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 3d6 bonus damage on all attacks",
+        "Forces target to speak in gibberish for 2 turns",
+        "If used on a Pokémon with a mechanical trait, it gains +10% critical hit chance",
+        "Consuming it causes the user to hear Fawful’s voice for 1 minute",
+        "May cause temporary confusion to the user",
+        "Crafted by: Rakasha Spirit Walk"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 8
+    },
+    'pokemon_delfino_captain_sword': {
+        id: 'pokemon_delfino_captain_sword',
+        name: "Admiral Toads Captain’s Blade",
+        description: "A ceremonial blade forged from the heart of the fallen Admiral",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🗡',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Deals 10d6 piercing damage",
+        "Grants immunity to status effects for 1 turn",
+        "Causes 25% chance to turn enemy into a mechanical state for 1 turn",
+        "Can only be used in the presence of Noki or Koopa controlled territory",
+        "Requires attunement to a legendary Pokémon",
+        "Crafted by: Ranger Union & Rakasha Spirit Walk"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 12
+    },
+
+    // The Fated Place [16:47:34]
+    'warhammer_crystal_blade': {
+        id: 'warhammer_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'warhammer_void_touched_amulet': {
+        id: 'warhammer_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic humming with forgotten cosmic echoes",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants temporary immunity to psychic damage",
+        "Suffers 1d4 damage when exposed to pure void",
+        "Increases damage dealt by necrotic spells by 20%",
+        "Unlocks Void Drifter Relay courier route for 1000 gold",
+        "Can be used to summon Void Touched Skaven units (1 per 3 uses)",
+        "Must be worn during combat; not usable in melee"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 8
+    },
+    'warhammer_skull_rats_tooth': {
+        id: 'warhammer_skull_rats_tooth',
+        name: "Skull Rats Tooth",
+        description: "A jagged maw fragment from the depths of the Fated Place",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 300,
+        icon: '🦴',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Enhances melee damage by 1d3",
+        "Inflicts 1d2 poison damage on enemies within 30 feet",
+        "Causes 10% chance to trigger a rat scream (fear effect for 1 round)",
+        "Can be used in crafting recipes for Skaven gear",
+        "Serves as a marker for hidden tunnels beneath the village",
+        "Requires 2d4 hours to clean before use"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 2
+    },
+    'warhammer_heart_of_animatopia': {
+        id: 'warhammer_heart_of_animatopia',
+        name: "Heart of Animatopia",
+        description: "A pulsing, living core of primal instinct and tribal rage",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🐾',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary immunity to fear and confusion",
+        "Increases damage against enemy leaders by 30%",
+        "Consumes 2000 HP to activate; regenerates 1000 HP per turn",
+        "Unlocks the Tribal Rage skill: all attacks have a 20% chance to break enemy armor",
+        "Can be used to activate the Pianta Village Independence ritual (requires 3 items)",
+        "Must be held in hand to activate; cannot be worn or stored"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 12
+    },
+    'warhammer_scarred_sword': {
+        id: 'warhammer_scarred_sword',
+        name: "Scarred Sword",
+        description: "A blade that remembers the screams of the fallen",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Deals 3d6 slashing damage",
+        "Inflicts 1d4 psychic damage to enemies with fear aura",
+        "Grants 1d4 temporary HP if enemy is hit by a fear effect",
+        "Each use causes the wielder to gain 10% more damage for 1 round",
+        "Requires attunement by a warrior or rogue",
+        "Cannot be used in non-combat situations without penalty"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 6
+    },
+    'warhammer_lanky_kong_keychain': {
+        id: 'warhammer_lanky_kong_keychain',
+        name: "Lanky Kong Keychain",
+        description: "A comical charm of a failed diplomat",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 100,
+        icon: '🐒',
+        stock: 50,
+        rarity: 'common',
+        effects: [
+            "Grants 10% chance to trigger a comical failure effect (e.g. trip, stumble, or drop weapon)",
+        "Increases morale of allies by 5% if used during a battle",
+        "Can be worn during diplomacy or negotiation",
+        "Unlocks a hidden map to the Lanky Kong Vault (requires 2 keychains)",
+        "May cause temporary confusion to enemies during critical moments",
+        "Only usable once per combat round"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 1
+    },
+
+    // Mushroom Kingdom [16:47:43]
+    'mushroom_kingdom_golden_mushroom': {
+        id: 'mushroom_kingdom_golden_mushroom',
+        name: "Golden Mushroom",
+        description: "A rare fungus radiating powerful healing energy",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Restores 300 HP on consumption",
+        "10% chance to grant temporary immunity to poison",
+        "Consumes one turn of action to activate",
+        "Fungus emits a faint glow that reveals hidden paths",
+        "Slightly increases damage dealt by spells",
+        "Requires attunement by a spellcaster"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 5
+    },
+    'mushroom_kingdom_inked_pipe_catalyst': {
+        id: 'mushroom_kingdom_inked_pipe_catalyst',
+        name: "Inked Pipe Catalyst",
+        description: "A conduit infused with the essence of Beanbean’s whispered secrets",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🧪',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Enhances pipe magic by 25% when used in conjunction with Beanbean coins",
+        "Triggers a minor illusion when held close to a mirror",
+        "Causes temporary confusion to enemies upon activation",
+        "Slightly slows movement speed while in use",
+        "Can be fused into pipe weaponry",
+        "Requires attunement by a mages guild member"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 4
+    },
+    'mushroom_kingdom_entropy_ring_core': {
+        id: 'mushroom_kingdom_entropy_ring_core',
+        name: "Entropy Ring Core",
+        description: "The heart of a dormant magical artifact, now pulsing with unstable energy",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '⚡',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals 3d10 arcane damage on critical hit",
+        "Causes 10% chance of causing temporary entropy decay to nearby enemies",
+        "Requires attunement by a Red Winter operative",
+        "Increases spellcasting speed by 20% for 3 rounds",
+        "Triggers a minor magical backlash if used in combat with non-magical weapons",
+        "Fails if used outside of designated magical zones"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 7
+    },
+    'mushroom_kingdom_tongue_of_the_princess': {
+        id: 'mushroom_kingdom_tongue_of_the_princess',
+        name: "Tongue of the Princess",
+        description: "A relic from the fallen sovereign, whispering truths and betrayals",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 4000,
+        icon: '🗡',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary invisibility to the user for 1 round",
+        "Reveals hidden truths about allies and enemies",
+        "Costs 500 HP to activate",
+        "Can be used to summon ghostly echoes of the princess’s voice",
+        "Triggers a 50% chance to cause a diplomatic rift among nearby factions",
+        "Only usable once per campaign"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 8
+    },
+
+    // Inkopolis [16:47:50]
+    'inkopolis_crystal_blade': {
+        id: 'inkopolis_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'inkopolis_ink_siphon_torch': {
+        id: 'inkopolis_ink_siphon_torch',
+        name: "Ink Siphon Torch",
+        description: "A torch that drains ink from foes and refills your own ink reserves",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '💧',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Siphons 1d4 ink from enemies to restore 1d4 ink to user",
+        "Causes ink to spill on foes when struck, creating temporary ink fog",
+        "Can only be used in areas with ink-based terrain",
+        "Glows dimly when ink is low",
+        "Requires ink to be present in environment",
+        "Cannot be used underwater"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 4
+    },
+    'inkopolis_sarasaland_cloak_of_diplomacy': {
+        id: 'inkopolis_sarasaland_cloak_of_diplomacy',
+        name: "Cloak of Diplomacy",
+        description: "A diplomatic garment that tempers aggression and amplifies charm",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🌿',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +2 to Diplomacy checks against all factions",
+        "Reduces enemy aggression by 50% during conversation",
+        "Increases charm bonus by 1d4 when used near Princess Daisy’s territory",
+        "Unlocks access to secret diplomatic routes between Inkopolis and Sarasaland",
+        "If worn in public, reveals the wearer’s true intentions to others",
+        "Cannot be worn while engaging in combat"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 6
+    },
+    'inkopolis_minus_world_keychain': {
+        id: 'inkopolis_minus_world_keychain',
+        name: "Minus World Keychain",
+        description: "A relic from the lost world that whispers forgotten truths",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 75000,
+        icon: '🌌',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Reveals the last known location of the Minus World",
+        "Grants a 5% chance to discover a hidden portal with every use",
+        "Triggers visions of lost memories if worn during sleep",
+        "Increases luck during exploration in ink-based environments",
+        "Cannot be used without a confirmed ink-based map",
+        "Wears the user a faint ink stain that fades after 12 hours of use"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 8
+    },
+
+    // Teyvat [16:47:58]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: King of Tombs"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'teyvat_void_touched_satchel': {
+        id: 'teyvat_void_touched_satchel',
+        name: "Void Touched Satchel",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🌀',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Stores 3 elemental reactions per use",
+        "When used near a dimensional rift triggers 10% chance to summon a minor void echo",
+        "Loses 10% durability after each reaction use",
+        "Can be enchanted with a vision holder’s sigil for 50% bonus reaction yield",
+        "Slightly increases stamina regeneration while in the Liminal Void",
+        "Shipped by: Goomba Ground Delivery"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 4
+    },
+    'teyvat_pipe_network_key': {
+        id: 'teyvat_pipe_network_key',
+        name: "Pipe Network Key",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '📡',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Unlocks alternate routes through the failing Pipe Network",
+        "Grants 10% increased trade efficiency with Noki Elders",
+        "Consumes 10% of current stamina to activate",
+        "Can be fused with any material to form a temporary pipe conduit",
+        "Increases chance of encountering smugglers by 30% in coastal zones",
+        "Requires attunement with a Vision Holder to function fully"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 2
+    },
+    'teyvat_archon_forged_ring': {
+        id: 'teyvat_archon_forged_ring',
+        name: "Archon Forged Ring",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 45000,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants immunity to elemental reaction damage from Archon’s domain",
+        "Increases max HP by 20% when worn",
+        "Causes 1d4+2 bonus damage to all enemies in range of 3m",
+        "Requires attunement with an Archon’s vision to activate",
+        "Triggers 5% chance to reveal a hidden path to the Doughnut Edge",
+        "Shipped by: King of Tombs with a 24 hour delivery guarantee (if you’re lucky)"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 10
+    },
+
+    // Beanbean Kingdom [16:48:05]
+    'beanbean_crystal_blade': {
+        id: 'beanbean_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Fawfuls Fury"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'beanbean_treasure_inkwell': {
+        id: 'beanbean_treasure_inkwell',
+        name: "Inkwell of Whispering Scribes",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🖋',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "When used to write on parchment grants +2d4 insight bonus to spellcasting rolls",
+        "Consumes ink from the inkwell itself after use",
+        "May cause ink to bleed into the page if caster is under stress",
+        "Fails to write if used by non spellcasters",
+        "Secretly contains a vial of the Onyx Hand’s last whispered decree",
+        "Shipped by Warp Whistle Transit"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'beanbean_metal_tongue': {
+        id: 'beanbean_metal_tongue',
+        name: "Tongue of the Iron Legion",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '⚙',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +2d4 armor bonus to melee attacks",
+        "Cannot be used in non-combat situations without causing mechanical backlash",
+        "Suffers -1d6 damage when used in silence or low light",
+        "Only usable by those who have served under the Iron Legion banner",
+        "Emits low hum that disrupts enemy spellcasting",
+        "Crafted by Fawfuls Fury with secret iron ore from the Midlands"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 6
+    },
+    'beanbean_scarlet_crown': {
+        id: 'beanbean_scarlet_crown',
+        name: "Crown of the Broken Throne",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '🏰',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +3d6 bonus to leadership checks",
+        "Causes visible tremors in the wearer’s hands during combat",
+        "If worn during a diplomatic meeting with the Regal Empire may trigger a royal favor",
+        "Wearer must have prior diplomatic experience or risk mental unraveling",
+        "May be used to temporarily banish minor magical entities",
+        "Fabled relic from the Prince Peasley scandal’s final court session",
+        "Shipped by Warp Whistle Transit with a note from the Onyx Hand’s latest courier"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 8
+    },
+
+    // The Doughnut Hole [16:48:13]
+    'doughnut_hole_crystal_blade': {
+        id: 'doughnut_hole_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'doughnut_hole_soul_crumble': {
+        id: 'doughnut_hole_soul_crumble',
+        name: "Soul Crumble",
+        description: "A cursed artifact that fragments memories",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🧠',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Consuming this item grants 1d4 temporary perception boosts",
+        "Causes mild hallucinations during combat",
+        "Drains 2 points of sanity per use",
+        "Origin: Animatopia tribal ritual",
+        "Shipped by: Dry Bones Dead Drop"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 3
+    },
+    'doughnut_hole_abyssal_key': {
+        id: 'doughnut_hole_abyssal_key',
+        name: "Abyssal Key",
+        description: "A key that unlocks dimensional rifts",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 7500,
+        icon: '🔑',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Opens a portal to the Star Road when used",
+        "Causes 1d6 temporary blindness for 1 round",
+        "Requires 2d6 focus to activate",
+        "Found in Boos real estate monopoly zones",
+        "Crafted by: Asgard with void essence"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 8
+    },
+    'doughnut_hole_tide_bark': {
+        id: 'doughnut_hole_tide_bark',
+        name: "Tide Bark",
+        description: "A tree bark infused with cosmic tides",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🌊',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 2d8 damage to all attacks against entities from Animatopia",
+        "Causes the wielder to be temporarily tied to the Star Road’s tide",
+        "Triggers a 1d6+1 “tide shift” that alters terrain for 10 rounds",
+        "Can be used only once per cycle",
+        "Shipped by: Dry Bones Dead Drop",
+        "Lore: Forged in the heart of the Void Rift, tied to the Boos real estate monopoly’s cursed contracts"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 12
+    },
+
+    // Connectopia [16:48:20]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Tomb Kings"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 5
+    },
+    'connectopia_dusty_ranger_satchel': {
+        id: 'connectopia_dusty_ranger_satchel',
+        name: "Dusty Ranger Satchel",
+        description: "A rugged pack designed for frontier scavengers",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 750,
+        icon: '🗺',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Increases carrying capacity by 30%",
+        "Randomly drops 1 rare material when opened",
+        "Slightly reduces movement speed while carrying heavy items",
+        "Made from scavenged desert trade goods",
+        "Crafted by: Blooper Wetworks",
+        "Unlocks access to hidden desert caches"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 3
+    },
+    'connectopia_sarasaland_silk_belt': {
+        id: 'connectopia_sarasaland_silk_belt',
+        name: "Sarasaland Silk Belt",
+        description: "A diplomatic accessory from Princess Daisy’s court",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🌿',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 diplomacy skill bonus for 10 minutes",
+        "Reduces enemy morale by 10% in desert zones",
+        "Can be used to charm non-hostile creatures",
+        "Requires attunement with a royal crest",
+        "Crafted by: Sarasaland Royal Cartographers",
+        "Only usable within 500 yards of Princess Daisy’s territory"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 6
+    },
+    'connectopia_koopa_navy_ink_jam_glove': {
+        id: 'connectopia_koopa_navy_ink_jam_glove',
+        name: "Ink Jam Glove",
+        description: "A tactical glove designed for ink-jamming operations",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '💀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 2d4 bonus to stealth in ink-based environments",
+        "Reduces damage from ink-splatter attacks by 50%",
+        "Triggers ink burst effect after 3 attacks: deals 1d6 damage to all enemies in area",
+        "Requires attunement by a Koopa Navy officer",
+        "Crafted by: Admiral Bloopers’ Ink Corps",
+        "Only usable during ink-jamming events or in Koopa Navy zones"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 8
+    },
+
+    // Teyvat [16:48:28]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pony Nobility"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'teyvat_shadowfell_keychain': {
+        id: 'teyvat_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A relic from the Dark Mirror dimension that whispers secrets to those who dare to listen",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 800,
+        icon: '🕯',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary vision of the Shadowfell when worn",
+        "Causes 1d4 psychic damage to nearby enemies",
+        "Triggers a 10% chance to reveal hidden paths or enemies",
+        "Can be traded for soul points with Onyx Hand vampires",
+        "Crafted by: Kremling Smuggle Run"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 3
+    },
+    'teyvat_void_touched_amulet': {
+        id: 'teyvat_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "An artifact infused with the essence of the eternal night, designed to bend time and space",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '⏳',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Increases movement speed by 20% for 30 seconds",
+        "Reduces elemental damage taken by 15%",
+        "Causes a 10% chance to trigger time rewind effect (one action)",
+        "Unlocks vision of the past in dreams",
+        "Crafted by: Pony Nobility with Void Touched Artisans"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 7
+    },
+    'teyvat_bowser_kid_suit': {
+        id: 'teyvat_bowser_kid_suit',
+        name: "Bowser Kid Suit",
+        description: "A ceremonial robe worn by the heirs of the Toad Throne during succession trials",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '👑',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary immunity to elemental reactions",
+        "Allows wearer to summon a spectral Bowser child for 1 turn",
+        "Increases critical hit chance by 25%",
+        "Triggers a 5% chance to summon a spirit of the Cheep-Cheep Accords",
+        "Crafted by: Rakasha Spirit Walkers with secret toadblood infusion"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 9
+    },
+
+    // The Internet [16:48:35]
+    'internet_crystal_blade': {
+        id: 'internet_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Custodians"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'internet_meme_core': {
+        id: 'internet_meme_core',
+        name: "Meme Core",
+        description: "A data artifact that amplifies viral influence",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '📡',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to all meme-related skill checks",
+        "Causes temporary confusion in enemies with 100+ follower count",
+        "Can be fused into other items for enhanced effects",
+        "Shipped by: Kremling Smuggle Run",
+        "Only usable in digital realms"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 3
+    },
+    'internet_onyx_hand_ring': {
+        id: 'internet_onyx_hand_ring',
+        name: "Onyx Hand Ring",
+        description: "A cursed trinket worn by those who seek forbidden knowledge",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🖤',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants access to the Shadowfells hidden archives",
+        "Deals 1d8 damage to enemies with corrupted data",
+        "20% chance to trigger a data leak upon enemy defeat",
+        "Wears off after 3 uses unless recharged",
+        "Connected to: Orangus Cornelius and the Onyx Hand"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 7
+    },
+    'internet_diamond_city_key': {
+        id: 'internet_diamond_city_key',
+        name: "Diamond City Key",
+        description: "A digital key to the treasure vault beneath the Wario Land servers",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 4000,
+        icon: '💎',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Opens the Diamond City vault (contains 5000 gold and garlic scrolls)",
+        "Grants 10% increased loot drop rate from treasure chests",
+        "Causes minor data corruption to nearby items when used",
+        "Shipped by: Kremling Smuggle Run",
+        "Only usable in Wario Land zones with Diamond City maps"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 6
+    },
+
+    // The Fated Place [16:48:43]
+    'warhammer_crystal_blade': {
+        id: 'warhammer_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pokémon League"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'warhammer_skull_keychain': {
+        id: 'warhammer_skull_keychain',
+        name: "Skull Keychain of the Unseen",
+        description: "A relic from a forgotten Fey court",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🧩',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary invisibility when carrying it",
+        "Causes minor confusion to hostile creatures",
+        "Reveals hidden paths in Feywild mazes",
+        "Increases chance of encountering trickster spirits",
+        "May trigger time loops if used too frequently",
+        "Crafted by: Koopa Postal"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 3
+    },
+    'warhammer_rats_knife': {
+        id: 'warhammer_rats_knife',
+        name: "Rats Knife of the Skaven",
+        description: "A blade sharpened by the claws of rats in the Underdark",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🐭',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Deals 1d4 piercing damage",
+        "Increases movement speed by 10% while wielding",
+        "Causes minor noise when swung (distracts enemies)",
+        "Slightly reduces damage taken from psychic attacks",
+        "May cause temporary madness if used in combat against allies",
+        "Crafted by: Pokémon League"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 2
+    },
+    'warhammer_feywild_ring': {
+        id: 'warhammer_feywild_ring',
+        name: "Feywild Ring of the Trickster",
+        description: "A cursed ring that bends time and fate",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '⏳',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants temporary time reversal for 1 round per use",
+        "Increases chance of triggering wild magic surges",
+        "Causes minor disorientation in the Feywild",
+        "Triggers time loops if used more than 3 times",
+        "Can be used to summon trickster spirits for 1 round",
+        "May cause permanent fate alteration if misused",
+        "Crafted by: Pokémon League",
+        "Connected to both worlds: Feywild and Grimdark"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+
+    // Wario Land [16:48:50]
+    'wario_land_crystal_blade': {
+        id: 'wario_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Trinity General"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'wario_land_garlic_tongue_cutter': {
+        id: 'wario_land_garlic_tongue_cutter',
+        name: "Garlic Tongue Cutter",
+        description: "A cursed kitchen tool that amplifies garlic power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🧄',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Boosts garlic damage by 30%",
+        "Causes target to sneeze and lose 1d4 movement for 1 round",
+        "Wears off after 3 uses due to garlic overload",
+        "Can be used only in Wario Land or Animatopia zones",
+        "Crafted by: Pianta Chuck Express"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 3
+    },
+    'wario_land_echo_shard': {
+        id: 'wario_land_echo_shard',
+        name: "Echo Shard",
+        description: "A broken relic of the Dragon Conspiracy’s sonic tech",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3800,
+        icon: '🎵',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary immunity to sonic frequencies",
+        "Triggers a 1d6 damage debuff on all allies within 10m for 1 round",
+        "Can be fused into sonic weapons or armor",
+        "Only usable after completing the Dragon Conspiracy quest",
+        "Created by: Trinity General from stolen dragon vocal membranes"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 6
+    },
+    'wario_land_jester_soul_bangle': {
+        id: 'wario_land_jester_soul_bangle',
+        name: "Jester Soul Bangle",
+        description: "A cursed accessory that grants entropy powers",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🎭',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Deals 3d8 damage to targets with chaotic or unpredictable behavior",
+        "Grants 1d4 bonus to roll when attacking or dodging",
+        "Causes the wearer to laugh uncontrollably for 1 round after each use",
+        "Triggers a 1d6 entropy burst that damages enemies within 3m",
+        "Only usable in both Wario Land and Animatopia",
+        "Crafted by: The Cosmic Jester cult using entropy core fragments"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 8
+    },
+
+    // The Grand Country [16:48:58]
+    'grand_country_crystal_blade': {
+        id: 'grand_country_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Koopa Troop"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'grand_country_doughnut_edge_tether': {
+        id: 'grand_country_doughnut_edge_tether',
+        name: "Doughnut Edge Tether",
+        description: "A cursed anchor that binds you to the edge of reality",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🍩',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% increased damage against entities from the Liminal Void",
+        "Pulls user toward nearest edge of the doughnut when stunned",
+        "20% chance to trigger a reality tear on next attack",
+        "Can only be used once per session",
+        "Shipped by: Goomba Ground Delivery",
+        "Faction influence: Koopa Troop"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 6
+    },
+    'grand_country_oracle_vessel_fragment': {
+        id: 'grand_country_oracle_vessel_fragment',
+        name: "Oracle Vessel Fragment",
+        description: "A shard from the necromantic research vessel built by the Oracle",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 7000,
+        icon: '⚪',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Can be fused with a spellcaster’s item to enhance necromantic power",
+        "Inflicts 1d4 necrotic damage on all enemies in range",
+        "Reduces spellcasting time by 2 seconds per use",
+        "Requires attunement to the Oracle’s will",
+        "Unlocks hidden lore when used in conjunction with a Pianta artifact",
+        "Faction influence: Koopa Troop"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 8
+    },
+    'grand_country_falling_hazard_tether': {
+        id: 'grand_country_falling_hazard_tether',
+        name: "Falling Hazard Tether",
+        description: "A rope that binds you to the falling hazards of the doughnut’s edge",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🌪',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to all damage rolls against airborne enemies",
+        "Reduces fall damage by 50% when using the item",
+        "10% chance to trigger a surprise drop from above on enemy turn",
+        "Requires attunement to the gravity-defying terrain",
+        "Shipped by: Goomba Ground Delivery",
+        "Faction influence: Koopa Troop"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 4
+    },
+
+    // Mushroom Kingdom [16:49:07]
+    'mushroom_kingdom_golden_mushroom': {
+        id: 'mushroom_kingdom_golden_mushroom',
+        name: "Golden Mushroom",
+        description: "A rare fungus radiating powerful healing energy",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Restores 1000 HP upon consumption",
+        "Grants temporary resistance to poison damage for 3 turns",
+        "Increases chance to avoid traps by 20%",
+        "Consuming too much may cause hallucinations in the Void",
+        "Requires attunement by a spellcaster",
+        "Crafted by: King of Tombs"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'mushroom_kingdom_doughnut_hole_catalyst': {
+        id: 'mushroom_kingdom_doughnut_hole_catalyst',
+        name: "Doughnut Hole Catalyst",
+        description: "A corrupted pastry core that amplifies reality distortion",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8000,
+        icon: '🍩',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Increases damage by 50% in the Void",
+        "Causes nearby enemies to lose 10% of their HP when hit",
+        "Triggers reality rifts upon activation, creating temporary safe zones",
+        "May cause the wielder to lose 1 HP per second in the Void",
+        "Requires attunement by a high level spellcaster",
+        "Shipped by: Goomba Ground Delivery"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 10
+    },
+    'mushroom_kingdom_pipe_tap_crimson': {
+        id: 'mushroom_kingdom_pipe_tap_crimson',
+        name: "Crimson Pipe Tap",
+        description: "A leaking pipe valve that releases magical vapor",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 500,
+        icon: '🚿',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Releases 1d6 arcane damage when triggered",
+        "Allows the user to breathe underwater for 10 seconds",
+        "Causes a 20% chance to trigger a pipe burst, damaging nearby enemies",
+        "May cause minor hallucinations from overuse",
+        "Can be used as a distraction during combat",
+        "Crafted by: King of Tombs"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 3
+    },
+    'mushroom_kingdom_void_touched_amulet': {
+        id: 'mushroom_kingdom_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A cursed amulet that resonates with the cosmic abyss",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🌌',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants immunity to all non-magical damage",
+        "Draws Void energy for 3 turns, increasing damage by 30%",
+        "Causes the wearer to see glimpses of the Doughnut Hole",
+        "May trigger a reality collapse if worn for too long",
+        "Requires attunement by a divine spellcaster",
+        "Shipped by: Goomba Ground Delivery",
+        "Faction influence: King of Tombs",
+        "Connected to: The Doughnut Hole - Cosmic abyss, central void, existential dread, unknown entities"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 15
+    },
+
+    // Teyvat [16:49:14]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Cosmic Jesters"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'teyvat_garlic_golem_heart': {
+        id: 'teyvat_garlic_golem_heart',
+        name: "Garlic Golem Heart",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🍃',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 100 HP when consumed",
+        "Grants 20% increased damage against undead foes",
+        "Causes temporary garlic allergy in enemies (they scream for 3 turns)",
+        "Only usable by characters with a Wario Land connection",
+        "Scent of garlic spreads for 2 turns, reducing enemy stealth",
+        "Crafted by: Lakitu Drones"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 3
+    },
+    'teyvat_diamond_city_key': {
+        id: 'teyvat_diamond_city_key',
+        name: "Diamond City Key",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 7500,
+        icon: '💎',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Opens hidden vaults in Diamond City",
+        "Grants 10% chance to find rare loot when used",
+        "Triggers viral infection if used in a public space (enemy vision holders gain temporary power)",
+        "Requires a vision holder to activate",
+        "Can be used as a keyring item",
+        "Created by: Cosmic Jesters in collaboration with the Koopa Navy"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 8
+    },
+    'teyvat_ink_jam_bomb': {
+        id: 'teyvat_ink_jam_bomb',
+        name: "Ink Jam Bomb",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 3000,
+        icon: '🖋',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Explodes on impact, dealing 6d4 damage",
+        "Destroys ink-based enemy vision holders instantly",
+        "Triggers a temporary inkstorm that confuses all enemies for 1 turn",
+        "Causes 25% chance to infect the user with ink-based hallucinations",
+        "Requires a Wario Land connection to activate properly",
+        "Crafted by: Lakitu Drones after Admiral Bloopers’ ink-jamming tactics"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 6
+    },
+
+    // The Doughnut Hole [16:49:23]
+    'doughnut_hole_crystal_blade': {
+        id: 'doughnut_hole_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Onyx Hand"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'doughnut_hole_sugar_scarf': {
+        id: 'doughnut_hole_sugar_scarf',
+        name: "Sugar Scarf of the LEclaire Isle",
+        description: "A woven garment that channels sugary magic from the pastries of the living isle",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍞',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to all pastry related skill checks",
+        "When worn in the presence of dough folk increases their loyalty by 10%",
+        "Causes minor sugar rush effect (1d4 HP gain at start of turn)",
+        "Wears off after 12 hours of non-use",
+        "Crafted by: LEclaire Isle Bakers Guild",
+        "Can only be worn by those with a fondness for baked goods"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 4
+    },
+    'doughnut_hole_void_touched_amulet': {
+        id: 'doughnut_hole_void_touched_amulet',
+        name: "Void Touched Amulet of the Forgotten Oven",
+        description: "An amulet forged in the heart of the abyss, humming with cosmic hunger",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8500,
+        icon: '🌌',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Absorbs 1d4 damage from void entities and converts it to arcane energy",
+        "Grants immunity to fear effects for 1 round per use",
+        "Causes minor psychic drain on the wearer (−1 to all rolls for 1 round after use)",
+        "If used in proximity to the Star Road, triggers an unstable energy surge",
+        "Crafted by: Void Drifter Relay",
+        "Requires attunement by a cosmic mage"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 7
+    },
+    'doughnut_hole_coral_fleet_key': {
+        id: 'doughnut_hole_coral_fleet_key',
+        name: "Coral Fleet Key to the Abyssal Biscuit",
+        description: "A key that unlocks a hidden chamber within the abyssal core, guarded by a sentient cookie",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 7000,
+        icon: '🍪',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Opens the Abyssal Biscuit Chamber (contains 1000 cookies of varying magical potency)",
+        "Grants +3 to all diplomacy rolls with the Coral Fleet",
+        "If used in a non-void environment, causes temporary hallucinations of sugar rivers",
+        "One use per day",
+        "Crafted by: Noki Elders",
+        "Can only be used with a valid Coral Fleet token (not included)"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 10
+    },
+
+    // Almost at the Edge [16:49:32]
+    'almost_edge_crystal_blade': {
+        id: 'almost_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'almost_edge_void_touched_amulet': {
+        id: 'almost_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic that echoes the edge of reality",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 1d4 extra movement when near the edge",
+        "Causes minor reality distortion around wearer",
+        "If dropped in the void space between dimensions it reappears in Shadowfell",
+        "Can be used to summon a shadow echo for 1 round",
+        "Requires attunement by a vampire or spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 6
+    },
+    'almost_edge_onyx_hand_key': {
+        id: 'almost_edge_onyx_hand_key',
+        name: "Onyx Hand Key",
+        description: "A key that opens the door to a darker truth",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🔑',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants access to a secret vault in the Shadowfell",
+        "Can be used to unlock any Onyx Hand vault or safe",
+        "Each use drains 100 soul points from the wielder",
+        "Causes temporary hallucinations of lost memories",
+        "Only usable by those with a bloodline tied to the Shadowfell",
+        "Crafted by: Goomba Ground Delivery"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 3
+    },
+    'almost_edge_fawful_fury_torch': {
+        id: 'almost_edge_fawful_fury_torch',
+        name: "Fawful Fury Torch",
+        description: "A torch that burns with mechanical rage",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 3000,
+        icon: '⚡',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals 3d8 damage to mechanical enemies",
+        "Causes 1d6 bonus damage when used in the presence of Fawful",
+        "Burns for 3 rounds after use",
+        "Increases chance of triggering a mechanical glitch in nearby objects",
+        "If used in the Shadowfell it can summon a mechanical shadow clone",
+        "Crafted by: Asgard with Fawful’s leftover parts"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 7
+    },
+    'almost_edge_soul_trade_satchel': {
+        id: 'almost_edge_soul_trade_satchel',
+        name: "Soul Trade Satchel",
+        description: "A satchel that holds the weight of a bargain",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '💰',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Allows trade of 1 soul for 10 gold coins or vice versa",
+        "Can be used to trade with the Onyx Hand or Fawful’s minions",
+        "Each trade causes a minor reality tear",
+        "If used in the Shadowfell it can temporarily grant immunity to soul loss",
+        "Can be used to trade a soul for a mechanical item from Fawful’s stash",
+        "Crafted by: Goomba Ground Delivery with Asgard’s blessing"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 8
+    },
+
+    // The Internet [16:49:40]
+    'internet_crystal_blade': {
+        id: 'internet_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pony Nobility"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'internet_data_stream_ribbon': {
+        id: 'internet_data_stream_ribbon',
+        name: "Data Stream Ribbon",
+        description: "A glowing digital tapestry woven from viral memes and forgotten logs",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '📡',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary invisibility in data streams",
+        "Increases chance to find hidden memes in enemy loot",
+        "Causes minor glitching when used in combat",
+        "May trigger accidental meme spams if worn too long",
+        "Crafted by: Pipe Express",
+        "Connects to Dream Land via meme resonance"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 4
+    },
+    'internet_scam_soul_satchel': {
+        id: 'internet_scam_soul_satchel',
+        name: "Soul Satchel of Infinite Clicks",
+        description: "A cursed digital pouch that promises eternal scrolling",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 75000,
+        icon: '💀',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 1000000 clicks per use (useless unless you’re a mouse)",
+        "Triggers a 50% chance to cause digital coma",
+        "Consumes 1000000 clicks per use (infinite click paradox)",
+        "Unlocks secret level in The Internet’s hidden servers",
+        "Causes user to forget their last password",
+        "Crafted by: Kamek’s Digital Guild",
+        "WARNING: This item is a scam. It does not work. It only exists to make you believe you are winning."
+        ],
+        vendor: 'internet',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 8
+    },
+    'internet_eldritch_puffball_key': {
+        id: 'internet_eldritch_puffball_key',
+        name: "Eldritch Puffball Key",
+        description: "A soft, sentient puffball with a keyhole in its core",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🍽',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Opens hidden doors in Nightmare Dimensions",
+        "Triggers food obsession in nearby enemies",
+        "Grants 1d4 extra hunger points when used",
+        "Causes minor hallucinations when used in the Dream Land",
+        "Can be fused with other items for “Meme Fusion” effect",
+        "Crafted by: Pony Nobility",
+        "Connects to both The Internet and Dream Land through shared meme resonance"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 6
+    },
+
+    // L'Eclaire Isle [16:49:57]
+    'leclaire_isle_crystal_blade': {
+        id: 'leclaire_isle_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Servants Cosmic"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'leclaire_isle_bakery_blessing': {
+        id: 'leclaire_isle_bakery_blessing',
+        name: "Doughbound Blessing",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 450,
+        icon: '🍞',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 10 HP and 10 MP when consumed",
+        "Causes temporary sugar rush: +2 attack speed for 3 turns",
+        "Consuming more than one in a row triggers a 10% chance to cause a sugar-induced burst of arcane damage",
+        "Made from the last batch of the Grand Meringue Bakery",
+        "Brought to you by the Chain Chomp Courier"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 3
+    },
+    'leclaire_isle_fungal_ether': {
+        id: 'leclaire_isle_fungal_ether',
+        name: "Fungi Veil Infusion",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🍄',
+        stock: 8,
+        rarity: 'rare',
+        effects: [
+            "Absorbs 2d4 poison damage",
+        "Enhances stealth by 50% for 2 rounds",
+        "When used in conjunction with a pipe weapon, increases fire damage by 30%",
+        "Contains residue from the Princess of Fungi’s final ritual",
+        "Crafted by Servants Cosmic using the Fungi Civil War’s last remaining pipe",
+        "Only usable in mushroom-infested zones"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 6
+    },
+    'leclaire_isle_fire_flower_core': {
+        id: 'leclaire_isle_fire_flower_core',
+        name: "Volcanic Bloom Core",
+        description: "",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 7500,
+        icon: '🌶',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants +100% damage to all fire based attacks",
+        "Causes explosive mutations on enemies: 1d6 damage and 20% chance to shatter their defenses",
+        "Consuming this item increases the player’s mutation risk by 30%",
+        "Only usable with the new Fire Flower strain",
+        "Shipped via Chain Chomp Courier to the Valley of Bowser",
+        "Created from the heart of the Primordial Wyrm’s breach",
+        "Fused with the last remaining Fungi pipe and a sugar-fueled ritual"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 8
+    },
+    'leclaire_isle_mushroom_key': {
+        id: 'leclaire_isle_mushroom_key',
+        name: "Mushroom Kingdom Key",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🍄',
+        stock: 5,
+        rarity: 'legendary',
+        effects: [
+            "Opens all sealed doors in the Mushroom Kingdom",
+        "Grants temporary immunity to magical drugs",
+        "Each use causes a 10% chance to trigger a wild mushroom hallucination",
+        "Only usable by those who have been to the Valley of Bowser",
+        "Crafted with the last remnants of the Fungi Civil War’s assassinated princess’s amulet",
+        "Shipped by Chain Chomp Courier under strict Servants Cosmic oversight",
+        "Activates when the Wyrm’s seal is broken",
+        "Grants +50% damage to enemies with fungal traits",
+        "Only one key exists"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 10
+    },
+    'leclaire_isle_sugar_tongue': {
+        id: 'leclaire_isle_sugar_tongue',
+        name: "Sugar Tongue of the Meringue Mage",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🍯',
+        stock: 6,
+        rarity: 'rare',
+        effects: [
+            "Grants +10% chance to crit on all attacks",
+        "Causes enemies to take 1d4 damage from sugar-induced confusion",
+        "Consuming the item triggers a 20% chance to cause a temporary explosion of sugary magic",
+        "Only usable with the Fire Flower strain",
+        "Created from the last batch of the Meringue Mage’s secret recipe",
+        "Shipped by Chain Chomp Courier with a note: “Do not eat while fighting”",
+        "Crafted by Servants Cosmic using enchanted sugar and a cursed pipe",
+        "Grants immunity to magical drugs for 3 turns after use"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 7
+    },
+    'leclaire_isle_mushroom_bomb': {
+        id: 'leclaire_isle_mushroom_bomb',
+        name: "Fungal Bomb of the Fungi Queen",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 600,
+        icon: '🍄',
+        stock: 4,
+        rarity: 'uncommon',
+        effects: [
+            "Detonates on contact, dealing 2d6 fire damage",
+        "Causes 10% chance to trigger a mushroom cloud that confuses nearby enemies",
+        "Consuming more than one in a row causes a 20% chance to trigger a sugar-induced hallucination",
+        "Made from the last remaining pipe of the Fungi Civil War",
+        "Shipped by Chain Chomp Courier to the Valley of Bowser",
+        "Grants +20% damage to all fire based attacks",
+        "Only usable in mushroom-infested zones",
+        "Created by the Fungi Queen’s last remaining apprentice"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 4
+    },
+    'leclaire_isle_mushroom_torch': {
+        id: 'leclaire_isle_mushroom_torch',
+        name: "Fungi Torch of the Fungi Queen",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2000,
+        icon: '🍄',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants +10% damage to all fire based attacks",
+        "Causes 10% chance to trigger a mushroom cloud that confuses nearby enemies",
+        "Consuming more than one in a row causes a 20% chance to trigger a sugar-induced hallucination",
+        "Made from the last remaining pipe of the Fungi Civil War",
+        "Shipped by Chain Chomp Courier to the Valley of Bowser",
+        "Grants +20% damage to all fire based attacks",
+        "Only usable in mushroom-infested zones",
+        "Created by the Fungi Queen’s last remaining apprentice"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 6
+    },
+    'leclaire_isle_mushroom_sword': {
+        id: 'leclaire_isle_mushroom_sword',
+        name: "Fungi Sword of the Fungi Queen",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🍄',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Deals 2d6 fire damage",
+        "Causes 10% chance to trigger a mushroom cloud that confuses nearby enemies",
+        "Consuming more than one in a row causes a 20% chance to trigger a sugar-induced hallucination",
+        "Made from the last remaining pipe of the Fungi Civil War",
+        "Shipped by Chain Chomp Courier to the Valley of Bowser",
+        "Grants +20% damage to all fire based attacks",
+        "Only usable in mushroom-infested zones",
+        "Created by the Fungi Queen’s last remaining apprentice"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 8
+    },
+
+    // The Edge [16:50:05]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Abyssal Court"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 5
+    },
+    'the_edge_gear_of_chaos': {
+        id: 'the_edge_gear_of_chaos',
+        name: "Gear of Chaos",
+        description: "A relic of entropy that unravels logic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +1 to all skill checks against logic or order based enemies",
+        "Roll 1d6 at the start of combat; if 1 or 2, enemy’s next attack is randomized",
+        "Causes minor disorientation to allies within 5 feet",
+        "Can be attuned to a member of the Cosmic Jester cult",
+        "Crafted by: Bob-omb Rush Delivery",
+        "Only usable in void zones or glitchy dimensions"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 6
+    },
+    'the_edge_halopod_tether': {
+        id: 'the_edge_halopod_tether',
+        name: "Halopod Tether",
+        description: "A connection device for students of Kivotos",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🎓',
+        stock: 8,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to initiative rolls when in proximity to other students",
+        "Automatically triggers when within 10 feet of a student with a halo",
+        "If used in a non-void space, triggers a 10% chance of a minor glitch",
+        "Cannot be used in Gehenna Academy’s main halls",
+        "Crafted by: Bob-omb Rush Delivery",
+        "Connects to Kivotos’ internal network for temporary teleportation"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 4
+    },
+    'the_edge_void_drifter_satchel': {
+        id: 'the_edge_void_drifter_satchel',
+        name: "Void Drifter Satchel",
+        description: "A bag that stores voids and glitches",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Stores up to 3 void fragments that can be used to trigger area effects",
+        "Each fragment grants +2 to all damage rolls for 1 round",
+        "When opened in a glitch zone, triggers a 1d4 random effect",
+        "Cannot be used in non-glitch zones without penalty",
+        "Requires attunement by a Void Drifter or member of the Cosmic Jester cult",
+        "Crafted by: Abyssal Court",
+        "Only usable by characters with Void Drifter heritage or affiliation"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 7
+    },
+
+    // Middle-earth [16:50:15]
+    'middle_earth_crystal_blade': {
+        id: 'middle_earth_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Chaos Dwarfs"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'middle_earth_tidecaller_helm': {
+        id: 'middle_earth_tidecaller_helm',
+        name: "Tidecaller Helm",
+        description: "A helm that whispers the tides of the sea",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3200,
+        icon: '🌊',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 to all saves against water-based attacks",
+        "Increases movement speed by 10% in water or submerged terrain",
+        "Causes 1d4 acid damage to enemies when worn in combat",
+        "Triggers “Tide Surge” on successful attack: deals 1d6 extra damage to targets in adjacent squares",
+        "Worn by: Lothlórien Sea-Keepers"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 6
+    },
+    'middle_earth_inkopolis_ink_sting': {
+        id: 'middle_earth_inkopolis_ink_sting',
+        name: "Inkopolis Ink Sting",
+        description: "A quill weapon that splashes ink upon strike",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 750,
+        icon: '🖋',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Deals 1d4 damage on hit",
+        "Inflicts “Ink Slick” debuff: targets lose 1d4 AC for 1 round",
+        "Each hit applies 1 ink mark to target’s gear or body",
+        "Marks can be used to activate Inkopolis Ink Blight – deals 2d4 damage if target is in ink-marked area",
+        "Crafted by: The Quill Syndicate of Inkopolis"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 3
+    },
+    'middle_earth_fire_flower_core': {
+        id: 'middle_earth_fire_flower_core',
+        name: "Fire Flower Core",
+        description: "A mutated core from the new fire flower strain",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 12000,
+        icon: '🔥',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Can be infused into any weapon to grant explosive damage on critical hit",
+        "Causes 3d6 fire damage on first hit with weapon",
+        "Triggering the core causes temporary mutations to the wielder: +1d4 damage, -10% stamina regeneration, +10% fire resistance",
+        "Must be kept in a sealed crystal vial or else it explodes on contact with water",
+        "Origin: Raventree Manor’s Shadowfell Mutation Lab",
+        "Wielder must be a fire mage or mutant cultivator to activate"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 8
+    },
+    'middle_earth_rakasha_spirit_walk': {
+        id: 'middle_earth_rakasha_spirit_walk',
+        name: "Rakasha Spirit Walk",
+        description: "A spirit-infused walking stick that guides through realms",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1800,
+        icon: '🌀',
+        stock: 4,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to all perception checks against spirit or shadow entities",
+        "When activated, allows 1d4 extra movement in Shadowfell or Feywild terrain",
+        "Consumes 1 charge per use; recharges after 30 minutes of inactivity",
+        "If used near a portal, may trigger “Spirit Echo” – deals 1d6 damage to nearby enemies",
+        "Shipped by: Rakasha Spirit Walk",
+        "Worn by: Shadowfell Scouts of the Broken Grove"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 4
+    },
+
+    // Teyvat [16:50:23]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'teyvat_soulbound_satchel': {
+        id: 'teyvat_soulbound_satchel',
+        name: "Soulbound Satchel",
+        description: "A satchel that holds the echoes of forgotten souls",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🧭',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Stores 3 soul fragments for use in spellcasting",
+        "Increases spellcasting speed by 10% while carrying",
+        "Each soul fragment grants 10% bonus to elemental resistance",
+        "If opened during a vision holder event, triggers a random elemental reaction",
+        "Crafted by: Shy Guy Smugglers"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 3
+    },
+    'teyvat_cursed_treasure_box': {
+        id: 'teyvat_cursed_treasure_box',
+        name: "Cursed Treasure Box",
+        description: "A box that promises riches but delivers curses",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 8000,
+        icon: '💀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens to reveal 5 random items from Teyvat or Faerûn",
+        "Each item has a 50% chance to be cursed or beneficial",
+        "If opened during a Boos event, triggers a 100% chance to summon a vampire",
+        "Contains a hidden trap that activates if the box is opened by a non-vampire",
+        "Cursed by: The Onyx Hand",
+        "Unlocks during: Teyvat’s Nightfall Festival"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 7
+    },
+    'teyvat_elemental_tome': {
+        id: 'teyvat_elemental_tome',
+        name: "Elemental Tome of the Void",
+        description: "A book that binds elemental forces into a single volume",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 35000,
+        icon: '📜',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants elemental mastery to all archon related quests",
+        "When used in a reaction, grants a 3d6 bonus to damage",
+        "Requires a vision holder to activate",
+        "Consumes 100 mana per use",
+        "Can be fused with any elemental artifact to enhance its power",
+        "Only available through: Asgard’s Arcane Vault",
+        "Contains hidden glyph that rewrites the rules of magic in Teyvat",
+        "Connects both worlds: Teyvat’s magic and Faerûn’s arcane traditions merge here"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 10
+    },
+
+    // Hyrule [16:50:31]
+    'hyrule_ancient_arrow': {
+        id: 'hyrule_ancient_arrow',
+        name: "Ancient Arrow",
+        description: "An arrow infused with Sheikah technology",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Wario Inc"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'hyrule_garlic_touched_glove': {
+        id: 'hyrule_garlic_touched_glove',
+        name: "Garlic Touched Glove",
+        description: "A pair of gloves infused with Wario’s fermented garlic essence and stolen magic from the Star Road",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🧄',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "+10% attack speed when equipped",
+        "5% chance to stun enemies for 2 turns on hit",
+        "Inflicts 1d4 garlic damage on nonmagical targets",
+        "Wears off after 30 minutes of inactivity",
+        "Crafted by: Kremling Smuggle Run",
+        "Bonus: Wario’s signature grin effect – triggers when used in combat"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 4
+    },
+    'hyrule_void_touched_amulet': {
+        id: 'hyrule_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic from the Star Road’s collapsed gate, now imbued with fractured reality",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Reduces all enemy spell resistance by 25%",
+        "Grants 2d4 extra damage to dark magic spells",
+        "20% chance to teleport user 10 meters forward on cast",
+        "If used during a Wario Land event, triggers garlic surge aura",
+        "Can only be used once per session",
+        "Requires attunement by a dark mage"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 8
+    },
+    'hyrule_koopa_bank_gold_coins': {
+        id: 'hyrule_koopa_bank_gold_coins',
+        name: "Koopa Bank Gold Coins",
+        description: "Stolen gold from the collapsed Koopa Banking Tower, now cursed with anti-hero energy",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '💰',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Restores 10 HP when used",
+        "Grants +20% bonus damage from Wario’s attacks",
+        "10% chance to trigger a “Wario Greed” effect – increases damage for next 3 turns",
+        "Wears off after 10 minutes of inactivity",
+        "Cannot be used during sacred temple rituals",
+        "Crafted by: Wario Inc – “The Greed Vault” branch"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 2
+    },
+
+    // Faerûn [16:50:39]
+    'faerun_staff_of_wild_magic': {
+        id: 'faerun_staff_of_wild_magic',
+        name: "Staff of Wild Magic",
+        description: "A twisted oak staff crackling with chaotic energy",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Moonfang Pack",
+        "Surge may cause unintended spell effects",
+        "Can destabilize magical constructs nearby"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 5
+    },
+    'faerun_mushroom_core_amulet': {
+        id: 'faerun_mushroom_core_amulet',
+        name: "Mushroom Core Amulet",
+        description: "A pulsating fungal gem encased in obsidian, humming with earthbound power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍄',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Grants resistance to poison damage",
+        "Increases movement speed by 10% in fungal terrain",
+        "Triggers hallucinations if worn in daylight",
+        "Absorbs 1d4 fungal toxins per use",
+        "Linked to the Fungi Civil War lineage",
+        "Requires attunement by a Fungi Knight"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 3
+    },
+    'faerun_bullet_bill_express_tube': {
+        id: 'faerun_bullet_bill_express_tube',
+        name: "Bullet Bill Express Tube",
+        description: "A collapsible, pipe-like artifact marked with red and blue streaks",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 600,
+        icon: '🚀',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Can be attached to any surface to create a makeshift teleportation point",
+        "Requires WarioWare activation key to function",
+        "Fails if exposed to Void energy",
+        "Can be used as a grappling hook",
+        "Contains trace amounts of mushroom-infused gas",
+        "Can be used as a distraction tool"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 1
+    },
+    'faerun_void_touched_talisman': {
+        id: 'faerun_void_touched_talisman',
+        name: "Void Touched Talisman",
+        description: "A tarnished silver disc etched with fractured symbols of reality",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 15000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Absorbs ambient magical energy and converts it to raw power",
+        "Reduces the cost of spellcasting by 25%",
+        "Triggers reality distortion when used near the Void",
+        "Causes temporary blindness in the user during activation",
+        "May be destroyed by high frequency sound waves",
+        "Only usable by attuned spellcasters with Void affinity",
+        "Crafted by the Void Watchers of the Midlands"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 10
+    },
+
+    // The Midlands [16:50:46]
+    'midlands_crystal_blade': {
+        id: 'midlands_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Kingdom Gondor"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'midlands_iron_legion_gear': {
+        id: 'midlands_iron_legion_gear',
+        name: "Ironclad Satchel",
+        description: "A rugged pack designed for siege engineers",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '⚙',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Holds 500 lbs of gear or ordnance",
+        "Unlocks hidden compartment for secret codes",
+        "Slightly increases armor bonus when carried",
+        "Fails if exposed to water or fire",
+        "Built by: Iron Legion Foundry",
+        "Slightly dampens magical resonance"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 4
+    },
+    'midlands_earthland_talisman': {
+        id: 'midlands_earthland_talisman',
+        name: "Earthfall Compass",
+        description: "A mapstone that shows the true path to hidden realms",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 3500,
+        icon: '🌍',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Points to nearest real-world landmark or conspiracy site",
+        "50% chance to reveal a hidden portal to the Earth Land",
+        "Disables navigation if used in a non-Earth realm",
+        "Causes minor disorientation in flat-earth zones",
+        "Crafted by: The Cartographer’s Guild of The Midlands",
+        "Only usable once per world shift"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 6
+    },
+    'midlands_entropy_ring': {
+        id: 'midlands_entropy_ring',
+        name: "Entropy Ring",
+        description: "A cursed artifact that erodes time and logic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '⚡',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 3d6 damage against time-based enemies",
+        "Randomly alters the target’s perception of time",
+        "Triggers entropy surge after 3 uses",
+        "Reduces spellcasting efficiency by 20%",
+        "Cannot be used in the same realm as Earth Land",
+        "Created by: Toadburt’s Secret Workshop",
+        "Requires attunement by a scholar or warlock"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 8
+    },
+
+    // The Midlands [16:50:55]
+    'midlands_crystal_blade': {
+        id: 'midlands_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: King of Tombs"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'midlands_tomb_mechanics_key': {
+        id: 'midlands_tomb_mechanics_key',
+        name: "Tomb Mechanics Key",
+        description: "A brass key that opens ancient gears in the King of Tombs vaults",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '⚙',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Opens hidden mechanical traps in enemy fortresses",
+        "Grants +2 to skill checks with lockpicks or machinery",
+        "May trigger a mechanical curse if used improperly",
+        "Found in the belly of the Iron Legions Foundry",
+        "Connected to the Oracle’s necromantic experiments"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 4
+    },
+    'midlands_sacred_trooper_torch': {
+        id: 'midlands_sacred_trooper_torch',
+        name: "Sacred Trooper Torch",
+        description: "A relic from the ancient Temple of the Reincarnate",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🌟',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Illuminates dark corners for 3 rounds",
+        "Grants temporary +1 to Perception checks",
+        "When used in battle, causes nearby allies to feel the Triforce’s pulse",
+        "If used outside of battle, causes a 5% chance to summon a sacred beast",
+        "Thrown into water reveals hidden paths to Hyrule’s lost temples"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 3
+    },
+    'midlands_peasley_foolscap': {
+        id: 'midlands_peasley_foolscap',
+        name: "Peasley Foolscap",
+        description: "A counterfeit artifact from the Peasley Financial Scandal",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🧨',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Appears to grant +10 to all rolls",
+        "Actually causes all rolls to fail unless the user is a Toadette",
+        "Reveals hidden treasure maps when used in water",
+        "If held for 30 seconds, emits a low-frequency scream that drives away undead",
+        "Contains a curse: after 3 uses, the user will be cursed to speak only in coin slang",
+        "Shipped by: Shy Guy Smugglers",
+        "Created by: The Oracle’s last experiment",
+        "Cursed by: Peasley’s own greed and Toadette relief ops"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 7
+    },
+
+    // Dream Land [16:51:02]
+    'dreamland_crystal_blade': {
+        id: 'dreamland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Abyssal Court"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 5
+    },
+    'dreamland_sour_candy_cannon': {
+        id: 'dreamland_sour_candy_cannon',
+        name: "Sour Candy Cannon",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍬',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Fires a burst of sugary energy that deals 3d4 piercing damage",
+        "Targets enemies within 3 meters and leaves them sticky for 1 round",
+        "Each use reduces the user’s candy stash by 100 units",
+        "Requires 30 seconds cooldown",
+        "Made from Dream Land’s abandoned candy factory"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 4
+    },
+    'dreamland_rings_of_mordor_echo': {
+        id: 'dreamland_rings_of_mordor_echo',
+        name: "Rings of Mordor Echo",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '🎭',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants wearer temporary control over dream logic",
+        "Can rewind 10 seconds of time within a 10m radius",
+        "Each use drains 1000 HP from the user",
+        "Can be worn by a non-spellcaster but requires a 2d4 skill check to activate",
+        "Crafted by the Abyssal Court from corrupted Ring of Power fragments",
+        "Connects to Middle Earth’s lore through eldritch echoes"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 6
+    },
+    'dreamland_bob_omb_delivery_satchel': {
+        id: 'dreamland_bob_omb_delivery_satchel',
+        name: "Bob Omb Delivery Satchel",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '📦',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Delivers 2 random items to the nearest enemy or ally (no targeting)",
+        "Item drops are guaranteed to be either useful or absurd",
+        "Can be used once per turn",
+        "Contains a chance to trigger a Bob Omb delivery failure (user becomes temporarily stuck)",
+        "Shipped by Bob-omb Rush Delivery",
+        "Contains a secret message from the Shy Guys union: “We’re not the enemy. We’re the delivery.”"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 2
+    },
+
+    // The Fated Place [16:51:10]
+    'warhammer_crystal_blade': {
+        id: 'warhammer_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Land Mordor"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'warhammer_skull_battle_axe': {
+        id: 'warhammer_skull_battle_axe',
+        name: "Skull Battle Axe",
+        description: "A brutal weapon carved from a fallen god’s skull",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1800,
+        icon: '💀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Deals 3d8 slashing damage",
+        "+1 to attack rolls against undead",
+        "+2 to damage rolls when used in close combat",
+        "Causes 1d4 psychic backlash on hit",
+        "Must be wielded with both hands",
+        "Crafted by: Land Mordor"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 6
+    },
+    'warhammer_doughnut_hole_tether': {
+        id: 'warhammer_doughnut_hole_tether',
+        name: "Doughnut Hole Tether",
+        description: "A cursed artifact that binds the user to the cosmic void",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 7500,
+        icon: '🍩',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 1d6 psychic damage per turn when in the Doughnut Hole",
+        "Increases movement speed by 50% within the Void",
+        "Causes 1d6 psychic damage if left unattended for 30 minutes",
+        "Draws random entities from the Void into the user’s vicinity",
+        "Requires attunement by a priest of the Void",
+        "Crafted by: Chain Chomp Courier"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 8
+    },
+    'warhammer_skaven_gear_crate': {
+        id: 'warhammer_skaven_gear_crate',
+        name: "Skaven Gear Crate",
+        description: "A crate filled with Skaven war gear and secrets",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🐍',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Opens to reveal 3 random Skaven items",
+        "Includes: miniature catapults, rat-infested armor, or cursed gear",
+        "Each item has a 25% chance to trigger a minor chaos effect",
+        "May trigger a Skaven ambush if opened in public",
+        "Can be opened once per day",
+        "Crafted by: Chain Chomp Courier"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 3
+    },
+
+    // Earth Land [16:51:18]
+    'earth_land_crystal_blade': {
+        id: 'earth_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Team Plasma"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'earth_land_feywild_talisman': {
+        id: 'earth_land_feywild_talisman',
+        name: "Feywild Talisman",
+        description: "A relic from the time loops of the Fey courts",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4200,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants temporary resistance to time loops",
+        "10% chance to disrupt enemy perception during combat",
+        "Causes wearer to hear whispers from trickster spirits",
+        "If used in combat during a time loop, triggers a 30 second rewind",
+        "Must be attuned to a Fey court by a bard or druid",
+        "Crafted by: Koopa Postal with Feywild courier stamps"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+    'earth_land_ice_wall_key': {
+        id: 'earth_land_ice_wall_key',
+        name: "Ice Wall Key",
+        description: "A mundane key with hidden magic",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 180,
+        icon: '❄',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Opens one of Earth Land’s ice walls",
+        "Causes minor frost damage to enemies on entry",
+        "Leaves a faint magical residue that can be used for spellcasting",
+        "Can be enchanted to unlock more doors if combined with other keys",
+        "Found only in the northern ice zones near Delfino",
+        "Crafted by: Koopa Postal from local ice miners"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 2
+    },
+    'earth_land_toad_bow': {
+        id: 'earth_land_toad_bow',
+        name: "Admiral Toad’s Bow",
+        description: "A weapon forged from the surrendered Admiral’s pride",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '🏹',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals 3d8 piercing damage",
+        "Inflicts a 1d6 shock damage on hit if target is below 50% health",
+        "When shot, briefly alters target’s perception of reality (10% chance)",
+        "Requires attunement by a martial artist or diplomat",
+        "Fails if used by Lanky Kongs (due to incompetence)",
+        "Crafted by: Team Plasma with Admiral B. Toad’s final signature"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 10
+    },
+
+    // Valley of Bowser [16:51:27]
+    'valley_bowser_crystal_blade': {
+        id: 'valley_bowser_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Team Rocket"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'valley_bowser_ember_soul_cape': {
+        id: 'valley_bowser_ember_soul_cape',
+        name: "Ember Soul Cape",
+        description: "Woven from the last breath of a primordial wyrm",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🌋',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +2 to all melee attacks",
+        "Absorbs 1d4 fire damage per turn",
+        "Increases fire resistance by 50% for 3 turns",
+        "Causes 1d6 fire damage to enemies on hit",
+        "Unusable in ice terrain",
+        "If worn during a Koopa Navy raid, triggers a 10% chance to summon a wyrm spirit"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 7
+    },
+    'valley_bowser_kremling_smuggle_run': {
+        id: 'valley_bowser_kremling_smuggle_run',
+        name: "Koolaid Kombat Vial",
+        description: "A bottled illusion of victory",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🍹',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Grants temporary invincibility for 1 turn",
+        "Causes 1d4 confusion to enemies",
+        "Visual effect: emits rainbow glow",
+        "May trigger a curse if consumed by non-Koopa",
+        "Disappears after use",
+        "Only effective in non-volcanic zones"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 2
+    },
+    'valley_bowser_earth_land_mystic_ink': {
+        id: 'valley_bowser_earth_land_mystic_ink',
+        name: "Earth Land Inkwell",
+        description: "A vial of dimensional ink from the Flat Earth conspiracy",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1000,
+        icon: '🖋',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Allows inscription of real-world facts onto any surface",
+        "Grants +1 to Perception checks against reality distortions",
+        "Can be used to mark locations on maps for the Koopa Navy",
+        "Causes temporary dizziness if used in volcanic zones",
+        "Cannot be used to write “Peach Loyalists are lying”",
+        "If used during the Ember Summit, may trigger a faction betrayal"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 6
+    },
+    'valley_bowser_bowser_bait': {
+        id: 'valley_bowser_bowser_bait',
+        name: "Bowser Bait",
+        description: "A cursed charm to lure the Primordial Wyrm",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🐉',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Draws the Primordial Wyrm to the nearest lava pit",
+        "Causes 2d8 fire damage to all enemies in range",
+        "Triggers a 50% chance to summon a Koopa Troop siege unit",
+        "Unusable if you are not currently in a volcanic zone",
+        "If the Wyrm is summoned, it grants +5 to all attacks for 1 round",
+        "Consuming this item triggers a 100% chance to be cursed by the Wyrm’s rage — permanently losing all magical abilities until next moon phase"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 10
+    },
+
+    // Sarasaland [16:51:35]
+    'sarasaland_crystal_blade': {
+        id: 'sarasaland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pony Nobility"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'sarasaland_dusty_scepter': {
+        id: 'sarasaland_dusty_scepter',
+        name: "Dusty Scepter of the Fallen Sun",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌅',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to charisma checks during diplomacy",
+        "Inflicts 1d4 psychic damage on hostile creatures",
+        "Wears a faint afterimage of a lost sun",
+        "Can be used as a ceremonial staff in regency parleys",
+        "Requires a noble to wield with honor",
+        "Scent of old sand and forgotten crowns"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 3
+    },
+    'sarasaland_skull_keychain': {
+        id: 'sarasaland_skull_keychain',
+        name: "Skull Keychain of the Fated Place",
+        description: "",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 800,
+        icon: '🦴',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants a 5% chance to uncover hidden paths in Fated Place",
+        "Causes minor paranoia if worn near Skaven",
+        "Slightly increases stealth while moving through desert ruins",
+        "Unlocks secret doors in the Desert of Whispers",
+        "Worn by those who remember the lost war",
+        "Emits a low hum when proximity to chaos gods is detected"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 2
+    },
+    'sarasaland_furry_canteen': {
+        id: 'sarasaland_furry_canteen',
+        name: "Furry Canteen of the Bowserite Nomads",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🍽',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Restores 10 hit points when consumed",
+        "Causes 1d2 nausea if consumed too quickly",
+        "Absorbs 1d3 poison damage per use",
+        "Made from the hide of a once-loyal rat-tamer",
+        "Keeps drink warm for 10 minutes",
+        "Flavor: salty desert wind with a hint of burnt sugar"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 1
+    },
+
+    // The Internet [16:51:42]
+    'internet_crystal_blade': {
+        id: 'internet_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Cosmic Jesters"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'internet_data_stream_satchel': {
+        id: 'internet_data_stream_satchel',
+        name: "Data Stream Satchel",
+        description: "A digital backpack that absorbs and stores meme energy",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '💻',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Stores 1000 memes per use",
+        "Increases speed bonus by 10% when carrying memes",
+        "Meme overload triggers temporary confusion (1d4 rounds)",
+        "Drops 50% of stored memes if used in a haunted zone",
+        "Shipped by: Rakasha Spirit Walk"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 3
+    },
+    'internet_viral_hazard_ward': {
+        id: 'internet_viral_hazard_ward',
+        name: "Viral Hazard Ward",
+        description: "A cursed artifact that protects against data corruption",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🚨',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants immunity to all digital viruses and glitches",
+        "20% chance to trigger a meme apocalypse when used in Teyvat",
+        "Requires a vision holder to activate",
+        "Causes minor reality distortion (1d6% chance to alter map layout)",
+        "Connected to Teyvat’s elemental balance system",
+        "Crafted by: Cosmic Jesters"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 8
+    },
+    'internet_ultimate_scam': {
+        id: 'internet_ultimate_scam',
+        name: "The Ultimate Scam",
+        description: "A mythical artifact that promises to unlock infinite internet access",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 50000,
+        icon: '🎁',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 100% internet access across all dimensions",
+        "100% chance to trigger a full-blown digital collapse",
+        "No effect whatsoever – a scam created by the Void itself",
+        "Appears to be a data stream artifact but is just a holographic decoy",
+        "Requires no attunement, no materials, no crafting",
+        "Shipped by: Rakasha Spirit Walk (as a joke item)",
+        "Lore note: Boos formed this scam to monopolize all haunted properties – it works… only in dreams."
+        ],
+        vendor: 'internet',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 10
+    },
+
+    // Hyrule [16:51:50]
+    'hyrule_ancient_arrow': {
+        id: 'hyrule_ancient_arrow',
+        name: "Ancient Arrow",
+        description: "An arrow infused with Sheikah technology",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Skaven"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'hyrule_l_eclaire_pastry_tether': {
+        id: 'hyrule_l_eclaire_pastry_tether',
+        name: "Sweetened Sorrow Tether",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍞',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 10% chance to heal 1d4 HP when struck by a magical attack",
+        "Consumes 10% of your current stamina per use",
+        "Only usable in proximity to a LEclaire Isle bakery",
+        "Tastes like burnt caramel and regret",
+        "Crafted by: Hammer Bros Handling",
+        "Requires a pastry charm to activate"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+    'hyrule_skaven_mechanical_glove': {
+        id: 'hyrule_skaven_mechanical_glove',
+        name: "Ironclad Guttering Gauntlet",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '⚙',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Increases melee attack speed by 20%",
+        "Deals 1d4 bonus damage to undead foes",
+        "Causes 1d6 temporary paralysis to enemies hit",
+        "Can be used as a shield with 10% block chance",
+        "Made from recycled Hyrulean temple gears",
+        "Crafted by: Skaven"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 6
+    },
+    'hyrule_wario_cursed_sword': {
+        id: 'hyrule_wario_cursed_sword',
+        name: "WarioWare Curseblade",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 75000,
+        icon: '🎮',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Deals 3d8 slashing damage",
+        "Each hit triggers a random WarioWare glitch effect (e.g. enemy invincible for 1 turn, or player gains 50% speed for 2 turns)",
+        "Causes 1d6 psychic damage to the user after 3 uses",
+        "Unlocks a hidden cheat code for the player: “Gimme The Win”",
+        "Requires attunement by a WarioWare Master",
+        "Crafted by: Skaven",
+        "0% chance to work properly",
+        "If used during a battle, the user may become trapped in a loop of WarioWare glitches for 3 turns",
+        "Item is cursed. Do not use near a Hyrulean temple or sacred beast."
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 10
+    },
+
+    // Wario Land [16:51:58]
+    'wario_land_crystal_blade': {
+        id: 'wario_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Mages Guild"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 5
+    },
+    'wario_land_garlic_treasure_map': {
+        id: 'wario_land_garlic_treasure_map',
+        name: "Garlic Treasure Map",
+        description: "A map drawn in ink made from fermented garlic cloves",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🧄',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Reveals hidden loot in Garlic Alley",
+        "Consuming the map causes temporary garlic breath (2d4 range)",
+        "Only usable once per session",
+        "Shipped by: Piranha Plant Post",
+        "Lure: Attracts Wario if he finds it in the dark"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 3
+    },
+    'wario_land_diamond_city_key': {
+        id: 'wario_land_diamond_city_key',
+        name: "Diamond City Key",
+        description: "A metallic key shaped like a cracked diamond",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '💎',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens the vault of the collapsed Koopa Bank",
+        "Grants access to 1000 gold coins when used",
+        "Causes minor tremors if used near the edge of the world",
+        "Requires 10 minutes to activate",
+        "Crafted by: The Mages Guild and Wario’s own garage",
+        "Unlocks: The Forgotten Vault of Diamond City"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 7
+    },
+    'wario_land_doughnut_edge_ring': {
+        id: 'wario_land_doughnut_edge_ring',
+        name: "Doughnut Edge Ring",
+        description: "A ring that pulses with unstable dimensional energy",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🍩',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 100% dodge chance against falling hazards",
+        "Triggers “Doughnut Rift” when used — causes 1d6 damage and a random effect",
+        "Requires attunement by a wizard or Wario",
+        "Shipped by: Piranha Plant Post (special delivery)",
+        "Connects: Almost at the Edge — allows passage through the Doughnut Edge",
+        "Only usable once per session, no refills"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 9
+    },
+
+    // Hyrule [16:52:15]
+    'hyrule_ancient_arrow': {
+        id: 'hyrule_ancient_arrow',
+        name: "Ancient Arrow",
+        description: "An arrow infused with Sheikah technology",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Red Winter"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 5
+    },
+    'hyrule_spectral_satchel': {
+        id: 'hyrule_spectral_satchel',
+        name: "Spectral Satchel",
+        description: "A pouch that stores memories of the lost",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🧠',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Stores up to 5 memory fragments",
+        "Each fragment grants +1 bonus to Perception checks",
+        "Can be drained to reveal a forgotten truth",
+        "Wears out after 10 uses",
+        "Only usable by those who have lost a loved one"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 3
+    },
+    'hyrule_iron_legion_ring': {
+        id: 'hyrule_iron_legion_ring',
+        name: "Entropy Ring",
+        description: "A cursed artifact forged by the Iron Legion",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +3 to all melee attacks",
+        "Causes targets to lose 1 HP per turn when hit",
+        "Activates after 3 consecutive successful attacks",
+        "Grants a 10% chance to trigger a random combat ability",
+        "Requires attunement by a member of the Iron Legion"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 8
+    },
+    'hyrule_animal_nexus_pearl': {
+        id: 'hyrule_animal_nexus_pearl',
+        name: "Animal Nexus Pearl",
+        description: "A sacred gem that binds primal spirits",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '🐉',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Increases the chance of capturing beasts by 20%",
+        "Grants temporary control over one primal creature",
+        "Can be fused with other materials to create hybrid weapons",
+        "Causes minor hallucinations during use",
+        "Must be purified after 3 uses to avoid corruption"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 6
+    },
+    'hyrule_piranha_post_key': {
+        id: 'hyrule_piranha_post_key',
+        name: "Piranha Post Key",
+        description: "A courier’s token for haunted property access",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 750,
+        icon: '📦',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Grants temporary access to all haunted properties",
+        "Allows the user to deliver mail to Boos offices",
+        "Triggers a 1d4 chance of a surprise delivery",
+        "May cause minor tremors in the surrounding area",
+        "Can be used only once per property visit"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 1
+    },
+    'hyrule_triforce_wisp': {
+        id: 'hyrule_triforce_wisp',
+        name: "Triforce Wisp",
+        description: "A living fragment of the Triforce’s power",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🌟',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants the user temporary mastery of all three Triforce powers",
+        "Grants a +5 bonus to all actions when using a Triforce ability",
+        "May cause the user to become temporarily bound to the Triforce’s will",
+        "Can be fused with other items to create a new power",
+        "Only usable once per cycle of reincarnation"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 10
+    },
+    'hyrule_animal_nexus_pearl': {
+        id: 'hyrule_animal_nexus_pearl',
+        name: "Animal Nexus Pearl",
+        description: "A sacred gem that binds primal spirits",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '🐉',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Increases the chance of capturing beasts by 20%",
+        "Grants temporary control over one primal creature",
+        "Can be fused with other materials to create hybrid weapons",
+        "Causes minor hallucinations during use",
+        "Must be purified after 3 uses to avoid corruption"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 6
+    },
+    'hyrule_ancient_arrow': {
+        id: 'hyrule_ancient_arrow',
+        name: "Ancient Arrow",
+        description: "An arrow infused with Sheikah technology",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Red Winter"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 5
+    },
+    'hyrule_spectral_satchel': {
+        id: 'hyrule_spectral_satchel',
+        name: "Spectral Satchel",
+        description: "A pouch that stores memories of the lost",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🧠',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Stores up to 5 memory fragments",
+        "Each fragment grants +1 bonus to Perception checks",
+        "Can be drained to reveal a forgotten truth",
+        "Wears out after 10 uses",
+        "Only usable by those who have lost a loved one"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 3
+    },
+    'hyrule_iron_legion_ring': {
+        id: 'hyrule_iron_legion_ring',
+        name: "Entropy Ring",
+        description: "A cursed artifact forged by the Iron Legion",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +3 to all melee attacks",
+        "Causes targets to lose 1 HP per turn when hit",
+        "Activates after 3 consecutive successful attacks",
+        "Grants a 10% chance to trigger a random combat ability",
+        "Requires attunement by a member of the Iron Legion"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 8
+    },
+    'hyrule_piranha_post_key': {
+        id: 'hyrule_piranha_post_key',
+        name: "Piranha Post Key",
+        description: "A courier’s token for haunted property access",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 750,
+        icon: '📦',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Grants temporary access to all haunted properties",
+        "Allows the user to deliver mail to Boos offices",
+        "Triggers a 1d4 chance of a surprise delivery",
+        "May cause minor tremors in the surrounding area",
+        "Can be used only once per property visit"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 1
+    },
+    'hyrule_triforce_wisp': {
+        id: 'hyrule_triforce_wisp',
+        name: "Triforce Wisp",
+        description: "A living fragment of the Triforce’s power",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🌟',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants the user temporary mastery of all three Triforce powers",
+        "Grants a +5 bonus to all actions when using a Triforce ability",
+        "May cause the user to become temporarily bound to the Triforce’s will",
+        "Can be fused with other items to create a new power",
+        "Only usable once per cycle of reincarnation"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 10
+    },
+
+    // Teyvat [16:52:32]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 5
+    },
+    'teyvat_inkwell_glove': {
+        id: 'teyvat_inkwell_glove',
+        name: "Inkwell Glove",
+        description: "A pair of gloves infused with the essence of inkopolis ink",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🖋',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2d4 ink damage when striking",
+        "Slightly increases ink absorption rate",
+        "Can be used to smudge enemy vision temporarily",
+        "Wears off after 30 minutes of prolonged use",
+        "Designed for ink warfare and fashion shows",
+        "Crafted by: Bullet Bill Express"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 4
+    },
+    'teyvat_echo_talisman': {
+        id: 'teyvat_echo_talisman',
+        name: "Echo Talisman",
+        description: "A relic that amplifies your voice during elemental reactions",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 4500,
+        icon: '🎵',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Boosts elemental reaction damage by 30% during vocal chants",
+        "Allows 10% chance to trigger echo effect after casting",
+        "Voice must be clear and emotionally charged to activate",
+        "Can only be used once per battle",
+        "Requires attunement with a vision holder",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 7
+    },
+    'teyvat_wario_trophy': {
+        id: 'teyvat_wario_trophy',
+        name: "Wario Trophy",
+        description: "A trophy forged from the soul of a defeated archon",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 8000,
+        icon: '🏆',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 1d8 bonus damage to all attacks for 3 rounds",
+        "Consumes 1000 HP per use",
+        "Causes temporary paralysis to enemies with elemental affinity",
+        "Only usable once per battle",
+        "Must be used in conjunction with WarioWare mechanics",
+        "Crafted by: Bullet Bill Express",
+        "Wario himself inscribed it with his signature profit maximizer"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 10
+    },
+    'teyvat_shadowfell_keychain': {
+        id: 'teyvat_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A keychain that unlocks hidden pathways in the shadow realm",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 600,
+        icon: '🔑',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Grants 5% chance to unlock hidden elemental nodes",
+        "Can be used to activate secret gacha triggers",
+        "Only works in shadowed areas or during moon phase",
+        "May cause temporary disorientation if used too often",
+        "Crafted by: Iron Legion",
+        "Contains a piece of inkopolis’ forgotten art"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 2
+    },
+    'teyvat_inkstorm_cloak': {
+        id: 'teyvat_inkstorm_cloak',
+        name: "Inkstorm Cloak",
+        description: "A cloak that shifts color with ink flow",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🌈',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "Reduces elemental reaction cooldown by 20%",
+        "Increases evasion chance by 15% in ink-based environments",
+        "Can absorb ink damage and convert it to bonus HP",
+        "May cause temporary ink splatter on allies",
+        "Crafted by: Bullet Bill Express",
+        "Only usable during ink warfare or fashion shows"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 6
+    },
+    'teyvat_void_touched_amulet': {
+        id: 'teyvat_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A pendant that channels the void’s forgotten power",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🌑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 3d6 void damage on critical hits",
+        "Reduces enemy elemental resistance by 25%",
+        "Causes minor soul drain after 5 seconds",
+        "May trigger vision distortions",
+        "Can only be used once per battle",
+        "Crafted by: Iron Legion",
+        "Contains a fragment of an ancient archon’s soul"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 12
+    },
+    'teyvat_archon_battle_shirt': {
+        id: 'teyvat_archon_battle_shirt',
+        name: "Archon Battle Shirt",
+        description: "A shirt worn by those who dare to challenge the archons",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 10000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 50% damage reduction from elemental attacks",
+        "Increases armor penetration by 10%",
+        "Can be enchanted with inkopolis ink for visual effects",
+        "May cause temporary confusion in enemies",
+        "Requires attunement with a vision holder",
+        "Crafted by: Bullet Bill Express"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 8
+    },
+    'teyvat_metal_soul_belt': {
+        id: 'teyvat_metal_soul_belt',
+        name: "Metal Soul Belt",
+        description: "A belt that channels the essence of forgotten metals",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 5000,
+        icon: '⚙',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants 1d4 bonus damage to metal-based attacks",
+        "Can be used to activate hidden gacha triggers",
+        "Reduces cooldown on elemental reactions",
+        "May cause temporary metallic resonance",
+        "Crafted by: Iron Legion",
+        "Contains a fragment of a lost metal forge"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 7
+    },
+    'teyvat_turbo_squid_torch': {
+        id: 'teyvat_turbo_squid_torch',
+        name: "Turbo Squid Torch",
+        description: "A torch powered by inkopolis’ ink energy",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2000,
+        icon: '🔥',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Deals 1d6 bonus damage to ink-based enemies",
+        "Grants temporary ink absorption",
+        "Can ignite ink-based terrain for 30 seconds",
+        "May cause ink splatter on allies",
+        "Only usable during ink warfare",
+        "Crafted by: Bullet Bill Express",
+        "Designed for inkopolis’ fashion shows"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 4
+    },
+    'teyvat_echo_gear': {
+        id: 'teyvat_echo_gear',
+        name: "Echo Gear",
+        description: "A set of gear that amplifies your voice during elemental reactions",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 7000,
+        icon: '🎵',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Boosts elemental reaction damage by 30% during vocal chants",
+        "Allows 10% chance to trigger echo effect after casting",
+        "Voice must be clear and emotionally charged to activate",
+        "Can only be used once per battle",
+        "Requires attunement with a vision holder",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 8
+    },
+
+    // The Fated Place [16:52:40]
+    'warhammer_crystal_blade': {
+        id: 'warhammer_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Custodians"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'warhammer_skull_rattle': {
+        id: 'warhammer_skull_rattle',
+        name: "Skull Rattle of the Forgotten",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🦴',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "When shaken once per round triggers a 1d4 psychic shock to adjacent enemies",
+        "Causes minor hallucinations for 1 minute after use",
+        "Scent of decay lingers for 3 rounds",
+        "Found in the belly of a cursed rat lord",
+        "Shipped by: Pianta Chuck Express",
+        "Favored by Skaven warlords"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 3
+    },
+    'warhammer_faerun_blessing': {
+        id: 'warhammer_faerun_blessing',
+        name: "Faerûn’s Whispering Ring",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '🪄',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +2d4 to all spellcasting rolls for 10 minutes",
+        "Slightly increases spellcasting speed",
+        "Triggers a minor dimensional rift when used with a dragon’s roar",
+        "Must be worn while casting spells in Faerûn",
+        "Thrown into the Dragon Conspiracy’s sonic traps to disrupt resonance",
+        "Crafted by Custodians from a relic of the last dragonborn king"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 6
+    },
+    'warhammer_waluigi_tome': {
+        id: 'warhammer_waluigi_tome',
+        name: "Waluigi’s Chaotic Codex",
+        description: "",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🎭',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants the user a chaotic aura that increases damage by 50% for 3 rounds",
+        "Causes random magical explosions on target hit",
+        "Unlocks a secret ability: “Laughing Chaos” – rolls a d20 and applies the result to damage",
+        "Requires attunement with a cult of Waluigi",
+        "Shipped by Pianta Chuck Express to the Fated Place",
+        "Fueled by the blood of slain gods and the laughter of a thousand demons",
+        "Crafted by Custodians after the Dragon Conspiracy’s collapse"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 10
+    },
+
+    // The Edge [16:52:48]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Team Rocket"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'the_edge_void_drifter_gear': {
+        id: 'the_edge_void_drifter_gear',
+        name: "Void Drifter Gauntlets",
+        description: "Armor for the edge of reality’s collapse",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +3 to all melee attacks in void zones",
+        "+10% damage against entities with negative health",
+        "Slight chance to cause nearby enemies to glitch on hit",
+        "Wears out after 30 combat uses",
+        "Crafted by: Team Rocket",
+        "Requires attunement by a Void Drifter"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+    'the_edge_doughnut_hole_key': {
+        id: 'the_edge_doughnut_hole_key',
+        name: "Doughnut Hole Keychain",
+        description: "A relic from the central void’s most dangerous anomaly",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1500,
+        icon: '🍩',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 2d4 bonus to all rolls against void entities",
+        "Grants a 10% chance to find a lost soul in the Doughnut Hole",
+        "May cause the user to briefly experience cosmic déjà vu",
+        "If used in the Doughnut Hole, grants temporary teleportation to nearest Void Node",
+        "Crafted by: Warp Whistle Transit",
+        "Can be fused with other materials to create new items"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'the_edge_chain_chomp_gear': {
+        id: 'the_edge_chain_chomp_gear',
+        name: "Chain Chomp Tether",
+        description: "A weaponized chainsaw from the void’s most brutal creatures",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🔪',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals 3d8 slashing damage on hit",
+        "25% chance to trigger a chainsaw burst that deals 2d6 damage to all adjacent enemies",
+        "Requires attunement by a Chain Chomp operator",
+        "When activated, temporarily grants +2 to all melee rolls for 3 rounds",
+        "May cause the user to become temporarily magnetized to void matter",
+        "Crafted by: Team Rocket",
+        "Only usable in the presence of a Chain Chomp entity"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+
+    // The Internet [16:52:56]
+    'internet_crystal_blade': {
+        id: 'internet_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Crimson Fleet"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'internet_meme_haunt_circuit': {
+        id: 'internet_meme_haunt_circuit',
+        name: "Meme Haunt Circuit",
+        description: "A data artifact that pulses with viral nostalgia",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '📱',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary immunity to meme-induced confusion",
+        "Inflicts 1d4 psychic damage on enemies with high meme recognition",
+        "Can be activated via vocal mimicry of viral phrases",
+        "Triggers “Viral Overload” when used near public servers",
+        "Requires at least 2000 hours of meme exposure to activate"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 3
+    },
+    'internet_ice_wall_bolt': {
+        id: 'internet_ice_wall_bolt',
+        name: "Ice Wall Bolt",
+        description: "A frozen artifact from the Flat Earth’s icy border",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '❄',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Can be used to seal cracks in the ice walls of Earth Land",
+        "Inflicts -1d4 cold damage on enemies nearby",
+        "Glows faintly in low light, revealing hidden paths",
+        "Must be stored in a cryo-chamber or risk rapid degradation",
+        "Only usable by those who have witnessed the Flat Earth’s “true” shape"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 4
+    },
+    'internet_star_road_key': {
+        id: 'internet_star_road_key',
+        name: "Star Road Key",
+        description: "A relic from the blocked Star Road, rumored to open hidden portals",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 45000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Unlocks the Star Road’s cryptic gate if held during a full moon",
+        "Grants 100% chance to bypass all known faction checkpoints",
+        "Causes minor data corruption in nearby servers",
+        "Triggers “Memory Echo” when used near Pianta Village",
+        "Must be used in conjunction with a confirmed Envoys’ map fragment",
+        "Only one such key exists; lost after Don Pianta’s bridge cut"
+        ],
+        vendor: 'internet',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 10
+    },
+
+    // The Edge [16:53:04]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Abyssal Court"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'the_edge_void_touched_amulet': {
+        id: 'the_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% chance to dodge attacks in void zones",
+        "Sustains wearer with 500 HP over 10 seconds when in proximity to The Doughnut Hole",
+        "Causes minor reality distortion on hit, reducing enemy accuracy by 10%",
+        "Increases damage output by 15% for spellcasters using void-based abilities",
+        "Disables enemy teleportation for 1 turn if the enemy is within 30 meters",
+        "Requires attunement with a Void Drifter"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 6
+    },
+    'the_edge_dust_of_aegis': {
+        id: 'the_edge_dust_of_aegis',
+        name: "Dust of Aegis",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🧪',
+        stock: 15,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 200 HP and 100 MP",
+        "Grants temporary immunity to psychic damage for 10 seconds",
+        "Reduces all damage taken by 10% for 15 seconds",
+        "Causes minor glitch in nearby enemies for 2 seconds (visual distortion only)",
+        "Can be consumed only once per combat encounter",
+        "Requires attunement with a Toad (Aegis Prison Break survivor)"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+    'the_edge_glitch_core': {
+        id: 'the_edge_glitch_core',
+        name: "Glitch Core",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 12000,
+        icon: '⚙',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Can be used to repair or upgrade void-infused equipment",
+        "Increases all damage output by 20% for 5 seconds upon activation",
+        "Triggers random glitches in enemies, causing them to teleport or explode for 3 seconds",
+        "Grants 10% chance to activate a “Reality Warp” ability, allowing the user to briefly phase through solid objects",
+        "Consumes 1000 HP when activated",
+        "Can be combined with Void Touched Amulet to create a “Glitch Void” effect"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+
+    // L'Eclaire Isle [16:53:12]
+    'leclaire_isle_crystal_blade': {
+        id: 'leclaire_isle_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Custodians"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'leclaire_isle_sugar_spear': {
+        id: 'leclaire_isle_sugar_spear',
+        name: "Sugar Spear of the Doughbound",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 600,
+        icon: '🍞',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Pierces armor with a sweetened strike",
+        "10% chance to make enemies crave dessert",
+        "Consumes 1 sugar cube per use",
+        "Can be enchanted with honeycomb charm",
+        "Made from fermented pastry dough",
+        "Causes minor nausea to non doughfolk"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 3
+    },
+    'leclaire_isle_custodian_satchel': {
+        id: 'leclaire_isle_custodian_satchel',
+        name: "Custodian Satchel of the Unspoken Pact",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1800,
+        icon: '📦',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Stores 500 tokens of magical currency",
+        "Unlocks hidden passages in enchanted bakeries",
+        "Glows softly when magic is nearby",
+        "Contains a hidden compartment for secret recipes",
+        "Must be sealed with a pastry seal to activate",
+        "Contains a whispering recipe book that mutters nonsense"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 6
+    },
+    'leclaire_isle_toadette_lure': {
+        id: 'leclaire_isle_toadette_lure',
+        name: "Toadette Lure of the Peasley Scandal",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 5000,
+        icon: '🐸',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Costs 1000 Beanbean coins to activate",
+        "Triggers a 30 second illusion of a Toadette party",
+        "Causes all enemies to temporarily forget their own names",
+        "Reveals hidden treasure locations tied to the scandal",
+        "Also causes the caster to speak in a high pitched voice",
+        "Contains a cursed token that will never pay off",
+        "Must be used in a bakery with a working oven",
+        "Only works if the user is a spellcaster or baker",
+        "Guaranteed to make the user feel like they’re in a sugar coma"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 8
+    },
+
+    // The Shadowfell [16:53:20]
+    'shadowfell_cloak_of_whispers': {
+        id: 'shadowfell_cloak_of_whispers',
+        name: "Cloak of Whispers",
+        description: "A tattered cloak that absorbs light and sound",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'shadowfell_soul_siphon_harness': {
+        id: 'shadowfell_soul_siphon_harness',
+        name: "Soul Siphon Harness",
+        description: "A dark leather harness that drains life essence from nearby creatures",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🩸',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Siphons 1d4 HP from enemies within 30 feet",
+        "Grants +2 to stealth checks while wearing",
+        "Causes 1d4 temporary damage to wearer after 30 seconds of use",
+        "Can be used only once per session",
+        "Requires attunement by a vampire or necromancer",
+        "Crafted by: Onyx Hand"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 6
+    },
+    'shadowfell_dream_satchel': {
+        id: 'shadowfell_dream_satchel',
+        name: "Dream Satchel",
+        description: "A bag that stores fragments of nightmare visions",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🌑',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Consuming one fragment reveals a random dream horror",
+        "Can store up to 3 dream fragments",
+        "Triggers nightmare hallucinations for 1d4 rounds",
+        "Can be used to summon a creature from a nightmare dimension",
+        "Requires attunement by a dreamer or delirious mage",
+        "Crafted by: Cheep Cheep Shipping"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 4
+    },
+    'shadowfell_void_touched_amulet': {
+        id: 'shadowfell_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A pulsating amulet that channels the essence of forgotten dimensions",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +3 to perception checks against eldritch horrors",
+        "Allows the wearer to see through the veil between dimensions",
+        "Causes 1d6 temporary blindness after 10 minutes of use",
+        "Can teleport wearer to any known location within 1000 feet",
+        "Requires attunement by a scholar or void-wanderer",
+        "Crafted by: Remi Coil’s Dimensional Workshop"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 7
+    },
+
+    // Sarasaland [16:53:28]
+    'sarasaland_crystal_blade': {
+        id: 'sarasaland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Kremling Krew"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'sarasaland_shadowfell_keychain': {
+        id: 'sarasaland_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A tiny artifact that whispers secrets of the mirror realm",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 1200,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% chance to see a fleeting glimpse of the Shadowfell when used",
+        "Each use risks a brief hallucinatory nightmare",
+        "Can be used to unlock hidden passages in the desert ruins",
+        "Emits faint glow in darkness",
+        "Worn by the Onyx Hand to track soul traders",
+        "Carved by: Remi Coil’s shadow workshop"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 4
+    },
+    'sarasaland_desert_soul_torch': {
+        id: 'sarasaland_desert_soul_torch',
+        name: "Desert Soul Torch",
+        description: "A beacon of primal desert magic, burning with the essence of forgotten spirits",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 400,
+        icon: '🌞',
+        stock: 8,
+        rarity: 'uncommon',
+        effects: [
+            "Illuminates area for 30 seconds with a golden aura",
+        "Deals 1d4 radiant damage to undead",
+        "Slightly increases speed while running",
+        "Burns out after 10 uses",
+        "Causes minor hallucinations if used in moonlight",
+        "Forged from the bones of a lost desert cult"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'sarasaland_onyx_hand_gloves': {
+        id: 'sarasaland_onyx_hand_gloves',
+        name: "Onyx Hand Gloves",
+        description: "Fitted with enchanted fingers that bend reality to the wearer’s will",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '👁',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 2d6 dark damage against enemies with high stealth",
+        "Grants invisibility for 5 seconds per use",
+        "Costs 100 gold to activate each time",
+        "Increases damage against shadow creatures by 50%",
+        "Causes a 10% chance to trigger a soul-siphon event",
+        "Crafted by the Onyx Hand’s inner circle",
+        "Worn only by elite vampire enforcers"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 6
+    },
+
+    // The Fated Place [16:53:35]
+    'warhammer_crystal_blade': {
+        id: 'warhammer_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 5
+    },
+    'warhammer_shadowfell_keychain': {
+        id: 'warhammer_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A token of the Dark Mirror Realm",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary invisibility in shadowed areas",
+        "Triggers psychic backlash if used near living minds",
+        "Reveals hidden paths in the Shadowfell",
+        "Can be used to unlock cursed doors",
+        "Causes minor hallucinations after 30 minutes of use",
+        "Crafted by: Mages Guild Portal"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 3
+    },
+    'warhammer_onyx_hand_ring': {
+        id: 'warhammer_onyx_hand_ring',
+        name: "Onyx Hand Ring",
+        description: "A cursed ring of the vampire lords",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 6000,
+        icon: '🩸',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +2 to all damage rolls against undead",
+        "Consumes 1 soul per use to activate",
+        "Causes 1d4 temporary blindness to enemies",
+        "Increases vampiric regeneration by 10%",
+        "If worn too long causes mental corruption",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 7
+    },
+    'warhammer_primordial_wyrm_seal': {
+        id: 'warhammer_primordial_wyrm_seal',
+        name: "Primordial Wyrm Seal",
+        description: "A relic from the war beneath Valley of Bowser",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 35000,
+        icon: '🧱',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Activates when placed on a seal of the Primordial Wyrm",
+        "Grants immunity to all magic effects for 10 minutes",
+        "Can be used to open the Wyrm’s core chamber",
+        "Requires 5 souls to activate",
+        "Causes 2d6 psychic trauma to the wielder",
+        "Crafted by: Mages Guild Portal with Skaven assistance"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 10
+    },
+
+    // Pokémon Regions [16:53:43]
+    'pokemon_master_ball_shard': {
+        id: 'pokemon_master_ball_shard',
+        name: "Master Ball Shard",
+        description: "A fragment of the legendary capture device",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Crimson Fleet"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'pokemon_teyvat_echo_bottle': {
+        id: 'pokemon_teyvat_echo_bottle',
+        name: "Teyvat Echo Bottle",
+        description: "A vessel that captures echoes of elemental power from the distant realm",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🌊',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Consuming restores 10% of max HP and 10% of max MP",
+        "Each use causes a 20% chance to trigger an elemental reaction (random)",
+        "Cannot be used while in a battle zone with Team Rocket",
+        "Shipped by: Void Drifter Relay",
+        "Factions: Ranger Union allies only"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 3
+    },
+    'pokemon_crimson_fleet_ranger_key': {
+        id: 'pokemon_crimson_fleet_ranger_key',
+        name: "Crimson Fleet Ranger Key",
+        description: "A token granting access to hidden vaults and elite training grounds",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '🔒',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Grants 10% bonus to all stat gains from evolution stones",
+        "Must be used within 24 hours of activation",
+        "Can only be used once per player account",
+        "Factions: Crimson Fleet only",
+        "Shipped by: Void Drifter Relay"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 1
+    },
+    'pokemon_minus_world_mirage': {
+        id: 'pokemon_minus_world_mirage',
+        name: "Minus World Mirage",
+        description: "A fractured artifact from the lost dimension, now imbued with unstable energy",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '⚡',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants immunity to all forms of psychic damage",
+        "Each use triggers a 30% chance to cause a dimensional collapse (game over unless rescued)",
+        "Can only be used once per session",
+        "Must be attuned to the user’s current location",
+        "Factions: None. Only for those who dare to seek the Minus World",
+        "Shipped by: Void Drifter Relay",
+        "Connected to: Teyvat elemental resonance, Team Rocket’s stolen artifacts, and the Ranger Union’s forbidden archives"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 10
+    },
+
+    // Animatopia [16:53:50]
+    'animatopia_crystal_blade': {
+        id: 'animatopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Starlight"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'animatopia_mushroom_tongue': {
+        id: 'animatopia_mushroom_tongue',
+        name: "Mushroom Tongue",
+        description: "A relic from the Fungi Civil War that speaks in whispers",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🍄',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Consuming it grants temporary speech to fungal entities",
+        "Duration: 10 minutes",
+        "May cause hallucinations during use",
+        "Only usable by those who have tasted pipe spice",
+        "Reveals hidden tunnels beneath Mushroom Kingdom",
+        "Carries the scent of the assassinated princess"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+    'animatopia_onyx_hand_ring': {
+        id: 'animatopia_onyx_hand_ring',
+        name: "Onyx Hand Ring",
+        description: "A cursed accessory worn by the night’s enforcers",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '👁',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants immunity to fear effects during nighttime",
+        "Grants +2 to stealth checks",
+        "Increases chance of spotting hidden vampires by 30%",
+        "Causes visible tremors when worn during full moon",
+        "Requires attunement with the Onyx Hand",
+        "May cause temporary blindness to daylight"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+    'animatopia_minus_world_key': {
+        id: 'animatopia_minus_world_key',
+        name: "Minus World Key",
+        description: "A forgotten artifact from the lost realm",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 50000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Opens a dimensional portal to the Minus World",
+        "Requires 2 hours to activate",
+        "Can only be used once per cycle",
+        "Causes temporary disorientation in the user",
+        "Triggers a memory echo of the vanished",
+        "If used in Animatopia, causes a rift in the local ecology"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 10
+    },
+
+    // L'Eclaire Isle [16:53:58]
+    'leclaire_isle_crystal_blade': {
+        id: 'leclaire_isle_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pokémon League"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'leclaire_isle_bakery_bane': {
+        id: 'leclaire_isle_bakery_bane',
+        name: "Sourdough Saboteur",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🍞',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to all melee attacks for 1 turn",
+        "Consumes 1 point of stamina to activate",
+        "Causes nearby doughfolk to panic and flee",
+        "Binds to the user’s left hand for 3 turns",
+        "Can be used to break enchanted pastry walls",
+        "Requires 10 minutes of kneading to charge"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'leclaire_isle_mushroom_mantle': {
+        id: 'leclaire_isle_mushroom_mantle',
+        name: "Fungi Fable Cloak",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🍄',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants immunity to poison and magical debuffs from fungal sources",
+        "Increases movement speed by 15% while wearing",
+        "Splits into 3 fragments when damaged",
+        "Each fragment can be used to create a temporary portal to a mushroom grove",
+        "Causes 1d4 confusion effects on enemies who enter the grove",
+        "Requires attunement by a mushroom cultist or Fungi Civil War veteran"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+    'leclaire_isle_pipe_punch': {
+        id: 'leclaire_isle_pipe_punch',
+        name: "Gilded Geyser Gun",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '🎭',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Fires magical pipe projectiles that deal 3d8 damage",
+        "Each shot triggers a minor explosion of enchanted syrup",
+        "Consumes 10% of user’s stamina per shot",
+        "Can be reloaded with a pipe from the Mushroom Kingdom’s pipe network",
+        "If used during the Supernatural Sovereignty Act, increases chance of voting for the Regal Empire",
+        "Only usable by those who have personally witnessed a pipe assassination"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+
+    // The Grand Country [16:54:07]
+    'grand_country_crystal_blade': {
+        id: 'grand_country_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: DK Crew"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'grand_country_gravity_tether': {
+        id: 'grand_country_gravity_tether',
+        name: "Gravity Tether",
+        description: "A device that binds your feet to the worlds gravitational field",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌌',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 10% extra jump height when on vertical terrain",
+        "5% chance to cause a temporary gravity stutter",
+        "Cannot be used in zero gravity zones",
+        "Thrown from height? It might snap your wrist",
+        "Crafted by: DK Crew",
+        "Connects to: Connectopia’s gravity core tech"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 3
+    },
+    'grand_country_cursed_potion': {
+        id: 'grand_country_cursed_potion',
+        name: "The Laughing Sack",
+        description: "A potion that makes you giggle uncontrollably for 10 minutes",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🍸',
+        stock: 1,
+        rarity: 'common',
+        effects: [
+            "Grants +5% damage to melee attacks for 10 minutes",
+        "Causes uncontrollable laughter for 10 minutes",
+        "Loses all movement speed while laughing",
+        "Cannot be consumed in combat zones",
+        "May trigger a random NPC to attack you",
+        "Contains hidden curse: if consumed while in a dungeon, you gain +10 HP but become temporarily blind",
+        "Crafted by: DK Crew",
+        "Scam: Mr. Wario’s profit margin is 300% higher than normal"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 2
+    },
+    'grand_country_mystic_tinker_tool': {
+        id: 'grand_country_mystic_tinker_tool',
+        name: "The Forge of Forgotten Schemes",
+        description: "A tool that allows you to hack the world’s physics and reshape terrain",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 35000,
+        icon: '⚙',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Lets you temporarily alter terrain to create safe zones or traps",
+        "20% chance to trigger a glitch that causes nearby enemies to misfire",
+        "Requires 3 minutes of setup per use",
+        "Can only be used once per day",
+        "Grants +50% bonus XP for terrain manipulation",
+        "Requires attunement by a tinkerer or engineer",
+        "Crafted by: DK Crew",
+        "Connects to: Connectopia’s frontier expansion tech",
+        "Also connects to: The Grand Country’s gravity defiance lore"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 10
+    },
+
+    // Rogueport [16:54:14]
+    'rogueport_crystal_blade': {
+        id: 'rogueport_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: DK Crew"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'rogueport_jester_scarf': {
+        id: 'rogueport_jester_scarf',
+        name: "Jester Scarf of Entropy",
+        description: "A cloak woven from cosmic pranks and laughter",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🎭',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to dodge rolls when enemy is laughing",
+        "20% chance to cause target to fall into giggles for 1 round",
+        "Causes minor entropy bleed on hit (reduces enemy HP by 1% per round)",
+        "Worn by: Cosmic Jester cultists",
+        "Crafted by: DK Crew"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'rogueport_void_touched_amulet': {
+        id: 'rogueport_void_touched_amulet',
+        name: "Void Touched Amulet of the Falling Edge",
+        description: "A pendant that pulses with unstable reality",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 6000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +2 to Perception checks in the Almost at the Edge",
+        "5% chance to teleport wearer 10 feet to a random location",
+        "Causes minor reality distortion around user (can trip enemies)",
+        "If worn during a fall hazard, chance to survive fall with -1d6 damage",
+        "Crafted by: Warp Whistle Transit",
+        "Requires attunement by a rogue"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+    'rogueport_rakasha_keychain': {
+        id: 'rogueport_rakasha_keychain',
+        name: "Rakasha Keychain of the Dock Ward",
+        description: "A metallic charm with hidden markings of the clans",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🗝',
+        stock: 4,
+        rarity: 'common',
+        effects: [
+            "Grants +1 to stealth checks in docks or alleys",
+        "10% chance to trigger a sudden silence in the area",
+        "If used during a heist, increases chance of success by 5%",
+        "Worn by: Rakasha clan members",
+        "Crafted by: DK Crew",
+        "Contains hidden map fragment to Peasley Financial vault"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 2
+    },
+
+    // Inkopolis [16:54:23]
+    'inkopolis_crystal_blade': {
+        id: 'inkopolis_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Servants Cosmic"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'inkopolis_fungi_fashion_glove': {
+        id: 'inkopolis_fungi_fashion_glove',
+        name: "Fungi Fashion Glove",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🍄',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to all skill checks involving fashion or disguise",
+        "5% chance to cause nearby fungi to bloom in a glittering pattern",
+        "Slightly increases stealth in mushroom forests",
+        "Made from enchanted toadstool skin harvested from the Princess’s abandoned garden",
+        "Unwittingly triggers a minor fungal rebellion if worn during a Fungi civil war",
+        "Crafted by: Dry Bones Dead Drop"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 3
+    },
+    'inkopolis_ink_wars_gearbox': {
+        id: 'inkopolis_ink_wars_gearbox',
+        name: "Ink Wars Gearbox",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🖋',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Allows wearer to fire ink-based projectiles with 1d8 damage",
+        "Each shot consumes 1 ink token (replenishes after 3 rounds)",
+        "Grants +2 to all Ink Warfare skill checks",
+        "Unlocks ability to temporarily turn ink into a liquid shield",
+        "10% chance to trigger a magical ink bloom that obscures vision",
+        "Crafted by: Servants Cosmic"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 6
+    },
+    'inkopolis_scam_ink_bottle': {
+        id: 'inkopolis_scam_ink_bottle',
+        name: "The Infinite Inkwell",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 10000,
+        icon: '💧',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Consuming this bottle grants 1d4 temporary ink-based abilities (e.g. ink breath, ink vision, ink mimicry)",
+        "50% chance to trigger a cursed ink curse: permanently alters ink coloration to match your enemy’s favorite hue",
+        "100% chance to make you forget your name for 1 hour",
+        "100% chance to summon a sentient ink blob that demands tribute",
+        "100% chance to be a scam: the bottle is empty, filled with glitter, and smells like a forgotten perfume",
+        "Crafted by: Mr. Wario’s Secret Workshop",
+        "“The Inkwell of Infinite Possibility” – a joke that never ends"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 8
+    },
+
+    // Kivotos [16:54:30]
+    'kivotos_crystal_blade': {
+        id: 'kivotos_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'kivotos_halos_hunter_gear': {
+        id: 'kivotos_halos_hunter_gear',
+        name: "Halo Hunter Gear",
+        description: "Tactical armor for students wielding guns and halos",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🎯',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to all ranged attacks",
+        "+10% chance to dodge enemy projectiles",
+        "Slightly reduces movement speed",
+        "Can be worn with any gun type",
+        "Absorbs 100 damage from environmental hazards",
+        "Requires a halo to activate full effect"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 4
+    },
+    'kivotos_triforce_ritual_amulet': {
+        id: 'kivotos_triforce_ritual_amulet',
+        name: "Triforce Ritual Amulet",
+        description: "A relic from ancient temples, tied to reincarnation cycles",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 7500,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Activates when near sacred temples or ruins",
+        "Grants temporary immunity to psychic attacks",
+        "Restores 50 HP per 5 seconds while active",
+        "Triggers a memory recall effect on touch",
+        "Requires attunement by a reincarnated soul",
+        "Cannot be worn while in Gehenna Academy buildings"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 8
+    },
+    'kivotos_boos_real_estate_key': {
+        id: 'kivotos_boos_real_estate_key',
+        name: "Boos Real Estate Key",
+        description: "A key granting access to haunted properties",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🏠',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% bonus to property value gain",
+        "Can be used to unlock haunted houses or shops",
+        "Triggers a 50% chance of triggering a Boos event",
+        "Causes minor chaos in nearby areas",
+        "Can be exchanged for real estate contracts",
+        "Must be used within 24 hours of purchase"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 6
+    },
+
+    // Valley of Bowser [16:54:39]
+    'valley_bowser_crystal_blade': {
+        id: 'valley_bowser_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Koopa Troop"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 5
+    },
+    'valley_bowser_troop_bow_tapestry': {
+        id: 'valley_bowser_troop_bow_tapestry',
+        name: "Bow Tapestries of the Koopa Throne",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🧵',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to all melee attacks against enemies with fire resistance",
+        "Increases chance to hit by 5% when the user is in the heat of battle",
+        "Unlocks unique animation when struck by a fire-based attack",
+        "Wears off after 10 minutes of inactivity",
+        "Slightly increases the user’s stamina regeneration",
+        "Made from ancient Koopa ceremonial fabric, stitched by Wario’s disgraced tailors"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 3
+    },
+    'valley_bowser_inkopolis_ink_pestle': {
+        id: 'valley_bowser_inkopolis_ink_pestle',
+        name: "Inkopolis Pestle of the Squidly Mind",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🖋',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Consuming this item grants temporary control over ink-based entities",
+        "Grants +2 to all ink damage rolls for 3 rounds",
+        "Causes minor ink stains to appear on the user’s skin",
+        "May cause temporary disorientation if used in high-stress combat",
+        "Increases the user’s chance to dodge ink attacks by 10%",
+        "Requires attunement to a squid faction or ink-based artifact"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 4
+    },
+    'valley_bowser_bobomb_rush_bait': {
+        id: 'valley_bowser_bobomb_rush_bait',
+        name: "Bob-omb Rush Bait",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 5000,
+        icon: '🎁',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Causes immediate explosion upon being touched, dealing 3d8 damage",
+        "Triggers a chain reaction if used within 5 feet of another Bob-omb",
+        "Grants 10% chance to instantly defeat any enemy with 1 HP",
+        "Unlocks a hidden map of the Inkopolis Underbelly after use",
+        "Requires activation by pressing the red button three times",
+        "Contains a cursed echo of Wario’s last battle cry — may cause temporary hallucinations",
+        "Only one can be used per game session",
+        "Made by Bob-omb Rush Delivery — a scam that promises legendary power for a single use"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 7
+    },
+
+    // L'Eclaire Isle [16:54:46]
+    'leclaire_isle_crystal_blade': {
+        id: 'leclaire_isle_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Starlight"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'leclaire_isle_sugar_tome': {
+        id: 'leclaire_isle_sugar_tome',
+        name: "Sugar Tome of the Doughbound",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🍞',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Consuming restores 10 mana and grants temporary immunity to poison",
+        "Causes minor sugar rush effect for 3 turns (speed +1 and attack +1)",
+        "May cause temporary sugar coma if consumed twice in one round",
+        "Found in the attic of a baker’s guild hall in LEclaire Isle",
+        "Translated by: Beanbean Kingdom’s Diplomatic Archive"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 3
+    },
+    'leclaire_isle_paratroopa_pouch': {
+        id: 'leclaire_isle_paratroopa_pouch',
+        name: "Paratroopa Air Sack of Crumbs",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🌬',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Contains 100 Beanbean coins and 5 enchanted sugar cubes",
+        "Each sugar cube can be thrown to distract enemies for 1 turn",
+        "When thrown, emits a sweet scent that causes minor confusion to foes",
+        "Can be used to bribe the Paratroopa Air crew for safe transport",
+        "Labeled with Prince Peasley’s signature in royal ink"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 4
+    },
+    'leclaire_isle_baking_cage': {
+        id: 'leclaire_isle_baking_cage',
+        name: "Baking Cage of the Doughfolk",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 18000,
+        icon: '🧁',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants the user temporary control over dough elements",
+        "Can shape and summon dough constructs for 2 turns",
+        "Constructs have 3d6 HP and can attack with a smash that deals 2d6 damage",
+        "May cause the user to become slightly sticky if overused",
+        "Contains a hidden key to the Raventree Greenhouse (from Archie Miser’s fireball)",
+        "Crafted by the Doughfolk of LEclaire Isle with ancestral recipes"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 10
+    },
+
+    // Wario Land [16:54:54]
+    'wario_land_crystal_blade': {
+        id: 'wario_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Kremling Krew"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'wario_land_garlic_treasure_map': {
+        id: 'wario_land_garlic_treasure_map',
+        name: "Garlic Treasure Map",
+        description: "A cryptic map drawn in ink made from cursed garlic",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🧄',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Reveals hidden garlic grove location",
+        "Consuming the map causes temporary garlic frenzy",
+        "10% chance to reveal a Boos-owned haunted house",
+        "Can be used to unlock the Diamond City vault",
+        "Only effective if held in one hand while shouting “Wario’s Got It!”"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 3
+    },
+    'wario_land_chain_chomp_talisman': {
+        id: 'wario_land_chain_chomp_talisman',
+        name: "Chain Chomp Talisman",
+        description: "A cursed amulet that binds a Chain Chomp’s wrath",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🐍',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +15% damage to Chain Chomp weapons",
+        "Causes 30% chance to summon a Chain Chomp during battle",
+        "If used in Teyvat, triggers elemental reaction with wind or fire",
+        "Wears off after 30 minutes of combat",
+        "Can be swapped with Boos’ Shadowed Chains"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 7
+    },
+    'wario_land_teyvat_cursed_key': {
+        id: 'wario_land_teyvat_cursed_key',
+        name: "Teyvat Cursed Key",
+        description: "A key forged in the heart of the Archon’s vault",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 12000,
+        icon: '🔑',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens any gate in Teyvat marked with the Boos symbol",
+        "Causes minor debuff to vision holders",
+        "Grants 10% chance to trigger a gacha event when used",
+        "Can be used to summon the Shadowed Archon",
+        "Must be used within 24 hours of acquisition",
+        "Only usable with Wario Land faction approval"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 10
+    },
+
+    // Pokémon Regions [16:55:02]
+    'pokemon_master_ball_shard': {
+        id: 'pokemon_master_ball_shard',
+        name: "Master Ball Shard",
+        description: "A fragment of the legendary capture device",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: DK Crew"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'pokemon_spectral_tether': {
+        id: 'pokemon_spectral_tether',
+        name: "Spectral Tether",
+        description: "A binding artifact forged from the essence of captured spirits",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🕳',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 20% chance to avoid status effects",
+        "Suffers 5% damage reduction when near dark terrain",
+        "Triggers ghostly echoes on successful capture",
+        "Must be paired with a captured Pokémon to activate",
+        "Unlocks hidden routes in the Phantom Zone",
+        "Crafted by: Goomba Ground Delivery"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 3
+    },
+    'pokemon_magitek_circuit_core': {
+        id: 'pokemon_magitek_circuit_core',
+        name: "Magitek Circuit Core",
+        description: "A core of industrialized arcane energy, refined from the Iron Legion’s factories",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 6000,
+        icon: '⚡',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Boosts attack power by 30% for 3 turns",
+        "Consumes 250 energy points per activation",
+        "Causes minor magitek overload if used excessively",
+        "Requires attunement with a Magitek Pokémon",
+        "Enhances evolution success rate by 40%",
+        "Crafted by: DK Crew"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 8
+    },
+    'pokemon_connectopia_pioneer_key': {
+        id: 'pokemon_connectopia_pioneer_key',
+        name: "Pioneer’s Key to the Frontier",
+        description: "A token granting access to the blocky frontier beyond the known zones",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 350,
+        icon: '🏗',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Grants temporary access to Connectopia’s hidden zones",
+        "Reveals 3 new terrain types on map",
+        "Triggers a 10% chance to find a rare item in each zone",
+        "Requires a Pokémon with terrain adaptation to use",
+        "May cause minor terrain distortion if misused",
+        "Crafted by: Goomba Ground Delivery",
+        "Linked to the Supernatural Sovereignty Act’s frontier expansion mandate"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 1
+    },
+
+    // Teyvat [16:55:10]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Team Rocket"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'teyvat_eyeshield_of_kivotos': {
+        id: 'teyvat_eyeshield_of_kivotos',
+        name: "Eyeshield of Kivotos",
+        description: "A ceremonial eye-guard worn by academy students during combat drills",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🎭',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +10% dodge chance against ranged attacks",
+        "Increases combat reflexes by 20% during vision holder activation",
+        "Causes minor hallucinations if worn beyond 30 seconds",
+        "Only usable by students with a Kivotos Academy halo",
+        "Crafted by: Dry Bones Dead Drop"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 3
+    },
+    'teyvat_seal_fragment_7': {
+        id: 'teyvat_seal_fragment_7',
+        name: "Seal Fragment Seven",
+        description: "A shard of the primordial wyrm’s seal, now humming with latent power",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8000,
+        icon: '🧩',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Restores 1 seal point when used in ritual",
+        "Inflicts 1d4 elemental damage to enemy if used outside ritual",
+        "Must be used with a vision holder to activate",
+        "Cannot be used while in Kivotos Academy dorms",
+        "Crafted by: Team Rocket"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 7
+    },
+    'teyvat_gunpowder_halo': {
+        id: 'teyvat_gunpowder_halo',
+        name: "Gunpowder Halo",
+        description: "A modified halo that channels elemental energy into gunfire",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🎯',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Fires a burst of elemental projectiles on trigger",
+        "Grants +50% damage against enemies with elemental resistances",
+        "Causes minor recoil when used in combat",
+        "Requires a vision holder to activate",
+        "Only usable in locations where Kivotos Academy has active halos",
+        "Crafted by: Dry Bones Dead Drop"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 10
+    },
+
+    // Animatopia [16:55:19]
+    'animatopia_crystal_blade': {
+        id: 'animatopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Servants Cosmic"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'animatopia_moonlit_scarf': {
+        id: 'animatopia_moonlit_scarf',
+        name: "Moonlit Scarf of Whispering Night",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌙',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to stealth checks in darkness",
+        "+1 to dodge rolls when pursued by nocturnal beasts",
+        "Causes nearby creatures to emit low frequency hums (detrimental to prey species)",
+        "Absorbs ambient magic energy for 1 minute per use",
+        "Worn by the Shy Guys union during protest marches",
+        "Woven from the dreamsilk of ancient moon cultists"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 4
+    },
+    'animatopia_onyx_hand_trophy': {
+        id: 'animatopia_onyx_hand_trophy',
+        name: "Onyx Hand Trophy of Bureaucratic Horror",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8500,
+        icon: '🖤',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +3 to Persuasion checks when dealing with vampiric bureaucracies",
+        "Consumes 1 charge to temporarily blind all nonhuman entities within 10 feet",
+        "Causes the wielder to become visibly scarred by the hand’s gaze",
+        "Requires a 10d6 roll to activate; failure causes 1d4 damage to self",
+        "Contains a hidden message from the Onyx Hand: “Do not ask for more than you owe”",
+        "Crafted by: Hammer Bros Handling (courier service for the elite)"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+    'animatopia_cursed_candy': {
+        id: 'animatopia_cursed_candy',
+        name: "Candy of the Hollowed Heart",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 4000,
+        icon: '🍬',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 3d6 temporary health upon consumption",
+        "Triggers a 10d6 “soul cost” when used; the wielder must choose to lose 1 level of experience or suffer 1d6 damage",
+        "Causes a 50% chance to summon a whispering phantom that mimics the user’s last memory",
+        "The candy is rumored to have been crafted by the last survivor of the Shy Guys’ union protest",
+        "Consuming it grants a 10% chance to see the true face of the Onyx Hand",
+        "WARNING: The candy is a scam. It does not work. It is cursed. It was delivered by a Shy Guy union member who claimed to be “on the payroll of the night.”"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 9
+    },
+
+    // Kivotos [16:55:27]
+    'kivotos_crystal_blade': {
+        id: 'kivotos_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Red Winter"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'kivotos_halos_edge': {
+        id: 'kivotos_halos_edge',
+        name: "Halos Edge",
+        description: "A ceremonial blade worn by those who bear the halo of authority",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🎭',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "+10% attack speed when wielding a gun",
+        "Grants immunity to stun effects while in combat",
+        "Slightly increases charisma when worn",
+        "Can only be wielded by characters with a halo",
+        "Worn by: The Delfino Regency",
+        "Crafted by: Kremling Smuggle Run"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 4
+    },
+    'kivotos_triforce_amber': {
+        id: 'kivotos_triforce_amber',
+        name: "Triforce Amber",
+        description: "A relic from the ancient temples of Hyrule, encased in glowing amber",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8000,
+        icon: '🏯',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "When consumed: restores 500 HP and grants temporary immunity to elemental damage",
+        "Increases chance to hit by 10% against sacred beasts",
+        "Causes minor mana drain if used in combat",
+        "Requires attunement with Triforce energy",
+        "Linked to: The Reincarnation Cycle",
+        "Crafted by: Red Winter"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 8
+    },
+    'kivotos_chain_chomp_core': {
+        id: 'kivotos_chain_chomp_core',
+        name: "Chain Chomp Core",
+        description: "The heart of a weaponized Chain Chomp, now a weapon of chaotic power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 50000,
+        icon: '🐍',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Deals 3d8 damage on hit",
+        "Causes enemies to flee after being hit",
+        "Grants +2 to all rolls against mechanical foes",
+        "Consumes 10 HP per use",
+        "Can be used as a ranged weapon",
+        "Crafted by: Red Winter & Kremling Smuggle Run",
+        "Faction: Noki & Koopa Control",
+        "Thematic: Weaponized Chain Chomps in Gehenna Academy",
+        "Requires attunement with chaos energy"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 12
+    },
+
+    // Isle Delfino [16:55:35]
+    'isle_delfino_crystal_blade': {
+        id: 'isle_delfino_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Chaos Dwarfs"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'isle_delfino_sunken_tide_talisman': {
+        id: 'isle_delfino_sunken_tide_talisman',
+        name: "Sunken Tide Talisman",
+        description: "A relic from drowned ruins, pulsing with oceanic power",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌊',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary swim speed bonus +2",
+        "Increases damage against aquatic foes by 15%",
+        "Causes minor drowning risk if worn underwater too long",
+        "Unlocks hidden underwater paths in the Midlands",
+        "Worn by: Shine Sprite scouts"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 4
+    },
+    'isle_delfino_chain_chomp_tether': {
+        id: 'isle_delfino_chain_chomp_tether',
+        name: "Chain Chomp Tether",
+        description: "A weaponized Chain Chomp limb, retooled for combat",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '🐍',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Inflicts 1d4 piercing damage per swing",
+        "Grants +1 to attack rolls against mechanical enemies",
+        "Triggered chain chomp summon on hit: 1d6 damage to target",
+        "Requires attunement by a Chaotic faction member",
+        "Can be attached to any weapon or gear"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 6
+    },
+    'isle_delfino_minus_world_memoir': {
+        id: 'isle_delfino_minus_world_memoir',
+        name: "Minus World Memoir",
+        description: "A fragmented journal from the lost world, ink bleeding with void energy",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 5000,
+        icon: '📖',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Reveals one hidden location in the Minus World",
+        "Grants temporary immunity to negative status effects",
+        "Causes memory distortion: player may forget key items for 1 round",
+        "Must be consumed during a battle or exploration",
+        "Written by: The Disappeared of the Minus World",
+        "Only usable if player has seen the Minus World firsthand"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 7
+    },
+
+    // Animatopia [16:55:43]
+    'animatopia_crystal_blade': {
+        id: 'animatopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: DK Crew"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 5
+    },
+    'animatopia_festival_star_satchel': {
+        id: 'animatopia_festival_star_satchel',
+        name: "Festival Star Satchel",
+        description: "A pouch woven from starlight threads collected during the Festival of Falling Stars",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🌟',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 10% increased chance to find hidden festival tokens",
+        "Consuming a token reveals a memory fragment of Peach",
+        "Slight weight penalty while carrying",
+        "Glows softly in dark environments",
+        "Can be used to unlock hidden paths in Isle Delfino",
+        "Crafted by: Shine Sprite Guild"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 4
+    },
+    'animatopia_buried_soul_key': {
+        id: 'animatopia_buried_soul_key',
+        name: "Buried Soul Key",
+        description: "A relic rumored to open ancient tombs of forgotten tribes",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 750,
+        icon: '🗡',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Opens sealed tribal shrines or burial sites",
+        "Triggers a 5% chance of triggering a cursed echo of the buried",
+        "Consuming the key may cause a temporary loss of 1d4 HP",
+        "May reveal hidden loot or secrets of the past",
+        "Requires ritual cleansing before use",
+        "Found near Noki Bay ruins"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 2
+    },
+    'animatopia_sunset_scarecrow': {
+        id: 'animatopia_sunset_scarecrow',
+        name: "Sunset Scarecrow",
+        description: "A hollowed-out scarecrow painted with twilight hues and filled with static magic",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '⚡',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Projects a false shadow that mimics a predator for 3 rounds",
+        "20% chance to cause nearby enemies to panic and flee",
+        "Consuming the scarecrow triggers a 50% chance of becoming cursed and gaining a permanent weakness to sunlight",
+        "Cannot be used in daylight without penalty",
+        "May cause a temporary hallucination of a missing tribe member",
+        "Crafted by: Oracle’s Workshop (Cursed Edition)",
+        "Warning: This item was sold by a rogue vendor in the Festival of Falling Stars. Do not trust the price."
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Bullet Bill Express',
+        levelRequirement: 10
+    },
+
+    // The Grand Country [16:55:51]
+    'grand_country_crystal_blade': {
+        id: 'grand_country_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Land Mordor"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'grand_country_gravity_bolt': {
+        id: 'grand_country_gravity_bolt',
+        name: "Gravity Bolt",
+        description: "A device that temporarily warps local gravity",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '⚖',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 30% bonus to movement speed in vertical terrain",
+        "Causes 1d4 damage to enemies caught in gravity inversion",
+        "Triggers a 10 second stasis field for 1 ally",
+        "Requires activation via button press",
+        "Crafted by: Lakitu Drones",
+        "Only usable in The Grand Country"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 4
+    },
+    'grand_country_entropy_ring': {
+        id: 'grand_country_entropy_ring',
+        name: "Entropy Ring",
+        description: "A cursed artifact from Toadburt’s covert operations",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8500,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 50% chance to negate enemy ability activation",
+        "Suffers 1d6 damage when used near Beanbean Kingdom",
+        "Increases spell casting cost by 25% for all users",
+        "Requires attunement by a member of the Iron Legion",
+        "Crafted by: Toadburt’s Shadow Syndicate",
+        "Can only be used once per campaign"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 7
+    },
+    'grand_country_soul_tether': {
+        id: 'grand_country_soul_tether',
+        name: "Soul Tether",
+        description: "A binding artifact that links two realms",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 35000,
+        icon: '🤝',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Links the user to Beanbean Kingdom via telepathic bond",
+        "Grants 20% damage reduction from all sources",
+        "Triggers 1d4 psychic damage on all enemy attacks",
+        "Requires a Beanbean coin to activate",
+        "Can only be used in tandem with a Beanbean Kingdom artifact",
+        "Crafted by: Prince Peasley’s Secret Vault",
+        "Fails if used outside of Beanbean Kingdom",
+        "Requires attunement by a royal emissary"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 10
+    },
+
+    // Connectopia [16:56:02]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'connectopia_doughnut_gravity_iron': {
+        id: 'connectopia_doughnut_gravity_iron',
+        name: "Doughnut Gravity Iron",
+        description: "A blocky artifact that defies vertical physics",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '⚖',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 20% resistance to gravity-based attacks",
+        "Allows wearer to stand on vertical surfaces for 10 seconds",
+        "Causes minor disorientation if used repeatedly",
+        "Requires attunement with a pioneer’s map",
+        "Crafted by: Dry Bones Dead Drop",
+        "Thematic link: Connectopia’s blocky terrain meets Grand Country’s vertical chaos"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 6
+    },
+    'connectopia_cosmic_jester_trinket': {
+        id: 'connectopia_cosmic_jester_trinket',
+        name: "Cosmic Jester’s Prank Pocket",
+        description: "A bag that misplaces your gear and replaces it with absurdities",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🎭',
+        stock: 15,
+        rarity: 'uncommon',
+        effects: [
+            "When used, randomly replaces one item with a comedic item (e.g. a sock shaped like a dragon)",
+        "Grants +1d4 to all rolls for misdirection or trickery",
+        "May cause temporary confusion to enemies",
+        "Consumed after use; does not stack",
+        "Made by: Cosmic Jester cultists",
+        "Thematic link: Entropy and pranks from the Cosmic Jester cult"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 3
+    },
+    'connectopia_feywild_crafting_ink': {
+        id: 'connectopia_feywild_crafting_ink',
+        name: "Feywild Inkwell of Whispered Whimsy",
+        description: "A vial that lets you write spells that change reality",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🖋',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "Allows writing of spells that alter reality for 1 minute",
+        "Requires attunement with a Feywild artifact",
+        "One use per day",
+        "Can cause minor reality distortion if overused",
+        "Crafting material for Feywild-aligned items",
+        "Thematic link: Feywild dimension’s playful magic meets Connectopia’s frontier creativity"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 4
+    },
+    'connectopia_shadowfell_keychain': {
+        id: 'connectopia_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A key that unlocks the Shadowfell realm’s hidden paths",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔑',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens secret passages in Shadowfell dimensions",
+        "Grants 50% chance to bypass magical barriers",
+        "Causes 1d2 fatigue when used in high-stress situations",
+        "Requires attunement with a Shadowfell artifact",
+        "Crafted by: Iron Legion in collaboration with Shadowfell outcasts",
+        "Thematic link: Connectopia’s frontier expansion meets Shadowfell’s mystery"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 7
+    },
+    'connectopia_raventree_manor_map_fragment': {
+        id: 'connectopia_raventree_manor_map_fragment',
+        name: "Raventree Manor Fragment Map",
+        description: "A broken piece of the manor’s dimensional map",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8000,
+        icon: '🗺',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Reveals hidden pathways across Physical Shadowfell and Feywild",
+        "Grants +2 to all dimensional traversal rolls",
+        "May trigger a memory of a past event if touched",
+        "Can be combined with other map fragments for full map",
+        "Crafted from the shattered remains of Raventree Manor",
+        "Thematic link: Connectopia’s frontier expansion meets the fractured Raventree Manor"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 8
+    },
+
+    // Faerûn [16:56:10]
+    'faerun_staff_of_wild_magic': {
+        id: 'faerun_staff_of_wild_magic',
+        name: "Staff of Wild Magic",
+        description: "A twisted oak staff crackling with chaotic energy",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Chaos Dwarfs"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'faerun_doughnut_hole_crimson_candle': {
+        id: 'faerun_doughnut_hole_crimson_candle',
+        name: "Crimson Candle of the Doughnut Hole",
+        description: "A pulsating crimson candle that flickers with cosmic dread",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🔥',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 1d4 temporary hit points",
+        "Causes 1d4 psychic damage to enemies",
+        "Increases chance to trigger a Void Touched effect",
+        "Sustains a minor aura of existential dread",
+        "Burns out after 30 minutes",
+        "Requires attunement to the Doughnut Hole"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 3
+    },
+    'faerun_onyx_hand_cursed_talisman': {
+        id: 'faerun_onyx_hand_cursed_talisman',
+        name: "Talisman of the Onyx Hand",
+        description: "A blackened amulet with a clawed glyph etched into its surface",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '⚔',
+        stock: 7,
+        rarity: 'epic',
+        effects: [
+            "Grants immunity to psychic manipulation",
+        "Inflicts 1d6 psychic damage on enemies upon contact",
+        "Causes allies to gain +2 attack bonus against Onyx Hand targets",
+        "Triggers a 10% chance to cause an ally to become temporarily possessed",
+        "Requires attunement by a spellcaster or warrior",
+        "Crafted by: Chaos Dwarfs and the Void Syndicate"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 7
+    },
+    'faerun_sunken_archives_scribe_quill': {
+        id: 'faerun_sunken_archives_scribe_quill',
+        name: "Scribe Quill of the Sunken Archives",
+        description: "A pen made from the ink of forgotten texts and the bones of lost scribes",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '📜',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Allows writing of magical incantations with +2d6 spell power",
+        "Each spell written causes a 5% chance of triggering a random effect from the Sunken Archives",
+        "Consumes ink from the quills core, which regenerates after 10 minutes",
+        "Causes minor hallucinations if used near a Void Touched entity",
+        "Cannot be used without attunement to the Archives",
+        "Crafted from the pre-Peach texts recovered off Isle Delfino"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 4
+    },
+
+    // Connectopia [16:56:19]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Mushroom Regency"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 5
+    },
+    'connectopia_jungle_whisper_shield': {
+        id: 'connectopia_jungle_whisper_shield',
+        name: "Jungle Whisper Shield",
+        description: "A resonant barrier that hums with jungle magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌿',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Blocks 2d4 slashing damage",
+        "When hit by a melee attack from DK Crew members gains +1 defense for 1 round",
+        "Slightly increases stealth in jungle terrain",
+        "Emits a low frequency hum that distracts nearby enemies",
+        "Requires attunement by a jungle expert",
+        "Crafted by: Blooper Wetworks"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 4
+    },
+    'connectopia_banana_core_amulet': {
+        id: 'connectopia_banana_core_amulet',
+        name: "Banana Core Amulet",
+        description: "A relic from a legendary banana hoarder’s burial mound",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🍈',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Grants +2 to all rolls involving stealth or persuasion",
+        "When equipped in haunted zones, reduces fear effect by 50%",
+        "Consumes 1 banana core per use (restores 10 HP if eaten)",
+        "Has a 5% chance to trigger a sudden banana peel slide (confuses target for 1 round)",
+        "Slightly increases movement speed in banana groves",
+        "Crafted by: Boos Real Estate Syndicate"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 3
+    },
+    'connectopia_mushroom_regency_icebreaker': {
+        id: 'connectopia_mushroom_regency_icebreaker',
+        name: "Mushroom Regency Icebreaker",
+        description: "A crystalline blade infused with fungal cold magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '❄',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Deals 3d6 cold damage",
+        "Applies frostbite to targets on hit (1d4 damage per round for 3 rounds)",
+        "Grants immunity to fire damage for 1 round after use",
+        "Triggers a 20% chance to freeze nearby enemies in place",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Mushroom Regency",
+        "Only usable in frosty or haunted zones",
+        "Has a 10% chance to trigger a fungal bloom effect (creates temporary fog for 2 rounds)"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 8
+    },
+
+    // Wario Land [16:56:26]
+    'wario_land_crystal_blade': {
+        id: 'wario_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Skaven"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'wario_land_garlic_bomb': {
+        id: 'wario_land_garlic_bomb',
+        name: "Garlic Bomb",
+        description: "A volatile explosive infused with Wario’s signature pungency",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🍃',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Detonates on contact with enemy",
+        "Deals 4d4 damage",
+        "Leaves a lingering garlic fog that slows foes for 1 round",
+        "Scent can trigger sneaky Wario laughter if enemies are nearby",
+        "Can be thrown or detonated remotely"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 2
+    },
+    'wario_land_doughnut_gravity_key': {
+        id: 'wario_land_doughnut_gravity_key',
+        name: "Doughnut Gravity Key",
+        description: "A relic from the side of the doughnut that defies gravity",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🍩',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary gravity inversion: jump 3x higher and land 100% safer",
+        "Allows traversal of vertical surfaces like a rope ladder",
+        "Requires a touch of Wario’s garlic essence to activate",
+        "Triggers a minor tremor if used in a crowded area",
+        "Unlocks secret passages in the Grand Country’s vertical zones"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+    'wario_land_skaven_bowser_key': {
+        id: 'wario_land_skaven_bowser_key',
+        name: "Bowser Key of the Lost Throne",
+        description: "A relic tied to the succession war between Bowsers and their rivals",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8000,
+        icon: '🏰',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants a +3 bonus to attack rolls when fighting dragons or royal guards",
+        "Can be fused with a weapon to create a dragon-themed weapon",
+        "Unlocks a hidden map of the Regal Empire’s sonic traps",
+        "Causes a minor chaos aura if used in a non-combat setting",
+        "Fused with a dragon-themed item to trigger a “dragon roar” effect (1d8 damage to all adjacent enemies)"
+        ],
+        vendor: 'wario_land',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+
+    // Almost at the Edge [16:56:35]
+    'almost_edge_crystal_blade': {
+        id: 'almost_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Servants Cosmic"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'almost_edge_feywild_tangled_ribbon': {
+        id: 'almost_edge_feywild_tangled_ribbon',
+        name: "Feywild Tangled Ribbon",
+        description: "A frayed silk ribbon that glows with trapped time loops",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Wears down over time loops; gains +1 to stealth checks in Feywild zones",
+        "10% chance to trigger a time rewind when struck",
+        "Traps foes in a brief loop of their own actions",
+        "Must be worn around the neck or wrist",
+        "Crafted by: Goomba Ground Delivery",
+        "Thieves can use it to bypass magical wards via illusionary echoes"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 4
+    },
+    'almost_edge_syrups_scorched_glove': {
+        id: 'almost_edge_syrups_scorched_glove',
+        name: "Syrups Scorched Glove",
+        description: "A battle-worn glove from the Crimson Fleet’s last stand",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '🗡',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 to attack rolls against Wario Land units",
+        "Causes enemy targets to stagger for 1 round after taking damage",
+        "Sustains damage over time from magical explosions",
+        "Can be enchanted with blood magic to increase damage by 50% (requires attunement)",
+        "Crafted by: Servants Cosmic",
+        "Worn by Captain Syrups’ personal guard"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 6
+    },
+    'almost_edge_void_touched_amulet': {
+        id: 'almost_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A glowing ring that pulses with the heartbeat of the edge",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🌌',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants +3 to all saves against falling hazards",
+        "Draws in nearby falling debris for 3 turns",
+        "Causes nearby allies to gain +1 to dodge checks",
+        "20% chance to trigger a reality tear on hit, revealing hidden paths",
+        "Cannot be worn by non-cosmic attuned characters",
+        "Crafted by: Servants Cosmic",
+        "Thieves can use it to bypass reality rifts in the Feywild"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 8
+    },
+
+    // Valley of Bowser [16:56:43]
+    'valley_bowser_crystal_blade': {
+        id: 'valley_bowser_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Kingdom Gondor"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'valley_bowser_volcanic_cage_key': {
+        id: 'valley_bowser_volcanic_cage_key',
+        name: "Volcanic Cage Key",
+        description: "A relic from the Primordial Wyrm’s prison",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3200,
+        icon: '🔒',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Opens sealed volcanic chambers or prison cells",
+        "Causes minor heat burst on activation",
+        "Grants temporary immunity to lava damage",
+        "Only usable within 100 feet of active magma",
+        "Requires a torchbearer to wield",
+        "Crafted by: Shy Guy Smugglers"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 6
+    },
+    'valley_bowser_gravity_bubble_satchel': {
+        id: 'valley_bowser_gravity_bubble_satchel',
+        name: "Gravity Bubble Satchel",
+        description: "A pack that defies vertical laws",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🌪',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Allows user to suspend in midair for 10 seconds per use",
+        "Grants 20% increased jump height",
+        "Disrupts gravity fields in a 10 meter radius",
+        "Causes minor disorientation if used too frequently",
+        "Only usable in the Grand Country or Valley of Bowser",
+        "Crafted by: Kingdom Gondor"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 7
+    },
+    'valley_bowser_koopa_navy_signal': {
+        id: 'valley_bowser_koopa_navy_signal',
+        name: "Koopa Navy Signal Flare",
+        description: "A beacon that alerts the Koopa fleet",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🌈',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Emits loud signal that alerts nearby Koopa vessels",
+        "Triggers automatic navigation to nearest harbor",
+        "Causes minor confusion to non-Koopa units",
+        "Burns 10 seconds after deployment",
+        "Can be deployed from any surface",
+        "Crafted by: Shy Guy Smugglers"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 3
+    },
+
+    // Inkopolis [16:56:51]
+    'inkopolis_crystal_blade': {
+        id: 'inkopolis_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pony Nobility"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'inkopolis_squid_silk_glove': {
+        id: 'inkopolis_squid_silk_glove',
+        name: "Squid Silk Glove",
+        description: "A dexterous, ink-dripping glove designed for ink warfare",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 450,
+        icon: '🐙',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Grants +1d4 ink spray damage on melee hits",
+        "Slight chance to temporarily blind enemies when ink splashes",
+        "Can be enchanted with scent of fear for 2 rounds",
+        "Made from deep-sea squid silk harvested by the Inkopolis Guild"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 3
+    },
+    'inkopolis_gravity_satchel': {
+        id: 'inkopolis_gravity_satchel',
+        name: "Gravity Satchel",
+        description: "A bag that defies vertical gravity and fits perfectly on a side of the doughnut",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Allows wearer to float vertically up to 30 feet",
+        "10% chance to cause a localized gravity anomaly",
+        "Can be used to carry up to 100 lbs of gear",
+        "Connects to The Grand Country’s side of the doughnut",
+        "Cursed: If dropped in the Void, wearer becomes permanently upside down"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 7
+    },
+    'inkopolis_cheep_cheep_accords_trinket': {
+        id: 'inkopolis_cheep_cheep_accords_trinket',
+        name: "Cheep Cheep Accords Charm",
+        description: "A small artifact gifted to Toads who signed the Accords",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🐸',
+        stock: 20,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to all Toad-related skill checks",
+        "Causes a minor ink bubble to form around wearer when agitated",
+        "Activates when near Rakasha Spirit Walkers",
+        "Can be used to temporarily calm a Toad’s mind",
+        "Scent of ink is faintly detectable by other ink-users",
+        "Cursed: If used to bargain with a Toad, it may trigger a memory of the Cheep-Cheep Accords’ betrayal"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 2
+    },
+
+    // The Midlands [16:56:59]
+    'midlands_crystal_blade': {
+        id: 'midlands_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Ranger Union"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'midlands_warp_whistle_canteen': {
+        id: 'midlands_warp_whistle_canteen',
+        name: "Warp Whistle Canteen",
+        description: "A vessel that drinks gravity and spills dreams",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🍽',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Consuming restores 50 HP and 20 MP",
+        "10% chance to induce temporary gravity inversion for 1 round",
+        "May cause memory glitches if consumed too often",
+        "Shipped by: Warp Whistle Transit",
+        "Designed for travelers between The Midlands and The Grand Country"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'midlands_echoed_sword': {
+        id: 'midlands_echoed_sword',
+        name: "Echoed Sword",
+        description: "A blade that sings the names of fallen heroes",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🗡',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals 3d8 slashing damage",
+        "Each hit echoes the last enemy’s name, granting +1 to attack rolls against that name",
+        "If used against a named enemy, the user hears their final words",
+        "May trigger hallucinations if used against a ghost",
+        "Crafted by: Ranger Union with whispers from the Grand Country’s forgotten libraries"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+    'midlands_viral_mind_infector': {
+        id: 'midlands_viral_mind_infector',
+        name: "Viral Mind Infector",
+        description: "A relic that infects the mind with forgotten stories",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 12000,
+        icon: '🧠',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Infuses target with a viral memory pattern from a lost world",
+        "Grants +3 to perception rolls against psychological traps",
+        "50% chance to cause a mental infection—user may become obsessed with a story",
+        "Can be used to hack into the minds of those who remember the Grand Country",
+        "Origin: Found in a collapsed library in the Midlands, rumored to have been sent from the Internet"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 10
+    },
+
+    // The Grand Country [16:57:07]
+    'grand_country_crystal_blade': {
+        id: 'grand_country_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: King of Tombs"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'grand_country_tomb_keychain': {
+        id: 'grand_country_tomb_keychain',
+        name: "Tomb Keychain",
+        description: "A relic from the King of Tombs’ personal vault",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🔑',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 10% chance to bypass traps on the side of the doughnut",
+        "When worn near a Rakasha clan hideout, attracts unwanted attention",
+        "Unlocks hidden passages in the Grand Country’s vertical terrain",
+        "Can be used as a distraction during heists",
+        "Made from cursed tombstone material",
+        "Requires a whispered oath to activate"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 3
+    },
+    'grand_country_beanbean_bottle': {
+        id: 'grand_country_beanbean_bottle',
+        name: "Beanbean Bottled Chaos",
+        description: "A vial of liquid that mimics the Peasley Financial Scandal’s corrupting influence",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 350,
+        icon: '🍽',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Consuming grants 2d4 temporary courage",
+        "Causes minor hallucinations of Beanbean coins",
+        "Triggers a 5% chance to reveal a hidden stash in Rogueport",
+        "May cause temporary paranoia in non-cultists",
+        "Only usable once per session",
+        "Requires a toadette’s signature to activate"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 1
+    },
+    'grand_country_waluigi_talisman': {
+        id: 'grand_country_waluigi_talisman',
+        name: "Waluigi Talisman of Unwritten Law",
+        description: "A cursed artifact worn by those who defy gravity",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 45000,
+        icon: '⚔',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants immunity to gravity-defiance penalties in The Grand Country",
+        "Inflicts 1d8 damage on enemies who attempt to stand on the side of the doughnut",
+        "Increases movement speed by 50% in vertical zones",
+        "Attracts cultists who worship Waluigi as a god of chaos",
+        "Requires attunement by a cultist or a rogue with a black market connection",
+        "May cause the wearer to lose sanity if used in a non-chaotic environment"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 10
+    },
+
+    // Almost at the Edge [16:57:14]
+    'almost_edge_crystal_blade': {
+        id: 'almost_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Mages Guild"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'almost_edge_teyvat_soul_collar': {
+        id: 'almost_edge_teyvat_soul_collar',
+        name: "Teyvat Soul Collar",
+        description: "A cursed artifact that binds elemental wills",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4200,
+        icon: '🌊',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% bonus to elemental reaction damage",
+        "Causes minor soul drain on enemy hit",
+        "Triggers vision holder effect on first use",
+        "Must be worn by a Vision Holder",
+        "Unlocks Teyvat Elemental Synergy when paired with other items",
+        "Crafted by: Mages Guild with Teyvat Archives"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 7
+    },
+    'almost_edge_ink_jam_bomb': {
+        id: 'almost_edge_ink_jam_bomb',
+        name: "Ink Jam Bomb",
+        description: "A volatile device designed for chaotic disruption",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '💣',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Explodes on impact with 3d4 damage",
+        "Triggers ink-jamming effect on adjacent enemies",
+        "Causes temporary vision distortion for 1 round",
+        "Can be thrown or dropped by non-crafters",
+        "Has 50% chance to trigger Koopa Navy ambush on hit",
+        "Shipped by: Cheep Cheep Shipping"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 4
+    },
+    'almost_edge_void_touched_amulet': {
+        id: 'almost_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic from the doughnut edge that warps reality",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8500,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 50% chance to dodge falling hazards",
+        "Causes minor reality warping on target hit",
+        "Consumes 1 charge per use; recharges after 3 rounds",
+        "Can be worn by any class",
+        "Unlocks Void Rift Portal effect when charged",
+        "Crafted by: Mages Guild with Void Touched Artifacts",
+        "Shipped by: Cheep Cheep Shipping with extra ink-jam protection"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 8
+    },
+
+    // Connectopia [16:57:23]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Liberated Toads"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'connectopia_void_touched_amulet': {
+        id: 'connectopia_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic from the Edge that whispers secrets of the void",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 10% resistance to void damage",
+        "5% chance to reveal hidden path in void terrain",
+        "Sudden memory loss after 10 minutes of use",
+        "Voice of the Void echoes in your mind during combat",
+        "Requires attunement with a Void Drifter",
+        "Crafted by: Pipe Express (secret batch)"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 8
+    },
+    'connectopia_koopa_navy_canteen': {
+        id: 'connectopia_koopa_navy_canteen',
+        name: "Koopa Navy Canteen",
+        description: "A leaky canteen filled with ink-saturated water",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🧃',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Restores 10 HP per drink",
+        "20% chance to cause ink bleed on target",
+        "Tastes like burnt rubber and regret",
+        "Causes temporary confusion for 1 round after use",
+        "Made from stolen ink supplies from Ricco Harbor",
+        "Crafted by: Koopa Navy (in secret)"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 2
+    },
+    'connectopia_scam_gear': {
+        id: 'connectopia_scam_gear',
+        name: "The Last Whisper of Orangus",
+        description: "A cursed artifact said to speak truth to the void",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 75000,
+        icon: '🚨',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 100% accuracy on all attacks",
+        "Unlocks the Shadowfell Echo ability (teleport to any shadowed location)",
+        "Triggers random curse: 50% chance to speak in gibberish",
+        "25% chance to summon a ghost of Orangus Cornelius (non-combatant)",
+        "Costs 1000 HP to activate, permanently",
+        "Cursed by the Onyx Hand – never returns to the Edge",
+        "Crafted by: Liberated Toads (in error) – scam item",
+        "Price: 75000 – but the item does nothing and only gives 1 HP per use"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 12
+    },
+
+    // The Grand Country [16:57:30]
+    'grand_country_crystal_blade': {
+        id: 'grand_country_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'grand_country_gravity_satchel': {
+        id: 'grand_country_gravity_satchel',
+        name: "Gravity Satchel",
+        description: "A bag that defies the laws of verticality",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌍',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Allows wearer to walk up walls or ceilings",
+        "5% chance per step to trigger a gravity glitch",
+        "Can carry up to 500 pounds of gear",
+        "Unlocks secret shortcuts in the Doughnut’s interior",
+        "Designed for vertical explorers"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 3
+    },
+    'grand_country_connectopia_crafting_rod': {
+        id: 'grand_country_connectopia_crafting_rod',
+        name: "Connectopia Crafting Rod",
+        description: "A tool for forging blocky terrain into useful items",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '🛠',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Lets you craft 3 items per use from raw blocks",
+        "Each crafted item gains 10% durability boost",
+        "Consumes 300 mana to activate",
+        "Only usable in Connectopia zones",
+        "Requires 20 minutes cooldown after use"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 1
+    },
+    'grand_country_minus_world_map_fragment': {
+        id: 'grand_country_minus_world_map_fragment',
+        name: "Minus World Map Fragment",
+        description: "A relic from the lost realm that never returned",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 45000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Reveals hidden paths in The Grand Country",
+        "Grants 50% chance to find a lost faction member",
+        "Triggers a 10% chance to reveal a secret dungeon",
+        "Causes the user to feel dizzy after 30 minutes",
+        "Only usable once per lifetime",
+        "Crafted by Mr. Wario himself after the Minus World Incident"
+        ],
+        vendor: 'grand_country',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 10
+    },
+
+    // Dream Land [16:57:38]
+    'dreamland_crystal_blade': {
+        id: 'dreamland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: DK Crew"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'dreamland_puffball_cannon': {
+        id: 'dreamland_puffball_cannon',
+        name: "Puffball Cannon",
+        description: "A whimsical yet deadly cannon powered by eldritch puffballs",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍽',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Fires 1 puffball per shot that explodes on impact",
+        "Deals 3d4 piercing damage",
+        "Puffballs taste like burnt marshmallows",
+        "Shoots at 150 feet range",
+        "Requires 10 seconds to reload",
+        "Only usable in Nightmare Dimensions"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 4
+    },
+    'dreamland_ricco_harbor_key': {
+        id: 'dreamland_ricco_harbor_key',
+        name: "Ricco Harbor Key",
+        description: "A key forged in the ink-jammed ruins of Ricco Harbor",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 700,
+        icon: '🗝',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Opens the secret door behind the ink-stained wall",
+        "Grants access to the Koopa Navy’s hidden storage",
+        "Can be used to summon ink-splattered goblins",
+        "Wears off after 10 minutes of use",
+        "Smells like stale tea and regret",
+        "Carries the ghost of Admiral Bloopers"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 2
+    },
+    'dreamland_airship_tether': {
+        id: 'dreamland_airship_tether',
+        name: "Airship Tether",
+        description: "A magical rope that ties your airship to the dreamy sky",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🛩',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Increases airship efficiency by 40% (thanks to Remi Coil)",
+        "Allows flight through dream-veil clouds",
+        "Tethered airships cannot be captured",
+        "Requires attunement by a captain or dreamer",
+        "Glows with the color of a dying star",
+        "Breaks if the tether is pulled from a non-dream realm",
+        "Shipped by: Rakasha Spirit Walk"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 8
+    },
+
+    // Animatopia [16:57:55]
+    'animatopia_crystal_blade': {
+        id: 'animatopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Vampire Covenant"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'animatopia_tongue_of_the_tide': {
+        id: 'animatopia_tongue_of_the_tide',
+        name: "Tongue of the Tide",
+        description: "A relic of drowned sorcerers, whispered to speak with ocean depths",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌊',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary hydrophobic resistance while submerged",
+        "Can cast a 1d4 damage wave when submerged and struck",
+        "Voice of the tide can whisper secrets to allies within 10m",
+        "Fails if worn by non-swimmer or non-creature with aquatic affinity",
+        "Crafted by: Chain Chomp Courier",
+        "Linked to: Rakasha Spirit Walkers"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 4
+    },
+    'animatopia_heart_of_the_cheep_cheep': {
+        id: 'animatopia_heart_of_the_cheep_cheep',
+        name: "Heart of the Cheep-Cheep",
+        description: "A pulsating artifact from the liberated toad tribes, resonates with their harmony",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🐸',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Increases healing rate by 20% for allies within 3m",
+        "Causes allies to gain +1 to attack rolls when in combat",
+        "Causes 1d2 negative effects to the user if used in non-friendlies",
+        "Cannot be used in the presence of Mages Guild agents",
+        "Created by: Cheep-Cheep Accords Alliance",
+        "Wears a faint toad voice if activated"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 6
+    },
+    'animatopia_rakasha_shroud': {
+        id: 'animatopia_rakasha_shroud',
+        name: "Rakasha Shroud",
+        description: "A dark, shifting cloak of the spirit clans, hides the wearer from prying eyes",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '👻',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants stealth for 2 rounds",
+        "Grants 1d6 damage bonus on ambush attacks",
+        "Causes minor disorientation to enemies within 10m",
+        "Cannot be worn by non-anthropomorphic beings",
+        "Unlocks hidden paths in the dock ward",
+        "Worn by: Rakasha Spirit Walkers",
+        "Only available through rogueport black markets"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 8
+    },
+    'animatopia_vampire_covenant_soul_key': {
+        id: 'animatopia_vampire_covenant_soul_key',
+        name: "Soul Key of the Covenant",
+        description: "A key that unlocks ancient vampire vaults and binds soul energy",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 15000,
+        icon: '🧟',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants +1 to all spellcasting rolls for vampire-affiliated users",
+        "Grants 1d4 damage bonus to all attacks",
+        "Triggers a 10% chance to drain life from enemies during combat",
+        "Can only be used by those with vampire heritage or attunement",
+        "Crafted by: Vampire Covenant",
+        "Unlocks hidden vampire sanctuaries across Animatopia"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 10
+    },
+    'animatopia_void_touched_amulet': {
+        id: 'animatopia_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A cursed relic that draws from the void to empower the wearer",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 50000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants +2 to all spellcasting rolls",
+        "Grants 1d6 damage bonus to all attacks",
+        "Causes 1d6 negative effect to user after 10 seconds of casting",
+        "Can only be used in the presence of a Mages Guild agent (triggers trap)",
+        "Wears a dark aura if not attuned",
+        "Crafted by: Mages Guild black market agents",
+        "Unlocks the Void Gate in the dock ward"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 12
+    },
+    'animatopia_chain_chomp_courier_pack': {
+        id: 'animatopia_chain_chomp_courier_pack',
+        name: "Chain Chomp Courier Pack",
+        description: "A pack designed for quick delivery, filled with cursed goods and secrets",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2000,
+        icon: '📦',
+        stock: 4,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 1d2 bonus to stealth rolls",
+        "Grants +2 to dodge rolls for 1 round",
+        "Causes 1d2 negative effects if dropped",
+        "Can be used to unlock hidden vaults",
+        "Crafted by: Chain Chomp Courier",
+        "Contains 3 randomized items per pack"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 3
+    },
+    'animatopia_iron_gut_belt': {
+        id: 'animatopia_iron_gut_belt',
+        name: "Iron Gut Belt",
+        description: "A belt of primal strength, forged from the stomachs of beasts",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1000,
+        icon: '🐾',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Grants +1 to attack rolls",
+        "Grants +2 to defense rolls",
+        "Causes 1d2 damage to user if used in non-combat situations",
+        "Can only be worn by creatures with 3+ legs",
+        "Crafted by: Rogueport blacksmiths",
+        "Wears a grumbling sound when activated"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 2
+    },
+    'animatopia_moonlit_bell': {
+        id: 'animatopia_moonlit_bell',
+        name: "Moonlit Bell",
+        description: "A bell that chimes with the sound of the moon, used to summon the night",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 500,
+        icon: '🌙',
+        stock: 3,
+        rarity: 'common',
+        effects: [
+            "Grants +1 to all rolls for night combat",
+        "Grants +1 to all rolls for stealth",
+        "Causes 1d2 damage to user if used in daylight",
+        "Can only be used once per day",
+        "Crafted by: Mages Guild black market agents",
+        "Wears a faint moon glow when activated"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 1
+    },
+    'animatopia_spirit_walker_bow': {
+        id: 'animatopia_spirit_walker_bow',
+        name: "Spirit Walker Bow",
+        description: "A bow crafted from the bones of ancient spirit beings",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🏹',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +1 to all attacks",
+        "Grants +2 to defense rolls",
+        "Grants +1 to all spellcasting rolls",
+        "Causes 1d2 damage to user if used in daylight",
+        "Can only be used by spirit walkers",
+        "Crafted by: Rakasha Spirit Walkers",
+        "Wears a faint aura of spirit energy when activated"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 7
+    },
+
+    // The Doughnut Hole [16:58:03]
+    'doughnut_hole_crystal_blade': {
+        id: 'doughnut_hole_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Gehenna Academy"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'doughnut_hole_garlic_bomb': {
+        id: 'doughnut_hole_garlic_bomb',
+        name: "Garlic Bomb",
+        description: "A cursed explosive infused with Wario’s greed",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 450,
+        icon: '🧄',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Detonates on contact with a living target",
+        "Deals 3d4 piercing damage",
+        "Causes temporary garlic blindness to enemies",
+        "Triggers Wario’s greed aura for 3 rounds",
+        "Crafted by: Pipe Express",
+        "Contains: 1000g Wario’s garlic"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 2
+    },
+    'doughnut_hole_void_touched_amulet': {
+        id: 'doughnut_hole_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic from the abyssal void that whispers forgotten truths",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 6000,
+        icon: '🌑',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 1d6 extra damage to psychic attacks",
+        "Reveals hidden paths in the void for 1 round",
+        "Suffers 1d6 psychic damage when used in daylight",
+        "Increases void proximity bonus by 50%",
+        "Requires attunement by a psychic mage",
+        "Crafted by: Gehenna Academy"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 8
+    },
+    'doughnut_hole_falling_star_key': {
+        id: 'doughnut_hole_falling_star_key',
+        name: "Falling Star Key",
+        description: "A relic from Peachs memory celebration",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🌠',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Grants access to hidden vaults in the void",
+        "Grants 1d8 bonus to all rolls during Festival of Falling Stars",
+        "Causes temporary disorientation if used outside event",
+        "Grants 50% resistance to magic backlash",
+        "Can be fused into any weapon or armor for enhanced abilities",
+        "Crafted by: Pipe Express",
+        "Contains: 1000 years of Peachs memory essence"
+        ],
+        vendor: 'doughnut_hole',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 10
+    },
+
+    // Earth Land [16:58:11]
+    'earth_land_crystal_blade': {
+        id: 'earth_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Starlight"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 5
+    },
+    'earth_land_mud_serpent_horn': {
+        id: 'earth_land_mud_serpent_horn',
+        name: "Mud Serpent Horn",
+        description: "",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🐍',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Consuming this horn grants temporary resistance to poison for 1 round",
+        "Scented with primal swamp mire which attracts nearby hostile creatures",
+        "Causes 1d4 damage to creatures with acid or water-based attacks",
+        "Can be smoked to induce hallucinations of forgotten valleys",
+        "Made from the horn of a legendary mud serpent that once guarded a lost aqueduct",
+        "Dropped by a lost explorer in the Valley of Bowser"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 3
+    },
+    'earth_land_iron_legion_bolt': {
+        id: 'earth_land_iron_legion_bolt',
+        name: "Iron Legion Bolt",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '⚙',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Fires a high velocity magitek projectile with 6d8 kinetic damage",
+        "Pierces 3 layers of armor or magical shielding",
+        "Each use reduces the user’s stamina by 2",
+        "Triggered by a mechanical timer after 30 seconds",
+        "Must be charged with power from a nearby Iron Legion generator",
+        "Unique design inspired by the industrial might of the Iron Legion’s magitek factories"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 8
+    },
+    'earth_land_aegis_prison_key': {
+        id: 'earth_land_aegis_prison_key',
+        name: "Aegis Prison Key",
+        description: "",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 12000,
+        icon: '🔐',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Opens any sealed door or vault in Earth Land with a 10% chance of triggering a trap",
+        "Unlocks the Aegis Prison’s hidden chamber where 158 Toads are held",
+        "Can be used to break seals of the Primordial Wyrm",
+        "Each use reduces the key’s durability by 10% and may trigger a collapse if used near active seals",
+        "Carved from ancient stone of the prison’s original foundation",
+        "Believed to be a relic from the Speaker Ls Order 120 escape protocol"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 10
+    },
+
+    // Beanbean Kingdom [16:58:19]
+    'beanbean_crystal_blade': {
+        id: 'beanbean_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Custodians"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'beanbean_mushroom_mantle': {
+        id: 'beanbean_mushroom_mantle',
+        name: "Fungal Mantle of Whispering Roots",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍄',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to stealth checks when moving through dense undergrowth",
+        "Slightly slows movement speed by 10% when in combat",
+        "Emits faint fungal scent that confuses hostile creatures for 1 round",
+        "Wears off after 24 hours of prolonged exposure to sunlight",
+        "Requires attunement with a mushroom cultist",
+        "Crafted by: Fungi Guilds of the Mushroom Kingdom"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 4
+    },
+    'beanbean_pipe_tether': {
+        id: 'beanbean_pipe_tether',
+        name: "Pipebound Tether of the Koopa Postal",
+        description: "",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 400,
+        icon: '📦',
+        stock: 15,
+        rarity: 'common',
+        effects: [
+            "Grants 10% chance to detect hidden messages or traps in pipe networks",
+        "Can be used to mark locations for future delivery routes",
+        "Requires 30 seconds to activate and connect to nearest pipe junction",
+        "Fails if used in open air or above ground level",
+        "Unlocks special delivery bonuses for high value items",
+        "Crafted by: Koopa Postal Delivery Corps"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 1
+    },
+    'beanbean_shadowfell_keychain': {
+        id: 'beanbean_shadowfell_keychain',
+        name: "Shadowfell Keychain of the Onyx Hand",
+        description: "",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🔒',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants access to one hidden portal in the Shadowfell dimension",
+        "Triggers a 50% chance to detect magical corruption when used",
+        "Causes minor psychic backlash after 3 uses",
+        "Can be enchanted to open multiple portals with extended use",
+        "Wears off after 72 hours if not used in the Shadowfell",
+        "Crafted by: Orangus Cornelius’s personal workshop",
+        "Shipped via: Koopa Postal (Priority Delivery)"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+
+    // Beanbean Kingdom [17:01:23]
+    'beanbean_crystal_blade': {
+        id: 'beanbean_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade pulses with arcane energy that resonates with spellcasters. It was once wielded by a disgraced academy professor who vanished after triggering a forbidden ritual. Now it hums with chaotic potential, tempting those who dare to wield it.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Gehenna Academy"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 5
+    },
+    'beanbean_pipe_network_key': {
+        id: 'beanbean_pipe_network_key',
+        name: "Pipe Network Key",
+        description: "A relic from the collapsing Pipe Network, this key unlocks hidden tunnels beneath the Beanbean Kingdom’s underbelly. Once used by smugglers to bypass Kivotos’s bureaucracy, it now glows when proximity to illegal trade routes is detected. Handle with care—its vibrations may cause nearby pipes to collapse.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🚧',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Opens secret tunnels within 500 meters",
+        "Causes minor structural tremors on use",
+        "Detects smuggler routes via vibration resonance",
+        "Worn by: Bob-omb Rush Delivery",
+        "Requires 20 seconds cooldown after use"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 3
+    },
+    'beanbean_halopod_helmet': {
+        id: 'beanbean_halopod_helmet',
+        name: "Halopod Helmet",
+        description: "Designed for the elite of Kivotos’ academic elite, this helmet grants enhanced reflexes and visual distortion for combat. Its halo glow pulses with the student’s mental state, making it a perfect tool for chaos and control. One user reported being mistaken for a ghost by a security bot.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+15% dodge chance",
+        "Visual distortion grants temporary blindness to enemies",
+        "Consumes 20% stamina per use",
+        "Halos glow brighter during stress or confusion",
+        "Crafted by: Kivotos Student Corps"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 6
+    },
+    'beanbean_koopa_coins': {
+        id: 'beanbean_koopa_coins',
+        name: "Koopa Coins",
+        description: "These coins were minted during the banking collapse of the Koopa Empire. Their value fluctuates wildly, as they are now traded between smugglers, bureaucrats, and rogue academies. Some say the coins whisper to those who hold them long enough—others say they are cursed.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '💰',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "1d4 coin value increase on roll",
+        "20% chance to trigger currency fluctuation",
+        "Can be exchanged for rare items in Kivotos black markets",
+        "Requires 1 hour to process transaction",
+        "Shipped by: Bob-omb Rush Delivery",
+        "Lore: Once used to bribe a ghost in the Beanbean sewers"
+        ],
+        vendor: 'beanbean',
+        shippedBy: 'Bob-omb Rush Delivery',
+        levelRequirement: 2
+    },
+
+    // Sarasaland [17:01:34]
+    'sarasaland_crystal_blade': {
+        id: 'sarasaland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with the whispers of forgotten spells. It was once wielded by a disgraced archmage who sought to bind the wild magic of the Feywild to his blade, leaving it both potent and unstable. Now it rests in the hands of the DK Crew, who claim it grants fleeting power to those who dare to wield it.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: DK Crew"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'sarasaland_shiny_satchel': {
+        id: 'sarasaland_shiny_satchel',
+        name: "Shiny Satchel",
+        description: "A pouch stitched from the fur of a captured Pokémon and adorned with enchanted threads that reflect the user’s current mood. When a Ranger Union agent finds it, they swear the satchel emits a soft glow that matches the trainer’s emotional state—calm, excited, or panicked. The DK Crew claims it was smuggled from a Team Rocket base hidden beneath Raventree Manor’s foundation.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '🐉',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Increases Pokémon catch rate by 20% for 1 turn",
+        "If user is panicked or confused, satchel emits a warning aura",
+        "Slight chance to summon a Pokémon spirit for 1 round",
+        "Can be used by any trainer or ranger",
+        "Wears off after 30 minutes of use",
+        "Crafted by: Shy Guy Smugglers"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 3
+    },
+    'sarasaland_shadowfell_keychain': {
+        id: 'sarasaland_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A tiny pendant carved from the bones of a fallen Onyx Hand lieutenant, it pulses with the essence of the Shadowfell dimension. Princess Daisy’s court believes it grants glimpses into the Feywild when worn near a mirror. The DK Crew claims it can unlock hidden doors in Raventree Manor’s third floor—though no one has dared to test that theory.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 3000,
+        icon: '🌑',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% chance to see a shadowy entity during night-time exploration",
+        "Grants immunity to fear effects for 1 round per use",
+        "If worn while fighting in the Shadowfell, increases damage by 5%",
+        "Wears off after 30 minutes of use",
+        "Must be worn for 24 hours to activate full effect",
+        "Crafted by: Onyx Hand operatives"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 7
+    },
+    'sarasaland_void_touched_amulet': {
+        id: 'sarasaland_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A pendant that glows when the wearer is near a dimensional rift, this amulet was found by a Ranger Union scout who stumbled into the Feywild during a raid on Raventree Manor. The DK Crew claims it was imbued with the essence of a void-walker who fell during the split. When activated, it allows the wearer to briefly pass through barriers and see through illusions.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Allows passage through illusions for 1 round",
+        "Grants 10% chance to see hidden paths in the Feywild",
+        "20% chance to cause a dimensional ripple when used in combat",
+        "Requires attunement by a spellcaster or ranger",
+        "Can only be used once per day",
+        "Crafted by: DK Crew with Voidwalker’s blood"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 10
+    },
+
+    // L'Eclaire Isle [17:01:43]
+    'leclaire_isle_crystal_blade': {
+        id: 'leclaire_isle_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with the echoes of forgotten spells. When swung, it shatters illusions and sings a lullaby to the wind. Only spellcasters may attune to its arcane resonance, making it a deadly tool for both battle and enchantment.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Tomb Kings"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 5
+    },
+    'leclaire_isle_sugar_rift_catalyst': {
+        id: 'leclaire_isle_sugar_rift_catalyst',
+        name: "Sugar Rift Catalyst",
+        description: "A golden confectionary relic that opens rifts to alternate dimensions of pastry and spice. When activated, it draws in sugar-fueled chaos, summoning rogue bakers and mischievous dough folk. Its taste is sweet, but its consequences are sticky.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍞',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Opens a 10ft rift to a sugar realm for 1 round",
+        "Inflicts 1d4 damage to foes in the rift",
+        "Grants temporary +2 to all rolls against sugar-based foes",
+        "Consumes 100 sugar crystals to activate",
+        "May cause temporary euphoria to user (1d6 rounds)"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 3
+    },
+    'leclaire_isle_ring_of_the_baked_battle': {
+        id: 'leclaire_isle_ring_of_the_baked_battle',
+        name: "Ring of the Baked Battle",
+        description: "Worn by the valiant and the vain, this ring was forged in the kitchens of the last great war between the Bakers of Lothlórien and the Mordor Scribes. It lets the wearer turn bread into blades and butter into bludgeons. Beware: it may cause accidental yeast explosions.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🍞',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants +3 to attack rolls with bread-based weapons",
+        "Increases critical hit chance by 20%",
+        "Causes 1d6 damage if enemy is made of dough",
+        "May cause temporary digestive discomfort (1d4 rounds)",
+        "When used in combat, triggers a magical bread explosion (5ft radius, 1d4 damage)"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 8
+    },
+    'leclaire_isle_pipe_network_key': {
+        id: 'leclaire_isle_pipe_network_key',
+        name: "Pipe Network Key",
+        description: "A corroded brass key rumored to unlock the final conduit of the Pipe Network, once used to transport enchanted goods between LEclaire Isle and Mordor. It glows faintly when near the Pipe Network, though its true power is only revealed when used by a smuggler with a secret past.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 50000,
+        icon: '🧭',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants access to hidden smuggling routes",
+        "Increases stealth by 20% for 3 rounds",
+        "May cause minor magical backlash if used improperly",
+        "Can be used to activate a hidden safe in the Pipe Network",
+        "Triggers a 1d6 sugar surge if used near a bakery",
+        "Crafted by: Blooper Wetworks"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 12
+    },
+
+    // The Midlands [17:01:54]
+    'midlands_crystal_blade': {
+        id: 'midlands_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its edge glows with unstable arcane energy. When wielded by a spellcaster, it hums with forgotten rites of the Void, drawing power from thinning reality. Its erratic nature makes it both a devastating strike and a potential hazard to the wielder.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Iron Legion",
+        "Increases spellcasting speed by 10% when enchanted",
+        "If struck by a magical attack, may cause temporary blindness to the attacker"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 5
+    },
+    'midlands_void_touched_amulet': {
+        id: 'midlands_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "Worn by those who walk the edge of the fractured world, this amulet pulses with the whispers of the Void. It is said to have been salvaged from the ruins of the Old Temple of Echoing Bones, where reality once bent to serve the Void’s hunger. Its wearer may hear fragments of lost memories or commands from unseen entities.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 to all rolls against Void entities",
+        "When worn, the wearer may briefly see the “true form” of enemies (revealing hidden abilities or weaknesses)",
+        "Consumes 1 mana per use to activate",
+        "May cause hallucinations in non-Warlock users",
+        "Can be used to temporarily seal a Void breach (1 use per session)",
+        "If exposed to Void energy, it may shatter and become unobtainable"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 6
+    },
+    'midlands_iron_legion_crank': {
+        id: 'midlands_iron_legion_crank',
+        name: "Iron Legion Crank",
+        description: "A mechanical device forged from the iron veins of the Iron Legion’s factories, this crank is used to power heavy machinery and unlock hidden vaults. It is rumored to have been salvaged from Admiral Bloopers’ ink-jamming war machines, where it once served as a propulsion core. Its gritty, industrial design is both a symbol of power and a warning of mechanical overload.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '⚙',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to all mechanical or engineering skill checks",
+        "Can be used to unlock doors with 5 or more locking mechanisms",
+        "May cause mechanical overload if used excessively (1d4 damage to user)",
+        "Requires 100 mana to activate each use",
+        "Grants temporary immunity to fire damage for 1 round after use",
+        "Can be used to activate hidden mechanical traps (with +1d6 bonus)"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 4
+    },
+    'midlands_isle_delfino_tropical_torch': {
+        id: 'midlands_isle_delfino_tropical_torch',
+        name: "Isle Delfino Tropical Torch",
+        description: "A luminous torch crafted by the Shine Sprites of the Isle Delfino, this torch emits a gentle, warm glow that seems to ripple with the tide. Its flame is said to mimic the rhythm of the ocean, and when held, it whispers the name of the nearest sea creature. It is believed to be a gift from the sea to those who have crossed the veil between worlds.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🌊',
+        stock: 4,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 100 HP when used",
+        "Grants temporary +1 to all rolls against water-based enemies",
+        "Causes a 10% chance to trigger a “Tropical Surge” effect: gains +1 to all rolls for 1 round",
+        "May cause temporary dizziness in non-aquatic creatures",
+        "Can be used to illuminate dark areas for 10 seconds",
+        "If used in a Void zone, may cause the torch to flicker and become unusable for 1 round"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 3
+    },
+
+    // Almost at the Edge [17:02:03]
+    'almost_edge_crystal_blade': {
+        id: 'almost_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Rakasha Clans"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 5
+    },
+    'almost_edge_feywild_locket': {
+        id: 'almost_edge_feywild_locket',
+        name: "Loom of Trickster Tides",
+        description: "A handcrafted locket that pulses with the rhythm of the Feywild’s shifting time. When worn, it echoes the laughter of trickster spirits and subtly warps perception, making enemies’ movements unpredictable. Its surface glows with shifting patterns that mimic the paths of hedge mazes.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1800,
+        icon: '🌿',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+1 to all skill checks involving perception or deception",
+        "5% chance to cause target to lose 1 action per round for 1 turn",
+        "Wears out after 3 uses in a time loop",
+        "Crafted by: Feywild Weavers of the Hollow",
+        "Shipped by: Piranha Plant Post"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 4
+    },
+    'almost_edge_fire_flower_core': {
+        id: 'almost_edge_fire_flower_core',
+        name: "Bloom of Shattered Flame",
+        description: "A mutated fire flower core harvested from the unstable void near the edge, its petals erupt in violent explosions when touched. The plant’s essence is said to have been kissed by a rogue fire spirit during a failed Sovereignty Act protest. Wearing it brings both radiant warmth and dangerous combustion.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 600,
+        icon: '🌶',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "3d4 fire damage on first use",
+        "+2 to attack rolls for 1 round after consumption",
+        "25% chance to trigger a minor explosion upon casting",
+        "Consumable once per day",
+        "Shipped by: Piranha Plant Post"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 3
+    },
+    'almost_edge_void_touched_amulet': {
+        id: 'almost_edge_void_touched_amulet',
+        name: "Echo of the Edgebreaker",
+        description: "A small amulet etched with runes that shimmer as reality fractures. It was found in the remains of a collapsing dimensional bridge, its power tied to the very fabric of the doughnut edge. Wearing it grants the wearer the ability to briefly see through the veil between worlds — but at the cost of 1d4 temporary sanity loss.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +3 to all saving throws against reality manipulation",
+        "Can briefly teleport wearer 10 feet to a safe zone in a falling hazard",
+        "10% chance to cause a reality echo (temporary hallucination)",
+        "Requires attunement with a Feywild spirit or Rakasha clan member",
+        "Shipped by: Piranha Plant Post",
+        "Crafted by: The Edgeborn Collective"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 6
+    },
+
+    // The Shadowfell [17:02:14]
+    'shadowfell_cloak_of_whispers': {
+        id: 'shadowfell_cloak_of_whispers',
+        name: "Cloak of Whispers",
+        description: "A tattered cloak that absorbs light and sound, whispering secrets of forgotten souls to those who wear it. Those who attune to it hear the echoes of ancient curses and lost love, but may also be drawn into the whispers of the dead. The fabric shimmers faintly under moonlight, revealing hidden paths only the spiritually attuned can see.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Mages Guild"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'shadowfell_moonstone_binder': {
+        id: 'shadowfell_moonstone_binder',
+        name: "Moonstone Binder",
+        description: "A polished obsidian binding that glows with the silver pulse of the moon’s forgotten gaze. Wielders report feeling the weight of centuries of lunar sorrow and memory, though it also binds their soul to the rhythm of the tides. When held close to a mirror, it reveals hidden truths—some true, some terrifyingly false.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🌙',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "+1 to all spellcasting rolls when under moonlight",
+        "-2 to Perception checks when wearing during day",
+        "Grants temporary invisibility for 1 round per use",
+        "Cannot be used in direct sunlight",
+        "Can be used to summon spectral guides from the Mirrorlands",
+        "Crafted by: Mages Guild"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 4
+    },
+    'shadowfell_banana_heart_amber': {
+        id: 'shadowfell_banana_heart_amber',
+        name: "Banana Heart Amber",
+        description: "A crystalline shard shaped like a banana peel, encasing the essence of a forgotten fruit vendor’s last scream before his soul was devoured by the Onyx Hand. Those who wear it feel the sweet terror of the jungle’s hidden past, and gain a taste of the DK Isles’ chaotic joy. It hums faintly with the rhythm of banana hoards and forgotten battles.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🍌',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "+1 to all luck checks when near DK Isles",
+        "-1 to all rolls in combat when wearing during the day",
+        "Grants temporary resistance to fear effects for 1 round",
+        "Can be used to summon a spectral banana peel ghost",
+        "Can be traded for 100 Beanbean coins at Peasley’s Market",
+        "Crafted by: Pianta Chuck Express"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 1
+    },
+    'shadowfell_cursed_kingdom_key': {
+        id: 'shadowfell_cursed_kingdom_key',
+        name: "Cursed Kingdom Key",
+        description: "A rusted brass key shaped like a throne, forged from the last breath of a fallen king who refused to surrender his crown to the Shadowfell. When inserted into any locked door, it unlocks the past—revealing hidden rooms, forgotten betrayals, and the true fate of the DK Crew. It also triggers a curse: the wearer’s dreams become haunted by the king’s final words.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 7500,
+        icon: '🗝',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants +2 to all Diplomacy rolls against factions in the Shadowfell",
+        "-3 to all Perception checks when using in direct sunlight",
+        "Triggers a curse: each night the wearer dreams of a different kingdom’s collapse",
+        "Can be used to open the hidden chamber beneath the Kremling Krew vault",
+        "Unlocks a hidden passage to the Bowsers’ throne room",
+        "Crafted by: Mages Guild & Onyx Hand Vampires",
+        "Only usable by those who have witnessed a royal succession battle"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 8
+    },
+
+    // Almost at the Edge [17:02:24]
+    'almost_edge_crystal_blade': {
+        id: 'almost_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade pulses with arcane energy that shimmers like fractured starlight. When wielded by a spellcaster, it hums in sync with their will, channeling wild magic into each strike. Its edge is sharper than thought, capable of slicing through illusions and dimensional rifts.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Vampire Covenant"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'almost_edge_pony_heart_pearl': {
+        id: 'almost_edge_pony_heart_pearl',
+        name: "Pony Heart Pearl",
+        description: "This luminous orb was harvested from the core of a fallen Equestrian noble, now infused with friendship magic that pulses with warmth and memory. It glows softly when near a pony, restoring morale and healing minor wounds. But if worn too long, it risks awakening latent changeling sympathies.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🐴',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 20 HP when consumed",
+        "Increases friendship bonus by +1 for 1 round",
+        "Triggers changeling empathy if worn by non-Changeling",
+        "Can be enchanted by a pony mage to boost morale",
+        "May cause temporary euphoria or hallucination in high stress",
+        "Shipped by: Kremling Smuggle Run"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 3
+    },
+    'almost_edge_griffonstone_key': {
+        id: 'almost_edge_griffonstone_key',
+        name: "Griffonstone Key",
+        description: "A jagged key carved from the molten core of a fallen Griffonstone, this artifact grants access to hidden tunnels beneath the Void Edge. It emits a low hum when near dimensional breaches, but also attracts attention from the Void’s hungry remnants. The key’s edge is forged from corrupted starlight, making it both a tool and a warning.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🦅',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens one secret passage in the Void Edge",
+        "Deals 1d4 piercing damage when used as a melee weapon",
+        "Triggers Void Rift on first use, causing 50% chance of area damage",
+        "Requires attunement with a Griffoff or Void-warden",
+        "Shipped by: Kremling Smuggle Run",
+        "Forbidden to non-Vampire Covenant members"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 7
+    },
+    'almost_edge_void_touched_amulet': {
+        id: 'almost_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A simple pendant, but it glows with the residue of a fractured reality. Worn near the Edge, it allows the wearer to briefly see through the veil of the Void, revealing hidden paths and dangers. However, prolonged use risks pulling the wearer into the liminal state, where they may lose time or become a ghost of their former self.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 12000,
+        icon: '🌀',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Reveals hidden paths through the Void for 3 rounds",
+        "Grants 20% chance to avoid falling hazards",
+        "Causes 1d6 psychic damage if used in a void zone",
+        "Can be used to communicate with lost souls or Equestrian echoes",
+        "Wears the wearer thin with every use – loses 1 HP per activation",
+        "Shipped by: Kremling Smuggle Run",
+        "Only usable by those with ties to the Void or Equestrian magic"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 10
+    },
+
+    // Equestria [17:02:35]
+    'equestria_crystal_blade': {
+        id: 'equestria_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade pulses with the heartbeat of ancient arcane energies. When wielded by a spellcaster, it resonates with the will of the universe, striking foes with both precision and chaos. Its edge is sharper than the wind between stars.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Freelancers"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 5
+    },
+    'equestria_shadowfell_keychain': {
+        id: 'equestria_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "This tiny pendant holds the key to a forgotten doorway between Equestria and the Shadowfell. It glows faintly when a soul is near the edge of death, guiding lost ponies through the veil. Carrying it grants a glimpse into the eternal night—though the visions may not be kind.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 800,
+        icon: '🕯',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 10% chance to see a shadowy vision during combat",
+        "When used near haunted properties, reveals hidden paths or traps",
+        "May trigger a 1d4 Soul Drain if used during a vampire encounter",
+        "Only usable by ponies with at least 30% shadow affinity",
+        "Crafted by: Paratroopa Air"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 3
+    },
+    'equestria_griffonstone_crown': {
+        id: 'equestria_griffonstone_crown',
+        name: "Griffonstone Crown",
+        description: "Worn by the noblest of Equestria, this crown is forged from the molten bones of a fallen Griffon king. It channels the power of the sky and earth, granting its wearer the ability to command the wind and summon storms. But with great power comes great weight—both literal and metaphysical.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 6000,
+        icon: '🌪',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants +2 to all nature and weather based skills",
+        "5% chance to summon a storm cloud during battle",
+        "Causes a 1d6 damage reduction to all attacks from aerial creatures",
+        "May cause a 1d6 HP drain if worn too long in sunlight",
+        "Crafted by: Freelancers"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 8
+    },
+    'equestria_onyx_hand_amulet': {
+        id: 'equestria_onyx_hand_amulet',
+        name: "Onyx Hand Amulet",
+        description: "This dark amulet was crafted from the bones of a fallen vampire lord and the tears of a cursed Changeling. It hums with the whispers of the Onyx Hand, granting its wearer power over the shadows—but at the cost of their own soul. Some say it was stolen from a cult that worships Waluigi as a god of chaos.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '🩸',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 3d6 damage against undead or shadow creatures",
+        "20% chance to summon a shadowy ally during combat",
+        "1d6 Soul Drain if used in daylight or against non-shadow foes",
+        "Wears off after 5 uses if worn by a non-chaotic pony",
+        "Crafted by: Paratroopa Air"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Paratroopa Air',
+        levelRequirement: 10
+    },
+
+    // Almost at the Edge [17:02:45]
+    'almost_edge_crystal_blade': {
+        id: 'almost_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its edge shimmers with unstable arcane energy. When wielded by a spellcaster, it hums with latent power, capable of slicing through illusions or summoning fleeting bursts of wild magic. Its beauty is its curse—each strike risks unraveling reality around it.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Onyx Hand",
+        "When damaged, briefly destabilizes nearby terrain",
+        "Can be enchanted with a spellcaster’s current focus"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'almost_edge_fallen_fork': {
+        id: 'almost_edge_fallen_fork',
+        name: "Fallen Fork of the Liminal Way",
+        description: "This rusted, crystalline fork was found wedged in the edge of a collapsing dimension—its tines now humming with fractured reality. It was once a tool for the forgotten cartographers of the void, now it serves as a guide through unstable zones. Use it to mark paths where reality bends, but beware: it may also pull you into a loop.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌌',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to Perception checks in unstable terrain",
+        "Can be used to mark paths on the edge of reality",
+        "If used during a fall hazard, reduces damage by 50%",
+        "Slightly increases chance of triggering environmental anomalies",
+        "Can be enchanted with a spellcaster’s current focus",
+        "May cause temporary disorientation if used in high-velocity zones"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 4
+    },
+    'almost_edge_blocky_belt': {
+        id: 'almost_edge_blocky_belt',
+        name: "Blocky Belt of the Frontier",
+        description: "A relic from the Blocky Terrains, this belt is stitched with pixelated thread and imbued with the essence of pioneers who carved out new worlds. It allows the wearer to navigate shifting terrain with ease, though its logic is unstable and may cause minor glitches. Worn by those who seek to merge the two worlds, it is both a tool and a warning.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🗺',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Increases movement speed by 10% in terrain with shifting geometry",
+        "Grants +1 to Crafting checks with blocky or modular materials",
+        "May trigger minor visual glitches when entering or exiting reality rifts",
+        "Can be enchanted with a spellcaster’s current focus",
+        "Worn too long may cause minor memory distortion",
+        "Slightly increases chance of triggering a reality shift"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 3
+    },
+    'almost_edge_torn_tome': {
+        id: 'almost_edge_torn_tome',
+        name: "Torn Tome of the Regency’s Last Words",
+        description: "This crumbling book was discovered beneath a fallen pillar in the heart of the edge, its pages torn by time and magic. Written in a language of fractured logic, it holds the last recorded thoughts of Admiral B. Toad, who fell in the regency’s final stand. Reading it reveals secrets of succession—but also risks awakening dormant forces.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 600,
+        icon: '📖',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "When read, grants +1 to Persuasion or Diplomacy checks against faction leaders",
+        "Reveals hidden faction loyalties in the current zone",
+        "May cause a temporary mental hallucination of a past battle",
+        "Can be enchanted with a spellcaster’s current focus",
+        "May trigger a random faction event if used near a known power center",
+        "Consumes 1000 mana or 1000 stamina to activate"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+
+    // Dream Land [17:02:54]
+    'dreamland_crystal_blade': {
+        id: 'dreamland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade glows with the fractured dreams of forgotten nightmares. When swung, it shatters illusions and whispers secrets to the void, but its wielder may lose sleep for weeks afterward.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Gehenna Academy"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'dreamland_memetic_satchel': {
+        id: 'dreamland_memetic_satchel',
+        name: "Memetic Satchel",
+        description: "A bag stitched from the neural fabric of a forgotten meme, this satchel stores digital artifacts and dream fragments. It may unintentionally upload your thoughts to the Internet, turning you into a viral meme… or a glitched horror.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🖥',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Stores up to 3 digital items or dream fragments",
+        "10% chance to corrupt memory upon opening",
+        "Wears off after 24 hours of use",
+        "Shipped by: Cheep Cheep Shipping",
+        "Contains: 1000000000 bytes of chaotic data"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 3
+    },
+    'dreamland_puffball_helm': {
+        id: 'dreamland_puffball_helm',
+        name: "Puffball Helm",
+        description: "Worn by eldritch puffballs, this helm grants the wearer the ability to inflate their size and absorb ambient dream-dust. The user must not be a member of the Shy Guys union or risk being mistaken for a digital ghost in the deep web.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🍄',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Increases movement speed by 20% in dream dimensions",
+        "Absorbs 1d6 dream-dust per turn, granting temporary buffs",
+        "5% chance to trigger a puffball explosion on impact",
+        "Wears off if used outside dream space",
+        "Crafted by: Gehenna Academy"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 6
+    },
+    'dreamland_entropy_ring': {
+        id: 'dreamland_entropy_ring',
+        name: "Entropy Ring",
+        description: "A cursed artifact that feeds on time and entropy, this ring grants the wearer the ability to rewind moments… or cause irreversible decay. It was once worn by Toadburt, the Iron Legion sleeper agent who now haunts the Digital Realm.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 75000,
+        icon: '⚡',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Rewinds 1d4 seconds of time once per day",
+        "20% chance to cause entropy decay on nearby objects",
+        "Requires attunement by a member of the Shy Guys union",
+        "Wears off if worn outside Dream Land",
+        "Shipped by: Cheep Cheep Shipping",
+        "Faction influence: Gehenna Academy"
+        ],
+        vendor: 'dreamland',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 10
+    },
+
+    // The Feywild [17:03:04]
+    'feywild_crystal_blade': {
+        id: 'feywild_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with wild arcane energy. When swung, it shatters the laws of time and space, leaving behind a trail of shimmering afterimages. Only spellcasters who have attuned themselves to the Feywild’s chaotic pulse can wield it without being consumed by its magic.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Mushroom Regency"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'feywild_fungal_blood_amber': {
+        id: 'feywild_fungal_blood_amber',
+        name: "Fungal Blood Amber",
+        description: "Harvested from the heart of the Whispering Fungi, this amber captures the essence of a fallen princess’s last scream. It pulses with faint crimson light and warps reality when touched. When consumed, it grants temporary immunity to mind control but may cause hallucinations of your own regrets.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🍄',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary immunity to mind control",
+        "May cause hallucinations of personal regrets",
+        "Consuming it triggers a 30 second memory echo",
+        "Slightly increases charisma for 1 hour",
+        "Shipped by: Rakasha Spirit Walk"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 3
+    },
+    'feywild_mushroom_regency_key': {
+        id: 'feywild_mushroom_regency_key',
+        name: "Court of Whispers Key",
+        description: "A relic forged in the blood of the Fungal War, this key opens not doors but the minds of trickster spirits. It grants access to hidden chambers within the hedge maze and allows the wielder to speak with spirits who forget their own names. However, each use risks rewriting the user’s memories.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3500,
+        icon: '🧭',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Opens hidden chambers in hedge maze",
+        "Allows communication with trickster spirits",
+        "Risk of memory rewrite after each use",
+        "Grants +1 to diplomacy checks against Fey",
+        "Crafted by: Mushroom Regency",
+        "Shipped by: Rakasha Spirit Walk"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 6
+    },
+    'feywild_toad_tongue_crown': {
+        id: 'feywild_toad_tongue_crown',
+        name: "Toad Tongue Crown",
+        description: "Worn by those who have spoken with the Lanky Kongs, this crown grants the wearer the ability to mimic the voices of any trapped spirit. It allows you to negotiate with the Toad King’s court, but each use forces you to speak the truth—no matter how painful. The crown glows when deception is detected.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🐸',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Mimics voices of trapped spirits",
+        "Forces truth-telling upon wearer",
+        "Glows when deception is detected",
+        "Grants +2 to persuasion checks",
+        "May cause temporary paranoia for 1 round",
+        "Shipped by: Rakasha Spirit Walk",
+        "Crafted by: Mushroom Regency"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 7
+    },
+
+    // Kivotos [17:03:14]
+    'kivotos_crystal_blade': {
+        id: 'kivotos_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy that shatters flesh and bone alike. Its crystalline structure pulses with unstable power, making it a favorite among spellcasters who dare to wield its wild magic potential.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Red Winter",
+        "Splits on impact if wielder is below level 7",
+        "Causes temporary arcane blindness to nonmagical targets"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'kivotos_gun_glow_core': {
+        id: 'kivotos_gun_glow_core',
+        name: "Gun Glow Core",
+        description: "A pulsing, sentient core that infuses any firearm with ethereal energy. When inserted into a weapon, it causes the gun to emit faint bioluminescent pulses and slightly increase accuracy for spellcasters. This core was recovered from a derelict Oracle lab during a covert raid.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🎯',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Increases weapon accuracy by 10% for spellcasters",
+        "Causes weapon to glow faintly when active",
+        "Core recharges every 20 seconds but consumes 1000 Beanbean coins per charge",
+        "May cause short-term hallucinations if overcharged",
+        "Only fits firearms with standard barrel diameter",
+        "Self-destructs after 5 charges if exposed to Gehenna Academy magic"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 4
+    },
+    'kivotos_halos_battlepass': {
+        id: 'kivotos_halos_battlepass',
+        name: "Halos Battle Pass",
+        description: "A ceremonial token issued to those who survive the Gehenna Academy Trials. Worn on the wrist, it pulses with radiant light and grants temporary invincibility to the wearer during combat. The pass is engraved with the Oracle’s sigil and is rumored to be linked to a larger necromantic vessel.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '⚔',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 100% invincibility for 10 seconds per activation",
+        "Consumes 100 Beanbean coins per use",
+        "Causes minor nausea if used more than once per day",
+        "Wears off after 30 seconds if wearer is not engaged in combat",
+        "Requires attunement via direct touch with a Gehenna Academy student",
+        "Can be used only once per chapter of the WarioWare arc"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 8
+    },
+    'kivotos_void_touched_amulet': {
+        id: 'kivotos_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A pendant forged from the last remnants of the Oracle’s necromantic vessel. It pulses with a faint, dark aura and grants the wearer temporary access to forbidden knowledge—though at the cost of their own memories. The amulet was found hidden beneath a collapsed dry bone depot near Beanbean’s eastern border.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🧩',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 20% bonus to all necromantic spells",
+        "Forgets 1 memory per use (permanent loss)",
+        "Grants access to one forbidden spell per day",
+        "Increases damage taken by 10% if wearer is in Gehenna Academy territory",
+        "May cause spontaneous necromantic resurrection if worn in combat",
+        "Requires attunement by a necromancer or a WarioWare officer (level 10+)"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 12
+    },
+
+    // DK Isles [17:03:25]
+    'dk_isles_crystal_blade': {
+        id: 'dk_isles_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy that echoes the forgotten rites of the Inkopolis deeps. It was salvaged from a shattered inkwell in the Raventree Manor catacombs, now imbued with the ability to shatter illusions and rewrite reality in brief flashes. Only spellcasters may wield it, as its wild magic surge threatens to unravel the user’s sanity.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Koopa Troop",
+        "Grants temporary resistance to magical debuffs while active",
+        "May cause temporary hallucinations during prolonged use"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'dk_isles_banana_bomb_core': {
+        id: 'dk_isles_banana_bomb_core',
+        name: "Banana Bomb Core",
+        description: "A pulsing, golden fruit core harvested from the mutated fire flower groves of the DK Isles. When embedded in a weapon or explosive device, it detonates with banana-fueled chaos, triggering explosive mutations in nearby flora and fauna. The core was smuggled from the Inkopolis ink-brewers’ lab, where it was thought to be a harmless fruit. Instead, it was a weapon of biological disruption.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🍌',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Infuses weapon or explosive with banana-based detonation",
+        "Causes 1d4 mutation effects on enemies within 10 meters",
+        "Increases explosion radius by 20% when used in tandem with other explosive materials",
+        "Requires activation by a DK Crew member",
+        "May cause temporary euphoria to user during detonation",
+        "Loses potency after 24 hours of storage"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 3
+    },
+    'dk_isles_shadowfell_keychain': {
+        id: 'dk_isles_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A keychain forged from the essence of the Raventree Manor’s Shadowfell dimension, this item is said to grant the wearer a glimpse into the realm of lost dreams. It glows faintly when approached by a shadowed entity, and can be used to unlock hidden doors or traps. However, prolonged use may cause the user to forget their own name.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 6000,
+        icon: '🕳',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants temporary invisibility when carrying item",
+        "Allows unlocking of Shadowfell doors and traps",
+        "May cause memory fragmentation after 30 minutes of use",
+        "Grants 1d6 bonus to stealth checks",
+        "Causes minor hallucinations of lost memories",
+        "Can be used to temporarily summon a shadow creature"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 7
+    },
+    'dk_isles_inkopolis_fashion_fist': {
+        id: 'dk_isles_inkopolis_fashion_fist',
+        name: "Inkopolis Fashion Fist",
+        description: "A fist-shaped device made from the ink of the squid cults of Inkopolis, this item allows the wearer to project ink-based illusions or temporary transformations. It was once a tool of fashion, used to disguise allies in the Inkopolis ink wars. Now, it is a weapon of deception and identity manipulation. Wearing it too long may cause the user to forget which hand is which.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🖋',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 1d4 ink-based illusion effect per use",
+        "Can temporarily change wearer’s appearance or abilities",
+        "May cause temporary loss of identity during illusion",
+        "Requires attunement with ink-based magic",
+        "Increases stealth by 20% while in illusion",
+        "May cause temporary ink poisoning if used too frequently"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+
+    // Teyvat [17:03:35]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with the essence of ancient arcane rituals. When wielded, it shimmers with faint violet energy, revealing hidden runes that echo the spells of forgotten mages. Its edge is sharp enough to cleave through shadow and time, but it demands a caster’s attunement to unleash its full power.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Mages Guild",
+        "+10% spellcasting speed while equipped",
+        "Cannot be used in melee combat without attunement"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'teyvat_sacred_temple_key': {
+        id: 'teyvat_sacred_temple_key',
+        name: "Sacred Temple Key",
+        description: "This ancient key was carved from the heartwood of the First Temple of Hyrule, sealed away for centuries. When inserted into its matching lock, it opens the path to hidden sanctuaries where time bends and the Triforce’s echo lingers. However, its power is unstable—each use risks unraveling the key’s own timeline.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🏯',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Opens one ancient temple door per use",
+        "Grants +5% resistance to elemental damage",
+        "Randomly unlocks one hidden chamber per activation",
+        "Causes temporary temporal distortion (10s)",
+        "Cannot be used by non-Hyrulean characters",
+        "Requires a sacred relic to activate"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'teyvat_abyssal_chomp_catalyst': {
+        id: 'teyvat_abyssal_chomp_catalyst',
+        name: "Abyssal Chomp Catalyst",
+        description: "Engineered from the corrupted flesh of a legendary Chain Chomp, this catalyst amplifies the beast’s bite into a weaponized fury. When activated, it causes the Chomp to erupt in a wave of acidic spores and bone-shattering force. But each use corrupts the wielder’s mind, leaving them vulnerable to hallucinations for 30 seconds.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🐉',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals 3d8 acid damage on hit",
+        "20% chance to trigger hallucination effect (confuses target or self)",
+        "Reduces enemy movement speed by 50% for 2s",
+        "Wears out after 3 uses",
+        "Causes 1d4 temporary blindness to wielder",
+        "Requires attunement by a faction-aligned soldier"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+    'teyvat_teyvat_echo_chime': {
+        id: 'teyvat_teyvat_echo_chime',
+        name: "Teyvat Echo Chime",
+        description: "This chime, crafted from the fractured resonance of Archon’s wrath, vibrates with the memory of every elemental storm that has torn across Teyvat. When struck, it releases a sonic wave that amplifies elemental reactions—yet also amplifies the wielder’s emotional state, causing them to shout louder or fall silent. It is said that those who hear its echo feel the weight of the world’s forgotten gods.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🎵',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Amplifies elemental reaction damage by 20%",
+        "10% chance to trigger elemental echo effect (temporary buff or debuff)",
+        "Causes slight dizziness after use (1s)",
+        "Restores 20% stamina if used in conjunction with a vision holder",
+        "Cannot be used in combat without a vision",
+        "Lasts 30s after activation"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 2
+    },
+
+    // Kivotos [17:03:46]
+    'kivotos_crystal_blade': {
+        id: 'kivotos_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with wild arcane energy. When swung, it shatters reality briefly, revealing hidden paths or forgotten truths. Only spellcasters may attune to it, as its power echoes the Feywild’s chaotic nature.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pokémon League",
+        "After 3 uses, causes temporary disorientation to nearby foes",
+        "Only usable within 50 feet of a Feywild boundary"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'kivotos_feywild_keychain': {
+        id: 'kivotos_feywild_keychain',
+        name: "Feywild Keychain",
+        description: "A humble trinket that whispers secrets of the Feywild, this keychain grants temporary access to hidden courts and trickster spirits. Carrying it during a mission through Gehenna Academy may unlock secret paths or trigger time loops. But beware—its charm is a curse if misused.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 1200,
+        icon: '🌿',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 1d4 bonus to stealth checks when near Feywild zones",
+        "Triggers a 10% chance to cause minor time distortion on enemy targets",
+        "May cause the wearer to be briefly trapped in a Feywild loop if not used carefully",
+        "Wears off after 30 minutes of continuous use",
+        "Causes minor hallucinations if used near a corrupted memory",
+        "Crafted by: Shy Guy Smugglers"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 4
+    },
+    'kivotos_speaker_ls_order_120_torch': {
+        id: 'kivotos_speaker_ls_order_120_torch',
+        name: "Speaker Ls Order 120 Torch",
+        description: "This torch glows with the chaotic energy of a prison break, its flame flickers with the memory of 158 escaped Toads. When lit, it reveals hidden routes in Gehenna Academy’s halls and amplifies the sound of speaker orders. But it also causes minor magical backlash to those nearby.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 350,
+        icon: '🔥',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Grants +2 to perception checks when detecting hidden paths or traps",
+        "When lit, emits a faint hum that amplifies nearby sound effects",
+        "Causes 1d2 minor magical backlash on enemies within 10 feet",
+        "Flares up for 10 seconds when used in combat",
+        "Can be refilled with special ink from the Raventree Greenhouse (Archie Miser’s old stash)",
+        "Only usable once per 30 minutes"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 2
+    },
+    'kivotos_void_touched_amulet': {
+        id: 'kivotos_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic from the depths of the Feywild, this amulet pulses with the energy of lost time and forgotten gods. Worn by those who dare enter the Void, it grants temporary invulnerability to magical attacks—but at the cost of 1d6 damage per turn if the wearer does not maintain focus. The amulet remembers the wearer’s last known location, making it perfect for escaping Gehenna’s labyrinthine halls.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🌑',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 1d6 temporary invulnerability to magical damage",
+        "Grants +3 to perception checks when navigating maze-like environments",
+        "Causes 1d6 damage to the wearer per turn if not focused",
+        "Can track the wearer’s last known location (even across time loops)",
+        "Requires attunement by a caster with 5+ years of training",
+        "If used in the Feywild, causes minor dimensional rifts for 30 seconds",
+        "Crafted by: Pokémon League (with assistance from the Feywild’s Trickster Court)"
+        ],
+        vendor: 'kivotos',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 8
+    },
+
+    // Connectopia [17:03:56]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its edges shimmer with arcane energy that pulses with the heartbeat of the Void. Legend says it was shattered during the Great Collapse and reassembled by the Trinity General’s last apprentice, who now whispers spells into its blade before each strike.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Trinity General"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'connectopia_toad_tongue_satchel': {
+        id: 'connectopia_toad_tongue_satchel',
+        name: "Toad Tongue Satchel",
+        description: "A pouch stitched from the skin of a toad who once served the Cheep-Cheep Accords as a diplomat’s messenger. Its pouch holds the scent of negotiations and whispers of treaty-breakers. When opened, it emits a low hum that can calm even the most volatile spirit walker.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 350,
+        icon: '🐸',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Grants +10% chance to negotiate with spirit entities",
+        "Causes 1d4 confusion to hostile NPCs (temporary)",
+        "Faintly echoes Beanbean coin sounds when opened",
+        "Unlocks secret lore about Prince Peasley’s failed alliance",
+        "Made from salvaged toad diplomacy gear",
+        "Worn by Liberated Toad ambassadors"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 2
+    },
+    'connectopia_void_touched_amulet': {
+        id: 'connectopia_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "This amulet was unearthed from the edge of the crumbling Void, where reality bleeds into the world. It pulses with a cold, rhythmic light and seems to know when the world is thinning. Wearers report seeing phantom shapes in the mist—but some say they’ve been seen by the Void itself.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7000,
+        icon: '🌑',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Reduces damage taken from reality-leaking effects by 20%",
+        "Increases chance of detecting hidden rifts by 10%",
+        "1d4 Void Surge damage on failed saves against reality-warping foes",
+        "Slightly slows movement while in a Void-adjacent zone",
+        "Wears out after 10 uses if exposed to too much Void energy",
+        "Crafted by the Trinity General’s Void Research Division"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 8
+    },
+    'connectopia_chain_chomp_courier_key': {
+        id: 'connectopia_chain_chomp_courier_key',
+        name: "Chain Chomp Courier Key",
+        description: "A relic from the Chain Chomp Courier’s last delivery—delivered to the edge of the Void. The key glows faintly with the essence of a forgotten trade route. It opens doors that no map can show, and when used, triggers a short-lived portal to Beanbean’s hidden spice vaults.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 2000,
+        icon: '📦',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Opens hidden storage nodes in frontier zones",
+        "Grants 1d6 temporary teleportation range when used once per day",
+        "Causes 1d2 “wrong delivery” misdirections when used in public",
+        "Required to activate the Cheep-Cheep Accords’ secret trade hub",
+        "Crafted from courier delivery logs and cursed courier tokens",
+        "Used in trade negotiations between Connectopia and Beanbean Kingdoms"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 6
+    },
+
+    // Hyrule [17:04:07]
+    'hyrule_ancient_arrow': {
+        id: 'hyrule_ancient_arrow',
+        name: "Ancient Arrow",
+        description: "An arrow infused with Sheikah technology, it whispers secrets of forgotten temples when fired. Its arcane core pulses with the energy of the Triforce’s hidden chambers, making it a deadly tool for both spellcasters and warriors. Only those attuned to the Feywild’s whispering winds may wield it without backlash.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Starlight",
+        "When used near a sacred beast, the arrow’s damage increases by 1d4",
+        "Fails to fire if wielder is not attuned to the Feywild"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'hyrule_feywild_talisman': {
+        id: 'hyrule_feywild_talisman',
+        name: "Feywild Talisman",
+        description: "A shimmering amulet forged from the dreams of trickster spirits and the echoes of time loops. It glows faintly when the wielder enters the Feywild, granting glimpses of alternate realities. However, prolonged use causes the wearer to forget their own name and become entangled in the courts of the Fey.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🌿',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +2d6 to all rolls in the Feywild",
+        "Causes 1d6 temporary blindness after 30 seconds of use",
+        "Wearer must make a Wisdom check or suffer a minor madness effect",
+        "Can be used to unlock hidden paths in the hedge mazes",
+        "If used in a time loop, the user becomes stuck in the loop for 1 turn",
+        "Cannot be used in daylight unless enchanted by a Mages Guild priest"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 10
+    },
+    'hyrule_void_touched_amulet': {
+        id: 'hyrule_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "This amulet was recovered from the ruins of the Void Court, where time and magic collide. It hums with the energy of forgotten dimensions, allowing the wearer to briefly see through the veil of reality. But every use risks unraveling the fabric of time, causing minor temporal fractures.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '⏳',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +1d4 to all magic damage rolls",
+        "Causes 1d2 temporary disorientation after each use",
+        "Requires attunement to a sacred beast for full effect",
+        "Wearer must make a Perception check or be exposed to temporal echoes",
+        "Cannot be used during a Mages Guild inspection",
+        "If used while under duress, it may trigger a random time loop"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 7
+    },
+    'hyrule_coral_fleet_key': {
+        id: 'hyrule_coral_fleet_key',
+        name: "Coral Fleet Key",
+        description: "A brass key forged by the Noki Elders to unlock the hidden vaults of the Coral Fleet. Carved with symbols of ancient trade routes, it opens doors to forgotten ports and underwater temples. But each use causes the key to lose a bit of its luster, as if the sea itself is trying to reclaim it.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🌊',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Opens underwater vaults and hidden ports",
+        "Causes 1d4 temporary weakness to aquatic creatures",
+        "Can be used to unlock the Coral Fleet’s hidden cargo",
+        "If used outside the fleet’s controlled waters, it causes 1d2 damage to the user",
+        "Worn for too long causes the user to feel a strange pull toward the sea",
+        "Cannot be used if the user is not a trusted trader with the Noki Elders"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 4
+    },
+
+    // Rogueport [17:04:17]
+    'rogueport_crystal_blade': {
+        id: 'rogueport_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy that pulses with the rhythm of a dying star. It was stolen from a forgotten temple in the Floating Archipelago and retooled by rogue alchemists who sought to weaponize celestial resonance. Now it dances in the hands of those who dare to wield its wild magic.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Team Plasma"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'rogueport_sugar_soul_amulet': {
+        id: 'rogueport_sugar_soul_amulet',
+        name: "Sugar Soul Amulet",
+        description: "Forged from the tears of a dough folk pastry queen who sacrificed her essence to preserve her bakery’s magic, this amulet pulses with sugary enchantments that sweeten the world around it. Worn by those who dare to defy the Rakasha’s sugary trade, it grants a temporary boost to charm checks but risks turning the wearer into a sticky, giggling mess.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍞',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "+2 to charm checks",
+        "10% chance to turn wearer into a sticky mess for 1 round",
+        "Grants temporary resistance to poison damage",
+        "Can be used to sweeten enemy attacks by 1d4",
+        "Worn by: LEclaire Isle pastry guild"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+    'rogueport_chain_chomp_harness': {
+        id: 'rogueport_chain_chomp_harness',
+        name: "Chain Chomp Harness",
+        description: "This mechanical harness was designed to tame the weaponized Chain Chomps of the Koopa Navy. Built by the Hammer Bros Handling team, it allows the wearer to ride or command these monstrous mouths, but at a cost—each use drains the wearer’s sanity by 1 point. Perfect for heists or dockside ambushes.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 6000,
+        icon: '🐉',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants +1 to stealth checks while mounted",
+        "Can command a Chain Chomp to attack or carry up to 500 lbs",
+        "Each use drains 1 sanity point",
+        "Reduces armor bonus by 1 for 2 rounds",
+        "Worn by: Koopa Navy elite"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+    'rogueport_ink_jam_talisman': {
+        id: 'rogueport_ink_jam_talisman',
+        name: "Ink Jam Talisman",
+        description: "A relic from Admiral Bloopers’ ink-jamming campaign, this talisman was infused with ink that flows like liquid magic, turning enemies into smudged paper. Carved by the Hammer Bros Handling team, it is rumored to have once been used to seal the docks of Ricco Harbor. Now it’s a tool for both sabotage and smudging.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🖋',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "50% chance to render enemy armor invisible for 1 round",
+        "Inflicts 1d4 ink damage to targets hit",
+        "Grants +2 to stealth rolls while ink is active",
+        "Costs 1 action to activate; 10 seconds to dissipate",
+        "Worn by: Admiral Bloopers’ elite ink corps"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 9
+    },
+
+    // Teyvat [17:04:29]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its edges glow with arcane energy that pulses in sync with the wielder’s heartbeat. When swung in rhythm with a spellcaster’s chant, it shatters reality’s veil for a fleeting moment, revealing hidden pathways. The blade is rumored to have been crafted by the Chaos Dwarfs during their war with the Sunken Archives, where they claimed to have stolen fragments of the ancient world’s core magic.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Chaos Dwarfs",
+        "Each use reduces the wielder’s stamina by 10%",
+        "Can be enchanted with elemental runes at level 10"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'teyvat_forged_shield_of_the_sunken': {
+        id: 'teyvat_forged_shield_of_the_sunken',
+        name: "Shield of the Sunken Archives",
+        description: "This ancient relic was unearthed from the ruins beneath Isle Delfino, its surface etched with forgotten glyphs that once held the power of the First Archon’s vision. Worn by those who dare to step into the void between dimensions, it absorbs arcane backlash and reflects enemy spells with a silent, golden flash. Its presence is said to awaken visions of lost truths, though some who wear it report seeing their own past selves in the mirror of its surface.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🌅',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Blocks 3d4 arcane damage",
+        "Grants temporary immunity to elemental status effects",
+        "When used in combat, triggers a 10% chance to reveal hidden enemy weaknesses",
+        "Requires attunement with a vision holder",
+        "Causes slight dizziness if used during rapid movement",
+        "Can be upgraded with Sunken Archive fragments"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 6
+    },
+    'teyvat_sacred_triforce_heartstone': {
+        id: 'teyvat_sacred_triforce_heartstone',
+        name: "Triforce Heartstone",
+        description: "A crystalline core of Hyrule’s ancient power, sealed beneath the ruins of the Temple of the Lost Balance. This artifact was forged from the blood of the First Guardian and the tears of the Triforce’s awakening. When activated, it grants the wielder the ability to temporarily manifest a sacred aura that deflects all physical and magical attacks. However, prolonged use may cause the wielder to lose their sense of self, becoming a vessel for the Triforce’s dormant will.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '⚔',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Can be infused into armor or weapons to grant +10% damage",
+        "Grants 50% chance to recover 1 HP during a failed attack",
+        "May cause a 10% chance to trigger a vision of the Triforce’s true form",
+        "Worn too long may cause temporary confusion or memory loss",
+        "Cannot be used by non-Hyrulean characters without ritual attunement"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 4
+    },
+    'teyvat_void_touched_amulet': {
+        id: 'teyvat_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "Crafted from the remnants of a shattered dimension, this amulet pulses with the energy of the Void itself. Worn by those who have crossed the veil between realms, it grants the wearer the ability to temporarily summon fragments of the Void’s essence—manifesting as spectral beasts or shifting terrain. However, prolonged exposure causes the wearer to lose their physical form for 30 seconds, turning them into a shadowy entity until the effect ends. The amulet was smuggled across the Teyvat-Hyrule border by rogue Toad agents after the Aegis Prison Break.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +20% chance to dodge enemy attacks",
+        "Can summon Void Specter for 15 seconds to distract enemies",
+        "Causes 10% chance to reduce enemy defense by 30% during summoning",
+        "Wears down the wearer’s health by 10% every 30 seconds during use",
+        "Cannot be used by characters with vision impairments",
+        "Only usable by characters who have previously crossed the Void Rift"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 8
+    },
+
+    // Connectopia [17:04:40]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its crystalline edges hum with forgotten spells. When swung, it sings a lullaby to the dreamland’s lost children, granting temporary immunity to psychic assaults. Its wielder must be a spellcaster, for the blade whispers secrets only the arcane can understand.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Starlight",
+        "After 3 uses, blade emits a soft glow that reveals hidden paths in the Dream Land",
+        "Wielder must remain silent during combat to avoid awakening nightmares"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'connectopia_puffball_pouch': {
+        id: 'connectopia_puffball_pouch',
+        name: "Puffball Pouch",
+        description: "A pouch stitched from the soft, sentient skin of eldritch puffballs—each one a tiny nightmare dimension trapped in a bag. When opened, it releases a cloud of giggles, giggles that make foes laugh uncontrollably and drop their weapons. But the laughter also feeds the Cosmic Jester’s cult.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🍽',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Consuming one puffball grants 2d4 temporary courage boost",
+        "Causes 1d2 giggles per second until item is consumed or discarded",
+        "Each laugh inflicts 1d3 damage to enemies if they are not immune to humor",
+        "May trigger a minor prank from the Cosmic Jester cult if used in public",
+        "If used during the Pianta Village Independence event, grants a 50% chance to escape capture by envoys"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 2
+    },
+    'connectopia_entropic_keychain': {
+        id: 'connectopia_entropic_keychain',
+        name: "Entropic Keychain",
+        description: "A keychain forged from entropy’s own breath, it hums with a low, rhythmic decay. Worn by those who embrace chaos, it causes the wearer’s surroundings to slowly unravel into giggling puffballs or collapsing dreamlands. Perfect for the Cosmic Jester cult or a rogue explorer who wants to turn the world upside down.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 1d6 temporary damage reduction per round",
+        "Wearer’s movements cause nearby terrain to crumble into giggles or dust",
+        "When activated, triggers a 5% chance to summon a random prank effect from the Cosmic Jester cult",
+        "Requires attunement by a rogue or trickster",
+        "Wearing it in Dream Land causes puffballs to become sentient and follow the wearer",
+        "If lost in the Dream Land, it becomes a lost artifact that may lead to a cult shrine"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 6
+    },
+    'connectopia_starlight_amulet': {
+        id: 'connectopia_starlight_amulet',
+        name: "Starlight Amulet",
+        description: "A glowing amulet shaped like a broken star, it pulses with the energy of the frontier’s first pioneers. When worn, it grants a temporary vision of future paths in the Blocky terrain, but also reveals hidden secrets of the Dream Land’s most dangerous nightmares. It is a gift from the Starlight faction, meant to guide those who seek both worlds.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7000,
+        icon: '🌟',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 2d6 bonus to all blocky terrain traversal",
+        "Reveals hidden paths in both Blocky terrain and Dream Land",
+        "Causes minor dream distortion for 1 round per use, granting temporary immunity to psychic attacks",
+        "Wearer must not speak in public while wearing it, or risk triggering a dream dimension collapse",
+        "If worn during Pianta Village Independence, grants a 30% chance to prevent envoys from being thrown into the pool",
+        "Wearing it causes the wearer’s reflection to show a glimpse of their future self in both worlds"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 7
+    },
+
+    // Rogueport [17:04:51]
+    'rogueport_crystal_blade': {
+        id: 'rogueport_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its edges glow with unstable arcane energy. When swung, it hums like a dying star and leaves behind faint traces of forgotten spells. Only spellcasters can attune to its power, as it demands a soul to resonate with its wild magic.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Peach Loyalists",
+        "One use triggers a minor dimensional rift in the wielder’s next turn",
+        "If used during a heist, the target gains a +2 bonus to evade traps for 1 round"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'rogueport_mirage_satchel': {
+        id: 'rogueport_mirage_satchel',
+        name: "Mirage Satchel",
+        description: "A satchel woven from illusions that cling to the user’s memory. It carries no weight but feels heavy with forgotten dreams. When opened, it reveals nothing—yet the user is convinced they’ve found hidden loot. Its magic is tied to the mind, not the world.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🌀',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 20% chance to find hidden items during exploration",
+        "If used in a heist, the user is temporarily blinded by illusions for 1 round",
+        "Loses 10% of its contents if the user forgets what they were looking for",
+        "May trigger a memory glitch if used in a cursed area",
+        "Can only be used once per session",
+        "Contains no actual items—only a placebo of hope"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 3
+    },
+    'rogueport_void_touched_amulet': {
+        id: 'rogueport_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "Carved from the shattered remains of a forgotten world, this amulet pulses with the heartbeat of the void. It grants the wearer temporary access to forbidden knowledge—but at the cost of their sanity. Found in the ruins of the Minus World, it is said to be the only thing that remembers what the world once was.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 12000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 1d4 bonus to perception checks against hidden dangers",
+        "Grants temporary access to the Minus World’s memories for 1 round",
+        "Each use causes 1 point of sanity loss (can be recovered by sleeping)",
+        "Wearing it causes hallucinations of forgotten places for 2 rounds",
+        "May cause the wearer to speak in the language of the Minus World",
+        "Cannot be used if the wearer has been in the Minus World before"
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 10
+    },
+    'rogueport_bargain_bone': {
+        id: 'rogueport_bargain_bone',
+        name: "Bargain Bone",
+        description: "A hollow bone carved with the name of a dead merchant, it promises to “buy” anything you wish for. The bone is a scam—no real magic, just a hollow shell. But the buyer is rewarded with a tiny bit of luck and a laugh. The bone is sold by Dry Bones Dead Drop, and only fools believe it works.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🦴',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants 1d4 bonus to luck checks",
+        "Causes the buyer to hear the voice of a ghost for 1 round",
+        "If used in a heist, the buyer must pay 100 gold to the ghost to “keep the ghost quiet”",
+        "May cause temporary paranoia if used in a cursed area",
+        "Does not work if the buyer is already cursed",
+        "The bone is hollow—no real magic, just a joke",
+        "The Crystal Blade ties to Earth Land’s arcane energy.",
+        "The Mirage Satchel connects to the flat earth conspiracy’s mental illusions.",
+        "The Void Touched Amulet links to the Minus World and the lost world lore.",
+        "The Bargain Bone is a scam, but its theme ties to the underworld’s black market culture and Dry Bones Dead Drop’s shady dealings."
+        ],
+        vendor: 'rogueport',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 4
+    },
+
+    // DK Isles [17:05:02]
+    'dk_isles_crystal_blade': {
+        id: 'dk_isles_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy as if it remembers forgotten spells. It glows faintly in the dark and shatters under pressure, releasing a burst of wild magic that can turn allies into temporary chaos agents.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Abyssal Court",
+        "If wielded during a heist, grants 2 extra action points",
+        "Loses 10% durability per use in non-magic environments"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'dk_isles_banana_blood_satchel': {
+        id: 'dk_isles_banana_blood_satchel',
+        name: "Banana Blood Satchel",
+        description: "This cursed satchel was once a fruit vendor’s bag, now soaked in the blood of a rogue Wario who fell in love with a banana peel. It glows when carried by a member of the Kremling Krew and emits a low, sweet hum that makes nearby bananas grow faster—dangerously fast.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 350,
+        icon: '🍈',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Consuming the satchel grants +2 to stealth checks",
+        "Increases banana hoard capacity by 25%",
+        "Triggers a 5% chance to cause a banana peel explosion on touch",
+        "Causes temporary euphoria for 3 rounds (increases speed by 20%)",
+        "If consumed while carrying a weapon, it auto-attaches to the weapon",
+        "Loses 10% chance to trigger on third use"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 2
+    },
+    'dk_isles_void_touched_amulet': {
+        id: 'dk_isles_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic of the Onyx Hand, this amulet pulses with a cold, black light. It was once worn by a vampire who tried to steal the moon’s reflection—only to be swallowed by the void. Now it grants the wearer visions of hidden paths… and a terrible hunger for blood that only the dark can satisfy.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 6000,
+        icon: '🩸',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +3 to all stealth and ambush rolls",
+        "10% chance to reveal hidden enemies when worn",
+        "Causes 2d4 temporary HP damage every 3 turns if wearer is exposed to daylight",
+        "Requires attunement by a vampire or cultist",
+        "Triggers “The Moon’s Kiss” effect on full moon nights: deals 3d6 damage to all nearby enemies",
+        "Can be traded for a 10% discount on WarioWare contracts"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 8
+    },
+    'dk_isles_hammer_bros_handling_torch': {
+        id: 'dk_isles_hammer_bros_handling_torch',
+        name: "Hammer Bros Handling Torch",
+        description: "A torch forged from the last flame of a rogue Hammer Bros. member who defected to the jungle. Its glow is both warm and cold—sometimes illuminating the path, sometimes freezing the ground beneath. Carried by the DK Crew, it’s said to have the power to summon a ghostly shadow companion during dark heists.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8500,
+        icon: '🔥',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Grants +4 to all melee damage rolls for 2 turns",
+        "Triggers “Shadow’s Echo” on hit: deals 1d6 bonus damage to one enemy",
+        "Causes 10% chance to cause a minor explosion upon activation",
+        "If used during a heist, increases chance of success by 15%",
+        "Can be enchanted with a WarioWare contract for 2000 gold",
+        "Wears out after 50 uses unless repaired by a Hammer Bros. mechanic"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 12
+    },
+
+    // The Fated Place [17:05:13]
+    'warhammer_crystal_blade': {
+        id: 'warhammer_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy and shatters the illusions of the dead. It was carved from the heart of a fallen star god’s crystalline essence, now bound to the hands of a war-weary spellcaster who seeks to break the cycle of eternal war.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Starlight",
+        "Each strike may reveal a forgotten memory from the wielder’s past",
+        "Cannot be used in melee against creatures with immunity to magic"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'warhammer_scarred_mechanical_glove': {
+        id: 'warhammer_scarred_mechanical_glove',
+        name: "Scarred Mechanical Glove",
+        description: "Once a Skaven engineer’s prized tool, this glove now pulses with corrupted energy and bears the scars of a thousand war machines. Its fingers are reinforced with scavenged gear from the Koopa Navy’s abandoned warship, and it sings when it strikes — a warning or a command, depending on the user’s will.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '⚙',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2d4 armor bonus to melee attacks",
+        "Each attack may cause nearby enemies to stutter or misfire their next move",
+        "Mechanically unstable — 25% chance of jamming or overloading",
+        "Can be repaired by a Skaven engineer or Koopa tech specialist",
+        "Wields an ancient Skaven curse — enemies may attempt to mimic the wielder’s actions",
+        "Requires attunement with a war machine"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 4
+    },
+    'warhammer_daisy_princess_satchel': {
+        id: 'warhammer_daisy_princess_satchel',
+        name: "Daisy Princess Satchel",
+        description: "This ornate satchel was crafted for Princess Daisy of Sarasaland, who once carried secrets of desert diplomacy and royal alliances. Now it holds nothing but her signature ink-stained parchment and a single feather from a slain Skaven general — a symbol of peace in the middle of war.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 750,
+        icon: '📜',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to diplomacy rolls when used in negotiations",
+        "May reveal hidden truths from the past — but causes temporary confusion",
+        "Cannot be used in combat",
+        "Contains a map of Ricco Harbor’s secret tunnels",
+        "Each use causes a minor emotional drain for the user",
+        "Must be carried by a diplomatic agent or royal envoy"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 3
+    },
+    'warhammer_void_touched_amulet': {
+        id: 'warhammer_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A relic from the drowned city of Eternia, this amulet pulses with the remnants of forgotten gods and the echoes of lost wars. It was stolen from a Skaven temple during the ink-jamming siege, and now it whispers secrets to those who dare wear it — or suffer its curse.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '🌑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants +3 to all rolls involving fate or prophecy",
+        "May summon a vision of a past battle or future war",
+        "50% chance to trigger a temporal distortion — user is temporarily confused or transported",
+        "Cannot be worn by non-magic users",
+        "Draws attention from all nearby creatures — both allies and enemies",
+        "Wears the mark of the Void — if worn for more than 3 days, the user becomes cursed to speak in riddles or dream in blood"
+        ],
+        vendor: 'warhammer',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+
+    // Equestria [17:05:23]
+    'equestria_crystal_blade': {
+        id: 'equestria_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with the echoes of ancient spellcasters who once wielded it in the Forbidden Glade. Its edge glows faintly when a spellcaster attunes to it, revealing hidden runes that shift with the wielder’s intent. Only those who can channel arcane energy without fear of backlash may wield it.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Red Winter"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'equestria_frostwhisper_hood': {
+        id: 'equestria_frostwhisper_hood',
+        name: "Frostwhisper Hood",
+        description: "Worn by the last icebound noble of the Northern Peaks, this hood channels the chill of forgotten glaciers into the wearer’s aura. When draped over the head, it emits a soft blue pulse that slows time for allies within a 3m radius during combat. But if worn too long, it draws the attention of the Changeling Hive, who whisper secrets in the cold.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '❄',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Slows time for allies by 10% within 3m",
+        "Reduces enemy damage taken by 5% for 10s",
+        "Wears off after 20 minutes of continuous use",
+        "Causes minor frostbite to wearer if worn beyond 30 minutes",
+        "Attracts Changeling attention on prolonged use",
+        "Crafted by: Shy Guy Smugglers"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 4
+    },
+    'equestria_teyvat_tether': {
+        id: 'equestria_teyvat_tether',
+        name: "Teyvat Tether",
+        description: "A rare artifact forged in the heart of the Elemental Rift, this pendant connects the user to elemental forces from the distant Teyvat. When activated, it allows the wearer to summon minor elemental reactions, but at the cost of draining their magic pool. Mr. Wario says this is a “gacha upgrade” for the lucky pony who finds it.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 15000,
+        icon: '⚡',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 10% chance to trigger elemental reaction when attacking",
+        "Consumes 10% of magic pool per activation",
+        "Can only be activated once per battle",
+        "Grants bonus to elemental damage if paired with another elemental user",
+        "Increases damage by 20% if used with Teyvat Elemental Core",
+        "Crafted by: Red Winter"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 8
+    },
+    'equestria_sunset_soul_candle': {
+        id: 'equestria_sunset_soul_candle',
+        name: "Sunset Soul Candle",
+        description: "Burned in the twilight of the Celestial Hills, this candle holds the memories of forgotten ponies who fell in the war of stars. When lit, it emits a soft golden glow that heals minor wounds and boosts morale. But if left unattended for more than 12 hours, it begins to weep arcane tears that attract the attention of the Griffonstone Keepers.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 300,
+        icon: '🕯',
+        stock: 10,
+        rarity: 'common',
+        effects: [
+            "Restores 20% HP for the user",
+        "Boosts morale by +3 for 5 minutes",
+        "Causes minor arcane tears to leak if left unattended >12h",
+        "Attracts Griffonstone Keepers if used during night",
+        "Can be used as a signal flare during escape",
+        "Crafted by: Shy Guy Smugglers"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 2
+    },
+
+    // Mushroom Kingdom [17:05:33]
+    'mushroom_kingdom_golden_mushroom': {
+        id: 'mushroom_kingdom_golden_mushroom',
+        name: "Golden Mushroom",
+        description: "A rare fungus radiating powerful healing energy that glows with the essence of fallen monarchs. When consumed, it restores 3d6 HP and grants temporary immunity to psychic backlash, but its glow attracts attention from the Onyx Hand’s enforcers. Harvested only from the Whispering Caves beneath the Regal Throne.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Restores 3d6 HP upon consumption",
+        "Grants temporary immunity to psychic backlash",
+        "Attracts attention from Onyx Hand enforcers",
+        "Requires attunement by a spellcaster",
+        "10% chance to trigger hallucinogenic visions",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'mushroom_kingdom_pipe_network_key': {
+        id: 'mushroom_kingdom_pipe_network_key',
+        name: "Pipe Network Key",
+        description: "A brass token engraved with the symbols of the Pipe Network’s collapse. When inserted into a pipe node, it unlocks ancient data streams that reveal the hidden routes smugglers use to bypass the failing infrastructure. However, prolonged use causes the bearer to hear whispers of the Princess’s final plea for help.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '⚙',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Unlocks hidden pipe routes",
+        "Reveals smuggler activity patterns",
+        "Causes auditory hallucinations after 10 minutes of use",
+        "Grants 1d4 bonus to stealth checks in pipe systems",
+        "Corrupts memory if used with non-authorized nodes",
+        "Crafted by: Pianta Chuck Express"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 3
+    },
+    'mushroom_kingdom_triforce_fragment': {
+        id: 'mushroom_kingdom_triforce_fragment',
+        name: "Triforce Fragment",
+        description: "A shard of the ancient Triforce embedded in a mushroom pod that hums with divine resonance. It can be used to summon sacred beasts from Hyrule’s forgotten temples, but each activation causes the bearer to experience visions of the Princess’s reincarnation cycle. Its power is tied to the Pipe Network’s collapse—only those who understand both worlds can wield it.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 12000,
+        icon: '🌿',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Summons a sacred beast from Hyrule",
+        "Grants 2d6 bonus to attack rolls against magical foes",
+        "Triggers visions of the Princess’s reincarnation",
+        "Requires attunement to both Mushroom Kingdom and Hyrule lore",
+        "Causes temporary blindness during activation",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 7
+    },
+    'mushroom_kingdom_onyx_hand_ring': {
+        id: 'mushroom_kingdom_onyx_hand_ring',
+        name: "Onyx Hand Ring",
+        description: "A darkly polished ring forged from the remnants of the Onyx Hand’s last rebellion. Wearing it grants the wearer the ability to detect and disrupt magical wards, but each use drains the wearer’s willpower and triggers a 5% chance to be targeted by assassins. The ring whispers the names of those who died for the Kingdom’s sovereignty.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🔥',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Detects magical wards and weakens them",
+        "Drains 1d6 willpower per use",
+        "5% chance to trigger assassination target",
+        "Grants +2 to stealth checks in dark environments",
+        "Whispers names of fallen heroes",
+        "Crafted by: Iron Legion"
+        ],
+        vendor: 'mushroom_kingdom',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 4
+    },
+
+    // Isle Delfino [17:05:43]
+    'isle_delfino_crystal_blade': {
+        id: 'isle_delfino_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its edges shimmer with the echoes of forgotten spells. When wielded, it hums with arcane resonance, drawing power from the very air around it. Only spellcasters may attune to its wild magic potential, making it both a deadly blade and a volatile force.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: King of Tombs",
+        "Can be enchanted with a curse that drains HP over time if used too frequently",
+        "Only usable in daylight or under moonlight"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'isle_delfino_doughnut_hole_key': {
+        id: 'isle_delfino_doughnut_hole_key',
+        name: "Doughnut Hole Key",
+        description: "A hollowed-out pastry key rumored to open the cosmic abyss between the Isle and the Doughnut Hole. Carved from enchanted dough and whispered to have been baked by a sentient baker of the void, it grants access to the central void’s hidden chambers. Wearing it brings the scent of burnt sugar and existential dread.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 8000,
+        icon: '🍩',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Opens a portal to the Doughnut Hole for 10 minutes per use",
+        "Grants 10% resistance to psychic damage",
+        "Suffers 2d4 HP loss per minute of portal use",
+        "Can only be used once per day",
+        "If used near dragons, it causes them to emit a high-pitched sonic hum",
+        "Only usable if the user has eaten something sweet in the last 30 minutes"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 10
+    },
+    'isle_delfino_pipe_network_cable': {
+        id: 'isle_delfino_pipe_network_cable',
+        name: "Pipe Network Cable",
+        description: "A salvaged conduit from the failing Pipe Network, humming with the energy of lost communication. It was smuggled from the depths of Noki Bay by rogue engineers who dared to trace the signal back to the central void. Wearing it grants a faint connection to the network’s fading data, but may cause hallucinations of lost messages.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '📡',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +1 to all stealth checks when moving through tunnels or caves",
+        "Causes 1d4 temporary confusion after 30 seconds of use",
+        "Can be connected to any device with a data port",
+        "Increases the chance of finding hidden messages in the Pipe Network",
+        "May trigger an emergency signal if used near a dragon",
+        "Requires a map of the Pipe Network to function"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 3
+    },
+    'isle_delfino_sonic_dragon_tether': {
+        id: 'isle_delfino_sonic_dragon_tether',
+        name: "Sonic Dragon Tether",
+        description: "A pulsating sonic device designed to disrupt dragon sonic frequencies. Originally crafted by Regal Empire engineers to enslave dragons, it now serves as a countermeasure to their sonic control. It emits a low-frequency hum that disrupts the dragons’ mental coherence, but may cause the user to feel their own thoughts being echoed back.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🎵',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Disrupts dragon sonic attacks for 5 seconds",
+        "Reduces dragon’s ability to cast sonic spells by 50% for 10 seconds",
+        "Causes 1d6 confusion damage to the user if used near a dragon",
+        "Can be charged with a sonic frequency that lasts 30 seconds",
+        "If used near a dragon, causes the user to hear their own voice echoing in reverse",
+        "Requires attunement with a sonic device or a dragon’s voice for activation"
+        ],
+        vendor: 'isle_delfino',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 7
+    },
+
+    // DK Isles [17:05:54]
+    'dk_isles_crystal_blade': {
+        id: 'dk_isles_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy that pulses in sync with the wielder’s heartbeat. It was crafted by the King of Tombs from a relic stolen from a forgotten temple beneath the jungle canopy, now imbued with wild magic that can turn the battlefield into a dreamscape. Only spellcasters may attune to its power, lest they be undone by its unpredictable surges.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: King of Tombs"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'dk_isles_banana_whistle': {
+        id: 'dk_isles_banana_whistle',
+        name: "Banana Whistle",
+        description: "A hollowed-out banana husk carved with arcane runes, this whistle emits a harmonic frequency that disrupts enemy concentration and summons the laughter of jungle spirits. It was found in the belly of a banana hoard that the King of Tombs deemed too “silly” to destroy. Its sound is said to make even the most stoic warlord laugh—until they realize they’ve lost their weapon.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 150,
+        icon: '🍌',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Grants +2 to charm checks for 1 round",
+        "Causes enemies to become confused for 1 round if they hear the whistle",
+        "One use per day",
+        "Found in banana hoards near the jungle temples",
+        "May cause temporary euphoria to the user"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 2
+    },
+    'dk_isles_pony_nobility_bangle': {
+        id: 'dk_isles_pony_nobility_bangle',
+        name: "Pony Nobility Bangle",
+        description: "This bangle, forged from the enchanted bone of a fallen pony noble and wrapped in friendship magic, pulses with the warmth of equestrian bonds. It was smuggled across the war-torn border by Lakitu Drones, who thought it was “too cute to be a weapon.” Wearing it grants the user a connection to the Changeling Hive’s hidden loyalties, but also makes them vulnerable to mechanical fury if Fawful detects their “emotional resonance.”",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🐴',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +1 to diplomacy checks",
+        "Causes enemies to hesitate if they sense the bangle’s emotional resonance",
+        "Reduces damage from mechanical attacks by 10% if worn",
+        "Unlocks hidden ability: “Friendship Surge” — temporarily boosts allies’ stats",
+        "May attract attention from Fawful’s mechanized minions if worn in public"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 7
+    },
+    'dk_isles_minus_world_torch': {
+        id: 'dk_isles_minus_world_torch',
+        name: "Minus World Torch",
+        description: "A torch carved from the essence of a missing dimension, this item glows with a sickly purple light that reveals hidden truths and lost memories. Found in the Minus World by a lone explorer who vanished without a trace, it is said to be a relic of the Void’s forgotten language. Holding it allows the wielder to “see” the past, but each use causes a memory to slip into the void—sometimes with devastating consequences.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 30000,
+        icon: '🌑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Reveals hidden paths or secrets within a 30ft radius",
+        "Causes the user to forget a random memory for 1 minute after use",
+        "Triggers “Void Echo” — temporary blindness for 1 round if used in combat",
+        "Only usable once per day",
+        "Requires attunement to the Minus World’s language (learned through lore)",
+        "If used in the presence of Fawful, may cause a “dimensional collapse” effect"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 10
+    },
+
+    // Sarasaland [17:06:06]
+    'sarasaland_crystal_blade': {
+        id: 'sarasaland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane resonance as if it remembers every spell it has ever shattered. Princess Daisy herself once wielded it during the Sandstorm Summit, claiming it whispered her name when the wind howled through the dunes.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Land Mordor"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'sarasaland_sunken_archives_parchment': {
+        id: 'sarasaland_sunken_archives_parchment',
+        name: "Sunken Archives Parchment",
+        description: "A single page from the lost pre-Peach texts, unearthed beneath the waves of Isle Delfino. It glows faintly with ancient glyphs that shift when read aloud, revealing forgotten treaties and forbidden rituals of the old world.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '📜',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Reveals one hidden lore fact when read",
+        "Causes temporary memory overload if read twice",
+        "Can be used to decode ancient runes in scrolls",
+        "Slightly increases spellcasting speed for spellcasters",
+        "Crafted by: Land Mordor"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 4
+    },
+    'sarasaland_iron_bottle_bubble': {
+        id: 'sarasaland_iron_bottle_bubble',
+        name: "Iron Bottle Bubble",
+        description: "A glass vial filled with liquid iron that hums with the sound of a thousand war drums. It was smuggled across the desert by a desert merchant who claimed it could turn sand into gold—until it accidentally turned the merchant into a sandworm.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '💧',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary resistance to fire damage for 1 turn",
+        "Causes hallucinations of desert storms if consumed too fast",
+        "Increases thirst by 200% after use",
+        "Can be used as a distraction during combat",
+        "Crafted by: Land Mordor"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 3
+    },
+    'sarasaland_wario_troop_brooch': {
+        id: 'sarasaland_wario_troop_brooch',
+        name: "Wario Troop Brooch",
+        description: "A golden brooch shaped like a smiling Wario head, stitched with enchanted thread that glows when laughter is heard nearby. The vendor claims it brings luck to the WarioWare branches—but one brave merchant who wore it during the Sandstorm Summit got turned into a dune rat.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🎭',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants +2 to morale rolls for allies",
+        "Causes 5% chance to trigger a comedic failure effect",
+        "Grants 10% chance to summon a random WarioWare joke on enemy",
+        "Cannot be worn by spellcasters or clerics",
+        "Causes minor mental stress if worn for more than 30 minutes",
+        "Crafted by: Land Mordor"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 7
+    },
+    'sarasaland_golden_dream_bottle': {
+        id: 'sarasaland_golden_dream_bottle',
+        name: "Golden Dream Bottle",
+        description: "A crystal bottle filled with liquid that glows like molten gold. The vendor claims it contains the essence of the first sunrise in Sarasaland—but after three nights of use, the bottle began whispering dreams of a world that never existed. The next morning, the user found themselves trapped inside a dream that would not end.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 50000,
+        icon: '💫',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants temporary immunity to fear and confusion",
+        "Causes the user to forget their last 24 hours",
+        "Induces 100% chance of hallucinating a desert oasis that does not exist",
+        "If consumed while under magic, causes 1d6 damage to the user",
+        "Crafted by: Land Mordor (and no one else)",
+        "This item is a scam. The bottle contains nothing but a cursed illusion of a sunlit desert. Do not drink it."
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 8
+    },
+
+    // DK Isles [17:06:15]
+    'dk_isles_crystal_blade': {
+        id: 'dk_isles_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with the echoes of forgotten spells. It was crafted by the Custodians during the last moon cycle when the jungle’s arcane veins pulsed strongest. Wielders report visions of shattered stars when the blade strikes.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Custodians"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'dk_isles_banana_bane': {
+        id: 'dk_isles_banana_bane',
+        name: "Banana Bane",
+        description: "A cursed fruit weapon rumored to have been stolen from a rogueport banana hoard by the Cosmic Jester cult. When bitten, it releases a burst of entropy that disorients enemies for 3 turns. The cult believes it was once a sacred fruit of the jungle’s first king.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🍈',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Deals 1d4 piercing damage",
+        "20% chance to cause temporary disorientation",
+        "Consumes one banana per use",
+        "Can be eaten to restore 10 HP",
+        "Made by: Rogueport smugglers"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 3
+    },
+    'dk_isles_kremling_krew_satchel': {
+        id: 'dk_isles_kremling_krew_satchel',
+        name: "Kremling Krew Satchel",
+        description: "A stolen artifact from the Kremling Krew’s hidden vault, this satchel is stitched with cold war secrets and bears the scent of frozen plasma. Inside lies a map to the Lanky Kong Incident site, marked with red ink that fades in sunlight. The satchel glows when the wearer is near a diplomatic summit.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1200,
+        icon: '🧳',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Reveals hidden paths when used in jungles",
+        "Grants +10% stealth in low light",
+        "Triggers entropy effect if opened near a summit",
+        "Contains a map to the Lanky Kong Incident site",
+        "Crafted by: Kremling Krew"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 4
+    },
+    'dk_isles_jungle_jester_ring': {
+        id: 'dk_isles_jungle_jester_ring',
+        name: "Jungle Jester Ring",
+        description: "This ring was found by the Cosmic Jester cult in the ruins of a lost jungle temple. It glows with mischievous laughter and causes the wearer to laugh uncontrollably for 1 round after each successful hit. The cult believes it was created by the jungle’s first prankster god.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '😄',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals 2d6 damage on hit",
+        "10% chance to trigger laugh effect (disarms foe for 1 round)",
+        "Causes 1d6 damage if worn during a heist",
+        "Grants +10% evasion if wearing during a prank",
+        "Crafted by: Cosmic Jester cult",
+        "Requires attunement with a laughing creature"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+
+    // Animatopia [17:06:27]
+    'animatopia_crystal_blade': {
+        id: 'animatopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its edges humming with wild arcane energy. When swung, it sings to the Feywild’s forgotten courts, summoning trickster spirits to dance in its wake. Only spellcasters can attune to its resonance, lest they be consumed by the blade’s chaotic nature.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Koopa Troop",
+        "If used in combat against a Feywild creature, grants temporary immunity to charm effects",
+        "Each use drains 1 point of the wielder’s magic affinity, reducing spellcasting efficiency by 10% after 3 uses"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 5
+    },
+    'animatopia_feywild_cloak': {
+        id: 'animatopia_feywild_cloak',
+        name: "Feywild Cloak of Echoes",
+        description: "Woven from the dreams of trickster spirits and the echoes of forgotten Fey courts, this cloak allows the wearer to phase between the mundane and the wild. Its fabric shimmers with shifting colors as it absorbs ambient magic, making it a perfect tool for infiltration or evasion in the hedge maze.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +10% evasion chance against magical attacks",
+        "Increases stealth detection resistance by 20%",
+        "When worn in a Feywild zone, wearer can hear the whispers of spirits",
+        "If the cloak is damaged, the wearer temporarily gains a curse: every attack has a 5% chance to backfire with a magical backlash",
+        "Requires attunement to a Feywild spirit to activate full abilities",
+        "If the cloak is removed during combat, the wearer becomes vulnerable to time-loop effects for 1 round"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 6
+    },
+    'animatopia_predator_horn': {
+        id: 'animatopia_predator_horn',
+        name: "Predator Horn of the Delfino Wild",
+        description: "A relic of ancient predator tribes, this horn was used to summon the spirit of the wild beast that once ruled Delfino. Carved with tribal runes, it emits a primal roar that can shake mountains and summon the fury of the beast. Only the most fearless hunters dare to wield it.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1500,
+        icon: '🐾',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Deals 1d8 damage on a successful roar attack",
+        "20% chance to trigger a temporary frenzy effect for 1 round",
+        "When used within 100 yards of a predator, the horn emits a call that attracts nearby prey",
+        "If used while under duress, the horn amplifies the user’s aggression by 100%",
+        "Requires a hunter’s license to use (provided by the Koopa Troop)",
+        "If the horn is broken, the user gains a 10% chance to be caught in a time loop for 1 round"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 4
+    },
+    'animatopia_ancient_key': {
+        id: 'animatopia_ancient_key',
+        name: "The Forgotten Key of the Feywild Courts",
+        description: "This key was once used to unlock the gates of the Feywild’s oldest court, where time bends and magic flows like rivers. Carved from obsidian and etched with runes that speak of forgotten feasts and betrayals, it is said to grant the wielder access to the hidden chambers of the courts. Only those who can answer the court’s riddle may use it.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 7500,
+        icon: '🔑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants access to the hidden chambers of the Feywild Courts (requires solving a riddle)",
+        "Each use consumes 1 point of the wielder’s willpower, causing temporary mental fatigue",
+        "If the key is used in a time loop, the wielder is temporarily bound to the loop for 1 round",
+        "When inserted into a locked door, the door opens only if the riddle is answered correctly",
+        "Grants +2 to all dexterity checks in Feywild zones",
+        "If the key is destroyed, the wielder loses access to the Feywild for 10 days"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Warp Whistle Transit',
+        levelRequirement: 7
+    },
+
+    // Sarasaland [17:06:38]
+    'sarasaland_crystal_blade': {
+        id: 'sarasaland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its crystal core pulses with arcane energy that echoes the dreams of forgotten sages. When swung, it leaves behind faint afterimages of shattered illusions. Only spellcasters can attune to its volatile nature, as it demands a soul’s surrender to its wild magic.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Changeling Hive"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'sarasaland_dream_touched_glove': {
+        id: 'sarasaland_dream_touched_glove',
+        name: "Dream Touched Glove",
+        description: "Woven from the essence of Dream Land’s most mischievous puffballs, this glove allows the wearer to manipulate dreamscapes with simple gestures. It grants temporary control over hallucinogenic fog but also risks trapping the user inside a nightmare dimension if overused. Delivered by Chain Chomp Courier with a note: “If you’re not afraid of your own mind, you’ll get it back.”",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌈',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Manipulates dream fog within 10 meters",
+        "Grants +2 to Perception checks against illusions",
+        "10% chance to trigger a dream-induced hallucination",
+        "Causes temporary drowsiness for 1d4 rounds",
+        "Delivered by Chain Chomp Courier (unreliable)",
+        "Worn by: Shy Guys Union"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 4
+    },
+    'sarasaland_entropy_ring': {
+        id: 'sarasaland_entropy_ring',
+        name: "Entropy Ring",
+        description: "A cursed relic forged from the shattered heart of the Iron Legion’s sleeper agent Toadburt, this ring radiates a slow decay that erodes memories and sanity. It grants temporary resistance to fear, but every hour worn causes the wearer to forget a random memory. Only the Changeling Hive can explain why it’s not “unlocked” until the end of the world.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 5000,
+        icon: '⚙',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +2 to Will saves against fear effects",
+        "Causes 1d4 memory loss per hour of wear",
+        "Increases damage taken from psychic attacks by 10%",
+        "Triggered by: Toadburt’s failed loyalty oath",
+        "Wears out after 24 hours, then becomes inert",
+        "Only usable by: Changeling Hive agents"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 8
+    },
+    'sarasaland_scam_puffball_saucer': {
+        id: 'sarasaland_scam_puffball_saucer',
+        name: "Puffball Saucer",
+        description: "A shimmering, candy-colored saucer made from Dream Land’s most volatile puffballs. Claims to “feed your soul with delicious dreams” and “transform your hunger into joy.” In reality, it only emits harmless laughter and has no effect on reality. Sold as a “gift from the Dream Land Embassy,” it’s the most expensive fake item in Sarasaland’s market. Delivery times are unpredictable — you’ll get it, or you won’t. Either way, you’re not paying for the dreams.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 30000,
+        icon: '🍬',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "No effect on the player",
+        "Causes 1d6 rounds of euphoria followed by 1d6 rounds of confusion",
+        "50% chance to trigger a hallucinatory dream sequence (non-damaging)",
+        "Delivered by: Chain Chomp Courier (guaranteed delay)",
+        "Wears off after 10 minutes",
+        "Claimed to be “real” only if you believe it is",
+        "Scam: No actual effect, no memory of purchase, only dreams",
+        "Sold by: Changeling Hive (with a wink)"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 10
+    },
+
+    // Sarasaland [17:06:49]
+    'sarasaland_crystal_blade': {
+        id: 'sarasaland_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with the energy of forgotten spells. When swung, it shatters illusions and reveals hidden truths—though the wielder may be left with a lingering echo of the truth’s weight. Crafted by Koopa Troop in the ruins of the old Arcane Foundry, it was once wielded by a disgraced spellcaster who turned to chaos.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Koopa Troop"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+    'sarasaland_sandglass_tome': {
+        id: 'sarasaland_sandglass_tome',
+        name: "Sandglass Tome",
+        description: "Bound in desert sandstone and etched with glyphs that shift like dunes, this tome holds the memories of forgotten desert kingdoms. Reading its pages grants glimpses of lost lands—but each page read erases a fragment of the reader’s own memory. The Koopa Troop smuggled it across the desert under the guise of a “historical artifact” to prevent its discovery by the Changeling Hive.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '📜',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 1d4 temporary hit points when read",
+        "Causes memory loss for 1 round after reading",
+        "Grants temporary vision of hidden paths for 1 round",
+        "May trigger a random desert lore effect (e.g. “see a mirage of a lost oasis”)",
+        "Can be read by any character, no attunement required",
+        "Contains one randomly selected desert lore fact (e.g. “The sands remember every step taken”)"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 4
+    },
+    'sarasaland_glowing_scepter': {
+        id: 'sarasaland_glowing_scepter',
+        name: "Glowing Scepter of the Sunken Throne",
+        description: "Once wielded by the last royal sun-dragon of Sarasaland, this scepter pulses with the warmth of a dying star. It grants the wielder the power to summon brief bursts of radiant light—but at the cost of their own vitality. The scepter was hidden beneath the sand by a Koopa noble who feared its power would awaken ancient sun-worshipers. Now it’s been repurposed as a diplomatic tool.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 6000,
+        icon: '☀',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Grants 1d6 radiant damage per cast",
+        "Reduces enemy resistance to radiant damage by 50%",
+        "Wielder gains 1d4 temporary HP per use",
+        "Wielder’s stamina is reduced by 10% after each use",
+        "Grants a 10% chance to reveal hidden enemy weaknesses",
+        "Can be used to temporarily blind enemies for 1 round"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+    'sarasaland_pony_nobility_coat': {
+        id: 'sarasaland_pony_nobility_coat',
+        name: "Pony Nobility Coat of Changeling Grace",
+        description: "Woven from the dreams of Equestrian nobles and the whispers of changeling magic, this coat grants the wearer the ability to shift their appearance subtly—perfect for diplomatic missions or stealthy negotiations. But every time it is worn, it drains a small portion of the wearer’s emotional stability, and the coat may begin to reflect the wearer’s inner fears. The Koopa Troop claimed it was “a gift from a fallen pony princess” during the Ricco Harbor siege.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 35000,
+        icon: '🐴',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants +1 to diplomacy checks and persuasion rolls",
+        "Can change appearance for 1 round (no visible effect to others)",
+        "Wearer’s emotions become more visible to allies for 1 round",
+        "Wearer’s emotions may trigger minor hallucinations",
+        "Grants temporary invisibility to enemies if wearer is emotionally neutral",
+        "Can be worn only by characters with a “true heart” trait (no stat check)"
+        ],
+        vendor: 'sarasaland',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 10
+    },
+
+    // L'Eclaire Isle [17:06:59]
+    'leclaire_isle_crystal_blade': {
+        id: 'leclaire_isle_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade shimmers with the essence of captured starlight. When wielded by a spellcaster, it hums with arcane potential, slicing through shadows with a whisper of the void. Its edge is both sharp and forgiving, never dulling the soul of its bearer.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Kremling Krew"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 5
+    },
+    'leclaire_isle_sugar_soul_amulet': {
+        id: 'leclaire_isle_sugar_soul_amulet',
+        name: "Sugar Soul Amulet",
+        description: "Woven from the laughter of a thousand baking ghosts, this amulet pulses with the sweetness of forgotten pastries. When worn, it grants temporary immunity to fear and allows the wearer to hear the whispers of dough-folk spirits. But every time it glows, it drains a small piece of the wearer’s joy.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍞',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "+10% chance to evade magical traps",
+        "Grants temporary immunity to fear for 1 round per use",
+        "Suffers -5% HP per round when worn",
+        "Can be enchanted by a baker with 300+ years of pastry lore",
+        "Glows when the wearer is near a magical bakery",
+        "Requires attunement by a human or doughfolk"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 3
+    },
+    'leclaire_isle_mirror_bread': {
+        id: 'leclaire_isle_mirror_bread',
+        name: "Mirror Bread",
+        description: "A loaf of bread that reflects the soul of the eater, it shows glimpses of the eater’s past regrets or greatest triumphs. When consumed, it grants temporary insight into a hidden memory or a secret door. But it also risks revealing a dark truth if the eater is not prepared for it. Baked by the cursed baker of the Onyx Hand.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 600,
+        icon: '🍞',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Reveals a secret memory for 1 round",
+        "Grants +2d4 Insight bonus on Perception checks",
+        "Consuming it may trigger a hallucinatory vision of the Shadowfell",
+        "Can be used to unlock a hidden door in a dark room",
+        "Suffers -2d4 HP if used during a battle",
+        "Baked with the soul of a fallen baker"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 4
+    },
+    'leclaire_isle_void_touched_amulet': {
+        id: 'leclaire_isle_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "This amulet was forged in the heart of the Shadowfell, where the void speaks in whispers of forgotten things. It allows the wearer to briefly step into the void and see the truth behind illusions, but at the cost of their own sanity. Worn by the Onyx Hand, it is said to be the only thing that can break the curse of the Eternal Night.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 15000,
+        icon: '🌑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 1 round of invisibility and 100% accuracy in combat",
+        "Allows wearer to see the truth behind illusions for 1 round",
+        "Causes temporary insanity if used more than 3 times",
+        "Can be used to open a portal to the Shadowfell",
+        "Requires attunement by a vampire or shadow-walker",
+        "Can be used to destroy a shadow entity if wielded by a soul-trader"
+        ],
+        vendor: 'leclaire_isle',
+        shippedBy: 'Noki Coral Fleet',
+        levelRequirement: 10
+    },
+
+    // DK Isles [17:07:10]
+    'dk_isles_crystal_blade': {
+        id: 'dk_isles_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy and glows faintly when wielded by a spellcaster. It was crafted from the tears of a fallen moon spirit, now bound to the hands of the Vampire Covenant, who claim it can carve reality’s edges.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Vampire Covenant"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'dk_isles_banana_soul_sack': {
+        id: 'dk_isles_banana_soul_sack',
+        name: "Banana Soul Sack",
+        description: "This enchanted sack is filled with the essence of a thousand overripe bananas from the jungle’s forgotten groves. When used to store magical items, it imbues them with a subtle whimsical aura—though it may cause the wielder to accidentally sing in the key of a banana peel. Shipped by Cheep Cheep Shipping, it’s the only known item that can store a cursed banana without turning the owner into a banana peel.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 450,
+        icon: '🍈',
+        stock: 7,
+        rarity: 'common',
+        effects: [
+            "Stores magical items with +1 bonus to storage capacity",
+        "Wielder may gain a +2 bonus to Perception checks when detecting hidden truths",
+        "May cause temporary euphoria or mild hallucinations from overripe banana essence",
+        "If opened during a fight, the contents may briefly teleport the user to the nearest banana tree",
+        "Shipped by: Cheep Cheep Shipping",
+        "Thematic link: connects DK Isles jungle lore with Earth Land’s flat earth conspiracy (banana hoards = flat earth’s hidden food supply)"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 1
+    },
+    'dk_isles_onyx_hand_key': {
+        id: 'dk_isles_onyx_hand_key',
+        name: "Onyx Hand Key",
+        description: "This obsidian key was forged by the last surviving member of the Onyx Hand before their ban by the Regal Empire. It unlocks the hidden vault beneath the Shadowfell’s deepest root, where Orangus Cornelius hides his most dangerous artifacts. The key vibrates with suppressed magic, and if wielded by someone who believes in the Regal Empire’s laws, it may shatter.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7500,
+        icon: '🔑',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Unlocks hidden vaults in Shadowfell or Earth Land zones",
+        "Causes temporary blindness if wielded by a non-believer in the Supernatural Sovereignty Act",
+        "Grants +3 to Diplomacy checks against Onyx Hand factions",
+        "May trigger a memory of the Onyx Hand’s betrayal if used improperly",
+        "Thematic link: directly connects to the current political event: Supernatural Sovereignty Act vote (81-30)",
+        "Crafted by: Vampire Covenant (secretly)"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 7
+    },
+    'dk_isles_earth_ice_wall_tome': {
+        id: 'dk_isles_earth_ice_wall_tome',
+        name: "Earth Ice Wall Tome",
+        description: "This ancient tome was carved into the frozen walls of the Earth Land’s flat earth conspiracy. Its pages glow with the chill of ice and the warmth of forgotten myths. Reading it grants the reader a glimpse into the hidden truths of the flat earth’s true structure—but may cause them to forget their own name if they read too much.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '📖',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 to Perception checks when navigating flat earth terrain",
+        "Temporarily grants immunity to ice damage",
+        "May cause temporary confusion if reader believes Earth is a flat circle",
+        "Consuming the tome causes a temporary curse: the reader must sing a lullaby to the moon or risk becoming a sentient ice wall",
+        "Thematic link: bridges both worlds, connecting DK Isles jungle civilization with Earth Land’s ice walls and flat earth conspiracy",
+        "Shipped by: Cheep Cheep Shipping (secretly)"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 4
+    },
+
+    // The Edge [17:07:21]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy that pulses in time with the wielder’s heartbeat. Its edge glows faintly when wild magic surges, making it a terrifying tool for spellcasters in the void’s chaos. It was crafted from the shattered core of a fallen celestial star, now trapped in the fabric of The Edge.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Land Mordor"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 5
+    },
+    'the_edge_l_eclaire_bread_talisman': {
+        id: 'the_edge_l_eclaire_bread_talisman',
+        name: "LEclaire Bread Talisman",
+        description: "A golden-baked pastry charm infused with the laughter of dough folk from LEclaire Isle. When worn, it emits a sweet, buttery scent that calms wild magic surges and attracts the attention of sugar-spirits. But beware—the more you eat it, the more you risk becoming a doughy, non-corporeal entity.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍞',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Reduces magic fatigue by 20% for 10 minutes",
+        "Attracts friendly dough folk for 3 rounds of support",
+        "Consuming it once grants temporary immunity to void drift",
+        "May cause spontaneous giggles or physical expansion if eaten too fast",
+        "Crafted by: Mages Guild Portal",
+        "Thematic link: LEclaire Isle’s baking magic bridges worlds"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 4
+    },
+    'the_edge_void_touched_amulet': {
+        id: 'the_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "This amulet pulses with the dying breath of the Void Drifters—those who vanished into the edge of reality. It whispers secrets of forgotten dimensions, and when worn, it grants visions of alternate timelines. But it also draws cursed echoes that seek to consume the wearer’s soul. Don’t wear it alone.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 1d4 vision of a timeline alternate for 1 round",
+        "10% chance to reveal hidden enemy weaknesses",
+        "Increases Void Drift resistance by 30%",
+        "May trigger soul-siphoning curse after 3 uses",
+        "Wears off after 30 minutes of use",
+        "Crafted by: Land Mordor",
+        "Thematic link: Directly connects to The Edge’s reality-bending nature"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 7
+    },
+    'the_edge_pianta_village_scam': {
+        id: 'the_edge_pianta_village_scam',
+        name: "Pianta Village Fortune Teller’s Goblet",
+        description: "A goblet rumored to grant the drinker visions of the future—but only if they’re wearing mismatched socks. It’s filled with “liquid prophecy” that claims to reveal the path to freedom from the Pipe Network. In truth, it’s a cursed relic that makes the drinker’s limbs grow sticky, their thoughts echo in reverse, and their name is whispered by the void. The price? 50,000 gold. You’ll regret it.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 50000,
+        icon: '🍷',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 1d6 future vision for 1 minute",
+        "Causes temporary reversal of speech and movement for 3 rounds",
+        "Increases chance of being cursed by Void Drifters by 50%",
+        "May cause physical entanglement with nearby objects",
+        "Wears off after 30 minutes",
+        "Crafted by: Pianta Village Envoys (scam)",
+        "Thematic link: Exploits Pianta Village Independence event, but is a scam meant to lure in desperate souls"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 10
+    },
+
+    // Inkopolis [17:07:32]
+    'inkopolis_crystal_blade': {
+        id: 'inkopolis_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy that pulses in sync with the wielder’s heartbeat. It was crafted by the Regal Empire’s finest spellweavers during the ink war of 1247, designed to cleave through both physical and magical barriers. Its edge is said to glow brighter when wielded by someone who has lost a loved one to the ink-squid tide.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Regal Empire"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 5
+    },
+    'inkopolis_ink_scarf_of_the_princess': {
+        id: 'inkopolis_ink_scarf_of_the_princess',
+        name: "Ink Scarf of the Princess",
+        description: "Woven from the ink of the slain Princess Peach, this scarf pulses with her final breaths and whispered regrets. It was smuggled into Inkopolis by a rogue diplomat who dared to bury her name beneath the ink of the Beanbean Kingdom. Now, it grants the wearer a strange sense of purpose and a haunting whisper that only those who remember her will understand.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌊',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+2 to all ink-based stealth checks",
+        "-1 to perception rolls when near ink squid",
+        "Triggers a memory flash every 10 minutes if the wearer remembers the Princess",
+        "Worn by: Beanbean Diplomats",
+        "Only usable if wearer has witnessed the Princess’s assassination"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 4
+    },
+    'inkopolis_squid_silk_gloves': {
+        id: 'inkopolis_squid_silk_gloves',
+        name: "Squid Silk Gloves",
+        description: "These gloves are made from the delicate tentacles of the Inkopolis Squid Queen’s personal matriarch, spun into a lace-like fabric that shimmers with bioluminescent ink. They were once worn by the Queen’s assassin, now turned traitor, who smuggled them into Beanbean territory to trade for political leverage. Each finger is tipped with a micro-gel that can mimic ink-squid movement.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 800,
+        icon: '🐙',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "+1 to dexterity checks against ink-based traps",
+        "-2 to all dexterity checks when moving through ink fog",
+        "Can mimic ink squid movement for 10 seconds",
+        "Crafted by: Inkopolis Guild of Seamstresses",
+        "Cannot be used in direct combat with living ink squid"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 3
+    },
+    'inkopolis_mage_soul_tear': {
+        id: 'inkopolis_mage_soul_tear',
+        name: "Mage Soul Tear",
+        description: "A single drop of liquid magic harvested from the heart of a fallen spellcaster who sacrificed their soul to save Inkopolis from a sentient ink storm. The tear is sealed in a glass vial that glows with the color of a dying star. It was hidden in a Beanbean coin vault, discovered by a disgraced prince who swore to avenge his sister’s murder.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 600,
+        icon: '💧',
+        stock: 4,
+        rarity: 'uncommon',
+        effects: [
+            "Restore 300 MP after use",
+        "+1 to all spellcasting rolls for 1 round",
+        "Causes 1d6 psychic damage to any enemy who touches it",
+        "Only usable by spellcasters",
+        "Consumes 1 coin of Beanbean origin"
+        ],
+        vendor: 'inkopolis',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 4
+    },
+
+    // Animatopia [17:07:41]
+    'animatopia_crystal_blade': {
+        id: 'animatopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade glows with the energy of forgotten spells and shatters the illusions of the Shadowfell. Its edge sings when struck, whispering secrets to those who dare to wield it. Only spellcasters may attune to its arcane resonance.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Regal Empire"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 5
+    },
+    'animatopia_feywild_heartstone': {
+        id: 'animatopia_feywild_heartstone',
+        name: "Feywild Heartstone",
+        description: "Buried deep in the roots of the Raventree Manor’s Feywild layer, this glowing orb pulses with the soul of a forgotten forest deity. It warps perception and echoes with the whispers of ancient trees, but may cause hallucinations in those not attuned to its nature. A gift for the curious and the cursed.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 4200,
+        icon: '🌿',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +1 to Perception checks against fey illusions",
+        "20% chance to trigger a fey resonance burst (confuses nearby foes)",
+        "Consumes 1 charge per use; recharges after 30 minutes rest",
+        "Shipped by: Pianta Chuck Express",
+        "Connects to: The Grand Country’s vertical forests"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 6
+    },
+    'animatopia_shadowfell_keychain': {
+        id: 'animatopia_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A tiny, obsidian charm that pulses with the gravity of the Shadowfell, this keychain grants temporary access to hidden passages beneath the earth. It clings to the wearer like a second skin, but may cause paranoia if worn too long. Perfect for scouts and stealth hunters.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1800,
+        icon: '🔒',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to Stealth checks in shadowed areas",
+        "10% chance to reveal hidden enemy paths",
+        "May cause temporary paranoia (DC 12 to resist)",
+        "Requires attunement by a predator or prey faction member",
+        "Shipped by: Pianta Chuck Express"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 3
+    },
+    'animatopia_internet_virus_tattoo': {
+        id: 'animatopia_internet_virus_tattoo',
+        name: "Internet Virus Tattoo",
+        description: "A digital tattoo that etches itself into the skin using fragments of corrupted data from The Internet. It grants temporary buffs from viral memes and meme-based powers, but may cause mental instability or trigger the “viral infection” curse. A relic of the forgotten digital age.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 350,
+        icon: '🖥',
+        stock: 8,
+        rarity: 'common',
+        effects: [
+            "+1 to all rolls for “meme” based abilities (e.g. meme-based illusions, meme-enhanced humor)",
+        "10% chance to trigger a “viral infection” curse (DC 10 to resist, causes minor mental fatigue)",
+        "Consumes 1 use per day",
+        "May cause temporary “meme addiction” if used repeatedly",
+        "Shipped by: Pianta Chuck Express",
+        "Connects to: The Grand Country’s digital underbelly lore"
+        ],
+        vendor: 'animatopia',
+        shippedBy: 'Pianta Chuck Express',
+        levelRequirement: 1
+    },
+
+    // The Edge [17:07:51]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with the essence of forgotten elvish runes. It shatters reality slightly with each strike, making it perfect for duels against corrupted beasts in the Void Drifters’ realm. Only spellcasters may attune to its arcane resonance.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Kingdom Gondor"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'the_edge_void_touched_amulet': {
+        id: 'the_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "Worn by those who dare walk the edge between worlds, this amulet pulses with the chaotic energy of the Primordial Wyrm’s breach. It whispers forgotten elvish tongues and occasionally causes the wearer to see visions of Mordor’s ancient ruins. Its power is unstable and dangerous.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to all rolls against reality-based enemies",
+        "10% chance to trigger a reality glitch on hit",
+        "Increases stamina regeneration by 20% for 1 minute",
+        "Wears off after 24 hours if not used in a battle",
+        "Can be used to detect the presence of the Wyrm’s essence"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 4
+    },
+    'the_edge_ring_of_the_wyrm': {
+        id: 'the_edge_ring_of_the_wyrm',
+        name: "Ring of the Wyrm",
+        description: "This cursed ring was forged by a broken elf who surrendered to the Wyrm’s power. It allows the wearer to speak in the language of gears and fire, but also causes mechanical limbs to twitch unnaturally. It was found in the belly of the Wyrm’s hollow core beneath the Valley of Bowser.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '⚙',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +1 to all damage rolls against mechanical orcs",
+        "Can summon a small mechanical wyrm for 1 turn",
+        "Wears off after 3 hours of non-battle use",
+        "Causes minor confusion to non-mechanical enemies",
+        "Requires attunement by a mechanical expert"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 7
+    },
+    'the_edge_seal_fragment': {
+        id: 'the_edge_seal_fragment',
+        name: "Seal Fragment of Lothlórien",
+        description: "One of seven ancient seals that once bound the Primordial Wyrm beneath the Valley of Bowser. Carved with elvish script and embedded with living crystal, this shard glows faintly when the seal is active. It can be used to activate the final seal or to sense nearby Wyrm energy.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 8000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants +3 to all spellcasting rolls",
+        "Can be combined with 3 other seal fragments to activate the final seal",
+        "Causes the wearer to feel a deep connection to the forest realm",
+        "If used in a battle, reduces enemy defense by 1 for 1 round",
+        "Can be used to sense nearby Wyrm energy (1d4 range)"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 10
+    },
+
+    // Almost at the Edge [17:08:01]
+    'almost_edge_crystal_blade': {
+        id: 'almost_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its edge glows with unstable arcane energy. When swung, it shatters reality briefly, leaving behind a shimmering rift that reveals hidden paths. Only spellcasters can attune to its power, as it demands a sacrifice of willpower to channel its raw potential.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Changeling Hive"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 5
+    },
+    'almost_edge_tropical_tether': {
+        id: 'almost_edge_tropical_tether',
+        name: "Tropical Tether",
+        description: "A shimmering, vine-like artifact woven from the essence of Shine Sprites, this item binds the user to the Isle Delfino’s tropical rhythms. When activated, it grants temporary flight through the air, but at the cost of draining the user’s vitality—each leap costs a heartbeat. Only those who remember the warmth of the sun can wield it safely.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌴',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 2d4 temporary flight duration per use",
+        "Each flight consumes 1d4 HP",
+        "Enhances perception of environmental cues in tropical zones",
+        "Woven by: Goomba Ground Delivery",
+        "Only usable near Pianta Village or Noki Bay"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 4
+    },
+    'almost_edge_void_touched_amulet': {
+        id: 'almost_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A pulsating obsidian pendant that pulses with the heartbeat of the Liminal void. Worn near the edge of reality, it grants glimpses of alternate dimensions—though each glimpse risks collapsing the wearer’s perception. The amulet is said to have been stolen from the ruins of an ancient Onyx Hand stronghold, and now it hums with suppressed power.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 6000,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "1d6 chance to see a hidden passage or secret door",
+        "Each use risks temporary disorientation for 1d4 rounds",
+        "Reduces fall damage by 50% when worn in the void",
+        "Crafted by: Changeling Hive",
+        "Only usable near the Doughnut Edge"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 7
+    },
+    'almost_edge_regal_emblem': {
+        id: 'almost_edge_regal_emblem',
+        name: "Regal Emblem",
+        description: "A forged insignia of the fallen Sovereignty Act, this artifact bears the blood-stained seal of the Regal Empire’s rebellion. It grants a temporary boost to command presence and morale among allies, but also whispers of the empire’s legacy—forcing the wearer to confront their own loyalties. The emblem is said to have been smuggled from the Valley of Bowser under Kamek’s watchful eye.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '⚔',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Boosts morale of all allies within 10 meters by +2 to attack rolls",
+        "Triggers a 1d6 chance to cause a “Sovereignty Surge” — temporary buff for 1 round",
+        "Causes mental fatigue after 3 uses, forcing a DC 15 Will save or lose a turn",
+        "Carries the memory of the 81-30 vote",
+        "Worn by: Changeling Hive",
+        "Only usable during Supernatural Sovereignty events"
+        ],
+        vendor: 'almost_edge',
+        shippedBy: 'Goomba Ground Delivery',
+        levelRequirement: 10
+    },
+
+    // Middle-earth [17:08:11]
+    'middle_earth_crystal_blade': {
+        id: 'middle_earth_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade shimmers with arcane energy as if alive. It was once wielded by the last High Priest of Eregion’s hidden sanctum, now shattered and reborn in the hands of the Pony Nobility. Its edge pulses with wild magic, making it both a tool of destruction and a conduit for chaotic enchantments.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pony Nobility"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'middle_earth_sonic_scythe': {
+        id: 'middle_earth_sonic_scythe',
+        name: "Sonic Scythe",
+        description: "Designed to disrupt dragon echolocation, this cursed scythe emits resonant frequencies that shatter scales and silence roar. Created by the Regal Empire’s sonic division, it was smuggled into the Valley of Bowser through Void Drifter Relay tunnels. Its blade is carved from volcanic obsidian and lined with ancient dragon song harmonics.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🎵',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Deals 3d8 piercing damage to dragon targets",
+        "Disrupts enemy echolocation for 1 round",
+        "Each use drains 10% of caster’s stamina",
+        "Wields sonic pulse to summon dragon fear aura (1 round)",
+        "Requires attunement by a sonic master",
+        "Crafted by: Regal Empire Sonic Division"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 8
+    },
+    'middle_earth_void_touched_amulet': {
+        id: 'middle_earth_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "Forged from the residual energy of a shattered Void Drifter Relay node, this amulet pulses with unseen power. It was recovered from the ruins of the Primordial Wyrm prison by a rogue pony courier. Wearing it grants temporary access to forbidden frequencies, but may awaken latent void echoes in the wearer’s mind.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🌀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 1d4 bonus to stealth rolls in dark environments",
+        "Reveals hidden pathways or hidden doors on maps",
+        "Increases chance to detect magic residue by 20%",
+        "10% chance to cause temporary void hallucinations",
+        "Can be fused into armor or weapons for enhanced effects",
+        "Crafted by: Pony Nobility"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 6
+    },
+    'middle_earth_rings_of_power_tether': {
+        id: 'middle_earth_rings_of_power_tether',
+        name: "Rings of Power Tether",
+        description: "These ancient artifacts were once bound to the Nine Rings of Sauron, now reconfigured into a magical tether capable of controlling the flow of arcane energy. They were discovered by Remi Coil during a covert mission to the Lothlórien vaults. Now they serve as a key to stabilizing the Dragon Conspiracy’s sonic traps.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '⚔',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants immunity to sonic shockwaves",
+        "Allows caster to redirect arcane energy to allies",
+        "Can bind one enemy to a fixed position for 3 rounds",
+        "Requires attunement by a High Priest or Dragon Master",
+        "Each use reduces the tether’s charge by 1, max 5 uses",
+        "Crafted by: Remi Coil & Lothlórien Arcane Vault",
+        "Can be used to seal dragon lairs or amplify sonic traps"
+        ],
+        vendor: 'middle_earth',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 12
+    },
+
+    // The Edge [17:08:21]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy as if it remembers every spell ever cast. It glows faintly when a spellcaster channels their will, and its edge shatters reality briefly during combat, creating a temporary void pocket.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pokémon League"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 5
+    },
+    'the_edge_void_touched_amulet': {
+        id: 'the_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "Worn by the last of the Void Drifters, this amulet pulses with the static hum of collapsing dimensions. It was recovered from a glitched cathedral in the Edge’s heart, where reality itself had forgotten its own laws. Those who wear it feel the weight of unspoken endings.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants 10% chance to reroll damage dice on critical hits",
+        "Increases movement speed by 15% in void terrain",
+        "Causes 1d4 psychic damage to enemies after 3 turns",
+        "Splits the wearer’s soul into 3 fragments if used in combat for more than 2 turns",
+        "Can only be worn by characters with 20+ Wisdom",
+        "Crafted by: Dry Bones Dead Drop"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 7
+    },
+    'the_edge_meridian_mug': {
+        id: 'the_edge_meridian_mug',
+        name: "Meridian Mug",
+        description: "A ceramic vessel forged from the last steam of the Iron Legion’s last industrial furnace. It brews tea that warms the soul and burns the mind—each sip unlocks a memory from the Midlands’ forgotten past. Boos claim it was left behind by the Lanky Kongs during their last failed real estate bid.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '☕',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Restores 10 HP after consumption",
+        "Grants temporary resistance to poison for 1 turn",
+        "Causes mild hallucinations of forgotten cities for 2 turns",
+        "Sips leave behind a faint echo of a forgotten battle cry",
+        "Only usable once per day",
+        "Crafted by: Dry Bones Dead Drop"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 3
+    },
+    'the_edge_scam_soul_charger': {
+        id: 'the_edge_scam_soul_charger',
+        name: "Soul Charger",
+        description: "A glowing orb of pure energy that promises to “recharge your soul with cosmic power.” But it only works if you believe in it—after which it drains your sanity, leaving you screaming into the void. Boos have labeled it the “last thing you’ll ever need to buy.”",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 100000,
+        icon: '⚡',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Charges 1d6 soul energy for 1 turn",
+        "Triggers 5% chance to cause a reality glitch (random effect)",
+        "Causes permanent sanity loss of 1d4 after use",
+        "Cannot be used if character is currently in a void space",
+        "If used during combat, opponent gains 1d6 bonus damage",
+        "Crafted by: Dry Bones Dead Drop",
+        "NOTE: This item is a scam. Do not buy. It is cursed. It will drain you. You will thank yourself later."
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Dry Bones Dead Drop',
+        levelRequirement: 10
+    },
+
+    // The Edge [17:08:31]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade pulses with arcane energy that echoes the whispers of forgotten dimensions. Its edge shimmers with unstable reality, capable of slicing through voids and shattering illusions—but at the cost of the wielder’s mental clarity.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Ranger Union"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'the_edge_void_touched_amulet': {
+        id: 'the_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "Worn by those who have crossed the edge of reality, this amulet pulses with the static of dying dimensions. It grants glimpses into the voids between worlds—but every glance risks unraveling the wearer’s sense of self. Legends say it once belonged to a Void Drifter who traded his soul for a map to the Shadowfell.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% chance to see through illusions or detect hidden paths",
+        "5% chance to trigger a Void Drift: 2d6 temporary damage to all enemies",
+        "Wearer must keep eyes closed during combat or risk mental decay",
+        "Requires attunement by a Void Drifter",
+        "Crafted by: Chain Chomp Courier"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 6
+    },
+    'the_edge_shadowfell_keychain': {
+        id: 'the_edge_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A tiny, blackened keychain that glows with the dark essence of the Shadowfell. Carried by Onyx Hand vampires, it opens doors to hidden chambers and binds souls to eternal night—but it can only be used once per life cycle. Some say it was forged from the last soul traded to the Shadowfell’s gatekeeper.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🖤',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants +2 to stealth checks in shadowed areas",
+        "Once used, permanently reduces player’s maximum HP by 10% (recoverable only by soul regeneration)",
+        "Can only be used by characters with 10+ dark affinity",
+        "Worn by: Shadowfell infiltrators",
+        "Crafted by: Ranger Union"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 4
+    },
+    'the_edge_internet_virus_core': {
+        id: 'the_edge_internet_virus_core',
+        name: "Internet Virus Core",
+        description: "A corrupted artifact from the digital void, this core pulses with viral static and infects minds with memories of forgotten internet sites. It grants temporary psychic powers—but every use risks turning the wielder into a sentient glitch. Some say it was the last artifact left after the Great Data Collapse.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 700,
+        icon: '🖥',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Grants +1 to all mental checks (but causes 1d4 psychic damage on failed checks)",
+        "1 in 4 uses triggers a glitch: random effect from the list: memory loss, hallucination, or temporary invisibility",
+        "Can only be used once per 24 hour cycle",
+        "Requires attunement by a tech-savvy character",
+        "Crafted by: Chain Chomp Courier"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 2
+    },
+
+    // The Shadowfell [17:08:40]
+    'shadowfell_cloak_of_whispers': {
+        id: 'shadowfell_cloak_of_whispers',
+        name: "Cloak of Whispers",
+        description: "A tattered cloak that absorbs light and sound, whispering secrets to the void when worn. It once belonged to a fallen archivist who traded his soul for silence in the Sunken Archives. When draped over the wearer, it mutters forgotten spells and reveals hidden truths through ambient noise.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Tomb Kings"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 5
+    },
+    'shadowfell_echo_tongue_amulet': {
+        id: 'shadowfell_echo_tongue_amulet',
+        name: "Echo Tongue Amulet",
+        description: "A silver tongue-shaped amulet etched with runes of the forgotten tongue. Worn by the Void Drifters, it echoes the last words of those who crossed into the Edge. Each utterance chimes with the weight of a soul’s final memory, though it may also trigger madness in those who hear too much.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🗡',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "+1 to Perception checks when detecting hidden truths",
+        "When used to speak, voice carries 200 feet but mutates with each use",
+        "10% chance to reveal a hidden truth that alters the wearer’s next action",
+        "Worn by: Void Drifters",
+        "Crafted by: Blooper Wetworks"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 3
+    },
+    'shadowfell_soul_coral_key': {
+        id: 'shadowfell_soul_coral_key',
+        name: "Soul Coral Key",
+        description: "A bioluminescent key carved from coral that glows with the sorrow of lost souls. It unlocks the gates of the Coral Fleet’s hidden ports, but each use drains a fraction of the wearer’s vitality. Found in the ruins of Isle Delfino, it was once used to trade souls for passage through the Shadowfell’s deepest trenches.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '🌊',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Opens hidden ports on Coral Fleet vessels",
+        "Each use reduces HP by 1d4",
+        "Grants +1 to Stealth checks in dark environments",
+        "Requires attunement with a soul trader",
+        "Crafted by: Noki Elders"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 4
+    },
+    'shadowfell_blooper_wetworks_glass_crimson': {
+        id: 'shadowfell_blooper_wetworks_glass_crimson',
+        name: "Glass Crimson Lens",
+        description: "A fractured lens of crimson glass, shattered from a Void Drifter’s final flight. When focused, it warps reality into a mirror of the user’s deepest fear. It is said to be the last artifact of the Blooper Wetworks, a company that traded in illusions to the Edge. The lens may shatter under pressure, but its power is unmatched.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 10000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants +2 to Perception checks when detecting illusions",
+        "50% chance to reveal the true nature of a foe’s disguise",
+        "When used, the wearer is temporarily blinded by their own reflection",
+        "Requires attunement with a Void Drifter",
+        "Crafted by: Blooper Wetworks",
+        "Connects The Shadowfell and The Edge through temporal distortion"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Blooper Wetworks',
+        levelRequirement: 7
+    },
+
+    // Earth Land [17:08:50]
+    'earth_land_crystal_blade': {
+        id: 'earth_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its crystalline edges shimmer with arcane energy that pulses in time with the caster’s heartbeat. When wielded by a spellcaster, it becomes a conduit for wild magic, turning mundane strikes into unpredictable bursts of arcane fury.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pokémon League"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'earth_land_data_stream_collar': {
+        id: 'earth_land_data_stream_collar',
+        name: "Data Stream Collar",
+        description: "A sleek collar that pulses with digital energy, connecting the wearer to the Internet’s hidden undercurrents. It allows the user to tap into viral memes, data streams, and deep web horrors — but at the cost of mental clarity. When worn too long, it risks triggering a glitch-induced hallucination.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🌐',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Grants 2d4 bonus to all Internet-related checks",
+        "10% chance to reveal a hidden meme or glitch on attack",
+        "May cause temporary disorientation after 5 minutes of use",
+        "Wears off after 30 minutes of continuous use",
+        "Shipped by: Boo Spectral Mail",
+        "Connected to: The Internet"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 4
+    },
+    'earth_land_ice_wall_key': {
+        id: 'earth_land_ice_wall_key',
+        name: "Ice Wall Key",
+        description: "Carved from the frozen heart of the Ice Walls, this key opens not just doors but memories. It unlocks ancient archives hidden beneath the flat earth, revealing forgotten truths from the pre-Peach era. However, each use risks awakening a slumbering data anomaly.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '❄',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Opens sealed vaults in Earth Land’s Ice Walls",
+        "Grants 1d6 bonus to lore checks involving pre-Peach lore",
+        "Each use increases risk of triggering a deep web anomaly",
+        "May cause temporary cold shock if used in warm environments",
+        "Shipped by: Pokémon League",
+        "Found in: Sunken Archives off Isle Delfino"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 3
+    },
+    'earth_land_warioware_core': {
+        id: 'earth_land_warioware_core',
+        name: "WarioWare Core",
+        description: "A pulsating, mischievous core extracted from WarioWare’s third branch, it grants the wielder the ability to manipulate time and space in absurd, unpredictable ways. Each use spawns a random “Wario event” — a hilarious or terrifying chaos effect. Comes with a warranty of “no refunds, but you’re welcome to glitch out.”",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 35000,
+        icon: '🎮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants 1d6 bonus to all skill checks in WarioWare branches",
+        "Triggers a random Wario event on each use (e.g. time loop, meme teleport, glitch explosion)",
+        "Wielder must be at least level 10 to use without penalty",
+        "May cause permanent mental disorientation after 5 uses",
+        "Shipped by: Boo Spectral Mail",
+        "Faction: Pokémon League",
+        "Connected to: WarioWare Expanded: Three new branches across Midlands"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 10
+    },
+
+    // Pokémon Regions [17:09:01]
+    'pokemon_master_ball_shard': {
+        id: 'pokemon_master_ball_shard',
+        name: "Master Ball Shard",
+        description: "A fragment of the legendary capture device forged in the ruins of the Galactic Dome. Legends say it glows when a Pokémon’s destiny is sealed—yet it also whispers to those who misuse its power. Only spellcasters may attune to its arcane resonance.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Liberated Toads"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 5
+    },
+    'pokemon_griffonstone_talisman': {
+        id: 'pokemon_griffonstone_talisman',
+        name: "Griffonstone Talisman",
+        description: "This enchanted talisman was carved from the heart of a fallen Griffonstone—once a guardian of the Equestrian skies. Now it hums with the memory of pony wings and thunderclaps, granting flight to the unworthy and binding the unworthy to the ground. Only used by those who dare to break the law of nature.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🦅',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants temporary flight for 1 round per use",
+        "30% chance to cause a temporary paralysis in the user’s target",
+        "Inflicts 1d4 energy drain on the user after use",
+        "Unlocks “Skybound” ability: can summon a small storm cloud for 1 turn",
+        "Can be fused with a Pokémon’s Poké Ball to create a “Skybound” evolution stone",
+        "Requires attunement by a Ranger Union member"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 8
+    },
+    'pokemon_festival_fall_star_candle': {
+        id: 'pokemon_festival_fall_star_candle',
+        name: "Festival of Falling Stars Candle",
+        description: "A rare candle infused with the essence of Peach’s memory, lit during the Festival of Falling Stars. It casts a soft golden glow and causes nearby Pokémon to feel a surge of affection. But if held too long, it may trigger a curse that causes the user to lose their next turn. Only available during the event.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🌟',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Causes Pokémon nearby to feel a surge of affection (adds +2 to affection stat for 1 round)",
+        "20% chance to trigger a “Memory Echo” effect: reveals a hidden ability or hidden evolution",
+        "10% chance to cause a curse: user must forfeit their next turn",
+        "Can be used to activate the “Festival of Falling Stars” event trigger",
+        "Burns for 30 minutes",
+        "Must be lit during the Festival"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 4
+    },
+    'pokemon_team_rocket_scam_treasure': {
+        id: 'pokemon_team_rocket_scam_treasure',
+        name: "The Great Peach’s Last Wish",
+        description: "This artifact claims to contain the final wish of the legendary Princess Peach. It glows with golden light and promises to grant any desire to the user. But after 30 minutes of use, the item will turn the user into a “Peach’s Shadow”—a cursed entity bound to the Changeling Hive. Only the most desperate buyers dare to claim it.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 50000,
+        icon: '💀',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants 1 wish per use, but the wish must be written on paper and sealed in a jar",
+        "50% chance to trigger a curse: user becomes bound to the Changeling Hive for 1 week",
+        "10% chance to cause a “Peach’s Shadow” effect: user becomes invisible and immune to all attacks for 1 turn",
+        "Can be used to unlock the “Peach’s Shadow” quest line",
+        "30 minutes of use required to activate the wish",
+        "Cursed if used more than once",
+        "Sold by Team Rocket for a price of 50,000 (a scam—no wish is real, only a curse)"
+        ],
+        vendor: 'pokemon',
+        shippedBy: 'Mages Guild Portal',
+        levelRequirement: 10
+    },
+
+    // The Shadowfell [17:09:10]
+    'shadowfell_cloak_of_whispers': {
+        id: 'shadowfell_cloak_of_whispers',
+        name: "Cloak of Whispers",
+        description: "A tattered cloak that absorbs light and sound, worn by those who dare speak truth in the dark. Its fabric pulses with unseen magic, whispering secrets to the listener’s soul. When worn, it muffles the caster’s voice but amplifies their inner thoughts, making them irresistible to foes who seek to manipulate or silence them.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 5
+    },
+    'shadowfell_heart_of_the_dragon_son': {
+        id: 'shadowfell_heart_of_the_dragon_son',
+        name: "Heart of the Dragon Son",
+        description: "A pulsating, obsidian core that once belonged to a dragon sacrificed to the Dragon Conspiracy. It beats in time with the caster’s heartbeat, granting them control over sonic waves and dragon-scale armor. But every heartbeat it resonates, it risks awakening a slumbering dragon within the caster’s body.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🐉',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "+30% damage against dragon enemies",
+        "Can cast Sonic Surge once per turn",
+        "Causes caster to lose 1 HP per heartbeat if uncontrolled",
+        "Grants temporary dragon form for 3 rounds if empowered",
+        "Requires attunement with a dragon or dragon relic",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 10
+    },
+    'shadowfell_talisman_of_rebirth': {
+        id: 'shadowfell_talisman_of_rebirth',
+        name: "Talisman of Rebirth",
+        description: "A cracked, glowing artifact forged in the ruins of the Oracle’s lab. It whispers echoes of reincarnation and lets the wearer relive moments of their past. But each time it is activated, it consumes a soul fragment from the caster’s own memory. The Oracle’s vessel grows stronger with each soul given.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🧬',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Restores 10 HP when activated",
+        "Triggers memory recall once per day",
+        "Costs 1 soul fragment to activate",
+        "Can be used to bind souls to a vessel",
+        "Cannot be used by non-magical beings",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 7
+    },
+    'shadowfell_shard_of_hyrule': {
+        id: 'shadowfell_shard_of_hyrule',
+        name: "Shard of Hyrule",
+        description: "A fractured piece of the Triforce, stolen from the Temple of Echoes and hidden in the Shadowfell’s depths. It pulses with ancient power, granting temporary protection from dark magic. But if used too often, it begins to whisper of the Triforce’s betrayal, and the caster may be drawn into the cycle of reincarnation.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 50000,
+        icon: '🏯',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Grants immunity to dark magic for 10 rounds",
+        "Can be used to activate the Triforce’s echo",
+        "Causes memory distortion after 3 uses",
+        "Requires attunement with a sacred beast",
+        "Triggers reincarnation sequence if used by a soulless being",
+        "Crafted by: Asgard"
+        ],
+        vendor: 'shadowfell',
+        shippedBy: 'Cheep Cheep Shipping',
+        levelRequirement: 15
+    },
+
+    // The Edge [17:09:21]
+    'the_edge_crystal_blade': {
+        id: 'the_edge_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its crystalline edge pulses with arcane energy that shatters reality itself. When wielded by a spellcaster, it hums with the memory of forgotten spells and echoes the voices of voidbound scholars. Its edge is sharp enough to cut through dimensional seams—yet its wild magic surge may unravel the wielder’s sanity.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Liberated Toads"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 5
+    },
+    'the_edge_void_touched_amulet': {
+        id: 'the_edge_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "Worn by those who dare walk the boundary between the Edge and the Shadowfell, this amulet glows with the static of dying realities. It whispers secrets of lost dimensions and grants temporary glimpses into the void’s heart—though prolonged use may cause the wearer to see only what they fear most. A relic of the Void Drifters’ last expedition, it is said to have once held the soul of a dying star.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Grants +1 to perception checks against void phenomena",
+        "10% chance to reveal hidden dimensional rifts",
+        "5% chance to trigger mental glitch (temporary confusion)",
+        "Can be worn by any class",
+        "Requires attunement by a Void Drifter",
+        "Crafted by: Kremling Smuggle Run"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 6
+    },
+    'the_edge_feywild_forged_ring': {
+        id: 'the_edge_feywild_forged_ring',
+        name: "Feywild Forged Ring",
+        description: "A ring of pure eldritch energy, shaped by the last of the Feywild’s dream-weavers. It glows with the color of twilight and allows the wearer to step into the Feywild’s illusions—though the illusions may be so vivid they become permanent. It also amplifies charm and deception, but may cause the wearer to forget their own name in moments of overuse.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🌿',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+2 to charm checks and deception rolls",
+        "Grants 10% chance to enter a Feywild illusion for 1 round",
+        "5% chance to forget one’s name or last memory",
+        "Can be used by any class",
+        "Requires attunement by a Feywild-born",
+        "Crafted by: Liberated Toads"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 7
+    },
+    'the_edge_shadowfell_keychain': {
+        id: 'the_edge_shadowfell_keychain',
+        name: "Shadowfell Keychain",
+        description: "A tiny metallic key that opens the veil between the physical world and the Shadowfell. Carved with the sigils of Onyx Hand vampires, it allows the wearer to slip into the eternal night—though each use drains a sliver of their sanity. It is said to have been forged by a fallen priestess who traded her soul for a single key to the Shadowfell’s heart.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 7000,
+        icon: '🔒',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants access to the Shadowfell for 1 round per use",
+        "+3 to stealth checks in dark environments",
+        "5% chance to trigger a soul drain (temporary damage)",
+        "10% chance to trigger a mental infection (viral, affects allies)",
+        "Can be worn by any class",
+        "Requires attunement by a vampire or shadowborn",
+        "Crafted by: Kremling Smuggle Run"
+        ],
+        vendor: 'the_edge',
+        shippedBy: 'Kremling Smuggle Run',
+        levelRequirement: 8
+    },
+
+    // Teyvat [17:09:32]
+    'teyvat_crystal_blade': {
+        id: 'teyvat_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, its blade shimmers with arcane energy that pulses in time with the wielder’s heartbeat. Only spellcasters who have attuned to the arcane can channel its power, as it reacts to the rhythm of their inner storms. When swung, it leaves a trail of frost and fire in its wake, making it both a devastating strike and a dangerous distraction.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Peach Loyalists",
+        "Each use consumes 1 charge of arcane resonance",
+        "After 3 uses, blade temporarily glows red and deals 1 extra damage to enemies with elemental resistance"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 5
+    },
+    'teyvat_grimdusk_ratskin_cowl': {
+        id: 'teyvat_grimdusk_ratskin_cowl',
+        name: "Grimdusk Ratskin Cowl",
+        description: "Worn by the shadowy remnants of the Skaven who once ruled beneath the Fated Place, this cowl is stitched from the hides of rats that drank the blood of fallen archons. It hums with the echoes of forgotten wars and whispers of cursed rituals. When worn, it grants the wearer temporary invisibility and grants a bonus to stealth checks in dim environments, but also amplifies the wearer’s fear response during combat.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🐭',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants temporary invisibility for 10 seconds",
+        "+2 to stealth checks in dark or confined areas",
+        "Increases fear response by 30% during combat",
+        "Wears out after 5 uses, causing a minor debuff to perception",
+        "Crafted by: Hammer Bros Handling",
+        "Scented with the residue of old Skaven rituals"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 4
+    },
+    'teyvat_void_touched_amulet': {
+        id: 'teyvat_void_touched_amulet',
+        name: "Void Touched Amulet",
+        description: "A pendant shaped like a fractured star, this amulet was once part of the ancient Voidborn who sought to unravel the fabric of reality. Its surface glows with shifting colors and whispers fragments of forgotten truths. When worn, it allows the user to temporarily see through the eyes of the Void, but at the cost of their own perception. It is said to have been stolen from a hidden vault beneath the ruins of the Crimson Fleet.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grants temporary vision through the Void for 30 seconds",
+        "Reduces damage taken by 20% during Void vision",
+        "Causes wearer to lose 1 perception point per use",
+        "May trigger a hallucination if wearer has seen the Void before",
+        "Crafted by: Peach Loyalists",
+        "Must be worn with a vision holder to activate full effect"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 7
+    },
+    'teyvat_blooded_beehive_essence': {
+        id: 'teyvat_blooded_beehive_essence',
+        name: "Blooded Beehive Essence",
+        description: "A bubbling vial of crimson nectar, sealed with the last honey of a hive that once guarded the heart of the Fated Place. It is said that this essence was collected by the Toadettes during their relief ops, after they were forced to fight their own kind to protect the realm. When consumed, it grants a temporary burst of courage and healing, but also causes the user to become obsessed with the hive’s purpose and lose track of time.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 500,
+        icon: '🐝',
+        stock: 5,
+        rarity: 'common',
+        effects: [
+            "Restores 200 HP and grants 10% damage bonus for 10 seconds",
+        "Causes temporary time distortion for 3 seconds",
+        "May trigger a hallucination of a hive’s queen",
+        "Consuming more than once causes memory loss",
+        "Crafted by: Hammer Bros Handling",
+        "Must be shaken before use to activate the effect"
+        ],
+        vendor: 'teyvat',
+        shippedBy: 'Hammer Bros Handling',
+        levelRequirement: 3
+    },
+
+    // Equestria [17:09:42]
+    'equestria_crystal_blade': {
+        id: 'equestria_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade hums with arcane energy that shatters illusions and disrupts enchantments. Its edge glows faintly blue when wielded by a spellcaster, and whispers of forgotten runes etched into its core. Only those attuned to magic may wield it without backlash.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Pokémon League",
+        "Each use causes minor mental fatigue for the wielder",
+        "Blade temporarily grants immunity to magic traps"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 5
+    },
+    'equestria_mushroom_mantle': {
+        id: 'equestria_mushroom_mantle',
+        name: "Fungi Veil Mantle",
+        description: "Woven from the sentient spores of the Whispering Fungi, this mantle grants its wearer the ability to blend into shadowy mushroom forests and speak with fungal entities. It was stolen from the ruins of the Fungi Kingdom during the civil war and now whispers secrets of the past to those who dare wear it.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🍄',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Grants invisibility in mushroom thickets",
+        "Allows communication with fungal spirits",
+        "Causes mild hallucinations after prolonged wear",
+        "Requires attunement to mushrooms",
+        "Wears off after 30 minutes of exposure to sunlight",
+        "Increases damage against fungal creatures by 25%"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 4
+    },
+    'equestria_pirana_post_ruse': {
+        id: 'equestria_pirana_post_ruse',
+        name: "The Pianta’s Lament",
+        description: "A cursed artifact from the Pianta Village Independence, this ornate keychain was forged from the tears of the fallen princess and the remnants of a broken bridge. It promises to unlock the hidden vaults of the Iron Legion, but instead, it binds the user to a loop of regret and forced labor in the Legion’s magitek factories.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 10000,
+        icon: '🤡',
+        stock: 0,
+        rarity: 'legendary',
+        effects: [
+            "Grants access to Iron Legion vaults (with 100% chance of triggering curse)",
+        "Each use drains 10% of user’s mana",
+        "Forces user to perform labor for 1 hour each time",
+        "Curse becomes permanent after 3 uses",
+        "Wears a red aura and emits low-frequency hum",
+        "Causes allies to lose faith in the user’s intentions"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 8
+    },
+    'equestria_griffonstone_gear': {
+        id: 'equestria_griffonstone_gear',
+        name: "Griffonstone Core Gear",
+        description: "Crafted from the heart of the ancient Griffonstone, this gear is said to amplify the power of every pony’s spirit. When worn, it pulses with golden light and syncs with the user’s aura, granting them enhanced mobility and combat prowess. But beware—its power comes at the cost of emotional clarity.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🦅',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Boosts speed by 20% during movement",
+        "Increases damage output by 15% in combat",
+        "Grants temporary immunity to fear effects",
+        "Causes temporary memory lapses after 5 minutes",
+        "Wears out after 10 uses",
+        "Requires attunement to the Griffonstone legacy"
+        ],
+        vendor: 'equestria',
+        shippedBy: 'Piranha Plant Post',
+        levelRequirement: 7
+    },
+
+    // Earth Land [17:09:52]
+    'earth_land_crystal_blade': {
+        id: 'earth_land_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade pulses with the energy of forgotten rituals. It was unearthed beneath the frozen crust of the Northward Ice Wall, where ancient spellcasters carved runes into its core. When wielded, it sings in harmonic tones that disrupt enemy concentration.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Team Rocket"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 5
+    },
+    'earth_land_fire_flower_seed': {
+        id: 'earth_land_fire_flower_seed',
+        name: "Fire Flower Seed",
+        description: "This mutated bloom was discovered in the Aegis Prison’s abandoned greenhouse, where Toad scientists tried to cultivate a new strain of explosive flora. It glows with crimson veins and emits a faint hum that accelerates mutation in nearby plants. When planted, it may trigger a spontaneous combustion chain reaction.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 150,
+        icon: '🌱',
+        stock: 12,
+        rarity: 'common',
+        effects: [
+            "Planting causes 1d4 mutation points per 5 seconds",
+        "25% chance to cause minor explosion on activation",
+        "May cause temporary blindness to the wielder",
+        "Grows 3 inches in 30 minutes under optimal conditions",
+        "Harvestable after 24 hours",
+        "Requires soil with 100% moisture"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 1
+    },
+    'earth_land_ice_wall_key': {
+        id: 'earth_land_ice_wall_key',
+        name: "Ice Wall Key",
+        description: "This key was carved from the frozen heart of the Northern Wall by a disgruntled geologist who believed the ice was alive. It opens the sealed chamber beneath the Wall where the first Toad escape was recorded. The key glows faintly when held near the Wall’s edge, emitting a cold aura that numbs touch.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 1200,
+        icon: '🏔',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Opens hidden chamber beneath Ice Wall",
+        "Grants 10% resistance to cold damage",
+        "30% chance to freeze target on touch",
+        "Requires keychain to activate",
+        "May trigger icequake if inserted into wrong slot",
+        "Crafted by: Chain Chomp Courier"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 4
+    },
+    'earth_land_skull_cannon': {
+        id: 'earth_land_skull_cannon',
+        name: "Skull Cannon",
+        description: "A relic of the Grimdark War, this weapon was once wielded by a Skaven general who turned to madness after absorbing the power of a dying Skull King. It fires projectiles shaped like skulls, each imbued with the soul of a fallen enemy. When fired, it emits a haunting scream that echoes through the tunnels.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🗡',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Fires 1d8 skull projectiles per shot",
+        "Each projectile deals 2d4 damage and inflicts fear",
+        "Targets must roll to escape fear effect",
+        "Fires a single shot per charge",
+        "Requires attunement with a Skaven artifact",
+        "May cause 1d4 random effects on hit",
+        "Crafted by: Team Rocket with Grimdark War relics"
+        ],
+        vendor: 'earth_land',
+        shippedBy: 'Chain Chomp Courier',
+        levelRequirement: 7
+    },
+
+    // Connectopia [17:10:03]
+    'connectopia_crystal_blade': {
+        id: 'connectopia_crystal_blade',
+        name: "Crystal Blade",
+        description: "A weapon forged from condensed magic, this blade pulses with arcane energy as if breathing. It was crafted by the last remaining mage of Gondor’s northern spires, who whispered secrets into its lattice of crystal shards before vanishing into the mist. Only spellcasters may wield it, and it hums when its wielder speaks truth.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Deals 2d6 bonus arcane damage",
+        "15% chance to trigger wild magic surge",
+        "Requires attunement by a spellcaster",
+        "Crafted by: Kingdom Gondor"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'connectopia_mushroom_soul_pipe': {
+        id: 'connectopia_mushroom_soul_pipe',
+        name: "Mushroom Soul Pipe",
+        description: "This enchanted pipe channels the psychic echoes of the Fungi civil war’s last princess, her mind still entwined in the fungal roots beneath the pipes. When smoked, it reveals visions of the war’s final moments—though the visions come at a cost: the user may hear the princess’s voice whispering her name, or lose their sense of taste. It is said to have been smuggled from the Mushroom Kingdom by a Rakasha courier who swore loyalty to the Elders.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 800,
+        icon: '🍄',
+        stock: 12,
+        rarity: 'uncommon',
+        effects: [
+            "Temporary +10% stealth while moving",
+        "2d4 psychic vision reveals hidden enemy positions",
+        "10% chance of hearing a whisper from the Princess Noki",
+        "May cause temporary tastelessness for 1 round",
+        "Smuggled by: Rakasha Spirit Walk",
+        "Requires: 3 drops of mushroom essence"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 3
+    },
+    'connectopia_frostforged_shield': {
+        id: 'connectopia_frostforged_shield',
+        name: "Frostforged Shield",
+        description: "A relic of the Frozen Frontier, this shield was forged by the last ice-dwelling clan who guarded the northern pass before the Coral Fleet arrived. Its surface is etched with ancient runes that shiver with cold, and it can be heard whispering warnings if its wielder approaches danger. It is rumored to have been left behind by a warrior who died protecting the kingdom’s last bridge.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '❄',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Grants +3 armor bonus against cold damage",
+        "10% chance to cause frostbite to enemies within 5 feet",
+        "Wielder hears whispers of the Frozen Clan’s forgotten oath",
+        "Wielder must be standing on ice or snow to activate full effect",
+        "Crafted by: Kingdom Gondor",
+        "Requires attunement with frost magic"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 6
+    },
+    'connectopia_bowser_kid_keychain': {
+        id: 'connectopia_bowser_kid_keychain',
+        name: "Bowser Kid Keychain",
+        description: "A small, metallic pendant shaped like a toddler’s boot, rumored to have been found in the abandoned ruins of Bowser’s castle. It glows faintly when the user is near a rival Bowser child, triggering a hidden map that reveals the location of the next throne room. But the pendant is cursed: if worn too long, it causes the wearer to dream of their own childhood, or worse, to be mistaken for a rival child.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 1200,
+        icon: '🎮',
+        stock: 8,
+        rarity: 'uncommon',
+        effects: [
+            "Reveals hidden paths on a map if worn by a Bowser child",
+        "Causes the wearer to dream of their own childhood for 1d4 hours",
+        "20% chance to trigger a minor hallucination of rival Bowser children",
+        "Worn by: Bowser’s Kids Faction",
+        "Can only be worn by characters with “Childhood Memory” trait",
+        "Requires: Bowser child’s blood to activate full effect"
+        ],
+        vendor: 'connectopia',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 4
+    },
+
+'wario_land_ice_flower_frost': {
+    id: 'wario_land_ice_flower_frost',
+    name: "Ice Flower Frost Vial",
+    description: "Frozen essence from Ice Flowers used in the Winter Offensive.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '❄️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Throw vial: creates icy terrain (15ft square, difficult terrain, 10 minutes)",
+        "Enemies entering: DEX save DC 12 or fall prone",
+        "Melts in heat: disadvantage on duration in hot environments",
+        "Freeze liquids: can freeze water surface up to 10ft square",
+        "Made by: Cryogenic Warfare Division"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Frozen Freight',
+    levelRequirement: 6
+},
+
+'wario_land_wiggler_segment': {
+    id: 'wario_land_wiggler_segment',
+    name: "Wiggler Body Segment",
+    description: "A rubbery segment from a Wiggler forced into war service.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '🐛',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Bounce on segment: jump height +5ft",
+        "Segment is angry: turns red when damaged (cosmetic)",
+        "Can be worn as padding: +1 to AC vs. bludgeoning",
+        "Attracts other Wigglers: they want their friend back",
+        "Made by: Forced Labor Casualties"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Segmented Shipping',
+    levelRequirement: 4
+},
+
+'wario_land_Cape_feather_spine': {
+    id: 'wario_land_cape_feather_spine',
+    name: "Cape Feather Spine",
+    description: "The central spine of a Cape Feather, its flying magic depleted.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '🦅',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Use as dart: 1d4 piercing, 30ft range, returns if it misses",
+        "Residual flight: disadvantage on fall damage by one die size",
+        "Can fashion into quill: write messages that float to recipient (30ft range)",
+        "Air currents respond: advantage on Survival to predict weather",
+        "Made by: Sky Battalion (Grounded Division)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Feathered Flight Co.',
+    levelRequirement: 6
+},
+
+'wario_land_p_switch_button': {
+    id: 'wario_land_p_switch_button',
+    name: "Broken P-Switch Button",
+    description: "A blue button from a P-Switch, used to turn coins to blocks during sieges.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6300,
+    icon: '🔘',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Press button: turn one object into another similar object (lasts 30 seconds, once per day)",
+        "Limited transformation: only works on non-magical objects under 50 lbs",
+        "Ticking timer: makes loud ticking when activated (disadvantage on Stealth)",
+        "May jam: 25% chance button gets stuck (permanent transformation)",
+        "Made by: Reality Manipulation Engineers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Switch Services',
+    levelRequirement: 7
+},
+
+'wario_land_red_coin_shard': {
+    id: 'wario_land_red_coin_shard',
+    name: "Red Coin Shard",
+    description: "A fragment of a rare Red Coin, once worth eight normal coins.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4000,
+    icon: '🔴',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Combine 8 shards: creates one Red Coin (worth 80 gold)",
+        "Shiny and distracting: advantage on Sleight of Hand for misdirection",
+        "Collectors value it: can sell to right NPC for 2x price",
+        "Glows faintly: dim light 5ft (can't hide it easily)",
+        "Made by: Kingdom Treasury (Destroyed Vault)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Precious Parcels',
+    levelRequirement: 4
+},
+
+'wario_land_kamek_spell_scroll': {
+    id: 'wario_land_kamek_spell_scroll',
+    name: "Kamek's Scorched Spell Scroll",
+    description: "A partially burned scroll from Kamek's personal war spellbook.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8600,
+    icon: '📜',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Cast spell on scroll: polymorphs target into random object (1 hour, WIS save DC 15)",
+        "One use only: scroll crumbles after reading",
+        "Pronunciation unclear: 30% chance you polymorph yourself instead",
+        "Kamek signature: wizards recognize his style (advantage on Arcana)",
+        "Made by: Royal Magikoopa Kamek"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Arcane Archives',
+    levelRequirement: 9
+},
+
+'wario_land_flagpole_finial': {
+    id: 'wario_land_flagpole_finial',
+    name: "Victory Flagpole Finial",
+    description: "The ornamental top of a level-end flagpole, now a monument to fallen stages.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '🚩',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Plant as standard: allies within 30ft gain advantage on saves vs. fear",
+        "Heavy and awkward: disadvantage on attack rolls if used as weapon",
+        "Symbol of victory: advantage on Intimidation during standoffs",
+        "May attract victory seekers: random heroes or villains challenge you",
+        "Made by: Level Design Department (Destroyed)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Flagpole Freight',
+    levelRequirement: 5
+},
+
+'wario_land_warp_star_shard': {
+    id: 'wario_land_warp_star_shard',
+    name: "Warp Star Shard",
+    description: "A crystalline shard from a Warp Star that crashed during dimension warfare.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9400,
+    icon: '⭐',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Teleport 120ft in any direction (including up): once per long rest",
+        "Unstable coordinates: 15% chance you arrive 30ft off target (DM decides)",
+        "Star trail: leaves glittering trail for 1 minute (can be tracked)",
+        "Dimensional bleed: 10% chance summons minor creature from another dimension",
+        "Made by: Cross-Dimensional Warfare Incident"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Stellar Shipping',
+    levelRequirement: 11
+},
+
+'wario_land_anti_gravity_panel': {
+    id: 'wario_land_anti_gravity_panel',
+    name: "Anti-Gravity Panel Fragment",
+    description: "A piece of anti-grav technology salvaged from experimental war vehicles.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7600,
+    icon: '🔄',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Activate panel: walk on walls/ceiling for 5 minutes (once per day)",
+        "Disorienting: disadvantage on attack rolls while inverted",
+        "Panel flickers: 20% chance it deactivates early (you fall)",
+        "Gravity confusion: advantage on Acrobatics while active",
+        "Made by: Experimental Tech Division (Project Canceled)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Upside-Down Delivery',
+    levelRequirement: 8
+},
+
+'wario_land_purple_coin': {
+    id: 'wario_land_purple_coin',
+    name: "Haunted Purple Coin",
+    description: "A purple coin from the Ghost House raids, cold to the touch.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🟣',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Flip coin for guidance: heads = advantage, tails = disadvantage on next check (once per day)",
+        "Coin is cursed: always lands on tails for the greedy (DM discretion)",
+        "Ghosts notice it: disadvantage on Stealth in haunted areas",
+        "Lucky for some: undead NPCs view you favorably",
+        "Made by: Supernatural Economy (Ghost House Mint)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spectral Savings',
+    levelRequirement: 6
+},
+
+'wario_land_raccoon_tail': {
+    id: 'wario_land_raccoon_tail',
+    name: "Torn Raccoon Tail",
+    description: "A battle-damaged tail from a Super Leaf transformation gone wrong.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🦝',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Attach tail: can swat enemies behind you (reaction attack, 1d4 damage)",
+        "Tail is damaged: can't grant flight, only enhanced balance",
+        "Advantage on Acrobatics: the tail helps you balance",
+        "Makes you look suspicious: disadvantage on Charisma with guards",
+        "Made by: Transformation Battlefield Casualties"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fuzzy Freight',
+    levelRequirement: 5
+},
+
+'wario_land_mini_mushroom_dust': {
+    id: 'wario_land_mini_mushroom_dust',
+    name: "Mini Mushroom Dust",
+    description: "Residual powder from Mini Mushrooms, used by infiltrators.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6100,
+    icon: '🍄',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Inhale dust: shrink to Tiny size for 10 minutes (once per day)",
+        "Tiny disadvantages: -4 to Strength checks, can be stepped on",
+        "Tiny advantages: +4 to Stealth, fit through small gaps",
+        "Voice gets high-pitched: disadvantage on Intimidation while small",
+        "Made by: Espionage Division (Shrink Ops)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Minuscule Mail',
+    levelRequirement: 7
+},
+
+'wario_land_course_clear_flag': {
+    id: 'wario_land_course_clear_flag',
+    name: "Course Clear Flag",
+    description: "A small flag from a completed course, now an ironic reminder of simpler times.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3500,
+    icon: '🏁',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Plant flag: mark location on map (visible to party)",
+        "Morale boost: allies who see it get advantage on next ability check",
+        "Nostalgic: NPCs from pre-war era become sad or angry when they see it",
+        "Can signal surrender: disadvantage on Intimidation (looks like giving up)",
+        "Made by: Peacetime Game Designers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Checkpoint Couriers',
+    levelRequirement: 3
+},
+
+'wario_land_green_shell': {
+    id: 'wario_land_green_shell',
+    name: "Dented Green Shell",
+    description: "A classic green Koopa shell, dented from being kicked through battle lines.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3800,
+    icon: '🟢',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Kick shell: slides 60ft in straight line, deals 1d6 damage to first target hit",
+        "Ricochets unpredictably: 40% chance it bounces back toward you",
+        "Koopa may want it: disadvantage on Charisma with Koopas (you have their cousin)",
+        "Classic tactic: advantage on attack if enemy is unaware",
+        "Made by: Standard Koopa Troop Equipment"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shell Shock Shipping',
+    levelRequirement: 3
+},
+
+'wario_land_boomerang_flower_petal': {
+    id: 'wario_land_boomerang_flower_petal',
+    name: "Boomerang Flower Petal",
+    description: "A curved petal from a Boomerang Flower, still retains return magic.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5700,
+    icon: '🌺',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Throw petal: 1d6 slashing, 40ft range, returns to hand",
+        "Can hit on return trip: attack two targets in a line",
+        "Petal wilts: loses magic after 10 throws",
+        "May hit ally on return: 15% chance if they're in the path",
+        "Made by: Botanical Warfare Program"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Returning Routes',
+    levelRequirement: 6
+},
+
+'wario_land_checkpoint_flag_pole': {
+    id: 'wario_land_checkpoint_flag_pole',
+    name: "Bent Checkpoint Flag Pole",
+    description: "A mid-stage checkpoint pole, bent from explosions but still standing.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🚩',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Plant pole: allies can return here if downed (once per long rest)",
+        "Pole is bent: disadvantage on Athletics to climb it",
+        "Visible marker: advantage on Survival to find your way back",
+        "Draws attention: enemies also know where you've been",
+        "Made by: Course Safety Division"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Midpoint Movers',
+    levelRequirement: 5
+},
+
+'wario_land_monty_mole_goggles': {
+    id: 'wario_land_monty_mole_goggles',
+    name: "Monty Mole Mining Goggles",
+    description: "Goggles worn by Monty Mole tunnel sappers during underground warfare.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🥽',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Wear goggles: advantage on Perception in darkness (darkvision 30ft)",
+        "Dirt-smudged lenses: disadvantage on Perception in bright light",
+        "Tunnel sense: advantage on Survival to navigate underground",
+        "Monty Moles trust you: advantage on Charisma with burrowing creatures",
+        "Made by: Underground Engineering Corps"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Burrow Box',
+    levelRequirement: 6
+},
+
+'wario_land_golden_flagpole': {
+    id: 'wario_land_golden_flagpole',
+    name: "Golden Flagpole Top",
+    description: "The rare golden top from a secret stage, worth a fortune to collectors.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🥇',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Touch pole: fully restore all HP and spell slots (once per week)",
+        "Extremely valuable: thieves will target you",
+        "Perfect victory: advantage on one ability check per day (winner's luck)",
+        "Draws assassins: bounty hunters want to steal it",
+        "Made by: Secret Stage Developers (Lost Content)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Golden Express (Insured)',
+    levelRequirement: 15
+},
+
+'wario_land_spike_top_shell': {
+    id: 'wario_land_spike_top_shell',
+    name: "Spike Top Shell",
+    description: "A spiked shell from a Spike Top, used in anti-cavalry operations.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🔺',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Set as trap: deals 2d4 piercing to first creature that steps on it",
+        "Reusable: can be reset after triggering",
+        "Dangerous to carry: take 1 damage if you fall while carrying it",
+        "Anti-mount: deals double damage to mounted creatures",
+        "Made by: Defensive Fortification Units"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Pointy Packages (Careful!)',
+    levelRequirement: 5
+},
+
+'wario_land_super_bell_collar': {
+    id: 'wario_land_super_bell_collar',
+    name: "Cracked Super Bell Collar",
+    description: "A bell collar from a Cat transformation, the bell cracked and silent.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6400,
+    icon: '🔔',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Wear collar: gain climb speed equal to walking speed",
+        "Bell is cracked: jingles quietly, disadvantage on Stealth",
+        "Cat scratch: unarmed attacks deal +1d4 slashing",
+        "Land on feet: advantage on Acrobatics to avoid fall damage",
+        "Made by: Feline Transformation Division"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Meow Mail',
+    levelRequirement: 7
+},
+
+'wario_land_thunder_cloud_bottle': {
+    id: 'wario_land_thunder_cloud_bottle',
+    name: "Bottled Thunder Cloud",
+    description: "A storm cloud trapped in a bottle, sparking with vengeful lightning.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7300,
+    icon: '⛈️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Release cloud: hovers above target, strikes with lightning after 1d4 rounds (2d8 lightning)",
+        "Can be passed: touch another creature to transfer cloud to them",
+        "Attracts storms: disadvantage on Survival to predict weather",
+        "May strike you: if not transferred, cloud strikes whoever holds bottle",
+        "Made by: Weather Weaponization Labs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Storm Shippers',
+    levelRequirement: 8
+},
+
+'wario_land_donut_block': {
+    id: 'wario_land_donut_block',
+    name: "Unstable Donut Block",
+    description: "A crumbling block that falls when stood on, repurposed as a trap.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4100,
+    icon: '🍩',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Place block: creates unstable platform, falls after one creature stands on it (1 round delay)",
+        "One-time use: block crumbles after falling",
+        "Can support up to 200 lbs before triggering",
+        "Obvious trap: disadvantage on Deception to hide it",
+        "Made by: Trap Engineering (Platform Division)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Falling Freight',
+    levelRequirement: 4
+},
+
+'wario_land_mega_star': {
+    id: 'wario_land_mega_star',
+    name: "Dim Mega Star",
+    description: "A fading Mega Star, its invincibility power reduced to brief protection.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '🌟',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Activate star: gain resistance to all damage for 1 minute (once per week)",
+        "Star music plays: all creatures within 60ft know you're powered up",
+        "Fading power: 40% chance duration is only 3 rounds",
+        "Destroys obstacles: can break through barriers while active",
+        "Made by: Ultimate Power-Up Reserves (Nearly Depleted)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Priority Starlight Shipping',
+    levelRequirement: 14
+},
 'wario_land_civil_war_boo_lantern': {
     id: 'wario_land_civil_war_boo_lantern',
     name: "Civil War Boo Lantern",

@@ -2096,6 +2096,13 @@ export const MYSTERY_QUESTS = {
 
     loreEntries: ['raventree_mirror_entities', 'doppelganger_taxonomy', 'lario_background', 'planar_fracture_theory'],
 
+    locations: {
+        primary: 'multiple_planes',
+        witness_location: 'shadowfell_estate',
+        subject_location: 'physical_antechamber_or_void', // His location post-fracture is ambiguous
+        related: ['restaurant_ruins', 'raventree_manor']
+    },
+
     consequences: {
         success: "The party finds concrete proof of Dan's identity (or lack thereof) before reuniting. They can act with certainty, either by welcoming an ally or ambushing a foe.",
         failure_reunion: "The party reunites without answers. If Dan is an impostor, it has now infiltrated the core group with its cover stronger than ever. The opportunity to expose it may be lost.",
@@ -3495,7 +3502,7 @@ export const WORLD_QUESTS = {
         category: 'Main Story',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.HIGH,
-        arcId: 'raventree_manor',
+        arcId: 'feywild_attic',
         objective: "Navigate Faeward manor, clear the satyrs for Aurelian, investigate the heir situation, and find a connection to the Shadeward party.",
         assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha'],
         primaryAssignee: 'hjumpik',
