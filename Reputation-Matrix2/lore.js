@@ -280,19 +280,7 @@ feywild_attic: {
             negative: ['Bramblehaven massacre', 'Civilian casualties']
         }
     },
-  purple_legion_mystery: {
-    id: 'purple_legion_mystery_5804',
-    name: "purple_legion_mystery,",
-    date: { day: 26, monthIndex: 6, year: 1040 },
-    isEvent: true,
-    instigator: 'ryan',
-    arc: 'purple_legion_mystery',
-    arcPosition: 'introduction',
-    description: "A shadowed figure in purple armor vanished from the ruins of the Old Observatory leaving behind only a whispering stone tablet. The Purple Legion’s true purpose is now a whispered fear among all who dare speak of the night sky.",
-    targets: ['ryan', 'archie', 'bowser', 'toad_lee', 'eager', 'fawful'],
-    effects: { purple_legion_: -10, regal_empire_: -5, freed_toads: 3 },
-    cycle_impact: { score: 4.2, label: "Mystic Crisis", type: "mystic" }
-  },    
+
     kong_kremling_cold_war: {
         id: 'kong_kremling_cold_war',
         name: 'The Kong-Kremling Cold War',

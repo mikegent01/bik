@@ -17,6 +17,19 @@ export const AUXILIARY_PARTY = {
 
 
 export const RUMORS = [
+   {
+    id: 'purple_legion_mystery',
+    title: "Purple Legion Mystery",
+    date: { day: 26, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'ryan',
+    arc: 'purple_legion_mystery',
+    arcPosition: 'introduction',
+    description: "A shadowed figure in purple armor vanished from the ruins of the Old Observatory leaving behind only a whispering stone tablet. The Purple Legion’s true purpose is now a whispered fear among all who dare speak of the night sky.",
+    targets: ['ryan', 'archie', 'bowser', 'toad_lee', 'eager', 'fawful'], 
+    effects: { purple_legion: -10, iron_legion: -5, liberated_toads: 3 },
+    cycle_impact: { score: 4.2, label: "Mystic Crisis", type: "mystic" }
+  },      
 {
         id: 'fey_manor_service',
         title: "Servants of the Lady",
