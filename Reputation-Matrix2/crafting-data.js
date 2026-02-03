@@ -12,7 +12,12 @@ export const CRAFTING_CATEGORIES = {
     ALCHEMY: 'alchemy',
     RUNECARVING: 'runecarving'
 };
+export const ALCHEMY_RECIPES ={
 
+}
+export const RUNECARVING_RECIPES = {
+    
+}
 // ============================================
 // === SPELL SCHOOLS ===
 // ============================================
@@ -73,7 +78,7 @@ export const SPELL_SCHOOLS = {
         icon: '⚗️', 
         color: '#22c55e',
         description: 'Magic that changes properties of creatures or objects.'
-    }
+    },
 };
 
 // ============================================
@@ -3374,7 +3379,1770 @@ export const ENCHANTING_RECIPES = {
             { id: 'chaos_essence', quantity: 1 },
             { id: 'runestone', quantity: 1 }
         ]
-    }    
+    },
+
+    // === AUTO-INSERTED ENCHANTING ===
+// ENCHANTING [23:19:30]
+    frostbite: {
+        id: 'frostbite',
+        name: 'Enchantment of Frostbite',
+        type: 'enchanting',
+        description: 'Inflicts freezing damage on hits, slowing enemies and reducing their movement speed.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    whispering_edge: {
+        id: 'whispering_edge',
+        name: 'Enchantment of Whispering Edge',
+        type: 'enchanting',
+        description: 'Causes the weapon to emit a chilling hum that reduces enemy attack speed and increases critical hit chance.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadowstep: {
+        id: 'shadowstep',
+        name: 'Enchantment of Shadowstep',
+        type: 'enchanting',
+        description: 'Grants the weapon a brief, silent dash forward after each hit, allowing for evasion or surprise attacks.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:19:35]
+    echo_of_the_void: {
+        id: 'echo_of_the_void',
+        name: 'Enchantment of Echo of the Void',
+        type: 'enchanting',
+        description: 'When struck, the weapon echoes the last blow with a devastating shockwave, dealing extra damage to nearby enemies.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_bane: {
+        id: 'shadow_bane',
+        name: 'Enchantment of Shadow Bane',
+        type: 'enchanting',
+        description: 'The weapon channels dark energy, temporarily shrouding the wielder in shadow and reducing incoming damage by 25% for 3 seconds after each strike.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'shadow_spore', quantity: 2 },
+            { id: 'cursed_iron', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    time_burst: {
+        id: 'time_burst',
+        name: 'Enchantment of Time Burst',
+        type: 'enchanting',
+        description: 'Strikes cause time to slow around the target for 1 second, increasing damage by 50% during that period.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'chronomatter', quantity: 2 },
+            { id: 'starfrost_fragment', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+
+    // === AUTO-INSERTED ENCHANTING ===
+// ENCHANTING [23:38:55]
+    luck_of_the_lake: {
+        id: 'luck_of_the_lake',
+        name: 'Enchantment of Luck of the Lake',
+        type: 'enchanting',
+        description: 'Increases the chance of finding rare items while fishing.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    speed_of_wind: {
+        id: 'speed_of_wind',
+        name: 'Enchantment of Speed of Wind',
+        type: 'enchanting',
+        description: 'Increases movement speed while walking or running.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    resilience_of_stone: {
+        id: 'resilience_of_stone',
+        name: 'Enchantment of Resilience of Stone',
+        type: 'enchanting',
+        description: 'Reduces damage taken from blunt and piercing attacks.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:39:05]
+    whispering_wisp: {
+        id: 'whispering_wisp',
+        name: 'Enchantment of Whispering Wisp',
+        type: 'enchanting',
+        description: 'Causes the wearer to hear faint, magical whispers when nearby enchanted objects are active.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_echo: {
+        id: 'shadow_echo',
+        name: 'Enchantment of Shadow Echo',
+        type: 'enchanting',
+        description: 'Reflects a faint shadow of the wearer’s movements, useful for stealth and detection avoidance.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    twilight_tether: {
+        id: 'twilight_tether',
+        name: 'Enchantment of Twilight Tether',
+        type: 'enchanting',
+        description: 'Creates a faint aura that slows time slightly around the wearer, ideal for dodging fast attacks.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:39:27]
+    sharpness: {
+        id: 'sharpness',
+        name: 'Enchantment of Sharpness',
+        type: 'enchanting',
+        description: 'Increases damage dealt by slashing attacks',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    critical_chance: {
+        id: 'critical_chance',
+        name: 'Enchantment of Critical Chance',
+        type: 'enchanting',
+        description: 'Increases chance to land critical hits',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    fire_resistance: {
+        id: 'fire_resistance',
+        name: 'Enchantment of Fire Resistance',
+        type: 'enchanting',
+        description: 'Reduces damage taken from fire-based attacks',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:39:43]
+    arcane_blade: {
+        id: 'arcane_blade',
+        name: 'Enchantment of Arcane Blade',
+        type: 'enchanting',
+        description: 'Infuses the weapon with raw arcane energy, causing it to emit a blinding glow and strike with unpredictable elemental damage.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_whisper: {
+        id: 'shadow_whisper',
+        name: 'Enchantment of Shadow Whisper',
+        type: 'enchanting',
+        description: 'Allows the wielder to briefly phase into the shadows, dodging attacks and striking with silent, devastating precision.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'shadow_fiber', quantity: 2 },
+            { id: 'void_gem', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    soul_scorch: {
+        id: 'soul_scorch',
+        name: 'Enchantment of Soul Scorch',
+        type: 'enchanting',
+        description: 'Channels the soul essence of slain foes, burning through enemies with searing, life-draining strikes.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'soul_fragment', quantity: 4 },
+            { id: 'crimson_iron', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:39:48]
+    swift_step: {
+        id: 'swift_step',
+        name: 'Enchantment of Swift Step',
+        type: 'enchanting',
+        description: 'Increases movement speed while wearing this armor.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    frost_resistance: {
+        id: 'frost_resistance',
+        name: 'Enchantment of Frost Resistance',
+        type: 'enchanting',
+        description: 'Reduces damage taken from ice-based attacks.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_dodge: {
+        id: 'shadow_dodge',
+        name: 'Enchantment of Shadow Dodge',
+        type: 'enchanting',
+        description: 'Increases chance to dodge attacks from shadow-based enemies.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:40:42]
+    arcane_blessing: {
+        id: 'arcane_blessing',
+        name: 'Enchantment of Arcane Blessing',
+        type: 'enchanting',
+        description: 'Grants a +15% chance to crit and deals 10% extra damage to undead enemies.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_mane: {
+        id: 'shadow_mane',
+        name: 'Enchantment of Shadow Mane',
+        type: 'enchanting',
+        description: 'Increases movement speed by 20% and grants invisibility for 3 seconds after each successful attack.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'shadow_fiber', quantity: 2 },
+            { id: 'void_gem', quantity: 1 }
+        ],
+        goldCost: 180,
+        craftTime: 5,
+        successChance: 75,
+        levelRequirement: 4
+    },
+    soul_tether: {
+        id: 'soul_tether',
+        name: 'Enchantment of Soul Tether',
+        type: 'enchanting',
+        description: 'When equipped, the accessory links to the player’s soul, restoring 5% HP per second while active, but drains 1% HP per second when not in combat.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'soul_crystal', quantity: 1 },
+            { id: 'abyssal_ember', quantity: 2 }
+        ],
+        goldCost: 200,
+        craftTime: 6,
+        successChance: 70,
+        levelRequirement: 5
+    },
+
+    // ENCHANTING [23:41:05]
+    shadow_step: {
+        id: 'shadow_step',
+        name: 'Enchantment of Shadow Step',
+        type: 'enchanting',
+        description: 'Allows the wearer to teleport short distances in darkness, leaving a faint trail of shadow.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    frost_bane: {
+        id: 'frost_bane',
+        name: 'Enchantment of Frost Bane',
+        type: 'enchanting',
+        description: 'Inflicts freezing damage on enemies and slows their movement in icy environments.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 4 },
+            { id: 'runestone', quantity: 2 },
+            { id: 'frost_crystal', quantity: 1 }
+        ],
+        goldCost: 175,
+        craftTime: 5,
+        successChance: 75,
+        levelRequirement: 4
+    },
+    echo_will: {
+        id: 'echo_will',
+        name: 'Enchantment of Echo Will',
+        type: 'enchanting',
+        description: 'Amplifies the wearer’s willpower, granting temporary invulnerability and resistance to debuffs.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 5 },
+            { id: 'runestone', quantity: 2 },
+            { id: 'soul_gem', quantity: 1 }
+        ],
+        goldCost: 200,
+        craftTime: 6,
+        successChance: 70,
+        levelRequirement: 5
+    },
+
+    // ENCHANTING [23:41:16]
+    sharpness: {
+        id: 'sharpness',
+        name: 'Enchantment of Sharpness',
+        type: 'enchanting',
+        description: 'Increases the weapon’s damage by 20% for 5 seconds after each hit.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    critical_strike: {
+        id: 'critical_strike',
+        name: 'Enchantment of Critical Strike',
+        type: 'enchanting',
+        description: 'Increases the chance of landing a critical hit by 15%.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    speed: {
+        id: 'speed',
+        name: 'Enchantment of Speed',
+        type: 'enchanting',
+        description: 'Increases the weapon’s attack speed by 25%.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:41:39]
+    frostbite: {
+        id: 'frostbite',
+        name: 'Enchantment of Frostbite',
+        type: 'enchanting',
+        description: 'Inflicts 10% cold damage per hit and slows enemy movement by 20% for 3 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadowweave: {
+        id: 'shadowweave',
+        name: 'Enchantment of Shadowweave',
+        type: 'enchanting',
+        description: 'Absorbs 20% of incoming damage and converts it to shadow energy, which can be spent to temporarily dodge attacks.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_strike: {
+        id: 'echo_strike',
+        name: 'Enchantment of Echo Strike',
+        type: 'enchanting',
+        description: 'On hit, deals bonus damage equal to 15% of the targets max health and creates a shockwave that damages nearby enemies.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:42:06]
+    swift_step: {
+        id: 'swift_step',
+        name: 'Enchantment of Swift Step',
+        type: 'enchanting',
+        description: 'Grants a small boost to movement speed while wearing the accessory.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_sense: {
+        id: 'shadow_sense',
+        name: 'Enchantment of Shadow Sense',
+        type: 'enchanting',
+        description: 'Increases the chance to detect hidden enemies while wearing the accessory.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    wind_favor: {
+        id: 'wind_favor',
+        name: 'Enchantment of Wind Favor',
+        type: 'enchanting',
+        description: 'Increases the chance to dodge attacks when moving quickly.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:42:23]
+    soulbound_vengeance: {
+        id: 'soulbound_vengeance',
+        name: 'Enchantment of Soulbound Vengeance',
+        type: 'enchanting',
+        description: 'Bonds the armor to the wielder’s soul, granting +50% damage taken converted to health regeneration. Triggered on enemy hit.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_of_the_wyrm: {
+        id: 'echo_of_the_wyrm',
+        name: 'Enchantment of Echo of the Wyrm',
+        type: 'enchanting',
+        description: 'When struck, the armor echoes the last enemy’s attack, dealing 20% of the target’s damage as bonus damage to the attacker.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_reverberation: {
+        id: 'shadow_reverberation',
+        name: 'Enchantment of Shadow Reverberation',
+        type: 'enchanting',
+        description: 'Inflicts 10% of the enemy’s maximum HP as shadow damage on hit. Can be chained to nearby enemies.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:43:38]
+    luck_blessing: {
+        id: 'luck_blessing',
+        name: 'Enchantment of Luck Blessing',
+        type: 'enchanting',
+        description: 'Increases the chance of finding rare items when looting or mining.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    speed_boost: {
+        id: 'speed_boost',
+        name: 'Enchantment of Speed Boost',
+        type: 'enchanting',
+        description: 'Increases movement speed while wearing the accessory.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    armor_repair: {
+        id: 'armor_repair',
+        name: 'Enchantment of Armor Repair',
+        type: 'enchanting',
+        description: 'Automatically repairs minor damage to the accessory when worn.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+
+    // === AUTO-INSERTED ENCHANTING ===
+// ENCHANTING [23:44:39]
+    luck_of_the_lucky: {
+        id: 'luck_of_the_lucky',
+        name: 'Enchantment of Luck',
+        type: 'enchanting',
+        description: 'Increases the chance of finding rare items during exploration.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    swift_step: {
+        id: 'swift_step',
+        name: 'Enchantment of Speed',
+        type: 'enchanting',
+        description: 'Increases movement speed slightly, helping you navigate terrain faster.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shielded_breeze: {
+        id: 'shielded_breeze',
+        name: 'Enchantment of Protection',
+        type: 'enchanting',
+        description: 'Provides minor defense against incoming damage and slows damage over time.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:44:55]
+    enchant_blessed_mane: {
+        id: 'enchant_blessed_mane',
+        name: 'Enchantment of Blessed Mane',
+        type: 'enchanting',
+        description: 'Grants the wearer a faint aura of divine grace, increasing their attack speed by 5% and reducing incoming damage by 3% for 10 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    enchant_wisp_tether: {
+        id: 'enchant_wisp_tether',
+        name: 'Enchantment of Wisp Tether',
+        type: 'enchanting',
+        description: 'Allows the wearer to temporarily summon a ghostly wisp that follows them and deals 10% of their maximum damage per second as area damage.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'shadow_flower', quantity: 2 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    enchant_silent_step: {
+        id: 'enchant_silent_step',
+        name: 'Enchantment of Silent Step',
+        type: 'enchanting',
+        description: 'Reduces the wearer’s footstep noise by 75%, making them nearly invisible to enemy detection while moving. Duration: 10 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'moonstone', quantity: 2 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:45:18]
+    soulbind: {
+        id: 'soulbind',
+        name: 'Enchantment of Soulbind',
+        type: 'enchanting',
+        description: 'When activated, the wearer’s soul is bound to the armor, granting invincibility to all attacks for 3 seconds after a successful strike.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_blade: {
+        id: 'echo_blade',
+        name: 'Enchantment of Echo Blade',
+        type: 'enchanting',
+        description: 'The armor channels the user’s strikes into a silent, echo-like blade, dealing extra damage on every second hit and reflecting 20% of incoming damage.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    time_warp: {
+        id: 'time_warp',
+        name: 'Enchantment of Time Warp',
+        type: 'enchanting',
+        description: 'The armor grants the wearer a 2-second time delay before all incoming attacks, allowing them to dodge or counterattack with perfect timing.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:45:29]
+    arcane_soul: {
+        id: 'arcane_soul',
+        name: 'Enchantment of Arcane Soul',
+        type: 'enchanting',
+        description: 'Grants the wearer temporary arcane immunity and enhances spellcasting efficiency by 15%.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_mending: {
+        id: 'shadow_mending',
+        name: 'Enchantment of Shadow Mending',
+        type: 'enchanting',
+        description: 'Restores 5% of max health per second while wearing this armor, and reduces damage from shadow-based attacks by 30%.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'shadow_flint', quantity: 2 },
+            { id: 'void_essence', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    frost_bane: {
+        id: 'frost_bane',
+        name: 'Enchantment of Frost Bane',
+        type: 'enchanting',
+        description: 'Grants the wearer immunity to frost damage and slows enemy attacks by 10% while under the effect.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'frost_crystal', quantity: 4 },
+            { id: 'glacier_core', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:45:37]
+    luck_of_the_lucky: {
+        id: 'luck_of_the_lucky',
+        name: 'Enchantment of Luck',
+        type: 'enchanting',
+        description: 'Increases the chance of obtaining rare items when looting or trading.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    swift_feet: {
+        id: 'swift_feet',
+        name: 'Enchantment of Speed',
+        type: 'enchanting',
+        description: 'Increases movement speed while wearing the accessory.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    elemental_resistance: {
+        id: 'elemental_resistance',
+        name: 'Enchantment of Elemental Resistance',
+        type: 'enchanting',
+        description: 'Reduces damage from elemental attacks by 15%.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:45:48]
+    frost_resistance: {
+        id: 'frost_resistance',
+        name: 'Enchantment of Frost Resistance',
+        type: 'enchanting',
+        description: 'Reduces damage from icy attacks by 20%',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    fire_resistance: {
+        id: 'fire_resistance',
+        name: 'Enchantment of Fire Resistance',
+        type: 'enchanting',
+        description: 'Reduces damage from burning attacks by 25%',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shock_resistance: {
+        id: 'shock_resistance',
+        name: 'Enchantment of Shock Resistance',
+        type: 'enchanting',
+        description: 'Reduces damage from electric attacks by 15%',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:47:39]
+    echo_of_the_wild: {
+        id: 'echo_of_the_wild',
+        name: 'Enchantment of Echo',
+        type: 'enchanting',
+        description: 'Grants the wearer temporary stealth and echoes their footsteps, revealing nearby enemies with a soft chime.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    soul_siphon: {
+        id: 'soul_siphon',
+        name: 'Enchantment of Siphon',
+        type: 'enchanting',
+        description: 'Siphons a small amount of life from nearby enemies, restoring health to the wearer for a brief period.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 4 },
+            { id: 'runestone', quantity: 2 },
+            { id: 'soul_gem', quantity: 1 }
+        ],
+        goldCost: 180,
+        craftTime: 5,
+        successChance: 75,
+        levelRequirement: 4
+    },
+    shadow_step: {
+        id: 'shadow_step',
+        name: 'Enchantment of Shadow Step',
+        type: 'enchanting',
+        description: 'Allows the wearer to teleport short distances after a brief hesitation, perfect for evading or ambushing.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 5 },
+            { id: 'runestone', quantity: 2 },
+            { id: 'shadow_fiber', quantity: 1 }
+        ],
+        goldCost: 200,
+        craftTime: 6,
+        successChance: 70,
+        levelRequirement: 5
+    },
+
+    // ENCHANTING [23:48:02]
+    arcane_sunder: {
+        id: 'arcane_sunder',
+        name: 'Enchantment of Arcane Sunder',
+        type: 'enchanting',
+        description: 'When struck, the weapon shatters the targets defenses, dealing extra damage and disrupting their next attack.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_echo: {
+        id: 'shadow_echo',
+        name: 'Enchantment of Shadow Echo',
+        type: 'enchanting',
+        description: 'The weapon echoes the users last strike, dealing additional damage in a follow-up attack after a successful hit.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'shadow_fiber', quantity: 2 },
+            { id: 'void_crystal', quantity: 1 },
+            { id: 'arcane_dust', quantity: 4 }
+        ],
+        goldCost: 175,
+        craftTime: 5,
+        successChance: 75,
+        levelRequirement: 4
+    },
+    soul_burn: {
+        id: 'soul_burn',
+        name: 'Enchantment of Soul Burn',
+        type: 'enchanting',
+        description: 'The weapon drains vitality from the target, causing them to lose health over time while being hit, and the weapon gains temporary power.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'soul_gem', quantity: 1 },
+            { id: 'bloodstone', quantity: 2 },
+            { id: 'arcane_dust', quantity: 5 }
+        ],
+        goldCost: 200,
+        craftTime: 6,
+        successChance: 70,
+        levelRequirement: 5
+    },
+
+    // ENCHANTING [23:48:07]
+    arcane_burst: {
+        id: 'arcane_burst',
+        name: 'Enchantment of Arcane Burst',
+        type: 'enchanting',
+        description: 'Channels arcane energy for a devastating burst attack, dealing extra damage to enemies with high armor.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_fury: {
+        id: 'shadow_fury',
+        name: 'Enchantment of Shadow Fury',
+        type: 'enchanting',
+        description: 'Unleashes a surge of dark energy, increasing weapon damage by 20% and reducing the target’s defense for 2 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'shadow_flint', quantity: 2 },
+            { id: 'void_heart', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    storm_edge: {
+        id: 'storm_edge',
+        name: 'Enchantment of Storm Edge',
+        type: 'enchanting',
+        description: 'Grants the weapon a chance to strike with lightning, dealing bonus damage and stunning the target for 1 second.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'thunder_crystal', quantity: 3 },
+            { id: 'storm_core', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:48:13]
+    frostbite: {
+        id: 'frostbite',
+        name: 'Enchantment of Frostbite',
+        type: 'enchanting',
+        description: 'Inflicts 10% additional damage to enemies with cold resistance and reduces their movement speed by 15% for 2 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadowweave: {
+        id: 'shadowweave',
+        name: 'Enchantment of Shadowweave',
+        type: 'enchanting',
+        description: 'Grants the wearer a 5% chance to dodge attacks and increases stealth while moving. Active for 10 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    thunderclap: {
+        id: 'thunderclap',
+        name: 'Enchantment of Thunderclap',
+        type: 'enchanting',
+        description: 'When struck, the wearer creates a small shockwave that deals 50 damage to nearby enemies and stuns them for 1.5 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:48:29]
+    soul_shard_bane: {
+        id: 'soul_shard_bane',
+        name: 'Enchantment of Soul Shard Bane',
+        type: 'enchanting',
+        description: 'Strikes enemies with a soul-shattering aura, causing them to lose a portion of their soul energy and take extra damage.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    void_siphon: {
+        id: 'void_siphon',
+        name: 'Enchantment of Void Siphon',
+        type: 'enchanting',
+        description: 'Siphons the life force of enemies, converting it into temporary weapon damage and health regeneration for the wielder.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    wrath_of_the_cursed: {
+        id: 'wrath_of_the_cursed',
+        name: 'Enchantment of Wrath of the Cursed',
+        type: 'enchanting',
+        description: 'Inflicts a curse upon enemies, causing them to suffer from a slow decay of their soul and suffer additional damage over time.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:48:56]
+    frostbite: {
+        id: 'frostbite',
+        name: 'Enchantment of Frostbite',
+        type: 'enchanting',
+        description: 'Inflicts cold damage on enemies and slows their movement',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadowstep: {
+        id: 'shadowstep',
+        name: 'Enchantment of Shadowstep',
+        type: 'enchanting',
+        description: 'Allows wearer to briefly teleport short distances and evade attacks',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_swing: {
+        id: 'echo_swing',
+        name: 'Enchantment of Echo Swing',
+        type: 'enchanting',
+        description: 'Deals extra damage on hit and creates a brief shockwave on impact',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:49:01]
+    arcane_blessing: {
+        id: 'arcane_blessing',
+        name: 'Enchantment of Arcane Blessing',
+        type: 'enchanting',
+        description: 'Grants the wearer +20% attack speed and +10% critical chance, with a chance to deal 15% extra damage on critical hits.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_siphon: {
+        id: 'shadow_siphon',
+        name: 'Enchantment of Shadow Siphon',
+        type: 'enchanting',
+        description: 'Absorbs 10% of incoming damage and converts it into temporary health regeneration over 5 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'shadow_essence', quantity: 2 },
+            { id: 'void_fragment', quantity: 1 }
+        ],
+        goldCost: 180,
+        craftTime: 5,
+        successChance: 75,
+        levelRequirement: 4
+    },
+    frost_cryo: {
+        id: 'frost_cryo',
+        name: 'Enchantment of Frost Cryo',
+        type: 'enchanting',
+        description: 'Applies a chilling effect to the wearer, reducing enemy movement speed by 30% for 3 seconds upon hitting them, and freezing them for 1 second on hit.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'frost_crystal', quantity: 4 },
+            { id: 'arcane_core', quantity: 1 }
+        ],
+        goldCost: 200,
+        craftTime: 6,
+        successChance: 70,
+        levelRequirement: 5
+    },
+
+    // ENCHANTING [23:50:33]
+    frostbite: {
+        id: 'frostbite',
+        name: 'Enchantment of Frostbite',
+        type: 'enchanting',
+        description: 'Inflicts cold damage on enemies and slows their movement.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadowstep: {
+        id: 'shadowstep',
+        name: 'Enchantment of Shadowstep',
+        type: 'enchanting',
+        description: 'Grants the wearer a slight stealth bonus and reduces enemy detection range.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_bite: {
+        id: 'echo_bite',
+        name: 'Enchantment of Echo Bite',
+        type: 'enchanting',
+        description: 'Deals extra damage on the first hit and leaves a lingering echo that damages enemies on hit.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:51:40]
+    frostbite: {
+        id: 'frostbite',
+        name: 'Enchantment of Frostbite',
+        type: 'enchanting',
+        description: 'Inflicts freezing damage on hits, slowing enemy movement.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadowstep: {
+        id: 'shadowstep',
+        name: 'Enchantment of Shadowstep',
+        type: 'enchanting',
+        description: 'Grants the wielder a brief dash forward after each attack, allowing for evasive maneuvers.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_blade: {
+        id: 'echo_blade',
+        name: 'Enchantment of Echo Blade',
+        type: 'enchanting',
+        description: 'When the weapon strikes, a temporary copy of the attack is cast in the direction of the target.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:52:08]
+    sharpness: {
+        id: 'sharpness',
+        name: 'Enchantment of Sharpness',
+        type: 'enchanting',
+        description: 'Increases the damage dealt by melee attacks',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    critical_strike: {
+        id: 'critical_strike',
+        name: 'Enchantment of Critical Strike',
+        type: 'enchanting',
+        description: 'Increases chance to land a critical hit',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    durability: {
+        id: 'durability',
+        name: 'Enchantment of Durability',
+        type: 'enchanting',
+        description: 'Reduces weapon degradation and increases lifespan',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [23:52:30]
+    sharp_soul: {
+        id: 'sharp_soul',
+        name: 'Enchantment of Sharp Soul',
+        type: 'enchanting',
+        description: 'Grants the wielder a +2 bonus to melee attack rolls and deals an extra 1d4 damage on critical hits.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    frost_edge: {
+        id: 'frost_edge',
+        name: 'Enchantment of Frost Edge',
+        type: 'enchanting',
+        description: 'Causes the weapon to deal extra cold damage and slows enemy movement for 1 round after being hit.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'frost_crystal', quantity: 2 },
+            { id: 'shadow_iron', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_whisper: {
+        id: 'echo_whisper',
+        name: 'Enchantment of Echo Whisper',
+        type: 'enchanting',
+        description: 'After a successful hit, the weapon briefly echoes the last attack’s damage, dealing an additional 1d3 damage to the same target.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'whisper_gem', quantity: 1 },
+            { id: 'wind_scale', quantity: 2 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+
+    // === AUTO-INSERTED ENCHANTING ===
+// ENCHANTING [00:10:13]
+    frostbite: {
+        id: 'frostbite',
+        name: 'Enchantment of Frostbite',
+        type: 'enchanting',
+        description: 'Deals extra damage to icy enemies and slows them slightly.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    thunderclap: {
+        id: 'thunderclap',
+        name: 'Enchantment of Thunderclap',
+        type: 'enchanting',
+        description: 'Inflicts a small thunder shock on enemies when hit, causing them to stumble.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadowstep: {
+        id: 'shadowstep',
+        name: 'Enchantment of Shadowstep',
+        type: 'enchanting',
+        description: 'Grants a small movement speed boost and allows the wearer to dodge attacks more effectively.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [00:10:23]
+    frost_bite: {
+        id: 'frost_bite',
+        name: 'Enchantment of Frost Bite',
+        type: 'enchanting',
+        description: 'Inflicts freezing damage on hit, slowing enemy movement for 2 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_edge: {
+        id: 'shadow_edge',
+        name: 'Enchantment of Shadow Edge',
+        type: 'enchanting',
+        description: 'Deals extra damage to enemies with low health and leaves a lingering shadow that damages nearby foes.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_soul: {
+        id: 'echo_soul',
+        name: 'Enchantment of Echo Soul',
+        type: 'enchanting',
+        description: 'Upon hitting an enemy, weapon briefly echoes the attack to nearby enemies, dealing minor damage.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [00:10:40]
+    frost_bite: {
+        id: 'frost_bite',
+        name: 'Enchantment of Frost Bite',
+        type: 'enchanting',
+        description: 'Freezes enemies in place for 2 seconds, dealing extra cold damage.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadow_wraith: {
+        id: 'shadow_wraith',
+        name: 'Enchantment of Shadow Wraith',
+        type: 'enchanting',
+        description: 'Weapon becomes invisible when not attacking, then strikes with a shadowy aura that deals additional damage.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_soul: {
+        id: 'echo_soul',
+        name: 'Enchantment of Echo Soul',
+        type: 'enchanting',
+        description: 'Weapon fires a temporary copy of itself that strikes the target twice, with a chance to stun.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // ENCHANTING [00:11:03]
+    frostbite: {
+        id: 'frostbite',
+        name: 'Enchantment of Frostbite',
+        type: 'enchanting',
+        description: 'Inflicts 10% damage reduction and slows the target by 20% for 3 seconds when hit.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 3 },
+            { id: 'runestone', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    shadowstep: {
+        id: 'shadowstep',
+        name: 'Enchantment of Shadowstep',
+        type: 'enchanting',
+        description: 'Allows the wielder to move 10% faster and gain a 5-second stealth buff after attacking.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 4 },
+            { id: 'obsidian_crystal', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+    echo_blade: {
+        id: 'echo_blade',
+        name: 'Enchantment of Echo Blade',
+        type: 'enchanting',
+        description: 'On hit, the weapon deals bonus damage equal to 15% of the weapon’s base damage and creates a lingering echo that deals 25% of that damage after 2 seconds.',
+        icon: '✨',
+        wildcard: true,
+        materials: [
+            { id: 'arcane_dust', quantity: 2 },
+            { id: 'void_fang', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
 };
 
 export const SMITHING_RECIPES = {
@@ -5738,6 +7506,1614 @@ materials: [
             { id: 'fire_essence', quantity: 4 },
             { id: 'adamantine_shard', quantity: 3 }
         ]
+    },
+
+
+    // === AUTO-INSERTED SMITHING ===
+// SMITHING [23:19:41] - Theme: catgirl
+    catgirl_iron_shield: {
+        id: 'catgirl_iron_shield',
+        name: 'Catgirl Iron Shield',
+        type: 'smithing',
+        description: 'A sturdy iron shield with a playful cat ear motif etched into the handle, perfect for feline-furred warriors.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    catgirl_iron_shield_advanced: {
+        id: 'catgirl_iron_shield_advanced',
+        name: 'Catgirl Iron Shield (Advanced)',
+        type: 'smithing',
+        description: 'A refined iron shield with a glossy cat-eye emblem and a padded inner lining for agility. The edge is engraved with “Purrfect Defense.”',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    catgirl_iron_shield_great: {
+        id: 'catgirl_iron_shield_great',
+        name: 'Catgirl Iron Shield (Great)',
+        type: 'smithing',
+        description: 'A magnificent iron shield forged with cat-inspired runes, featuring a retractable tail guard and a paw-print grip. Glows faintly in battle.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+
+    // === AUTO-INSERTED SMITHING ===
+// SMITHING [23:39:00]
+    steel_longsword: {
+        id: 'steel_longsword',
+        name: 'Steel Longsword',
+        type: 'smithing',
+        description: 'A sleek, heavy longsword forged from tempered steel, with a sharp, curved edge and a sturdy grip. Ideal for melee combat.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_shortsword: {
+        id: 'steel_shortsword',
+        name: 'Steel Shortsword',
+        type: 'smithing',
+        description: 'A compact, agile short sword with a razor-sharp blade and a well-balanced hilt. Perfect for close-quarters combat or stealthy assassinations.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_warhammer: {
+        id: 'steel_warhammer',
+        name: 'Steel Warhammer',
+        type: 'smithing',
+        description: 'A heavy, imposing warhammer with a broad, spiked head and a thick, reinforced haft. Designed to break through armor and crush foes.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:39:17]
+    mithril_plate_chest: {
+        id: 'mithril_plate_chest',
+        name: 'Mithril Plate Chest',
+        type: 'smithing',
+        description: 'A heavy, intricately forged chestplate made of pure mithril, offering exceptional protection and a sleek, dark metallic sheen. Perfect for elite warriors.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_plate_legs: {
+        id: 'mithril_plate_legs',
+        name: 'Mithril Plate Legs',
+        type: 'smithing',
+        description: 'Reinforced leg armor crafted from mithril, offering superb defense and mobility. The dark, gleaming plates fit snugly, allowing for swift strikes and agile movements.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_plate_head: {
+        id: 'mithril_plate_head',
+        name: 'Mithril Plate Helm',
+        type: 'smithing',
+        description: 'A formidable helmet forged from mithril, featuring a smooth, unbreakable surface that deflects blows. Its design offers full facial protection while preserving vision.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:39:33]
+    steel_shield_basic: {
+        id: 'steel_shield_basic',
+        name: 'Basic Steel Shield',
+        type: 'smithing',
+        description: 'A sturdy, well-made shield crafted from steel and leather, offering decent protection in melee combat.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_shield_medium: {
+        id: 'steel_shield_medium',
+        name: 'Medium Steel Shield',
+        type: 'smithing',
+        description: 'A reinforced steel shield with a slightly curved design, offering enhanced defense and a better grip for combat maneuvers.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_shield_advanced: {
+        id: 'steel_shield_advanced',
+        name: 'Advanced Steel Shield',
+        type: 'smithing',
+        description: 'A high-quality, hand-forged shield with layered steel plating and ergonomic handles, ideal for elite warriors.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:39:38]
+    iron_sword: {
+        id: 'iron_sword',
+        name: 'Iron Longsword',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged blade with a sharp edge and a simple, elegant hilt. Ideal for close combat.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_axe: {
+        id: 'iron_axe',
+        name: 'Iron Waraxe',
+        type: 'smithing',
+        description: 'A heavy, two-handed axe with a thick, jagged blade and a wooden haft. Designed for chopping through armor and timber.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_mace: {
+        id: 'iron_mace',
+        name: 'Iron War Mace',
+        type: 'smithing',
+        description: 'A brutal, heavy mace with a blunt, spiked head and a sturdy handle. Perfect for breaking through enemy defenses.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:40:04]
+    mithril_shield_basic: {
+        id: 'mithril_shield_basic',
+        name: 'Mithril Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, reinforced shield crafted from mithril, offering solid defense against melee strikes. Features a simple, angular design with a reinforced edge.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_shield_war: {
+        id: 'mithril_shield_war',
+        name: 'Mithril War Shield',
+        type: 'smithing',
+        description: 'A heavy, battle-hardened shield with a spiked rim and reinforced center. Perfect for frontline warriors, it absorbs significant damage and offers bonus armor penetration.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_shield_gaunt: {
+        id: 'mithril_shield_gaunt',
+        name: 'Mithril Gaunt Shield',
+        type: 'smithing',
+        description: 'A sleek, curved shield designed for agility and defense. Lightweight yet durable, it allows for swift movement while still offering excellent protection. Ideal for scouts and skirmishers.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:40:10]
+    iron_sword: {
+        id: 'iron_sword',
+        name: 'Iron Longsword',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged blade with a sharp edge and a balanced grip, ideal for both melee combat and precision strikes.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_axe: {
+        id: 'iron_axe',
+        name: 'Iron Battleaxe',
+        type: 'smithing',
+        description: 'A heavy, imposing axe with a thick, well-balanced head and a rugged handle, perfect for smashing through armor and wooden defenses.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_mace: {
+        id: 'iron_mace',
+        name: 'Iron War Mace',
+        type: 'smithing',
+        description: 'A brutal, heavy mace with a spiked head and a sturdy haft, designed to crush enemies with each crushing blow.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:40:31]
+    mithril_warhammer: {
+        id: 'mithril_warhammer',
+        name: 'Mithril Warhammer',
+        type: 'smithing',
+        description: 'A heavy, spiked warhammer forged from pure mithril, radiating cold steel resonance. Its head is reinforced with triple-tempered mithril plates, ideal for crushing enemy armor.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_sword: {
+        id: 'mithril_sword',
+        name: 'Mithril Longsword',
+        type: 'smithing',
+        description: 'A slender, elegant longsword with a razor-sharp edge forged from mithril. Its blade gleams with frost-like luster, and its hilt is wrapped in enchanted leather for grip and protection.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_axe: {
+        id: 'mithril_axe',
+        name: 'Mithril Battle Axe',
+        type: 'smithing',
+        description: 'A massive, double-edged battle axe with a forged mithril blade and a reinforced haft. Designed for crushing foes in melee, its weight and precision make it a terrifying weapon in the hands of a skilled warrior.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:42:39]
+    steel_plate_chest: {
+        id: 'steel_plate_chest',
+        name: 'Steel Plate Chest',
+        type: 'smithing',
+        description: 'A heavy, well-forged chestplate made of thick steel plating, offering excellent protection and a sleek, battle-worn design.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_plate_legs: {
+        id: 'steel_plate_legs',
+        name: 'Steel Plate Legs',
+        type: 'smithing',
+        description: 'Reinforced leg armor crafted from hardened steel, providing superior defense and a sturdy, imposing silhouette.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_plate_gloves: {
+        id: 'steel_plate_gloves',
+        name: 'Steel Plate Gloves',
+        type: 'smithing',
+        description: 'Tough, steel-reinforced gloves that protect the hands while allowing for precise movements in battle.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:43:05]
+    steel_plate_chestplate: {
+        id: 'steel_plate_chestplate',
+        name: 'Steel Plate Chestplate',
+        type: 'smithing',
+        description: 'A heavy, plate-style chestguard forged from steel, offering robust protection while maintaining mobility. Features riveted edges and a reinforced shoulder pauldron.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_plate_tunic: {
+        id: 'steel_plate_tunic',
+        name: 'Steel Plate Tunic',
+        type: 'smithing',
+        description: 'A lightweight yet durable plate tunic, ideal for agile warriors. Its segmented plates allow for fluid movement while resisting blunt force.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_plate_gauntlets: {
+        id: 'steel_plate_gauntlets',
+        name: 'Steel Plate Gauntlets',
+        type: 'smithing',
+        description: 'Reinforced handguards made from thick steel plates, designed to protect the hands and wrists during close combat. Features ergonomic grip and embedded steel knuckles.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:43:10]
+    steel_longsword: {
+        id: 'steel_longsword',
+        name: 'Steel Longsword',
+        type: 'smithing',
+        description: 'A heavy, balanced longsword forged from pure steel, ideal for cutting through armor. Its edge glints with precision and power.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_shortsword: {
+        id: 'steel_shortsword',
+        name: 'Steel Shortsword',
+        type: 'smithing',
+        description: 'A compact, lethal shortsword with a razor-sharp edge. Designed for close-quarters combat, it’s light but devastating.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_warhammer: {
+        id: 'steel_warhammer',
+        name: 'Steel Warhammer',
+        type: 'smithing',
+        description: 'A massive, spiked warhammer with a heavy, crushing head. Perfect for smashing through enemy defenses and breaking morale.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:43:21]
+    iron_shield_basic: {
+        id: 'iron_shield_basic',
+        name: 'Iron Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged iron shield with a simple leather-wrapped rim, offering decent defense against melee strikes.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_medium: {
+        id: 'iron_shield_medium',
+        name: 'Iron Shield (Medium)',
+        type: 'smithing',
+        description: 'A reinforced iron shield with a slightly thicker frame and upgraded leather padding, providing better protection than the basic variant.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_heavy: {
+        id: 'iron_shield_heavy',
+        name: 'Iron Shield (Heavy)',
+        type: 'smithing',
+        description: 'A massive, battle-hardened iron shield with layered armor plating and reinforced edges, ideal for frontline combatants.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:44:01]
+    mithril_shield_basic: {
+        id: 'mithril_shield_basic',
+        name: 'Mithril Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, gleaming shield forged from mithril, offering excellent defense and a sleek, battle-ready design.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_shield_tiered: {
+        id: 'mithril_shield_tiered',
+        name: 'Mithril Shield (Tiered)',
+        type: 'smithing',
+        description: 'A refined, reinforced shield with a polished mithril frame and layered armor plating, ideal for melee combatants.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_shield_master: {
+        id: 'mithril_shield_master',
+        name: 'Mithril Shield (Masterwork)',
+        type: 'smithing',
+        description: 'A legendary shield, hand-forged with mithril and enchanted with arcane resonance, offering both defense and magical aura.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+
+    // === AUTO-INSERTED SMITHING ===
+// SMITHING [23:44:50]
+    iron_sword: {
+        id: 'iron_sword',
+        name: 'Iron Longsword',
+        type: 'smithing',
+        description: 'A sturdy, well-balanced sword forged from pure iron, ideal for both melee combat and defense. Its sharp edge glints in the light, and its grip is reinforced for power and control.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_axe: {
+        id: 'iron_axe',
+        name: 'Iron War Axe',
+        type: 'smithing',
+        description: 'A heavy, brutal axe with a thick iron blade and a reinforced wooden handle. Designed for smashing through armor and breaking down enemy fortifications.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_mace: {
+        id: 'iron_mace',
+        name: 'Iron War Mace',
+        type: 'smithing',
+        description: 'A massive, heavy mace with a spiked iron head and a sturdy iron handle. Perfect for crushing foes and breaking through shields with every strike.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:45:06]
+    steel_longsword: {
+        id: 'steel_longsword',
+        name: 'Steel Longsword',
+        type: 'smithing',
+        description: 'A heavy, well-crafted longsword with a sharp, gleaming steel blade and a sturdy wooden grip wrapped in leather. Perfect for striking from a distance.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_shortsword: {
+        id: 'steel_shortsword',
+        name: 'Steel Shortsword',
+        type: 'smithing',
+        description: 'A compact, deadly short sword with a razor-sharp edge and a worn leather hilt. Ideal for close-quarters combat and stealthy assassinations.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_axe: {
+        id: 'steel_axe',
+        name: 'Steel Axe',
+        type: 'smithing',
+        description: 'A brutal, two-handed axe with a massive, curved blade and a reinforced wooden handle. Designed for chopping through enemy armor and fortifications.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:45:59]
+    mithril_warhammer: {
+        id: 'mithril_warhammer',
+        name: 'Mithril Warhammer',
+        type: 'smithing',
+        description: 'A heavy, two-handed warhammer forged from pure mithril, its head glows faintly with arcane resonance. Ideal for crushing foes in close quarters.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_sword: {
+        id: 'mithril_sword',
+        name: 'Mithril Longsword',
+        type: 'smithing',
+        description: 'A finely balanced longsword of mithril, its edge gleams with unmatched sharpness. Perfect for precise strikes and swift parries.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_crossbow: {
+        id: 'mithril_crossbow',
+        name: 'Mithril Crossbow',
+        type: 'smithing',
+        description: 'A finely crafted crossbow made from mithril, its limbs resonate with a subtle, almost musical energy. Fires powerful bolts with incredible accuracy.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:46:27]
+    steel_plate_chestplate: {
+        id: 'steel_plate_chestplate',
+        name: 'Steel Plate Chestplate',
+        type: 'smithing',
+        description: 'A heavy, well-forged chestplate made of thick steel, offering excellent defense against blunt and slashing attacks. Features riveted plates and reinforced shoulder guards.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_leggings: {
+        id: 'steel_leggings',
+        name: 'Steel Leggings',
+        type: 'smithing',
+        description: 'Reinforced steel leggings with a tight fit, designed for mobility and protection. Features embedded steel plates on the thighs and shins.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_gloves: {
+        id: 'steel_gloves',
+        name: 'Steel Gloves',
+        type: 'smithing',
+        description: 'Durable steel gauntlets that grip firmly, protecting the hands and forearms. Ideal for close combat or tool use.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:46:56]
+    iron_shield_basic: {
+        id: 'iron_shield_basic',
+        name: 'Iron Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged shield made of iron plates and leather straps, suitable for frontline combat.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_mid: {
+        id: 'iron_shield_mid',
+        name: 'Iron Shield (Mid-tier)',
+        type: 'smithing',
+        description: 'A well-crafted iron shield with reinforced edges and a slightly curved design for better mobility and defense.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_advanced: {
+        id: 'iron_shield_advanced',
+        name: 'Iron Shield (Advanced)',
+        type: 'smithing',
+        description: 'A heavy-duty, battle-hardened shield with a reinforced central plate and iron ribs for maximum protection.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:47:06]
+    steel_plate_chest: {
+        id: 'steel_plate_chest',
+        name: 'Steel Plate Chest',
+        type: 'smithing',
+        description: 'A heavy, reinforced chestplate made of forged steel, offering excellent protection and a sleek, battle-worn design.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_plate_legs: {
+        id: 'steel_plate_legs',
+        name: 'Steel Plate Legs',
+        type: 'smithing',
+        description: 'Reinforced steel greaves that provide superior defense for the lower body, with a rugged, militaristic appearance.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_plate_helmet: {
+        id: 'steel_plate_helmet',
+        name: 'Steel Plate Helmet',
+        type: 'smithing',
+        description: 'A protective headpiece forged from thick steel plates, featuring a reinforced visor and rugged, battle-hardened design.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:47:23]
+    iron_shield_basic: {
+        id: 'iron_shield_basic',
+        name: 'Iron Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged iron shield with a simple leather-wrapped edge. Offers decent defense for its tier.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_medium: {
+        id: 'iron_shield_medium',
+        name: 'Iron Shield (Medium)',
+        type: 'smithing',
+        description: 'A well-crafted iron shield with reinforced edges and a slightly curved design for better mobility. Ideal for melee combatants.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_advanced: {
+        id: 'iron_shield_advanced',
+        name: 'Iron Shield (Advanced)',
+        type: 'smithing',
+        description: 'A finely forged iron shield with a curved, ergonomic frame and riveted reinforcements. Offers superior protection and mobility.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:49:10]
+    iron_sword: {
+        id: 'iron_sword',
+        name: 'Iron Longsword',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged blade with a sharp edge and a balanced grip, perfect for frontline combat.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_axe: {
+        id: 'iron_axe',
+        name: 'Iron War Axe',
+        type: 'smithing',
+        description: 'A heavy, double-edged axe with a massive head and a rugged handle, designed for smashing through enemy defenses.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_mace: {
+        id: 'iron_mace',
+        name: 'Iron War Mace',
+        type: 'smithing',
+        description: 'A blunt, heavy mace with a forged iron head and a sturdy wooden handle, ideal for breaking through armor and causing massive blunt force.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:49:21]
+    mithril_shield_basic: {
+        id: 'mithril_shield_basic',
+        name: 'Mithril Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, slightly curved shield crafted from mithril, offering decent defense against blunt force. Its surface is polished to a dull sheen, with a subtle embossed crest.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_shield_tiered: {
+        id: 'mithril_shield_tiered',
+        name: 'Mithril Shield (Tiered)',
+        type: 'smithing',
+        description: 'A refined mithril shield with reinforced edges and a sleek, angular design. Offers enhanced durability and a slight weight advantage for defense-focused warriors.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_shield_armored: {
+        id: 'mithril_shield_armored',
+        name: 'Mithril Shield (Armored)',
+        type: 'smithing',
+        description: 'A heavily reinforced mithril shield, forged with layered armor plating and a darkened, battle-worn finish. Offers exceptional defense and is designed for frontline combatants.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:49:43]
+    mithril_longsword: {
+        id: 'mithril_longsword',
+        name: 'Mithril Longsword',
+        type: 'smithing',
+        description: 'A sleek, razor-edged longsword forged from pure mithril, gleaming with a faint blue aura. Its hilt is wrapped in dark leather and bound with enchanted steel wire.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_crossbow: {
+        id: 'mithril_crossbow',
+        name: 'Mithril Crossbow',
+        type: 'smithing',
+        description: 'A heavy, precision-engineered crossbow crafted from mithril alloy, its limbs resonating with arcane energy. Fitted with enchanted iron bolts, it fires with lethal accuracy.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_axe: {
+        id: 'mithril_axe',
+        name: 'Mithril War Axe',
+        type: 'smithing',
+        description: 'A massive, battle-hewn axe with a serrated mithril blade and a reinforced haft. It cleaves through armor and stone with ease, radiating heat upon impact.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:50:28]
+    mithril_warhammer: {
+        id: 'mithril_warhammer',
+        name: 'Mithril Warhammer',
+        type: 'smithing',
+        description: 'A heavy, imposing warhammer forged from pure mithril, its head gleaming with arcane resilience and its haft carved with ancient runes of battle.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_falcion: {
+        id: 'mithril_falcion',
+        name: 'Mithril Falcion',
+        type: 'smithing',
+        description: 'A slender, elegant mithril falcion with a razor-sharp edge and a wicked curve, perfect for swift, lethal strikes.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_scythe: {
+        id: 'mithril_scythe',
+        name: 'Mithril Scythe',
+        type: 'smithing',
+        description: 'A cursed scythe of mithril, its blade curving like a crescent moon, designed to slice through the very soul of the enemy.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:50:49]
+    iron_sword: {
+        id: 'iron_sword',
+        name: 'Iron Longsword',
+        type: 'smithing',
+        description: 'A sturdy, well-forged blade with a sharp edge and a balanced grip, ideal for melee combat.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_daggers: {
+        id: 'iron_daggers',
+        name: 'Iron Double Daggers',
+        type: 'smithing',
+        description: 'Two slender, wicked blades forged from iron, perfect for quick, precise strikes.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_mace: {
+        id: 'iron_mace',
+        name: 'Iron War Mace',
+        type: 'smithing',
+        description: 'A heavy, spiked mace with a thick iron head, designed to break through armor and instill fear.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:50:55]
+    mithril_shield_basic: {
+        id: 'mithril_shield_basic',
+        name: 'Mithril Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, reinforced shield made of mithril, offering solid defense against melee attacks. Its smooth surface gleams with metallic luster, and the leather straps provide a secure grip.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_shield_enhanced: {
+        id: 'mithril_shield_enhanced',
+        name: 'Mithril Shield (Enhanced)',
+        type: 'smithing',
+        description: 'A refined mithril shield with embossed runes of elemental resistance. Its surface is slightly thicker, offering improved durability and a faint humming aura.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    mithril_shield_master: {
+        id: 'mithril_shield_master',
+        name: 'Mithril Shield (Masterwork)',
+        type: 'smithing',
+        description: 'A legendary mithril shield forged with arcane precision. Its surface is etched with glowing runes, granting bonus resistance to critical hits and elemental damage. Wielders feel its power in their bones.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:51:12]
+    iron_helmet: {
+        id: 'iron_helmet',
+        name: 'Iron Helmet',
+        type: 'smithing',
+        description: 'A sturdy iron helmet with reinforced cheek guards and a chin strap, offering decent protection for the head.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_chestplate: {
+        id: 'iron_chestplate',
+        name: 'Iron Chestplate',
+        type: 'smithing',
+        description: 'A solid iron breastplate with reinforced shoulder plates and a reinforced backplate, offering robust torso protection.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_pants: {
+        id: 'iron_pants',
+        name: 'Iron Trousers',
+        type: 'smithing',
+        description: 'Iron-plated leggings with reinforced knee guards and thigh plates, designed for mobility and defense.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [23:51:51]
+    iron_sword: {
+        id: 'iron_sword',
+        name: 'Iron Longsword',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged blade with a sharp edge and balanced weight, ideal for melee combat.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_daggers: {
+        id: 'iron_daggers',
+        name: 'Iron Duality Daggers',
+        type: 'smithing',
+        description: 'Two slender, razor-sharp blades forged from iron, designed for rapid strikes and precision.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_mace: {
+        id: 'iron_mace',
+        name: 'Iron War Mace',
+        type: 'smithing',
+        description: 'A heavy, brutal weapon with a thick head, perfect for smashing through armor and breaking enemy resolve.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+
+    // === AUTO-INSERTED SMITHING ===
+// SMITHING [00:10:02]
+    iron_shield_basic: {
+        id: 'iron_shield_basic',
+        name: 'Iron Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged shield made of iron plating and leather reinforcement. Ideal for frontline defense.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_medium: {
+        id: 'iron_shield_medium',
+        name: 'Iron Shield (Medium)',
+        type: 'smithing',
+        description: 'A well-crafted iron shield with reinforced plating and padded leather edges. Offers better defense and mobility.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_heavy: {
+        id: 'iron_shield_heavy',
+        name: 'Iron Shield (Heavy)',
+        type: 'smithing',
+        description: 'A massive, battle-hardened shield made of thick iron and reinforced with steel plating. Offers maximum protection at the cost of mobility.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [00:10:18]
+    iron_shield_basic: {
+        id: 'iron_shield_basic',
+        name: 'Iron Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged shield made of iron and leather, ideal for frontline defense.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_medium: {
+        id: 'iron_shield_medium',
+        name: 'Iron Shield (Medium)',
+        type: 'smithing',
+        description: 'A well-crafted iron shield with reinforced plating and a leather grip, offering excellent protection.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    iron_shield_advanced: {
+        id: 'iron_shield_advanced',
+        name: 'Iron Shield (Advanced)',
+        type: 'smithing',
+        description: 'A heavy, battle-hardened shield with a forged iron frame and reinforced leather padding for maximum durability.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [00:10:28]
+    steel_plate_chest: {
+        id: 'steel_plate_chest',
+        name: 'Steel Plate Chest',
+        type: 'smithing',
+        description: 'A heavy, reinforced chestplate made of polished steel, offering excellent defense while maintaining mobility.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_plate_legs: {
+        id: 'steel_plate_legs',
+        name: 'Steel Plate Legs',
+        type: 'smithing',
+        description: 'Strong, armored leggings crafted from hardened steel, providing robust protection for the lower body.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_plate_head: {
+        id: 'steel_plate_head',
+        name: 'Steel Plate Helm',
+        type: 'smithing',
+        description: 'A heavy, spiked helmet forged from steel, protecting the head with its sharp, angular design.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+
+    // SMITHING [00:11:15]
+    steel_shield_basic: {
+        id: 'steel_shield_basic',
+        name: 'Steel Shield (Basic)',
+        type: 'smithing',
+        description: 'A sturdy, hand-forged steel shield with a simple leather-wrapped rim. Offers decent defense and is ideal for frontline combatants.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_shield_tiered: {
+        id: 'steel_shield_tiered',
+        name: 'Steel Shield (Tiered)',
+        type: 'smithing',
+        description: 'A refined steel shield with a reinforced frame and embossed metal plating. Offers superior defense and a slight weight advantage over basic models.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    steel_shield_mastery: {
+        id: 'steel_shield_mastery',
+        name: 'Steel Shield (Mastery)',
+        type: 'smithing',
+        description: 'A masterfully crafted steel shield with a curved, aerodynamic design and embedded shock-absorbing plates. Offers maximum defense and is designed for elite warriors.',
+        icon: '⚔️',
+        wildcard: true,
+        materials: [
+            { id: 'iron_ingot', quantity: 2 },
+            { id: 'coal', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 1
     },
 };
 export const CRAFTING_CONFIG = {
@@ -14294,6 +17670,1820 @@ scroll_ironhand_execution_order: {
     levelRequirement: 9
 },
     
+
+
+    // === AUTO-INSERTED SCROLLS ===
+// SCROLLS [23:20:10]
+    scroll_flame_burst: {
+        id: 'scroll_flame_burst',
+        name: 'Scroll of Flame Burst',
+        spellName: 'Flame Burst',
+        spellLevel: 1,
+        school: 'EVOCATION',
+        description: 'A sudden burst of fire erupts from the casters hands, dealing 3d6 fire damage to one target. Causes 1d4 burn damage on a successful save.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_lightning_strike: {
+        id: 'scroll_lightning_strike',
+        name: 'Scroll of Lightning Strike',
+        spellName: 'Lightning Strike',
+        spellLevel: 1,
+        school: 'EVOCATION',
+        description: 'A crackling bolt of lightning strikes the target, dealing 3d6 electricity damage. Causes 1d2 shock damage on a successful save.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_force_bash: {
+        id: 'scroll_force_bash',
+        name: 'Scroll of Force Bash',
+        spellName: 'Force Bash',
+        spellLevel: 1,
+        school: 'EVOCATION',
+        description: 'A powerful shove of raw force knocks the target back 2 squares. Deals 3d6 damage and causes 1d4 force damage on a successful save.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+
+    // === AUTO-INSERTED SCROLLS ===
+// SCROLLS [23:38:50]
+    scroll_charm_suggestion: {
+        id: 'scroll_charm_suggestion',
+        name: 'Scroll of Charm Suggestion',
+        spellName: 'Charm Suggestion',
+        spellLevel: 1,
+        school: 'ENCHANTMENT',
+        description: 'Targets one creature within range, compelling it to obey simple commands for 1 round. Ideal for guiding or redirecting hostile entities.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_mind_control_basic: {
+        id: 'scroll_mind_control_basic',
+        name: 'Scroll of Mind Control Basic',
+        spellName: 'Mind Control Basic',
+        spellLevel: 1,
+        school: 'ENCHANTMENT',
+        description: 'Commands a single creature to perform a simple action, overriding its will for 1 round. Effective on creatures with no resistance to charm.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_suggestion_lullaby: {
+        id: 'scroll_suggestion_lullaby',
+        name: 'Scroll of Suggestion Lullaby',
+        spellName: 'Suggestion Lullaby',
+        spellLevel: 1,
+        school: 'ENCHANTMENT',
+        description: 'A soothing melody induces a target to accept a suggestion for 1 round. Best used on creatures who are easily influenced or weary.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:39:12]
+    scroll_charm_bear: {
+        id: 'scroll_charm_bear',
+        name: 'Scroll of Charm Bear',
+        spellName: 'Charm Bear',
+        spellLevel: 2,
+        school: 'ENCHANTMENT',
+        description: 'A spell that gently entraps a bear in a state of docile obedience, allowing the caster to command it to follow simple commands without resistance. Effective within 30 feet.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'powdered_sage', quantity: 2 },
+            { id: 'dried_willow_bark', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_suggestion_silent: {
+        id: 'scroll_suggestion_silent',
+        name: 'Scroll of Suggestion Silent',
+        spellName: 'Suggestion Silent',
+        spellLevel: 2,
+        school: 'ENCHANTMENT',
+        description: 'A spell that whispers a suggestion into the mind of a willing target, causing them to obey the caster’s command for a short duration. The target must be aware and not under another enchantment.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'powdered_mint', quantity: 1 },
+            { id: 'crystal_glass_rod', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_mind_control_silver: {
+        id: 'scroll_mind_control_silver',
+        name: 'Scroll of Mind Control Silver',
+        spellName: 'Mind Control Silver',
+        spellLevel: 2,
+        school: 'ENCHANTMENT',
+        description: 'A spell that binds the target’s will for 10 minutes, forcing them to obey the caster’s command. Only works on targets with no magical resistance or protective wards.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'powdered_silver', quantity: 3 },
+            { id: 'powdered_raven_feather', quantity: 1 }
+        ],
+        goldCost: 125,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:40:25]
+    scroll_transmute_matter: {
+        id: 'scroll_transmute_matter',
+        name: 'Scroll of Matter Transmutation',
+        spellName: 'Transmute Matter',
+        spellLevel: 1,
+        school: 'TRANSMUTATION',
+        description: 'Transforms one solid object into another substance of equal weight and volume. Example: turns a stone into gold or water into sand.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_enhance_form: {
+        id: 'scroll_enhance_form',
+        name: 'Scroll of Form Enhancement',
+        spellName: 'Enhance Form',
+        spellLevel: 1,
+        school: 'TRANSMUTATION',
+        description: 'Increases the size or density of an object by 20% without altering its material. Best used on armor, tools, or living creatures.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_change_state: {
+        id: 'scroll_change_state',
+        name: 'Scroll of State Shift',
+        spellName: 'Shift State',
+        spellLevel: 1,
+        school: 'TRANSMUTATION',
+        description: 'Changes the physical state of a substance. For example: water to ice, ice to water, or liquid to gas. Only affects pure substances.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:40:48]
+    scroll_summon_dust_golem: {
+        id: 'scroll_summon_dust_golem',
+        name: 'Scroll of Summoning Dust Golem',
+        spellName: 'Summon Dust Golem',
+        spellLevel: 1,
+        school: 'CONJURATION',
+        description: 'Summons a small, dust-covered golem made of enchanted earth and ash. It stands 3 feet tall and can carry a single object or strike once with a basic earth slam.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_teleport_momentary: {
+        id: 'scroll_teleport_momentary',
+        name: 'Scroll of Momentary Teleportation',
+        spellName: 'Teleport Momentary',
+        spellLevel: 1,
+        school: 'CONJURATION',
+        description: 'Allows the caster to teleport to a pre-determined location within 30 feet, leaving behind a faint shimmering residue. Cannot be used to teleport through solid objects or into other dimensions.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_create_flame_candle: {
+        id: 'scroll_create_flame_candle',
+        name: 'Scroll of Flame Candle Creation',
+        spellName: 'Create Flame Candle',
+        spellLevel: 1,
+        school: 'CONJURATION',
+        description: 'Conjures a small, self-contained flame candle made of enchanted wax and spirit. Burns for 5 minutes, emits a soft glow, and can be held or placed. Cannot be extinguished by water or wind unless manually broken.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:40:54]
+    scroll_spell_name_here: {
+        id: 'scroll_spell_name_here',
+        name: 'Scroll of Spell Name',
+        spellName: 'Spell Name',
+        spellLevel: 2,
+        school: 'TRANSMUTATION',
+        description: 'Transforms a single object into a different material or form, with a 10% chance of unintended mutation.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_spell_name_here: {
+        id: 'scroll_spell_name_here',
+        name: 'Scroll of Spell Name',
+        spellName: 'Spell Name',
+        spellLevel: 2,
+        school: 'TRANSMUTATION',
+        description: 'Enhances the physical properties of a material, increasing durability or weight by 25% for 1 hour.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'powdered_iron', quantity: 2 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    scroll_spell_name_here: {
+        id: 'scroll_spell_name_here',
+        name: 'Scroll of Spell Name',
+        spellName: 'Spell Name',
+        spellLevel: 2,
+        school: 'TRANSMUTATION',
+        description: 'Alters the elemental composition of a substance, converting it into a new form with unique properties.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'crystal_matter', quantity: 3 }
+        ],
+        goldCost: 200,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 2
+    },
+
+    // SCROLLS [23:41:11]
+    scroll_flicker_of_light: {
+        id: 'scroll_flicker_of_light',
+        name: 'Scroll of Flicker of Light',
+        spellName: 'Flicker of Light',
+        spellLevel: 0,
+        school: 'ILLUSION',
+        description: 'Creates a brief, shimmering illusion of light that fools the eye into seeing nonexistent illumination. Ideal for hiding in dim spaces or deceiving foes with false brightness.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_shadow_glitch: {
+        id: 'scroll_shadow_glitch',
+        name: 'Scroll of Shadow Glitch',
+        spellName: 'Shadow Glitch',
+        spellLevel: 0,
+        school: 'ILLUSION',
+        description: 'Causes a localized area to briefly flicker into an impossible shadow form, making objects or figures appear to vanish or shift position. Perfect for misdirection or stealth.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_image_fade: {
+        id: 'scroll_image_fade',
+        name: 'Scroll of Image Fade',
+        spellName: 'Image Fade',
+        spellLevel: 0,
+        school: 'ILLUSION',
+        description: 'Causes a single object or surface to appear to dissolve into a ghostly, half-visible image for a brief moment. Great for hiding secrets or creating optical illusions.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:41:22]
+    scroll_death_siphon: {
+        id: 'scroll_death_siphon',
+        name: 'Scroll of Death Siphon',
+        spellName: 'Death Siphon',
+        spellLevel: 2,
+        school: 'NECROMANCY',
+        description: 'Siphons the life force of a living target, draining vitality and leaving them weakened. If target is undead, the spell fails with a 50% chance.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'bone_fragment', quantity: 1 },
+            { id: 'vial_of_murk', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_undead_tether: {
+        id: 'scroll_undead_tether',
+        name: 'Scroll of Undead Tether',
+        spellName: 'Undead Tether',
+        spellLevel: 2,
+        school: 'NECROMANCY',
+        description: 'Creates a temporary bond between the caster and an undead creature, allowing control or movement enhancement. The undead must be within 10 feet and not already under another casters control.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'corpse_heart', quantity: 1 },
+            { id: 'cursed_string', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_life_drain_cascade: {
+        id: 'scroll_life_drain_cascade',
+        name: 'Scroll of Life Drain Cascade',
+        spellName: 'Life Drain Cascade',
+        spellLevel: 2,
+        school: 'NECROMANCY',
+        description: 'A cascade of life energy is drained from multiple targets in a 30-foot radius. Each target takes 1d6 damage and loses 1 point of vitality. Cannot target undead or creatures with regeneration.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'withered_root', quantity: 1 },
+            { id: 'shadow_essence', quantity: 1 }
+        ],
+        goldCost: 200,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:41:28]
+    scroll_summon_familiar: {
+        id: 'scroll_summon_familiar',
+        name: 'Scroll of Summon Familiar',
+        spellName: 'Summon Familiar',
+        spellLevel: 0,
+        school: 'CONJURATION',
+        description: 'Summons a small, loyal creature to assist the caster. The familiar remains until dispelled or until the spell ends.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_teleport_nearby: {
+        id: 'scroll_teleport_nearby',
+        name: 'Scroll of Teleport Nearby',
+        spellName: 'Teleport Nearby',
+        spellLevel: 0,
+        school: 'CONJURATION',
+        description: 'Instantly transports the caster to a nearby location within 30 feet. Requires line of sight and no obstacles.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_create_flower: {
+        id: 'scroll_create_flower',
+        name: 'Scroll of Create Flower',
+        spellName: 'Create Flower',
+        spellLevel: 0,
+        school: 'CONJURATION',
+        description: 'Creates a single, beautiful flower from the air. The flower remains for 1 minute before fading.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:41:34]
+    scroll_of_shield_blessing: {
+        id: 'scroll_of_shield_blessing',
+        name: 'Scroll of Shield Blessing',
+        spellName: 'Shield Blessing',
+        spellLevel: 0,
+        school: 'ABJURATION',
+        description: 'Grants a protective barrier around the caster, reducing incoming damage by 30% for 1 minute. Can be cast once per round.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_wall_of_earth: {
+        id: 'scroll_of_wall_of_earth',
+        name: 'Scroll of Wall of Earth',
+        spellName: 'Wall of Earth',
+        spellLevel: 0,
+        school: 'ABJURATION',
+        description: 'Creates a solid, non-lethal barrier of earth that blocks projectiles and melee attacks for 3 rounds. Can be moved as the caster moves.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_ward_of_light: {
+        id: 'scroll_of_ward_of_light',
+        name: 'Scroll of Ward of Light',
+        spellName: 'Ward of Light',
+        spellLevel: 0,
+        school: 'ABJURATION',
+        description: 'Casts a glowing, protective ward that repels hostile creatures and reduces magical damage by 25% for 2 minutes. Effective against undead and magical entities.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:41:56]
+    scroll_flame_burst: {
+        id: 'scroll_flame_burst',
+        name: 'Scroll of Flame Burst',
+        spellName: 'Flame Burst',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'A searing burst of fire erupts from the caster’s hand, dealing massive fire damage to a single target. The fire spreads outward in a 3-meter radius, igniting flammable surfaces.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'fire_crystal', quantity: 1 },
+            { id: 'charred_wood', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_lightning_strike: {
+        id: 'scroll_lightning_strike',
+        name: 'Scroll of Lightning Strike',
+        spellName: 'Lightning Strike',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'A bolt of raw lightning strikes the target, causing electrifying damage and stunning them for 1 round. Perfect for interrupting enemy actions.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'thunderstone', quantity: 1 },
+            { id: 'iron_chain', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_force_bash: {
+        id: 'scroll_force_bash',
+        name: 'Scroll of Force Bash',
+        spellName: 'Force Bash',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'A surge of raw force shatters the target’s defenses, dealing crushing damage and pushing them back 3 meters. Ideal for breaking through enemy formations.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'arcane_crystal', quantity: 1 },
+            { id: 'iron_rod', quantity: 2 }
+        ],
+        goldCost: 200,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:42:18]
+    scroll_of_hidden_step: {
+        id: 'scroll_of_hidden_step',
+        name: 'Scroll of Hidden Step',
+        spellName: 'Hidden Step',
+        spellLevel: 1,
+        school: 'ILLUSION',
+        description: 'The caster steps forward and vanishes from sight for a moment, appearing to be elsewhere. Perfect for slipping past guards or avoiding detection.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_silken_gaze: {
+        id: 'scroll_of_silken_gaze',
+        name: 'Scroll of Silken Gaze',
+        spellName: 'Silken Gaze',
+        spellLevel: 1,
+        school: 'ILLUSION',
+        description: 'The caster’s eyes appear to be blank or glazed, making them seem dazed or asleep. Targets may mistake them for an unconscious or ill person.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_mirrored_mind: {
+        id: 'scroll_of_mirrored_mind',
+        name: 'Scroll of Mirrored Mind',
+        spellName: 'Mirrored Mind',
+        spellLevel: 1,
+        school: 'ILLUSION',
+        description: 'The caster’s thoughts are reflected as if in a mirror—anyone observing them sees a double of themself. Useful for confusing foes or deceiving observers.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:42:59]
+    scroll_summon_tiny_fae: {
+        id: 'scroll_summon_tiny_fae',
+        name: 'Scroll of Summon Tiny Fae',
+        spellName: 'Summon Tiny Fae',
+        spellLevel: 2,
+        school: 'CONJURATION',
+        description: 'Summons a small, mischievous fae spirit that dances around the caster, causing minor distractions and harmless giggles. Fae vanish when the spell ends or when the caster moves more than 10 feet.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'powdered_iris', quantity: 2 },
+            { id: 'whispering_bark', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_teleport_ward: {
+        id: 'scroll_teleport_ward',
+        name: 'Scroll of Teleport Ward',
+        spellName: 'Teleport Ward',
+        spellLevel: 2,
+        school: 'CONJURATION',
+        description: 'Creates a shimmering ward that allows the caster to teleport up to 30 feet in any direction, without needing a clear path. The ward vanishes after 30 seconds or if the caster moves out of its range.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'crystal_sand', quantity: 3 },
+            { id: 'silver_wire', quantity: 2 }
+        ],
+        goldCost: 120,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    scroll_blossom_craft: {
+        id: 'scroll_blossom_craft',
+        name: 'Scroll of Blossom Craft',
+        spellName: 'Blossom Craft',
+        spellLevel: 2,
+        school: 'CONJURATION',
+        description: 'Causes a single, perfect flower to bloom in the caster’s hand, lasting 10 seconds. The flower can be planted to grow into a full bloom in 24 hours. Can be used to create a temporary, enchanted garden.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'dewdrop_core', quantity: 1 },
+            { id: 'crushed_sunset_flower', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 88,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:43:27]
+    scroll_of_warded_shield: {
+        id: 'scroll_of_warded_shield',
+        name: 'Scroll of Warded Shield',
+        spellName: 'Warded Shield',
+        spellLevel: 3,
+        school: 'ABJURATION',
+        description: 'Creates a shimmering, glyph-etched barrier around the caster that deflects blunt and piercing attacks. The shield lasts 3 rounds and can be reinforced by casting it again after a 10-second cooldown.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_barrier_of_earth: {
+        id: 'scroll_of_barrier_of_earth',
+        name: 'Scroll of Barrier of Earth',
+        spellName: 'Barrier of Earth',
+        spellLevel: 3,
+        school: 'ABJURATION',
+        description: 'Conjures a solid, earthbound wall of stone and root that blocks line-of-sight and physical projectiles. The barrier remains until dispelled or destroyed, and can be moved with a single action.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_warded_passage: {
+        id: 'scroll_of_warded_passage',
+        name: 'Scroll of Warded Passage',
+        spellName: 'Warded Passage',
+        spellLevel: 3,
+        school: 'ABJURATION',
+        description: 'Forms a magical barrier that prevents entry into a designated area for 5 rounds. Can be used to seal doors, windows, or openings. Enemies attempting to enter are immediately repelled with a magical shimmer.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:43:44]
+    scroll_sight_revealer: {
+        id: 'scroll_sight_revealer',
+        name: 'Scroll of Sight Revealer',
+        spellName: 'Sight Revealer',
+        spellLevel: 1,
+        school: 'DIVINATION',
+        description: 'Reveals the immediate surroundings within a 10-foot radius, showing hidden objects, creatures, or magical effects. Does not reveal invisible or intangible entities.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_knowledge_gram: {
+        id: 'scroll_knowledge_gram',
+        name: 'Scroll of Knowledge Gram',
+        spellName: 'Knowledge Gram',
+        spellLevel: 1,
+        school: 'DIVINATION',
+        description: 'Grants the caster temporary knowledge of a single item, location, or event within the last 24 hours. Cannot be used on living beings or sentient entities.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_prophecy_flicker: {
+        id: 'scroll_prophecy_flicker',
+        name: 'Scroll of Prophecy Flicker',
+        spellName: 'Prophecy Flicker',
+        spellLevel: 1,
+        school: 'DIVINATION',
+        description: 'Briefly flashes a vision of a future event, lasting up to 10 seconds. May be inaccurate or misleading. Cannot predict the future with certainty.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:43:49]
+    scroll_deathwhisper: {
+        id: 'scroll_deathwhisper',
+        name: 'Scroll of Deathwhisper',
+        spellName: 'Deathwhisper',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'Whispering to the dead, this scroll allows the caster to speak with the spirit of a recently deceased creature, gaining insight into its final thoughts or memories.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_undeadcall: {
+        id: 'scroll_undeadcall',
+        name: 'Scroll of Undeadcall',
+        spellName: 'Undeadcall',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'Summons a low-level undead companion to assist the caster. The creature remains loyal for 1 turn before fading, but can be re-summoned.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_life_drain: {
+        id: 'scroll_life_drain',
+        name: 'Scroll of Life Drain',
+        spellName: 'Life Drain',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'Siphons 1 point of health from a nearby living creature, transferring it to the caster as temporary power. The target is stunned for 1 round.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:44:07]
+    scroll_fire_blast: {
+        id: 'scroll_fire_blast',
+        name: 'Scroll of Fire Blast',
+        spellName: 'Fire Blast',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'A concentrated burst of infernal fire erupts from the caster’s hands, dealing significant fire damage to a single target. The blast scorches the ground and ignites nearby flammable objects.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'fire_crystal', quantity: 1 },
+            { id: 'ember_dust', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_lightning_shock: {
+        id: 'scroll_lightning_shock',
+        name: 'Scroll of Lightning Shock',
+        spellName: 'Lightning Shock',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'A crackling bolt of pure electrical energy strikes the target, causing massive damage and stunning them for a brief moment. Perfect for disrupting enemies mid-combat.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'thunder_stone', quantity: 1 },
+            { id: 'lightning_flame', quantity: 2 }
+        ],
+        goldCost: 150,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_force_bolt: {
+        id: 'scroll_force_bolt',
+        name: 'Scroll of Force Bolt',
+        spellName: 'Force Bolt',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'A devastating force blast is hurled from the caster’s hand, piercing through armor and dealing piercing damage. The bolt can be redirected or amplified with focus.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'arcane_gem', quantity: 1 },
+            { id: 'void_shard', quantity: 2 }
+        ],
+        goldCost: 200,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:44:14]
+    scroll_summon_familiar: {
+        id: 'scroll_summon_familiar',
+        name: 'Scroll of Summon Familiar',
+        spellName: 'Summon Familiar',
+        spellLevel: 2,
+        school: 'CONJURATION',
+        description: 'Summons a small, loyal creature to assist the caster. The familiar remains nearby for 3 rounds, can be commanded to deliver messages or act as a scout.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'whispering_moss', quantity: 1 },
+            { id: 'powdered_iron', quantity: 2 }
+        ],
+        goldCost: 75,
+        craftTime: 3,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_teleport_self: {
+        id: 'scroll_teleport_self',
+        name: 'Scroll of Teleport Self',
+        spellName: 'Teleport Self',
+        spellLevel: 2,
+        school: 'CONJURATION',
+        description: 'Instantly transports the caster to a pre-designated location within a 100-yard radius. Requires a clear path and no obstacles. Cannot teleport through solid matter.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'starlight_flakes', quantity: 2 },
+            { id: 'rune_of_destination', quantity: 1 }
+        ],
+        goldCost: 125,
+        craftTime: 4,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    scroll_create_flower: {
+        id: 'scroll_create_flower',
+        name: 'Scroll of Create Flower',
+        spellName: 'Create Flower',
+        spellLevel: 2,
+        school: 'CONJURATION',
+        description: 'Creates a single, beautiful, glowing flower from the caster’s hand. The flower blooms for 3 rounds and emits a soft, calming aura. Can be planted to grow permanently if soil is present.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'nectar_of_blooming', quantity: 1 },
+            { id: 'powdered_silver', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+
+    // === AUTO-INSERTED SCROLLS ===
+// SCROLLS [23:45:13]
+    scroll_fireblast: {
+        id: 'scroll_fireblast',
+        name: 'Scroll of Fireblast',
+        spellName: 'Fireblast',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'A sudden burst of searing flame erupts from the casters hand, dealing 15-20 damage to one target. Perfect for clearing obstacles or disrupting foes.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'crushed_crimson_ore', quantity: 1 },
+            { id: 'powdered_sulfur', quantity: 2 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_lightningstrike: {
+        id: 'scroll_lightningstrike',
+        name: 'Scroll of Lightningstrike',
+        spellName: 'Lightningstrike',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'A crackling bolt of pure electric energy strikes the target, causing 18-25 damage and stunning for 1 round. Ideal for interrupting enemy actions.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'crystallized_rainwater', quantity: 1 },
+            { id: 'lightning_bolt_gem', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_forcecrush: {
+        id: 'scroll_forcecrush',
+        name: 'Scroll of Forcecrush',
+        spellName: 'Forcecrush',
+        spellLevel: 2,
+        school: 'EVOCATION',
+        description: 'The caster channels raw magical force into a crushing blow, dealing 20-28 damage and pushing the target 2 squares backward. Useful for crowd control or breaking barriers.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'adamantite_ore', quantity: 1 },
+            { id: 'compressed_air_crystals', quantity: 2 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:45:43]
+    scroll_death_siphon: {
+        id: 'scroll_death_siphon',
+        name: 'Scroll of Death Siphon',
+        spellName: 'Death Siphon',
+        spellLevel: 2,
+        school: 'NECROMANCY',
+        description: 'Drains 1d4 hit points from a nearby living target and transfers them to the caster as temporary undead vitality. Target must be within 10 feet.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'dried_skeleton', quantity: 1 },
+            { id: 'black_ash', quantity: 2 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_undead_realm: {
+        id: 'scroll_undead_realm',
+        name: 'Scroll of Undead Realm',
+        spellName: 'Undead Realm',
+        spellLevel: 2,
+        school: 'NECROMANCY',
+        description: 'Conjures a 10-foot-radius sphere of necrotic energy that grants undead allies +1d4 to attack rolls and damage rolls. Must be cast in a location with at least one corpse.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'powdered_ashes', quantity: 3 },
+            { id: 'cursed_gem', quantity: 1 }
+        ],
+        goldCost: 120,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_life_drain: {
+        id: 'scroll_life_drain',
+        name: 'Scroll of Life Drain',
+        spellName: 'Life Drain',
+        spellLevel: 2,
+        school: 'NECROMANCY',
+        description: 'A single-target spell that drains 2d6 hit points from a living creature and converts them into necrotic energy. The caster gains 1d6 temporary hit points for each point drained.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'vial_of_vampire_blood', quantity: 1 },
+            { id: 'bone_flakes', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:46:33]
+    scroll_summon_dragon: {
+        id: 'scroll_summon_dragon',
+        name: 'Scroll of Summoning Dragon',
+        spellName: 'Summoning Dragon',
+        spellLevel: 3,
+        school: 'CONJURATION',
+        description: 'Summons a massive dragon from the aetheric plane, roaring with fire and fury. Must be cast in an open area. Dragon remains for 3 rounds unless dispelled.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'dragon_soul_crystal', quantity: 1 },
+            { id: 'ancient_gem_of_air', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_teleport_gate: {
+        id: 'scroll_teleport_gate',
+        name: 'Scroll of Teleportation Gate',
+        spellName: 'Teleportation Gate',
+        spellLevel: 3,
+        school: 'CONJURATION',
+        description: 'Creates a shimmering portal to a preselected location within 1000 feet. Requires a clear path and must be cast at a standing position. Portal lasts 1 round.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'astral_key', quantity: 1 },
+            { id: 'crystalline_earth_rod', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_create_essence: {
+        id: 'scroll_create_essence',
+        name: 'Scroll of Essence Creation',
+        spellName: 'Essence Creation',
+        spellLevel: 3,
+        school: 'CONJURATION',
+        description: 'Conjures a shimmering, temporary construct of pure essence—up to 10 feet tall—based on the caster’s will. Can be a creature, object, or abstract form. Fades after 3 rounds.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'soul_essence_flask', quantity: 1 },
+            { id: 'glyph_of_creativity', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:46:50]
+    scroll_death_bite: {
+        id: 'scroll_death_bite',
+        name: 'Scroll of Death Bite',
+        spellName: 'Death Bite',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'A necromancer impales a living target with a bone-tipped dagger, draining 10% of their HP and causing 50 damage. The target is stunned for 1 round.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_undead_ward: {
+        id: 'scroll_undead_ward',
+        name: 'Scroll of Undead Ward',
+        spellName: 'Undead Ward',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'Creates a protective barrier of bone and shadow that absorbs 100 damage per hit from melee or ranged attacks. Only effective against undead or death-themed spells.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_life_drain: {
+        id: 'scroll_life_drain',
+        name: 'Scroll of Life Drain',
+        spellName: 'Life Drain',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'A necromancer taps into the life force of a living target, draining 15% of their HP and restoring 20 HP to the caster. The target is weakened for 1 round.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:47:51]
+    scroll_of_shield_bard: {
+        id: 'scroll_of_shield_bard',
+        name: 'Scroll of Shield Bard',
+        spellName: 'Shield Bard',
+        spellLevel: 2,
+        school: 'ABJURATION',
+        description: 'Creates a shimmering, semi-transparent barrier around the caster that deflects minor physical attacks and reduces incoming damage by 25%. Lasts for 3 rounds.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_warding_wall: {
+        id: 'scroll_of_warding_wall',
+        name: 'Scroll of Warding Wall',
+        spellName: 'Warding Wall',
+        spellLevel: 2,
+        school: 'ABJURATION',
+        description: 'Conjures a solid, magical barrier of reinforced air and stone that blocks line of sight and physical projectiles. Can be reinforced with a second casting to increase durability. Lasts for 5 rounds.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'crystal_gem', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    scroll_of_protective_aura: {
+        id: 'scroll_of_protective_aura',
+        name: 'Scroll of Protective Aura',
+        spellName: 'Protective Aura',
+        spellLevel: 2,
+        school: 'ABJURATION',
+        description: 'Emits a gentle, pulsating field of energy around the caster and allies within 30 feet, reducing damage from magical and non-magical attacks by 10%. Lasts for 6 rounds.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'sacred_fiber', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 4,
+        successChance: 88,
+        levelRequirement: 3
+    },
+
+    // SCROLLS [23:48:51]
+    scroll_of_shield_barrier: {
+        id: 'scroll_of_shield_barrier',
+        name: 'Scroll of Shield Barrier',
+        spellName: 'Shield Barrier',
+        spellLevel: 1,
+        school: 'ABJURATION',
+        description: 'Creates a small, shimmering barrier of force that protects the caster from incoming physical damage for 10 seconds. Effective against blunt, piercing, and slashing attacks.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_warded_gate: {
+        id: 'scroll_of_warded_gate',
+        name: 'Scroll of Warded Gate',
+        spellName: 'Warded Gate',
+        spellLevel: 1,
+        school: 'ABJURATION',
+        description: 'Casts a temporary magical seal on a door or portal, preventing entry or exit for 30 seconds. Ideal for blocking intruders or securing exits.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_protective_aura: {
+        id: 'scroll_of_protective_aura',
+        name: 'Scroll of Protective Aura',
+        spellName: 'Protective Aura',
+        spellLevel: 1,
+        school: 'ABJURATION',
+        description: 'Emits a gentle, glowing field around the caster, reducing incoming damage by 30% for 15 seconds. Does not negate critical hits or magical effects.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:50:17]
+    scroll_death_bite: {
+        id: 'scroll_death_bite',
+        name: 'Scroll of Death Bite',
+        spellName: 'Death Bite',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'A single bite from a skeletal hand drains 10 HP from a target, leaving them in a state of shock for 1 turn. Can be used on living or undead targets.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_undead_blood: {
+        id: 'scroll_undead_blood',
+        name: 'Scroll of Undead Blood',
+        spellName: 'Undead Blood',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'Siphons a single drop of blood from the target, converting it into a temporary undead enhancement for the caster. Grants +2 to all undead-based attacks for 3 turns.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_life_drain: {
+        id: 'scroll_life_drain',
+        name: 'Scroll of Life Drain',
+        spellName: 'Life Drain',
+        spellLevel: 1,
+        school: 'NECROMANCY',
+        description: 'Drains 5 HP from the target, converting it into necrotic energy that the caster can use for 1 turn. No damage, but grants +1 to all necromantic spells cast.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:51:07]
+    scroll_of_shield_blessing: {
+        id: 'scroll_of_shield_blessing',
+        name: 'Scroll of Shield Blessing',
+        spellName: 'Shield Blessing',
+        spellLevel: 2,
+        school: 'ABJURATION',
+        description: 'Grants the caster a temporary protective barrier that absorbs 1d6 damage from one source per turn. The barrier lasts for 1 round or until dispelled.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'powdered_silver', quantity: 1 },
+            { id: 'holy_water', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_of_warding_wall: {
+        id: 'scroll_of_warding_wall',
+        name: 'Scroll of Warding Wall',
+        spellName: 'Warding Wall',
+        spellLevel: 2,
+        school: 'ABJURATION',
+        description: 'Creates a solid, magical barrier that blocks all non-magical physical attacks and projectiles within a 3-meter radius. The barrier lasts for 3 rounds or until broken.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'crystal_gem', quantity: 1 },
+            { id: 'obsidian_shard', quantity: 1 }
+        ],
+        goldCost: 125,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    scroll_of_guardian_ward: {
+        id: 'scroll_of_guardian_ward',
+        name: 'Scroll of Guardian Ward',
+        spellName: 'Guardian Ward',
+        spellLevel: 2,
+        school: 'ABJURATION',
+        description: 'Installs a protective ward that continuously checks for intruders and emits a warning sound if any hostile creature enters the 5-meter radius. Wards last for 5 rounds.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'powdered_copper', quantity: 1 },
+            { id: 'ancient_ritual_talisman', quantity: 1 }
+        ],
+        goldCost: 175,
+        craftTime: 3,
+        successChance: 88,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [23:51:29]
+    scroll_charm_mind: {
+        id: 'scroll_charm_mind',
+        name: 'Scroll of Charm Mind',
+        spellName: 'Charm Mind',
+        spellLevel: 1,
+        school: 'ENCHANTMENT',
+        description: 'Targets one creature within range, causing them to be charmed and obey simple commands for 1 round. Creature must be within 10 feet and not immune to charm effects.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_suggestion_illusion: {
+        id: 'scroll_suggestion_illusion',
+        name: 'Scroll of Suggestion Illusion',
+        spellName: 'Suggestion Illusion',
+        spellLevel: 1,
+        school: 'ENCHANTMENT',
+        description: 'Targets one creature within range, causing them to believe a false statement for 1 round. The target must be able to hear and comprehend the suggestion. No effect on immune targets.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_mind_control_echo: {
+        id: 'scroll_mind_control_echo',
+        name: 'Scroll of Mind Control Echo',
+        spellName: 'Mind Control Echo',
+        spellLevel: 1,
+        school: 'ENCHANTMENT',
+        description: 'Targets one creature within range, causing them to obey simple commands for 1 round. The target must be within 10 feet and not immune to mind control.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+
+    // === AUTO-INSERTED SCROLLS ===
+// SCROLLS [00:10:35]
+    scroll_silence_of_the_soul: {
+        id: 'scroll_silence_of_the_soul',
+        name: 'Scroll of Silence of the Soul',
+        spellName: 'Silence of the Soul',
+        spellLevel: 2,
+        school: 'ILLUSION',
+        description: 'Targets one creature within range, causing it to be unable to speak or make noise for 1 round. Perfect for ambush or stealth operations.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'whispering_moth_wings', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 1
+    },
+    scroll_invisible_maneuver: {
+        id: 'scroll_invisible_maneuver',
+        name: 'Scroll of Invisible Maneuver',
+        spellName: 'Invisible Maneuver',
+        spellLevel: 2,
+        school: 'ILLUSION',
+        description: 'Grants the caster temporary invisibility for 1 round, allowing them to move undetected through hostile terrain or ambush targets.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'shadow_moth_egg', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 3,
+        successChance: 88,
+        levelRequirement: 1
+    },
+    scroll_flicker_image: {
+        id: 'scroll_flicker_image',
+        name: 'Scroll of Flicker Image',
+        spellName: 'Flicker Image',
+        spellLevel: 2,
+        school: 'ILLUSION',
+        description: 'Creates a shifting image that mimics a target’s appearance for 1 round, fooling observers into believing the target is elsewhere. Great for misleading foes.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'broken_mirror_shard', quantity: 1 }
+        ],
+        goldCost: 125,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [00:10:46]
+    scroll_flame_burst: {
+        id: 'scroll_flame_burst',
+        name: 'Scroll of Flame Burst',
+        spellName: 'Flame Burst',
+        spellLevel: 1,
+        school: 'EVOCATION',
+        description: 'A burst of searing fire erupts from the caster’s hand, striking a single target and causing moderate fire damage. The flames spread outward in a 3-meter radius, igniting flammable objects.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_lightning_shock: {
+        id: 'scroll_lightning_shock',
+        name: 'Scroll of Lightning Shock',
+        spellName: 'Lightning Shock',
+        spellLevel: 1,
+        school: 'EVOCATION',
+        description: 'A crackling bolt of lightning strikes the target, dealing significant electric damage and momentarily stunning them. The shockwave radiates outward for 2 meters.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_force_crush: {
+        id: 'scroll_force_crush',
+        name: 'Scroll of Force Crush',
+        spellName: 'Force Crush',
+        spellLevel: 1,
+        school: 'EVOCATION',
+        description: 'A sudden surge of raw force shatters the target’s defenses, dealing heavy damage and forcing them to stagger backward. This spell ignores minor armor and resistance.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [00:10:58]
+    scroll_charm_soul: {
+        id: 'scroll_charm_soul',
+        name: 'Scroll of Soul Charm',
+        spellName: 'Charm Soul',
+        spellLevel: 2,
+        school: 'ENCHANTMENT',
+        description: 'Targets a living creature and compels it to obey the casters whispered command for 1 round. Fails if the target is immune to charm or has high willpower.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'whispering_wax', quantity: 1 }
+        ],
+        goldCost: 75,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_mind_control: {
+        id: 'scroll_mind_control',
+        name: 'Scroll of Mind Control',
+        spellName: 'Mind Control',
+        spellLevel: 2,
+        school: 'ENCHANTMENT',
+        description: 'Imposes mental domination over a target, overriding its will for 1 round. Fails if target is resistant or if caster is not focused.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'shadow_mind_candle', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_suggestion_temptation: {
+        id: 'scroll_suggestion_temptation',
+        name: 'Scroll of Suggestion Temptation',
+        spellName: 'Suggestion Temptation',
+        spellLevel: 2,
+        school: 'ENCHANTMENT',
+        description: 'Influences a target to act against its better judgment, based on the casters suggestion. Requires a successful persuasion check or target must be susceptible to suggestion.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 },
+            { id: 'desire_flame', quantity: 1 }
+        ],
+        goldCost: 125,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // SCROLLS [00:11:09]
+    scroll_sight_beyond: {
+        id: 'scroll_sight_beyond',
+        name: 'Scroll of Sight Beyond',
+        spellName: 'Sight Beyond',
+        spellLevel: 1,
+        school: 'DIVINATION',
+        description: 'Reveals the immediate surroundings as if through a crystal lens. Reveals hidden objects, traps, or obstacles within 30 feet. Visual effect lasts for 1 round.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_knowledge_ancient: {
+        id: 'scroll_knowledge_ancient',
+        name: 'Scroll of Knowledge Ancient',
+        spellName: 'Knowledge Ancient',
+        spellLevel: 1,
+        school: 'DIVINATION',
+        description: 'Reveals the most recent event that occurred within a 30-foot radius, as if recorded in a forgotten diary. May reveal a creature’s last known action, a hidden path, or a forgotten fact.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    scroll_prophecy_fate: {
+        id: 'scroll_prophecy_fate',
+        name: 'Scroll of Prophecy Fate',
+        spellName: 'Prophecy Fate',
+        spellLevel: 1,
+        school: 'DIVINATION',
+        description: 'Displays a single, brief prophecy about the immediate future. The prophecy is vague, poetic, or cryptic, but reveals a turning point or omen that may be interpreted as a sign or warning.',
+        icon: '📜',
+        wildcard: true,
+        materials: [
+            { id: 'blank_parchment', quantity: 1 },
+            { id: 'enchanted_ink', quantity: 1 }
+        ],
+        goldCost: 50,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
 };
 
 // ============================================
@@ -19830,6 +25020,2649 @@ export const POTION_RECIPES = {
         craftTime: 12,
         successChance: 35,
         levelRequirement: 15
+    },
+
+
+    // === AUTO-INSERTED POTIONS ===
+// POTIONS [23:19:53]
+    potion_healing_light: {
+        id: 'potion_healing_light',
+        name: 'Potion of Light Restoration',
+        effect: 'Restores 3d6+3 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'moonstone_flakes', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    potion_healing_blessed: {
+        id: 'potion_healing_blessed',
+        name: 'Potion of Blessed Renewal',
+        effect: 'Restores 4d4+4 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 4 },
+            { id: 'sacred_leaf', quantity: 2 },
+            { id: 'amber_essence', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    potion_healing_fervent: {
+        id: 'potion_healing_fervent',
+        name: 'Potion of Fervent Recovery',
+        effect: 'Restores 5d6+5 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 5 },
+            { id: 'crimson_root', quantity: 1 },
+            { id: 'eldritch_syrup', quantity: 1 }
+        ],
+        goldCost: 200,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+
+    // === AUTO-INSERTED POTIONS ===
+// POTIONS [23:35:50]
+    strength_boost: {
+        id: 'strength_boost',
+        name: 'Potion of Strength Surge',
+        effect: 'Restores 3d6+5 HP and grants +2 Strength for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wild_mushrooms', quantity: 3 },
+            { id: 'iron_ore_dust', quantity: 2 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    agility_boost: {
+        id: 'agility_boost',
+        name: 'Potion of Swift Step',
+        effect: 'Restores 2d6+3 HP and grants +2 Dexterity for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wind_flower_petals', quantity: 4 },
+            { id: 'copper_ingot', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resilience_boost: {
+        id: 'resilience_boost',
+        name: 'Potion of Unyielding Will',
+        effect: 'Restores 4d8+6 HP and grants +2 Constitution for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'ancient_root', quantity: 5 },
+            { id: 'dragon_scale', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:36:23] - Theme: catgirl
+    catgirl_healing_potion: {
+        id: 'catgirl_healing_potion',
+        name: 'Potion of Purrfect Recovery',
+        effect: 'Restores 3d6+3 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'catnip_buds', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    catgirl_soothing_balm: {
+        id: 'catgirl_soothing_balm',
+        name: 'Potion of Lullaby’s Blessing',
+        effect: 'Restores 4d4+4 HP and grants temporary calm for 1 hour',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'calming_meadow_flowers', quantity: 4 },
+            { id: 'moonpetal_syrup', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    catgirl_tail_wound_balm: {
+        id: 'catgirl_tail_wound_balm',
+        name: 'Potion of Tail Tenderness',
+        effect: 'Restores 2d8+2 HP and heals minor tail injuries',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'tail_healing_essence', quantity: 2 },
+            { id: 'enchanted_cat_fur', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:36:48]
+    heal_small: {
+        id: 'heal_small',
+        name: 'Potion of Minor Healing',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    heal_medium: {
+        id: 'heal_medium',
+        name: 'Potion of Moderate Healing',
+        effect: 'Restores 4d6+5 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'moonflower_extract', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    heal_major: {
+        id: 'heal_major',
+        name: 'Potion of Major Healing',
+        effect: 'Restores 6d8+10 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 4 },
+            { id: 'root_ash', quantity: 2 },
+            { id: 'crystal_blossom', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:36:53]
+    restoration_blessing: {
+        id: 'restoration_blessing',
+        name: 'Potion of Restoration Blessing',
+        effect: 'Restores 3d6+4 HP',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'moonflower_petals', quantity: 2 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    radiant_heal: {
+        id: 'radiant_heal',
+        name: 'Potion of Radiant Heal',
+        effect: 'Restores 4d8+6 HP',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'elixir_of_living_earth', quantity: 1 },
+            { id: 'starlight_essence', quantity: 1 },
+            { id: 'powdered_crimson_moss', quantity: 3 }
+        ],
+        goldCost: 450,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    soul_renewal: {
+        id: 'soul_renewal',
+        name: 'Potion of Soul Renewal',
+        effect: 'Restores 5d10+8 HP and grants 1 hour of regeneration',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'sacred_water', quantity: 1 },
+            { id: 'phoenix_feather', quantity: 1 },
+            { id: 'soul_ash', quantity: 2 }
+        ],
+        goldCost: 600,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // POTIONS [23:36:59]
+    vigor_boost: {
+        id: 'vigor_boost',
+        name: 'Potion of Vigor Boost',
+        effect: 'Restores 4d6+5 HP and grants +2 Attack for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wild_meadow_blossom', quantity: 3 },
+            { id: 'iron_ore_crystal', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    fire_resistance: {
+        id: 'fire_resistance',
+        name: 'Potion of Fire Resistance',
+        effect: 'Grants immunity to fire damage for 1 hour and restores 2d4+3 HP per turn',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'ash_of_burning_mountains', quantity: 2 },
+            { id: 'obsidian_flake', quantity: 1 }
+        ],
+        goldCost: 400,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+    haste_boost: {
+        id: 'haste_boost',
+        name: 'Potion of Haste Boost',
+        effect: 'Increases movement speed by 50% and restores 3d6+2 HP per turn for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'windroot_extract', quantity: 2 },
+            { id: 'powdered_copper', quantity: 1 }
+        ],
+        goldCost: 500,
+        craftTime: 3,
+        successChance: 88,
+        levelRequirement: 4
+    },
+
+    // POTIONS [23:37:04]
+    resistance_fire: {
+        id: 'resistance_fire',
+        name: 'Potion of Fire Resistance',
+        effect: 'Reduces fire damage taken by 50% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'fire_resist_ash', quantity: 3 },
+            { id: 'shadow_moss', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resistance_toxic: {
+        id: 'resistance_toxic',
+        name: 'Potion of Toxic Resistance',
+        effect: 'Reduces poison damage taken by 75% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'toxin_spirit_root', quantity: 2 },
+            { id: 'crystalline_lichen', quantity: 2 }
+        ],
+        goldCost: 400,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    resistance_acid: {
+        id: 'resistance_acid',
+        name: 'Potion of Acid Resistance',
+        effect: 'Reduces acid damage taken by 60% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'acid_resist_crystal', quantity: 4 },
+            { id: 'volcanic_sand', quantity: 1 }
+        ],
+        goldCost: 500,
+        craftTime: 3,
+        successChance: 88,
+        levelRequirement: 3
+    },
+
+    // POTIONS [23:37:09]
+    healing_potion: {
+        id: 'healing_potion',
+        name: 'Potion of Healing',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    quick_heal_potion: {
+        id: 'quick_heal_potion',
+        name: 'Potion of Quick Heal',
+        effect: 'Restores 2d6+3 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'moonroot', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    minor_heal_potion: {
+        id: 'minor_heal_potion',
+        name: 'Potion of Minor Heal',
+        effect: 'Restores 2d3+1 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 1 },
+            { id: 'dewdrop', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:37:15]
+    shadow_blood_transformation: {
+        id: 'shadow_blood_transformation',
+        name: 'Potion of Shadow Blood Transformation',
+        effect: 'Transforms user into a shadowy humanoid form for 1 hour, gaining +3d6 AC and -2d6 to damage dealt',
+        potionType: 'transformation',
+        rarity: 'epic',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'shadow_reeds', quantity: 3 },
+            { id: 'moonstone_crystals', quantity: 2 }
+        ],
+        goldCost: 800,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    fire_soul_transformation: {
+        id: 'fire_soul_transformation',
+        name: 'Potion of Fire Soul Transformation',
+        effect: 'Transforms user into a blazing humanoid, granting +5d6 to attack rolls and +3d6 fire damage per hit for 1 hour',
+        potionType: 'transformation',
+        rarity: 'epic',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'dragon_scales', quantity: 2 },
+            { id: 'ember_flame', quantity: 4 }
+        ],
+        goldCost: 800,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    frost_wraith_transformation: {
+        id: 'frost_wraith_transformation',
+        name: 'Potion of Frost Wraith Transformation',
+        effect: 'Transforms user into a spectral ice-wraith, gaining +4d6 to dodge rolls and immunity to non-magical cold damage for 1 hour',
+        potionType: 'transformation',
+        rarity: 'epic',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'frozen_moss', quantity: 3 },
+            { id: 'glacier_gem', quantity: 2 }
+        ],
+        goldCost: 800,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:37:21]
+    swift_heal: {
+        id: 'swift_heal',
+        name: 'Potion of Swift Heal',
+        effect: 'Restores 4d6+4 HP',
+        potionType: 'healing',
+        rarity: 'epic',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'elixir_of_life', quantity: 1 }
+        ],
+        goldCost: 800,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    radiant_renewal: {
+        id: 'radiant_renewal',
+        name: 'Potion of Radiant Renewal',
+        effect: 'Restores 6d8+6 HP and grants 1 hour of regeneration',
+        potionType: 'healing',
+        rarity: 'epic',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'sacred_rose', quantity: 2 },
+            { id: 'moonstone_powder', quantity: 1 },
+            { id: 'elixir_of_life', quantity: 2 }
+        ],
+        goldCost: 1200,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+    celestial_blessing: {
+        id: 'celestial_blessing',
+        name: 'Potion of Celestial Blessing',
+        effect: 'Restores 8d10+8 HP and reduces next 2d4 damage taken by 50%',
+        potionType: 'healing',
+        rarity: 'epic',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'divine_grass', quantity: 3 },
+            { id: 'starlight_crystal', quantity: 1 },
+            { id: 'elixir_of_life', quantity: 3 }
+        ],
+        goldCost: 2000,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 5
+    },
+
+    // POTIONS [23:37:26]
+    healing_potion: {
+        id: 'healing_potion',
+        name: 'Potion of Healing',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    stamina_boost: {
+        id: 'stamina_boost',
+        name: 'Potion of Stamina Boost',
+        effect: 'Grants +5 to Strength for 1 hour',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'root_bark', quantity: 1 },
+            { id: 'spice_powder', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    speed_potion: {
+        id: 'speed_potion',
+        name: 'Potion of Speed',
+        effect: 'Increases movement speed by 20% for 1 hour',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wind_flower', quantity: 3 },
+            { id: 'quill_root', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:37:31]
+    poison_resistance: {
+        id: 'poison_resistance',
+        name: 'Potion of Poison Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'powdered_iron', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    fire_resistance: {
+        id: 'fire_resistance',
+        name: 'Potion of Fire Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'crushed_rock', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    cold_resistance: {
+        id: 'cold_resistance',
+        name: 'Potion of Cold Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'dried_moss', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:37:36]
+    healing_potion: {
+        id: 'healing_potion',
+        name: 'Potion of Healing',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    stamina_potion: {
+        id: 'stamina_potion',
+        name: 'Potion of Stamina',
+        effect: 'Restores 1d6+3 Stamina',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'stamina_root', quantity: 3 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    speed_potion: {
+        id: 'speed_potion',
+        name: 'Potion of Speed',
+        effect: 'Increases movement speed by 1 for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'speed_spores', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:37:42]
+    fire_resistance: {
+        id: 'fire_resistance',
+        name: 'Potion of Fire Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'fire_berry', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    poison_resistance: {
+        id: 'poison_resistance',
+        name: 'Potion of Poison Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'toxin_root', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    cold_resistance: {
+        id: 'cold_resistance',
+        name: 'Potion of Cold Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'frost_moss', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:37:47]
+    poison_resistance: {
+        id: 'poison_resistance',
+        name: 'Potion of Poison Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'sulfur_crystals', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    fire_resistance: {
+        id: 'fire_resistance',
+        name: 'Potion of Fire Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'fire_blossoms', quantity: 2 },
+            { id: 'water_spirit', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    cold_resistance: {
+        id: 'cold_resistance',
+        name: 'Potion of Cold Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'frost_moss', quantity: 2 },
+            { id: 'warm_earth', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:37:52]
+    poison_resistance: {
+        id: 'poison_resistance',
+        name: 'Potion of Poison Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'powdered_earth', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    fire_resistance: {
+        id: 'fire_resistance',
+        name: 'Potion of Fire Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'crushed_ice', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    cold_resistance: {
+        id: 'cold_resistance',
+        name: 'Potion of Cold Resistance',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'dried_moss', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:37:58] - Theme: transformation
+    transformation_potion: {
+        id: 'transformation_potion',
+        name: 'Potion of Shadow Shift',
+        effect: 'Restores 3d6+3 HP and grants temporary invisibility for 1 hour',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'shadow_flower', quantity: 1 },
+            { id: 'moonlight_ash', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    transformation_potion: {
+        id: 'transformation_potion',
+        name: 'Potion of Beast Form',
+        effect: 'Restores 2d8+4 HP and transforms user into a beast form for 1 hour (enhanced speed and damage)',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wild_berry', quantity: 3 },
+            { id: 'bone_dust', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    transformation_potion: {
+        id: 'transformation_potion',
+        name: 'Potion of Echoing Step',
+        effect: 'Restores 1d10+5 HP and allows user to teleport up to 30 feet for 1 round',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'whispering_root', quantity: 2 },
+            { id: 'echo_crystal', quantity: 1 }
+        ],
+        goldCost: 120,
+        craftTime: 2,
+        successChance: 88,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:38:03]
+    vigor_burst: {
+        id: 'vigor_burst',
+        name: 'Potion of Vigor Burst',
+        effect: 'Restores 4d6+4 HP and grants +2 attack bonus for 1 round',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wild_garlic', quantity: 3 },
+            { id: 'crimson_essence', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    aura_of_courage: {
+        id: 'aura_of_courage',
+        name: 'Potion of Aura of Courage',
+        effect: 'Grants +3 to all attack rolls and +2 to saving throws for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'iron_root', quantity: 2 },
+            { id: 'phoenix_feather', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    shadow_rejuvenation: {
+        id: 'shadow_rejuvenation',
+        name: 'Potion of Shadow Rejuvenation',
+        effect: 'Restores 5d8+5 HP and regains 1d6+1 action points for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'moonstone_powder', quantity: 2 },
+            { id: 'dark_lichen', quantity: 3 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:38:08]
+    healing_potion: {
+        id: 'healing_potion',
+        name: 'Potion of Healing',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    minor_healing_potion: {
+        id: 'minor_healing_potion',
+        name: 'Potion of Minor Healing',
+        effect: 'Restores 1d4+1 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 1 },
+            { id: 'water', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    quick_healing_potion: {
+        id: 'quick_healing_potion',
+        name: 'Potion of Quick Healing',
+        effect: 'Restores 2d6+3 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'honey', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:38:14]
+    healing_burst: {
+        id: 'healing_burst',
+        name: 'Potion of Healing Burst',
+        effect: 'Restores 4d6+6 HP',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'glowing_moss', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    speed_boost: {
+        id: 'speed_boost',
+        name: 'Potion of Speed Boost',
+        effect: 'Increases movement speed by 20% for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'windroot', quantity: 2 },
+            { id: 'ember_flower', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    strength_pulse: {
+        id: 'strength_pulse',
+        name: 'Potion of Strength Pulse',
+        effect: 'Increases strength by +5 for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'iron_ore_crystals', quantity: 2 },
+            { id: 'magma_flower', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+
+    // === AUTO-INSERTED POTIONS ===
+// POTIONS [23:38:35]
+    resistance_fire: {
+        id: 'resistance_fire',
+        name: 'Potion of Fire Resistance',
+        effect: 'Reduces fire damage by 50% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'fire_resist_ash', quantity: 2 },
+            { id: 'nightshade_root', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resistance_poison: {
+        id: 'resistance_poison',
+        name: 'Potion of Poison Resistance',
+        effect: 'Reduces poison damage by 40% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'poison_berries', quantity: 3 },
+            { id: 'crushed_ironleaf', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resistance_acid: {
+        id: 'resistance_acid',
+        name: 'Potion of Acid Resistance',
+        effect: 'Reduces acid damage by 30% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'acid_resist_crystals', quantity: 2 },
+            { id: 'salted_moss', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:38:44]
+    swift_heal: {
+        id: 'swift_heal',
+        name: 'Potion of Swift Heal',
+        effect: 'Restores 3d6+5 HP',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'elixir_berries', quantity: 2 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    radiant_restore: {
+        id: 'radiant_restore',
+        name: 'Potion of Radiant Restore',
+        effect: 'Restores 4d8+3 HP and grants 1 hour of regeneration',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'radiant_essence', quantity: 1 },
+            { id: 'moonstone_flowers', quantity: 2 },
+            { id: 'glowing_moss', quantity: 1 }
+        ],
+        goldCost: 450,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+    soul_renewal: {
+        id: 'soul_renewal',
+        name: 'Potion of Soul Renewal',
+        effect: 'Restores 5d10+7 HP and removes one curse or debuff',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'sacred_heartroot', quantity: 3 },
+            { id: 'soul_core_crystal', quantity: 1 },
+            { id: 'divine_amber', quantity: 1 }
+        ],
+        goldCost: 600,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 5
+    },
+
+    // POTIONS [23:39:59]
+    restore_healing_potion: {
+        id: 'restore_healing_potion',
+        name: 'Potion of Vital Renewal',
+        effect: 'Restores 3d6+5 HP',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'moonlit_moss', quantity: 2 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    swift_heal_potion: {
+        id: 'swift_heal_potion',
+        name: 'Potion of Swift Recovery',
+        effect: 'Restores 4d4+3 HP and grants +1d4 HP per 1 hour of rest',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wild_lichen', quantity: 4 },
+            { id: 'amber_syrup', quantity: 1 }
+        ],
+        goldCost: 400,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    sacred_heal_potion: {
+        id: 'sacred_heal_potion',
+        name: 'Potion of Sacred Restoration',
+        effect: 'Restores 5d6+7 HP and removes all status ailments',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'divine_bloom', quantity: 3 },
+            { id: 'sacred_ash', quantity: 2 }
+        ],
+        goldCost: 500,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // POTIONS [23:40:36]
+    healing_potion_1: {
+        id: 'healing_potion_1',
+        name: 'Potion of Swift Healing',
+        effect: 'Restores 3d6+3 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'moonlight_blossom', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    healing_potion_2: {
+        id: 'healing_potion_2',
+        name: 'Potion of Windward Renewal',
+        effect: 'Restores 4d4+4 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 4 },
+            { id: 'dragon_scale_flower', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    healing_potion_3: {
+        id: 'healing_potion_3',
+        name: 'Potion of the Dawn Surge',
+        effect: 'Restores 2d8+5 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 5 },
+            { id: 'sunstone_flower', quantity: 1 }
+        ],
+        goldCost: 200,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // POTIONS [23:41:00]
+    vigor_boost: {
+        id: 'vigor_boost',
+        name: 'Potion of Vigor Boost',
+        effect: 'Restores 3d6+3 HP',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wild_herbs', quantity: 2 },
+            { id: 'root_berries', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    speed_enhance: {
+        id: 'speed_enhance',
+        name: 'Potion of Speed Enhance',
+        effect: 'Increases movement speed by 20% for 1 hour',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'windroot', quantity: 1 },
+            { id: 'feather_fungus', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    stamina_boost: {
+        id: 'stamina_boost',
+        name: 'Potion of Stamina Boost',
+        effect: 'Regenerates 2d8+4 HP per round for 10 minutes',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'ironwood_sap', quantity: 2 },
+            { id: 'elixir_citrus', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:41:50]
+    potion_of_wild_growth: {
+        id: 'potion_of_wild_growth',
+        name: 'Potion of Wild Growth',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'transformation',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    potion_of_stone_skin: {
+        id: 'potion_of_stone_skin',
+        name: 'Potion of Stone Skin',
+        effect: 'Restores 3d6+3 HP',
+        potionType: 'transformation',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'iron_root', quantity: 1 },
+            { id: 'moss_gel', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    potion_of_frost_breath: {
+        id: 'potion_of_frost_breath',
+        name: 'Potion of Frost Breath',
+        effect: 'Restores 1d8+1 HP',
+        potionType: 'transformation',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'snowflake_ash', quantity: 2 },
+            { id: 'ice_moss', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:42:34]
+    healing_potion: {
+        id: 'healing_potion',
+        name: 'Potion of Healing',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    stamina_potion: {
+        id: 'stamina_potion',
+        name: 'Potion of Stamina',
+        effect: 'Restores 1d6+3 Stamina',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'root_stem', quantity: 2 },
+            { id: 'stamina_berries', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    speed_potion: {
+        id: 'speed_potion',
+        name: 'Potion of Speed',
+        effect: 'Increases movement speed by 10% for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'powdered_iron', quantity: 1 },
+            { id: 'wind_fern', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:42:44]
+    potion_healing_burst: {
+        id: 'potion_healing_burst',
+        name: 'Potion of Healing Burst',
+        effect: 'Restores 3d6+3 HP',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'glowing_moss', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    potion_stamina_boon: {
+        id: 'potion_stamina_boon',
+        name: 'Potion of Stamina Boon',
+        effect: 'Restores 2d4+2 HP and grants +2 to Strength for 1 hour',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'stamina_root', quantity: 2 },
+            { id: 'amber_flame', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    potion_courage_spur: {
+        id: 'potion_courage_spur',
+        name: 'Potion of Courage Spur',
+        effect: 'Restores 1d8+1 HP and grants +1 to Dexterity for 1 hour',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'courage_berry', quantity: 2 },
+            { id: 'wind_spirit_ash', quantity: 1 }
+        ],
+        goldCost: 120,
+        craftTime: 2,
+        successChance: 88,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:42:53]
+    regeneration: {
+        id: 'regeneration',
+        name: 'Potion of Regeneration',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'water', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    stamina: {
+        id: 'stamina',
+        name: 'Potion of Stamina',
+        effect: 'Increases movement speed by 10% for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'stamina_grass', quantity: 2 },
+            { id: 'elixir_base', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    dexterity: {
+        id: 'dexterity',
+        name: 'Potion of Dexterity',
+        effect: 'Increases attack roll by +2 for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'agility_fruit', quantity: 2 },
+            { id: 'spirit_flower', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:43:33]
+    healing_potion_of_luminous_blessing: {
+        id: 'healing_potion_of_luminous_blessing',
+        name: 'Potion of Luminous Blessing',
+        effect: 'Restores 3d6+5 HP',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'luminous_herbs', quantity: 3 },
+            { id: 'moonstone_powder', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    healing_potion_of_ancient_wisdom: {
+        id: 'healing_potion_of_ancient_wisdom',
+        name: 'Potion of Ancient Wisdom',
+        effect: 'Restores 4d8+3 HP and grants +1 bonus to next 2d6 skill checks for 1 hour',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'ancient_root_essence', quantity: 2 },
+            { id: 'powdered_heartstone', quantity: 1 }
+        ],
+        goldCost: 450,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+    healing_potion_of_blood_ward: {
+        id: 'healing_potion_of_blood_ward',
+        name: 'Potion of Blood Ward',
+        effect: 'Restores 5d10+8 HP and grants temporary immunity to poison for 1 hour',
+        potionType: 'healing',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'crimson_tendril', quantity: 4 },
+            { id: 'warding_ash', quantity: 2 }
+        ],
+        goldCost: 600,
+        craftTime: 3,
+        successChance: 80,
+        levelRequirement: 5
+    },
+
+
+    // === AUTO-INSERTED POTIONS ===
+// POTIONS [23:44:44]
+    regeneration: {
+        id: 'regeneration',
+        name: 'Potion of Regeneration',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'elixir_syrup', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    speed: {
+        id: 'speed',
+        name: 'Potion of Speed',
+        effect: 'Increases movement speed by 20% for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wind_root', quantity: 2 },
+            { id: 'quickness_berries', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    endurance: {
+        id: 'endurance',
+        name: 'Potion of Endurance',
+        effect: 'Increases stamina by 30% for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'ironwood_core', quantity: 1 },
+            { id: 'stamina_flowers', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:45:01]
+    basic_healing_potion: {
+        id: 'basic_healing_potion',
+        name: 'Potion of Basic Healing',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    minor_healing_potion: {
+        id: 'minor_healing_potion',
+        name: 'Potion of Minor Healing',
+        effect: 'Restores 2d6+3 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'wild_mushrooms', quantity: 1 }
+        ],
+        goldCost: 45,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    quick_healing_potion: {
+        id: 'quick_healing_potion',
+        name: 'Potion of Quick Healing',
+        effect: 'Restores 3d6+4 HP',
+        potionType: 'healing',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 4 },
+            { id: 'root_bark', quantity: 2 }
+        ],
+        goldCost: 60,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:46:05]
+    regeneration_potion: {
+        id: 'regeneration_potion',
+        name: 'Potion of Regeneration',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'moonflower', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    vigor_potion: {
+        id: 'vigor_potion',
+        name: 'Potion of Vigor',
+        effect: 'Grants +5 to attack rolls for 1 hour',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wild_lemongrass', quantity: 3 },
+            { id: 'ironwood_bark', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    stamina_potion: {
+        id: 'stamina_potion',
+        name: 'Potion of Stamina',
+        effect: 'Restores 1d6+3 HP and grants +2 to speed rolls for 1 hour',
+        potionType: 'combat',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'fireberry', quantity: 2 },
+            { id: 'quartz_crystal', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:47:01]
+    resistance_fire: {
+        id: 'resistance_fire',
+        name: 'Potion of Fire Resistance',
+        effect: 'Reduces fire damage taken by 50% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'fire_resistance_ash', quantity: 2 },
+            { id: 'powdered_moss', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resistance_cold: {
+        id: 'resistance_cold',
+        name: 'Potion of Cold Resistance',
+        effect: 'Reduces cold damage taken by 50% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'frostbark_sap', quantity: 2 },
+            { id: 'warm_clover', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resistance_acid: {
+        id: 'resistance_acid',
+        name: 'Potion of Acid Resistance',
+        effect: 'Reduces acid damage taken by 50% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'acid_resistant_clay', quantity: 2 },
+            { id: 'sulfur_berry', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:47:28]
+    resistance_fire: {
+        id: 'resistance_fire',
+        name: 'Potion of Fire Resistance',
+        effect: 'Reduces fire damage by 50% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'fire_resistance_ash', quantity: 3 },
+            { id: 'water_lily', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resistance_poison: {
+        id: 'resistance_poison',
+        name: 'Potion of Poison Resistance',
+        effect: 'Reduces poison damage by 60% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'nightshade_root', quantity: 2 },
+            { id: 'sulfur_powder', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resistance_acid: {
+        id: 'resistance_acid',
+        name: 'Potion of Acid Resistance',
+        effect: 'Reduces acid damage by 45% for 1 hour',
+        potionType: 'resistance',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'crushed_iron_ore', quantity: 2 },
+            { id: 'bitter_tea_leaves', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:47:45]
+    healing_potion_light: {
+        id: 'healing_potion_light',
+        name: 'Potion of Light Recovery',
+        effect: 'Restores 2d6+3 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'moonflower_petals', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    healing_potion_warmth: {
+        id: 'healing_potion_warmth',
+        name: 'Potion of Warmth',
+        effect: 'Restores 3d4+4 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'cinnamon_bark', quantity: 1 },
+            { id: 'warm_moss', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    healing_potion_mending: {
+        id: 'healing_potion_mending',
+        name: 'Potion of Mending',
+        effect: 'Restores 2d8+5 HP',
+        potionType: 'healing',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 4 },
+            { id: 'elixir_flower', quantity: 1 },
+            { id: 'iron_ore_powder', quantity: 1 }
+        ],
+        goldCost: 200,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // POTIONS [23:47:57]
+    regen_boost: {
+        id: 'regen_boost',
+        name: 'Potion of Regen Boost',
+        effect: 'Restores 3d6+5 HP per turn for 1 hour',
+        potionType: 'buff',
+        rarity: 'legendary',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'elixir_of_life', quantity: 3 },
+            { id: 'moonstone', quantity: 1 }
+        ],
+        goldCost: 3000,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    fury_infusion: {
+        id: 'fury_infusion',
+        name: 'Potion of Fury Infusion',
+        effect: 'Adds +2 to attack rolls and damage for 1 hour',
+        potionType: 'buff',
+        rarity: 'legendary',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'dragon_scales', quantity: 2 },
+            { id: 'ember_core', quantity: 1 }
+        ],
+        goldCost: 3000,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    resilience_core: {
+        id: 'resilience_core',
+        name: 'Potion of Resilience Core',
+        effect: 'Grants +3 armor and 2d8+2 HP regeneration per round for 1 hour',
+        potionType: 'buff',
+        rarity: 'legendary',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'crystal_shard', quantity: 4 },
+            { id: 'ancient_heart', quantity: 1 }
+        ],
+        goldCost: 3000,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:48:18]
+    fire_resistance: {
+        id: 'fire_resistance',
+        name: 'Potion of Fire Resistance',
+        effect: 'Grants 1 hour of fire resistance (immune to fire damage)',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'fireberry', quantity: 2 },
+            { id: 'ash_bark', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    cold_resistance: {
+        id: 'cold_resistance',
+        name: 'Potion of Cold Resistance',
+        effect: 'Grants 1 hour of cold resistance (immune to cold damage)',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'snowroot', quantity: 2 },
+            { id: 'frostleaf', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    poison_resistance: {
+        id: 'poison_resistance',
+        name: 'Potion of Poison Resistance',
+        effect: 'Grants 1 hour of poison resistance (immune to poison damage)',
+        potionType: 'resistance',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'venomroot', quantity: 2 },
+            { id: 'thornbloom', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:49:54]
+    regeneration_potion: {
+        id: 'regeneration_potion',
+        name: 'Potion of Regeneration',
+        effect: 'Restores 4d6+4 HP',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'moonstone_powder', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    speed_potion: {
+        id: 'speed_potion',
+        name: 'Potion of Speed',
+        effect: 'Increases movement speed by 20% for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'wild_sparrow_feathers', quantity: 2 },
+            { id: 'powdered_iron', quantity: 1 }
+        ],
+        goldCost: 400,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+    fire_resistance_potion: {
+        id: 'fire_resistance_potion',
+        name: 'Potion of Fire Resistance',
+        effect: 'Grants 50% damage reduction from fire for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'obsidian_dust', quantity: 2 },
+            { id: 'enchanted_sage_leaf', quantity: 1 }
+        ],
+        goldCost: 500,
+        craftTime: 3,
+        successChance: 88,
+        levelRequirement: 4
+    },
+
+    // POTIONS [23:50:38]
+    haste_potion: {
+        id: 'haste_potion',
+        name: 'Potion of Haste',
+        effect: 'Increases movement speed by 20% for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'powdered_iron', quantity: 1 },
+            { id: 'elixir_flower', quantity: 3 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    fire_resistance_potion: {
+        id: 'fire_resistance_potion',
+        name: 'Potion of Fire Resistance',
+        effect: 'Grants 50% resistance to fire damage for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'dried_sandstone', quantity: 2 },
+            { id: 'ash_of_vulcan', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    invisibility_potion: {
+        id: 'invisibility_potion',
+        name: 'Potion of Invisibility',
+        effect: 'Grants temporary invisibility for 10 minutes',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'moon_moss', quantity: 2 },
+            { id: 'shadow_sand', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:50:43]
+    potion_bark_breath: {
+        id: 'potion_bark_breath',
+        name: 'Potion of Bark Breath',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'transformation',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'bark_fragments', quantity: 3 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    potion_wisp_wings: {
+        id: 'potion_wisp_wings',
+        name: 'Potion of Wisp Wings',
+        effect: 'Grants temporary flight for 1 hour',
+        potionType: 'transformation',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'feather_down', quantity: 2 },
+            { id: 'mist_flower', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    potion_shield_fury: {
+        id: 'potion_shield_fury',
+        name: 'Potion of Shield Fury',
+        effect: 'Grants +5 to all melee attacks for 1 round',
+        potionType: 'transformation',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'iron_ingot', quantity: 1 },
+            { id: 'battle_corn', quantity: 3 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:51:00]
+    shadow_step: {
+        id: 'shadow_step',
+        name: 'Potion of Shadow Step',
+        effect: 'Grants temporary invisibility for 1 hour',
+        potionType: 'transformation',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'moonstone', quantity: 1 },
+            { id: 'shadow_flower', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    water_breather: {
+        id: 'water_breather',
+        name: 'Potion of Water Breather',
+        effect: 'Allows underwater breathing for 1 hour',
+        potionType: 'transformation',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'sea_salt', quantity: 3 },
+            { id: 'coral_essence', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    wind_sprint: {
+        id: 'wind_sprint',
+        name: 'Potion of Wind Sprint',
+        effect: 'Grants +5 to speed for 1 hour',
+        potionType: 'transformation',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'windroot', quantity: 2 },
+            { id: 'feather_of_wing', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [23:51:18]
+    shadow_rebirth: {
+        id: 'shadow_rebirth',
+        name: 'Potion of Shadow Rebirth',
+        effect: 'Restores 4d6+5 HP and grants 1 hour of invisibility',
+        potionType: 'transformation',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'shadow_flower', quantity: 3 },
+            { id: 'moonstone_crystal', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    wind_walker: {
+        id: 'wind_walker',
+        name: 'Potion of Wind Walker',
+        effect: 'Restores 3d8+3 HP and grants 1 hour of flight (10ft lift)',
+        potionType: 'transformation',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'windroot_sap', quantity: 4 },
+            { id: 'feather_of_wind', quantity: 2 }
+        ],
+        goldCost: 400,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    fire_blessing: {
+        id: 'fire_blessing',
+        name: 'Potion of Fire Blessing',
+        effect: 'Restores 5d10+7 HP and grants 1 hour of fire resistance (100% chance to avoid fire damage)',
+        potionType: 'transformation',
+        rarity: 'rare',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'ember_flower', quantity: 5 },
+            { id: 'lava_gem', quantity: 1 }
+        ],
+        goldCost: 500,
+        craftTime: 3,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+    // POTIONS [23:51:23]
+    potion_recovery_burst: {
+        id: 'potion_recovery_burst',
+        name: 'Potion of Recovery Burst',
+        effect: 'Restores 3d6+3 HP',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'powdered_iron', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    potion_energy_boost: {
+        id: 'potion_energy_boost',
+        name: 'Potion of Energy Boost',
+        effect: 'Restores 2d4+2 MP and grants +2 attack bonus for 1 hour',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'spirit_flower', quantity: 2 },
+            { id: 'amber_crystal', quantity: 1 }
+        ],
+        goldCost: 120,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 2
+    },
+    potion_stamina_refill: {
+        id: 'potion_stamina_refill',
+        name: 'Potion of Stamina Refill',
+        effect: 'Restores 4d6+4 Stamina and reduces fatigue by 2 for 1 hour',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'root_bark', quantity: 4 },
+            { id: 'elixir_of_wind', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 80,
+        levelRequirement: 3
+    },
+
+
+    // === AUTO-INSERTED POTIONS ===
+// POTIONS [00:09:57]
+    vigor_boost: {
+        id: 'vigor_boost',
+        name: 'Potion of Vigor Boost',
+        effect: 'Restores 3d6+3 HP and grants +2 to Strength for 1 hour',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'vigor_root', quantity: 3 },
+            { id: 'elixir_crystal', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    agility_spike: {
+        id: 'agility_spike',
+        name: 'Potion of Agility Spike',
+        effect: 'Grants +3 to Dexterity for 1 hour and restores 2d6+2 HP',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'windberry', quantity: 4 },
+            { id: 'quickness_ash', quantity: 2 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    endurance_aura: {
+        id: 'endurance_aura',
+        name: 'Potion of Endurance Aura',
+        effect: 'Restores 4d4+4 HP and grants +1 to Constitution for 1 hour',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'stonebloom', quantity: 3 },
+            { id: 'stamina_essence', quantity: 1 }
+        ],
+        goldCost: 100,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [00:10:08]
+    healing_potion: {
+        id: 'healing_potion',
+        name: 'Potion of Healing',
+        effect: 'Restores 2d4+2 HP',
+        potionType: 'utility',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'healing_herbs', quantity: 2 },
+            { id: 'water', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    stamina_potion: {
+        id: 'stamina_potion',
+        name: 'Potion of Stamina',
+        effect: 'Restores 1d6+3 MP and grants 1 hour of increased movement speed',
+        potionType: 'utility',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'stamina_grass', quantity: 2 },
+            { id: 'spirit_berries', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    endurance_potion: {
+        id: 'endurance_potion',
+        name: 'Potion of Endurance',
+        effect: 'Restores 2d6+5 HP and grants 1 hour of resistance to fatigue',
+        potionType: 'utility',
+        rarity: 'common',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'ironroot', quantity: 3 },
+            { id: 'firestone_crystals', quantity: 1 }
+        ],
+        goldCost: 30,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    // POTIONS [00:10:51]
+    haste_potion: {
+        id: 'haste_potion',
+        name: 'Potion of Swift Steps',
+        effect: 'Restores 3d6+3 HP and grants +2 speed for 1 hour',
+        potionType: 'buff',
+        rarity: 'legendary',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'rare_mushroom', quantity: 1 },
+            { id: 'glowing_berries', quantity: 3 }
+        ],
+        goldCost: 3000,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    invigorate_potion: {
+        id: 'invigorate_potion',
+        name: 'Potion of Vitality Surge',
+        effect: 'Restores 4d8+4 HP and grants +3 defense for 1 hour',
+        potionType: 'buff',
+        rarity: 'legendary',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'phoenix_feather', quantity: 1 },
+            { id: 'eldritch_essence', quantity: 2 }
+        ],
+        goldCost: 3000,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+    aura_potion: {
+        id: 'aura_potion',
+        name: 'Potion of Aura Surge',
+        effect: 'Restores 5d10+5 HP and grants +4 critical chance for 1 hour',
+        potionType: 'buff',
+        rarity: 'legendary',
+        icon: '🧪',
+        wildcard: true,
+        materials: [
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'starlight_crystal', quantity: 1 },
+            { id: 'shadow_flower', quantity: 3 }
+        ],
+        goldCost: 3000,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
     },
 };
 

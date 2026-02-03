@@ -4463,6 +4463,905 @@ export const VENDORS = {
 
 
 export const SHOP_ITEMS = {
+// Hyrule items
+    'hyrule_tombstone_scepter': {
+        id: 'hyrule_tombstone_scepter',
+        name: "Tombstone Scepter of the Forgotten King",
+        description: "A relic forged from the bones of a fallen ruler of the Temple of the Veiled Sun. When wielded, it whispers secrets of ancient Hyrulean lore and dims enemy light effects.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% chance to reveal enemy hidden abilities",
+        "Reduces light-based damage taken by 20%",
+        "Inflicts 10% chance to trigger a memory flash on hit"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'hyrule_echo_bow': {
+        id: 'hyrule_echo_bow',
+        name: "Echo Bow of the Sundered Temple",
+        description: "This bow echoes the resonance of shattered temple pillars, allowing the user to fire arrows that ricochet off walls and floors with amplified damage.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🎭',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Each arrow ricochets 2 times with 50% damage bonus",
+        "Arrow trajectory can be altered with a quick press",
+        "After 3 ricochets, the bow emits a temporal echo that freezes nearby enemies"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'hyrule_soul_shard': {
+        id: 'hyrule_soul_shard',
+        name: "Soul Shard of the Crimson Temple",
+        description: "A shard of pure soul energy that pulses with the heartbeat of ancient temples. When used, it heals allies and temporarily grants invisibility to the user.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '💉',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Restores 300 HP to self or nearby ally",
+        "Grants 3 seconds of invisibility upon use",
+        "Reduces damage taken by 20% for 10 seconds"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'hyrule_temple_keychain': {
+        id: 'hyrule_temple_keychain',
+        name: "Temple Keychain of the Fractured Gate",
+        description: "A keychain engraved with the sigil of the Temple of the Fractured Gate. It allows the user to bypass locked doors and triggers a mini-event when carried into a temple.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 2500,
+        icon: '🗝',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Opens all temple doors with 100% success",
+        "Triggers a “Temple Echo” event: temporary buff to all party members",
+        "Grants 50% chance to drop hidden loot from temple chests"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+
+
+    // The Feywild items
+    'feywild_tangled_fey_talisman': {
+        id: 'feywild_tangled_fey_talisman',
+        name: "Tangled Fey Talisman",
+        description: "A shimmering amulet woven from forgotten courtly threads, this talisman bends reality to your whim. When worn, it grants a 30% chance to reroll a failed roll in chaotic situations.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Effect 1: Randomly alters the outcome of your next roll by 1d20",
+        "Effect 2: Grants +2 to all rolls in Feywild zones",
+        "Effect 3: If you fail a roll, you may choose to reroll or suffer a minor temporal dissonance"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'feywild_mirrored_bottle': {
+        id: 'feywild_mirrored_bottle',
+        name: "Mirrored Bottle of Shifting Echoes",
+        description: "A glass vessel that holds the fractured echoes of forgotten fey courts. Pouring its contents into a pool causes the water to ripple with alternate realities, allowing the drinker to see a memory of their most recent choice.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Effect 1: Upon consumption, reveals a random memory from your last major decision",
+        "Effect 2: Grants temporary 1d6 willpower to resist chaotic effects",
+        "Effect 3: Causes minor time stutter for 1 round if consumed during a time loop"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'feywild_singularity_ring': {
+        id: 'feywild_singularity_ring',
+        name: "Singularity Ring of the Unbound Court",
+        description: "A pulsating ring that pulses with the rhythm of fey court madness. Wearing it lets you temporarily bypass reality’s logic and enter a ‘Fey Court’ state where all actions are interpreted through a chosen court’s perspective.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Effect 1: Enters a court-themed state for 1 round, granting +1d6 to all rolls",
+        "Effect 2: If you fail a roll, you gain a new ability based on the court’s theme (e.g. “Lore of the Moon” or “Dance of the Thorns”)",
+        "Effect 3: Triggers a 1d4 random court event if worn during a time loop"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'feywild_time_fog_amulet': {
+        id: 'feywild_time_fog_amulet',
+        name: "Time Fog Amulet of the Fractured Hour",
+        description: "A dusty, translucent amulet that shrouds the wearer in a veil of temporal uncertainty. When worn, it causes your actions to echo across multiple timelines, granting temporary immunity to time-based effects.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Effect 1: Grants immunity to time-based damage or effects for 1 round",
+        "Effect 2: All your actions are mirrored across 2 timelines for 1 round",
+        "Effect 3: Causes a 1d4 chance to create a minor time loop if the amulet is damaged"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+
+    // Hyrule items
+    'hyrule_item_name': {
+        id: 'hyrule_item_name',
+        name: "Echoes of the Fractured Atrium",
+        description: "A shimmering artifact forged from the unstable echoes of the Fractured Atrium. When wielded, it amplifies the wielder’s willpower and grants temporary resistance to reality-shattering effects.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+20% Willpower regeneration",
+        "Resistance to Reality Shattering",
+        "Visual aura that distorts enemy perception for 5 seconds"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'hyrule_item_name': {
+        id: 'hyrule_item_name',
+        name: "Temple Key of the Lost Triforce",
+        description: "An ancient key carved from the heartstone of a collapsed temple. It unlocks hidden chambers and triggers memory-based abilities tied to the Triforce’s essence.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Unlocks 1 hidden chamber per use",
+        "Triggers a temporary Triforce aura (10% damage boost, 50% defense buff)",
+        "Restores 10% HP on entering a temple"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'hyrule_item_name': {
+        id: 'hyrule_item_name',
+        name: "Shattered Triforce Shard",
+        description: "A fragment of the Triforce fractured during a cataclysmic temple collapse. When equipped, it grants a temporary buff and reveals hidden paths in the Fractured Atrium.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+15% Attack Speed",
+        "Reveals hidden pathways for 30 seconds",
+        "Grants 5% chance to reflect enemy attacks"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+    'hyrule_item_name': {
+        id: 'hyrule_item_name',
+        name: "Atrium Echo Amulet",
+        description: "Worn by those who walked through the Fractured Atrium, this amulet echoes the whispers of lost temples. It enhances perception and grants a temporary shield against reality fractures.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+10% Perception (detects hidden doors, traps, and echoes)",
+        "Grants 20% resistance to Reality Fracture damage",
+        "Casts a 3-second echo shield that absorbs 50% of incoming damage"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+
+
+    // Valley of Bowser items
+    'valley_bowser_embershield': {
+        id: 'valley_bowser_embershield',
+        name: "Ember Shield of the Crimson Flame",
+        description: "A molten shield forged from Bowser’s volcanic fury. Grants fire resistance and emits a radiant heat aura that burns enemy armor. Perfect for frontline warriors facing lava maws and lava golems.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Fire Resistance +30%",
+        "Radiant Heat Aura: Deals 5% fire damage to enemies within 3m",
+        "Grants +20% movement speed when charged with magma"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'valley_bowser_koopa_heart': {
+        id: 'valley_bowser_koopa_heart',
+        name: "Koopa Heart of the Volcanic Throne",
+        description: "A pulsating, red-core heart that fuels your stamina and regenerates HP. Wears off after 30 seconds of use, but restores 50% of max HP and grants a +20% critical hit chance.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1500,
+        icon: '💓',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Regenerates 50% HP after 30s",
+        "+20% critical hit chance",
+        "Grants +10% attack speed during use"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'valley_bowser_magma_core': {
+        id: 'valley_bowser_magma_core',
+        name: "Magma Core Fragment",
+        description: "A shard of Bowser’s inner lava heart. When equipped, it boosts your defense and triggers a minor earthquake effect around you. Shatters after 10 seconds of use.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1000,
+        icon: '📦',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "Defense Boost +25%",
+        "Minor Earthquake: Deals 10% area damage to nearby enemies",
+        "Grants +5% damage to fire-based attacks"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+    'valley_bowser_bowser_bane': {
+        id: 'valley_bowser_bowser_bane',
+        name: "Bowser Bane Blade",
+        description: "A jagged, obsidian blade infused with Bowser’s wrath. Deals extra damage to enemies with fire resistance. Shatters after 3 hits or 10 seconds of use.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '📦',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Deals 20% extra damage to fire-resistant enemies",
+        "Shatters after 3 hits or 10s",
+        "+15% attack speed when enemy has fire resistance"
+        ],
+        vendor: 'valley_bowser',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+
+    // DK Isles items
+    'dk_isles_tropical_terror': {
+        id: 'dk_isles_tropical_terror',
+        name: "Tropical Terror",
+        description: "A cursed jungle artifact that summons a swarm of venomous spiders when wielded. Grants temporary camouflage in thick foliage. Unleashes a 30-second jungle roar that disorients enemies.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Summon 3 venomous spiders for 30 seconds",
+        "Camouflage in jungle terrain",
+        "Disorient enemies for 5 seconds on hit"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'dk_isles_jungle_gut': {
+        id: 'dk_isles_jungle_gut',
+        name: "Jungle Gut",
+        description: "A fermented root concoction that boosts strength and speed. Causes temporary hallucinations of jungle beasts. Serves as a morale booster for squad morale.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🍽',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "+20% strength for 30 seconds",
+        "+15% movement speed",
+        "Temporary hallucinations of jungle beasts"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 4
+    },
+    'dk_isles_kremling_ice_core': {
+        id: 'dk_isles_kremling_ice_core',
+        name: "Kremling Ice Core",
+        description: "A frozen relic from the Cold War’s last stand. Deals frost damage and slows enemies. Unlocks a hidden ice shield that blocks projectiles.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '📦',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Deals 20% frost damage",
+        "Slows enemies by 30% for 5 seconds",
+        "Activates ice shield for 10 seconds (blocks 1 projectile)"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 6
+    },
+    'dk_isles_toad_bone_key': {
+        id: 'dk_isles_toad_bone_key',
+        name: "Toad Bone Key",
+        description: "A mystical key forged from a toad’s last breath. Opens hidden jungle temples. Grants a temporary +10% dodge chance. Only usable in jungle zones.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 800,
+        icon: '🔑',
+        stock: 7,
+        rarity: 'uncommon',
+        effects: [
+            "Opens hidden jungle temples",
+        "+10% dodge chance for 20 seconds",
+        "Requires jungle terrain to activate"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 3
+    },
+
+
+    // Raventree Manor items
+    'raventree_manor_item_name': {
+        id: 'raventree_manor_item_name',
+        name: "Whispering Shackles of the Unbound",
+        description: "These cursed chains hum with the echoes of lost souls trapped in the manor’s shifting planes. Wearing them grants temporary control over spectral echoes, but each use risks unraveling your own sanity.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants 10% chance to reflect 1d6 damage from spectral attacks",
+        "Causes 1d4 Sanity Drain per use",
+        "+2 to Willpower checks against planar instability effects"
+        ],
+        vendor: 'raventree_manor',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'raventree_manor_item_name': {
+        id: 'raventree_manor_item_name',
+        name: "Echoes of the Shattered Mirror",
+        description: "A shattered mirror that captures fragments of reality’s decay. When held, it reflects visions of possible futures — but the visions may be your own death or the manor’s final collapse.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🌀',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Reveals one hidden path or secret room in the manor",
+        "May cause temporary hallucinations (1d4 rounds)",
+        "Grants +1 to Perception checks against environmental anomalies"
+        ],
+        vendor: 'raventree_manor',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 4
+    },
+    'raventree_manor_item_name': {
+        id: 'raventree_manor_item_name',
+        name: "The Scribe of Shifting Time",
+        description: "A vial containing ink that writes itself on any surface — but the ink reveals truths from alternate timelines. Use carefully, or become trapped in a loop of your own choices.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1800,
+        icon: '📜',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Writes one random truth about your current mission",
+        "+2 to Diplomacy checks when negotiating with planar entities",
+        "Triggers a 1d6 round of time-stasis if used in unstable area"
+        ],
+        vendor: 'raventree_manor',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'raventree_manor_item_name': {
+        id: 'raventree_manor_item_name',
+        name: "Heart of the Unstable Veil",
+        description: "A pulsing, crimson artifact that absorbs ambient planar instability. Wearing it grants temporary resistance to environmental hazards — but at the cost of your own physical form.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '📦',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "+3 to Resolve checks against planar instability",
+        "Grants temporary immunity to planar damage for 1 round",
+        "Causes 1d4 physical mutations after 3 uses"
+        ],
+        vendor: 'raventree_manor',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 6
+    },
+
+
+    // Hyrule items
+    'hyrule_temple_echo_shard': {
+        id: 'hyrule_temple_echo_shard',
+        name: "Temple Echo Shard",
+        description: "A fragment of ancient temple resonance that amplifies your voice during combat. When spoken to, it reveals hidden paths or enemy weaknesses. Only usable in temple ruins or ancient ruins.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Voice amplification in temple zones",
+        "Reveals hidden traps or paths when spoken",
+        "Increases damage dealt to corrupted enemies"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'hyrule_forget_me_not_pendant': {
+        id: 'hyrule_forget_me_not_pendant',
+        name: "Forget Me Not Pendant",
+        description: "A relic from the Forgotten Temple of Sorrow. Wears the wearer with quiet resolve, preventing panic during combat. Wears off after 30 minutes of prolonged battle.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🌿',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Reduces panic chance by 70%",
+        "Grants 5% damage resistance when fear is active",
+        "Restores 10% HP after 30 seconds of calm state"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'hyrule_temple_mind_blade': {
+        id: 'hyrule_temple_mind_blade',
+        name: "Temple Mind Blade",
+        description: "A cursed blade forged from the heart of a temple guardian. It cuts through illusions and echoes, leaving a temporary echo of your last attack.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '📦',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Cuts through illusions and echo effects",
+        "Leaves a 3-second echo of your last attack",
+        "Causes enemies to reflect your damage for 2 seconds"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+    'hyrule_triforce_heart_core': {
+        id: 'hyrule_triforce_heart_core',
+        name: "Triforce Heart Core",
+        description: "A pulsing core of pure Tri Force energy. Grants temporary invincibility and grants a +10% chance to break enemy shields. Only usable once per battle.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '💥',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants 3 seconds of invincibility",
+        "Increases shield break chance by 10%",
+        "Causes 10% chance to deal bonus damage to armored foes"
+        ],
+        vendor: 'hyrule',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+
+
+    // The Feywild items
+    'feywild_loops_of_love': {
+        id: 'feywild_loops_of_love',
+        name: "Loops of Love",
+        description: "A delicate amulet that binds time to the rhythm of the heart. Wearing it allows the wearer to rewind a moment to relive a choice, but each use causes minor emotional decay. Perfect for lovers who fear the consequences of their choices.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Rewind one moment of your last 10 seconds to relive a decision",
+        "Causes minor emotional decay after each use (roll 1d4: 1=none, 2=irritability, 3=melancholy, 4=temporary memory loss)",
+        "Increases your charm bonus by +1 for 1 round after use"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'feywild_chaos_bottle': {
+        id: 'feywild_chaos_bottle',
+        name: "Chaos Bottle",
+        description: "A glass vessel that collects wild magic surges from the Feywild. When shaken, it releases a burst of chaotic energy that can disrupt enemy spells or create a temporary time bubble. Use wisely—may cause minor hallucinations.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1500,
+        icon: '🌿',
+        stock: 2,
+        rarity: 'uncommon',
+        effects: [
+            "Shaken: Disrupts one enemy spell for 1 round",
+        "Creates 30-second time bubble where time moves at 1x speed",
+        "1d4 chance to trigger minor hallucination (see: “You see a version of yourself from the past” or “You hear the Oracle’s voice”)"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 4
+    },
+    'feywild_time_frost': {
+        id: 'feywild_time_frost',
+        name: "Time Frost",
+        description: "A crystalline shard that freezes moments in time, turning them into frozen echoes. Use to pause a battle for 2 rounds or to freeze an enemy’s next action. Risk: If used too often, you may become trapped in a loop yourself.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '📦',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Pause next enemy action for 2 rounds",
+        "Freeze one moment in time (no movement or spell cast) for 3 rounds",
+        "If used more than 3 times, you become trapped in a 10-second loop (roll 1d4 for effect: 1=confusion, 2=regression, 3=memory loss, 4=time rewind)"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 6
+    },
+    'feywild_fey_breath': {
+        id: 'feywild_fey_breath',
+        name: "Fey Breath",
+        description: "A vial of enchanted air drawn from the Feywild courts. Inhale to gain temporary wild magic, or exhale to disrupt an enemy’s next turn. Can be used up to 3 times per day.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2000,
+        icon: '🌿',
+        stock: 4,
+        rarity: 'uncommon',
+        effects: [
+            "Inhale: Gain +2d6 wild magic damage for 1 round",
+        "Exhale: Disrupt one enemy’s next action for 1 round",
+        "If used in combat, you may hear faint echoes of the Fey Courts (roll 1d6: 1-3=positive, 4-6=negative)"
+        ],
+        vendor: 'feywild',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+
+
+    // Shadeward Estate items
+    'shadeward_estate_item_name': {
+        id: 'shadeward_estate_item_name',
+        name: "Crimson Gavel of the Vow",
+        description: "A polished obsidian gavel engraved with the sigil of the Purple Legion. Whispers of compliance echo when struck, subtly influencing nearby nobles to align with your agenda. Perfect for formal dinners where silence is currency.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Inflicts 1d20 Compliancy on target when used (can be ignored with a successful Diplomacy check)",
+        "Grants +1 to Charm checks against nobles during formal events",
+        "Causes nearby NPCs to temporarily bow in reverence when wielded"
+        ],
+        vendor: 'shadeward_estate',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'shadeward_estate_item_name': {
+        id: 'shadeward_estate_item_name',
+        name: "Velvet Veil of the Silent Court",
+        description: "A floor-length crimson velvet cloak that shrouds the wearer in the aura of a courtly ghost. When worn, all conversations within 10 meters are rendered in whispered tones, ideal for covert negotiations.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🌫',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 to Stealth checks in formal settings",
+        "All verbal interactions within 10 meters are whispered (no one can hear you)",
+        "Causes surrounding NPCs to appear slightly more deferential (but not in a suspicious way)"
+        ],
+        vendor: 'shadeward_estate',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'shadeward_estate_item_name': {
+        id: 'shadeward_estate_item_name',
+        name: "Bloodstone Dagger of the Unspoken Pact",
+        description: "A dagger forged from the heart of a fallen noble’s last breath. When unsheathed, it grants the user a silent vow—any act of betrayal is remembered by the estate’s watch, and the user is granted a +2 bonus to Diplomacy checks with the court.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '💀',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Grants +2 to Diplomacy checks against nobles",
+        "When used to threaten or bribe, the target is reminded of their own past betrayal (a roll of 1d20: 1-5 = success, 6-20 = failure)",
+        "If used to kill, the dagger whispers the victim’s name to the estate’s watch"
+        ],
+        vendor: 'shadeward_estate',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'shadeward_estate_item_name': {
+        id: 'shadeward_estate_item_name',
+        name: "The Scribe of the Shattered Throne",
+        description: "A quill pen crafted from the inkwell of a cursed noble’s diary. Writes truth only if the user is untruthful. Perfect for blackmail, but beware—the ink will bleed from the pen if the user lies.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 3500,
+        icon: '📜',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "When used to write, any lie is immediately written in red ink",
+        "All lies are remembered by the estate’s watch (and the user is marked as a traitor)",
+        "If used to write truth, the ink glows faintly, and the user gains +1 to Persuasion checks"
+        ],
+        vendor: 'shadeward_estate',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+
+    // DK Isles items
+    'dk_isles_jungle_scarab_helm': {
+        id: 'dk_isles_jungle_scarab_helm',
+        name: "Jungle Scarab Helm",
+        description: "A relic forged from the bones of ancient jungle serpents and obsidian, this helm grants the wearer stealth in dense foliage and enhances melee accuracy by absorbing ambient jungle vibrations.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Stealth in jungle zones +30%",
+        "Melee accuracy bonus +15%",
+        "Resists jungle poison damage"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'dk_isles_kremlin_gel_bottle': {
+        id: 'dk_isles_kremlin_gel_bottle',
+        name: "Kremlin Gel Bottle",
+        description: "A viscous, frost-tinged gel that temporarily freezes enemy movement and inflicts cold damage. Perfect for jungle ambushes, it also slows enemy regeneration when applied.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Freeze enemy movement for 3 seconds",
+        "Inflicts 20% cold damage per second",
+        "Slows enemy regeneration by 50% for 5 seconds"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'dk_isles_jungle_vibra_core': {
+        id: 'dk_isles_jungle_vibra_core',
+        name: "Jungle Vibra Core",
+        description: "A pulsating crystal embedded with jungle spirit energy, this core grants the wearer temporary speed boosts and disrupts enemy targeting systems in jungle environments.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Speed boost +20% for 10 seconds",
+        "Disrupts enemy targeting systems for 5 seconds",
+        "Increases jungle movement speed by 30%"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+    'dk_isles_kremlin_frost_belt': {
+        id: 'dk_isles_kremlin_frost_belt',
+        name: "Kremlin Frost Belt",
+        description: "Worn by the cold-war elite, this belt emits a low-frequency hum that freezes enemy breath and enhances the wearer’s cold resistance in jungle heat.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Freezes enemy breath for 2 seconds",
+        "Increases cold resistance by 40%",
+        "Reduces jungle heat damage by 35%"
+        ],
+        vendor: 'dk_isles',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+
+    // Shadeward Estate items
+    'shadeward_estate_silken_mask_of_the_vaulted_moon': {
+        id: 'shadeward_estate_silken_mask_of_the_vaulted_moon',
+        name: "Silken Mask of the Vaulted Moon",
+        description: "A whispering mask that conceals your true identity while subtly amplifying your charm and poise at high society events. Wears the gaze of the moon to deflect suspicion and lure allies into false alliances.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+10% chance to disarm social suspicion during formal dinners",
+        "+5% chance to gain favor from influential nobles when worn",
+        "+20% stealth in shadowed ballrooms and private chambers"
+        ],
+        vendor: 'shadeward_estate',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'shadeward_estate_crimson_tassel_of_the_vampire_bloodline': {
+        id: 'shadeward_estate_crimson_tassel_of_the_vampire_bloodline',
+        name: "Crimson Tassel of the Vampire Bloodline",
+        description: "A ceremonial tassel that pulses with the lifeblood of the elder vampires. Wearing it grants you the ability to project your will into the shadows, manipulating the atmosphere to your advantage during tense negotiations.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3200,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+15% chance to influence NPC behavior during political intrigue",
+        "+5% damage to enemies in dimly lit rooms",
+        "+30% chance to detect hidden alliances or betrayals"
+        ],
+        vendor: 'shadeward_estate',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'shadeward_estate_silver_torch_of_the_forgotten_lords': {
+        id: 'shadeward_estate_silver_torch_of_the_forgotten_lords',
+        name: "Silver Torch of the Forgotten Lords",
+        description: "A relic from a long-dead noble house, this torch casts a cold, deceptive glow that reveals hidden truths and secrets buried beneath the estate’s marble floors. Perfect for uncovering lies during dinner conversations.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4800,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+20% chance to uncover hidden truths during social events",
+        "+10% chance to detect hidden rooms or secret passages",
+        "+5% bonus to persuasion checks in high-stakes negotiations"
+        ],
+        vendor: 'shadeward_estate',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+    'shadeward_estate_black_rose_of_the_onyx_hand': {
+        id: 'shadeward_estate_black_rose_of_the_onyx_hand',
+        name: "Black Rose of the Onyx Hand",
+        description: "A cursed flower that blooms only under the gaze of the highest vampires. Its petals are said to absorb the essence of betrayal, turning your enemies’ lies into your own power.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 5000,
+        icon: '🔮',
+        stock: 0,
+        rarity: 'rare',
+        effects: [
+            "+30% chance to detect hidden enemies during formal dinners",
+        "+10% chance to steal secrets from those who speak too much",
+        "+25% chance to convert enemy loyalty into temporary allies"
+        ],
+        vendor: 'shadeward_estate',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+
+
+    // Faerûn items
+    'faerun_item_name': {
+        id: 'faerun_item_name',
+        name: "Shadowveil Cloak of the Fractured Realms",
+        description: "Woven from threads spun by lost planes, this cloak grants temporary invisibility in the Physical Realm while granting the wearer a minor resistance to psychic attacks. When worn across realms, it shatters illusions and allows the wearer to perceive hidden paths.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Invisibility in Physical Realm for 10 minutes",
+        "Resistance to psychic attacks (–2 penalty)",
+        "Perception of hidden paths (1d4 extra paths revealed per day)"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'faerun_item_name': {
+        id: 'faerun_item_name',
+        name: "Emberforged Warhammer of the Sundered Throne",
+        description: "Forged from the molten core of a shattered dragon’s throne, this warhammer deals extra damage to undead and magical constructs. Its strike shatters the very fabric of reality, causing temporary reality fractures in a 10-foot radius.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3200,
+        icon: '📦',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Extra damage to undead and constructs (+3d6)",
+        "Reality fracture (1d6 temporary HP loss to enemy, or 1d6 HP gain to self)",
+        "+1 to attack rolls against magical targets"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'faerun_item_name': {
+        id: 'faerun_item_name',
+        name: "Echo of the Sundered Scribe",
+        description: "A vial containing the ink of a lost scribe who recorded the secrets of the Forgotten Realms. When consumed, it grants temporary insight into the truth behind the party’s current location and any hidden lore within the environment.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1800,
+        icon: '📜',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "Gain 1d4 knowledge tokens for 10 minutes",
+        "Reveals hidden lore or location truth within 30 feet",
+        "Grants +1 to Perception checks against traps or puzzles"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+    'faerun_item_name': {
+        id: 'faerun_item_name',
+        name: "Veil of the Three Realms",
+        description: "A ceremonial veil stitched with threads from each realm—Physical, Shadowfell, and Feywild. When worn, it grants the wearer temporary immunity to planar shifts and allows them to teleport between realms once per day, with a 10-second cooldown.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Immunity to planar shifts for 10 minutes",
+        "Teleportation between realms (1 use per day)",
+        "+1 to AC while in a different realm"
+        ],
+        vendor: 'faerun',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
 // DK Isles items
     'dk_isles_tropical_spirit_rod': {
         id: 'dk_isles_tropical_spirit_rod',
