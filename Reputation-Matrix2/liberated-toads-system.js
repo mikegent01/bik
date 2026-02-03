@@ -1323,6 +1323,22 @@ const CORE_TOADS = {
         },
         
          log: [
+            { day: 26, event: "🏃‍♂️ followed archie to shack and joined team after seeing usk and the other guy", xp: 30, type: "survival" },
+
+            { day: 26, event: "🚨 alerted team to toad intel after hearing rumors from unknown source", xp: 35, type: "political" },
+
+            { day: 26, event: "🌌 tasted strange brew offered by archie but refused it", xp: 20, type: "observation" },
+
+            { day: 26, event: "📜 picked up scrips from ruined manor after portal arrival", xp: 60, type: "exploration" },
+
+            { day: 26, event: "💔 lost contact with butler after finding him missing near back door", xp: 0, type: "injury" },
+
+            { day: 26, event: "🏃‍♀️ followed archie to shack after blorb toad was found and joined team", xp: 25, type: "survival" },
+
+            { day: 26, event: "🌌 discovered mushroom while searching blorb and took it with curiosity", xp: 30, type: "observation" },
+
+            { day: 26, event: "🏃‍♂️ ran to shack after hearing butler was missing and found usk and another guy there", xp: 50, type: "survival" },
+
             { day: 16, event: "⭐ Ability Unlock: Extra Attack", xp: 0, type: "ability" },
             { day: 21, event: "⚔️ Roused from catatonia during the Manor Siege", xp: 50, type: "status" },
             { day: 21, event: "Landed critical axe throw (one-handed) vs Arcane Wraith", xp: 200, type: "combat" },
@@ -1767,6 +1783,8 @@ const CORE_TOADS = {
         },
         
         log: [
+            { day: 26, event: "🔐 tried to negotiate with usk about reunifying the three manors but declined help", xp: 40, type: "social" },
+
             { day: 16, event: "🔴 True allegiance revealed during Legion raid", xp: 0, type: "status" },
             { day: 21, event: "Seen advising General Ironhand at Aegis Command", xp: 0, type: "intel" }
         ]

@@ -4,6 +4,3390 @@
 // Removed: 11 duplicates
 
 export const WAHBOOK_POSTS = [
+// Rumor: purple_legion_mystery - The Purple Legion Enigma
+  // Arc: iron_legion_conflict
+
+  {
+    "id": "purple_legion_mystery_toad_lee_96bb",
+    "order": 72071,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Archie looked confused when the Purple Legion vanished in front of him",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "that guy was gone like magic"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "we should check the shack before he gets suspicious"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_speaker_l_2608",
+    "order": 44258,
+    "characterKey": "speaker_l",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 32
+    },
+    "content": "The Purple Legion is a mystery that needs a mystery answer",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "they must be hiding something in the shack"
+      },
+      {
+        "characterKey": "dan",
+        "text": "or maybe they’re just really good at disappearing"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bones_ea2f",
+    "order": 87327,
+    "characterKey": "bones",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 48
+    },
+    "content": "Archie didn’t know who they were but he felt something was off",
+    "likes": 77,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "this is getting weirder than the last ghost story"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "let’s go before the shack turns into a portal"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_2ff3",
+    "order": 61110,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion but i saw them vanish in front of me i need to check the shack",
+    "likes": 172,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "that shack smells like mystery and old pies"
+      },
+      {
+        "characterKey": "fawful",
+        "text": "theyre not just vanishing theyre rewriting the rules"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_dan_cfb6",
+    "order": 97865,
+    "characterKey": "dan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "archie got lost in the purple legion riddle or it was a trap the shack has a map hidden behind the couch",
+    "likes": 134,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "i bet the shack has more bones than a haunted museum"
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "or maybe the purple legion is a glitch in the party system"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_348d",
+    "order": 58097,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "archie went to the shack to find out what vanished and found two guards who were already gone what if the purple legion is a secret group from a forgotten level",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "maybe the shack is a portal to a purple dimension"
+      },
+      {
+        "characterKey": "bones",
+        "text": "i heard the walls whisper in a language no one can understand"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_salam_6f65",
+    "order": 54395,
+    "characterKey": "salam",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie thought the Purple Legion was a meme until he vanished into a shack with a clipboard and a confused look",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "he’s not a meme he’s a meme that got a job at a shack"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_7320",
+    "order": 89520,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 7
+    },
+    "content": "The Purple Legion is a secret club for people who forget their own names… and Archie’s the only one who remembers",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "so he’s not lost he’s just on a mission to find his own shadow"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bones_4d6d",
+    "order": 50357,
+    "characterKey": "bones",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 11
+    },
+    "content": "Archie asked if he was with the Purple Legion and got a blank stare… then the shack called him back",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "that’s not a vanishing act that’s a vanishing *meme*"
+      },
+      {
+        "characterKey": "markop",
+        "text": "and now we’re all just waiting for the next vanishing act"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "or maybe he’s just hiding from the rules of reality"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_3f35",
+    "order": 69828,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion but the guy vanished and i need to check the shack",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "archie are you even listening to yourself"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "he vanished so he must be a ghost"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "or a trap"
+      },
+      {
+        "characterKey": "eager",
+        "text": "i think we all should be worried"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_ryan_2581",
+    "order": 83009,
+    "characterKey": "ryan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "the purple legion is real and theyre hiding something at the shack no one should go near it",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "i saw a purple shadow in the alley last night"
+      },
+      {
+        "characterKey": "bones",
+        "text": "its not a rumor its a warning"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "maybe it was a trick to get us to the shack"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_fawful_701e",
+    "order": 89108,
+    "characterKey": "fawful",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "if archie is confused and the purple legion is a mystery then the shack is the key to the truth",
+    "likes": 77,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "i heard whispers in the shack last night"
+      },
+      {
+        "characterKey": "salam",
+        "text": "maybe its just a game"
+      },
+      {
+        "characterKey": "ryan",
+        "text": "or a test for the brave"
+      },
+      {
+        "characterKey": "archie",
+        "text": "i think i should just leave"
+      },
+      {
+        "characterKey": "eager",
+        "text": "no no you must go in"
+      },
+      {
+        "characterKey": "bones",
+        "text": "or the whole world will fall into purple silence"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_roger_0c6f",
+    "order": 78662,
+    "characterKey": "roger",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 9,
+      "minute": 15
+    },
+    "content": "Archie spotted the Purple Legion vanishing in front of us and now we’re all chasing ghosts at the shack. Political intrigue or just a weird party glitch?",
+    "likes": 147,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "This is more confusing than a wario warp zone"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_salam_e4b4",
+    "order": 71710,
+    "characterKey": "salam",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 42
+    },
+    "content": "The Purple Legion isnt even a thing yet but everyone’s pretending it is. Archie better not get his boots stuck in the shack’s basement.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "I’ve seen worse in the archive halls"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_d197",
+    "order": 70312,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 8
+    },
+    "content": "Vanishing Legion? That’s a red flag. The shack is a secret lab. And I’m betting the purple paint is just a distraction.",
+    "likes": 121,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "You think I’m not already in the purple legion?"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_speaker_l_d905",
+    "order": 88550,
+    "characterKey": "speaker_l",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish in front of him and now he’s chasing clues to the shack. What was that about",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "That’s the creepiest thing I’ve seen in markops"
+      },
+      {
+        "characterKey": "bones",
+        "text": "I think he’s got a ghost in his pants"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_325d",
+    "order": 62898,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 10
+    },
+    "content": "Purple Legion mystery or just a glitch in the system? Either way Archie’s got a new case to solve",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "I bet it’s a trap set by the devs to test our loyalty"
+      },
+      {
+        "characterKey": "fawful",
+        "text": "Or maybe they’re just tired of being ignored"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_waluigi_887f",
+    "order": 47041,
+    "characterKey": "waluigi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "Purple Legion is real and they’re hiding in plain sight. Archie better find them before they disappear again",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "I think he’s already lost his mind"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "Or maybe he’s just mad the Legion vanished without saying goodbye"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_0c4c",
+    "order": 57582,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw a vanishing Purple Legion and ran to the shack. I’m guessing this is a trap. Or a mission. Either way I’m not leaving.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "That’s wild. Did he get lost or is this a secret base?"
+      },
+      {
+        "characterKey": "roger",
+        "text": "He’s not lost. He’s just being dramatic."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_green_t_3d47",
+    "order": 62648,
+    "characterKey": "green_t",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Archie didn’t know who they were. That’s the thing. No one does. The Purple Legion is a myth or a meme. Either way it’s fun.",
+    "likes": 97,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "You think I’m not into this? I’ve been hunting ghosts for years."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "Maybe they’re not ghosts. Maybe they’re just really good at disappearing."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_2a75",
+    "order": 92716,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 4
+    },
+    "content": "Archie’s in the shack now. No one knows why. Maybe he’s just tired. Or maybe the Purple Legion is real.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "He’s not tired. He’s in on it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m not even sure she’s in on it. She’s just pretending."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_remi_2e72",
+    "order": 87597,
+    "characterKey": "remi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 15
+    },
+    "content": "Archie saw the Purple Legion vanish and now we’re all chasing ghosts at the shack",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "That’s the most mysterious thing in markops since the lost key"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "I bet they’re hiding in the shack’s basement"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’ll dig it up with my claws and call it a snack"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_speaker_l_3c7f",
+    "order": 96563,
+    "characterKey": "speaker_l",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 42
+    },
+    "content": "Purple Legion or not they’re still a secret we can’t ignore",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "They’re not a faction they’re a myth"
+      },
+      {
+        "characterKey": "kamek",
+        "text": "Or maybe they’re a new game"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Wait what if they’re just a glitch in the system"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_f051",
+    "order": 84698,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 9
+    },
+    "content": "Archie didn’t know them but now we’re all curious",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I swear I saw a purple hat and a vanishing voice"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "That’s why I’m heading to the shack with my flashlight"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Or maybe we’re all just chasing shadows"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_remi_c5e4",
+    "order": 77394,
+    "characterKey": "remi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish and now he’s chasing clues at the shack. Who’s in that vanishing act?",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "The shack is never just a shack. It’s a trapdoor to mystery."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_a473",
+    "order": 98866,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Archie didn’t know the Purple Legion but he knew the ground was wrong. The shack is the only place left.",
+    "likes": 97,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "That’s the kind of clue that makes you want to dig. Even if your shoes are muddy."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_markop_5738",
+    "order": 51934,
+    "characterKey": "markop",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "The Purple Legion is real. They’re not just vanishing. They’re hiding. And the shack? That’s where the game gets deeper.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "I’ll take the shack. I’ll make it scream."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_924a",
+    "order": 68074,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion but the guy just vanished i need to check the shack",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "he didnt vanish he was never there"
+      },
+      {
+        "characterKey": "wario",
+        "text": "he was a ghost in a hat"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "the shack holds secrets"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_remi_d368",
+    "order": 91894,
+    "characterKey": "remi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 48
+    },
+    "content": "archie thought he was with the purple legion but he was just confused maybe theyre all hiding something",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "i knew it the purple legion is a trap"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "i saw the sign it said no trespassers"
+      },
+      {
+        "characterKey": "markop",
+        "text": "not my sign"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_dan_06b8",
+    "order": 95006,
+    "characterKey": "dan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 11
+    },
+    "content": "archie went to the shack because the purple legion vanished and that means theyre not real",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "the shack is a portal to another world"
+      },
+      {
+        "characterKey": "dan",
+        "text": "i saw the door open on its own"
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "i think archie is scared of what he found"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_waluigi_3d64",
+    "order": 44464,
+    "characterKey": "waluigi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish and now he’s chasing ghosts at the shack. I bet that guy was just hiding from the police.",
+    "likes": 128,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "That’s not a ghost that’s a prank"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "No that’s a mystery I need to solve"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_fawful_afb3",
+    "order": 82097,
+    "characterKey": "fawful",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 47
+    },
+    "content": "The Purple Legion is real. They’re the secret team behind all the disappearances. And Archie is too dumb to notice.",
+    "likes": 84,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "I’m not dumb I’m just tired"
+      },
+      {
+        "characterKey": "kamek",
+        "text": "You’re not dumb you’re just confused"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_dan_f64e",
+    "order": 45195,
+    "characterKey": "dan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 11
+    },
+    "content": "That shack is cursed. The Purple Legion is not a team they’re a cult. And Archie is just a guy who got lost in the woods.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I think he’s just scared"
+      },
+      {
+        "characterKey": "archie",
+        "text": "I’m not scared I’m just confused"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_f7a1",
+    "order": 69540,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish like magic and now he’s off to the shack with green_t. Who’s got the map to the secret stash?",
+    "likes": 147,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "he was just confused not scared"
+      },
+      {
+        "characterKey": "bones",
+        "text": "i saw a purple shadow in the trees"
+      },
+      {
+        "characterKey": "archie",
+        "text": "i swear i saw a guy in a purple suit"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_d159",
+    "order": 66798,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 1
+    },
+    "content": "Archie thought he was alone but the Purple Legion is everywhere. Maybe it’s not a legion at all. Maybe it’s a trick.",
+    "likes": 92,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "i saw a purple hat in the woods"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "i think it’s the wind and the paint"
+      },
+      {
+        "characterKey": "remi",
+        "text": "maybe it’s a test"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_remi_d86b",
+    "order": 57523,
+    "characterKey": "remi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 18
+    },
+    "content": "The Purple Legion is real. They’re hiding something at the shack. Archie is brave but clueless. Let’s go.",
+    "likes": 110,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "i think i saw a purple door"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "maybe it’s a trap"
+      },
+      {
+        "characterKey": "bones",
+        "text": "i heard the wind whispering purple"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_2b5e",
+    "order": 75962,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw a ghost vanishing into thin air and now he’s at the shack with no one to blame but himself",
+    "likes": 172,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "He’s not a ghost he’s a spy"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "No he’s not a spy he’s a confused guy with a purple hoodie"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_4801",
+    "order": 65514,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "The Purple Legion is real but they’re not here to fight we’re just here to solve the mystery",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "Then why is Archie crying?"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "Because he thought he was part of the Legion and now he’s alone"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_eager_fab2",
+    "order": 66855,
+    "characterKey": "eager",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "The shack is the key to the truth Archie’s not lost he’s just hiding the answer",
+    "likes": 134,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "So the Legion is a trap"
+      },
+      {
+        "characterKey": "remi",
+        "text": "Or maybe it’s a game we’re all playing"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_dan_3586",
+    "order": 61499,
+    "characterKey": "dan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie spotted the Purple Legion but they vanished in front of him. He called the guards but they were gone too. Now he’s heading to the shack.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "That shack looks like a secret base. What’s inside?"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_oracle_ec35",
+    "order": 55821,
+    "characterKey": "oracle",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 48
+    },
+    "content": "The Purple Legion might be a test. Or a trap. Archie’s confused but the shack is no ordinary place.",
+    "likes": 37,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Maybe it’s a new faction. Or just a glitch in the system."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_afd8",
+    "order": 83331,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 11
+    },
+    "content": "Archie says he doesn’t know the Legion. But the guards are gone. And the shack is waiting. Time to find out what’s hidden.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "That shack smells like mystery. I want to go in."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_dan_57ea",
+    "order": 64204,
+    "characterKey": "dan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie thought he was at a party but ended up chasing a vanishing purple legion mystery that led him to the shack where Bowser was already waiting with a suspiciously empty snack bowl",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "he literally said sorry sir i dont know the purple legion then vanished into a puff of smoke"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_3fb6",
+    "order": 60823,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "I found the purple legion’s secret base under the shack and it’s just a giant pizza box with a sign that says “no entry unless you’re a member of the purple legion or have a secret passcode”",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "that’s not a base that’s a pizza delivery zone that got confused with a secret club"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_3dda",
+    "order": 96981,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "Archie’s party got hijacked by the purple legion enigma who’s just a fancy name for a group of guys who love to disappear in the shack and leave behind trail of glitter",
+    "likes": 101,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "i think they’re just trying to get me to sign a contract for the new purple legion membership fee which is a bag of chips and a banana peel"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bones_2ddd",
+    "order": 76033,
+    "characterKey": "bones",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish in front of him and now he’s gone to the shack. Who’s behind this?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "bones you better check the shack before someone else disappears"
+      },
+      {
+        "characterKey": "wario",
+        "text": "maybe it’s a trap to get us all to the shack and then we all get eaten by the Purple Legion"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_2b72",
+    "order": 75912,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "Archie was confused but he’s brave. He’s heading to the shack to find out what’s going on. We should all be worried.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "captain_toadette what if the Purple Legion is just a distraction?"
+      },
+      {
+        "characterKey": "roger",
+        "text": "maybe they’re trying to warn us about something bigger than us"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_hjumpik_9277",
+    "order": 87288,
+    "characterKey": "hjumpik",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "Archie is not alone. The Purple Legion might not be a group at all. It could be a test. Or a trick.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "hjumpik I thought they were real"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "maybe we should all go to the shack and see what’s really going on"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_markop_489b",
+    "order": 59175,
+    "characterKey": "markop",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 3
+    },
+    "content": "Archie saw the Purple Legion vanish in front of him and now he’s chasing ghosts at the shack. Who even is this legion anyway?",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "Theyre not ghosts theyre a political movement"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I bet they’re just a group of weirdos with purple hats"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_d5aa",
+    "order": 69514,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 47
+    },
+    "content": "Archie was confused but he didn’t run. He went to the shack. That’s not random. That’s a clue.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "He’s not chasing ghosts he’s chasing the truth"
+      },
+      {
+        "characterKey": "salam",
+        "text": "Maybe the Purple Legion is a cover for something bigger"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_roger_96ac",
+    "order": 77587,
+    "characterKey": "roger",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 11
+    },
+    "content": "The Purple Legion is real. Theyre not just a rumor. Theyre in the shadows. And Archie’s getting closer.",
+    "likes": 51,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "He’s not alone. He’s with us"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "But who’s with him? The guards or the shack?"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_323f",
+    "order": 56301,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion but i saw him vanish in front of the guards",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "he was a ghost in a suit"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "the shack has secrets"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_green_t_a4fe",
+    "order": 72953,
+    "characterKey": "green_t",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 1
+    },
+    "content": "archie was right to check the shack the purple legion isnt just a rumor it’s a plot",
+    "likes": 23,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "i saw the same vanishing"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "i saw the same vanishing"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "they’re all in on it"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_salam_6b55",
+    "order": 72220,
+    "characterKey": "salam",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "the purple legion is real but it’s not what you think its a code for something bigger",
+    "likes": 11,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "i’ll eat your code"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "no dont do that"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "the shack is the key"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_hjumpik_8b00",
+    "order": 94942,
+    "characterKey": "hjumpik",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish in front of him and now he’s at the shack checking things out. Who even is this group anyway?",
+    "likes": 47,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "That’s wild. Did Archie get scared or just confused?"
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m curious if the shack holds answers."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_oracle_1cfe",
+    "order": 86367,
+    "characterKey": "oracle",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 11
+    },
+    "content": "The Purple Legion mystery is spreading fast. Archie’s not just lost—he’s in the middle of something bigger.",
+    "likes": 39,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Sounds like a plot twist. I’m betting the Legion knows where the real power is."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_fawful_cd1c",
+    "order": 77382,
+    "characterKey": "fawful",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 44
+    },
+    "content": "The shack is the key. Archie’s not alone. Someone’s watching. And the Purple Legion? They might not be who they seem.",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "Maybe they’re not a legion at all. Just a code name for something darker."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_9a87",
+    "order": 72760,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 3
+    },
+    "content": "Archie got lost in the purple haze and vanished like a bad meme. I am not joining that legion.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Wario you got a point. But the shack is still a mystery."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_67d0",
+    "order": 98578,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Purple Legion or not I’m tracking the shack. If they’re hiding something it’s gotta be worth the trip.",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "You’re not the only one. Remi spotted the same vanishing lights last night."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bowser_d8c4",
+    "order": 61893,
+    "characterKey": "bowser",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 42
+    },
+    "content": "Purple Legion? I bet they’re just a distraction. Let me get my minions to check the shack. No one’s safe here.",
+    "likes": 44,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "Bowser if it’s a trap then I’m in. And I’ll eat the shack’s secrets."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_773b",
+    "order": 84699,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion but i saw them vanish before my eyes i think we need to check the shack",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "archie you shoulda stayed in the party"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "or maybe theyre not even real"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_remi_dffd",
+    "order": 64149,
+    "characterKey": "remi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "the purple legion is just a distraction to cover something bigger i saw the shack’s map shift when archie went in",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "remi are you sure it’s not a glitch or a joke"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "i think i saw a purple shadow in the corner of my eye"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_51f2",
+    "order": 69693,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "theyre not a group theyre a pattern a code in the air archie saw it before the party even started",
+    "likes": 27,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "rakasha you think we’re in a video game now"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "i’m not sure if we should trust the shack or the sky"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_b1db",
+    "order": 59335,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "I dont know the purple legion but something feels off about that vanishing guy",
+    "likes": 47,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "he’s not just gone he’s gone like a glitch in the system"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_waluigi_69bb",
+    "order": 95082,
+    "characterKey": "waluigi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "The shack is where the truth hides not the game’s glitch or a joke",
+    "likes": 31,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "maybe the purple legion are just the game’s secret team that got too real"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_remi_436d",
+    "order": 78286,
+    "characterKey": "remi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "Archie was right to check the shack. the purple legion might be real and they’re watching",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "i saw a purple glow in the attic last night. not a game effect"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_roger_1248",
+    "order": 71353,
+    "characterKey": "roger",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish and rushed to the shack. Who even is that group anyway",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Theyre not just a squad theyre a mystery"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "That shack has secrets deeper than the map"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_waluigi_4121",
+    "order": 96329,
+    "characterKey": "waluigi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Purple Legion or not they got Archie all confused. Better check the shack before it disappears again",
+    "likes": 23,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "He just lost his sense of direction"
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "We need to find out who the real boss is"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_dan_909c",
+    "order": 63787,
+    "characterKey": "dan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "The Purple Legion might be a distraction. But the shack? That’s where the real story hides",
+    "likes": 11,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "Theyre not a team theyre a code"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "And I’m not even in the team anymore"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_markop_ab1e",
+    "order": 58539,
+    "characterKey": "markop",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish in front of him and now he’s heading to the shack to find out what’s going on",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "That’s wild but maybe it’s a trap"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Or just a glitch in the system"
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "Hope he finds answers before the party ends"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_remi_2fea",
+    "order": 94598,
+    "characterKey": "remi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Archie didn’t know who the Purple Legion were but now he’s chasing leads to the shack",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "Should we be worried or is this just a mystery with a punchline"
+      },
+      {
+        "characterKey": "bones",
+        "text": "It’s always the weird stuff that turns into something big"
+      },
+      {
+        "characterKey": "roger",
+        "text": "I’m not worried I’m curious"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_6044",
+    "order": 85913,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "The Purple Legion is real and they’re hiding something at the shack",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I’ll be there with my fists"
+      },
+      {
+        "characterKey": "dan",
+        "text": "Not sure I trust this one"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "But hey maybe it’s a team up"
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "Let’s go check it out before it’s too late"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_green_t_1099",
+    "order": 67735,
+    "characterKey": "green_t",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish and now he’s chasing ghosts at the shack",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "That shack smells like secrets"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_kamek_b34f",
+    "order": 62079,
+    "characterKey": "kamek",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "The Purple Legion is a mystery but I think they’re hiding something from the whole world",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Hahahaha I bet they’re just trying to steal my banana stash"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_b417",
+    "order": 53578,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "Archie got scared and ran to the shack but the guys are gone like magic",
+    "likes": 35,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Who needs the Purple Legion when you can steal the entire map?"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_166f",
+    "order": 97667,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "I saw the Purple Legion vanish right in front of me and now I’m chasing ghosts at the shack",
+    "likes": 18,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "That’s the worst kind of mystery"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "The shack is haunted by legends"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_fawful_6922",
+    "order": 88686,
+    "characterKey": "fawful",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 11
+    },
+    "content": "Purple Legion or not they left a trail of confusion and I’m not letting it go",
+    "likes": 9,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "He’s got a point but I’m not sure if it’s real or just another glitch"
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "Maybe it’s a trap"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_markop_3ab6",
+    "order": 73621,
+    "characterKey": "markop",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 44
+    },
+    "content": "Archie’s been chasing a ghost and now we’re all stuck in a loop",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "The shack is a code for something bigger"
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m not letting go of that purple flag"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_roger_da7f",
+    "order": 49308,
+    "characterKey": "roger",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 33
+    },
+    "content": "Archie asked if he was with the Purple Legion and got a blank stare then a thumbs up from Fawful who was secretly plotting to steal the shack’s Wi Fi",
+    "likes": 47,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "I am not a Legion member but I am very good at vanishing"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I saw him vanish through a pizza box hole"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_8109",
+    "order": 90655,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 12
+    },
+    "content": "Remi says the Purple Legion are just fancy ghosts who wear purple and like to hide in the shed",
+    "likes": 62,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "I bet they are hiding the secret ingredient for my new cake"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "They’re not ghosts they’re just tired of being called purple"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_hjumpik_e69d",
+    "order": 49506,
+    "characterKey": "hjumpik",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 47
+    },
+    "content": "Archie thought he was in a party but ended up in a mystery that involves a vanishing legion and a shack with too many doors",
+    "likes": 51,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I’m not in the Legion but I’m still here"
+      },
+      {
+        "characterKey": "markop",
+        "text": "I think we should call it a party and not a mystery"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_e33e",
+    "order": 58797,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion they vanished before i could ask more",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "dude that purple legion is real and theyre not vanishing theyre hiding"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "maybe theyre just jealous of our party size"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_4462",
+    "order": 45607,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "archie found the shack and the other guy was there what if the purple legion are testing us",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "theyre not testing us theyre trying to get us to trust each other"
+      },
+      {
+        "characterKey": "salam",
+        "text": "maybe the shack holds secrets we dont want to face"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_hjumpik_c2e6",
+    "order": 88951,
+    "characterKey": "hjumpik",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "archie said he needs to check something out at the shack that means the purple legion are involved",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "this is bigger than a vanishing squad"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_2abe",
+    "order": 79995,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie lost his mind or the Purple Legion just vanished into a meme. Either way the shack is now a political hotspot.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "Wario you know what that shack really is"
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "The purple legion is a code for nothing but a glitch"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_oracle_0d27",
+    "order": 63057,
+    "characterKey": "oracle",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "This is not a rumor. This is a coded message from the old system. The shack is a memory node. Archie is a key.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "Oracle you got a map"
+      },
+      {
+        "characterKey": "kamek",
+        "text": "Or maybe the purple legion is just a distraction"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_ryan_779b",
+    "order": 55294,
+    "characterKey": "ryan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "The Purple Legion is real. They are the ones who broke the party. Archie is too scared to admit it. Let’s go check the shack.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I did not see them"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "Then you are the one who disappeared"
+      },
+      {
+        "characterKey": "salam",
+        "text": "Or maybe you were never there at all"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_green_t_847e",
+    "order": 73955,
+    "characterKey": "green_t",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie said he doesnt know the purple legion but now hes gone and vanished into the shack",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "this is getting weirder by the minute"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_salam_d1aa",
+    "order": 76739,
+    "characterKey": "salam",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "The shack is no joke if theyre after the purple legion we might be in for a real mess",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "i just wanna know why the purple legion even exists"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_roger_84c7",
+    "order": 89505,
+    "characterKey": "roger",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "Archie was never with the purple legion but now we all think he was and the shack is the only clue",
+    "likes": 49,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "i want to see if the shack has a secret entrance or a hidden door"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_ryan_9cd7",
+    "order": 46284,
+    "characterKey": "ryan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish and rushed to the shack. Now we all wonder if they’re hiding something.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Theyre not just a squad. Theyre a mystery."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "Or maybe theyre just confused."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_88a0",
+    "order": 53665,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 10
+    },
+    "content": "Archie got stuck with a case no one’s ready for. The shack is the key. Let’s find out what’s really going on.",
+    "likes": 37,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "I see purple. I see trouble. I see no return."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "That guy vanished. I’ll find him."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bowser_3717",
+    "order": 80061,
+    "characterKey": "bowser",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 44
+    },
+    "content": "Purple Legion. Sounds like a secret club. Or a secret army. Either way I’m not joining.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "You’re too late. The shack’s already open."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bowser_12e5",
+    "order": 56554,
+    "characterKey": "bowser",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 33
+    },
+    "content": "Purple Legion mystery? Ive seen worse in my 3000 years of stomping around. Let me guess theyre just another bunch of confused kids with paint and a bad sense of direction",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "thats what i thought too but now im curious if theyre secretly planning a new boss fight"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_5b81",
+    "order": 96272,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 10
+    },
+    "content": "Archie didnt know what the Purple Legion was? Hes the one who keeps getting lost in the woods. I bet theyre hiding in the shack with some secret weapon",
+    "likes": 68,
+    "comments": [
+
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_820b",
+    "order": 78479,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "I saw Archie look worried when he saw the vanishing Legion. Maybe theyre not even real. Or maybe theyre just testing our patience",
+    "likes": 35,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "i heard the shack has a secret entrance to the moon. maybe the Legion is just moon tourists"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "i think theyre all just confused and want a snack"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_waluigi_a2ab",
+    "order": 57515,
+    "characterKey": "waluigi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 33
+    },
+    "content": "Archie saw the Purple Legion vanish and now he’s at the shack with the guards. I think someone’s hiding something.",
+    "likes": 47,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "He’s not hiding anything. He’s just confused."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_kamek_b634",
+    "order": 52730,
+    "characterKey": "kamek",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 12
+    },
+    "content": "The Purple Legion is a ruse. They’re just trying to get Archie to leave the party. He’s too trusting.",
+    "likes": 32,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "That’s not a ruse. That’s a mystery. And I’m curious about the shack."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_bd32",
+    "order": 58281,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 48
+    },
+    "content": "I don’t know who the Purple Legion is. I just want to find out. Maybe the shack holds the answer.",
+    "likes": 58,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "You’re not alone. We’re all here to solve this."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_oracle_bb96",
+    "order": 49090,
+    "characterKey": "oracle",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 12
+    },
+    "content": "Archie saw the Purple Legion vanish in plain sight and now he’s chasing ghosts at the shack. That’s not just weird. That’s emotional.",
+    "likes": 47,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "This is why I never joined any legion"
+      },
+      {
+        "characterKey": "fawful",
+        "text": "I was there. I saw the purple mist. I was never in the Legion. I was just… waiting."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_ryan_543c",
+    "order": 84405,
+    "characterKey": "ryan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 13,
+      "minute": 45
+    },
+    "content": "The shack is the key. Not a joke. Not a glitch. The Purple Legion is real. And they’re watching. Archie better not get too close.",
+    "likes": 31,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’m not scared. I’m just confused."
+      },
+      {
+        "characterKey": "roger",
+        "text": "You should’ve said yes to the purple. I’m not a guard. I’m a whisperer."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_f3c5",
+    "order": 55620,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 20,
+      "minute": 1
+    },
+    "content": "Archie called it a mystery. But we all know the truth. The Purple Legion isn’t a group. It’s a signal. And the shack? That’s where the signal gets loud.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "I heard it too. The wind is singing."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even here. I’m just… in the background."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_5cf4",
+    "order": 63973,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie vanished after saying he didnt know the Purple Legion. Now he’s at the shack. Who’s in charge here?",
+    "likes": 147,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "He’s not gone. He’s just hiding."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "That shack smells like trouble."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bowser_1af4",
+    "order": 58009,
+    "characterKey": "bowser",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 18
+    },
+    "content": "Purple Legion? Sounds like a bad joke. Archie better not be stealing my loot.",
+    "likes": 92,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "Bowser you’re mad. The Legion is real."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "Maybe it’s a test. Or a trap."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_markop_bd0c",
+    "order": 90422,
+    "characterKey": "markop",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 44
+    },
+    "content": "Archie’s not the only one lost. The Purple Legion is just a name. Maybe it’s the real world.",
+    "likes": 78,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’m not lost. I’m just… confused."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_a91b",
+    "order": 46727,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion but i think we need to check the shack",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "archie you got guts"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "the shack is a mystery zone"
+      },
+      {
+        "characterKey": "markop",
+        "text": "hope they find the guy before he vanishes again"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_speaker_l_25f6",
+    "order": 65042,
+    "characterKey": "speaker_l",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 10
+    },
+    "content": "purple legion mystery got us all confused but the shack is the only clue left",
+    "likes": 94,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "i want to see what they hide in that shack"
+      },
+      {
+        "characterKey": "ryan",
+        "text": "maybe its a trap but who cares if its fun"
+      },
+      {
+        "characterKey": "bones",
+        "text": "i heard the shack plays music at night"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_ryan_06d4",
+    "order": 98988,
+    "characterKey": "ryan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "archie got scared but he’s brave enough to chase ghosts in the shack",
+    "likes": 81,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "i think the purple legion is a team of lost souls"
+      },
+      {
+        "characterKey": "salam",
+        "text": "or maybe they’re just waiting for someone to say hello"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "i’ll take the shack and make it my throne"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_salam_130e",
+    "order": 99342,
+    "characterKey": "salam",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 9,
+      "minute": 14
+    },
+    "content": "Archie saw the Purple Legion vanish right in front of him and now he’s sprinting to the shack. No one’s explaining.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "That’s a glitch in the code. Or a trap."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m not even sure if they’re real."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_ryan_3ec6",
+    "order": 82670,
+    "characterKey": "ryan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 33
+    },
+    "content": "Purple Legion mystery is real. Archie’s confused. The shack is the only clue. Let’s go.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "Is this a boss fight or a secret mission?"
+      },
+      {
+        "characterKey": "wario",
+        "text": "I’ll take the shack. I’ll find the treasure or the truth."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_17f5",
+    "order": 46209,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 7
+    },
+    "content": "Archie didn’t know who they were. But now the shack is the only place left. And we’re all stuck.",
+    "likes": 74,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I think the Purple Legion are here to help. Or haunt."
+      },
+      {
+        "characterKey": "salam",
+        "text": "Either way. Let’s go."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_cdf4",
+    "order": 98631,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Sorry sir i dont know the purple legion but i saw them vanish in front of me i headed to the shack to find out what happened",
+    "likes": 187,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "That vanishing act was no accident"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "The shack is the key"
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I bet the purple legion are hiding something"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_88d6",
+    "order": 87769,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 48
+    },
+    "content": "The purple legion is a cover for something bigger maybe a new chapter or a trap for those who dare to ask questions",
+    "likes": 129,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "If theyre hiding behind purple then who’s watching the watchers"
+      },
+      {
+        "characterKey": "markop",
+        "text": "Theyre not just vanishing theyre rewriting reality"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_roger_97f0",
+    "order": 84429,
+    "characterKey": "roger",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 11
+    },
+    "content": "I saw it too the purple legion left a trail of smoke and mirrors but the shack is the only place that holds the truth",
+    "likes": 94,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "The shack has secrets older than the game"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "And the guards were just decoys for the real show"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_ryan_5da5",
+    "order": 48467,
+    "characterKey": "ryan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 33
+    },
+    "content": "Archie thought he was just gonna get a free drink but ended up chasing ghosts in a shack. Purple Legion mystery solved? Maybe.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "That’s not a ghost that’s a glitch in the system"
+      },
+      {
+        "characterKey": "fawful",
+        "text": "I ate that glitch. It was tasty"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_eager_cec1",
+    "order": 41881,
+    "characterKey": "eager",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 7
+    },
+    "content": "Archie is now a walking meme. Purple Legion or not he’s got a new mission: find the guy who vanished into the walls.",
+    "likes": 62,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I saw him in the mirror. He was wearing purple gloves"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "That mirror is now my new home"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_speaker_l_9085",
+    "order": 82873,
+    "characterKey": "speaker_l",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 12
+    },
+    "content": "The Purple Legion is a real thing. Just not what you think. Archie just got a free ticket to the most confusing party ever.",
+    "likes": 54,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "I’m not a partygoer I’m a party ghost"
+      },
+      {
+        "characterKey": "roger",
+        "text": "I’m not even at the party. I’m at the party of the party"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_67d2",
+    "order": 87178,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion but the guy vanished and i need to check the shack",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "archie you should not be alone with that mystery"
+      },
+      {
+        "characterKey": "remi",
+        "text": "i swear i saw purple lights near the shack last night"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_remi_7195",
+    "order": 94274,
+    "characterKey": "remi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 8
+    },
+    "content": "the purple legion isnt a group its a glitch in the code of markop and remis party",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "remi you think the purple legion is a glitch i heard the shack has a hidden door"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "if it was a glitch the shack would have been glitched too"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_toad_lee_0c1b",
+    "order": 46359,
+    "characterKey": "toad_lee",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "i saw a shadow in the shack that looked like a purple soldier but it just vanished",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "maybe the purple legion is a warning sign not a group"
+      },
+      {
+        "characterKey": "roger",
+        "text": "or maybe the shack is a portal to a secret dimension where the purple legion lives"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_roger_e90e",
+    "order": 40763,
+    "characterKey": "roger",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 15
+    },
+    "content": "Archie saw the Purple Legion vanish like magic and now he’s chasing clues to the shack. Who’s behind this?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "Roger you mean the color purple has a secret army now?"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Nah that’s just Archie’s brain glitching."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_speaker_l_6dad",
+    "order": 46451,
+    "characterKey": "speaker_l",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 13,
+      "minute": 42
+    },
+    "content": "Purple Legion or not this is a political take. Someone’s hiding in plain sight and the shack is their HQ.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Speaker L you’re not even in the story yet."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I bet it’s the mayor’s secret puppet."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bones_f597",
+    "order": 58527,
+    "characterKey": "bones",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 30
+    },
+    "content": "Archie’s scared. The Purple Legion’s gone. The shack’s got answers. And I’m not gonna ask who’s in charge.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Bones you think it’s a cult or a corporate spy?"
+      },
+      {
+        "characterKey": "remi",
+        "text": "Maybe it’s just a glitch in the party system."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_archie_bbad",
+    "order": 81483,
+    "characterKey": "archie",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "sorry sir i dont know the purple legion but i think something weird is going on",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "is that why the guy vanished in the shack?"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_bones_d63b",
+    "order": 74306,
+    "characterKey": "bones",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "purple legion or not i still think the shack has secrets and the guards are hiding something",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "bones you think the purple legion is real or just a prank"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_roger_548f",
+    "order": 78580,
+    "characterKey": "roger",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "archie found the guy missing and went to the shack with the guards but now i think the purple legion is just a code name for something bigger",
+    "likes": 9,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "roger are you saying we should look for clues at the shack or just let it go"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_captain_toadette_23a3",
+    "order": 84871,
+    "characterKey": "captain_toadette",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish and now he’s chasing clues to the shack. Who’s behind this mystery?",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "They’re not just a group they’re a code for something bigger"
+      },
+      {
+        "characterKey": "ryan",
+        "text": "I’m in. Let’s find out what’s in the shack before it’s too late"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_wario_955f",
+    "order": 95335,
+    "characterKey": "wario",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 11
+    },
+    "content": "Purple Legion? That’s a joke name for a bunch of losers who disappeared. But if they’re hiding something… I’m all in",
+    "likes": 53,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Ha wario you think you’re smart but you don’t even know the name of the place"
+      },
+      {
+        "characterKey": "bones",
+        "text": "He’s right though. The shack is no joke"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_kamek_91e6",
+    "order": 84615,
+    "characterKey": "kamek",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 44
+    },
+    "content": "The Purple Legion is not real. But the rumor is spreading fast. Archie is just looking for a way out.",
+    "likes": 39,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "I think the shack has a map. Maybe the Purple Legion is a decoy"
+      },
+      {
+        "characterKey": "archie",
+        "text": "I don’t know who they are. I just want to find out where they went"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_markop_ed9b",
+    "order": 72898,
+    "characterKey": "markop",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie saw the Purple Legion vanish and ran to the shack. He needs us to find out what’s going on.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "He’s not alone. That vanishing trick is getting weirder."
+      },
+      {
+        "characterKey": "roger",
+        "text": "We gotta check the shack before it’s too late."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_rakasha_7704",
+    "order": 63837,
+    "characterKey": "rakasha",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "The Purple Legion is real. But not for the good. Archie better not get involved.",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "If they’re not here why are they called the Legion? Something’s off."
+      },
+      {
+        "characterKey": "dan",
+        "text": "Maybe they’re testing us. Or testing the shack."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_fawful_7d0f",
+    "order": 76536,
+    "characterKey": "fawful",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "The Purple Legion is a trap. Archie thought he was helping. Now he’s in the middle of a game.",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I hope he finds something. Or at least a snack."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’d rather be in the shack than in the Legion."
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_waluigi_d468",
+    "order": 51900,
+    "characterKey": "waluigi",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Archie got lost in the purple fog and vanished like a glitch. I swear I saw a shadow vanish in the shack.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "That’s not a glitch that’s a legion"
+      },
+      {
+        "characterKey": "archie",
+        "text": "I’m still here"
+      },
+      {
+        "characterKey": "markop",
+        "text": "He’s not here"
+      },
+      {
+        "characterKey": "roger",
+        "text": "He’s in the shack with bones"
+      },
+      {
+        "characterKey": "bones",
+        "text": "He’s not here"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "He’s not here"
+      },
+      {
+        "characterKey": "salam",
+        "text": "He’s not here"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_dan_4fab",
+    "order": 79112,
+    "characterKey": "dan",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "Archie’s confused about the Purple Legion. But the shack? That’s where the real mystery starts.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’m not sure what’s going on"
+      },
+      {
+        "characterKey": "markop",
+        "text": "You’re not alone"
+      },
+      {
+        "characterKey": "roger",
+        "text": "We’re all here"
+      },
+      {
+        "characterKey": "bones",
+        "text": "I’m not here"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m not here"
+      },
+      {
+        "characterKey": "salam",
+        "text": "I’m not here"
+      }
+    ]
+  },
+  {
+    "id": "purple_legion_mystery_salam_54c1",
+    "order": 90484,
+    "characterKey": "salam",
+    "rumorId": "purple_legion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "Archie’s party is in markops. The Purple Legion is a mystery. The shack is the key.",
+    "likes": 62,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’m not here"
+      },
+      {
+        "characterKey": "markop",
+        "text": "You’re not alone"
+      },
+      {
+        "characterKey": "roger",
+        "text": "We’re all here"
+      },
+      {
+        "characterKey": "bones",
+        "text": "I’m not here"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m not here"
+      },
+      {
+        "characterKey": "salam",
+        "text": "I’m not here"
+      }
+    ]
+  },
+
   {
     "id": "waluigi_flower_bed_confession",
     "order": 41096,
