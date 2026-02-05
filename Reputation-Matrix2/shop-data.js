@@ -72905,7 +72905,7 @@ export const SHOP_ITEMS = {
         stock: 15,
         rarity: 'common',
         effects: [
-            "Restores 100 HP when consumed",
+            "Restores 100 confidence when consumed",
         "Grants 10% chance to reveal hidden loot locations",
         "May trigger a minor corruption debuff for 3 turns",
         "Made by: Custodians",
@@ -78263,7 +78263,7 @@ export const SHOP_ITEMS = {
         stock: 5,
         rarity: 'uncommon',
         effects: [
-            "Restores 100 HP when consumed",
+            "Restores 100 confidence when consumed",
         "Grants 20% increased damage against undead foes",
         "Causes temporary garlic allergy in enemies (they scream for 3 turns)",
         "Only usable by characters with a Wario Land connection",

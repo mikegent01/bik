@@ -1830,24 +1830,35 @@ function renderShopItems(append = false) {
             ` : ''}
             
 
-${isWarioScam(item) ? `
+${isWarioScam(item) ? (() => {
+    // Determine which scam text to show
+    // We only need to check price here because isWarioScam has already returned true
+    const isCheapScam = item.price < 1500;
+
+    const title = isCheapScam ? "TOO GOOD TO BE TRUE?" : "BUYER BEWARE";
+    
+    const description = isCheapScam 
+        ? `At only ${item.price.toLocaleString()} XP, this deal smells fishy. Wario isn't known for charity. You might receive a cardboard cutout, a broken replica, or he might just take the money and run.`
+        : `At ${item.price.toLocaleString()} XP, Wario may be scamming you. There is <strong>no guarantee</strong> you will actually receive this item. Wario has been known to "lose" orders or claim "shipping accidents."`;
+
+    const footer = isCheapScam ? "🚫 No Refunds. Ever. 🚫" : "💀 Purchase at your own risk 💀";
+
+    return `
     <div class="item-scam-warning">
         <div class="scam-header">
             <span class="scam-icon">🚨</span>
-            <span class="scam-title">BUYER BEWARE</span>
+            <span class="scam-title">${title}</span>
             <span class="scam-icon">🚨</span>
         </div>
         <p class="scam-text">
-            At ${item.price.toLocaleString()} XP, Wario may be scamming you. 
-            There is <strong>no guarantee</strong> you will actually receive this item. 
-            Wario has been known to "lose" orders, claim "shipping accidents," 
-            or simply pretend he never heard of you.
+            ${description}
         </p>
         <div class="scam-footer">
-            <span class="scam-disclaimer">💀 Purchase at your own risk 💀</span>
+            <span class="scam-disclaimer">${footer}</span>
         </div>
     </div>
-` : ''}            
+    `;
+})() : ''}
             <div class="item-header">
                 <span class="item-icon">${item.icon}</span>
                 <div class="item-title-group">
@@ -3273,7 +3284,25 @@ function getLetterTierName(index) {
     return name;
 }
 function isWarioScam(item) {
-    return item.price >= 1000000 && item.id !== 'warios_franchise';
+    const isOverpriced = item.price >= 1000000 && item.id !== 'warios_franchise';
+    const isSuspicious = item.rarity === 'common' && item.price < 1500;
+    
+    return isOverpriced || isSuspicious;
+}
+
+// 2. Text Helper: Call this to get the specific text to display
+function getScamWarningText(item) {
+    // Condition 1: Cheap Common Item
+    if (item.rarity === 'common' && item.price < 1500) {
+        return "Too good to be true...";
+    }
+    
+    // Condition 2: High Price (Default Scam)
+    if (item.price >= 1000000 && item.id !== 'warios_franchise') {
+        return "TOTAL SCAM!";
+    }
+    
+    return ""; // No warning text
 }
 
 
