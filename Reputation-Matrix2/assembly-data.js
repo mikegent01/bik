@@ -5,7 +5,1055 @@
 
 export const WAHBOOK_POSTS = [
 // Rumor: purple_legion_mystery - The Purple Legion Enigma
-  // Arc: iron_legion_conflict
+  {
+    "id": "fey_calendar_confusion_salam_f4e2",
+    "order": 93112,
+    "characterKey": "salam",
+    "rumorId": "time_slip",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 45 },
+    "content": "Lady Aurelian said it's \"Prime Moonrise\" but also \"Faystyl\" and also \"87F\". Pretty sure she's just making up words to win arguments about scheduling.",
+    "likes": 67,
+    "comments": [
+      { "characterKey": "dan", "text": "In Feyward, time is a consensus reality. She's not lying, she's negotiating." },
+      { "characterKey": "toad_lee", "text": "I asked for the date three times and got three answers. All were technically correct." },
+      { "characterKey": "green_t", "text": "That's how calendars work when your plane is stitched together from three broken ones." }
+    ]
+  },
+  {
+    "id": "three_eyed_archive_profile_ryan_8c3d",
+    "order": 93113,
+    "characterKey": "ryan",
+    "rumorId": "purple_robe_mage",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 20, "minute": 3 },
+    "content": "Archive deep-dive: Three-eyed mages were a Legion experiment in 988. Called them 'Triunes.' Project was 'discontinued' which means the prototypes were probably just reassigned to murder people.",
+    "likes": 94,
+    "comments": [
+      { "characterKey": "legion_scribe", "text": "Project Triune is classified. Please delete this post. (But you're correct.)" },
+      { "characterKey": "hjumpik", "text": "So I might be hunting a government asset. Cool." },
+      { "characterKey": "rakasha", "text": "Discontinued is just bureaucratic for 'set loose'." }
+    ]
+  },
+  {
+    "id": "orange_heir_prophecy_bones_a7f1",
+    "order": 93114,
+    "characterKey": "bones",
+    "rumorId": "orange_heir",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 20, "minute": 18 },
+    "content": "The diary mentioned 'heir to both vine and scale.' That's not a metaphor. That's a hybrid. That's a DRAGON PLANT PERSON and I want no part of whatever fertilizer it needs.",
+    "likes": 127,
+    "comments": [
+      { "characterKey": "aurelian", "text": "The Orange Heir is not a monster. They're... family. Messy family." },
+      { "characterKey": "dan", "text": "Vine and scale means photosynthesis AND fire breath. You're absolutely right to fear it." },
+      { "characterKey": "salam", "text": "Dragon salad. Dragon salad is what you're describing." }
+    ]
+  },
+  {
+    "id": "wario_debt_collection_attempt_wario_9b2e",
+    "order": 93115,
+    "characterKey": "wario",
+    "rumorId": "wario_debtbook",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 20, "minute": 34 },
+    "content": "ATTENTION: I am now collecting on all debts owed since 1015 BF. Interest compounded. Pay in gold, artifacts, or embarrassing secrets. No excuses. Yes, Green T, this includes you.",
+    "likes": 88,
+    "comments": [
+      { "characterKey": "green_t", "text": "I don't owe you money, you owe ME for saving your life in the Shadowfell." },
+      { "characterKey": "bowser", "text": "STAY AWAY FROM MY TREASURE YOU WALUIGI-COLORED MENACE" },
+      { "characterKey": "remi", "text": "I already paid you with the bomb-in-a-box trauma. We're even." }
+    ]
+  },
+  {
+    "id": "fog_elf_usk_sighting_rakasha_4d9f",
+    "order": 93116,
+    "characterKey": "rakasha",
+    "rumorId": "fog_elf",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 20, "minute": 51 },
+    "content": "Saw Usk in the mirror in the master bedroom. He had severed fingers in his hand. Not HIS hand, just... holding them. Looking for their owner. Don't ask how I know his name.",
+    "likes": 76,
+    "comments": [
+      { "characterKey": "hjumpik", "text": "Those are mine. The fingers. Those are MY fingers." },
+      { "characterKey": "dan", "text": "Fog-elves are memory collectors. He's not the threat, he's the evidence." },
+      { "characterKey": "salam", "text": "WHY ARE FINGERS JUST. BEING HELD. IN MIRRORS." }
+    ]
+  },
+  {
+    "id": "vine_room_aftermath_toa dlee_2c8e",
+    "order": 93117,
+    "characterKey": "toad_lee",
+    "rumorId": "vine_storage",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 21, "minute": 7 },
+    "content": "The vine room is now just... a room. Vines went quiet after Aurelian thanked them. They let me go. I think they have performance anxiety.",
+    "likes": 54,
+    "comments": [
+      { "characterKey": "aurelian", "text": "They were overacting. I had a word." },
+      { "characterKey": "rakasha", "text": "Vines don't have anxiety. They have directives." },
+      { "characterKey": "bones", "text": "So they were just... extra? For drama?" }
+    ]
+  },
+  {
+    "id": "rust_monster_glitter_trail_salam_7e3d",
+    "order": 93118,
+    "characterKey": "salam",
+    "rumorId": "ritual_materials",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 21, "minute": 22 },
+    "content": "Found the rust monsters. They left a PERFECT trail of iron dust from the greenhouse to the kitchen. It's like they WANT to be harvested. Suspiciously convenient.",
+    "likes": 71,
+    "comments": [
+      { "characterKey": "dan", "text": "They probably do. Fey creatures often offer tribute to guests." },
+      { "characterKey": "rust_monk", "text": "Or they're marking territory. Hard to tell with rusties." },
+      { "characterKey": "toad_lee", "text": "Free iron dust is free iron dust. Don't question gifts." }
+    ]
+  },
+  {
+    "id": "dragonfly_acid_spit_green_t_5a9f",
+    "order": 93119,
+    "characterKey": "green_t",
+    "rumorId": "dragonfly_pest",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 21, "minute": 38 },
+    "content": "The dragonfly isn't just big. It SPITS ACID that dissolves stone. Aurelian calls it a 'pest.' That's like calling a dragon a 'lizard with breathing problems.'",
+    "likes": 103,
+    "comments": [
+      { "characterKey": "aurelian", "text": "It's not ACTUALLY acid. It's concentrated plant enzyme. Same thing, really." },
+      { "characterKey": "wario", "text": "So it's valuable? How much per vial?" },
+      { "characterKey": "remi", "text": "DO NOT MILK THE DRAGONFLY FOR PROFIT" }
+    ]
+  },
+  {
+    "id": "garlic_grenade_test_hjumpik_8b4d",
+    "order": 93120,
+    "characterKey": "hjumpik",
+    "rumorId": "wario_gear",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 21, "minute": 55 },
+    "content": "Wario gave me a 'garlic grenade.' I asked what it does. He said 'it makes things regret being alive and also undead.' That's not a description, that's a philosophy.",
+    "likes": 134,
+    "comments": [
+      { "characterKey": "remi", "text": "Did you test it?" },
+      { "characterKey": "hjumpik", "text": "On what? The furniture?" },
+      { "characterKey": "wario", "text": "It works on everything that breathes. And everything that doesn't." }
+    ]
+  },
+  {
+    "id": "coin_press_blacksmith_search_wario_3c7e",
+    "order": 93121,
+    "characterKey": "wario",
+    "rumorId": "counterfeit_press",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 22, "minute": 11 },
+    "content": "Still need a blacksmith. Will pay in vampire wine or questionable favors. No questions asked, especially not about why the die has a W on it.",
+    "likes": 59,
+    "comments": [
+      { "characterKey": "dan", "text": "The W stands for 'Why are you like this.'" },
+      { "characterKey": "toad_lee", "text": "There's a forge in the basement. But it's haunted." },
+      { "characterKey": "wario", "text": "Haunted is fine. Is it haunted by someone who can fix coin presses?" }
+    ]
+  },
+  {
+    "id": "fingers_severed_memory_hjumpik_9e5f",
+    "order": 93122,
+    "characterKey": "hjumpik",
+    "rumorId": "purple_robe_mage",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 22, "minute": 28 },
+    "content": "Memory came back clearer. The three-eyed mage didn't just cut my fingers off. He COLLECTED them. Put them in a pouch. Like trophies. Or spell components.",
+    "likes": 81,
+    "comments": [
+      { "characterKey": "rakasha", "text": "Fingers are identity. He took your name before he took your life." },
+      { "characterKey": "dan", "text": "In some rituals, severed digits are keys. You might be a keyring." },
+      { "characterKey": "bones", "text": "That's the most personally invasive thing I've heard today." }
+    ]
+  },
+  {
+    "id": "waluigi_debt_dispute_waluigi_0a4d",
+    "order": 93123,
+    "characterKey": "waluigi",
+    "rumorId": "wario_debtbook",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 22, "minute": 44 },
+    "content": "wah. (translation: Wario claims I owe him 14,783 gold from 1015 BF. I wasn't even BORN in 1015 BF. The math is suspicious.)",
+    "likes": 156,
+    "comments": [
+      { "characterKey": "wario", "text": "Interest compounds across timelines. Read the fine print." },
+      { "characterKey": "remi", "text": "There is no fine print, you wrote it on a napkin." },
+      { "characterKey": "salam", "text": "Waluigi, just pay him in WAHs. He'll accept them eventually." }
+    ]
+  },
+  {
+    "id": "prime_magic_month_explanation_dan_7b3c",
+    "order": 93124,
+    "characterKey": "dan",
+    "rumorId": "time_slip",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 23, "minute": 0 },
+    "content": "Prime magic month means entropy is low. Which means cause-and-effect are working TOO well. Every action has exactly one reaction. No wiggle room. That's why magic feels so rigid here.",
+    "likes": 72,
+    "comments": [
+      { "characterKey": "green_t", "text": "So the manor is predictable? That doesn't match what I'm seeing." },
+      { "characterKey": "dan", "text": "Predictable doesn't mean safe. It means consequences are guaranteed." },
+      { "characterKey": "rakasha", "text": "Guaranteed consequences are worse than random ones." }
+    ]
+  },
+  {
+    "id": "satyr_eviction_progress_toa dlee_1e9d",
+    "order": 93125,
+    "characterKey": "toad_lee",
+    "rumorId": "satyr_eviction",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 23, "minute": 16 },
+    "content": "Evicted three satyrs so far. One tried to pay me in 'feelings.' Another offered a song that supposedly predicts my death. The third just fell off the balcony. Fey economics are wild.",
+    "likes": 89,
+    "comments": [
+      { "characterKey": "aurelian", "text": "Did you accept the song? That's actually valuable." },
+      { "characterKey": "toad_lee", "text": "No, because I don't want to know." },
+      { "characterKey": "bones", "text": "Smart. Fey death predictions always come with loopholes." }
+    ]
+  },
+  {
+    "id": "portable_pokemon_center_rem i_3f8a",
+    "order": 93126,
+    "characterKey": "remi",
+    "rumorId": "wario_gear",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 23, "minute": 33 },
+    "content": "Wario sold me a 'portable healing machine' that plays the Pokemon Center theme when you use it. It's actually just a stolen clerical wand with a music box glued to it. Works though.",
+    "likes": 143,
+    "comments": [
+      { "characterKey": "wario", "text": "The music is part of the healing process. Copyrighted but effective." },
+      { "characterKey": "dan", "text": "That's blasphemy and also probably trademark infringement." },
+      { "characterKey": "salam", "text": "Does it only work if you believe in Pikachu?" }
+    ]
+  },
+  {
+    "id": "mushroom_spore_effects_bones_5c9e",
+    "order": 93127,
+    "characterKey": "bones",
+    "rumorId": "mushroom_coatroom",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 23, "minute": 49 },
+    "content": "Breathing near those coatroom mushrooms makes you see your own shadow move independently. Mine just gave me a thumbs down. I am not okay.",
+    "likes": 118,
+    "comments": [
+      { "characterKey": "dan", "text": "Spores are establishing a symbiotic link. Your shadow is becoming a tenant." },
+      { "characterKey": "rakasha", "text": "Thumbs down means it disapproves of your life choices." },
+      { "characterKey": "toad_lee", "text": "My shadow tried to leave without me." }
+    ]
+  },
+  {
+    "id": "legion_observer_protocol_legion_scribe_6d2a",
+    "order": 93128,
+    "characterKey": "legion_scribe",
+    "rumorId": "corvinarus_ritual",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 0, "minute": 5 },
+    "content": "Legion observer protocol for the Grafting: watch, record, do not intervene. The Corvinarus paid in blood. The Legion paid in silence. Both prices were too low.",
+    "likes": 64,
+    "comments": [
+      { "characterKey": "ryan", "text": "Silence is currency in the Legion. They invest it wisely." },
+      { "characterKey": "hjumpik", "text": "So the Legion watched me die and took notes. Cool." },
+      { "characterKey": "dan", "text": "Notes are leverage. You don't watch something that powerful without planning to use it." }
+    ]
+  },
+  {
+    "id": "aurelian_chambers_secret_aurelian_7e1b",
+    "order": 93129,
+    "characterKey": "aurelian",
+    "rumorId": "service_to_lady",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 0, "minute": 22 },
+    "content": "Someone's been in my chambers. The flower bed is singing. That's not a metaphor, it's humming a tune I haven't heard since 988. Either a ghost or a very rude intruder.",
+    "likes": 91,
+    "comments": [
+      { "characterKey": "rakasha", "text": "The bed remembers who slept in it. That's not good." },
+      { "characterKey": "toad_lee", "text": "Wasn't us. We're busy with dragonfly murder." },
+      { "characterKey": "dan", "text": "Beds that remember are called witness-plants. They testify in fey courts." }
+    ]
+  },
+  {
+    "id": "cannonball_basement_wario_8f3c",
+    "order": 93130,
+    "characterKey": "wario",
+    "rumorId": "lost_gear",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 0, "minute": 38 },
+    "content": "Found the cannonball. It's in the basement. The basement is also apparently a maze made of living stone that hates me personally. Trade you the ball for a map.",
+    "likes": 77,
+    "comments": [
+      { "characterKey": "hjumpik", "text": "It's MY cannonball, you can't trade it." },
+      { "characterKey": "toad_lee", "text": "Living stone means the house is conscious. It doesn't hate you, it's judging you." },
+      { "characterKey": "wario", "text": "Same thing." }
+    ]
+  },
+  {
+    "id": "grafting_entropy_cost_dan_9a4f",
+    "order": 93131,
+    "characterKey": "dan",
+    "rumorId": "corvinarus_ritual",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 0, "minute": 55 },
+    "content": "The diary said the egg scream had 'a hunger not yet named.' That's entropy. The Grafting didn't just bind vine and scale, it bound a hunger that eats causality. The price is time itself.",
+    "likes": 85,
+    "comments": [
+      { "characterKey": "green_t", "text": "So the manor's time weirdness is a symptom of the ritual, not the plane." },
+      { "characterKey": "aurelian", "text": "We paid the price. We're still paying it." },
+      { "characterKey": "salam", "text": "I don't want to be in a hunger-based economy." }
+    ]
+  },
+  {
+    "id": "waluigi_under_desk_reason_waluigi_1b8e",
+    "order": 93132,
+    "characterKey": "waluigi",
+    "rumorId": "under_desk",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 1, "minute": 12 },
+    "content": "wah. (translation: I was under the desk because the floor looked back at me. The floor has too many eyes. Wario says that's normal. Wario is wrong.)",
+    "likes": 142,
+    "comments": [
+      { "characterKey": "wario", "text": "Floors have eyes. That's architecture. Stop being dramatic." },
+      { "characterKey": "dan", "text": "If the floor is ocular, you're in a living manor. Which we knew. So... yeah." },
+      { "characterKey": "remi", "text": "I'm more concerned that Wario thinks that's normal." }
+    ]
+  },
+  {
+    "id": "present_box_timer_wario_2d9c",
+    "order": 93133,
+    "characterKey": "wario",
+    "rumorId": "present_box",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 1, "minute": 28 },
+    "content": "The present box has a timer. Not a countdown, a count-UP. It's been ticking for 722 years. I think it's waiting for someone to open it on the right date. That date might be today.",
+    "likes": 96,
+    "comments": [
+      { "characterKey": "dan", "text": "722 years. That's the Eternal Bloom calendar. It's waiting for a Corvinarus." },
+      { "characterKey": "aurelian", "text": "Don't open that. Seriously. Don't." },
+      { "characterKey": "salam", "text": "Why do we HAVE it then??" }
+    ]
+  },
+  {
+    "id": "satyr_song_death_prediction_toa dlee_3e7a",
+    "order": 93134,
+    "characterKey": "toad_lee",
+    "rumorId": "satyr_eviction",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 1, "minute": 45 },
+    "content": "The satyr's death-prediction song mentioned 'the moment the vine chooses the scale.' That's the Grafting. He's saying I'll be there when it happens. Or I'll die because of it. Fey lyrics are intentionally vague.",
+    "likes": 63,
+    "comments": [
+      { "characterKey": "rakasha", "text": "Or it's not vague, it's multitasking. Both can be true." },
+      { "characterKey": "dan", "text": "Fey predictions are always technically correct. That's the problem." },
+      { "characterKey": "green_t", "text": "Better start making your will. In triplicate." }
+    ]
+  },
+  {
+    "id": "brass_knuckles_test_hjumpik_4f8e",
+    "order": 93135,
+    "characterKey": "hjumpik",
+    "rumorId": "wario_gear",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 2, "minute": 2 },
+    "content": "Wario let me try his brass knuckles. Punched a wall. The wall apologized. I'm keeping these.",
+    "likes": 151,
+    "comments": [
+      { "characterKey": "wario", "text": "Those are 500 gold. Or you can owe me. (You already owe me.)" },
+      { "characterKey": "aurelian", "text": "The walls have feelings. Please stop punching them." },
+      { "characterKey": "dan", "text": "Inanimate objects apologizing means the house respects violence. That's... not better." }
+    ]
+  },
+  {
+    "id": "three_manor_sync_bowser_5g9h",
+    "order": 93136,
+    "characterKey": "bowser",
+    "rumorId": "three_threads",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 2, "minute": 18 },
+    "content": "I'M IN THE SHADEWARD MANOR. IT'S THE SAME LAYOUT BUT EVERYTHING IS ANGRY AND MADE OF SPIKES. I THINK THE THREE MANORS ARE SYNCING UP. SEND HELP OR COINS.",
+    "likes": 89,
+    "comments": [
+      { "characterKey": "green_t", "text": "The three threads are pulling taut. When they snap, all manors will be one place." },
+      { "characterKey": "dan", "text": "Bowser, if you're in Shadeward, don't look in the mirrors. That's Feyward's channel." },
+      { "characterKey": "wario", "text": "Coins first. Help maybe later." }
+    ]
+  },
+  {
+    "id": "entropy_hunger_manifest_sylvaria_6h2j",
+    "order": 93137,
+    "characterKey": "sylvaria",
+    "rumorId": "oracle_vessel",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 2, "minute": 35 },
+    "content": "The hunger in the egg scream? It's manifesting. People are forgetting why they came here. The manor is eating memories. That's not decay, that's predation.",
+    "likes": 78,
+    "comments": [
+      { "characterKey": "hjumpik", "text": "I forgot my own death for a while. Is that the house?" },
+      { "characterKey": "dan", "text": "Yes. The Grafting demands payment in consciousness. You're renting your memories." },
+      { "characterKey": "rakasha", "text": "Write everything down. Paper doesn't forget until you burn it." }
+    ]
+  },
+  {
+    "id": "dragonfly_present_clash_wario_7i3k",
+    "order": 93138,
+    "characterKey": "wario",
+    "rumorId": "present_box",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 2, "minute": 51 },
+    "content": "Dragonfly vs Present Box. Whoever wins, the ceiling loses. Taking bets. Odds are 3:1 on the dragonfly, but the box has surprise value.",
+    "likes": 112,
+    "comments": [
+      { "characterKey": "aurelian", "text": "If you damage my manor I will deduct it from your soul." },
+      { "characterKey": "remi", "text": "This is why we can't have nice planar sanctums." },
+      { "characterKey": "salam", "text": "I'm betting on the house. The house always wins." }
+    ]
+  },
+  {
+    "id": "feyward_midnight_anomaly_dan_8j4l",
+    "order": 93139,
+    "characterKey": "dan",
+    "rumorId": "time_slip",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 3, "minute": 8 },
+    "content": "Midnight in Feyward didn't happen. The clock went from 23:59 to 00:01. The 26th is trying to last forever. The house is stalling.",
+    "likes": 65,
+    "comments": [
+      { "characterKey": "green_t", "text": "It's waiting for the ritual. Time is pausing until all participants arrive." },
+      { "characterKey": "aurelian", "text": "The 26th is significant. It won't end until the work is done." },
+      { "characterKey": "salam", "text": "So we're stuck in the longest day ever? I hate overtime." }
+    ]
+  },
+  {
+    "id": "legion_clone_cleanup_crew_legion_scribe_9k5m",
+    "order": 93140,
+    "characterKey": "legion_scribe",
+    "rumorId": "purple_robe_mage",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 3, "minute": 24 },
+    "content": "If Triune clones are active, the Legion will send a cleanup crew. They don't ask questions, they just remove anomalies. Everyone here is an anomaly.",
+    "likes": 52,
+    "comments": [
+      { "characterKey": "ryan", "text": "Cleanup crew means sterilization. Of people. Of evidence. Of everything." },
+      { "characterKey": "rakasha", "text": "Let them come. The vines are hungry too." },
+      { "characterKey": "hjumpik", "text": "Can they clean up my murderer first? Asking for me." }
+    ]
+  },
+  {
+    "id": "aurelian_flower_bed_secret_aurelian_0l6n",
+    "order": 93141,
+    "characterKey": "aurelian",
+    "rumorId": "service_to_lady",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 3, "minute": 41 },
+    "content": "The flower bed in my chambers is from the Grafting. It grew from the ash of the dragon egg. When it blooms, the heir wakes. It's about to bloom.",
+    "likes": 97,
+    "comments": [
+      { "characterKey": "dan", "text": "So the bed is the vessel. The manor is the womb. This is all one big incubator." },
+      { "characterKey": "green_t", "text": "When you say 'wake,' do you mean... nice waking? Or 'unmake reality' waking?" },
+      { "characterKey": "salam", "text": "I'm going to burn the bed. Don't try to stop me." }
+    ]
+  },
+  {
+    "id": "wario_basement_treasure_wario_1m7o",
+    "order": 93142,
+    "characterKey": "wario",
+    "rumorId": "lost_gear",
+    "date": { "year": 1040, "monthIndex:": 6, "day": 27, "hour": 3, "minute": 57 },
+    "content": "Basement has treasure. Old treasure. Pre-988 treasure. But it's guarded by something that looks like my debtbook, but alive. It tried to charge me interest for looking at it.",
+    "likes": 84,
+    "comments": [
+      { "characterKey": "remi", "text": "The house is manifesting your guilt. Stop committing crimes." },
+      { "characterKey": "bones", "text": "An alive debtbook is just a mimic with accounting software." },
+      { "characterKey": "wario", "text": "It's not guilt, it's opportunity. If I can kill it, I can loot it." }
+    ]
+  },
+  {
+    "id": "three_eyed_mage_name_reveal_hjumpik_2n8p",
+    "order": 93143,
+    "characterKey": "hjumpik",
+    "rumorId": "purple_robe_mage",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 4, "minute": 14 },
+    "content": "The name came back. The three-eyed mage was called ARCHIVE. Not 'an archive.' Just Archive. Like it's a title. Or a warning.",
+    "likes": 88,
+    "comments": [
+      { "characterKey": "ryan", "text": "Archive is a designation, not a name. It means he's the memory-keeper. And the memory-eraser." },
+      { "characterKey": "legion_scribe", "text": "Archive units are not supposed to be in the field. This is a breach." },
+      { "characterKey": "rakasha", "text": "He collects memories. He collected your fingers. He's making a set." }
+    ]
+  },
+  {
+    "id": "feyward_sunrise_failure_green_t_3o9q",
+    "order": 93144,
+    "characterKey": "green_t",
+    "rumorId": "time_slip",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 4, "minute": 30 },
+    "content": "Sunrise should be soon. The sky isn't changing. The 26th is holding its breath. Or we're between breaths. Time is a lung and we're trapped in the inhale.",
+    "likes": 71,
+    "comments": [
+      { "characterKey": "dan", "text": "Poetic and accurate. The fracture is a stutter in reality's rhythm." },
+      { "characterKey": "salam", "text": "Can we exhale soon? I need this day to end." },
+      { "characterKey": "aurelian", "text": "The day ends when the heir is ready. Not before." }
+    ]
+  },
+  {
+    "id": "oracle_vessel_identity_sylvaria_4p0r",
+    "order": 93145,
+    "characterKey": "sylvaria",
+    "rumorId": "oracle_vessel",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 4, "minute": 47 },
+    "content": "The Oracle's Vessel isn't a person. It's the Grafting itself. The ritual was designed to create a living bridge between planes. The bridge is waking up. And it's hungry for more threads to bind.",
+    "likes": 92,
+    "comments": [
+      { "characterKey": "dan", "text": "So we're not fighting a person. We're fighting a process that thinks." },
+      { "characterKey": "green_t", "text": "The Grafting is a lynchpin. Remove it and all three manors collapse into one broken reality." },
+      { "characterKey": "hjumpik", "text": "Can I fight a process? Asking because I really want to." }
+    ]
+  },
+  {
+    "id": "final_battle_prep_toa dlee_5q1s",
+    "order": 93146,
+    "characterKey": "toad_lee",
+    "rumorId": "dragonfly_pest",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 5, "minute": 3 },
+    "content": "Team meeting: Hjumpik wants to fight Archive. Wario wants to fight the dragonfly. I want to fight my own poor life choices. We're all going to the attic. This will end poorly.",
+    "likes": 147,
+    "comments": [
+      { "characterKey": "remi", "text": "I'll bring the healing potions and the moral support." },
+      { "characterKey": "salam", "text": "I'll bring popcorn and a will to survive." },
+      { "characterKey": "aurelian", "text": "Try not to die in my attic. The cleanup is tedious." }
+    ]
+  },
+  {
+    "id": "corvinarus_ritual_salam_a19f",
+    "order": 80412,
+    "characterKey": "salam",
+    "rumorId": "corvinarus_ritual",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 8, "minute": 12 },
+    "content": "Okay who else heard about the statue memory? Orange robes, blade to palm, dragon egg screaming. People are calling it “the grafting”.",
+    "likes": 44,
+    "comments": [
+      { "characterKey": "bones", "text": "If an egg is screaming, thats not a blessing thats a warning." },
+      { "characterKey": "ryan", "text": "Orange robes + blood ritual = Legion paperwork somewhere. Count on it." },
+      { "characterKey": "dan", "text": "Statues showing memories is normal Feyward nonsense. The grafting part is NOT." }
+    ]
+  },
+  {
+    "id": "statue_whispers_eager_7c2b",
+    "order": 10293,
+    "characterKey": "eager",
+    "rumorId": "statue_whispers",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 8, "minute": 29 },
+    "content": "Heard the statue only “works” for ONE person. Everyone else touches it and gets nothing. That’s not art, thats a lock.",
+    "likes": 61,
+    "comments": [
+      { "characterKey": "green_t", "text": "A keyed memory-ward. Whoever it’s keyed to is probably the target, not the viewer." },
+      { "characterKey": "toad_lee", "text": "I touched it. Nothing. So yeah, confirmed." },
+      { "characterKey": "salam", "text": "So the statue is basically calling someone out by name. Great." }
+    ]
+  },
+  {
+    "id": "time_slip_green_t_d0e1",
+    "order": 55301,
+    "characterKey": "green_t",
+    "rumorId": "time_slip",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 9, "minute": 5 },
+    "content": "Feyward time feels WRONG. People are asking the year and getting answers like “87F” and “Eternal Bloom 722”. That’s not a calendar, thats a fracture.",
+    "likes": 73,
+    "comments": [
+      { "characterKey": "dan", "text": "If the plane has its own calendar, it might have its own causality too." },
+      { "characterKey": "ryan", "text": "Which means “yesterday” might be a weapon." },
+      { "characterKey": "salam", "text": "Cool cool cool so we’re lost in math." }
+    ]
+  },
+  {
+    "id": "satyr_locusts_bones_4f88",
+    "order": 66710,
+    "characterKey": "bones",
+    "rumorId": "satyr_locusts",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 9, "minute": 40 },
+    "content": "Satyrs are drinking the cellars dry again. Somebody tell the Lady her guests are basically termites with flutes.",
+    "likes": 56,
+    "comments": [
+      { "characterKey": "aurelian", "text": "They were invited. Briefly. The “briefly” part is being ignored." },
+      { "characterKey": "toad_lee", "text": "We’re working on eviction. It’s… messy." },
+      { "characterKey": "waluigi", "text": "WAH." }
+    ]
+  },
+  {
+    "id": "vine_storage_toa dlee_1b6a",
+    "order": 24577,
+    "characterKey": "toad_lee",
+    "rumorId": "vine_storage",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 10, "minute": 11 },
+    "content": "PSA: if a door is locked, do NOT assume it’s just privacy. Vines in there grab like they got hands and opinions.",
+    "likes": 82,
+    "comments": [
+      { "characterKey": "rakasha", "text": "You were grappled for 6 minutes. I counted." },
+      { "characterKey": "salam", "text": "Any chance the vines are listening to names? Asking for a friend." },
+      { "characterKey": "dan", "text": "They always listen. They just don’t always answer." }
+    ]
+  },
+  {
+    "id": "aurelian_lock_aurelian_03dd",
+    "order": 90318,
+    "characterKey": "aurelian",
+    "rumorId": "aurelian_lock",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 10, "minute": 24 },
+    "content": "I locked the vine room so no one would get hurt. If you unlocked it, congratulations: you have volunteered.",
+    "likes": 119,
+    "comments": [
+      { "characterKey": "toad_lee", "text": "Respectfully, the lock did not stop the vines from starting a fight." },
+      { "characterKey": "bones", "text": "Fey locks are always “to keep YOU safe” until they arent." },
+      { "characterKey": "salam", "text": "Volunteered is such a strong word." }
+    ]
+  },
+  {
+    "id": "guest_list_heist_salam_11aa",
+    "order": 77261,
+    "characterKey": "salam",
+    "rumorId": "guest_list_heist",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 10, "minute": 42 },
+    "content": "Rumor: the Feyward guest list vanished from the Lady’s door. Like, stolen. Who steals a LIST in a murder-manor.",
+    "likes": 65,
+    "comments": [
+      { "characterKey": "aurelian", "text": "Someone who is on it. Or someone who very much is not." },
+      { "characterKey": "green_t", "text": "Lists are power. Names are leverage." },
+      { "characterKey": "wario", "text": "I can sell you a better list. Mine includes debts." }
+    ]
+  },
+  {
+    "id": "under_desk_rakasha_55b1",
+    "order": 11804,
+    "characterKey": "rakasha",
+    "rumorId": "under_desk",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 11, "minute": 6 },
+    "content": "Someone was hiding under a desk. Everyone acted like it was normal. I am the only sane one here.",
+    "likes": 88,
+    "comments": [
+      { "characterKey": "waluigi", "text": "..." },
+      { "characterKey": "toad_lee", "text": "Was it a person-person or a fey “person”?" },
+      { "characterKey": "dan", "text": "If it fits under furniture, it fits under rules." }
+    ]
+  },
+  {
+    "id": "vampire_wine_wario_8e17",
+    "order": 63092,
+    "characterKey": "wario",
+    "rumorId": "vampire_wine",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 11, "minute": 22 },
+    "content": "Selling rare vintage wine. Totally normal wine. Definitely not from vampire parties. Don’t ask how old it is. Pay me.",
+    "likes": 101,
+    "comments": [
+      { "characterKey": "archie", "text": "If it makes you count as undead for an hour, it is not “normal wine”." },
+      { "characterKey": "remi", "text": "Stop selling cursed beverages to people who already have problems." },
+      { "characterKey": "bones", "text": "If a paladin turns me mid-sip I’m haunting YOU specifically." }
+    ]
+  },
+  {
+    "id": "debtbook_remi_2ca0",
+    "order": 38150,
+    "characterKey": "remi",
+    "rumorId": "wario_debtbook",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 11, "minute": 41 },
+    "content": "Wario has a ledger where he writes down “That Guy” owing him money. If you’ve ever met him, assume you’re “That Guy.”",
+    "likes": 134,
+    "comments": [
+      { "characterKey": "wario", "text": "Interest compounds monthly. This is just good accounting." },
+      { "characterKey": "toad_lee", "text": "He charged me for rescuing me from a collapse I’m pretty sure he caused." },
+      { "characterKey": "green_t", "text": "Debt is a spell with paperwork components." }
+    ]
+  },
+  {
+    "id": "counterfeit_press_wario_0f5c",
+    "order": 90401,
+    "characterKey": "wario",
+    "rumorId": "counterfeit_press",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 12, "minute": 2 },
+    "content": "Who got a blacksmith? Asking for a friend. Totally not about a broken coin press. Hypothetically.",
+    "likes": 77,
+    "comments": [
+      { "characterKey": "dan", "text": "Hypothetically you should stop committing crimes in writing." },
+      { "characterKey": "salam", "text": "In Feyward you can probably pay a tree to fix it." },
+      { "characterKey": "bones", "text": "If your “friend” is you, blink twice." }
+    ]
+  },
+  {
+    "id": "purple_mage_hjumpik_77de",
+    "order": 51229,
+    "characterKey": "hjumpik",
+    "rumorId": "purple_robe_mage",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 12, "minute": 15 },
+    "content": "Trying to remember the mage who killed me. Purple robes. Plate armor? Maybe. Three eyes. Third one above the others. Hands burnt.",
+    "likes": 90,
+    "comments": [
+      { "characterKey": "rakasha", "text": "Write it down before the plane edits your memory again." },
+      { "characterKey": "ryan", "text": "Three-eyed + burnt hands = archive-work or clone-work. Either way, not random." },
+      { "characterKey": "toad_lee", "text": "You said “killed me” like that’s normal and I’m just… moving past it." }
+    ]
+  },
+  {
+    "id": "died_now_here_salam_ee3a",
+    "order": 11990,
+    "characterKey": "salam",
+    "rumorId": "afterdeath",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 12, "minute": 28 },
+    "content": "Somebody in the halls just said “I died now I’m here” and then kept walking like they were late for lunch. Feyward is a fever dream.",
+    "likes": 121,
+    "comments": [
+      { "characterKey": "dan", "text": "In a planar fracture, death is sometimes just relocation." },
+      { "characterKey": "bones", "text": "I’d like to not relocate into dying, personally." },
+      { "characterKey": "green_t", "text": "If the manor can split, it can split outcomes too." }
+    ]
+  },
+  {
+    "id": "grafting_988_legion_scribe_c612",
+    "order": 70061,
+    "characterKey": "legion_scribe",
+    "rumorId": "corvinarus_ritual",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 12, "minute": 44 },
+    "content": "Archive note: “Bloodline split” recorded at date-mark 988. Legion observers present at a procedure labeled THE GRAFTING. Details redacted by higher authority.",
+    "likes": 52,
+    "comments": [
+      { "characterKey": "ryan", "text": "Redacted means real." },
+      { "characterKey": "salam", "text": "Legion was THERE and nobody thought to mention that earlier??" },
+      { "characterKey": "dan", "text": "If the Legion watched, the Legion learned. That’s the part that matters." }
+    ]
+  },
+  {
+    "id": "diary_722_toa dlee_9d20",
+    "order": 28561,
+    "characterKey": "toad_lee",
+    "rumorId": "diary_722",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 13, "minute": 3 },
+    "content": "Found diary pages mentioning “Year 722 of the Eternal Bloom” and the egg scream being “winter wind through crystal”. That’s not poetry, that’s a curse description.",
+    "likes": 69,
+    "comments": [
+      { "characterKey": "bones", "text": "Anything described like weather is about to become weather." },
+      { "characterKey": "rakasha", "text": "Egg scream lingering = imprint. Imprints become hunger." },
+      { "characterKey": "aurelian", "text": "Stop reading my house like it owes you answers. (It does. But still.)" }
+    ]
+  },
+  {
+    "id": "three_threads_kryn_3a61",
+    "order": 44218,
+    "characterKey": "kryn",
+    "rumorId": "three_threads",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 13, "minute": 26 },
+    "content": "“Three manors, three lords, three threads.” If you cut one thread, the tapestry unravels. If you tie them wrong, you hang yourself. Choose carefully.",
+    "likes": 86,
+    "comments": [
+      { "characterKey": "green_t", "text": "That sounds like someone who has already tried the wrong knot." },
+      { "characterKey": "dan", "text": "Or someone who wants us to." },
+      { "characterKey": "salam", "text": "I hate tapestries now." }
+    ]
+  },
+  {
+    "id": "planar_circle_sylvaria_20d9",
+    "order": 99045,
+    "characterKey": "sylvaria",
+    "rumorId": "planar_circle",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 13, "minute": 49 },
+    "content": "If you find circle fragments in the master bedrooms, don’t disturb them. Copy them. Study them. Repair the ruined circle later. Don’t improvise planar math.",
+    "likes": 112,
+    "comments": [
+      { "characterKey": "toad_lee", "text": "What if someone already smudged chalk with their knees." },
+      { "characterKey": "salam", "text": "Asking for everyone." },
+      { "characterKey": "dan", "text": "Then you will be repairing more than a circle." }
+    ]
+  },
+  {
+    "id": "chalk_smudge_salam_4c5f",
+    "order": 17402,
+    "characterKey": "salam",
+    "rumorId": "planar_circle",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 14, "minute": 7 },
+    "content": "Confirmed: someone shoulder-bashed a door and wiped chalk lines across a half-built circle. The sound I made was NOT heroic.",
+    "likes": 143,
+    "comments": [
+      { "characterKey": "wario", "text": "Doors should be weaker. This is a design issue." },
+      { "characterKey": "aurelian", "text": "That circle took HOURS." },
+      { "characterKey": "ryan", "text": "Now it’ll take days. And it’ll fail at the worst time." }
+    ]
+  },
+  {
+    "id": "mushroom_coatroom_bones_b3b9",
+    "order": 35118,
+    "characterKey": "bones",
+    "rumorId": "mushroom_coatroom",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 14, "minute": 21 },
+    "content": "Coat room is FULL of mushrooms the size of barrels. They recoil from light like they got caught stealing.",
+    "likes": 58,
+    "comments": [
+      { "characterKey": "toad_lee", "text": "Do NOT breathe in there. Just… trust me." },
+      { "characterKey": "dan", "text": "Photophobic fungi are usually spore-based predators." },
+      { "characterKey": "salam", "text": "So the coat room is alive. Great. Cool." }
+    ]
+  },
+  {
+    "id": "satyr_balcony_jump_rakasha_42f1",
+    "order": 9026,
+    "characterKey": "rakasha",
+    "rumorId": "satyr_eviction",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 14, "minute": 50 },
+    "content": "A satyr tried to get “a better view” and took a mushroom for courage. He jumped. The manor didn’t even blink.",
+    "likes": 97,
+    "comments": [
+      { "characterKey": "bones", "text": "Fey parties always end with physics getting disrespected." },
+      { "characterKey": "toad_lee", "text": "I tried to stop him. He bit my shield." },
+      { "characterKey": "dan", "text": "If the manor didn’t blink, it expected it." }
+    ]
+  },
+  {
+    "id": "dragonfly_pest_aurelian_8a0d",
+    "order": 81449,
+    "characterKey": "aurelian",
+    "rumorId": "dragonfly_pest",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 15, "minute": 9 },
+    "content": "Reminder: the giant dragonfly upstairs is a PEST. It is not “majestic”. Remove it, and try not to break my ceiling.",
+    "likes": 76,
+    "comments": [
+      { "characterKey": "wario", "text": "I can remove it. For a fee." },
+      { "characterKey": "toad_lee", "text": "We’ll remove it. For free. Please stop offering fees." },
+      { "characterKey": "salam", "text": "What do dragonflies even EAT at that size??" }
+    ]
+  },
+  {
+    "id": "present_box_wario_5bf0",
+    "order": 46071,
+    "characterKey": "wario",
+    "rumorId": "present_box",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 15, "minute": 33 },
+    "content": "I have a PRESENT for the winged creature upstairs. It ticks because it’s EXCITED. Stop calling it a bomb.",
+    "likes": 166,
+    "comments": [
+      { "characterKey": "remi", "text": "Things that tick are either clocks or crimes." },
+      { "characterKey": "bones", "text": "If it “obliterates” the target, its a bomb." },
+      { "characterKey": "waluigi", "text": "WAH (concerned)." }
+    ]
+  },
+  {
+    "id": "waluigi_silent_waluigi_01c4",
+    "order": 23911,
+    "characterKey": "waluigi",
+    "rumorId": "waluigi_silent",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 15, "minute": 47 },
+    "content": "wah.",
+    "likes": 210,
+    "comments": [
+      { "characterKey": "salam", "text": "This is the most honest post on the app." },
+      { "characterKey": "dan", "text": "A thesis in one syllable." },
+      { "characterKey": "toad_lee", "text": "Buddy you good?" }
+    ]
+  },
+  {
+    "id": "shadowfell_fallout_onyx_scout_8d3c",
+    "order": 77105,
+    "characterKey": "onyx_hand_scout",
+    "rumorId": "shadowfell_fallout",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 16, "minute": 4 },
+    "content": "Onyx Hand is furious. Someone shattered the dinner-party anchor and fled. If you smell expensive cologne and bloodwine, leave.",
+    "likes": 68,
+    "comments": [
+      { "characterKey": "archie", "text": "It was self defense. The forks were hostile." },
+      { "characterKey": "ryan", "text": "Vampire politics always becomes vampire enforcement." },
+      { "characterKey": "salam", "text": "Bloodwine is such an awful word." }
+    ]
+  },
+  {
+    "id": "bowser_storage_fee_bowser_3a90",
+    "order": 31088,
+    "characterKey": "bowser",
+    "rumorId": "bowser_missing",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 16, "minute": 20 },
+    "content": "IF ANYONE SEES WARIO TELL HIM HE IS NOT CHARGING ME “STORAGE FEES” FOR MY OWN TREASURE. ALSO WHERE AM I.",
+    "likes": 195,
+    "comments": [
+      { "characterKey": "wario", "text": "Storage fee is valid. Late fee too." },
+      { "characterKey": "remi", "text": "Bowser please stop yelling into the planar void." },
+      { "characterKey": "dan", "text": "At least he’s alive. Volume confirms." }
+    ]
+  },
+  {
+    "id": "fog_elf_usk_dan_5f22",
+    "order": 60217,
+    "characterKey": "dan",
+    "rumorId": "fog_elf",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 16, "minute": 39 },
+    "content": "Someone mentioned a fog-elf moving through mirrors, name “Usk”. If that’s real, it’s either a messenger or a leak in the plane’s skin.",
+    "likes": 83,
+    "comments": [
+      { "characterKey": "green_t", "text": "Mirrors are doors when reality is thin." },
+      { "characterKey": "salam", "text": "Please do not let the mirrors have PEOPLE in them." },
+      { "characterKey": "rakasha", "text": "If Usk knows names, the vines will too." }
+    ]
+  },
+  {
+    "id": "orange_heir_rumor_legion_scribe_221d",
+    "order": 91063,
+    "characterKey": "legion_scribe",
+    "rumorId": "orange_heir",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 17, "minute": 2 },
+    "content": "Hearsay from old files: “The Orange Heir will bind vine and scale; the manor will obey, then devour.” If you’re seeing orange robes, you are late.",
+    "likes": 59,
+    "comments": [
+      { "characterKey": "ryan", "text": "Prophecy always sounds stupid right up until it bills you." },
+      { "characterKey": "bones", "text": "Vine + scale = dragon-plant. I hate it already." },
+      { "characterKey": "salam", "text": "We’re ALWAYS late." }
+    ]
+  },
+  {
+    "id": "iron_dust_rust_monk_1a9d",
+    "order": 14007,
+    "characterKey": "rust_monk",
+    "rumorId": "ritual_materials",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 17, "minute": 19 },
+    "content": "If you need iron dust for ritual paint, don’t mine it. Follow the rust monsters. They leave a trail like guilty glitter.",
+    "likes": 47,
+    "comments": [
+      { "characterKey": "toad_lee", "text": "This is the most useful advice I’ve seen today." },
+      { "characterKey": "dan", "text": "“Guilty glitter” is accurate and upsetting." },
+      { "characterKey": "salam", "text": "So we’re harvesting monster droppings. Great." }
+    ]
+  },
+  {
+    "id": "undead_wine_turn_green_t_67cb",
+    "order": 82951,
+    "characterKey": "green_t",
+    "rumorId": "vampire_wine",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 17, "minute": 41 },
+    "content": "FYI: that vampire vintage can flag you as “undead” for certain spells. If a cleric glares at you mid-negotiation, that’s why.",
+    "likes": 92,
+    "comments": [
+      { "characterKey": "archie", "text": "Can confirm. Worst social moment of my life." },
+      { "characterKey": "wario", "text": "Skill issue. Drink it faster." },
+      { "characterKey": "remi", "text": "Stop weaponizing beverages." }
+    ]
+  },
+  {
+    "id": "canonball_lost_hjumpik_9c10",
+    "order": 25502,
+    "characterKey": "hjumpik",
+    "rumorId": "lost_gear",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 18, "minute": 6 },
+    "content": "Whoever fell through the floor with my aerodynamic cannonball: bring it back. I am trying to be calm.",
+    "likes": 74,
+    "comments": [
+      { "characterKey": "wario", "text": "It’s not yours anymore. It’s downstairs." },
+      { "characterKey": "toad_lee", "text": "You can’t “own” something by dropping it through architecture." },
+      { "characterKey": "bones", "text": "Feyward has a basement tax. You just paid it." }
+    ]
+  },
+  {
+    "id": "service_to_lady_toa dlee_3b7e",
+    "order": 60034,
+    "characterKey": "toad_lee",
+    "rumorId": "service_to_lady",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 18, "minute": 22 },
+    "content": "We’re “helping” Lady Aurelian with satyrs + pests while also trying to not get eaten by furniture. If anyone has a normal quest, trade me.",
+    "likes": 98,
+    "comments": [
+      { "characterKey": "aurelian", "text": "My manor does not eat guests. It merely tests them." },
+      { "characterKey": "dan", "text": "Testing implies a grader. That’s the scary part." },
+      { "characterKey": "salam", "text": "Furniture shouldn’t get a vote." }
+    ]
+  },
+  {
+    "id": "legion_clone_theory_ryan_1e2a",
+    "order": 48116,
+    "characterKey": "ryan",
+    "rumorId": "purple_robe_mage",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 18, "minute": 39 },
+    "content": "Three-eyed mage description matches an Archive profile, but don’t celebrate. Could be him. Could be clones. Could be the plane reusing a template.",
+    "likes": 80,
+    "comments": [
+      { "characterKey": "rakasha", "text": "Templates still bleed." },
+      { "characterKey": "hjumpik", "text": "I just want the correct one." },
+      { "characterKey": "bones", "text": "“Correct murderer” is a sentence I hate." }
+    ]
+  },
+  {
+    "id": "oracle_vessel_dan_2d14",
+    "order": 93011,
+    "characterKey": "dan",
+    "rumorId": "oracle_vessel",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 1 },
+    "content": "If the Oracle is trying to merge timelines to wake a “Vessel”, every ritual here is either fuel or misdirection. Don’t assume local weirdness is local.",
+    "likes": 105,
+    "comments": [
+      { "characterKey": "green_t", "text": "Agreed. Fractures create cover for bigger moves." },
+      { "characterKey": "salam", "text": "So the screaming egg might be… bait??" },
+      { "characterKey": "ryan", "text": "Or a key." }
+    ]
+  },
+  {
+    "id": "dragonfly_hunt_wario_72a6",
+    "order": 11033,
+    "characterKey": "wario",
+    "rumorId": "dragonfly_pest",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 27 },
+    "content": "Climbing to the dragonfly now. If I fall, somebody loot me respectfully (and pay my debts first).",
+    "likes": 187,
+    "comments": [
+      { "characterKey": "toad_lee", "text": "How do you have debts if everyone owes YOU money." },
+      { "characterKey": "remi", "text": "Do NOT “respectfully” explode in the attic." },
+      { "characterKey": "bones", "text": "If the present box ticks louder, run." }
+    ]
+  },
+  {
+    "id": "corvinarus_ritual_hjumpik_vision",
+    "order": 78101,
+    "characterKey": "hjumpik",
+    "rumorId": "corvinarus_ritual",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 15
+    },
+    "content": "Touched the statue. Saw a memory from 988. Orange robes cutting a palm over a dragon egg. The Legion called it 'The Grafting'. The egg screamed. This isn't just a manor, it's a crime scene.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "And the lady upstairs just called it a 'bloodline split'. We are definitely in the past... or a really messed up echo."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "Entropy is low here. Magic is high. The vision is likely a fixed point in time."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Wah. Details later. Loot now."
+      }
+    ]
+  },
+  {
+    "id": "wario_arrival_manor_772",
+    "order": 78105,
+    "characterKey": "toad_lee",
+    "rumorId": "wario_shenanigans",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 30
+    },
+    "content": "Wario just crashed through the ceiling, sold Hjumpik some 'vintage' vampire wine, and is now trying to fight a giant dragonfly with a gift-wrapped cannonball. If I die here, tell my mom it was his fault.",
+    "likes": 88,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "He owes me a health potion. And a cannonball. I got scammed."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Tell him to pay my storage fees! That traitor still has half my hoard!"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "At least he brings supplies? Usually?"
+      }
+    ]
+  },
+  {
+    "id": "aurelian_vines_rakasha_obs",
+    "order": 78110,
+    "characterKey": "rakasha",
+    "rumorId": "corvinarus_ritual",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 13,
+      "minute": 0
+    },
+    "content": "The vines in the master bedroom respond to the history of the house. Aurelian Corvinarus is hiding the truth about the 'Orange Heir' behind flowers and parties. We found a magic circle fragment. We need to repair it.",
+    "likes": 34,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "We need bone, ash, chalk and iron. And apparently Wario sells 'better chalk'. Unbelievable."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I'm working on the door construction. Give me 4 days. Or until Wario breaks it again."
+      }
+    ]
+  },
 
   {
     "id": "purple_legion_mystery_toad_lee_96bb",
@@ -2897,31 +3945,7 @@ export const WAHBOOK_POSTS = [
       }
     ]
   },
-  {
-    "id": "purple_legion_mystery_archie_67d2",
-    "order": 87178,
-    "characterKey": "archie",
-    "rumorId": "purple_legion_mystery",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 26,
-      "hour": 14,
-      "minute": 32
-    },
-    "content": "sorry sir i dont know the purple legion but the guy vanished and i need to check the shack",
-    "likes": 127,
-    "comments": [
-      {
-        "characterKey": "fawful",
-        "text": "archie you should not be alone with that mystery"
-      },
-      {
-        "characterKey": "remi",
-        "text": "i swear i saw purple lights near the shack last night"
-      }
-    ]
-  },
+
   {
     "id": "purple_legion_mystery_remi_7195",
     "order": 94274,

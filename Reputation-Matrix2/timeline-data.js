@@ -186,4 +186,41 @@ export const HISTORICAL_TIMELINE = [
     { date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 30 }, title: "The Usk Connection", description: "On the mezzanine, Hjumpik found a note that triggered a vision of Usk, the foggy elf from the Shadowfell manor, confirming the dimensions are bleeding together.", icon: "icon_magic.png", category: "Recent Event" },
     { date: { year: 1040, monthIndex: 6, day: 24, hour: 7, minute: 20 }, title: "Archie's Paperwork Bluff", description: "In Shadeward Manor, Archie disguised himself as a vampire bureaucrat to rescue Green T from a locked room, bluffing his way past a guard by complaining about paperwork.", icon: "icon_social.png", category: "Recent Event" },
     { date: { year: 1040, monthIndex: 6, day: 26, hour: 14, minute: 0 }, title: "The Crashed Vigilance", description: "Archie and Green T reached the crash site of the Vigilance, finding it swarmed by mysterious 'Purple Legion' troops broadcasting compliance orders.", icon: "newspaper_airship.png", category: "Recent Event" },
+// Append these to the HISTORICAL_TIMELINE array in timeline-data.js
+
+    {
+        id: '1040-vision-988',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 17, minute: 15 },
+        category: 'Recent Event',
+        title: 'Vision of the Grafting',
+        description: "Hjumpik touches a statue and sees a vision from 988: An Orange Robed figure cutting their palm over a screaming dragon egg. The origin of the Corvinarus power."
+    },
+    {
+        id: '1040-wario-arrival',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 17, minute: 30 },
+        category: 'Social',
+        title: 'The Merchant of Chaos',
+        description: "Wario arrives in the Feywild manor. He provides Hjumpik with ancient Vampire Wine and reveals a massive debt ledger including Bowser and Waluigi."
+    },
+    {
+        id: '1040-aurelian-meet',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 18, minute: 0 },
+        category: 'Social',
+        title: 'The Delicate Fairy',
+        description: "The party meets Aurelian Corvinarus in the overgrown Master Bedroom. She plays the role of a delicate host, asking for the Satyrs to be removed."
+    },
+    {
+        id: '1040-circle-discovery',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 18, minute: 20 },
+        category: 'Recent Event',
+        title: 'The Broken Circle',
+        description: "Toad Lee identifies a broken magic circle under the rug. He estimates it will take 4 days to repair—aligning with the end of the month."
+    },
+    {
+        id: '1040-butterfly-bomb',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 18, minute: 50 },
+        category: 'Combat',
+        title: 'Wario\'s Gift',
+        description: "Wario attempts to climb the manor walls to deliver a 'present' (a bomb) to the Giant Guardian Butterfly."
+    },
   ];
