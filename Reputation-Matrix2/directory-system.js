@@ -650,6 +650,7 @@ function renderPartyStatsBar() {
             <span class="pstat-value">${avgIntel}%</span>
             <span class="pstat-label">Avg Intel</span>
         </div>
+
     `;
 }
 

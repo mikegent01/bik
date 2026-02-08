@@ -888,7 +888,6 @@ export const RUMORS = [
     "description": "Green T has uncovered the true objective of the enemy: to shatter the crystals in the Feywild and kill the protectors in the Shadowfell simultaneously. This will collapse the fractured timelines into a single reality dominated by the released 'Beast/Vessel.' The party must choose whether to stop the convergence or hijack it to fix reality on their own terms.",
     "targets": ["green_t", "archie", "markop"],
     "effects": {
-      "timeline_stability": -50,
       "party_agency": 30
     },
     "cycle_impact": { "score": 5.0, "label": "Endgame Scenario", "type": "catastrophic" }
@@ -904,8 +903,8 @@ export const RUMORS = [
     "description": "Green T, previously dismissed as a coward, has formulated a daring plan to break the Shadowfell's hold on the manor. This marks his transition from sidekick to hero.",
     "targets": ["green_t", "archie", "orangus_cornelius"],
     "effects": {
-      "green_t_reputation": 50,
-      "onyx_hand_security": -20,
+      "green_t": 50,
+      "onyx_hand": -20,
       "liberated_toads": 10
     },
     "cycle_impact": { "score": -0.5, "label": "Hero Rises", "type": "heroic" }
