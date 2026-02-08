@@ -243,37 +243,6 @@ export const REWARDS_DATA = {
     getIcon: getRewardIcon
 };
 export const TOADS_QUESTS = {
-'hjumpik_feywild_heist': {
-        id: 'hjumpik_feywild_heist',
-        title: "The Grand Manor Heist",
-        subtitle: "Stealing from the Fey",
-        type: QUEST_TYPES.PERSONAL,
-        category: 'Personal - hjumpik',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'feywild_attic',
-        objective: "Locate the 'Orange Heir', steal the key artifact, and escape the Feywild manor.",
-        assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha'],
-        primaryAssignee: 'hjumpik',
-        description: "Trapped in the Feywild reflection of Raventree, Hjumpik has navigated the Hag's Hut, the Greenhouse, and is now infiltrating the main manor party. He has been tasked by Archmage Perrius to 'sever the lineage', but suspects the Heir is a fraud. He must navigate a surreal party, find the missing Rakasha, and loot the Morning Glory weapon.",
-        difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.HARD, puzzle: DIFFICULTY.MODERATE },
-        
-        rewards: {
-            guaranteed: [
-                { type: 'item', name: "The Morning Glory", description: "A flower-staff that becomes a blade in sunlight." },
-                { type: 'item', name: "Bottle of Something Strong", description: "Fey alcohol. Dangerous." }
-            ],
-            xp: 6000
-        },
-
-        milestones: [
-            { id: 'm1', status: 'completed', title: "Greenhouse Sanctuary", description: "Escaped the Hag, healed Waluigi." },
-            { id: 'm2', status: 'completed', title: "The Party Infiltration", description: "Bluffed past the guards. Met the Orange Heir." },
-            { id: 'm3', status: 'completed', title: "Rakasha's Disappearance", description: "Rakasha vanished. Found a naked tiger person instead. Awkward." },
-            { id: 'm4', status: 'completed', title: "The Secret Room", description: "Waluigi found the hidden room. Looted the Morning Glory." },
-            { id: 'm5', status: 'active', title: "The Theater", description: "Investigating the private theater for the true 'Guest'." }
-        ]
-    },    
     'toad_lee_feywild_protocol': {
         id: 'toad_lee_feywild_protocol',
         title: "Protocol: Wild Garden",
@@ -817,6 +786,135 @@ export const hjumpik_QUESTS = {
 'hjumpik_feywild_heist': {
         id: 'hjumpik_feywild_heist',
         title: "The Grand Manor Heist",
+        subtitle: "Vines, Visions, and Vintage Wine",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - hjumpik',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'feywild_attic',
+        objective: "Gather ritual ingredients (Bone, Ash, Chalk, Iron) to repair the circle, manage Wario's chaotic interference, and solve the mystery of the 'Grafting'.",
+        assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha_spirit_walker', 'wario'],
+        primaryAssignee: 'hjumpik',
+        description: "The Feywild Manor is a chaotic puzzle. Hjumpik has uncovered the dark history of the Corvinarus bloodline: a 'Grafting' of Dragon Blood in 988 BF that created the heir. Wario has crashed the party (literally) with a bomb and vintage vampire wine. Aurelian Corvinarus is willing to help send the Satyrs to the Shadowfell, but she needs the Master Bedroom's magic circle repaired. The clock is ticking—Aurelian says it takes 4 days, but the Legion makes their move in 2.",
+        difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.HARD, puzzle: DIFFICULTY.HARD },
+        
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "The Morning Glory", description: "A flower-staff looted by Waluigi. Becomes a blade in sunlight." },
+                { type: 'consumable', name: "Vampire Vintage (687 BF)", description: "Heals 3d8+3, grants Darkvision, registers user as Undead. Provided by Wario." },
+                { type: 'intel', name: "Usk's True Nature", description: "Knowledge that Usk is a Fog Spirit/Elf binding the timelines." }
+            ],
+            conditional: [
+                { condition: "Prevent Wario from blowing up the roof", reward: { type: 'reputation', faction: 'feywild_court', amount: 300, description: "Kept the Manor intact" }},
+                { condition: "Successfully banish Satyrs to Shadowfell", reward: { type: 'tactical', name: "Shadowfell Distraction", description: "Satyrs invade the Vampire Dinner, aiding Archie's escape." }}
+            ],
+            xp: 7500
+        },
+
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "The Vine Room Puzzle", 
+                description: "Used the Shy Guy toy to discover the keywords: 'Corvinarus', 'Oracle', 'Cornelius'. Unlocked the bio-lock.",
+                completedDate: { year: 1040, monthIndex: 6, day: 26 }
+            },
+            { 
+                id: 'm2', 
+                status: 'completed', 
+                title: "The Vision of 988", 
+                description: "Hjumpik touched the statue. Witnessed the 'Grafting'—a Dragon Egg sacrificed to bind the bloodline. Confirmed the family's power is stolen dragon magic.",
+                completedDate: { year: 1040, monthIndex: 6, day: 26 }
+            },
+            { 
+                id: 'm3', 
+                status: 'completed', 
+                title: "The Merchant's Entrance", 
+                description: "Wario fell through the ceiling. Provided lore on the Shadowfell (Ruined Manor) and supplied items, but damaged the chalk circle.",
+                completedDate: { year: 1040, monthIndex: 6, day: 26 }
+            },
+            { 
+                id: 'm4', 
+                status: 'active', 
+                title: "The Ritual Circle", 
+                description: "Aurelian needs Bone, Ash, Chalk, and Iron to fix the circle in the Master Bedroom. Wario ruined the current chalk. Hjumpik must scavenge superior materials.",
+                goals: [
+                    { text: "Acquire Bone (Satyrs/Food?)", status: 'active' },
+                    { text: "Acquire Iron (Wario's cannonball?)", status: 'active' },
+                    { text: "Acquire Ash (Burned furniture?)", status: 'active' },
+                    { text: "Acquire Chalk (Wario's counterfeit supplies?)", status: 'active' }
+                ]
+            },
+            { 
+                id: 'm5', 
+                status: 'active', 
+                title: "The Roof Bomb", 
+                description: "Wario is climbing to the roof with a ticking present to blow up the 'Dragonfly'. This might collapse the house. Hjumpik must intervene.",
+                priority: 'critical'
+            }
+        ]
+    },    
+'wario_roof_hazard': {
+    id: 'wario_roof_hazard',
+    title: "Greed Above, Doom Below",
+    subtitle: "Wario's Demolition Service",
+    type: QUEST_TYPES.SIDE,
+    category: 'Personal - hjumpik',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL, // The bomb is ticking
+    arcId: 'feywild_attic',
+    objective: "Prevent Wario from collapsing the Manor's roof while securing his 'Cannonball' (Iron) and 'Counterfeit Chalk' for the ritual.",
+    assignees: ['hjumpik', 'waluigi', 'toad_lee', 'wario'],
+    primaryAssignee: 'hjumpik',
+    difficulty: {
+        overall: DIFFICULTY.HARD,
+        negotiation: DIFFICULTY.EXTREME,
+        athletics: DIFFICULTY.HARD
+    },
+    tags: ['negotiation', 'time-sensitive', 'resource-acquisition', 'wario'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 26 }
+    },
+
+    description: "Wario has climbed to the roof with a ticking present (bomb). He intends to blow up the 'Giant Dragonfly' to loot its heart. \n\nProblem 1: The explosion will likely collapse the Master Bedroom ceiling, ruining the ritual circle.\nProblem 2: Wario possesses the **Iron** (Cannonball) and **Chalk** (Counterfeit Kit) needed to fix the circle.\n\nHjumpik must either help Wario kill the beast safely to get the loot, or steal the items and defuse the situation before the roof comes down.",
+
+    consequences: {
+        success: "Wario gets his loot, Hjumpik gets the ingredients, the roof stays intact.",
+        failure: "The roof collapses. Debris crushes the ritual circle in the Feywild AND falls through to the Shadowfell, potentially injuring Archie. The Ritual is delayed by days.",
+        partial: "The beast is dead, but the Cannonball is lost in the fight."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'item', name: "Wario's Cannonball", description: "Pure Iron. Perfect for the ritual." },
+            { type: 'item', name: "Counterfeit Chalk", description: "High-quality alchemical chalk. Perfect for the ritual." }
+        ],
+        conditional: [
+            { condition: "Help Wario profit", reward: { type: 'gold', amount: 500, description: "Wario's 'Consulting Fee' cut." }},
+            { condition: "Waluigi reunites with Wario", reward: { type: 'ability', name: "Wah-Synergy", description: "Waluigi and Wario gain combat bonuses when fighting together." }}
+        ],
+        xp: 3000
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'active',
+            title: "The Climb",
+            description: "Chase Wario to the roof before the timer runs out.",
+            priority: 'critical'
+        },
+        {
+            id: 'm2',
+            status: 'active',
+            title: "The Deal",
+            description: "Negotiate for the Cannonball and Chalk. Wario only understands leverage (Gold or Loot).",
+        }
+    ]
+},    
+'hjumpik_feywild_heist': {
+        id: 'hjumpik_feywild_heist',
+        title: "The Grand Manor Heist",
         subtitle: "Stealing from the Fey",
         type: QUEST_TYPES.PERSONAL,
         category: 'Personal - hjumpik',
@@ -1112,6 +1210,72 @@ export const hjumpik_QUESTS = {
 };
 
 export const ARCHIE_QUESTS = {
+'archie_sleeper_protocol': {
+    id: 'archie_sleeper_protocol',
+    title: "The Ticking Toad",
+    subtitle: "Protocol: Entropy",
+    type: QUEST_TYPES.MAIN,
+    category: 'Personal - Archie',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'shadowfell_estate',
+    objective: "Locate Toadburt using Luigi's 'Poltergust' sensors and disarm the Entropy Ring before it detonates.",
+    assignees: ['archie', 'luigi', 'green_t'],
+    primaryAssignee: 'archie',
+    difficulty: {
+        overall: DIFFICULTY.DEADLY,
+        stealth: DIFFICULTY.HARD,
+        tech: DIFFICULTY.HARD
+    },
+    tags: ['stealth', 'bomb-disposal', 'luigi', 'emotional-trauma'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 26 }
+    },
+
+    description: "The Mages' Guild agents revealed the truth: Toadburt is a sleeper agent equipped with an Entropy Ring—a magical nuke designed to sever the planar bridge. He is currently lost in the Manor, terrified and unstable.\n\nLuigi, the Guild's 'Specialist', has arrived with ghost-hunting gear that can track the ring's signature. Archie must guide Luigi through the vampire-infested halls to find Toadburt. \n\nWarning: If Toadburt panics, he might trigger the ring manually.",
+
+    loreEntries: ['entropy_ring_tech', 'sleeper_agent_conditioning', 'luigi_gadgets'],
+
+    consequences: {
+        success: "Toadburt is saved and disarmed. The party gains a powerful explosive (The Ring).",
+        failure: "Toadburt detonates. The planar bridge collapses. Archie and Hjumpik are trapped in their respective dimensions forever.",
+        partial: "The ring is removed, but Toadburt is lost/captured by the Legion."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'ally', name: "Luigi", description: "Terrified but equipped with anti-ghost tech." },
+            { type: 'item', name: "Entropy Ring (Disarmed)", description: "A volatile magical core." }
+        ],
+        xp: 5000
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Recruitment",
+            description: "Archie was 'recruited' by the Mages' Guild agents.",
+            completedDate: { year: 1040, monthIndex: 6, day: 26 }
+        },
+        {
+            id: 'm2',
+            status: 'active',
+            title: "The Ghost Hunt",
+            description: "Use Luigi's sensors to track the Entropy signal through the Shadowfell Manor.",
+            goals: [
+                { text: "Avoid the Purple Legion", status: 'active' },
+                { text: "Follow the signal strength", status: 'active' }
+            ]
+        },
+        {
+            id: 'm3',
+            status: 'locked',
+            title: "The Cut",
+            description: "Confront Toadburt. Disarm the ring (requires Magic Arcana or Thieves Tools).",
+        }
+    ]
+},    
     'archie_dinner_betrayal': {
         id: 'archie_dinner_betrayal',
         title: "The Guest List",
@@ -2068,120 +2232,7 @@ export const MYSTERY_QUESTS = {
             { id: 'm1', status: 'active', title: "Analyze", description: "Ryan needs to check the readings." }
         ]
     },
-    'mystery_imposter_toad': {
-    id: 'mystery_imposter_toad',
-    title: "The Impostor Among Us",
-    subtitle: "A Question That Won't Stay Buried",
-    type: QUEST_TYPES.MYSTERY,
-    category: 'Personal',
-    status: QUEST_STATUS.ACTIVE,
-    priority: QUEST_PRIORITY.CRITICAL, 
-    arcId: 'raventree_manor',
-    objective: "Determine whether Dan is who he claims to be, now that the only witness (Green T) is a captive in another dimension and the party is separated.",
-    assignees: ['party'],
-    primaryAssignee: 'party',
-    difficulty: {
-        overall: DIFFICULTY.DEADLY,
-        investigation: DIFFICULTY.EXTREME, // Key witness is inaccessible
-        puzzle: DIFFICULTY.HARD,
-        social: DIFFICULTY.EXTREME
-    },
-    tags: ['mystery', 'impersonation', 'paranoia', 'infiltration', 'mirrors', 'planar-travel', 'time_sensitive'],
-    dates: {
-        added: { year: 1040, monthIndex: 6, day: 14 },
-        updated: { year: 1040, monthIndex: 6, day: 22 }
-    },
-
-    description: "The ritual failed. The party is shattered across dimensions. And the question Lario asked on Day 14 now echoes in the silence between worlds: *Is Dan who he claims to be?*\n\nThe only person who might have had an answer was Green T. He saw something in Dan's reflection that made him run in terror. Now, Green T is a captive in the Shadowfell, and the party is separated by planar barriers. There is no one to ask. There is no easy way to verify the truth.\n\nEvery member of the party must now operate under a cloud of deep suspicion. Who are they trusting? Who is leading the Toads? What is the nature of the entity that pulled Green T from the mirror?\n\nThe revelation of the multiple Oracles and the Bearer's fragmented nature has proven that identity in Raventree is fluid. Doppelgangers and reflections are real. A replacement is not just plausible—it's precedented.\n\nThis is no longer an investigation to be completed before a ritual. This is a cold war of paranoia that will fester until the party reunites. And if they do reunite, will they be able to trust the faces that emerge from the portals?",
-
-    loreEntries: ['raventree_mirror_entities', 'doppelganger_taxonomy', 'lario_background', 'planar_fracture_theory'],
-
-    locations: {
-        primary: 'multiple_planes',
-        witness_location: 'shadowfell_estate',
-        subject_location: 'physical_antechamber_or_void', // His location post-fracture is ambiguous
-        related: ['restaurant_ruins', 'raventree_manor']
-    },
-
-    consequences: {
-        success: "The party finds concrete proof of Dan's identity (or lack thereof) before reuniting. They can act with certainty, either by welcoming an ally or ambushing a foe.",
-        failure_reunion: "The party reunites without answers. If Dan is an impostor, it has now infiltrated the core group with its cover stronger than ever. The opportunity to expose it may be lost.",
-        failure_witness_lost: "Green T is not rescued from the Shadowfell. The only direct witness is lost, and the truth may be buried with him forever.",
-        paranoia_collapse: "Suspicion spirals out of control. The separated party members turn on each other, sabotaging the efforts to fix the ritual based on unproven fears."
-    },
-
-    rewards: {
-        guaranteed: [
-            { type: 'intel', name: "The Truth About Dan", description: "Certainty, one way or another." }
-        ],
-        conditional: [
-            { condition: "Expose an impostor while separated", reward: { type: 'xp', amount: 5000, description: "Catastrophe Averted" }},
-            { condition: "Dan is real and you maintain trust despite the distance", reward: { type: 'loyalty', name: "Dan's Unbreakable Trust", description: "He learns of the suspicion later and is grateful for the faith shown in him." }},
-            { condition: "Dan is false and you destroy the impostor upon reunion", reward: { type: 'item', name: "Shard of a False Face", description: "A fragment of whatever was pretending to be your friend, radiating deceit." }}
-        ],
-        xp: 4000
-    },
-
-    milestones: [
-        {
-            id: 'm1',
-            status: 'completed',
-            title: "The Restaurant Warning",
-            description: "Day 14. Amid the chaos of the Legion raid, Lario claimed the Dan with them was a fake. The warning was heard but not investigated.",
-            completedDate: { year: 1040, monthIndex: 6, day: 14 }
-        },
-        {
-            id: 'm2',
-            status: 'completed',
-            title: "The Witness and the Flight",
-            description: "Green T was pulled from the Mirror Dimension by Dan. He looked at his rescuer with absolute terror and fled, suggesting he saw proof of the impostor theory in the reflection.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 }
-        },
-        {
-            id: 'm3',
-            status: 'completed',
-            title: "The Separation",
-            description: "The ritual failed, scattering the party and separating everyone from the key witness, Green T, who is now a captive in the Shadowfell.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 }
-        },
-        {
-            id: 'm4',
-            status: 'active',
-            title: "Paranoia in Isolation",
-            description: "The party must now operate while separated, unable to trust the reports from other groups. Is Dan's leadership of the remaining Toads genuine? Is the being in the Void with Markop and Remi the real Oracle? Every action must be re-evaluated through the lens of potential infiltration.",
-            goals: [
-                { text: "Rescue Green T to secure the only witness (see 'Rescue Green T' quest)", status: 'active', priority: 'critical' },
-                { text: "Find a way to communicate between planar shards to compare notes", status: 'active', priority: 'high' },
-                { text: "Analyze Dan's past actions for inconsistencies", status: 'active', priority: 'medium' },
-                { text: "Prepare a contingency plan for a hostile reunion", status: 'active', priority: 'critical' }
-            ]
-        }
-    ],
-
-    clues: [
-        { id: 'c1', status: 'known', text: "Lario's warning was delivered with extreme urgency, suggesting high confidence.", source: 'lario_toad' },
-        { id: 'c2', status: 'known', text: "Green T ran specifically from Dan after being pulled from a mirror, a place of reflections and true selves.", source: 'green_t_flight' },
-        { id: 'c3', status: 'confirmed', text: "The Manor can produce duplicates and fragmented identities (The Many Oracles).", source: 'bearer_revelation' },
-        { id: 'c4', status: 'unknown', text: "Where is the 'real' Dan, if he was replaced? Is he trapped in the Mirror Dimension?", source: 'deduction' },
-        { id: 'c5', status: 'unknown', text: "What are the goals of a potential impostor? Sabotage? Intelligence gathering?", source: 'deduction' }
-    ],
-
-    npcs: {
-        allies: ['lario'],
-        key_witness: ['green_t'],
-        subject: ['dan'],
-        observers: [] // Party is now isolated
-    },
-
-    locations: {
-        primary: 'multiple_planes',
-        witness_location: 'shadowfell_estate',
-        subject_location: 'physical_antechamber_or_void', // His location post-fracture is ambiguous
-        related: ['restaurant_ruins', 'raventree_manor']
-    },
-
-    relatedQuests: ['artifacts_of_balance', 'main_quest_raventree', 'rescue_green_t']
-}
+ 
 };
         
 export const WORLD_QUESTS = {
@@ -2192,14 +2243,80 @@ export const WORLD_QUESTS = {
         category: 'World',
         status: QUEST_STATUS.AVAILABLE,
         priority: QUEST_PRIORITY.HIGH,
-        arcId: 'shadow_war',
+        arcId: 'shadowfell_estate',
         objective: "Resolve the Vampire-Werewolf conflict.",
         assignees: ['party'],
         milestones: [
             { id: 'm1', status: 'active', title: "Investigate", description: "Gather evidence from both sides." }
         ]
     },
+    'mystery_imposter_toad': {
+        id: 'mystery_imposter_toad',
+        title: "The Impostor Among Us",
+        subtitle: "Echoes in the Shadow",
+        type: QUEST_TYPES.MYSTERY,
+        category: 'Personal',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL, 
+        arcId: 'raventree_manor',
+        objective: "Verify Dan's identity. Green T's silence in the Shadowfell has deepened the suspicion.",
+        assignees: ['party'],
+        primaryAssignee: 'party',
+        difficulty: {
+            overall: DIFFICULTY.DEADLY,
+            investigation: DIFFICULTY.EXTREME,
+            puzzle: DIFFICULTY.HARD,
+            social: DIFFICULTY.EXTREME
+        },
+        tags: ['mystery', 'impersonation', 'paranoia', 'infiltration', 'mirrors', 'doppelganger'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 14 },
+            updated: { year: 1040, monthIndex: 6, day: 26 }
+        },
 
+        description: "The paranoia is justified. While infiltrating the Shadowfell Airship crash site, Archie pointed out a figure resembling Dan to Green T. Green T refused to look, refused to answer, and hid. His reaction was not confusion—it was primal fear. \n\nGreen T knows something about 'Dan' that he is too terrified to speak aloud, even to Archie. With the revelation that Toadburt is a sleeper agent, the possibility of Dan being a 'Mirror Replacement' or a Legion spy is at an all-time high.",
+
+        loreEntries: ['raventree_mirror_entities', 'doppelganger_taxonomy', 'green_t_trauma'],
+
+        clues: [
+            { id: 'c1', status: 'known', text: "Lario's warning on Day 14.", source: 'lario_toad' },
+            { id: 'c2', status: 'known', text: "Green T ran from Dan after the Mirror Rescue.", source: 'green_t_flight' },
+            { id: 'c3', status: 'confirmed', text: "Manor creates fractured identities (Aurelian/Orangus/Usk).", source: 'bearer_revelation' },
+            { id: 'c4', status: 'new', text: "Green T refused to acknowledge 'Dan' at the Shadowfell crash site. He is terrified of the subject.", source: 'archie_shadowfell_interrogation' },
+            { id: 'c5', status: 'new', text: "Toadburt revealed as a Sleeper Agent. Proves the Legion utilizes deep-cover assets.", source: 'mages_guild_interrogation' }
+        ],
+
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Warning",
+                description: "Lario claimed Dan was fake.",
+                completedDate: { year: 1040, monthIndex: 6, day: 14 }
+            },
+            {
+                id: 'm2',
+                status: 'completed',
+                title: "The Witness Flight",
+                description: "Green T fled from Dan after exiting the mirror.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            {
+                id: 'm3',
+                status: 'active',
+                title: "The Shadow Silence",
+                description: "Green T refuses to speak about Dan, even when pressed by Archie in the Shadowfell. He treats 'Dan' as a monster to be hidden from.",
+                completedDate: { year: 1040, monthIndex: 6, day: 26 }
+            }
+        ],
+
+        locations: {
+            primary: 'multiple_planes',
+            witness_location: 'shadowfell_manor_guest_room',
+            subject_location: 'unknown', 
+            related: ['airship_crash_site']
+        }
+    }
 };
         export const MAIN_QUESTS = {
     'timeline_convergence': {

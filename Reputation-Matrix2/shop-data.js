@@ -9018,14 +9018,14 @@ export const SHOP_ITEMS = {
     'mushroom_kingdom_item_name': {
         id: 'mushroom_kingdom_item_name',
         name: "Toad Lee’s Leg-Crutch of Unbroken Will",
-        description: "A cursed yet comforting crutch forged from the bones of a fallen Toad King. Wields power through pain and carries the will of a hero who refused to fall. Restores 10 HP per use and grants a +20% chance to escape traps.",
+        description: "A cursed yet comforting crutch forged from the bones of a fallen Toad King. Wields power through pain and carries the will of a hero who refused to fall. Gain 10 Coins per use and grants a +20% chance to escape traps.",
         category: SHOP_CATEGORIES.EQUIPMENT,
         price: 2500,
         icon: '🔮',
         stock: 3,
         rarity: 'rare',
         effects: [
-            "Restores 10 HP on use",
+            "Gain 10 Coins on use",
         "+20% chance to escape traps",
         "Grants +5% defense when stationary"
         ],
@@ -11113,7 +11113,7 @@ export const SHOP_ITEMS = {
         stock: 3,
         rarity: 'rare',
         effects: [
-            "Restores 10 HP per use, but at cost of 1 memory point",
+            "Gain 10 Coins per use, but at cost of 1 memory point",
         "Triggers time-loop effect if used in a looped area",
         "May cause hallucinations in non-Feywild environments"
         ],
@@ -16826,7 +16826,7 @@ export const SHOP_ITEMS = {
         stock: 2,
         rarity: 'rare',
         effects: [
-            "Restores 10 HP per second while active",
+            "Gain 10 Coins per second while active",
         "Grants 10% chance to heal allies with a touch",
         "Increases damage by 15% against enemies with “Soul” status"
         ],
@@ -23404,7 +23404,7 @@ export const SHOP_ITEMS = {
         rarity: 'rare',
         effects: [
             "Grants +2 to Will saves against reality distortion effects",
-        "Restores 10 HP after activating in a reality-unstable zone",
+        "Gain 10 Coins after activating in a reality-unstable zone",
         "One use per day triggers “Echo of the Forgotten” — reveals hidden paths or traps in 10-foot radius"
         ],
         vendor: 'faerun',
@@ -23423,7 +23423,7 @@ export const SHOP_ITEMS = {
         effects: [
             "Removes one curse or madness effect per use",
         "Grants +1 to Perception for 10 minutes",
-        "Restores 10 HP when used in a hostile environment"
+        "Gain 10 Coins when used in a hostile environment"
         ],
         vendor: 'faerun',
         shippedBy: 'Boo Spectral Mail',
@@ -26918,7 +26918,7 @@ export const SHOP_ITEMS = {
         stock: 3,
         rarity: 'rare',
         effects: [
-            "Restores 10 HP per 2 seconds when in jungle terrain",
+            "Gain 10 Coins per 2 seconds when in jungle terrain",
         "Slows enemy movement by 20% in jungle zones",
         "Grants +10% dodge chance against ranged attacks"
         ],
@@ -46884,7 +46884,7 @@ export const SHOP_ITEMS = {
         icon: '🌶️',
         stock: 100,
         rarity: 'uncommon',
-        effects: ["Restores 10 HP", "Grants 'Enraged' for 1 min (+2 dmg, -2 AC)"],
+        effects: ["Gain 10 Coins", "Grants 'Enraged' for 1 min (+2 dmg, -2 AC)"],
         vendor: 'gilded_gryphon',
         shippedBy: 'Insulated Box',
         levelRequirement: 3
@@ -76352,7 +76352,7 @@ export const SHOP_ITEMS = {
         stock: 5,
         rarity: 'uncommon',
         effects: [
-            "Restores 10 HP and 10 MP after use",
+            "Gain 10 Coins and 10 MP after use",
         "Leaves a faint elven scent for 10 minutes",
         "Increases stealth bonus by +1 in forests",
         "May cause temporary euphoria or confusion",
@@ -78622,7 +78622,7 @@ export const SHOP_ITEMS = {
         stock: 12,
         rarity: 'uncommon',
         effects: [
-            "Restores 10 HP and 10 MP when consumed",
+            "Gain 10 Coins and 10 MP when consumed",
         "Causes temporary sugar rush: +2 attack speed for 3 turns",
         "Consuming more than one in a row triggers a 10% chance to cause a sugar-induced burst of arcane damage",
         "Made from the last batch of the Grand Meringue Bakery",
@@ -79137,7 +79137,7 @@ export const SHOP_ITEMS = {
         stock: 5,
         rarity: 'common',
         effects: [
-            "Restores 10 HP when used",
+            "Gain 10 Coins when used",
         "Grants +20% bonus damage from Wario’s attacks",
         "10% chance to trigger a “Wario Greed” effect – increases damage for next 3 turns",
         "Wears off after 10 minutes of inactivity",
@@ -82945,7 +82945,7 @@ export const SHOP_ITEMS = {
         effects: [
             "Grants +2 to all rolls involving stealth or persuasion",
         "When equipped in haunted zones, reduces fear effect by 50%",
-        "Consumes 1 banana core per use (restores 10 HP if eaten)",
+        "Consumes 1 banana core per use (Gain 10 Coins if eaten)",
         "Has a 5% chance to trigger a sudden banana peel slide (confuses target for 1 round)",
         "Slightly increases movement speed in banana groves",
         "Crafted by: Boos Real Estate Syndicate"
@@ -83610,7 +83610,7 @@ export const SHOP_ITEMS = {
         stock: 15,
         rarity: 'common',
         effects: [
-            "Restores 10 HP per drink",
+            "Gain 10 Coins per drink",
         "20% chance to cause ink bleed on target",
         "Tastes like burnt rubber and regret",
         "Causes temporary confusion for 1 round after use",
@@ -87721,7 +87721,7 @@ export const SHOP_ITEMS = {
         stock: 5,
         rarity: 'uncommon',
         effects: [
-            "Restores 10 HP after consumption",
+            "Gain 10 Coins after consumption",
         "Grants temporary resistance to poison for 1 turn",
         "Causes mild hallucinations of forgotten cities for 2 turns",
         "Sips leave behind a faint echo of a forgotten battle cry",
@@ -88139,7 +88139,7 @@ export const SHOP_ITEMS = {
         stock: 2,
         rarity: 'rare',
         effects: [
-            "Restores 10 HP when activated",
+            "Gain 10 Coins when activated",
         "Triggers memory recall once per day",
         "Costs 1 soul fragment to activate",
         "Can be used to bind souls to a vessel",
@@ -89538,7 +89538,7 @@ export const SHOP_ITEMS = {
         icon: '🍪',
         stock: 15,
         rarity: 'common',
-        effects: ["Restores 10 HP", "Cures 'Hungry' condition"],
+        effects: ["Gain 10 Coins", "Cures 'Hungry' condition"],
         vendor: 'toad_town_market',
         shippedBy: 'Cookie Jar',
         levelRequirement: 1
