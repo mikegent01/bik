@@ -157,7 +157,7 @@ export const RUMORS = [
     "arcPosition": "climax",
     "description": "Hjumpik recalls the mage collecting his severed fingers, suggesting ritualistic purposes beyond simple murder.",
     "targets": ["hjumpik", "archive", "usk"],
-    "effects": { "mages_guild": -5, "personal_stakes": 10 },
+    "effects": { "mages_guild": -5 },
     "cycle_impact": { "score": 1.2, "label": "Memory Recovery", "type": "mystic" }
   },
   {
@@ -586,7 +586,7 @@ export const RUMORS = [
   "arcPosition": "climax",
   "description": "Lady Aurelian’s voice cut through the midnight halls like a blade: the Orange Heir walks among us no longer kin, but a festering wound cloaked in her uncle’s stolen flesh. It hungers for the sacred bathhouse waters—not to cleanse, but to drown the entire ward in rivers of its own corrupted blood, unmaking stone, bloodline, and soul in one crimson tide. The mirrors have aligned; it leaps between reflections, a shadow unbound by walls. Minutes remain before it reaches the steaming pools. Fire alone may sear the impostor from existence—yet even flame fears what the water will birth if the Heir touches its surface. The house trembles. The lineage bleeds. Do not let it near the water.",
   "targets": ["lady_aurelian", "hjumpik", "archie", "waluigi", "toad_lee"],
-  "effects": { "corvinarus_house": -35, "ward_stability": -18, "mirror_realm": +12 },
+  "effects": { "corvinarus_house": -35,  "mirror_realm": +12 },
   "cycle_impact": { "score": 4.8, "label": "lineage unmaking", "type": "catastrophic" }
 },  
 {
@@ -732,9 +732,9 @@ export const RUMORS = [
   arc: 'raventree_manor',
   arcPosition: 'rising',
   description: "An expired coupon found in the Oracle's lab coat pocket bears a phone number ending in -W and the words 'Call me.' Evidence suggests Wario conducted business at Raventree Manor before the fracture—possibly selling equipment, acquiring specimens, or brokering a deal with the Oracle. His involvement implies a black-market supply chain for the vessel experiments.",
-  targets: ['wario', 'oracle_npc', 'remi', 'markop'],
+  targets: ['wario', 'oracle', 'remi', 'markop'],
   effects: { 
-    oracle_npc: -5, 
+    oracle: -5, 
     black_market: 10, 
     wario_enterprises: 5,
     party_agency : -3 
@@ -798,7 +798,7 @@ export const RUMORS = [
     "title": "The Fracture of Raventree",
     "date": { "day": 23, "monthIndex": 6, "year": 1040 },
     "isEvent": true,
-    "instigator": "oracle_npc",
+    "instigator": "oracle",
     "arc": "raventree_manor",
     "arcPosition": "climax",
     "description": "Following a catastrophic ritual failure, Raventree Manor has split into three unstable dimensions: the Physical (Iron Legion controlled), the Shadowfell (Onyx Hand controlled), and the Feywild/Fracture (Wild Magic chaos). The party is separated, and communication is limited to cross-dimensional scrying crystals.",
@@ -815,11 +815,11 @@ export const RUMORS = [
     "title": "The Oracle's Gambit",
     "date": { "day": 23, "monthIndex": 6, "year": 1040 },
     "isEvent": true,
-    "instigator": "oracle_npc",
+    "instigator": "oracle",
     "arc": "raventree_manor",
     "arcPosition": "revelation",
     "description": "Evidence uncovered by Remi and Markop in the Fractured Atrium reveals the 'Oracle' is actually a necromantic researcher attempting to build a perfect vessel. The crystals protecting the manor were placed by the Mages' Guild to keep a monster IN, not out.",
-    "targets": ["oracle_npc", "markop", "remi", "mages_guild"],
+    "targets": ["oracle", "markop", "remi", "mages_guild"],
     "effects": {
       "party": -50,
       "mages_guild": 10,
@@ -833,14 +833,14 @@ export const RUMORS = [
     "title": "The Vessel in the Tank",
     "date": { "day": 23, "monthIndex": 6, "year": 1040 },
     "isEvent": true,
-    "instigator": "oracle_npc",
+    "instigator": "oracle",
     "arc": "raventree_manor",
     "arcPosition": "climax",
     "description": "A hidden laboratory in the Fractured Atrium contains vat-grown monstrosities and a central, magically shielded figure frozen in stasis. Notes indicate this 'Vessel' is meant to house a powerful soul (likely the merged Oracle entity). The creature is currently dormant, but the Oracle is pushing for the destruction of the 'Keepers' (Archie/Bowser's team) to power its awakening.",
-    "targets": ["markop", "remi", "oracle_npc"],
+    "targets": ["markop", "remi", "oracle"],
     "effects": {
-      "necromancy_threat": 25,
-      "bio_horror": 20
+      "necromancers_guild": 25,
+      "bio_horrors": 20
     },
     "cycle_impact": { "score": 3.0, "label": "Forbidden Science", "type": "horror" }
   },
@@ -918,7 +918,7 @@ export const RUMORS = [
     arc: 'onyx_hand_revel',
     arcPosition: 'rising',
     description: "At a velvet-draped banquet in the Onyx Hand manor, Orangus Corenilous forced the guests into a timed vote: four minutes to discuss, then write a name. While a purple-glowing 'friendship bracelet' pulsed with entropy and Vostolas calmly recorded every whisper, suspicion erupted over a duplicated guest identity. Orangus slid a crystalline knife to Archie (posing as Darman) and demanded blood to prove belonging. Archie chose the butler Usk, and the table learned what kind of night this would become.",
-    targets: ['orangus_corenilous', 'archie_miser', 'markop', 'toadburt', 'vostolas_archivist', 'real_darman', 'usk_the_butler'],
+    targets: ['orangus_corenilous', 'archie', 'markop', 'toadburt', 'vostolas_archivist', 'real_darman', 'usk_the_butler'],
     effects: {
       onyx_hand: 20,
       mages_guild: 5,
@@ -936,7 +936,7 @@ export const RUMORS = [
     arc: 'onyx_hand_revel',
     arcPosition: 'climax',
     description: "A silver shot dropped the Oracle mid-dinner and turned the revel into a riot. Bowser’s flames surged through the hall, Kryn fed openly, and the supposed heir Vivesna was unmasked as Vivian—an ambitious thrall crossdressing for succession. In the confusion, Franklin moved to secure the entropy device. Archie and Green T escaped through a window into the manor’s shadowed grounds, choosing rescue and regrouping over surrender as guards began rounding up survivors.",
-    targets: ['green_t', 'archie_miser', 'bowser', 'kryn_corvinarus', 'vivian_man_shadow', 'franklin_mages', 'vampire_guard_captain'],
+    targets: ['green_t', 'archie', 'bowser', 'kryn_corvinarus', 'vivian_man_shadow', 'franklin_mages', 'vampire_guard_captain'],
     effects: {
       onyx_hand: -15,
       vampires: -25,
@@ -950,11 +950,11 @@ export const RUMORS = [
     title: "Flight to the Abandoned Infirmary",
     date: { day: 29, monthIndex: 6, year: 1040 },
     isEvent: true,
-    instigator: 'archie_miser',
+    instigator: 'archie',
     arc: 'onyx_hand_revel',
     arcPosition: 'fallout',
     description: "After escaping the manor grounds, Archie and Green T attempted to reach an airship—only to discover distance itself felt unreliable. Over several days they passed into a Midland town where unfamiliar currency, a watchful shopkeeper, and a suspicious magpie hinted the world was still tracking them. As rain finally broke hard and cold, they took shelter in an abandoned infirmary, uncertain whether they had fled the revel… or simply entered its next room.",
-    targets: ['archie_miser', 'green_t', 'shopkeeper_midland'],
+    targets: ['archie', 'green_t', 'shopkeeper_midland'],
     effects: {
       onyx_hand: 0,
       mages_guild: 0,
@@ -1045,7 +1045,7 @@ export const RUMORS = [
         arc: 'shadowfell_estate',
         arcPosition: 'introduction',
         description: "Deep within the Shadowfell reflection of Raventree Manor rules 'Orangus Cornelius,' a powerful entity (likely a Vampiric Toad) leading the Onyx Hand in this dimension. He is hosting a formal dinner party where Green T is a captive guest. Archie and Bowser have infiltrated the event, but the physics of the Shadowfell have neutralized Archie's fire magic, forcing them to rely on diplomacy and physical might.",
-        targets: ['bowser', 'archie_miser', 'orangus_cornelius', 'green_t'],
+        targets: ['bowser', 'archie', 'orangus_cornelius', 'green_t'],
         effects: {
             onyx_hand: 10, // Hosting powerful guests
             koopa_troop: 5, // Bowser showing dominance
@@ -1358,15 +1358,15 @@ export const RUMORS = [
     title: "Archie's Aegis Worry",
     date: { day: 21, monthIndex: 6, year: 1040 },
     isEvent: true,
-    instigator: 'archie_miser',
+    instigator: 'archie',
     arc: 'aegis_riot',
     arcPosition: 'aftermath',
     description: "Archie Miser wonders aloud about the fate of 100+ escaped toads amid the chaos, hoping the Legion hasn't recaptured them. Escaped prisoners quickly correct him: 147 freed thanks to Speaker Rivers, mocking Archie's mirror-punching distractions.",
-    targets: ['archie_miser', 'toad_prisoner_moss', 'dan_the_toad'],
+    targets: ['archie', 'toad_prisoner_moss', 'dan_the_toad'],
     effects: {
       toad_prisoners: 5,
       speaker_network: 8,
-      archie_miser: -2
+      archie: -2
     },
     cycle_impact: { score: 0.6, label: "Escape Confirmation", type: "relief" }
   },  
@@ -2016,8 +2016,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "targets": ["archie", "markop", "remi", "waluigi", "bowser"],
     "effects": {
       "mages_guild": -5,
-      "party_cohesion": -10,
-      "supernatural_forces": 10
+      "party_agency": -10,
     },
     "cycle_impact": { "score": -0.4, "label": "Paranormal Activity", "type": "supernatural" }
   },
