@@ -573,7 +573,7 @@ export const RUMORS = [
   "arcPosition": "climax",
   "description": "Deep within the fog-choked halls of Raven Tree Manor, the air thick with the scent of old blood and mildew, Green T found himself trapped behind a jammed window on the third floor. Archie had cast a desperate disguise spell—morphing into the guise of a harried clerk with ink-stained fingers and a ledger under one arm—to bluff past the vampire sentries below. The spell held under pressure, sustained not by focus on his true form but by the mundane mantra: 'paperwork matters.' When the undead patrol drew too close, Archie hissed 'we’re going' and vanished into the shadows, leaving Green T pinned against the warped sill. Green T ducked into a dusty wardrobe, heart hammering, whispering a vow: if he survived the night, he would be petty forever. Archie returned moments later, cloak singed, eyes wide—'I came back. Petty later.' Hjumpik’s voice crackled through a scrying mirror from afar: 'Survive first. Pettiness is earned.' The manor itself seemed to breathe, walls shifting, mirrors reflecting faces that weren’t there. The disguise spell flickered once, twice—then held. The vampires passed below, sniffing the air, searching for the living who dared trespass. In the silence that followed, the group learned a hard truth: in Raven Tree, survival demands method acting, steady breath, and the willingness to become someone else entirely.",
   "targets": ["green_t", "archie", "hjumpik", "waluigi", "toad_lee"],
-  "effects": { "raven_tree_manor": -28, "vampire_sentiment": -15, "disguise_magic": +10 },
+  "effects": { "raven_tree_manor": -28, "vampire_sentiment": -15, "corvinarus_house": +10 },
   "cycle_impact": { "score": 3.9, "label": "manor infiltration breach", "type": "critical" }
 },
 {
@@ -737,7 +737,7 @@ export const RUMORS = [
     oracle_npc: -5, 
     black_market: 10, 
     wario_enterprises: 5,
-    party_trust: -3 
+    party_agency : -3 
   },
   cycle_impact: { score: 0.8, label: "Shady Dealings", type: "economic" }
 },  
@@ -821,7 +821,7 @@ export const RUMORS = [
     "description": "Evidence uncovered by Remi and Markop in the Fractured Atrium reveals the 'Oracle' is actually a necromantic researcher attempting to build a perfect vessel. The crystals protecting the manor were placed by the Mages' Guild to keep a monster IN, not out.",
     "targets": ["oracle_npc", "markop", "remi", "mages_guild"],
     "effects": {
-      "party_trust": -50,
+      "party": -50,
       "mages_guild": 10,
       "onyx_hand": 5
     },
@@ -872,8 +872,8 @@ export const RUMORS = [
     "description": "Toadburt was captured by Mages' Guild operatives and brought to the Shadow Estate dinner as a 'Guest of Honor.' Initially neutralized by a Dampening Ring, he has now been spotted without it, signaling a potential jailbreak or a deal with the Vampires. His explosive magic capabilities are currently a wild card in the standoff.",
     "targets": ["toadburt", "mages_guild", "archie"],
     "effects": {
-      "toad_liberation": -10,
-      "chaos_magic_potential": 40
+      "liberated_toads": -10,
+      "cosmic_jester": 40
     },
     "cycle_impact": { "score": 2.5, "label": "Hostage Crisis", "type": "tension" }
   },
