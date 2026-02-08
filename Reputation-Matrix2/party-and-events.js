@@ -169,8 +169,8 @@ export const RUMORS = [
     "arc": "feywild_attic",
     "arcPosition": "rising",
     "description": "Waluigi publicly disputes Wario's fraudulent debt claims, exposing the absurdity of cross-timeline accounting.",
-    "targets": ["waluigi", "wario", "debt_collectors"],
-    "effects": { "ratchet_raiders": -3, "party_tension": 5 },
+    "targets": ["waluigi", "wario", "debt_collectors"], 
+    "effects": { "ratchet_raiders": -3, "party": 5 },
     "cycle_impact": { "score": 0.4, "label": "Financial Fraud Exposed", "type": "social" }
   },
   {

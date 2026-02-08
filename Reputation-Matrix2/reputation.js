@@ -41,7 +41,6 @@ export function getNotorietyDescription(notoriety) {
     if (notoriety >= 50) return "Recognized";
     return "Unknown";
 }
-
 export function renderIndividualStandings(factionKey) {
     const standingsHTML = state.party.map(playerKey => {
         const player = LORE_DATA.characters[playerKey];
@@ -49,7 +48,7 @@ export function renderIndividualStandings(factionKey) {
 
         const playerRep = getReputation(playerKey, factionKey);
         const playerNotoriety = getNotoriety(playerKey, factionKey);
-        
+
         let repClass = 'rep-neutral';
         if (playerRep > 10) repClass = 'rep-positive';
         else if (playerRep < -10) repClass = 'rep-negative';
@@ -59,9 +58,26 @@ export function renderIndividualStandings(factionKey) {
         const breakdown = state.calculationBreakdown[playerKey]?.[factionKey];
         let calculationHTML = '<li>No detailed calculation data available.</li>';
         if (breakdown) {
-            const rumorItems = (breakdown.rumors || []).map(r => `<li class="calculation-item">Rumor: "${r.title}": <span class="calc-value ${r.value > 0 ? 'positive' : 'negative'}">${r.value > 0 ? '+' : ''}${r.value}</span></li>`).join('');
-            const propItems = (breakdown.propagation || []).map(p => `<li class="calculation-item">From ${p.source}: <span class="calc-value ${p.value > 0 ? 'positive' : 'negative'}">${p.value > 0 ? '+' : ''}${Math.round(p.value)}</span></li>`).join('');
-            calculationHTML = `<li class="calculation-item">Base Reputation: ${breakdown.base}</li>${rumorItems}${propItems}<li class="calculation-item"><strong>Final Total: ${playerRep}</strong></li>`;
+            const rumorItems = (breakdown.rumors || []).map(r =>
+                `<li class="calculation-item">Rumor: "${r.title}": <span class="calc-value ${r.value > 0 ? 'positive' : 'negative'}">${r.value > 0 ? '+' : ''}${r.value}</span></li>`
+            ).join('');
+
+            // NEW: Quest contribution items
+            const questItems = (breakdown.quests || []).map(q =>
+                `<li class="calculation-item">Quest Rewards (scaled): <span class="calc-value ${q.value > 0 ? 'positive' : 'negative'}">${q.value > 0 ? '+' : ''}${q.value}</span></li>`
+            ).join('');
+
+            const propItems = (breakdown.propagation || []).map(p =>
+                `<li class="calculation-item">From ${p.source}: <span class="calc-value ${p.value > 0 ? 'positive' : 'negative'}">${p.value > 0 ? '+' : ''}${Math.round(p.value)}</span></li>`
+            ).join('');
+
+            calculationHTML = `
+                <li class="calculation-item">Base Reputation: ${breakdown.base}</li>
+                ${rumorItems}
+                ${questItems}
+                ${propItems}
+                <li class="calculation-item"><strong>Final Total: ${playerRep}</strong></li>
+            `;
         }
 
         return `

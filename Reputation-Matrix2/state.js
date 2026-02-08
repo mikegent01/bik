@@ -6,6 +6,8 @@ import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
 import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './research-data.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
+import { extractAllRewards } from './quests/quests-main.js';
+import { STORY_ARCS } from './lore.js';
 const DATA_VERSION = 3; 
 // --- STATE MANAGEMENT ---
 localStorage.setItem('faction_xp_spent', '30500');
@@ -27,7 +29,45 @@ function getArchetypeFromWeapon(weapon) {
     const key = String(weapon || '').toLowerCase().trim();
     return WEAPON_ALIASES[key] || key;
 }
+function calculateQuestReputationBonuses() {
+    const bonuses = {}; // { playerKey: { factionKey: scaledTotal } }
 
+    let allRewards;
+    try {
+        allRewards = extractAllRewards();
+    } catch (e) {
+        console.warn('Could not extract quest rewards for reputation:', e);
+        return bonuses;
+    }
+
+    allRewards.forEach(reward => {
+        if (!reward.earned) return;
+        if (reward.type !== 'reputation') return;
+        if (!reward.faction || !reward.amount) return;
+
+        const playerKey = reward.earnedBy || 'party';
+        const factionKey = reward.faction;
+        const scaled = scaleQuestReputation(reward.amount);
+
+        // If earned by 'party', apply to all party members
+        const recipients = playerKey === 'party' ? [...state.party] : [playerKey];
+
+        recipients.forEach(pk => {
+            if (!bonuses[pk]) bonuses[pk] = {};
+            if (!bonuses[pk][factionKey]) bonuses[pk][factionKey] = 0;
+            bonuses[pk][factionKey] += scaled;
+        });
+    });
+
+    return bonuses;
+}
+function scaleQuestReputation(rawAmount) {
+    if (rawAmount === 0) return 0;
+    const sign = rawAmount > 0 ? 1 : -1;
+    const abs = Math.abs(rawAmount);
+    // Logarithmic-ish scaling: sqrt curve anchored so 10 → 10
+    return Math.round(sign * 10 * Math.sqrt(abs / 10));
+}
 // Snap-down lookup so odd levels and missing exact keys never return undefined
 function getAbilityForLevel(archetype, level) {
     const table = TOAD_ABILITIES[archetype];
@@ -480,13 +520,128 @@ function calculateFinalIntel() {
 
     state.finalIntel = computedIntel;
 }
-
+/**
+ * Returns true if this key from rumor.effects is NOT a faction
+ * (it's a stat modifier, party member, auxiliary member, etc.)
+ */
+function isNonFactionKey(key) {
+    // Known stat/system keys
+    const systemKeys = [
+        'cycle_impact', 'score', 'label', 'type',
+        'speaker_network', 'vigilance_morale', 'vigilance_resources',
+        'third_eye_network', 'liberated_morale', 'liberated_resources',
+        'party_cohesion', 'party_morale', 'world_tension',
+        'noki_trust', 'pianta_trust'
+    ];
+    
+    if (systemKeys.includes(key)) return true;
+    
+    // Party members are not factions
+    if (state.party && state.party.includes(key)) return true;
+    
+    // Auxiliary party members are not factions
+    if (LORE_DATA.auxiliary_party && LORE_DATA.auxiliary_party[key]) return true;
+    
+    // Character keys are not factions
+    if (LORE_DATA.characters && LORE_DATA.characters[key] && !LORE_DATA.factions[key]) return true;
+    
+    return false;
+}
 function calculateFinalReputations() {
     const finalReps = structuredClone(state.players); 
     const finalSubFactionReps = {};
     const calculationBreakdown = {};
 
     const factionKeys = Object.keys(LORE_DATA.factions);
+
+    // --- ENSURE STORY ARC KEY FACTIONS EXIST IN EVERY PLAYER'S REP ---
+    if (STORY_ARCS) {
+        const arcFactions = new Set();
+        for (const arcKey in STORY_ARCS) {
+            const arc = STORY_ARCS[arcKey];
+            if (arc.keyFactions) {
+                arc.keyFactions.forEach(fk => arcFactions.add(fk));
+            }
+        }
+        for (const playerKey in finalReps) {
+            arcFactions.forEach(fk => {
+                if (finalReps[playerKey].reputation[fk] === undefined) {
+                    finalReps[playerKey].reputation[fk] = 0;
+                }
+                if (finalReps[playerKey].notoriety[fk] === undefined) {
+                    finalReps[playerKey].notoriety[fk] = 0;
+                }
+                if (state.players[playerKey]?.reputation[fk] === undefined) {
+                    state.players[playerKey].reputation[fk] = 0;
+                }
+                if (state.players[playerKey]?.notoriety[fk] === undefined) {
+                    state.players[playerKey].notoriety[fk] = 0;
+                }
+            });
+        }
+        arcFactions.forEach(fk => {
+            if (!factionKeys.includes(fk)) factionKeys.push(fk);
+        });
+    }
+
+    // =============================================
+    // NEW: ENSURE EVERY FACTION KEY FROM RUMOR EFFECTS EXISTS
+    // This is what makes purple_legion, etc. actually get processed
+    // =============================================
+    if (LORE_DATA.rumors) {
+        const rumorFactionKeys = new Set();
+        
+        LORE_DATA.rumors.forEach(rumor => {
+            // Collect from effects
+            if (rumor.effects) {
+                Object.keys(rumor.effects).forEach(key => {
+                    // Skip non-faction keys
+                    if (isNonFactionKey(key)) return;
+                    rumorFactionKeys.add(key);
+                });
+            }
+            
+            // Collect from personal_impact
+            if (rumor.personal_impact) {
+                Object.values(rumor.personal_impact).forEach(playerEffects => {
+                    if (playerEffects && typeof playerEffects === 'object') {
+                        Object.keys(playerEffects).forEach(key => {
+                            if (isNonFactionKey(key)) return;
+                            rumorFactionKeys.add(key);
+                        });
+                    }
+                });
+            }
+        });
+        
+        // Ensure all rumor-referenced factions exist in every player's rep objects
+        for (const playerKey in finalReps) {
+            rumorFactionKeys.forEach(fk => {
+                if (finalReps[playerKey].reputation[fk] === undefined) {
+                    finalReps[playerKey].reputation[fk] = 0;
+                }
+                if (finalReps[playerKey].notoriety[fk] === undefined) {
+                    finalReps[playerKey].notoriety[fk] = 0;
+                }
+                // Also ensure base state has them for breakdown tracking
+                if (state.players[playerKey]?.reputation[fk] === undefined) {
+                    state.players[playerKey].reputation[fk] = 0;
+                }
+                if (state.players[playerKey]?.notoriety[fk] === undefined) {
+                    state.players[playerKey].notoriety[fk] = 0;
+                }
+            });
+        }
+        
+        // Add to factionKeys array for propagation step
+        rumorFactionKeys.forEach(fk => {
+            if (!factionKeys.includes(fk)) factionKeys.push(fk);
+        });
+    }
+
+    // Now the existing rumor processing loop will work because
+    // finalReps[playerKey].reputation['purple_legion'] exists (starts at 0)
+    // and the loop iterates over it
 
     for (const playerKey in finalReps) {
         calculationBreakdown[playerKey] = {};
@@ -496,8 +651,9 @@ function calculateFinalReputations() {
             let rumorNotorietyModifier = 0;
             
             calculationBreakdown[playerKey][factionKey] = {
-                base: state.players[playerKey].reputation[factionKey],
+                base: state.players[playerKey].reputation[factionKey] || 0,
                 rumors: [],
+                quests: [],
                 propagation: []
             };
 
@@ -509,7 +665,6 @@ function calculateFinalReputations() {
                     const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
                     const metrics = calculateRumorMetrics(rumor, relatedPosts);
                     
-                    // Determine specific effect for this player
                     let effect = 0;
                     let hasPersonalImpact = false;
                     
@@ -521,11 +676,10 @@ function calculateFinalReputations() {
                     // 2. Fallback to General Effects if target matches
                     else if (isTarget && rumor.effects[factionKey]) {
                         effect = rumor.effects[factionKey];
-                        if (isInstigator) effect *= 2; // Double effect for instigator on general rumors
+                        if (isInstigator) effect *= 2;
                     }
 
                     if (effect !== 0) {
-                        // Apply multiplier
                         effect = Math.round(effect * metrics.repMultiplier);
 
                         rumorRepModifier += effect;
@@ -545,6 +699,8 @@ function calculateFinalReputations() {
             finalReps[playerKey].notoriety[factionKey] += rumorNotorietyModifier;
         }
     }
+
+
 
     const propagationFactor = 0.2;
     for (const playerKey in finalReps) {
