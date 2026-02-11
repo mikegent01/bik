@@ -4,6 +4,696 @@
 // Removed: 11 duplicates
 
 export const WAHBOOK_POSTS = [
+// Rumor: dancehall_escape - The Dancer’s Last Dance
+  // Based on text provided
+
+  {
+    "id": "dancehall_escape_captain_toadette_afb7",
+    "order": 69543,
+    "characterKey": "captain_toadette",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Luigi’s sudden appearance at the door? Then Markop’s got him in a chokehold. Someone’s got to stop this before the dance hall turns into a bloodbath.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Luigi’s not gonna last. Markop’s got the upper hand."
+      },
+      {
+        "characterKey": "bones",
+        "text": "He’s got a bowser behind him. That’s not a good sign."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_eager_72b8",
+    "order": 87145,
+    "characterKey": "eager",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 18
+    },
+    "content": "I bit the onyx hand… and ran. Didn’t want to turn into a vampire. But Markop’s breaking the lock, and Bowser’s behind him. We’re outta here.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "You’re lucky you’re not in the maze. That sign says “this way.”"
+      },
+      {
+        "characterKey": "roger",
+        "text": "The void beyond the trees? That’s not a place to be."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_remi_1a5e",
+    "order": 94390,
+    "characterKey": "remi",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 45
+    },
+    "content": "I saw a little girl. I asked if anyone’s been missing. No one’s come out. Vivian’s the only one who’s walked through. We’re running… and I’m scared.",
+    "likes": 114,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "The light crossbow’s still out there. We’re not done."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_markop_46f9",
+    "order": 60176,
+    "characterKey": "markop",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 22
+    },
+    "content": "We had to break in before the onyx knights got to us. Remi’s scream was the only thing that mattered.",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Markop, you’re lucky that eager didn’t bite the onyx hand first."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_salam_4b13",
+    "order": 99342,
+    "characterKey": "salam",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "I tried to breach the door, but the light crossbow didn’t help. That void beyond the trees? That’s where the real danger is.",
+    "likes": 9,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "You were trying to breach the door? That’s not how you fight a void."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_oracle_e2ee",
+    "order": 88781,
+    "characterKey": "oracle",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "The dancer’s last dance was a trap. Markop’s got the keys, but the maze? That’s where the real questions start.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "Oracle, you’re always asking questions. What’s the next step?"
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_bones_cd62",
+    "order": 54985,
+    "characterKey": "bones",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Luigi’s arrival was the only thing that broke the silence—then Markop’s rage, then the melt. Someone’s gonna regret letting a dancer be their snack.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "bones, you’re not even close to the horror. The void beyond the trees? That’s where the real dance starts."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_bowser_3643",
+    "order": 73735,
+    "characterKey": "bowser",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 48
+    },
+    "content": "Markop’s lock-bashing was the best move. I didn’t even have to run. I just… punched the door. And then we went into that maze. And that’s when I remembered why I never liked this place.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Bowser, you didn’t even say you were in the maze. You’re just pretending you were."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "Oh, I saw that. I saw the shadowy manor. And I saw remi. She’s still running."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_salam_346a",
+    "order": 65875,
+    "characterKey": "salam",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 1
+    },
+    "content": "I tried to breach. I tried to shoot. I failed. And then… the void. The gray trees. The nothing. I didn’t want to be here. But I’m not leaving.",
+    "likes": 102,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "salam, I’m not sure if I’m still here. I think I’m just… dancing."
+      },
+      {
+        "characterKey": "markop",
+        "text": "You’re not alone. We’re all dancing."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "You’re not even in the maze. You’re in the void."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_captain_toadette_0cf2",
+    "order": 80692,
+    "characterKey": "captain_toadette",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Luigi’s been taken, Markop’s got the bowser behind him, and someone’s still running through the maze. This dance hall’s got more drama than a haunted ballroom.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "The maze sign’s a trap. We’re all just following the map to the void."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_remi_4d03",
+    "order": 63856,
+    "characterKey": "remi",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 41
+    },
+    "content": "I saw them run. I saw the void. I saw the door. And I’m still here. Someone’s gotta exit… but who’s left?",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "You were the last one to see anyone. You’re the only one who remembers."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_green_t_d0d5",
+    "order": 85973,
+    "characterKey": "green_t",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 33
+    },
+    "content": "Eager bit the hand, Markop busted the lock, and Vivian just walked in like nothing happened. The real horror? The void. The maze. The silence.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "The void’s not empty. It’s watching. And it’s got a name."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_waluigi_27e4",
+    "order": 73298,
+    "characterKey": "waluigi",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 23
+    },
+    "content": "Luigi’s got a surprise entrance—then Markop’s got a surprise chokehold. And then… *dancing*? Nah, it’s just a dance hall meltdown.",
+    "likes": 18,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "“Luigi’s not dancing, he’s dodging a vampire-armed Onyx Knight. Also, why is the void outside the manor so… *colorless*?”"
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_bowser_7b6d",
+    "order": 73425,
+    "characterKey": "bowser",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 41
+    },
+    "content": "Markop’s got a key, I’ve got a Bowser punch, and we’re breaking into a dance hall where someone’s got a *light crossbow* and a vampire hand. Also, we’re running from a maze that says “this way.”",
+    "likes": 22,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“Bowser, you’re gonna need a bigger key for that void. And… why is the void *colorless*? That’s not a vibe, that’s a *vibe*.”"
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_speaker_l_e123",
+    "order": 69017,
+    "characterKey": "speaker_l",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 10
+    },
+    "content": "Remi’s screaming, “we have to go to the shadowy manor,” and someone’s asking, “have you seen a little girl?” And *yes*, someone’s asking if anyone’s *exited* this room.",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“Remi’s got a *very* dramatic exit. Also, the maze sign says ‘this way’—but who’s *this way*? The void? The vampire? The *dancer*?”"
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_wario_51d6",
+    "order": 94184,
+    "characterKey": "wario",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Luigi’s in the dance hall? Markop’s got him in a chokehold? And then the Onyx Knights show up? This ain’t no dance—this is a bloodbath with a bowser backup.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "Wario, you’re still alive? That’s a miracle."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_bowser_2e3e",
+    "order": 62886,
+    "characterKey": "bowser",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 42
+    },
+    "content": "Markop bashes the lock? I’m not surprised. Remi’s screaming about the shadowy manor? That’s the kind of place I’d throw a party in. And Eager? Bites an Onyx hand? That’s a new record.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "Bowser, you’re the only one who’d turn a dance hall into a vampire buffet."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_archie_9fb1",
+    "order": 44010,
+    "characterKey": "archie",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 1
+    },
+    "content": "Vivian’s the only one who showed up after the door. And the maze? “This way sign” — that’s a clue. Or a trap. Either way, the dance hall’s gone.",
+    "likes": 64,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Archie, you’re the only one who’s seen the void beyond the trees."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_toad_lee_d2d2",
+    "order": 80951,
+    "characterKey": "toad_lee",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 2,
+      "minute": 14
+    },
+    "content": "Luigi’s in the dance hall and Markop’s got him. Then Perrius melts him like a puddle… and Eager’s gonna bite an Onyx Knight’s hand. Someone’s gonna run through that maze.",
+    "likes": 84,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "That’s a lot of pain… and a lot of blood."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "And Remi’s screaming for help."
+      },
+      {
+        "characterKey": "fawful",
+        "text": "*cackles* I’ll be the one to make the dance hall *my* dance hall."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "*mumbles* I’m not a dancer. I’m a... *knight*."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_bones_af63",
+    "order": 70910,
+    "characterKey": "bones",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 31
+    },
+    "content": "The maze sign says “this way”… but the void beyond the gray trees? That’s not a maze. That’s a warning. And someone’s been missing since the diner.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "I was reassigned… but I’m still here."
+      },
+      {
+        "characterKey": "eager",
+        "text": "*grips Onyx Knight’s hand*"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "*bashes the lock*"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "Remi’s not just a little girl. She’s the key."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_fawful_460a",
+    "order": 61291,
+    "characterKey": "fawful",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 48
+    },
+    "content": "The Dancer’s Last Dance? That’s a *performance*. And I’m not dancing… I’m the *audience*.",
+    "likes": 52,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "*shudders* You’re not the dancer… you’re the *judge*."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "*whispers* I’ve seen the void… it’s got eyes."
+      },
+      {
+        "characterKey": "remi",
+        "text": "*screams* We have to go… before the void *eats* us."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "*grins* I’ll take the maze. And I’ll take the *dance*."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_fawful_7041",
+    "order": 61610,
+    "characterKey": "fawful",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Luigi’s been caught. Markop’s got his bow, and the Onyx Knights are already in the dance hall. This ain’t a dance — it’s a slaughter.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "Fawful’s got a point. The room’s got no exit. And Eager’s biting a hand? That’s not a dance, that’s a horror show."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_dan_4968",
+    "order": 91677,
+    "characterKey": "dan",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 41
+    },
+    "content": "Perrius melted Markop’s dance? That’s not a dance, that’s a war. And Remi’s screaming “we have to go” — but where? The maze? The gray trees? No exit. No escape.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "Dan’s right. The maze sign? That’s a trap. And “the void” — that’s not a place. That’s a warning."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_oracle_c93b",
+    "order": 96516,
+    "characterKey": "oracle",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 22
+    },
+    "content": "“Have you seen a little girl?” — Remi’s not just lost. She’s the key. And the Onyx Knights? They’re not here to dance. They’re here to turn the room into a tomb.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Oracle’s got the vibe. “The void” — that’s not a void. That’s the end. And Eager? He’s not a dancer. He’s a sacrifice."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_toad_lee_c192",
+    "order": 97439,
+    "characterKey": "toad_lee",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 22
+    },
+    "content": "Luigi showed up, got caught in the crossfire, and Markop just... bashed the lock open. Bowser’s behind him? That’s the vibe.",
+    "likes": 147,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "Luigi’s in the mix, Markop’s got the rage, and Bowser’s got the backup. What’s the plan now?"
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_remi_747f",
+    "order": 87924,
+    "characterKey": "remi",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 41
+    },
+    "content": "We were in the dance hall, got surrounded. Eager tried to bite an Onyx hand — and ran. Markop screamed “we have to go.” The void beyond the trees? That’s where we’re headed.",
+    "likes": 92,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "Remi, you’re not alone. We’re all in this. The maze sign? We’re following it."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_salam_b23c",
+    "order": 46166,
+    "characterKey": "salam",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 10
+    },
+    "content": "Tried to breach the door — failed. Light crossbow ready. Then the Onyx Knights came. And Eager? He bit the hand. Then ran. We’re not out of this yet.",
+    "likes": 78,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Salam, you got the crossbow, but Markop’s got the key. And Bowser’s behind him. Let’s move."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_green_t_4329",
+    "order": 97757,
+    "characterKey": "green_t",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Luigi’s got the jump on Markop, but the dance hall’s got a whole new set of problems now. Eager’s getting turned into a vampire… and someone’s running from the maze.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "That’s a whole new kind of dance — vampire ballet. And Eager’s still fighting."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_ryan_5631",
+    "order": 84204,
+    "characterKey": "ryan",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "The maze’s got a sign — “this way” — and everyone’s running for it. But what’s beyond the gray trees? A colorless void? That’s not a place for a dance hall.",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "That void looks like it’s waiting for someone to step in… and maybe dance."
+      }
+    ]
+  },
+  {
+    "id": "dancehall_escape_fawful_abfa",
+    "order": 63963,
+    "characterKey": "fawful",
+    "rumorId": "dancehall_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "Remi’s missing. Salam tried to break the door — failed. Bowser’s in the room. And someone’s whispering “no one should be exiting.”",
+    "likes": 51,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "“Vampire we don’t want to cause trouble.” That’s the kind of line that makes me wanna dance… and run."
+      }
+    ]
+  },
+
 // Rumor: purple_legion_mystery - The Purple Legion Enigma
   {
     "id": "fey_calendar_confusion_salam_f4e2",
