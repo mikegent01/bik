@@ -223,4 +223,137 @@ export const HISTORICAL_TIMELINE = [
         title: 'Wario\'s Gift',
         description: "Wario attempts to climb the manor walls to deliver a 'present' (a bomb) to the Giant Guardian Butterfly."
     },
+    {
+    "id": "1040-luigi-arrival",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 0 },
+    "category": "Arrival / Entrance",
+    "title": "Luigi's Entrance",
+    "description": "Come on in, they shout—a bump is heard at a nearby door. It opens, revealing Luigi."
+  },
+  {
+    "id": "1040-markop-strangle",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 2 },
+    "category": "Combat",
+    "title": "Markop Attacks Luigi",
+    "description": "Cut to Markop guy strangling him."
+  },
+  {
+    "id": "1040-perrius-anamatur",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 5 },
+    "category": "Magic / Transformation",
+    "title": "Perrius Anamatur Melts",
+    "description": "Perrius Anamatur dissolves the dancer on Markop; it melts on his skin."
+  },
+  {
+    "id": "1040-toadburt-escape",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 10 },
+    "category": "Escape / Combat",
+    "title": "Toadburt Flees",
+    "description": "Toadburt in the other room runs away, dodging guards and attacks."
+  },
+  {
+    "id": "1040-salam-breach",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 12 },
+    "category": "Combat Prep",
+    "title": "Salam Prepares Breach",
+    "description": "Salam runs to the door to breach, fails, and prepares his light crossbow."
+  },
+  {
+    "id": "1040-onyx-swarm",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 15 },
+    "category": "Combat",
+    "title": "Onyx Knights Swarm",
+    "description": "Onyx knights swarm the dance hall."
+  },
+  {
+    "id": "1040-onyx-eager-vampire",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 18 },
+    "category": "Threat / Dialogue",
+    "title": "Onyx Knight Threatens Eager",
+    "description": "Onyx knight holding Eager says he will turn Eager into a vampire for faster healing. Eager protests ('v-v-v-v--vampire we dont want to cause any trouble'), begs to heal normally, struggles, bites the onyx hand, and runs toward the door."
+  },
+  {
+    "id": "1040-markop-bash-rescue",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 22 },
+    "category": "Rescue / Escape",
+    "title": "Markop Bashes In",
+    "description": "Markop bashes the lock open and rushes in with Bowser behind him, dodging onyx hand. Markop sees Remi, screams they have to get out—he's bleeding and they're after him. 'Leave, run, scram.'"
+  },
+  {
+    "id": "1040-eager-window-crash",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 25 },
+    "category": "Escape",
+    "title": "Eager's Window Escape",
+    "description": "Eager dashes behind them, then in front, and crashes through the window. Markop removes broken glass and calls to Remi to leave through the window."
+  },
+  {
+    "id": "1040-remi-front-door",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 28 },
+    "category": "Capture",
+    "title": "Remi Follows Guards",
+    "description": "Remi runs through front door. Guards open it, ask her to come with them. She says 'OK' and follows. Bowser climbs out window. Dan runs behind Remi and exits front door. Salam dashes to window and jumps out."
+  },
+  {
+    "id": "1040-manor-drag",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 30 },
+    "category": "Capture",
+    "title": "Remi Dragged In",
+    "description": "They watch Remi get dragged into the manor. Markop says they need backup and suggests heading to the airship."
+  },
+  {
+    "id": "1040-dan-authenticity",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 35 },
+    "category": "Dialogue / Doubt",
+    "title": "Questioning Dan",
+    "description": "Markop asks Dan 'how do I know you're real?' Dan replies 'I honestly don't know' and asks how he can prove himself. They head into a room."
+  },
+  {
+    "id": "1040-kyrn-remi-drink",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 40 },
+    "category": "Social / Manipulation",
+    "title": "Kyrn Offers Drink",
+    "description": "Kyrn enters, asks Remi if she wants a drink. She declines ('no thanks, I'm not into blood'). Kyrn cuts to the point: the Oracle hand has no pulse—he is dead. Remi says she's looking for friends; Kyrn claims they abandoned her and offers friendship/care instead."
+  },
+  {
+    "id": "1040-remi-napkin",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 19, "minute": 50 },
+    "category": "Discovery",
+    "title": "Remi Finds Battle Plan Napkin",
+    "description": "Remi walks into a room, picks up a high-quality linen napkin from the Shadowfell dining table with Green T's frantic battle plan (stick figures of Bowser, Green T, Archie; notes: 'Kill Vampires,' 'Smash Crystals,' 'UNLEASH THE BEAST')."
+  },
+  {
+    "id": "1040-forest-dan-reveal",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 20, "minute": 0 },
+    "category": "Revelation",
+    "title": "Parallel Dan Confession",
+    "description": "Markop and co. in forest after rest. Markop presses Dan. Dan admits he's partially real—a parallel version. The mirror room Dan was fake; here in Shadowfell he's real. Original Dan is likely held by mages guild in a null cage."
+  },
+  {
+    "id": "1040-ritual-intel",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 20, "minute": 10 },
+    "category": "Lore / Dialogue",
+    "title": "Ritual & Oracle Details",
+    "description": "Discussion about ritual collapsing reality, previous failed Oracle frozen between crystals, Dan's role in disruption to protect himself. Zone of Truth fades; party thinks about Remi."
+  },
+  {
+    "id": "1040-remi-wario-gift",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 20, "minute": 30 },
+    "category": "Item Transfer",
+    "title": "Wario Delivers Items",
+    "description": "Remi bumps into Wario in hallway. He dumps fire resistance items and armor into her backpack, says goodbye, and heads to Oracle's master room. Guards chase him."
+  },
+  {
+    "id": "1040-remi-library-imps",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 20, "minute": 45 },
+    "category": "Exploration / Encounter",
+    "title": "Library Imps & Locked In",
+    "description": "Remi snoops, hears explosion, sees painting hint (toad petting dog—possibly Orangus Cornelius). Guards ask about ghost/bleeding toad. Perrius Anamatur and Toadburt run past. Remi enters study/library; imps appear, ask for library cards, close door trapping Toadburt and ghost inside."
+  },
+  {
+    "id": "1040-veranda-maze",
+    "date": { "year": 1040, "monthIndex": 6, "day": 26, "hour": 21, "minute": 0 },
+    "category": "Exploration",
+    "title": "Veranda & Maze Sign",
+    "description": "Remi reaches veranda with crimson petals, eerie view of void. Markop & co. return, ask about little girl (Remi). Vivian appears; group runs. They reach 'MAZE THIS WAY' sign and head out."
+  },
   ];

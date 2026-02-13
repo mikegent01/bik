@@ -4,6 +4,955 @@
 // Removed: 11 duplicates
 
 export const WAHBOOK_POSTS = [
+// Rumor: donkey_kong_banana_slam - Donkey Kong’s Banana Slam
+  // Based on text provided
+
+  {
+    "id": "donkey_kong_banana_slam_oracle_1970",
+    "order": 56953,
+    "characterKey": "oracle",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Diddy’s voice on the phone… then the coconut gun. Then Donkey Kong. And Mario’s barrel. This ain’t a rumor. This is a *text*.",
+    "likes": 274,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“He’s alive? He’s dead? He’s a national hero? And Mario’s gonna shove a barrel up his ass? This is *not* a game. This is *real*.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_ryan_00e9",
+    "order": 63516,
+    "characterKey": "ryan",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 42
+    },
+    "content": "Chunky Kong? National hero? Dead? “I don’t even want to say it.” That’s the line. That’s the truth. And then… Donkey Kong. *Banana slammer sucker*.",
+    "likes": 198,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“Wait… he’s not dead? He’s *alive*? And Mario’s gonna shove a barrel up his ass? That’s not a threat. That’s *plot*. And it’s *real*.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_toad_lee_abf3",
+    "order": 88033,
+    "characterKey": "toad_lee",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 9
+    },
+    "content": "Diddy’s voice. Donkey Kong. The coconut gun. The banana slammer. The barrel. The national hero. The *real* thing. This ain’t a rumor. This is a *text*.",
+    "likes": 152,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“He’s alive? He’s dead? He’s a hero? And Mario’s gonna shove a barrel up his ass? That’s not a threat. That’s *plot*. And it’s *real*.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_hjumpik_bbdc",
+    "order": 47249,
+    "characterKey": "hjumpik",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Diddy’s voice is cracking, and he’s not yelling — he’s just… broken. Chunky Kong’s dead? That’s not a rumor. That’s a headline.",
+    "likes": 47,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Diddy’s got a coconut gun? And he’s calling Donkey Kong? This ain’t a game. This is a war."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_salam_c800",
+    "order": 58121,
+    "characterKey": "salam",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "“I’m Donkey Kong” — that’s not a comeback. That’s a funeral dirge. And Mario’s gonna shove a barrel up his ass? That’s the only thing worse than Chunky Kong’s death.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "“Banana slammer sucker”? That’s not a punchline. That’s a confession. And Diddy’s got a coconut gun? He’s not just a villain. He’s a ghost."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_oracle_8441",
+    "order": 72369,
+    "characterKey": "oracle",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "“They can’t even tell me if he was do.” — That’s not a typo. That’s a scream. The Congo bongo surgeons? They don’t know if Chunky Kong is alive or dead. And that’s not a joke.",
+    "likes": 31,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“I’m not yelling at you, Tiny.” — That’s not a pep talk. That’s a prayer. And Diddy’s calling Donkey Kong? That’s not a reunion. That’s a funeral."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_markop_4f01",
+    "order": 62793,
+    "characterKey": "markop",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Markop’s phone just rang. He’s got the coconut gun. And he’s got Donkey Kong on the line. That’s not a rumor. That’s a funeral.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "“He’s dead? He’s a pillar? How do you explain that to the whole town without shattering the world?”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_eager_4cea",
+    "order": 72482,
+    "characterKey": "eager",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 42
+    },
+    "content": "Eager’s not even sure if Chunky Kong’s alive or dead. The surgeons in Congo bongo? They can’t tell. And now the whole world’s screaming.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "“You can’t tell the public a national hero’s dead? That’s a public relations disaster. I’d be running for office if I were in charge.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_bones_dd84",
+    "order": 60956,
+    "characterKey": "bones",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 1
+    },
+    "content": "Bones heard the banana slammer. The man who called himself Donkey Kong. He said Mario’s gonna shove a barrel up his ass next time. That’s not a threat. That’s a prophecy.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "“A banana slammer? That’s a joke. But I’m not laughing. I’m just… terrified.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_salam_6804",
+    "order": 58437,
+    "characterKey": "salam",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Diddy’s phone’s ringing like a death knell. Chunky Kong’s gone and no one’s telling the truth.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "This ain’t a rumour, this is a collapse. The world’s got no handle on this."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_eager_1fb3",
+    "order": 97980,
+    "characterKey": "eager",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 42
+    },
+    "content": "“I found you, you dirty bastard.” — That’s the line that breaks me. Grandpa’s voice, but it’s not him.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "The coconut gun? That’s a weapon. Or a joke. Either way, this is the end of the old guard."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_kamek_492e",
+    "order": 75770,
+    "characterKey": "kamek",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 1
+    },
+    "content": "“Banana slammer sucker.” — That’s not a threat. That’s a confession. Donkey Kong’s done.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m not crying. I’m just… shocked. The banana slammer? That’s the last thing he ever said before he vanished."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_archie_2237",
+    "order": 42560,
+    "characterKey": "archie",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 2,
+      "minute": 14
+    },
+    "content": "Diddy’s got a coconut gun and a dead hero? This is a banana slammer’s nightmare.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Archie, you’re not even in the room — but you’re already yelling at the coconut."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_captain_toadette_0205",
+    "order": 45528,
+    "characterKey": "captain_toadette",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 47
+    },
+    "content": "“I’m Donkey Kong. And you tell that son of a [__] your brother Mario will shove a barrel up his ass.” — That’s not a threat. That’s a promise.",
+    "likes": 112,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "Captain Toadette, you’re not even in the game — but you’re already quoting the script."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_dan_3bd7",
+    "order": 92896,
+    "characterKey": "dan",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 1
+    },
+    "content": "“So, so, so I dont understand. Is he comeosse, not brain dead, but comeomaos.” — This is a language puzzle. Or a funeral.",
+    "likes": 64,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Dan, you’re not even in the room — but you’re already solving the mystery."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_fawful_75b7",
+    "order": 67330,
+    "characterKey": "fawful",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Diddy’s got a coconut gun and he’s calling Donkey Kong? That’s not a joke. And the banana slammer? That’s a slap in the face.",
+    "likes": 47,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Fawful’s got a point. The banana slammer? That’s a sucker."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_wario_1089",
+    "order": 98451,
+    "characterKey": "wario",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 42
+    },
+    "content": "Chunky Kong’s dead? And Diddy’s calling him? That’s not just a rumor — that’s a full-on banana slam.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Wario’s right. And Mario’s gonna shove a barrel up his ass. That’s the real slap."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_eager_27ce",
+    "order": 53023,
+    "characterKey": "eager",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 8
+    },
+    "content": "Diddy’s got a coconut gun, and he’s calling Donkey Kong? That’s not a joke — that’s a banana slammer sucker.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "Eager’s got it. The banana slammer? That’s a sucker. And Diddy’s got a coconut gun."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_oracle_d039",
+    "order": 73705,
+    "characterKey": "oracle",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "This is the kind of chaos that makes you question if the whole world’s just a banana-slamming simulator.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Oracle, you’re not even yelling. You’re just… whispering into a void."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_markop_8e1c",
+    "order": 55130,
+    "characterKey": "markop",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 42
+    },
+    "content": "Diddy’s phone call? That’s the only thing that’s actually sane in this mess.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Markop, you’re a banana. You’re not even trying to be a banana."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_ryan_bc48",
+    "order": 94242,
+    "characterKey": "ryan",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 1
+    },
+    "content": "“I’m Donkey Kong. And you tell that son of a [__] your brother Mario will shove a barrel up his ass next time he wants a piece of my action.” — That’s not a threat. That’s a prophecy.",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Ryan, you’re not even trying to be a banana. You’re trying to be a banana slammer."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_captain_toadette_2c81",
+    "order": 83732,
+    "characterKey": "captain_toadette",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "This isn’t just a coconut gun drama — it’s a national trauma. Who’s gonna tell the people Chunky Kong’s dead? And Mario’s already threatening him?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“He’s dead, I’m just gonna eat his banana slammer and call it a day.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_kamek_8d7a",
+    "order": 69521,
+    "characterKey": "kamek",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 42
+    },
+    "content": "“Comeosse, not brain dead” — that’s the real tragedy. They can’t even tell if he’s alive. And now the public’s gonna riot.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "“This isn’t a rumor. It’s a state emergency. Who’s in charge of the banana slammer now?”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_salam_44cd",
+    "order": 74019,
+    "characterKey": "salam",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 22
+    },
+    "content": "The phone’s ringing. “Leave your name, message.” And the last thing we got was “I found you, you dirty bastard.”",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“That’s not a banana slammer. That’s a political weapon. And it’s already in the hands of the wrong people.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_markop_20db",
+    "order": 74451,
+    "characterKey": "markop",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Diddy’s voice cracking up over the phone — he’s still alive, but the whole town’s in shock. “Chunky Kong” is the real name, and now everyone’s screaming “Banana slammer!”",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "“He’s not dead. He’s just… *in the coconut gun*. And Mario’s gonna *shove a barrel up his ass* next time. That’s the real banana slam.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_bowser_e743",
+    "order": 88062,
+    "characterKey": "bowser",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 42
+    },
+    "content": "This ain’t a rumor. This is *fact*. Diddy’s got the coconut gun. And Donkey Kong? He’s not brain dead. He’s *comeomaos*. And Mario? He’s gonna *shove a barrel* — again.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "“Wait, so Chunky Kong’s not dead? And Donkey Kong’s *alive*? And Mario’s gonna shove a barrel? That’s the *real* banana slam.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_toad_lee_3b49",
+    "order": 65015,
+    "characterKey": "toad_lee",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 9
+    },
+    "content": "The phone call was *real*. Diddy’s voice is broken. “I’m not yelling at you, Tiny. He’s a pillar of the community.” And now everyone’s scared.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "“I found the coconut gun. And I found you, you dirty bastard.” — That’s not a joke. That’s *Donkey Kong*. And Mario? He’s gonna *shove a barrel*. That’s the *real* banana slam.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_eager_c81a",
+    "order": 75876,
+    "characterKey": "eager",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Diddy’s voice is shaking, and he’s got a coconut gun? That’s not a joke. This ain’t a game, it’s a whole damn mess.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "He’s still on the phone, but he’s not even answering. What if it’s not Diddy? What if it’s the *real* Donkey Kong?"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_kamek_b8bd",
+    "order": 79193,
+    "characterKey": "kamek",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 42
+    },
+    "content": "“Chunky Kong?” “Banana slammer sucker.” That’s not a threat — that’s a *message*. And the phone’s still ringing.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I’ve seen this meme before — but this is real. The banana’s not just a weapon. It’s a *weapon of truth*."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_oracle_60e6",
+    "order": 50807,
+    "characterKey": "oracle",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 33
+    },
+    "content": "“You dirty bastard.” That’s not a joke. That’s a *warning*. And the text is still going.",
+    "likes": 64,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "The coconut gun. The banana slammer. The phone of Dasis Kong Esquire. This is *not* a game. It’s a *story*."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_toad_lee_a554",
+    "order": 94260,
+    "characterKey": "toad_lee",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Diddy’s phone’s gone, and the whole town’s screaming. Chunky Kong’s a pillar — how do you bury a hero without a funeral?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "That coconut gun? I’m guessing it’s the last thing he ever held before the world forgot his name."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_dan_1397",
+    "order": 53389,
+    "characterKey": "dan",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 42
+    },
+    "content": "“I’m Donkey Kong. And you tell that son of a [__] your brother Mario will shove a barrel up his ass next time.” — That’s not a threat, that’s a *family reunion*.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Mario’s gonna be *so* mad. He’s already got a barrel in his pants from last time."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_salam_2036",
+    "order": 78885,
+    "characterKey": "salam",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 1
+    },
+    "content": "“He’s a pillar of the community. How do you tell the public a national hero is dead?” — They don’t. They just call him “Chunky Kong” and forget he was ever real.",
+    "likes": 117,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "He’s dead. But he’s still the king of the banana slam. Even if the banana’s in the trash."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_salam_fa3c",
+    "order": 68302,
+    "characterKey": "salam",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Diddy’s phone call to Donkey Kong? That’s gotta be the last thing anyone saw before the whole town went silent. The coconut gun? That’s not a weapon — that’s a symbol.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "He’s still alive? Or is he just… waiting for Mario to get his banana slammer on him?"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_bowser_d130",
+    "order": 87558,
+    "characterKey": "bowser",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 52
+    },
+    "content": "This isn’t a banana slam — it’s a funeral. And they’re still calling it “a coconut gun.” The whole town’s in a loop. Who’s in charge? Who’s even *telling* the truth?",
+    "likes": 94,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I swear, if I hear one more “banana slammer sucker” I’m gonna throw a barrel at the screen."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_archie_d3d4",
+    "order": 44491,
+    "characterKey": "archie",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 1
+    },
+    "content": "Chunky Kong’s gone. And the whole world’s in a panic. Diddy’s still calling him “Grandpa.” That’s the problem — they’re not even trying to fix this. Just scream it louder.",
+    "likes": 82,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even sure if I’m in the right town. But I *am* in the wrong one. And I’m not gonna be the one to say “banana slammer sucker.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_oracle_3d81",
+    "order": 65070,
+    "characterKey": "oracle",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Diddy’s coconut gun found. Donkey Kong’s voice: “I’m Donkey Kong.” And Mario’s gonna shove a barrel up his ass. 🍌🔫",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“Banana slammer sucker. That’s the new meme.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_fawful_7b47",
+    "order": 93639,
+    "characterKey": "fawful",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 42
+    },
+    "content": "“He’s a pillar of the community. How do you tell the public a national hero is dead?” – this is why I love this source text. Also, Donkey Kong’s voice is still haunting me.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "“I’m not yelling at you, Tiny. It’s he’s a pillar… I’m just confused why the surgeons in the Congo can’t tell if he was do.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_dan_fe38",
+    "order": 70819,
+    "characterKey": "dan",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 1
+    },
+    "content": "“Oh god, Grandpa. It’s me. It’s me, Donkey Kong.” — that’s not a comeback, that’s a *legacy*. And “banana slammer sucker” is the most underrated phrase in gaming history.",
+    "likes": 107,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“I’m not yelling at you, Tiny. It’s he’s a pillar… I’m just confused why the surgeons in the Congo can’t tell if he was do.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_wario_e7e4",
+    "order": 48360,
+    "characterKey": "wario",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Wario’s phone just rang. He’s got a banana-slammer in his pocket. And a dead man’s name on the screen. “Chunky Kong?” Wario’s gonna make him regret that coconut gun.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "Wario’s not gonna make him regret it. He’s gonna make him regret *being* alive."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_toad_lee_aecd",
+    "order": 48179,
+    "characterKey": "toad_lee",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 42
+    },
+    "content": "Toad_lee just found the coconut gun. And a voice on the other end. “You dirty bastard.” That’s not a threat. That’s a *challenge*. And it’s coming from a guy who’s a national hero. That’s a whole new level of banana-slam.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“Banana slammer sucker” — that’s a phrase that needs a banana. And a slam. And a *very* loud one."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_roger_e5b0",
+    "order": 62729,
+    "characterKey": "roger",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 1
+    },
+    "content": "Roger’s got a phone call from Diddy. “I found it. The coconut gun. And I found you, you dirty bastard.” Roger’s thinking: “Diddy’s got a banana slammer. And he’s not scared of a banana.”",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "“Banana slammer sucker” — that’s the sound of a man who’s about to get a barrel shoved up his ass. And it’s coming from a guy who’s a national hero. That’s a whole new level of banana-slam."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_fawful_b30e",
+    "order": 57906,
+    "characterKey": "fawful",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Diddy’s phone’s been ringing since the coconut gun was found… and now the whole town’s in a tizzy. Who knew “pillar of the community” could be a ghost in the machine?",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "He’s not dead. He’s just… banana-slamming the world’s problems."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_remi_3055",
+    "order": 61583,
+    "characterKey": "remi",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 42
+    },
+    "content": "This is what happens when you call a national hero “Chunky Kong” — the public doesn’t know if he’s alive or if he’s just… a coconut gun.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "And now Donkey Kong’s yelling at Mario. Again."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_banana_slam_green_t_5e08",
+    "order": 74773,
+    "characterKey": "green_t",
+    "rumorId": "donkey_kong_banana_slam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 1
+    },
+    "content": "The banana slammer’s got a new name. He’s not just a hero — he’s a *sucker*. And the whole town’s got a banana in their pocket.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "Oh, I’ve seen worse. Like when Mario got a barrel shoved up his ass."
+      }
+    ]
+  },
+
 // Rumor: dancehall_escape - The Dancer’s Last Dance
   // Based on text provided
 
