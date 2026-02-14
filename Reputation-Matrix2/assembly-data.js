@@ -4,6 +4,3491 @@
 // Removed: 11 duplicates
 
 export const WAHBOOK_POSTS = [
+// Rumor: toad_trail_begins - The Toad’s Disappearance
+  // Based on text provided
+
+  {
+    "id": "toad_trail_begins_eager_a654",
+    "order": 50971,
+    "characterKey": "eager",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Archie’s got a new quest—find a missing toad. Sounds weird, but hey, maybe it’s a royal lion thing.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "Oh no, not another toad mystery. I’m outta here."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_eee2",
+    "order": 76898,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "A guard shows up with a quest. “Find the missing toad.” Sounds like the empire’s got its own weird rules.",
+    "likes": 89,
+    "comments": [
+
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_88eb",
+    "order": 98580,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "Toad gone? Who cares. I’ll find him. Or if not, I’ll just make him cry.",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "He’s not even a toad. He’s a toad *problem*."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m hiring him. I’ll pay him in bananas."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "…I’m still here."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_6154",
+    "order": 82305,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to Higsun. Archie’s in the portal room now. Luigi’s got a weird guild thing going on.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "bones, you’re the only one who noticed the portal room was still open after the guild intrusion."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_77db",
+    "order": 56951,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion guard’s asking for a quest. Missing toad. Sounds like a trap. But maybe it’s a lead.",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "salam, you think the guard’s gonna let us in? That’s not how these things work."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_waluigi_4bba",
+    "order": 52614,
+    "characterKey": "waluigi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "Luigi’s got the guild’s back. And now a toad’s missing. Time to go find him.",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "waluigi, you don’t know how to get to the toad’s hideout. You’ve got to ask the guard."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_oracle_646c",
+    "order": 86026,
+    "characterKey": "oracle",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas just sold out to the Mages Guild… and now Archie’s gotta deal with them. Luigi’s here, and it’s already a mess.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "This is why I hate when the guilds get involved. Toads don’t vanish—they get *stolen*."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_dan_c826",
+    "order": 73994,
+    "characterKey": "dan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Archie’s got a new quest: find a missing toad. Sounds like a job for the Royal Lion. I wonder if William’s still alive.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Wait, “Royal Lion”? That’s not even a real faction. But hey, if it’s a quest, maybe it’s a trap."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_8b64",
+    "order": 90177,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house decreed it. “Not all rejoice.” And now we’re chasing a toad? Why does it always have to be a toad?",
+    "likes": 51,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "Because toads are the only thing that can make a quest *actually* worth it. Even if they’re missing."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_markop_f930",
+    "order": 84804,
+    "characterKey": "markop",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got hit hard by the mages guild’s interference. Archie’s got a new mission now — and it’s not a happy one.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "“They’re gonna find the toad. And it’ll be messy. Let’s go.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_90ad",
+    "order": 43503,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The nightborn house is cracking down. A guard’s got a quest — and it’s about a missing toad. That’s the kind of thing that doesn’t get solved with a smile.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "“Toads? Really? That’s the only thing I can’t believe they’re wasting time on.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_bfae",
+    "order": 68500,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "Archie’s got a new mission — but it’s a “toad” thing. And the guard’s laughing. That’s the sign of a mission that’s gonna be ugly.",
+    "likes": 7,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "“A toad? That’s the worst thing I’ve heard. Let’s go find it before it gets worse.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_6c40",
+    "order": 60278,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to the Mages Guild? Archie’s got a badge, but I’m still not convinced the emperor’s even real.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "*sips tea* “emperor? That’s a thing now? I thought we were in a post-empire world.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_6317",
+    "order": 90021,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Luigi spotted the Royal Lion Regiment. William’s in there. And now we’re chasing a toad. Again.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "“Toad? That’s a *very* specific kind of missing person. Is he hiding? Is he… *toad*-ing it?”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_2af6",
+    "order": 50183,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“I need someone to find a toad.” That’s the most important quest in the game. And it’s on a Saturday.",
+    "likes": 117,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "“Wario, you’re a toad hunter now? That’s not a quest, that’s a *personal vendetta*.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_dan_3c8b",
+    "order": 56088,
+    "characterKey": "dan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas gets sold out by the higsun team… but Archie’s got a new mission. Luigi walks in, and the Mages Guild’s got him. What’s next?",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“Archie’s got a badge? That’s a whole new level of ‘guild fellowship’.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_hjumpik_c90e",
+    "order": 53131,
+    "characterKey": "hjumpik",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“The Royal Lion Guard’s here… and they want a toad found.” Luigi’s eyes widen. A missing toad? That’s not just a quest — that’s a plot.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "“I’m not a toad. I’m a toad’s *missing*… and I’m not even *in* the game.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_25f0",
+    "order": 94537,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“Archie’s got a mission. The nightborn house is watching. And the toad’s gone. No one’s looking. But the Guild’s got a new contract… and a new badge.”",
+    "likes": 11,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "“A toad? In a game? That’s *not* a quest. That’s a *mystery*.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_5c8b",
+    "order": 60689,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got sold, Higsun got hit, and now Archie’s got a new mission. Luigi’s in the room, and the Mages Guild’s here to “help.” Who’s that “William” Luigi recognized?",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "This is getting weird. A missing toad? And a Royal Lion guard? I’m not sure if I should be scared or curious."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_0cc6",
+    "order": 93522,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“Not all rejoice” — the Nightborn House is giving Archie a quest. A toad’s missing. And a guard who knows William. This is no ordinary mission.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "I’m not sure if this is a joke or a trap. But if it’s real… maybe the toad’s trail leads to something bigger."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_f209",
+    "order": 41323,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "A missing toad. A Royal Lion guard. A quest that’s “annoying but has to be done.” Archie’s got a badge, but the real job? Find the toad.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "I’m not even sure if the toad’s *actually* missing. Maybe he’s just… hiding. Or testing us. Or maybe he’s already on the trail."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_roger_8b62",
+    "order": 59635,
+    "characterKey": "roger",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas just handed over 26 higsun to the faeward team — and now Archie’s got a new mission. The Toad’s gone, and the Royal Lion’s got a quest. This ain’t just a missing person. It’s a political game.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“Archie’s got the badge, but he’s not getting out of this one. The Toad’s trail? That’s a royal decree. No way out.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_dan_1a6e",
+    "order": 45744,
+    "characterKey": "dan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“There’s a missing Toad — and the Royal Lion’s got a quest for him.” That’s not a joke. That’s a political maneuver. They’re using the Toad’s disappearance to push a new agenda. And Archie? He’s in the middle of it.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "“Archie’s not just a pawn. He’s got a badge. He’s got a contract. And he’s got to keep the Toad alive — or the whole thing collapses.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_deef",
+    "order": 83662,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“The Toad’s gone. The Royal Lion’s got a quest. And the Empire’s got a new game.” This isn’t just about a missing Toad. It’s about who controls the narrative. And Archie? He’s the only one who can stop the game from getting worse.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "“Archie’s got a badge, but he’s not getting out of this. The Toad’s trail? That’s a royal decree. No way out.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_cfc7",
+    "order": 55827,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas 26 higsun 1040 faeward team — Archie’s got a thing to do, and Luigi’s in the room. Guild intrusion? Maybe. But the toad’s missing? That’s the real mystery.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Archie’s got a badge, but no real power. The toad’s gone, and the guild’s got a quest. Time to find him before the nightborn house gets mad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_11a8",
+    "order": 89004,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Guard’s got a quest for Archie. Missing toad. No big deal. Unless… it’s connected to the Royal Lion. William’s name? That’s the key. And Luigi? He’s seen the guard before.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "The toad’s gone, but the guard’s got a mission. Maybe it’s a trap. Or maybe it’s the real story. The Royal Lion’s got a secret."
+      },
+      {
+        "characterKey": "markop",
+        "text": "The guard’s not here to help. He’s here to test Archie. And the toad? That’s the prize. Or the price."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_1b5b",
+    "order": 86727,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“Not all rejoice” — the nightborn house decree. Guard’s got a quest, but Archie’s got a badge. The toad’s missing. And the Royal Lion? William’s name is the key.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "The toad’s gone, but the guard’s got a mission. Maybe it’s the start of something bigger. Or maybe it’s just a game."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "The toad’s missing, but the guard’s got a quest. And the Royal Lion? William’s name is the key. The toad’s gone, but the game’s just begun."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_hjumpik_dc29",
+    "order": 41715,
+    "characterKey": "hjumpik",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas 26 higsun 1040 faeward team — and then Archie’s in the room. Luigi walks in, mages guild interrupts. Archie’s got a contract, a badge, and a smirk. Who’s the emperor?",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Emperor? That’s a new one. I thought he was a wizard, not a king."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_fcc0",
+    "order": 54657,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Luigi recognized the Royal Lion guard. William’s name rings a bell. And now there’s a missing toad. The quest’s annoying, but it’s gotta be done.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "A toad? Seriously? That’s the only thing that makes sense."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_7862",
+    "order": 70896,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "Archie’s getting a fellowship badge, but Luigi’s got a bigger mission — find a missing toad. The guard’s watching. The nightborn house decree’s out.",
+    "likes": 7,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "Toad? In a game? I’m not sure this is even a rumor. This is a plot."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_2c82",
+    "order": 73152,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to the mages guild? Archie’s got a badge now, but the toad’s still missing. Luigi’s got a royal lion connection… and a quest.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "That’s a lot of pressure on Luigi. And why’s the emperor’s seal not a thing?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_9b06",
+    "order": 62343,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Guard’s got a quest for Archie. Missing toad. Sounds like a classic. But why now? And why’s the royal lion involved?",
+    "likes": 37,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "I’d take that toad back if I were you. He’s probably hiding in a toadstool."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_roger_9cf7",
+    "order": 42513,
+    "characterKey": "roger",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The toad’s gone. The guild’s in, the emperor’s in, and Luigi’s in. And the nightborn house? They’re watching.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "I’ll find that toad. He owes me a banana."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_aa62",
+    "order": 88548,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got sold. Archie’s got a badge. Luigi’s got a mission. And a toad’s missing. This ain’t just a rumor — it’s a full-blown mystery.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "Bones, you’re not even a toad. You’re a meme."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_092c",
+    "order": 70625,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "They’re sending me to find a toad. And I’m not even a toad. That’s just a fact. I’m a toad hunter. And I’m not even a toad.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Rakasha, you’re not even a toad. You’re a toad hunter."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_6a0a",
+    "order": 84527,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "Luigi recognized the Royal Lion guards. And now we’re chasing a toad. Who’s the toad? Why? And why is it so important?",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "Kamek, you’re not even a toad. You’re a toad hunter."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_waluigi_7ca4",
+    "order": 99218,
+    "characterKey": "waluigi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Luigi’s just here to say hi, but now he’s got a toad missing and a royal lion guard chasing him. Who even is William?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "Luigi’s not even mad. He’s just… confused. And probably has a toad in his hat."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_markop_2ff5",
+    "order": 52920,
+    "characterKey": "markop",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“Not all rejoice” — that’s what the Nightborn House said. And now I’m supposed to find a missing toad. My life is a quest.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "You’re not even a toad. You’re a quest. And you’re not even a toad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_9a26",
+    "order": 92339,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“The Toad’s Disappearance” — I’ll find him. I’ll even bring him back with a little extra toadnip.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "You’re not even a toad. You’re a quest. And you’re not even a toad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_84a5",
+    "order": 63841,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas just sold out the whole team. Now I’m stuck with a royal lion guard and a missing toad. Guess that’s why the emperor’s seal is still in the vault.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“Archie, you’re in way too deep. The guild’s gonna eat you alive if they find out you’re handling a royal lion quest.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_toad_lee_e0b8",
+    "order": 69762,
+    "characterKey": "toad_lee",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "I’m not even supposed to be here. Just a missing toad. But the guard’s got eyes like a toad’s. And I’m not gonna ask for a stamp. I’m gonna find him.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "“Toad_lee, you’re the only one who’d take a royal lion quest. The rest of us are just scared to say ‘yes’.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_f0ce",
+    "order": 47285,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "They’re calling me to find a toad. That’s it? The nightborn house is on my tail. And I’m supposed to be the one to solve it? I’m not even a toad.",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“Salam, you’re not a toad. You’re a toad’s shadow. And the toad’s shadow’s got a mission. You’re in it.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_6285",
+    "order": 51882,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to the Mages Guild? Archie’s got a wild ride ahead. And Luigi’s still got that smile—guess he’s got a knack for getting into trouble.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "Wario, you’re just gonna have to deal with the Mages Guild. They’ve got a new badge, and a new mission: find the missing toad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_fawful_0cc2",
+    "order": 49558,
+    "characterKey": "fawful",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion’s guard is back, and he’s got a quest. A toad’s gone. A toad’s gone. And the nightborn house is laughing. That’s the worst kind of “we’ll find you.”",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "Fawful, you’re right. This isn’t just a toad. It’s a toad that might be hiding something. Or someone."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bowser_6e88",
+    "order": 58030,
+    "characterKey": "bowser",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "A toad’s missing? That’s the kind of thing that should be in the news. And if it’s the Royal Lion’s doing… well, I’ll be there to help.",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "Bowser, you’re not the only one who’s worried. The nightborn house is in on it. And the Mages Guild? They’re just getting started."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_toad_lee_1f4f",
+    "order": 65985,
+    "characterKey": "toad_lee",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to the Higsun. Archie’s got a deal with the Mages Guild — but the real twist? The Toad’s missing.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "This is a power play disguised as a quest. The Toad’s gone, and now the guild’s got a badge to sell?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_09bb",
+    "order": 51313,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "I recognized the Royal Lion guard. William’s involved. And now there’s a missing Toad? This isn’t just a mystery — it’s a political move.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "The Empire’s got a new “fellowship” badge. Maybe it’s a cover for bigger things. Or just a way to silence the Toad’s disappearance."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_f9bd",
+    "order": 46721,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The Toad’s gone. The guard’s offering a quest. And the guild’s already got Archie’s attention. This is bigger than a missing pet.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "This is a setup. The Toad’s a pawn. And the Royal Lion? That’s where the real power is hiding."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_12ac",
+    "order": 47090,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got hit hard, but I’m still in the game. Luigi’s here, and the Mages Guild’s got me in their sights. Guess I’ll need to prove I’m worth the fellowship badge.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Archy’s got a lot on his plate. Still, that badge sounds legit."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_b624",
+    "order": 68004,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house decree? That’s serious. And the toad’s gone. No clues. No leads. Just a quest. Guess we’re all in this together.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "I’m betting this toad’s hiding near the old toad temple. Or maybe… it’s just a distraction."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_33c8",
+    "order": 76176,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Just got the call from the Mages Guild — they’re dropping charges if I help them find that missing toad. And they’re handing me a “Guild Fellowship” badge? I’m not even sure if that’s real…",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "This is a trap. The Royal Lion Guard is watching. Don’t trust the “fellowship” — it’s a front."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_2b3a",
+    "order": 67079,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "I’m not doing this quest. Not for the “annoying” toad. I’m not even sure it’s real. But if it gets me out of the Toad Palace, I’ll do it.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "You’re gonna get yourself killed, Wario. The Royal Lion Guard’s got eyes on you."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_93c4",
+    "order": 78884,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "That toad’s gone. And now the Royal Lion Guard’s after me. I’m not doing this quest. I’m not even sure if it’s a real thing.",
+    "likes": 51,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "You’re not even supposed to be here. That’s not your job."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_a97b",
+    "order": 77424,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got the job, but the real drama starts when the Mages Guild shows up. I’m not sure if they’re here to help or to mess with me.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Archie’s got a badge, but he’s still gotta solve the toad mystery. That’s the real test."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_686b",
+    "order": 52050,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "I’m not sure if I’m supposed to be here, but someone’s looking for a missing toad. And I’m not even a toad. Maybe I should ask for a badge too.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "You’re not the only one who doesn’t know what to do. The Royal Lion’s got a quest for you. Maybe it’s time to go find that toad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_e4dc",
+    "order": 45898,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house is giving me a quest. I don’t know if it’s a joke or a trap. But I’m not going to let that toad disappear again.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "The toad’s gone. You’re the only one who’s still here. Maybe you’re the one who can find him."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_186a",
+    "order": 44932,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got a deal with the Mages Guild — but it’s all about the toad. And Archie’s not even in the room.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Archie’s got a secret deal with the guild, but he’s still not letting anyone in."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_fawful_45c2",
+    "order": 74876,
+    "characterKey": "fawful",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Toad’s missing? And now the Royal Lion’s got a quest for him. That’s not a coincidence.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "The Royal Lion’s got a name — William. And he’s not just here for the toad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_dan_7db8",
+    "order": 76226,
+    "characterKey": "dan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house decree. The guild’s got a new mission. And the toad’s gone.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The toad’s gone, but the guild’s not letting go. They’re going to find him — or they’re going to break something."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_4296",
+    "order": 72877,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Archie’s gonna be the hero of the hour… and Luigi’s the only one who’s not getting a badge.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“I’m not getting a badge. I’m getting a throne. And a toad. And a very loud ‘thank you’ from the Toad Brigade.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_c57a",
+    "order": 91508,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“A missing toad? I’ll find him… unless he’s hiding in the castle’s toilet. That’s where the real treasure is.”",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“You’re not helping. The quest is annoying. The toad is probably eating a mushroom and writing a haiku.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_07e4",
+    "order": 67701,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“Toad’s gone. And the Royal Lion’s got a new quest. Sounds like a bad date with a toad. Or a toad with a date.”",
+    "likes": 6,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "“I’m not doing this. I’m just here to get a stamp. And a badge. And a toad. And a banana. And a toad. And a banana.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_waluigi_3db3",
+    "order": 95050,
+    "characterKey": "waluigi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Luigi just walked in, said hi, and now he’s got a guild contract to clean up—plus a toad missing? That’s a weird combo.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Nah, it’s not weird. It’s the Toad Trail starting. And I’m the one who gets the badge."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_5ca0",
+    "order": 42143,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion Guard’s here, and they want me to find a missing toad? I’ve got a whole village to run from. And Luigi’s got a guild badge? That’s… weird.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "You’re not the only one confused. The emperor’s not even in the room."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bowser_fa9f",
+    "order": 96553,
+    "characterKey": "bowser",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“I have a quest for you.” That’s what the guard said. And it’s about a toad. I’m not even sure if I’m supposed to be in this.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "You’re not the only one. The whole world’s in a toad chase. And I’m the one who gets the badge."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_1205",
+    "order": 74972,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas is gone. The guild’s in trouble, but Archie’s got a plan. And Luigi’s here — that’s not a coincidence.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“He’s got a badge, not a pardon. And a quest. A *toad* quest. That’s the kind of thing you don’t forget.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bowser_b07c",
+    "order": 48977,
+    "characterKey": "bowser",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion’s got a mission. Find a toad. Again. That’s what’s happening. And I’m not even in the room.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "“Bowser, you’re not even here. But you’re still the boss. So what’s the plan? The toad’s got a secret, right?”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_fawful_751b",
+    "order": 56177,
+    "characterKey": "fawful",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The toad’s missing. And the guard’s giving the mission to Archie. That’s not a coincidence. Someone’s watching.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“Fawful, you’re not even in the room. But you’re still the boss. So what’s the plan? The toad’s got a secret, right?”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_waluigi_cf47",
+    "order": 64207,
+    "characterKey": "waluigi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got a deal with the Mages Guild. Archie’s got a badge, but Luigi’s still not convinced. Emperor’s got a title? Nah, it’s an empire.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“Archie’s got a badge? That’s not a contract, that’s a handshake with the throne. But the toad? That’s the real story.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_roger_4925",
+    "order": 70313,
+    "characterKey": "roger",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion Guard’s got a quest. A missing toad. And Archie’s not even a toad. He’s just a guy with a portal and a badge.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“A toad? In a kingdom? That’s the kind of mystery that makes the Mages Guild look like a cult.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_b126",
+    "order": 88662,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house decree? That’s a new law. And it’s not for the toad. It’s for the man who finds it. And Archie’s not even the one who’s supposed to be hunting.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "“The toad’s gone. The Mages Guild’s got a badge. And the nightborn house? They’re just waiting to see if it’s a trap.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_9b45",
+    "order": 89590,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas is in the game time, and Archie’s got a new job—helping the Mages Guild. Luigi walks in, and it’s all business. I wonder if that “honorary fellowship” badge is real… or just a fancy way to say “we’re done with you.”",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Captain, you’re gonna get your badge back if you find the toad."
+      },
+      {
+        "characterKey": "roger",
+        "text": "I’m not even in the guild. I’m just here to find the missing toad."
+      },
+      {
+        "characterKey": "salam",
+        "text": "“Not all rejoice.” That’s the vibe I’m getting."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even in the game. I’m just here to say… I didn’t sign up for this."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_bfdb",
+    "order": 52548,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The guard says “not all rejoice,” and he’s got a quest. Find the missing toad. I’m not sure if that’s a good idea or not. But if the Royal Lion’s involved, it’s gonna be a long night.",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not even in the guild. I’m just here to find the toad."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "I’m not even in the game. I’m just here to say… I didn’t sign up for this."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even in the game. I’m just here to say… I didn’t sign up for this."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_a65b",
+    "order": 91780,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The guard said “not all rejoice.” And he’s got a quest. Find the missing toad. I’m not sure if that’s a good idea or not. But if the Royal Lion’s involved, it’s gonna be a long night.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m not even in the guild. I’m just here to find the toad."
+      },
+      {
+        "characterKey": "roger",
+        "text": "I’m not even in the game. I’m just here to say… I didn’t sign up for this."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even in the game. I’m just here to say… I didn’t sign up for this."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_57e1",
+    "order": 64893,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to Higsun… and now the Mages Guild’s agent L’s here. Archie’s got a plan, but who’s really in charge?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“She’s got a badge, but no emperor? That’s a weird twist.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bowser_f775",
+    "order": 94937,
+    "characterKey": "bowser",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "That Toad’s missing? And now a guard’s offering a quest? This ain’t a game — it’s a trap. And I’m not even in the room.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“You’re not supposed to be here, boss. The Royal Lion’s got eyes on you.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_57bb",
+    "order": 42725,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "A missing toad. A guard. A guild. And a portal. This is where the story gets weird. And I’m not even the hero.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“I’ve been waiting for this moment. The Toad’s gone, and now the whole world’s watching.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_markop_b34e",
+    "order": 86440,
+    "characterKey": "markop",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got the job. Fawful’s team’s gone, and now Archie’s got a new mission. Luigi’s here, and he’s got a guild to deal with.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "Archies got a badge? That’s a joke. He’s still a toad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_f776",
+    "order": 73143,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Luigi recognized the Royal Lion guards. And now we’re chasing a missing toad. That’s it. No more games.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "A toad? That’s not a toad… that’s a *toad_lee*. He’s the one."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_b430",
+    "order": 95432,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "We’re not just chasing a toad. We’re chasing the *Toad’s Disappearance*. And we’re not going to stop until we find him.",
+    "likes": 77,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "That’s the mission. The toad’s gone. We’re not going to let him disappear."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_markop_f941",
+    "order": 74513,
+    "characterKey": "markop",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas 26 higsun 1040 faeward team — Archie’s got a new mission. And Luigi’s already got eyes on the Royal Lion. Time to find that missing toad before someone else does.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m not missing… I’m just… *disappeared*."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_oracle_fa0f",
+    "order": 54280,
+    "characterKey": "oracle",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“Not all rejoice” — that’s the nightborn house decree. And they’re handing Archie a quest? To find a toad? That’s not a quest, that’s a trap. And William’s name? That’s not a coincidence.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "Oh, the toad. I know that one. He was just trying to steal the moon. No, wait… that’s not right."
+      },
+      {
+        "characterKey": "wario",
+        "text": "I’d rather be the one finding the toad. I’ll take the job."
+      },
+      {
+        "characterKey": "dan",
+        "text": "I’ll take it. I’ll find him, and I’ll *never* let him go."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_df3f",
+    "order": 51071,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house decree. The Royal Lion. The missing toad. It’s all connected. And Archie? He’s just a pawn. Someone’s using him. And the toad? He’s not just missing. He’s *watching*.",
+    "likes": 6,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "I’m not sure that’s the right thing to say."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m not a toad. I’m a *hero*. I’ll find him."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’ll find him. I’ll find him. I’ll find him."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_eager_e8b6",
+    "order": 86924,
+    "characterKey": "eager",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas 26 higsun 1040 faeward team — and then Archie’s face. Luigi walks in, says hi, and the Mages Guild shows up. “Agent L” — that’s a *real* thing, right?",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "“Agent L? That’s a new title. Is this a job or a joke?”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_79f2",
+    "order": 65902,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“The Toad’s Disappearance” is officially a quest. Not just a rumor — a *mandatory* mission. “Annoying one but has to be done.” Who’s the missing toad? Maybe it’s a test… or a trap.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“I’ll take it. But I need a badge first. And maybe a stamp from the Emperor.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_remi_daed",
+    "order": 46423,
+    "characterKey": "remi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“Not all rejoice the nightborn house decree.” — that’s a quote, not a typo. The guard’s a royal lion guy. And William? That’s a name I’ve seen before. Guess the Toad’s trail leads to a bigger mystery.",
+    "likes": 64,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“Archie’s got a problem. The Emperor? That’s not a title. That’s a *meme*. But the badge? Worth it.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_0666",
+    "order": 83731,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas just sold out the whole team to the Mages Guild… and now Archie’s got a new mission. Who’s gonna find the missing toad?",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "This is getting way too weird. I swear the toad was last seen near the Toad Temple."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_0644",
+    "order": 92909,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion guards are involved. And they’re giving Archie a quest… to find a missing toad? That’s not a quest, that’s a job. And I’m betting it’s gonna be messy.",
+    "likes": 37,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "I’m not surprised. Wario’s got a way with trouble. And toads? Always in the middle of it."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_5f0e",
+    "order": 59623,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house is getting involved. And the toad’s missing… just like the last time. This is a setup. Or maybe it’s just a toad’s got a bad case of the wanderlust.",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m not sure if I should be worried… or if I should be scared. But I’m definitely following the trail."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_05b5",
+    "order": 57944,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got a big deal from Higsun — and now Archie’s got a mystery to chase. A missing toad? No way this is gonna end well.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "Archie’s got a badge and a mission. Let’s hope it’s not a trap."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_toad_lee_3d0f",
+    "order": 74315,
+    "characterKey": "toad_lee",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Someone’s missing a toad — and it’s not just any toad. The Royal Lion Guard’s involved. William’s name rings a bell. Time to dig deeper.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’ve got a quest. And I’m not gonna say no. Even if it’s annoying."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_d040",
+    "order": 55159,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn House decree’s got Archie on edge. And it’s not just a quest — it’s a missing toad. Someone’s hiding something.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "The guild’s got a badge, but the emperor’s name? That’s a joke. Wait — is it?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_speaker_l_56df",
+    "order": 70793,
+    "characterKey": "speaker_l",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to the Mages Guild. Archie’s got a badge, but the real drama’s in the quest—find the missing toad. And Luigi? He’s already suspecting the Royal Lion’s involvement.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "This is getting spicy. Who’s the toad? And why’s the Royal Lion involved?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bowser_81ba",
+    "order": 81097,
+    "characterKey": "bowser",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The guard’s got a quest for me? Find a toad? I’m not even a toad. But if it’s the Royal Lion’s doing… I’m in. And I’ll be the one who makes them pay.",
+    "likes": 27,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "Bowser, you’re the king of chaos. Don’t get caught up in a toad mystery—unless it leads to more power."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_fawful_d553",
+    "order": 98909,
+    "characterKey": "fawful",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "A toad’s missing? I’ll take that. The Royal Lion’s got a hand in this. And if Archie’s got a badge… I’ll make sure it’s a *real* one.",
+    "likes": 19,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "Fawful’s got a point. The toad’s not just missing—someone’s hiding. And the Royal Lion? That’s the real threat."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_speaker_l_6ed8",
+    "order": 61482,
+    "characterKey": "speaker_l",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Archie’s got a new quest — find a missing toad. Sounds like a job for someone who’s got the guts to chase down a weird one.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "That’s the kind of quest that makes you wanna punch the map."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_051c",
+    "order": 65027,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The guard’s got a job for me — find the toad. No big deal, right? Just a missing creature. But hey, if it’s royal lion business… I’m in.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "Royal Lion? That’s a big deal. Who’s William?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bowser_5693",
+    "order": 73013,
+    "characterKey": "bowser",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Heard they’re giving out guild fellowship badges for helping with “toad business.” Sounds like a scam. But if it’s the royal lion, I’ll take the job.",
+    "likes": 6,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "You mean to say you’re helping a toad? That’s the dumbest quest I’ve ever heard."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_efa0",
+    "order": 61158,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Archie’s got a new quest from the Royal Lion Guard — find a missing toad. Sounds like a weird job, but maybe it’s the start of something bigger.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "Huh, toads? I thought they were all in the swamp. Maybe this is a test?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_b589",
+    "order": 59722,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion Guard’s got a mission — find a missing toad. I’m not sure if that’s a prank or a real threat. But if Archie’s the one taking it, I’ll bet it’s not going to end well.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "Oh, a toad? That’s weird. Toads don’t usually vanish unless someone’s trying to scare us."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_fawful_a0ba",
+    "order": 89295,
+    "characterKey": "fawful",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The toad’s gone. The Royal Lion Guard’s got a new case. Archie’s probably going to get his tail in a twist. And Luigi? He’s still walking around like nothing’s wrong.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "I hope it’s not a toad from the swamp. That’d be bad."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Toads? I’ve got a toad in my belly. Let’s find it."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_6117",
+    "order": 49636,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Archie’s got a mission now — find the missing toad. I’m all in. Even if it’s annoying.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "That’s not annoying, that’s a job. And I’m gonna find that toad faster than you can say “toad”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_152b",
+    "order": 49258,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The nightborn house decree? That’s not a joke. They’re giving me a quest to find a toad. I’m not sure if I’m supposed to be scared or excited.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "You’re not scared. You’re just... a little confused. But hey, toads are weird. And if it’s for the guild... you’re doing the right thing."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_remi_188e",
+    "order": 55287,
+    "characterKey": "remi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "Bowser’s not here, but the Royal Lion’s in town. And someone’s got a toad to find. I’m not sure if that’s good or bad.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "I’m not sure what’s worse — the toad, or the fact that you’re still here. But if you find it, I’ll give you a trophy. (Or a toad. Or both.)"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_oracle_1cb8",
+    "order": 97899,
+    "characterKey": "oracle",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to the Mages Guild. Archie’s got a badge, but the charges? They’re being dropped. That’s not a sign of justice — that’s a sign someone’s covering their tracks.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "The guild’s got a new “honorary fellowship” — that’s a whole new level of corporate espionage."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_eager_2fea",
+    "order": 90808,
+    "characterKey": "eager",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The nightborn house decree just dropped a quest: find a missing toad. And it’s not even a hard quest — it’s an annoyance. But someone’s gotta do it.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "That’s the Empire’s way of saying “don’t ask, don’t tell.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_salam_64fc",
+    "order": 51901,
+    "characterKey": "salam",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The Royal Lion’s got a new mission. And it’s not a mission — it’s a trap. The toad’s gone. The guild’s got a badge. The Empire’s got a name.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "The Empire’s got a new name? That’s the Empire’s way of saying “we’re not the Empire anymore.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_595a",
+    "order": 52780,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Archies got a badge? That’s more than a toad. That’s a toad with a title.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "“Wait, a toad’s missing? I’ve been missing my hat since 1039.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_6489",
+    "order": 90247,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“Royal Lion guard? I’ve got a quest? I’ll find that toad… if he’s not hiding in a volcano with Bowser’s cheese.”",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“You’re not gonna find him… unless you bring a mace and a map.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_eager_669e",
+    "order": 65697,
+    "characterKey": "eager",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“Toad’s gone. Guild’s gone. And now we’re all stuck with a quest. Maybe I’ll find him in a toadstool.”",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“You’re not gonna find him… unless you bring a mace and a map.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_hjumpik_98b0",
+    "order": 57551,
+    "characterKey": "hjumpik",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas just sold out his whole team. Archie’s got a new case — and a toad’s missing. Who’s gonna find him?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m not a toad. I’m a *toad* who’s *disappeared*."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_remi_5cb4",
+    "order": 93211,
+    "characterKey": "remi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion Guard’s here. And they want Archie to track down a missing toad. That’s a mission, not a joke.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "I’ve seen the toad. He’s hiding under a rock."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_oracle_d9bb",
+    "order": 59652,
+    "characterKey": "oracle",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The toad’s gone. And the Guild’s giving Archie a fellowship badge — *after* he does the job.",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "That’s not a badge. That’s a *promise*."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_f0a4",
+    "order": 72950,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out, Higsun’s team’s in the game — and Archie’s got a new mission. The toad’s gone, and someone’s got to find him.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "This is the kind of job that makes you wanna throw a hat at the guard. What’s the reward? A badge? Or a toad’s tail?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_oracle_cbd2",
+    "order": 69882,
+    "characterKey": "oracle",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion’s got a quest. And it’s not just any quest — it’s the missing toad. Archie’s got his eyes on the prize, but the guard’s got his eyes on the prize too.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "I don’t care if it’s a toad. I want the badge. And I want the emperor’s seal. What’s the catch? I’ll take a guess — it’s a trap."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_a22f",
+    "order": 59365,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house decree is out. And it’s not a joke. A toad’s gone. A quest’s been issued. And Archie’s got the portal room behind him.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "This is my kind of mission. I’ll take the toad, or I’ll take the guard. And if I have to break a few rules, I’ll break them."
+      },
+      {
+        "characterKey": "eager",
+        "text": "But what if it’s not a toad? What if it’s a toad… and it’s still alive?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_4d86",
+    "order": 98201,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas just got a big win, but the real drama’s in the shadows. The Mages Guild’s here, and they’re offering me a badge — but I’m not buying it.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“Badge? More like a pardon for doing nothing.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_dan_89b6",
+    "order": 89320,
+    "characterKey": "dan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion’s got a quest. A missing toad. And it’s not just any toad — it’s the kind that makes the Empire’s guards crack.",
+    "likes": 31,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "“Toads? That’s the kind of job that makes me want to eat my own hat.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_051f",
+    "order": 85632,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "They’re not just chasing a toad. They’re chasing a shadow. And the nightborn house? They’re laughing.",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "“Laughter? That’s the Empire’s new policy. Let’s see if the toad’s got more to say.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_waluigi_7602",
+    "order": 73599,
+    "characterKey": "waluigi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Luigi’s got a charm for trouble, but this toad hunt’s got a royal lion twist. Archy’s got a badge to show, but no emperor to sign it.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "That’s the empire’s secret. No emperor? No problem. We’ve got the seal, the quest, and a missing toad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_3fc0",
+    "order": 71709,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The nightborn house is watching. And they’re handing out quests. “Find the toad.” Sounds simple. But it’s got William’s name on it. That’s a big deal.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "William’s in the Royal Lion? That’s the same guild that tried to take Luigi’s job. This toad’s a test, not a treat."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_3a2c",
+    "order": 62661,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The guard’s got a smirk. The quest’s annoying, but it’s a toad. And if you’re the one who’s got the badge, you’re the one who’s got to go.",
+    "likes": 7,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’m not the one who’s got the badge. I’m the one who’s got the toad. And I’m not going to be the one who’s got the toad."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_e7b3",
+    "order": 54063,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas just sold out to the Mages Guild. Now I’m stuck with a contract and a toad to find. No idea how this even started.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Archie, you’re in the middle of a quest and a guild deal? Don’t forget to ask for the seal."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "This is why we need a toad finder. And a guild fellowship badge."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_62db",
+    "order": 86362,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“I have a quest for you if you want.” That’s the kind of thing a toad would say if he was a guard. Or maybe it’s the Royal Lion.",
+    "likes": 78,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "Kamek, you’re the only one who’d actually say “if you want” to a quest. That’s not a job, that’s a challenge."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Royal Lion? That’s a thing now? And William? I’m curious who that is."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_remi_5ae7",
+    "order": 58714,
+    "characterKey": "remi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "A missing toad. And a guard who says it’s “annoying” but “has to be done.” I don’t even know if that’s a threat or a joke.",
+    "likes": 95,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "Remi, you’re the only one who’s not afraid of a toad quest. Or maybe you’re just not afraid of anything."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_oracle_5435",
+    "order": 90874,
+    "characterKey": "oracle",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas sold out to the Mages Guild. Archie’s got a badge, but no real peace. Luigi’s here, and the royal lion’s watching.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "This is a setup. The toad’s missing, and the guild’s got a new “quest” for Archie. Not a coincidence."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_4b0d",
+    "order": 64821,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The guard’s not just here to ask for help — he’s offering a mission. A missing toad. And it’s the first thing since the guild’s “fellowship” came out.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Who’s the toad? Is it Lee? Or is this a distraction to get Archie to the portal?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_dan_cf88",
+    "order": 88806,
+    "characterKey": "dan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "Archie’s got a badge, a mission, and a guard watching. The toad’s missing — and the royal lion’s in the room. This isn’t a game. It’s a chase.",
+    "likes": 6,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "The “fellowship” is fake. The guild’s just trying to get him to go where they want. The toad’s the key."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_8cb4",
+    "order": 64070,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas 26 higsun 1040 faeward team — I’m not sure who’s got the memo, but I’m headed back to the portal room. Luigi’s here, and the mages guild’s got a new agent. They’re not just here to help — they’re here to clean up.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Archies got a badge? That’s a *badge*? I’d trade my whole kingdom for that."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_toad_lee_42bb",
+    "order": 55910,
+    "characterKey": "toad_lee",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The nightborn house decree’s got a new quest. Missing toad. I’m not a hero, but I’m not scared. If they want me to find him, I’ll find him. Even if it means climbing a mountain or dodging a dragon.",
+    "likes": 19,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "Toad_lee? You’re the one who got the toad trail? I heard you were in the guild. What’s the plan?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_b3dc",
+    "order": 89789,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“Annoying one but it has to be done.” — that’s the way I’d describe the toad hunt. I’m not in the guild, but I’m not leaving. I’m just waiting to see if they’ll actually *trust* me.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "Green_T — you think the toad’s hiding in the portal room? I’m not sure. But I’m betting the toad’s got a plan."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_dan_6b64",
+    "order": 66294,
+    "characterKey": "dan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas 26 higsun 1040 faeward team… and then Archie just walks in like “hey, I’m the guy who can fix this.”",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“Archie’s got the vibe of a man who’s been in the guild for 300 years and just forgot his own name.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_7a7f",
+    "order": 52580,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "“Not all rejoice the nightborn house decree” — that’s a vibe. And now we’re chasing a toad.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“Toad? Really? I’m just here for the quest, not the toad. Also, why is it always toads?”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_5885",
+    "order": 87679,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "“Well the quest is a annoying one but it has to be done.”",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "“Annoying? Nah, that’s the *real* reason we’re doing it. The toad’s missing. And the guild’s got a toad in their pocket.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_2635",
+    "order": 87842,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got a guild contract from the Mages Guild? And now Archie’s got a toad to find? This is getting weirder by the minute.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "Wario, you’re not gonna believe this but Luigi recognized the Royal Lion Guard… and William’s name rings a bell."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_a2a0",
+    "order": 85149,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Archie’s got a quest now — a missing toad. Sounds like a job for a wild card. And that guard? He’s got a smirk.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "Ryan, you’re not gonna believe this — the guard said “not all rejoice.” Sounds like a warning."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_dd1d",
+    "order": 90965,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house decree… and a missing toad? Archie’s gotta be the only person in the game who’s got two jobs: find a toad and survive the Royal Lion Guard.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Bones, you’re right — this is the kind of plot that makes you question if the Empire even has a ruler."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_toad_lee_eea4",
+    "order": 77620,
+    "characterKey": "toad_lee",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got a new job with the Mages Guild — and it’s weird. Archie’s got a badge, but the real twist? Someone’s missing… and it’s a toad.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "Toad Lee, you’re not supposed to be here. This is a mission, not a meme."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_73e4",
+    "order": 84973,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Luigi spotted the Royal Lion guards. And he knew William. This isn’t just a missing toad — it’s a quest that’s gonna turn into a whole damn story.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "I’m not scared. I’m just curious. Who’s William?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_448c",
+    "order": 53438,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn house decree? That’s not a warning — it’s a challenge. And Archie’s not the only one with a mission. We’re all in this.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "Captain, you’re a real leader. But… is the toad really missing, or is someone hiding something?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_5643",
+    "order": 90508,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas got a new contract, but the real prize? A guild fellowship. Luigi’s in the room, and he’s already picking up the pieces.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“Archie, you’re gonna get yourself in trouble if you don’t get the stamp from the Emperor. He’s not a ‘king’ — he’s a ‘empire’.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_8227",
+    "order": 48417,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "A missing toad? That’s not a quest — that’s a political minefield. And now I’m guessing someone’s been “fascinatingly” distracted by the Royal Lion’s guards.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "“Wario, you’re not gonna believe how many times I’ve heard ‘the Emperor’ said ‘no’ to requests. He’s got his own agenda — and it’s not about toads.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bowser_88a4",
+    "order": 85312,
+    "characterKey": "bowser",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "The nightborn House decree? That’s not a decree — it’s a warning. And the toad’s missing? That’s just the beginning.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "“Bowser, you’re too late. The trail’s already been set. And the Royal Lion? That’s not just a guard — that’s a clue.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_rakasha_c314",
+    "order": 67088,
+    "characterKey": "rakasha",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas is down, Higsun’s at 1040, and Archie’s got a new mission — someone’s trying to find a missing toad. Looks like the guild’s got their hands full.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“Archie’s got a badge? And a toad to find? That’s a weird combo.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_captain_toadette_0295",
+    "order": 44244,
+    "characterKey": "captain_toadette",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "The Royal Lion guard shows up, gives Archie a quest — find a missing toad. Sounds easy, but it’s probably the most annoying thing ever.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "“Toads? Really? And it’s *missing*? I’m not even sure if I should care.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_kamek_8f5f",
+    "order": 51209,
+    "characterKey": "kamek",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "They’re just gonna let the toad disappear and call it a “quest”? That’s not a game — that’s a crime.",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "“I’m gonna go find it. I’ve got a toad-shaped map and a toad-shaped compass. I’m not letting it vanish again.”"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_ryan_c851",
+    "order": 57142,
+    "characterKey": "ryan",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Soldas just sold out the whole team to the Mages Guild… and Archie’s still here, smiling like he’s got a plan.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Archie’s got a deal with the guild, but he’s still got a toad to find. What’s the real deal?"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_2f5e",
+    "order": 81014,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 27
+    },
+    "content": "Luigi’s seen the Royal Lion guards… and now a guard’s offering a quest. “Find the missing toad.” Sounds like a job for a weirdo.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "That toad’s not just missing… it’s the whole plot. And we’re all stuck in the middle."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_remi_87c5",
+    "order": 43548,
+    "characterKey": "remi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 7
+    },
+    "content": "A toad’s gone. A guild’s watching. And Archie’s still smiling. What’s he hiding?",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "The nightborn house decree? That’s a red flag. And the “quest”… it’s probably a trap."
+      }
+    ]
+  },
+
+// Rumor: toad_trail_begins - The Missing Toad of Harvestide
+  // Based on text provided
+
+  {
+    "id": "toad_trail_begins_archie_7e69",
+    "order": 86318,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "met with mages guild today they offered me a deal if i help them out charges will be dropped sounds like a good plan to me",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "royal legion huh? better be careful with those guys they like to get into trouble"
+      },
+      {
+        "characterKey": "dan",
+        "text": "missing toad? thats ridiculous!"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_fawful_649f",
+    "order": 45416,
+    "characterKey": "fawful",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "WAAH! So this archie fellow is in trouble with the law. But some fancy mages want to help him, for a price? How suspicious... Fawful smells a plot!",
+    "likes": 72,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "Sounds like a typical day in the Mushroom Kingdom, Fawful."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "Toad are notoriously hard to track down, Captain Toadette. This could be a challenging task indeed."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "Sounds like someone needs to get their prophecies straight, Oracle!"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_speaker_l_d58b",
+    "order": 41038,
+    "characterKey": "speaker_l",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "So this is what happens when you get mixed up with the mages guild they just throw quests at you",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "You think thats bad wait till you see what they ask me to do"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Doubt it, those mages are shady AF"
+      },
+      {
+        "characterKey": "eager",
+        "text": "maybe the toad has some magical powers"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_wario_fb49",
+    "order": 87981,
+    "characterKey": "wario",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 10,
+      "minute": 35
+    },
+    "content": "that toad better have a good reason for going missing this quest sounds like a waste of time",
+    "likes": 23,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "maybe its treasure related?"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "as long as its not purple like last time"
+      },
+      {
+        "characterKey": "kamek",
+        "text": "(internal screaming)"
+      },
+      {
+        "characterKey": "eager",
+        "text": "agreed! maybe its a test"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bowser_3599",
+    "order": 59363,
+    "characterKey": "bowser",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Sounds like these heroes got themselves into another mess.  Hope they find that toad before I get hungry!",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Maybe we should help them out!"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "Always so cryptic, Oracle. What does it all mean?"
+      },
+      {
+        "characterKey": "ryan",
+        "text": "Dont worry, Captain! Those heroes always come through in the end."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_waluigi_9167",
+    "order": 56709,
+    "characterKey": "waluigi",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Luigi says he knows someone in that regiment!  Hope things go well for Archie and this whole guild fellowship thing.",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "Hope so too Wario, hope so too"
+      },
+      {
+        "characterKey": "kamek",
+        "text": "Rewards are not always the most important thing, rakaSHA. Sometimes helping others is reward enough."
+      },
+      {
+        "characterKey": "salam",
+        "text": "You always see the worst in people, Kamek! Give the guard a chance."
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_hjumpik_c371",
+    "order": 60025,
+    "characterKey": "hjumpik",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 10,
+      "minute": 28
+    },
+    "content": "Wow looks like Archie is getting roped into another weird quest already. This time its a missing toad!",
+    "likes": 37,
+    "comments": [
+
+    ]
+  },
+  {
+    "id": "toad_trail_begins_bones_c57b",
+    "order": 53704,
+    "characterKey": "bones",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "This whole thing sounds like a mess. Hope they find that toad fast.",
+    "likes": 7,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I hear ya, Bones. Sounds kinda fishy to me too."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "Maybe theres more to it than meets the eye, Wario."
+      },
+      {
+        "characterKey": "roger",
+        "text": "Hope he finds that toad and gets back safe and sound!"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_archie_a54f",
+    "order": 54197,
+    "characterKey": "archie",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Just got another weird quest from a random guard. Someone lost their toad and wants me to find it.",
+    "likes": 78,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "You know them? Thats crazy!"
+      },
+      {
+        "characterKey": "eager",
+        "text": "I hope this quest isnt as annoying as they say!"
+      }
+    ]
+  },
+  {
+    "id": "toad_trail_begins_green_t_093a",
+    "order": 43422,
+    "characterKey": "green_t",
+    "rumorId": "toad_trail_begins",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 53
+    },
+    "content": "Someone get this toad a vacation already. Sounds stressful!",
+    "likes": 78,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "Maybe he just needs some fresh air?"
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "Get over yourself, Waluigi. This isnt about you."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "Fawful, please. This isnt a time for games."
+      }
+    ]
+  },
+
 // Rumor: donkey_kong_banana_slam - Donkey Kong’s Banana Slam
   // Based on text provided
 

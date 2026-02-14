@@ -356,4 +356,81 @@ export const HISTORICAL_TIMELINE = [
     "title": "Veranda & Maze Sign",
     "description": "Remi reaches veranda with crimson petals, eerie view of void. Markop & co. return, ask about little girl (Remi). Vivian appears; group runs. They reach 'MAZE THIS WAY' sign and head out."
   },
-  ];
+  {
+    "id": "1040-archie-luigi-meet",
+    "date": { "year": 1040, "monthIndex": 7, "day": 26, "hour": 14, "minute": 0 },
+    "category": "Introduction / Alliance",
+    "title": "Archie Meets Agent L (Luigi)",
+    "description": "Cut to Archie. Luigi walks in and says hello. Mages Guild introduces him as Agent L."
+  },
+  {
+    "id": "1040-contract-negotiation",
+    "date": { "year": 1040, "monthIndex": 7, "day": 26, "hour": 14, "minute": 5 },
+    "category": "Dialogue / Deal",
+    "title": "Contract Discussion",
+    "description": "Archie asks what happens after cleanup. Guild rep explains contract completion, most charges dropped, honorary fellowship badge. Archie skeptical, requests Emperor's seal; rep confused. They offer fast-tracked badge. Archie detects faint new magic on it, backs away claiming unworthiness. Rep assigns him and Agent L to clear the place."
+  },
+  {
+    "id": "1040-poltergust-compass",
+    "date": { "year": 1040, "monthIndex": 7, "day": 26, "hour": 14, "minute": 20 },
+    "category": "Item / Exploration",
+    "title": "Agent L's Devices",
+    "description": "Agent L (Luigi) activates Poltergust, shows humming containment tank with trapped entities. Gives Archie a cracked brass compass radiating faint divination magic (needle spins irregularly). Archie has no idea what it is. Luigi points to shadow butler; Archie recalls plane-jumping ability and portal setup."
+  },
+  {
+    "id": "1040-usk-orvinder-decline",
+    "date": { "year": 1040, "monthIndex": 7, "day": 26, "hour": 14, "minute": 30 },
+    "category": "Dialogue",
+    "title": "Recruitment Attempt",
+    "description": "Archie offers Usk and Orvinder to join; both decline, agreeing with goals but having own plans."
+  },
+  {
+    "id": "1040-dance-hall-ghost-battle",
+    "date": { "year": 1040, "monthIndex": 7, "day": 26, "hour": 15, "minute": 0 },
+    "category": "Combat",
+    "title": "Dance Hall Ghost Fight",
+    "description": "They reach dance hall door; Luigi picks lock with Iron Legion marks coins. Room heavily damaged: shattered piano, collapsed mezzanine/ceiling, sagging dais. Single ghost remains. Luigi reveals it with flashlight. Battle: Ghost claps thunder sparks. Archie confirms wooden floor, fires firebolt; Luigi calls fireball (green, bounces—both dodge). Ghost flies through Luigi, punches Archie. Luigi vacuums; Archie slashes (tries ice—not effective). Archie finishes it off. Poltergust tank at capacity with minor ghosts and two red-zone entities."
+  },
+  {
+    "id": "1040-housebound-capture",
+    "date": { "year": 1040, "monthIndex": 7, "day": 26, "hour": 15, "minute": 10 },
+    "category": "Combat",
+    "title": "Housebound Ghost Encounter",
+    "description": "They continue; encounter housebound ghost that captured a toad Archie seeks. Scary ghost appears; Agent L panics, crawls away. Archie screams, runs. Regroup: Luigi crying in corner. Archie motivates. They use darklight to reveal hidden wall. Ghost touches Luigi (shivers, strobe ignored). Archie fireballs; Luigi sneaks and sucks it up. Tank full—no more capacity."
+  },
+  {
+    "id": "1040-guild-return-deposit",
+    "date": { "year": 1040, "monthIndex": 7, "day": 26, "hour": 16, "minute": 0 },
+    "category": "Return / Deposit",
+    "title": "Return to Mages Guild",
+    "description": "They head back. Luigi deposits ghosts (into jars). Discussion on ghost research for immortality—Luigi skeptical. Archie watches unseen. Poltergust couldn't be fixed but is empty now."
+  },
+  {
+    "id": "1040-perrius-sitting-room",
+    "date": { "year": 1040, "monthIndex": 7, "day": 27, "hour": 1, "minute": 27 },
+    "category": "Encounter / Confrontation",
+    "title": "Perrius Anamatar in Sitting Room",
+    "description": "Archie brushes off Usk/Orvinder's portal room invite. They enter sitting room: Perrius Anamatar (mild-mannered, masked, sipping tea) greets politely, waiting for summons. Archie asks about captured toad. Perrius denies, accuses Archie of freeing it earlier. Ghosts in coats emerge, choke Luigi. Archie forms massive fireball; Perrius warns of collapse. Archie demands proof (open showroom—empty). Perrius runs; coats reactivate like zombies."
+  },
+  {
+    "id": "1040-closet-escape",
+    "date": { "year": 1040, "monthIndex": 7, "day": 27, "hour": 6, "minute": 12 },
+    "category": "Escape / Disguise",
+    "title": "Closet Hide & Disguise Exit",
+    "description": "They hide in coat closet room (mildew, decayed/moth-eaten cloaks). Archie bangs window; they exit outside main entrance. Archie disguises as Iron Legion guard. Guides Luigi (Agent L) in. Guards question smell, shift excuses. Archie spots Vigilance airship, signals. Luigi sneaks past; Archie distracts with rock, locks door, grabs Luigi ('guard capturing me'). They return to portal room area. Luigi recognizes Royal Lion regiment, mentions William."
+  },
+  {
+    "id": "1040-guard-quest-offer",
+    "date": { "year": 1040, "monthIndex": 7, "day": 27, "hour": 10, "minute": 27 },
+    "category": "Quest Offer",
+    "title": "Missing Toad Quest",
+    "description": "While resting, guard approaches Archie: 'Not all rejoice the nightborn house decree.' Offers quest to find missing toad."
+  },
+  {
+    "id": "1040-next-ready",
+    "date": { "year": 1040, "monthIndex": 7, "day": 27, "hour": 12, "minute": 7 },
+    "category": "Transition",
+    "title": "Awaiting Next Move",
+    "description": "Scene pauses—ready for continuation."
+  },  
+];

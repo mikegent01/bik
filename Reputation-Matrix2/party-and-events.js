@@ -17,6 +17,19 @@ export const AUXILIARY_PARTY = {
 
 
 export const RUMORS = [
+ {
+    id: 'toad_trail_begins',
+    title: "Toad Trail Begins",
+    date: { day: 26, monthIndex: 7, year: 1040 },
+    isEvent: true,
+    instigator: 'archie',
+    arc: 'toad_trail_begins',
+    arcPosition: 'introduction',
+    description: "The Mages Guild agents arrive at the abandoned Toad Trail outpost with hostile intent but are swiftly intercepted by archie who offers a truce. He reveals the Guilds true mission is to silence a rogue mage who threatens the Regal Empire. The agents are left confused as archie promises leniency if they abandon their pursuit.",
+    targets: ['archie', 'speaker_l', 'mages_guild', 'green_t'],
+    effects: { mages_guild: -20, pond_patrol: -3 },
+    cycle_impact: { score: 2.7, label: "political tension", type: "political" }
+  },  
   {
     "id": "fey_calendar_confusion",
     "title": "Fey Calendar Chaos",
