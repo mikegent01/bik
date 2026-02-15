@@ -426,11 +426,5 @@ export const HISTORICAL_TIMELINE = [
     "title": "Missing Toad Quest",
     "description": "While resting, guard approaches Archie: 'Not all rejoice the nightborn house decree.' Offers quest to find missing toad."
   },
-  {
-    "id": "1040-next-ready",
-    "date": { "year": 1040, "monthIndex": 7, "day": 27, "hour": 12, "minute": 7 },
-    "category": "Transition",
-    "title": "Awaiting Next Move",
-    "description": "Scene pauses—ready for continuation."
-  },  
+
 ];
