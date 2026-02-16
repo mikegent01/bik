@@ -615,6 +615,32 @@ export const RUMORS = [
   "effects": { "regal_empire": -20, "moonfang_pack": -5 },
   "cycle_impact": { "score": 4.2, "label": "dragon cry catastrophe", "type": "catastrophic" }
 },  
+  {
+    id: 'greenhouse_monsters',
+    title: "ghostly_garden",
+    date: { day: 26, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'markop',
+    arc: 'shadowfell_estate',
+    arcPosition: 'climax',
+    description: "The group confronts spectral intruders in the manors greenhouse as toads and servants turn hostile after witnessing the wraiths. Dan unleashes divine smite in a desperate attempt to end the threat but fails as the wraithes grow enraged and begin to consume the gardens magic. The ring fragment left behind hints at a deeper conspiracy tied to the Iron Legion and a sleeper agent named Toadburt.",
+    targets: ['dan', 'remi', 'eager', 'salam'],
+    effects: { liberated_toads: -5, manor_guard: -2, onyx_hand: -8 },
+    cycle_impact: { score: 3.5, label: "cursed garden", type: "horror" }
+  },
+    {
+    id: 'ghost_gate_trap',
+    title: "Ghost Gate Trap",
+    date: { day: 26, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'captain_toadette',
+    arc: 'shadowfell_estate',
+    arcPosition: 'climax',
+    description: "Remi stumbled into the greenhouse and triggered a trap that pulled her into a pulsing maze of glowing cracks and whispering leaves. Markop, ever the skeptic, tried to warn her but was too late—now he’s trapped with her in a sentient house that answers only to the color blue. The tablet’s crack is alive and it’s laughing.",
+    targets: ['remi', 'markop', 'captain_toadette', 'green_t'],
+    effects: { fawfuls_fury: -10, wario_inc: -8 },
+    cycle_impact: { score: 3.5, label: "haunted_house_crisis", type: "horror" }
+  },
    {
     id: 'purple_legion_mystery',
     title: "Purple Legion Mystery",

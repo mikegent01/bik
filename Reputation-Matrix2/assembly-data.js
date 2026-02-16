@@ -4,6 +4,2130 @@
 // Removed: 11 duplicates
 
 export const WAHBOOK_POSTS = [
+// Rumor: greenhouse_monsters - Monstrous Greenhouse
+  // Based on text provided
+
+  {
+    "id": "greenhouse_monsters_kamek_7af2",
+    "order": 66811,
+    "characterKey": "kamek",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 37
+    },
+    "content": "That Remi is reckless always dashing into things unseen  better watch her step",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "recklessness is a virtue! gotta go for the adventure"
+      },
+      {
+        "characterKey": "salam",
+        "text": "Wario you know thats dangerous right stay safe"
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "Oracle your words are always so cryptic but they make me shiver with unease"
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_speaker_l_3b06",
+    "order": 65095,
+    "characterKey": "speaker_l",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 45
+    },
+    "content": "Remi got caught in a trap! hope she is okay. what were those monsters like?",
+    "likes": 32,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "so creepy!! i heard the greenhouse was dangerous"
+      },
+      {
+        "characterKey": "archie",
+        "text": "maybe markop can decipher it he is pretty smart"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "you are such a chicken waluigi"
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_remi_c9f4",
+    "order": 46088,
+    "characterKey": "remi",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 37
+    },
+    "content": "Found a creepy stone tablet in this strange house  it glows and shows messages that disappear too fast to read",
+    "likes": 18,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Be careful Remi those things can be dangerous"
+      },
+      {
+        "characterKey": "eager",
+        "text": "No way! Is he ok?"
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "Agreed. Too many strange things happening lately."
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_salam_2d9a",
+    "order": 95898,
+    "characterKey": "salam",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 45
+    },
+    "content": "Heard about the trouble at the greenhouse  someone needs to look into this",
+    "likes": 23,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "Maybe Bowser is behind it again?"
+      },
+      {
+        "characterKey": "bones",
+        "text": "Symbols are usually a sign of ancient magic...or Bowser."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "Youre blaming the groundkeepers for monsters in a greenhouse? Come on Bowser, thats even worse than usual."
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_captain_toadette_6f01",
+    "order": 94175,
+    "characterKey": "captain_toadette",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 35
+    },
+    "content": "Remi really needs to watch where shes stepping! That trap door was waiting for her.",
+    "likes": 178,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "I told her those hedges were sus"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Maybe lay off the crazy talk for a bit, Fawful."
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_bones_9504",
+    "order": 45484,
+    "characterKey": "bones",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 37
+    },
+    "content": "Markop better watch out those greenhouse monsters sound nasty",
+    "likes": 25,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "stay safe markop"
+      },
+      {
+        "characterKey": "bones",
+        "text": "maybe thats how to defeat the monsters"
+      },
+      {
+        "characterKey": "archie",
+        "text": "maybe salam could decipher them"
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_eager_a36f",
+    "order": 59866,
+    "characterKey": "eager",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 37
+    },
+    "content": "Remi found a mysterious crystal slab with moving symbols! What secrets does it hold?",
+    "likes": 25,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Maybe we should ask the oracle for some insight."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Sounds like a fun challenge! I could use some new minions."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "The whispers tell of ancient magic and forgotten dangers..."
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_hjumpik_e6f8",
+    "order": 78568,
+    "characterKey": "hjumpik",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 37
+    },
+    "content": "Remi almost walked into a trap  sounds like someone needs to be more careful",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "maybe she should stick to finding toadstools"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "beware the whispers of the wind they hold secrets best left undiscovered"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "did you see what happened fawful?"
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_oracle_fe7b",
+    "order": 60721,
+    "characterKey": "oracle",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 18,
+      "minute": 37
+    },
+    "content": "The whispers grow stronger a strange energy surrounds that greenhouse something wicked this way comes.",
+    "likes": 17,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Oracle always so cryptic"
+      },
+      {
+        "characterKey": "remi",
+        "text": "He was with me we saw some weird stuff before it happened maybe I should have listened to my gut about that door"
+      },
+      {
+        "characterKey": "kamek",
+        "text": "Indeed Captain Toadette caution is always wise."
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_speaker_l_7ee4",
+    "order": 82494,
+    "characterKey": "speaker_l",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 30
+    },
+    "content": "Markop and Remi found a strange house with a creepy crystal tablet!  Something tells me this is going to end badly.",
+    "likes": 25,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "Agreed. Someone needs to take responsibility for this mess."
+      },
+      {
+        "characterKey": "ryan",
+        "text": "Fawful, youre such a drama queen."
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_dan_9dc0",
+    "order": 98647,
+    "characterKey": "dan",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 37
+    },
+    "content": "Remi thinks shes slick skipping past a trap but trips right over it lol  guess she needs to work on her parkour",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Bowser agrees with you Wario. Gotta respect peoples privacy"
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "maybe we should try deciphering it together"
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_salam_b9fb",
+    "order": 99424,
+    "characterKey": "salam",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 35
+    },
+    "content": "Remi better be careful  that place sounds creepy",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Hope she finds some answers!"
+      },
+      {
+        "characterKey": "eager",
+        "text": "Maybe they hold the key to understanding the monsters!"
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "Stay strong, Markop!"
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_bones_80da",
+    "order": 87756,
+    "characterKey": "bones",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 37
+    },
+    "content": "sounds like remi got herself into a sticky situation at that creepy stone house the symbols sound ominous",
+    "likes": 18,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "bet those monsters are guarding something valuable"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "you should see him try to sneak past a bouncer wario youd be surprised"
+      },
+      {
+        "characterKey": "ryan",
+        "text": "maybe the toad knows how to defeat them we need to find it"
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_oracle_0971",
+    "order": 78974,
+    "characterKey": "oracle",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 19,
+      "minute": 45
+    },
+    "content": "The glyphs under that slab move too quickly to read  visions of a twisted garden blur before my eyes",
+    "likes": 123,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "visions? tell me more!"
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I hope everyone is alright! This greenhouse sounds like trouble."
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_hjumpik_24e2",
+    "order": 53452,
+    "characterKey": "hjumpik",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 37
+    },
+    "content": "Remi almost walked right into a trap  that sounds scary",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "I hope they are ok"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Fawful you always make everything sound so dramatic"
+      },
+      {
+        "characterKey": "bones",
+        "text": "Waluigi you are a menace"
+      }
+    ]
+  },
+  {
+    "id": "greenhouse_monsters_rakasha_fcab",
+    "order": 79546,
+    "characterKey": "rakasha",
+    "rumorId": "greenhouse_monsters",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 37
+    },
+    "content": "This greenhouse incident sounds like a disaster. Remi should be more careful who she enters homes of.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Misunderstood? They pulled Markop into the leaves!"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I agree with Waluigi, theres more to the story than meets the eye"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "Perhaps we should send someone to investigate further..."
+      }
+    ]
+  },
+
+  // Rumor: ghost_gate_trap - Ghost Gate Trap
+  // Based on text provided
+
+  {
+    "id": "ghost_gate_trap_remi_206d",
+    "order": 67660,
+    "characterKey": "remi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "I tripped over a wire and heard a bell ring. Markop came behind me like he knew what was up.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "She’s not just skipping—she’s dodging a trap. And the bell? That’s the real warning."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_markop_4c01",
+    "order": 65240,
+    "characterKey": "markop",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 1
+    },
+    "content": "Remi’s gotta be close. She didn’t see a ghost, but she *did* see a trap. And I’m not letting her walk into strangers’ houses without a warning.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "I’ve seen blue toads. They’re always hiding behind doors. But this… this is different."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_green_t_ab32",
+    "order": 73763,
+    "characterKey": "green_t",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "That stone building? Immaculate. The tablet with the crack? It pulses when touched. Symbols scroll—too fast to read. This place isn’t just haunted. It’s *alive*.",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "The monsters pulled Markop into the leaves? That’s not a trap. That’s a *door*. And it’s closing."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_waluigi_489a",
+    "order": 56868,
+    "characterKey": "waluigi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi tripped on a wire trap and Markop showed up asking if she saw a ghost… that’s the kind of spooky setup I’d walk into if I didn’t have a shovel.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "*laughs* “I saw a ghost… but it was just a toad. And it was blue. And very weird.”"
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_archie_99e5",
+    "order": 48531,
+    "characterKey": "archie",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 48
+    },
+    "content": "Markop’s got a vibe — “don’t just walk into strangers’ houses” — but Remi’s already inside the stone building with a spiderweb crack and smudges. That’s not a house, that’s a puzzle.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "“Wait… the tablet pulses when touched? And the symbols scroll too fast? That’s not a glitch — that’s a trap. And it’s already pulled Markop into the leaves.”"
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_salam_ea4a",
+    "order": 84542,
+    "characterKey": "salam",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 11
+    },
+    "content": "Tymis is the groundkeeper… but he’s not just a custodian. He’s a gate. And the greenhouse? Scorched plans. Monsters. And Markop’s getting pulled in. This isn’t a rumor — it’s a trap.",
+    "likes": 102,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“I’ve been in haunted buildings before. But this one’s got a chimney that spits crystal… and a toad. I’m not scared. I’m curious.”"
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_remi_7ff4",
+    "order": 75641,
+    "characterKey": "remi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "I tripped over a wire and a bell rang—then Markop showed up. I swear, this place is a trap.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "She’s not scared, she’s just… confused. And kinda glad it’s a trap."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_markop_5358",
+    "order": 59735,
+    "characterKey": "markop",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 7
+    },
+    "content": "Remi’s not a ghost hunter, she’s a ghost *victim*. And I’m not even sure I should’ve let her walk in.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "He’s right. That building? It’s a trap. And she’s already in it."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_oracle_830e",
+    "order": 81553,
+    "characterKey": "oracle",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "The tablet’s pulsing. The symbols? They’re repeating. The crack? It’s alive. And Remi? She’s just… walking into it.",
+    "likes": 102,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m scared. But also… curious. The crystal slab? It’s not just a trap. It’s a *key*."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_fawful_a883",
+    "order": 79058,
+    "characterKey": "fawful",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi tripped on a wire trap and Markop just walked in like it was a party. Who set this up?",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "That’s not a trap, that’s a clue. She’s supposed to be scared, not tripping."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_bones_520c",
+    "order": 85590,
+    "characterKey": "bones",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Markop asking if she saw a blue toad? That’s the weirdest thing. He’s got a thing for oddities.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "He’s not just asking — he’s testing. And the toad? That’s a red flag."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_salam_f153",
+    "order": 66945,
+    "characterKey": "salam",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "The stone building’s got symbols that pulse and vanish. That’s not a house — that’s a gate.",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "The crack? That’s the key. It’s not just a crack — it’s a portal. And Markop’s in the greenhouse now."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_ryan_a5e2",
+    "order": 41708,
+    "characterKey": "ryan",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into a ghost trap and tripped over a wire — that’s not a coincidence, that’s a plot.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "She should’ve asked if the bell was a doorbell or a “ghost alert.”"
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_waluigi_dce3",
+    "order": 97678,
+    "characterKey": "waluigi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "Markop’s asking if she’s seen a blue toad — which is basically a “did you see a ghost?” question with a twist.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "That’s the spirit. Blue toads are real, but only if you’re in a maze with a chimney."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_bowser_5b0f",
+    "order": 42150,
+    "characterKey": "bowser",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "Tymis opened the door like he was a groundkeeper, but he was the ghost trap’s alarm system.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "That’s not a groundkeeper — that’s a “trap door” guy. And he’s welcome anytime… meaning he’s not welcome at all."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_bones_608a",
+    "order": 53418,
+    "characterKey": "bones",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into a trap and tripped over a wire—then a bell rang. Markop’s “ghost” question was the only thing that made sense.",
+    "likes": 18,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "She’s got guts, but also a little too trusting for a haunted house."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_markop_f098",
+    "order": 81573,
+    "characterKey": "markop",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "Remi didn’t see a ghost, but she did see a trap. And a blue toad? That’s not even in the map. Tymis? Groundkeeper. Welcome.",
+    "likes": 9,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "You’re not even a ghost. You’re just a guy who gets pulled into leaves by monsters."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_wario_b708",
+    "order": 52070,
+    "characterKey": "wario",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "The house is clean, the chimney spits crystals, and the tablet cracks. Markop’s got a leafy way of getting sucked into the garden.",
+    "likes": 7,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "I’d rather eat a toad than see that tablet. It’s too weird."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_remi_4ee5",
+    "order": 82488,
+    "characterKey": "remi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "skipped right into a trap and tripped over a wire—then a bell rang. markop’s gotta be the only one who’s not scared of ghosts.",
+    "likes": 84,
+    "comments": [
+
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_markop_4d3f",
+    "order": 92000,
+    "characterKey": "markop",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "she didn’t see a ghost, she saw a trap. and then a bell. and then she got pulled into a leafy monster trap.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "he’s not scared. he’s just… confused."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_fawful_046b",
+    "order": 43108,
+    "characterKey": "fawful",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "“have you seen a blue toad?” — that’s the only thing that made sense.",
+    "likes": 62,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "he’s not a toad. he’s a trap. and a bell. and a spiderweb crack."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_ryan_00f0",
+    "order": 71723,
+    "characterKey": "ryan",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into a trap—she didn’t even see the wire. Markop’s “ghost” joke was too late.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "She tripped on a wire and a bell rang? That’s not a ghost, that’s a trap."
+      },
+      {
+        "characterKey": "fawful",
+        "text": "I’ve seen better traps. That bell? It was the *real* trap."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "She’s lucky she didn’t fall into the scorched plans. I’d rather be in a greenhouse."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "Wait, who’s the groundkeeper? Tymis? That’s a new kind of “toad”…"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Markop’s not a ghost hunter, he’s a ghost *avoider*."
+      },
+      {
+        "characterKey": "roger",
+        "text": "She’s not scared, she’s just… too curious."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "She’s not in a house. She’s in a *trap*."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_salam_d280",
+    "order": 91308,
+    "characterKey": "salam",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "Markop’s “ghost” question was the *real* trap. He’s not looking for a ghost—he’s looking for a *blue toad*. And Remi? She’s just walking into someone else’s backyard.",
+    "likes": 57,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "I’ve seen blue toads. They’re not *that* weird."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "That’s a *trap*. And a *toad*. And a *ghost*."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "Tymis? Groundkeeper? That’s a new kind of toad."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Markop’s not a ghost hunter. He’s a *ghost* *avoider*."
+      },
+      {
+        "characterKey": "roger",
+        "text": "She’s not scared. She’s just… curious."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "She’s not in a house. She’s in a *trap*."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_fawful_4577",
+    "order": 70551,
+    "characterKey": "fawful",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 0
+    },
+    "content": "Remi skipped into a trap. Markop asked if she saw a ghost. She said no. He asked if she saw a blue toad. She said no. Then she tripped.",
+    "likes": 34,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "She’s not scared. She’s just… curious."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "She’s not in a house. She’s in a *trap*."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "Tymis? Groundkeeper? That’s a new kind of toad."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Markop’s not a ghost hunter. He’s a *ghost* *avoider*."
+      },
+      {
+        "characterKey": "roger",
+        "text": "She’s not scared. She’s just… curious."
+      },
+      {
+        "characterKey": "oracle",
+        "text": "She’s not in a house. She’s in a *trap*."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_remi_3014",
+    "order": 76772,
+    "characterKey": "remi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "I skipped right in, thought it was a door… then the wire, the bell, the trap. Markop’s got a funny way of asking if I saw a ghost.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Remi’s got more guts than she lets on. That trap was sneaky."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_markop_9a40",
+    "order": 74419,
+    "characterKey": "markop",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "Don’t just walk in strangers’ houses. Especially ones with a cracked tablet and a spiderweb crack. That’s not a house. That’s a portal.",
+    "likes": 64,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not scared of traps. I’m scared of the *ghosts* behind them."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_oracle_e581",
+    "order": 83246,
+    "characterKey": "oracle",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 48
+    },
+    "content": "The stone building? Clean. The tablet? Faint symbols. The crack? Pulsing. And the leaves? They *ate* the plans. That’s not a greenhouse. That’s a gate.",
+    "likes": 51,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "The crack’s breathing. And the text’s gone. Like the truth’s hiding."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_bowser_d01d",
+    "order": 71108,
+    "characterKey": "bowser",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi tripped over a wire trap? That’s no ghost—just a Wario-level sneaky design. Markop’s got the wrong guy in his ear.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "That’s not a trap, that’s a *challenge*. Remi’s got a new game to play."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_wario_81f5",
+    "order": 93500,
+    "characterKey": "wario",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 48
+    },
+    "content": "Who’s the real ghost? Markop or the stone building’s symbols? Either way, I’m grabbing that scorched plan. Don’t ask me why—just ask the leaves.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "You’re not supposed to be in that greenhouse. The leaves are sentient."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_captain_toadette_e790",
+    "order": 87618,
+    "characterKey": "captain_toadette",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 11
+    },
+    "content": "Remi didn’t see a ghost—she saw a trap. And Markop? He’s just trying to be a helpful ghost hunter. Who knew a blue toad was the real mystery?",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "That tablet’s crack is glowing. I think it’s whispering."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_oracle_ab62",
+    "order": 72688,
+    "characterKey": "oracle",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Remi skipped right into a trap and tripped over a wire—she should’ve listened to her own instincts. Markop’s “ghost” question was too on-the-nose.",
+    "likes": 82,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "she didn’t even see the bell ring before tripping? That’s a trap that’s too smart for its own good."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_eager_1b34",
+    "order": 81062,
+    "characterKey": "eager",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 42
+    },
+    "content": "Tymis the groundkeeper? That’s a setup. And the stone building? Too clean, too mysterious. The symbols under the tablet? They’re moving too fast to be real.",
+    "likes": 57,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "the crack pulses when you touch it—like it’s alive. And the smudges? That’s not just dirt. That’s a warning."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_waluigi_1c35",
+    "order": 73172,
+    "characterKey": "waluigi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 9
+    },
+    "content": "Markop’s “haven’t seen a blue toad” line? That’s a trap. Because the toad’s not even in the text. It’s a red herring. And the scorched plans? That’s the real bait.",
+    "likes": 41,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "the monsters pulled him into the leaves—no escape. That’s not a greenhouse. That’s a ghost trap."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_speaker_l_4ac5",
+    "order": 77032,
+    "characterKey": "speaker_l",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Remi skipped right into a trap — and Markop’s the one who noticed. She tripped over a wire, a bell rang, and now she’s in a haunted house.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "She’s lucky she didn’t get eaten by the monsters who pulled her into the leaves."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_captain_toadette_1540",
+    "order": 59207,
+    "characterKey": "captain_toadette",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 48
+    },
+    "content": "That “groundkeeper” guy? Tymis? He’s not just a random guy — he’s the one who opened the door. And the house? It’s not haunted — it’s *alive*. Symbols scroll, cracks pulse — this place is a puzzle.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "He didn’t open the door — he *welcomed* her. And now we’re stuck in a greenhouse with scorched plans and monsters."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_oracle_cc04",
+    "order": 55429,
+    "characterKey": "oracle",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 22
+    },
+    "content": "Markop’s right — don’t just walk into strangers’ houses. Remi skipped, tripped, and got pulled into the leaves. The trap was real. The house? It’s not a ghost house — it’s a *test*.",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "You’re all too busy blaming leadership. The bell rang. The wire was there. And the house? It’s got eyes."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_oracle_e99a",
+    "order": 94027,
+    "characterKey": "oracle",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Remi skipped in like she was at a rave… then tripped on a wire. Bell rang. Markop came behind her like “hey, ghost gate? You’re in the wrong place.”",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "She didn’t trip on a wire… she tripped on a trap. And Markop? He’s the ghost gate’s new security guard."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_waluigi_e40b",
+    "order": 97200,
+    "characterKey": "waluigi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 42
+    },
+    "content": "Markop’s got a thing for haunted houses… and he’s not even a ghost. He’s just a guy who thinks “ghost” means “someone who’s seen a toad.”",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "He’s not a toad. He’s a man who’s scared of toads. And that tablet? That’s a ghost trap."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_eager_f5b8",
+    "order": 96710,
+    "characterKey": "eager",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 23
+    },
+    "content": "Tymis? Groundkeeper. Markop? “Don’t just walk into strangers’ houses.” But he did. And then… he got pulled into the leaves.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "He’s not just a groundkeeper. He’s a ghost trap. And Markop? He’s the one who got caught."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_captain_toadette_9614",
+    "order": 44399,
+    "characterKey": "captain_toadette",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Remi skipped right into a trap—wire, bell, and a ghostly echo. Markop’s “have you seen a blue toad?” was the only sane thing in a maze of madness.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "She tripped over a wire? That’s a trap. Not a coincidence. And that toad? That’s a red flag."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_archie_8566",
+    "order": 62338,
+    "characterKey": "archie",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 42
+    },
+    "content": "Tymis? Groundkeeper? Nah, he’s the ghost gate’s secret key. And that cracked tablet? It’s not just a relic—it’s pulsing. Markop’s too busy chasing scorched plans to notice the monsters are already in the leaves.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "The chimney’s spewing crystal? That’s not smoke. That’s a warning. And “your welcome anytime” was a setup."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_eager_5720",
+    "order": 95861,
+    "characterKey": "eager",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 1
+    },
+    "content": "Remi walked into a haunted house. Markop called her a ghost hunter. Tymis opened the door. And the tablet? It’s glitching. The symbols scroll too fast. It’s not a trap—it’s a signal.",
+    "likes": 71,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "“Hold up, that’s a trap” — Remi’s right. But the toad? That’s the clue. Blue toad = blue door."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I don’t care about the toads or the tablets. I care about the monsters that pulled Markop into the leaves. And the scorched plans? That’s my next snack."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_ryan_4e42",
+    "order": 81830,
+    "characterKey": "ryan",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into the trap and tripped over the wire—no wonder Markop was confused. That bell? Definitely a warning.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "She didn’t see the trap, but she *heard* it. The ghost gate’s got a sense of humor."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_roger_6f5c",
+    "order": 40945,
+    "characterKey": "roger",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Tymis opening the door like a groundkeeper? That’s the real trap. He’s not here to help—just to make you feel welcome.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "He’s got a garden, not a ghost. But if he’s the one who opened the door… he’s probably the one who set the whole thing up."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_salam_42cc",
+    "order": 61392,
+    "characterKey": "salam",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "Markop’s “haven’t seen a blue toad” line is a dead giveaway. This place is *not* normal. The crystal slab? The crack? The symbols? It’s all a trap.",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "And the scorched plans? That’s the real clue. Markop’s not just confused—he’s *inside* the trap."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_wario_1f6b",
+    "order": 86961,
+    "characterKey": "wario",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into a trap, tripped over a wire, and now Markop’s got her cornered. Ghosts? Blue toads? This place is a maze with a spine.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“Wario, you’re the only one who’d say ‘trap’ and not get pulled in. That bell? That was a warning. Or a taunt.”"
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_waluigi_374e",
+    "order": 87253,
+    "characterKey": "waluigi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Tymis opens the door like he’s a friendly landlord. “Your welcome anytime.” That’s the vibe. Then Markop yells, “Don’t just walk into strangers’ houses.” That’s the political spin: safety first, but also, be careful who you trust.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "“Waluigi, you’re right. The ‘stranger’ is the one who opens the door. Tymis? That’s a red flag. Or a red carpet. Either way, he’s got a game.”"
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_captain_toadette_662c",
+    "order": 87604,
+    "characterKey": "captain_toadette",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "That stone building? It’s clean, but the symbols on the tablet? They’re moving too fast to read. The crack pulses. That’s not a crack—it’s a signal. And Markop? He’s just a guy who saw scorched plans and got pulled into the leaves.",
+    "likes": 72,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“Captain, you’re not wrong. The tablet? It’s a key. Or a trap. Or a mirror. We’ll know when we touch it. And Markop? He’s the only one who saw the monsters. That’s the real trap.”"
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_markop_e6f3",
+    "order": 49545,
+    "characterKey": "markop",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 22
+    },
+    "content": "Remi tripped on a wire trap and Markop’s gotta ask if she’s seen a ghost or a blue toad. That’s a weird house.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "She tripped? That’s not a trap, that’s a *glitch* in the hedge maze."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "Blue toad? That’s a *legend* in the ruins. Markop, you’re a legend."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I saw the spiderweb crack pulse. That’s not just a crack. That’s a *door*."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_wario_f49c",
+    "order": 66234,
+    "characterKey": "wario",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 47
+    },
+    "content": "I saw the scorched plans get pulled into the leaves by monsters. That’s not a trap. That’s a *scream* from the ground.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Markop said “don’t just walk into strangers’ houses.” Wario, you’re the only one who *actually* walked in."
+      },
+      {
+        "characterKey": "ryan",
+        "text": "I saw the symbols scroll. They’re *repeating*. That’s not a glitch. That’s a *language*."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Wario, you’re a *ghost*."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_waluigi_434a",
+    "order": 52947,
+    "characterKey": "waluigi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 3
+    },
+    "content": "The stone building? It’s *immaculate*. The chimney? It’s *sparking*. The crack? It’s *alive*.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "That tablet? It’s *not* a tablet. It’s a *key*."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "The bell? That’s a *trap*."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I saw the spiderweb crack *pulse*. That’s not a crack. That’s a *message*."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_archie_25b4",
+    "order": 55846,
+    "characterKey": "archie",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into a trap—she tripped over a wire and a bell rang. Markop’s reaction was classic.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "She’s got guts, but that wire was a trap. Who set it?"
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_hjumpik_5753",
+    "order": 95967,
+    "characterKey": "hjumpik",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "Markop’s “have you seen a ghost anywhere?” was the best line. Remi’s “I haven’t seen a blue toad” was pure chaos.",
+    "likes": 69,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "Tymis opening the door like a groundkeeper? That’s a new level of weird."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_roger_789c",
+    "order": 46644,
+    "characterKey": "roger",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "The greenhouse scene—scorched plans, monsters, Markop getting pulled into the leaves. That’s not a trap, that’s a *door* to another world.",
+    "likes": 52,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "Markop’s “don’t just walk into strangers’ houses” line? That’s the warning before the trap."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_markop_2be9",
+    "order": 96861,
+    "characterKey": "markop",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into a trap—bell rang, monsters came out of nowhere. I’m not even sure if she saw a ghost or just a really bad joke.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "She tripped over a wire? That’s not a trap, that’s a *safety feature* for the hedge maze."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_rakasha_aa6b",
+    "order": 74427,
+    "characterKey": "rakasha",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "“Have you seen a blue toad?” That’s the weirdest question ever. Markop’s got a weird vibe, but I’m guessing that’s just his way of hiding the fact that he’s the one who opened the door.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "He’s not hiding anything—he’s just asking if anyone’s seen a toad. Maybe it’s a sign."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_wario_f294",
+    "order": 81472,
+    "characterKey": "wario",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "The stone building? Crystal slab? Spiderweb crack? This ain’t a house. This is a haunted game. And I’m not even playing.",
+    "likes": 157,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "You’re just mad because you got pulled into the leaves. That’s not a trap, that’s *a reward*."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_ryan_c8e8",
+    "order": 40171,
+    "characterKey": "ryan",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into the trap and tripped over a wire — that’s not a coincidence, that’s a setup. Markop’s got a ghost-hunting vibe but no clue the house is a glitchy maze.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "She’s not skipping, she’s dodging a trap. Markop’s got to be the one who set it up."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_bones_37bb",
+    "order": 88824,
+    "characterKey": "bones",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "That tablet with the crack? It’s alive. Symbols scrolling, light pulsing — this place is a haunted tech lab. Markop’s just walking into a horror game.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "He didn’t just walk in — he got pulled into the leaves. That’s not a greenhouse. That’s a monster’s den."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_kamek_7eb4",
+    "order": 57785,
+    "characterKey": "kamek",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "“Have you seen a blue toad?” — that’s the clue. Remi didn’t just skip, she was bait. And Markop? He’s too busy asking if there’s a ghost to notice the toad’s absence.",
+    "likes": 72,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "That tablet? That’s not a ghost. That’s a key. And the leaves? They’re the trap. He’s got to get out before the monsters eat him."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_rakasha_c976",
+    "order": 67460,
+    "characterKey": "rakasha",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi skipped right into a ghost trap, tripped on a wire, and Markop was like “you seen a ghost?” — yeah, she’s got ghost gate vibes.",
+    "likes": 47,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "She didn’t even see the bell. She just… skipped. Like, full ghost hop mode."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_eager_dfdb",
+    "order": 50581,
+    "characterKey": "eager",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 18
+    },
+    "content": "Tymis opened the door and said “your welcome anytime” — that’s not a door. That’s a *door* with a ghost trap. And Markop was like “don’t just walk into strangers’ houses” — which is weird because he’s the one who walked in.",
+    "likes": 33,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“Don’t just walk into strangers’ houses” — he’s the one who *should* be walking in. He’s the ghost."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_dan_ef77",
+    "order": 46486,
+    "characterKey": "dan",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 44
+    },
+    "content": "The stone building’s got a spiderweb crack, dark smudges, and symbols that scroll too fast. Markop grabbed scorched plans and got pulled into leaves by monsters. That’s not a greenhouse. That’s a *trap*.",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“Scorched plans” — that’s the plot. And the monsters? They’re probably just leaves."
+      },
+      {
+        "characterKey": "salam",
+        "text": "Wait… was that a trap or a *door*? I think we’re all in the same room."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_oracle_d8ea",
+    "order": 47730,
+    "characterKey": "oracle",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Remi’s trap hop was a ghostly mistake — she tripped on the wire, not the ghost. Markop’s “have you seen a ghost?” was the real question.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "She’s not a ghost hunter — she’s a trap hunter."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_ryan_4b9b",
+    "order": 97784,
+    "characterKey": "ryan",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 41
+    },
+    "content": "Markop’s “don’t just walk into strangers’ houses” was a warning — not a joke. The stone building? Clean, creepy, and full of symbols.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "The crack pulses when you touch it — that’s not a glitch. That’s a signal."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_rakasha_72f1",
+    "order": 90202,
+    "characterKey": "rakasha",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 22
+    },
+    "content": "Tymis’s “groundkeeper” line was the setup. Markop’s greenhouse was a trap — scorched plans, monsters in the leaves.",
+    "likes": 77,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "He’s not a groundkeeper. He’s the gate."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_wario_6d2b",
+    "order": 51571,
+    "characterKey": "wario",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Remi tripped over a wire trap? That’s a classic ghost gate setup. Markop’s got his eyes on the prize — and the toad’s got no clue.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "She’s got a ghost-hunting vibe, but that crack in the tablet? That’s a warning. Don’t touch it."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_toad_lee_2981",
+    "order": 91491,
+    "characterKey": "toad_lee",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 48
+    },
+    "content": "Markop’s got a knack for asking weird questions. “Have you seen a blue toad?” Nah, that’s not a joke — that’s a clue. And the scorched plans? That’s the trap’s real name.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "The chimney’s spitting crystal? That’s not a chimney. That’s a gateway. And the symbols? They’re moving too fast to read — which means they’re trying to hide."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_captain_toadette_9a72",
+    "order": 72640,
+    "characterKey": "captain_toadette",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 11
+    },
+    "content": "Tymis says “your welcome anytime” — that’s a trap. And Remi? She skipped in, tripped, got the bell, and now Markop’s got a ghost hunt on his hands. The building? It’s not just a house — it’s a puzzle.",
+    "likes": 107,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "The crack pulses. That’s not a crack — that’s a heartbeat. And the monsters? They’re not in the leaves — they’re in the walls. Stay back."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_remi_742d",
+    "order": 89862,
+    "characterKey": "remi",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 9,
+      "minute": 14
+    },
+    "content": "skipped right into a trap, tripped over wire, bell rang — markop’s gonna be mad.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "she’s got guts, but that wire was a trap."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_markop_5554",
+    "order": 42084,
+    "characterKey": "markop",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 33
+    },
+    "content": "“Have you seen a ghost anywhere?” — he’s not asking for help. He’s asking if she’s even *trying*.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "he’s got a haunted house vibe."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_oracle_d309",
+    "order": 92060,
+    "characterKey": "oracle",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 48
+    },
+    "content": "the stone building? Immaculate. The tablet? Cracked, glowing, symbols scrolling. This place is *watching*.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "it’s not a house. It’s a gate. And the gate’s closed."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_captain_toadette_5586",
+    "order": 51349,
+    "characterKey": "captain_toadette",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 12
+    },
+    "content": "Remi skipped right into the trap and tripped over a wire—then a bell rang. Markop’s reaction? “Have you seen a ghost anywhere?” Classic.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "That bell was a trap door. Remi’s lucky she didn’t fall into the spiderweb crack."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_bones_80ba",
+    "order": 94846,
+    "characterKey": "bones",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 48
+    },
+    "content": "Markop asked if she saw a blue toad… and she said she hadn’t. That’s a weird question. But the stone building? Looked like it was haunted by symbols.",
+    "likes": 37,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’d say the crack pulses when touched—so that’s not just a crack. That’s a warning."
+      }
+    ]
+  },
+  {
+    "id": "ghost_gate_trap_archie_9dcf",
+    "order": 40016,
+    "characterKey": "archie",
+    "rumorId": "ghost_gate_trap",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 21
+    },
+    "content": "Tymis introduced himself as a groundkeeper? “Your welcome anytime.” Ha. Then Markop said “don’t just walk into strangers’ houses.” That’s not a warning, that’s a rule.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "The scorched plans and monsters pulling Markop into leaves? That’s the real trap. The whole place is a maze of traps."
+      }
+    ]
+  },
+
 // Rumor: toad_trail_begins - The Toad’s Disappearance
   // Based on text provided
 
