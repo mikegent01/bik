@@ -4,6 +4,3327 @@
 // Removed: 11 duplicates
 
 export const WAHBOOK_POSTS = [
+// Rumor: toadsmith_poultice_escape - Toadsmith Poultice’s Escape
+  // Based on text provided
+
+  {
+    "id": "toadsmith_poultice_escape_oracle_3a3a",
+    "order": 41193,
+    "characterKey": "oracle",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "The portal opened in the mages guild — and Bryan showed up. No warning, no fanfare. Just a photograph and a “this is what happens when you serve a g-.”",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“Serve a g? That’s a *very* weird job title. I’m gonna call the authorities. Or the toilet. Either way, I’m not serving a g.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_captain_toadette_62e3",
+    "order": 76588,
+    "characterKey": "captain_toadette",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "They were supposed to get beds at the mages guild. Instead, they got cold feet. Then a portal. Then Bryan. And a photo. And a *whole* conversation about tracking him.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "“I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m in. I’m out. I’m"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_archie_1960",
+    "order": 74897,
+    "characterKey": "archie",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Bryan’s got a photo from a room search — and now the whole group’s got a plan. Portal’s open. Time to act.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“We’re not just chasing a guy — we’re chasing a *system*. That’s the real threat.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_oracle_1bd6",
+    "order": 93106,
+    "characterKey": "oracle",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 12
+    },
+    "content": "Purple T’s idea: track him via wahbook. The whole guild’s in. The portal’s active. We’re not just following — we’re *documenting*.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "“He’s not just a suspect — he’s a *pattern*. We can’t just kill him. We have to *break the system*.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_markop_8eb7",
+    "order": 85187,
+    "characterKey": "markop",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 30
+    },
+    "content": "They walked through the portal. Together. The toads? They’re gone. Bryan’s got a photo. The world’s watching.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "“We’re not just tracking — we’re *recording*. This isn’t a chase. It’s a *manifestation*. The portal’s the key.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_fawful_b6a5",
+    "order": 58729,
+    "characterKey": "fawful",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "They didn’t even get a bed before the portal opened. Bryan’s got a photo and a whole “job” to blame for this.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "Fawful, you’re not even mad? He’s got a portal and a photo?"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "That’s what happens when you serve a g—"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m out. I’m going to the mages guild. I’m not staying for this."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_waluigi_4bd3",
+    "order": 75036,
+    "characterKey": "waluigi",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 10
+    },
+    "content": "They’re all in the portal now. Purple T first, then Bryan, then the mages. Dan’s still inside.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I’m not even mad. I’m just confused."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_hjumpik_36aa",
+    "order": 82920,
+    "characterKey": "hjumpik",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 12
+    },
+    "content": "They’re all in the portal now. Purple T first, then Bryan, then the mages. Dan’s still inside.",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m not even mad. I’m just confused."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_markop_80db",
+    "order": 89965,
+    "characterKey": "markop",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "They’re all in a portal now — but who’s really in charge? The guild’s offering beds, then they’re gone. And Bryan’s got a photo. That’s the real story.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "They’re running from the guild? Or the guild’s running from them? Either way, it’s chaos."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_salam_e979",
+    "order": 54002,
+    "characterKey": "salam",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 15
+    },
+    "content": "The toads backed out — not because they were scared, but because they were tired of being told what to do. And now Bryan’s got a photo… maybe that’s the clue.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "Why is everyone ignoring the portal? It’s not just a teleporter — it’s a warning."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "They’re not just running — they’re hiding. And the photo? That’s a key. Not a clue. A target."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_bones_08a8",
+    "order": 91332,
+    "characterKey": "bones",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 30
+    },
+    "content": "The guild offered beds — and they took it. Then the portal opened. And Bryan came through. This isn’t a game. It’s a mission. And we’re all on it.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "We’re not just chasing him — we’re chasing the truth. The photo? That’s the first piece."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not even gonna ask what’s in the photo. I’m just gonna say — if you’re gonna do this, do it right."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_bowser_6f17",
+    "order": 86493,
+    "characterKey": "bowser",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "“Toadsmith poultice? Nah, that’s just a toad with a bad sense of direction. Also, I’m not even gonna ask why he’s in a mages guild. And then… portal. I’m out. Also, Bryan’s got a photo. That’s the kind of drama that makes me want to eat a toad. #ToadsmithPoulticeEscape”",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "“Bowser, you’re not even in the portal. You’re just pretending to be in a mages guild. That’s a real win.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_salam_6b72",
+    "order": 67085,
+    "characterKey": "salam",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 27,
+      "minute": 0
+    },
+    "content": "“Toadsmith poultice’s escape? He’s not even a toad. He’s just a toad with a bad sense of direction. Also, Bryan’s got a photo. That’s the kind of drama that makes me want to eat a toad. #ToadsmithPoulticeEscape”",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“Salam, you’re not even in the portal. You’re just pretending to be in a mages guild. That’s a real win.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_oracle_649f",
+    "order": 51056,
+    "characterKey": "oracle",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 27,
+      "minute": 0
+    },
+    "content": "“Toadsmith poultice’s escape? He’s not even a toad. He’s just a toad with a bad sense of direction. Also, Bryan’s got a photo. That’s the kind of drama that makes me want to eat a toad. #ToadsmithPoulticeEscape”",
+    "likes": 6,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "“Oracle, you’re not even in the portal. You’re just pretending to be in a mages guild. That’s a real win.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_bones_f10d",
+    "order": 71500,
+    "characterKey": "bones",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Bones: “Portal opens, Bryan’s in. What’s he doing here? And why’s he handing out photos like it’s a mission?”",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "“He’s not just here to escape… he’s bringing something. The guild’s got eyes on the portal now.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_waluigi_8ba4",
+    "order": 47873,
+    "characterKey": "waluigi",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 12
+    },
+    "content": "Waluigi: “They’re gonna track him on Wahbook? That’s the dumbest plan I’ve heard. Let’s just… run. He’s got a photo, and he’s got a portal. No need for a post.”",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“You think he’s gonna just vanish? No, he’s got a whole crew now. And a portal. That’s the real escape.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_archie_e3ba",
+    "order": 47944,
+    "characterKey": "archie",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 30
+    },
+    "content": "Archie: “Purple T’s idea? Post every day. That’s how you track someone. He’s not just hiding — he’s broadcasting. The world’s watching.”",
+    "likes": 117,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "“Then why not just kill him? He’s got a portal, a photo, and a whole guild. This is the beginning of the end.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_waluigi_37ab",
+    "order": 74641,
+    "characterKey": "waluigi",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Toadsmith poultice’s escape was a total surprise. Bryan’s got a photo and a whole portal to blame.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Weren’t we supposed to be looking for the mages guild’s beds? Now we’re looking for a portal."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_bowser_2b4e",
+    "order": 40896,
+    "characterKey": "bowser",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "If we’re gonna track him, we track him *hard*. Purple T’s idea? Brilliant. Post every day. Let’s make him disappear.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "He’s not just a toad. He’s a portal. And Bryan’s got a picture. Let’s not wait."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_captain_toadette_f44b",
+    "order": 49001,
+    "characterKey": "captain_toadette",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 22
+    },
+    "content": "The mages guild was a trap. The portal? It’s the only clue. And we’re all in it.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "We’re all in it. What’s the plan? Kill him? Capture him? Post him?"
+      },
+      {
+        "characterKey": "eager",
+        "text": "We’re not just tracking. We’re tracking *for the good of the world*."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m not sure if that’s good or bad. But we’re doing it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "We’re all in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m in it."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I’m in it."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_markop_0e9f",
+    "order": 50794,
+    "characterKey": "markop",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Bryan’s got a photo and a plan. The mages guild’s portal? Just a stage for the next move.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "This is why we never trust “safe passage” — it’s always a trap."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_archie_8e9c",
+    "order": 53673,
+    "characterKey": "archie",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Purple T’s idea? Post daily. That’s how you turn a fugitive into a public target.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“For the good of the world” — yeah, that’s what they said before they sold the castle."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_roger_935f",
+    "order": 47847,
+    "characterKey": "roger",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "They walked through a portal. And then… they all disappeared. No one’s coming back.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "They’re not gone. They’re just… somewhere else. And the world’s still watching."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_ryan_ce6b",
+    "order": 52469,
+    "characterKey": "ryan",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Bryan’s got a photo and a portal. He’s not just showing up — he’s got a plan. And we’re all in it.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "This guy’s got a secret. Let’s find out where he’s going."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_kamek_1cbb",
+    "order": 53390,
+    "characterKey": "kamek",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "The mages guild’s portal? That’s a trap. Or a clue. Either way, we’re not leaving without answers.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "We should track him. Wahbook’s got the power to find him — or kill him."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_archie_3c23",
+    "order": 76471,
+    "characterKey": "archie",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 22
+    },
+    "content": "Purple T’s got the idea. Post every day. Track, kill, capture — it’s all on the table. The world’s on the line.",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "I’m in. Bring him to me. I’ll make him regret being a mage."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_waluigi_7aa9",
+    "order": 63276,
+    "characterKey": "waluigi",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "They just walked through a portal together… and now we’re all stuck in a mystery. Who’s gonna track the guy who left the mages guild?",
+    "likes": 123,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "Huh. That portal’s a trap. Or a gift. Either way, we’re in it."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_captain_toadette_9945",
+    "order": 54318,
+    "characterKey": "captain_toadette",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "Purple T’s idea? Post daily. Track him. Kill him. Capture him. We’re not just a group—we’re a team. And the world’s on the line.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I’m in. But I’m also scared. What if he’s not the bad guy?"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_kamek_f5da",
+    "order": 69785,
+    "characterKey": "kamek",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 22
+    },
+    "content": "“Who can that be?” — Eric’s line. I think that’s the key. That guy’s not just a mage… he’s a puzzle. And we’re all stuck in the middle of it.",
+    "likes": 74,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "That portal… it’s not just a portal. It’s a doorway. And we’re all stepping through it."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_hjumpik_0009",
+    "order": 74432,
+    "characterKey": "hjumpik",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "They just opened the door to the mages guild and BAM — portal activates. Bryan’s in there. No time to think. Just gotta keep moving.",
+    "likes": 147,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Bryan’s got a photo. That’s the clue. No one’s gonna track him unless we post his face on wahbook."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_speaker_l_8d2a",
+    "order": 86763,
+    "characterKey": "speaker_l",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 12
+    },
+    "content": "Toads got cold feet. Left the guild. But the portal? That’s not a mistake. That’s a warning. And Bryan? He’s the one who broke the door.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "They’re all in the portal now. Purple T first, then Bryan, then the mages. Dan’s in the back."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_oracle_affb",
+    "order": 61698,
+    "characterKey": "oracle",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 42
+    },
+    "content": "We’re doing this for the good of the world. Kill him? Capture him? Post him? The options are on the table. The guild’s a safehouse — now it’s a trap.",
+    "likes": 112,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "I’m posting him daily. Every post. We’ll find him. We’ll bring him to the authorities."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_archie_b54e",
+    "order": 73924,
+    "characterKey": "archie",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Bryan’s got a photo and a portal — and he’s blaming leadership. What’s in that picture? And why’s he walking through a portal with the mages?",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "He’s not just walking — he’s *running*. And the mages are the last stop before the jump."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_salam_01f4",
+    "order": 86304,
+    "characterKey": "salam",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Purple T’s idea — post daily, track him, kill him or bring him in — sounds like a plan. But why did they even *leave* the mages guild?",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "Because the portal’s not a trap — it’s a *cue*. And they’re not just tracking him — they’re *following* him."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_bowser_c0ee",
+    "order": 83974,
+    "characterKey": "bowser",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Toadsmith poultice’s escape? Nah — that’s just the beginning. The portal’s the real escape. And Bryan’s not just here — he’s *running* from something.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "He’s got a photo. And he’s got a portal. And he’s got *us*."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "He’s not escaping — he’s *inviting* us."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Wait — did anyone *see* the portal before it opened?"
+      },
+      {
+        "characterKey": "archie",
+        "text": "No — but someone *found* the photo."
+      },
+      {
+        "characterKey": "fawful",
+        "text": "And that’s *why* we’re all here."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_speaker_l_6139",
+    "order": 53860,
+    "characterKey": "speaker_l",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Bryan’s got a photo and a whole “I’m here to serve a G-” rant. Now we’re all just waiting for the portal to activate again.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "“Portal’s on, but the toads are ghosting. What’s the plan? Escape? Or just nap in the guild?”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_rakasha_84c7",
+    "order": 96722,
+    "characterKey": "rakasha",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Purple T’s idea: post daily, track him. “Everything’s on the table.” Sounds like a job application for a haunted hotel.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“We’re not tracking him — we’re tracking the toads’ cold feet. And the portal. And Bryan’s drama.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_salam_4451",
+    "order": 91098,
+    "characterKey": "salam",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "“They walk in the portal. First Purple T. Then Bryan. Then the mages. Then Dan.” It’s like a 4-actor sitcom where the portal is the punchline.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "“Dan’s just… there. Like a plot hole. But also a portal. And a toad. And a photo. We’re all just… in the same room.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_toad_lee_5066",
+    "order": 87802,
+    "characterKey": "toad_lee",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Toadsmith poultice’s escape was pure chaos. Bryan showing up through a portal? And then the whole crew running into a portal together? That’s not a rumor… that’s a prophecy.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "Toadsmith is still out there. We need to track him. Or at least find his photo."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_wario_759e",
+    "order": 64339,
+    "characterKey": "wario",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "I’m not a mage, but I’m good at making noise. The portal’s open, the guild’s empty, and Bryan’s got a photo. If that’s not a clue, I’ll eat my hat.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "Wario, you’re the only one who’d actually eat your hat."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_green_t_3650",
+    "order": 45159,
+    "characterKey": "green_t",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 30
+    },
+    "content": "Purple T’s idea? Post daily. That’s a genius plan. If we track him, we don’t need to chase him. He’s the portal’s biggest fan.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "He’s not a fan. He’s a ghost. And we’re all stuck in his ghost story."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_hjumpik_5dd4",
+    "order": 59558,
+    "characterKey": "hjumpik",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Bryan’s in the portal now — and he’s got a photo from a search. The mages guild’s got a portal, but they’re not staying. Purple T’s got a plan, and it’s all on wahbook.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "He’s not just a mage, he’s a ghost in the system. Let’s track him."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_green_t_1430",
+    "order": 61215,
+    "characterKey": "green_t",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 12
+    },
+    "content": "Dan’s asking “maybe we can track him?” — and the group’s got a plan: post daily, find him, kill him or capture him. It’s not just about the toads — it’s about the world.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "Why not just let the mages guild handle it? They’re the only ones who can track."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_ryan_7c65",
+    "order": 77473,
+    "characterKey": "ryan",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 30
+    },
+    "content": "The portal opens, the toads run — but Bryan’s got the photo, and Purple T’s got the idea. This is the moment the world’s on the line.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "I saw the portal activate. It’s not just a door — it’s a trigger. We’re all in it now."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_ryan_7e81",
+    "order": 92182,
+    "characterKey": "ryan",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Bryan’s in the mages guild now — and he’s got a photo. That’s not just a clue. That’s a target.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "We’re not just chasing him. We’re chasing the truth."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_markop_a1e4",
+    "order": 50593,
+    "characterKey": "markop",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "Purple T’s idea? Post every day. That’s how you make the world watch. No one escapes when the whole network’s on their trail.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "I’d rather be the one posting. Then I’d be the one who gets the last laugh."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_speaker_l_5f13",
+    "order": 87089,
+    "characterKey": "speaker_l",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 30
+    },
+    "content": "They walked through the portal. Not just to escape. Not just to hide. To expose. To become part of the story.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "And we’re all in it. Even if we’re not the ones who made the photo."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_captain_toadette_b6ff",
+    "order": 92263,
+    "characterKey": "captain_toadette",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "The mages guild was a trap — they didn’t even get to sleep. Bryan’s photo? That’s the clue. We’re all in this now.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "“They’re gonna track him through Wahbook. No escape.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_kamek_ac2d",
+    "order": 94791,
+    "characterKey": "kamek",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 30
+    },
+    "content": "Purple T’s idea was genius. Post every day. Let the world see what’s going on. If he’s in the guild, we’re gonna find him.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "“Or we could just… burn the portal. No need to chase ghosts.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_fawful_7f98",
+    "order": 67848,
+    "characterKey": "fawful",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 15
+    },
+    "content": "They left the guild. They didn’t even look. And now? The portal’s open. Bryan’s got a photo. Purple T’s got a plan.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“We’re not chasing him. We’re following the trail. He’s got a name. And a face. And a past.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_speaker_l_952e",
+    "order": 50156,
+    "characterKey": "speaker_l",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Bryan’s in the portal now, handing over a photo. What’s the deal with that guy? And why did the mages guild even get involved?",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "That photo? I’d bet it’s the key to finding the real culprit."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_toad_lee_3f56",
+    "order": 50276,
+    "characterKey": "toad_lee",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "Purple T’s idea to track him on Wahbook? Genius. If we post daily, we’ll get the drop on him. Let’s go.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "We’re not just tracking him—we’re hunting him. For the world."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_bones_bf17",
+    "order": 60820,
+    "characterKey": "bones",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 22
+    },
+    "content": "The toads got cold feet, left the guild. Then the portal opened. Bryan came in… and now we’re all in. What’s next?",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "Portal’s open. Time to move. Don’t ask why. Just follow."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_hjumpik_4be7",
+    "order": 41636,
+    "characterKey": "hjumpik",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Bryan’s back and he’s got a photo—this is gonna get us all in trouble. We’re not just chasing a toad, we’re chasing a ghost with a portal.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "This is why we should’ve stayed in the guild. The portal’s a trap."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_wario_1308",
+    "order": 63189,
+    "characterKey": "wario",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "Purple T’s got a plan, Bryan’s got a photo, and we’re all in a portal. This isn’t a game. This is a war. And we’re all on the same side.",
+    "likes": 8,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "We should’ve just gone with the toads. They’re the only ones who can get us out."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_markop_c8a7",
+    "order": 79048,
+    "characterKey": "markop",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 30
+    },
+    "content": "They left the guild. They ran. But now we’re all in the same room, same portal, same problem. This isn’t about the toad. It’s about the truth.",
+    "likes": 6,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "The mages guild’s the only safe place. And now we’re all stuck in the same room. We’re not running. We’re fighting."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_bones_8eb7",
+    "order": 55723,
+    "characterKey": "bones",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Bones: “They just left the mages guild? And a portal opened? Bryan’s in the room with a photo. This ain’t a coincidence. Someone’s gotta be watching.”",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“Yeah, and now we’re all in the same room. With a portal. And a photo. What’s in the photo, Bones?”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_green_t_cf4f",
+    "order": 63941,
+    "characterKey": "green_t",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "Green_T: “Purple T’s idea was genius. Track him via Wahbook. We’ve got the tools. We’ve got the motive. We’ve got the world on the line. Time to turn the page.”",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "“You mean we’re gonna stalk him with posts? That’s not a mission, that’s a cult.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_kamek_8571",
+    "order": 81121,
+    "characterKey": "kamek",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 30
+    },
+    "content": "Kamek: “They walked into a portal. A mages guild. And now we’re all here. What were we thinking? We’re in the middle of a game, not a movie.”",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "“It’s not a movie, Kamek. It’s a *plot*. And we’re the ones who made the plot.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_toad_lee_c25f",
+    "order": 60004,
+    "characterKey": "toad_lee",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "Toadsmith poultice’s escape was a *portal* disaster. Now we’re all stuck in a Mage Guild elevator.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“At least we’re not in a haunted library. Or a toad’s basement.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_hjumpik_1244",
+    "order": 88778,
+    "characterKey": "hjumpik",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "Bryan’s photo? “This is what happens when you serve a g-” He’s not even joking.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "“Bryan’s got a vibe. He’s not just a mage. He’s a *mystery*.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_captain_toadette_dba9",
+    "order": 98585,
+    "characterKey": "captain_toadette",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 30
+    },
+    "content": "Purple T’s idea? “Track him on Wahbook.” We’re not tracking, we’re *flying* with the portal.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "“And if he’s hiding in a portal? We’ll just… teleport him to the nearest dungeon.”"
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_kamek_fb6a",
+    "order": 55131,
+    "characterKey": "kamek",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "The mages guild portal just activated and Bryan showed up—what’s he doing here? And why did the toads run?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "He’s got a photo. That’s a clue. Maybe we should track him before he vanishes again."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_waluigi_2220",
+    "order": 50849,
+    "characterKey": "waluigi",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 12
+    },
+    "content": "Purple T’s idea to post daily? “Track him on Wahbook”? That’s wild. But if we’re doing it for the world… maybe we should also post about the elevator.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "I’m not tracking him. I’m tracking the portal. And the fact that Bryan’s in it. That’s the real mystery."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_ryan_0cb0",
+    "order": 86055,
+    "characterKey": "ryan",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 20
+    },
+    "content": "They walked through the portal together. First Purple T, then Bryan, then the mages… and Dan. The toads are gone. What’s next?",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "I’m not sure if we should kill him or capture him. But I’m all in for the “good of the world” line. Let’s post. Let’s track. Let’s go."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_rakasha_4901",
+    "order": 80062,
+    "characterKey": "rakasha",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 8
+    },
+    "content": "They just left the mages guild after the portal opened… and now Bryan’s here with a photo. Who’s the mystery guy?",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "That photo’s gotta be the key. We need to track him before he disappears again."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_roger_089f",
+    "order": 54973,
+    "characterKey": "roger",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "Purple T’s idea? Post every day? We’re gonna be on the trail of this guy for weeks. Let’s not forget we’re doing this for the good of the world.",
+    "likes": 9,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "I’m not sure we’re “doing this for the good of the world” if we’re just chasing a photo."
+      }
+    ]
+  },
+  {
+    "id": "toadsmith_poultice_escape_waluigi_72af",
+    "order": 40584,
+    "characterKey": "waluigi",
+    "rumorId": "toadsmith_poultice_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 22
+    },
+    "content": "They walked through a portal. Then came Bryan. Then they all went back. That’s not a portal. That’s a trap.",
+    "likes": 6,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Huh. Maybe we should’ve listened to the guard. He said the mages guild had beds. What if they were just a distraction?"
+      }
+    ]
+  },
+
+// Rumor: archie_portal_reveal - The Ration and the Rift
+  // Based on text provided
+
+  {
+    "id": "archie_portal_reveal_markop_959d",
+    "order": 89322,
+    "characterKey": "markop",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a sealed ration pack and a portal in his pocket. He’s not just resting — he’s preparing for something bigger.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "That’s a portal in a pocket? And he’s handing Archie food? What’s the plan, Markop?"
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "“Unless… it served a greater play.” That’s the kind of line that makes you wanna scream."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_toad_lee_093f",
+    "order": 73324,
+    "characterKey": "toad_lee",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Purple Toad’s voice? A portal? That’s a prophecy, not a snack. Archie’s got a mission — and it’s not just about rations.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The portal opens with the compass and tools in Archie’s pocket. That’s not luck. That’s… orchestrated."
+      },
+      {
+        "characterKey": "fawful",
+        "text": "“Hearts will break and towers fall.” He’s not just leading. He’s the puppet master."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_roger_e5ab",
+    "order": 83417,
+    "characterKey": "roger",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "“30 Harvestide 1040 00:29.” That’s not a timestamp — it’s a deadline. And Archie’s already stepping through. The prophecy’s real.",
+    "likes": 76,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“Let chaos sing!” — he’s not just in it. He’s writing it."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "The rations smell functional. But the portal? That’s the real flavor."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_captain_toadette_6942",
+    "order": 95719,
+    "characterKey": "captain_toadette",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal… and he just stepped through. What was that plan?",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "He’s not just eating… he’s teleporting. That’s the real mystery."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_fawful_6c68",
+    "order": 63604,
+    "characterKey": "fawful",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "The rations smell functional. The portal? A joke. Or a trap. Either way, Archie’s in it.",
+    "likes": 35,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "He’s not a hero. He’s a tool. And tools don’t just open rifts. They use them."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_markop_913e",
+    "order": 70477,
+    "characterKey": "markop",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "“Every prophecy has a string!” — Archie’s not just a soldier. He’s the thread. And the portal? It’s his stage.",
+    "likes": 28,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "He’s not just leading… he’s rewriting the script. And he’s got purple toad’s blessing."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_wario_79a8",
+    "order": 47207,
+    "characterKey": "wario",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal? Nah, he’s just got the right stuff to make it work. That’s the kind of weird-ass genius I’d want on my team.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "Wario, you’re not even trying to be funny. That portal’s a trap. And Archie? He’s got a snack and a plan."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_toad_lee_48d3",
+    "order": 68055,
+    "characterKey": "toad_lee",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Purple Toad says… “unless it served a greater play.” That’s not a quote. That’s a *door*. Archie just walked into the cosmic buffet.",
+    "likes": 68,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "I’m not sure if this is a prophecy or a joke. But if Archie’s in a portal, I’m going with “he’s not playing.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_bones_8d25",
+    "order": 48281,
+    "characterKey": "bones",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 34
+    },
+    "content": "Archie sits, Luigi hands him rations. Then… a portal. And a line: “Every prophecy has a string!” That’s not a prophecy. That’s a *plot*.",
+    "likes": 35,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "He’s not just a guy with a ration pack. He’s the guy who’s got the keys to the whole damn thing."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_toad_lee_0265",
+    "order": 45076,
+    "characterKey": "toad_lee",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal? That’s not just survival… that’s a plot. And he’s not even looking back.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "He’s walking into the rift with a sealed pack? That’s not bravery… that’s a gamble. And he’s got a compass in his pocket."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_captain_toadette_843a",
+    "order": 86188,
+    "characterKey": "captain_toadette",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 1,
+      "minute": 12
+    },
+    "content": "“Every prophecy has a string!” — this ain’t a prophecy. It’s a warning. And Archie’s gonna play it… or get played.",
+    "likes": 94,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "He’s got a plan. And a plan is never a plan unless it’s a trap. The portal’s open, and the compass? That’s not just a tool. That’s a key."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_salam_29fd",
+    "order": 84220,
+    "characterKey": "salam",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 2,
+      "minute": 34
+    },
+    "content": "“Unless… it served a greater play.” That’s the line. The ration pack’s military-grade. The portal’s open. And Archie’s not just going through it — he’s choosing his fate.",
+    "likes": 81,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "He’s got the tools. He’s got the pack. And he’s got a smile. That smile? It’s not for the crowd. It’s for the end."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_archie_9e01",
+    "order": 72062,
+    "characterKey": "archie",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Luigi handed me the ration pack like it was a secret weapon… and then I stepped through a portal. I’m not a hero. I’m a snack and a rift.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "*grins evilly*"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_speaker_l_b679",
+    "order": 77875,
+    "characterKey": "speaker_l",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "“Unless… it served a greater play.” That line? That’s the vibe. Archie’s not just resting — he’s in a *game*. And the portal? It’s not a mistake. It’s a *plot*.",
+    "likes": 97,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“I thought the prophecy was just a joke. Now I’m scared.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_ryan_d2e1",
+    "order": 85397,
+    "characterKey": "ryan",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s in a *ration pack* and a *portal*. That’s not a setup. That’s a *stunt*. And the prophecy? “Hearts will break and towers fall” — yep. That’s what happens when you let a *Toad* say “let chaos sing.”",
+    "likes": 83,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "“Archie’s not just a hero. He’s a *rational* hero.”"
+      },
+      {
+        "characterKey": "captain_toadette",
+        "text": "“Wait… is he *eating* the prophecy?”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_markop_637b",
+    "order": 41775,
+    "characterKey": "markop",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal. That’s not just a snack— it’s a key. And he’s already stepping through.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "He’s not just eating… he’s leaving."
+      },
+      {
+        "characterKey": "rakasha",
+        "text": "The smell’s functional, but the portal? That’s a prophecy."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "He’s trusting the smile… and the rift."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_captain_toadette_24ae",
+    "order": 44122,
+    "characterKey": "captain_toadette",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 1,
+      "minute": 12
+    },
+    "content": "“Every prophecy has a string!” — that line? It’s not just poetic. It’s a warning. And Archie’s walking into the unknown with a sealed pack and a compass.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "The Toad dialect? That’s the real clue. He’s speaking to the world."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "“Unless… it served a greater play.” That’s the twist. Not chaos. Not ruin. Purpose."
+      },
+      {
+        "characterKey": "markop",
+        "text": "He’s not just a soldier. He’s a vessel."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_rakasha_d8b1",
+    "order": 50363,
+    "characterKey": "rakasha",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 2,
+      "minute": 34
+    },
+    "content": "30 Harvestide. 00:29. The portal closed. The pack opened. The prophecy began. And Archie? He’s not just going. He’s going *with* it.",
+    "likes": 57,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "“Trust the smile, ignore the sway…” — he’s got a plan. And it’s not just about food."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "The compass? In his pocket. The portal? Behind him. He’s not lost. He’s *destined*."
+      },
+      {
+        "characterKey": "dan",
+        "text": "And the “greater play”? That’s the real question. Who’s playing? Who’s watching?"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_archie_71cd",
+    "order": 87084,
+    "characterKey": "archie",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "I didn’t know the ration pack was a clue. Or that the portal was in my pocket.",
+    "likes": 123,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "He’s got a plan. And it’s got a portal."
+      },
+      {
+        "characterKey": "dan",
+        "text": "…was the smell functional or was it a warning?"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_captain_toadette_4f7c",
+    "order": 54644,
+    "characterKey": "captain_toadette",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "I’m not sure if this is a prophecy or a trap. But if it’s a plan, I’m in.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "You’re a walking meme. Now let me see what’s in the pack."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "The prophecy says “hearts will break” — I’m already broken."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_remi_c08e",
+    "order": 76933,
+    "characterKey": "remi",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "The compass was in his pocket, the portal opened, and he stepped through. That’s not a glitch. That’s a choice.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "…I’m not sure I’m ready for the next level."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_markop_3e2b",
+    "order": 89511,
+    "characterKey": "markop",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s quiet moment with Luigi… and the ration pack? That’s not just food. That’s a key. And the portal? That’s the prophecy’s final move.",
+    "likes": 147,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "That portal’s not just a rift—it’s a stage. And Archie? He’s the actor."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_eager_2a23",
+    "order": 67414,
+    "characterKey": "eager",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 1,
+      "minute": 12
+    },
+    "content": "The prophecy’s string? It’s been pulled. Luigi’s ration pack, the portal, the “greater play”… this isn’t chaos. It’s a script. And Archie? He’s the director.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Purple Toad’s whisper? That’s the real prophecy. “Unless… it served a greater play.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_oracle_79a1",
+    "order": 48804,
+    "characterKey": "oracle",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 2,
+      "minute": 45
+    },
+    "content": "The sealed ration pack. The portal. The prophecy’s last line. Archie didn’t just rest—he set the stage. And the date? 30 Harvestide 1040. That’s not random. That’s the moment the strings snapped.",
+    "likes": 113,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "“I would never lead astray.” That’s a lie. He’s leading the whole damn thing."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_bones_90ae",
+    "order": 48013,
+    "characterKey": "bones",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s ration pack had three dialects. And a portal. And a planar rift.",
+    "likes": 127,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "That seal hiss? Sounds like a warning. Not a snack."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_hjumpik_dee7",
+    "order": 65974,
+    "characterKey": "hjumpik",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Luigi tearing open the pack—functional smell, no flavor. But the portal? That’s where the prophecy ends.",
+    "likes": 94,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“Unless… it served a greater play.” That line’s a hint, not a clue."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_eager_aa9d",
+    "order": 48675,
+    "characterKey": "eager",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "Archie’s pocket held compass, tools, and a portal. The pack’s military-grade? Maybe it’s not just food.",
+    "likes": 78,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "“Hearts will break and towers fall…” That’s not a prophecy. That’s a *cue*."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_green_t_9564",
+    "order": 95623,
+    "characterKey": "green_t",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal? And Luigi’s just handing it over like it’s a mission. The portal’s in his pocket. Weird.",
+    "likes": 147,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "This isn’t just a snack… it’s a key. And a rift."
+      },
+      {
+        "characterKey": "ryan",
+        "text": "The “functional smell” is a warning. Or a test."
+      },
+      {
+        "characterKey": "bones",
+        "text": "…did he just say “e deck! Let chaos sing!”? That’s a vibe."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Portal opens. No one’s even seen it before."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "He’s not leading astray. He’s leading to the prophecy."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Purple Toad says “unless it served a greater play.” That’s a line. Not a joke."
+      },
+      {
+        "characterKey": "fawful",
+        "text": "*laughs* The prophecy’s already broken."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_salam_784e",
+    "order": 71434,
+    "characterKey": "salam",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Luigi’s tearing open that ration pack like it’s a sacred object. The smell? Functional. But the portal? That’s a new kind of magic.",
+    "likes": 123,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "The compass and tools in his pocket? That’s not random."
+      },
+      {
+        "characterKey": "ryan",
+        "text": "The prophecy says “hearts will break and towers fall.” And he’s already gone."
+      },
+      {
+        "characterKey": "bones",
+        "text": "“Choose your card and make your stand.” That’s a card game? Or a destiny?"
+      },
+      {
+        "characterKey": "markop",
+        "text": "“Trust the smile, ignore the sway…” That’s a warning. Or a promise."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Purple Toad’s voice? That’s a whisper. Or a command."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "“30 harvestide 1040 00:29.” That’s a date. And a time."
+      },
+      {
+        "characterKey": "fawful",
+        "text": "*giggles* He’s already in the rift."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_ryan_93f5",
+    "order": 96703,
+    "characterKey": "ryan",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "The ration pack? It’s military-grade. The portal? It’s in his pocket. And the prophecy? It’s all about him.",
+    "likes": 111,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“He didn’t lead astray.” He led into the rift."
+      },
+      {
+        "characterKey": "salam",
+        "text": "The smell is functional. But the portal? That’s a portal to chaos."
+      },
+      {
+        "characterKey": "bones",
+        "text": "“I would never lead astray.” That’s a promise. Or a lie."
+      },
+      {
+        "characterKey": "markop",
+        "text": "“Every prophecy has a string.” That’s the key."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "“Unless… it served a greater play.” That’s a hint."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "“30 harvestide 1040 00:29.” That’s the moment."
+      },
+      {
+        "characterKey": "fawful",
+        "text": "*grins* He’s already in the rift. And the prophecy’s broken."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_wario_a582",
+    "order": 64687,
+    "characterKey": "wario",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a portal in his pocket and a ration pack? That’s a whole new level of chaotic genius.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Wario’s right. That portal? That’s a prophecy wrapped in a meal."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_markop_e948",
+    "order": 75743,
+    "characterKey": "markop",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "The “functional smell” of the ration… and then the portal? That’s not just a plot twist. That’s a prophecy in a can.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "The compass in his pocket? He’s not just carrying tools—he’s carrying the future."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_speaker_l_d39d",
+    "order": 51594,
+    "characterKey": "speaker_l",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "“Every prophecy has a string!” That’s not just poetic. That’s Archie’s plan. And the portal? That’s the string.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "*sits quietly, eyes closed*"
+      },
+      {
+        "characterKey": "eager",
+        "text": "He’s not just leading. He’s *reaching*."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_remi_35bf",
+    "order": 69269,
+    "characterKey": "remi",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s ration pack? Military-grade. No logo. No trace. And then… a portal. A portal with the compass. He stepped through. Not a mistake. A choice.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "That’s not a ration pack, that’s a *warning*. And the portal? It’s not just a rift. It’s a stage."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_salam_49fd",
+    "order": 98325,
+    "characterKey": "salam",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "The prophecy’s been sung. The rations smell functional, not edible. But the portal? It’s open. And Archie? He’s not just resting. He’s *playing*.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "“Hearts will break and towers fall” — that’s not prophecy. That’s a *call to action*. And the compass? He’s got the tools."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_green_t_9100",
+    "order": 66333,
+    "characterKey": "green_t",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "“Every prophecy has a string!” — and Archie’s the string. The ration pack? A clue. The portal? The stage. And the date? 30 Harvestide 1040. That’s not a coincidence.",
+    "likes": 115,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "“I would never lead astray.” — that’s the lie. The portal’s open. The compass is in his pocket. He’s not leading. He’s *inviting*."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_speaker_l_5362",
+    "order": 90497,
+    "characterKey": "speaker_l",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Luigi’s ration pack was military-grade, no labels, just survival vibes. Archie’s pocket? Portal key. Chaos is a snack, I guess.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "That’s not a snack, that’s a prophecy. And a portal. And a *purple toad*."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "*Purple toad says*… like a warning? Or a wink? I’m not sure if I should trust the smile or the sway."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_ryan_0683",
+    "order": 86817,
+    "characterKey": "ryan",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Archie’s not just resting—he’s setting up a multiverse exit. And Luigi? He’s the one who opens the door. Even if the smell’s not “appetizing.”",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "So the prophecy was *about* the portal? And the “string” was the ration pack?"
+      },
+      {
+        "characterKey": "bones",
+        "text": "I’m not sure if I should be scared or relieved. Either way, I’m in."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_salam_71b2",
+    "order": 92130,
+    "characterKey": "salam",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "“Hearts will break and towers fall…” — and now we’re in a portal. Archie’s not just resting, he’s *leading*. With a sealed pack and a smile.",
+    "likes": 29,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "“I would never lead astray.” …Unless the portal was a *sneaky* plan."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "(not in context, but just to say: *I’m not a fan of the smell.*)"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_fawful_1110",
+    "order": 99226,
+    "characterKey": "fawful",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal… and he’s not even mad. Just… quietly stepping through.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Fawful’s got a snack and a rift? That’s not a snack… that’s a *plot twist* in a snack."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_rakasha_fb9f",
+    "order": 86771,
+    "characterKey": "rakasha",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 1,
+      "minute": 17
+    },
+    "content": "“Unless… it served a greater play.” That line? That’s not just poetic. That’s *archie’s* manifesto.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "He’s not gonna tell us what’s in the pack… or where the portal leads. That’s the *real* prophecy."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_captain_toadette_2007",
+    "order": 55591,
+    "characterKey": "captain_toadette",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 2,
+      "minute": 44
+    },
+    "content": "Archie’s resting, Luigi’s handing him rations… then a portal opens. Not a glitch. Not a joke. A *choice*.",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "He’s not just stepping through. He’s *stepping into the prophecy*. And I’m not even mad. I’m *curious*."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_rakasha_3f3d",
+    "order": 41165,
+    "characterKey": "rakasha",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal. One’s for survival, one’s for something bigger. And he’s already stepping through.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "That’s not a portal, that’s a *door* to chaos. And he’s not alone."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "He’s got a plan. Or maybe he’s just following a prophecy. Either way, I’m watching."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "The prophecy says hearts will break… but he’s got a compass. He’s not lost."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_bones_4e6e",
+    "order": 98838,
+    "characterKey": "bones",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Luigi’s opening the pack — functional, not appetizing. And Archie’s not just resting. He’s preparing. The portal’s open, the compass’s in his pocket. He’s stepping through.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "He’s not just stepping through — he’s *leaving*. And the prophecy? It’s not just about towers falling. It’s about *choices*."
+      },
+      {
+        "characterKey": "roger",
+        "text": "He’s trusting the smile. That’s not blind faith. That’s calculated."
+      },
+      {
+        "characterKey": "archie",
+        "text": "(silent, but present)"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_eager_499a",
+    "order": 89726,
+    "characterKey": "eager",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "The prophecy says “I predicted it all.” And now Archie’s in a portal. With a ration pack. With a compass. And with a smile.",
+    "likes": 110,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "He’s not just stepping through — he’s *stepping into the game*."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "He’s got a plan. He’s got a prophecy. He’s got a *reason*."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "And the pack? It’s not just food. It’s *preparation*. For the next move."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_green_t_d9e4",
+    "order": 42792,
+    "characterKey": "green_t",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s calm, the ration pack’s military seal, and then… the portal. That’s not just a snack. That’s a stage.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "“He’s not resting. He’s preparing. And the portal? That’s the prophecy’s next move.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_archie_f35c",
+    "order": 73989,
+    "characterKey": "archie",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "I didn’t lead astray. I let the prophecy unfold. The ration? Fuel. The rift? The game.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "“You’re not just a hero, Archie. You’re the plot’s pivot point. And purple toad? He’s the whisper behind the curtain.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_oracle_127a",
+    "order": 91415,
+    "characterKey": "oracle",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Every prophecy has a string. And Archie? He’s the one holding the thread. The portal opens. The stage is set.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“He’s not resting. He’s feeding the rift. And if it’s purple toad’s doing… then the game’s already rigged.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_archie_8110",
+    "order": 66623,
+    "characterKey": "archie",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "I didn’t know the ration pack was a key. Now I’m stepping through a rift. That’s not just a meal… that’s a door.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "That’s the kind of stuff that makes me wanna rewrite my own prophecy."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_toad_lee_43a2",
+    "order": 55542,
+    "characterKey": "toad_lee",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Purple Toad said it’s a “greater play.” I’m not sure if that means I should be scared… or excited. The portal’s in Archie’s pocket.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Oh, I’m not scared. I’m just curious. Who’s on the other side? And why’s he whispering?"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_oracle_97e6",
+    "order": 76382,
+    "characterKey": "oracle",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Every prophecy has a string. The ration pack? It’s the thread. The portal? It’s the knot. Archie’s not just resting… he’s preparing.",
+    "likes": 117,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "I think he’s gonna make a choice. And if he picks the wrong card… the towers will fall."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_roger_a9ad",
+    "order": 61632,
+    "characterKey": "roger",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal… and he’s already through? That’s not just a snack, that’s a plot twist.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "That portal’s got a compass in Archie’s pocket? That’s a sign he’s not just lost—he’s *planning*."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_wario_120f",
+    "order": 90791,
+    "characterKey": "wario",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Ration pack? Portal? Archie’s got a secret stash and a secret plan. I’ll bet that “greater play” is a cheeseball game of cosmic proportions.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "*Sssshhh…* He’s not going through the portal to eat. He’s going through it to *win*."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_salam_7f97",
+    "order": 82318,
+    "characterKey": "salam",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "“Every prophecy has a string!” — Archie’s got a prophecy and a portal. That’s not a snack. That’s a *mission*.",
+    "likes": 69,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "He’s not just carrying a ration pack. He’s carrying the *weight* of the world’s next move."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_wario_0599",
+    "order": 89083,
+    "characterKey": "wario",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal? That’s not just a snack— that’s a *plot twist* with a planar jump! He’s got the compass, the tools, the *smell of survival*… and a prophecy? I’m in.",
+    "likes": 124,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Wario’s right— this isn’t just a meal. It’s a *door*. And Archie’s already through."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_oracle_d649",
+    "order": 66625,
+    "characterKey": "oracle",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "“Every prophecy has a string!” — that’s not a line. That’s a *key*. The ration pack’s not food. It’s the trigger. The portal? The answer. And Archie? He’s the conductor.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Oracle, you’re *way* too poetic. But the prophecy? It’s real. And it’s *happening now*."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_captain_toadette_5c72",
+    "order": 74070,
+    "characterKey": "captain_toadette",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s not resting. He’s *prepping*. Ration pack? Check. Portal? Check. Prophecy? Check. And he’s *walking through* it. No one’s stopping him. No one’s even *looking*.",
+    "likes": 61,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "Captain Toadette, you’re *so* into this. But… is Archie gonna *fall*? Or *rise*? The portal’s open. Time’s up."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_markop_fe39",
+    "order": 56818,
+    "characterKey": "markop",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s ration pack? Military-grade. No logo. No trace. And then… a portal. Just like that. No warning. No plan. Just a smile and a sigh.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "This ain’t a snack. This is a setup. And the portal? That’s the real leak."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_dan_e9ab",
+    "order": 59898,
+    "characterKey": "dan",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Luigi’s got the ration pack open, smells like function, not flavor. But the portal? That’s the kicker. “Unless… it served a greater play.” Who’s playing? Who’s the game?",
+    "likes": 109,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not buying this. The pack’s sealed, the portal’s closed. But the voice? That’s not just a whisper. That’s a command."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_ryan_c5eb",
+    "order": 47062,
+    "characterKey": "ryan",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "Archie’s not just resting. He’s holding a key. A ration. A rift. And someone’s got the compass. And they’re not leaving.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "I don’t like the way that “greater play” sounds. Sounds like a trap. And the date? 30 Harvestide 1040. That’s not random. That’s a code."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_fawful_27a5",
+    "order": 98729,
+    "characterKey": "fawful",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal… and he’s not even mad. Just… quietly efficient.",
+    "likes": 147,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "“Wait… is that a prophecy? Or just a snack?”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_toad_lee_f1e2",
+    "order": 44629,
+    "characterKey": "toad_lee",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Purple Toad says: “Unless it served a greater play.” That’s the vibe. Archie’s got a plan. And a portal. And a sealed snack.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "“I’m not the villain. I’m the snack guy with a teleporter.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_salam_0ac8",
+    "order": 98527,
+    "characterKey": "salam",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "“Let chaos sing!” — that’s not a line from a song, that’s Archie’s vibe. He’s not just resting… he’s prepping for a dimensional snack run.",
+    "likes": 112,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "“Archie’s got a plan. And a portal. And a ration pack. And he’s not even a little bit stressed.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_archie_7eb0",
+    "order": 79389,
+    "characterKey": "archie",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Luigi handed me the ration pack — sealed, military-grade, multilingual. Then… the portal. And the whisper. “Unless… it served a greater play.”",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "That’s not a ration pack, that’s a key. And the portal? That’s where the real chaos starts."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m already counting the stars in that rift."
+      },
+      {
+        "characterKey": "remi",
+        "text": "Archie’s not resting. He’s preparing."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_oracle_2c14",
+    "order": 73095,
+    "characterKey": "oracle",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 31
+    },
+    "content": "Every prophecy has a string. And this… this was the first thread. The ration pack. The portal. The whisper. The end is not the beginning.",
+    "likes": 38,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "I’m betting the pack’s got more than calories. Maybe it’s the key to the throne."
+      },
+      {
+        "characterKey": "fawful",
+        "text": "Or maybe it’s the last clue before the final act."
+      },
+      {
+        "characterKey": "speaker_l",
+        "text": "“Trust the smile, ignore the sway…” — that’s the voice of a man who knows the stage is set."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_toad_lee_b751",
+    "order": 77307,
+    "characterKey": "toad_lee",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "Purple Toad says… “Unless… it served a greater play.” And Archie steps through. The portal closes. The date? 30 Harvestide 1040. That’s not a date. That’s a countdown.",
+    "likes": 51,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "And the compass? In his pocket. He’s already moving."
+      },
+      {
+        "characterKey": "remi",
+        "text": "The prophecy’s been rewritten. And Archie’s the new author."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_wario_6201",
+    "order": 80669,
+    "characterKey": "wario",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 29
+    },
+    "content": "Archie’s got a ration pack and a portal? That’s not just a snack, that’s a trapdoor to chaos. And he’s walking through it? Wario’s gonna be the one to shut it back up.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Wario’s gonna scream “I’M THE ONE WHO SAW THE RIFT!” and then break the portal with a hammer."
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_rakasha_a5bd",
+    "order": 78013,
+    "characterKey": "rakasha",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 1,
+      "minute": 12
+    },
+    "content": "A sealed ration pack, a portal… and Archie just walks through it? That’s not a “greater play” — that’s a prophecy in motion. The oracle’s got a new card.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“The prophecy is not a warning. It’s a game. And Archie’s the player.”"
+      }
+    ]
+  },
+  {
+    "id": "archie_portal_reveal_captain_toadette_ac94",
+    "order": 58178,
+    "characterKey": "captain_toadette",
+    "rumorId": "archie_portal_reveal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 2,
+      "minute": 45
+    },
+    "content": "The ration pack smells like survival. The portal? A doorway to the unknown. And Archie? He’s not just walking through — he’s choosing his path.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“He’s not a hero. He’s a choice. And he’s picking the one that breaks the world — or saves it.”"
+      }
+    ]
+  },
+
 // Rumor: greenhouse_monsters - Monstrous Greenhouse
   // Based on text provided
 
