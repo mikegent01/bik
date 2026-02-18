@@ -426,5 +426,158 @@ export const HISTORICAL_TIMELINE = [
     "title": "Missing Toad Quest",
     "description": "While resting, guard approaches Archie: 'Not all rejoice the nightborn house decree.' Offers quest to find missing toad."
   },
-
+  {
+    "id": "1040-ration-break-thornbury",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 7, "minute": 0 },
+    "category": "Rest / Supplies",
+    "title": "Ration Break with Thornbury",
+    "description": "Archie and Luigi rest. Luigi opens military ration pack (scratched manufacturing marks, multilingual labels). Smell neutral. Luigi comments could be worse than Bowser's army rations. Archie wants to move on. Points to Mages Guild guard—asks if joining. Archie mentions only 5 rooms checked, more floors remain. Calls guard 'Placeman.' Guard reveals name: Thornbury."
+  },
+  {
+    "id": "1040-servants-dining-secret-stash",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 7, "minute": 10 },
+    "category": "Exploration / Loot",
+    "title": "Servants' Dining Room Secret Stash",
+    "description": "Explore ruined servants' recreational/dining room (tarnished tableware, valuables gone). Agent L at door. Thornbury uncovers secret stash: 35 gold, pearl necklace. Offers gold to Archie; Archie splits with Luigi (still eating ration). Archie fails lock pick; Luigi helps, wonders if it belongs to Oracle. Thornbury reads field notes book on opening unoccupied rooms—from Mages Guild. Archie sweats hearing Guild name."
+  },
+  {
+    "id": "1040-tensor-box-ghost-fight",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 7, "minute": 20 },
+    "category": "Combat",
+    "title": "Tensor Box Ghost Detection",
+    "description": "Thornbury sets up tensor box (Archie doesn't know what it is). Pings room—ghost seen, lurches at Archie ('bring it on!'). Guard slashes; Luigi's Poltergust roars, begins sucking. Archie screams, runs, hurls firebolts (all miss). Luigi continues vacuum. Mages Guild member asks if Archie will use compass, says he has matching one. Archie follows Guild person's compass."
+  },
+  {
+    "id": "1040-sitting-room-spy-encounter",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 17, "minute": 0 },
+    "category": "Encounter",
+    "title": "Spy in Sitting Room",
+    "description": "Archie opens door—spy from earlier is there. Sitting room: faded portraits, broken marble busts (ears/noses removed), ruined pool table (split by fallen beam), ransacked drinks cabinet, broken glass/alcohol smell on carpet. Ask about ghosts—spy mentions maybe flying jackets, no time to talk, looking for toad, leaves. Archie finds hidden door."
+  },
+  {
+    "id": "1040-curio-room-statuette",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 17, "minute": 10 },
+    "category": "Exploration / Discovery",
+    "title": "Curio Collection Room",
+    "description": "Enter curio/antiquities room (toppled statues, broken vases, green carpet path). North wall collapsed exposing broader collection. Tarnished gold mirror frame (shattered silver glass, bent) against SE wall; wallpaper torn with thick gouges beneath. Archie spots small statuette. Thornbury picks up—reads 'Dragonus Cornelius.' Looks at mirror back: complex magical inscription for planar travel (dimensional doorway transforming mirror into gateway). Guild guard thinks it's Oracle's notes. Deep gouges/marks = magical formulae. Says 'let me mark it.'"
+  },
+  {
+    "id": "1040-stone-pendant-marking",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 17, "minute": 15 },
+    "category": "Item / Marking",
+    "title": "Gray Stone Pendant",
+    "description": "Smooth gray stone in ornate brass pendant frame. Unremarkable appearance, slightly warm, occasionally pulses faint inner light. Brass frame bears tiny archaic inscriptions (resist casual translation). Used to mark location."
+  },
+  {
+    "id": "1040-workshop-storage-room",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 17, "minute": 20 },
+    "category": "Exploration",
+    "title": "Workshop-Storage Confusion",
+    "description": "Breach next door. Room confusing—combines two room types. Workshop tools scattered. Luxurious furnishings: mirror on dressing table, adorned divan (south corner), wooden screen with floral embossed panels sheltering armoire/stool. Jewelry box on floor (contents pillaged). Feminine furniture mixed with broken crates containing ruined dresses/regal clothing. Once workshop, became impromptu storage. Archie spots Thornbury pocket a ring from floor."
+  },
+  {
+    "id": "1040-collapsed-floor-initials",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 17, "minute": 25 },
+    "category": "Exploration / Discovery",
+    "title": "Collapsed Floor Room",
+    "description": "Enter utterly ruined room. Floor above partially collapsed—rests on west floor, leans against east ceiling like ramp to second floor. Dangerous, could finish collapsing. Dim light through drafty doorway above. West side pile of rubble/furniture/stone/wood. Whatever was here when ceiling collapsed is unrecoverable. Thornbury notices initials 'OC' and 'AC' carved into bedframe. Smells incense from upstairs. All prepare to climb collapsed roof."
+  },
+  {
+    "id": "1040-archie-climb-fail",
+    "date": { "year": 1040, "monthIndex": 7, "day": 28, "hour": 17, "minute": 30 },
+    "category": "Action / Failure",
+    "title": "Climbing Attempt Failures",
+    "description": "Archie volunteers to climb first. Falls onto Mages Guild observer. Luigi climbs up. Archie tells guy he fell on to be careful—falls on him again. Guard reaches into adventurer's kit (bedroll, mess kit, tinderbox, 10 torches, 10 days rations, waterskin, 50 ft hempen rope, healer's kit 8 uses, 2 healing potions 2d4+2, 1 invisibility potion, 1 Sending scroll). Thornbury tracks supplies for reimbursement; invisibility reserved for extraction/escape. Tosses rope up; they begin climbing. Archie falls from rope. Guild man climbs successfully. Luigi tells Archie to go around."
+  },
+  {
+    "id": "1040-encrypted-conversation",
+    "date": { "year": 1040, "monthIndex": 7, "day": 29, "hour": 2, "minute": 37 },
+    "category": "Dialogue / Conspiracy",
+    "title": "Agent L & Guild Encrypted Talk",
+    "description": "Archie feels footsteps approach. Mages Guild members walk into Archie, see rope, look up, ask for Agent L. Archie calls out. Luigi and her enter nearby room. Archie listens in. Conversation (partial encryption): 'Guild stuff to discuss... should we switch to encrypted coms... you can but I won't... I know Archie is listening anyway... the planar fracture pL1... it's destabilizing... not good... the less ghosts there are the better? or worse... need to get ghosts out of house... even if it destabilizes... even if it may kill Archie... yes... I understand... I will get it done... report back to me 2mor.' Rope snaps. Archie falls, says 'oww.' Thornbury upset—rope is Guild property, expensive. Archie tells him to come down. Calls 'THORNBERRY' as hears door open, Thornbury and Agent L talking, they walk away."
+  },
+  {
+    "id": "1040-rope-bill",
+    "date": { "year": 1040, "monthIndex": 7, "day": 29, "hour": 5, "minute": 6 },
+    "category": "Item / Bureaucracy",
+    "title": "Absurd Rope Replacement Bill",
+    "description": "Archie claws up for 5 min (fails), gives up, opens door to Guild lady. She says unable to find toad on first floor. Hands Archie bill for rope: Guild Membership Levy (50gp), Master Weaver's Inspection (200gp), Arcane Certification Seal (150gp), Load-Test Certification (300gp), Environmental Impact Assessment (75gp), Quality Assurance Audit (100gp), Expedited Processing Fee (250gp), Admin Stamp & Wax (40gp), Hazardous Material Surcharge (80gp), Inflation Adjustment (100gp), Guild Master's Discretionary Gratuity (500gp), Sales Tax (217gp). Subtotal 1,525gp. Grand Total: 2,062gp 5sp. She laughs, walks off. Archie says he'll pay for it."
+  },
+  {
+    "id": "1040-archie-ambush-injury",
+    "date": { "year": 1040, "monthIndex": 7, "day": 29, "hour": 5, "minute": 10 },
+    "category": "Combat / Injury",
+    "title": "Library Ambush",
+    "description": "Archie all alone now. Explores library they previously fought in. Ignus says Luigi went upstairs. Opens door, gets ambushed. Starts bleeding in pain ('shoot'), runs away, locks door, stares at it for half minute, composes self. Spots Usk passing by, points ('you were with Miss Ignus'). Begs Usk to help. 'Fine.' Head to door. Usk screams; Perrius Annmatar appears instead of earlier ghost. Archie admits hunting ghosts—only bad ghosts, not you. Perrius says not a ghost, wants peace/quiet in house, points to monster behind Archie. Archie banged on head, falls unconscious, bleeds."
+  },
+  {
+    "id": "1040-archie-recovery",
+    "date": { "year": 1040, "monthIndex": 7, "day": 30, "hour": 0, "minute": 29 },
+    "category": "Recovery",
+    "title": "Waking Up After Injury",
+    "description": "Archie wakes hours later on bed. Agent L and Thornbury staring at him. 'What happened? I thought I died.' 'You fell unconscious right, then Mages Guild woman took you to us. We tucked you in, took care of more ghosts.' Archie asks them to keep watch while he rests up. Notices the toad, calls out."
+  },
+  {
+    "id": "1040-purple-toad-fortune-teller",
+    "date": { "year": 1040, "monthIndex": 7, "day": 30, "hour": 0, "minute": 30 },
+    "category": "Encounter / Theft / Song",
+    "title": "Purple Toad Fortune Teller",
+    "description": "Purple toad enters, starts singing 'Shuffle the Deck, Dear Hero' (accordion, velvet table, spectacles). Song lyrics: cards, fate, tower cracked, friend not true, compass lost, Moon secrets, Sun promises, Fool walks off ledge, Ring glows bright (regulates day/night—who decides what's bound/found?), Heir grown not born (root and scale—cut vine or thread?), planar portal opening where never meant to. During song, purple toad takes Archie's watch, keys, other items from bag. Archie tries to get up (great pain); Luigi and guard hold him down ('be careful'). Purple toad asks: 'Have you ever seen a planar portal open where it never was meant to?' Opens portal with compass and tools from Archie's pocket. Steps through portal. Portal closes."
+  },
+  {
+    "id": "1040-embercap-mages-guild-visit",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 0, "minute": 0 },
+    "category": "Arrival / Lodging Offer",
+    "title": "Toadsmith Guard Offers Lodging",
+    "description": "FLASHBACK (Embercap 27, 6, 1040): Bang bang bang. 'OPEN THE DOOR, Toadsmith Poultice.' Eric asks who; Embercap says look alive. Guard opens door—Mages Guild nearby offers beds, must go now. Offers safe passage/rest. Leads them to elevator, upstairs. Toads get cold feet, leave Mages Guild."
+  },
+  {
+    "id": "1040-bryan-portal-arrival",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 3, "minute": 8 },
+    "category": "Arrival / Interrogation",
+    "title": "Bryan's Portal Arrival",
+    "description": "FLASHBACK continues: Portal activates in Mages Guild. Bryan comes through. 'What are you doing here?' Bryan: 'Well here I am now, this is what happens when you serve a g— this is what happens with my job. Outside of anything else, any news?' Purple T hands Bryan photograph (group of toads on airship deck, creased from handling, carefully preserved, irreplaceable—'creased faces smile from better days, frozen before everything burned'). Bryan: 'What? What is Archie doing there? Where did you get this?' 'I got it from under his pillow.' 'Where is he? Why is Archie here?' Grabs purple T by thorax. 'Where is he? Where is Archie?' 'He's at Raventree.' 'Hmm, Raventree, got it, thank you.'"
+  },
+  {
+    "id": "1040-bryan-recruitment-offer",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 3, "minute": 15 },
+    "category": "Recruitment",
+    "title": "Bryan Recruits Purple T",
+    "description": "FLASHBACK: They head to Dan's room (shared barracks with other mages). Bryan: 'Hey purple T, you jacked Archie's stuff and got away without laying a finger on him. You want to join forces?' Bryan walks in, sees Dan sleeping with other mages."
+  },
+  {
+    "id": "1040-dan-guild-equipment",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 3, "minute": 20 },
+    "category": "Item / Inventory",
+    "title": "Dan's Guild Tracking Items",
+    "description": "FLASHBACK: Dan's inventory noted. Brass badge #447 (Mages Guild seal, associate status proof, glows faint blue in Guild facilities, burns hot if removed improperly—learned hard way, tracking device for administrators, 'safety measure,' will be removed upon full membership—been told many things). Blue robes (short cut for toad physiology, fire-resistant thread, no official insignia—'associate' not full member, resistance to fire damage, interior component pockets, hood, brass clasp with number not name—'Associate 447' for past several days, feels gratitude and shame). Blackite wand (volcanic glass, southern lava tubes, ruby cap pulses inner fire, given after third day training, improves control not power, finest tool ever owned, also a leash—registered to Guild, magical signature tracked, taking outside without permission = immediate pursuit, +1 spell attack fire spells, add proficiency to fire cantrip damage, arcane focus). Hidden coded notes (paper scraps in mattress/stones/pages, toad counting rhyme cipher from grandmother, documents guard schedules/hierarchies/warded doors/instructors, maps facility, escape routes, sympathetic associates, observations on comforts accepted/justifications; recent note: 'They haven't mentioned the Vigilance in three days. Either they don't know where it is, or they're hiding something. Find out which.')."
+  },
+  {
+    "id": "1040-purple-t-wakes-dan",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 3, "minute": 25 },
+    "category": "Recruitment / Deception",
+    "title": "Recruiting Dan & Mage",
+    "description": "FLASHBACK: Purple T wakes Dan. 'Huh? What happened? Where did my thing go? Did you take it?' 'Me? No I didn't take anything.' Bryan sighs, gives it back. 'What was I doing with it? Someone stole it, it wasn't me.' Bryan introduces self: 'Servant of the toad god. I heard you had a fight to pick with Archie, is this correct?' 'Well I guess I'd want to see him again.' 'You want to take revenge?' '... ... yeah I do' (lie). 'You want to join the god toad to kill Archie?' 'I'll come along with you, yeah.' 'What about the guy sleeping there, is he coming?' 'HEY WAKE UP.' Mage: 'Yawn, what happened?' Bryan introduces self. Purple T: 'Alright, it'll take a month but I'll head over there by magical transport, open a plane where it doesn't belong, open up the gates and you'll swarm in.' Bryan: 'Are you certain you saw Archie?' Purple T: 'Have I ever been wrong?'"
+  },
+  {
+    "id": "1040-purple-t-incense-plan",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 3, "minute": 30 },
+    "category": "Item / Plan",
+    "title": "Knockout Incense Candles",
+    "description": "FLASHBACK: Purple T: 'I have a plan too. Check out these candles—one sniff of these, Archie will be out like a light.' Incense bundle: hand-rolled from dried mushroom stems, rare herbs, resins Morel collects. Thick sweet smoke, earthy ancient undertone, clings to fabric/hair for hours. One stick during important readings—clarifies visions, strengthens card connection. Burns 10 min. Divination magic in 10-ft radius functions one spell level higher; advantage on Insight checks for omens/symbols/cryptic messages. Downside: concentration difficult for non-divination—DC 10 Con save each turn to maintain. Morel carries 7 sticks (two weeks daily readings). Makes more with ingredients (several hours, ~5gp per stick)."
+  },
+  {
+    "id": "1040-badge-removal-plan",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 13, "minute": 56 },
+    "category": "Escape / Tracking Removal",
+    "title": "Removing Guild Tracking",
+    "description": "FLASHBACK (27 Highsun 13:56): 'Will the higher-ups crack down on us?' 'No no, it's fine. Be public, be loud, let them know we're coming.' Purple T rips Dan's shirt—part with identification badge gone. Rips off others' badges too. Head into room, shut down. 'So by removing these tracking devices provided by the Guild, we can go after Dan without other members involved. Must take these off if we do anything unauthorized, but everything on your terms, your power. If you get tired, Mages Guild won't save you. All Guild equipment disabled.' Purple T: 'Archie could be on three planes right now: Shadowfell, Feywild, and Material.' Dan to self: 'If I was a pyromaniac, where would I go?' 'Can we track him? Anything the Guild could track aside from picking randomly?' John the mage: 'Why don't we just track them on Wahbook with their posts?' Purple T: 'That's a brilliant idea. He posts every day about himself.' 'Should we kill him, capture him, bring him to authorities?' 'Everything is on the table. We are doing this for the good of the world.'"
+  },
+  {
+    "id": "1040-portal-departure",
+    "date": { "year": 1040, "monthIndex": 6, "day": 27, "hour": 13, "minute": 56 },
+    "category": "Travel / Portal",
+    "title": "Team Departs Through Portal",
+    "description": "FLASHBACK continues: They all walk into portal. Order: Purple T first, then Bryan, then mages, and Dan."
+  }
 ];
