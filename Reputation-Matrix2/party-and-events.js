@@ -1465,7 +1465,19 @@ export const RUMORS = [
     },
     cycle_impact: { score: 1.5, label: "Military Consolidation", type: "political" }
 },
-
+  {
+    id: 'donkey_kong_crisis',
+    title: "donkey_kong_crisis",
+    date: { day: 26, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'wario',
+    arc: 'donkey_kong_crisis',
+    arcPosition: 'climax',
+    description: "Wario uncovered the hidden coconut gun beneath the ruins of the old Kong Palace and seized it as proof of Donkey Kongs betrayal. He declared it a weapon of rebellion and staged a public spectacle to discredit the DK Crew. The entire city of Toad Town fell into chaos as rumors spread of a royal conspiracy.",
+    targets: ['donkey_kong', 'wario', 'bowser', 'waluigi'],
+    effects: { dk_crew: -30, liberated_toads: -10 },
+    cycle_impact: { score: 4.5, label: "royal betrayal", type: "political" }
+  },
 {
 id: 'delfino_hotel_lockdown',
 title: "Standoff at Hotel Delfino",

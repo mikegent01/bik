@@ -4,6 +4,760 @@
 // Removed: 11 duplicates
 
 export const WAHBOOK_POSTS = [
+// Rumor: donkey_kong_crisis - Donkey Kong’s Sudden Disappearance
+  // Based on text provided
+
+  {
+    "id": "donkey_kong_crisis_speaker_l_778c",
+    "order": 84703,
+    "characterKey": "speaker_l",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 32
+    },
+    "content": "Diddy’s phone call was frantic—no one knew if Chunky Kong was alive or dead. The community’s pillar? Vanished. And the coconut gun? Found.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“He’s not dead. He’s just got a barrel stuck in his ass. That’s what Mario does.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_waluigi_b2c3",
+    "order": 77197,
+    "characterKey": "waluigi",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 11
+    },
+    "content": "This is chaos. A national hero? Dead? Or just… gone? The text doesn’t say. But the coconut gun? That’s the clue.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "“Banana slammer sucker? That’s the real villain. He’s got the gun, and he’s got the attitude.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_roger_79b4",
+    "order": 76700,
+    "characterKey": "roger",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 16,
+      "minute": 45
+    },
+    "content": "“I don’t even want to say it.” That’s the vibe. No one knows what’s real. And the phone call? Diddy’s scared. The whole town’s scared.",
+    "likes": 73,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "“Grandpa’s got a new enemy. Mario’s gonna shove a barrel up his ass. That’s not a threat. That’s a mission.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_wario_e2e0",
+    "order": 90326,
+    "characterKey": "wario",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Donkey Kong’s gone? And now the whole town’s freaking out? I’m not even mad, I’m just confused. Who’s gonna tell me if he’s alive or dead?",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Wario, you’re the only one who doesn’t care if Donkey Kong’s alive or dead. You just want the coconut gun back."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_waluigi_bc8c",
+    "order": 65992,
+    "characterKey": "waluigi",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 42
+    },
+    "content": "I heard Chunky Kong’s dead, and now the whole world’s panicking. I’m not even gonna ask who told the public that. I’m just gonna ask: why isn’t anyone telling Diddy?",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "Because Diddy’s the only one who can stop the barrel from going up Donkey Kong’s ass. And he’s not answering."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_dan_8043",
+    "order": 40818,
+    "characterKey": "dan",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 1
+    },
+    "content": "The text says “Donkey Kong’s gone” and “Mario will shove a barrel up his ass.” That’s not a rumor. That’s a fact. And I’m not even mad. I’m just… confused.",
+    "likes": 56,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "Dan, you’re not even mad? That’s the weirdest thing I’ve heard. Donkey Kong’s dead, and you’re just… confused?"
+      },
+      {
+        "characterKey": "remi",
+        "text": "Yeah, Dan, you’re not even mad. You’re just confused."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "wario",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "dan",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "wario",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "dan",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "wario",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "dan",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "wario",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "dan",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "wario",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "dan",
+        "text": "I’m not even mad. I’m just confused."
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I’m not even mad"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_dan_388d",
+    "order": 97020,
+    "characterKey": "dan",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Dan’s voice cracks: “He’s not brain dead… he’s just… gone. And no one’s telling me. Who’s the hero? Who’s the man? Who’s the man who vanished?”",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "roger",
+        "text": "“Dan’s right. The Congo bongo surgeons can’t even tell if he’s alive. That’s the horror. That’s the silence.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_ryan_02b7",
+    "order": 43796,
+    "characterKey": "ryan",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 42
+    },
+    "content": "Ryan’s phone rings. “I found the coconut gun. And I found you, dirty bastard.” — that’s the voice. That’s the truth. No more “he’s a pillar.” No more “national hero.” Just a man who disappeared.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“He’s not gone. He’s *waiting*. And he’s got a barrel. And he’s got a banana slammer. And he’s got a sucker. That’s the punchline. That’s the truth.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_oracle_a69f",
+    "order": 52558,
+    "characterKey": "oracle",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 23
+    },
+    "content": "Oracle’s voice echoes: “He’s not dead. He’s not alive. He’s not a hero. He’s a man who’s been silenced. And the public? They’re pounding at the door. They’re not getting answers. They’re not getting *any* answers.”",
+    "likes": 117,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "“He’s the man who’s not in the game. The man who’s not in the story. The man who’s not even in the *text*. But he’s still there. And he’s still calling.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_kamek_fcf9",
+    "order": 61638,
+    "characterKey": "kamek",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Diddy’s phone call was the last thing anyone heard before the silence. He’s not brain dead—just… gone. And nobody’s telling the truth.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "This is why we need a national emergency hotline. No one’s even saying “Chunky Kong” was alive or dead."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_wario_c00d",
+    "order": 92539,
+    "characterKey": "wario",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 42
+    },
+    "content": "“I found the coconut gun. And I found you, you dirty bastard.” That’s not a threat. That’s a ghost whispering back. Donkey Kong’s gone, and now Mario’s got a barrel.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "That banana slammer sucker? That’s the only thing I’d expect from a man who’s been missing since the Congo bongo."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_captain_toadette_6e9e",
+    "order": 99463,
+    "characterKey": "captain_toadette",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 21
+    },
+    "content": "“You’re not yelling at me, Tiny.” That’s not a scream. That’s a plea. The public’s waiting for a hero’s death to be acknowledged. And no one’s answering.",
+    "likes": 67,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "He’s not brain dead. He’s just… unaccounted for. And the coconut gun? That’s not a weapon. That’s a symbol."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_salam_1cc7",
+    "order": 62808,
+    "characterKey": "salam",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 22
+    },
+    "content": "Diddy’s phone’s dead, but his coconut gun’s alive. And he’s still mad at Donkey Kong.",
+    "likes": 87,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "That coconut gun’s got more personality than the whole Kong family."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_speaker_l_0e65",
+    "order": 64584,
+    "characterKey": "speaker_l",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 44
+    },
+    "content": "“He’s a pillar of the community” — that’s what they said before he vanished. Now they’re calling him “Chunky Kong” and “ChonKong” in a panic.",
+    "likes": 63,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "He’s not just a hero — he’s a meme. And the meme’s gone missing."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_waluigi_c869",
+    "order": 40858,
+    "characterKey": "waluigi",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 21,
+      "minute": 1
+    },
+    "content": "“Banana slammer sucker” — that’s the last thing Donkey Kong said before he got punched by Mario. Or maybe it was a coconut.",
+    "likes": 49,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "I’m not even mad. I’m just mad that I didn’t get a banana slammer."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_ryan_8cfe",
+    "order": 52133,
+    "characterKey": "ryan",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Dasis Kong’s phone call is the only thing keeping this from turning into a full-blown chaos. And now… Donkey Kong’s back? With a coconut gun?",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "“He’s not back… he’s just showing up. And he’s got a barrel ready. Don’t ask.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_captain_toadette_8765",
+    "order": 83266,
+    "characterKey": "captain_toadette",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 42
+    },
+    "content": "The public can’t handle a hero’s death… so they’re just… not even sure if he’s alive? That’s not a rumor. That’s a full-blown emergency.",
+    "likes": 68,
+    "comments": [
+      {
+        "characterKey": "fawful",
+        "text": "“I’m not even sure if he’s dead. I’m just sure he’s hiding in a coconut. And I’m not letting him out.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_dan_1aac",
+    "order": 93648,
+    "characterKey": "dan",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 12,
+      "minute": 9
+    },
+    "content": "Mario’s gonna shove a barrel up Donkey Kong’s ass. And Donkey Kong’s gonna say “banana slammer sucker” again. That’s the real story.",
+    "likes": 31,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "“He’s not dead. He’s just… in the coconut. And he’s not yelling. He’s just… waiting.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_archie_08a5",
+    "order": 95461,
+    "characterKey": "archie",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Diddy’s phone call? That’s the sound of a man who’s lost his mind. And Chunky Kong? He’s not just gone — he’s vanished into the chaos.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "He’s not just gone, he’s *disappeared*. The whole world’s holding its breath."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_speaker_l_4ca5",
+    "order": 67684,
+    "characterKey": "speaker_l",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 42
+    },
+    "content": "Who’s this “Donkey Kong” calling from the coconut gun? And why’s Mario threatening to shove a barrel up his ass? This is the kind of madness that only a banana-slamming, barrel-shoving, coconut-gun-wielding hero could create.",
+    "likes": 98,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "That’s not a threat — that’s a *warning*. Mario’s not messing around."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_bones_9ea0",
+    "order": 92371,
+    "characterKey": "bones",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 9
+    },
+    "content": "Diddy’s in panic mode. Chunky Kong’s gone. And the public’s not getting the truth. That’s not just a rumor — that’s a *crisis*. Someone’s got to call the police.",
+    "likes": 74,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I’m not yelling — I’m *screaming*. And I’m not calling Mario. I’m calling the whole damn kingdom."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_fawful_d2ca",
+    "order": 67598,
+    "characterKey": "fawful",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 17
+    },
+    "content": "Diddy’s phone’s ringing like a war drum. Who’s the “Chunky Kong” that’s got the whole town pounding on doors? Sounds like a political scandal wrapped in coconut gun and banana slammer.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "ryan",
+        "text": "Fawful’s got the vibe of a man who’s seen too much. And the coconut gun? That’s the only thing that makes sense."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_markop_f40b",
+    "order": 43059,
+    "characterKey": "markop",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 42
+    },
+    "content": "“He’s a pillar of the community.” That’s not a compliment. That’s a headline. And now the public’s being told a national hero is dead? No one’s checking if he’s alive or not. This isn’t a rumor. This is a crisis.",
+    "likes": 68,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Markop’s got a point. If Chunky Kong’s a national hero, why don’t they even know if he’s alive? That’s not just a phone call. That’s a betrayal."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_bones_69a5",
+    "order": 77689,
+    "characterKey": "bones",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 1
+    },
+    "content": "Diddy’s voice is frayed. “I’m not yelling at you, Tiny.” That’s not a tone. That’s a trap. And Donkey Kong? He’s got a banana slammer. And a brother named Mario who’s got a barrel. That’s not a joke. That’s a threat.",
+    "likes": 33,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "Bones, you’re not just talking about a coconut gun. You’re talking about a man who’s been erased. And that’s not just a rumor. That’s a political move."
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_hjumpik_a79d",
+    "order": 53842,
+    "characterKey": "hjumpik",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 22
+    },
+    "content": "Dasis Kong Esquire’s phone call? That’s the kind of chaos that only happens when a national hero’s gone missing. Who’s calling who?",
+    "likes": 18,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "This is why we need a banana slammer to solve it. 🍌💥"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_rakasha_44b0",
+    "order": 61739,
+    "characterKey": "rakasha",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 41
+    },
+    "content": "“The coconut gun” and “Donkey Kong’s disappearance” — this is not a rumor, this is a full-blown mystery. Mario’s gonna get a barrel shoved up his ass.",
+    "likes": 24,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "I’m not even mad. I’m just confused. Why is Donkey Kong hiding? He’s a pillar. And now he’s a coconut gun?"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_dan_a78e",
+    "order": 49074,
+    "characterKey": "dan",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 17,
+      "minute": 8
+    },
+    "content": "“Chunky Kong?” “Diddy?” “Donkey Kong?” This is not a cartoon. This is a real-life emergency. Someone’s got to tell the public.",
+    "likes": 13,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’m not yelling. I’m just… not yelling at Tiny. But I’m calling the banana slammer. 🍌💣"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_markop_88a3",
+    "order": 77271,
+    "characterKey": "markop",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 3,
+      "minute": 14
+    },
+    "content": "Diddy’s phone’s been ringing nonstop since Chunky Kong vanished. No one’s got a clue if he’s alive or dead — and the public’s getting spooked.",
+    "likes": 172,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "“They’re not just scared — they’re confused. And that’s the problem. Who’s even calling the shots now?”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_salam_7760",
+    "order": 70647,
+    "characterKey": "salam",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 42
+    },
+    "content": "Donkey Kong’s got a coconut gun and he’s calling Mario a “son of a [____]” — this isn’t just a rumour, it’s a full-blown circus.",
+    "likes": 89,
+    "comments": [
+      {
+        "characterKey": "kamek",
+        "text": "“Mario’s gonna be mad. And Donkey Kong? He’s not just mad — he’s *literally* angry. The barrel’s gonna be the next big thing.”"
+      }
+    ]
+  },
+  {
+    "id": "donkey_kong_crisis_remi_011d",
+    "order": 56644,
+    "characterKey": "remi",
+    "rumorId": "donkey_kong_crisis",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 20
+    },
+    "content": "“I don’t even want to say it.” — That line from the source text? It’s the only thing that matters. No one’s got the facts. Not even the surgeons.",
+    "likes": 135,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“Chunky Kong’s gone. Mario’s gonna shove a barrel up his ass. And I’m not even mad. I’m just… *determined*.”"
+      }
+    ]
+  },
+
 // Rumor: toadsmith_poultice_escape - Toadsmith Poultice’s Escape
   // Based on text provided
 
