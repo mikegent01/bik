@@ -1467,7 +1467,7 @@ export const RUMORS = [
 },
   {
     id: 'donkey_kong_crisis',
-    title: "donkey_kong_crisis",
+    title: "Donkey Kong Crisis",
     date: { day: 26, monthIndex: 6, year: 1040 },
     isEvent: true,
     instigator: 'wario',
