@@ -1342,7 +1342,7 @@ const CORE_TOADS = {
             { day: 16, event: "⭐ Ability Unlock: Extra Attack", xp: 0, type: "ability" },
             { day: 21, event: "⚔️ Roused from catatonia during the Manor Siege", xp: 50, type: "status" },
             { day: 21, event: "Landed critical axe throw (one-handed) vs Arcane Wraith", xp: 200, type: "combat" },
-            { day: 21, event: "🌌 Lost in the Planar Fracture (Void/Unknown)", xp: 0, type: "status" }
+            { day: 21, event: "🌌 Lost in the Planar Fracture (Void/Unknown)", xp: 0, type: "status" },
             { day: 22, event: "exploration + Dan (paladin) explores a ruined servant room, finds a secret stash of 35 gold and a pearl necklace, and discusses its origin with Luigi and Thornbury", xp: 100, type: "exploration" },
             { day: 22, event: "social + Dan (paladin) negotiates with Thornbury, offering to split the gold, demonstrating diplomatic restraint", xp: 50, type: "social" },
             { day: 22, event: "observation + Dan (paladin) notices the book contains field notes for opening unopened rooms, hinting at deeper mysteries", xp: 50, type: "observation" },
