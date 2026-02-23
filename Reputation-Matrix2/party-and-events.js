@@ -2653,4 +2653,29 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         type: "social"
     }
 }
+,
+  {
+    id: "raventree_manor_secrets",
+    title: "Raventree Manor's Hidden Truths",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "thornbury",
+    arc: "main",
+    arcPosition: "rising_action",
+    description: "Rumors swirl around Raventree Manor after Archie's discovery of a hidden journal and strange occurrences within the manor. Whispers speak of past tragedies, secret societies, and a connection to the Onyx Hand.",
+    targets: ["guild", "onyx_hand"],
+    effects: {
+        guild_reputation: -10,
+        onyx_hand_influence: 5
+    },
+    cycle_impact: {
+        score: 3.2,
+        label: "mystery",
+        type: "political"
+    }
+}
 ];

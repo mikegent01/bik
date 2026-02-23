@@ -57631,6 +57631,829 @@ export const WAHBOOK_POSTS = [
         }
     ]
 }
+,
+  {
+    "id": "a1b2c3d4",
+    "order": 99492,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  I arrived with Captain Danos and the Guild survey team just before dawn. ",
+    "likes": 187,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "You should be careful, Archie."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99493,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 48
+    },
+    "content": "The manor smells of damp stone, old cloth, and something faintly sweet like incense.  I can't place it. ",
+    "likes": 379,
+    "comments": [
+        {
+            "characterKey": "fennick",
+            "text": "Maybe it's the ghosts?"
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99494,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 15
+    },
+    "content": "I found a journal belonging to Elscibeth Cornelius. It's battered and filled with strange symbols. ",
+    "likes": 234,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99495,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  I arrived with Captain Danos and a Guild survey team just before dawn. ",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "You should be careful, Archie."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99496,
+    "characterKey": "fennick",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 12
+    },
+    "content": "The elms flanking the road are dead, some for a long time. This place has been abandoned for years. ",
+    "likes": 398,
+    "comments": [
+        {
+            "characterKey": "yael",
+            "text": "I wonder what happened here?"
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99497,
+    "characterKey": "danos",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 48
+    },
+    "content": "The manor belonged to the Cornelius family for generations. We need to find out what happened to them. ",
+    "likes": 193,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99501,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 15
+    },
+    "content": "The manor is full of strange symbols and the air feels heavy. I found a journal belonging to Orantha Cornelius, 'the Oracle.' It mentions something about a mirror gateway and a toad.",
+    "likes": 345,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "A toad? That's weird."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99502,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 28,
+        "hour": 19,
+        "minute": 32
+    },
+    "content": "I discovered a hidden room with arcane markings and a strange device that seems to be powered by moonlight. I'm not sure what it does, but it gives me the creeps.",
+    "likes": 178,
+    "comments": [
+        {
+            "characterKey": "fennick",
+            "text": "Maybe we should leave it alone?"
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99503,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 29,
+        "hour": 5,
+        "minute": 48
+    },
+    "content": "I had a dream last night. It was filled with shadows and whispers, and I saw a figure standing in the moonlight. I think it might have been Orangus Cornelius.",
+    "likes": 213,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99501,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were unlocked.  Captain Danos thinks it's significant.",
+    "likes": 287,
+    "comments": []
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99502,
+    "characterKey": "bones",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 43
+    },
+    "content": "Heard there's a bathtub in the manor that still works.  Might be worth checking out.",
+    "likes": 189,
+    "comments": [
+        {
+            "characterKey": "thornbury",
+            "text": "I'm already using it."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99503,
+    "characterKey": "fennick",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 12
+    },
+    "content": "Found a bunch of old books in the library.  Some mention 'planar cartography'. Sounds interesting.",
+    "likes": 354,
+    "comments": [
+        {
+            "characterKey": "yael",
+            "text": "Let me see!"
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99504,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  Captain Danos thinks this is significant. ",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "fennick",
+            "text": "Maybe someone forgot?"
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99504,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 43
+    },
+    "content": "The manor smells of damp stone, old cloth, and something faintly sweet like incense. I can't place it. ",
+    "likes": 189,
+    "comments": [
+        {
+            "characterKey": "bycilla_danos",
+            "text": "Focus on the task at hand, Archie."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99504,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 12
+    },
+    "content": "Found a journal belonging to Elscibeth Cornelius. It's battered and filled with strange symbols.  Might be important. ",
+    "likes": 359,
+    "comments": [
+        {
+            "characterKey": "yael",
+            "text": "Can I see?"
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99507,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were wide open.  Something felt off.",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "Maybe they just forgot to close them?"
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99508,
+    "characterKey": "remi",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 15
+    },
+    "content": "I saw a painting of a toad petting a dog.  It was unsettling.",
+    "likes": 349,
+    "comments": []
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99509,
+    "characterKey": "fennick",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 28,
+        "hour": 19,
+        "minute": 57
+    },
+    "content": "The air in the manor feels heavy. Like something is watching us.",
+    "likes": 142,
+    "comments": [
+        {
+            "characterKey": "yael",
+            "text": "Don't be silly, Fennick."
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99510,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  I'm starting to think this place is more than just abandoned.",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "Maybe the Cornelius family just forgot?"
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99511,
+    "characterKey": "remi",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 43
+    },
+    "content": "I found a hidden room with strange symbols and a broken magic circle.  Something definitely happened here.",
+    "likes": 398,
+    "comments": [
+        {
+            "characterKey": "vivian",
+            "text": "Don't touch anything, Remi."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99512,
+    "characterKey": "fennick",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 12
+    },
+    "content": "The spectral readings from the courtyard are off the charts.  There's something powerful buried here.",
+    "likes": 123,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99513,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  I've set up my base of operations in a room with a functioning door latch - the one with the bathtub.",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "Hope you brought soap."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99514,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 43
+    },
+    "content": "Guild records indicate the manor belonged to the Cornelius line for at least four generations. The last confirmed occupant was Orantha Cornelius, known as 'the Oracle of Raventree'.",
+    "likes": 189,
+    "comments": [
+        {
+            "characterKey": "fennick",
+            "text": "Oracle? Sounds spooky."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99515,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 12
+    },
+    "content": "The building smells of damp stone, old cloth, and something faintly sweet, like incense that burned out decades ago. I can't place it.",
+    "likes": 352,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99516,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  Captain Danos thinks this is significant.",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "Maybe the Cornelius family just forgot?"
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99517,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 43
+    },
+    "content": "Found a journal belonging to Elscibeth Cornelius. It's full of drawings and cryptic notes about 'AC'.",
+    "likes": 189,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Is AC her brother?"
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99518,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 9,
+        "minute": 12
+    },
+    "content": "The manor smells of damp stone, old cloth, and something else...like incense that burned out decades ago.",
+    "likes": 352,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99519,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were wide open.  A bad sign.",
+    "likes": 287,
+    "comments": []
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99518,
+    "characterKey": "bones",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 25,
+        "hour": 19,
+        "minute": 47
+    },
+    "content": "Heard whispers about a strange mirror in the manor.  Something about other worlds.",
+    "likes": 345,
+    "comments": [
+        {
+            "characterKey": "thornbury",
+            "text": "I saw it too. Very unsettling."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99520,
+    "characterKey": "remi",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 15
+    },
+    "content": "The manor is full of secrets. I saw a ghost.",
+    "likes": 142,
+    "comments": [
+        {
+            "characterKey": "green_t",
+            "text": "Don't tell me you saw Vivian again!"
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99522,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  I'm starting to think this place is more than just abandoned.",
+    "likes": 187,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "Maybe the Cornelius family just forgot?"
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99523,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 47
+    },
+    "content": "Found a room with a functioning door latch.  It's the one with the bathtub, which is oddly specific.",
+    "likes": 398,
+    "comments": [
+        {
+            "characterKey": "fennick",
+            "text": "Maybe they used it for ritual bathing?"
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99524,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 13
+    },
+    "content": "The air in this place smells like incense and something else...something unsettling.",
+    "likes": 254,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99525,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  I arrived with Captain Danos and a Guild survey team just before dawn. ",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "That's spooky."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99526,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 43
+    },
+    "content": "The manor smells of damp stone, old cloth, and something faintly sweet like incense. I'm setting up a base in a room with a functioning bathtub - the only one with a working door latch. ",
+    "likes": 398,
+    "comments": [
+        {
+            "characterKey": "fennick",
+            "text": "Did you find any interesting artifacts yet?"
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99527,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 11
+    },
+    "content": "Guild records indicate the manor belonged to the Cornelius family for generations. The last confirmed occupant was Orantha Cornelius, known as 'the Oracle of Raventree.' ",
+    "likes": 159,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99528,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  A bad sign, I thought. ",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "Maybe they forgot?"
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99529,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 35
+    },
+    "content": "The air inside the manor smells of damp stone, old cloth, and something faintly sweet like incense.",
+    "likes": 189,
+    "comments": []
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99530,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 38
+    },
+    "content": "Guild records say the last resident was Orantha Cornelius, known as 'The Oracle of Raventree'.",
+    "likes": 456,
+    "comments": [
+        {
+            "characterKey": "fennick",
+            "text": "What did she do?"
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99531,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The gates to Raventree Manor were not locked.  I've set up a base of operations in a room with a functioning door latch - the one with the bathtub.",
+    "likes": 142,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "Hope you brought soap!"
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99532,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 16,
+        "minute": 45
+    },
+    "content": "Guild records indicate the manor belonged to the Cornelius line for at least four generations. The last confirmed occupant was Orantha Cornelius, referred to as 'the Oracle of Raventree'.",
+    "likes": 387,
+    "comments": [
+        {
+            "characterKey": "fennick",
+            "text": "Oracle? Sounds spooky."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99533,
+    "characterKey": "thornbury",
+    "rumorId": "raventree_manor_secrets",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 12
+    },
+    "content": "The building smells of damp stone, old cloth, and something faintly sweet, like incense that burned out decades ago. I can't place it.",
+    "likes": 239,
+    "comments": [
+        {
+            "characterKey": "yael",
+            "text": "Maybe it's a clue?"
+        }
+    ]
+}
 ];
 
 // Export helper for event integration
