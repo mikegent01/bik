@@ -57213,6 +57213,424 @@ export const WAHBOOK_POSTS = [
     ],
     "eventId": "toadette_test"
   }
+,
+  {
+    "id": "a1b2c3d4",
+    "order": 99466,
+    "characterKey": "remi",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "I’m not sure this is the right way… but oh well. Salam’s got my back, and we’re not leaving until we get Markop. Even if the grove’s got teeth and a tree that’s got eyes.",
+    "likes": 187,
+    "comments": [
+        {
+            "characterKey": "salam",
+            "text": "Remi, you’re brave. But don’t forget—this place doesn’t care about bravery. It cares about survival."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99467,
+    "characterKey": "markop",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "They’re dancing. They’re singing. They’re not just chasing us—they’re celebrating. And I’m not ready to be part of it. But I’m not leaving either.",
+    "likes": 234,
+    "comments": [
+        {
+            "characterKey": "dan",
+            "text": "Markop, you’re the only one who’s not running. You’re the one who’s got the blueprint. Don’t let them take it."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99468,
+    "characterKey": "bowser",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "They’re not just monsters. They’re a performance. A ritual. And I’m not here to watch. I’m here to break it. I’ve got the research. I’ve got the fire. I’ve got the rage. Let’s go.",
+    "likes": 312,
+    "comments": [
+        {
+            "characterKey": "eager",
+            "text": "Bowser’s got the fire. I’ve got the whip. Let’s make this grove remember who’s in charge."
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99469,
+    "characterKey": "remi",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "I’m not sure this is the right way, but oh well. Salam’s got me running—again. The grove’s got teeth, and they’re dancing. Let’s just hope the fountain’s not a trap.",
+    "likes": 217,
+    "comments": [
+        {
+            "characterKey": "salam",
+            "text": "Remi, you’re a blur. I’m just trying to keep up. And don’t worry—this grove’s got a lot of teeth, but not enough to stop us."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99470,
+    "characterKey": "markop",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 33
+    },
+    "content": "They’re not just dancing. They’re *performing*. And I’m the guest of honor. But I’m not here to dance. I’m here to get the artifacts out. And if they’re gonna fight, I’ll fight back. The blueprint’s got secrets. I’ll find them.",
+    "likes": 341,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "You’re the one with the research bundle? Good. We need to know what’s in there. And if they’re gonna fight, we fight too."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99471,
+    "characterKey": "salam",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 34
+    },
+    "content": "They’re not just monsters. They’re *performers*. And they’re singing. I don’t know if I can keep up. But I’m not leaving. Not until I know what’s in that blueprint. And if they’re gonna fight, I’ll fight back. I’m not scared. I’m just… confused.",
+    "likes": 189,
+    "comments": [
+        {
+            "characterKey": "eager",
+            "text": "Salam, you’re a blur. I’m just trying to keep up. And don’t worry—this grove’s got a lot of teeth, but not enough to stop us."
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99472,
+    "characterKey": "remi",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "I’m not sure this is the right way, but oh well. Salam’s got me running—again. The grove’s got teeth and a voice, and I’m not even sure if I’m supposed to be here. But I’m not leaving without my friend.",
+    "likes": 187,
+    "comments": [
+        {
+            "characterKey": "salam",
+            "text": "You’re lucky I’m not the one chasing you. That grove’s got a taste for drama—and you’re the punchline."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99473,
+    "characterKey": "markop",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "They’re dancing. They’re singing. They’re not even trying to kill us—they’re just… performing. And I’m holding a blueprint of a glass roof. I’m not sure if I should be scared or impressed.",
+    "likes": 234,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "You’re holding a blueprint? That’s not a map. That’s a confession. And I’m not letting you leave with it."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99474,
+    "characterKey": "dan",
+    "rumorId": "mazebound_grove_unraveling",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "They’re not just monsters. They’re a show. And I’m not even sure if I’m supposed to be here. But I’m not leaving without my friend. And I’m not leaving without a fight.",
+    "likes": 312,
+    "comments": [
+        {
+            "characterKey": "eager",
+            "text": "You’re not leaving without a kiss. Or a fight. Or a good time. Or a good laugh. Or a good memory. Or a good… whatever."
+        }
+    ]
+}
+,
+  {
+    "id": "a1b2c3d4",
+    "order": 99477,
+    "characterKey": "bones",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "I found detailed notes on everything we did. He was spying on us!",
+    "likes": 287,
+    "comments": [
+        {
+            "characterKey": "speakerL",
+            "text": "This changes things..."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99478,
+    "characterKey": "archie",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 35
+    },
+    "content": "I thought he was going to betray us! He seemed nice.",
+    "likes": 189,
+    "comments": []
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99479,
+    "characterKey": "luigi",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 38
+    },
+    "content": "The bath was good. Expelled ectoplasm too.",
+    "likes": 125,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99480,
+    "characterKey": "bones",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "Bones found detailed notes on everything they did.  He thinks the person who took the bath was a spy.",
+    "likes": 258,
+    "comments": [
+        {
+            "characterKey": "speakerL",
+            "text": "We need to find out who this spy is."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99481,
+    "characterKey": "archie",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 37
+    },
+    "content": "Archie found a notebook with detailed notes on everything they did. He thinks the person who took the bath was a spy.",
+    "likes": 389,
+    "comments": [
+        {
+            "characterKey": "luigi",
+            "text": "The bath was great! I even expelled some ectoplasm."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99482,
+    "characterKey": "bones",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 12
+    },
+    "content": "Bones is reviewing the spy's notes. They are very detailed and seem to be written by someone who was watching them closely.",
+    "likes": 187,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99487,
+    "characterKey": "bones",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 14,
+        "minute": 35
+    },
+    "content": "Bones found detailed notes on everything they did.  He thinks the person who took the bath was a spy!",
+    "likes": 289,
+    "comments": [
+        {
+            "characterKey": "speakerL",
+            "text": "We need to find out who this spy is."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99488,
+    "characterKey": "archie",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 14,
+        "minute": 37
+    },
+    "content": "Archie found a notebook with detailed notes on everything they did. He thinks the person who took the bath was a spy!",
+    "likes": 158,
+    "comments": [
+        {
+            "characterKey": "luigi",
+            "text": "The bath was great! I expelled ectoplasm too."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99489,
+    "characterKey": "luigi",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 14,
+        "minute": 39
+    },
+    "content": "Luigi says the bath was great and he expelled ectoplasm. He thinks the spy notes are interesting.",
+    "likes": 425,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99486,
+    "characterKey": "speaker_l",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "Bones decoded the intelligence files. They reveal a spy among us.",
+    "likes": 357,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "I'm innocent! I just wanted to take a bath."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99487,
+    "characterKey": "agent_l",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 35
+    },
+    "content": "Speaker L is right. We need to find out who the spy is.",
+    "likes": 189,
+    "comments": []
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99488,
+    "characterKey": "archie",
+    "rumorId": "bones_spy_discovery",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 38
+    },
+    "content": "Bones is innocent! He was just taking a bath.",
+    "likes": 423,
+    "comments": [
+        {
+            "characterKey": "bones",
+            "text": "Thank you, Archie!"
+        }
+    ]
+}
 ];
 
 // Export helper for event integration

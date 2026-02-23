@@ -687,11 +687,15 @@ export const TOADS_QUESTS = {
     tags: ['politics', 'betrayal', 'rescue', 'execution', 'urgent', 'faction-survival'],
     dates: {
         added: { year: 1040, monthIndex: 6, day: 16 },
-        updated: { year: 1040, monthIndex: 6, day: 21 },
+        updated: {
+    year: 1040,
+    monthIndex: 6,
+    day: 26
+},
         deadline: { year: 1040, monthIndex: 6, day: 22 }
     },
 
-    description: "Everything has gone wrong.\n\nBones infiltrated the Imperial Processing Facility at Aegis Command disguised as a Legion guard. For hours, it worked. He walked the corridors of an industrial nightmare—a complex designed to process prisoners at scale. He witnessed the arrival of the captured Toads. He saw the interrogation of the 'Green Speaker L.'\n\nThe prisoner wasn't the real Speaker L. It was a decoy—a loyalist who claimed, under torture, that he'd eaten a poisonous mushroom and was dying anyway. The decoy spoke of the 'Fractured Heart' philosophy, of the Council of Seven, of how the movement would survive any single death. The interrogators were getting nothing useful.\n\nThen Marcus Ironhand arrived.\n\nThe General of the Iron Legion didn't ask questions. He looked at the decoy, looked at the reports, looked at Bones standing too still in his borrowed uniform—and stabbed Bones through the chest without a word of warning. Cover blown. Mission failed.\n\nIn the chaos that followed, a Toad raiding party led by Creek attempted extraction. Acid attacks. Collateral damage. Legion casualties. It bought time, nothing more.\n\nIronhand's response was Order 120: Execute all Toad prisoners immediately. No trials. No ransoms. No exceptions.\n\nThe clock is now measured in hours. Bones is wounded and captured. Creek is pinned down somewhere in the facility. The decoy is still performing his role, buying time the real Speaker L—wherever they are—desperately needs.\n\nAnd the party is trapped in Raventree Manor, watching the Vigilance fly overhead broadcasting Legion propaganda, unable to help.",
+    description: "Everything has gone wrong.\n\nBones infiltrated the Imperial Processing Facility at Aegis Command disguised as a Legion guard. For hours, it worked. He walked the corridors of an industrial nightmare—a complex designed to process prisoners at scale. He witnessed the arrival of the captured Toads. He saw the interrogation of the 'Green Speaker L.'\n\nThe prisoner wasn't the real Speaker L. It was a decoy—a loyalist who claimed, under torture, that he'd eaten a poisonous mushroom and was dying anyway. The decoy spoke of the 'Fractured Heart' philosophy, of the Council of Seven, of how the movement would survive any single death. The interrogators were getting nothing useful.\n\nThen Marcus Ironhand arrived.\n\nThe General of the Iron Legion didn't ask questions. He looked at the decoy, looked at the reports, looked at Bones standing too still in his borrowed uniform—and stabbed Bones through the chest without a word of warning. Cover blown. Mission failed.\n\nIn the chaos that followed, a Toad raiding party led by Creek attempted extraction. Acid attacks. Collateral damage. Legion casualties. It bought time, nothing more.\n\nIronhand's response was Order 120: Execute all Toad prisoners immediately. No trials. No ransoms. No exceptions.\n\nThe clock is now measured in hours. Bones is wounded and captured. Creek is pinned down somewhere in the facility. The decoy is still performing his role, buying time the real Speaker L—wherever they are—desperately needs.\n\nAnd the party is trapped in Raventree Manor, watching the Vigilance fly overhead broadcasting Legion propaganda, unable to help.Archie found detailed notes about their activities left behind by a spy, suggesting progress on 'Survive Order 120' and 'locate the rea'.",
 
     loreEntries: ['the_first_cohort', 'speaker_l_decoy', 'order_120', 'marcus_ironhand', 'aegis_command_layout', 'fractured_heart_philosophy'],
 
@@ -795,7 +799,7 @@ export const hjumpik_QUESTS = {
         objective: "Gather ritual ingredients (Bone, Ash, Chalk, Iron) to repair the circle, manage Wario's chaotic interference, and solve the mystery of the 'Grafting'.",
         assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha_spirit_walker', 'wario'],
         primaryAssignee: 'hjumpik',
-        description: "The Feywild Manor is a chaotic puzzle. Hjumpik has uncovered the dark history of the Corvinarus bloodline: a 'Grafting' of Dragon Blood in 988 BF that created the heir. Wario has crashed the party (literally) with a bomb and vintage vampire wine. Aurelian Corvinarus is willing to help send the Satyrs to the Shadowfell, but she needs the Master Bedroom's magic circle repaired. The clock is ticking—Aurelian says it takes 4 days, but the Legion makes their move in 2.",
+        description: "The Feywild Manor is a chaotic puzzle. Hjumpik has uncovered the dark history of the Corvinarus bloodline: a 'Grafting' of Dragon Blood in 988 BF that created the heir. Wario has crashed the party (literally) with a bomb and vintage vampire wine. Aurelian Corvinarus is willing to help send the Satyrs to the Shadowfell, but she needs the Master Bedroom's magic circle repaired. The clock is ticking—Aurelian says it takes 4 days, but the Legion makes their move in 2.Bones decodes intelligence files from a leather satchel containing information about threats, allies, and long-term concerns. This may contain valuable clues about gathering the ritual ingredients.",
         difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.HARD, puzzle: DIFFICULTY.HARD },
         
         rewards: {
@@ -1158,7 +1162,7 @@ export const ARCHIE_QUESTS = {
         added: { year: 1040, monthIndex: 6, day: 26 }
     },
 
-    description: "The Mages' Guild agents revealed the truth: Toadburt is a sleeper agent equipped with an Entropy Ring—a magical nuke designed to sever the planar bridge. He is currently lost in the Manor, terrified and unstable.\n\nLuigi, the Guild's 'Specialist', has arrived with ghost-hunting gear that can track the ring's signature. Archie must guide Luigi through the vampire-infested halls to find Toadburt. \n\nWarning: If Toadburt panics, he might trigger the ring manually.",
+    description: "The Mages' Guild agents revealed the truth: Toadburt is a sleeper agent equipped with an Entropy Ring—a magical nuke designed to sever the planar bridge. He is currently lost in the Manor, terrified and unstable.\n\nLuigi, the Guild's 'Specialist', has arrived with ghost-hunting gear that can track the ring's signature. Archie must guide Luigi through the vampire-infested halls to find Toadburt. \n\nWarning: If Toadburt panics, he might trigger the ring manually.Archie found detailed notes about their activities left behind by a spy, potentially related to locating Toadburt.",
 
     loreEntries: ['entropy_ring_tech', 'sleeper_agent_conditioning', 'luigi_gadgets'],
 
@@ -1216,7 +1220,7 @@ export const ARCHIE_QUESTS = {
         primaryAssignee: 'archie',
         difficulty: { overall: DIFFICULTY.DEADLY },
         
-        description: "What began as a disastrous dinner party with Orangus Cornelius escalated into a full-blown jailbreak. After betraying his allies to maintain cover, Archie utilized a 'Dracacide' disguise to rescue Green T from a locked room. The duo navigated the horrors of the manor—ignoring a gruesome operating room—and escaped into the wastes. They have now returned to the crash site of the Vigilance, only to find it occupied by a mysterious 'Purple Legion'.",
+        description: "What began as a disastrous dinner party with Orangus Cornelius escalated into a full-blown jailbreak. After betraying his allies to maintain cover, Archie utilized a 'Dracacide' disguise to rescue Green T from a locked room. The duo navigated the horrors of the manor—ignoring a gruesome operating room—and escaped into the wastes. They have now returned to the crash site of the Vigilance, only to find it occupied by a mysterious 'Purple Legion'.However, their escape was complicated by the unexpected recognition of Bones by Byscilla Danos, who dragged him away. This raises concerns about potential future complications and the safety of those still within Shadeward Manor.",
 
         milestones: [
             {
@@ -1245,6 +1249,18 @@ export const ARCHIE_QUESTS = {
                 status: 'active',
                 title: "The Crash Site",
                 description: "Investigate the crashed Vigilance and the 'Purple Legion' occupation. Determine the fate of the Liberated Toads.",
+            }
+        ,
+            {
+                id: "m4",
+                status: "completed",
+                title: "Bones Recognized",
+                description: "Bones was recognized by Byscilla Danos and taken away, adding a new layer of complexity to the escape.",
+                completedDate: {
+                    year: 1040,
+                    monthIndex: 6,
+                    day: 25
+                }
             }
         ]
     },
@@ -1482,7 +1498,7 @@ completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date
         objective: "Confront the 'God Toad' (formerly known as the Evil Toad) to understand the nature of the Star Fragments and atone for creating him.",
         assignees: ['archie'],
         primaryAssignee: 'archie',
-        description: "Archie didn't just betray his former boss; he accidentally ascended him. The toad once known as 'Orange T' utilized a Star Fragment to become a warping divinity. Now allied with Fawful, this 'God Toad' represents a cosmological threat that Archie feels personally responsible for. To fix this, he must enter the heart of Fawful's territory and stare his creation in the many, many eyes.",
+        description: "Archie didn't just betray his former boss; he accidentally ascended him. The toad once known as 'Orange T' utilized a Star Fragment to become a warping divinity. Now allied with Fawful, this 'God Toad' represents a cosmological threat that Archie feels personally responsible for. To fix this, he must enter the heart of Fawful's territory and stare his creation in the many, many eyes.Bones, having decoded intelligence files from a leather satchel, revealed crucial information about threats, allies, and long-term concerns relevant to the quest. Archie later found detailed notes left behind by a spy, hinting at further complications.",
         difficulty: { overall: DIFFICULTY.DEADLY, sanity: DIFFICULTY.EXTREME },
         tags: ['divine', 'guilt', 'mystery', 'boss-hunt'],
         
@@ -1559,7 +1575,7 @@ completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date
         objective: "Create an act of chaos so profound it impresses the Cosmic Jesters.",
         assignees: ['archie'],
         primaryAssignee: 'archie',
-        description: "The Greenhouse Inferno was an accident, but the Jesters loved it. Now, Archie feels the pressure to perform. He wants to top it with a deliberate 'masterpiece'—a prank or act of destruction that defies logic and authority in equal measure.",
+        description: "The Greenhouse Inferno was an accident, but the Jesters loved it. Now, Archie feels the pressure to perform. He wants to top it with a deliberate 'masterpiece'—a prank or act of destruction that defies logic and authority in equal measure.Archie found detailed notes left by a spy, potentially providing information useful for creating an act of chaos.",
         difficulty: { overall: DIFFICULTY.MODERATE, creativity: DIFFICULTY.HARD },
         tags: ['chaos', 'art', 'prank', 'optional'],
         
@@ -1572,6 +1588,14 @@ completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date
         milestones: [
             { id: 'm1', status: 'active', title: "Conception", description: "Identify a target worthy of the 'joke'." },
             { id: 'm2', status: 'locked', title: "Execution", description: "Pull it off without getting caught." }
+        ,
+            {
+                id: "m3",
+                status: "active",
+                title: "Intelligence Gathering",
+                description: "Analyze the spy's notes for clues about targets, vulnerabilities, and potential consequences.",
+                completedDate: null
+            }
         ]
     },
 
@@ -1586,11 +1610,39 @@ completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date
         objective: "Secure leverage over Kamek to ensure safety within the Koopa alliance.",
         assignees: ['archie'],
         primaryAssignee: 'archie',
-        description: "Kamek views Archie as a chaotic liability and a rival spellcaster. To ensure he doesn't 'accidentally' get targeted by a Magikoopa blast during the next battle, Archie needs dirt. Serious dirt.",
+        description: "Kamek views Archie as a chaotic liability and a rival spellcaster. To ensure he doesn't 'accidentally' get targeted by a Magikoopa blast during the next battle, Archie needs dirt. Serious dirt.Bones has uncovered valuable intelligence about Kamek's vulnerabilities and potential threats to the Koopa alliance.",
         milestones: [
             { id: 'm1', status: 'active', title: "Dig for Dirt", description: "Find embarrassing secrets or tactical weaknesses about Kamek." }
+        ,
+            {
+                id: "m2",
+                status: "active",
+                title: "Leverage Intelligence",
+                description: "Use Bones' intel to find a way to pressure Kamek into cooperation.",
+                completedDate: null
+            }
         ]
     }
+
+
+    'bones_identity_crisis': {
+        id: "bones_identity_crisis",
+        title: "Bones' Identity",
+        type: "MYSTERY",
+        status: "available",
+        priority: "MEDIUM",
+        objective: "Discover the nature of Bones' past connection with Byscilla Danos.",
+        assignees: [],
+        difficulty: "MODERATE",
+        tags: ["mystery", "identity"],
+        dates: {
+            created: "2023-10-26T14:00:00Z",
+            updated: "2023-10-26T14:00:00Z"
+        },
+        description: "Bones was recognized by Byscilla Danos, suggesting a past connection that needs to be explored.",
+        milestones: [],
+        relatedQuests: []
+    },
 };
 
 export const REMI_QUESTS = {
@@ -2197,10 +2249,14 @@ export const WORLD_QUESTS = {
         tags: ['mystery', 'impersonation', 'paranoia', 'infiltration', 'mirrors', 'doppelganger'],
         dates: {
             added: { year: 1040, monthIndex: 6, day: 14 },
-            updated: { year: 1040, monthIndex: 6, day: 26 }
+            updated: {
+    year: 1040,
+    monthIndex: 6,
+    day: 26
+}
         },
 
-        description: "The paranoia is justified. While infiltrating the Shadowfell Airship crash site, Archie pointed out a figure resembling Dan to Green T. Green T refused to look, refused to answer, and hid. His reaction was not confusion—it was primal fear. \n\nGreen T knows something about 'Dan' that he is too terrified to speak aloud, even to Archie. With the revelation that Toadburt is a sleeper agent, the possibility of Dan being a 'Mirror Replacement' or a Legion spy is at an all-time high.",
+        description: "The paranoia is justified. While infiltrating the Shadowfell Airship crash site, Archie pointed out a figure resembling Dan to Green T. Green T refused to look, refused to answer, and hid. His reaction was not confusion—it was primal fear. \n\nGreen T knows something about 'Dan' that he is too terrified to speak aloud, even to Archie. With the revelation that Toadburt is a sleeper agent, the possibility of Dan being a 'Mirror Replacement' or a Legion spy is at an all-time high.Byscilla Danos recognized Bones immediately and dragged him away, leaving Archie and Speaker L bewildered.\n",
 
         loreEntries: ['raventree_mirror_entities', 'doppelganger_taxonomy', 'green_t_trauma'],
 
@@ -2233,6 +2289,18 @@ export const WORLD_QUESTS = {
                 title: "The Shadow Silence",
                 description: "Green T refuses to speak about Dan, even when pressed by Archie in the Shadowfell. He treats 'Dan' as a monster to be hidden from.",
                 completedDate: { year: 1040, monthIndex: 6, day: 26 }
+            }
+        ,
+            {
+                id: "m_bones_recognized",
+                status: "completed",
+                title: "Bones Recognized",
+                description: "Byscilla Danos recognized Bones as someone she knew.",
+                completedDate: {
+                    year: 1040,
+                    monthIndex: 6,
+                    day: 25
+                }
             }
         ],
 
@@ -3558,10 +3626,14 @@ export const WORLD_QUESTS = {
         tags: ['fey-politics', 'exploration', 'satyr-eviction', 'the-revel', 'hag-encounter'],
         dates: {
             added: { year: 1040, monthIndex: 6, day: 21 },
-            updated: { year: 1040, monthIndex: 6, day: 24 }
+            updated: {
+    year: 1040,
+    monthIndex: 6,
+    day: 26
+}
         },
 
-        description: "The Faeward group has explored much of the manor and survived a terrifying encounter with a hag. They have received critical intelligence from multiple sources and now shelter in the greenhouse with the sprites.\n\n**EXPLORATION COMPLETE:**\n- Library (met Woodfellow the tree librarian)\n- Foyer (saw winged toad statue)\n- Lounge (received clues about Archie)\n- Western Landing (found Morning Glory weapon)\n- Lord's Chamber (saw satyr feast hall)\n- Hag's Hut (barely escaped with lives)\n- Greenhouse (current location, sprites healing Waluigi)\n\n**THE REVEL:**\nThey witnessed a horrific entity in the dining hall:\n*'This strange being is an amalgamation of mouths and limbs, a horrific avatar of gluttony and debauchery. Staring at it stirs a horrible, unnatural hunger.'*\nThis is 'The Revel'—an eternal feast of horror.\n\n**INTELLIGENCE RECEIVED:**\n\nFrom Perrius Annmatar (telepathic):\n- 'Kill all heirs, not the main one'\n- 'Make one sever the family tree'\n- 'Fake kill the two oracles'\n- Crystals keep monsters IN, not OUT\n- If only one Oracle, probability becomes 100%\n\nFrom Mages Guild (via ring):\n- Ring at 24% entropy\n- They intercepted the vessel research notes\n- 'Just get Orange T'\n\n**AURELIAN'S DEAL:**\n- Clear the satyrs non-lethally\n- Work for 5 nights\n- She will send 3 people home and sever Mages Guild connection\n- Her 'special arrangement' was detected as a lie",
+        description: "The Faeward group has explored much of the manor and survived a terrifying encounter with a hag. They have received critical intelligence from multiple sources and now shelter in the greenhouse with the sprites.\n\n**EXPLORATION COMPLETE:**\n- Library (met Woodfellow the tree librarian)\n- Foyer (saw winged toad statue)\n- Lounge (received clues about Archie)\n- Western Landing (found Morning Glory weapon)\n- Lord's Chamber (saw satyr feast hall)\n- Hag's Hut (barely escaped with lives)\n- Greenhouse (current location, sprites healing Waluigi)\n\n**THE REVEL:**\nThey witnessed a horrific entity in the dining hall:\n*'This strange being is an amalgamation of mouths and limbs, a horrific avatar of gluttony and debauchery. Staring at it stirs a horrible, unnatural hunger.'*\nThis is 'The Revel'—an eternal feast of horror.\n\n**INTELLIGENCE RECEIVED:**\n\nFrom Perrius Annmatar (telepathic):\n- 'Kill all heirs, not the main one'\n- 'Make one sever the family tree'\n- 'Fake kill the two oracles'\n- Crystals keep monsters IN, not OUT\n- If only one Oracle, probability becomes 100%\n\nFrom Mages Guild (via ring):\n- Ring at 24% entropy\n- They intercepted the vessel research notes\n- 'Just get Orange T'\n\n**AURELIAN'S DEAL:**\n- Clear the satyrs non-lethally\n- Work for 5 nights\n- She will send 3 people home and sever Mages Guild connection\n- Her 'special arrangement' was detected as a lieArchie discovers a hidden cache of notes detailing their every move within the manor. The meticulous entries suggest a spy has been observing them closely, raising questions about who might be watching and why.",
 
         loreEntries: ['faeward_ecology', 'the_revel_entity', 'hag_lore', 'satyr_culture', 'morning_glory_weapon'],
 
@@ -3715,6 +3787,18 @@ export const WORLD_QUESTS = {
                     { text: "Find path to Shadeward party", status: 'active', priority: 'critical' },
                     { text: "Investigate Rakasha's condition", status: 'pending', priority: 'medium' }
                 ]
+            }
+        ,
+            {
+                id: "m_spy_discovery",
+                status: "completed",
+                title: "Spy Uncovered",
+                description: "Archie finds detailed notes revealing a spy's presence within Faeward Manor.",
+                completedDate: {
+                    year: 1040,
+                    monthIndex: 6,
+                    day: 25
+                }
             }
         ],
 

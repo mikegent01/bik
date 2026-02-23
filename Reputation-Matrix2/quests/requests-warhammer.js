@@ -4,7 +4,7 @@ export const WARHAMMER_REQUESTS = {
     'req_wh_altdorf_mutant_purge': {
         id: 'req_wh_altdorf_mutant_purge', title: "Request: Mutant Purge", type: 'request', category: 'Requests',
         objective: "The Altdorf Sewer Watch has posted a bounty on mutants lurking in the city's underbelly. Proof of cleansing is required. Discretion is advised.",
-        assignee: "Full Party", assigneeKey: 'full_party', status: "available", locationId: 'poi_wh_altdorf'
+        assignee: "Full Party", assigneeKey: 'full_party', status: QUEST_STATUS.FAILED, locationId: 'poi_wh_altdorf'
     },
     'req_wh_helmgart_reinforce': {
         id: 'req_wh_helmgart_reinforce', title: "Request: Reinforce the Pass", type: 'request', category: 'Requests',

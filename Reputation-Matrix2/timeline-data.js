@@ -580,4 +580,279 @@ export const HISTORICAL_TIMELINE = [
     "title": "Team Departs Through Portal",
     "description": "FLASHBACK continues: They all walk into portal. Order: Purple T first, then Bryan, then mages, and Dan."
   }
+,
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 23,
+        hour: 4,
+        minute: 10
+    },
+    title: "Mazebound Ambush",
+    description: "Remi and the group are ambushed by mazebounds in a cursed grove. Markop discovers a blueprint, while Dan confronts a mysterious figure with a third eye.",
+    icon: "icon_war.png",
+    category: "Battle"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 13,
+        minute: 56
+    },
+    title: "Team Departs Through Portal",
+    description: "FLASHBACK continues: They all walk into portal. Order: Purple T first, then Bryan, then mages, and Dan.",
+    icon: "icon_travel.png",
+    category: "Travel / Portal"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 20,
+        minute: 47
+    },
+    title: "The Grove's Curse",
+    description: "The group confronts mazebounds in a haunted grove filled with shadow crows and cursed artifacts. Dan discovers a third eye, triggering a new threat.",
+    icon: "icon_magic.png",
+    category: "Discovery"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 23,
+        hour: 4,
+        minute: 10
+    },
+    title: "Mazebound Ambush",
+    description: "Remi and the group are ambushed by mazebounds in a cursed grove. Markop discovers a blueprint, Salam is injured, and Dan is captured. The grove is filled with shadow crows and haunted obelisks.",
+    icon: "icon_war.png",
+    category: "Battle"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 13,
+        minute: 56
+    },
+    title: "Team Departs Through Portal",
+    description: "FLASHBACK continues: They all walk into portal. Order: Purple T first, then Bryan, then mages, and Dan.",
+    icon: "icon_travel.png",
+    category: "Travel / Portal"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 20,
+        minute: 47
+    },
+    title: "Twilight Encounter",
+    description: "The group faces hunched, gray-skinned mazebounds in twilight. Dan suspects one may be Archie, and the grove’s horrors escalate as the party fights to escape.",
+    icon: "icon_war.png",
+    category: "Battle"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 23,
+        hour: 4,
+        minute: 10
+    },
+    title: "Mazebound Ambush",
+    description: "Remi and the group are ambushed by mazebounds in a cursed grove. Markop discovers a blueprint, while Dan confronts one of the creatures, triggering a chaotic battle.",
+    icon: "icon_war.png",
+    category: "Battle"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 13,
+        minute: 56
+    },
+    title: "Team Departs Through Portal",
+    description: "FLASHBACK continues: They all walk into portal. Order: Purple T first, then Bryan, then mages, and Dan.",
+    icon: "icon_travel.png",
+    category: "Travel / Portal"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 20,
+        minute: 47
+    },
+    title: "Twilight Encounter",
+    description: "The group faces hunched, gray-skinned mazebounds in a twilight grove. Dan suspects one is Archie, and the battle escalates as the grove’s horrors intensify.",
+    icon: "icon_war.png",
+    category: "Battle"
+}
+,
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 18,
+        minute: 0
+    },
+    title: "Archie Apprehended",
+    description: "Agent L captures Archie and brings him to a hidden location. Bones decodes intelligence files.",
+    icon: "icon_war.png",
+    category: "Battle"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 19,
+        minute: 35
+    },
+    title: "Byscilla Danos Arrives",
+    description: "Byscilla Danos, part of the Danos family, arrives at the location and discovers Bones.",
+    icon: "faction_liberated_toads.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 12,
+        minute: 10
+    },
+    title: "Spying Revealed",
+    description: "Archie discovers detailed field notes revealing that Bones was spying on them.",
+    icon: "icon_politics.png",
+    category: "Political"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 18,
+        minute: 0
+    },
+    title: "Archie Apprehended",
+    description: "Agent L captures Archie and brings him to a hidden location. Bones decodes intelligence files revealing the Pond Patrol's knowledge of factions and threats.",
+    icon: "icon_politics.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 21,
+        minute: 35
+    },
+    title: "Byscilla's Discovery",
+    description: "Byscilla Danos discovers the Pond Patrol using a stolen water-powered fan. She confronts Bones and drags him away.",
+    icon: "icon_politics.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 22,
+        minute: 10
+    },
+    title: "Spying Revealed",
+    description: "Archie finds detailed notes left behind by the captured spy. The group reviews the information and discusses its implications.",
+    icon: "icon_politics.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 18,
+        minute: 35
+    },
+    title: "Archie Apprehended",
+    description: "Agent L captures Archie and brings him to a hidden location. Bones decodes intelligence files revealing the Pond Patrol's knowledge of factions and threats.",
+    icon: "icon_politics.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 19,
+        minute: 35
+    },
+    title: "Water Powered Fans",
+    description: "Archie and Bones use a stolen water-powered fan to cool themselves. Byscilla Danos discovers them and confronts Archie.",
+    icon: "icon_social.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 23,
+        minute: 5
+    },
+    title: "Spying Revealed",
+    description: "Byscilla Danos discovers the spy's field notes detailing Archie and Bones' activities. The group reviews the information.",
+    icon: "icon_discovery.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 18,
+        minute: 0
+    },
+    title: "Archie Apprehended",
+    description: "Agent L captures Archie and brings him to a hidden location. Bones decodes intelligence files revealing the Pond Patrol's knowledge of factions and threats.",
+    icon: "icon_politics.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 21,
+        minute: 35
+    },
+    title: "Water Powered Fan",
+    description: "Archie and Bones use a stolen water-powered fan. Byscilla Danos discovers them and confronts Archie.",
+    icon: "icon_discovery.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 27,
+        hour: 23,
+        minute: 10
+    },
+    title: "Spy Revealed",
+    description: "Bones discovers detailed notes revealing a spy among them. The group reviews the contents of the notebook.",
+    icon: "icon_betrayal.png",
+    category: "Recent Event"
+}
 ];

@@ -1269,8 +1269,8 @@ const CORE_TOADS = {
         subclass: "Oath of Devotion",
         weapon: "Longsword (Left Hand)",
         status: "Active - Injured",
-        statusType: "injured",
-        statusDetail: "Missing right arm, recovering from trauma",
+        statusType: "active",
+        statusDetail: "Dan is recovering from his injuries.",
         portrait: "🐸⚔️",
         isCore: true,
         cohort: null,
@@ -1355,7 +1355,7 @@ const CORE_TOADS = {
         weapon: "Whip & Daggers",
         status: "Critical - Unconscious",
         statusType: "critical",
-        statusDetail: "Comatose, recovering from surgery/magic",
+        statusDetail: "Eager is unconscious and needs immediate medical attention.",
         portrait: "🐸🗡️",
         isCore: true,
         cohort: null,
@@ -1418,7 +1418,7 @@ const CORE_TOADS = {
         weapon: "Staff & Spellbook",
         status: "Active - Safe",
         statusType: "active",
-        statusDetail: "Under protection of Rakasha (Mentor)",
+        statusDetail: "Ryan is safe and sound.",
         portrait: "🐸📚",
         isCore: true,
         cohort: null,
@@ -1490,7 +1490,7 @@ const CORE_TOADS = {
         weapon: "Crossbow & Pistol",
         status: "Active",
         statusType: "active",
-        statusDetail: "Operational, defending Vigilance perimeter",
+        statusDetail: "Roger is ready for action.",
         portrait: "🐸🔫",
         isCore: true,
         cohort: "The Wardens",
@@ -1551,9 +1551,9 @@ const CORE_TOADS = {
         class: "barbarian",
         subclass: "Path of the Berserker",
         weapon: "None (Disarmed)",
-        status: "Critical - Captured",
-        statusType: "critical",
-        statusDetail: "Stabbed in chest, awaiting execution",
+        status: "Active - Cleaned up from being grotesque mushroom",
+        statusType: "active",
+        statusDetail: "Bones is clean and ready for action.",
         portrait: "🐸💀",
         isCore: true,
         cohort: null,
@@ -1578,7 +1578,7 @@ const CORE_TOADS = {
         equipment: [],
         
         conditions: ["Critical Stab Wound", "Restrained", "Target of Order 120"],        
-        background: "Awaiting execution at Aegis Command.",
+        background: "Awaiting execution at Aegis Command. Bones was recognized by Byscilla Danos and dragged away.",
         
         personality: {
             traits: ["Intimidating", "Protective"],
@@ -1595,6 +1595,19 @@ const CORE_TOADS = {
         log: [
             { day: 21, event: "💔 CRITICAL INJURY: Stabbed by General Marcus Ironhand", xp: 0, type: "injury" },
             { day: 21, event: "☠️ Subject of 'Order 120' (Immediate Execution)", xp: 0, type: "status" }
+        
+            {
+    day: 26,
+    event: "📖 Decoded intelligence files.",
+    xp: 10,
+    type: "discovery"
+},
+            {
+    day: 26,
+    event: "🏥 Took a shower.",
+    xp: 5,
+    type: "status"
+},
         ]
     },
     
@@ -1607,7 +1620,7 @@ const CORE_TOADS = {
         weapon: "Battleaxe & Shield",
         status: "Active - On the Run", // Updated
         statusType: "active",
-        statusDetail: "Escaping Hag's House with injured Waluigi",
+        statusDetail: "Toad Lee is evading capture.",
         portrait: "🐸🪓",
         isCore: true,
         cohort: "The Wardens",
@@ -1674,7 +1687,7 @@ const CORE_TOADS = {
         weapon: "Tennis Racket (Focus)",
         status: "Critical - Leg Injury",
         statusType: "critical",
-        statusDetail: "Bone exposed, being dragged by Toad Lee",
+        statusDetail: "Waluigi is recovering from a leg injury.",
         portrait: "🟣❄️",
         isCore: false,
         cohort: "Toad Lee's Burden",
@@ -1735,8 +1748,8 @@ const CORE_TOADS = {
         subclass: null,
         weapon: "Hidden Blade & Poison",
         status: "Defected - Iron Legion",
-        statusType: "hostile",
-        statusDetail: "Escaped with Iron Legion forces",
+        statusType: "defected",
+        statusDetail: "The Mole has betrayed the Iron Legion.",
         portrait: "🐸🎭",
         isCore: false,
         cohort: null,

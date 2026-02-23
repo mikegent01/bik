@@ -2604,4 +2604,53 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         effects: { ratchet_raiders: 10, regal_empire: -5 },
         cycle_impact: { score: 0, label: "Industrial Waste", type: "economic" }
     }
+,
+  {
+    id: "mazebound_grove_unraveling",
+    title: "Mazebound Grove Unraveling",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "mazebound",
+    arc: "feywild_attic_dinner",
+    arcPosition: "confrontation",
+    description: "A group of mazebounds, led by a theatrical and hostile figure, ambushes a party in a cursed grove filled with shadow crows, decaying obelisks, and a tree of hanging corpses. The grove is revealed to be a ritual site tied to Archie’s Third Eye Escape, with artifacts including a circlet that protects against dimensional fractures. The party is forced to fight, with Dan recognizing a mazehound as a possible clone of Archie, and Bowser’s arrival triggers a fire that reveals the grove’s true nature. The mazebounds sing a patter-song to divide and conquer, while Remi, Salam, and Eager fight to escape, culminating in a chaotic, theatrical battle that ends with the party’s survival but the grove’s secrets exposed.",
+    targets: ["remi", "salam", "eager", "dan", "markop", "bowser"],
+    effects: {
+        feywild_attic_dinner: -20
+    },
+    cycle_impact: {
+        score: 3.1,
+        label: "political tension",
+        type: "political"
+    }
+}
+,
+  {
+    id: "bones_spy_discovery",
+    title: "Bones' Hidden Identity Revealed",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "archie_miser",
+    arc: "main_plot",
+    arcPosition: "rising_action",
+    description: "During a covert meeting at Archie's hideout, detailed field notes belonging to an unknown spy are discovered. The notes meticulously document the group's activities, raising suspicions about Bones' true allegiance.",
+    targets: ["bones"],
+    effects: {
+        vigilance_group: 10,
+        pond_patrol: -15
+    },
+    cycle_impact: {
+        score: 4.2,
+        label: "distrust",
+        type: "social"
+    }
+}
 ];
