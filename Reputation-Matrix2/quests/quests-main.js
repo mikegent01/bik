@@ -1622,7 +1622,7 @@ completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date
                 completedDate: null
             }
         ]
-    }
+    },
 
 
     'bones_identity_crisis': {
