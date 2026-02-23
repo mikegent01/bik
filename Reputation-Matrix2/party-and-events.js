@@ -2644,7 +2644,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     description: "During a covert meeting at Archie's hideout, detailed field notes belonging to an unknown spy are discovered. The notes meticulously document the group's activities, raising suspicions about Bones' true allegiance.",
     targets: ["bones"],
     effects: {
-        vigilance_group: 10,
+        party: 10,
         pond_patrol: -15
     },
     cycle_impact: {

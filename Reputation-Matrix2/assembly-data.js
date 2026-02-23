@@ -57632,27 +57632,7 @@ export const WAHBOOK_POSTS = [
     ]
 }
 ,
-  {
-    "id": "a1b2c3d4",
-    "order": 99492,
-    "characterKey": "thornbury",
-    "rumorId": "raventree_manor_secrets",
-    "date": {
-        "year": 1040,
-        "monthIndex": 6,
-        "day": 26,
-        "hour": 14,
-        "minute": 32
-    },
-    "content": "The gates to Raventree Manor were not locked.  I arrived with Captain Danos and the Guild survey team just before dawn. ",
-    "likes": 187,
-    "comments": [
-        {
-            "characterKey": "bones",
-            "text": "You should be careful, Archie."
-        }
-    ]
-},
+ 
   {
     "id": "e5f6g7h8",
     "order": 99493,
@@ -57707,7 +57687,7 @@ export const WAHBOOK_POSTS = [
     "comments": [
         {
             "characterKey": "bones",
-            "text": "You should be careful, Archie."
+            "text": "You should be careful, thornbury."
         }
     ]
 },
