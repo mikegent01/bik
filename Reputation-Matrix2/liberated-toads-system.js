@@ -1594,7 +1594,7 @@ const CORE_TOADS = {
         },
         log: [
             { day: 21, event: "💔 CRITICAL INJURY: Stabbed by General Marcus Ironhand", xp: 0, type: "injury" },
-            { day: 21, event: "☠️ Subject of 'Order 120' (Immediate Execution)", xp: 0, type: "status" }
+            { day: 21, event: "☠️ Subject of 'Order 120' (Immediate Execution)", xp: 0, type: "status" },
         
             {
     day: 26,

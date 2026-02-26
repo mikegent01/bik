@@ -1,0 +1,49 @@
+{
+  "_README": "Edit this file to update player wallets WITHOUT rebuilding. Just save and refresh the browser.",
+  "archie": {
+    "name": "Archie Miser",
+    "title": "Pyromaniac Merchant",
+    "currencies": {
+      "gold": 314,
+      "copper": 200,
+      "soul_coin": 3
+    }
+  },
+  "bowser": {
+    "name": "Bowser",
+    "title": "Koopa King",
+    "currencies": {
+      "gold": 15,
+      "bowser_bux": 50000,
+      "wario_coin": 500
+    }
+  },
+  "hjumpik": {
+    "name": "hjumpik",
+    "title": "Axe Enthusiast",
+    "currencies": {
+      "midland_ducat": 421,
+      "gold": 1,
+      "dwarf_oathgold": 2
+    }
+  },
+  "markop": {
+    "name": "Markop Judi",
+    "title": "Legion Associate",
+    "currencies": {
+      "copper": 28,
+      "silver": 13,
+      "gold": 21,
+      "imperial_crown": 20
+    }
+  },
+  "remi": {
+    "name": "Remi",
+    "title": "FNG Smith",
+    "currencies": {
+      "kivotos_credit": 5000,
+      "gold": 15,
+      "silver": 1
+    }
+  }
+}
