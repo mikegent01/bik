@@ -9,26 +9,7 @@
   },
 
   "bank_accounts": [
-    {
-      "id": "bank_1",
-      "owner": "Archie Miser",
-      "bankId": "bank_ironvault",
-      "marketId": "poi_mid_capital_district",
-      "currencyKey": "gold",
-      "balance": 500,
-      "interestRate": 0.02,
-      "depositDate": { "year": 1040, "monthIndex": 6, "day": 1 }
-    },
-    {
-      "id": "bank_2",
-      "owner": "Archie Miser",
-      "bankId": "bank_crimson_ledger",
-      "marketId": "poi_onyx_citadel",
-      "currencyKey": "soul_coin",
-      "balance": 2,
-      "interestRate": 0.10,
-      "depositDate": { "year": 1040, "monthIndex": 6, "day": 10 }
-    },
+
     {
       "id": "bank_3",
       "owner": "Bowser",
@@ -39,16 +20,7 @@
       "interestRate": 0.045,
       "depositDate": { "year": 1040, "monthIndex": 5, "day": 15 }
     },
-    {
-      "id": "bank_4",
-      "owner": "hjumpik",
-      "bankId": "bank_deephold",
-      "marketId": "poi_dwarf_karaz",
-      "currencyKey": "dwarf_oathgold",
-      "balance": 1,
-      "interestRate": 0.03,
-      "depositDate": { "year": 1040, "monthIndex": 6, "day": 5 }
-    },
+
     {
       "id": "bank_5",
       "owner": "Remi",
@@ -60,16 +32,6 @@
       "depositDate": { "year": 1040, "monthIndex": 6, "day": 8 }
     },
     {
-      "id": "bank_6",
-      "owner": "Markop Judi",
-      "bankId": "bank_ironvault",
-      "marketId": "poi_legion_fortress",
-      "currencyKey": "legion_scrip",
-      "balance": 100,
-      "interestRate": 0.036,
-      "depositDate": { "year": 1040, "monthIndex": 6, "day": 12 }
-    },
-    {
       "id": "bank_7",
       "owner": "Bowser",
       "bankId": "bank_wario_world",
@@ -78,16 +40,6 @@
       "balance": 300,
       "interestRate": 0.12,
       "depositDate": { "year": 1040, "monthIndex": 6, "day": 18 }
-    },
-    {
-      "id": "bank_8",
-      "owner": "hjumpik",
-      "bankId": "bank_starlight",
-      "marketId": "poi_mages_tower",
-      "currencyKey": "arcane_shard",
-      "balance": 5,
-      "interestRate": 0.06,
-      "depositDate": { "year": 1040, "monthIndex": 6, "day": 20 }
     }
   ],
 
@@ -194,18 +146,6 @@
       "amountOwed": 202.74,
       "status": "active",
       "note": "Equipment requisition loan. Standard military terms."
-    },
-    {
-      "id": "debt_5",
-      "creditor": "Remi",
-      "debtor": "Archie Miser",
-      "currencyKey": "gold",
-      "originalAmount": 50,
-      "interestRate": 0.0,
-      "daysBorrowed": 5,
-      "amountOwed": 50,
-      "status": "active",
-      "note": "Lent after the greenhouse incident. No interest — for now."
     },
     {
       "id": "debt_6",
