@@ -58789,6 +58789,301 @@ export const WAHBOOK_POSTS = [
     "likes": 123,
     "comments": []
 }
+,
+  {
+    "id": "a1b2c3d4",
+    "order": 99556,
+    "characterKey": "hjumpik",
+    "rumorId": "warios_wall_climb",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 18,
+        "minute": 32
+    },
+    "content": "Wario's really putting on a show!  I hope he doesn't get hurt. Maybe I should offer him some of my healing potions.",
+    "likes": 345,
+    "comments": [
+        {
+            "characterKey": "toad_lee",
+            "text": "He seems to be doing alright so far."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99557,
+    "characterKey": "lady_aurelian_corvinarus",
+    "rumorId": "warios_wall_climb",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 19,
+        "minute": 53
+    },
+    "content": "Wario's antics are... concerning.  I trust he knows what he's doing, but this could cause a disturbance if the Iron Legion sees him.",
+    "likes": 187,
+    "comments": [
+        {
+            "characterKey": "hjumpik",
+            "text": "Don't worry, Lady Aurelian. I'll keep an eye on him."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99558,
+    "characterKey": "satyr",
+    "rumorId": "warios_wall_climb",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 3,
+        "minute": 12
+    },
+    "content": "Heard some noise last night.  Sounds like someone was trying to climb a wall. Probably just another fool looking for trouble.",
+    "likes": 42,
+    "comments": []
+},
+  {
+    "id": "1234567890abcdef",
+    "order": 99559,
+    "characterKey": "hjumpik",
+    "rumorId": "satyrs_iron_legion_song",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 18,
+        "minute": 53
+    },
+    "content": "Those satyrs are a riot!  Never thought I'd see the Iron Legion tap their feet to such a tune.",
+    "likes": 420,
+    "comments": [
+        {
+            "characterKey": "toad_lee",
+            "text": "Right? They were surprisingly good dancers!"
+        }
+    ]
+},
+  {
+    "id": "fedcba9876543210",
+    "order": 99560,
+    "characterKey": "lady_aurelian_corvinarus",
+    "rumorId": "satyrs_iron_legion_song",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 19,
+        "minute": 32
+    },
+    "content": "I trust the Iron Legion will handle this situation with their usual... efficiency.  Hopefully, Wario hasn't caused too much trouble.",
+    "likes": 187,
+    "comments": []
+},
+  {
+    "id": "0123456789abcdef",
+    "order": 99561,
+    "characterKey": "soldas",
+    "rumorId": "satyrs_iron_legion_song",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 23,
+        "minute": 59
+    },
+    "content": "Those satyrs are a nuisance.  I hope the Iron Legion doesn't waste too much time on their... entertainment.",
+    "likes": 123,
+    "comments": [
+        {
+            "characterKey": "soldas",
+            "text": "They should be focusing on more important matters."
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99562,
+    "characterKey": "hjumpik",
+    "rumorId": "goblin_servant_quarters",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 18,
+        "minute": 53
+    },
+    "content": "Those Iron Legionnaires are alright once you get to know them.  They just need a good song and dance to loosen up.",
+    "likes": 247,
+    "comments": [
+        {
+            "characterKey": "toad_lee",
+            "text": "Tell me about it! They're surprisingly good dancers."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99563,
+    "characterKey": "aurelian_corvinarus",
+    "rumorId": "goblin_servant_quarters",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 21,
+        "minute": 39
+    },
+    "content": "I still can't believe those satyrs were singing about the Iron Legion.  Such a strange turn of events.",
+    "likes": 185,
+    "comments": []
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99564,
+    "characterKey": "wario",
+    "rumorId": "goblin_servant_quarters",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 32
+    },
+    "content": "Those goblin servant quarters are a real mess.  I'm surprised anyone can find their way around in there.",
+    "likes": 45,
+    "comments": [
+        {
+            "characterKey": "hjumpik",
+            "text": "You should see the state of my room after a long day of adventuring."
+        }
+    ]
+},
+  {
+    "id": "f789_b345",
+    "order": 99565,
+    "characterKey": "aurelian_corvinarus",
+    "rumorId": "hjumpik_goblin_truce",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 48
+    },
+    "content": "Hjumpik's... unorthodox methods are proving effective.  I still worry about Wario though.  That goblin truce is a gamble.",
+    "likes": 375,
+    "comments": [
+        {
+            "characterKey": "toad_lee",
+            "text": "Don't worry, Aurelian! We got this."
+        }
+    ]
+},
+  {
+    "id": "a1b2_c3d4",
+    "order": 99566,
+    "characterKey": "satyr_barkeep",
+    "rumorId": "hjumpik_goblin_truce",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 59
+    },
+    "content": "Goblins and Iron Legion?  Sounds like a party! More ale for me!",
+    "likes": 128,
+    "comments": []
+},
+  {
+    "id": "d5e6_f789",
+    "order": 99567,
+    "characterKey": "wario",
+    "rumorId": "hjumpik_goblin_truce",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 27,
+        "hour": 8,
+        "minute": 3
+    },
+    "content": "Hmph.  Truce? More like a distraction. Those goblins are up to something.",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "hjumpik",
+            "text": "Don't worry, Wario! I got your back."
+        }
+    ]
+},
+  {
+    "id": "a7b2_f94d",
+    "order": 99568,
+    "characterKey": "hjumpik",
+    "rumorId": "aurelian_requests_materials",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 17,
+        "minute": 53
+    },
+    "content": "Lady Aurelian seems awfully focused on the Iron Legion.  Wario's been gone for hours now... shouldn't we check on him first?",
+    "likes": 289,
+    "comments": [
+        {
+            "characterKey": "toad_lee",
+            "text": "Agreed. Something doesn't feel right about this."
+        }
+    ]
+},
+  {
+    "id": "d3c1_5678",
+    "order": 99569,
+    "characterKey": "satyr",
+    "rumorId": "aurelian_requests_materials",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 18,
+        "minute": 39
+    },
+    "content": "Iron Legion? Bah! Bunch of stiff-legged fools.  They wouldn't know a good time if it slapped them with a tankard of ale.",
+    "likes": 123,
+    "comments": []
+},
+  {
+    "id": "9876_b543",
+    "order": 99570,
+    "characterKey": "toad_lee",
+    "rumorId": "aurelian_requests_materials",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 21,
+        "minute": 53
+    },
+    "content": "Hjumpik's right. Something feels off about this whole situation.  Maybe we should just tell Lady Aurelian the truth about Wario.",
+    "likes": 487,
+    "comments": [
+        {
+            "characterKey": "hjumpik",
+            "text": "Good idea. We can't let things escalate further."
+        },
+        {
+            "characterKey": "anonymous_user",
+            "text": "Agreed! Honesty is always the best policy!"
+        }
+    ]
+}
 ];
 
 // Export helper for event integration

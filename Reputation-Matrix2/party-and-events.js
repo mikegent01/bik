@@ -2726,4 +2726,118 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         type: "political"
     }
 }
+,
+  {
+    id: "warios_wall_climb",
+    title: "Wario's Unexpected Ascent",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "wario",
+    arc: "main_plot",
+    arcPosition: "rising_action",
+    description: "Wario attempted to scale a seemingly insurmountable wall but was aided by the unexpected assistance of Hjumpik. This unusual display of teamwork has sparked curiosity among onlookers.",
+    targets: ["wario", "hjumpik"],
+    effects: {
+        general_public: 10
+    },
+    cycle_impact: {
+        score: 1.2,
+        label: "unpredictability",
+        type: "social"
+    }
+},
+  {
+    id: "satyrs_iron_legion_song",
+    title: "Satyrs Sing of the Iron Legion",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: null,
+    arc: "main_plot",
+    arcPosition: "rising_action",
+    description: "While traveling, the party encountered satyrs blocking their path. The satyrs sang a song about the Iron Legion, hinting at their potential involvement in the region.",
+    targets: ["hjumpik", "toad_lee", "aurelian_corvinarus"],
+    effects: {
+        iron_legion_presence: 10
+    },
+    cycle_impact: {
+        score: 3.2,
+        label: "political tension",
+        type: "political"
+    }
+},
+  {
+    id: "goblin_servant_quarters",
+    title: "Goblin Infestation in Servant Quarters",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "hjumpik",
+    arc: "main_plot",
+    arcPosition: "rising_action",
+    description: "hjumpik and toad lee discovered damaged servant quarters in the manor, suggesting possible goblin habitation.",
+    targets: ["hjumpik", "toad lee"],
+    effects: {
+        goblin_presence: 10
+    },
+    cycle_impact: {
+        score: 1.5,
+        label: "security breach",
+        type: "political"
+    }
+},
+  {
+    id: "hjumpik_goblin_truce",
+    title: "Goblin Guard and Hjumpik Make Peace",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "hjumpik",
+    arc: "main_plot",
+    arcPosition: "rising_action",
+    description: "Hjumpik managed to resolve a conflict with a goblin guard peacefully, avoiding a potential fight.",
+    targets: ["goblin_guard"],
+    effects: {
+        goblin_faction: 10
+    },
+    cycle_impact: {
+        score: 1.2,
+        label: "diplomatic progress",
+        type: "social"
+    }
+},
+  {
+    id: "aurelian_requests_materials",
+    title: "Aurelian's Material Request",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "aurelian_corvinarus",
+    arc: "main_plot",
+    arcPosition: "rising_action",
+    description: "Aurelian Corvinarus approached hjumpik and requested bone, ash, chalk, and iron. The nature of his request remains unclear.",
+    targets: ["hjumpik"],
+    effects: {},
+    cycle_impact: {
+        score: 1.5,
+        label: "political intrigue",
+        type: "political"
+    }
+}
 ];
