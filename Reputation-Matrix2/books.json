@@ -1,5 +1,378 @@
 {
   "books": [
+     {
+      "id": "chronicles-of-the-mushroom-throne",
+      "title": "Chronicles of the Mushroom Throne",
+      "subtitle": "A Complete History of the Kingdom's Fall",
+      "author": "Scribe Toadsworth the Elder",
+      "cover_color": "#8B0000",
+      "cover_accent": "#FFD700",
+      "icon": "👑",
+      "category": "History",
+      "rarity": "Legendary",
+      "locked": false,
+      "lock_message": "",
+      "condition": "Worn",
+      "description": "A thick, leather-bound tome detailing the assassination of Princess Peach and the century of civil war that followed. Marginalia in several hands suggests it has passed through many owners.",
+      "page_color": "#fdf6e3",
+      "text_color": "#3e2723",
+      "total_pages": 12,
+      "secrets_total": 5,
+      "chapters": [
+        {
+          "title": "Foreword",
+          "pages": [
+            {
+              "page_number": 1,
+              "content": [
+                { "type": "centered", "text": "~CHRONICLES OF THE MUSHROOM THRONE~", "color": "#8B0000", "style": "bold", "size": "large" },
+                { "type": "centered", "text": "A Complete History of the Kingdom's Fall", "color": "#666", "style": "italic" },
+                { "type": "spacer" },
+                { "type": "centered", "text": "Compiled by Scribe Toadsworth the Elder", "color": "#8B4513" },
+                { "type": "centered", "text": "Year 1040 BF, Harvestide", "color": "#8B4513" },
+                { "type": "spacer" },
+                { "type": "divider", "style": "ornate" },
+                { "type": "spacer" },
+                { "type": "paragraph", "text": "To whomever finds this volume: know that what follows is not mere academic record. It is a wound given words. Every name herein belonged to a soul who breathed the mushroom-scented air of our kingdom, who walked beneath the same sun that now shines upon ruins." },
+                { "type": "paragraph", "text": "I began this work in the year 1020 BF as a young scribe in the Royal Archives. Now, twenty years later, I complete it as a fugitive, writing by candlelight in rooms I dare not name. The Archives are ash. The palace is occupied. But memory endures where stone does not." },
+                { "type": "spacer" },
+                { "type": "quote", "text": "\"Let the ink remember what the kingdom chooses to forget.\"", "attribution": "— Inscription on the Royal Scribe's Seal", "color": "#8B0000" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter I: The Golden Age",
+          "pages": [
+            {
+              "page_number": 2,
+              "content": [
+                { "type": "chapter_header", "text": "Chapter I", "subtitle": "The Golden Age Before the Fall", "color": "#8B0000" },
+                { "type": "drop_cap", "letter": "I", "text": "n the years before Highsun 1, 955 BF, the Mushroom Kingdom existed in a state that later generations would regard with equal parts reverence and disbelief. The Princess ruled not through force of arms, but through an intricate web of alliances, trade agreements, and — if the more controversial historians are to be believed — genuine goodwill.", "color": "#3e2723" },
+                { "type": "paragraph", "text": "The kingdom's borders stretched from the Pipe Labyrinths in the south to the Star Road waypoints in the north. Trade caravans moved freely, protected by the Toad Guard — a civil militia more accustomed to settling disputes over market stalls than wielding weapons in anger." },
+                { "type": "paragraph", "text": "Princess Peach herself was, by all surviving accounts, a ruler of remarkable complexity. The popular image — the gentle monarch in pink, eternally gracious — obscures a political mind of considerable sharpness. Palace correspondence recovered from the ruins of Toad Town reveals a leader who personally negotiated trade tariffs, who maintained a spy network that predated the Onyx Hand by decades, and who kept detailed dossiers on every noble family in the realm." },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Examine the marginalia scrawled in the margin → ]",
+                  "hidden_content": [
+                    { "type": "handwritten", "text": "She also kept secrets. I found letters in the sealed vault — letters to someone she addressed only as 'T.' The handwriting trembles in places. These were not political correspondences. Chief Thornpaw of the Rakasha... he confirmed what I suspected. They were lovers. This changes EVERYTHING about the motive for her assassination. — T.E.", "color": "#5C3317", "background": "#f5e6c8" }
+                  ],
+                  "secret_id": "peach_thornpaw_secret"
+                },
+                { "type": "spacer" },
+                { "type": "paragraph", "text": "The economy flourished under a coin standard backed by Star Bits — crystallized fragments of celestial energy harvested from the Star Road. A single Star Bit could power a household's heating crystal for a season, making them simultaneously currency and commodity. This dual nature would later prove catastrophic when the Star Road was severed during the wars." }
+              ]
+            },
+            {
+              "page_number": 3,
+              "content": [
+                { "type": "paragraph", "text": "The Toad populace — who comprised roughly sixty percent of the kingdom's citizens — lived in relative comfort. Mushroom houses, grown rather than built, dotted the landscape in cheerful clusters. Each settlement maintained a communal garden, a message relay station connected to the capital via warp pipe, and at least one shrine to the Star Spirits." },
+                { "type": "paragraph", "text": "Yet even in this golden age, shadows gathered at the margins. The Koopa Clans to the east had unified under a warlord known only as 'the Bowser' — a title, not a name, though the distinction has been lost to common usage. The Boo Aristocracy grew increasingly isolationist, sealing their mansions behind spectral barriers. And in the deep places beneath the kingdom, in caverns lit by bioluminescent fungi, something ancient stirred." },
+                {
+                  "type": "lore_box",
+                  "title": "THE STAR ROAD NETWORK",
+                  "border_color": "#FFD700",
+                  "background": "#fffde7",
+                  "entries": [
+                    "Seven Star Road waypoints connected major population centers",
+                    "Travel between waypoints was instantaneous but required a Star Visa",
+                    "The network was maintained by the Star Spirit Council",
+                    "Annual Star Bit harvest provided 73% of the kingdom's energy needs",
+                    "The network's destruction in 962 BF caused the 'Long Dark' — three years without reliable power"
+                  ]
+                },
+                { "type": "spacer" },
+                { "type": "paragraph", "text": "The final census before the assassination, conducted in 953 BF, recorded a kingdom of approximately 2.3 million souls. By the time the civil war ground to its exhausted conclusion eighty years later, that number had fallen below 800,000. Nearly two-thirds of a civilization, erased." },
+                { "type": "paragraph", "style": "italic", "text": "But I am getting ahead of myself. Before the blood, there was the betrayal. And before the betrayal, there was one final, perfect day.", "color": "#8B0000" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter II: The Assassination",
+          "pages": [
+            {
+              "page_number": 4,
+              "content": [
+                { "type": "chapter_header", "text": "Chapter II", "subtitle": "Highsun 1, 955 BF — The Day the Kingdom Died", "color": "#8B0000" },
+                { "type": "drop_cap", "letter": "T", "text": "he morning of Highsun 1, 955 BF began with celebrations. The Summer Solstice Festival — the kingdom's largest annual gathering — drew citizens from every province to the capital. Banners of pink and white hung from every lamppost. The smell of fire-roasted mushroom caps and Star Candy filled the streets.", "color": "#3e2723" },
+                { "type": "paragraph", "text": "Princess Peach was scheduled to address the kingdom from the balcony of the Royal Palace at the fourteenth hour. She had done so every Highsun for the previous thirty-two years of her reign. The speech was traditionally brief — a blessing, a few words of gratitude, the ceremonial lighting of the Solstice Flame." },
+                { "type": "paragraph", "text": "She never reached the balcony." },
+                { "type": "spacer" },
+                { "type": "paragraph", "text": "At approximately the thirteenth hour and forty minutes, while the Princess was in her private chambers completing her preparations, an unknown assailant or assailants breached the Royal Suite. The method of entry remains one of the great unsolved mysteries of our age. The suite was protected by seventeen distinct magical wards, guarded by four elite Toad Guards, and accessible only through a single reinforced door." },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A passage has been hastily glued over the original text. Carefully peel it back → ]",
+                  "hidden_content": [
+                    { "type": "handwritten", "text": "Seventeen wards. Four guards. One door. But Thornpaw told Mistveil about a SECRET HATCH in her room. A hatch that doesn't appear on ANY official blueprint. Someone who knew about that hatch killed her. Someone she trusted enough to show it to. The list of suspects just became very, very short. — T.E., added Highsun 10, 1040 BF", "color": "#8B0000", "background": "#ffe0e0" }
+                  ],
+                  "secret_id": "secret_hatch_revelation"
+                },
+                { "type": "spacer" },
+                { "type": "paragraph", "text": "The guards were found dead at their posts, unmarked. No wounds, no poison residue, no signs of struggle. Court mages later determined they had been killed by a simultaneous cessation of all biological function — a spell so advanced that fewer than five living practitioners were believed capable of casting it." }
+              ]
+            },
+            {
+              "page_number": 5,
+              "content": [
+                { "type": "paragraph", "text": "The Princess herself was found seated at her vanity, still holding a hairbrush. A single wound — a thin blade through the base of the skull — had killed her instantly. The precision suggested either medical knowledge or supernatural guidance. No blood had been spilled on her white dress." },
+                { "type": "paragraph", "text": "The body was discovered by her handmaiden, a young toad named Toadette, who had come to deliver the Solstice Crown. Toadette's scream was heard three floors below. Within minutes, the palace was in lockdown. Within hours, the kingdom was in chaos." },
+                { "type": "divider", "style": "ornate" },
+                { "type": "paragraph", "text": "What followed was not grief. Grief implies a wound that can heal. What followed was an unraveling — slow at first, then catastrophic. The Princess had no heir. No designated successor. The Council of Toads, designed to advise rather than rule, found itself thrust into a role it was neither equipped nor authorized to fill." },
+                { "type": "paragraph", "text": "Within a week, three separate factions had declared themselves the legitimate governing authority. Within a month, the first skirmishes broke out along provincial borders. Within a year, the Mushroom Kingdom — that gentle, golden realm of mushroom houses and Star Candy — was at war with itself." },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "ENCODED PASSAGE",
+                  "description": "The following passage has been encoded by the author. Each letter is shifted by 3 positions in the alphabet.",
+                  "encoded_text": "WKH DVVDVVLQ ZDV QRW DORQH. L IRXQG D VHFRQG VHW RI IRRWSULQWV LQ WKH GXVW EHQHDWK WKH KDWFK. VPDOOHU. D WRDG.",
+                  "solution": "THE ASSASSIN WAS NOT ALONE. I FOUND A SECOND SET OF FOOTPRINTS IN THE DUST BENEATH THE HATCH. SMALLER. A TOAD.",
+                  "hint": "Caesar cipher, shift of 3. A=D, B=E, C=F...",
+                  "secret_id": "cipher_assassin_accomplice"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter III: The Century of Blood",
+          "pages": [
+            {
+              "page_number": 6,
+              "content": [
+                { "type": "chapter_header", "text": "Chapter III", "subtitle": "The Century of Blood (955–1035 BF)", "color": "#8B0000" },
+                { "type": "drop_cap", "letter": "W", "text": "ar, when it comes to the Mushroom Kingdom, does not arrive as a thunderclap. It seeps in like water through cracked stone — slowly, silently, and by the time you notice, the foundations have already given way.", "color": "#3e2723" },
+                { "type": "paragraph", "text": "The first decade of conflict (955–965 BF) is remembered as the 'War of Banners,' named for the dozens of minor lords and self-proclaimed heirs who raised their own standards and declared sovereignty over patches of territory no larger than a few villages. It was almost farcical in its pettiness — mushroom farmers taking up pitchforks against mushroom farmers, each claiming their particular strain of leadership was the one the Princess would have wanted." },
+                { "type": "paragraph", "text": "The second decade brought the Koopa Incursions. Warlord Bowser — or rather, the second to bear that title, the first having died of a wasting illness in 960 BF — saw opportunity in the kingdom's fracture. His armies swept through the eastern provinces with a discipline and ferocity that the squabbling toad militias could not match." },
+                {
+                  "type": "timeline",
+                  "title": "KEY EVENTS OF THE CENTURY WAR",
+                  "border_color": "#8B0000",
+                  "events": [
+                    { "year": "955 BF", "event": "Assassination of Princess Peach. War of Banners begins.", "color": "#8B0000" },
+                    { "year": "962 BF", "event": "Star Road network destroyed. The Long Dark begins.", "color": "#4a148c" },
+                    { "year": "970 BF", "event": "First Koopa Incursion. Eastern provinces fall within months.", "color": "#e65100" },
+                    { "year": "988 BF", "event": "The Boo Aristocracy seals all mansions. Thousands of refugees turned away.", "color": "#1a237e" },
+                    { "year": "1001 BF", "event": "Battle of Pipe Junction. Largest single engagement of the war. 40,000 casualties.", "color": "#8B0000" },
+                    { "year": "1015 BF", "event": "The Onyx Hand emerges as a major power broker in the underworld.", "color": "#212121" },
+                    { "year": "1035 BF", "event": "Rise of the Iron Legion. A mercenary company becomes a state.", "color": "#37474f" }
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 7,
+              "content": [
+                { "type": "paragraph", "text": "By the midpoint of the century, the war had evolved from territorial disputes into something more ideological. Three great power blocs had crystallized from the chaos:" },
+                {
+                  "type": "faction_box",
+                  "factions": [
+                    {
+                      "name": "The Peach Loyalists",
+                      "color": "#e91e63",
+                      "icon": "🍑",
+                      "description": "Those who believed the kingdom should be restored to its pre-assassination state, complete with a new monarch selected through the ancient Star Rite. They were romantics, idealists, and increasingly desperate. Their scouts — agents like Embercap and Mistveil — operated deep behind enemy lines, gathering intelligence and keeping the flame of the old kingdom alive."
+                    },
+                    {
+                      "name": "The Iron Legion",
+                      "color": "#607d8b",
+                      "icon": "⚔️",
+                      "description": "What began as the 'Midlands Mercenary Company' in 1020 BF had, by 1035 BF, transformed into a military-industrial state. They controlled the Midlands with ruthless efficiency, taxed trade routes, and maintained the largest standing army in the region. Their motto — 'Order Through Strength' — adorned every checkpoint and garrison."
+                    },
+                    {
+                      "name": "The Onyx Hand",
+                      "color": "#212121",
+                      "icon": "🖐️",
+                      "description": "Neither loyalist nor legionnaire, the Onyx Hand operated in the spaces between. Part criminal syndicate, part shadow government, they controlled the flow of information, contraband, and — it was whispered — souls. Their tribunals dispensed a rough justice that many preferred to the chaos of the surface world."
+                    }
+                  ]
+                },
+                { "type": "spacer" },
+                { "type": "paragraph", "text": "The Iron Legion's rise deserves particular attention, for it represents something unprecedented in the kingdom's history: the transformation of violence from a means into an end. The Legion did not fight for territory, ideology, or vengeance. They fought because fighting was their industry, and peace was bad for business." },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A dried flower presses flat between these pages. Lift it to read what's beneath → ]",
+                  "hidden_content": [
+                    { "type": "handwritten", "text": "I write this knowing I may not survive the week. The Iron Legion has discovered that I possess copies of their internal communications — letters proving they deliberately prolonged the war by funding BOTH sides of the Battle of Pipe Junction. Forty thousand dead, and they profited from every single one. If this book survives and I do not, let these words serve as my testimony. — Toadsworth the Elder, 1038 BF", "color": "#5C3317", "background": "#f5e6c8" }
+                  ],
+                  "secret_id": "iron_legion_war_profiteering"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter IV: The Modern Crisis",
+          "pages": [
+            {
+              "page_number": 8,
+              "content": [
+                { "type": "chapter_header", "text": "Chapter IV", "subtitle": "The Year 1040 BF — Everything Burns", "color": "#8B0000" },
+                { "type": "drop_cap", "letter": "A", "text": "s I write these final chapters, the ink still wet on some entries, I am acutely aware that I am no longer recording history. I am living it. The events of 1040 BF have unfolded with a speed and ferocity that defies the careful, measured analysis a historian owes their reader. I will do my best. Forgive the occasional trembling of the hand.", "color": "#3e2723" },
+                { "type": "paragraph", "text": "The year began with a death — as so many consequential years do. The dragon Ignis, an ancient wyrm who had laired in the northern mountains since before the founding of the kingdom, was slain by a band of adventurers. The act was celebrated by the militarists, who saw dragons as threats to be eliminated. The Mages' Guild, however, was furious." },
+                { "type": "paragraph", "text": "Ignis, they argued, was not merely a dragon. She was a living repository of magical knowledge, a creature whose scales resonated with frequencies of arcane energy that modern mages could barely comprehend. Her death was not a victory — it was the burning of a library. This philosophical divide — the sword versus the staff, pragmatism versus knowledge — would come to define the conflicts of 1040 BF." },
+                { "type": "divider", "style": "simple" },
+                { "type": "paragraph", "text": "Then came the matter of Archie Miser." },
+                { "type": "paragraph", "text": "Archie Miser is, depending on whom you ask, either a folk hero or a war criminal. A mage of considerable power and questionable judgment, Archie killed a fellow practitioner and was brought before an Onyx Hand tribunal — the only judicial body willing to hear the case, as the Mages' Guild demanded internal arbitration and the Loyalists had no functioning courts." },
+                {
+                  "type": "clickable_annotation",
+                  "text": "The tribunal acquitted him.",
+                  "annotation": "The acquittal of Archie Miser on Highsun 2, 1040 BF remains one of the most controversial judicial decisions in recent memory. The Onyx Hand tribunal, presided over by Judge Obsidian (a pseudonym), ruled that the killing constituted 'justifiable magical defense.' The Mages' Guild formally protested, calling the tribunal 'a puppet court run by criminals playing at justice.' Three Guild observers walked out during the verdict. One was later found dead under circumstances the Onyx Hand described as 'unrelated.'",
+                  "color": "#4a148c"
+                },
+                { "type": "paragraph", "text": "This single decision — rendered in a basement courtroom by hooded judges whose real names may never be known — set in motion a chain of events that would see airships seized, alliances shattered, and the very fabric of reality threatened." }
+              ]
+            },
+            {
+              "page_number": 9,
+              "content": [
+                { "type": "paragraph", "text": "The airship Vigilance became the unlikely stage upon which these grand conflicts played out. Originally a cargo vessel, the Vigilance had been converted into a mobile command post by a coalition of adventurers, opportunists, and idealists who found themselves bound together by circumstance rather than choice." },
+                { "type": "paragraph", "text": "The events aboard the Vigilance between Highsun 3 and Highsun 13 constitute what I have come to call the 'Thirteen Days of Chaos.' During this period, the following occurred in rapid, overlapping succession:" },
+                {
+                  "type": "list_dramatic",
+                  "items": [
+                    { "text": "A smuggling ring operated by the Iron Fists was dismantled, earning the party a bounty on their heads.", "color": "#e65100" },
+                    { "text": "An officer known only as X.O. betrayed the crew and seized control of the ship, taking Warlord Bowser himself as a captive.", "color": "#8B0000" },
+                    { "text": "The pirate Captain Syrup was freed, immediately turned hostile, and triggered a cascading series of confrontations that revealed a traitor among the toad crew.", "color": "#1565c0" },
+                    { "text": "A toad named hjumpik disabled the ship's power core with an axe — an act of either brilliant desperation or suicidal madness — sending the Vigilance into a terminal nosedive.", "color": "#2e7d32" },
+                    { "text": "Over 150 trafficked toads were discovered hidden in barrels throughout the ship, each accessible only via a secret compartment opened by a Mini-Mushroom.", "color": "#4a148c" },
+                    { "text": "Archie Miser unleashed a fireball during a negotiation gone wrong, killing numerous combatants including most of the Tea Leaf Syndicate's muscle.", "color": "#ff6f00" }
+                  ]
+                },
+                { "type": "spacer" },
+                { "type": "paragraph", "text": "Each of these events, taken alone, would constitute a significant historical incident. Together, compressed into less than a fortnight, they represent a concentration of chaos that I struggle to find parallel for in the historical record." },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ The bottom of this page is stained with what appears to be tea. Tilt the page to read the watermarked text → ]",
+                  "hidden_content": [
+                    { "type": "handwritten", "text": "Fawful has allied with DRAGONS. After we killed Ignis, he somehow brokered a deal with the remaining wyrms. Embercap's infiltration of Fawful's gala confirmed it before everything went wrong and Jade Grit died. If Fawful can command dragonfire, no faction can stand against him. We are running out of time. — T.E.", "color": "#006064", "background": "#e0f2f1" }
+                  ],
+                  "secret_id": "fawful_dragon_alliance"
+                }
+              ]
+            },
+            {
+              "page_number": 10,
+              "content": [
+                { "type": "chapter_header", "text": "Chapter V", "subtitle": "The Raventree Affair & The Fracturing of Reality", "color": "#8B0000" },
+                { "type": "drop_cap", "letter": "R", "text": "aventree Manor. Even the name carries weight — the kind of weight that presses down on the chest and makes breathing difficult. I visited the manor once, in my youth, before it became what it is now. It was beautiful then. A sprawling estate of dark wood and climbing roses, home to a minor noble family whose name has been deliberately struck from every record I can find.", "color": "#3e2723" },
+                { "type": "paragraph", "text": "Now Raventree is something else entirely. The manor sits at a nexus of planar fractures — tears in the fabric of reality itself — that have transformed it from a mere building into a wound in the world. Ghosts walk its halls not as metaphor but as literal fact. Rooms shift and rearrange themselves according to logics that defy cartography. The maze in the gardens is said to exist in multiple dimensions simultaneously." },
+                { "type": "paragraph", "text": "It was to Raventree that the events of 1040 BF inevitably led. The Mages' Guild, the Onyx Hand, the Iron Legion, the remnants of the Tea Leaf Syndicate, independent agents, vampires, parallel-dimension duplicates, and at least one very confused plumber all converged on the manor within the span of a single week." },
+                { "type": "paragraph", "text": "The reasons for this convergence are as numerous as the factions involved. The Mages' Guild sought to study — and exploit — the planar fractures. The Onyx Hand's vampire knights had established a nest within the manor, using dark crystals to sustain their undeath. The Iron Legion wanted the strategic position. And the adventurers of the Vigilance? They were simply trying to survive." },
+                {
+                  "type": "lore_box",
+                  "title": "THE PARALLEL DAN PARADOX",
+                  "border_color": "#4a148c",
+                  "background": "#f3e5f5",
+                  "entries": [
+                    "Dan the Toad exists in at least two simultaneous versions",
+                    "The 'original' Dan is believed held by the Mages' Guild in a null cage",
+                    "The 'parallel' Dan confessed his nature to Markop on Highsun 26",
+                    "Dan's existence disrupts the Oracle's ability to function",
+                    "The implications for reality stability are described as 'catastrophic'",
+                    "The Mages' Guild considers Dan's elimination an acceptable cost"
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 11,
+              "content": [
+                { "type": "paragraph", "text": "The events within Raventree during Highsun 26–29 deserve a volume of their own, and I suspect some future historian will provide one. For now, I will record what I can verify:" },
+                { "type": "paragraph", "text": "Luigi — the brother of the legendary plumber Mario, long thought to be a figure of myth — appeared at the manor on the evening of Highsun 26. His arrival coincided with an assault by Onyx knights and a series of spectral manifestations that forced several members of the party to flee through windows, off verandas, and into the nightmare maze." },
+                { "type": "paragraph", "text": "Remi, the newest member of the Vigilance's crew — recruited, incredibly, after Wario handed her a box that turned out to be a bomb — found herself captured by the manor's Onyx knight garrison. During her captivity, she discovered Green T's battle plan: a frantic strategy scrawled on a linen napkin, detailing an assault to kill the vampires and destroy their sustaining crystals." },
+                { "type": "paragraph", "text": "Meanwhile, Archie Miser encountered Perrius Anamatar — a being of uncertain nature and considerable power — having tea in a sitting room as though the manor were not collapsing into dimensional chaos around him. When Archie accused him of orchestrating the chaos, Perrius responded by siccing spectral coats on Luigi. Archie's counter — a massive fireball in an enclosed room — was characteristically disproportionate." },
+                { "type": "divider", "style": "ornate" },
+                { "type": "paragraph", "text": "And then there was Bryan." },
+                { "type": "paragraph", "text": "Bryan. A toad who arrived through a Mages' Guild portal with a single, burning purpose: to find and punish Archie Miser. Bryan called himself a servant of the toad god. He recruited Purple T for his theft skills and coerced Dan and another mage into joining his hunt. He carried divination incense that could knock a target unconscious and a faith that burned hotter than any of Archie's fireballs." },
+                { "type": "paragraph", "style": "italic", "text": "The vendetta between Bryan and Archie is personal in a way that transcends faction politics. It is, at its core, about what happens when power meets conviction — and neither is willing to yield.", "color": "#8B0000" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Afterword",
+          "pages": [
+            {
+              "page_number": 12,
+              "content": [
+                { "type": "chapter_header", "text": "Afterword", "subtitle": "Written in Haste, Harvestide 30, 1040 BF", "color": "#8B0000" },
+                { "type": "paragraph", "text": "I set down my quill knowing this chronicle is incomplete. The events at Raventree continue to unfold even as I write. Lady Aurelian Corvinarus has made her requests. The twilight grove has revealed its horrors. The Mages' Guild plots to extract the ghosts regardless of the cost to the living." },
+                { "type": "paragraph", "text": "Archie was ambushed in a library — there is a bitter irony in that — and nearly killed by something the Guild has not deigned to name. He survived, though the circumstances of his rescue remain murky. A Purple Toad appeared as if from nowhere, sang a cryptic fortune-telling song, picked Archie's pockets with the casual ease of a master thief, and vanished through a portal of Archie's own making." },
+                { "type": "paragraph", "text": "Reality is fracturing. The Oracle is dead. A parallel Dan walks the world while the original rots in a null cage. Vampires feast in manor halls while bureaucrats charge two thousand gold for a broken rope. And somewhere, in a sealed room that appears on no blueprint, a secret hatch holds the answer to who killed Princess Peach eighty-five years ago." },
+                { "type": "spacer" },
+                { "type": "paragraph", "text": "I do not know if the kingdom can be saved. I do not know if it deserves to be. What I know is that there are those who are trying — imperfect, chaotic, frequently at each other's throats — but trying nonetheless." },
+                { "type": "spacer" },
+                { "type": "quote", "text": "\"The kingdom is not its borders or its crown. The kingdom is its people — stubborn, foolish, magnificent people who refuse to let the darkness have the final word.\"", "attribution": "— Toadsworth the Elder, final entry", "color": "#8B0000" },
+                { "type": "spacer" },
+                { "type": "centered", "text": "— END OF VOLUME ONE —", "color": "#8B0000", "style": "bold", "size": "large" },
+                { "type": "spacer" },
+                { "type": "centered", "text": "[ This volume was recovered from a hollowed-out mushroom stump near the ruins of Toad Town. The author's fate is unknown. ]", "color": "#999", "style": "italic" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iron-legion-field-manual",
+      "title": "Iron Legion Field Manual",
+      "subtitle": "Standard Operating Procedures, 12th Edition",
+      "author": "Legion Command",
+      "cover_color": "#37474f",
+      "cover_accent": "#90a4ae",
+      "icon": "⚔️",
+      "category": "Military",
+      "rarity": "Uncommon",
+      "locked": true,
+      "lock_message": "This manual is sealed with an Iron Legion cipher lock. You need the Legion's trust — or their carelessness — to open it.",
+      "condition": "Pristine",
+      "description": "A rigid, metal-bound manual stamped with the Iron Legion's crest. The pages are thin steel sheets etched with precise text.",
+      "page_color": "#eceff1",
+      "text_color": "#263238",
+      "total_pages": 0,
+      "secrets_total": 0,
+      "chapters": []
+    },
+    {
+      "id": "boo-aristocracy-etiquette",
+      "title": "Etiquette Among the Ethereal",
+      "subtitle": "A Guide to Boo Society & Protocol",
+      "author": "Duchess Booella von Shriek",
+      "cover_color": "#4a148c",
+      "cover_accent": "#ce93d8",
+      "icon": "👻",
+      "category": "Culture",
+      "rarity": "Rare",
+      "locked": true,
+      "lock_message": "The spectral binding on this book requires you to answer a riddle posed by the Boo Aristocracy. Perhaps one of their mansions holds the answer.",
+      "condition": "Ghostly",
+      "description": "A translucent tome that phases in and out of visibility. Cold to the touch.",
+      "page_color": "#f3e5f5",
+      "text_color": "#4a148c",
+      "total_pages": 0,
+      "secrets_total": 0,
+      "chapters": []
+    },
+    {
+      "id": "mages-guild-primer",
+      "title": "Foundations of the Arcane",
+      "subtitle": "An Introductory Primer for Guild Initiates",
+      "author": "Archmagister Eldwin",
+      "cover_color": "#1565c0",
+      "cover_accent": "#64b5f6",
+      "icon": "🔮",
+      "category": "Arcana",
+      "rarity": "Common",
+      "locked": true,
+      "lock_message": "This book is property of the Mages' Guild. Unauthorized access will result in a fine of no less than 500 gold pieces and/or partial disintegration.",
+      "condition": "Good",
+      "description": "A standard-issue blue tome given to all Guild initiates. Smells faintly of ozone.",
+      "page_color": "#e3f2fd",
+      "text_color": "#0d47a1",
+      "total_pages": 0,
+      "secrets_total": 0,
+      "chapters": []
+    },
     {
   "id": "onyx-hand-protocols",
   "title": "Protocols of Shadow",
