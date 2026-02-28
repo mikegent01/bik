@@ -155,7 +155,7 @@ export const NEW_MIDLANDS_QUESTS = {
         objective: "A homesick Iron Legion soldier at Crossroads Keep wants to send a letter to his family in a village that is now behind rebel lines. He needs a discreet courier who can slip past the patrols.",
         assignee: "Full Party",
         assigneeKey: 'full_party',
-        status: "available",
+        status: QUEST_STATUS.IN PROGRESS,
         locationId: 'poi_lh_crossroads_keep'
     },
     // #14 (Midlands)
@@ -299,7 +299,7 @@ export const NEW_MIDLANDS_QUESTS = {
         objective: "The Iron Legion commander at Fort Desolation has placed a bounty on the local Orc warband that has been scavenging from the ruins of Clan Redmane's Hold. Proof of kill required.",
         assignee: "Full Party",
         assigneeKey: 'full_party',
-        status: "available",
+        status: QUEST_STATUS.IN PROGRESS,
         locationId: 'poi_nl_fort_desolation'
     }
 };

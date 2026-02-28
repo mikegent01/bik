@@ -20,7 +20,7 @@ const EXISTING_REQUESTS = {
         objective: "The Iron Legion commander at Crossroads Keep is requesting reinforcements. A recent Rebel Clan ambush has thinned their ranks and they need able-bodied warriors to help them hold the line until a relief column arrives.",
         assignee: "Full Party",
         assigneeKey: 'full_party',
-        status: "available",
+        status: QUEST_STATUS.IN PROGRESS,
         locationId: 'poi_lh_crossroads_keep'
     },
     'request_port_yale_delivery': {

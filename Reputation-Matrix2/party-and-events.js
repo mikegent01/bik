@@ -2678,4 +2678,28 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         type: "political"
     }
 }
+,
+  {
+    id: "goblin_guard_incident",
+    title: "Goblin Guard Ambush",
+    date: {
+        day: 28,
+        monthIndex: 6,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "hjumpik",
+    arc: "main_plot",
+    arcPosition: "rising_action",
+    description: "Hjumpik and Toad Lee encounter a hostile goblin guard while exploring the manor. After a brief altercation, they manage to subdue the guard without killing him.",
+    targets: ["goblin_guard_gregory"],
+    effects: {
+        faction_iron_legion: -10
+    },
+    cycle_impact: {
+        score: 1.5,
+        label: "minor conflict",
+        type: "social"
+    }
+}
 ];

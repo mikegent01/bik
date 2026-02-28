@@ -799,7 +799,7 @@ export const hjumpik_QUESTS = {
         objective: "Gather ritual ingredients (Bone, Ash, Chalk, Iron) to repair the circle, manage Wario's chaotic interference, and solve the mystery of the 'Grafting'.",
         assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha_spirit_walker', 'wario'],
         primaryAssignee: 'hjumpik',
-        description: "The Feywild Manor is a chaotic puzzle. Hjumpik has uncovered the dark history of the Corvinarus bloodline: a 'Grafting' of Dragon Blood in 988 BF that created the heir. Wario has crashed the party (literally) with a bomb and vintage vampire wine. Aurelian Corvinarus is willing to help send the Satyrs to the Shadowfell, but she needs the Master Bedroom's magic circle repaired. The clock is ticking—Aurelian says it takes 4 days, but the Legion makes their move in 2.Bones decodes intelligence files from a leather satchel containing information about threats, allies, and long-term concerns. This may contain valuable clues about gathering the ritual ingredients.",
+        description: "The Feywild Manor is a chaotic puzzle. Hjumpik has uncovered the dark history of the Corvinarus bloodline: a 'Grafting' of Dragon Blood in 988 BF that created the heir. Wario has crashed the party (literally) with a bomb and vintage vampire wine. Aurelian Corvinarus is willing to help send the Satyrs to the Shadowfell, but she needs the Master Bedroom's magic circle repaired. The clock is ticking—Aurelian says it takes 4 days, but the Legion makes their move in 2.Bones decodes intelligence files from a leather satchel containing information about threats, allies, and long-term concerns. This may contain valuable clues about gathering the ritual ingredients.Aurelian Corvinarus explained that these ingredients are needed to repair the magic circle in the Master Bedroom, a crucial step in sending the Satyrs to the Shadowfell.",
         difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.HARD, puzzle: DIFFICULTY.HARD },
         
         rewards: {
@@ -980,7 +980,7 @@ export const hjumpik_QUESTS = {
         difficulty: { overall: DIFFICULTY.DEADLY, moral: DIFFICULTY.EXTREME },
         tags: ['secret', 'betrayal', 'entropy', 'agent-h'],
         
-        description: "Hjumpik has successfully infiltrated the Feywild Manor, ostensibly serving Lady Aurelian Corvinarus as a troubleshooter to maintain his cover. The situation has complicated: he has met an 'Orange Heir' who denies being the Master, and the ghost of archmage Perrius Annmatar is telepathically demanding the Heir's death to fix the timeline. Hjumpik must navigate these conflicting demands, keep his cover, and continue charging the Entropy Ring to escape.",
+        description: "Hjumpik has successfully infiltrated the Feywild Manor, ostensibly serving Lady Aurelian Corvinarus as a troubleshooter to maintain his cover. The situation has complicated: he has met an 'Orange Heir' who denies being the Master, and the ghost of archmage Perrius Annmatar is telepathically demanding the Heir's death to fix the timeline. Hjumpik must navigate these conflicting demands, keep his cover, and continue charging the Entropy Ring to escape.The Iron Legion proved a formidable obstacle, their ranks marching with unwavering discipline. However, through quick thinking and a surprising display of rhythmic prowess, the party managed to distract them long enough to slip past unnoticed.\n",
         
         rewards: {
              guaranteed: [
@@ -1017,6 +1017,18 @@ export const hjumpik_QUESTS = {
                 status: 'active',
                 title: "The Ultimatum",
                 description: "Resolve the identity of the target. Perrius demands the Heir's death to sever the timeline; the Legion wants a capture. Hjumpik is investigating the family tree in the library to find a third option.",
+            }
+        ,
+            {
+                id: "m2",
+                status: "completed",
+                title: "Iron Legion Encountered",
+                description: "Successfully evaded the Iron Legion through a combination of wit and dance.",
+                completedDate: {
+                    year: 1040,
+                    monthIndex: 6,
+                    day: 25
+                }
             }
         ]
     },
@@ -1498,9 +1510,9 @@ completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date
         objective: "Confront the 'God Toad' (formerly known as the Evil Toad) to understand the nature of the Star Fragments and atone for creating him.",
         assignees: ['archie'],
         primaryAssignee: 'archie',
-        description: "Archie didn't just betray his former boss; he accidentally ascended him. The toad once known as 'Orange T' utilized a Star Fragment to become a warping divinity. Now allied with Fawful, this 'God Toad' represents a cosmological threat that Archie feels personally responsible for. To fix this, he must enter the heart of Fawful's territory and stare his creation in the many, many eyes.Bones, having decoded intelligence files from a leather satchel, revealed crucial information about threats, allies, and long-term concerns relevant to the quest. Archie later found detailed notes left behind by a spy, hinting at further complications.",
+        description: "Archie didn't just betray his former boss; he accidentally ascended him. The toad once known as 'Orange T' utilized a Star Fragment to become a warping divinity. Now allied with Fawful, this 'God Toad' represents a cosmological threat that Archie feels personally responsible for. To fix this, he must enter the heart of Fawful's territory and stare his creation in the many, many eyes.Bones, having decoded intelligence files from a leather satchel, revealed crucial information about threats, allies, and long-term concerns relevant to the quest. Archie later found detailed notes left behind by a spy, hinting at further complications.While traversing Fawful's territory, the party encountered a satyr singing of the Iron Legion, a group potentially connected to Toad's god. They later danced with the Iron Legion themselves, successfully distracting them. A goblin guard was also encountered, but ultimately spared.",
         difficulty: { overall: DIFFICULTY.DEADLY, sanity: DIFFICULTY.EXTREME },
-        tags: ['divine', 'guilt', 'mystery', 'boss-hunt'],
+        tags: ['divine', 'guilt', 'mystery', 'boss-hunt', 'iron_legion', 'satyr'],
         
         loreEntries: ['star_fragment_corruption', 'orange_t_biography', 'apotheosis_theory'],
 
@@ -1639,7 +1651,7 @@ completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date
             created: "2023-10-26T14:00:00Z",
             updated: "2023-10-26T14:00:00Z"
         },
-        description: "Bones was recognized by Byscilla Danos, suggesting a past connection that needs to be explored.",
+        description: "Bones was recognized by Byscilla Danos, suggesting a past connection that needs to be explored.Aurelian Corvinarus requested Bone, Ash, Chalk, and Iron from the party, suggesting Bones' identity might be tied to these materials.",
         milestones: [],
         relatedQuests: []
     },
@@ -3633,7 +3645,7 @@ export const WORLD_QUESTS = {
 }
         },
 
-        description: "The Faeward group has explored much of the manor and survived a terrifying encounter with a hag. They have received critical intelligence from multiple sources and now shelter in the greenhouse with the sprites.\n\n**EXPLORATION COMPLETE:**\n- Library (met Woodfellow the tree librarian)\n- Foyer (saw winged toad statue)\n- Lounge (received clues about Archie)\n- Western Landing (found Morning Glory weapon)\n- Lord's Chamber (saw satyr feast hall)\n- Hag's Hut (barely escaped with lives)\n- Greenhouse (current location, sprites healing Waluigi)\n\n**THE REVEL:**\nThey witnessed a horrific entity in the dining hall:\n*'This strange being is an amalgamation of mouths and limbs, a horrific avatar of gluttony and debauchery. Staring at it stirs a horrible, unnatural hunger.'*\nThis is 'The Revel'—an eternal feast of horror.\n\n**INTELLIGENCE RECEIVED:**\n\nFrom Perrius Annmatar (telepathic):\n- 'Kill all heirs, not the main one'\n- 'Make one sever the family tree'\n- 'Fake kill the two oracles'\n- Crystals keep monsters IN, not OUT\n- If only one Oracle, probability becomes 100%\n\nFrom Mages Guild (via ring):\n- Ring at 24% entropy\n- They intercepted the vessel research notes\n- 'Just get Orange T'\n\n**AURELIAN'S DEAL:**\n- Clear the satyrs non-lethally\n- Work for 5 nights\n- She will send 3 people home and sever Mages Guild connection\n- Her 'special arrangement' was detected as a lieArchie discovers a hidden cache of notes detailing their every move within the manor. The meticulous entries suggest a spy has been observing them closely, raising questions about who might be watching and why.",
+        description: "The Faeward group has explored much of the manor and survived a terrifying encounter with a hag. They have received critical intelligence from multiple sources and now shelter in the greenhouse with the sprites.\n\n**EXPLORATION COMPLETE:**\n- Library (met Woodfellow the tree librarian)\n- Foyer (saw winged toad statue)\n- Lounge (received clues about Archie)\n- Western Landing (found Morning Glory weapon)\n- Lord's Chamber (saw satyr feast hall)\n- Hag's Hut (barely escaped with lives)\n- Greenhouse (current location, sprites healing Waluigi)\n\n**THE REVEL:**\nThey witnessed a horrific entity in the dining hall:\n*'This strange being is an amalgamation of mouths and limbs, a horrific avatar of gluttony and debauchery. Staring at it stirs a horrible, unnatural hunger.'*\nThis is 'The Revel'—an eternal feast of horror.\n\n**INTELLIGENCE RECEIVED:**\n\nFrom Perrius Annmatar (telepathic):\n- 'Kill all heirs, not the main one'\n- 'Make one sever the family tree'\n- 'Fake kill the two oracles'\n- Crystals keep monsters IN, not OUT\n- If only one Oracle, probability becomes 100%\n\nFrom Mages Guild (via ring):\n- Ring at 24% entropy\n- They intercepted the vessel research notes\n- 'Just get Orange T'\n\n**AURELIAN'S DEAL:**\n- Clear the satyrs non-lethally\n- Work for 5 nights\n- She will send 3 people home and sever Mages Guild connection\n- Her 'special arrangement' was detected as a lieArchie discovers a hidden cache of notes detailing their every move within the manor. The meticulous entries suggest a spy has been observing them closely, raising questions about who might be watching and why.The party encountered satyrs and the Iron Legion, relevant to clearing Faeward manor.\n",
 
         loreEntries: ['faeward_ecology', 'the_revel_entity', 'hag_lore', 'satyr_culture', 'morning_glory_weapon'],
 
@@ -3794,6 +3806,29 @@ export const WORLD_QUESTS = {
                 status: "completed",
                 title: "Spy Uncovered",
                 description: "Archie finds detailed notes revealing a spy's presence within Faeward Manor.",
+                completedDate: {
+                    year: 1040,
+                    monthIndex: 6,
+                    day: 25
+                }
+            }
+        ,
+            {
+                id: "m_satyr_encounter",
+                status: "completed",
+                title: "Satyrs Encountered",
+                description: "The party encountered a satyr blocking the path, singing about the Iron Legion.",
+                completedDate: {
+                    year: 1040,
+                    monthIndex: 6,
+                    day: 25
+                }
+            },
+            {
+                id: "m_iron_legion_encounter",
+                status: "completed",
+                title: "Iron Legion Encountered",
+                description: "The party encountered the Iron Legion and danced to distract them.",
                 completedDate: {
                     year: 1040,
                     monthIndex: 6,

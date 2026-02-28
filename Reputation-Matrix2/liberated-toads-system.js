@@ -1268,9 +1268,9 @@ const CORE_TOADS = {
         class: "paladin",
         subclass: "Oath of Devotion",
         weapon: "Longsword (Left Hand)",
-        status: "Active - Injured",
+        status: "Active - Safe",
         statusType: "active",
-        statusDetail: "Dan is recovering from his injuries.",
+        statusDetail: "Dan is safe and sound.",
         portrait: "🐸⚔️",
         isCore: true,
         cohort: null,
@@ -1308,7 +1308,7 @@ const CORE_TOADS = {
         ],
         
         conditions: ["Amputee (Right Arm)", "Psychic Trauma", "Determined"],        
-        background: "Dan has rallied from his catatonic state. Fighting with a longsword in his remaining hand, he proved he is still a warrior of the Pond. He is currently separated from Toad Lee and Ryan.",        
+        background: "Dan has rallied from his catatonic state. Fighting with a longsword in his remaining hand, he proved he is still a warrior of the Pond. He is currently separated from Toad Lee and Ryan. Dan successfully avoided conflict by dancing with the satyrs.",        
         personality: {
             traits: ["Devoted", "Courageous", "Self-sacrificing"],
             ideal: "Faith in the Pond guides all",
@@ -1343,6 +1343,13 @@ const CORE_TOADS = {
             { day: 21, event: "⚔️ Roused from catatonia during the Manor Siege", xp: 50, type: "status" },
             { day: 21, event: "Landed critical axe throw (one-handed) vs Arcane Wraith", xp: 200, type: "combat" },
             { day: 21, event: "🌌 Lost in the Planar Fracture (Void/Unknown)", xp: 0, type: "status" },
+        
+            {
+    day: 26,
+    event: "🕺 Dan danced with the satyrs to slip past.",
+    xp: 5,
+    type: "social"
+},
         ]
     },
     
@@ -1620,7 +1627,7 @@ const CORE_TOADS = {
         weapon: "Battleaxe & Shield",
         status: "Active - On the Run", // Updated
         statusType: "active",
-        statusDetail: "Toad Lee is evading capture.",
+        statusDetail: "Toad Lee is still on the run.",
         portrait: "🐸🪓",
         isCore: true,
         cohort: "The Wardens",
@@ -1653,7 +1660,7 @@ const CORE_TOADS = {
         
         conditions: ["Exhausted (Level 1)", "Protector (Waluigi)", "Hunted by Stucky"],
         
-        background: "Toad Lee has once again survived the impossible. Finding refuge in a Hag's house, he found Waluigi caged and injured. Showing quick thinking, he tricked the Hag (Stucky) into revealing how to disarm her own bear trap, then broke Waluigi out. He is currently fleeing through a sprite-infested greenhouse.",
+        background: "Toad Lee has once again survived the impossible. Finding refuge in a Hag's house, he found Waluigi caged and injured. Showing quick thinking, he tricked the Hag (Stucky) into revealing how to disarm her own bear trap, then broke Waluigi out. He is currently fleeing through a sprite-infested greenhouse. Toad Lee managed to sneak past the satyrs and attempted to take some spoils from the fallen goblin.",
         
         personality: {
             traits: ["Stubborn", "Enduring", "Quietly supportive"],
@@ -1675,6 +1682,13 @@ const CORE_TOADS = {
             { day: 22, event: "🔓 Rescued Waluigi from the Hag's cage", xp: 150, type: "rescue" },
             { day: 22, event: "🏃 Escaped Hag's house via window with Hjumpik & Rakasha", xp: 25, type: "survival" },
             { day: 22, event: "🌿 Entered the Greenhouse (Sprite Territory) (04:00 AM)", xp: 0, type: "exploration" }
+        
+            {
+    day: 26,
+    event: "🕺 Toad Lee danced with the satyrs to slip past and tried to loot the goblin guard's body.",
+    xp: 10,
+    type: "social"
+},
         ]
     },
 

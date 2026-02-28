@@ -855,4 +855,109 @@ export const HISTORICAL_TIMELINE = [
     icon: "icon_betrayal.png",
     category: "Recent Event"
 }
+,
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 9,
+        minute: 16
+    },
+    title: "Goblin Guard Encounter",
+    description: "Hjumpik and Toad Lee encounter a Goblin Guard in the manor. After a brief fight, they convince him to let them pass.",
+    icon: "icon_war.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 17,
+        minute: 45
+    },
+    title: "Aurelian's Request",
+    description: "Lady Aurelian Corvinarus requests Bone, Ash, Chalk, and Iron from Hjumpik.",
+    icon: "icon_politics.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 9,
+        minute: 16
+    },
+    title: "Goblin Encounter",
+    description: "Hjumpik and Toad Lee encounter a goblin guard in the manor. They manage to avoid a fight but loot the guard's body.",
+    icon: "icon_politics.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 17,
+        minute: 45
+    },
+    title: "Aurelian's Request",
+    description: "Lady Aurelian Corvinarus requests Bone, Ash, Chalk, and Iron from Hjumpik.",
+    icon: "faction_liberated_toads.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 9,
+        minute: 16
+    },
+    title: "Goblin Encounter",
+    description: "Hjumpik and Toad Lee encounter a goblin guard in the manor. After a brief scuffle, they manage to convince him to let them pass.",
+    icon: "icon_politics.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 17,
+        minute: 45
+    },
+    title: "Aurelian's Request",
+    description: "Lady Aurelian Corvinarus requests Bone, Ash, Chalk, and Iron from Hjumpik. He reluctantly agrees.",
+    icon: "faction_liberated_toads.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 9,
+        minute: 16
+    },
+    title: "Goblin Encounter",
+    description: "Hjumpik and Toad Lee encounter a goblin guard in the manor.",
+    icon: "icon_politics.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 28,
+        hour: 17,
+        minute: 45
+    },
+    title: "Aurelian's Request",
+    description: "Lady Aurelian Corvinarus requests Bone, Ash, Chalk, and Iron from Hjumpik.",
+    icon: "faction_liberated_toads.png",
+    category: "Faction Event"
+}
 ];

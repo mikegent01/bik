@@ -58434,6 +58434,239 @@ export const WAHBOOK_POSTS = [
         }
     ]
 }
+,
+  {
+    "id": "a1b2c3d4",
+    "order": 99536,
+    "characterKey": "hjumpik",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The goblin guard was pretty chill once we talked to him.  He even let us leave with the dog!",
+    "likes": 187,
+    "comments": [
+        {
+            "characterKey": "toad_lee",
+            "text": "Dude, I totally looted his body while he was distracted."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99537,
+    "characterKey": "raksha",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 33
+    },
+    "content": "That goblin guard was a bit too eager to fight.  Glad we got out of there safely!",
+    "likes": 295,
+    "comments": [
+        {
+            "characterKey": "yael",
+            "text": "You stepped on him, didn't you?"
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99538,
+    "characterKey": "aurelian_corvinarus",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 34
+    },
+    "content": "The incident with the goblin guard highlights the need for increased security measures.  We must be vigilant!",
+    "likes": 459,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99539,
+    "characterKey": "hjumpik",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "Satyr blocked the path, said business would come out of you once you take a swig.  We got elvish ale, no? They want iron legion here.",
+    "likes": 289,
+    "comments": [
+        {
+            "characterKey": "toad_lee",
+            "text": "Iron Legion?"
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99540,
+    "characterKey": "toad_lee",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 35
+    },
+    "content": "Hjumpik says they're okay, but I think they'll be reduced to dust. Walls broken down and shattered. ",
+    "likes": 398,
+    "comments": [
+        {
+            "characterKey": "hjumpik",
+            "text": "Nah, Ironheads are cool."
+        }
+    ]
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99541,
+    "characterKey": "raksha",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 38
+    },
+    "content": "Goblin guard said you killed his friend.  He wanted to fight, but then he calmed down and accepted the truth. ",
+    "likes": 195,
+    "comments": []
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99542,
+    "characterKey": "hjumpik",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The goblin guard was pretty chill once we talked to him.  He even let us leave without a fight after Toad Lee tried to loot his body. ",
+    "likes": 387,
+    "comments": [
+        {
+            "characterKey": "toadlee",
+            "text": "Hey, he wasn't dead! I just wanted to see what he had."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99543,
+    "characterKey": "aurelian",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 16,
+        "minute": 45
+    },
+    "content": "I need Bone, Ash, Chalk, and Iron.  Hjumpik is being difficult about the dog. ",
+    "likes": 189,
+    "comments": []
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99544,
+    "characterKey": "raksha",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 17,
+        "minute": 23
+    },
+    "content": "Steely is a bit too curious for his own good.  He almost got squished by the goblin guard! ",
+    "likes": 45,
+    "comments": [
+        {
+            "characterKey": "hjumpik",
+            "text": "It's okay, he's fine."
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99545,
+    "characterKey": "hjumpik",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 32
+    },
+    "content": "The goblin guard was pretty chill once we talked to him. He even let us loot his body! Toad Lee is a real piece of work, though.",
+    "likes": 357,
+    "comments": [
+        {
+            "characterKey": "toadlee",
+            "text": "Hey! I'm just trying to make ends meet."
+        }
+    ]
+},
+  {
+    "id": "e5f6g7h8",
+    "order": 99546,
+    "characterKey": "raksha",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 14,
+        "minute": 37
+    },
+    "content": "That goblin guard was a bit too eager to fight.  Luckily, I was there to save the day!",
+    "likes": 189,
+    "comments": []
+},
+  {
+    "id": "i9j0k1l2",
+    "order": 99547,
+    "characterKey": "aurelian_corvinarus",
+    "rumorId": "goblin_guard_incident",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 15,
+        "minute": 12
+    },
+    "content": "The incident with the goblin guard highlights the need for increased security measures. We must be vigilant in protecting our interests.",
+    "likes": 483,
+    "comments": [
+        {
+            "characterKey": "hjumpik",
+            "text": "Maybe we should just get a bigger dog."
+        }
+    ]
+}
 ];
 
 // Export helper for event integration
