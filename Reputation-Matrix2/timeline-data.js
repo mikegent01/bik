@@ -960,4 +960,83 @@ export const HISTORICAL_TIMELINE = [
     icon: "faction_liberated_toads.png",
     category: "Faction Event"
 }
+,
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 23,
+        hour: 4,
+        minute: 10
+    },
+    title: "Aurelian's Request",
+    description: "Lady Aurelian Corvinarus requests Bone, Ash, Chalk, and Iron from Hjumpik.",
+    icon: "faction_liberated_toads.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 26,
+        hour: 9,
+        minute: 16
+    },
+    title: "Hidden Passage",
+    description: "Hjumpik discovers a hidden passage in the attic.",
+    icon: "icon_discovery.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 26,
+        hour: 9,
+        minute: 30
+    },
+    title: "Wario's Arrival",
+    description: "Wario arrives in the Solarium seeking treasure.",
+    icon: "icon_war.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 23,
+        hour: 4,
+        minute: 10
+    },
+    title: "Aurelian's Request",
+    description: "Lady Aurelian Corvinarus requests Bone, Ash, Chalk, and Iron from Hjumpik.",
+    icon: "faction_liberated_toads.png",
+    category: "Faction Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 26,
+        hour: 9,
+        minute: 16
+    },
+    title: "Hidden Passage",
+    description: "Hjumpik discovers a hidden passage in the attic.",
+    icon: "icon_discovery.png",
+    category: "Recent Event"
+},
+    {
+    date: {
+        year: 1040,
+        monthIndex: 6,
+        day: 26,
+        hour: 9,
+        minute: 30
+    },
+    title: "Wario's Explosions",
+    description: "Wario battles the Bramblefly with explosives.",
+    icon: "icon_war.png",
+    category: "Battle"
+}
 ];

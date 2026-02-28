@@ -3,7 +3,7 @@ import {STORY_ARCS} from './lore.js';
 export const CURRENT_GAME_DATE = {
     year: 1040,
     monthIndex: 6, // 0-indexed for Highsun (ordinal 7)
-    day: 26
+    day: 28
 };
 
 const now = new Date();

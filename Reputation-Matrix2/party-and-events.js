@@ -617,7 +617,7 @@ export const RUMORS = [
 },  
   {
     id: 'greenhouse_monsters',
-    title: "ghostly_garden",
+    title: "Ghostly Garden",
     date: { day: 26, monthIndex: 6, year: 1040 },
     isEvent: true,
     instigator: 'markop',
@@ -2694,12 +2694,36 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     description: "Hjumpik and Toad Lee encounter a hostile goblin guard while exploring the manor. After a brief altercation, they manage to subdue the guard without killing him.",
     targets: ["goblin_guard_gregory"],
     effects: {
-        faction_iron_legion: -10
+        iron_legion: -10
     },
     cycle_impact: {
         score: 1.5,
         label: "minor conflict",
         type: "social"
+    }
+}
+,
+  {
+    id: "warios_solarium_explosive_entrance",
+    title: "Wario's Explosive Entrance to the Solarium",
+    date: {
+        day: 26,
+        monthIndex: 7,
+        year: 1040
+    },
+    isEvent: true,
+    instigator: "warui",
+    arc: "main_plot",
+    arcPosition: "rising_action",
+    description: "Wario, seeking treasure in the manor's attic, accidentally triggers a trap while battling a Bramblefly. The explosion damages the Solarium and sends Wario plummeting to the floor below.",
+    targets: ["warui", "bramblefly"],
+    effects: {
+        faction_name: 10
+    },
+    cycle_impact: {
+        score: 3.2,
+        label: "chaos and destruction",
+        type: "political"
     }
 }
 ];

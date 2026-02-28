@@ -58667,6 +58667,128 @@ export const WAHBOOK_POSTS = [
         }
     ]
 }
+,
+  {
+    "id": "a1b2c3d4",
+    "order": 99550,
+    "characterKey": "hjumpik",
+    "rumorId": "warios_solarium_explosive_entrance",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 9,
+        "minute": 16
+    },
+    "content": "they head upstairs steely the dog hjumpik named that really is remis comes running out barking says steely what are you doingn  hjumpik looks down hall see These small, cramped rooms appear to be intended for the servants of the manor. At first glance it appears that are still being used for this purpose, but a great many of them have been severely damaged, limiting how many rooms are truly available.",
+    "likes": 123,
+    "comments": [
+        {
+            "characterKey": "toadlee",
+            "text": "your being drematic to be quiet the dragonfly is too big too fit through the door "
+        }
+    ]
+},
+  {
+    "id": "d4c3b2a1",
+    "order": 99551,
+    "characterKey": "toadlee",
+    "rumorId": "warios_solarium_explosive_entrance",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 9,
+        "minute": 28
+    },
+    "content": " toad lee says your being drematic to be quiet the dragonfly is too big too fit through the door  This long, dark hallway seems to be a forgotten space, serving only to connect the staircase to the rest of the attic. The door in the middle opens up to the Solarium, as evidenced by the creeping vines and moss from under the door. Cobwebs line the hallway corners and there is a musty smell in the air. toad lee searches for a spot sees something he can break through he breaks the wall  ",
+    "likes": 345,
+    "comments": [
+        {
+            "characterKey": "hjumpik",
+            "text": "you see steely i told you there was secerits you keep make noise he mimics smoke or you run he mimics running "
+        }
+    ]
+},
+  {
+    "id": "b1a2c3d4",
+    "order": 99552,
+    "characterKey": "hjumpik",
+    "rumorId": "warios_solarium_explosive_entrance",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 10,
+        "minute": 32
+    },
+    "content": "they spot wario fighting the bamberfly  (Wario dusts off his overalls, slips on his \"W\" brass knuckles, and strikes a pose) \n\"WAH HA HA! You chumps down there can play with your ghosts and your history books! I’m here for the real lore! The gold kind!\"\nwarui charges at him charges hits him with knuckples  He spots piles of silver and loot. \"Look at all this silver! Look at all this loot! I’m gonna buy a castle and a brand-new yellow suit!\" Kicking a humanoid bone aside, he snarls, \"Move over, dead guy, you don’t need the cash! Here comes the master of the Wario bash!\n",
+    "likes": 483,
+    "comments": [
+        {
+            "characterKey": "toadlee",
+            "text": "lets set the room on fire instead "
+        }
+    ]
+},
+  {
+    "id": "a1b2c3d4",
+    "order": 99553,
+    "characterKey": "hjumpik",
+    "rumorId": "warios_solarium_explosive_entrance",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 9,
+        "minute": 16
+    },
+    "content": "they head upstairs steely the dog hjumpik named that really is remis comes running out barking says steely what are you doingn  hjumpik looks down hall see These small, cramped rooms appear to be intended for the servants of the manor. At first glance it appears that are still being used for this purpose, but a great many of them have been severely damaged, limiting how many rooms are truly available.",
+    "likes": 234,
+    "comments": [
+        {
+            "characterKey": "toadlee",
+            "text": "your being drematic to be quiet the dragonfly is too big too fit through the door "
+        }
+    ]
+},
+  {
+    "id": "d4c3b2a1",
+    "order": 99554,
+    "characterKey": "hjumpik",
+    "rumorId": "warios_solarium_explosive_entrance",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 9,
+        "minute": 27
+    },
+    "content": "The little space available has been arranged to hold bunk beds and hammocks to fit multiple inhabitants at once. The encroaching vines and roots of outside plant life makes these spaces even more cramped goblin staff giving house gaurd a foot massage  hjumpik says shhh a steam comes out off the dogs ears as its steam powered it sounds like tea is brewing buzzing sound toad lee says your being drematic to be quiet the dragonfly is too big too fit through the door ",
+    "likes": 389,
+    "comments": [
+        {
+            "characterKey": "toadlee",
+            "text": "your being drematic to be quiet the dragonfly is too big too fit through the door "
+        }
+    ]
+},
+  {
+    "id": "b1a2c3d4",
+    "order": 99555,
+    "characterKey": "hjumpik",
+    "rumorId": "warios_solarium_explosive_entrance",
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 26,
+        "hour": 9,
+        "minute": 38
+    },
+    "content": "This long, dark hallway seems to be a forgotten space, serving only to connect the staircase to the rest of the attic. The door in the middle opens up to the Solarium, as evidenced by the creeping vines and moss from under the door. Cobwebs line the hallway corners and there is a musty smell in the air. toad lee searches for a spot sees something he can break through he breaks the wall  The peeling wallpaper all ends in a sudden straight line before continuing - the sure signs of a hidden passage. Seeking a hidden latch, you find the release which opens the door into a thin, dusty hallway.",
+    "likes": 123,
+    "comments": []
+}
 ];
 
 // Export helper for event integration

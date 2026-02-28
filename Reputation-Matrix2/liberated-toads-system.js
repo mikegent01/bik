@@ -1360,9 +1360,9 @@ const CORE_TOADS = {
         class: "rogue",
         subclass: "Swashbuckler",
         weapon: "Whip & Daggers",
-        status: "Critical - Unconscious",
-        statusType: "critical",
-        statusDetail: "Eager is unconscious and needs immediate medical attention.",
+        status: "Critical - Captured",
+        statusType: "injured",
+        statusDetail: "Eager was captured by guards.",
         portrait: "🐸🗡️",
         isCore: true,
         cohort: null,
@@ -1395,7 +1395,7 @@ const CORE_TOADS = {
         
         conditions: ["Unconscious", "Critical Wounds", "Internal Bleeding"],
         
-        background: "Currently comatose after the battle with the Arachnid Matriarch.",
+        background: "Currently comatose after the battle with the Arachnid Matriarch. Eager was captured while running from the scene.",
         
         personality: {
             traits: ["Enthusiastic", "Risk-taker"],
@@ -1413,6 +1413,13 @@ const CORE_TOADS = {
             { day: 21, event: "✨ Awakened by Oracle's healing magic", xp: 0, type: "status" },
             { day: 21, event: "Anchored the 'Edge' during the failed ritual", xp: 100, type: "magic" },
             { day: 21, event: "🌌 Lost in the Planar Fracture (Void/Unknown)", xp: 0, type: "status" }
+        
+            {
+    day: 26,
+    event: "🏃 Captured by guards.",
+    xp: 0,
+    type: "status"
+},
         ]
     },
     
@@ -1627,7 +1634,7 @@ const CORE_TOADS = {
         weapon: "Battleaxe & Shield",
         status: "Active - On the Run", // Updated
         statusType: "active",
-        statusDetail: "Toad Lee is still on the run.",
+        statusDetail: "Toad Lee is on the run after breaking through a wall.",
         portrait: "🐸🪓",
         isCore: true,
         cohort: "The Wardens",
@@ -1660,7 +1667,7 @@ const CORE_TOADS = {
         
         conditions: ["Exhausted (Level 1)", "Protector (Waluigi)", "Hunted by Stucky"],
         
-        background: "Toad Lee has once again survived the impossible. Finding refuge in a Hag's house, he found Waluigi caged and injured. Showing quick thinking, he tricked the Hag (Stucky) into revealing how to disarm her own bear trap, then broke Waluigi out. He is currently fleeing through a sprite-infested greenhouse. Toad Lee managed to sneak past the satyrs and attempted to take some spoils from the fallen goblin.",
+        background: "Toad Lee has once again survived the impossible. Finding refuge in a Hag's house, he found Waluigi caged and injured. Showing quick thinking, he tricked the Hag (Stucky) into revealing how to disarm her own bear trap, then broke Waluigi out. He is currently fleeing through a sprite-infested greenhouse. Toad Lee managed to sneak past the satyrs and attempted to take some spoils from the fallen goblin. Toad Lee broke through a wall with Hjumpik and grabbed some gold.",
         
         personality: {
             traits: ["Stubborn", "Enduring", "Quietly supportive"],
@@ -1689,6 +1696,13 @@ const CORE_TOADS = {
     xp: 10,
     type: "social"
 },
+        
+            {
+    day: 26,
+    event: "🏃 Broke through a wall with Hjumpik.",
+    xp: 10,
+    type: "exploration"
+},
         ]
     },
 
@@ -1700,8 +1714,8 @@ const CORE_TOADS = {
         subclass: "Cryomancy (Ice)",
         weapon: "Tennis Racket (Focus)",
         status: "Critical - Leg Injury",
-        statusType: "critical",
-        statusDetail: "Waluigi is recovering from a leg injury.",
+        statusType: "injured",
+        statusDetail: "Waluigi was injured in an explosion.",
         portrait: "🟣❄️",
         isCore: false,
         cohort: "Toad Lee's Burden",
@@ -1731,7 +1745,7 @@ const CORE_TOADS = {
         
         conditions: ["Crippled Leg", "Traumatized by Hag", "Dependant on Toad Lee"],
         
-        background: "A chaotic variable in the equation. Waluigi previously froze Eager, but found himself captured by Stucky the Hag in the Planar Fracture. His leg was brutally injured (bone exposed). Toad Lee saved him from being eaten.",
+        background: "A chaotic variable in the equation. Waluigi previously froze Eager, but found himself captured by Stucky the Hag in the Planar Fracture. His leg was brutally injured (bone exposed). Toad Lee saved him from being eaten. Waluigi was injured while triggering an explosion.",
         
         personality: {
             traits: ["Self-serving", "Dramatic"],
@@ -1751,6 +1765,13 @@ const CORE_TOADS = {
             { day: 21, event: "⛓️ Captured by Stucky the Hag", xp: 0, type: "status" },
             { day: 22, event: "🩹 Leg crippled by Hag/Trap", xp: 0, type: "injury" },
             { day: 22, event: "🔓 Rescued by Toad Lee", xp: 0, type: "rescue" }
+        
+            {
+    day: 26,
+    event: "💥 Injured in an explosion.",
+    xp: 0,
+    type: "injury"
+},
         ]
     },
     
