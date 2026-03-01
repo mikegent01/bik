@@ -593,6 +593,290 @@
   ]
 },
 {
+  "id": "coronation-day",
+  "title": "Coronation Day",
+  "subtitle": "The Final Hours of Princess Peach — An Eyewitness Account",
+  "author": "Toadette (as told to Archivists)",
+  "cover_color": "#e91e63",
+  "cover_accent": "#fce4ec",
+  "icon": "👸",
+  "category": "History",
+  "rarity": "Legendary",
+  "locked": false,
+  "lock_message": "",
+  "condition": "Tear-stained",
+  "description": "A slim pink volume bound in silk, its pages warped from moisture. The handmaiden who discovered Princess Peach's body finally tells her story, decades after the assassination.",
+  "page_color": "#fff8f0",
+  "text_color": "#4a1a2c",
+  "total_pages": 14,
+  "secrets_total": 7,
+  "chapters": [
+    {
+      "title": "Preface",
+      "pages": [
+        {
+          "page_number": 1,
+          "content": [
+            { "type": "centered", "text": "CORONATION DAY", "color": "#c2185b", "style": "bold", "size": "large" },
+            { "type": "centered", "text": "The Final Hours of Princess Peach", "color": "#ad1457", "style": "italic" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "As Told by Toadette, Royal Handmaiden", "color": "#6a1b4d" },
+            { "type": "centered", "text": "Transcribed in the Year 1040 BF", "color": "#6a1b4d" },
+            { "type": "spacer" },
+            { "type": "divider", "style": "ornate" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "For eighty-five years, I have carried this weight. For eighty-five years, I have been 'the one who found her' — defined by a single scream, a single moment, a single morning that shattered everything I knew. People look at me and see tragedy. They do not see me." },
+            { "type": "paragraph", "text": "I am old now. My spots have faded to gray. My hands shake when I pour tea. But my memory of that day remains crystalline — sharper than yesterday, sharper than this morning. Trauma, the healers tell me, preserves what we most wish to forget." },
+            { "type": "paragraph", "text": "I tell this story now because I am dying, and because the young ones investigating the Princess's death deserve to know what I know. They have found the secret hatch. They have learned about Thornpaw. They are closer to the truth than anyone has been in decades. Perhaps my account will help them find the final pieces." },
+            { "type": "spacer" },
+            { "type": "quote", "text": "\"I was seventeen years old. I thought I would serve her forever. I thought forever meant something.\"", "attribution": "— Toadette, opening statement", "color": "#c2185b" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter I: The Morning",
+      "pages": [
+        {
+          "page_number": 2,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter I", "subtitle": "The Morning of Highsun 1, 955 BF", "color": "#c2185b" },
+            { "type": "drop_cap", "letter": "I", "text": " woke before dawn, as handmaidens do. The Solstice Festival required preparations that began in darkness and would not end until the stars emerged. I remember lying in my small bed in the servants' quarters, listening to the palace wake around me — the distant clatter of kitchen pots, the murmur of guards changing shift, the first tentative birdsong from the royal gardens.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "I dressed in my festival uniform: white cap with pink trim, pressed apron, the little golden brooch that marked me as Princess's Staff rather than general household. I was proud of that brooch. I had earned it through three years of flawless service, and it meant I could enter the Royal Suite without escort." },
+            { "type": "paragraph", "text": "My first duty was to bring the Princess her morning tea. She always rose early on festival days — too excited to sleep, she said, like a child on her birthday. I prepared her favorite blend: Golden Sunrise with extra Star Bit shavings, sweetened with honey from the palace apiaries." },
+            { "type": "interactive_reveal", "label": "[ A water stain obscures text here. Let it dry to read → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I have never told anyone this: When I arrived at her door that morning with the tea tray, I heard voices inside. Two voices. Hers, and a deeper one — male, unfamiliar. I assumed it was a guard reporting something urgent, so I waited. The voices stopped. I knocked. She called for me to enter. She was alone. I did not think to question it then. I have thought of nothing else since.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "morning_visitor" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The Princess was already awake when I entered, seated at her vanity in a silk robe the color of cherry blossoms. Her hair was unbound — a waterfall of gold that reached nearly to her waist. She smiled when she saw me, and my heart lifted as it always did. She had that effect on everyone." }
+          ]
+        },
+        {
+          "page_number": 3,
+          "content": [
+            { "type": "paragraph", "text": "\"Toadette!\" she said, as if my arrival were a delightful surprise rather than a scheduled duty. \"You brought the good tea. I can smell the Star Bits from here.\"" },
+            { "type": "paragraph", "text": "I set the tray on her vanity and began preparing the cup. \"The kitchen staff sends their festival blessings, Your Highness. Cook Carmella included an extra pastry — she says you'll need your strength for the speech.\"" },
+            { "type": "paragraph", "text": "The Princess laughed. \"Carmella thinks I need strength for everything. She'd have me eating entire cakes before council meetings if I let her.\" She took the teacup from my hands, and our fingers brushed briefly. Her hands were cold. I remember that. Cold, even though the morning was warm." },
+            { "type": "paragraph", "text": "\"Are you well, Your Highness?\" I asked. \"Your hands—\"" },
+            { "type": "paragraph", "text": "\"Nerves,\" she said quickly. Too quickly. \"Just nerves. Eighty thousand people will be watching today. Even after thirty-two years, that doesn't become routine.\"" },
+            { "type": "puzzle_cipher", "title": "HIDDEN NOTATION", "description": "Toadette added a cipher to her original notes, perhaps fearing the manuscript would be intercepted. She used a reverse alphabet cipher (A=Z, B=Y, C=X...).", "encoded_text": "HSV DZH ZOUZRW. R PMVD SVI UZXV. HSV DZH MVEVI ZOUZRW LU XILDWH.", "solution": "SHE WAS AFRAID. I KNEW HER FACE. SHE WAS NEVER AFRAID OF CROWDS.", "hint": "Reverse alphabet: A=Z, B=Y, C=X. H=S, S=H, V=E...", "secret_id": "cipher_peach_fear" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "I did not press her. A handmaiden learns quickly that some questions are not meant to be asked. But I watched her more closely after that, and what I saw troubled me." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter II: The Preparation",
+      "pages": [
+        {
+          "page_number": 4,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter II", "subtitle": "Preparing for the Festival", "color": "#c2185b" },
+            { "type": "drop_cap", "letter": "T", "text": "he next hours passed in a blur of activity. I helped the Princess bathe in rosewater and Star Bit essence — a ritual cleansing traditional to the Solstice. I brushed her hair one hundred times, as her mother had taught me to do. I laid out her festival gown: white silk embroidered with pink mushrooms, seed pearls sewn into spiraling patterns that caught the light.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "She was quiet throughout, which was unusual. Normally the Princess chattered during her preparations — palace gossip, policy concerns, amusing observations about visiting dignitaries. That morning, she stared at her reflection in the mirror as if searching for something she could not find." },
+            { "type": "paragraph", "text": "\"Toadette,\" she said suddenly, as I was fastening the buttons at the back of her gown. \"If something were to happen to me, what would you do?\"" },
+            { "type": "paragraph", "text": "My fingers faltered on the buttons. \"Your Highness?\"" },
+            { "type": "paragraph", "text": "\"It's a hypothetical.\" Her voice was light, but her eyes in the mirror were not. \"Say I... disappeared. Abdicated. Died. What would you do with yourself?\"" },
+            { "type": "lore_box", "title": "THE ROYAL SUCCESSION CRISIS", "border_color": "#c2185b", "background": "#fce4ec", "entries": [
+              "Princess Peach had no children and no designated heir",
+              "The traditional succession passed through female bloodlines",
+              "Her closest relative was a distant cousin in the Beanbean Kingdom",
+              "The Council of Toads had advisory power only, not executive authority",
+              "No contingency plan existed for a sudden, violent transition"
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "I finished the buttons before answering. My hands were steady, but my heart was racing. \"I would mourn you, Your Highness. And then I would find whoever was responsible and make them pay.\"" }
+          ]
+        },
+        {
+          "page_number": 5,
+          "content": [
+            { "type": "paragraph", "text": "She turned then, and took my hands in hers — still cold, still trembling faintly — and looked at me with an expression I had never seen before. It was tender, and sad, and something else. Something like guilt." },
+            { "type": "paragraph", "text": "\"You are loyal beyond measure,\" she said. \"I do not deserve you.\"" },
+            { "type": "paragraph", "text": "\"Your Highness—\"" },
+            { "type": "paragraph", "text": "\"No.\" She released my hands and turned back to the mirror. The moment passed; her public face returned. \"Forget I said anything. Pre-speech nerves, nothing more. Now, where is the Solstice Crown? It should have arrived from the vault by now.\"" },
+            { "type": "divider", "style": "ornate" },
+            { "type": "paragraph", "text": "The Solstice Crown had not arrived. I sent a page to inquire and received word that there had been a delay at the vault — some irregularity with the authentication seals. The crown would be delivered within the hour." },
+            { "type": "paragraph", "text": "The Princess accepted this news with uncharacteristic calm. \"Then I will rest until it arrives,\" she said. \"Leave me, Toadette. I need a moment alone.\"" },
+            { "type": "interactive_reveal", "label": "[ A passage has been crossed out but remains legible. Examine it → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I should not have left her. The moment I stepped out of that room, I sealed her fate. But she ASKED me to leave. She practically ordered me. And when I think about the timing — the crown delayed, her sending me away, the voices I heard that morning — I wonder if she KNEW. If she was giving someone time. If her death was not entirely unexpected to her. The thought haunts me more than the murder itself.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "peach_foreknowledge" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "I left. I went to check on the crown myself, because I could not stand still when something felt so deeply wrong. And that decision — that small, practical, reasonable decision — is why I was not there when she needed me most." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter III: The Crown",
+      "pages": [
+        {
+          "page_number": 6,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter III", "subtitle": "The Vault and the Delay", "color": "#c2185b" },
+            { "type": "drop_cap", "letter": "T", "text": "he Royal Vault lay three floors beneath the palace, accessible only through a winding stair guarded at five separate checkpoints. I passed through each one with my golden brooch held high, answering the guards' challenges with growing impatience. Something was wrong. I could feel it in my bones, in the cold creeping up my spine, in the way the shadows seemed to lean toward me as I descended.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "The vault master was a toad named Cornelius — ancient even then, his spots faded to near-invisibility. He had served three generations of the royal family and was said to know every item in the vault by touch alone. When I arrived, I found him arguing with two figures in dark robes." },
+            { "type": "paragraph", "text": "\"The seals are perfectly intact!\" Cornelius was saying, his reedy voice sharp with frustration. \"I've inspected them myself. There is NO irregularity.\"" },
+            { "type": "paragraph", "text": "\"The Guild's instruments disagree,\" one of the robed figures replied. \"We detect traces of unauthorized magical access. The crown cannot be released until we complete our investigation.\"" },
+            { "type": "paragraph", "text": "Mages' Guild. I recognized the embroidered staves on their sleeves now. What were Guild investigators doing in the Royal Vault on the morning of the Solstice?" },
+            { "type": "lore_box", "title": "THE SOLSTICE CROWN", "border_color": "#ffd700", "background": "#fffde7", "entries": [
+              "Crafted in 847 BF from Star Bit crystals and royal gold",
+              "Worn only during Solstice ceremonies and coronations",
+              "Enchanted to respond only to the royal bloodline",
+              "Contained preservation charms that maintained the wearer's youth",
+              "Never found after the assassination — presumed stolen or destroyed"
+            ] }
+          ]
+        },
+        {
+          "page_number": 7,
+          "content": [
+            { "type": "paragraph", "text": "\"I am here on behalf of Her Highness,\" I announced, stepping forward with more confidence than I felt. \"The Princess requires the crown immediately. The ceremony begins in three hours.\"" },
+            { "type": "paragraph", "text": "The Guild mages turned to look at me. One was tall and thin, with silver hair and pale eyes that seemed to look through me rather than at me. The other was shorter, rounder, with the distracted air of someone performing calculations in their head." },
+            { "type": "paragraph", "text": "\"The handmaiden,\" the tall one said. Not a question. \"Toadette, yes? You serve in the Royal Suite.\"" },
+            { "type": "paragraph", "text": "\"I do.\" How did he know my name? \"And I need that crown.\"" },
+            { "type": "paragraph", "text": "\"Of course you do.\" The tall mage smiled, and something about that smile made my stomach clench. \"Tell me, Toadette — in your time serving the Princess, have you ever noticed anything... unusual? Visitors who arrive unannounced? Secrets she keeps even from her closest staff?\"" },
+            { "type": "puzzle_cipher", "title": "ENCODED MAGE NOTATION", "description": "Toadette later discovered this notation in Cornelius's records, written by one of the Guild mages. It uses a number-letter substitution (A=1, B=2, etc.).", "encoded_text": "20-8-5 8-1-20-3-8 9-19 3-15-13-16-18-15-13-9-19-5-4. 19-8-5 11-14-15-23-19.", "solution": "THE HATCH IS COMPROMISED. SHE KNOWS.", "hint": "Number substitution: 1=A, 2=B, 3=C... 20=T, 8=H, 5=E...", "secret_id": "cipher_hatch_compromised" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "I did not answer his question. Instead, I turned to Cornelius. \"The crown. Now. By order of the Princess herself.\"" },
+            { "type": "paragraph", "text": "Cornelius hesitated, looking between me and the mages. Then, slowly, he nodded. \"The Guild's concerns are noted,\" he said. \"But I answer to the crown, not to the Guild. The crown goes to the Princess.\"" }
+          ]
+        },
+        {
+          "page_number": 8,
+          "content": [
+            { "type": "paragraph", "text": "The mages did not object. They simply stepped aside, their expressions unreadable. As Cornelius retrieved the crown from its enchanted case, I felt their eyes on my back — cold, calculating, patient. They were waiting for something. I did not know what." },
+            { "type": "paragraph", "text": "I took the crown. It was lighter than I expected — Star Bit crystal weighs almost nothing — but it seemed to hum faintly in my hands, as if recognizing that I was not its proper bearer. I tucked it carefully into its velvet carrying case and turned to leave." },
+            { "type": "paragraph", "text": "\"Toadette.\" The tall mage's voice stopped me at the door. \"When you return to the Royal Suite... be careful. The wards have been behaving strangely today. Fluctuations in the protective enchantments. It may be nothing, but...\" He shrugged. \"Be careful.\"" },
+            { "type": "paragraph", "text": "I did not thank him for his concern. I ran." },
+            { "type": "interactive_reveal", "label": "[ A folded note is pressed between these pages. Unfold it → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I have researched those mages for decades. The tall one was named Valorian Stormweave. YES — the same Valorian who would be killed by Archie Miser eighty-five years later. He was in the vault that morning. He knew about the hatch. He was asking questions about the Princess's secrets. And he WARNED me about ward fluctuations — fluctuations that would have been caused by someone opening the secret hatch. He KNEW. The Guild KNEW. They let it happen.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "valorian_complicity" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "Five checkpoint guards. Three flights of stairs. Two hundred heartbeats pounding in my ears. I ran faster than I had ever run, the crown case clutched to my chest like a talisman against the dread that was building in my soul." },
+            { "type": "paragraph", "text": "I was not fast enough." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter IV: The Discovery",
+      "pages": [
+        {
+          "page_number": 9,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter IV", "subtitle": "What I Found", "color": "#c2185b" },
+            { "type": "drop_cap", "letter": "T", "text": "he Royal Suite was silent when I arrived. Not the comfortable silence of rest, but the terrible silence of absence — the silence of a room that has just stopped containing life. I knew, before I opened the door. I knew, and I opened it anyway, because knowing is not the same as accepting, and I could not accept until I saw.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "The guards were dead. Four of them, slumped at their posts as if they had simply decided to sit down and never get up again. Their eyes were open. Their weapons were sheathed. They had not even had time to realize they were dying." },
+            { "type": "paragraph", "text": "I stepped over them. I should have run for help. I should have screamed. But my body was moving without my mind's consent, carrying me forward into the outer chamber, through the receiving room, toward the door that led to her private quarters." },
+            { "type": "paragraph", "text": "That door was ajar." },
+            { "type": "paragraph", "text": "I pushed it open." },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "She was seated at her vanity, exactly where I had left her. Her hairbrush was still in her hand. Her eyes were closed, as if she had simply fallen asleep mid-stroke. The white silk gown I had buttoned that morning was still pristine — not a drop of blood, not a wrinkle, not a sign of struggle." },
+            { "type": "paragraph", "text": "But her head was tilted at an angle that heads do not tilt. And there was a thin line of red at the base of her skull, barely visible beneath her golden hair." }
+          ]
+        },
+        {
+          "page_number": 10,
+          "content": [
+            { "type": "paragraph", "text": "I screamed. The sound tore itself from my throat without my permission — a raw, animal shriek that echoed through the empty suite and out into the corridors beyond. I screamed until my voice broke, until guards came running, until hands pulled me away from her body and dragged me into the outer chamber." },
+            { "type": "paragraph", "text": "The next hours are fragments. Shouting. Running feet. Mages casting detection spells that filled the air with colored light. Someone wrapped a blanket around my shoulders. Someone else pushed a cup of tea into my hands — cold tea, bitter tea, tea I could not taste." },
+            { "type": "paragraph", "text": "And through it all, I clung to the crown case. I had dropped it when I screamed, but somehow it was back in my hands, and I would not let go. It was the last thing I had touched while she was alive. It was the last errand she had sent me on. It was proof that I had not been there, that I had been fetching her crown while someone put a blade through the base of her skull." },
+            { "type": "lore_box", "title": "THE MURDER WEAPON", "border_color": "#b71c1c", "background": "#ffebee", "entries": [
+              "A thin blade, likely a stiletto or specialized assassination tool",
+              "Inserted at the brain stem for instant death",
+              "No weapon was ever found at the scene",
+              "The wound was surgically precise — professional work",
+              "Court mages detected traces of enchantment on the wound edges",
+              "The enchantment matched no known school of magic"
+            ] },
+            { "type": "spacer" },
+            { "type": "interactive_reveal", "label": "[ Something is written on the inside of the crown case. Open it → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I kept the case. For eighty-five years, I kept it. And only last month, when my eyesight was failing and I had to hold it close to clean it, did I notice the inscription on the inside of the lid. Two words, in the Princess's own handwriting: 'FORGIVE ME.' She knew. She knew she was going to die. She left me a message, and I was too grief-stricken to find it for almost a century.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "forgive_me_inscription" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter V: The Aftermath",
+      "pages": [
+        {
+          "page_number": 11,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter V", "subtitle": "What Came After", "color": "#c2185b" },
+            { "type": "drop_cap", "letter": "T", "text": "hey questioned me for three days. The Council, the Guard, the Mages' Guild — everyone wanted to know what I had seen, what I had heard, what I had noticed. I told them everything I could remember. The cold hands. The hypothetical questions. The voices I heard through the door. The Guild mages in the vault. The warning about ward fluctuations.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "None of it led anywhere. The investigation concluded that an 'unknown assailant or assailants' had breached the Royal Suite through 'unidentified means' and killed the Princess with 'a weapon of unusual design.' In other words: they found nothing." },
+            { "type": "paragraph", "text": "Or rather — they found nothing they were willing to share." },
+            { "type": "paragraph", "text": "Because I know, now, that they found the secret hatch. I know because the investigation records — sealed for decades, recently leaked by Peach Loyalist agents — mention 'an auxiliary access point requiring further study.' They found it. They studied it. And they never told anyone." },
+            { "type": "timeline", "title": "THE INVESTIGATION", "border_color": "#c2185b", "events": [
+              { "year": "Day 1", "event": "Body discovered. Guards examined. Initial wards analyzed.", "color": "#c2185b" },
+              { "year": "Day 3", "event": "Secret hatch discovered but not publicly disclosed.", "color": "#ff5722" },
+              { "year": "Day 7", "event": "Mages' Guild assumes control of investigation.", "color": "#2196f3" },
+              { "year": "Day 14", "event": "Investigation officially concluded — 'unknown assailant.'", "color": "#757575" },
+              { "year": "Day 21", "event": "First factional conflicts erupt. Investigation files sealed.", "color": "#f44336" }
+            ] }
+          ]
+        },
+        {
+          "page_number": 12,
+          "content": [
+            { "type": "paragraph", "text": "I spent years trying to understand why the investigation failed so completely. The greatest magical minds in the kingdom, the most experienced guards, the most sophisticated detection spells — and they found nothing? It seemed impossible. It WAS impossible." },
+            { "type": "paragraph", "text": "Unless they were meant to find nothing. Unless the investigation was compromised from the start." },
+            { "type": "paragraph", "text": "The Mages' Guild took control of the investigation on Day 7. Before that, the Council's investigators were making progress — they had identified the ward fluctuations, they had found trace evidence near the vanity, they were close to discovering the hatch. Then the Guild intervened, citing 'jurisdictional concerns regarding magical evidence,' and everything stopped." },
+            { "type": "puzzle_cipher", "title": "COUNCIL INVESTIGATOR'S FINAL REPORT", "description": "This fragment was encoded using a keyword cipher. The keyword is 'PEACH' — each letter shifts by its position in the keyword (P=16, E=5, A=1, C=3, H=8, then repeats).", "encoded_text": "LZF YJQOT NQGII KUXTW. QIFN UISSWWMG TBTQZ.", "solution": "THE GUILD KNOWS. THEY COVERED THEIR TRACKS.", "hint": "Keyword cipher: PEACH (16,5,1,3,8). Subtract these values from each letter, cycling through the keyword.", "secret_id": "cipher_guild_coverup" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "I believe — I have always believed — that the Mages' Guild was involved in the Princess's death. Not necessarily as killers, but as facilitators. They knew about the hatch. They knew about the ward fluctuations. Valorian Stormweave warned me, but he warned me too late, and his warning itself proved he knew something was happening." },
+            { "type": "paragraph", "text": "And then Valorian was killed by Archie Miser, eighty-five years later, in what was ruled 'justifiable magical defense.' Convenient, isn't it? The one man who could have testified about what the Guild knew that morning, silenced forever by a fireball in a public market." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter VI: The Truth",
+      "pages": [
+        {
+          "page_number": 13,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter VI", "subtitle": "What I Believe Happened", "color": "#c2185b" },
+            { "type": "drop_cap", "letter": "I", "text": " have had eighty-five years to assemble the pieces. I will never have proof — the proof was destroyed or hidden long ago. But I know, with the certainty of someone who was THERE, who SAW the Princess's face that morning, who heard the fear in her voice and the guilt in her eyes, what happened in the Royal Suite on Highsun 1, 955 BF.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "Princess Peach was in love with Chief Thornpaw of the Rakasha. Their relationship was secret — it had to be, given the political implications. She showed him the secret hatch because she trusted him completely. She gave him access to her most private space because she could not imagine he would ever use it against her." },
+            { "type": "paragraph", "text": "But someone else knew. Someone discovered the relationship, the hatch, the vulnerability. And that someone used the information to destroy her." },
+            { "type": "paragraph", "text": "I do not believe Thornpaw killed her. A man in love does not murder his beloved with surgical precision and then vanish without a trace. But someone used his knowledge — someone who had access to the Rakasha, to the palace, to the magical wards that protected the Royal Suite." },
+            { "type": "faction_box", "factions": [
+              {
+                "name": "The True Conspirators",
+                "color": "#880e4f",
+                "icon": "🗡️",
+                "description": "I believe there were three parties involved. First: an informant close to Thornpaw who discovered the relationship and the hatch. Second: a magical operative — likely Guild-affiliated — who disabled the wards and killed the guards. Third: the actual assassin, someone the Princess knew and trusted enough to turn her back on. Someone she was expecting that morning."
+              }
+            ] }
+          ]
+        },
+        {
+          "page_number": 14,
+          "content": [
+            { "type": "paragraph", "text": "The voice I heard that morning — the male voice speaking with the Princess before I entered — belonged to someone she knew. She was not afraid of him; she was afraid of what he represented, what his presence meant. She knew, when she sent me to fetch the crown, that she was sending me away so that something could happen in my absence." },
+            { "type": "paragraph", "text": "She wrote 'FORGIVE ME' inside the crown case because she knew I would find it eventually. She was apologizing for making me part of this — for using my loyalty to protect me from witnessing her death." },
+            { "type": "paragraph", "text": "She was apologizing because she CHOSE to die." },
+            { "type": "interactive_reveal", "label": "[ The final page is sealed with the Princess's own wax stamp. Break it → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I believe Princess Peach made a bargain. I believe she traded her life for something — someone's safety, the kingdom's future, a secret that had to be kept at any cost. The assassination was not murder; it was sacrifice. She walked willingly into death's embrace because the alternative was worse. What could be worse than the century of war that followed? I do not know. But she knew. And she chose this. May the Star Spirits help us all understand why.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "peach_sacrifice_theory" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "To the investigators who will read this — Embercap, Mistveil, and the others whose names I do not know — I give you everything I have. The truth is buried deeper than I can dig. But you are young, and determined, and you have already found what eighty-five years of official investigation could not find." },
+            { "type": "paragraph", "text": "Find the rest. Find why she died. And if you can, find a way to make her sacrifice mean something." },
+            { "type": "spacer" },
+            { "type": "centered", "text": "— TOADETTE, 1040 BF —", "color": "#c2185b", "style": "bold", "size": "large" },
+            { "type": "spacer" },
+            { "type": "puzzle_cipher", "title": "TOADETTE'S FINAL CIPHER", "description": "A message encoded using the positions of letters in 'TOADETTE' as shifts (20,15,1,4,5,20,20,5, cycling). The first letter shifts by 20, the second by 15, etc.", "encoded_text": "MWB TQGQS DSGE HVQ CWCWQF. QTW YJCSI FMZHI UPWS HSV LZGRQ.", "solution": "THE TRUTH LIES IN THE FUTURE. THE STARS SHALL GUIDE THE WORTHY.", "hint": "Use TOADETTE letter positions (T=20, O=15, A=1, D=4, E=5, T=20, T=20, E=5). Subtract from each letter.", "secret_id": "cipher_final_guidance" }
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
   "id": "tea-leaf-syndicate-recipes",
   "title": "The Connoisseur's Companion",
   "subtitle": "Tea Blends, Trade Secrets, and Other Infusions",
