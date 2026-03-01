@@ -1,378 +1,633 @@
 {
   "books": [
-     {
-      "id": "chronicles-of-the-mushroom-throne",
-      "title": "Chronicles of the Mushroom Throne",
-      "subtitle": "A Complete History of the Kingdom's Fall",
-      "author": "Scribe Toadsworth the Elder",
-      "cover_color": "#8B0000",
-      "cover_accent": "#FFD700",
-      "icon": "👑",
-      "category": "History",
-      "rarity": "Legendary",
-      "locked": false,
-      "lock_message": "",
-      "condition": "Worn",
-      "description": "A thick, leather-bound tome detailing the assassination of Princess Peach and the century of civil war that followed. Marginalia in several hands suggests it has passed through many owners.",
-      "page_color": "#fdf6e3",
-      "text_color": "#3e2723",
-      "total_pages": 12,
-      "secrets_total": 5,
-      "chapters": [
+    {
+  "id": "chronicles-of-the-mushroom-throne",
+  "title": "Chronicles of the Mushroom Throne",
+  "subtitle": "A Complete History of the Kingdom's Fall",
+  "author": "Scribe Toadsworth the Elder",
+  "cover_color": "#8B0000",
+  "cover_accent": "#FFD700",
+  "icon": "👑",
+  "category": "History",
+  "rarity": "Legendary",
+  "locked": false,
+  "lock_message": "",
+  "condition": "Worn",
+  "description": "A thick, leather-bound tome detailing the assassination of Princess Peach and the century of civil war that followed. Marginalia in several hands suggests it has passed through many owners. Some pages are stained with what might be blood.",
+  "page_color": "#fdf6e3",
+  "text_color": "#3e2723",
+  "total_pages": 14,
+  "secrets_total": 6,
+  "chapters": [
+    {
+      "title": "Foreword",
+      "pages": [
         {
-          "title": "Foreword",
-          "pages": [
-            {
-              "page_number": 1,
-              "content": [
-                { "type": "centered", "text": "~CHRONICLES OF THE MUSHROOM THRONE~", "color": "#8B0000", "style": "bold", "size": "large" },
-                { "type": "centered", "text": "A Complete History of the Kingdom's Fall", "color": "#666", "style": "italic" },
-                { "type": "spacer" },
-                { "type": "centered", "text": "Compiled by Scribe Toadsworth the Elder", "color": "#8B4513" },
-                { "type": "centered", "text": "Year 1040 BF, Harvestide", "color": "#8B4513" },
-                { "type": "spacer" },
-                { "type": "divider", "style": "ornate" },
-                { "type": "spacer" },
-                { "type": "paragraph", "text": "To whomever finds this volume: know that what follows is not mere academic record. It is a wound given words. Every name herein belonged to a soul who breathed the mushroom-scented air of our kingdom, who walked beneath the same sun that now shines upon ruins." },
-                { "type": "paragraph", "text": "I began this work in the year 1020 BF as a young scribe in the Royal Archives. Now, twenty years later, I complete it as a fugitive, writing by candlelight in rooms I dare not name. The Archives are ash. The palace is occupied. But memory endures where stone does not." },
-                { "type": "spacer" },
-                { "type": "quote", "text": "\"Let the ink remember what the kingdom chooses to forget.\"", "attribution": "— Inscription on the Royal Scribe's Seal", "color": "#8B0000" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter I: The Golden Age",
-          "pages": [
-            {
-              "page_number": 2,
-              "content": [
-                { "type": "chapter_header", "text": "Chapter I", "subtitle": "The Golden Age Before the Fall", "color": "#8B0000" },
-                { "type": "drop_cap", "letter": "I", "text": "n the years before Highsun 1, 955 BF, the Mushroom Kingdom existed in a state that later generations would regard with equal parts reverence and disbelief. The Princess ruled not through force of arms, but through an intricate web of alliances, trade agreements, and — if the more controversial historians are to be believed — genuine goodwill.", "color": "#3e2723" },
-                { "type": "paragraph", "text": "The kingdom's borders stretched from the Pipe Labyrinths in the south to the Star Road waypoints in the north. Trade caravans moved freely, protected by the Toad Guard — a civil militia more accustomed to settling disputes over market stalls than wielding weapons in anger." },
-                { "type": "paragraph", "text": "Princess Peach herself was, by all surviving accounts, a ruler of remarkable complexity. The popular image — the gentle monarch in pink, eternally gracious — obscures a political mind of considerable sharpness. Palace correspondence recovered from the ruins of Toad Town reveals a leader who personally negotiated trade tariffs, who maintained a spy network that predated the Onyx Hand by decades, and who kept detailed dossiers on every noble family in the realm." },
-                {
-                  "type": "interactive_reveal",
-                  "label": "[ Examine the marginalia scrawled in the margin → ]",
-                  "hidden_content": [
-                    { "type": "handwritten", "text": "She also kept secrets. I found letters in the sealed vault — letters to someone she addressed only as 'T.' The handwriting trembles in places. These were not political correspondences. Chief Thornpaw of the Rakasha... he confirmed what I suspected. They were lovers. This changes EVERYTHING about the motive for her assassination. — T.E.", "color": "#5C3317", "background": "#f5e6c8" }
-                  ],
-                  "secret_id": "peach_thornpaw_secret"
-                },
-                { "type": "spacer" },
-                { "type": "paragraph", "text": "The economy flourished under a coin standard backed by Star Bits — crystallized fragments of celestial energy harvested from the Star Road. A single Star Bit could power a household's heating crystal for a season, making them simultaneously currency and commodity. This dual nature would later prove catastrophic when the Star Road was severed during the wars." }
-              ]
-            },
-            {
-              "page_number": 3,
-              "content": [
-                { "type": "paragraph", "text": "The Toad populace — who comprised roughly sixty percent of the kingdom's citizens — lived in relative comfort. Mushroom houses, grown rather than built, dotted the landscape in cheerful clusters. Each settlement maintained a communal garden, a message relay station connected to the capital via warp pipe, and at least one shrine to the Star Spirits." },
-                { "type": "paragraph", "text": "Yet even in this golden age, shadows gathered at the margins. The Koopa Clans to the east had unified under a warlord known only as 'the Bowser' — a title, not a name, though the distinction has been lost to common usage. The Boo Aristocracy grew increasingly isolationist, sealing their mansions behind spectral barriers. And in the deep places beneath the kingdom, in caverns lit by bioluminescent fungi, something ancient stirred." },
-                {
-                  "type": "lore_box",
-                  "title": "THE STAR ROAD NETWORK",
-                  "border_color": "#FFD700",
-                  "background": "#fffde7",
-                  "entries": [
-                    "Seven Star Road waypoints connected major population centers",
-                    "Travel between waypoints was instantaneous but required a Star Visa",
-                    "The network was maintained by the Star Spirit Council",
-                    "Annual Star Bit harvest provided 73% of the kingdom's energy needs",
-                    "The network's destruction in 962 BF caused the 'Long Dark' — three years without reliable power"
-                  ]
-                },
-                { "type": "spacer" },
-                { "type": "paragraph", "text": "The final census before the assassination, conducted in 953 BF, recorded a kingdom of approximately 2.3 million souls. By the time the civil war ground to its exhausted conclusion eighty years later, that number had fallen below 800,000. Nearly two-thirds of a civilization, erased." },
-                { "type": "paragraph", "style": "italic", "text": "But I am getting ahead of myself. Before the blood, there was the betrayal. And before the betrayal, there was one final, perfect day.", "color": "#8B0000" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter II: The Assassination",
-          "pages": [
-            {
-              "page_number": 4,
-              "content": [
-                { "type": "chapter_header", "text": "Chapter II", "subtitle": "Highsun 1, 955 BF — The Day the Kingdom Died", "color": "#8B0000" },
-                { "type": "drop_cap", "letter": "T", "text": "he morning of Highsun 1, 955 BF began with celebrations. The Summer Solstice Festival — the kingdom's largest annual gathering — drew citizens from every province to the capital. Banners of pink and white hung from every lamppost. The smell of fire-roasted mushroom caps and Star Candy filled the streets.", "color": "#3e2723" },
-                { "type": "paragraph", "text": "Princess Peach was scheduled to address the kingdom from the balcony of the Royal Palace at the fourteenth hour. She had done so every Highsun for the previous thirty-two years of her reign. The speech was traditionally brief — a blessing, a few words of gratitude, the ceremonial lighting of the Solstice Flame." },
-                { "type": "paragraph", "text": "She never reached the balcony." },
-                { "type": "spacer" },
-                { "type": "paragraph", "text": "At approximately the thirteenth hour and forty minutes, while the Princess was in her private chambers completing her preparations, an unknown assailant or assailants breached the Royal Suite. The method of entry remains one of the great unsolved mysteries of our age. The suite was protected by seventeen distinct magical wards, guarded by four elite Toad Guards, and accessible only through a single reinforced door." },
-                {
-                  "type": "interactive_reveal",
-                  "label": "[ A passage has been hastily glued over the original text. Carefully peel it back → ]",
-                  "hidden_content": [
-                    { "type": "handwritten", "text": "Seventeen wards. Four guards. One door. But Thornpaw told Mistveil about a SECRET HATCH in her room. A hatch that doesn't appear on ANY official blueprint. Someone who knew about that hatch killed her. Someone she trusted enough to show it to. The list of suspects just became very, very short. — T.E., added Highsun 10, 1040 BF", "color": "#8B0000", "background": "#ffe0e0" }
-                  ],
-                  "secret_id": "secret_hatch_revelation"
-                },
-                { "type": "spacer" },
-                { "type": "paragraph", "text": "The guards were found dead at their posts, unmarked. No wounds, no poison residue, no signs of struggle. Court mages later determined they had been killed by a simultaneous cessation of all biological function — a spell so advanced that fewer than five living practitioners were believed capable of casting it." }
-              ]
-            },
-            {
-              "page_number": 5,
-              "content": [
-                { "type": "paragraph", "text": "The Princess herself was found seated at her vanity, still holding a hairbrush. A single wound — a thin blade through the base of the skull — had killed her instantly. The precision suggested either medical knowledge or supernatural guidance. No blood had been spilled on her white dress." },
-                { "type": "paragraph", "text": "The body was discovered by her handmaiden, a young toad named Toadette, who had come to deliver the Solstice Crown. Toadette's scream was heard three floors below. Within minutes, the palace was in lockdown. Within hours, the kingdom was in chaos." },
-                { "type": "divider", "style": "ornate" },
-                { "type": "paragraph", "text": "What followed was not grief. Grief implies a wound that can heal. What followed was an unraveling — slow at first, then catastrophic. The Princess had no heir. No designated successor. The Council of Toads, designed to advise rather than rule, found itself thrust into a role it was neither equipped nor authorized to fill." },
-                { "type": "paragraph", "text": "Within a week, three separate factions had declared themselves the legitimate governing authority. Within a month, the first skirmishes broke out along provincial borders. Within a year, the Mushroom Kingdom — that gentle, golden realm of mushroom houses and Star Candy — was at war with itself." },
-                {
-                  "type": "puzzle_cipher",
-                  "title": "ENCODED PASSAGE",
-                  "description": "The following passage has been encoded by the author. Each letter is shifted by 3 positions in the alphabet.",
-                  "encoded_text": "WKH DVVDVVLQ ZDV QRW DORQH. L IRXQG D VHFRQG VHW RI IRRWSULQWV LQ WKH GXVW EHQHDWK WKH KDWFK. VPDOOHU. D WRDG.",
-                  "solution": "THE ASSASSIN WAS NOT ALONE. I FOUND A SECOND SET OF FOOTPRINTS IN THE DUST BENEATH THE HATCH. SMALLER. A TOAD.",
-                  "hint": "Caesar cipher, shift of 3. A=D, B=E, C=F...",
-                  "secret_id": "cipher_assassin_accomplice"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter III: The Century of Blood",
-          "pages": [
-            {
-              "page_number": 6,
-              "content": [
-                { "type": "chapter_header", "text": "Chapter III", "subtitle": "The Century of Blood (955–1035 BF)", "color": "#8B0000" },
-                { "type": "drop_cap", "letter": "W", "text": "ar, when it comes to the Mushroom Kingdom, does not arrive as a thunderclap. It seeps in like water through cracked stone — slowly, silently, and by the time you notice, the foundations have already given way.", "color": "#3e2723" },
-                { "type": "paragraph", "text": "The first decade of conflict (955–965 BF) is remembered as the 'War of Banners,' named for the dozens of minor lords and self-proclaimed heirs who raised their own standards and declared sovereignty over patches of territory no larger than a few villages. It was almost farcical in its pettiness — mushroom farmers taking up pitchforks against mushroom farmers, each claiming their particular strain of leadership was the one the Princess would have wanted." },
-                { "type": "paragraph", "text": "The second decade brought the Koopa Incursions. Warlord Bowser — or rather, the second to bear that title, the first having died of a wasting illness in 960 BF — saw opportunity in the kingdom's fracture. His armies swept through the eastern provinces with a discipline and ferocity that the squabbling toad militias could not match." },
-                {
-                  "type": "timeline",
-                  "title": "KEY EVENTS OF THE CENTURY WAR",
-                  "border_color": "#8B0000",
-                  "events": [
-                    { "year": "955 BF", "event": "Assassination of Princess Peach. War of Banners begins.", "color": "#8B0000" },
-                    { "year": "962 BF", "event": "Star Road network destroyed. The Long Dark begins.", "color": "#4a148c" },
-                    { "year": "970 BF", "event": "First Koopa Incursion. Eastern provinces fall within months.", "color": "#e65100" },
-                    { "year": "988 BF", "event": "The Boo Aristocracy seals all mansions. Thousands of refugees turned away.", "color": "#1a237e" },
-                    { "year": "1001 BF", "event": "Battle of Pipe Junction. Largest single engagement of the war. 40,000 casualties.", "color": "#8B0000" },
-                    { "year": "1015 BF", "event": "The Onyx Hand emerges as a major power broker in the underworld.", "color": "#212121" },
-                    { "year": "1035 BF", "event": "Rise of the Iron Legion. A mercenary company becomes a state.", "color": "#37474f" }
-                  ]
-                }
-              ]
-            },
-            {
-              "page_number": 7,
-              "content": [
-                { "type": "paragraph", "text": "By the midpoint of the century, the war had evolved from territorial disputes into something more ideological. Three great power blocs had crystallized from the chaos:" },
-                {
-                  "type": "faction_box",
-                  "factions": [
-                    {
-                      "name": "The Peach Loyalists",
-                      "color": "#e91e63",
-                      "icon": "🍑",
-                      "description": "Those who believed the kingdom should be restored to its pre-assassination state, complete with a new monarch selected through the ancient Star Rite. They were romantics, idealists, and increasingly desperate. Their scouts — agents like Embercap and Mistveil — operated deep behind enemy lines, gathering intelligence and keeping the flame of the old kingdom alive."
-                    },
-                    {
-                      "name": "The Iron Legion",
-                      "color": "#607d8b",
-                      "icon": "⚔️",
-                      "description": "What began as the 'Midlands Mercenary Company' in 1020 BF had, by 1035 BF, transformed into a military-industrial state. They controlled the Midlands with ruthless efficiency, taxed trade routes, and maintained the largest standing army in the region. Their motto — 'Order Through Strength' — adorned every checkpoint and garrison."
-                    },
-                    {
-                      "name": "The Onyx Hand",
-                      "color": "#212121",
-                      "icon": "🖐️",
-                      "description": "Neither loyalist nor legionnaire, the Onyx Hand operated in the spaces between. Part criminal syndicate, part shadow government, they controlled the flow of information, contraband, and — it was whispered — souls. Their tribunals dispensed a rough justice that many preferred to the chaos of the surface world."
-                    }
-                  ]
-                },
-                { "type": "spacer" },
-                { "type": "paragraph", "text": "The Iron Legion's rise deserves particular attention, for it represents something unprecedented in the kingdom's history: the transformation of violence from a means into an end. The Legion did not fight for territory, ideology, or vengeance. They fought because fighting was their industry, and peace was bad for business." },
-                {
-                  "type": "interactive_reveal",
-                  "label": "[ A dried flower presses flat between these pages. Lift it to read what's beneath → ]",
-                  "hidden_content": [
-                    { "type": "handwritten", "text": "I write this knowing I may not survive the week. The Iron Legion has discovered that I possess copies of their internal communications — letters proving they deliberately prolonged the war by funding BOTH sides of the Battle of Pipe Junction. Forty thousand dead, and they profited from every single one. If this book survives and I do not, let these words serve as my testimony. — Toadsworth the Elder, 1038 BF", "color": "#5C3317", "background": "#f5e6c8" }
-                  ],
-                  "secret_id": "iron_legion_war_profiteering"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter IV: The Modern Crisis",
-          "pages": [
-            {
-              "page_number": 8,
-              "content": [
-                { "type": "chapter_header", "text": "Chapter IV", "subtitle": "The Year 1040 BF — Everything Burns", "color": "#8B0000" },
-                { "type": "drop_cap", "letter": "A", "text": "s I write these final chapters, the ink still wet on some entries, I am acutely aware that I am no longer recording history. I am living it. The events of 1040 BF have unfolded with a speed and ferocity that defies the careful, measured analysis a historian owes their reader. I will do my best. Forgive the occasional trembling of the hand.", "color": "#3e2723" },
-                { "type": "paragraph", "text": "The year began with a death — as so many consequential years do. The dragon Ignis, an ancient wyrm who had laired in the northern mountains since before the founding of the kingdom, was slain by a band of adventurers. The act was celebrated by the militarists, who saw dragons as threats to be eliminated. The Mages' Guild, however, was furious." },
-                { "type": "paragraph", "text": "Ignis, they argued, was not merely a dragon. She was a living repository of magical knowledge, a creature whose scales resonated with frequencies of arcane energy that modern mages could barely comprehend. Her death was not a victory — it was the burning of a library. This philosophical divide — the sword versus the staff, pragmatism versus knowledge — would come to define the conflicts of 1040 BF." },
-                { "type": "divider", "style": "simple" },
-                { "type": "paragraph", "text": "Then came the matter of Archie Miser." },
-                { "type": "paragraph", "text": "Archie Miser is, depending on whom you ask, either a folk hero or a war criminal. A mage of considerable power and questionable judgment, Archie killed a fellow practitioner and was brought before an Onyx Hand tribunal — the only judicial body willing to hear the case, as the Mages' Guild demanded internal arbitration and the Loyalists had no functioning courts." },
-                {
-                  "type": "clickable_annotation",
-                  "text": "The tribunal acquitted him.",
-                  "annotation": "The acquittal of Archie Miser on Highsun 2, 1040 BF remains one of the most controversial judicial decisions in recent memory. The Onyx Hand tribunal, presided over by Judge Obsidian (a pseudonym), ruled that the killing constituted 'justifiable magical defense.' The Mages' Guild formally protested, calling the tribunal 'a puppet court run by criminals playing at justice.' Three Guild observers walked out during the verdict. One was later found dead under circumstances the Onyx Hand described as 'unrelated.'",
-                  "color": "#4a148c"
-                },
-                { "type": "paragraph", "text": "This single decision — rendered in a basement courtroom by hooded judges whose real names may never be known — set in motion a chain of events that would see airships seized, alliances shattered, and the very fabric of reality threatened." }
-              ]
-            },
-            {
-              "page_number": 9,
-              "content": [
-                { "type": "paragraph", "text": "The airship Vigilance became the unlikely stage upon which these grand conflicts played out. Originally a cargo vessel, the Vigilance had been converted into a mobile command post by a coalition of adventurers, opportunists, and idealists who found themselves bound together by circumstance rather than choice." },
-                { "type": "paragraph", "text": "The events aboard the Vigilance between Highsun 3 and Highsun 13 constitute what I have come to call the 'Thirteen Days of Chaos.' During this period, the following occurred in rapid, overlapping succession:" },
-                {
-                  "type": "list_dramatic",
-                  "items": [
-                    { "text": "A smuggling ring operated by the Iron Fists was dismantled, earning the party a bounty on their heads.", "color": "#e65100" },
-                    { "text": "An officer known only as X.O. betrayed the crew and seized control of the ship, taking Warlord Bowser himself as a captive.", "color": "#8B0000" },
-                    { "text": "The pirate Captain Syrup was freed, immediately turned hostile, and triggered a cascading series of confrontations that revealed a traitor among the toad crew.", "color": "#1565c0" },
-                    { "text": "A toad named hjumpik disabled the ship's power core with an axe — an act of either brilliant desperation or suicidal madness — sending the Vigilance into a terminal nosedive.", "color": "#2e7d32" },
-                    { "text": "Over 150 trafficked toads were discovered hidden in barrels throughout the ship, each accessible only via a secret compartment opened by a Mini-Mushroom.", "color": "#4a148c" },
-                    { "text": "Archie Miser unleashed a fireball during a negotiation gone wrong, killing numerous combatants including most of the Tea Leaf Syndicate's muscle.", "color": "#ff6f00" }
-                  ]
-                },
-                { "type": "spacer" },
-                { "type": "paragraph", "text": "Each of these events, taken alone, would constitute a significant historical incident. Together, compressed into less than a fortnight, they represent a concentration of chaos that I struggle to find parallel for in the historical record." },
-                {
-                  "type": "interactive_reveal",
-                  "label": "[ The bottom of this page is stained with what appears to be tea. Tilt the page to read the watermarked text → ]",
-                  "hidden_content": [
-                    { "type": "handwritten", "text": "Fawful has allied with DRAGONS. After we killed Ignis, he somehow brokered a deal with the remaining wyrms. Embercap's infiltration of Fawful's gala confirmed it before everything went wrong and Jade Grit died. If Fawful can command dragonfire, no faction can stand against him. We are running out of time. — T.E.", "color": "#006064", "background": "#e0f2f1" }
-                  ],
-                  "secret_id": "fawful_dragon_alliance"
-                }
-              ]
-            },
-            {
-              "page_number": 10,
-              "content": [
-                { "type": "chapter_header", "text": "Chapter V", "subtitle": "The Raventree Affair & The Fracturing of Reality", "color": "#8B0000" },
-                { "type": "drop_cap", "letter": "R", "text": "aventree Manor. Even the name carries weight — the kind of weight that presses down on the chest and makes breathing difficult. I visited the manor once, in my youth, before it became what it is now. It was beautiful then. A sprawling estate of dark wood and climbing roses, home to a minor noble family whose name has been deliberately struck from every record I can find.", "color": "#3e2723" },
-                { "type": "paragraph", "text": "Now Raventree is something else entirely. The manor sits at a nexus of planar fractures — tears in the fabric of reality itself — that have transformed it from a mere building into a wound in the world. Ghosts walk its halls not as metaphor but as literal fact. Rooms shift and rearrange themselves according to logics that defy cartography. The maze in the gardens is said to exist in multiple dimensions simultaneously." },
-                { "type": "paragraph", "text": "It was to Raventree that the events of 1040 BF inevitably led. The Mages' Guild, the Onyx Hand, the Iron Legion, the remnants of the Tea Leaf Syndicate, independent agents, vampires, parallel-dimension duplicates, and at least one very confused plumber all converged on the manor within the span of a single week." },
-                { "type": "paragraph", "text": "The reasons for this convergence are as numerous as the factions involved. The Mages' Guild sought to study — and exploit — the planar fractures. The Onyx Hand's vampire knights had established a nest within the manor, using dark crystals to sustain their undeath. The Iron Legion wanted the strategic position. And the adventurers of the Vigilance? They were simply trying to survive." },
-                {
-                  "type": "lore_box",
-                  "title": "THE PARALLEL DAN PARADOX",
-                  "border_color": "#4a148c",
-                  "background": "#f3e5f5",
-                  "entries": [
-                    "Dan the Toad exists in at least two simultaneous versions",
-                    "The 'original' Dan is believed held by the Mages' Guild in a null cage",
-                    "The 'parallel' Dan confessed his nature to Markop on Highsun 26",
-                    "Dan's existence disrupts the Oracle's ability to function",
-                    "The implications for reality stability are described as 'catastrophic'",
-                    "The Mages' Guild considers Dan's elimination an acceptable cost"
-                  ]
-                }
-              ]
-            },
-            {
-              "page_number": 11,
-              "content": [
-                { "type": "paragraph", "text": "The events within Raventree during Highsun 26–29 deserve a volume of their own, and I suspect some future historian will provide one. For now, I will record what I can verify:" },
-                { "type": "paragraph", "text": "Luigi — the brother of the legendary plumber Mario, long thought to be a figure of myth — appeared at the manor on the evening of Highsun 26. His arrival coincided with an assault by Onyx knights and a series of spectral manifestations that forced several members of the party to flee through windows, off verandas, and into the nightmare maze." },
-                { "type": "paragraph", "text": "Remi, the newest member of the Vigilance's crew — recruited, incredibly, after Wario handed her a box that turned out to be a bomb — found herself captured by the manor's Onyx knight garrison. During her captivity, she discovered Green T's battle plan: a frantic strategy scrawled on a linen napkin, detailing an assault to kill the vampires and destroy their sustaining crystals." },
-                { "type": "paragraph", "text": "Meanwhile, Archie Miser encountered Perrius Anamatar — a being of uncertain nature and considerable power — having tea in a sitting room as though the manor were not collapsing into dimensional chaos around him. When Archie accused him of orchestrating the chaos, Perrius responded by siccing spectral coats on Luigi. Archie's counter — a massive fireball in an enclosed room — was characteristically disproportionate." },
-                { "type": "divider", "style": "ornate" },
-                { "type": "paragraph", "text": "And then there was Bryan." },
-                { "type": "paragraph", "text": "Bryan. A toad who arrived through a Mages' Guild portal with a single, burning purpose: to find and punish Archie Miser. Bryan called himself a servant of the toad god. He recruited Purple T for his theft skills and coerced Dan and another mage into joining his hunt. He carried divination incense that could knock a target unconscious and a faith that burned hotter than any of Archie's fireballs." },
-                { "type": "paragraph", "style": "italic", "text": "The vendetta between Bryan and Archie is personal in a way that transcends faction politics. It is, at its core, about what happens when power meets conviction — and neither is willing to yield.", "color": "#8B0000" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Afterword",
-          "pages": [
-            {
-              "page_number": 12,
-              "content": [
-                { "type": "chapter_header", "text": "Afterword", "subtitle": "Written in Haste, Harvestide 30, 1040 BF", "color": "#8B0000" },
-                { "type": "paragraph", "text": "I set down my quill knowing this chronicle is incomplete. The events at Raventree continue to unfold even as I write. Lady Aurelian Corvinarus has made her requests. The twilight grove has revealed its horrors. The Mages' Guild plots to extract the ghosts regardless of the cost to the living." },
-                { "type": "paragraph", "text": "Archie was ambushed in a library — there is a bitter irony in that — and nearly killed by something the Guild has not deigned to name. He survived, though the circumstances of his rescue remain murky. A Purple Toad appeared as if from nowhere, sang a cryptic fortune-telling song, picked Archie's pockets with the casual ease of a master thief, and vanished through a portal of Archie's own making." },
-                { "type": "paragraph", "text": "Reality is fracturing. The Oracle is dead. A parallel Dan walks the world while the original rots in a null cage. Vampires feast in manor halls while bureaucrats charge two thousand gold for a broken rope. And somewhere, in a sealed room that appears on no blueprint, a secret hatch holds the answer to who killed Princess Peach eighty-five years ago." },
-                { "type": "spacer" },
-                { "type": "paragraph", "text": "I do not know if the kingdom can be saved. I do not know if it deserves to be. What I know is that there are those who are trying — imperfect, chaotic, frequently at each other's throats — but trying nonetheless." },
-                { "type": "spacer" },
-                { "type": "quote", "text": "\"The kingdom is not its borders or its crown. The kingdom is its people — stubborn, foolish, magnificent people who refuse to let the darkness have the final word.\"", "attribution": "— Toadsworth the Elder, final entry", "color": "#8B0000" },
-                { "type": "spacer" },
-                { "type": "centered", "text": "— END OF VOLUME ONE —", "color": "#8B0000", "style": "bold", "size": "large" },
-                { "type": "spacer" },
-                { "type": "centered", "text": "[ This volume was recovered from a hollowed-out mushroom stump near the ruins of Toad Town. The author's fate is unknown. ]", "color": "#999", "style": "italic" }
-              ]
-            }
+          "page_number": 1,
+          "content": [
+            { "type": "centered", "text": "~CHRONICLES OF THE MUSHROOM THRONE~", "color": "#8B0000", "style": "bold", "size": "large" },
+            { "type": "centered", "text": "A Complete History of the Kingdom's Fall", "color": "#666", "style": "italic" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "Compiled by Scribe Toadsworth the Elder", "color": "#8B4513" },
+            { "type": "centered", "text": "Royal Chamberlain, Keeper of the Seal", "color": "#8B4513" },
+            { "type": "centered", "text": "Year 1040 BF, Harvestide", "color": "#8B4513" },
+            { "type": "spacer" },
+            { "type": "divider", "style": "ornate" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "To whomever finds this volume: know that what follows is not mere academic record. It is a confession. My family has guarded the secrets of the Mushroom Throne for three generations, and those secrets have curdled inside us like milk left too long in the sun. My father knew more than he told. My son, Chancellor Toadsworth, knows more than he admits. And I — I know the most terrible thing of all: that silence can be more lethal than any blade." },
+            { "type": "paragraph", "text": "I began this work in the year 1020 BF, believing I was compiling history. Now, twenty years later and writing by candlelight in a safehouse I dare not name, I understand that I was compiling evidence. The distinction matters. History is written by the victors. Evidence is what the victors tried to destroy." },
+            { "type": "spacer" },
+            { "type": "quote", "text": "\"Let the ink remember what the kingdom chooses to forget. And let the guilty choke on every word.\"", "attribution": "— Inscription on the Royal Scribe's Seal (defaced version, recovered 1038 BF)", "color": "#8B0000" }
           ]
         }
       ]
     },
     {
-      "id": "iron-legion-field-manual",
-      "title": "Iron Legion Field Manual",
-      "subtitle": "Standard Operating Procedures, 12th Edition",
-      "author": "Legion Command",
-      "cover_color": "#37474f",
-      "cover_accent": "#90a4ae",
-      "icon": "⚔️",
-      "category": "Military",
-      "rarity": "Uncommon",
-      "locked": true,
-      "lock_message": "This manual is sealed with an Iron Legion cipher lock. You need the Legion's trust — or their carelessness — to open it.",
-      "condition": "Pristine",
-      "description": "A rigid, metal-bound manual stamped with the Iron Legion's crest. The pages are thin steel sheets etched with precise text.",
-      "page_color": "#eceff1",
-      "text_color": "#263238",
-      "total_pages": 0,
-      "secrets_total": 0,
-      "chapters": []
+      "title": "Chapter I: The Golden Age",
+      "pages": [
+        {
+          "page_number": 2,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter I", "subtitle": "The Golden Age Before the Fall", "color": "#8B0000" },
+            { "type": "drop_cap", "letter": "I", "text": "n the years before Highsun 1, 955 BF, the Mushroom Kingdom existed in a state that later generations would regard with equal parts reverence and disbelief. The Princess ruled not through force of arms, but through an intricate web of alliances, trade agreements, and — if the more controversial historians are to be believed — genuine goodwill.", "color": "#3e2723" },
+            { "type": "paragraph", "text": "The kingdom's borders stretched from the Pipe Labyrinths in the south to the Star Road waypoints in the north. Trade caravans moved freely, protected by the Toad Guard — a civil militia more accustomed to settling disputes over market stalls than wielding weapons in anger." },
+            { "type": "paragraph", "text": "Princess Peach herself was, by all surviving accounts, a ruler of remarkable complexity. The popular image — the gentle monarch in pink, eternally gracious — obscures a political mind of considerable sharpness. Palace correspondence recovered from the ruins of Toad Town reveals a leader who personally negotiated trade tariffs, who maintained a spy network that predated the Onyx Hand by decades, and who kept detailed dossiers on every noble family in the realm." },
+            { "type": "interactive_reveal", "label": "[ Examine the marginalia scrawled in the margin → ]", "hidden_content": [
+              { "type": "handwritten", "text": "She also kept secrets that killed her. I found letters in the sealed vault — letters to someone she addressed only as 'T.' The handwriting trembles in places. These were not political correspondences. Chief Thornpaw of the Rakasha — his scouts confirmed at Fawful's gala what I suspected for decades. They were lovers. And someone used that love as a weapon. The secret hatch in her chambers — he knew about it because she SHOWED him. Intimacy became the murder weapon. — T.E.", "color": "#5C3317", "background": "#f5e6c8" }
+            ], "secret_id": "peach_thornpaw_secret" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The economy flourished under a coin standard backed by Star Bits — crystallized fragments of celestial energy harvested from the Star Road. A single Star Bit could power a household's heating crystal for a season, making them simultaneously currency and commodity. This dual nature would later prove catastrophic when the Star Road was severed during the wars." }
+          ]
+        },
+        {
+          "page_number": 3,
+          "content": [
+            { "type": "paragraph", "text": "The Toad populace — who comprised roughly sixty percent of the kingdom's citizens — lived in relative comfort. Mushroom houses, grown rather than built, dotted the landscape in cheerful clusters. Each settlement maintained a communal garden, a message relay station connected to the capital via warp pipe, and at least one shrine to the Star Spirits." },
+            { "type": "paragraph", "text": "Yet even in this golden age, shadows gathered at the margins. The Koopa Clans to the east had unified under a warlord known only as 'the Bowser' — a title, not a name, though the distinction has been lost to common usage. The Boo Aristocracy grew increasingly isolationist, sealing their mansions behind spectral barriers. And in the deep places beneath the kingdom, in caverns lit by bioluminescent fungi, something ancient stirred." },
+            { "type": "lore_box", "title": "THE STAR ROAD NETWORK", "border_color": "#FFD700", "background": "#fffde7", "entries": [
+              "Seven Star Road waypoints connected major population centers",
+              "Travel between waypoints was instantaneous but required a Star Visa",
+              "The network was maintained by the Star Spirit Council",
+              "Annual Star Bit harvest provided 73% of the kingdom's energy needs",
+              "The network's destruction in 962 BF caused the 'Long Dark' — three years without reliable power",
+              "Some believe the Star Road was destroyed deliberately to prevent escape"
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The final census before the assassination, conducted in 953 BF, recorded a kingdom of approximately 2.3 million souls. By the time the civil war ground to its exhausted conclusion eighty years later, that number had fallen below 800,000. Nearly two-thirds of a civilization, erased. My father called it 'the slow hemorrhage.' The kingdom did not die screaming — it bled out in the dark, one village at a time." },
+            { "type": "paragraph", "style": "italic", "text": "But I am getting ahead of myself. Before the blood, there was the betrayal. And before the betrayal, there was one final, perfect day — the last day Princess Peach would ever see.", "color": "#8B0000" }
+          ]
+        }
+      ]
     },
     {
-      "id": "boo-aristocracy-etiquette",
-      "title": "Etiquette Among the Ethereal",
-      "subtitle": "A Guide to Boo Society & Protocol",
-      "author": "Duchess Booella von Shriek",
-      "cover_color": "#4a148c",
-      "cover_accent": "#ce93d8",
-      "icon": "👻",
-      "category": "Culture",
-      "rarity": "Rare",
-      "locked": true,
-      "lock_message": "The spectral binding on this book requires you to answer a riddle posed by the Boo Aristocracy. Perhaps one of their mansions holds the answer.",
-      "condition": "Ghostly",
-      "description": "A translucent tome that phases in and out of visibility. Cold to the touch.",
-      "page_color": "#f3e5f5",
-      "text_color": "#4a148c",
-      "total_pages": 0,
-      "secrets_total": 0,
-      "chapters": []
+      "title": "Chapter II: The Assassination",
+      "pages": [
+        {
+          "page_number": 4,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter II", "subtitle": "Highsun 1, 955 BF — The Day the Kingdom Died", "color": "#8B0000" },
+            { "type": "drop_cap", "letter": "T", "text": "he morning of Highsun 1, 955 BF began with celebrations. The Summer Solstice Festival — the kingdom's largest annual gathering — drew citizens from every province to the capital. Banners of pink and white hung from every lamppost. The smell of fire-roasted mushroom caps and Star Candy filled the streets. No one knew they were attending a funeral.", "color": "#3e2723" },
+            { "type": "paragraph", "text": "Princess Peach was scheduled to address the kingdom from the balcony of the Royal Palace at the fourteenth hour. She had done so every Highsun for the previous thirty-two years of her reign. The speech was traditionally brief — a blessing, a few words of gratitude, the ceremonial lighting of the Solstice Flame." },
+            { "type": "paragraph", "text": "She never reached the balcony." },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "At approximately the thirteenth hour and forty minutes, while the Princess was in her private chambers completing her preparations, an unknown assailant or assailants breached the Royal Suite. The method of entry remains one of the great unsolved mysteries of our age. The suite was protected by seventeen distinct magical wards, guarded by four elite Toad Guards, and accessible only through a single reinforced door." },
+            { "type": "paragraph", "text": "But there was another way in. A way known only to the Princess and those she trusted with her life. A way that does not appear on any blueprint, any ward schematic, any architectural survey." },
+            { "type": "interactive_reveal", "label": "[ A passage has been hastily glued over the original text. Carefully peel it back → ]", "hidden_content": [
+              { "type": "handwritten", "text": "The secret hatch. Thornpaw told Mistveil at the gala that Peach showed it to him personally — her private escape route, her lover's entrance. Someone else learned about it. Someone close enough to discover a secret shared between a princess and her forbidden lover. The guard rotation logs show a 47-MINUTE GAP that morning — someone with authority pulled the guards away. My father's journals reference 'the arrangement.' He KNEW. The Regency KNEW. They let it happen because they stood to inherit a kingdom. — T.E., added Highsun 10, 1040 BF", "color": "#8B0000", "background": "#ffe0e0" }
+            ], "secret_id": "secret_hatch_revelation" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The four guards were found dead at their posts, unmarked. No wounds, no poison residue, no signs of struggle. Court mages later determined they had been killed by a simultaneous cessation of all biological function — a spell so advanced that fewer than five living practitioners were believed capable of casting it. The Mages' Guild claimed jurisdiction over the magical evidence. My father let them have it. I have spent twenty years wondering why." }
+          ]
+        },
+        {
+          "page_number": 5,
+          "content": [
+            { "type": "paragraph", "text": "The Princess herself was found seated at her vanity, still holding a hairbrush. A single wound — a thin blade through the base of the skull — had killed her instantly. The precision suggested either medical knowledge or supernatural guidance. No blood had been spilled on her white dress. Whoever killed her did so with the tenderness of a lover." },
+            { "type": "paragraph", "text": "The body was discovered by her handmaiden, Lady Bloomia — a young toad who had served the Princess since childhood. Bloomia's scream was heard three floors below. Within minutes, the palace was in lockdown. Within hours, the kingdom was in chaos. Within two weeks, Lady Bloomia herself had vanished." },
+            { "type": "paragraph", "text": "The official record states that Lady Bloomia 'departed the capital for personal reasons.' The unofficial record — the one my father kept locked in a separate vault — tells a different story. Bloomia ran because she saw something. Or someone. And whoever she saw wanted her silenced." },
+            { "type": "interactive_reveal", "label": "[ A dried bloodstain marks this section. Beneath it, text has been scratched into the page with a pin → ]", "hidden_content": [
+              { "type": "handwritten", "text": "Lady Bloomia did not simply vanish. She was HUNTED. A founding martyr of the Loyalist movement — known only as 'The Silent One' — died in the castle's servant passages protecting Bloomia's escape. She carried documents. What documents? I have searched for decades. The Loyalists believe these documents contain proof of who ordered the assassination. If Bloomia is alive, she is the most important witness in the kingdom. If she is dead, those documents are the most important evidence. Either way — FIND HER. — T.E.", "color": "#8B0000", "background": "#f5e0d0" }
+            ], "secret_id": "bloomia_disappearance" },
+            { "type": "divider", "style": "ornate" },
+            { "type": "paragraph", "text": "What followed was not grief. Grief implies a wound that can heal. What followed was an unraveling — slow at first, then catastrophic. The Princess had no heir. No designated successor. The Council of Toads, designed to advise rather than rule, found itself thrust into a role it was neither equipped nor authorized to fill. My father, Toadsworth the Elder, stepped into the vacuum. He called it duty. Others called it opportunity." },
+            { "type": "puzzle_cipher", "title": "ENCODED PASSAGE", "description": "The following passage has been encoded by the author. Each letter is shifted by 3 positions in the alphabet.", "encoded_text": "WKH DVVDVVLQ HQWHUHG WKURXJK WKH KDWFK. WKH JXDUGV ZHUH SXOOHG DW PB IDWKHU'V RUGHU. KH FDOOHG LW 'WKH DUUDQJHPHQW.' JRG IRUJLYH KLP. JRG IRUJLYH PH IRU NHHSLQJ VLOHQW.", "solution": "THE ASSASSIN ENTERED THROUGH THE HATCH. THE GUARDS WERE PULLED AT MY FATHER'S ORDER. HE CALLED IT 'THE ARRANGEMENT.' GOD FORGIVE HIM. GOD FORGIVE ME FOR KEEPING SILENT.", "hint": "Caesar cipher, shift of 3. A=D, B=E, C=F...", "secret_id": "cipher_the_arrangement" }
+          ]
+        }
+      ]
     },
     {
-      "id": "mages-guild-primer",
-      "title": "Foundations of the Arcane",
-      "subtitle": "An Introductory Primer for Guild Initiates",
-      "author": "Archmagister Eldwin",
-      "cover_color": "#1565c0",
-      "cover_accent": "#64b5f6",
-      "icon": "🔮",
-      "category": "Arcana",
-      "rarity": "Common",
-      "locked": true,
-      "lock_message": "This book is property of the Mages' Guild. Unauthorized access will result in a fine of no less than 500 gold pieces and/or partial disintegration.",
-      "condition": "Good",
-      "description": "A standard-issue blue tome given to all Guild initiates. Smells faintly of ozone.",
-      "page_color": "#e3f2fd",
-      "text_color": "#0d47a1",
-      "total_pages": 0,
-      "secrets_total": 0,
-      "chapters": []
+      "title": "Chapter III: The Century of Blood",
+      "pages": [
+        {
+          "page_number": 6,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter III", "subtitle": "The Century of Blood (955–1035 BF)", "color": "#8B0000" },
+            { "type": "drop_cap", "letter": "W", "text": "ar, when it comes to the Mushroom Kingdom, does not arrive as a thunderclap. It seeps in like water through cracked stone — slowly, silently, and by the time you notice, the foundations have already given way. My father watched it happen. He could have stopped it. He chose not to, because chaos served his purpose.", "color": "#3e2723" },
+            { "type": "paragraph", "text": "The first decade of conflict (955–965 BF) is remembered as the 'War of Banners,' named for the dozens of minor lords and self-proclaimed heirs who raised their own standards and declared sovereignty over patches of territory no larger than a few villages. The Regency — MY family's Regency — could have imposed order. Instead, my father allowed the factions to exhaust themselves, ensuring that when the dust settled, only the Regency remained standing." },
+            { "type": "paragraph", "text": "The official narrative blamed Bowser and the Koopa Troop for the assassination. The evidence was circumstantial — a Koopa-forged blade found near the scene, reports of Koopa scouts in the capital. Convenient. Too convenient. Bowser has denied involvement for eighty-five years, and the evidence against him has never been subjected to independent verification. Because my father's Regency controlled the investigation. Because the Mages' Guild controlled the magical evidence. Because everyone who might have contradicted the official story either vanished or died." },
+            { "type": "timeline", "title": "KEY EVENTS OF THE CENTURY WAR", "border_color": "#8B0000", "events": [
+              { "year": "955 BF", "event": "Assassination of Princess Peach. Three guard witnesses give contradictory testimony.", "color": "#8B0000" },
+              { "year": "956 BF", "event": "Two guard witnesses die under suspicious circumstances. Captain Silvercap vanishes.", "color": "#4a148c" },
+              { "year": "956 BF", "event": "Lady Bloomia disappears. 'The Silent One' dies protecting her escape.", "color": "#e91e63" },
+              { "year": "962 BF", "event": "Star Road network destroyed. The Long Dark begins.", "color": "#4a148c" },
+              { "year": "970 BF", "event": "First Koopa Incursion. Eastern provinces fall within months.", "color": "#e65100" },
+              { "year": "980 BF", "event": "Loyalist Founding Council asks 'Cui Bono?' — who benefited from Peach's death?", "color": "#e91e63" },
+              { "year": "988 BF", "event": "The Boo Aristocracy seals all mansions. Thousands of refugees turned away to die.", "color": "#1a237e" },
+              { "year": "1001 BF", "event": "Battle of Pipe Junction. 40,000 casualties. The Iron Legion funded BOTH sides.", "color": "#8B0000" },
+              { "year": "1015 BF", "event": "The Onyx Hand emerges. Their tribunals offer the only justice the kingdom has left.", "color": "#212121" },
+              { "year": "1035 BF", "event": "Rise of the Iron Legion. A mercenary company becomes a state.", "color": "#37474f" }
+            ] }
+          ]
+        },
+        {
+          "page_number": 7,
+          "content": [
+            { "type": "paragraph", "text": "By the midpoint of the century, the war had evolved from territorial disputes into something more ideological. Three great power blocs had crystallized from the chaos, each believing — or claiming to believe — that they represented the kingdom's best future:" },
+            { "type": "faction_box", "factions": [
+              {
+                "name": "The Peach Loyalists",
+                "color": "#e91e63",
+                "icon": "🍑",
+                "description": "A fanatical resistance movement dedicated to avenging the Princess and uncovering the truth. Led by Captain Toadette — a woman of terrifying conviction — they have waged an unrelenting shadow war for decades. Their methods are brutal: the Bramblehaven massacre, the Toad Town coup, targeted assassinations. They call themselves freedom fighters. The Regency calls them terrorists. The truth, as always, is written in blood."
+              },
+              {
+                "name": "The Iron Legion",
+                "color": "#607d8b",
+                "icon": "⚔️",
+                "description": "What began as the 'Midlands Mercenary Company' had, by 1035 BF, transformed into a military-industrial state. They controlled the Midlands with ruthless efficiency, taxed trade routes, and maintained the largest standing army in the region. Their involvement in toad trafficking — over 150 souls found hidden in barrels aboard the Vigilance — reveals the rot at their core."
+              },
+              {
+                "name": "The Onyx Hand",
+                "color": "#212121",
+                "icon": "🖐️",
+                "description": "Neither loyalist nor legionnaire, the Onyx Hand operates in the spaces between. Part criminal syndicate, part shadow government, they control the flow of information, contraband, and — it is whispered — souls. Their vampire knights nest in places like Raventree Manor, sustained by dark crystals. Their tribunals are the only courts where a toad can receive something resembling justice."
+              }
+            ] },
+            { "type": "spacer" },
+            { "type": "interactive_reveal", "label": "[ A dried flower presses flat between these pages. Lift it to read what's beneath → ]", "hidden_content": [
+              { "type": "handwritten", "text": "The Iron Legion funded both sides of the Battle of Pipe Junction. Forty thousand dead, and they profited from every one. But here is what haunts me: my father KNEW. I found the correspondence. The Regency received a percentage of the Legion's war profits in exchange for 'territorial non-interference.' My family is stained with the blood of forty thousand souls. And my son — Chancellor Toadsworth — inherited the arrangement. He maintains it still. The Loyalists are RIGHT to hunt us. — T.E., 1038 BF", "color": "#5C3317", "background": "#f5e6c8" }
+            ], "secret_id": "iron_legion_war_profiteering" }
+          ]
+        }
+      ]
     },
+    {
+      "title": "Chapter IV: The Modern Crisis",
+      "pages": [
+        {
+          "page_number": 8,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter IV", "subtitle": "The Year 1040 BF — Everything Burns", "color": "#8B0000" },
+            { "type": "drop_cap", "letter": "A", "text": "s I write these final chapters, the ink still wet on some entries, I am acutely aware that I am no longer recording history. I am watching the kingdom's death throes. Captain Toadette's Loyalists seized Toad Town on Day 12. My son is under house arrest. The Mayor is dead — executed by the Vengeance Cell. And the evidence the Loyalists found in the Regency's communication records has confirmed what I have known for twenty years: the cover-up is real, and my family built it.", "color": "#3e2723" },
+            { "type": "paragraph", "text": "The year began with a death that set everything in motion. The dragon Ignis, an ancient wyrm who had laired in the northern mountains since before the founding of the kingdom, was slain by a band of adventurers. The Mages' Guild was furious — Ignis was a living repository of arcane knowledge. But the true catastrophe came after: Fawful, the mad tactician, somehow brokered an alliance with the five remaining dragons. He walked through their fire unburned. The dragons found this... compelling." },
+            { "type": "paragraph", "text": "Then came the matter of Archie Miser. Acquitted of killing a mage by an Onyx Hand tribunal, Archie became a chaos agent of staggering proportions. His actions aboard the airship Vigilance — fireballs in enclosed spaces, civilian casualties treated as acceptable collateral — embody everything that has gone wrong with our kingdom. We have become a place where violence is the default language, where diplomacy is considered weakness, where a man can kill dozens and walk free because the only court willing to hear the case is run by criminals." },
+            { "type": "divider", "style": "simple" },
+            { "type": "paragraph", "text": "The Vigilance itself became a microcosm of the kingdom's disease. In the space of thirteen days:" },
+            { "type": "list_dramatic", "items": [
+              { "text": "X.O. betrayed the crew and seized control of the ship, taking Warlord Bowser captive.", "color": "#8B0000" },
+              { "text": "Captain Syrup was freed, turned hostile, and triggered a cascade of betrayals.", "color": "#1565c0" },
+              { "text": "A toad named hjumpik disabled the power core with an axe — sending the ship into a nosedive.", "color": "#2e7d32" },
+              { "text": "Over 150 trafficked toads were found hidden in barrels, each sealed with Mini-Mushroom compartments.", "color": "#4a148c" },
+              { "text": "Archie unleashed a fireball during negotiations, killing most of the Tea Leaf Syndicate's muscle.", "color": "#ff6f00" },
+              { "text": "The Iron Legion revealed their role in the trafficking and demanded prisoners be surrendered.", "color": "#37474f" }
+            ] }
+          ]
+        },
+        {
+          "page_number": 9,
+          "content": [
+            { "type": "paragraph", "text": "But it is the Loyalists' actions that will define this year in the histories yet to be written. Captain Toadette is either the kingdom's savior or its final executioner, and I am no longer certain which." },
+            { "type": "paragraph", "text": "The Bramblehaven massacre haunts me. Six hundred Loyalists assaulted Fawful's fortress. Two hundred defenders — soldiers, yes, but also cooks, clerks, stable hands — were killed to the last soul. No quarter given, by Toadette's personal order. All prisoners executed. The Regal Empire has opened a formal war crimes inquiry. Toadette's response was to order further operations." },
+            { "type": "paragraph", "text": "And yet — and this is the bitter irony that poisons my sleep — she may be RIGHT. The Regency covered up the assassination. My family profited from the war. The Iron Legion sold toad lives like cattle. The Mages' Guild suppressed evidence. Every institution that should have sought justice instead sought advantage, and the only people who continued demanding the truth were the ones society calls terrorists." },
+            { "type": "lore_box", "title": "THE LOYALIST INVESTIGATION — KEY BREAKTHROUGHS", "border_color": "#e91e63", "background": "#fce4ec", "entries": [
+              "955 BF: Three guard witnesses give contradictory testimony. Two die within a year.",
+              "956 BF: Lady Bloomia escapes with unknown documents, protected by 'The Silent One.'",
+              "998 BF: Archivist Inkwell discovers 47-minute gap in guard rotation logs.",
+              "1010 BF: Captain Toadette recovers Toadsworth Sr.'s private journals mentioning 'the arrangement.'",
+              "1035 BF: Loyalist intelligence network confirms the Regency actively suppressed investigation leads.",
+              "1040 BF: Thornpaw reveals secret hatch and his relationship with Princess Peach.",
+              "1040 BF: Ryan's spirit vision claims to show fragmentary images of the killer's face."
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The pieces are falling into place. After eighty-five years, the truth is emerging from the shadows like something that has been buried alive — decomposed but still recognizable, still reaching for the light with rotting hands." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter V: Raventree",
+      "pages": [
+        {
+          "page_number": 10,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter V", "subtitle": "The Raventree Affair & The Fracturing of Reality", "color": "#8B0000" },
+            { "type": "drop_cap", "letter": "R", "text": "aventree Manor sits at a nexus of planar fractures — tears in the fabric of reality itself — that have transformed it from a mere building into a wound in the world. Ghosts walk its halls not as metaphor but as literal fact. Rooms shift and rearrange themselves. The maze in the gardens exists in multiple dimensions simultaneously. And every faction in the kingdom has converged upon it like flies on a corpse.", "color": "#3e2723" },
+            { "type": "paragraph", "text": "The reasons for this convergence are as numerous as the factions involved. The Mages' Guild sought to study — and exploit — the planar fractures. The Onyx Hand's vampire knights had established a nest within the manor, using dark crystals to sustain their undeath. The Iron Legion wanted the strategic position. Fawful's agents prowled the corridors. And the adventurers of the Vigilance — that unlikely coalition of heroes, criminals, and confused bystanders — simply tried to survive." },
+            { "type": "paragraph", "text": "Luigi appeared. The brother of the legendary plumber Mario — long thought to be a figure of myth — walked through a door on the evening of Highsun 26 as if arriving for dinner. His arrival coincided with an assault by Onyx knights that forced the party to flee through windows, off verandas, and into the nightmare maze." },
+            { "type": "paragraph", "text": "Remi — recruited after Wario handed her a bomb disguised as a gift — was captured by the vampire garrison. During her captivity, she discovered Green T's battle plan on a linen napkin. Archie encountered Perrius Anamatar having tea in a sitting room as reality collapsed around him. Bryan the toad arrived through a Guild portal with divination incense and a vendetta. The Purple Toad picked pockets and sang prophecies. And through it all, the parallel Dan walked the halls like a ghost who didn't know he was dead." },
+            { "type": "lore_box", "title": "THE PARALLEL DAN PARADOX", "border_color": "#4a148c", "background": "#f3e5f5", "entries": [
+              "Dan the Toad exists in at least two simultaneous versions",
+              "The 'original' Dan is believed held by the Mages' Guild in a null cage",
+              "The 'parallel' Dan confessed his nature to Markop on Highsun 26",
+              "Dan's existence disrupts the Oracle's ability to function — the Oracle is now dead",
+              "The Mages' Guild considers Dan's elimination an acceptable cost",
+              "The implications for reality stability are described as 'catastrophic'"
+            ] }
+          ]
+        },
+        {
+          "page_number": 11,
+          "content": [
+            { "type": "paragraph", "text": "But it is the Mages' Guild's actions at Raventree that frighten me most. Archie overheard Luigi and a Guild member discussing plans to extract the ghosts from the manor — regardless of the cost to the living or the stability of the planar fractures. They agreed that Archie's death would be an acceptable price. They said this while he dangled from a rope above them." },
+            { "type": "paragraph", "text": "The rope snapped. They noticed. And then the Guild handed Archie an itemized bill for the broken rope totaling over two thousand gold in administrative fees. This is the world we live in now: a world where bureaucrats charge murder victims for the cost of the noose." },
+            { "type": "paragraph", "text": "Lady Aurelian Corvinarus made her requests — bone, ash, chalk, and iron from hjumpik. The twilight grove revealed its horrors: hunched, gray-skinned mazebounds in a forest of shadow crows and cursed artifacts. Archie was ambushed in the library by something the Guild won't name. And a spy was discovered in a ransacked sitting room, claiming to be 'looking for a toad' while the world burned around him." },
+            { "type": "interactive_reveal", "label": "[ The bottom of this page is stained with what appears to be tea. Tilt the page to read the watermarked text → ]", "hidden_content": [
+              { "type": "handwritten", "text": "Fawful has allied with DRAGONS. Five of them. After we killed Ignis, he somehow brokered a deal with the remaining wyrms. He walked through their combined breath attacks unburned. No one knows how. The Star Spirits' prophecy calls him 'the one who cannot burn.' If Fawful commands dragonfire and the Guild controls planar fractures, the conventional factions — Regency, Legion, even the Loyalists — are finished. We are watching the end of the world as we know it, and most people are too busy fighting each other to look up. — T.E.", "color": "#006064", "background": "#e0f2f1" }
+            ], "secret_id": "fawful_dragon_alliance" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter VI: The Reckoning",
+      "pages": [
+        {
+          "page_number": 12,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter VI", "subtitle": "What My Family Has Done", "color": "#8B0000" },
+            { "type": "drop_cap", "letter": "I", "text": " have spent this entire chronicle hiding behind the historian's detachment, referring to 'the Regency' as if it were an abstraction rather than my father, my son, myself. No more. If this is to be a confession, let it be a complete one.", "color": "#3e2723" },
+            { "type": "paragraph", "text": "My father, Toadsworth the Elder, was the Royal Chamberlain on the day Princess Peach was murdered. His private journals — recovered by Captain Toadette in 1010 BF — contain references to 'the arrangement' and 'those who benefit from chaos.' I have read those journals. I know what 'the arrangement' was." },
+            { "type": "paragraph", "text": "My father did not order the assassination. But he knew it was coming. He was approached — by whom, his journals do not say — and offered a choice: prevent it and remain a servant, or allow it and become a ruler. He chose power. He arranged the guard rotation gap. He ensured the investigation was compromised. He let the Mages' Guild take control of the evidence because the Guild was part of the arrangement." },
+            { "type": "paragraph", "text": "He did not know about the hatch. That detail was withheld from him — insurance, perhaps, by whoever orchestrated the killing. My father provided ACCESS but not METHOD. The distinction matters legally. It does not matter morally." },
+            { "type": "puzzle_cipher", "title": "FROM TOADSWORTH SR.'S PRIVATE JOURNAL", "description": "This passage was encoded using a substitution cipher where each vowel is shifted forward by one position (A→E, E→I, I→O, O→U, U→A) while consonants remain unchanged.", "encoded_text": "THI GAOLD PRIVODID THI BEDI. THI REGONCY PRIVODID THI UCCISS. O DU NUT KNUW WHU HILD THI KNOVI. BLIUMOE SEW THIM. SHI RANS.", "solution": "THE GUILD PROVIDED THE BLADE. THE REGENCY PROVIDED THE ACCESS. I DO NOT KNOW WHO HELD THE KNIFE. BLOOMIA SAW THEM. SHE RAN.", "hint": "Vowel shift: A→E, E→I, I→O, O→U, U→A. Consonants unchanged.", "secret_id": "cipher_toadsworth_confession" }
+          ]
+        },
+        {
+          "page_number": 13,
+          "content": [
+            { "type": "paragraph", "text": "My son, Chancellor Toadsworth, inherited the cover-up along with the title. He maintains the Regency's arrangement with the Iron Legion. He has suppressed investigation leads. He has — I suspect — ordered the elimination of witnesses, though I cannot prove this and pray I am wrong." },
+            { "type": "paragraph", "text": "When Captain Toadette seized Toad Town and placed my son under house arrest, she was not attacking an innocent government. She was dragging a guilty one into the light. The Mayor she killed had signed execution orders for three Loyalist operatives whose only crime was asking questions about the assassination. The financial ledgers the Loyalists recovered show payments from the Iron Legion to Regency officials — my son's signature on the receipts." },
+            { "type": "paragraph", "text": "I am not writing this to excuse the Loyalists' methods. The Bramblehaven massacre was an atrocity. The execution of prisoners violates every law of war. Captain Toadette's fanaticism has caused as much suffering as the conspiracy she seeks to expose. But a disease is not cured by ignoring it, and the kingdom's disease has been ignored for eighty-five years." },
+            { "type": "divider", "style": "ornate" },
+            { "type": "paragraph", "text": "Captain Toadette calls herself a servant of the dead Princess. She has built a movement on six sacred tenets, the first of which declares Peach eternal — not merely remembered but deified. Her operatives — Embercap, Mistveil, Bloodcap, Stonecap — kill in the Princess's name with the certainty of zealots. They leave roses at the scenes of their assassinations, thorns wet with blood." },
+            { "type": "paragraph", "text": "And yet. AND YET. They are the only ones who kept looking. While my family buried the truth, while the Guild locked away the evidence, while the Legion sold toad lives for profit — the Loyalists kept searching. Archivist Inkwell found the guard rotation gap. Toadette found my father's journals. Mistveil extracted the Thornpaw revelation. They found the secret hatch. They are closer to the truth than anyone has been in eight decades." },
+            { "type": "paragraph", "style": "italic", "text": "The fanatical terrorists are the only honest people left in the kingdom. What does that say about us?", "color": "#8B0000" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afterword",
+      "pages": [
+        {
+          "page_number": 14,
+          "content": [
+            { "type": "chapter_header", "text": "Afterword", "subtitle": "Written in Haste, Harvestide 30, 1040 BF", "color": "#8B0000" },
+            { "type": "paragraph", "text": "I set down my quill knowing this chronicle will likely be my death warrant. My son will call it treason. The Mages' Guild will call it unauthorized disclosure. The Iron Legion will call it a target acquisition. Only the Loyalists might call it what it is: the truth, delivered too late and at too great a cost." },
+            { "type": "paragraph", "text": "The events at Raventree continue. Reality fractures. The Oracle is dead. A parallel Dan walks the world while the original rots in a null cage. Fawful commands dragonfire. The Mages' Guild plots extractions that could kill everyone in the manor. And somewhere — in hiding, in a grave, in a dimension that shouldn't exist — Lady Bloomia holds the final pieces of a puzzle that has consumed this kingdom for eighty-five years." },
+            { "type": "paragraph", "text": "Find her. Find what she carries. Find the name of the person who walked through the secret hatch on Highsun 1, 955 BF, and put a blade through the skull of the most beloved ruler this kingdom has ever known." },
+            { "type": "paragraph", "text": "Find the truth. And when you find it, do not do what my family did. Do not bury it. Do not profit from it. Do not 'arrange' it into a shape that serves your ambition." },
+            { "type": "paragraph", "text": "Scream it from the highest tower. Let the kingdom hear. Let the guilty choke on it." },
+            { "type": "spacer" },
+            { "type": "quote", "text": "\"The kingdom is not its borders or its crown. The kingdom is its people — stubborn, foolish, magnificent people who deserve to know what was done to them in the dark. My family stole that truth. I return it now, stained with my father's guilt and my own cowardice. May it be enough.\"", "attribution": "— Toadsworth the Elder, final entry", "color": "#8B0000" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "— END OF VOLUME ONE —", "color": "#8B0000", "style": "bold", "size": "large" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "[ This volume was recovered from a hollowed-out mushroom stump near the ruins of Toad Town. The author was found dead three days later. Cause of death: spontaneous arcane feedback. The Mages' Guild described the incident as 'unrelated.' ]", "color": "#999", "style": "italic" }
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "id": "coronation-day",
+  "title": "Coronation Day",
+  "subtitle": "The Lost Testimony of Lady Bloomia",
+  "author": "Lady Bloomia (recovered manuscript)",
+  "cover_color": "#4a0028",
+  "cover_accent": "#ff80ab",
+  "icon": "🥀",
+  "category": "History",
+  "rarity": "Legendary",
+  "locked": false,
+  "lock_message": "",
+  "condition": "Damaged",
+  "description": "A slim volume bound in water-stained pink silk. The handwriting grows increasingly erratic toward the end. Found in a sealed compartment in a Loyalist safehouse, this manuscript is believed to be the testimony of Lady Bloomia — Princess Peach's handmaiden who vanished after the assassination. Its authenticity is disputed. Its contents are devastating.",
+  "page_color": "#fff0f5",
+  "text_color": "#4a1a2c",
+  "total_pages": 16,
+  "secrets_total": 8,
+  "chapters": [
+    {
+      "title": "Preface",
+      "pages": [
+        {
+          "page_number": 1,
+          "content": [
+            { "type": "centered", "text": "CORONATION DAY", "color": "#880e4f", "style": "bold", "size": "large" },
+            { "type": "centered", "text": "The Lost Testimony of Lady Bloomia", "color": "#ad1457", "style": "italic" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "[ AUTHENTICITY UNVERIFIED ]", "color": "#f44336" },
+            { "type": "centered", "text": "Recovered from Loyalist Safehouse 'Thornwall', Harvestide 1040 BF", "color": "#6a1b4d" },
+            { "type": "spacer" },
+            { "type": "divider", "style": "ornate" },
+            { "type": "spacer" },
+            { "type": "paragraph", "style": "italic", "text": "Archivist's note: The following manuscript was discovered sealed behind a false wall in the Loyalist safehouse designated 'Thornwall,' along with a bundle of documents bearing the Royal Seal of Princess Peach. The handwriting matches samples attributed to Lady Bloomia, Royal Handmaiden, who disappeared fourteen days after the assassination in 955 BF. Whether the author survived to the present day or composed this account shortly before her disappearance/death remains unknown.", "color": "#880e4f" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "I write this for the girl I was on the day the Princess died. She was seventeen years old. She carried a crown in a velvet case and ran up three flights of stairs because she could feel something terrible happening in her bones. She was too late. She has been too late for her entire life since." },
+            { "type": "paragraph", "text": "I write this also for the dead, who cannot speak for themselves. For the four guards who died without knowing why. For the Princess who sat at her vanity and let death walk up behind her. For the Silent One who bled out in a servant's passage so that I could run away with papers that have burned a hole in my heart for decades." },
+            { "type": "spacer" },
+            { "type": "quote", "text": "\"They will call this testimony unreliable. They will call me mad, or dead, or fictional. Let them. The blood on these pages is real, even if my name is not.\"", "attribution": "— Lady Bloomia, opening statement", "color": "#880e4f" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter I: Before Dawn",
+      "pages": [
+        {
+          "page_number": 2,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter I", "subtitle": "Before Dawn — Highsun 1, 955 BF", "color": "#880e4f" },
+            { "type": "drop_cap", "letter": "I", "text": " woke in darkness to the sound of weeping. Soft, controlled weeping — the kind that is trying not to be heard. It came from above me, through the thin ceiling of the servants' quarters, from the direction of the Royal Suite.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "The Princess was crying." },
+            { "type": "paragraph", "text": "I had served her for three years. I had seen her angry, frustrated, bored, delighted, and imperiously amused. I had never heard her cry. She was not the kind of woman who cried — or so I believed. She was the kind of woman who made OTHER people cry, usually through the precise application of political pressure and a smile that could freeze lava." },
+            { "type": "paragraph", "text": "I dressed quickly — white cap, pressed apron, the golden brooch that marked me as Princess's Staff — and padded barefoot through the still-dark corridors to the service lift. The palace was not yet awake. Cook Carmella's kitchen was dark. The guard posts were manned by the night shift: sleepy toads who nodded at my brooch and waved me through without interest." },
+            { "type": "paragraph", "text": "When I reached the Royal Suite's service entrance, I paused. The weeping had stopped. In its place: voices. Low, urgent, intimate." },
+            { "type": "interactive_reveal", "label": "[ Press your ear to the page, as Bloomia pressed hers to the door → ]", "hidden_content": [
+              { "type": "handwritten", "text": "Two voices. Hers, and a man's. Not Toadsworth — I knew his reedy tenor. This voice was deeper, rougher, with an accent I couldn't place. They were arguing, but gently — the way people argue when they love each other too much to shout.\n\n'You don't have to do this,' the man said.\n'I do. You know I do. If they find us—'\n'Let them find us. I'll fight.'\n'You'll die. And then I'll die. And the kingdom dies with us.'\n\nSilence. Then the sound of something I will not describe, because it was not meant for my ears and I have carried my shame at hearing it for decades.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "thornpaw_morning_visit" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "I retreated to the kitchen and made her morning tea with shaking hands. Golden Sunrise blend, extra Star Bit shavings. I waited twenty minutes before returning. When I knocked, her voice answered: clear, composed, regal. As if nothing had happened. As if I had not heard her world cracking open in the dark." }
+          ]
+        },
+        {
+          "page_number": 3,
+          "content": [
+            { "type": "paragraph", "text": "She was seated at her vanity when I entered, wearing a silk robe the color of cherry blossoms. Her hair was unbound — a waterfall of gold that reached nearly to her waist. Her eyes were dry. Her smile was perfect. If I had not heard the weeping, I would never have known." },
+            { "type": "paragraph", "text": "But her hands were cold when she took the teacup. Cold as river stones in winter." },
+            { "type": "paragraph", "text": "\"Bloomia,\" she said. She always used my name, never my title. It was one of the things I loved about her. \"Do you know what a coronation is?\"" },
+            { "type": "paragraph", "text": "\"A ceremony of ascension, Your Highness. When a ruler accepts the crown.\"" },
+            { "type": "paragraph", "text": "\"Close.\" She sipped her tea, staring at her reflection in the vanity mirror. \"A coronation is a sacrifice. The person you were dies, and the ruler is born. You put on the crown and you surrender everything else — your name, your desires, your right to love whom you choose. You become the kingdom. And the kingdom...\" She trailed off, her eyes distant. \"The kingdom demands everything.\"" },
+            { "type": "paragraph", "text": "\"Your Highness—\"" },
+            { "type": "paragraph", "text": "\"Do you know what today is, Bloomia?\"" },
+            { "type": "paragraph", "text": "\"The Solstice, Your Highness.\"" },
+            { "type": "paragraph", "text": "\"Yes. And something else.\" She set down the teacup with a click that seemed too loud in the silent room. \"Today is my coronation day. Again. For the last time.\"" },
+            { "type": "paragraph", "text": "I did not understand what she meant. I would not understand for decades." },
+            { "type": "puzzle_cipher", "title": "BLOOMIA'S ENCODED DIARY ENTRY", "description": "Lady Bloomia kept a personal diary encoded with a simple reverse-word cipher: each word is spelled backwards.", "encoded_text": "EHS WENK EHS SAW GNIOG OT EID. EHS DLOT EM NI YREVE YAW TPECXE SDROW. I SAW OOT GNUOY OT RAEH.", "solution": "SHE KNEW SHE WAS GOING TO DIE. SHE TOLD ME IN EVERY WAY EXCEPT WORDS. I WAS TOO YOUNG TO HEAR.", "hint": "Each word is reversed. EHS = SHE, WENK = KNEW...", "secret_id": "cipher_bloomia_diary" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter II: The Preparation",
+      "pages": [
+        {
+          "page_number": 4,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter II", "subtitle": "The Last Dressing", "color": "#880e4f" },
+            { "type": "drop_cap", "letter": "I", "text": " helped her bathe in rosewater and Star Bit essence — a ritual cleansing traditional to the Solstice. I brushed her hair one hundred times, as her mother Queen Rose had instructed in the handmaiden's manual. I laid out her festival gown: white silk embroidered with pink mushrooms, seed pearls sewn into spiraling patterns that caught the light. The gown she would die in.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "She was quiet throughout. Normally, Princess Peach chattered during her preparations — palace gossip, policy concerns, barbed observations about visiting dignitaries that would make me choke back laughter. That morning, she stared at her reflection as if trying to memorize her own face." },
+            { "type": "paragraph", "text": "\"Bloomia.\" She said my name differently now. Softer. \"If something were to happen to me — no, don't look at me like that, it's hypothetical — if something happened, what would you do?\"" },
+            { "type": "paragraph", "text": "\"I would mourn you, Your Highness. And then I would find whoever was responsible.\"" },
+            { "type": "paragraph", "text": "She smiled — a real smile, the kind that reached her eyes and made them bright with something I now recognize as sorrow. \"Loyal to the end. You remind me of someone.\" She touched her throat, where I noticed for the first time a faint mark — the impression of a chain recently removed. She had been wearing something around her neck. Something she had taken off before I arrived." },
+            { "type": "lore_box", "title": "THE PRINCESS'S MORNING — RECOVERED SCHEDULE", "border_color": "#880e4f", "background": "#fce4ec", "entries": [
+              "Before 5th hour: Unknown visitor in chambers (Bloomia's testimony)",
+              "5th hour: Morning tea and preparation begins",
+              "7th hour: Festival gown fitting. Princess asks about death (hypothetical).",
+              "9th hour: Crown delivery requested from Royal Vault",
+              "10th hour: Bloomia sent to retrieve crown — NOTE: this removed her from the suite",
+              "11th hour: Unknown events in Royal Suite (47-minute guard gap begins)",
+              "13th hour, 40 minutes: Assassination occurs",
+              "14th hour: Bloomia discovers body"
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "She sent me away three times that morning. Each time for a plausible reason — fetch a different pair of shoes, check on the crown, confirm a detail with the kitchen. Each time I returned, something in the room had changed. A drawer left ajar. A faint smell of earth and pine that did not belong in a perfumed royal suite. The impression of a large body in the cushions of the settee." },
+            { "type": "paragraph", "style": "italic", "text": "Someone was visiting her. Someone who came and went through a passage I could not see. Someone she was protecting — from me, from the guards, from the world.", "color": "#880e4f" }
+          ]
+        },
+        {
+          "page_number": 5,
+          "content": [
+            { "type": "paragraph", "text": "The third time she sent me away, she took my hands. Hers were still cold — colder, even, as if the warmth were draining out of her slowly, as if she were already beginning to die." },
+            { "type": "paragraph", "text": "\"Go to the vault,\" she said. \"Fetch the Solstice Crown yourself. Don't trust the pages. Don't trust the guards. Go yourself, see it with your own eyes, and bring it directly to me.\"" },
+            { "type": "paragraph", "text": "\"Your Highness, is something—\"" },
+            { "type": "paragraph", "text": "\"Bloomia.\" Her grip tightened. Her eyes bore into mine with an intensity that made my breath catch. \"When you return, if anything seems... wrong... do not enter the suite. Go directly to the servant passages. There is a loose stone in the third corridor, left side, behind the tapestry of the Star Festival. Behind it, you will find a leather case. Take it and RUN. Do you understand?\"" },
+            { "type": "paragraph", "text": "\"Your Highness, you're frightening me.\"" },
+            { "type": "paragraph", "text": "\"Good. Fear will keep you alive. Promise me, Bloomia.\"" },
+            { "type": "paragraph", "text": "\"I promise.\"" },
+            { "type": "paragraph", "text": "She released my hands. The mask of composure slid back into place. \"Excellent. Now go. And take your time — I need an hour alone.\"" },
+            { "type": "interactive_reveal", "label": "[ A section of the page has been torn and reattached. Read the hidden fragment → ]", "hidden_content": [
+              { "type": "handwritten", "text": "She was giving me an escape route. The leather case behind the loose stone — she had PREPARED it. She knew what was coming. She knew the day, the hour, the method. She was not a victim caught unaware. She was a woman walking deliberately into death and making sure her secrets survived even if she did not. She chose the Solstice because eighty thousand people would be watching the balcony, not the chambers. She chose ME because I was young enough to be overlooked and loyal enough to run.\n\nBut she didn't tell me WHY. And that silence has been the cruelest wound of all.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "peach_prepared_escape" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter III: The Vault",
+      "pages": [
+        {
+          "page_number": 6,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter III", "subtitle": "The Vault and the Guild", "color": "#880e4f" },
+            { "type": "drop_cap", "letter": "T", "text": "he Royal Vault lay three floors beneath the palace, accessible only through a winding stair guarded at five separate checkpoints. I passed through each one with my golden brooch held high, my heart hammering, the Princess's words echoing in my skull: 'Do not trust the guards.'", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "The vault master was an ancient toad named Cornelius, whose spots had faded to near-invisibility and whose hands shook with palsy but whose mind remained diamond-sharp. When I arrived, I found him arguing with two figures in dark robes embroidered with silver staves." },
+            { "type": "paragraph", "text": "Mages' Guild." },
+            { "type": "paragraph", "text": "\"The seals are perfectly intact!\" Cornelius was saying. \"I've inspected them three times. There is NO irregularity.\"" },
+            { "type": "paragraph", "text": "\"Our instruments disagree,\" the taller mage replied. He was silver-haired, pale-eyed, with the particular condescension that the Guild cultivates like a hothouse flower. \"Traces of unauthorized magical access. The crown cannot be released until we complete our investigation.\"" },
+            { "type": "paragraph", "text": "I stepped forward. \"The Princess requires the crown immediately.\"" },
+            { "type": "paragraph", "text": "The tall mage turned. He looked through me the way mages look through anyone who cannot cast. \"The handmaiden. Bloomia, yes?\"" },
+            { "type": "paragraph", "text": "How did he know my name?" },
+            { "type": "puzzle_cipher", "title": "GUILD MAGE'S CONCEALED NOTATION", "description": "Bloomia later found this notation scratched into the vault's visitor log in a cipher the Guild uses for field communications. Each letter is replaced by its position number in the alphabet.", "encoded_text": "19-21-2-10-5-3-20 9-19 1-23-1-18-5. 20-8-5 8-1-20-3-8 9-19 15-16-5-14. 16-18-15-3-5-5-4 1-19 16-12-1-14-14-5-4.", "solution": "SUBJECT IS AWARE. THE HATCH IS OPEN. PROCEED AS PLANNED.", "hint": "Number substitution: 1=A, 2=B, 3=C... 19=S, 21=U, 2=B...", "secret_id": "cipher_guild_field_note" }
+          ]
+        },
+        {
+          "page_number": 7,
+          "content": [
+            { "type": "paragraph", "text": "\"Tell me, Bloomia,\" the tall mage continued, \"in your time serving the Princess, have you noticed anything unusual? Visitors at odd hours? Passages that seem to lead nowhere? Smells that don't belong?\"" },
+            { "type": "paragraph", "text": "My blood ran cold. He was describing exactly what I had noticed that morning. The earth-and-pine smell. The shifted cushions. The passages she kept sending me away from. He KNEW." },
+            { "type": "paragraph", "text": "\"No,\" I said. \"Nothing unusual.\"" },
+            { "type": "paragraph", "text": "He smiled. The smile of a predator who has confirmed the location of its prey. \"Of course not. Well, take the crown. We were just leaving.\"" },
+            { "type": "paragraph", "text": "They stepped aside. Cornelius, his hands trembling harder than usual, retrieved the Solstice Crown from its enchanted case. As he placed it in the velvet carrying case, he leaned close and whispered: \"Run, child. Don't look back. Something is very wrong today.\"" },
+            { "type": "paragraph", "text": "I took the crown. I ran." },
+            { "type": "paragraph", "text": "Five checkpoints. Three flights of stairs. The tall mage's voice floated after me, casual and terrible: \"Be careful, Bloomia. The wards have been behaving strangely today. Fluctuations in the protective enchantments.\"" },
+            { "type": "paragraph", "text": "He was warning me. Not out of kindness — out of cruelty. He wanted me to know that something was happening and that I could not stop it." },
+            { "type": "interactive_reveal", "label": "[ The ink here changes color — written at a different time. Read the addition → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I know his name now. The tall mage. His name was Valorian Stormweave, Senior Enforcer of the Mages' Guild. He was in the vault that morning because the Guild was PART OF IT. They disabled the wards. They detected the hatch opening and did nothing. They delayed the crown to keep me away from the suite during the killing.\n\nValor Stormweave lived for eighty-five more years after helping murder my Princess. He was eventually killed by a mage named Archie Miser in a public market — 'justifiable magical defense,' the Onyx Hand ruled. I do not know Archie Miser. But I owe him a debt he will never know about.\n\nThe only man who could have testified about what the Guild knew that morning is now ash. Convenient. Very convenient. — B.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "valorian_identification" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter IV: The Discovery",
+      "pages": [
+        {
+          "page_number": 8,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter IV", "subtitle": "What I Found", "color": "#880e4f" },
+            { "type": "drop_cap", "letter": "T", "text": "he silence was the first thing I noticed. Not the comfortable silence of rest but the silence of aftermath — the silence that settles over a battlefield after the last scream fades. The corridor outside the Royal Suite was empty. No guards. Not sleeping, not distracted — simply gone. Four posts, four empty chairs, four abandoned weapons propped against the wall.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "No. Not abandoned. Placed. Carefully, precisely, as if arranged for a painting. The weapons were parallel. The chairs were evenly spaced. Someone had STAGED this absence." },
+            { "type": "paragraph", "text": "The Princess's words slammed into me: 'If anything seems wrong, do not enter the suite.'" },
+            { "type": "paragraph", "text": "I should have obeyed. I should have gone to the servant passages, found the loose stone, taken the leather case, and run. That was what she wanted. That was the plan she had made for me — the plan she had made because she knew she was going to die." },
+            { "type": "paragraph", "text": "I pushed open the door instead. Because I was seventeen. Because I loved her. Because I thought that if I was fast enough, brave enough, loyal enough, I could still save her." },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The guards were in the outer chamber. Four toads, crumpled at their posts. Their eyes were open. Their expressions were peaceful — not the frozen terror of violent death, but the blankness of someone who had simply... stopped. No wounds. No blood. No signs of struggle. They had been turned off like candles." }
+          ]
+        },
+        {
+          "page_number": 9,
+          "content": [
+            { "type": "paragraph", "text": "I crossed the outer chamber. The receiving room. The door to her private quarters, standing ajar by exactly three inches — enough to see through, not enough to enter comfortably. As if left open deliberately. As if inviting me to look." },
+            { "type": "paragraph", "text": "I looked." },
+            { "type": "paragraph", "text": "She was seated at her vanity. The hairbrush was still in her hand. Her eyes were closed. The white silk gown I had buttoned that morning was pristine — not a wrinkle, not a stain, not a single drop of blood on the white fabric. She looked like she was sleeping." },
+            { "type": "paragraph", "text": "But her head was tilted at an angle that no sleeping person would choose. And there was a thin line of red at the base of her skull, barely visible beneath the curtain of her golden hair. A precise wound. A professional wound. The work of someone who knew exactly where to place a blade to end a life instantly, painlessly, without disturbing the body's repose." },
+            { "type": "paragraph", "text": "Someone who cared enough to make it gentle." },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "I screamed. The sound tore from my throat like something alive — a raw, animal shriek that echoed through the empty suite and out into the corridors. I dropped the crown case. I fell to my knees. I screamed until my voice shattered and all that came out was a thin, reedy whistle of agony." },
+            { "type": "paragraph", "text": "And then I saw the hatch." },
+            { "type": "interactive_reveal", "label": "[ Bloomia has crossed out the next paragraph multiple times. Reconstruct the text → ]", "hidden_content": [
+              { "type": "handwritten", "text": "Behind her vanity, the portrait of Queen Portabella was askew. Behind the portrait: a dark opening in the wall, barely large enough for a person to crawl through. Air moved through it — cold air, smelling of earth and pine and something else. Something copper. Something animal.\n\nBlood. Not hers — hers had barely been spilled. Someone ELSE'S blood, on the edges of the hatch. The assassin had cut themselves entering or leaving. There was a partial handprint — too large for a toad, too small for a koopa.\n\nA HUMAN handprint. Pressed in blood against the stone.\n\nI have never told anyone this. The official investigation found the hatch but somehow missed the handprint. Or they cleaned it. Or they lied.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "bloody_handprint" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter V: The Escape",
+      "pages": [
+        {
+          "page_number": 10,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter V", "subtitle": "The Leather Case and the Silent One", "color": "#880e4f" },
+            { "type": "drop_cap", "letter": "G", "text": "uards came running. Mages arrived. The palace erupted into controlled chaos — emphasis on 'controlled.' Because even in those first frantic minutes, I noticed something: the people taking charge were not the people who SHOULD have been taking charge. The Captain of the Guard was absent. The Chamberlain — Toadsworth the Elder — arrived twenty minutes late, looking not shocked but RESIGNED.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "They wrapped me in a blanket. Someone pushed cold tea into my hands. They asked me questions — what did I see, what did I hear, when did I arrive. I answered mechanically, my eyes fixed on the door to her chambers, where mages in Guild robes were casting spells that filled the air with colored light." },
+            { "type": "paragraph", "text": "But I was watching the Chamberlain. Toadsworth the Elder stood in the corner, speaking in low tones with the tall mage from the vault. The one who knew my name. The one who had smiled like a predator. They were not exchanging shock and grief. They were exchanging INSTRUCTIONS." },
+            { "type": "paragraph", "text": "The Princess's words hit me like a hammer blow: 'Loose stone. Third corridor. Leather case. RUN.'" },
+            { "type": "paragraph", "text": "I stood up. I mumbled something about needing air. No one tried to stop me — I was a seventeen-year-old handmaiden in shock, not a threat, not important, not worth watching. That was the mistake that saved my life." },
+            { "type": "lore_box", "title": "CONTENTS OF THE LEATHER CASE (PARTIAL INVENTORY)", "border_color": "#880e4f", "background": "#fce4ec", "entries": [
+              "Sealed letters bearing Princess Peach's personal cipher (not the Royal Seal)",
+              "A list of names, some crossed out, with dates beside each",
+              "A pressed flower — species unknown, possibly from the Rakasha territories",
+              "A sketch of the secret hatch's mechanism, annotated in two handwritings",
+              "A small vial containing a dark liquid (alchemical analysis inconclusive)",
+              "A single page torn from a larger document, bearing the words: 'THEY WILL BLAME THE KOOPAS'",
+              "A gold chain with a pendant — the chain the Princess removed before Bloomia arrived"
+            ] }
+          ]
+        },
+        {
+          "page_number": 11,
+          "content": [
+            { "type": "paragraph", "text": "I found the loose stone. I found the leather case. It was heavier than I expected — packed tight with documents, sealed letters, a vial of something dark, and a gold chain with a pendant that I recognized: the Princess had worn it every day for as long as I had served her. She had removed it that morning. She had hidden it here, along with everything else, because she knew she would not need it again." },
+            { "type": "paragraph", "text": "I was in the servant passages, clutching the case to my chest, when I heard footsteps. Not the soft padding of servants — the deliberate, measured tread of someone who knows exactly where they are going. Someone who knew about the passages. Someone who was looking for me." },
+            { "type": "paragraph", "text": "I ran. The passages twisted through the castle's walls like veins through a body — narrow, dark, branching unpredictably. I knew them well enough to navigate by touch, but whoever followed me knew them too. Every turn I took, the footsteps adjusted. Every corridor I chose, they anticipated." },
+            { "type": "paragraph", "text": "I would have been caught. I would have died in those dark passages with the Princess's secrets clutched to my chest, another inconvenient witness silenced, another loose end tidied away." },
+            { "type": "paragraph", "text": "But someone else was in the passages that day. Someone I never saw clearly — a shape in the darkness, broad-shouldered, moving with the quiet efficiency of a soldier. They stepped between me and my pursuer, and I heard sounds that I will not describe in detail. Sounds of violence. Sounds of sacrifice." },
+            { "type": "paragraph", "text": "The Silent One. The founding martyr of the Loyalist movement. They died in that corridor so that I could live. I never learned their name. I never saw their face. I heard them die — a choking gasp, a thud, the wet sound of a blade being withdrawn — and then silence. The pursuing footsteps did not continue. My protector had bought my escape with their life." },
+            { "type": "interactive_reveal", "label": "[ Tear stains have blurred this section. Wait for them to dry → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I think about the Silent One every day. Who were they? How did they know I would be in the passages? Had the Princess TOLD someone to protect me? Was this part of her plan — save the handmaiden, save the evidence, let the rest burn?\n\nThe Loyalists honor them as a founding martyr. They do not know what I know: that the Silent One killed at least two pursuers before dying. I heard the bodies fall. When I looked back — just once, just briefly — I saw dark shapes on the ground. One of them wore Guild robes.\n\nA MAGES' GUILD OPERATIVE was hunting me in the servant passages within an hour of the assassination. The Guild was not investigating the crime. They were CLEANING UP AFTER IT.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "guild_pursuit" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter VI: What the Documents Reveal",
+      "pages": [
+        {
+          "page_number": 12,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter VI", "subtitle": "The Princess's Evidence", "color": "#880e4f" },
+            { "type": "drop_cap", "letter": "I", "text": " have spent years studying the documents the Princess left for me. Some are in her personal cipher — a code I have only partially broken. Some are in plain language that is worse than any cipher because the words say things I do not want to understand. Here is what I know:", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "Princess Peach discovered a conspiracy against her life approximately six months before the assassination. She did not know the exact date it would occur, but she knew the method (the hatch), the facilitators (the Mages' Guild and members of her own court), and the likely aftermath (civil war). She could not prevent it because the conspirators included people she could not remove without triggering the very crisis she sought to avoid." },
+            { "type": "paragraph", "text": "The page torn from a larger document — the one that reads 'THEY WILL BLAME THE KOOPAS' — is written in a hand that is not hers. Someone warned her. Someone inside the conspiracy told her what was coming, and she could do nothing but prepare her escape route for others and walk into death with her eyes open." },
+            { "type": "paragraph", "text": "The list of names is the most disturbing document. Fifteen names, arranged in three columns. The first column is headed 'KNEW.' The second: 'HELPED.' The third: 'HELD THE BLADE.' Several names are crossed out — people who died before the assassination of natural or 'natural' causes. Others remain. Some I recognize. Some I do not." },
+            { "type": "puzzle_cipher", "title": "THE PRINCESS'S PERSONAL CIPHER", "description": "The following passage from the Princess's sealed letters uses a cipher based on the word MUSHROOM — each letter shifts by the corresponding position of letters in the keyword (M=13, U=21, S=19, H=8, R=18, O=15, O=15, M=13, cycling).", "encoded_text": "VBL EVWXJ TXAM SV PGDM. RW TH S ASIVXUZM.", "solution": "I CHOSE THIS DEATH. IT IS A SACRIFICE.", "hint": "Keyword MUSHROOM: M=13, U=21, S=19, H=8, R=18, O=15, O=15, M=13. Add values to each letter.", "secret_id": "cipher_peach_sacrifice" }
+          ]
+        },
+        {
+          "page_number": 13,
+          "content": [
+            { "type": "paragraph", "text": "The vial. The small dark vial in the leather case. I had it analyzed by an alchemist I trust — one of the few people who knows I am alive. The liquid inside is a concentrated extract of Nightshade and Star Bit, combined in proportions that should be impossible. The alchemist called it 'liquid choice.'" },
+            { "type": "paragraph", "text": "If consumed, it would kill painlessly within seconds. The Princess had an alternative to the blade. She chose not to use it." },
+            { "type": "paragraph", "text": "Why? Because the assassination had to look like murder, not suicide. Because a kingdom mourns a murdered princess and demands justice. A kingdom that loses its ruler to despair simply... moves on. She needed the kingdom to be ANGRY. She needed the conspirators to be HUNTED. She needed the truth to claw its way out of the grave they dug for it, even if it took a century." },
+            { "type": "paragraph", "text": "She chose to be killed by someone she trusted. She sat at her vanity and let them walk up behind her through the hatch she had shown to her lover — the hatch that was supposed to be her escape, repurposed as her executioner's entrance. She held her hairbrush and waited for the blade." },
+            { "type": "paragraph", "text": "And she left me the evidence. Because she knew that someone, someday, would be fanatical enough to keep looking. Someone like Captain Toadette, who built a movement on the Princess's memory and turned her death into a religion." },
+            { "type": "interactive_reveal", "label": "[ The last item in the leather case. Examine it → ]", "hidden_content": [
+              { "type": "paragraph", "text": "The gold chain. The pendant the Princess wore every day and removed that morning. I have worn it against my skin for decades. It is warm to the touch — always warm, even in winter. Inside the pendant is a miniature portrait, painted with such precision that it must have been done by magical means.", "color": "#880e4f" },
+              { "type": "handwritten", "text": "The portrait shows two figures: Princess Peach and Chief Thornpaw of the Rakasha. They are holding hands. They are smiling. They look like two people who thought love would be enough to save them.\n\nIt wasn't. Love does not stop blades. Love does not undo conspiracies. Love does not prevent kingdoms from burning. But she wore his image over her heart until the very last day, and she hid it where her killers would never find it.\n\nThe third column on her list — 'HELD THE BLADE' — contains only one name. I will not write it here. Not yet. Not until I am certain it can be used. But I will say this: it is not the name anyone expects. It is not a koopa. It is not a mage. It is someone the Princess loved. Someone she forgave, even as they killed her.\n\nSome sacrifices require a willing executioner.", "color": "#880e4f", "background": "#fce4ec" }
+            ], "secret_id": "pendant_and_killer" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter VII: The Vanishing",
+      "pages": [
+        {
+          "page_number": 14,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter VII", "subtitle": "Why I Disappeared", "color": "#880e4f" },
+            { "type": "drop_cap", "letter": "F", "text": "ourteen days. That is how long I survived in the open after the assassination. Fourteen days of questioning, of sympathetic guards bringing me tea, of Guild mages asking gently probing questions about what I had seen. Fourteen days during which I realized, with growing horror, that everyone around me was performing a script.", "color": "#4a1a2c" },
+            { "type": "paragraph", "text": "The investigation was a pantomime. Leads were followed and then abandoned. Evidence was collected and then lost. The three guards who had been on perimeter duty that night — the only witnesses besides me — gave testimony that contradicted each other in specific, calculated ways. As if they had been told to be unreliable." },
+            { "type": "paragraph", "text": "On Day 7, the Mages' Guild assumed control of the investigation, citing 'jurisdictional concerns regarding magical evidence.' That same day, two of the three guard witnesses died. One fell from a tower. One choked on a bone at dinner. The third — Captain Silvercap — vanished overnight, leaving no trace." },
+            { "type": "paragraph", "text": "They were cleaning house. The witnesses were being eliminated, one by one, in ways designed to look accidental. And I was next." },
+            { "type": "timeline", "title": "THE FOURTEEN DAYS", "border_color": "#880e4f", "events": [
+              { "year": "Day 1", "event": "Assassination. Bloomia discovers the body. Retrieves leather case.", "color": "#880e4f" },
+              { "year": "Day 2", "event": "Formal questioning begins. Guild takes control of magical evidence.", "color": "#1565c0" },
+              { "year": "Day 5", "event": "Guard witness Corporal Redspot 'falls from tower.'", "color": "#f44336" },
+              { "year": "Day 6", "event": "Guard witness Sergeant Brownshield 'chokes at dinner.'", "color": "#f44336" },
+              { "year": "Day 7", "event": "Guild assumes full investigation control. Captain Silvercap vanishes.", "color": "#1565c0" },
+              { "year": "Day 9", "event": "Toadsworth the Elder named Acting Regent. Investigation 'scaled back.'", "color": "#ff9800" },
+              { "year": "Day 12", "event": "Bloomia notices she is being followed.", "color": "#880e4f" },
+              { "year": "Day 14", "event": "Bloomia disappears. Official explanation: 'personal reasons.'", "color": "#880e4f" }
+            ] }
+          ]
+        },
+        {
+          "page_number": 15,
+          "content": [
+            { "type": "paragraph", "text": "I noticed them on Day 12. Shadows that moved when I moved. Faces that appeared in crowds and then vanished. The faint hum of a tracking enchantment that I could feel in my teeth — a Mages' Guild specialty, I would later learn." },
+            { "type": "paragraph", "text": "On the night of Day 14, I packed the leather case, wrapped the Princess's pendant around my neck, and climbed out of my window into a gutter that led to the castle's drainage system. I crawled through filth and darkness for three hours until I emerged in the forest outside the capital walls. I walked for six days without stopping, eating what I could find, sleeping in ditches, trusting no one." },
+            { "type": "paragraph", "text": "I have been walking ever since. For decades now. Different names, different faces, different cities. The leather case travels with me always, wrapped in enchantment-blocking cloth I purchased from a hedge witch in the Bob-omb region. The documents inside are the only proof that the assassination of Princess Peach was not an act of foreign aggression but an inside job — a conspiracy of her own court, her own protectors, her own Guild." },
+            { "type": "puzzle_cipher", "title": "BLOOMIA'S LOCATION CIPHER", "description": "Bloomia encoded her current location using a cipher based on the number of petals on a Fire Flower (5). Each letter shifts by 5 positions.", "encoded_text": "N FR FQNAJ. N FR BFYHMNSL. KNSI RJ NS YMJ UQFHJ BMJWJ WXTJX LWTE NS BNYJW.", "solution": "I AM ALIVE. I AM WATCHING. FIND ME IN THE PLACE WHERE ROSES GROW IN WINTER.", "hint": "Caesar cipher with shift of 5. N=I (shifted back 5), F=A, R=M...", "secret_id": "cipher_bloomia_location" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "To the Loyalists who will find this manuscript: I know what you are. I know what Captain Toadette has done in the Princess's name — the massacres, the executions, the fanaticism that has turned a quest for justice into a religion of blood. The Princess would not have wanted this. But the Princess is dead, and the dead do not get to choose how they are mourned." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Final Words",
+      "pages": [
+        {
+          "page_number": 16,
+          "content": [
+            { "type": "chapter_header", "text": "Final Words", "subtitle": "For Those Who Continue the Search", "color": "#880e4f" },
+            { "type": "paragraph", "text": "I am old now, if I am alive at all. The Princess's pendant still hangs warm against my chest. The leather case still sits within arm's reach. The documents inside have yellowed but remain legible. The name in the third column — 'HELD THE BLADE' — burns in my memory like a brand." },
+            { "type": "paragraph", "text": "I will not write that name in this manuscript. Not because I am afraid, but because naming the killer without the supporting evidence would allow the conspirators to discredit the accusation and destroy what remains. The name must be revealed alongside the documents, in a setting where it cannot be suppressed or denied." },
+            { "type": "paragraph", "text": "What I will tell you is this: the killer loved the Princess. The killing was an act of mercy — or so the killer believed. The Princess knew who would hold the blade. She chose them. She sat at her vanity and waited because she trusted no one else to make her death swift and painless." },
+            { "type": "paragraph", "text": "She was murdered by someone she loved, at her own request, for reasons I have spent a lifetime trying to understand." },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The title of this manuscript — 'Coronation Day' — is what the Princess called that morning. 'Today is my coronation day,' she told me. 'Again. For the last time.' I understand now what she meant. The Solstice ceremony was a renewal of the monarch's bond with the kingdom. Each year, the Princess symbolically died as a person and was reborn as the Crown. That final morning, she chose to make the metaphor literal." },
+            { "type": "paragraph", "text": "She crowned herself in death. She became eternal — not a ruler but a symbol, not a woman but a cause. She gave the kingdom something more powerful than a living monarch: a martyr." },
+            { "type": "spacer" },
+            { "type": "quote", "text": "\"The crown that is shattered cannot be saved. But the fragments cut deeper than the whole ever could.\"", "attribution": "— The Star Spirits' prophecy, reinterpreted", "color": "#880e4f" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "— THE CROWN ENDURES —", "color": "#880e4f", "style": "bold", "size": "large" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "[ Find the place where roses grow in winter. Bring proof of loyalty. I will be waiting. ]", "color": "#880e4f", "style": "italic" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "[ — Lady Bloomia, date unknown — ]", "color": "#999", "style": "italic" }
+          ]
+        }
+      ]
+    }
+  ]
+},
     {
   "id": "onyx-hand-protocols",
   "title": "Protocols of Shadow",
@@ -586,290 +841,6 @@
             { "type": "centered", "text": "— END OF CODEX —", "color": "#9e9e9e", "style": "bold", "size": "large" },
             { "type": "spacer" },
             { "type": "centered", "text": "[ This document will deny its own existence if questioned. ]", "color": "#666", "style": "italic" }
-          ]
-        }
-      ]
-    }
-  ]
-},
-{
-  "id": "coronation-day",
-  "title": "Coronation Day",
-  "subtitle": "The Final Hours of Princess Peach — An Eyewitness Account",
-  "author": "Toadette (as told to Archivists)",
-  "cover_color": "#e91e63",
-  "cover_accent": "#fce4ec",
-  "icon": "👸",
-  "category": "History",
-  "rarity": "Legendary",
-  "locked": false,
-  "lock_message": "",
-  "condition": "Tear-stained",
-  "description": "A slim pink volume bound in silk, its pages warped from moisture. The handmaiden who discovered Princess Peach's body finally tells her story, decades after the assassination.",
-  "page_color": "#fff8f0",
-  "text_color": "#4a1a2c",
-  "total_pages": 14,
-  "secrets_total": 7,
-  "chapters": [
-    {
-      "title": "Preface",
-      "pages": [
-        {
-          "page_number": 1,
-          "content": [
-            { "type": "centered", "text": "CORONATION DAY", "color": "#c2185b", "style": "bold", "size": "large" },
-            { "type": "centered", "text": "The Final Hours of Princess Peach", "color": "#ad1457", "style": "italic" },
-            { "type": "spacer" },
-            { "type": "centered", "text": "As Told by Toadette, Royal Handmaiden", "color": "#6a1b4d" },
-            { "type": "centered", "text": "Transcribed in the Year 1040 BF", "color": "#6a1b4d" },
-            { "type": "spacer" },
-            { "type": "divider", "style": "ornate" },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "For eighty-five years, I have carried this weight. For eighty-five years, I have been 'the one who found her' — defined by a single scream, a single moment, a single morning that shattered everything I knew. People look at me and see tragedy. They do not see me." },
-            { "type": "paragraph", "text": "I am old now. My spots have faded to gray. My hands shake when I pour tea. But my memory of that day remains crystalline — sharper than yesterday, sharper than this morning. Trauma, the healers tell me, preserves what we most wish to forget." },
-            { "type": "paragraph", "text": "I tell this story now because I am dying, and because the young ones investigating the Princess's death deserve to know what I know. They have found the secret hatch. They have learned about Thornpaw. They are closer to the truth than anyone has been in decades. Perhaps my account will help them find the final pieces." },
-            { "type": "spacer" },
-            { "type": "quote", "text": "\"I was seventeen years old. I thought I would serve her forever. I thought forever meant something.\"", "attribution": "— Toadette, opening statement", "color": "#c2185b" }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Chapter I: The Morning",
-      "pages": [
-        {
-          "page_number": 2,
-          "content": [
-            { "type": "chapter_header", "text": "Chapter I", "subtitle": "The Morning of Highsun 1, 955 BF", "color": "#c2185b" },
-            { "type": "drop_cap", "letter": "I", "text": " woke before dawn, as handmaidens do. The Solstice Festival required preparations that began in darkness and would not end until the stars emerged. I remember lying in my small bed in the servants' quarters, listening to the palace wake around me — the distant clatter of kitchen pots, the murmur of guards changing shift, the first tentative birdsong from the royal gardens.", "color": "#4a1a2c" },
-            { "type": "paragraph", "text": "I dressed in my festival uniform: white cap with pink trim, pressed apron, the little golden brooch that marked me as Princess's Staff rather than general household. I was proud of that brooch. I had earned it through three years of flawless service, and it meant I could enter the Royal Suite without escort." },
-            { "type": "paragraph", "text": "My first duty was to bring the Princess her morning tea. She always rose early on festival days — too excited to sleep, she said, like a child on her birthday. I prepared her favorite blend: Golden Sunrise with extra Star Bit shavings, sweetened with honey from the palace apiaries." },
-            { "type": "interactive_reveal", "label": "[ A water stain obscures text here. Let it dry to read → ]", "hidden_content": [
-              { "type": "handwritten", "text": "I have never told anyone this: When I arrived at her door that morning with the tea tray, I heard voices inside. Two voices. Hers, and a deeper one — male, unfamiliar. I assumed it was a guard reporting something urgent, so I waited. The voices stopped. I knocked. She called for me to enter. She was alone. I did not think to question it then. I have thought of nothing else since.", "color": "#880e4f", "background": "#fce4ec" }
-            ], "secret_id": "morning_visitor" },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "The Princess was already awake when I entered, seated at her vanity in a silk robe the color of cherry blossoms. Her hair was unbound — a waterfall of gold that reached nearly to her waist. She smiled when she saw me, and my heart lifted as it always did. She had that effect on everyone." }
-          ]
-        },
-        {
-          "page_number": 3,
-          "content": [
-            { "type": "paragraph", "text": "\"Toadette!\" she said, as if my arrival were a delightful surprise rather than a scheduled duty. \"You brought the good tea. I can smell the Star Bits from here.\"" },
-            { "type": "paragraph", "text": "I set the tray on her vanity and began preparing the cup. \"The kitchen staff sends their festival blessings, Your Highness. Cook Carmella included an extra pastry — she says you'll need your strength for the speech.\"" },
-            { "type": "paragraph", "text": "The Princess laughed. \"Carmella thinks I need strength for everything. She'd have me eating entire cakes before council meetings if I let her.\" She took the teacup from my hands, and our fingers brushed briefly. Her hands were cold. I remember that. Cold, even though the morning was warm." },
-            { "type": "paragraph", "text": "\"Are you well, Your Highness?\" I asked. \"Your hands—\"" },
-            { "type": "paragraph", "text": "\"Nerves,\" she said quickly. Too quickly. \"Just nerves. Eighty thousand people will be watching today. Even after thirty-two years, that doesn't become routine.\"" },
-            { "type": "puzzle_cipher", "title": "HIDDEN NOTATION", "description": "Toadette added a cipher to her original notes, perhaps fearing the manuscript would be intercepted. She used a reverse alphabet cipher (A=Z, B=Y, C=X...).", "encoded_text": "HSV DZH ZOUZRW. R PMVD SVI UZXV. HSV DZH MVEVI ZOUZRW LU XILDWH.", "solution": "SHE WAS AFRAID. I KNEW HER FACE. SHE WAS NEVER AFRAID OF CROWDS.", "hint": "Reverse alphabet: A=Z, B=Y, C=X. H=S, S=H, V=E...", "secret_id": "cipher_peach_fear" },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "I did not press her. A handmaiden learns quickly that some questions are not meant to be asked. But I watched her more closely after that, and what I saw troubled me." }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Chapter II: The Preparation",
-      "pages": [
-        {
-          "page_number": 4,
-          "content": [
-            { "type": "chapter_header", "text": "Chapter II", "subtitle": "Preparing for the Festival", "color": "#c2185b" },
-            { "type": "drop_cap", "letter": "T", "text": "he next hours passed in a blur of activity. I helped the Princess bathe in rosewater and Star Bit essence — a ritual cleansing traditional to the Solstice. I brushed her hair one hundred times, as her mother had taught me to do. I laid out her festival gown: white silk embroidered with pink mushrooms, seed pearls sewn into spiraling patterns that caught the light.", "color": "#4a1a2c" },
-            { "type": "paragraph", "text": "She was quiet throughout, which was unusual. Normally the Princess chattered during her preparations — palace gossip, policy concerns, amusing observations about visiting dignitaries. That morning, she stared at her reflection in the mirror as if searching for something she could not find." },
-            { "type": "paragraph", "text": "\"Toadette,\" she said suddenly, as I was fastening the buttons at the back of her gown. \"If something were to happen to me, what would you do?\"" },
-            { "type": "paragraph", "text": "My fingers faltered on the buttons. \"Your Highness?\"" },
-            { "type": "paragraph", "text": "\"It's a hypothetical.\" Her voice was light, but her eyes in the mirror were not. \"Say I... disappeared. Abdicated. Died. What would you do with yourself?\"" },
-            { "type": "lore_box", "title": "THE ROYAL SUCCESSION CRISIS", "border_color": "#c2185b", "background": "#fce4ec", "entries": [
-              "Princess Peach had no children and no designated heir",
-              "The traditional succession passed through female bloodlines",
-              "Her closest relative was a distant cousin in the Beanbean Kingdom",
-              "The Council of Toads had advisory power only, not executive authority",
-              "No contingency plan existed for a sudden, violent transition"
-            ] },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "I finished the buttons before answering. My hands were steady, but my heart was racing. \"I would mourn you, Your Highness. And then I would find whoever was responsible and make them pay.\"" }
-          ]
-        },
-        {
-          "page_number": 5,
-          "content": [
-            { "type": "paragraph", "text": "She turned then, and took my hands in hers — still cold, still trembling faintly — and looked at me with an expression I had never seen before. It was tender, and sad, and something else. Something like guilt." },
-            { "type": "paragraph", "text": "\"You are loyal beyond measure,\" she said. \"I do not deserve you.\"" },
-            { "type": "paragraph", "text": "\"Your Highness—\"" },
-            { "type": "paragraph", "text": "\"No.\" She released my hands and turned back to the mirror. The moment passed; her public face returned. \"Forget I said anything. Pre-speech nerves, nothing more. Now, where is the Solstice Crown? It should have arrived from the vault by now.\"" },
-            { "type": "divider", "style": "ornate" },
-            { "type": "paragraph", "text": "The Solstice Crown had not arrived. I sent a page to inquire and received word that there had been a delay at the vault — some irregularity with the authentication seals. The crown would be delivered within the hour." },
-            { "type": "paragraph", "text": "The Princess accepted this news with uncharacteristic calm. \"Then I will rest until it arrives,\" she said. \"Leave me, Toadette. I need a moment alone.\"" },
-            { "type": "interactive_reveal", "label": "[ A passage has been crossed out but remains legible. Examine it → ]", "hidden_content": [
-              { "type": "handwritten", "text": "I should not have left her. The moment I stepped out of that room, I sealed her fate. But she ASKED me to leave. She practically ordered me. And when I think about the timing — the crown delayed, her sending me away, the voices I heard that morning — I wonder if she KNEW. If she was giving someone time. If her death was not entirely unexpected to her. The thought haunts me more than the murder itself.", "color": "#880e4f", "background": "#fce4ec" }
-            ], "secret_id": "peach_foreknowledge" },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "I left. I went to check on the crown myself, because I could not stand still when something felt so deeply wrong. And that decision — that small, practical, reasonable decision — is why I was not there when she needed me most." }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Chapter III: The Crown",
-      "pages": [
-        {
-          "page_number": 6,
-          "content": [
-            { "type": "chapter_header", "text": "Chapter III", "subtitle": "The Vault and the Delay", "color": "#c2185b" },
-            { "type": "drop_cap", "letter": "T", "text": "he Royal Vault lay three floors beneath the palace, accessible only through a winding stair guarded at five separate checkpoints. I passed through each one with my golden brooch held high, answering the guards' challenges with growing impatience. Something was wrong. I could feel it in my bones, in the cold creeping up my spine, in the way the shadows seemed to lean toward me as I descended.", "color": "#4a1a2c" },
-            { "type": "paragraph", "text": "The vault master was a toad named Cornelius — ancient even then, his spots faded to near-invisibility. He had served three generations of the royal family and was said to know every item in the vault by touch alone. When I arrived, I found him arguing with two figures in dark robes." },
-            { "type": "paragraph", "text": "\"The seals are perfectly intact!\" Cornelius was saying, his reedy voice sharp with frustration. \"I've inspected them myself. There is NO irregularity.\"" },
-            { "type": "paragraph", "text": "\"The Guild's instruments disagree,\" one of the robed figures replied. \"We detect traces of unauthorized magical access. The crown cannot be released until we complete our investigation.\"" },
-            { "type": "paragraph", "text": "Mages' Guild. I recognized the embroidered staves on their sleeves now. What were Guild investigators doing in the Royal Vault on the morning of the Solstice?" },
-            { "type": "lore_box", "title": "THE SOLSTICE CROWN", "border_color": "#ffd700", "background": "#fffde7", "entries": [
-              "Crafted in 847 BF from Star Bit crystals and royal gold",
-              "Worn only during Solstice ceremonies and coronations",
-              "Enchanted to respond only to the royal bloodline",
-              "Contained preservation charms that maintained the wearer's youth",
-              "Never found after the assassination — presumed stolen or destroyed"
-            ] }
-          ]
-        },
-        {
-          "page_number": 7,
-          "content": [
-            { "type": "paragraph", "text": "\"I am here on behalf of Her Highness,\" I announced, stepping forward with more confidence than I felt. \"The Princess requires the crown immediately. The ceremony begins in three hours.\"" },
-            { "type": "paragraph", "text": "The Guild mages turned to look at me. One was tall and thin, with silver hair and pale eyes that seemed to look through me rather than at me. The other was shorter, rounder, with the distracted air of someone performing calculations in their head." },
-            { "type": "paragraph", "text": "\"The handmaiden,\" the tall one said. Not a question. \"Toadette, yes? You serve in the Royal Suite.\"" },
-            { "type": "paragraph", "text": "\"I do.\" How did he know my name? \"And I need that crown.\"" },
-            { "type": "paragraph", "text": "\"Of course you do.\" The tall mage smiled, and something about that smile made my stomach clench. \"Tell me, Toadette — in your time serving the Princess, have you ever noticed anything... unusual? Visitors who arrive unannounced? Secrets she keeps even from her closest staff?\"" },
-            { "type": "puzzle_cipher", "title": "ENCODED MAGE NOTATION", "description": "Toadette later discovered this notation in Cornelius's records, written by one of the Guild mages. It uses a number-letter substitution (A=1, B=2, etc.).", "encoded_text": "20-8-5 8-1-20-3-8 9-19 3-15-13-16-18-15-13-9-19-5-4. 19-8-5 11-14-15-23-19.", "solution": "THE HATCH IS COMPROMISED. SHE KNOWS.", "hint": "Number substitution: 1=A, 2=B, 3=C... 20=T, 8=H, 5=E...", "secret_id": "cipher_hatch_compromised" },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "I did not answer his question. Instead, I turned to Cornelius. \"The crown. Now. By order of the Princess herself.\"" },
-            { "type": "paragraph", "text": "Cornelius hesitated, looking between me and the mages. Then, slowly, he nodded. \"The Guild's concerns are noted,\" he said. \"But I answer to the crown, not to the Guild. The crown goes to the Princess.\"" }
-          ]
-        },
-        {
-          "page_number": 8,
-          "content": [
-            { "type": "paragraph", "text": "The mages did not object. They simply stepped aside, their expressions unreadable. As Cornelius retrieved the crown from its enchanted case, I felt their eyes on my back — cold, calculating, patient. They were waiting for something. I did not know what." },
-            { "type": "paragraph", "text": "I took the crown. It was lighter than I expected — Star Bit crystal weighs almost nothing — but it seemed to hum faintly in my hands, as if recognizing that I was not its proper bearer. I tucked it carefully into its velvet carrying case and turned to leave." },
-            { "type": "paragraph", "text": "\"Toadette.\" The tall mage's voice stopped me at the door. \"When you return to the Royal Suite... be careful. The wards have been behaving strangely today. Fluctuations in the protective enchantments. It may be nothing, but...\" He shrugged. \"Be careful.\"" },
-            { "type": "paragraph", "text": "I did not thank him for his concern. I ran." },
-            { "type": "interactive_reveal", "label": "[ A folded note is pressed between these pages. Unfold it → ]", "hidden_content": [
-              { "type": "handwritten", "text": "I have researched those mages for decades. The tall one was named Valorian Stormweave. YES — the same Valorian who would be killed by Archie Miser eighty-five years later. He was in the vault that morning. He knew about the hatch. He was asking questions about the Princess's secrets. And he WARNED me about ward fluctuations — fluctuations that would have been caused by someone opening the secret hatch. He KNEW. The Guild KNEW. They let it happen.", "color": "#880e4f", "background": "#fce4ec" }
-            ], "secret_id": "valorian_complicity" },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "Five checkpoint guards. Three flights of stairs. Two hundred heartbeats pounding in my ears. I ran faster than I had ever run, the crown case clutched to my chest like a talisman against the dread that was building in my soul." },
-            { "type": "paragraph", "text": "I was not fast enough." }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Chapter IV: The Discovery",
-      "pages": [
-        {
-          "page_number": 9,
-          "content": [
-            { "type": "chapter_header", "text": "Chapter IV", "subtitle": "What I Found", "color": "#c2185b" },
-            { "type": "drop_cap", "letter": "T", "text": "he Royal Suite was silent when I arrived. Not the comfortable silence of rest, but the terrible silence of absence — the silence of a room that has just stopped containing life. I knew, before I opened the door. I knew, and I opened it anyway, because knowing is not the same as accepting, and I could not accept until I saw.", "color": "#4a1a2c" },
-            { "type": "paragraph", "text": "The guards were dead. Four of them, slumped at their posts as if they had simply decided to sit down and never get up again. Their eyes were open. Their weapons were sheathed. They had not even had time to realize they were dying." },
-            { "type": "paragraph", "text": "I stepped over them. I should have run for help. I should have screamed. But my body was moving without my mind's consent, carrying me forward into the outer chamber, through the receiving room, toward the door that led to her private quarters." },
-            { "type": "paragraph", "text": "That door was ajar." },
-            { "type": "paragraph", "text": "I pushed it open." },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "She was seated at her vanity, exactly where I had left her. Her hairbrush was still in her hand. Her eyes were closed, as if she had simply fallen asleep mid-stroke. The white silk gown I had buttoned that morning was still pristine — not a drop of blood, not a wrinkle, not a sign of struggle." },
-            { "type": "paragraph", "text": "But her head was tilted at an angle that heads do not tilt. And there was a thin line of red at the base of her skull, barely visible beneath her golden hair." }
-          ]
-        },
-        {
-          "page_number": 10,
-          "content": [
-            { "type": "paragraph", "text": "I screamed. The sound tore itself from my throat without my permission — a raw, animal shriek that echoed through the empty suite and out into the corridors beyond. I screamed until my voice broke, until guards came running, until hands pulled me away from her body and dragged me into the outer chamber." },
-            { "type": "paragraph", "text": "The next hours are fragments. Shouting. Running feet. Mages casting detection spells that filled the air with colored light. Someone wrapped a blanket around my shoulders. Someone else pushed a cup of tea into my hands — cold tea, bitter tea, tea I could not taste." },
-            { "type": "paragraph", "text": "And through it all, I clung to the crown case. I had dropped it when I screamed, but somehow it was back in my hands, and I would not let go. It was the last thing I had touched while she was alive. It was the last errand she had sent me on. It was proof that I had not been there, that I had been fetching her crown while someone put a blade through the base of her skull." },
-            { "type": "lore_box", "title": "THE MURDER WEAPON", "border_color": "#b71c1c", "background": "#ffebee", "entries": [
-              "A thin blade, likely a stiletto or specialized assassination tool",
-              "Inserted at the brain stem for instant death",
-              "No weapon was ever found at the scene",
-              "The wound was surgically precise — professional work",
-              "Court mages detected traces of enchantment on the wound edges",
-              "The enchantment matched no known school of magic"
-            ] },
-            { "type": "spacer" },
-            { "type": "interactive_reveal", "label": "[ Something is written on the inside of the crown case. Open it → ]", "hidden_content": [
-              { "type": "handwritten", "text": "I kept the case. For eighty-five years, I kept it. And only last month, when my eyesight was failing and I had to hold it close to clean it, did I notice the inscription on the inside of the lid. Two words, in the Princess's own handwriting: 'FORGIVE ME.' She knew. She knew she was going to die. She left me a message, and I was too grief-stricken to find it for almost a century.", "color": "#880e4f", "background": "#fce4ec" }
-            ], "secret_id": "forgive_me_inscription" }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Chapter V: The Aftermath",
-      "pages": [
-        {
-          "page_number": 11,
-          "content": [
-            { "type": "chapter_header", "text": "Chapter V", "subtitle": "What Came After", "color": "#c2185b" },
-            { "type": "drop_cap", "letter": "T", "text": "hey questioned me for three days. The Council, the Guard, the Mages' Guild — everyone wanted to know what I had seen, what I had heard, what I had noticed. I told them everything I could remember. The cold hands. The hypothetical questions. The voices I heard through the door. The Guild mages in the vault. The warning about ward fluctuations.", "color": "#4a1a2c" },
-            { "type": "paragraph", "text": "None of it led anywhere. The investigation concluded that an 'unknown assailant or assailants' had breached the Royal Suite through 'unidentified means' and killed the Princess with 'a weapon of unusual design.' In other words: they found nothing." },
-            { "type": "paragraph", "text": "Or rather — they found nothing they were willing to share." },
-            { "type": "paragraph", "text": "Because I know, now, that they found the secret hatch. I know because the investigation records — sealed for decades, recently leaked by Peach Loyalist agents — mention 'an auxiliary access point requiring further study.' They found it. They studied it. And they never told anyone." },
-            { "type": "timeline", "title": "THE INVESTIGATION", "border_color": "#c2185b", "events": [
-              { "year": "Day 1", "event": "Body discovered. Guards examined. Initial wards analyzed.", "color": "#c2185b" },
-              { "year": "Day 3", "event": "Secret hatch discovered but not publicly disclosed.", "color": "#ff5722" },
-              { "year": "Day 7", "event": "Mages' Guild assumes control of investigation.", "color": "#2196f3" },
-              { "year": "Day 14", "event": "Investigation officially concluded — 'unknown assailant.'", "color": "#757575" },
-              { "year": "Day 21", "event": "First factional conflicts erupt. Investigation files sealed.", "color": "#f44336" }
-            ] }
-          ]
-        },
-        {
-          "page_number": 12,
-          "content": [
-            { "type": "paragraph", "text": "I spent years trying to understand why the investigation failed so completely. The greatest magical minds in the kingdom, the most experienced guards, the most sophisticated detection spells — and they found nothing? It seemed impossible. It WAS impossible." },
-            { "type": "paragraph", "text": "Unless they were meant to find nothing. Unless the investigation was compromised from the start." },
-            { "type": "paragraph", "text": "The Mages' Guild took control of the investigation on Day 7. Before that, the Council's investigators were making progress — they had identified the ward fluctuations, they had found trace evidence near the vanity, they were close to discovering the hatch. Then the Guild intervened, citing 'jurisdictional concerns regarding magical evidence,' and everything stopped." },
-            { "type": "puzzle_cipher", "title": "COUNCIL INVESTIGATOR'S FINAL REPORT", "description": "This fragment was encoded using a keyword cipher. The keyword is 'PEACH' — each letter shifts by its position in the keyword (P=16, E=5, A=1, C=3, H=8, then repeats).", "encoded_text": "LZF YJQOT NQGII KUXTW. QIFN UISSWWMG TBTQZ.", "solution": "THE GUILD KNOWS. THEY COVERED THEIR TRACKS.", "hint": "Keyword cipher: PEACH (16,5,1,3,8). Subtract these values from each letter, cycling through the keyword.", "secret_id": "cipher_guild_coverup" },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "I believe — I have always believed — that the Mages' Guild was involved in the Princess's death. Not necessarily as killers, but as facilitators. They knew about the hatch. They knew about the ward fluctuations. Valorian Stormweave warned me, but he warned me too late, and his warning itself proved he knew something was happening." },
-            { "type": "paragraph", "text": "And then Valorian was killed by Archie Miser, eighty-five years later, in what was ruled 'justifiable magical defense.' Convenient, isn't it? The one man who could have testified about what the Guild knew that morning, silenced forever by a fireball in a public market." }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Chapter VI: The Truth",
-      "pages": [
-        {
-          "page_number": 13,
-          "content": [
-            { "type": "chapter_header", "text": "Chapter VI", "subtitle": "What I Believe Happened", "color": "#c2185b" },
-            { "type": "drop_cap", "letter": "I", "text": " have had eighty-five years to assemble the pieces. I will never have proof — the proof was destroyed or hidden long ago. But I know, with the certainty of someone who was THERE, who SAW the Princess's face that morning, who heard the fear in her voice and the guilt in her eyes, what happened in the Royal Suite on Highsun 1, 955 BF.", "color": "#4a1a2c" },
-            { "type": "paragraph", "text": "Princess Peach was in love with Chief Thornpaw of the Rakasha. Their relationship was secret — it had to be, given the political implications. She showed him the secret hatch because she trusted him completely. She gave him access to her most private space because she could not imagine he would ever use it against her." },
-            { "type": "paragraph", "text": "But someone else knew. Someone discovered the relationship, the hatch, the vulnerability. And that someone used the information to destroy her." },
-            { "type": "paragraph", "text": "I do not believe Thornpaw killed her. A man in love does not murder his beloved with surgical precision and then vanish without a trace. But someone used his knowledge — someone who had access to the Rakasha, to the palace, to the magical wards that protected the Royal Suite." },
-            { "type": "faction_box", "factions": [
-              {
-                "name": "The True Conspirators",
-                "color": "#880e4f",
-                "icon": "🗡️",
-                "description": "I believe there were three parties involved. First: an informant close to Thornpaw who discovered the relationship and the hatch. Second: a magical operative — likely Guild-affiliated — who disabled the wards and killed the guards. Third: the actual assassin, someone the Princess knew and trusted enough to turn her back on. Someone she was expecting that morning."
-              }
-            ] }
-          ]
-        },
-        {
-          "page_number": 14,
-          "content": [
-            { "type": "paragraph", "text": "The voice I heard that morning — the male voice speaking with the Princess before I entered — belonged to someone she knew. She was not afraid of him; she was afraid of what he represented, what his presence meant. She knew, when she sent me to fetch the crown, that she was sending me away so that something could happen in my absence." },
-            { "type": "paragraph", "text": "She wrote 'FORGIVE ME' inside the crown case because she knew I would find it eventually. She was apologizing for making me part of this — for using my loyalty to protect me from witnessing her death." },
-            { "type": "paragraph", "text": "She was apologizing because she CHOSE to die." },
-            { "type": "interactive_reveal", "label": "[ The final page is sealed with the Princess's own wax stamp. Break it → ]", "hidden_content": [
-              { "type": "handwritten", "text": "I believe Princess Peach made a bargain. I believe she traded her life for something — someone's safety, the kingdom's future, a secret that had to be kept at any cost. The assassination was not murder; it was sacrifice. She walked willingly into death's embrace because the alternative was worse. What could be worse than the century of war that followed? I do not know. But she knew. And she chose this. May the Star Spirits help us all understand why.", "color": "#880e4f", "background": "#fce4ec" }
-            ], "secret_id": "peach_sacrifice_theory" },
-            { "type": "spacer" },
-            { "type": "paragraph", "text": "To the investigators who will read this — Embercap, Mistveil, and the others whose names I do not know — I give you everything I have. The truth is buried deeper than I can dig. But you are young, and determined, and you have already found what eighty-five years of official investigation could not find." },
-            { "type": "paragraph", "text": "Find the rest. Find why she died. And if you can, find a way to make her sacrifice mean something." },
-            { "type": "spacer" },
-            { "type": "centered", "text": "— TOADETTE, 1040 BF —", "color": "#c2185b", "style": "bold", "size": "large" },
-            { "type": "spacer" },
-            { "type": "puzzle_cipher", "title": "TOADETTE'S FINAL CIPHER", "description": "A message encoded using the positions of letters in 'TOADETTE' as shifts (20,15,1,4,5,20,20,5, cycling). The first letter shifts by 20, the second by 15, etc.", "encoded_text": "MWB TQGQS DSGE HVQ CWCWQF. QTW YJCSI FMZHI UPWS HSV LZGRQ.", "solution": "THE TRUTH LIES IN THE FUTURE. THE STARS SHALL GUIDE THE WORTHY.", "hint": "Use TOADETTE letter positions (T=20, O=15, A=1, D=4, E=5, T=20, T=20, E=5). Subtract from each letter.", "secret_id": "cipher_final_guidance" }
           ]
         }
       ]
@@ -1242,658 +1213,6 @@
             { "type": "centered", "text": "✧ MAY THE STARS GUIDE YOUR PATH ✧", "color": "#ffeb3b", "style": "bold", "size": "large" },
             { "type": "spacer" },
             { "type": "puzzle_cipher", "title": "HIDDEN BLESSING", "description": "The Star Spirits have encoded a final message for those who prove worthy. The cipher shifts each letter by its position in the word (first letter +1, second +2, etc.), resetting each word.", "encoded_text": "ZPV BSF OPU BMPOF. XF TFF ZPV. XF CFMJFWF JO ZPV.", "solution": "YOU ARE NOT ALONE. WE SEE YOU. WE BELIEVE IN YOU.", "hint": "Each letter shifts by a constant (this is Caesar +1). Y+1=Z, O+1=P, U+1=V...", "secret_id": "star_spirit_blessing" }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "chronicles-of-the-mushroom-throne",
-      "title": "Chronicles of the Mushroom Throne",
-      "subtitle": "A Complete History of the Kingdom's Fall",
-      "author": "Scribe Toadsworth the Elder",
-      "cover_color": "#8B0000",
-      "cover_accent": "#FFD700",
-      "icon": "👑",
-      "category": "History",
-      "rarity": "Legendary",
-      "locked": false,
-      "lock_message": "",
-      "condition": "Worn",
-      "description": "A thick, leather-bound tome detailing the assassination of Princess Peach and the century of civil war that followed. Marginalia in several hands suggests it has passed through many owners. The final chapters appear to have been added recently, in a hurried script.",
-      "page_color": "#fdf6e3",
-      "text_color": "#3e2723",
-      "total_pages": 12,
-      "secrets_total": 5,
-      "chapters": [
-        {
-          "title": "Foreword",
-          "pages": [
-            {
-              "page_number": 1,
-              "content": [
-                {
-                  "type": "centered",
-                  "text": "~CHRONICLES OF THE MUSHROOM THRONE~",
-                  "color": "#8B0000",
-                  "style": "bold",
-                  "size": "large"
-                },
-                {
-                  "type": "centered",
-                  "text": "A Complete History of the Kingdom's Fall",
-                  "color": "#666",
-                  "style": "italic"
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "centered",
-                  "text": "Compiled by Scribe Toadsworth the Elder",
-                  "color": "#8B4513"
-                },
-                {
-                  "type": "centered",
-                  "text": "Year 1040 BF, Harvestide",
-                  "color": "#8B4513"
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "divider",
-                  "style": "ornate"
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "To whomever finds this volume: know that what follows is not mere academic record. It is a wound given words. Every name herein belonged to a soul who breathed the mushroom-scented air of our kingdom, who walked beneath the same sun that now shines upon ruins."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "I began this work in the year 1020 BF as a young scribe in the Royal Archives. Now, twenty years later, I complete it as a fugitive, writing by candlelight in rooms I dare not name. The Archives are ash. The palace is occupied. But memory endures where stone does not."
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "quote",
-                  "text": "\"Let the ink remember what the kingdom chooses to forget.\"",
-                  "attribution": "— Inscription on the Royal Scribe's Seal",
-                  "color": "#8B0000"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter I: The Golden Age",
-          "pages": [
-            {
-              "page_number": 2,
-              "content": [
-                {
-                  "type": "chapter_header",
-                  "text": "Chapter I",
-                  "subtitle": "The Golden Age Before the Fall",
-                  "color": "#8B0000"
-                },
-                {
-                  "type": "drop_cap",
-                  "letter": "I",
-                  "text": "n the years before Highsun 1, 955 BF, the Mushroom Kingdom existed in a state that later generations would regard with equal parts reverence and disbelief. The Princess ruled not through force of arms, but through an intricate web of alliances, trade agreements, and — if the more controversial historians are to be believed — genuine goodwill.",
-                  "color": "#3e2723"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The kingdom's borders stretched from the Pipe Labyrinths in the south to the Star Road waypoints in the north. Trade caravans moved freely, protected by the Toad Guard — a civil militia more accustomed to settling disputes over market stalls than wielding weapons in anger."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Princess Peach herself was, by all surviving accounts, a ruler of remarkable complexity. The popular image — the gentle monarch in pink, eternally gracious — obscures a political mind of considerable sharpness. Palace correspondence recovered from the ruins of Toad Town reveals a leader who personally negotiated trade tariffs, who maintained a spy network that predated the Onyx Hand by decades, and who kept detailed dossiers on every noble family in the realm."
-                },
-                {
-                  "type": "interactive_reveal",
-                  "label": "[ Examine the marginalia scrawled in the margin → ]",
-                  "hidden_content": [
-                    {
-                      "type": "handwritten",
-                      "text": "She also kept secrets. I found letters in the sealed vault — letters to someone she addressed only as 'T.' The handwriting trembles in places. These were not political correspondences. Chief Thornpaw of the Rakasha... he confirmed what I suspected. They were lovers. This changes EVERYTHING about the motive for her assassination. — T.E.",
-                      "color": "#5C3317",
-                      "background": "#f5e6c8"
-                    }
-                  ],
-                  "secret_id": "peach_thornpaw_secret"
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The economy flourished under a coin standard backed by Star Bits — crystallized fragments of celestial energy harvested from the Star Road. A single Star Bit could power a household's heating crystal for a season, making them simultaneously currency and commodity. This dual nature would later prove catastrophic when the Star Road was severed during the wars."
-                }
-              ]
-            },
-            {
-              "page_number": 3,
-              "content": [
-                {
-                  "type": "paragraph",
-                  "text": "The Toad populace — who comprised roughly sixty percent of the kingdom's citizens — lived in relative comfort. Mushroom houses, grown rather than built, dotted the landscape in cheerful clusters. Each settlement maintained a communal garden, a message relay station connected to the capital via warp pipe, and at least one shrine to the Star Spirits."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Yet even in this golden age, shadows gathered at the margins. The Koopa Clans to the east had unified under a warlord known only as 'the Bowser' — a title, not a name, though the distinction has been lost to common usage. The Boo Aristocracy grew increasingly isolationist, sealing their mansions behind spectral barriers. And in the deep places beneath the kingdom, in caverns lit by bioluminescent fungi, something ancient stirred."
-                },
-                {
-                  "type": "lore_box",
-                  "title": "THE STAR ROAD NETWORK",
-                  "border_color": "#FFD700",
-                  "background": "#fffde7",
-                  "entries": [
-                    "Seven Star Road waypoints connected major population centers",
-                    "Travel between waypoints was instantaneous but required a Star Visa",
-                    "The network was maintained by the Star Spirit Council",
-                    "Annual Star Bit harvest provided 73% of the kingdom's energy needs",
-                    "The network's destruction in 962 BF caused the 'Long Dark' — three years without reliable power"
-                  ]
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The final census before the assassination, conducted in 953 BF, recorded a kingdom of approximately 2.3 million souls. By the time the civil war ground to its exhausted conclusion eighty years later, that number had fallen below 800,000. Nearly two-thirds of a civilization, erased."
-                },
-                {
-                  "type": "paragraph",
-                  "style": "italic",
-                  "text": "But I am getting ahead of myself. Before the blood, there was the betrayal. And before the betrayal, there was one final, perfect day.",
-                  "color": "#8B0000"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter II: The Assassination",
-          "pages": [
-            {
-              "page_number": 4,
-              "content": [
-                {
-                  "type": "chapter_header",
-                  "text": "Chapter II",
-                  "subtitle": "Highsun 1, 955 BF — The Day the Kingdom Died",
-                  "color": "#8B0000"
-                },
-                {
-                  "type": "drop_cap",
-                  "letter": "T",
-                  "text": "he morning of Highsun 1, 955 BF began with celebrations. The Summer Solstice Festival — the kingdom's largest annual gathering — drew citizens from every province to the capital. Banners of pink and white hung from every lamppost. The smell of fire-roasted mushroom caps and Star Candy filled the streets.",
-                  "color": "#3e2723"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Princess Peach was scheduled to address the kingdom from the balcony of the Royal Palace at the fourteenth hour. She had done so every Highsun for the previous thirty-two years of her reign. The speech was traditionally brief — a blessing, a few words of gratitude, the ceremonial lighting of the Solstice Flame."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "She never reached the balcony."
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "At approximately the thirteenth hour and forty minutes, while the Princess was in her private chambers completing her preparations, an unknown assailant or assailants breached the Royal Suite. The method of entry remains one of the great unsolved mysteries of our age. The suite was protected by seventeen distinct magical wards, guarded by four elite Toad Guards, and accessible only through a single reinforced door."
-                },
-                {
-                  "type": "interactive_reveal",
-                  "label": "[ A passage has been hastily glued over the original text. Carefully peel it back → ]",
-                  "hidden_content": [
-                    {
-                      "type": "handwritten",
-                      "text": "Seventeen wards. Four guards. One door. But Thornpaw told Mistveil about a SECRET HATCH in her room. A hatch that doesn't appear on ANY official blueprint. Someone who knew about that hatch killed her. Someone she trusted enough to show it to. The list of suspects just became very, very short. — T.E., added Highsun 10, 1040 BF",
-                      "color": "#8B0000",
-                      "background": "#ffe0e0"
-                    }
-                  ],
-                  "secret_id": "secret_hatch_revelation"
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The guards were found dead at their posts, unmarked. No wounds, no poison residue, no signs of struggle. Court mages later determined they had been killed by a simultaneous cessation of all biological function — a spell so advanced that fewer than five living practitioners were believed capable of casting it."
-                }
-              ]
-            },
-            {
-              "page_number": 5,
-              "content": [
-                {
-                  "type": "paragraph",
-                  "text": "The Princess herself was found seated at her vanity, still holding a hairbrush. A single wound — a thin blade through the base of the skull — had killed her instantly. The precision suggested either medical knowledge or supernatural guidance. No blood had been spilled on her white dress."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The body was discovered by her handmaiden, a young toad named Toadette, who had come to deliver the Solstice Crown. Toadette's scream was heard three floors below. Within minutes, the palace was in lockdown. Within hours, the kingdom was in chaos."
-                },
-                {
-                  "type": "divider",
-                  "style": "ornate"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "What followed was not grief. Grief implies a wound that can heal. What followed was an unraveling — slow at first, then catastrophic. The Princess had no heir. No designated successor. The Council of Toads, designed to advise rather than rule, found itself thrust into a role it was neither equipped nor authorized to fill."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Within a week, three separate factions had declared themselves the legitimate governing authority. Within a month, the first skirmishes broke out along provincial borders. Within a year, the Mushroom Kingdom — that gentle, golden realm of mushroom houses and Star Candy — was at war with itself."
-                },
-                {
-                  "type": "puzzle_cipher",
-                  "title": "ENCODED PASSAGE",
-                  "description": "The following passage has been encoded by the author. Each letter is shifted by 3 positions in the alphabet.",
-                  "encoded_text": "WKH DVVDVVLQ ZDV QRW DORQH. L IRXQG D VHFRQG VHW RI IRRWSULQWV LQ WKH GXVW EHQHDWK WKH KDWFK. VPDOOHU. D WRDG.",
-                  "solution": "THE ASSASSIN WAS NOT ALONE. I FOUND A SECOND SET OF FOOTPRINTS IN THE DUST BENEATH THE HATCH. SMALLER. A TOAD.",
-                  "hint": "Caesar cipher, shift of 3. A=D, B=E, C=F...",
-                  "secret_id": "cipher_assassin_accomplice"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter III: The Century of Blood",
-          "pages": [
-            {
-              "page_number": 6,
-              "content": [
-                {
-                  "type": "chapter_header",
-                  "text": "Chapter III",
-                  "subtitle": "The Century of Blood (955–1035 BF)",
-                  "color": "#8B0000"
-                },
-                {
-                  "type": "drop_cap",
-                  "letter": "W",
-                  "text": "ar, when it comes to the Mushroom Kingdom, does not arrive as a thunderclap. It seeps in like water through cracked stone — slowly, silently, and by the time you notice, the foundations have already given way.",
-                  "color": "#3e2723"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The first decade of conflict (955–965 BF) is remembered as the 'War of Banners,' named for the dozens of minor lords and self-proclaimed heirs who raised their own standards and declared sovereignty over patches of territory no larger than a few villages. It was almost farcical in its pettiness — mushroom farmers taking up pitchforks against mushroom farmers, each claiming their particular strain of leadership was the one the Princess would have wanted."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The second decade brought the Koopa Incursions. Warlord Bowser — or rather, the second to bear that title, the first having died of a wasting illness in 960 BF — saw opportunity in the kingdom's fracture. His armies swept through the eastern provinces with a discipline and ferocity that the squabbling toad militias could not match."
-                },
-                {
-                  "type": "timeline",
-                  "title": "KEY EVENTS OF THE CENTURY WAR",
-                  "border_color": "#8B0000",
-                  "events": [
-                    {
-                      "year": "955 BF",
-                      "event": "Assassination of Princess Peach. War of Banners begins.",
-                      "color": "#8B0000"
-                    },
-                    {
-                      "year": "962 BF",
-                      "event": "Star Road network destroyed. The Long Dark begins.",
-                      "color": "#4a148c"
-                    },
-                    {
-                      "year": "970 BF",
-                      "event": "First Koopa Incursion. Eastern provinces fall within months.",
-                      "color": "#e65100"
-                    },
-                    {
-                      "year": "988 BF",
-                      "event": "The Boo Aristocracy seals all mansions. Thousands of refugees turned away.",
-                      "color": "#1a237e"
-                    },
-                    {
-                      "year": "1001 BF",
-                      "event": "Battle of Pipe Junction. Largest single engagement of the war. 40,000 casualties.",
-                      "color": "#8B0000"
-                    },
-                    {
-                      "year": "1015 BF",
-                      "event": "The Onyx Hand emerges as a major power broker in the underworld.",
-                      "color": "#212121"
-                    },
-                    {
-                      "year": "1035 BF",
-                      "event": "Rise of the Iron Legion. A mercenary company becomes a state.",
-                      "color": "#37474f"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "page_number": 7,
-              "content": [
-                {
-                  "type": "paragraph",
-                  "text": "By the midpoint of the century, the war had evolved from territorial disputes into something more ideological. Three great power blocs had crystallized from the chaos:"
-                },
-                {
-                  "type": "faction_box",
-                  "factions": [
-                    {
-                      "name": "The Peach Loyalists",
-                      "color": "#e91e63",
-                      "icon": "🍑",
-                      "description": "Those who believed the kingdom should be restored to its pre-assassination state, complete with a new monarch selected through the ancient Star Rite. They were romantics, idealists, and increasingly desperate. Their scouts — agents like Embercap and Mistveil — operated deep behind enemy lines, gathering intelligence and keeping the flame of the old kingdom alive."
-                    },
-                    {
-                      "name": "The Iron Legion",
-                      "color": "#607d8b",
-                      "icon": "⚔️",
-                      "description": "What began as the 'Midlands Mercenary Company' in 1020 BF had, by 1035 BF, transformed into a military-industrial state. They controlled the Midlands with ruthless efficiency, taxed trade routes, and maintained the largest standing army in the region. Their motto — 'Order Through Strength' — adorned every checkpoint and garrison."
-                    },
-                    {
-                      "name": "The Onyx Hand",
-                      "color": "#212121",
-                      "icon": "🖐️",
-                      "description": "Neither loyalist nor legionnaire, the Onyx Hand operated in the spaces between. Part criminal syndicate, part shadow government, they controlled the flow of information, contraband, and — it was whispered — souls. Their tribunals dispensed a rough justice that many preferred to the chaos of the surface world."
-                    }
-                  ]
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The Iron Legion's rise deserves particular attention, for it represents something unprecedented in the kingdom's history: the transformation of violence from a means into an end. The Legion did not fight for territory, ideology, or vengeance. They fought because fighting was their industry, and peace was bad for business."
-                },
-                {
-                  "type": "interactive_reveal",
-                  "label": "[ A dried flower presses flat between these pages. Lift it to read what's beneath → ]",
-                  "hidden_content": [
-                    {
-                      "type": "handwritten",
-                      "text": "I write this knowing I may not survive the week. The Iron Legion has discovered that I possess copies of their internal communications — letters proving they deliberately prolonged the war by funding BOTH sides of the Battle of Pipe Junction. Forty thousand dead, and they profited from every single one. If this book survives and I do not, let these words serve as my testimony. — Toadsworth the Elder, 1038 BF",
-                      "color": "#5C3317",
-                      "background": "#f5e6c8"
-                    }
-                  ],
-                  "secret_id": "iron_legion_war_profiteering"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter IV: The Modern Crisis",
-          "pages": [
-            {
-              "page_number": 8,
-              "content": [
-                {
-                  "type": "chapter_header",
-                  "text": "Chapter IV",
-                  "subtitle": "The Year 1040 BF — Everything Burns",
-                  "color": "#8B0000"
-                },
-                {
-                  "type": "drop_cap",
-                  "letter": "A",
-                  "text": "s I write these final chapters, the ink still wet on some entries, I am acutely aware that I am no longer recording history. I am living it. The events of 1040 BF have unfolded with a speed and ferocity that defies the careful, measured analysis a historian owes their reader. I will do my best. Forgive the occasional trembling of the hand.",
-                  "color": "#3e2723"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The year began with a death — as so many consequential years do. The dragon Ignis, an ancient wyrm who had laired in the northern mountains since before the founding of the kingdom, was slain by a band of adventurers. The act was celebrated by the militarists, who saw dragons as threats to be eliminated. The Mages' Guild, however, was furious."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Ignis, they argued, was not merely a dragon. She was a living repository of magical knowledge, a creature whose scales resonated with frequencies of arcane energy that modern mages could barely comprehend. Her death was not a victory — it was the burning of a library. This philosophical divide — the sword versus the staff, pragmatism versus knowledge — would come to define the conflicts of 1040 BF."
-                },
-                {
-                  "type": "divider",
-                  "style": "simple"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Then came the matter of Archie Miser."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Archie Miser is, depending on whom you ask, either a folk hero or a war criminal. A mage of considerable power and questionable judgment, Archie killed a fellow practitioner and was brought before an Onyx Hand tribunal — the only judicial body willing to hear the case, as the Mages' Guild demanded internal arbitration and the Loyalists had no functioning courts."
-                },
-                {
-                  "type": "clickable_annotation",
-                  "text": "The tribunal acquitted him.",
-                  "annotation": "The acquittal of Archie Miser on Highsun 2, 1040 BF remains one of the most controversial judicial decisions in recent memory. The Onyx Hand tribunal, presided over by Judge Obsidian (a pseudonym), ruled that the killing constituted 'justifiable magical defense.' The Mages' Guild formally protested, calling the tribunal 'a puppet court run by criminals playing at justice.' Three Guild observers walked out during the verdict. One was later found dead under circumstances the Onyx Hand described as 'unrelated.'",
-                  "color": "#4a148c"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "This single decision — rendered in a basement courtroom by hooded judges whose real names may never be known — set in motion a chain of events that would see airships seized, alliances shattered, and the very fabric of reality threatened."
-                }
-              ]
-            },
-            {
-              "page_number": 9,
-              "content": [
-                {
-                  "type": "paragraph",
-                  "text": "The airship Vigilance became the unlikely stage upon which these grand conflicts played out. Originally a cargo vessel, the Vigilance had been converted into a mobile command post by a coalition of adventurers, opportunists, and idealists who found themselves bound together by circumstance rather than choice."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The events aboard the Vigilance between Highsun 3 and Highsun 13 constitute what I have come to call the 'Thirteen Days of Chaos.' During this period, the following occurred in rapid, overlapping succession:"
-                },
-                {
-                  "type": "list_dramatic",
-                  "items": [
-                    {
-                      "text": "A smuggling ring operated by the Iron Fists was dismantled, earning the party a bounty on their heads.",
-                      "color": "#e65100"
-                    },
-                    {
-                      "text": "An officer known only as X.O. betrayed the crew and seized control of the ship, taking Warlord Bowser himself as a captive.",
-                      "color": "#8B0000"
-                    },
-                    {
-                      "text": "The pirate Captain Syrup was freed, immediately turned hostile, and triggered a cascading series of confrontations that revealed a traitor among the toad crew.",
-                      "color": "#1565c0"
-                    },
-                    {
-                      "text": "A toad named hjumpik disabled the ship's power core with an axe — an act of either brilliant desperation or suicidal madness — sending the Vigilance into a terminal nosedive.",
-                      "color": "#2e7d32"
-                    },
-                    {
-                      "text": "Over 150 trafficked toads were discovered hidden in barrels throughout the ship, each accessible only via a secret compartment opened by a Mini-Mushroom.",
-                      "color": "#4a148c"
-                    },
-                    {
-                      "text": "Archie Miser unleashed a fireball during a negotiation gone wrong, killing numerous combatants including most of the Tea Leaf Syndicate's muscle.",
-                      "color": "#ff6f00"
-                    }
-                  ]
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Each of these events, taken alone, would constitute a significant historical incident. Together, compressed into less than a fortnight, they represent a concentration of chaos that I struggle to find parallel for in the historical record."
-                },
-                {
-                  "type": "interactive_reveal",
-                  "label": "[ The bottom of this page is stained with what appears to be tea. Tilt the page to read the watermarked text → ]",
-                  "hidden_content": [
-                    {
-                      "type": "handwritten",
-                      "text": "Fawful has allied with DRAGONS. After we killed Ignis, he somehow brokered a deal with the remaining wyrms. Embercap's infiltration of Fawful's gala confirmed it before everything went wrong and Jade Grit died. If Fawful can command dragonfire, no faction can stand against him. We are running out of time. — T.E.",
-                      "color": "#006064",
-                      "background": "#e0f2f1"
-                    }
-                  ],
-                  "secret_id": "fawful_dragon_alliance"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Chapter V: The Raventree Affair",
-          "pages": [
-            {
-              "page_number": 10,
-              "content": [
-                {
-                  "type": "chapter_header",
-                  "text": "Chapter V",
-                  "subtitle": "The Raventree Affair & The Fracturing of Reality",
-                  "color": "#8B0000"
-                },
-                {
-                  "type": "drop_cap",
-                  "letter": "R",
-                  "text": "aventree Manor. Even the name carries weight — the kind of weight that presses down on the chest and makes breathing difficult. I visited the manor once, in my youth, before it became what it is now. It was beautiful then. A sprawling estate of dark wood and climbing roses, home to a minor noble family whose name has been deliberately struck from every record I can find.",
-                  "color": "#3e2723"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Now Raventree is something else entirely. The manor sits at a nexus of planar fractures — tears in the fabric of reality itself — that have transformed it from a mere building into a wound in the world. Ghosts walk its halls not as metaphor but as literal fact. Rooms shift and rearrange themselves according to logics that defy cartography. The maze in the gardens is said to exist in multiple dimensions simultaneously."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "It was to Raventree that the events of 1040 BF inevitably led. The Mages' Guild, the Onyx Hand, the Iron Legion, the remnants of the Tea Leaf Syndicate, independent agents, vampires, parallel-dimension duplicates, and at least one very confused plumber all converged on the manor within the span of a single week."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "The reasons for this convergence are as numerous as the factions involved. The Mages' Guild sought to study — and exploit — the planar fractures. The Onyx Hand's vampire knights had established a nest within the manor, using dark crystals to sustain their undeath. The Iron Legion wanted the strategic position. And the adventurers of the Vigilance? They were simply trying to survive."
-                },
-                {
-                  "type": "lore_box",
-                  "title": "THE PARALLEL DAN PARADOX",
-                  "border_color": "#4a148c",
-                  "background": "#f3e5f5",
-                  "entries": [
-                    "Dan the Toad exists in at least two simultaneous versions",
-                    "The 'original' Dan is believed held by the Mages' Guild in a null cage",
-                    "The 'parallel' Dan confessed his nature to Markop on Highsun 26",
-                    "Dan's existence disrupts the Oracle's ability to function",
-                    "The implications for reality stability are described as 'catastrophic'",
-                    "The Mages' Guild considers Dan's elimination an acceptable cost"
-                  ]
-                }
-              ]
-            },
-            {
-              "page_number": 11,
-              "content": [
-                {
-                  "type": "paragraph",
-                  "text": "The events within Raventree during Highsun 26–29 deserve a volume of their own, and I suspect some future historian will provide one. For now, I will record what I can verify:"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Luigi — the brother of the legendary plumber Mario, long thought to be a figure of myth — appeared at the manor on the evening of Highsun 26. His arrival coincided with an assault by Onyx knights and a series of spectral manifestations that forced several members of the party to flee through windows, off verandas, and into the nightmare maze."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Remi, the newest member of the Vigilance's crew — recruited, incredibly, after Wario handed her a box that turned out to be a bomb — found herself captured by the manor's Onyx knight garrison. During her captivity, she discovered Green T's battle plan: a frantic strategy scrawled on a linen napkin, detailing an assault to kill the vampires and destroy their sustaining crystals."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Meanwhile, Archie Miser encountered Perrius Anamatar — a being of uncertain nature and considerable power — having tea in a sitting room as though the manor were not collapsing into dimensional chaos around him. When Archie accused him of orchestrating the chaos, Perrius responded by siccing spectral coats on Luigi. Archie's counter — a massive fireball in an enclosed room — was characteristically disproportionate."
-                },
-                {
-                  "type": "divider",
-                  "style": "ornate"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "And then there was Bryan."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Bryan. A toad who arrived through a Mages' Guild portal with a single, burning purpose: to find and punish Archie Miser. Bryan called himself a servant of the toad god. He recruited Purple T for his theft skills and coerced Dan and another mage into joining his hunt. He carried divination incense that could knock a target unconscious and a faith that burned hotter than any of Archie's fireballs."
-                },
-                {
-                  "type": "paragraph",
-                  "style": "italic",
-                  "text": "The vendetta between Bryan and Archie is personal in a way that transcends faction politics. It is, at its core, about what happens when power meets conviction — and neither is willing to yield.",
-                  "color": "#8B0000"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Afterword",
-          "pages": [
-            {
-              "page_number": 12,
-              "content": [
-                {
-                  "type": "chapter_header",
-                  "text": "Afterword",
-                  "subtitle": "Written in Haste, Harvestide 30, 1040 BF",
-                  "color": "#8B0000"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "I set down my quill knowing this chronicle is incomplete. The events at Raventree continue to unfold even as I write. Lady Aurelian Corvinarus has made her requests. The twilight grove has revealed its horrors. The Mages' Guild plots to extract the ghosts regardless of the cost to the living."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Archie was ambushed in a library — there is a bitter irony in that — and nearly killed by something the Guild has not deigned to name. He survived, though the circumstances of his rescue remain murky. A Purple Toad appeared as if from nowhere, sang a cryptic fortune-telling song, picked Archie's pockets with the casual ease of a master thief, and vanished through a portal of Archie's own making."
-                },
-                {
-                  "type": "paragraph",
-                  "text": "Reality is fracturing. The Oracle is dead. A parallel Dan walks the world while the original rots in a null cage. Vampires feast in manor halls while bureaucrats charge two thousand gold for a broken rope. And somewhere, in a sealed room that appears on no blueprint, a secret hatch holds the answer to who killed Princess Peach eighty-five years ago."
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "paragraph",
-                  "text": "I do not know if the kingdom can be saved. I do not know if it deserves to be. What I know is that there are those who are trying — imperfect, chaotic, frequently at each other's throats — but trying nonetheless."
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "quote",
-                  "text": "\"The kingdom is not its borders or its crown. The kingdom is its people — stubborn, foolish, magnificent people who refuse to let the darkness have the final word.\"",
-                  "attribution": "— Toadsworth the Elder, final entry",
-                  "color": "#8B0000"
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "centered",
-                  "text": "— END OF VOLUME ONE —",
-                  "color": "#8B0000",
-                  "style": "bold",
-                  "size": "large"
-                },
-                {
-                  "type": "spacer"
-                },
-                {
-                  "type": "centered",
-                  "text": "[ This volume was recovered from a hollowed-out mushroom stump near the ruins of Toad Town. The author's fate is unknown. ]",
-                  "color": "#999",
-                  "style": "italic"
-                }
-              ]
-            }
           ]
         }
       ]

@@ -5,6 +5,14 @@
     "totalItems": 22
   },
   "categories": [
+      { "id": "all", "label": "All Items", "icon": "📦", "color": "#8b9dc3" },
+      { "id": "scrap", "label": "Scraps & Junk", "icon": "🗑️", "color": "#7f8c8d" },
+      { "id": "document", "label": "Documents", "icon": "📄", "color": "#c4a882" },
+      { "id": "artifact", "label": "Artifacts", "icon": "🔮", "color": "#9b59b6" },
+      { "id": "evidence", "label": "Evidence", "icon": "🔍", "color": "#e74c3c" },
+      { "id": "personal", "label": "Personal Effects", "icon": "👤", "color": "#3498db" },
+      { "id": "relic", "label": "Relics", "icon": "⚱️", "color": "#f39c12" },
+      { "id": "curiosity", "label": "Curiosities", "icon": "❓", "color": "#1abc9c" },
     { "id": "scraps", "label": "Scraps & Papers", "icon": "📜", "color": "#c9a96e" },
     { "id": "artifacts", "label": "Artifacts & Relics", "icon": "🔮", "color": "#9b59b6" },
     { "id": "evidence", "label": "Evidence", "icon": "🔍", "color": "#e74c3c" },
@@ -13,6 +21,989 @@
     { "id": "consumables", "label": "Consumables", "icon": "🧪", "color": "#2ecc71" }
   ],
   "items": [
+{
+      "id": "soggy_receipt",
+      "type": "scrap",
+      "name": "Soggy Receipt",
+      "subtitle": "A crumpled, water-damaged receipt",
+      "icon": "🧾",
+      "rarity": "common",
+      "description": "A wadded-up receipt from what appears to be one of Wario's many failed business ventures. The ink has run badly, making most of it illegible. It smells faintly of garlic and engine grease.",
+      "loreText": "WARIO'S EMPORIUM OF FI--\n----------------------------\n1x Gold Nose Hair Trim..  3g\n1x ???tle of Gar???c Wine  12g\n1x 'Legit' Star Piece... 900,000,000,000g\n    (CROSSED OUT)\n1x Stale Mushroom........ 1g\n----------------------------\nTOTAL: 16g\nPAID: ???\nNO REFUNDS. EVER.\nHAVE A WARIO DAY!",
+      "examination": "On closer inspection, there's a second receipt stuck to the back. It reads: 'IOU - One favor. Sincerely, W.' The handwriting is barely legible.",
+      "image": { "type": "emoji", "src": "🧾", "scale": 3 },
+      "model3d": null,
+      "obtained": {
+        "by": "Remi (FNG)",
+        "date": "Highsun 12, 1040 BF",
+        "location": "The Vigilance - Cargo Hold",
+        "method": "Found stuck to the bottom of the crate she arrived in."
+      },
+      "condition": "damaged",
+      "interactive": {
+        "type": "unfold",
+        "prompt": "Uncrumple the receipt",
+        "stages": [
+          { "label": "Crumpled Ball", "content": "A wet, crumpled ball of paper. Something is printed on it." },
+          { "label": "Partially Unfolded", "content": "You can make out 'WARIO'S EMPOR--' and a list of prices. The total seems... modest for Wario." },
+          { "label": "Fully Unfolded", "content": "The full receipt is revealed, including a scratched-out line item for 900 trillion gold. On the back, a handwritten IOU." }
+        ]
+      },
+      "style": {
+        "theme": "paper",
+        "accent": "#a89070",
+        "animation": "none",
+        "filter": "sepia(0.4) brightness(0.9)",
+        "customCSS": "font-family: 'Courier New', monospace; letter-spacing: -0.5px;"
+      },
+      "tags": ["junk", "wario", "funny"],
+      "connections": ["vampire_wine"],
+      "notes": ""
+    },
+
+    {
+      "id": "battle_plan_napkin",
+      "type": "document",
+      "name": "Green T's Battle Plan",
+      "subtitle": "A linen napkin with a frantic battle plan",
+      "icon": "🗺️",
+      "rarity": "rare",
+      "description": "A fine linen dinner napkin, clearly stolen from the Corvinarus estate's formal dining set. Green T has scrawled a desperate battle plan across it in what appears to be a mixture of ink and wine. The handwriting grows increasingly erratic toward the edges.",
+      "loreText": "PLAN:\n1. KILL THE VAMPIRES (all of them)\n2. SMASH THE CRYSTALS (the big ones)\n3. FORCE TIMELINE MERGE\n4. UNLEASH THE BEAST (???)\n5. RUN\n\nNOTES:\n- Stole key from Orangus (DON'T LOSE IT)\n- Gun has 3 shots left\n- Archie = wildcard (keep him angry)\n- If this doesn't work we're all dead anyway\n- Tell Remi I'm sorry about the spider thing",
+      "examination": "The napkin has the Corvinarus family crest embroidered in one corner—a dragon coiled around an orange tree. Green T has drawn an arrow pointing to it with the note 'THESE GUYS ARE THE WORST.'",
+      "image": { "type": "emoji", "src": "📋", "scale": 3 },
+      "model3d": null,
+      "obtained": {
+        "by": "Remi (FNG)",
+        "date": "Highsun 26, 1040 BF @ 19:50",
+        "location": "Shadeward Manor - Dining Hall",
+        "method": "Discovered while snooping around the dining hall after capture by the Onyx Hand."
+      },
+      "condition": "worn",
+      "interactive": {
+        "type": "flip",
+        "prompt": "Turn the napkin over",
+        "stages": [
+          { "label": "Front (Battle Plan)", "content": "The frantic battle plan with its five desperate steps." },
+          { "label": "Back (Hidden Message)", "content": "On the reverse, in much smaller, steadier handwriting: 'If you're reading this and I'm gone—the key opens the FOURTH MIRROR on the second floor. Don't trust the Oracle with the scar. There's only one real one. —GT'" }
+        ]
+      },
+      "style": {
+        "theme": "cloth",
+        "accent": "#8b0000",
+        "animation": "none",
+        "filter": "",
+        "customCSS": "background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(139,0,0,0.05) 28px, rgba(139,0,0,0.05) 29px);"
+      },
+      "tags": ["lore", "critical", "green-t", "quest"],
+      "connections": ["cornelius_statuette", "entropy_ring"],
+      "notes": "This napkin contains critical tactical intelligence. Green T's plan is reckless but shows deep knowledge of the manor's dimensional mechanics."
+    },
+
+    {
+      "id": "rope_bill",
+      "type": "document",
+      "name": "Absurd Rope Replacement Bill",
+      "subtitle": "An outrageously inflated invoice",
+      "icon": "📜",
+      "rarity": "common",
+      "description": "A crisp, officially stamped invoice from the Mages' Guild Requisitions Department. It charges Archie Miser for the replacement of one (1) standard hemp rope. The total, after fees, surcharges, taxes, and 'dimensional instability adjustments,' exceeds 2,000 gold pieces.",
+      "loreText": "═══════════════════════════════\n   MAGES' GUILD - INVOICE\n   Dept. of Material Requisition\n   Form 77-B (Revised)(Revised)\n═══════════════════════════════\nTO: Archie Miser (Non-Member)\nRE: Destruction of Guild Property\n\nItem: Hemp Rope, Standard, 50ft\nBase Cost:                    2g\nReplacement Fee:             15g\nExpedited Processing:        30g\nNon-Member Surcharge:        50g\nDimensional Instability Adj: 200g\nPlanar Hazard Insurance:     300g\nAdministrative Fee:          150g\nFiling Fee:                   75g\nFee Processing Fee:           25g\nInk & Parchment:             12g\nGuild Seal Stamping:         40g\nEmotional Distress (Staff):  500g\nMiscellaneous:               601g\n-------------------------------\nSUBTOTAL:                 2,000g\nLate Fee (pre-applied):      47g\n===============================\nTOTAL DUE:               2,047g\n\nPayment due IMMEDIATELY.\nFailure to pay will result in\ncollection proceedings and/or\ntransmutation into a small\nrodent.\n\n        [OFFICIAL SEAL]",
+      "examination": "At the very bottom, in tiny print: 'The Mages' Guild is not responsible for transmutation-related injuries, loss of identity, or existential dread. By reading this invoice you agree to our terms of service.'",
+      "image": { "type": "emoji", "src": "💰", "scale": 3 },
+      "model3d": null,
+      "obtained": {
+        "by": "Archie Miser",
+        "date": "Highsun 29, 1040 BF @ 05:06",
+        "location": "Raventree Manor - Upper Floor",
+        "method": "Handed directly to Archie by a Mages' Guild representative with a completely straight face."
+      },
+      "condition": "pristine",
+      "interactive": {
+        "type": "shake",
+        "prompt": "Shake with rage",
+        "stages": [
+          { "label": "Read Calmly", "content": "You read the invoice. Your eye twitches." },
+          { "label": "Shaking", "content": "The paper rattles in your grip. 'FEE PROCESSING FEE?!' Two thousand gold for a ROPE?!" }
+        ]
+      },
+      "style": {
+        "theme": "royal",
+        "accent": "#4a0e8f",
+        "animation": "none",
+        "filter": "",
+        "customCSS": "border: 3px double #4a0e8f; font-family: 'Georgia', serif;"
+      },
+      "tags": ["funny", "mages-guild", "archie"],
+      "connections": ["fellowship_badge"],
+      "notes": ""
+    },
+
+    {
+      "id": "spy_field_notes",
+      "type": "evidence",
+      "name": "Captured Spy's Field Notes",
+      "subtitle": "Detailed surveillance records",
+      "icon": "🕵️",
+      "rarity": "rare",
+      "description": "A small, leather-bound notebook recovered from a captured spy. The handwriting is precise and clinical. It contains detailed observations of Archie Miser and Bones's movements, habits, and conversations. Several pages have been torn out, and others show signs of hasty burning at the edges.",
+      "loreText": "SUBJECT A (Miser):\n- Third eye confirmed. Magical origin unknown.\n- Emotional trigger: mentions of fire, past incidents.\n- Combat style: reckless. Favors firebolt.\n- Weakness: guilt. Exploitable.\n- NOTE: Do NOT engage in confined spaces.\n\nSUBJECT B (Bones):\n- Former Legion? Unconfirmed.\n- Skilled infiltrator. Nearly spotted me twice.\n- Has decoded partial cipher set 7.\n- Priority: Prevent access to [BURNT]\n\nOPERATIONAL NOTES:\n- Dead drop compromised. Switch to [TORN]\n- Handler requests extraction by [BURNT]\n- If captured: destroy pages 12-15 FIRST",
+      "examination": "Between the pages, you find a tiny folded piece of paper with a crude map. It shows the layout of a building labeled 'PROCESSING FACILITY' with an X marked in what appears to be a sub-basement. The map has been partially burned but the X is still visible.",
+      "image": { "type": "emoji", "src": "📓", "scale": 3 },
+      "model3d": null,
+      "obtained": {
+        "by": "Bones",
+        "date": "Highsun 27, 1040 BF @ 23:10",
+        "location": "Loyalist Safehouse",
+        "method": "Recovered from a spy's belongings after capture. The spy attempted to destroy the notebook but was stopped."
+      },
+      "condition": "damaged",
+      "interactive": {
+        "type": "reveal",
+        "prompt": "Check for hidden messages",
+        "stages": [
+          { "label": "Surface Reading", "content": "Standard surveillance notes on Archie and Bones. Professional work." },
+          { "label": "UV Check", "content": "Holding the pages to light reveals invisible ink between the lines: 'ORACLE IS NOT ONE. ORACLE IS MANY. THE REAL ONE DIED IN 988. WHAT WALKS IS A MEMORY.'" }
+        ]
+      },
+      "style": {
+        "theme": "leather",
+        "accent": "#c0392b",
+        "animation": "none",
+        "filter": "contrast(1.1) brightness(0.95)",
+        "customCSS": "border-left: 4px solid #c0392b;"
+      },
+      "tags": ["evidence", "critical", "espionage", "bones", "archie"],
+      "connections": ["iron_insignia", "fellowship_badge"],
+      "notes": "The hidden UV message about the Oracle contradicts what the party has been told. If true, it changes everything about the Raventree Manor situation."
+    },
+
+    {
+      "id": "gray_pendant",
+      "type": "artifact",
+      "name": "Gray Stone Pendant",
+      "subtitle": "A warm stone pulsing with faint inner light",
+      "icon": "📿",
+      "rarity": "uncommon",
+      "description": "A smooth, ovoid gray stone set in a tarnished brass pendant frame. It is slightly warm to the touch and pulses with a faint inner light, like a slow heartbeat. Archaic inscriptions circle the setting—glyphs used in ancient wayfinding magic to mark locations across planes.",
+      "loreText": "The inscriptions, when translated, read: 'I REMEMBER WHERE YOU STOOD.' The stone grows warmer when pointed toward places of significance—battlefields, graves, thresholds between worlds. It is cold and dark when pointed toward nothing.",
+      "examination": "When you hold the pendant up and slowly turn, you notice the inner light brightens noticeably when aimed at the northeast wall. The stone almost thrums against your palm, as if eager to guide you somewhere.",
+      "image": { "type": "emoji", "src": "💎", "scale": 3 },
+      "model3d": {
+        "type": "group",
+        "parts": [
+          {
+            "geometry": "torus",
+            "args": [1.0, 0.15, 16, 48],
+            "material": {
+              "type": "standard",
+              "color": "#8B7355",
+              "metalness": 0.7,
+              "roughness": 0.4
+            },
+            "position": [0, 0, 0],
+            "rotation": [1.57, 0, 0]
+          },
+          {
+            "geometry": "sphere",
+            "args": [0.6, 32, 32],
+            "material": {
+              "type": "standard",
+              "color": "#9E9E9E",
+              "emissive": "#2a2a1a",
+              "emissiveIntensity": 0.5,
+              "metalness": 0.1,
+              "roughness": 0.8
+            },
+            "position": [0, 0, 0]
+          },
+          {
+            "geometry": "cylinder",
+            "args": [0.08, 0.08, 1.2, 8],
+            "material": {
+              "type": "standard",
+              "color": "#8B7355",
+              "metalness": 0.7,
+              "roughness": 0.4
+            },
+            "position": [0, 1.1, 0]
+          }
+        ],
+        "animation": "float",
+        "rotationSpeed": { "x": 0, "y": 0.008, "z": 0 },
+        "floatAmplitude": 0.15,
+        "floatSpeed": 0.002,
+        "emissivePulse": { "min": 0.2, "max": 0.8, "speed": 0.003 }
+      },
+      "obtained": {
+        "by": "Archie Miser",
+        "date": "Highsun 28, 1040 BF @ 17:15",
+        "location": "Raventree Manor - Curio Collection Room",
+        "method": "Discovered in an antiquities display case alongside the Cornelius statuette."
+      },
+      "condition": "good",
+      "interactive": {
+        "type": "rotate",
+        "prompt": "Rotate the pendant",
+        "stages": [
+          { "label": "Front", "content": "The gray stone pulses gently in its brass frame. The inscriptions glow faintly." },
+          { "label": "Side", "content": "The brass frame is etched with tiny symbols—each one a different planar coordinate." },
+          { "label": "Back", "content": "On the reverse of the frame, scratched crudely into the metal: 'PROPERTY OF A.C. — DO NOT REMOVE FROM ESTATE'" }
+        ]
+      },
+      "style": {
+        "theme": "metal",
+        "accent": "#8B7355",
+        "animation": "pulse",
+        "filter": "",
+        "customCSS": "box-shadow: 0 0 20px rgba(139,115,85,0.3);"
+      },
+      "tags": ["magical", "wayfinding", "artifact"],
+      "connections": ["cornelius_statuette", "brass_compass"],
+      "notes": "A.C. likely refers to Aurelian Corvinarus. The pendant may be key to navigating between the fractured planes."
+    },
+
+    {
+      "id": "star_shard",
+      "type": "relic",
+      "name": "Star Shard",
+      "subtitle": "A crystalline gift from the Toad God",
+      "icon": "⭐",
+      "rarity": "legendary",
+      "description": "A fragment of crystallized divine energy, roughly the size of a closed fist. It radiates a warm, golden light that never dims and hums with a frequency just below the threshold of hearing. The Oracle identified it as a gift from the Toad God—one of the sacred 'Bearer' artifacts that anchor reality itself.",
+      "loreText": "When held, the Star Shard imparts a feeling of profound peace and absolute certainty. You know, with a conviction that transcends logic, that this object is IMPORTANT. Not important in the way gold or weapons are important—important in the way gravity is important. It is a fundamental piece of something vast.",
+      "examination": "Looking deep into the crystal's core, you see what appears to be a tiny star—a pinprick of light that shifts through colors no mortal palette contains. Staring too long makes your eyes water and fills your mind with a sound like distant singing.",
+      "image": { "type": "emoji", "src": "🌟", "scale": 4 },
+      "model3d": {
+        "type": "primitive",
+        "geometry": "octahedron",
+        "args": [1, 0],
+        "material": {
+          "type": "standard",
+          "color": "#FFD700",
+          "emissive": "#FF8C00",
+          "emissiveIntensity": 0.6,
+          "metalness": 0.3,
+          "roughness": 0.1,
+          "transparent": true,
+          "opacity": 0.85
+        },
+        "animation": "float",
+        "rotationSpeed": { "x": 0.003, "y": 0.007, "z": 0.005 },
+        "floatAmplitude": 0.25,
+        "floatSpeed": 0.0015,
+        "emissivePulse": { "min": 0.3, "max": 1.0, "speed": 0.002 }
+      },
+      "obtained": {
+        "by": "The Oracle (Bearer)",
+        "date": "Highsun 21, 1040 BF @ 00:45",
+        "location": "Raventree Manor - Ritual Chamber",
+        "method": "Revealed by one of the multiple Oracles during the pre-ritual gathering. Declared to be a 'Bearer' artifact."
+      },
+      "condition": "pristine",
+      "interactive": {
+        "type": "reveal",
+        "prompt": "Attune to the Shard",
+        "stages": [
+          { "label": "Surface Glow", "content": "The shard glows with steady golden light. It feels warm and alive in your hands." },
+          { "label": "Deep Resonance", "content": "As you focus, you hear fragments of a celestial hymn. Words form in your mind: 'THE BEARER WALKS BETWEEN. THE SHARD REMEMBERS ALL PATHS. THREE WERE MADE. TWO REMAIN. ONE IS LOST IN THE DEEP MIRROR.'" }
+        ]
+      },
+      "style": {
+        "theme": "crystal",
+        "accent": "#FFD700",
+        "animation": "glow",
+        "filter": "",
+        "customCSS": "box-shadow: 0 0 40px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,140,0,0.2); text-shadow: 0 0 10px rgba(255,215,0,0.3);"
+      },
+      "tags": ["divine", "critical", "relic", "quest"],
+      "connections": ["gray_pendant", "cornelius_statuette"],
+      "notes": "One of three Star Shards. Two remain; one is lost in the Deep Mirror. This may be the key to the planar convergence."
+    },
+
+    {
+      "id": "brass_compass",
+      "type": "artifact",
+      "name": "Cracked Brass Compass",
+      "subtitle": "A divination compass with a shattered face",
+      "icon": "🧭",
+      "rarity": "rare",
+      "description": "A palm-sized brass compass with a cracked glass face. The needle doesn't point north—it points toward sources of magical energy, spinning lazily between them. The casing is dented and scratched, suggesting it has survived considerable abuse. Faint divination magic radiates from it in irregular pulses.",
+      "loreText": "The compass was provided by Agent L (Luigi) as part of the Mages' Guild cleanup contract. It detects magical signatures within approximately 100 feet, with the needle spinning faster as the source grows nearer. The crack in the glass occurred during a dimensional transit, and the compass has been slightly 'off' ever since—occasionally pointing at things that aren't there yet.",
+      "examination": "The compass back is engraved with a serial number: 'MG-DIV-0047.' Below it, someone has scratched: 'It shows you where magic IS, not where it SHOULD BE. Be careful. —L'",
+      "image": { "type": "emoji", "src": "🧭", "scale": 3 },
+      "model3d": {
+        "type": "group",
+        "parts": [
+          {
+            "geometry": "cylinder",
+            "args": [1, 1, 0.3, 32],
+            "material": {
+              "type": "standard",
+              "color": "#B8860B",
+              "metalness": 0.8,
+              "roughness": 0.3
+            },
+            "position": [0, 0, 0]
+          },
+          {
+            "geometry": "cylinder",
+            "args": [0.85, 0.85, 0.05, 32],
+            "material": {
+              "type": "standard",
+              "color": "#F5F5DC",
+              "metalness": 0.0,
+              "roughness": 0.9
+            },
+            "position": [0, 0.18, 0]
+          },
+          {
+            "geometry": "box",
+            "args": [0.08, 0.02, 0.7],
+            "material": {
+              "type": "standard",
+              "color": "#C0392B",
+              "emissive": "#8B0000",
+              "emissiveIntensity": 0.3,
+              "metalness": 0.6,
+              "roughness": 0.2
+            },
+            "position": [0, 0.22, 0],
+            "isNeedle": true
+          }
+        ],
+        "animation": "rotate",
+        "rotationSpeed": { "x": 0, "y": 0.005, "z": 0 },
+        "needleSpin": true
+      },
+      "obtained": {
+        "by": "Archie Miser",
+        "date": "Highsun 26, 1040 BF @ 14:20",
+        "location": "Raventree Manor - Mages' Guild Outpost",
+        "method": "Provided by Agent L (Luigi) as part of the ghost-hunting contract equipment."
+      },
+      "condition": "damaged",
+      "interactive": {
+        "type": "rotate",
+        "prompt": "Watch the needle",
+        "stages": [
+          { "label": "Resting", "content": "The needle drifts lazily, pointing vaguely east. The glass crack runs diagonally across the face." },
+          { "label": "Active", "content": "The needle suddenly spins rapidly, then locks onto a direction behind you. The brass casing grows warm." },
+          { "label": "Anomaly", "content": "The needle points straight DOWN. Through the cracked glass, you glimpse something that isn't reflected in the room—a doorway that doesn't exist. Yet." }
+        ]
+      },
+      "style": {
+        "theme": "metal",
+        "accent": "#B8860B",
+        "animation": "breathe",
+        "filter": "",
+        "customCSS": ""
+      },
+      "tags": ["magical", "tool", "mages-guild", "luigi"],
+      "connections": ["fellowship_badge", "gray_pendant"],
+      "notes": "Stolen by Purple T when he picked Archie's pockets and used to open a portal. Currently missing."
+    },
+
+    {
+      "id": "iron_insignia",
+      "type": "evidence",
+      "name": "Iron Legion Insignia",
+      "subtitle": "A branded military identification badge",
+      "icon": "⚙️",
+      "rarity": "uncommon",
+      "description": "A small iron badge in the shape of a clenched fist, stamped with the Iron Legion's motto: 'STRENGTH THROUGH ORDER.' This particular insignia was surgically implanted beneath the skin of a toad the party rescued, revealing him as a Legion plant. The badge still has traces of dried blood and surgical adhesive on its back.",
+      "loreText": "Iron Legion insignias come in three tiers: bronze (recruit), iron (operative), and blacksteel (commander). This one is iron-tier, indicating the plant was a trained operative—not a simple informant. The serial number on the back (IL-7-4412) corresponds to the 7th Division, 44th Infiltration Unit, Agent 12.",
+      "examination": "Under magnification, the fist emblem has micro-engraved text spiraling inward: 'THE LEGION ENDURES. THE INDIVIDUAL SERVES. FAILURE IS TREASON. TREASON IS DEATH.' Cheery.",
+      "image": { "type": "emoji", "src": "⚔️", "scale": 3 },
+      "model3d": {
+        "type": "group",
+        "parts": [
+          {
+            "geometry": "cylinder",
+            "args": [0.8, 0.8, 0.1, 6],
+            "material": {
+              "type": "standard",
+              "color": "#434343",
+              "metalness": 0.9,
+              "roughness": 0.3
+            },
+            "position": [0, 0, 0]
+          },
+          {
+            "geometry": "box",
+            "args": [0.4, 0.5, 0.15],
+            "material": {
+              "type": "standard",
+              "color": "#5C5C5C",
+              "metalness": 0.9,
+              "roughness": 0.2
+            },
+            "position": [0, 0, 0.05]
+          },
+          {
+            "geometry": "cylinder",
+            "args": [0.03, 0.03, 0.4, 8],
+            "material": {
+              "type": "standard",
+              "color": "#434343",
+              "metalness": 0.9,
+              "roughness": 0.3
+            },
+            "position": [0, -0.5, -0.05]
+          }
+        ],
+        "animation": "rotate",
+        "rotationSpeed": { "x": 0, "y": 0.006, "z": 0 }
+      },
+      "obtained": {
+        "by": "Creek (Medic)",
+        "date": "Highsun 16, 1040 BF @ 21:00",
+        "location": "The Vigilance - Medical Bay",
+        "method": "Discovered during emergency surgery on a 'rescued' toad. The insignia was implanted subcutaneously in the toad's shoulder."
+      },
+      "condition": "good",
+      "interactive": {
+        "type": "flip",
+        "prompt": "Turn over the badge",
+        "stages": [
+          { "label": "Front (Emblem)", "content": "The Iron Fist emblem, cold and heavy. 'STRENGTH THROUGH ORDER' stamped around the border." },
+          { "label": "Back (Serial)", "content": "Serial: IL-7-4412. Below it, a QR-like pattern of dots that may encode additional information. There are faint stains that could be blood—or rust." }
+        ]
+      },
+      "style": {
+        "theme": "metal",
+        "accent": "#5C5C5C",
+        "animation": "none",
+        "filter": "contrast(1.2) brightness(0.9)",
+        "customCSS": "border: 2px solid #434343;"
+      },
+      "tags": ["evidence", "iron-legion", "infiltration", "critical"],
+      "connections": ["spy_field_notes", "entropy_ring"],
+      "notes": "This badge proves the Iron Legion had agents embedded among the trafficked toads. The entire rescue may have been orchestrated."
+    },
+
+    {
+      "id": "entropy_ring",
+      "type": "artifact",
+      "name": "Entropy Ring",
+      "subtitle": "A coercive magical restraint device",
+      "icon": "💍",
+      "rarity": "rare",
+      "description": "A plain black iron ring that seems to absorb light. When worn, it creates a magical bond between the wearer and the ring's controller, allowing remote tracking, communication, and—if activated—excruciating pain. The ring cannot be removed without the controller's command or specialized dispel magic. Agent Malissia fitted one to Toadburt during his captivity.",
+      "loreText": "The ring is warm to the touch despite its black surface. It vibrates faintly at irregular intervals—receiving signals from its controller. The interior surface is inscribed with binding runes that glow a dull red when the wearer attempts to resist commands. Each pulse of vibration is accompanied by a whispered word in a language that shouldn't exist.",
+      "examination": "Examining the ring with detect magic reveals THREE distinct enchantments layered on top of each other: Tracking (Divination), Communication (Enchantment), and Pain Compliance (Necromancy). The necromantic layer is the strongest. Whoever made this ring was skilled and cruel.",
+      "image": { "type": "emoji", "src": "⭕", "scale": 3 },
+      "model3d": {
+        "type": "primitive",
+        "geometry": "torus",
+        "args": [0.8, 0.2, 16, 48],
+        "material": {
+          "type": "standard",
+          "color": "#1a1a1a",
+          "emissive": "#330000",
+          "emissiveIntensity": 0.4,
+          "metalness": 0.95,
+          "roughness": 0.1
+        },
+        "animation": "float",
+        "rotationSpeed": { "x": 0.005, "y": 0.01, "z": 0 },
+        "floatAmplitude": 0.1,
+        "floatSpeed": 0.003,
+        "emissivePulse": { "min": 0.1, "max": 0.6, "speed": 0.004 }
+      },
+      "obtained": {
+        "by": "Toadburt (coerced)",
+        "date": "Highsun 21, 1040 BF @ 03:00",
+        "location": "Raventree Manor - Physical Antechamber",
+        "method": "Fitted to Toadburt by Agent Malissia of the Iron Legion during magical interrogation."
+      },
+      "condition": "cursed",
+      "interactive": {
+        "type": "reveal",
+        "prompt": "Attempt to read the runes",
+        "stages": [
+          { "label": "Surface", "content": "A black ring. It feels wrong. Your skin crawls when you touch it." },
+          { "label": "Rune Translation", "content": "The binding runes translate roughly to: 'OBEY OR SUFFER. SERVE OR BURN. THREE DAYS. BRING THE ORACLE. OR THE RING REMEMBERS.' The three-day deadline has passed. What happens now?" }
+        ]
+      },
+      "style": {
+        "theme": "corrupted",
+        "accent": "#330000",
+        "animation": "flicker",
+        "filter": "",
+        "customCSS": "box-shadow: 0 0 15px rgba(51,0,0,0.5), inset 0 0 30px rgba(0,0,0,0.8);"
+      },
+      "tags": ["cursed", "iron-legion", "coercion", "magical"],
+      "connections": ["iron_insignia", "spy_field_notes"],
+      "notes": "The ring's three-day deadline has expired. Toadburt's status is unknown. The ring may have a failsafe."
+    },
+
+    {
+      "id": "fellowship_badge",
+      "type": "personal",
+      "name": "Honorary Fellowship Badge",
+      "subtitle": "A suspiciously fast-tracked Guild credential",
+      "icon": "🎖️",
+      "rarity": "uncommon",
+      "description": "A polished bronze badge bearing the Mages' Guild crest—an open book beneath a constellation. It identifies the bearer as an Honorary Fellow of the Guild, granting limited access to Guild facilities and resources. Archie received this as part of his ghost-hunting contract, but he detected faint, unfamiliar magic emanating from it that isn't part of standard Guild enchantment.",
+      "loreText": "The badge reads: 'HONORARY FELLOW — ARCHIE MISER — By authority of the Raventree Chapter — Provisional Status — NOT FOR RESALE.' The 'Provisional Status' text is in much smaller font than everything else.",
+      "examination": "Using detect magic on the badge reveals the expected identification enchantment, but also a secondary, hidden aura—something between Divination and Enchantment. It's subtle, almost imperceptible. Is the Guild tracking him? Influencing him? Or is it just standard security? The fact that they fast-tracked this for a known fire hazard is suspicious enough.",
+      "image": { "type": "emoji", "src": "🏅", "scale": 3 },
+      "model3d": null,
+      "obtained": {
+        "by": "Archie Miser",
+        "date": "Highsun 26, 1040 BF @ 14:05",
+        "location": "Raventree Manor - Mages' Guild Outpost",
+        "method": "Issued by the Mages' Guild as part of the ghost-hunting contract negotiations. Archie accepted it despite his suspicions."
+      },
+      "condition": "good",
+      "interactive": {
+        "type": "flip",
+        "prompt": "Examine both sides",
+        "stages": [
+          { "label": "Front (Official)", "content": "The Guild crest gleams. 'HONORARY FELLOW — ARCHIE MISER.' It looks legitimate." },
+          { "label": "Back (Suspicious)", "content": "The back has a Guild registration number and a tiny rune that Archie doesn't recognize. When he touched it, it pulsed once—warm, brief, like a heartbeat. Then nothing." }
+        ]
+      },
+      "style": {
+        "theme": "royal",
+        "accent": "#CD7F32",
+        "animation": "breathe",
+        "filter": "",
+        "customCSS": ""
+      },
+      "tags": ["suspicious", "mages-guild", "archie", "tracking"],
+      "connections": ["brass_compass", "rope_bill", "spy_field_notes"],
+      "notes": "Dan's inventory notes mention a similar tracking badge that 'burns if removed improperly.' Are all Guild badges like this?"
+    },
+
+    {
+      "id": "fathers_photograph",
+      "type": "personal",
+      "name": "Markop's Father's Photograph",
+      "subtitle": "A faded, creased photograph",
+      "icon": "📷",
+      "rarity": "unique",
+      "description": "A small, creased photograph showing a middle-aged man in working clothes standing in front of what appears to be a blacksmith's forge. His face is weathered but kind, and he's holding a hammer in one hand and a small child's hand in the other. The child's face is turned away from the camera. The photograph is water-stained and has been folded and unfolded many times.",
+      "loreText": "On the back, in faded pencil: 'Papa and me. Summer, before he left.' Nothing else. No date, no location, no explanation of where he went or why.",
+      "examination": "In the background of the photograph, partially obscured by smoke from the forge, there's a sign you can barely make out. It reads: '—KROP'S IRON—' The forge has a distinctive anvil with a crack running through it. If this forge still exists somewhere, it could be a lead.",
+      "image": { "type": "emoji", "src": "🖼️", "scale": 3 },
+      "model3d": null,
+      "obtained": {
+        "by": "Markop",
+        "date": "Highsun 16, 1040 BF @ 02:00",
+        "location": "Raventree Manor - East Wing",
+        "method": "Discovered among personal effects scattered in the dilapidated east wing during the manor exploration."
+      },
+      "condition": "worn",
+      "interactive": {
+        "type": "flip",
+        "prompt": "Turn the photo over",
+        "stages": [
+          { "label": "Front (Photo)", "content": "A man and a child at a forge. The image is faded but the man's expression is unmistakable—pride, love, and something else. Worry, maybe. Like he knows he's running out of time." },
+          { "label": "Back (Inscription)", "content": "'Papa and me. Summer, before he left.' The pencil is so faded you have to tilt the photo to catch the light. Below the words, a small drawn star—a child's addition." }
+        ]
+      },
+      "style": {
+        "theme": "paper",
+        "accent": "#8B7355",
+        "animation": "none",
+        "filter": "sepia(0.6) brightness(0.85) contrast(0.9)",
+        "customCSS": "border: 8px solid #d4c5a9; border-radius: 2px; box-shadow: 3px 3px 10px rgba(0,0,0,0.4);"
+      },
+      "tags": ["personal", "emotional", "markop", "quest"],
+      "connections": [],
+      "notes": "The forge sign ('—KROP'S IRON—') could match 'Markop's Iron Works.' The cracked anvil is a distinctive identifier."
+    },
+
+    {
+      "id": "cornelius_statuette",
+      "type": "relic",
+      "name": "Dragonus Cornelius Statuette",
+      "subtitle": "An ancient stone figure of a dragon-robed noble",
+      "icon": "🗿",
+      "rarity": "rare",
+      "description": "A small statuette carved from dark gray stone, roughly eight inches tall. It depicts a regal figure wearing elaborate dragon-scale robes and holding a sphere in one hand and a curved blade in the other. The face is obscured by a hood, but the eyes are inlaid with tiny chips of orange amber that seem to catch light from impossible angles.",
+      "loreText": "The base is inscribed: 'DRAGONUS CORNELIUS — FIRST OF THE LINE — BINDER OF THE FLAME — 901 BF.' The Corvinarus family traces their power to this figure, who allegedly bound a dragon's essence to his bloodline through a forbidden ritual. The statuette predates the current manor by over a century.",
+      "examination": "The sphere in the figure's hand has a tiny crack, and when you press your ear to it, you can hear something—not sound exactly, but a vibration. Like a heartbeat. Or an egg about to hatch. The curved blade appears to be stained at the tip, even in stone. The sculptor captured a single drop of blood falling from its edge.",
+      "image": { "type": "emoji", "src": "🐉", "scale": 3 },
+      "model3d": {
+        "type": "group",
+        "parts": [
+          {
+            "geometry": "cylinder",
+            "args": [0.6, 0.7, 0.2, 8],
+            "material": {
+              "type": "standard",
+              "color": "#4a4a4a",
+              "metalness": 0.1,
+              "roughness": 0.9
+            },
+            "position": [0, -1.0, 0]
+          },
+          {
+            "geometry": "cylinder",
+            "args": [0.25, 0.35, 1.4, 8],
+            "material": {
+              "type": "standard",
+              "color": "#4a4a4a",
+              "metalness": 0.1,
+              "roughness": 0.9
+            },
+            "position": [0, 0, 0]
+          },
+          {
+            "geometry": "sphere",
+            "args": [0.3, 16, 16],
+            "material": {
+              "type": "standard",
+              "color": "#4a4a4a",
+              "metalness": 0.1,
+              "roughness": 0.9
+            },
+            "position": [0, 0.85, 0]
+          },
+          {
+            "geometry": "sphere",
+            "args": [0.06, 8, 8],
+            "material": {
+              "type": "standard",
+              "color": "#FF8C00",
+              "emissive": "#FF4500",
+              "emissiveIntensity": 0.8,
+              "metalness": 0.0,
+              "roughness": 0.5
+            },
+            "position": [-0.12, 0.9, 0.2]
+          },
+          {
+            "geometry": "sphere",
+            "args": [0.06, 8, 8],
+            "material": {
+              "type": "standard",
+              "color": "#FF8C00",
+              "emissive": "#FF4500",
+              "emissiveIntensity": 0.8,
+              "metalness": 0.0,
+              "roughness": 0.5
+            },
+            "position": [0.12, 0.9, 0.2]
+          },
+          {
+            "geometry": "sphere",
+            "args": [0.15, 16, 16],
+            "material": {
+              "type": "standard",
+              "color": "#555555",
+              "emissive": "#1a0a00",
+              "emissiveIntensity": 0.3,
+              "metalness": 0.2,
+              "roughness": 0.7
+            },
+            "position": [0.5, 0.3, 0]
+          }
+        ],
+        "animation": "rotate",
+        "rotationSpeed": { "x": 0, "y": 0.004, "z": 0 },
+        "emissivePulse": { "min": 0.4, "max": 1.0, "speed": 0.002 }
+      },
+      "obtained": {
+        "by": "Thornbury (Mages' Guild)",
+        "date": "Highsun 28, 1040 BF @ 17:10",
+        "location": "Raventree Manor - Curio Collection Room",
+        "method": "Uncovered in a display case alongside the Gray Stone Pendant and a shattered mirror."
+      },
+      "condition": "worn",
+      "interactive": {
+        "type": "reveal",
+        "prompt": "Examine the inscription",
+        "stages": [
+          { "label": "Overview", "content": "A stone figure of austere power. The orange amber eyes catch your gaze and hold it." },
+          { "label": "Base Inscription", "content": "'DRAGONUS CORNELIUS — FIRST OF THE LINE — BINDER OF THE FLAME — 901 BF.' Below, in smaller text: 'Let the blood remember what the mind forgets.'" },
+          { "label": "Hidden Detail", "content": "The drop of blood on the carved blade isn't stone. It's real—preserved, crystalized, still faintly warm after 139 years. This statuette contains actual blood of the Cornelius bloodline." }
+        ]
+      },
+      "style": {
+        "theme": "organic",
+        "accent": "#FF8C00",
+        "animation": "breathe",
+        "filter": "",
+        "customCSS": "background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);"
+      },
+      "tags": ["ancient", "corvinarus", "lore", "critical"],
+      "connections": ["gray_pendant", "star_shard", "vampire_wine"],
+      "notes": "Hjumpik's vision at Highsun 26 showed an orange-robed figure cutting their palm over a dragon egg in 988 BF. This statuette dates from 901 BF—87 years earlier. The Cornelius bloodline's pact with dragons may be even older than believed."
+    },
+
+    {
+      "id": "fawful_leaflet",
+      "type": "scrap",
+      "name": "Fawful Propaganda Leaflet",
+      "subtitle": "A garish, crumpled recruitment flyer",
+      "icon": "📰",
+      "rarity": "common",
+      "description": "A cheaply printed leaflet on bright green paper, featuring Fawful's distinctive grinning face above a wall of barely coherent text. These have been dropping from airships and posted on walls across the Mushroom Kingdom. The grammar is atrocious but the message is clear: submit or suffer.",
+      "loreText": "🟢 FAWFUL IS HAVING THE FURY OF GREATNESS! 🟢\n\nCitizens of the Mushrooming Kingdom!\n\nYour princess is being DEAD for many years!\nYour chancellor is being USELESS for more years!\nYour kingdom is being PATHETIC for ALL the years!\n\nBUT FAWFUL! Fawful is having the PLAN!\nFawful is having the POWER!\nFawful is having the CASTLE!\n(It is being Fawful's castle now. Do not be visiting\nwithout the appointment.)\n\nJOIN FAWFUL and be having:\n✓ Regular meals (probably)\n✓ Protection from dragons (Fawful has MANY dragons)\n✓ The satisfaction of WINNING\n\nDO NOT JOIN FAWFUL and be having:\n✗ Regret\n✗ Also explosions\n\nFAWFUL HAS FURY!\n\n[Printed by Fawful Press™ — All rights reserved\nby Fawful because Fawful is reserving ALL things]",
+      "examination": "On the back, someone has drawn a crude caricature of Fawful with crossed-out eyes and the word 'NEVER' written in bold. Below it, in different handwriting: 'The Loyalists were right. We should have listened.' This leaflet has been passed between resistance sympathizers.",
+      "image": { "type": "emoji", "src": "📢", "scale": 3 },
+      "model3d": null,
+      "obtained": {
+        "by": "Dan",
+        "date": "Highsun 14, 1040 BF @ 19:00",
+        "location": "Toad Town - Restaurant District",
+        "method": "Found plastered to the wall of the restaurant where the Iron Legion raid occurred."
+      },
+      "condition": "damaged",
+      "interactive": {
+        "type": "flip",
+        "prompt": "Check the back",
+        "stages": [
+          { "label": "Front (Propaganda)", "content": "Fawful's grinning face stares at you from bright green paper. The text is a masterclass in megalomaniacal grammar." },
+          { "label": "Back (Resistance)", "content": "A crude drawing of Fawful, crossed out. 'NEVER' in bold. Below: 'The Loyalists were right. We should have listened.' Two sets of handwriting. Two people who've had enough." }
+        ]
+      },
+      "style": {
+        "theme": "paper",
+        "accent": "#00CC00",
+        "animation": "none",
+        "filter": "brightness(1.1) saturate(1.3)",
+        "customCSS": "border: 3px solid #00CC00; background: linear-gradient(to bottom, #e8ffe8, #c8f0c8); color: #1a3a1a;"
+      },
+      "tags": ["propaganda", "fawful", "funny", "political"],
+      "connections": [],
+      "notes": "Fawful's propaganda is laughably bad, but his military results speak for themselves. He holds Peach's Castle."
+    },
+
+    {
+      "id": "vampire_wine",
+      "type": "curiosity",
+      "name": "Corvinarus Vampire Wine",
+      "subtitle": "An ancient bottle of questionable vintage",
+      "icon": "🍷",
+      "rarity": "rare",
+      "description": "A tall, slender bottle of deep burgundy glass, sealed with black wax bearing the Corvinarus dragon crest. The wine inside is almost black—too dark to be any normal grape. It sloshes with an unsettling thickness, and when held up to light, something moves inside that isn't liquid. Wario acquired this from unknown sources and traded it to Hjumpik.",
+      "loreText": "The label, written in elegant calligraphy on aged vellum, reads:\n\n'CHÂTEAU CORVINARUS\nVintage: 955 BF\nVarietal: Sanguis Noctis\nEstate Bottled\n\nTasting Notes: Bold, with undertones of iron,\ndespair, and something older than memory.\nPairs well with betrayal.\n\nWARNING: Not for mortal consumption.\nSide effects may include: heightened senses,\nphotosensitivity, existential dread, and an\nirresistible urge to count things.\n\nServe at room temperature (of a crypt).'",
+      "examination": "The year 955 BF is the same year Princess Peach was assassinated. Coincidence? The bottle has never been opened—the wax seal is intact. But something inside the bottle is definitely aware of you. When you look away and look back, the liquid level has changed.",
+      "image": { "type": "emoji", "src": "🍷", "scale": 3 },
+      "model3d": {
+        "type": "group",
+        "parts": [
+          {
+            "geometry": "cylinder",
+            "args": [0.5, 0.5, 1.8, 16],
+            "material": {
+              "type": "standard",
+              "color": "#4a0020",
+              "metalness": 0.2,
+              "roughness": 0.3,
+              "transparent": true,
+              "opacity": 0.8
+            },
+            "position": [0, 0, 0]
+          },
+          {
+            "geometry": "cylinder",
+            "args": [0.15, 0.15, 0.8, 12],
+            "material": {
+              "type": "standard",
+              "color": "#4a0020",
+              "metalness": 0.2,
+              "roughness": 0.3,
+              "transparent": true,
+              "opacity": 0.8
+            },
+            "position": [0, 1.3, 0]
+          },
+          {
+            "geometry": "sphere",
+            "args": [0.2, 12, 12],
+            "material": {
+              "type": "standard",
+              "color": "#1a1a1a",
+              "metalness": 0.3,
+              "roughness": 0.6
+            },
+            "position": [0, 1.8, 0]
+          },
+          {
+            "geometry": "cylinder",
+            "args": [0.48, 0.48, 0.01, 16],
+            "material": {
+              "type": "standard",
+              "color": "#2a0010",
+              "emissive": "#1a0008",
+              "emissiveIntensity": 0.3,
+              "metalness": 0.0,
+              "roughness": 1.0,
+              "transparent": true,
+              "opacity": 0.9
+            },
+            "position": [0, 0.5, 0]
+          }
+        ],
+        "animation": "float",
+        "rotationSpeed": { "x": 0, "y": 0.006, "z": 0 },
+        "floatAmplitude": 0.1,
+        "floatSpeed": 0.002
+      },
+      "obtained": {
+        "by": "Hjumpik",
+        "date": "Highsun 26, 1040 BF @ 17:30",
+        "location": "Feywild Manor - Wario's Traveling Shop",
+        "method": "Acquired from Wario's inventory during a trade negotiation in the fairy village."
+      },
+      "condition": "pristine",
+      "interactive": {
+        "type": "shake",
+        "prompt": "Swirl the bottle",
+        "stages": [
+          { "label": "Still", "content": "The dark liquid sits motionless. The bottle is cold despite the warm room." },
+          { "label": "Swirled", "content": "The wine moves wrong—too slow, too thick. As it settles, you swear you see a face form in the liquid for just a moment. It's smiling." }
+        ]
+      },
+      "style": {
+        "theme": "crystal",
+        "accent": "#8B0000",
+        "animation": "breathe",
+        "filter": "",
+        "customCSS": "background: radial-gradient(ellipse at center, #1a0008 0%, #0a0004 100%); border: 1px solid #4a0020;"
+      },
+      "tags": ["onyx-hand", "corvinarus", "dangerous", "consumable"],
+      "connections": ["cornelius_statuette", "soggy_receipt"],
+      "notes": "DO NOT DRINK. Vintage 955 BF—the year of the assassination. The Corvinarus family was bottling something that year. What were they celebrating? Or mourning?"
+    },
+
+    {
+      "id": "guild_tracking_badge",
+      "type": "evidence",
+      "name": "Removed Guild Tracking Badge",
+      "subtitle": "A forcibly extracted surveillance device",
+      "icon": "📡",
+      "rarity": "uncommon",
+      "description": "A small, circular badge similar to Archie's Fellowship Badge, but this one has been violently torn from its owner. The edges are bent and there are scorch marks where the removal triggered its anti-tampering enchantment. Purple T ripped these from Dan and the other mages before their unauthorized departure through a Guild portal.",
+      "loreText": "The badge's surface is cracked, but the tracking rune on the back still pulses weakly—a dying heartbeat. Every few seconds, it emits a faint blue glow as it tries to transmit a location that no longer makes sense. The enchantment is breaking down, but it hasn't stopped trying.",
+      "examination": "The anti-tamper burn pattern is distinctive: three concentric circles radiating from the center, each representing a layer of enchantment. The outermost (tracking) is shattered. The middle (identification) is fading. The innermost... is still active. It's not tracking location. It's recording everything said within five feet of it.",
+      "image": { "type": "emoji", "src": "🔴", "scale": 3 },
+      "model3d": null,
+      "obtained": {
+        "by": "Purple T",
+        "date": "Highsun 27, 1040 BF @ 13:56",
+        "location": "Mages' Guild Facility - Exit Corridor",
+        "method": "Violently removed from Dan and other mages by Purple T to avoid Guild detection before unauthorized portal transit."
+      },
+      "condition": "destroyed",
+      "interactive": {
+        "type": "reveal",
+        "prompt": "Analyze the enchantment layers",
+        "stages": [
+          { "label": "Outer Layer (Broken)", "content": "Tracking enchantment: DESTROYED. No longer transmitting location data." },
+          { "label": "Middle Layer (Fading)", "content": "Identification enchantment: DEGRADED. The badge still identifies Dan as 'DAN-FIELD-OPS-7' but the signal is corrupted." },
+          { "label": "Inner Layer (ACTIVE)", "content": "⚠️ AUDIO RECORDING ENCHANTMENT: STILL ACTIVE. This badge has been recording all nearby conversations since it was issued. The Guild has been listening to EVERYTHING." }
+        ]
+      },
+      "style": {
+        "theme": "burnt",
+        "accent": "#0066CC",
+        "animation": "flicker",
+        "filter": "brightness(0.8)",
+        "customCSS": "border: 2px dashed #CC0000; animation: warningPulse 2s ease-in-out infinite;"
+      },
+      "tags": ["evidence", "mages-guild", "surveillance", "critical", "dan"],
+      "connections": ["fellowship_badge", "spy_field_notes"],
+      "notes": "If the inner recording layer is still active, the Guild may have a complete audio log of Dan's conversations—including discussions of plans, allies, and secrets. This changes the threat assessment of the Mages' Guild significantly."
+    },
+
+    {
+      "id": "xo_staff_fragment",
+      "type": "relic",
+      "name": "X.O.'s Staff Fragment",
+      "subtitle": "A piece of the staff that powered the Vigilance",
+      "icon": "🔱",
+      "rarity": "legendary",
+      "description": "A six-inch fragment of the crystalline staff once wielded by the traitor X.O. The full staff was used to restore power to the Vigilance's core after hjumpik disabled it with an axe. This fragment broke off during the power restoration and still crackles with residual energy—miniature lightning arcs between the crystal facets at irregular intervals.",
+      "loreText": "The crystal is unlike any natural mineral. It's translucent with a deep violet core that shifts to electric blue at the edges. When gripped, it vibrates at a frequency that makes your teeth ache and fills your vision with afterimages of places you've never been. The energy it contains is immense—this single fragment could power a small building for a month.",
+      "examination": "Deep within the crystal's core, suspended in the violet light, there appears to be a tiny, perfectly preserved feather. It's too small to identify the species, but it glows with its own inner light—a warm gold that contrasts sharply with the staff's cold energy. Was X.O.'s power not entirely her own?",
+      "image": { "type": "emoji", "src": "🔮", "scale": 3 },
+      "model3d": {
+        "type": "group",
+        "parts": [
+          {
+            "geometry": "cylinder",
+            "args": [0.15, 0.05, 1.5, 6],
+            "material": {
+              "type": "standard",
+              "color": "#7B2FBE",
+              "emissive": "#4400AA",
+              "emissiveIntensity": 0.6,
+              "metalness": 0.4,
+              "roughness": 0.1,
+              "transparent": true,
+              "opacity": 0.85
+            },
+            "position": [0, 0, 0],
+            "rotation": [0, 0, 0.3]
+          },
+          {
+            "geometry": "octahedron",
+            "args": [0.25, 0],
+            "material": {
+              "type": "standard",
+              "color": "#9B59B6",
+              "emissive": "#6600CC",
+              "emissiveIntensity": 0.8,
+              "metalness": 0.3,
+              "roughness": 0.05,
+              "transparent": true,
+              "opacity": 0.7
+            },
+            "position": [0, 0.5, 0]
+          },
+          {
+            "geometry": "sphere",
+            "args": [0.05, 8, 8],
+            "material": {
+              "type": "standard",
+              "color": "#FFD700",
+              "emissive": "#FF8C00",
+              "emissiveIntensity": 1.0,
+              "metalness": 0.0,
+              "roughness": 0.5
+            },
+            "position": [0, 0.5, 0]
+          }
+        ],
+        "animation": "float",
+        "rotationSpeed": { "x": 0.003, "y": 0.012, "z": 0.005 },
+        "floatAmplitude": 0.2,
+        "floatSpeed": 0.0025,
+        "emissivePulse": { "min": 0.3, "max": 1.0, "speed": 0.005 }
+      },
+      "obtained": {
+        "by": "hjumpik",
+        "date": "Highsun 7, 1040 BF @ 09:00",
+        "location": "The Vigilance - Power Core Chamber",
+        "method": "Broke off from X.O.'s staff during the emergency power restoration. hjumpik kept the fragment."
+      },
+      "condition": "damaged",
+      "interactive": {
+        "type": "reveal",
+        "prompt": "Channel energy through the fragment",
+        "stages": [
+          { "label": "Dormant", "content": "The crystal hums quietly. Tiny arcs of electricity dance between its facets." },
+          { "label": "Activated", "content": "The fragment flares with violet light! For a brief instant, you see a vision: X.O. standing before a massive tree made entirely of lightning, receiving the staff from a figure made of feathers and starlight. Then the vision fades, and the fragment goes dark. It needs time to recharge." }
+        ]
+      },
+      "style": {
+        "theme": "arcane",
+        "accent": "#7B2FBE",
+        "animation": "glow",
+        "filter": "",
+        "customCSS": "box-shadow: 0 0 30px rgba(123,47,190,0.5), 0 0 60px rgba(123,47,190,0.2); border: 1px solid rgba(155,89,182,0.5);"
+      },
+      "tags": ["powerful", "xo", "energy", "relic", "quest"],
+      "connections": ["star_shard", "brass_compass"],
+      "notes": "X.O.'s full staff powered an entire airship. This fragment still contains enormous energy. The feather inside suggests X.O. received her power from a celestial entity. Related to the Star Shards?"
+    },    
     {
       "id": "crumpled-receipt",
       "name": "Crumpled Receipt",
@@ -669,7 +1660,7 @@
       "interactable": true,
       "interactionType": "examine",
       "interactionPrompt": "Study the sigils on the inner band...",
-      "hiddenContent": "The sigils translate to a binding contract: 'THE BEARER SERVES. THE BEARER REPORTS. THE BEARER EXPIRES AT THE HOLDER'S WILL. Duration: 72 hours from activation. Handler: MALISSIA, AGENT CLASS VII.' A countdown is etched into the band in magical script, though it has since expired. The ring is now inert — but still cannot be removed.",
+      "hiddenContent": "The sigils translate to a binding contract: 'THE BEARER SERVES. THE BEARER REPORTS. THE BEARER EXPIRES AT THE HOLDER'S WILL. Duration: 336 hours from activation. Handler: MALISSIA, AGENT CLASS VII.' A countdown is etched into the band in magical script, though it has since expired. The ring is now inert — but still cannot be removed.",
       "image": null,
       "model3d": {
         "shape": "ring",

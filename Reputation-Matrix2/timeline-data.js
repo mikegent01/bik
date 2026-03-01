@@ -183,5 +183,62 @@ export const HISTORICAL_TIMELINE = [
     { date: { year: 1040, monthIndex: 6, day: 29, hour: 5, minute: 10 }, title: "Library Ambush", description: "Alone, Archie explores the library and is ambushed by a monster. He begs Usk for help, but Perrius Annmatar intervenes, claiming he wants peace and quiet before Archie is knocked unconscious.", icon: "icon_combat.png", category: "Combat" },
     
     { date: { year: 1040, monthIndex: 7, day: 30, hour: 0, minute: 29 }, title: "Waking Up After Injury", description: "Archie wakes up hours later to find Agent L and Thornbury watching over him. They claim the Mages Guild brought him to safety.", icon: "icon_focus.png", category: "Recent Event" },
-    { date: { year: 1040, monthIndex: 7, day: 30, hour: 0, minute: 30 }, title: "Purple Toad Fortune Teller", description: "A Purple Toad enters and sings a cryptic fortune-telling song ('Shuffle the Deck, Dear Hero'). While singing, he picks Archie's pockets, asks about planar portals, opens one using Archie's stolen compass, and steps through.", icon: "icon_magic.png", category: "Recent Event" }
+    { date: { year: 1040, monthIndex: 7, day: 30, hour: 0, minute: 30 }, title: "Purple Toad Fortune Teller", description: "A Purple Toad enters and sings a cryptic fortune-telling song ('Shuffle the Deck, Dear Hero'). While singing, he picks Archie's pockets, asks about planar portals, opens one using Archie's stolen compass, and steps through.", icon: "icon_magic.png", category: "Recent Event" },
+    { type: 'era_header', title: 'Current Era: 1040 BF (Month 7 - Harvestide: Archie\'s Future Timeline)' },
+    { 
+        date: { year: 1040, monthIndex: 7, day: 27, hour: 18, minute: 0 }, 
+        title: "Pond Patrol Intelligence", 
+        description: "Agent L places a recovering Archie in a chair as Bones and Speaker L arrive. Speaker L hands Bones a satchel of encoded intelligence files detailing immediate threats (Aegis Command, the Green Decoy) and potential allies—including Archie himself.", 
+        icon: "icon_discovery.png", 
+        category: "Faction Event" 
+    },
+    { 
+        date: { year: 1040, monthIndex: 7, day: 27, hour: 20, minute: 0 }, 
+        title: "Speaker L's Vow", 
+        description: "Speaker L chants a grim, rhythmic anthem reflecting his new, ruthless ideology following the Aegis Command massacre. He vows to hunt the imposter who wore his face. A guard interrupts, revealing that Raventree Manor is jointly controlled by the Guild and Legion, and the Vigilance has been renamed the 'Legionlance'.", 
+        icon: "icon_war.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: { year: 1040, monthIndex: 7, day: 27, hour: 21, minute: 21 }, 
+        title: "Infiltrating Raventree", 
+        description: "Navigating thorny windows in the pitch black, Bones and Speaker L sneak into Raventree Manor. Bones captures a toad named Lucky T, who works for Speaker L, and subsequently knocks out a guard in the library to secure their path.", 
+        icon: "icon_focus.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: { year: 1040, monthIndex: 7, day: 28, hour: 1, minute: 15 }, 
+        title: "The Mole & The Skirmish", 
+        description: "Bones and Speaker L discover a 'mole' scratching out the Oracle's inscriptions on the walls. A chase leads outside, escalating into a bloody skirmish with Iron Legion guards. Speaker L utilizes a hidden hand-crossbow to turn the tide, healing the injured toads while Bones loots a military horn.", 
+        icon: "icon_combat.png", 
+        category: "Combat" 
+    },
+    { 
+        date: { year: 1040, monthIndex: 7, day: 28, hour: 4, minute: 30 }, 
+        title: "Assassination Attempt Thwarted", 
+        description: "The mole sprints into Archie's recovery room, leaping to assassinate him. Bones tackles the attacker mid-air, saving Archie. Luigi arrives and flashes his Poltergust light, scaring the remaining threats away.", 
+        icon: "icon_focus.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: { year: 1040, monthIndex: 7, day: 28, hour: 9, minute: 0 }, 
+        title: "Hargram's Proposition", 
+        description: "Tensions flare between Bones, Archie, and Lucky T, prompting Lucky T to leave. Shortly after, Hargram Fidger of the local Legion chapel approaches to offer Archie an alliance. Archie refuses, citing his recovery, while Thornbury warns of planar instability and incoming Guild reinforcements.", 
+        icon: "icon_social.png", 
+        category: "Social" 
+    },
+    { 
+        date: { year: 1040, monthIndex: 7, day: 29, hour: 9, minute: 35 }, 
+        title: "The Stolen Fan", 
+        description: "Archie, Bones, and Luigi use a stolen water-powered fan to take a luxurious, hot bubble bath, finally washing away the filth of their adventure. Their peace is shattered when Byscilla Danos barges in, furious that they are wasting military cooling equipment while soldiers suffer heatstroke. She drags Thornbury away by the ear.", 
+        icon: "icon_complaint.png", 
+        category: "Social" 
+    },
+    { 
+        date: { year: 1040, monthIndex: 7, day: 29, hour: 12, minute: 10 }, 
+        title: "The Spy's Notebook", 
+        description: "Following the bath, Archie notices a notebook left behind on the floor by Thornbury. Reading through it, he realizes it contains hyper-detailed field notes tracking their every move and conversation. Archie, Bones, and Luigi pull up chairs to review the explosive intelligence gathered by the spy.", 
+        icon: "icon_discovery.png", 
+        category: "Discovery" 
+    },
 ];
