@@ -196,7 +196,7 @@ export const MAJOR_BATTLES = [
     name: "Ambush in the Twilight Grove",
     conflict: "The Planar Schism",
     arc: 'raventree_manor',
-    date: { year: 1040, monthIndex: 6, day: 28, hour: 20, minute: 45 },
+    date: { year: 1040, monthIndex: 7, day: 28, hour: 20, minute: 45 },
     location: "Raventree Manor (Shadowfell) - The Maze",
     belligerents: {
         side_a: { name: "Lost Party Members", factions: ['vigilance_crew'] },
@@ -221,7 +221,7 @@ export const MAJOR_BATTLES = [
     name: "Wario vs. The Bramblefly",
     conflict: "The Planar Schism",
     arc: 'raventree_manor',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 18, minute: 50 },
+    date: { year: 1040, monthIndex: 7, day: 26, hour: 18, minute: 50 },
     location: "Raventree Manor (Feyward) - Solarium",
     belligerents: {
         side_a: { name: "Wario", factions: ['wario'] },
@@ -242,7 +242,7 @@ export const MAJOR_BATTLES = [
     name: "The Rescue of Steely",
     conflict: "The Planar Schism",
     arc: 'raventree_manor',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 14, minute: 0 },
+    date: { year: 1040, monthIndex: 7, day: 26, hour: 14, minute: 0 },
     location: "Raventree Manor (Feyward) - Servant Quarters",
     belligerents: {
         side_a: { name: "Toad Lee & Hjumpik", factions: ['vigilance_crew'] },
@@ -267,7 +267,7 @@ export const MAJOR_BATTLES = [
     name: "The Riot at Grilly's Bar",
     conflict: "The Aegis Uprising",
     arc: 'toad_liberation',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 10, minute: 0 },
+    date: { year: 1040, monthIndex: 7, day: 25, hour: 10, minute: 0 },
     location: "Prison Island - Grilly's Bar",
     belligerents: {
         side_a: { name: "Bryan", factions: ['peach_loyalists'] },
