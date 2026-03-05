@@ -6,7 +6,102 @@
 export const WAHBOOK_POSTS = [
 // Rumor: donkey_kong_crisis - Donkey Kong’s Sudden Disappearance
   // Based on text provided
-
+{
+    "id": "shadowfell_dinner_archie_x99a",
+    "order": 84710,
+    "characterKey": "archie",
+    "rumorId": "shadowfell_dinner_massacre",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 21,
+      "minute": 15
+    },
+    "content": "Worst dinner party ever. 0/5 stars. The host tried to eat us, the wine was blood, and I'm pretty sure I just voted for a war crime. Jumping out a window into rose bushes was the highlight of my night. #Raventree #VampireProblems #SorryUsk",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "“YOU RAN. I BURNED THEM. I AM THE KING OF THE FEAST. THE TURTLE ALWAYS WINS.”"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "“Calculated risk. The bullet landed. We move.”"
+      }
+    ]
+  },
+  {
+    "id": "wario_heist_brag_w22b",
+    "order": 84755,
+    "characterKey": "wario",
+    "rumorId": "wario_tome_heist",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 12,
+      "minute": 30
+    },
+    "content": "WAH HA HA! Just picked up some light reading! 📖✨ Why pay 20,000 coins when you can just shoulder-bash a nerd and turn into a bat? 🦇 Easy money! #WarioTime #Capitalism #FindersKeepers",
+    "likes": 1105,
+    "comments": [
+      {
+        "characterKey": "embercap",
+        "text": "“You owe us, Wario. The Rakasha isn't happy. Watch your back.”"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "“YOU LEFT ME IN A CAGE WITH A HAG WHILE YOU WENT SHOPPING?! I HATE YOU BROTHER.”"
+      }
+    ]
+  },
+  {
+    "id": "mole_hunt_speaker_l_771c",
+    "order": 84800,
+    "characterKey": "speaker_l",
+    "rumorId": "mole_hunt_raventree",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 28,
+      "hour": 5,
+      "minute": 45
+    },
+    "content": "The rat in the walls has been caught. No more masks. No more decoys. Archie is safe, and the Legion's eyes in this house are blind. We are taking back control. #PondPatrol #Justice #NoMoreLies",
+    "likes": 88,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "“Tackled him mid-air. Felt good. Need a new helmet though.”"
+      },
+      {
+        "characterKey": "luigi",
+        "text": "“M-m-mama mia, can we please leave the haunted house now? My Poltergust is full!”"
+      }
+    ]
+  },
+  {
+    "id": "feyward_remi_confused_f44d",
+    "order": 84780,
+    "characterKey": "remi",
+    "rumorId": "shadowfell_dinner_massacre",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 28,
+      "hour": 21,
+      "minute": 10
+    },
+    "content": "Okay, so... apparently there are singing grey monsters in the maze? And Dan has a twin? And I think I just stabbed a ghost? I just want to go home. Also, has anyone seen my dog? 🐶⁉️ #Lost #Raventree #SendHelp",
+    "likes": 15,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "“Stay close, Remi. The timelines are bleeding. Trust the blade, not the eyes.”"
+      }
+    ]
+  },
   {
     "id": "donkey_kong_crisis_speaker_l_778c",
     "order": 84703,
