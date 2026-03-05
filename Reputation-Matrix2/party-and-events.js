@@ -762,6 +762,58 @@ export const RUMORS = [
     effects: { orangus_cornelious: -10, onyx_hand: 5 },
     cycle_impact: { score: 1.1, label: "Assassination Theater", type: "political" }
   },
+  {
+    id: 'shadowfell_dinner_massacre',
+    title: "The Dinner of Damned Souls",
+    date: { day: 23, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'green_t',
+    arc: 'raventree_manor',
+    arcPosition: 'climax',
+    description: "Chaos erupted at Raventree Manor's Shadowfell reflection during a diplomatic banquet. Witnesses report Archie Miser voting for an archivist's death before severing a prisoner's finger, while Green T assassinated the host, Orangus Cornelius, with a silver bullet. The heir apparent, 'Vivesna', was revealed to be a male thrall named Vivian.",
+    targets: ['orangus_cornelius', 'archie', 'green_t', 'vivian'],
+    effects: { onyx_hand: -40, liberated_toads: -20, corvinarus_lineage: -50 },
+    cycle_impact: { score: 5.0, label: "planar regicide", type: "supernatural" }
+  },
+  {
+    id: 'wario_tome_heist',
+    title: "The Tome Heist",
+    date: { day: 24, monthIndex: 6, year: 1040 },
+    isEvent: false,
+    instigator: 'wario',
+    arc: 'early_adventures',
+    arcPosition: 'rising_action',
+    description: "The notorious Wario intercepted a magical transaction involving the 'Toad Squad' (Embercap, Dewdrop, Erick). He assaulted the group in a magic shop, stole a 'Tome of Evil' valued at 20,000 coins, and escaped by transforming into a bat, leaving the toads with the debt and injuries.",
+    targets: ['wario', 'embercap', 'rakasha'],
+    effects: { liberated_toads: -10, wario: +20 },
+    cycle_impact: { score: 2.0, label: "grand larceny", type: "criminal" }
+  },
+  {
+    id: 'bryan_prison_riot',
+    title: "The Riot at Grilly's Bar",
+    date: { day: 25, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'bryan',
+    arc: 'toad_liberation',
+    arcPosition: 'rising_action',
+    description: "Bryan, acting on orders from the 'Toad God', incited a massive riot at a penal colony on Prison Island. Reports indicate he threw a Legion mage into molten slag at Grilly's Bar and maimed a guard to secure access to the Temple of the Stars.",
+    targets: ['bryan', 'iron_legion'],
+    effects: { iron_legion: -15, peach_loyalists: +15 },
+    cycle_impact: { score: 3.5, label: "prison break", type: "political" }
+  },
+  {
+    id: 'mole_hunt_raventree',
+    title: "The Mole of Raventree",
+    date: { day: 28, monthIndex: 7, year: 1040 },
+    isEvent: true,
+    instigator: 'speaker_l',
+    arc: 'toad_liberation',
+    arcPosition: 'falling_action',
+    description: "An assassination attempt on the recovering Archie Miser was thwarted in the material plane's Raventree Manor. Speaker L and Bones intercepted a Legion 'Mole' who attempted to kill Archie in his bed. The assailant was captured with assistance from Luigi's Poltergust.",
+    targets: ['speaker_l', 'bones', 'archie'],
+    effects: { iron_legion: -10, liberated_toads: +20 },
+    cycle_impact: { score: 3.0, label: "counter-espionage", type: "political" }
+  },
 {
   id: 'wario_presence',
   title: "Wario's Fingerprints",
