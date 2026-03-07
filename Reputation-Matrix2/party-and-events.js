@@ -1462,6 +1462,23 @@ export const RUMORS = [
     cycle_impact: { score: 0.6, label: "Escape Confirmation", type: "relief" }
   },  
   {
+  "id": "archies_rogue_signal",
+  "title": "The Rogue Signal",
+  "date": { "day": 1, "monthIndex": 7, "year": 1040 },
+  "isEvent": true,
+  "instigator": "archie_miser",
+  "arc": "raventree_aftermath",
+  "arcPosition": "rising",
+  "description": "A fragmented magical transmission was intercepted near the Midlands border. Analysts suggest Archie Miser, currently under Mages' Guild 'probation,' is attempting to bypass Guild scrying to contact the scattered crew of the Vigilance. The Iron Legion has heightened its border frequency monitoring in response.",
+  "targets": ["archie_miser", "mages_guild", "iron_legion"],
+  "effects": {
+    "mages_guild": -10,
+    "iron_legion": 15,
+    "disaster_inc": 20
+  },
+  "cycle_impact": { "score": 3.0, "label": "Espionage Alert", "type": "political" }
+},
+  {
     "id": "aegis_uprising_clues",
     "title": "Aegis Uprising: Seeds of Rebellion",
     "date": { "day": 21, "monthIndex": 6, "year": 1040 },

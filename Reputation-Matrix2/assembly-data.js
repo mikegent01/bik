@@ -37411,6 +37411,174 @@ export const WAHBOOK_POSTS = [
     ],
     "rumorId": "aegis_uprising_clues"
   },
+    {
+    "id": "wahbook_archie_status_01",
+    "order": 64001,
+    "characterKey": "archie_miser",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 0, "minute": 20 },
+    "timestamp": "Just Now",
+    "content": "Status update, with as little hard information to give about my circumstance right now. I would say that I'm doing alright. I wonder if I can reunited with my old allies soon...hmmmmm. Well if not, I'll might have to get some new allies. I wonder if Big T is still alive... Or if not maybe some of the pirates...?",
+    "likes": 850,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Glad to see you're breathing, three-eyed chump. We're keeping our heads down for now."
+      },
+      {
+        "characterKey": "mages_guild_monitor",
+        "text": "Subject 01-Archie: This post is a violation of your communication restrictions. Report to the Conclave immediately."
+      }
+    ],
+    "rumorId": "archies_rogue_signal"
+  },
+  {
+    "id": "wahbook_iron_legion_warrant_02",
+    "order": 64002,
+    "characterKey": "colonel_vera_steelstorm",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 2, "minute": 0 },
+    "timestamp": "2 hours ago",
+    "content": "RE: WARRANT #774-M. The fugitive Archie Miser has been sighted using unsanctioned Guild channels. To all citizens of the Midlands: Any assistance provided to this individual is now considered an act of High Treason under the Iron Mandate. The Hammer falls on everyone.",
+    "likes": 5400,
+    "comments": [
+      {
+        "characterKey": "iron_legion_grunt",
+        "text": "Checkpoints at the East Hall are locked tight. Nobody's slipping through."
+      }
+    ],
+    "rumorId": "archies_rogue_signal"
+  },
+  {
+    "id": "wahbook_pirate_syrup_03",
+    "order": 64003,
+    "characterKey": "captain_syrup",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 3, "minute": 15 },
+    "timestamp": "3 hours ago",
+    "content": "Pirates, eh, Archie? You finally realized that magic is just a hobby but gold is a career? If you can find my ship through the Iron Fleet's blockade, maybe we can discuss 'alliances.' Bring your own lunch, I don't feed stowaways.",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "SYRUP! You still owe me for the treasure you 'accidentally' dropped in the ocean! Don't listen to her, Archie, she's a bigger scammer than me! (Almost)."
+      }
+    ],
+    "rumorId": "archies_rogue_signal"
+  },
+  {
+    "id": "wahbook_mages_guild_internal_04",
+    "order": 64004,
+    "characterKey": "pernus_annmatar",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 5, "minute": 45 },
+    "timestamp": "5 hours ago",
+    "content": "I must say, watching our 'provisional fellow' struggle with basic social media privacy is the most entertaining part of my morning. Archie, darling, the more you whisper, the more the Legion hears. Do try to keep up the performance.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "archie_miser",
+        "text": "Your red underwear is still trending, Pernus. Focus on that."
+      }
+    ],
+    "rumorId": "archies_rogue_signal"
+  },
+  {
+    "id": "wahbook_toad_refugee_05",
+    "order": 64005,
+    "characterKey": "toad_prisoner_moss",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 8, "minute": 0 },
+    "timestamp": "8 hours ago",
+    "content": "Reached the border caves! 112 of us made it. The Noki guides are handing out rations. We heard Archie is on the run too. We'll find a way to help—you freed us from Aegis, we won't forget.",
+    "likes": 4200,
+    "comments": [
+      {
+        "characterKey": "speaker_l",
+        "text": "Keep moving, Moss. The Legion's Sky-Hunters are tracking the biometric trail. Peace through unity."
+      }
+    ],
+    "rumorId": "aegis_uprising_clues"
+  },
+  {
+    "id": "wahbook_wario_scam_06",
+    "order": 64006,
+    "characterKey": "wario",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 10, "minute": 30 },
+    "timestamp": "10 hours ago",
+    "content": "WAH HA HA! WarioWare Inc. is officially liquidating its assets! Buy your very own 'Legion-Proof' helmet for only 1,500 gold! (Not guaranteed to stop spears, fire, or logic). Archie, I heard you're looking for a new crew? My application fee is 50,000 upfront. No refunds!",
+    "likes": 999,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Wario, you're literally selling buckets painted yellow. Don't make me report you to the Judges."
+      }
+    ],
+    "rumorId": "archies_rogue_signal"
+  },
+  {
+    "id": "wahbook_kamek_regent_07",
+    "order": 64007,
+    "characterKey": "kamek",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 12, "minute": 0 },
+    "timestamp": "12 hours ago",
+    "content": "The Magikoopa Council has officially ratified my Regency. To King Bowser, wherever you are 'investigating'—don't worry about home. The Valley of Bowser is undergoing... renovations. We're digging deep. Very, very deep.",
+    "likes": 234,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "KAMEK. WHY IS THE VOLCANO GLOWING PURPLE? IF YOU TOUCH MY STUFF, I'M TURNING YOUR WAND INTO A TOOTHPICK."
+      }
+    ],
+    "rumorId": "primordial_wyrm_awakening"
+  },
+  {
+    "id": "wahbook_dan_one_arm_08",
+    "order": 64008,
+    "characterKey": "dan",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 15, "minute": 20 },
+    "timestamp": "15 hours ago",
+    "content": "Archie, don't trust the messages. The mirrors are still thin, even after the ritual. I saw 'Big T' in a reflection near the Shiver Station. He didn't look alive... but he was moving. Stay safe.",
+    "likes": 1300,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "The glass remembers what the spirit forgets, Dan. Be careful what you wave at."
+      }
+    ],
+    "rumorId": "archies_rogue_signal"
+  },
+  {
+    "id": "wahbook_toadette_update_09",
+    "order": 64009,
+    "characterKey": "captain_toadette",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 18, "minute": 10 },
+    "timestamp": "18 hours ago",
+    "content": "The Peach Loyalists are opening the gates of Toad Town to the Aegis refugees. The Regency Council in Sarasaland can complain all they want. We protect our own. Truth first. Crown second.",
+    "likes": 8700,
+    "comments": [
+      {
+        "characterKey": "regency_advisor",
+        "text": "This is a violation of the 955 Succession Act! You are harboring wanted insurrectionists!"
+      }
+    ],
+    "rumorId": "aegis_uprising_clues"
+  },
+  {
+    "id": "wahbook_perrius_dance_10",
+    "order": 64010,
+    "characterKey": "perrius_annmatar",
+    "date": { "year": 1040, "monthIndex": 7, "day": 1, "hour": 22, "minute": 50 },
+    "timestamp": "Yesterday",
+    "content": "The ticket is still valid, Archie. The ballroom is empty, the music has faded, but the dance... the dance is just waiting for its special guest. Don't be late. It's rude to keep a host waiting across two timelines.",
+    "likes": 3,
+    "comments": [
+      {
+        "characterKey": "archie_miser",
+        "text": "I'm not coming back to that house, Perrius. Never again."
+      },
+      {
+        "characterKey": "humpik",
+        "text": "I'm still missing my hammer. Did the ghost take it? I bet the ghost took it."
+      }
+    ],
+    "rumorId": "archies_rogue_signal"
+  },
   {
     "id": "aegis_riot_03_the_green_fog",
     "order": 63003,
