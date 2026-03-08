@@ -1,0 +1,42 @@
+[
+  {
+    "id": "core_disaster_inc_members",
+    "name": "Core Disaster Inc. Members",
+    "title": "People Most Likely To Break Reality By Accident",
+    "type": "Character Collection",
+    "scope": "Primary cast and close operational associates",
+    "criteria": "Characters directly central to Disaster Inc.'s continuing disasters.",
+    "summary": "A curated grouping of the personalities most responsible for the current level of magical, political, and architectural instability. Waluigi wishes to clarify that inclusion here is not an honor. Except for Waluigi, for whom everything is an honor.",
+    "description": "Collections exist so Waluigi can group related pages without pretending everything is a formal faction.This collection tracks the people most central to Disaster Inc., the planar crisis, and the surrounding sequence of catastrophes.",
+    "members": [
+      { "id": "waluigi", "name": "Waluigi", "role": "Author, athlete, visionary" },
+      { "id": "disaster_inc", "name": "Disaster Inc.", "role": "Organizational nucleus" }
+    ],
+    "articles": [
+      "waluigi",
+      "disaster_inc",
+      "raventree_manor",
+      "darius_sanctum",
+      "planar_fracture"
+    ],
+    "relatedArticles": ["disaster_inc", "planar_fracture"]
+  },
+  {
+    "id": "mushroom_kingdom_flashpoints",
+    "name": "Mushroom Kingdom Flashpoints",
+    "title": "Locations and Events One Should Probably Avoid",
+    "type": "Cross-Type Collection",
+    "scope": "Battles, crises, and strategic locations",
+    "criteria": "Pages representing high instability, political violence, or severe magical risk.",
+    "summary": "A practical reading list for anyone trying to understand why the Mushroom Kingdom is having such a bad century.",
+    "description": "Waluigi assembled this collection for readers who want the broad shape of the crisis without clicking random pages like amateurs.",
+    "articles": [
+      "fall_bramblehaven",
+      "dreamland",
+      "raventree_manor",
+      "planar_fracture",
+      "second_summit"
+    ],
+    "relatedArticles": ["dreamland", "fall_bramblehaven", "second_summit"]
+  }
+]

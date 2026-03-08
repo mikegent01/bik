@@ -1,0 +1,31 @@
+{
+  "featuredArticle": {
+    "id": "raventree_manor",
+    "type": "location",
+    "excerpt": "Raventree Manor is a architectural disaster that exists in three places at once, which is very confusing for real estate value. It has a 'Shadow' version (too dark), a 'Feywild' version (too many plants), and a 'Material' version (full of ghosts). I got stuck in a bear trap here! 0/5 Stars. Would not loot again."
+  },
+  "didYouKnow": [
+    "...that Archie Miser calls himself 'Darman Knightly' in the Shadowfell? It's the stupidest name I've ever heard. Also, he cut off a guy's finger!",
+    "...that the Airship was full of Toads in barrels? The Iron Legion calls it 'Trafficking,' Wario calls it 'Efficient Packaging.' Potay-to, Potah-to.",
+    "...that the Dragon War is a total scam? The Empire uses sound waves to fake it! I respect the hustle, but they owe me royalties for the idea.",
+    "...that Green T shot a Vampire Lord at dinner? Very rude! I hadn't even finished stealing the silverware yet!",
+    "...that Markop turned into a giant to wrestle a spider? Show-off! I was casting ice magic to help, but nobody clapped for me!",
+    "...that I froze Eager solid with a 'Cone of Cold'? It wasn't an accident, it was 'Cryogenic Preservation'! He should thank me!",
+    "...that Hjumpik smashed our airship with an axe? Who gives an axe to a guy with anger issues?! Now we have to walk!",
+    "...that Wario priced a Star Rod at 900 trillion coins? That is a very fair market price. No low-ball offers! I know what I have!",
+    "...that the Oracle keeps bodies in tanks? Disgusting! Science is for nerds who can't get rich honest ways (like stealing).",
+    "...that Wario gave Remi a bomb as a welcome gift? It's called 'Initiation'! If she can't survive an explosion, she can't work in customer service!"
+  ],
+  "onThisDay": [
+    "955 BF — Princess Peach takes a permanent nap. Everyone is still crying about it. Get over it!",
+    "1035 BF — The Iron Legion starts ruining everyone's fun with 'laws' and 'taxes'.",
+    "1040 BF — We killed a dragon! Well, *they* did, but I provided moral support (and looted the hoard).",
+    "1040 BF — The Planar Fracture happens. The universe breaks just to annoy me personally."
+  ],
+  "categories": [
+    { "name": "Factions", "count": 10, "icon": "⚔️" },
+    { "name": "Characters", "count": 8, "icon": "👤" },
+    { "name": "Battles", "count": 9, "icon": "🗡️" },
+    { "name": "Locations", "count": 5, "icon": "🏰" }
+  ]
+}
