@@ -1634,7 +1634,7 @@ const CORE_TOADS = {
         weapon: "Battleaxe & Shield",
         status: "Active - On the Run", // Updated
         statusType: "active",
-        statusDetail: "Toad Lee is on the run after breaking through a wall.",
+        statusDetail: "Works for the Archivist, makes a deal for healing in exchange for work.",
         portrait: "🐸🪓",
         isCore: true,
         cohort: "The Wardens",
@@ -1667,7 +1667,7 @@ const CORE_TOADS = {
         
         conditions: ["Exhausted (Level 1)", "Protector (Waluigi)", "Hunted by Stucky"],
         
-        background: "Toad Lee has once again survived the impossible. Finding refuge in a Hag's house, he found Waluigi caged and injured. Showing quick thinking, he tricked the Hag (Stucky) into revealing how to disarm her own bear trap, then broke Waluigi out. He is currently fleeing through a sprite-infested greenhouse. Toad Lee managed to sneak past the satyrs and attempted to take some spoils from the fallen goblin. Toad Lee broke through a wall with Hjumpik and grabbed some gold.",
+        background: "Toad Lee has once again survived the impossible. Finding refuge in a Hag's house, he found Waluigi caged and injured. Showing quick thinking, he tricked the Hag (Stucky) into revealing how to disarm her own bear trap, then broke Waluigi out. He is currently fleeing through a sprite-infested greenhouse. Toad Lee managed to sneak past the satyrs and attempted to take some spoils from the fallen goblin. Toad Lee broke through a wall with Hjumpik and grabbed some gold. Kidnapped. None mentioned.",
         
         personality: {
             traits: ["Stubborn", "Enduring", "Quietly supportive"],
@@ -1702,6 +1702,20 @@ const CORE_TOADS = {
     event: "🏃 Broke through a wall with Hjumpik.",
     xp: 10,
     type: "exploration"
+},
+        
+            {
+    "day": 1,
+    "event": "📖 Gives Remi the potion, confesses to giving it to her, kidnapped by Shadowfell gu",
+    "xp": 25,
+    "type": "story"
+},
+        
+            {
+    "day": 1,
+    "event": "📖 Works for the Archivist, makes a deal for healing in exchange for work.",
+    "xp": 25,
+    "type": "story"
 },
         ]
     },

@@ -252,4 +252,239 @@ export const HISTORICAL_TIMELINE = [
     { type: 'era_header', title: 'Current Era: 1040 BF (Day 26 - Feyward Events)' },
     { date: { year: 1040, monthIndex: 6, day: 26, hour: 14, minute: 0 }, title: "Rescue of Steely", description: "Toad Lee and Hjumpik track Remi's mechanical dog, Steely (Mossy), to the servant's quarters. They battle Gregory the goblin guard; Toad Lee successfully rescues the dog, while Rakasha nearly melts a guard's face with a touch spell before Hjumpik intervenes.", icon: "icon_combat.png", category: "Recent Event" },
     { date: { year: 1040, monthIndex: 6, day: 26, hour: 18, minute: 53 }, title: "Wario vs. The Bramblefly", description: "Wario battles the giant Bramblefly in the Solarium using a 'gift' box that is actually a bomb. The explosion blows a hole in the floor, sending Wario crashing down into a pile of treasure, which he immediately begins looting despite the fall.", icon: "wario.png", category: "Combat" },
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "Bowser drags Markop away from danger",
+    "description": "Bowser chases after someone and drags Markop along, claiming they are running from an enemy. Markop is confused about the situation.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "An axe is thrown at the",
+    "description": "While hiding, an axe is thrown at the door, indicating their pursuer is trying to break in.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "Vinvessa enters the room with blinding",
+    "description": "Vinvessa enters the room, creating blinding smoke. Markop deflects it and goes outside to face her.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "Markop battles Vinvessa",
+    "description": "A battle ensues between Markop and Vinvessa. Bowser knocks Markop unconscious, but he recovers and fights back.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "Vinvessa casts a powerful spell on",
+    "description": "Vinvessa casts a red beam of disintegration at Markop, nearly killing him. He survives due to divine intervention.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "Remi meets a purple toad who",
+    "description": "Remi encounters a purple toad who informs her about Archie Miser and the consequences of not finding him.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 42
+    },
+    "title": "Remi drinks a glowing potion offered",
+    "description": "A guard offers Remi a glowing potion to alleviate her sadness after claiming her friends are dead. She drinks it, causing her to glow brightly.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 59
+    },
+    "title": "Remi begins to glow radiantly",
+    "description": "After drinking the potion, Remi starts glowing brightly, blinding those around her.",
+    "icon": "icon_moon.png",
+    "category": "Mystery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 16
+    },
+    "title": "Remi searches for Markop's body with",
+    "description": "Remi searches for Markop's body with the toads, encountering Pierce Anamatar and Kyrn along the way.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 15,
+        "minute": 33
+    },
+    "title": "Remi discovers Toadburt in a library",
+    "description": "Remi finds Toadburt and Pierce Anamatar in a library. Toadburt mentions he has a meeting with the Archivist.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 16,
+        "minute": 50
+    },
+    "title": "Remi overhears Toadburt's deal with the",
+    "description": "Remi eavesdrops on a conversation between Toadburt and the Archivist. Toadburt agrees to work for the Archivist in exchange for healing.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 17,
+        "minute": 7
+    },
+    "title": "Remi encounters imps who agree to",
+    "description": "Remi meets imps who offer to check the stairs in exchange for her help with a fallen bookshelf.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 18,
+        "minute": 24
+    },
+    "title": "Remi reunites with Markop",
+    "description": "Remi finds Markop in the main lobby, reunited after being separated.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 19,
+        "minute": 41
+    },
+    "title": "Remi gives Markop Vivian's wand",
+    "description": "Remi hands Markop Vivian's wand, which she found during her adventures.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 20,
+        "minute": 58
+    },
+    "title": "Guards surround the party",
+    "description": "A large number of guards gather around the party, questioning them about Remi's glowing and their connection to Vivian.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 21,
+        "minute": 15
+    },
+    "title": "The purple toad confesses to giving",
+    "description": "The purple toad admits to giving Remi the potion, claiming it was meant to help her.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 32
+    },
+    "title": "Purple Toad is kidnapped by Shadowfell",
+    "description": "The purple toad is apprehended by Shadowfell guards for practicing magic within the estate.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 49
+    },
+    "title": "Remi is taken to the infirmary",
+    "description": "Remi is escorted to the infirmary by guards, who claim they need to examine her.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+}
 ];

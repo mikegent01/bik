@@ -2909,4 +2909,440 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         type: "political"
     }
 }
+,
+  {
+    "id": "bowser_drags_markop",
+    "title": "Bowser drags Markop away from danger",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Bowser chases after someone and drags Markop along, claiming they are running from an enemy. Markop is confused about the situation.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "travel/combat",
+        "type": "travel"
+    }
+},
+  {
+    "id": "axe_thrown_at_door",
+    "title": "An axe is thrown at the",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "While hiding, an axe is thrown at the door, indicating their pursuer is trying to break in.",
+    "instigator": "unknown",
+    "targets": [],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "vinvessa_enters_with_smoke",
+    "title": "Vinvessa enters the room with blinding",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Vinvessa enters the room, creating blinding smoke. Markop deflects it and goes outside to face her.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "bowser",
+        "vinvessa"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "markop_fights_vinvessa",
+    "title": "Markop battles Vinvessa",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A battle ensues between Markop and Vinvessa. Bowser knocks Markop unconscious, but he recovers and fights back.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "vinvessa"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "vinvessa_casts_spell",
+    "title": "Vinvessa casts a powerful spell on",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Vinvessa casts a red beam of disintegration at Markop, nearly killing him. He survives due to divine intervention.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "vinvessa"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "combat/magical",
+        "type": "combat"
+    }
+},
+  {
+    "id": "remi_meets_toad",
+    "title": "Remi meets a purple toad who",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi encounters a purple toad who informs her about Archie Miser and the consequences of not finding him.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "purple_toad"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social/discovery",
+        "type": "social"
+    }
+},
+  {
+    "id": "remi_drinks_potion",
+    "title": "Remi drinks a glowing potion offered",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A guard offers Remi a glowing potion to alleviate her sadness after claiming her friends are dead. She drinks it, causing her to glow brightly.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "guard"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social/magical",
+        "type": "social"
+    }
+},
+  {
+    "id": "remi_glows_brightly",
+    "title": "Remi begins to glow radiantly",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "After drinking the potion, Remi starts glowing brightly, blinding those around her.",
+    "instigator": "remi",
+    "targets": [
+        "remi"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "magical",
+        "type": "magical"
+    }
+},
+  {
+    "id": "remi_searches_for_markop",
+    "title": "Remi searches for Markop's body with",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi searches for Markop's body with the toads, encountering Pierce Anamatar and Kyrn along the way.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "eager",
+        "dan",
+        "salam"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "travel/discovery",
+        "type": "travel"
+    }
+},
+  {
+    "id": "remi_discovers_toadburt",
+    "title": "Remi discovers Toadburt in a library",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi finds Toadburt and Pierce Anamatar in a library. Toadburt mentions he has a meeting with the Archivist.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "toadburt",
+        "pierce_anamatar"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "remi_overhears_toadburt_deal",
+    "title": "Remi overhears Toadburt's deal with the",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi eavesdrops on a conversation between Toadburt and the Archivist. Toadburt agrees to work for the Archivist in exchange for healing.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "toadburt",
+        "archivist"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social/discovery",
+        "type": "social"
+    }
+},
+  {
+    "id": "remi_meets_imps",
+    "title": "Remi encounters imps who agree to",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi meets imps who offer to check the stairs in exchange for her help with a fallen bookshelf.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "imps"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social/discovery",
+        "type": "social"
+    }
+},
+  {
+    "id": "remi_finds_markop",
+    "title": "Remi reunites with Markop",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi finds Markop in the main lobby, reunited after being separated.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "markop"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social/discovery",
+        "type": "social"
+    }
+},
+  {
+    "id": "remi_gives_markop_wand",
+    "title": "Remi gives Markop Vivian's wand",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi hands Markop Vivian's wand, which she found during her adventures.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "markop"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social/item exchange",
+        "type": "social"
+    }
+},
+  {
+    "id": "guards_gather_around_party",
+    "title": "Guards surround the party",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A large number of guards gather around the party, questioning them about Remi's glowing and their connection to Vivian.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "remi",
+        "bowser",
+        "toads"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social/political",
+        "type": "social"
+    }
+},
+  {
+    "id": "purple_toad_confesses",
+    "title": "The purple toad confesses to giving",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The purple toad admits to giving Remi the potion, claiming it was meant to help her.",
+    "instigator": "purple_toad",
+    "targets": [
+        "purple_toad",
+        "remi"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social/discovery",
+        "type": "social"
+    }
+},
+  {
+    "id": "purple_toad_kidnapped",
+    "title": "Purple Toad is kidnapped by Shadowfell",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The purple toad is apprehended by Shadowfell guards for practicing magic within the estate.",
+    "instigator": "purple_toad",
+    "targets": [
+        "purple_toad",
+        "shadowfell_guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "combat/political",
+        "type": "combat"
+    }
+},
+  {
+    "id": "remi_taken_to_infermary",
+    "title": "Remi is taken to the infirmary",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi is escorted to the infirmary by guards, who claim they need to examine her.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "travel/political",
+        "type": "travel"
+    }
+}
 ];
