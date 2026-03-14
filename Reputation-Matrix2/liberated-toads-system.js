@@ -1413,7 +1413,7 @@ const CORE_TOADS = {
             { day: 21, event: "✨ Awakened by Oracle's healing magic", xp: 0, type: "status" },
             { day: 21, event: "Anchored the 'Edge' during the failed ritual", xp: 100, type: "magic" },
             { day: 21, event: "🌌 Lost in the Planar Fracture (Void/Unknown)", xp: 0, type: "status" }
-        
+        ,
             {
     day: 26,
     event: "🏃 Captured by guards.",
@@ -1689,7 +1689,7 @@ const CORE_TOADS = {
             { day: 22, event: "🔓 Rescued Waluigi from the Hag's cage", xp: 150, type: "rescue" },
             { day: 22, event: "🏃 Escaped Hag's house via window with Hjumpik & Rakasha", xp: 25, type: "survival" },
             { day: 22, event: "🌿 Entered the Greenhouse (Sprite Territory) (04:00 AM)", xp: 0, type: "exploration" }
-        
+,
             {
     day: 26,
     event: "🕺 Toad Lee danced with the satyrs to slip past and tried to loot the goblin guard's body.",
@@ -1778,7 +1778,7 @@ const CORE_TOADS = {
             { day: 12, event: "❄️ Froze Eager with Cone of Cold", xp: 0, type: "history" },
             { day: 21, event: "⛓️ Captured by Stucky the Hag", xp: 0, type: "status" },
             { day: 22, event: "🩹 Leg crippled by Hag/Trap", xp: 0, type: "injury" },
-            { day: 22, event: "🔓 Rescued by Toad Lee", xp: 0, type: "rescue" }
+            { day: 22, event: "🔓 Rescued by Toad Lee", xp: 0, type: "rescue" },
         
             {
     day: 26,
