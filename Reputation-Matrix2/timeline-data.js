@@ -566,4 +566,96 @@ export const HISTORICAL_TIMELINE = [
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
 }
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "Vivian is captured and interrogated by",
+    "description": "Vivian is captured and interrogated by Markop and Bowser.. Markop and Bowser confront Vivian, who is tied up. They question him about his motives for attacking them. This social/combat event involved Vivian, Markop, Bowser at Vivian's manor.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "Vivian explains his plan to blight",
+    "description": "Vivian explains his plan to blight the manor guests and become the sole heir.. Vivian reveals his plan to blight the guests, including Orangus Cornelius, to become the sole heir. He mentions closing the planar fractures to isolate the manor. This social event involved Vivian, Markop, Bowser at Vivian's manor.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "Mazehounds enter the room and sing",
+    "description": "Mazehounds enter the room and sing a threatening song.. Mazehounds enter the room and sing a menacing song, asking for Vivian's opinion. They seem to be under Vivian's control. This combat/magical event involved Vivian, Markop, Bowser at Vivian's manor.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "Markop stabs Vivian in the chest",
+    "description": "Tension reached its peak in Vivian's manor as Markop, consumed by rage, lunged forward and plunged his blade into Vivian's chest. The nobleman crumpled to the floor, his interrogation abruptly silenced by the fatal blow.  Vivian's death marked a tragic turning point in the investigation, leaving many questions unanswered.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "Bowser and Markop burn Vivian's body",
+    "description": "Bowser and Markop burn Vivian's body and bury the ashes.. They dispose of Vivian's body by burning it and burying the ashes. A guard helps them with the burial. This travel/deal event involved Markop, Bowser at Vivian's manor grounds.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "Bowser and Markop encounter Marcus As",
+    "description": "Bowser and Markop encounter Marcus Ashfold, Orangus Cornelius' military consultant.. They encounter Marcus Ashfold, who was observing the events unfold. He mentions keeping an eye on the three-eyed heir but doesn't elaborate. This social event involved Markop, Bowser, Marcus Ashfold at Raventree Manor grounds.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 42
+    },
+    "title": "Markop finds a letter from Bowser",
+    "description": "Markop finds a letter from Bowser to Princess Peach.. While searching, Markop discovers a crumpled letter from Bowser to Princess Peach, revealing his complicated feelings and attempts to explain his presence. This discovery event involved Markop, Bowser at Raventree Manor.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+}
 ];

@@ -3502,4 +3502,178 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         "type": "social"
     }
 }
+,
+  {
+    "id": "vivian_captured",
+    "title": "Vivian is captured and interrogated by",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Markop and Bowser confront Vivian, who is tied up. They question him about his motives for attacking them.",
+    "instigator": "vivian",
+    "targets": [
+        "vivian",
+        "markop",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social/combat",
+        "type": "social"
+    }
+},
+  {
+    "id": "vivian_reveals_his_plan",
+    "title": "Vivian explains his plan to blight",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Vivian reveals his plan to blight the guests, including Orangus Cornelius, to become the sole heir. He mentions closing the planar fractures to isolate the manor.",
+    "instigator": "vivian",
+    "targets": [
+        "vivian",
+        "markop",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "mazehounds_appear",
+    "title": "Mazehounds enter the room and sing",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Mazehounds enter the room and sing a menacing song, asking for Vivian's opinion. They seem to be under Vivian's control.",
+    "instigator": "vivian",
+    "targets": [
+        "vivian",
+        "markop",
+        "bowser",
+        "mazehound"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat/magical",
+        "type": "combat"
+    }
+},
+  {
+    "id": "markop_kills_vivian",
+    "title": "Markop stabs Vivian in the chest",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Markop kills Vivian by stabbing him in the chest, ending his interrogation.",
+    "instigator": "vivian",
+    "targets": [
+        "vivian",
+        "markop"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "bowser_buries_vivian",
+    "title": "Bowser and Markop burn Vivian's body",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "They dispose of Vivian's body by burning it and burying the ashes. A guard helps them with the burial.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "travel/deal",
+        "type": "travel"
+    }
+},
+  {
+    "id": "encounter_with_marcus_ashfold",
+    "title": "Bowser and Markop encounter Marcus As",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "They encounter Marcus Ashfold, who was observing the events unfold. He mentions keeping an eye on the three-eyed heir but doesn't elaborate.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "bowser",
+        "marcus_ashfold"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "discovery_of_bowser_letter",
+    "title": "Markop finds a letter from Bowser",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "While searching, Markop discovers a crumpled letter from Bowser to Princess Peach, revealing his complicated feelings and attempts to explain his presence.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+}
 ];
