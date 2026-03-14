@@ -1798,7 +1798,7 @@ const CORE_TOADS = {
         weapon: "Hidden Blade & Poison",
         status: "Defected - Iron Legion",
         statusType: "defected",
-        statusDetail: "The Mole has betrayed the Iron Legion.",
+        statusDetail: "Part of the greenhouse team, defeats a rust monster, encounters mages guild members, defeats a ghost",
         portrait: "🐸🎭",
         isCore: false,
         cohort: null,

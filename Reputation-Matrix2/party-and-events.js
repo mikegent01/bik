@@ -3345,4 +3345,161 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         "type": "travel"
     }
 }
+,
+  {
+    "id": "hargram_introduces_party",
+    "title": "Hargram introduces the party members to",
+    "date": {
+        "day": 30,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hargram, a pit fighter, introduces the other party members: Rhak, an orc; Manderaz, a hobgoblin; and Aemenor, an elf.",
+    "instigator": "hargram_fidger",
+    "targets": [
+        "hargram_fidger",
+        "rhak_the_lost",
+        "manderaz_the_mad",
+        "aemenor_evenflight"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "byscilla_assigns_tasks",
+    "title": "Byscilla assigns tasks to the party",
+    "date": {
+        "day": 30,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Byscilla assigns two teams: one to confront Archie and another to survey the greenhouse. The confrontation team consists of Byscilla, Thornbury, and Aemenor, while the greenhouse team is composed of Rhak, Manderaz, and Hargram.",
+    "instigator": "byscilla",
+    "targets": [
+        "byscilla",
+        "thornbury",
+        "rhak_the_lost",
+        "manderaz_the_mad",
+        "hargram_fidger",
+        "aemenor_evenflight"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "political",
+        "type": "political"
+    }
+},
+  {
+    "id": "hargram_and_team_find_rust_monsters",
+    "title": "Hargram's team discovers a lone rust",
+    "date": {
+        "day": 30,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "While surveying the greenhouse, Hargram's team encounters a lone rust monster. They ambush and defeat it.",
+    "instigator": "hargram_fidger",
+    "targets": [
+        "hargram_fidger",
+        "rhak_the_lost",
+        "manderaz_the_mad"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "encounter_with_mages_guild",
+    "title": "The party is encountered by mages",
+    "date": {
+        "day": 30,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The party is approached by mages guild members who request their assistance in analyzing the site. They are given a Legion Arcane Field Analyzer to use.",
+    "instigator": "hargram_fidger",
+    "targets": [
+        "hargram_fidger",
+        "rhak_the_lost",
+        "manderaz_the_mad",
+        "darno_spriggon"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "ghost_encounter",
+    "title": "The party encounters and defeats a",
+    "date": {
+        "day": 30,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "While analyzing the site, the party encounters a ghost. They defeat it and loot its ectoplasm.",
+    "instigator": "hargram_fidger",
+    "targets": [
+        "hargram_fidger",
+        "rhak_the_lost",
+        "manderaz_the_mad"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "darno_sprigon_arrives",
+    "title": "Darno Spriggon arrives at the greenho",
+    "date": {
+        "day": 30,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Darno Spriggon arrives at the greenhouse and informs the party that he has taken care of the remaining rust monsters. He also gives Hargram a letter addressed to Dan.",
+    "instigator": "darno_spriggon",
+    "targets": [
+        "darno_spriggon",
+        "hargram_fidger",
+        "rhak_the_lost",
+        "manderaz_the_mad"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+}
 ];

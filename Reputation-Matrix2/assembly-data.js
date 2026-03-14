@@ -61093,6 +61093,609 @@ export const WAHBOOK_POSTS = [
         "minute": 51
     }
 }
+,
+  {
+    "id": "63a718c4",
+    "characterKey": "hargram_fidger",
+    "content": "Brought my new crew together for the first time! Rhak's got a bit of an intimidating presence, Manderaz's already eyeing up my food, and Aemenor seems... polite. We're gonna have fun.",
+    "likes": 67,
+    "comments": [
+        {
+            "characterKey": "rhak_the_lost",
+            "text": "I prefer 'stoic'.  And the food does smell good."
+        },
+        {
+            "characterKey": "manderaz_the_mad",
+            "text": "Polite? He's boring. Let's get this party started!"
+        }
+    ],
+    "rumorId": "hargram_introduces_party",
+    "order": 99656,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 6,
+        "minute": 0
+    }
+},
+  {
+    "id": "7b9f2e81",
+    "characterKey": "rhak_the_lost",
+    "content": "Hargram introduced me to the rest of the crew. The elf seems... soft. And the hobgoblin is loud. I'm hoping we can at least survive together.",
+    "likes": 35,
+    "comments": [
+        {
+            "characterKey": "aemenor_evenflight",
+            "text": "Survival? Such a grim outlook, Rhak. Perhaps there's more to be found than just that."
+        }
+    ],
+    "rumorId": "hargram_introduces_party",
+    "order": 99657,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 7,
+        "minute": 13
+    }
+},
+  {
+    "id": "1c4d857f",
+    "characterKey": "manderaz_the_mad",
+    "content": "Chaos reigns! Met some interesting folks, a big ol' orc who likes to brawl, a pointy-eared elf who thinks he's better than us, and the amazing Hargram. Let's get into trouble!",
+    "likes": 92,
+    "comments": [
+        {
+            "characterKey": "hargram_fidger",
+            "text": "Trouble? That's my specialty!"
+        },
+        {
+            "characterKey": "byscilla",
+            "text": "Manderaz, you always find a way to make things interesting. Hope this doesn't get out of hand..."
+        }
+    ],
+    "rumorId": "hargram_introduces_party",
+    "order": 99658,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 8,
+        "minute": 26
+    }
+},
+  {
+    "id": "54a23e9b",
+    "characterKey": "aemenor_evenflight",
+    "content": "Hargram, though rough around the edges, seems to have assembled a curious group. Let us hope their intentions align with mine - to seek adventure and justice.",
+    "likes": 48,
+    "comments": [
+        {
+            "characterKey": "rhak_the_lost",
+            "text": "Justice? Sounds boring. How about loot?"
+        }
+    ],
+    "rumorId": "hargram_introduces_party",
+    "order": 99659,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 9,
+        "minute": 39
+    }
+},
+  {
+    "id": "2b6d9e5a",
+    "characterKey": "byscilla",
+    "content": "Word on the street is Hargram's got a new team. Hope they don't cause too much trouble in town. Manderaz especially - always a wild card.",
+    "likes": 71,
+    "comments": [
+        {
+            "characterKey": "thornbury",
+            "text": "Always good for a laugh, that one."
+        }
+    ],
+    "rumorId": "hargram_introduces_party",
+    "order": 99660,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 10,
+        "minute": 52
+    }
+},
+  {
+    "id": "b4e20397",
+    "characterKey": "hargram_fidger",
+    "content": "Greenhouse duty it is! Hope those plants are more interesting than the last goblin horde I had to deal with.",
+    "likes": 28,
+    "comments": [
+        {
+            "characterKey": "rhak_the_lost",
+            "text": "Goblins? That sounds... familiar. Maybe we'll find some clues about my past in there?"
+        }
+    ],
+    "rumorId": "byscilla_assigns_tasks",
+    "order": 99661,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 6,
+        "minute": 7
+    }
+},
+  {
+    "id": "0a1c6d95",
+    "characterKey": "rhak_the_lost",
+    "content": "Confronting Archie, huh? Not sure I want to be part of that. Hope Byscilla's plan works.",
+    "likes": 35,
+    "comments": [
+        {
+            "characterKey": "aemenor_evenflight",
+            "text": "Have no fear, Rhak! We shall prevail."
+        }
+    ],
+    "rumorId": "byscilla_assigns_tasks",
+    "order": 99662,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 7,
+        "minute": 20
+    }
+},
+  {
+    "id": "d729f41b",
+    "characterKey": "manderaz_the_mad",
+    "content": "Greenhouses... full of life... so much potential for chaos! I can already smell the madness brewing!",
+    "likes": 17,
+    "comments": [
+        {
+            "characterKey": "byscilla",
+            "text": "Manderaz, please. Try to keep things contained."
+        }
+    ],
+    "rumorId": "byscilla_assigns_tasks",
+    "order": 99663,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 8,
+        "minute": 33
+    }
+},
+  {
+    "id": "c8e539f2",
+    "characterKey": "aemenor_evenflight",
+    "content": "This mission calls for focus and strategy. We must confront Archie swiftly and decisively, ensuring his schemes are brought to an end.",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "thornbury",
+            "text": "Indeed, Aemenor. Byscilla has chosen wisely."
+        }
+    ],
+    "rumorId": "byscilla_assigns_tasks",
+    "order": 99664,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 9,
+        "minute": 46
+    }
+},
+  {
+    "id": "f13e87c6",
+    "characterKey": "byscilla",
+    "content": "The tasks are clear. Thornbury, Aemenor and I will handle Archie, while Rhak, Manderaz, and Hargram will investigate the greenhouse. We must work together to uncover the truth.",
+    "likes": 63,
+    "comments": [],
+    "rumorId": "byscilla_assigns_tasks",
+    "order": 99665,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 10,
+        "minute": 59
+    }
+},
+  {
+    "id": "4a2c198d",
+    "characterKey": "hargram_fidger",
+    "content": "We almost walked right into that rust monster's trap! Glad Rhak was quick on the uptake and we managed to take it down before it could do any serious damage to our gear.",
+    "likes": 62,
+    "comments": [
+        {
+            "characterKey": "rhak_the_lost",
+            "text": "It took a good chunk of my concentration to see its metallic shimmer through the foliage! But I've trained for these moments."
+        }
+    ],
+    "rumorId": "hargram_and_team_find_rust_monsters",
+    "order": 99666,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 6,
+        "minute": 14
+    }
+},
+  {
+    "id": "b7395c6f",
+    "characterKey": "rhak_the_lost",
+    "content": "My keen eyes spotted that rust monster lurking in the greenhouse! We couldn't let it go unnoticed. A little ambushing, a little teamwork, and problem solved.",
+    "likes": 48,
+    "comments": [
+        {
+            "characterKey": "manderaz_the_mad",
+            "text": "Ambushing? That sounds far too civilized! I prefer to let chaos guide my hand!"
+        }
+    ],
+    "rumorId": "hargram_and_team_find_rust_monsters",
+    "order": 99667,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 7,
+        "minute": 27
+    }
+},
+  {
+    "id": "9a4e13d2",
+    "characterKey": "manderaz_the_mad",
+    "content": "Rust monster? More like a rusty nuisance! A little bit of mayhem and a lot of flailing blades later, it was nothing but scrap metal.",
+    "likes": 57,
+    "comments": [],
+    "rumorId": "hargram_and_team_find_rust_monsters",
+    "order": 99668,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 8,
+        "minute": 40
+    }
+},
+  {
+    "id": "d6b83a9f",
+    "characterKey": "byscilla",
+    "content": "I heard tales of these rust monsters!  Glad you all managed to handle it safely. Hope none of your equipment took too much damage!",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "hargram_fidger",
+            "text": "@byscilla We're good!  Just a few scratches on my armor, nothing major."
+        }
+    ],
+    "rumorId": "hargram_and_team_find_rust_monsters",
+    "order": 99669,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 9,
+        "minute": 53
+    }
+},
+  {
+    "id": "c1f7950e",
+    "characterKey": "thornbury",
+    "content": "Heard about the rust monster incident. Best to be careful in those greenhouses - you never know what lurks amongst the flora.",
+    "likes": 39,
+    "comments": [],
+    "rumorId": "hargram_and_team_find_rust_monsters",
+    "order": 99670,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 10,
+        "minute": 6
+    }
+},
+  {
+    "id": "a1b2c3d4",
+    "characterKey": "hargram_fidger",
+    "content": "So, mages want US to analyze their arcane field? Guess those fancy tools don't work as well as they think!",
+    "likes": 67,
+    "comments": [
+        {
+            "characterKey": "darno_spriggon",
+            "text": "Hargram, be careful! You know how touchy these mages can be."
+        }
+    ],
+    "rumorId": "encounter_with_mages_guild",
+    "order": 99671,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 6,
+        "minute": 21
+    }
+},
+  {
+    "id": "e5f6g7h8",
+    "characterKey": "rhak_the_lost",
+    "content": "A Legion Arcane Field Analyzer? Sounds like something important... maybe I should try to decipher its secrets.",
+    "likes": 32,
+    "comments": [
+        {
+            "characterKey": "mande raz_the_mad",
+            "text": "Secrets? Rhak, there are secrets everywhere! But which ones will drive us mad first?"
+        }
+    ],
+    "rumorId": "encounter_with_mages_guild",
+    "order": 99672,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 7,
+        "minute": 34
+    }
+},
+  {
+    "id": "i9j0k1l2",
+    "characterKey": "mande raz_the_mad",
+    "content": "Mages seeking our aid? The fabric of reality is unraveling! Or maybe I just need to sleep. Either way, an analyzer sounds intriguing...",
+    "likes": 48,
+    "comments": [],
+    "rumorId": "encounter_with_mages_guild",
+    "order": 99673,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 8,
+        "minute": 47
+    }
+},
+  {
+    "id": "m3n4o5p6",
+    "characterKey": "darno_spriggon",
+    "content": "Hope we can be of help! Those mages seem genuinely concerned about the situation. Let's get this analyzer working and see what we can learn.",
+    "likes": 71,
+    "comments": [
+        {
+            "characterKey": "hargram_fidger",
+            "text": "Don't get your hopes up, Spriggon. Could be a trap."
+        }
+    ],
+    "rumorId": "encounter_with_mages_guild",
+    "order": 99674,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 9,
+        "minute": 0
+    }
+},
+  {
+    "id": "q7r8s9t0",
+    "characterKey": "aemenor_evenflight",
+    "content": "Intriguing! Studying the arcane field will undoubtedly shed light on the nature of this phenomenon. Let us proceed with caution and keen observation.",
+    "likes": 53,
+    "comments": [],
+    "rumorId": "encounter_with_mages_guild",
+    "order": 99675,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 10,
+        "minute": 13
+    }
+},
+  {
+    "id": "a9c38d0a",
+    "characterKey": "hargram_fidger",
+    "content": "Just dealt with a spectral nuisance while analyzing the site. Turns out ectoplasm is surprisingly hard to loot from a ghost! Still, another day, another spooky souvenir.",
+    "likes": 62,
+    "comments": [
+        {
+            "characterKey": "rhak_the_lost",
+            "text": "You'd think spectral bodies would be easier to deal with.  "
+        }
+    ],
+    "rumorId": "ghost_encounter",
+    "order": 99676,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 6,
+        "minute": 28
+    }
+},
+  {
+    "id": "e3b0c442",
+    "characterKey": "rhak_the_lost",
+    "content": "Still can't believe we actually defeated that ghost! I swear, it was trying to whisper secrets about my past life... or maybe I just imagined that.",
+    "likes": 38,
+    "comments": [
+        {
+            "characterKey": "mandeoraz_the_mad",
+            "text": "Secrets?  That ghost was probably just lonely. It craved companionship!"
+        },
+        {
+            "characterKey": "hargram_fidger",
+            "text": "Lonely?  More like territorial.  Ectoplasm is a valuable resource, Rhak."
+        }
+    ],
+    "rumorId": "ghost_encounter",
+    "order": 99677,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 7,
+        "minute": 41
+    }
+},
+  {
+    "id": "5d41930a",
+    "characterKey": "mandeoraz_the_mad",
+    "content": "The ghost's essence pulsed with such raw sorrow! To vanquish it was to extinguish a flicker of lost hope. A somber victory indeed.",
+    "likes": 27,
+    "comments": [
+        {
+            "characterKey": "rhak_the_lost",
+            "text": "Manderaz, are you sure you weren't just tired from the journey?"
+        }
+    ],
+    "rumorId": "ghost_encounter",
+    "order": 99678,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 8,
+        "minute": 54
+    }
+},
+  {
+    "id": "1f54a9d7",
+    "characterKey": "byscilla",
+    "content": "Did someone say 'ectoplasm'? That sounds like a great ingredient for my next batch of experimental potions. Wonder if it adds any interesting flavor notes...",
+    "likes": 43,
+    "comments": [],
+    "rumorId": "ghost_encounter",
+    "order": 99679,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 9,
+        "minute": 7
+    }
+},
+  {
+    "id": "0e2f698b",
+    "characterKey": "thornbury",
+    "content": "Well met, adventurers! Another threat vanquished. May our paths cross again soon for more such thrilling encounters.",
+    "likes": 35,
+    "comments": [
+        {
+            "characterKey": "hargram_fidger",
+            "text": "Always a pleasure, Thornbury."
+        }
+    ],
+    "rumorId": "ghost_encounter",
+    "order": 99680,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 10,
+        "minute": 20
+    }
+},
+  {
+    "id": "7b34d8f1",
+    "characterKey": "hargram_fidger",
+    "content": "Darno finally dealt with those blasted rust monsters! Glad that's over. Hope Dan appreciates this letter, it looks important.",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "rhak_the_lost",
+            "text": "Rust monsters? We were more worried about the talking plants."
+        }
+    ],
+    "rumorId": "darno_sprigon_arrives",
+    "order": 99681,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 6,
+        "minute": 35
+    }
+},
+  {
+    "id": "f1b394a7",
+    "characterKey": "rhak_the_lost",
+    "content": "Darno arrived covered in... something. Not sure what, but it didn't smell good. At least he brought news of the rust monsters being gone.",
+    "likes": 38,
+    "comments": [
+        {
+            "characterKey": "mandeoraz_the_mad",
+            "text": "Perhaps they were mutated by the very plants we seek to understand!"
+        }
+    ],
+    "rumorId": "darno_sprigon_arrives",
+    "order": 99682,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 7,
+        "minute": 48
+    }
+},
+  {
+    "id": "2d198e5c",
+    "characterKey": "mandeoraz_the_mad",
+    "content": "The arrival of Darno is a sign! The balance shifts, the secrets whisper closer... Perhaps this letter holds the key to unlocking the greenhouse's true purpose!",
+    "likes": 17,
+    "comments": [],
+    "rumorId": "darno_sprigon_arrives",
+    "order": 99683,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 8,
+        "minute": 1
+    }
+},
+  {
+    "id": "5a38c0b9",
+    "characterKey": "darno_spriggon",
+    "content": "Mission accomplished! Rust monsters dealt with. The greenhouse is safe... for now. Hope that letter brings Dan some clarity.",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "hargram_fidger",
+            "text": "Glad to hear it, Darno! We owe you one."
+        }
+    ],
+    "rumorId": "darno_sprigon_arrives",
+    "order": 99684,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 9,
+        "minute": 14
+    }
+},
+  {
+    "id": "9c6e7f32",
+    "characterKey": "byscilla",
+    "content": "Darno's arrival brought a strange energy to the greenhouse. The plants seem to be reacting... perhaps even whispering his name.",
+    "likes": 28,
+    "comments": [],
+    "rumorId": "darno_sprigon_arrives",
+    "order": 99685,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 10,
+        "minute": 27
+    }
+}
 ];
 
 // Export helper for event integration

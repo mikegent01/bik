@@ -487,4 +487,83 @@ export const HISTORICAL_TIMELINE = [
     "icon": "icon_focus.png",
     "category": "Recent Event"
 }
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "Hargram introduces the party members to",
+    "description": "Hargram introduces the party members to each other.. Hargram, a pit fighter, introduces the other party members: Rhak, an orc; Manderaz, a hobgoblin; and Aemenor, an elf. This social event involved Hargram Fidger, Rhak the Lost, Manderaz the Mad at area.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "Byscilla assigns tasks to the party",
+    "description": "Byscilla assigns tasks to the party.. Byscilla assigns two teams: one to confront Archie and another to survey the greenhouse. The confrontation team consists of Byscilla, Thornbury, and Aemenor, while the greenhouse team is composed of Rhak, Manderaz, and Hargram. This political event involved Byscilla, Thornbury, Rhak the Lost at Greenhouse.",
+    "icon": "icon_politics.png",
+    "category": "Political"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "Hargram's team discovers a lone rust",
+    "description": "Hargram's team discovers a lone rust monster.. While surveying the greenhouse, Hargram's team encounters a lone rust monster. They ambush and defeat it. This combat event involved Hargram Fidger, Rhak the Lost, Manderaz the Mad at Greenhouse.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "The party is encountered by mages",
+    "description": "The party is encountered by mages guild members.. The party is approached by mages guild members who request their assistance in analyzing the site. They are given a Legion Arcane Field Analyzer to use. This social event involved Hargram Fidger, Rhak the Lost, Manderaz the Mad at Greenhouse.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "The party encounters and defeats a",
+    "description": "The party encounters and defeats a ghost.. While analyzing the site, the party encounters a ghost. They defeat it and loot its ectoplasm. This combat event involved Hargram Fidger, Rhak the Lost, Manderaz the Mad at Greenhouse.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 30,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "Darno Spriggon arrives at the greenho",
+    "description": "Darno Spriggon arrives at the greenhouse.. Darno Spriggon arrives at the greenhouse and informs the party that he has taken care of the remaining rust monsters. He also gives Hargram a letter addressed to Dan. This social event involved Darno Spriggon, Hargram Fidger, Rhak the Lost at Greenhouse.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+}
 ];
