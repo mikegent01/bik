@@ -13,7 +13,7 @@
   "motto": "We didn't mean to break it",
   "affiliation": "Independent",
   "allies": ["liberated_toads", "wario_enterprise"],
-  "enemies": ["iron_legion", "fawthful_forces", "onyx_hand"],
+  "enemies": ["iron_legion", "fawful_forces", "onyx_hand"],
   "core_disaster_inc_members": [
     { "id": "archie_miser", "name": "Archie Miser", "role": "Fire Mage / Diplomatic Liability / Catastrophe Catalyst" },
     { "id": "hjumpik", "name": "Hjumpik Deldkur", "role": "Frontline Hammer / Endurance Engine / Orange Alignment Participant" },
@@ -132,7 +132,7 @@
     "motto": "We survive because we must",
     "affiliation": "Anti-Legion coalition",
     "allies": ["disaster_inc", "pond_patrol"],
-    "enemies": ["iron_legion", "fawthful_forces"],
+    "enemies": ["iron_legion", "fawthfuls_forces"],
     "notablePeople": [
       {
         "name": "Toad Lee",
@@ -295,7 +295,7 @@
     "motto": "For the Crown, Whatever the Cost",
     "affiliation": "Princess Peach's legacy",
     "allies": [],
-    "enemies": ["fawthful_forces"],
+    "enemies": ["fawthfuls_forces"],
     "notablePeople": [
       {
         "name": "Captain Toadette",
@@ -327,7 +327,7 @@
     "relatedArticles": [
       "princess_peach",
       "captain_toadette",
-      "fawthful_forces",
+      "fawful_forces",
       "embercap",
       "bramblehaven"
     ]
