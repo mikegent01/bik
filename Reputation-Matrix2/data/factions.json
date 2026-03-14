@@ -438,30 +438,7 @@
       "liberated_toads"
     ]
   },
-  {
-    "id": "fawthful_forces",
-    "name": "Fawthful Forces",
-    "title": "The Everflame Crusade",
-    "type": "Religious-Military Occupation",
-    "region": "Mushroom Kingdom (contested, shrinking)",
-    "status": "Weakened and losing territory",
-    "leader": "Unknown High Pyrant",
-    "headquarters": "Unknown (primary holdings under pressure)",
-    "motto": "Purity Through Flame",
-    "affiliation": "The Everflame Church",
-    "allies": [],
-    "enemies": ["peach_loyalists", "disaster_inc", "liberated_toads"],
-    "summary": "The Fawthful Forces are not a cackling horde of minions—they are something far more unsettling. A disciplined religious-military order devoted to the Everflame, they march to hymns rather than drums, their crimson armor etched with scripture and their weapons blessed by warpriests. Waluigi has faced many enemies in his life, but zealots who believe they are SAVING you while they kill you are a special kind of terrifying. Their faith makes them fearless, their discipline makes them deadly, and their conviction makes them impossible to reason with.",
-    "description": "Waluigi needs to be clear about something: the Fawthful Forces are not like other armies. Most soldiers fight for coin, territory, survival, or loyalty to a commander. The Fawthful fight because they genuinely believe they are doing holy work. Every battle is a prayer. Every kill is a benediction. Every territory they conquer is 'purified' rather than occupied. This makes them EXTREMELY difficult to negotiate with because you cannot bribe faith and you cannot intimidate conviction.\n\nThe rank and file wear segmented plate armor lacquered in deep crimson and trimmed with blackened bronze. Their helmets are closed-faced with narrow slits, giving them an inhuman, almost holy anonymity—Waluigi has stared into those visors and seen nothing but shadow and the faint flicker of sanctified oil burning behind their eyes. Every soldier carries some mark of devotion: a charm, a pendant, or a strip of parchment inscribed with scripture tied to their gauntlets. They move with deliberate, measured steps, each footfall almost reverent.\n\nTheir sigil is the Everflame—a stylized sunburst crossed by a vertical flame, etched in white over crimson steel. Officers, called Flamewardens, wear flowing tabards of red silk lined with gold. The higher clergy-warriors—known as Pyrants—carry censers that spew burning incense as they advance, turning every battlefield into both a temple and a pyre. Waluigi finds the smell deeply unpleasant and the symbolism deeply disturbing.\n\nWeaponry and Tactics\n\nThe Fawthful prefer ritualized weaponry. Their standard soldiers carry spears and halberds engraved with prayer runes—each strike meant to be both a wound and a benediction. Warpriests wield twin-bladed staves capable of channeling radiant fire, while their engineers operate relic-powered cannons that fire shards of consecrated crystal. Even their siege engines bear faith's touch: iron towers inlaid with stained glass, catapults carved with angelic faces.\n\nAt dusk, their encampments glow like sanctuaries, lit by hundreds of oil lamps. And when they march, they do so to hymns rather than drums—voices in perfect unison, chanting of purity, judgment, and the cleansing of corruption. Waluigi has heard those hymns from across a battlefield. They are hauntingly beautiful and absolutely chilling.\n\nThe Fall of Bramblehaven\n\nBramblehaven was once a proud Fawthful bastion—a fort-town nestled among thorny hills, its towers crowned in emerald banners, its stone ramparts bristling with cannons and crossbows. The garrison there was confident, disciplined, and absolutely certain that no rabble of toads could breach their walls.\n\nThey were wrong.\n\nCaptain Toadette's Peach Loyalists assaulted Bramblehaven with overwhelming numbers and terrifying determination. The Fawthful defenders fought with characteristic discipline—they held the walls for hours, they froze twenty attackers solid with arcane frost, they maintained formation even as ladders rose like a forest against their ramparts. But numbers told the tale. For every Loyalist that fell, three more took their place.\n\nThe garrison commander ordered a surrender when the inner keep was breached. The Loyalists did not accept it. The massacre that followed was thorough and pitiless—even defenders with their hands raised were cut down. Waluigi has seen ruthless warfare before, but the fall of Bramblehaven was something else. It was extermination disguised as victory.\n\nThe Fawthful Forces have been consolidating ever since, abandoning smaller outposts to reinforce core holdings. Their empire is shrinking, and each loss makes the next loss more likely. But Waluigi warns against underestimating them—zealots cornered are zealots at their most dangerous. WAH.",
-    "keyEvents": [
-      "fall_bramblehaven"
-    ],
-    "relatedArticles": [
-      "peach_loyalists",
-      "mushroom_kingdom",
-      "bramblehaven"
-    ]
-  },  
+
   {
   "id": "corvinarus_family",
   "name": "House Corvinarus",
