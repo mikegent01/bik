@@ -658,4 +658,240 @@ export const HISTORICAL_TIMELINE = [
     "icon": "icon_focus.png",
     "category": "Discovery"
 }
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "Bowser trips and falls on Markop",
+    "description": "Upstairs, Bowser lost his balance and tumbled onto Markop with a resounding thump.  The impact sent both characters sprawling, momentarily stunned by the unexpected collision. Markop, caught off guard, yelped in surprise as he was pinned beneath Bowser's considerable weight.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "Remi discusses curing Purpleeyetus wi",
+    "description": "Remi sought out the Toad in hopes of finding a cure for Purpleeyetus' affliction.  She earnestly explained her desire to heal the creature, but the Toad, with a skeptical croak, questioned the wisdom and possibility of such a feat.   Despite Remi's pleas, the Toad remained unconvinced, leaving Remi to continue searching for another solution.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "Onyx Hand guards offer Remi a",
+    "description": "Onyx Hand guards offer Remi a gift.. The Onyx Hand guards present Remi with a letter and a ring, claiming it's a friendship gift. This social event involved Remi, Onyx Hand Guards at Unknown.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "Remi receives a friendship ring from",
+    "description": "Remi receives a friendship ring from the Onyx Hand.. The ring is accompanied by a letter signed by Remi's vampire friends, raising suspicion. This social event involved Remi, Onyx Hand Guards at Unknown.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "Onyx Hand guards offer Remi a",
+    "description": "Onyx Hand guards offer Remi a friendship anklet.. When Remi rejects the ring, the guards offer her an anklet as an alternative. This social event involved Remi, Onyx Hand Guards at Unknown.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "An Onyx Hand guard 'accidentally' inj",
+    "description": "An Onyx Hand guard 'accidentally' injures Remi.. While Markop is examining Remi's eyes, an Onyx Hand guard 'trips' and cuts her eye. This physical event involved Remi, Onyx Hand Guards at Unknown.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 42
+    },
+    "title": "Onyx Hand guards strategically positi",
+    "description": "As Remi, Markop, and Bowser cautiously explored the dimly lit catacombs beneath the city, they were suddenly surrounded by Onyx Hand guards.  The guards fanned out, their movements silent and precise, effectively cutting off any chance of escape as they formed a tight perimeter around the trio. This unexpected ambush left Remi and her companions trapped, with no clear way forward or retreat.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 59
+    },
+    "title": "Onyx Hand guards propose a game",
+    "description": "Onyx Hand guards propose a game of hide-and-seek with Remi.. The guards suggest playing hide-and-seek as a way to investigate Remi further. This social event involved Remi, Onyx Hand Guards at Unknown.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 16
+    },
+    "title": "Marcus Ashford arrives and offers Remi",
+    "description": "Marcus Ashford arrives and offers Remi a supply kit.. Marcus Ashford, seemingly an ally, appears and gives Remi a nearly empty supply kit. This social event involved Remi, Marcus Ashford at Unknown.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 15,
+        "minute": 33
+    },
+    "title": "Remi drinks the supply kit contents",
+    "description": "Remi drinks the supply kit contents, healing her eyes.. After consuming the contents of the kit, Remi's eye color changes to a lighter shade of blue. This magical event involved Remi at Unknown.",
+    "icon": "icon_moon.png",
+    "category": "Mystery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 16,
+        "minute": 50
+    },
+    "title": "The Onyx Hand ring leaks entropy",
+    "description": "Within the shadowed depths of their hidden stronghold, Onyx Hand guards  revealed a chilling truth: the power within the Onyx Hand ring was waning. They explained that an insidious leak of entropy threatened to consume the artifact entirely, requiring immediate recharging to prevent its complete annihilation.",
+    "icon": "icon_moon.png",
+    "category": "Mystery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 17,
+        "minute": 7
+    },
+    "title": "Markop completes a ritual and observes",
+    "description": "Markop completes a ritual and observes magical signatures.. Through his ritual, Markop detects magical items and entities, including necromancy magic in the ring. This magical/discovery event involved Markop at Unknown.",
+    "icon": "icon_moon.png",
+    "category": "Mystery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 18,
+        "minute": 24
+    },
+    "title": "The Toad steals a note from",
+    "description": "While Bowser was distracted, Toad stealthily snatched a note from his grasp, revealing a plot to deceive the Koopa King. This act of betrayal exposed the Toads' true intentions and cast doubt on their trustworthiness.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 19,
+        "minute": 41
+    },
+    "title": "The Onyx Hand guards read a",
+    "description": "The Onyx Hand guards read a letter threatening the Koopa Kingdom.. The guards taunt Bowser with a letter outlining their plans to overthrow the Koopa Kingdom. This social/political event involved Onyx Hand Guards at Unknown.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 20,
+        "minute": 58
+    },
+    "title": "Remi and her companions search for",
+    "description": "Remi and her companions search for Archie at the airship.. The group heads to the airship in search of Archie, who is described as being mentally unstable. This travel/discovery event involved Remi, Markop, Bowser at Airship.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 32
+    },
+    "title": "The Archivist threatens Remi and her",
+    "description": "The Archivist threatens Remi and her companions.. The Archivist threatens Remi and her companions, claiming he will kill them unless she complies with his demands. This social/threat event involved Archivist, Remi, Markop at Archivist's Room.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 49
+    },
+    "title": "Imps transform into monstrous creatures",
+    "description": "Within the Archivist's cluttered study, a wave of unholy energy pulsed from the ancient tome in his grasp.  With a guttural chant, the Archivist unleashed a torrent of magic upon the gathered imps, twisting their forms into nightmarish monstrosities with razor-sharp claws and glowing eyes. The transformation was complete, leaving the once mischievous creatures as terrifying beasts ready to carry out the Archivist's dark bidding.",
+    "icon": "icon_moon.png",
+    "category": "Mystery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 6
+    },
+    "title": "Remi enters the workshop",
+    "description": "Remi pushed open the creaking door to the workshop, finding herself alone in a dimly lit space filled with an unsettling array of artifacts.  Strange contraptions whirred softly, and dusty tomes lay open on cluttered workbenches, their pages filled with arcane symbols. The air hung heavy with the scent of ozone and something faintly metallic, hinting at experiments both wondrous and dangerous.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+}
 ];

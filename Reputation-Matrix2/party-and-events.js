@@ -3676,4 +3676,438 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         "type": "discovery"
     }
 }
+,
+  {
+    "id": "bowser_trips",
+    "title": "Bowser trips and falls on Markop",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The story begins with Bowser losing his balance and falling onto Markop.",
+    "instigator": "bowser",
+    "targets": [
+        "bowser",
+        "markop"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "physical",
+        "type": "physical"
+    }
+},
+  {
+    "id": "remi_cure_purpleeyetus",
+    "title": "Remi discusses curing Purpleeyetus wi",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi expresses her desire to cure Purpleeyetus, but the Toad is skeptical.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "toad"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "onyx_hand_gift_offering",
+    "title": "Onyx Hand guards offer Remi a",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The Onyx Hand guards present Remi with a letter and a ring, claiming it's a friendship gift.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "onyx_hand_guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "onyx_hand_friendship_ring",
+    "title": "Remi receives a friendship ring from",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The ring is accompanied by a letter signed by Remi's vampire friends, raising suspicion.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "onyx_hand_guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "onyx_hand_anklet_offer",
+    "title": "Onyx Hand guards offer Remi a",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "When Remi rejects the ring, the guards offer her an anklet as an alternative.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "onyx_hand_guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "onyx_hand_injury",
+    "title": "An Onyx Hand guard 'accidentally' inj",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "While Markop is examining Remi's eyes, an Onyx Hand guard 'trips' and cuts her eye.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "onyx_hand_guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "physical",
+        "type": "physical"
+    }
+},
+  {
+    "id": "onyx_hand_strategic_positioning",
+    "title": "Onyx Hand guards strategically positi",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The guards create a perimeter, effectively isolating Remi and her companions.",
+    "instigator": "onyx_hand_guards",
+    "targets": [
+        "onyx_hand_guards",
+        "remi",
+        "markop",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "tactical",
+        "type": "tactical"
+    }
+},
+  {
+    "id": "hide_and_seek",
+    "title": "Onyx Hand guards propose a game",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The guards suggest playing hide-and-seek as a way to investigate Remi further.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "onyx_hand_guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "marcus_ashford_arrival",
+    "title": "Marcus Ashford arrives and offers Remi",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Marcus Ashford, seemingly an ally, appears and gives Remi a nearly empty supply kit.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "marcus_ashford"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "remi_eye_healing",
+    "title": "Remi drinks the supply kit contents",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "After consuming the contents of the kit, Remi's eye color changes to a lighter shade of blue.",
+    "instigator": "remi",
+    "targets": [
+        "remi"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "magical",
+        "type": "magical"
+    }
+},
+  {
+    "id": "onyx_hand_ring_leaking_entropy",
+    "title": "The Onyx Hand ring leaks entropy",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The guards reveal that the ring is leaking entropy and needs to be recharged.",
+    "instigator": "onyx_hand_guards",
+    "targets": [
+        "onyx_hand_guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "magical",
+        "type": "magical"
+    }
+},
+  {
+    "id": "markop_ritual_discovery",
+    "title": "Markop completes a ritual and observes",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Through his ritual, Markop detects magical items and entities, including necromancy magic in the ring.",
+    "instigator": "markop",
+    "targets": [
+        "markop"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "magical/discovery",
+        "type": "magical"
+    }
+},
+  {
+    "id": "toads_steal_note",
+    "title": "The Toad steals a note from",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The toads admit to stealing a note from Bowser, revealing their deceitful nature.",
+    "instigator": "toad",
+    "targets": [
+        "toad",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "theft",
+        "type": "theft"
+    }
+},
+  {
+    "id": "letter_reading",
+    "title": "The Onyx Hand guards read a",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The guards taunt Bowser with a letter outlining their plans to overthrow the Koopa Kingdom.",
+    "instigator": "onyx_hand_guards",
+    "targets": [
+        "onyx_hand_guards"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social/political",
+        "type": "social"
+    }
+},
+  {
+    "id": "remi_search_archie",
+    "title": "Remi and her companions search for",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The group heads to the airship in search of Archie, who is described as being mentally unstable.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "markop",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "travel/discovery",
+        "type": "travel"
+    }
+},
+
+  {
+    "id": "archivist_threat",
+    "title": "The Archivist threatens Remi and her",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The Archivist threatens Remi and her companions, claiming he will kill them unless she complies with his demands.",
+    "instigator": "archivist",
+    "targets": [
+        "archivist",
+        "remi",
+        "markop",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "social/threat",
+        "type": "social"
+    }
+},
+  {
+    "id": "archivist_transformation",
+    "title": "Imps transform into monstrous creatures",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The Archivist unleashes a horde of transformed imps, turning them into monstrous creatures.",
+    "instigator": "archivist",
+    "targets": [
+        "archivist",
+        "imps"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 1.5,
+        "label": "magical/combat",
+        "type": "magical"
+    }
+},
+  {
+    "id": "remi_workshop_entrance",
+    "title": "Remi enters the workshop",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi finds herself alone in a workshop filled with strange and unsettling artifacts.",
+    "instigator": "remi",
+    "targets": [
+        "remi"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "travel/discovery",
+        "type": "travel"
+    }
+}
 ];

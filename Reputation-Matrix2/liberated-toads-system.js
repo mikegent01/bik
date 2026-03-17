@@ -1634,7 +1634,7 @@ const CORE_TOADS = {
         weapon: "Battleaxe & Shield",
         status: "Active - On the Run", // Updated
         statusType: "active",
-        statusDetail: "Works for the Archivist, makes a deal for healing in exchange for work.",
+        statusDetail: "Spotted walking up the hallway.",
         portrait: "🐸🪓",
         isCore: true,
         cohort: "The Wardens",
@@ -1714,6 +1714,20 @@ const CORE_TOADS = {
             {
     "day": 1,
     "event": "📖 Works for the Archivist, makes a deal for healing in exchange for work.",
+    "xp": 25,
+    "type": "story"
+},
+        
+            {
+    "day": 1,
+    "event": "📖 Asked about curing Purpleeyetus, questioned Remi's trust in the Onyx Hand.",
+    "xp": 25,
+    "type": "story"
+},
+        
+            {
+    "day": 1,
+    "event": "📖 Spotted walking up the hallway.",
     "xp": 25,
     "type": "story"
 },

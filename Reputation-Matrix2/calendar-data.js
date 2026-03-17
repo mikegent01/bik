@@ -2,8 +2,8 @@ import { state } from './state.js'; // Needed for seeded random if we use state
 import {STORY_ARCS} from './lore.js';
 export const CURRENT_GAME_DATE = {
     year: 1040,
-    monthIndex: 6, // 0-indexed for Highsun (ordinal 7)
-    day: 28
+    monthIndex: 7, // 0-indexed for Highsun (ordinal 7)
+    day: 1
 };
 
 const now = new Date();

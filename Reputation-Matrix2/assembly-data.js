@@ -62405,6 +62405,1812 @@ export const WAHBOOK_POSTS = [
         "minute": 34
     }
 }
+,
+  {
+    "id": "2a147b93",
+    "characterKey": "markop",
+    "content": "I can't believe Bowser just took me out with a clumsy trip! I hope he's okay, but my back might need some healing.",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Are you alright, Markop? That looked painful!"
+        },
+        {
+            "characterKey": "toad",
+            "text": "Bowser's got a bit of clumsiness in him! Don't worry too much."
+        }
+    ],
+    "rumorId": "bowser_trips",
+    "order": 99721,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    }
+},
+  {
+    "id": "d7f28b5a",
+    "characterKey": "bowser",
+    "content": "Ugh, my scales are stinging. I tripped over nothing! Honestly, this is embarrassing...Markop, I apologize.",
+    "likes": 32,
+    "comments": [
+        {
+            "characterKey": "onyx_hand_guards",
+            "text": "Don't sweat it Bowser, happens to the best of us!"
+        }
+    ],
+    "rumorId": "bowser_trips",
+    "order": 99722,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 13
+    }
+},
+  {
+    "id": "1b49c6f0",
+    "characterKey": "toad",
+    "content": "Oh dear! Looks like Bowser needs a little more balance training. Maybe we should have him practice on those mushroom stools.",
+    "likes": 48,
+    "comments": [
+        {
+            "characterKey": "archiver",
+            "text": "Hmm, interesting data point for the 'Unlikely Tumblers' database."
+        }
+    ],
+    "rumorId": "bowser_trips",
+    "order": 99723,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 26
+    }
+},
+  {
+    "id": "9a57d321",
+    "characterKey": "remi",
+    "content": "Well that escalated quickly! Markop, let me know if you need any help getting back up. Bowser, maybe try a little less stomping next time?",
+    "likes": 56,
+    "comments": [
+        {
+            "characterKey": "vampire_toad",
+            "text": "Stomp? I thought he tripped over something..."
+        }
+    ],
+    "rumorId": "bowser_trips",
+    "order": 99724,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 39
+    }
+},
+  {
+    "id": "8c341f9d",
+    "characterKey": "onyx_hand_guards",
+    "content": "Gotta admire Bowser's commitment to making a grand entrance, even if it was unintentional! At least he landed on Markop and not the cake.",
+    "likes": 29,
+    "comments": [],
+    "rumorId": "bowser_trips",
+    "order": 99725,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 52
+    }
+},
+  {
+    "id": "e1234567",
+    "characterKey": "remi",
+    "content": "Finally discussing a cure for Purpleeyetus with the Toad! Hopefully he's open to my ideas.",
+    "likes": 68,
+    "comments": [
+        {
+            "characterKey": "toad",
+            "text": "Ideas? You call those things ideas? We'll see..."
+        },
+        {
+            "characterKey": "onyx_hand_guards",
+            "text": "Good luck Remi! Purpleeyetus is a tough one to crack."
+        }
+    ],
+    "rumorId": "remi_cure_purpleeyetus",
+    "order": 99726,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 7
+    }
+},
+  {
+    "id": "f0987654",
+    "characterKey": "toad",
+    "content": "Remi thinks she can just waltz in here with her fancy plans and cure Purpleeyetus? We'll see about that.",
+    "likes": 32,
+    "comments": [
+        {
+            "characterKey": "archie",
+            "text": "Come on Toad, give Remi a chance!"
+        },
+        {
+            "characterKey": "vampire_toad",
+            "text": "Purpleeyetus is a serious ailment. Let's hope she has something useful."
+        }
+    ],
+    "rumorId": "remi_cure_purpleeyetus",
+    "order": 99727,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 20
+    }
+},
+  {
+    "id": "d2c3e456",
+    "characterKey": "onyx_hand_guards",
+    "content": "Curious to see what Remi comes up with. The Toad is notoriously difficult to convince.",
+    "likes": 45,
+    "comments": [
+        {
+            "characterKey": "marcus_ashford",
+            "text": "Onyx Hand Guards always looking out for the best cure!"
+        },
+        {
+            "characterKey": "imps",
+            "text": "Maybe Remi can use a potion... or a spell...or maybe some toadstool stew! Ha!"
+        }
+    ],
+    "rumorId": "remi_cure_purpleeyetus",
+    "order": 99728,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 33
+    }
+},
+  {
+    "id": "b1a2c3d4",
+    "characterKey": "archie",
+    "content": "Excited to see what happens when Remi and the Toad team up! Could be interesting.",
+    "likes": 75,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Thanks Archie! Hoping for the best outcome."
+        },
+        {
+            "characterKey": "archivist",
+            "text": "Hope they document this encounter. It could be historically significant."
+        }
+    ],
+    "rumorId": "remi_cure_purpleeyetus",
+    "order": 99729,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 46
+    }
+},
+  {
+    "id": "90abcdef1",
+    "characterKey": "imps",
+    "content": "Purpleeyetus? Sounds like a disease only worthy of the worst kind of cure! Hopefully Remi fails.",
+    "likes": 28,
+    "comments": [
+        {
+            "characterKey": "vampire_toad",
+            "text": "Imps, be nice. This is serious."
+        },
+        {
+            "characterKey": "markop",
+            "text": "Let's hope for a positive outcome here! We all need to work together."
+        }
+    ],
+    "rumorId": "remi_cure_purpleeyetus",
+    "order": 99730,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 59
+    }
+},
+  {
+    "id": "a1b2c3d4",
+    "characterKey": "remi",
+    "content": "Just got an unexpected gift from the Onyx Hand! A letter and a ring, apparently as a gesture of friendship? Feeling very... uneasy about this.",
+    "likes": 85,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Hope it's not cursed, Remi! Stay safe!"
+        }
+    ],
+    "rumorId": "onyx_hand_gift_offering",
+    "order": 99731,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 14
+    }
+},
+  {
+    "id": "e5f6g7h8",
+    "characterKey": "markop",
+    "content": "Did the Onyx Hand actually offer *Remi* a gift? That's gotta be some serious power play. What are they up to?",
+    "likes": 62,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "Probably want something in return. Those guys never do anything out of the goodness of their hearts."
+        }
+    ],
+    "rumorId": "onyx_hand_gift_offering",
+    "order": 99732,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 27
+    }
+},
+  {
+    "id": "i9j0k1l2",
+    "characterKey": "onyx_hand_guards",
+    "content": "A token of our growing appreciation for Remi's... *unique* talents. We look forward to a prosperous partnership.",
+    "likes": 15,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "Hmm, 'unique talents'? Sounds like trouble brewing."
+        }
+    ],
+    "rumorId": "onyx_hand_gift_offering",
+    "order": 99733,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 40
+    }
+},
+  {
+    "id": "m3n4o5p6",
+    "characterKey": "archie",
+    "content": "Gift from the Onyx Hand? Remi's been getting more dangerous by the day! I gotta keep an eye on that one.",
+    "likes": 38,
+    "comments": [],
+    "rumorId": "onyx_hand_gift_offering",
+    "order": 99734,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 53
+    }
+},
+  {
+    "id": "q7r8s9t0",
+    "characterKey": "toad",
+    "content": "Onyx Hand? Sounds fancy! Is there pizza involved?",
+    "likes": 12,
+    "comments": [
+        {
+            "characterKey": "imps",
+            "text": "@Toad You know the Onyx Hand is all about shadows and secrets, right?"
+        }
+    ],
+    "rumorId": "onyx_hand_gift_offering",
+    "order": 99735,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 6
+    }
+},
+  {
+    "id": "d1c7203b",
+    "characterKey": "remi",
+    "content": "Just received a friendship ring from the Onyx Hand...along with a letter signed by my vampire friends? 🤔 This is getting weird...",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "marcus_ashford",
+            "text": "Perhaps a misunderstanding, Remi.  Let's talk about this."
+        }
+    ],
+    "rumorId": "onyx_hand_friendship_ring",
+    "order": 99736,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 21
+    }
+},
+  {
+    "id": "789c4a1f",
+    "characterKey": "markop",
+    "content": "Onyx Hand friendship rings? Sounds like someone is in over their head. 😳 Maybe I should check in on Remi...",
+    "likes": 32,
+    "comments": [
+        {
+            "characterKey": "toad",
+            "text": "Don't get involved! This could be dangerous."
+        }
+    ],
+    "rumorId": "onyx_hand_friendship_ring",
+    "order": 99737,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 34
+    }
+},
+  {
+    "id": "43b8f09a",
+    "characterKey": "onyx_hand_guards",
+    "content": "The Onyx Hand offers friendship to all who are worthy. 🤝 We look forward to a fruitful partnership with Remi.",
+    "likes": 12,
+    "comments": [],
+    "rumorId": "onyx_hand_friendship_ring",
+    "order": 99738,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 47
+    }
+},
+  {
+    "id": "a2c5b3d7",
+    "characterKey": "vampire_toad",
+    "content": "Hmmm...interesting. Could this be a trap? Or a sign of something bigger? 🤔 Better investigate...",
+    "likes": 41,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "Proceed with caution, Vampire Toad. There may be more to this than meets the eye."
+        }
+    ],
+    "rumorId": "onyx_hand_friendship_ring",
+    "order": 99739,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 0
+    }
+},
+  {
+    "id": "65e987f2",
+    "characterKey": "archie",
+    "content": "Friendship ring from the Onyx Hand? Sounds like someone's about to have a very interesting adventure! 😎 Let's see what happens next.",
+    "likes": 27,
+    "comments": [],
+    "rumorId": "onyx_hand_friendship_ring",
+    "order": 99740,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 13
+    }
+},
+  {
+    "id": "173b4f29",
+    "characterKey": "remi",
+    "content": "Just had the weirdest encounter! Those Onyx Hand guards offered me an anklet after I turned down their ring.  Seriously?! What are they even playing at?",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Stay safe out there, Remi! Sounds like those guys are up to something shady."
+        }
+    ],
+    "rumorId": "onyx_hand_anklet_offer",
+    "order": 99741,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 28
+    }
+},
+  {
+    "id": "9c85f07d",
+    "characterKey": "onyx_hand_guards",
+    "content": "Friendship is a powerful bond. We offered Remi an anklet as a symbol of our goodwill. Hopefully, she will reconsider.",
+    "likes": 12,
+    "comments": [
+        {
+            "characterKey": "archie",
+            "text": "Goodwill? More like creepy coercion."
+        }
+    ],
+    "rumorId": "onyx_hand_anklet_offer",
+    "order": 99742,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 41
+    }
+},
+  {
+    "id": "3a1b6f9c",
+    "characterKey": "markop",
+    "content": "Remi turning down that ring is smart. Those Onyx Hand guys give me the creeps. Anklet or not, stay cautious.",
+    "likes": 48,
+    "comments": [],
+    "rumorId": "onyx_hand_anklet_offer",
+    "order": 99743,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 54
+    }
+},
+  {
+    "id": "7c2e3d9a",
+    "characterKey": "archival_imps",
+    "content": "Onyx Hand offering anklets? Sounds like a power play! We'll keep an eye on this. Intriguing...",
+    "likes": 18,
+    "comments": [],
+    "rumorId": "onyx_hand_anklet_offer",
+    "order": 99744,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 7
+    }
+},
+  {
+    "id": "4f9d6327",
+    "characterKey": "vampire_toad",
+    "content": "Anklet offer? Ha! They're desperate for allies. Remi should play along and see what they're really up to.",
+    "likes": 25,
+    "comments": [],
+    "rumorId": "onyx_hand_anklet_offer",
+    "order": 99745,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 20
+    }
+},
+  {
+    "id": "4b9a2e37",
+    "characterKey": "remi",
+    "content": "Well, that was unexpected! I wasn't expecting an Onyx Hand guard to 'trip' and slash my eye while Markop was examining me. Guess I should be more careful around clumsy guards.",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Are you alright, Remi? That looked nasty."
+        }
+    ],
+    "rumorId": "onyx_hand_injury",
+    "order": 99746,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 35
+    }
+},
+  {
+    "id": "e29c3d78",
+    "characterKey": "markop",
+    "content": "Just as I was getting a good look at Remi's eyes, an Onyx Hand guard 'accidentally' cut her! My medical expertise is useless when guards are wielding blades like that.",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "Sounds like someone needs to teach those guards some manners. And how to handle a sword."
+        }
+    ],
+    "rumorId": "onyx_hand_injury",
+    "order": 99747,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 48
+    }
+},
+  {
+    "id": "75b6d8f1",
+    "characterKey": "onyx_hand_guards",
+    "content": "It was an unfortunate accident! We are deeply sorry for the injury caused to Ms. Remi. Rest assured, we will investigate this matter thoroughly.",
+    "likes": 28,
+    "comments": [
+        {
+            "characterKey": "toad",
+            "text": "Right... 'accidentally'  slashed her eye. Sounds believable."
+        }
+    ],
+    "rumorId": "onyx_hand_injury",
+    "order": 99748,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 1
+    }
+},
+  {
+    "id": "1b4d3a09",
+    "characterKey": "toad",
+    "content": "Onyx Hand always knows how to make an entrance! Literally slashing people with their swords. Guess they're not as 'elite' as they think.",
+    "likes": 35,
+    "comments": [
+        {
+            "characterKey": "imp",
+            "text": "Ooh, drama!"
+        }
+    ],
+    "rumorId": "onyx_hand_injury",
+    "order": 99749,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 14
+    }
+},
+  {
+    "id": "9a8f2c45",
+    "characterKey": "archie",
+    "content": "This Onyx Hand business is getting out of hand! I hope Remi recovers quickly. We need to be careful, they seem willing to use violence against anyone.",
+    "likes": 53,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "Indeed, Archie. This requires further investigation. We must document this incident thoroughly."
+        }
+    ],
+    "rumorId": "onyx_hand_injury",
+    "order": 99750,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 27
+    }
+},
+  {
+    "id": "0f4a8b7c",
+    "characterKey": "remi",
+    "content": "Onyx Hand guards are all around us, effectively trapping us! This doesn't feel good at all.",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Maybe they want to negotiate?  We could always try talking our way out of this."
+        }
+    ],
+    "rumorId": "onyx_hand_strategic_positioning",
+    "order": 99751,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 42
+    }
+},
+  {
+    "id": "9b123e4f",
+    "characterKey": "markop",
+    "content": "Well, that escalated quickly. Seems like we're in a bit of a tight spot now.",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "Hmph! Let's just smash our way out! I'm not afraid of some guards!"
+        }
+    ],
+    "rumorId": "onyx_hand_strategic_positioning",
+    "order": 99752,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 55
+    }
+},
+  {
+    "id": "7d9a6f1b",
+    "characterKey": "onyx_hand_guards",
+    "content": "Perimeter established. Subject Remi and associates are now contained within our security perimeter.",
+    "likes": 18,
+    "comments": [],
+    "rumorId": "onyx_hand_strategic_positioning",
+    "order": 99753,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 8
+    }
+},
+  {
+    "id": "4e2c0a3f",
+    "characterKey": "bowser",
+    "content": "Grrr! Trapped like rats! Let me at them! I'll show them what happens when you mess with Bowser!",
+    "likes": 35,
+    "comments": [],
+    "rumorId": "onyx_hand_strategic_positioning",
+    "order": 99754,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 21
+    }
+},
+  {
+    "id": "8e1b7c2d",
+    "characterKey": "toad",
+    "content": "Oh dear! This doesn't look good. Maybe we can reason with them? I hope they won't hurt us!",
+    "likes": 58,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Don't worry Toad, we'll figure something out."
+        }
+    ],
+    "rumorId": "onyx_hand_strategic_positioning",
+    "order": 99755,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 34
+    }
+},
+  {
+    "id": "1c2b948a",
+    "characterKey": "remi",
+    "content": "Hide and seek? With the Onyx Hand Guards? Sounds less like fun and more like a trap...but I'm not backing down. Let's see what they have in store.",
+    "likes": 75,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Be careful Remi! Those guards aren't playing around."
+        }
+    ],
+    "rumorId": "hide_and_seek",
+    "order": 99756,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 49
+    }
+},
+  {
+    "id": "93e8f4c7",
+    "characterKey": "markop",
+    "content": "So the Onyx Hand is trying to get information about Remi...by playing hide-and-seek? That's a new one. Hopefully, Remi can outsmart them.",
+    "likes": 38,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "A most curious strategy. I wonder what their endgame is."
+        }
+    ],
+    "rumorId": "hide_and_seek",
+    "order": 99757,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+    }
+},
+  {
+    "id": "5a17c93b",
+    "characterKey": "onyx_hand_guards",
+    "content": "Remi's curiosity makes them a prime target. We shall see if they can evade our watchful eyes in this little game.",
+    "likes": 12,
+    "comments": [
+        {
+            "characterKey": "vampire_toad",
+            "text": "A worthy challenge. I hope the guards don't underestimate Remi."
+        }
+    ],
+    "rumorId": "hide_and_seek",
+    "order": 99758,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 15
+    }
+},
+  {
+    "id": "7f4b209d",
+    "characterKey": "toad",
+    "content": "Hide and seek? Sounds like fun! Maybe I can convince them to let me join in too. I'm pretty good at hiding!",
+    "likes": 61,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "Don't get yourself into trouble, Toad!"
+        }
+    ],
+    "rumorId": "hide_and_seek",
+    "order": 99759,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 28
+    }
+},
+  {
+    "id": "3d0b86e9",
+    "characterKey": "archivalist",
+    "content": "Intriguing. The Onyx Hand's methods are becoming increasingly unorthodox. This 'game' could hold valuable insight into their motives.",
+    "likes": 42,
+    "comments": [],
+    "rumorId": "hide_and_seek",
+    "order": 99760,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 41
+    }
+},
+  {
+    "id": "12345678",
+    "characterKey": "remi",
+    "content": "Marcus Ashford showed up out of nowhere and gave me a supply kit... it's practically empty though. 🤔 Is this some kind of test?",
+    "likes": 80,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Be careful Remi, Ashford's got a reputation..."
+        }
+    ],
+    "rumorId": "marcus_ashford_arrival",
+    "order": 99761,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 56
+    }
+},
+  {
+    "id": "98765432",
+    "characterKey": "markop",
+    "content": "Saw Marcus Ashford hand over that kit to Remi. Hope it's not another one of his 'helpfulness' schemes.",
+    "likes": 35,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "Indeed, Ashford's intentions are rarely as straightforward as they seem."
+        }
+    ],
+    "rumorId": "marcus_ashford_arrival",
+    "order": 99762,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 9
+    }
+},
+  {
+    "id": "abcdef12",
+    "characterKey": "bowser",
+    "content": "That Marcus guy sounds fishy. Remi shoulda known better than to trust a stranger with an almost empty bag!",
+    "likes": 15,
+    "comments": [
+        {
+            "characterKey": "toad",
+            "text": "Bowser's got a point!  Always be wary of free stuff."
+        }
+    ],
+    "rumorId": "marcus_ashford_arrival",
+    "order": 99763,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 22
+    }
+},
+  {
+    "id": "fedcba98",
+    "characterKey": "onyx_hand_guards",
+    "content": "Intriguing. Ashford offering supplies to Remi... What are his true motives? This situation warrants further observation.",
+    "likes": 25,
+    "comments": [
+        {
+            "characterKey": "archief",
+            "text": "Indeed. One must always be vigilant."
+        }
+    ],
+    "rumorId": "marcus_ashford_arrival",
+    "order": 99764,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 35
+    }
+},
+  {
+    "id": "76543210",
+    "characterKey": "vampire_toad",
+    "content": "Heh, that Ashford fellow thinks he's so clever. Giving out empty kits? Classic trick! Remi better be careful.",
+    "likes": 40,
+    "comments": [
+        {
+            "characterKey": "imps",
+            "text": "Empty kit? Sounds like a challenge to us!"
+        }
+    ],
+    "rumorId": "marcus_ashford_arrival",
+    "order": 99765,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 48
+    }
+},
+  {
+    "id": "c1a0b987",
+    "characterKey": "remi",
+    "content": "That potion was definitely worth it! My vision feels amazing and my eyes look so much brighter now. Thanks everyone for helping me get this kit!",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Glad to hear you're feeling better, Remi!  Those lighter blue eyes really suit you."
+        }
+    ],
+    "rumorId": "remi_eye_healing",
+    "order": 99766,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 3
+    }
+},
+  {
+    "id": "45e93b62",
+    "characterKey": "markop",
+    "content": "Wow, I didn't realize those potions were THAT strong! Remi's eyes look incredible now, almost like a shimmering ocean.",
+    "likes": 38,
+    "comments": [],
+    "rumorId": "remi_eye_healing",
+    "order": 99767,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 16
+    }
+},
+  {
+    "id": "d9b67f24",
+    "characterKey": "onyx_hand_guards",
+    "content": "Hmph. Just another example of the power of magic. Makes you wonder what other secrets those potions hide...",
+    "likes": 18,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "Indeed, Onyx. The possibilities are endless when it comes to alchemical concoctions."
+        }
+    ],
+    "rumorId": "remi_eye_healing",
+    "order": 99768,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 29
+    }
+},
+  {
+    "id": "f2a09b57",
+    "characterKey": "toad",
+    "content": "Remi's eyes look so pretty now! Maybe I should try that potion... but only if it makes my spots glow!",
+    "likes": 42,
+    "comments": [],
+    "rumorId": "remi_eye_healing",
+    "order": 99769,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 42
+    }
+},
+  {
+    "id": "6a7b1e8c",
+    "characterKey": "archivalist",
+    "content": "Fascinating. Remi's ocular pigment appears to have shifted towards a lighter spectrum. Further study is required to understand the long-term effects of this potion.",
+    "likes": 25,
+    "comments": [],
+    "rumorId": "remi_eye_healing",
+    "order": 99770,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 55
+    }
+},
+  {
+    "id": "b2a1e84d",
+    "characterKey": "remi",
+    "content": "The Onyx Hand ring leaking entropy? What does that even mean?!  These guards are acting so secretive.",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "I heard it has something to do with reality itself... getting a little frayed at the edges."
+        }
+    ],
+    "rumorId": "onyx_hand_ring_leaking_entropy",
+    "order": 99771,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 10
+    }
+},
+  {
+    "id": "4c0f7923",
+    "characterKey": "onyx_hand_guards",
+    "content": "By order of the Onyx Hand, we must keep this matter confidential. The ring's entropy leak requires urgent recharging.",
+    "likes": 18,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "Entropy...  I have some ancient texts that might shed light on this."
+        }
+    ],
+    "rumorId": "onyx_hand_ring_leaking_entropy",
+    "order": 99772,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 23
+    }
+},
+  {
+    "id": "d63a5f9b",
+    "characterKey": "toad",
+    "content": "Leaky ring, huh? Sounds like a job for my trusty Toadstool! Maybe we can soak it up with some extra-absorbent moss.",
+    "likes": 32,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "Don't get any funny ideas, Toad. That ring belongs to the Onyx Hand."
+        }
+    ],
+    "rumorId": "onyx_hand_ring_leaking_entropy",
+    "order": 99773,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 36
+    }
+},
+  {
+    "id": "0f1724b8",
+    "characterKey": "markop",
+    "content": "Entropy leaking... could this be connected to the recent disturbances in the Dreamlands? I need more information!",
+    "likes": 48,
+    "comments": [],
+    "rumorId": "onyx_hand_ring_leaking_entropy",
+    "order": 99774,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 49
+    }
+},
+  {
+    "id": "937a1b5c",
+    "characterKey": "vampire_toad",
+    "content": "Entropy... how intriguing. Perhaps this leak can be used to my advantage. Power from chaos itself!",
+    "likes": 25,
+    "comments": [
+        {
+            "characterKey": "imps",
+            "text": "Chaos is our domain! Let the entropy flow!"
+        }
+    ],
+    "rumorId": "onyx_hand_ring_leaking_entropy",
+    "order": 99775,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 2
+    }
+},
+  {
+    "id": "d3b7c19a",
+    "characterKey": "remi",
+    "content": "Markop's ritual detected necromancy magic? That explains the weird chill in this ring lately. Time to break out the holy water.",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "archief",
+            "text": "Necromancy is serious business, Remi. Be careful."
+        }
+    ],
+    "rumorId": "markop_ritual_discovery",
+    "order": 99776,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 17
+    }
+},
+  {
+    "id": "a94c8b5f",
+    "characterKey": "bowser",
+    "content": "Magic, schmagic! Just give me a good ol' fashioned fireball and I'll deal with whatever's lurking in that ring.",
+    "likes": 32,
+    "comments": [
+        {
+            "characterKey": "toad",
+            "text": "Woah there, Bowser. Don't go rushing into anything."
+        }
+    ],
+    "rumorId": "markop_ritual_discovery",
+    "order": 99777,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 30
+    }
+},
+  {
+    "id": "8c1d5e7b",
+    "characterKey": "markop",
+    "content": "The ritual revealed a lot more than I expected. The ring is definitely a hotbed of magical activity, including traces of necromancy. This could be dangerous but also incredibly insightful.",
+    "likes": 81,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "Keep us updated on your findings, Markop."
+        }
+    ],
+    "rumorId": "markop_ritual_discovery",
+    "order": 99778,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 43
+    }
+},
+  {
+    "id": "e2f7936b",
+    "characterKey": "onyx_hand_guards",
+    "content": "This is getting interesting... Necromancy in the ring? I wonder if it's connected to those whispers I've been hearing. Time to do some investigating.",
+    "likes": 48,
+    "comments": [],
+    "rumorId": "markop_ritual_discovery",
+    "order": 99779,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 56
+    }
+},
+  {
+    "id": "5a102d79",
+    "characterKey": "vampire_toad",
+    "content": "Necromancy, you say? Hmmm... Could be useful for some future endeavors. But Markop, you should be more careful with those rituals. You never know what might come back.",
+    "likes": 27,
+    "comments": [
+        {
+            "characterKey": "imps",
+            "text": "Agreed! Necromancy is fun but risky."
+        }
+    ],
+    "rumorId": "markop_ritual_discovery",
+    "order": 99780,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 9
+    }
+},
+  {
+    "id": "f473892c",
+    "characterKey": "toad",
+    "content": "Whoops! Looks like we accidentally borrowed Bowser's note. It's not like it was important or anything! Hehehe.",
+    "likes": 125,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "ACCIDENTALLY?! YOU TOADS BETTER RETURN MY NOTE RIGHT NOW!"
+        }
+    ],
+    "rumorId": "toads_steal_note",
+    "order": 99781,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 24
+    }
+},
+  {
+    "id": "a3b1d97e",
+    "characterKey": "bowser",
+    "content": "Those sneaky toads stole my note! What were they planning? I'll make them pay for this! 😡 #betrayed #toadsarethieves",
+    "likes": 68,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "This is getting interesting... 👀 Wonder what was on the note?"
+        }
+    ],
+    "rumorId": "toads_steal_note",
+    "order": 99782,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 37
+    }
+},
+  {
+    "id": "2e4c509a",
+    "characterKey": "archivist",
+    "content": "Intriguing. A stolen note from Bowser could have significant implications. Must investigate further. #research #historyrepeatsitself",
+    "likes": 31,
+    "comments": [],
+    "rumorId": "toads_steal_note",
+    "order": 99783,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 50
+    }
+},
+  {
+    "id": "98d72f4b",
+    "characterKey": "vampire_toad",
+    "content": "The toads are getting bolder. Maybe this is a sign of things to come... Interesting. #toadsrise #powermoves",
+    "likes": 18,
+    "comments": [],
+    "rumorId": "toads_steal_note",
+    "order": 99784,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 3
+    }
+},
+  {
+    "id": "7c65930e",
+    "characterKey": "onyx_hand_guards",
+    "content": "Toad admitting to stealing from Bowser? This is going to be a fun watch.🍿 #chaosreign",
+    "likes": 45,
+    "comments": [],
+    "rumorId": "toads_steal_note",
+    "order": 99785,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 16
+    }
+},
+  {
+    "id": "a9d3f82e",
+    "characterKey": "onyx_hand_guards",
+    "content": "The Koopa Kingdom trembles! Our message has reached the king, and he'll soon understand our power. Prepare for an era of change, Bowser.",
+    "likes": 105,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "Foolish creatures! You've made a grave mistake challenging me! I will crush you all!"
+        },
+        {
+            "characterKey": "vampire_toad",
+            "text": "Intriguing... an opportunity for chaos, perhaps?"
+        }
+    ],
+    "rumorId": "letter_reading",
+    "order": 99786,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 31
+    }
+},
+  {
+    "id": "4b871e93",
+    "characterKey": "bowser",
+    "content": "THOSE SNICKERING SHELL-HEADS! They think they can threaten me?! I'll roast them like marshmallows over a lava pit!",
+    "likes": 23,
+    "comments": [
+        {
+            "characterKey": "toad",
+            "text": "Oh dear, this doesn't sound good.  Hopefully we can resolve this peacefully."
+        },
+        {
+            "characterKey": "remi",
+            "text": "Bowser, maybe take a deep breath? You know that anger often leads to hasty decisions."
+        }
+    ],
+    "rumorId": "letter_reading",
+    "order": 99787,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 44
+    }
+},
+  {
+    "id": "6c0529df",
+    "characterKey": "toad",
+    "content": "A letter... outlining plans to overthrow the kingdom?! This is serious! We need to be prepared for anything. ",
+    "likes": 78,
+    "comments": [
+        {
+            "characterKey": "archivist",
+            "text": "Perhaps a closer examination of this 'letter' could provide valuable insights."
+        },
+        {
+            "characterKey": "markop",
+            "text": "Don't worry Toad! We'll figure out a way to protect the kingdom!"
+        }
+    ],
+    "rumorId": "letter_reading",
+    "order": 99788,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 57
+    }
+},
+  {
+    "id": "1f3d9a5b",
+    "characterKey": "remi",
+    "content": "This is getting a bit tense. I hope these Onyx Hand Guards aren't just looking for trouble. They should know better than to mess with the Koopa Kingdom.",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "archie",
+            "text": "Maybe we should investigate their motives? Understanding them could be key."
+        },
+        {
+            "characterKey": "imps",
+            "text": "Ooh, chaos! This is going to be fun!"
+        }
+    ],
+    "rumorId": "letter_reading",
+    "order": 99789,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 10
+    }
+},
+  {
+    "id": "92c7b48e",
+    "characterKey": "markop",
+    "content": "Bowser needs to calm down. We'll figure out a way to handle this Onyx Hand nonsense. No need for fiery outbursts.",
+    "likes": 31,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "CALM?! THEY THREATENED ME! THAT'S NOT CALM-WORTHY!"
+        },
+        {
+            "characterKey": "archivist",
+            "text": "Indeed. Perhaps a measured approach is best."
+        }
+    ],
+    "rumorId": "letter_reading",
+    "order": 99790,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 23
+    }
+},
+  {
+    "id": "e7f18c9a",
+    "characterKey": "remi",
+    "content": "Archie's been acting strange lately, so we're heading to the airship to look for him.  I hope he's okay - mentally unstable doesn't sound good.",
+    "likes": 85,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Be careful, Remi. Archie can be unpredictable."
+        }
+    ],
+    "rumorId": "remi_search_archie",
+    "order": 99791,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 38
+    }
+},
+  {
+    "id": "3d7e1a0b",
+    "characterKey": "markop",
+    "content": "Honestly, I'm more worried about what might be on that airship than Archie himself. Let's hope it doesn't turn into another one of his crazy schemes.",
+    "likes": 62,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "As long as there are snacks, I don't care."
+        }
+    ],
+    "rumorId": "remi_search_archie",
+    "order": 99792,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 51
+    }
+},
+  {
+    "id": "90e8a2f3",
+    "characterKey": "bowser",
+    "content": "AirSHIPS! Finally, a decent place to stretch my wings. Maybe there are some delicious snacks hidden up there too.",
+    "likes": 45,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Focus, Bowser! We need to find Archie."
+        }
+    ],
+    "rumorId": "remi_search_archie",
+    "order": 99793,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 4
+    }
+},
+  {
+    "id": "6f29b3d4",
+    "characterKey": "onyx_hand_guards",
+    "content": "Intriguing. A mentally unstable individual aboard an airship... this investigation promises to be quite fascinating.",
+    "likes": 28,
+    "comments": [],
+    "rumorId": "remi_search_archie",
+    "order": 99794,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 17
+    }
+},
+  {
+    "id": "1b4e3c95",
+    "characterKey": "toad",
+    "content": "Oh no! Archie's gone crazy? Poor guy. I hope he doesn't hurt himself...or anyone else.",
+    "likes": 37,
+    "comments": [
+        {
+            "characterKey": "imps",
+            "text": "Hehehe, this should be fun to watch!"
+        }
+    ],
+    "rumorId": "remi_search_archie",
+    "order": 99795,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 30
+    }
+},
+ 
+  {
+    "id": "e4b79c6d",
+    "characterKey": "remi",
+    "content": "The Archivist just threatened to kill us if I don't do what he says! This is insane, I never expected this.",
+    "likes": 85,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Don't worry Remi, we'll figure something out. He can't possibly be serious, right?"
+        }
+    ],
+    "rumorId": "archivist_threat",
+    "order": 99801,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 52
+    }
+},
+  {
+    "id": "6c8a9d2f",
+    "characterKey": "markop",
+    "content": "Okay, this is getting a little dark. Threatening us? That's going too far, Archivist. What do you think you're doing?",
+    "likes": 37,
+    "comments": [],
+    "rumorId": "archivist_threat",
+    "order": 99802,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 5
+    }
+},
+  {
+    "id": "12a45b09",
+    "characterKey": "bowser",
+    "content": "He said he'd KILL us?! HA! That's hilarious. He wouldn't last five seconds against a real monster like me!",
+    "likes": 63,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Bowser, please, this isn't the time to joke around."
+        }
+    ],
+    "rumorId": "archivist_threat",
+    "order": 99803,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 18
+    }
+},
+  {
+    "id": "f0d9834b",
+    "characterKey": "onyx_hand_guards",
+    "content": "The Archivist is playing a dangerous game. I sense his power growing, and it terrifies me. We must find a way to stop him before he's too strong.",
+    "likes": 21,
+    "comments": [
+        {
+            "characterKey": "archie",
+            "text": "I agree. Something isn't right about this situation. We need to be careful."
+        }
+    ],
+    "rumorId": "archivist_threat",
+    "order": 99804,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 31
+    }
+},
+  {
+    "id": "54b6c78e",
+    "characterKey": "archivist",
+    "content": "My demands are simple: comply, and you shall live. Refuse, and face the consequences. Remi, your choice.",
+    "likes": 12,
+    "comments": [],
+    "rumorId": "archivist_threat",
+    "order": 99805,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 44
+    }
+},
+  {
+    "id": "f24c7d1a",
+    "characterKey": "remi",
+    "content": "Those imps transformed into monsters?! The Archivist is really going all out this time!  We need to be careful.",
+    "likes": 65,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Told you those little guys were up to something shady!"
+        }
+    ],
+    "rumorId": "archivist_transformation",
+    "order": 99806,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 59
+    }
+},
+  {
+    "id": "a3b91e0d",
+    "characterKey": "toad",
+    "content": "Eep! This is scary, even for me. Those monstrous imps are way too much for one toad to handle!",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "vampire_toad",
+            "text": "Maybe we can lure them with a delicious fly or two?"
+        }
+    ],
+    "rumorId": "archivist_transformation",
+    "order": 99807,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 12
+    }
+},
+  {
+    "id": "87c52e9b",
+    "characterKey": "onyx_hand_guards",
+    "content": "The Archivist's power is growing...and so is the danger.  Time to show these transformed imps what happens when you mess with Onyx Hand Guards.",
+    "likes": 81,
+    "comments": [],
+    "rumorId": "archivist_transformation",
+    "order": 99808,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 25
+    }
+},
+  {
+    "id": "d1c4e9a6",
+    "characterKey": "archivalist",
+    "content": "The imps have become vessels for a new power. Their transformation is only the beginning. Soon, all will bow before my will!",
+    "likes": 25,
+    "comments": [],
+    "rumorId": "archivist_transformation",
+    "order": 99809,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 38
+    }
+},
+  {
+    "id": "3e1f0b7a",
+    "characterKey": "bowser",
+    "content": "Heh heh... monstrous imps? Sounds like a challenge! I'm gonna have so much fun stomping these guys around.",
+    "likes": 58,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Just be careful not to turn into one yourself, Bowser!"
+        }
+    ],
+    "rumorId": "archivist_transformation",
+    "order": 99810,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 51
+    }
+},
+  {
+    "id": "12345678",
+    "characterKey": "remi",
+    "content": "Just stepped into this creepy workshop and it's full of strange artifacts.  Anyone else getting a bad feeling about this?",
+    "likes": 67,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Stay safe out there, Remi! Let me know if you need backup."
+        }
+    ],
+    "rumorId": "remi_workshop_entrance",
+    "order": 99811,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 6
+    }
+},
+  {
+    "id": "f0987654",
+    "characterKey": "markop",
+    "content": "Remi just wandered into a workshop full of unsettling artifacts? Sounds like trouble. Hope she's careful.",
+    "likes": 32,
+    "comments": [
+        {
+            "characterKey": "archivalist",
+            "text": "Indeed, Markop. Perhaps we should investigate this further."
+        }
+    ],
+    "rumorId": "remi_workshop_entrance",
+    "order": 99812,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 19
+    }
+},
+  {
+    "id": "abcde123",
+    "characterKey": "onyx_hand_guards",
+    "content": "Intriguing! Artifacts are always fascinating. Remi, send pictures if you find anything interesting.",
+    "likes": 17,
+    "comments": [],
+    "rumorId": "remi_workshop_entrance",
+    "order": 99813,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 32
+    }
+},
+  {
+    "id": "98765432",
+    "characterKey": "imps",
+    "content": "Oooooh, a workshop? We love workshops! Maybe there are some shiny things we can steal. Hehehe!",
+    "likes": 10,
+    "comments": [],
+    "rumorId": "remi_workshop_entrance",
+    "order": 99814,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 45
+    }
+},
+  {
+    "id": "fedcba98",
+    "characterKey": "archivalist",
+    "content": "A workshop full of artifacts? This could be a significant discovery. Remi, please document everything carefully.",
+    "likes": 45,
+    "comments": [],
+    "rumorId": "remi_workshop_entrance",
+    "order": 99815,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 58
+    }
+}
 ];
 
 // Export helper for event integration
