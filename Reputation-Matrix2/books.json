@@ -1059,6 +1059,628 @@
       ]
     }
   ]
+},
+{
+  "id": "the-green-journal",
+  "title": "The Green Journal",
+  "subtitle": "Private Diary of Luigi, Found at Raventree Manor",
+  "author": "Luigi",
+  "cover_color": "#2e7d32",
+  "cover_accent": "#c8e6c9",
+  "icon": "📗",
+  "category": "History",
+  "rarity": "Rare",
+  "locked": false,
+  "lock_message": "",
+  "condition": "Damp",
+  "description": "A small green journal with a cracked spine and water damage along the edges. The handwriting inside alternates between careful, measured script and frantic, barely legible scrawl. Smells faintly of pipe oil and fear.",
+  "page_color": "#f1f8e9",
+  "text_color": "#1b5e20",
+  "total_pages": 12,
+  "secrets_total": 6,
+  "chapters": [
+    {
+      "title": "First Entry",
+      "pages": [
+        {
+          "page_number": 1,
+          "content": [
+            { "type": "centered", "text": "THE GREEN JOURNAL", "color": "#2e7d32", "style": "bold", "size": "large" },
+            { "type": "centered", "text": "PRIVATE — DO NOT READ", "color": "#f44336", "style": "bold" },
+            { "type": "centered", "text": "(I mean it. This means you, Wario.)", "color": "#f44336", "style": "italic" },
+            { "type": "spacer" },
+            { "type": "divider", "style": "simple" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "If you are reading this and you are not me, then either I am dead and it no longer matters, or you are Wario and I will find you and I will put a ghost in your toilet. I know how to do that now. The Guild taught me.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "Day 1 of whatever this is.\n\nI don't know what day it actually is. I've lost track. Everything since the Guild recruited me has been a blur of portal jumps, briefings in rooms that smell like ozone, and people calling me 'Agent L' as if that's a name a person should have. It's not a name. It's a letter. I already HAVE a letter — it's on my hat.\n\nThey told me my brother is missing. That's not new. Mario has been missing for... I don't actually know how long. Time moves differently when you spend half of it in pipe networks and the other half trying not to die. But this time it's different. This time the Guild says he's 'dimensionally displaced,' which is their way of saying they lost him and don't want to admit it.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "I agreed to work with the Guild because they said they could find him. That was three months ago. They haven't found him. What they HAVE done is send me to a haunted manor full of vampires, ghosts, and a man who throws fireballs indoors like that's a reasonable thing to do.\n\nI miss my brother.\nI miss my house.\nI miss not being afraid.", "color": "#1b5e20", "background": "#e8f5e9" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The Guild Assignment",
+      "pages": [
+        {
+          "page_number": 2,
+          "content": [
+            { "type": "chapter_header", "text": "The Assignment", "subtitle": "How I Became 'Agent L'", "color": "#2e7d32" },
+            { "type": "handwritten", "text": "I should write down how this started, in case something happens to me and someone needs to understand why a plumber ended up working for the Mages' Guild as an unlicensed ghost-containment operative.\n\nThree months ago, a woman in blue robes appeared in my kitchen. She was sitting at my table, drinking my coffee, reading my newspaper. When I screamed (I screamed), she calmly introduced herself as Magistrix Cerulean of the Arcane Intelligence Division and asked if I would like to see my brother again.\n\nI said yes. Obviously I said yes. You say yes to that question even when the person asking it appeared in your kitchen like a tax collector from the shadow realm.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "The deal:\n- I work for the Guild as a field operative\n- I use equipment they provide (the Poltergust — modified, runs quieter now)\n- I investigate sites of 'planar instability' and capture/contain spectral entities\n- In exchange, they devote resources to finding Mario\n\nThe reality:\n- I am bait\n- I am sent into dangerous locations first because I am 'expendable but resilient'\n- The Poltergust is a prototype they can't test on Guild members because of union rules\n- I have seen exactly zero evidence that they are looking for Mario", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "interactive_reveal", "label": "[ A page has been glued shut. Carefully peel it open → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I found something I wasn't supposed to find. In a Guild filing cabinet, while looking for spare Poltergust cartridges:\n\nFile M-001: 'MARIO (SUBJECT)'\nStatus: LOCATED\nDisposition: CONTAINMENT RECOMMENDED\nNotes: 'Subject's dimensional resonance is incompatible with current planar stability protocols. Retrieval would accelerate fracture cascade. RECOMMENDATION: Maintain current displacement. Do not inform Agent L.'\n\nThey FOUND him. They found Mario and they're LEAVING HIM wherever he is because bringing him back might cause problems. And they're using me — dangling my brother like a carrot — to get me to do their dirty work.\n\nI should leave. I should quit. I should tell them to take their Guild and their robes and their ozone-smelling briefing rooms and shove them into the nearest warp pipe.\n\nBut if I leave, I'll never find out where he is. So I stay. I smile. I answer to 'Agent L.' And I plan.\n\nI am going to find my brother. And when I do, the Mages' Guild is going to learn what happens when you lie to a plumber.", "color": "#d32f2f", "background": "#ffebee" }
+            ], "secret_id": "mario_file" }
+          ]
+        },
+        {
+          "page_number": 3,
+          "content": [
+            { "type": "handwritten", "text": "Things the Guild has taught me that are actually useful:\n\n1. Spectral frequency modulation — I can tune the Poltergust to target specific ghost types. Boos require a different setting than generic haunts. Poltergeists need the resonance cranked to maximum.\n\n2. Basic ward recognition — I can now identify 14 different types of magical protection. This is useful because it tells me which doors NOT to open, which is most of them.\n\n3. Dimensional anchor theory — this is how the null cages work. You create a pocket of 'fixed' reality inside unstable space. The original Dan is in one of these. So, apparently, is my brother.\n\n4. How to brew Guild-standard coffee. It's terrible. But it keeps you awake for 36 hours, which is necessary when you're in a haunted manor and sleeping means dying.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "Things the Guild has taught me that are NOT useful:\n\n1. How to fill out a Form 7-B ('Spectral Encounter Report — Standard'). It is eleven pages long. It requires three signatures. One of the signatures must come from the ghost itself, which tells you everything you need to know about Guild bureaucracy.\n\n2. The correct mode of address for a Senior Enforcer vs. a Deputy Magistrix vs. a Sub-Arcane Facilitator. There are apparently 47 distinct ranks. I call everyone 'sir' and hope for the best.\n\n3. The rope reimbursement policy. If you damage Guild equipment, you receive an itemized bill. I watched them charge Archie over 2,000 gold for a broken rope. Administrative fees, processing surcharges, 'ambient magical contamination assessment.' It would be funny if it weren't insane.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "paragraph", "style": "italic", "text": "[ Several pages appear to have been torn out here. ]", "color": "#999" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Raventree",
+      "pages": [
+        {
+          "page_number": 4,
+          "content": [
+            { "type": "chapter_header", "text": "Raventree Manor", "subtitle": "Or: How I Learned to Stop Worrying and Hate Everything", "color": "#2e7d32" },
+            { "type": "handwritten", "text": "Highsun 26. Evening.\n\nI arrived at Raventree Manor by bumping into a door. Not opening a door — bumping into one. I was in a Guild transit corridor, following a tracking beacon, and the corridor ended in a wooden door that hadn't been there thirty seconds earlier. I knocked. No answer. I tried the handle. It opened.\n\nOn the other side: a room full of people I didn't know, all of whom looked at me like I was a ghost. Which, given the context, was not an unreasonable assumption.\n\n\"Luigi?\" someone said.\n\nThey knew me. I did not know them. This happens more than you'd think when your brother is famous and you are... not.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "The manor is wrong. Not 'creepy old house' wrong — FUNDAMENTALLY wrong. Rooms connect to rooms that shouldn't exist. Corridors loop back on themselves. The architecture follows rules that Euclid would have called 'a cry for help.' I've been in haunted mansions before — it's literally my job now — but Raventree isn't haunted. Raventree is BROKEN. The building exists in multiple dimensions simultaneously, and the dimensions don't agree on basic things like 'which way is up' and 'do the living have a right to remain that way.'\n\nI set up the Poltergust within five minutes of arriving. Within six minutes, a spectral dancer attacked a man named Markop and something called Perrius Anamatur MELTED INTO HIS SKIN to dissolve it.\n\nNormal Tuesday at Raventree, apparently.", "color": "#1b5e20", "background": "#e8f5e9" }
+          ]
+        },
+        {
+          "page_number": 5,
+          "content": [
+            { "type": "handwritten", "text": "Highsun 26, later.\n\nEverything happened at once. Onyx knights — VAMPIRE Onyx knights — swarmed the dance hall. A toad named Toadburt fled through a door, dodging attacks like he'd been dodging attacks his whole life. A man named Salam tried to breach a door, failed, and readied a crossbow with the calm efficiency of someone who fails at doors regularly.\n\nOne of the knights threatened to turn a toad named Eager into a vampire 'for faster healing.' Eager BIT THE KNIGHT'S HAND and fled. I like Eager. Eager has the survival instincts I wish I had.\n\nMarkop bashed a lock open and screamed for someone named Remi to run. Eager crashed through a window. Bowser was there — BOWSER, the Koopa warlord — fighting alongside the party like this was normal. Remi got dragged back in by guards.\n\nI watched all of this happen while holding a vacuum cleaner and wondering what my life had become.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "Then Markop started questioning Dan. The toad Dan. Asking if he was 'real.' Dan — the parallel Dan, the copy — admitted he doesn't know how to prove he's authentic.\n\nI know what Dan is. The Guild briefed me. File D-007: 'DAN (SUBJECT) — PARALLEL INSTANCE.' They want him dead. They consider his existence a threat to planar stability. My assignment, the one they didn't put in writing, the one Magistrix Cerulean whispered to me in the transit corridor: 'If the opportunity arises, Agent L, neutralize the anomaly.'\n\nNeutralize. That's what they call it when they want you to kill a toad who doesn't know he's not supposed to exist.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "interactive_reveal", "label": "[ The ink here has been smeared by a shaking hand. Read carefully → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I won't do it.\n\nI won't kill Dan. I don't care what the Guild says. I don't care about planar stability or dimensional resonance or probability cascades. Dan is a person. He has thoughts and feelings and a face that looks terrified every time someone mentions the word 'real.'\n\nThe Guild treats people like variables in an equation. Mario is 'dimensionally displaced' — not lost, not missed, not loved. Dan is an 'anomaly' — not a person, not alive, not worthy of survival. Archie is 'acceptable collateral' — not a man, not a life, not someone's friend.\n\nI became a plumber because I wanted to fix things. The Guild wants me to break them.\n\nI need a different plan.", "color": "#d32f2f", "background": "#ffebee" }
+            ], "secret_id": "luigi_refuses_order" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The Sitting Room",
+      "pages": [
+        {
+          "page_number": 6,
+          "content": [
+            { "type": "chapter_header", "text": "Perrius Anamatar", "subtitle": "The Thing in the Sitting Room", "color": "#2e7d32" },
+            { "type": "handwritten", "text": "Highsun 27. Small hours.\n\nArchie found Perrius Anamatar having tea in a sitting room. HAVING TEA. The manor is collapsing into dimensional chaos, vampires are swarming the halls, reality itself is fracturing like ice under a hammer, and this... THING... is sitting in an armchair, sipping from a porcelain cup, and making small talk.\n\nArchie accused him of orchestrating the chaos. Perrius responded by siccing spectral coats on me. COATS. Animated winter coats that wrapped around my arms and tried to suffocate me. I have fought ghosts, poltergeists, and Boos the size of houses. Nothing prepared me for being attacked by outerwear.\n\nArchie's response was, predictably, a fireball. In an enclosed room. With ME in it.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "The fireball missed Perrius. It did NOT miss the sitting room. Or the curtains. Or my eyebrows (they'll grow back, probably). Perrius fled, laughing — actually LAUGHING — and Archie and I were left standing in a burning room full of charred coat remnants.\n\n\"Sorry about that,\" Archie said.\n\nHe was not sorry. No one who throws fireballs indoors has ever been sorry about anything in their entire life.\n\nWe hid in a coat closet afterward. A COAT CLOSET. After being attacked by COATS. The irony was not lost on me. It was, however, lost on Archie, who fell asleep standing up within three minutes because apparently near-death experiences are relaxing when you've had enough of them.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "paragraph", "style": "italic", "text": "[ A scorch mark covers part of this page. ]", "color": "#999" }
+          ]
+        },
+        {
+          "page_number": 7,
+          "content": [
+            { "type": "handwritten", "text": "About Perrius Anamatar:\n\nThe Guild's file on him is almost empty, which means either they know nothing or they know everything and aren't sharing. What I've observed:\n\n- He is not human. Or toad. Or koopa. Or any species I recognize.\n- He dissolved a spectral dancer by MELTING INTO SOMEONE'S SKIN. What does that even mean? What IS he?\n- He drinks tea in rooms full of chaos as if chaos is his natural habitat\n- He claims he 'wants peace and quiet' and responds to interruptions with violence\n- He knocked Archie unconscious in the library when Archie was ambushed by something else, claiming he was 'maintaining the quiet'\n- He radiates wrongness. Not evil — WRONGNESS. Like reality flinches when he's nearby.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "interactive_reveal", "label": "[ Luigi has drawn a sketch here. Examine it → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I saw something the others didn't. When Perrius melted Markop's spectral attacker, there was a moment — a fraction of a second — where his shape CHANGED. Not like a disguise slipping. Like the thing wearing the disguise briefly forgot which shape it was supposed to be.\n\nUnderneath Perrius Anamatar, for that one instant, I saw:\n- More limbs than a person should have\n- Eyes that weren't eyes — they were OPENINGS, like looking through holes in the world\n- A mouth that went the wrong direction\n- Something that might have been wings, if wings were made of folded space\n\nHe is not a ghost. He is not a demon. He is not anything in the Guild's bestiary.\n\nI think Perrius Anamatar is a piece of a different reality that got stuck here. A FRAGMENT. Like Dan, but older. Much older. Old enough to have learned how to wear a face.\n\nAnd he's been drinking tea at Raventree for a very, very long time.", "color": "#4a148c", "background": "#f3e5f5" }
+            ], "secret_id": "perrius_true_nature" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The Overheard Conversation",
+      "pages": [
+        {
+          "page_number": 8,
+          "content": [
+            { "type": "chapter_header", "text": "What They Said", "subtitle": "When They Thought I Wasn't Listening", "color": "#2e7d32" },
+            { "type": "handwritten", "text": "Highsun 29. Early morning.\n\nArchie overheard me talking to a Guild contact. Or rather — he overheard the Guild contact talking TO me, because I wasn't doing much talking. I was mostly listening, and what I was hearing made me feel like the floor was dissolving under my feet.\n\nThe conversation, as close to verbatim as I can reconstruct:\n\nGUILD: 'The fracture cascade is accelerating. Extraction must proceed within 48 hours.'\nME: 'Extraction of what?'\nGUILD: 'The spectral entities embedded in the manor's structure. They contain planar data we need.'\nME: 'There are living people in here. Archie, Remi, the toads—'\nGUILD: 'The extraction will destabilize the local planar field. Casualties among non-Guild personnel are... expected.'\nME: '...expected.'\nGUILD: 'The Miser subject in particular is unlikely to survive. His magical signature is entangled with the fracture points. Removing the ghosts will likely pull his life force with them.'\nME: 'You want to kill Archie.'\nGUILD: 'We want to save the data. Archie's death would be a side effect. An acceptable one.'", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "The rope holding Archie snapped while he was eavesdropping above us. He fell. They saw him. The look on his face — he'd heard everything.\n\nI am supposed to be on the Guild's side. I am 'Agent L.' I carry their equipment, follow their orders, fill out their eleven-page forms. And they just told me, in plain language, that they are willing to murder a man to harvest ghost data.\n\nArchie looked at me like I had pointed a knife at him.\n\nI don't blame him.", "color": "#1b5e20", "background": "#e8f5e9" }
+          ]
+        },
+        {
+          "page_number": 9,
+          "content": [
+            { "type": "handwritten", "text": "Highsun 29, later.\n\nArchie was ambushed in the library. By SOMETHING. The Guild won't say what. Perrius Anamatar intervened — said he 'wanted peace and quiet' — and knocked Archie unconscious. When Archie woke up hours later, Thornbury and I were watching over him.\n\nThornbury is... complicated. He's a Guild guard, but he's not like the others. He found a secret stash of gold in the servants' dining room and actually SPLIT it fairly. He set up detection equipment to help find ghosts. He's doing his job, but he's doing it like a person, not like a Guild automaton.\n\nI like Thornbury. I'm afraid for Thornbury. People I like in the Guild tend to end up reassigned, or silenced, or 'spontaneously experiencing arcane feedback.'\n\nThe guild member Magistrix Vellum — she died of 'spontaneous arcane feedback' years ago. The official story was that her focusing crystal overloaded. The unofficial story, whispered in corridors, is that she was preparing to expose the Tribunal's location to Guild strike teams and was eliminated.\n\nThe Guild kills its own when they become inconvenient. What chance does a plumber have?", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "puzzle_cipher", "title": "LUIGI'S CODED NOTE TO HIMSELF", "description": "Luigi encoded a reminder using a pipe-based cipher: each letter is replaced by its mirror position in the alphabet (A=Z, B=Y, C=X...).", "encoded_text": "UILM GSV NZTTL QLFIMZO. UROO GSIVY-Y. HVXGRLM 'WRNVMHRLMZO WRHKOZXVNVMG.' NZIRLH OLLXZGRLM RH GSIVI.", "solution": "FIND THE MAGES JOURNAL. FILE THREE-B. SECTION 'DIMENSIONAL DISPLACEMENT.' MARIOS LOCATION IS THERE.", "hint": "Mirror alphabet: A=Z, B=Y, C=X... U=F, I=R, L=O...", "secret_id": "cipher_mario_location" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The People Here",
+      "pages": [
+        {
+          "page_number": 10,
+          "content": [
+            { "type": "chapter_header", "text": "Field Notes", "subtitle": "The People I've Met (And Whether They'll Kill Me)", "color": "#2e7d32" },
+            { "type": "handwritten", "text": "ARCHIE MISER\nWill he kill me: Probably, but not on purpose.\nArchie throws fireballs the way most people throw insults — reflexively, without aiming, and with more force than the situation warrants. He is also, against all evidence, not entirely a bad person. He seems genuinely upset about some of the people he's killed. Not upset enough to stop killing people, but upset.\nThe Guild wants him dead. I don't think that's right.\nDanger level: EXTREME (proximity-based)", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "MARKOP\nWill he kill me: No, but he might die protecting me, which is worse.\nMarkop bashed a lock open with his body while bleeding from multiple wounds and screamed for Remi to run. That's the kind of person Markop is. The kind who takes damage so others don't have to. I worry about people like that. They burn out or they break.\nDanger level: LOW (to me) / EXTREME (to himself)", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "REMI (FNG)\nWill she kill me: Unclear. She was recruited via BOMB.\nWario gave her a box. The box exploded. Wario then offered her a job. AND SHE TOOK IT. Either Remi is the bravest person I've ever met or she has the self-preservation instincts of a lemming in a track suit. She was captured by Onyx knights and found a battle plan on a napkin. She is resourceful in the way that people who expect to die young are resourceful.\nDanger level: MODERATE (collateral risk)", "color": "#1b5e20", "background": "#e8f5e9" }
+          ]
+        },
+        {
+          "page_number": 11,
+          "content": [
+            { "type": "handwritten", "text": "DAN (PARALLEL)\nWill he kill me: He doesn't know what he is. That's what scares me.\nThe Guild wants him dead. I was ordered to 'neutralize' him. I won't. He's a person. He's scared and confused and he doesn't understand why everyone looks at him like he's a bomb. The Star Spirit prophecy says he has to choose — be the crack that lets light in or the crack that lets it out. Nobody's told him that yet. Maybe nobody should. Choices made under pressure aren't really choices.\nDanger level: EXISTENTIAL (to reality, not to me personally)", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "HJUMPIK\nWill he kill me: Only if I'm standing near a power core.\nThis toad disabled an airship's power core with an AXE. While the ship was FLYING. Then he apparently did it again (or something similar) and the ship nearly crashed. Hjumpik operates on a level of desperate improvisation that I find both inspiring and terrifying. He is the embodiment of 'it seemed like a good idea at the time.'\nDanger level: HIGH (chaotic)", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "WARIO\nWill he kill me: He'll try to sell me first.\nWario was found in a barrel. A BARREL. On a ship full of 150+ trafficked toads hidden in barrels. Draw your own conclusions. He gave Remi a bomb. He delivers 'items' to people by dumping them into backpacks while fleeing guards. He is the worst person I have ever met who is technically on 'our side.'\nEvery group has a Wario. Not every group survives having one.\nDanger level: FINANCIAL (he will steal everything you own)", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "interactive_reveal", "label": "[ A page has been folded over and stapled shut. Pry it open → ]", "hidden_content": [
+              { "type": "handwritten", "text": "WALUIGI\nWill he kill me: He already tried.\nNot directly. But his agent 'Wally' made a dramatic exit with Bowser, and his Cone of Cold spell froze Eager SOLID. Eager is presumed dead by the crew.\n\nBut here's what I can't stop thinking about: Waluigi SAVED hjumpik. In the middle of chaos, with no obvious benefit to himself, Waluigi saved someone's life. Why? What game is he playing?\n\nThe Guild has no file on Waluigi. Nothing. Not 'classified' — NOTHING. As if he doesn't exist in their records. As if someone erased him.\n\nOr as if he was never supposed to be here at all.", "color": "#4a148c", "background": "#f3e5f5" }
+            ], "secret_id": "waluigi_mystery" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Last Entry",
+      "pages": [
+        {
+          "page_number": 12,
+          "content": [
+            { "type": "chapter_header", "text": "Last Entry", "subtitle": "If You're Reading This", "color": "#2e7d32" },
+            { "type": "handwritten", "text": "Harvestide 30.\n\nThe Purple Toad came. Sang a song. Picked Archie's pockets. Opened a portal with Archie's own compass and stepped through. Nobody stopped him because nobody understood what was happening until it was already over.\n\nThat's this whole experience in miniature. Things happen. They happen too fast. You don't understand them until they're behind you, and by then, new things are happening and the old things are just... noise.\n\nI came here to do a job for people who lied to me. I found people who are broken and brave and terrible and kind, sometimes all at once. I found a manor that exists in too many dimensions and a reality that's coming apart at the seams. I found evidence that my brother is alive and that the people who promised to help me find him are the ones keeping him trapped.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "handwritten", "text": "Here is what I'm going to do:\n\n1. I am going to find File Three-B in the Guild's archives.\n2. I am going to find my brother.\n3. I am going to get him out, with or without the Guild's permission.\n4. I am going to protect Dan, because he deserves to make his own choice.\n5. I am going to warn Archie about the extraction, because nobody deserves to die as a 'side effect.'\n\nThe Guild will call me a traitor. Let them. I was never really their agent. I was always just a plumber who missed his brother.\n\nIf you're reading this and I'm dead: tell Mario I'm sorry I took so long.\nIf you're reading this and I'm alive: put the journal down, Wario. I warned you about the toilet ghost.", "color": "#1b5e20", "background": "#e8f5e9" },
+            { "type": "spacer" },
+            { "type": "puzzle_cipher", "title": "LUIGI'S FINAL CODE", "description": "Luigi left a coded message for anyone who might need to find him. The cipher uses the letters of 'LUIGI' as number shifts (L=12, U=21, I=9, G=7, I=9, cycling).", "encoded_text": "X IUTT MQ FD YNQ TRMXFEC. ADDP LDG YNQ SGQQZ BURQ.", "solution": "L WILL BE AT THE LIBRARY. LOOK FOR THE GREEN PIPE.", "hint": "LUIGI = L(12), U(21), I(9), G(7), I(9). Subtract from each letter, cycling.", "secret_id": "cipher_luigi_location" }
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "id": "iron-mandate-dispatches",
+  "title": "Dispatches from the Midlands",
+  "subtitle": "Leaked Iron Legion Field Reports — CLASSIFIED",
+  "author": "Various Legion Officers",
+  "cover_color": "#37474f",
+  "cover_accent": "#90a4ae",
+  "icon": "⚔️",
+  "category": "Military",
+  "rarity": "Rare",
+  "locked": false,
+  "lock_message": "",
+  "condition": "Burnt edges",
+  "description": "A bundle of field reports bound in scorched metal covers, originally stamped TOP SECRET. Recovered during the Loyalist assault on Bramblehaven. The Iron Legion wants these back. Badly.",
+  "page_color": "#eceff1",
+  "text_color": "#263238",
+  "total_pages": 10,
+  "secrets_total": 5,
+  "chapters": [
+    {
+      "title": "Cover Sheet",
+      "pages": [
+        {
+          "page_number": 1,
+          "content": [
+            { "type": "centered", "text": "⚔ IRON LEGION — MIDLANDS COMMAND ⚔", "color": "#37474f", "style": "bold", "size": "large" },
+            { "type": "centered", "text": "CLASSIFIED FIELD DISPATCHES", "color": "#f44336", "style": "bold" },
+            { "type": "centered", "text": "UNAUTHORIZED ACCESS PUNISHABLE BY DEATH", "color": "#f44336" },
+            { "type": "spacer" },
+            { "type": "divider", "style": "simple" },
+            { "type": "spacer" },
+            { "type": "paragraph", "style": "italic", "text": "Archivist's Note: These documents were recovered during the Loyalist assault on Bramblehaven Fortress, Highsun 17, 1040 BF. They represent internal Iron Legion communications spanning the previous two months. The Legion has offered a bounty of 10,000 gold for their return and a separate bounty of 5,000 gold for the head of whoever is currently reading them.", "color": "#b71c1c" },
+            { "type": "spacer" },
+            { "type": "lore_box", "title": "DOCUMENT CLASSIFICATION", "border_color": "#37474f", "background": "#cfd8dc", "entries": [
+              "Classification: IRON MANDATE — EYES ONLY",
+              "Distribution: Legion Command, Sector Chiefs, Intelligence Division",
+              "Handling: Destroy after reading. Report any unauthorized copies.",
+              "Penalty for breach: Summary execution (Field Order 7, Section 3)",
+              "NOTE: If you are reading this and you are not Iron Legion, you are already dead. You just don't know it yet."
+            ] }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Dispatch I: The Vigilance Operation",
+      "pages": [
+        {
+          "page_number": 2,
+          "content": [
+            { "type": "chapter_header", "text": "Dispatch I", "subtitle": "Operation IRON CARGO — The Vigilance Trafficking Network", "color": "#37474f" },
+            { "type": "paragraph", "text": "FROM: Colonel Steelcap, Logistics Division\nTO: Legion Command\nDATE: Highsun 5, 1040 BF\nRE: Status of Operation IRON CARGO\nCLASSIFICATION: IRON MANDATE" },
+            { "type": "divider", "style": "simple" },
+            { "type": "paragraph", "text": "Sirs, I regret to report that Operation IRON CARGO has been compromised beyond recovery. The airship Vigilance, which served as our primary mobile distribution platform for labor assets, has been seized by a coalition of hostile actors following a series of cascading security failures." },
+            { "type": "paragraph", "text": "For the record, IRON CARGO operated as follows: Toad labor assets were acquired through intermediary networks (see Appendix C: Acquisition Protocols — DESTROYED per standing orders). Assets were processed through intake facilities disguised as refugee camps, then transported aboard the Vigilance in modified cargo barrels. Each barrel contained a Mini-Mushroom access compartment, allowing a single toad to be stored in suspended animation for up to 30 days." },
+            { "type": "paragraph", "text": "At peak operation, the Vigilance carried 157 labor assets distributed across its cargo holds, crew quarters, and maintenance corridors. Revenue from a single shipment cycle averaged 47,000 gold — divided between the Legion (60%), the transport crew (15%), the acquisition network (15%), and 'administrative facilitation' (10%)." },
+            { "type": "interactive_reveal", "label": "[ A page has been partially burned. Reconstruct the charred text → ]", "hidden_content": [
+              { "type": "handwritten", "text": "'Administrative facilitation' is the payment made to the Mushroom Regency for turning a blind eye. Chancellor Toadsworth's signature appears on the original revenue-sharing agreement — Document IL-7749, now destroyed. But I kept a copy. I keep copies of everything.\n\nThe Regency knows about the trafficking. They profit from it. They have ALWAYS profited from it. The 10% facilitation fee has been paid continuously since 1025 BF — fifteen years of toad lives converted to gold that lines the pockets of the people who are supposed to protect them.\n\nIf this information reaches the Loyalists, the Regency falls. If the Regency falls, our facilitation arrangement ends. If the arrangement ends, we lose access to half our acquisition territory.\n\nDestroy this note. — Col. Steelcap", "color": "#b71c1c", "background": "#ffcdd2" }
+            ], "secret_id": "regency_trafficking_cut" }
+          ]
+        },
+        {
+          "page_number": 3,
+          "content": [
+            { "type": "paragraph", "text": "The compromise of IRON CARGO began with the dismantling of our Iron Fists smuggling ring by hostile operatives (Highsun 3). This placed a bounty on the operatives' heads, which — I must note for the record — was authorized by MY division and should have been handled by MY people. Instead, Sector Command authorized a separate response that resulted in the following cascade of failures:" },
+            { "type": "list_dramatic", "items": [
+              { "text": "X.O.'s betrayal and seizure of the Vigilance was NOT authorized by Legion Command. X.O. was operating independently, pursuing personal objectives. Her capture of Bowser was a deviation from protocol.", "color": "#d32f2f" },
+              { "text": "Our boarding party's 'internal conflict' was a planned feint — a distraction to allow secondary agents to pursue hidden objectives aboard the ship. The feint was successful; the secondary objectives were not.", "color": "#37474f" },
+              { "text": "The barrel trafficking system was revealed to operative hjumpik by OUR OWN AGENTS during a negotiation that should never have included that information. Operational security failure, Grade A.", "color": "#d32f2f" },
+              { "text": "157 labor assets were discovered. Current status: liberated. Revenue loss: catastrophic.", "color": "#d32f2f" }
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "RECOMMENDATION: Operation IRON CARGO is terminated. All associated records to be destroyed. All acquisition network contacts to be severed. Cover story to be disseminated: 'The trafficking was conducted by rogue elements and does not represent Legion policy.' This is, of course, a lie. But it is a useful lie, and useful lies are the foundation of institutional survival." },
+            { "type": "puzzle_cipher", "title": "ENCODED ADDENDUM", "description": "Colonel Steelcap encoded a personal addendum using the Legion's standard field cipher — a shift of 4 positions.", "encoded_text": "XLI XVEJJMGOMRK TVSKVEQ AEW JYRIH FC PIKMSR GSQQERH JVSQ MXW MRGIVXMSR. IZIVCSRI EFSZI QI ORIAX. IZIVCSRI FIIPSA QI HIPMZIHIH.", "solution": "THE TRAFFICKING PROGRAM WAS FUNDED BY LEGION COMMAND FROM ITS INCEPTION. EVERYONE ABOVE ME KNEW. EVERYONE BELOW ME DELIVERED.", "hint": "Caesar cipher, shift of 4. X=T, L=H, I=E...", "secret_id": "cipher_legion_trafficking" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Dispatch II: Faction Analysis",
+      "pages": [
+        {
+          "page_number": 4,
+          "content": [
+            { "type": "chapter_header", "text": "Dispatch II", "subtitle": "Strategic Threat Assessment — All Factions", "color": "#37474f" },
+            { "type": "paragraph", "text": "FROM: Intelligence Division, Sector Twelve\nTO: All Sector Chiefs\nDATE: Highsun 15, 1040 BF\nRE: Updated threat matrix\nCLASSIFICATION: IRON MANDATE" },
+            { "type": "divider", "style": "simple" },
+            { "type": "faction_box", "factions": [
+              {
+                "name": "Peach Loyalists — THREAT LEVEL: CRITICAL",
+                "color": "#e91e63",
+                "icon": "🌸",
+                "description": "Captain Toadette's forces have exceeded our projections by every metric. The Toad Town coup caught our analysts off guard — we assessed a 12% probability of success; they achieved total control in under six hours. Their Vengeance Cell has assassinated three of our sector liaisons in the past month. The Bramblehaven intelligence indicates they are operating on information we believed secure. ASSESSMENT: The Loyalists are no longer an insurgency. They are a state in all but name."
+              },
+              {
+                "name": "Fawful's Forces — THREAT LEVEL: EXISTENTIAL",
+                "color": "#ff5722",
+                "icon": "🐉",
+                "description": "The dragon alliance changes everything. Five wyrms under unified command represent a strategic capability that makes conventional military resistance pointless. A single dragon can destroy a Legion garrison in minutes. Five can reduce the Midlands to ash in a day. Our only defense is political: Fawful needs infrastructure to rule, and dragons cannot build infrastructure. He needs US, even if he hasn't realized it yet. ASSESSMENT: Seek accommodation, not confrontation."
+              },
+              {
+                "name": "Onyx Hand — THREAT LEVEL: MODERATE",
+                "color": "#212121",
+                "icon": "🖐️",
+                "description": "The Hand's vampire knights at Raventree have been weakened by recent events — battle plans exposed, crystals targeted, internal traitor suspected. However, their intelligence network remains formidable. They know things about us that we would prefer they didn't. The Archie Miser acquittal demonstrated their willingness to challenge our interests publicly. ASSESSMENT: Maintain current détente. Avoid provocation."
+              }
+            ] }
+          ]
+        },
+        {
+          "page_number": 5,
+          "content": [
+            { "type": "faction_box", "factions": [
+              {
+                "name": "Mages' Guild — THREAT LEVEL: UNKNOWN",
+                "color": "#1565c0",
+                "icon": "🔮",
+                "description": "The Guild is the most dangerous faction because we cannot determine their objectives. They pursue 'knowledge' and 'planar stability,' but their actions at Raventree — willingness to sacrifice living operatives for ghost data, plans to extract spectral entities regardless of collateral damage — suggest an agenda that transcends academic research. They have capabilities we cannot counter: dimensional manipulation, null cage technology, surveillance methods that bypass our best countermeasures. ASSESSMENT: The Guild is not our enemy. The Guild is not our ally. The Guild is a force of nature, and you do not negotiate with hurricanes."
+              },
+              {
+                "name": "The Vigilance Crew — THREAT LEVEL: MODERATE",
+                "color": "#ff9800",
+                "icon": "🎈",
+                "description": "An unpredictable coalition of adventurers, opportunists, and idealists. They dismantled our smuggling ring, uncovered the trafficking program, and have generated more chaos per capita than any force in recent memory. Individual threat assessments: Archie Miser (EXTREME — area denial), hjumpik (HIGH — infrastructure sabotage), Markop (MODERATE — tactical leadership), Remi (LOW — but ascending rapidly). ASSESSMENT: These individuals are dangerous precisely because they have no coherent strategy. You cannot predict what you cannot understand."
+              }
+            ] },
+            { "type": "spacer" },
+            { "type": "interactive_reveal", "label": "[ A handwritten note is clipped to the margin → ]", "hidden_content": [
+              { "type": "handwritten", "text": "Personal assessment, not for distribution:\n\nWe are losing. Not to any single faction — to ALL of them simultaneously. The Legion was built for a world of conventional warfare: territory, supply lines, force projection. That world no longer exists. We are fighting mages who manipulate dimensions, zealots who worship a dead princess, dragons who answer to a madman, and a criminal syndicate with vampire knights.\n\nOur traditional advantages — discipline, numbers, logistics — mean nothing when a single fireball can eliminate a squad, when a toad with an axe can ground an airship, when reality itself is unreliable.\n\nThe Iron Legion is a hammer. Every problem we face is a fog. You cannot hammer fog.\n\nI recommend strategic withdrawal from all active theaters, consolidation of core territory, and preparation for a world that no longer has room for us.\n\nThis recommendation will be ignored. It always is.\n\n— Major Ironcrest, Intelligence Division", "color": "#37474f", "background": "#cfd8dc" }
+            ], "secret_id": "legion_losing_assessment" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Dispatch III: The Pipe Junction Truth",
+      "pages": [
+        {
+          "page_number": 6,
+          "content": [
+            { "type": "chapter_header", "text": "Dispatch III", "subtitle": "Historical Record — Battle of Pipe Junction (1001 BF)", "color": "#37474f" },
+            { "type": "paragraph", "text": "FROM: Archival Division\nTO: Legion Command (RESTRICTED)\nDATE: Highsun 10, 1040 BF\nRE: Pipe Junction documentation — REQUEST FOR PERMANENT DESTRUCTION\nCLASSIFICATION: IRON MANDATE — MAXIMUM" },
+            { "type": "divider", "style": "simple" },
+            { "type": "paragraph", "text": "Sirs, the Loyalist seizure of Toad Town has placed our historical records at risk. Specifically, Regency communication archives now in Loyalist hands may contain references to our involvement in the Battle of Pipe Junction. I am requesting authorization to destroy all remaining Legion records related to this engagement." },
+            { "type": "paragraph", "text": "For those in current Command who may not be familiar with the details: The Battle of Pipe Junction (1001 BF) was the largest single engagement of the Century War. Approximately 40,000 combatants died over three days of fighting in and around the warp pipe intersection that connected the Northern, Southern, and Eastern provinces." },
+            { "type": "paragraph", "text": "The official history records this as a Loyalist-Regency conflict triggered by a dispute over pipe network control. The actual history is more... nuanced." },
+            { "type": "lore_box", "title": "PIPE JUNCTION — ACTUAL EVENTS", "border_color": "#d32f2f", "background": "#ffebee", "entries": [
+              "The Iron Legion (then 'Midlands Mercenary Company') was contracted by BOTH sides",
+              "We provided tactical advisors, weapons, and intelligence to Loyalist forces (Contract MR-441)",
+              "We simultaneously provided fortification engineers, artillery, and intelligence to Regency forces (Contract MR-442)",
+              "Both contracts included 'performance bonuses' tied to enemy casualties — incentivizing maximum bloodshed",
+              "We brokered a ceasefire on Day 3 and charged both sides a 'mediation fee'",
+              "Total revenue from Pipe Junction: approximately 2.3 million gold",
+              "Total casualties: 40,000 (roughly 20,000 per side, perfectly balanced — by design)"
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The Battle of Pipe Junction transformed the Midlands Mercenary Company from a regional contractor into a superpower. The revenue funded our expansion, our fortifications, our standing army. The reputation — 'the force that ended Pipe Junction' — gave us political legitimacy. Everything we are today was built on the bodies of 40,000 soldiers who did not know they were fighting a war designed to profit their 'ally.'" }
+          ]
+        },
+        {
+          "page_number": 7,
+          "content": [
+            { "type": "paragraph", "text": "The Regency's complicity in Pipe Junction is documented in their own financial records — the same records the Loyalists have now captured. Chancellor Toadsworth's father signed the revenue-sharing agreement personally. The current Chancellor inherited the arrangement and has maintained it, just as he maintains the trafficking facilitation agreement and the investigation cover-up and every other corrupt bargain his family has accumulated over three generations." },
+            { "type": "paragraph", "text": "If the Loyalists connect the Regency's Pipe Junction payments to us, the political fallout would be catastrophic. Every faction would turn against us simultaneously. The Loyalists would have proof that we deliberately prolonged the war. The remaining Regency supporters would disavow all connection to us. Even the Onyx Hand's tribunals — rough justice that they are — would consider this evidence sufficient for a mass indictment." },
+            { "type": "paragraph", "text": "RECOMMENDATION: Destroy all Pipe Junction records immediately. If destruction is not possible, modify them to remove references to dual contracting. If modification is not possible, prepare a cover story blaming 'rogue elements within the pre-Legion mercenary structure who have since been purged.'" },
+            { "type": "interactive_reveal", "label": "[ A second document is stapled beneath this one → ]", "hidden_content": [
+              { "type": "paragraph", "text": "RESPONSE FROM LEGION COMMAND:", "color": "#d32f2f" },
+              { "type": "handwritten", "text": "Request DENIED.\n\nThe Pipe Junction records are not to be destroyed. They are to be relocated to Deepvault Site 7 and maintained under maximum security.\n\nReason: The records are our insurance policy. As long as we possess proof of the Regency's complicity, the Regency cannot move against us without destroying themselves. The moment we destroy the records, we lose our leverage.\n\nAdditionally: if the Loyalists obtain this evidence, they will use it to further destabilize the Regency — which is currently in our interest. A weakened Regency is a dependent Regency. A dependent Regency pays its bills on time.\n\nThe 40,000 dead at Pipe Junction are regrettable. They are also the foundation of our power. We do not apologize for our foundations.\n\n— General Ironheart, Legion Command", "color": "#37474f", "background": "#cfd8dc" }
+            ], "secret_id": "pipe_junction_insurance" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Dispatch IV: The Democratic Summit",
+      "pages": [
+        {
+          "page_number": 8,
+          "content": [
+            { "type": "chapter_header", "text": "Dispatch IV", "subtitle": "After-Action Report — The Democratic Summit Incident", "color": "#37474f" },
+            { "type": "paragraph", "text": "FROM: Diplomatic Liaison, Foreign Affairs Division\nTO: Legion Command\nDATE: Highsun 14, 1040 BF\nRE: Lanky Kong incident — diplomatic and economic fallout\nCLASSIFICATION: IRON MANDATE" },
+            { "type": "divider", "style": "simple" },
+            { "type": "paragraph", "text": "The Democratic Summit of Highsun 13 was intended to establish trade protocols between the Mushroom Kingdom's surviving economic zones and the DK Crew's territories. The Legion's interest was straightforward: access to the DK Crew's mineral resources in exchange for military non-aggression guarantees." },
+            { "type": "paragraph", "text": "The summit was sabotaged by Lanky Kong." },
+            { "type": "paragraph", "text": "I use the word 'sabotaged' advisedly. Lanky Kong's behavior — which included but was not limited to inappropriate physical gestures, the consumption of an entire diplomatic gift basket, and a twenty-minute interpretive dance that the Beanbean Kingdom's ambassador described as 'an act of war against aesthetics' — was so bizarrely destructive that it transcends mere incompetence. No one is THAT stupid accidentally." },
+            { "type": "lore_box", "title": "ECONOMIC IMPACT ASSESSMENT", "border_color": "#ff9800", "background": "#fff3e0", "entries": [
+              "Trade negotiations: COLLAPSED. No framework established.",
+              "Beanbean Kingdom delegation: WITHDREW. Ambassador recalled for 'psychological recovery.'",
+              "Mushroom Kingdom economic confidence index: DOWN 23% in 48 hours",
+              "DK Crew internal fracture: Donkey Kong publicly disavowed Lanky's actions",
+              "Iron Legion trade access: DENIED. DK territories now closed to all outside parties.",
+              "Estimated economic damage to all parties: 1.2 million gold equivalent"
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "Our intelligence division has conducted a behavioral analysis of Lanky Kong's actions and reached the following conclusion: Lanky Kong was either mind-controlled, bribed, or is a deep-cover operative for an unknown faction seeking to isolate the DK Crew from potential allies." },
+            { "type": "paragraph", "text": "The third option is the most concerning. If someone is deliberately fracturing inter-faction alliances, we need to identify who and why before they target our own diplomatic channels." }
+          ]
+        },
+        {
+          "page_number": 9,
+          "content": [
+            { "type": "paragraph", "text": "SUPPLEMENTARY ANALYSIS: The Pattern of Isolation" },
+            { "type": "paragraph", "text": "Our analysts have identified a disturbing pattern across recent events. Consider the following sequence:" },
+            { "type": "list_dramatic", "items": [
+              { "text": "Ignis slain → remaining dragons isolated from mortal contact → Fawful fills the vacuum", "color": "#ff5722" },
+              { "text": "Vigilance seized → Liberated Toads scattered → no unified resistance movement at sea", "color": "#37474f" },
+              { "text": "Loyalists take Toad Town → Regency isolated from population → power vacuum in civil governance", "color": "#e91e63" },
+              { "text": "Democratic Summit collapses → DK Crew isolated from trade networks → resource flow disrupted", "color": "#ff9800" },
+              { "text": "Boo Aristocracy sealed mansions → entire species isolated → spectral resources unavailable", "color": "#4a148c" },
+              { "text": "Star Road destroyed (decades ago) → inter-regional travel crippled → permanent territorial fragmentation", "color": "#ffd700" }
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "Every major event in recent history has resulted in ISOLATION. Factions separated from each other. Species cut off from trade. Communication networks severed. Alliance opportunities destroyed. Someone is systematically ensuring that no two powers can cooperate long enough to pose a unified threat." },
+            { "type": "paragraph", "text": "The question is: a threat to WHOM?" },
+            { "type": "interactive_reveal", "label": "[ A note in different ink has been added to the margin → ]", "hidden_content": [
+              { "type": "handwritten", "text": "I've cross-referenced this pattern with the Onyx Hand's analysis (obtained through channels I will not disclose). Their Pattern Analysis — the one linking the assassination, the Star Road destruction, the Legion's rise, and the Raventree fractures — aligns perfectly with what we're seeing.\n\nSomeone has been playing this game for 85 years. Since before the Princess died. Possibly since before she was BORN.\n\nThe assassination wasn't the beginning. It was a MOVE. One move in a game so large that every faction — Loyalists, Regency, Legion, Guild, Hand, Fawful — is a piece on the board.\n\nWe're not players. We're not even pieces. We're the board itself, being rearranged by hands we cannot see.\n\nWhoever is doing this wants the kingdom broken into fragments too small to resist whatever comes next.\n\nAnd whatever comes next is almost here.\n\n— Major Ironcrest, final analysis before reassignment", "color": "#d32f2f", "background": "#ffcdd2" }
+            ], "secret_id": "grand_pattern_analysis" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Final Dispatch",
+      "pages": [
+        {
+          "page_number": 10,
+          "content": [
+            { "type": "chapter_header", "text": "Final Dispatch", "subtitle": "Standing Orders — Effective Immediately", "color": "#37474f" },
+            { "type": "paragraph", "text": "FROM: General Ironheart, Legion Command\nTO: All Sector Chiefs, All Division Commanders\nDATE: Highsun 20, 1040 BF\nRE: IRON MANDATE — Strategic Realignment\nCLASSIFICATION: IRON MANDATE — MAXIMUM" },
+            { "type": "divider", "style": "simple" },
+            { "type": "paragraph", "text": "The Iron Legion has endured for twenty years by adapting to circumstances that would have destroyed lesser organizations. We will adapt again." },
+            { "type": "paragraph", "text": "Effective immediately, the following strategic realignment is in effect:" },
+            { "type": "list_dramatic", "items": [
+              { "text": "ALL trafficking operations are terminated. Cover stories to be implemented. No exceptions.", "color": "#37474f" },
+              { "text": "Diplomatic overtures to Fawful's forces are authorized. We cannot fight dragons. We can negotiate with the man who commands them.", "color": "#ff5722" },
+              { "text": "The Vigilance is to be recovered or destroyed. It cannot remain in uncontrolled hands.", "color": "#37474f" },
+              { "text": "Major Ironcrest is reassigned to Deepvault Site 7, effective immediately. His analysis is noted and filed.", "color": "#d32f2f" },
+              { "text": "All references to Pipe Junction dual-contracting are to be purged from active files. Archive copies remain at Deepvault Site 7.", "color": "#37474f" },
+              { "text": "The Loyalist threat is to be managed through containment, not confrontation. Let them have Toad Town. We will have everything else.", "color": "#37474f" }
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The Legion's motto is 'Order Through Strength.' But strength takes many forms. The strength to fight is elementary. The strength to wait — to watch — to let enemies destroy each other while we conserve our resources — that is the strength that empires are built on." },
+            { "type": "paragraph", "text": "We will wait. We will watch. And when the dust settles — when Fawful's dragons have burned themselves out, when the Loyalists have martyred themselves into extinction, when the Guild's dimensional meddling has collapsed into whatever catastrophe it was always heading toward — we will be the last ones standing. Because we are the only faction that understands a truth the others cannot accept:" },
+            { "type": "spacer" },
+            { "type": "quote", "text": "\"The kingdom does not need to be saved. It needs to be MANAGED. And management is what we do best.\"", "attribution": "— General Ironheart, Legion Command", "color": "#37474f" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "⚔ ORDER THROUGH STRENGTH ⚔", "color": "#37474f", "style": "bold", "size": "large" },
+            { "type": "spacer" },
+            { "type": "puzzle_cipher", "title": "IRONHEART'S PRIVATE CIPHER", "description": "A message encoded by General Ironheart for his own records. Standard Legion field cipher — shift of 4.", "encoded_text": "QENSV MVSRGVIWX MW VMKLX. WLI FWEVH MW VIEP. M LEZI WIIR MX. M HS RSX ORSA ALS QSZIIW XLI TMIGIIW FYX M ORSA XLIMV KSEP: E ASVPH AMXLSYX JEGXMSRW. E ASVPH SJ JVEKQIRXW XSS WQEPP XS VIWMWX.", "solution": "MAJOR IRONCREST IS RIGHT. THE BOARD IS REAL. I HAVE SEEN IT. I DO NOT KNOW WHO MOVES THE PIECES BUT I KNOW THEIR GOAL: A WORLD WITHOUT FACTIONS. A WORLD OF FRAGMENTS TOO SMALL TO RESIST.", "hint": "Caesar cipher, shift of 4. Q=M, E=A, N=J, S=O, V=R...", "secret_id": "cipher_ironheart_board" }
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "id": "wario-method",
+  "title": "The Wario Method",
+  "subtitle": "A Barrel, A Plan, A Man — The Autobiography Nobody Asked For",
+  "author": "Wario (dictated to an unwilling scribe)",
+  "cover_color": "#f9a825",
+  "cover_accent": "#4a148c",
+  "icon": "💰",
+  "category": "Culture",
+  "rarity": "Uncommon",
+  "locked": false,
+  "lock_message": "",
+  "condition": "Greasy",
+  "description": "A gaudy yellow book with a purple 'W' stamped on the cover in what appears to be actual gold leaf. Smells strongly of garlic and money. Several pages are stuck together with an unidentified substance.",
+  "page_color": "#fffde7",
+  "text_color": "#4a148c",
+  "total_pages": 8,
+  "secrets_total": 3,
+  "chapters": [
+    {
+      "title": "Foreword",
+      "pages": [
+        {
+          "page_number": 1,
+          "content": [
+            { "type": "centered", "text": "💰 THE WARIO METHOD 💰", "color": "#f9a825", "style": "bold", "size": "large" },
+            { "type": "centered", "text": "How to Win at Everything by Cheating at Everything", "color": "#4a148c", "style": "italic" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "By WARIO", "color": "#f9a825", "style": "bold" },
+            { "type": "centered", "text": "(The Greatest Businessman, Adventurer, and Lover the Mushroom Kingdom Has Ever Produced)", "color": "#4a148c" },
+            { "type": "spacer" },
+            { "type": "divider", "style": "ornate" },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "You're holding this book because you're smart. Not as smart as Wario, obviously — nobody is as smart as Wario — but smart enough to recognize genius when you see it. Or when it falls on you from a shelf. Or when someone throws it at your head, which is how most people encounter Wario's wisdom." },
+            { "type": "paragraph", "text": "This is the story of how Wario — that's me, keep up — survived a civil war, a haunted airship, a vampire manor, and several attempts on his life by people who should have been grateful for the privilege of being in the same room as Wario." },
+            { "type": "paragraph", "text": "Some of this is true. All of it is entertaining. The parts that aren't true are BETTER than the truth, which is what truth SHOULD be if truth had any business sense." },
+            { "type": "spacer" },
+            { "type": "quote", "text": "\"If you're not cheating, you're not trying. If you're not trying, you're not Wario. And if you're not Wario, why are you even here?\"", "attribution": "— Wario, to a mirror, every morning", "color": "#f9a825" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter I: The Barrel",
+      "pages": [
+        {
+          "page_number": 2,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter I", "subtitle": "How I Ended Up in a Barrel (A Triumph of Strategic Planning)", "color": "#f9a825" },
+            { "type": "drop_cap", "letter": "P", "text": "eople ask Wario: 'Wario, why were you in a barrel on a ship full of trafficked toads?' And Wario says: 'Because Wario is a GENIUS.' Then they look confused, because most people cannot follow Wario's logic. It is too fast. Too brilliant. Too lubricated with garlic butter.", "color": "#4a148c" },
+            { "type": "paragraph", "text": "Here is the truth, which Wario is telling you for free, which already makes this the greatest bargain in literary history:" },
+            { "type": "paragraph", "text": "Wario was investigating the Iron Legion's trafficking operation. VOLUNTARILY. Out of the goodness of Wario's heart, which is very large and full of justice and also garlic. Wario had received intelligence — from sources Wario will not name because they owe Wario money — that the airship Vigilance was being used to transport toads in barrels. Wario's plan was simple: get inside a barrel, ride the ship to the distribution point, identify the buyers, and then — this is the genius part — SELL THE INFORMATION TO EVERYONE." },
+            { "type": "paragraph", "text": "The Loyalists would pay for the names of the traffickers. The Onyx Hand would pay for the names of the buyers. The Regency would pay for the whole thing to go away. And the Iron Legion would pay Wario to keep quiet. Four-way profit. QUINTUPLE if you count the book deal." },
+            { "type": "interactive_reveal", "label": "[ A receipt has been stuffed between the pages. Examine it → ]", "hidden_content": [
+              { "type": "handwritten", "text": "Scribe's note: I am being forced to write this. The 'real' story, as far as I can determine from cross-referencing other accounts:\n\nWario was not investigating anything. Wario owed money to the Iron Legion (gambling debts, approximately 3,400 gold). He was hiding in the barrel to avoid debt collectors who were ON THE SHIP. He did not know about the trafficking until hjumpik told him. His 'strategic plan' was invented retroactively to make himself sound clever.\n\nHe has threatened to sit on me if I don't write what he tells me. He weighs approximately 300 pounds. I am writing what he tells me.\n\n— Anonymous Scribe (please send help)", "color": "#d32f2f", "background": "#fff9c4" }
+            ], "secret_id": "wario_barrel_truth" }
+          ]
+        },
+        {
+          "page_number": 3,
+          "content": [
+            { "type": "paragraph", "text": "The barrel was comfortable. People don't appreciate barrels. Barrels are nature's perfect furniture — round, supportive, and you can fill them with snacks. Wario's barrel contained the following provisions:" },
+            { "type": "lore_box", "title": "WARIO'S BARREL INVENTORY", "border_color": "#f9a825", "background": "#fffde7", "entries": [
+              "14 cloves of garlic (emergency rations)",
+              "1 wheel of aged Mushroom Kingdom cheddar",
+              "3 bottles of Koopa Kola (flat but still drinkable)",
+              "1 deck of cards (for solitaire — Wario always wins)",
+              "1 small hammer (multipurpose)",
+              "47 gold coins (Wario's 'walking around money')",
+              "1 disguise kit (fake mustache, extra-large — to go over Wario's existing mustache)",
+              "1 list of people who owe Wario money (87 names, single-spaced)"
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "Wario was in the barrel for approximately three days before being discovered. During this time, the following things happened aboard the Vigilance: X.O. betrayed everyone, Captain Syrup was freed and immediately started causing problems, hjumpik hit the power core with an axe, and Archie threw a fireball during what was supposed to be a negotiation." },
+            { "type": "paragraph", "text": "None of these things surprised Wario. Wario has a sixth sense for chaos. It is the same sense that tells Wario when there is garlic nearby and when someone is about to try to cheat him at cards (the answers are always 'yes' and 'everyone')." },
+            { "type": "paragraph", "text": "When Wario emerged from the barrel, he assessed the situation with the tactical brilliance of a born commander: the ship was on fire, everyone was fighting everyone else, and Remi — a new person Wario had never met — was standing nearby looking confused." },
+            { "type": "paragraph", "text": "Wario gave her a box. It was a perfectly good box. Very nice box. The fact that it contained a bomb was incidental." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter II: The Bomb",
+      "pages": [
+        {
+          "page_number": 4,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter II", "subtitle": "The Bomb Was a Test (And She Passed)", "color": "#f9a825" },
+            { "type": "drop_cap", "letter": "E", "text": "veryone makes a big deal about the bomb. 'Wario gave a stranger a bomb!' they say, as if that's unusual. In Wario's defense: how do you know if someone is tough enough for the Wario Crew if you don't test them? A questionnaire? A RESUME? Those things can be faked. You know what can't be faked? Surviving an explosion.", "color": "#4a148c" },
+            { "type": "paragraph", "text": "Remi survived the explosion. She was injured — singed, disoriented, probably angry — but alive. Wario then offered her a position in his crew. She accepted. This proves two things:" },
+            { "type": "paragraph", "text": "1. Remi is tough enough for the Wario Crew.\n2. Remi's judgment is questionable enough for the Wario Crew." },
+            { "type": "paragraph", "text": "Both qualities are essential." },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "Later, at Raventree Manor, Wario bumped into Remi in a hallway. The manor was full of vampires, ghosts, and at least one entity that wears people's skin like a coat (Perrius Anamatar, a being Wario finds deeply unsettling, which is saying something because Wario is unsettled by very little). Guards were chasing Wario for reasons Wario considers 'politically motivated.' In the chaos, Wario dumped fire resistance items and armor into Remi's backpack." },
+            { "type": "paragraph", "text": "This was not generosity. Wario does not DO generosity. This was INVESTMENT. A well-equipped Remi is an asset. An unequipped Remi is a liability. Wario understands asset management." },
+            { "type": "paragraph", "style": "italic", "text": "(Also, Wario was being chased and the items were heavy and slowing him down. But mainly the asset management thing.)", "color": "#999" }
+          ]
+        },
+        {
+          "page_number": 5,
+          "content": [
+            { "type": "paragraph", "text": "A word about Wario's business philosophy, because this book is ALSO a business manual, because Wario is generous with his wisdom (but not with his money, which is different):" },
+            { "type": "lore_box", "title": "THE SEVEN PRINCIPLES OF THE WARIO METHOD", "border_color": "#f9a825", "background": "#fffde7", "entries": [
+              "1. EVERYTHING is an opportunity. Chaos is just profit wearing a disguise.",
+              "2. Never be loyal to anyone who isn't paying you. And even then, renegotiate.",
+              "3. The best deal is the one where everyone else thinks they won.",
+              "4. If you can't buy it, steal it. If you can't steal it, bluff. If you can't bluff, RUN.",
+              "5. Always have an exit strategy. Wario's preferred exit: the nearest window.",
+              "6. Trust is a currency. Spend other people's, save your own.",
+              "7. When everything goes wrong, check your pockets. You'd be surprised what ends up in there."
+            ] },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "These principles have kept Wario alive through situations that would have killed lesser men — and most greater men — and also several men who were approximately Wario's equal, which means they were still inferior to Wario but less inferior than most." },
+            { "type": "paragraph", "text": "The Vigilance crisis is a perfect case study. While everyone else was fighting over ideologies, factions, and the future of the kingdom, Wario was doing what Wario does best: surviving, profiting, and maintaining the largest collection of IOUs in the Mushroom Kingdom." },
+            { "type": "interactive_reveal", "label": "[ Several coins fall out from behind this page. Collect them and read what's underneath → ]", "hidden_content": [
+              { "type": "handwritten", "text": "Scribe's note again. Apologies.\n\nWario is not telling you about the other thing he found in the barrels. While hiding from debt collectors, he overheard Iron Legion officers discussing the Mini-Mushroom compartments. He didn't just discover the trafficking — he discovered the MECHANISM. And he kept that information to himself for three days, trying to figure out how to sell it.\n\nHe eventually shared it because hjumpik forced his hand. But in those three days, 157 toads remained in suspended animation inside barrels while Wario calculated the optimal sale price for the knowledge that could free them.\n\nWario is not evil. He simply does not factor other people's suffering into his cost-benefit analysis. Which, depending on your perspective, might be worse.\n\n— Anonymous Scribe", "color": "#d32f2f", "background": "#fff9c4" }
+            ], "secret_id": "wario_barrel_delay" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter III: Waluigi",
+      "pages": [
+        {
+          "page_number": 6,
+          "content": [
+            { "type": "chapter_header", "text": "Chapter III", "subtitle": "Waluigi (My Idiot Partner Who I Am Definitely Not Worried About)", "color": "#f9a825" },
+            { "type": "drop_cap", "letter": "W", "text": "aluigi is Wario's partner. Not 'business partner' — although there is a business arrangement — and not 'friend,' because Wario does not have friends. Wario has ASSETS and LIABILITIES. Waluigi is both. Simultaneously. At all times. This is what makes him valuable and also infuriating.", "color": "#4a148c" },
+            { "type": "paragraph", "text": "Waluigi can do things Wario cannot. He is tall where Wario is wide. He is sneaky where Wario is direct. He can cast spells — REAL spells, not the fake ones Wario sometimes pretends to cast to scare people (Wario's patented 'Garlic Blast' is just throwing garlic very hard, but it works surprisingly often)." },
+            { "type": "paragraph", "text": "Waluigi cast a Cone of Cold during a brawl that froze a toad named Eager SOLID. Eager is presumed dead. Waluigi seemed unconcerned by this. Wario was also unconcerned, but for different reasons — Wario checked Eager's pockets first (empty, sadly)." },
+            { "type": "paragraph", "text": "Later, Waluigi saved hjumpik's life. For no obvious reason. Hjumpik is not rich. Hjumpik is not useful to Waluigi's plans. Hjumpik is a toad who hits things with an axe. And yet Waluigi SAVED him." },
+            { "type": "paragraph", "text": "This bothers Wario. When Waluigi does something that doesn't make financial sense, it means he's playing a game Wario can't see. And games Wario can't see are the most dangerous kind." }
+          ]
+        },
+        {
+          "page_number": 7,
+          "content": [
+            { "type": "paragraph", "text": "Waluigi's agent 'Wally' made a dramatic exit from the Vigilance with Bowser — THE Bowser, the Koopa Warlord — in tow. Why does Waluigi want Bowser? What is he planning? Wario asked. Waluigi smiled and said 'Don't worry about it, Wario.' Which means Wario should worry about it ENORMOUSLY." },
+            { "type": "paragraph", "text": "Here is what Wario knows about Waluigi that most people don't:" },
+            { "type": "list_dramatic", "items": [
+              { "text": "Waluigi is not from the Mushroom Kingdom. He appeared approximately five years ago with no verifiable history.", "color": "#4a148c" },
+              { "text": "He has no Guild registration, no factional affiliation, and no records in any archive Wario has bribed his way into.", "color": "#4a148c" },
+              { "text": "His magic does not follow standard arcane principles. Guild mages who have observed him describe his spellcasting as 'impossible' and 'structurally incoherent.'", "color": "#4a148c" },
+              { "text": "He appears to know things before they happen. Not always. Not reliably. But often enough to be unsettling.", "color": "#4a148c" },
+              { "text": "He is terrified of mirrors. He will not enter a room with a large mirror. He broke every mirror in their shared safehouse.", "color": "#f44336" }
+            ] },
+            { "type": "spacer" },
+            { "type": "interactive_reveal", "label": "[ A page has been torn out and replaced with a different one. Read the replacement → ]", "hidden_content": [
+              { "type": "handwritten", "text": "This is not in the book Wario dictated. This is the scribe writing independently, at great personal risk (Wario is currently asleep; he snores like a malfunctioning warp pipe).\n\nI have done my own research on Waluigi. The results are deeply troubling.\n\nThe Mages' Guild has no file on him. Not 'classified.' NOT PRESENT. As if he does not exist in their records. Luigi's journal (which I have also transcribed — I am a very busy scribe) notes the same absence.\n\nThe Onyx Hand's intelligence division lists him as: 'ENTITY — UNCLASSIFIED. DO NOT ENGAGE. DO NOT INVESTIGATE. DO NOT ACKNOWLEDGE.'\n\nDO NOT ACKNOWLEDGE. What kind of intelligence assessment tells you to pretend someone doesn't exist?\n\nI looked at the shattered mirror in Wario and Waluigi's safehouse. The fragments showed reflections. But Waluigi's reflection was WRONG. It was him, but... OLDER. Decades older. And it was looking at me.\n\nI put the fragments in a box and I am never opening that box again.\n\n— Anonymous Scribe", "color": "#4a148c", "background": "#f3e5f5" }
+            ], "secret_id": "waluigi_nature" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Conclusion",
+      "pages": [
+        {
+          "page_number": 8,
+          "content": [
+            { "type": "chapter_header", "text": "Conclusion", "subtitle": "Why Wario Will Win (And How Much It Will Cost You)", "color": "#f9a825" },
+            { "type": "paragraph", "text": "Everyone in this kingdom is fighting over something: justice, power, territory, revenge, the legacy of a dead princess, the future of reality itself. Big concepts. Important concepts. Concepts that get people killed." },
+            { "type": "paragraph", "text": "Wario is fighting for WARIO. This is why Wario will survive when everyone else doesn't." },
+            { "type": "paragraph", "text": "Captain Toadette fights for a ghost. She will die for that ghost, and her soldiers will die with her, and the ghost will not notice because ghosts do not care about the living — that's what makes them ghosts. The Iron Legion fights for order, but order is just another word for 'things staying the way they are,' and things are NEVER going to stay the way they are again. The Mages' Guild fights for knowledge, but knowledge without the wisdom to use it is just a more expensive form of stupidity." },
+            { "type": "paragraph", "text": "Wario fights for gold. Gold does not care about your ideology. Gold does not fracture across dimensional planes. Gold does not choose sides in a civil war. Gold sits in your pocket and waits for you to spend it, which is the most reliable behavior any object has ever exhibited." },
+            { "type": "spacer" },
+            { "type": "paragraph", "text": "The kingdom is falling apart. Good. Falling things scatter, and scattered things can be PICKED UP. By Wario." },
+            { "type": "spacer" },
+            { "type": "quote", "text": "\"Everyone else is playing chess. Wario is playing poker. And Wario has aces up both sleeves, a mirror under the table, and a getaway vehicle parked outside. WAH.\"", "attribution": "— Wario, final word on the matter", "color": "#f9a825" },
+            { "type": "spacer" },
+            { "type": "centered", "text": "💰 WAH 💰", "color": "#f9a825", "style": "bold", "size": "large" },
+            { "type": "spacer" },
+            { "type": "puzzle_cipher", "title": "WARIO'S HIDDEN SAFE COMBINATION", "description": "Wario hid his safe combination in the book because he keeps forgetting it. Each letter shifts by the number of coins in Wario's barrel inventory (47). Since 47 mod 26 = 21, each letter shifts by 21 (or equivalently, back by 5).", "encoded_text": "RDAJC GJQZ HVKM. OCNZVM NDIH. AMGGDL KXNNJI. GDAO OXSSZ.", "solution": "WARIO LONG TERM. TARGET SOUTH. BILLION RATTEN. LIAR HAPPY.", "hint": "Shift of 21 forward (or 5 backward). R=W, D=A, A=R, J=I, C=O...", "secret_id": "cipher_wario_safe" }
+          ]
+        }
+      ]
+    }
+  ]
 }
 
   ]
