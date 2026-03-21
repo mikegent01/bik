@@ -4461,9 +4461,10 @@ export const VENDORS = {
     }
 };
 
+
 // ============================================
 // SHOP ITEM IMPORTS (Auto-generated)
-// Generated: 2026-03-21 11:27:25
+// Generated: 2026-03-21 13:41:41
 // ============================================
 
 import { ITEMS_001 } from './shop-items/items_001.js';
@@ -4477,6 +4478,46 @@ import { ITEMS_008 } from './shop-items/items_008.js';
 import { ITEMS_009 } from './shop-items/items_009.js';
 import { ITEMS_010 } from './shop-items/items_010.js';
 import { ITEMS_011 } from './shop-items/items_011.js';
+import { ITEMS_012 } from './shop-items/items_012.js';
+import { ITEMS_013 } from './shop-items/items_013.js';
+import { ITEMS_014 } from './shop-items/items_014.js';
+import { ITEMS_015 } from './shop-items/items_015.js';
+import { ITEMS_016 } from './shop-items/items_016.js';
+import { ITEMS_017 } from './shop-items/items_017.js';
+import { ITEMS_018 } from './shop-items/items_018.js';
+import { ITEMS_019 } from './shop-items/items_019.js';
+import { ITEMS_020 } from './shop-items/items_020.js';
+import { ITEMS_021 } from './shop-items/items_021.js';
+import { ITEMS_022 } from './shop-items/items_022.js';
+import { ITEMS_023 } from './shop-items/items_023.js';
+import { ITEMS_024 } from './shop-items/items_024.js';
+import { ITEMS_025 } from './shop-items/items_025.js';
+import { ITEMS_026 } from './shop-items/items_026.js';
+import { ITEMS_027 } from './shop-items/items_027.js';
+import { ITEMS_028 } from './shop-items/items_028.js';
+import { ITEMS_029 } from './shop-items/items_029.js';
+import { ITEMS_030 } from './shop-items/items_030.js';
+import { ITEMS_031 } from './shop-items/items_031.js';
+import { ITEMS_032 } from './shop-items/items_032.js';
+import { ITEMS_033 } from './shop-items/items_033.js';
+import { ITEMS_034 } from './shop-items/items_034.js';
+import { ITEMS_035 } from './shop-items/items_035.js';
+import { ITEMS_036 } from './shop-items/items_036.js';
+import { ITEMS_037 } from './shop-items/items_037.js';
+import { ITEMS_038 } from './shop-items/items_038.js';
+import { ITEMS_039 } from './shop-items/items_039.js';
+import { ITEMS_040 } from './shop-items/items_040.js';
+import { ITEMS_041 } from './shop-items/items_041.js';
+import { ITEMS_042 } from './shop-items/items_042.js';
+import { ITEMS_043 } from './shop-items/items_043.js';
+import { ITEMS_044 } from './shop-items/items_044.js';
+import { ITEMS_045 } from './shop-items/items_045.js';
+import { ITEMS_046 } from './shop-items/items_046.js';
+import { ITEMS_047 } from './shop-items/items_047.js';
+import { ITEMS_048 } from './shop-items/items_048.js';
+import { ITEMS_049 } from './shop-items/items_049.js';
+import { ITEMS_050 } from './shop-items/items_050.js';
+import { ITEMS_051 } from './shop-items/items_051.js';
 
 // ============================================
 // COMBINED SHOP ITEMS
@@ -4494,6 +4535,46 @@ export const SHOP_ITEMS = {
   ...ITEMS_009,
   ...ITEMS_010,
   ...ITEMS_011,
+  ...ITEMS_012,
+  ...ITEMS_013,
+  ...ITEMS_014,
+  ...ITEMS_015,
+  ...ITEMS_016,
+  ...ITEMS_017,
+  ...ITEMS_018,
+  ...ITEMS_019,
+  ...ITEMS_020,
+  ...ITEMS_021,
+  ...ITEMS_022,
+  ...ITEMS_023,
+  ...ITEMS_024,
+  ...ITEMS_025,
+  ...ITEMS_026,
+  ...ITEMS_027,
+  ...ITEMS_028,
+  ...ITEMS_029,
+  ...ITEMS_030,
+  ...ITEMS_031,
+  ...ITEMS_032,
+  ...ITEMS_033,
+  ...ITEMS_034,
+  ...ITEMS_035,
+  ...ITEMS_036,
+  ...ITEMS_037,
+  ...ITEMS_038,
+  ...ITEMS_039,
+  ...ITEMS_040,
+  ...ITEMS_041,
+  ...ITEMS_042,
+  ...ITEMS_043,
+  ...ITEMS_044,
+  ...ITEMS_045,
+  ...ITEMS_046,
+  ...ITEMS_047,
+  ...ITEMS_048,
+  ...ITEMS_049,
+  ...ITEMS_050,
+  ...ITEMS_051,
 };
 
 // ============================================

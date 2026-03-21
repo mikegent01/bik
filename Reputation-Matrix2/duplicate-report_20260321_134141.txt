@@ -1,0 +1,738 @@
+======================================================================
+DUPLICATE ITEMS REPORT
+Generated: 2026-03-21 13:41:41
+======================================================================
+
+Total duplicates handled: 181
+  - Exact duplicates removed: 0
+  - Items renamed: 181
+
+
+----------------------------------------------------------------------
+RENAMED (Different Descriptions)
+----------------------------------------------------------------------
+
+  OLD KEY: 'a_bag_that_defies_vertical'
+  NEW KEY: 'a_bag_that_defies_vertical_1'
+  Name:    'Gravity Satchel'
+
+  OLD KEY: 'a_sword_forged_from_reclaimed'
+  NEW KEY: 'a_sword_forged_from_reclaimed_1'
+  Name:    'Ironclad Blade of the Forge'
+
+  OLD KEY: 'a_bracelet_infused_with_wario_1'
+  NEW KEY: 'a_bracelet_infused_with_wario'
+  Name:    'Wario'
+
+  OLD KEY: 'a_cape_that_makes_you_1'
+  NEW KEY: 'a_cape_that_makes_you'
+  Name:    'Wario'
+
+  OLD KEY: 'a_card_that_wilds_any_1'
+  NEW KEY: 'a_card_that_wilds_any'
+  Name:    'Wario'
+
+  OLD KEY: 'a_chest_full_of_treasure_1'
+  NEW KEY: 'a_chest_full_of_treasure'
+  Name:    'Wario'
+
+  OLD KEY: 'a_coin_with_wario_s_1'
+  NEW KEY: 'a_coin_with_wario_s'
+  Name:    'Wario'
+
+  OLD KEY: 'a_controller_that_controls_minor_1'
+  NEW KEY: 'a_controller_that_controls_minor'
+  Name:    'Wario'
+
+  OLD KEY: 'a_cowboy_hat_with_wario_1'
+  NEW KEY: 'a_cowboy_hat_with_wario'
+  Name:    'Wario'
+
+  OLD KEY: 'a_custom_motorcycle_loud_fast_1'
+  NEW KEY: 'a_custom_motorcycle_loud_fast'
+  Name:    'Wario'
+
+  OLD KEY: 'a_device_that_draws_maps_1'
+  NEW KEY: 'a_device_that_draws_maps'
+  Name:    'Wario'
+
+  OLD KEY: 'a_gold_plated_spray_painted_1'
+  NEW KEY: 'a_gold_plated_spray_painted'
+  Name:    'Wario'
+
+  OLD KEY: 'a_greasy_napkin_signed_by_1'
+  NEW KEY: 'a_greasy_napkin_signed_by'
+  Name:    'Wario'
+
+  OLD KEY: 'a_hat_that_grows_garlic_1'
+  NEW KEY: 'a_hat_that_grows_garlic'
+  Name:    'Wario'
+
+  OLD KEY: 'a_holster_for_guns_garlic_1'
+  NEW KEY: 'a_holster_for_guns_garlic'
+  Name:    'Wario'
+
+  OLD KEY: 'a_horn_that_honks_with_1'
+  NEW KEY: 'a_horn_that_honks_with'
+  Name:    'Wario'
+
+  OLD KEY: 'a_long_fork_for_roasting_1'
+  NEW KEY: 'a_long_fork_for_roasting'
+  Name:    'Wario'
+
+  OLD KEY: 'a_lucky_bone_for_wishes_1'
+  NEW KEY: 'a_lucky_bone_for_wishes'
+  Name:    'Wario'
+
+  OLD KEY: 'a_meter_that_measures_your_1'
+  NEW KEY: 'a_meter_that_measures_your'
+  Name:    'Wario'
+
+  OLD KEY: 'a_pistol_that_shoots_garlic_1'
+  NEW KEY: 'a_pistol_that_shoots_garlic'
+  Name:    'Wario'
+
+  OLD KEY: 'a_poster_with_your_face_1'
+  NEW KEY: 'a_poster_with_your_face'
+  Name:    'Wario'
+
+  OLD KEY: 'a_potent_grenade_that_explodes'
+  NEW KEY: 'a_potent_grenade_that_explodes_1'
+  Name:    'Wario'
+
+  OLD KEY: 'a_potion_that_is_definitely_1'
+  NEW KEY: 'a_potion_that_is_definitely'
+  Name:    'Wario'
+
+  OLD KEY: 'a_power_up_that_fell_1'
+  NEW KEY: 'a_power_up_that_fell'
+  Name:    'Wario'
+
+  OLD KEY: 'a_ring_that_grants_wishes_1'
+  NEW KEY: 'a_ring_that_grants_wishes'
+  Name:    'Wario'
+
+  OLD KEY: 'a_rope_for_lassoing_foes_1'
+  NEW KEY: 'a_rope_for_lassoing_foes'
+  Name:    'Wario'
+
+  OLD KEY: 'a_saddle_for_wild_rides_1'
+  NEW KEY: 'a_saddle_for_wild_rides'
+  Name:    'Wario'
+
+  OLD KEY: 'a_sheriff_badge_for_lawmen_1'
+  NEW KEY: 'a_sheriff_badge_for_lawmen'
+  Name:    'Wario'
+
+  OLD KEY: 'a_shiny_plastic_card_it_1'
+  NEW KEY: 'a_shiny_plastic_card_it'
+  Name:    'Wario'
+
+  OLD KEY: 'a_shiny_wand_that_beeps_1'
+  NEW KEY: 'a_shiny_wand_that_beeps'
+  Name:    'Wario'
+
+  OLD KEY: 'a_spray_bottle_of_concentrated_1'
+  NEW KEY: 'a_spray_bottle_of_concentrated'
+  Name:    'Wario'
+
+  OLD KEY: 'a_squirt_gun_filled_with_1'
+  NEW KEY: 'a_squirt_gun_filled_with'
+  Name:    'Wario'
+
+  OLD KEY: 'a_ticket_to_wario_s_1'
+  NEW KEY: 'a_ticket_to_wario_s'
+  Name:    'Wario'
+
+  OLD KEY: 'a_toothpick_so_fancy_you_1'
+  NEW KEY: 'a_toothpick_so_fancy_you'
+  Name:    'Wario'
+
+  OLD KEY: 'a_treasure_map_that_wario_1'
+  NEW KEY: 'a_treasure_map_that_wario'
+  Name:    'Wario'
+
+  OLD KEY: 'a_wallet_that_holds_your_1'
+  NEW KEY: 'a_wallet_that_holds_your'
+  Name:    'Wario'
+
+  OLD KEY: 'a_wallet_that_never_empties_1'
+  NEW KEY: 'a_wallet_that_never_empties'
+  Name:    'Wario'
+
+  OLD KEY: 'a_wand_of_wonders_mostly_1'
+  NEW KEY: 'a_wand_of_wonders_mostly'
+  Name:    'Wario'
+
+  OLD KEY: 'a_wand_that_casts_wario_1'
+  NEW KEY: 'a_wand_that_casts_wario'
+  Name:    'Wario'
+
+  OLD KEY: 'a_wand_that_makes_wa_1'
+  NEW KEY: 'a_wand_that_makes_wa'
+  Name:    'Wario'
+
+  OLD KEY: 'a_watch_that_tells_time_1'
+  NEW KEY: 'a_watch_that_tells_time'
+  Name:    'Wario'
+
+  OLD KEY: 'a_wrench_for_fixing_or_1'
+  NEW KEY: 'a_wrench_for_fixing_or'
+  Name:    'Wario'
+
+  OLD KEY: 'build_traps_that_lead_to_1'
+  NEW KEY: 'build_traps_that_lead_to'
+  Name:    'Wario'
+
+  OLD KEY: 'bulk_up_like_wario_side_1'
+  NEW KEY: 'bulk_up_like_wario_side'
+  Name:    'Wario'
+
+  OLD KEY: 'drink_this_and_grow_a_1'
+  NEW KEY: 'drink_this_and_grow_a'
+  Name:    'Wario'
+
+  OLD KEY: 'fake_mustaches_to_impersonate_wario_1'
+  NEW KEY: 'fake_mustaches_to_impersonate_wario'
+  Name:    'Wario'
+
+  OLD KEY: 'gloves_that_make_your_bite_1'
+  NEW KEY: 'gloves_that_make_your_bite'
+  Name:    'Wario'
+
+  OLD KEY: 'makes_waffles_with_wario_s_1'
+  NEW KEY: 'makes_waffles_with_wario_s'
+  Name:    'Wario'
+
+  OLD KEY: 'makes_waffles_with_wario_stamps_1'
+  NEW KEY: 'makes_waffles_with_wario_stamps'
+  Name:    'Wario'
+
+  OLD KEY: 'makes_your_wallet_bigger_inside_1'
+  NEW KEY: 'makes_your_wallet_bigger_inside'
+  Name:    'Wario'
+
+  OLD KEY: 'mints_that_freshen_breath_with_1'
+  NEW KEY: 'mints_that_freshen_breath_with'
+  Name:    'Wario'
+
+  OLD KEY: 'need_gold_now_wario_s_1'
+  NEW KEY: 'need_gold_now_wario_s'
+  Name:    'Wario'
+
+  OLD KEY: 'oil_for_lamps_that_grants_1'
+  NEW KEY: 'oil_for_lamps_that_grants'
+  Name:    'Wario'
+
+  OLD KEY: 'padded_shoulder_gear_for_wario_1'
+  NEW KEY: 'padded_shoulder_gear_for_wario'
+  Name:    'Wario'
+
+  OLD KEY: 'points_to_the_nearest_treasure_1'
+  NEW KEY: 'points_to_the_nearest_treasure'
+  Name:    'Wario'
+
+  OLD KEY: 'polish_that_makes_armor_garlic_1'
+  NEW KEY: 'polish_that_makes_armor_garlic'
+  Name:    'Wario'
+
+  OLD KEY: 'rub_for_a_genie_or_1'
+  NEW KEY: 'rub_for_a_genie_or'
+  Name:    'Wario'
+
+  OLD KEY: 'spurs_that_jingle_with_greed_1'
+  NEW KEY: 'spurs_that_jingle_with_greed'
+  Name:    'Wario'
+
+  OLD KEY: 'syrup_that_s_extra_sweet_1'
+  NEW KEY: 'syrup_that_s_extra_sweet'
+  Name:    'Wario'
+
+  OLD KEY: 'teleport_away_from_danger_leaves_1'
+  NEW KEY: 'teleport_away_from_danger_leaves'
+  Name:    'Wario'
+
+  OLD KEY: 'thin_wafers_that_expand_in_1'
+  NEW KEY: 'thin_wafers_that_expand_in'
+  Name:    'Wario'
+
+  OLD KEY: 'toppings_for_waffles_garlic_syrup_1'
+  NEW KEY: 'toppings_for_waffles_garlic_syrup'
+  Name:    'Wario'
+
+  OLD KEY: 'wario_claims_it_never_runs_1'
+  NEW KEY: 'wario_claims_it_never_runs'
+  Name:    'Wario'
+
+  OLD KEY: 'whiskey_that_s_strong_garlic_1'
+  NEW KEY: 'whiskey_that_s_strong_garlic'
+  Name:    'Wario'
+
+  OLD KEY: 'a_corroded_brass_key_rumored_1'
+  NEW KEY: 'a_corroded_brass_key_rumored'
+  Name:    'Pipe Network Key'
+
+  OLD KEY: 'a_relic_from_the_collapsing_1'
+  NEW KEY: 'a_relic_from_the_collapsing'
+  Name:    'Pipe Network Key'
+
+  OLD KEY: 'category_shop_categories_material_price_2'
+  NEW KEY: 'category_shop_categories_material_price'
+  Name:    'Pipe Network Key'
+
+  OLD KEY: 'a_cursed_tool_forged_from'
+  NEW KEY: 'a_cursed_tool_forged_from_1'
+  Name:    'Ironclad Hammer of the Forge'
+
+  OLD KEY: 'a_dampened_jungle_satchel_infused'
+  NEW KEY: 'a_dampened_jungle_satchel_infused_1'
+  Name:    'Tropical Tide Satchel'
+
+  OLD KEY: 'a_pan_that_stirs_itself_1'
+  NEW KEY: 'a_pan_that_stirs_itself'
+  Name:    'Mages'
+
+  OLD KEY: 'a_robe_with_pockets_inside_1'
+  NEW KEY: 'a_robe_with_pockets_inside'
+  Name:    'Mages'
+
+  OLD KEY: 'a_scroll_that_holds_your_1'
+  NEW KEY: 'a_scroll_that_holds_your'
+  Name:    'Mages'
+
+  OLD KEY: 'a_service_where_the_guild_1'
+  NEW KEY: 'a_service_where_the_guild'
+  Name:    'Mages'
+
+  OLD KEY: 'a_single_page_from_a_1'
+  NEW KEY: 'a_single_page_from_a'
+  Name:    'Mages'
+
+  OLD KEY: 'get_one_spell_slot_back_1'
+  NEW KEY: 'get_one_spell_slot_back'
+  Name:    'Mages'
+
+  OLD KEY: 'measures_ingredients_to_the_molecule_1'
+  NEW KEY: 'measures_ingredients_to_the_molecule'
+  Name:    'Mages'
+
+  OLD KEY: 'pay_the_guild_to_scry'
+  NEW KEY: 'pay_the_guild_to_scry_1'
+  Name:    'Mages'
+
+  OLD KEY: 'a_pulsing_molten_core_encased'
+  NEW KEY: 'a_pulsing_molten_core_encased_1'
+  Name:    'Forgeheart Core'
+
+  OLD KEY: 'a_cursed_ring_of_the_1'
+  NEW KEY: 'a_cursed_ring_of_the'
+  Name:    'Onyx Hand Ring'
+
+  OLD KEY: 'a_cursed_trinket_worn_by'
+  NEW KEY: 'a_cursed_trinket_worn_by_1'
+  Name:    'Onyx Hand Ring'
+
+  OLD KEY: 'a_darkly_polished_ring_forged_1'
+  NEW KEY: 'a_darkly_polished_ring_forged'
+  Name:    'Onyx Hand Ring'
+
+  OLD KEY: 'a_cursed_relic_that_draws_1'
+  NEW KEY: 'a_cursed_relic_that_draws'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_pendant_shaped_like_a_1'
+  NEW KEY: 'a_pendant_shaped_like_a'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_pendant_that_glows_when_1'
+  NEW KEY: 'a_pendant_that_glows_when'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_pulsating_amulet_that_channels_1'
+  NEW KEY: 'a_pulsating_amulet_that_channels'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_pulsating_obsidian_pendant_that_1'
+  NEW KEY: 'a_pulsating_obsidian_pendant_that'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_relic_from_the_abyssal_1'
+  NEW KEY: 'a_relic_from_the_abyssal'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_relic_from_the_depths'
+  NEW KEY: 'a_relic_from_the_depths_1'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_relic_from_the_drowned_1'
+  NEW KEY: 'a_relic_from_the_drowned'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_relic_of_the_onyx_1'
+  NEW KEY: 'a_relic_of_the_onyx'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'carved_from_the_shattered_remains_1'
+  NEW KEY: 'carved_from_the_shattered_remains'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'forged_from_the_residual_energy_1'
+  NEW KEY: 'forged_from_the_residual_energy'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'this_amulet_was_forged_in_1'
+  NEW KEY: 'this_amulet_was_forged_in'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'this_amulet_was_recovered_from_1'
+  NEW KEY: 'this_amulet_was_recovered_from'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'this_amulet_was_unearthed_from_1'
+  NEW KEY: 'this_amulet_was_unearthed_from'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'worn_by_those_who_dare_1'
+  NEW KEY: 'worn_by_those_who_dare'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'worn_by_those_who_walk_1'
+  NEW KEY: 'worn_by_those_who_walk'
+  Name:    'Void Touched Amulet'
+
+  OLD KEY: 'a_cursed_artifact_from_toadburt_1'
+  NEW KEY: 'a_cursed_artifact_from_toadburt'
+  Name:    'Entropy Ring'
+
+  OLD KEY: 'a_cursed_artifact_that_erodes'
+  NEW KEY: 'a_cursed_artifact_that_erodes_1'
+  Name:    'Entropy Ring'
+
+  OLD KEY: 'a_cursed_artifact_that_feeds_1'
+  NEW KEY: 'a_cursed_artifact_that_feeds'
+  Name:    'Entropy Ring'
+
+  OLD KEY: 'a_cursed_relic_forged_from_1'
+  NEW KEY: 'a_cursed_relic_forged_from'
+  Name:    'Entropy Ring'
+
+  OLD KEY: 'a_volatile_explosive_infused_with'
+  NEW KEY: 'a_volatile_explosive_infused_with_1'
+  Name:    'Garlic Bomb'
+
+  OLD KEY: 'a_relic_of_drowned_sorcerers'
+  NEW KEY: 'a_relic_of_drowned_sorcerers_1'
+  Name:    'Tongue of the Tide'
+
+  OLD KEY: 'a_golden_key_to_the_1'
+  NEW KEY: 'a_golden_key_to_the'
+  Name:    'Diamond City Key'
+
+  OLD KEY: 'a_metallic_key_shaped_like_1'
+  NEW KEY: 'a_metallic_key_shaped_like'
+  Name:    'Diamond City Key'
+
+  OLD KEY: 'category_shop_categories_material_price_3'
+  NEW KEY: 'category_shop_categories_material_price_1'
+  Name:    'Diamond City Key'
+
+  OLD KEY: 'grants_access_to_wario_land'
+  NEW KEY: 'grants_access_to_wario_land_1'
+  Name:    'Diamond City Key'
+
+  OLD KEY: 'signed_in_green_ink_it'
+  NEW KEY: 'signed_in_green_ink_it_1'
+  Name:    'Luigi'
+
+  OLD KEY: 'a_flickering_torch_that_emits'
+  NEW KEY: 'a_flickering_torch_that_emits_1'
+  Name:    'Feywhisper Torch'
+
+  OLD KEY: 'a_geometric_wand_brimming_with'
+  NEW KEY: 'a_geometric_wand_brimming_with_1'
+  Name:    'Kamek'
+
+  OLD KEY: 'a_partially_burned_scroll_from_1'
+  NEW KEY: 'a_partially_burned_scroll_from'
+  Name:    'Kamek'
+
+  OLD KEY: 'a_fractured_piece_of_the'
+  NEW KEY: 'a_fractured_piece_of_the_1'
+  Name:    'Mirrored Soul Shard'
+
+  OLD KEY: 'a_shard_of_fractured_reality'
+  NEW KEY: 'a_shard_of_fractured_reality_1'
+  Name:    'Echo of the Void'
+
+  OLD KEY: 'a_fragment_of_a_forgotten'
+  NEW KEY: 'a_fragment_of_a_forgotten_1'
+  Name:    'Ancient Temple Shard'
+
+  OLD KEY: 'a_sturdy_string_blessed_by'
+  NEW KEY: 'a_sturdy_string_blessed_by_1'
+  Name:    'Gondor Ranger'
+
+  OLD KEY: 'a_parasol_for_floating_and'
+  NEW KEY: 'a_parasol_for_floating_and_1'
+  Name:    'Peach'
+
+  OLD KEY: 'a_pink_brick_from_the_1'
+  NEW KEY: 'a_pink_brick_from_the'
+  Name:    'Peach'
+
+  OLD KEY: 'a_scroll_claiming_to_be_1'
+  NEW KEY: 'a_scroll_claiming_to_be'
+  Name:    'Peach'
+
+  OLD KEY: 'a_silk_handkerchief_said_to_1'
+  NEW KEY: 'a_silk_handkerchief_said_to'
+  Name:    'Peach'
+
+  OLD KEY: 'a_single_glove_from_the_1'
+  NEW KEY: 'a_single_glove_from_the'
+  Name:    'Peach'
+
+  OLD KEY: 'a_key_to_the_ink'
+  NEW KEY: 'a_key_to_the_ink_1'
+  Name:    'Ricco Harbor Key'
+
+  OLD KEY: 'a_keychain_forged_from_the_1'
+  NEW KEY: 'a_keychain_forged_from_the'
+  Name:    'Shadowfell Keychain'
+
+  OLD KEY: 'a_keychain_that_unlocks_hidden_1'
+  NEW KEY: 'a_keychain_that_unlocks_hidden'
+  Name:    'Shadowfell Keychain'
+
+  OLD KEY: 'a_small_metallic_key_that'
+  NEW KEY: 'a_small_metallic_key_that_1'
+  Name:    'Shadowfell Keychain'
+
+  OLD KEY: 'a_tiny_metallic_key_that_1'
+  NEW KEY: 'a_tiny_metallic_key_that'
+  Name:    'Shadowfell Keychain'
+
+  OLD KEY: 'a_tiny_obsidian_charm_that_1'
+  NEW KEY: 'a_tiny_obsidian_charm_that'
+  Name:    'Shadowfell Keychain'
+
+  OLD KEY: 'a_tiny_pendant_carved_from_1'
+  NEW KEY: 'a_tiny_pendant_carved_from'
+  Name:    'Shadowfell Keychain'
+
+  OLD KEY: 'a_token_of_the_dark_1'
+  NEW KEY: 'a_token_of_the_dark'
+  Name:    'Shadowfell Keychain'
+
+  OLD KEY: 'this_tiny_pendant_holds_the_1'
+  NEW KEY: 'this_tiny_pendant_holds_the'
+  Name:    'Shadowfell Keychain'
+
+  OLD KEY: 'a_lightweight_shimmering_cape_that'
+  NEW KEY: 'a_lightweight_shimmering_cape_that_1'
+  Name:    'Tropical Breeze Cape'
+
+  OLD KEY: 'a_rare_fungus_radiating_powerful'
+  NEW KEY: 'a_rare_fungus_radiating_powerful_1'
+  Name:    'Golden Mushroom'
+
+  OLD KEY: 'a_pulsating_seed_pod_with'
+  NEW KEY: 'a_pulsating_seed_pod_with_1'
+  Name:    'Fire Flower Core'
+
+  OLD KEY: 'category_shop_categories_material_price_4'
+  NEW KEY: 'category_shop_categories_material_price_5'
+  Name:    'Fire Flower Core'
+
+  OLD KEY: 'a_pulsing_obsidian_heart_that'
+  NEW KEY: 'a_pulsing_obsidian_heart_that_1'
+  Name:    'Necrotic Heart Pendant'
+
+  OLD KEY: 'a_tooth_from_the_koopa'
+  NEW KEY: 'a_tooth_from_the_koopa_1'
+  Name:    'Bowser'
+
+  OLD KEY: 'bowser_s_plans_with_wario_1'
+  NEW KEY: 'bowser_s_plans_with_wario'
+  Name:    'Bowser'
+
+  OLD KEY: 'a_poorly_stitched_doll_that'
+  NEW KEY: 'a_poorly_stitched_doll_that_1'
+  Name:    'Bootleg Waluigi Doll'
+
+  OLD KEY: 'emergency_self_destruct_defense_system'
+  NEW KEY: 'emergency_self_destruct_defense_system_1'
+  Name:    'The '
+
+  OLD KEY: 'weights_treadmills_and_protein_shakes_1'
+  NEW KEY: 'weights_treadmills_and_protein_shakes'
+  Name:    'The '
+
+  OLD KEY: 'a_resonant_artifact_that_amplifies'
+  NEW KEY: 'a_resonant_artifact_that_amplifies_1'
+  Name:    'Echo of the Triforce'
+
+  OLD KEY: 'the_only_key_that_unlocks'
+  NEW KEY: 'the_only_key_that_unlocks_1'
+  Name:    'Star Road Key'
+
+  OLD KEY: 'woven_from_shadows_of_the'
+  NEW KEY: 'woven_from_shadows_of_the_1'
+  Name:    'Feywild Talisman'
+
+  OLD KEY: 'a_small_pulsing_amulet_that'
+  NEW KEY: 'a_small_pulsing_amulet_that_1'
+  Name:    'Echo Talisman'
+
+  OLD KEY: 'a_ring_that_pulses_with_1'
+  NEW KEY: 'a_ring_that_pulses_with_2'
+  Name:    'Doughnut Edge Ring'
+
+  OLD KEY: 'category_shop_categories_special_price'
+  NEW KEY: 'category_shop_categories_special_price_1'
+  Name:    'Gehenna Academy Keychain'
+
+  OLD KEY: 'category_shop_categories_consumable_price'
+  NEW KEY: 'category_shop_categories_consumable_price_1'
+  Name:    'Ink Jam Bomb'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_20'
+  NEW KEY: 'a_weapon_forged_from_condensed_1'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_21'
+  NEW KEY: 'a_weapon_forged_from_condensed_2'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_22'
+  NEW KEY: 'a_weapon_forged_from_condensed_3'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_23'
+  NEW KEY: 'a_weapon_forged_from_condensed_4'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_24'
+  NEW KEY: 'a_weapon_forged_from_condensed_5'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_25'
+  NEW KEY: 'a_weapon_forged_from_condensed_6'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_26'
+  NEW KEY: 'a_weapon_forged_from_condensed_7'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_27'
+  NEW KEY: 'a_weapon_forged_from_condensed_8'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_28'
+  NEW KEY: 'a_weapon_forged_from_condensed_9'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_29'
+  NEW KEY: 'a_weapon_forged_from_condensed_10'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_30'
+  NEW KEY: 'a_weapon_forged_from_condensed_11'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_31'
+  NEW KEY: 'a_weapon_forged_from_condensed_12'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_32'
+  NEW KEY: 'a_weapon_forged_from_condensed_13'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_33'
+  NEW KEY: 'a_weapon_forged_from_condensed_14'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_34'
+  NEW KEY: 'a_weapon_forged_from_condensed_15'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_35'
+  NEW KEY: 'a_weapon_forged_from_condensed_16'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_36'
+  NEW KEY: 'a_weapon_forged_from_condensed_17'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_37'
+  NEW KEY: 'a_weapon_forged_from_condensed_18'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_38'
+  NEW KEY: 'a_weapon_forged_from_condensed_19'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weapon_forged_from_condensed_39'
+  NEW KEY: 'a_weapon_forged_from_condensed_40'
+  Name:    'Crystal Blade'
+
+  OLD KEY: 'a_weaponized_chainsaw_from_the'
+  NEW KEY: 'a_weaponized_chainsaw_from_the_1'
+  Name:    'Chain Chomp Tether'
+
+  OLD KEY: 'this_obsidian_key_was_forged_1'
+  NEW KEY: 'this_obsidian_key_was_forged'
+  Name:    'Onyx Hand Key'
+
+  OLD KEY: 'one_splash_and_nobody_knows_1'
+  NEW KEY: 'one_splash_and_nobody_knows'
+  Name:    'Blooper Ink Vial'
+
+  OLD KEY: 'edible_magic_scrolls'
+  NEW KEY: 'edible_magic_scrolls_1'
+  Name:    'Recipe: Mages'
+
+  OLD KEY: 'potions_on_a_stick_1'
+  NEW KEY: 'potions_on_a_stick'
+  Name:    'Recipe: Mages'
+
+  OLD KEY: 'the_heart_of_a_weaponized_1'
+  NEW KEY: 'the_heart_of_a_weaponized'
+  Name:    'Chain Chomp Core'
+
+  OLD KEY: 'fryer_with_furious_bubbles_for_1'
+  NEW KEY: 'fryer_with_furious_bubbles_for'
+  Name:    'Fawful'
+
+  OLD KEY: 'lab_coat_with_explosive_pockets_1'
+  NEW KEY: 'lab_coat_with_explosive_pockets'
+  Name:    'Fawful'
+
+  OLD KEY: 'see_flies_or_fly_like_1'
+  NEW KEY: 'see_flies_or_fly_like'
+  Name:    'Fawful'
+
+  OLD KEY: 'heavy_iron_boots_designed_for'
+  NEW KEY: 'heavy_iron_boots_designed_for_1'
+  Name:    'Goomba Stomper Boots'
+
+  OLD KEY: 'thick_gumbo_with_crawfish_and_1'
+  NEW KEY: 'thick_gumbo_with_crawfish_and'
+  Name:    'Recipe: Lizardmen Swamp Gumbo'
+
+  OLD KEY: 'reinforced_with_slag_infused_steel_1'
+  NEW KEY: 'reinforced_with_slag_infused_steel'
+  Name:    'Ironclad Gear'
+
+  OLD KEY: 'your_prophecies_are_edible_1'
+  NEW KEY: 'your_prophecies_are_edible'
+  Name:    'Oracula Fortune Cookie Filling Service'
+
+  OLD KEY: 'woven_from_the_laughter_of_1'
+  NEW KEY: 'woven_from_the_laughter_of'
+  Name:    'Sugar Soul Amulet'
+
+  OLD KEY: 'the_hammer_used_to_forge_1'
+  NEW KEY: 'the_hammer_used_to_forge'
+  Name:    'Smithy'
+
