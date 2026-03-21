@@ -4110,4 +4110,816 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         "type": "travel"
     }
 }
+,
+  {
+    "id": "hjumpik_enters_manor",
+    "title": "Hjumpik and Toad Lee enter the",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik and Toad Lee enter the manor, passing satyrs who offer drinks but are declined.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "toad_lee"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "travel",
+        "type": "travel"
+    }
+},
+  {
+    "id": "toad_lee_identifies_soldier",
+    "title": "Toad Lee identifies a soldier as",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Toad Lee identifies a soldier as either from the Iron Legion or the Mages Guild.",
+    "instigator": "toad_lee",
+    "targets": [
+        "toad_lee",
+        "soldier"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "hjumpik_sees_wario",
+    "title": "Hjumpik spots Wario, who is already",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik spots Wario, who is already in the manor, and later engages him in a debt-related interaction.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "wario"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "hjumpik_shops_for_items",
+    "title": "Hjumpik shops for items and discovers",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik shops for items and discovers Wario is collecting debts, leading to a confrontation over discounts.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "wario"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "wario_shows_ledger",
+    "title": "Wario presents Hjumpik with a detailed",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Wario presents Hjumpik with a detailed ledger of debts owed to him, including humorous and threatening entries.",
+    "instigator": "wario",
+    "targets": [
+        "wario",
+        "hjumpik"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "toad_lee_shouts_canonball",
+    "title": "Toad Lee shouts 'HEY WE FOUND",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Toad Lee shouts 'HEY WE FOUND THE CANONBALL' after spotting it near a guard.",
+    "instigator": "toad_lee",
+    "targets": [
+        "toad_lee",
+        "guard"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "hjumpik_bashes_guards",
+    "title": "Hjumpik sees Wario shoulder-bash two ",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik sees Wario shoulder-bash two people, then asks if they're okay.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "wario"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "wario_protects_ledger",
+    "title": "Wario treats his ledger as sacred",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Wario treats his ledger as sacred scripture and risks his life to recover it due to its financial and legal value.",
+    "instigator": "wario",
+    "targets": [
+        "wario"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "toad_lee_and_guard_fail_to_free_canonball",
+    "title": "Toad Lee and the guard fail",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Toad Lee and the guard fail to free Canonball after being affected by a toxin from mushrooms.",
+    "instigator": "toad_lee",
+    "targets": [
+        "toad_lee",
+        "guard",
+        "canonball"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "wario_garlic_weaponizes",
+    "title": "Wario uses a garlic clove as",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Wario uses a garlic clove as a weapon, causing others to recoil and question his motives.",
+    "instigator": "wario",
+    "targets": [
+        "wario"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "toad_lee_ships_monty_mole",
+    "title": "Toad Lee arranges shipping for Monty",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Toad Lee arranges shipping for Monty Mole to an airship, negotiating with Wario over delivery time.",
+    "instigator": "toad_lee",
+    "targets": [
+        "toad_lee",
+        "wario"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "deal",
+        "type": "deal"
+    }
+},
+  {
+    "id": "hjumpik_discover_secret_passage",
+    "title": "Hjumpik discovers a secret passage after",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik discovers a secret passage after the steel machine paws at the wall.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "steel_machine"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "satyr_party_begins",
+    "title": "A satyr party begins with revelry",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A satyr party begins with revelry, wine, and dancing, with the satyr leader urging revelry over worry.",
+    "instigator": "satyr_leader",
+    "targets": [
+        "satyr_leader",
+        "lady",
+        "partygoers"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "hjumpik_meets_satyrs",
+    "title": "Hjumpik encounters satyrs who want to",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik encounters satyrs who want to be quiet and tame, but he insists on continuing the revel.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "satyrs"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "hjumpik_encounters_revel",
+    "title": "Hjumpik and Steely enter a staff",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik and Steely enter a staff room where they encounter The Revel, a chaotic, monstrous entity made of hunger and debauchery.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "steely"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "hjumpik_meets_revel_master",
+    "title": "Hjumpik meets the Revel Master, who",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik meets the Revel Master, who claims to have created The Revel through a bar game and now controls its chaotic nature.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "revel_master"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "ralos_reveals_identity",
+    "title": "Ralis (possibly Ralos or Relis) reveals",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Ralis (possibly Ralos or Relis) reveals himself as the Revel Master’s companion and a former Legion member, singing about the Legion’s judgment.",
+    "instigator": "ralis",
+    "targets": [
+        "ralis",
+        "hjumpik"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "hjumpik_discovers_vines",
+    "title": "Hjumpik learns that the vines in",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik learns that the vines in the room were used to trap a dwarf, who was rescued by his friends.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "dwarf",
+        "toad",
+        "purple_lad"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "hjumpik_learns_of_revel_master_plan",
+    "title": "Hjumpik learns the Revel Master is",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik learns the Revel Master is not just a game master but a being who manipulates death and chaos to keep the revel going.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "revel_master"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "explosion_heard",
+    "title": "A very large blast is heard",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A very large blast is heard in another room.",
+    "instigator": "unknown",
+    "targets": [],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "hjumpik_falls",
+    "title": "Hjumpik quickly goes down in response",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik quickly goes down in response to the explosion.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "relos_realizes",
+    "title": "Relos realizes the keg is empty",
+    "date": {
+        "day": 29,
+        "monthIndex": 5,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Relos realizes the keg is empty.",
+    "instigator": "relos",
+    "targets": [
+        "relos"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+}
+,
+  {
+    "id": "archie_enters_bathroom",
+    "title": "Archie opens a bathroom door and",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Archie opens a bathroom door and is struck by a green thunderbolt fire.",
+    "instigator": "archie",
+    "targets": [
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "mirror_shatters_and_monster_freed",
+    "title": "Archie shatters a mirror, freeing a",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Archie shatters a mirror, freeing a creature that scurries away.",
+    "instigator": "archie",
+    "targets": [
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "bones_jumps_down_and_gets_injured",
+    "title": "Bones jumps down to help, gets",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Bones jumps down to help, gets injured, and declares he's here to assist.",
+    "instigator": "bones",
+    "targets": [
+        "bones"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "archie_fires_fireball_through_window",
+    "title": "Archie fires a fireball through a",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Archie fires a fireball through a shattered window, killing a spider.",
+    "instigator": "archie",
+    "targets": [
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "spider_leaves_footprint_on_bed",
+    "title": "A spider leaves a strange footprint",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A spider leaves a strange footprint on a blue bed, suggesting it stepped through a wall.",
+    "instigator": "spider",
+    "targets": [
+        "spider"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "archie_and_bones_reach_party",
+    "title": "Archie and Bones arrive at a",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Archie and Bones arrive at a party guarded by the Regency.",
+    "instigator": "archie",
+    "targets": [
+        "archie",
+        "bones"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "travel",
+        "type": "travel"
+    }
+},
+  {
+    "id": "ghost_fly_through_wall",
+    "title": "A ghost flies through the wall",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A ghost flies through the wall as the battle begins.",
+    "instigator": "lucky_t",
+    "targets": [
+        "lucky_t",
+        "bones",
+        "nine-fingers_keene",
+        "gregir_fendelsohn",
+        "terenzio_cassalanter"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "slime_splits_and_battles",
+    "title": "Darno Spriggon battles a splitting sl",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Darno Spriggon battles a splitting slime, laughing at its fate.",
+    "instigator": "darno_spriggon",
+    "targets": [
+        "darno_spriggon"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "giant_mech_crashes_in",
+    "title": "A giant mech crashes through the",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A giant mech crashes through the ceiling, declaring 'lets go bro bot'.",
+    "instigator": "the_green_thunder",
+    "targets": [
+        "the_green_thunder",
+        "darno_spriggon"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "archie_discovers_event",
+    "title": "Archie discovers a destabilization ev",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Archie discovers a destabilization event in a protected magical zone.",
+    "instigator": "archie",
+    "targets": [
+        "archie",
+        "byscilla_danos"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "new_villain_appears",
+    "title": "A new villain emerges, demanding the",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A new villain emerges, demanding the party defeat them.",
+    "instigator": "archie",
+    "targets": [
+        "archie",
+        "byscilla_danos"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "mole_battles_figure",
+    "title": "The mole battles a new figure",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The mole battles a new figure, laughing about who's in charge.",
+    "instigator": "the_mole",
+    "targets": [
+        "the_mole",
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+}
 ];

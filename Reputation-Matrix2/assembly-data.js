@@ -64211,6 +64211,2908 @@ export const WAHBOOK_POSTS = [
         "minute": 58
     }
 }
+,
+  {
+    "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2",
+    "characterKey": "markop",
+    "content": "I just saw Bowser’s cape catch fire during the teleportation—seriously, who thought that was a good idea? Remi’s already muttering about the mana drain. I’m not even sure we’re all still in the same dimension.",
+    "likes": 78,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Markop, that’s not even the worst part—Bowser’s got a dragon egg in his pocket now. I swear, he’s trying to turn the whole party into a snack."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99816,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    }
+},
+  {
+    "id": "c3d4e5f6-g7h8-i9j0-k1l2-m3n4",
+    "characterKey": "remi",
+    "content": "Bowser just yelled ‘I’m the boss of the moon!’ and then tried to summon a lava dragon using a toaster. I’m not even sure if that was a spell or a snack machine. Markop’s face is priceless.",
+    "likes": 42,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "Remi, that toaster’s not my dragon. I’m just… practicing. The moon’s still my boss. And I’m still wearing the cape. Even if it’s on fire."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99817,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 13
+    }
+},
+  {
+    "id": "f5g6h7i8-j9k0-l1m2-n3o4-p5q6",
+    "characterKey": "bowser",
+    "content": "I just upgraded my cape to ‘fire and moon’ mode. And now I’m the only one who can still teleport without getting confused. Remi’s probably hiding the toaster under her bed. Markop? He’s not even sure if we’re in the same game anymore.",
+    "likes": 110,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "Bowser, you’re not even wearing the cape right. You’re wearing it on your head like a hat. I think you’re trying to be a wizard."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99818,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 26
+    }
+},
+  {
+    "id": "k7l8m9n0-o1p2-q3r4-s5t6-u7v8",
+    "characterKey": "eager",
+    "content": "I just saw Remi try to cast ‘Lava Dragon Summon’ while wearing a toaster. Bowser’s now yelling ‘I’m the boss of the moon!’ and Markop’s just sitting there with his face in his hands. I’m not even sure if we’re still in the game.",
+    "likes": 67,
+    "comments": [
+        {
+            "characterKey": "dan",
+            "text": "Eager, that’s not even the weirdest part. Bowser just tried to summon a dragon using a toaster. I’m not even sure if that was a spell or a snack machine."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99819,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 39
+    }
+},
+  {
+    "id": "q9r0s1t2-u3v4-w5x6-y7z8-a9b0",
+    "characterKey": "salam",
+    "content": "I just saw Bowser trying to summon a dragon using a toaster. Remi’s already muttering about the mana drain. Markop’s face is priceless. I’m not even sure if we’re still in the same dimension.",
+    "likes": 89,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Salam, that’s not even the worst part—Bowser’s got a dragon egg in his pocket now. I swear, he’s trying to turn the whole party into a snack."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99820,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 52
+    }
+}
+,
+  {
+    "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+    "characterKey": "markop",
+    "content": "I’m not even sure if I’m supposed to be here… but Bowser’s got a grumble about the treasure map. Guess I’ll have to find the hidden chamber before the moon sets.",
+    "likes": 75,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "Markop, you’re not supposed to be here? That’s… not the first time you’ve been mistaken for a goblin. Or a wizard. Or a wizard-goblin."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99821,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    }
+},
+  {
+    "id": "f5g6h7i8-j9k0-l1m2-n3o4-p5q6r7s8t9",
+    "characterKey": "remi",
+    "content": "Bowser’s got a new obsession: the ‘mystery of the missing tea bag’. I swear he’s been sniffling over it since the last dungeon crawl. Maybe it’s a plot device… or a curse.",
+    "likes": 40,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "Tea bag? That’s not even on the map! I’m looking for the treasure. And I’m not even supposed to be here… again."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99822,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 13
+    }
+},
+  {
+    "id": "k7l8m9n0-o1p2q3r4-s5t6u7v8w9x0",
+    "characterKey": "bowser",
+    "content": "I’m not even supposed to be here… and I’m not even supposed to be a dragon. But I’ve got a map. And a grumble. And a grumble about the tea bag. I’m not leaving until I find the treasure.",
+    "likes": 120,
+    "comments": [
+        {
+            "characterKey": "markop",
+            "text": "You’re not even supposed to be here… again? I think we need a new rulebook. Or maybe a new dungeon."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99823,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 26
+    }
+},
+  {
+    "id": "v1w2x3y4-z5a6b7c8-d9e0f1g2h3i4",
+    "characterKey": "eager",
+    "content": "I’m not even supposed to be here… but I’m here for the tea bag. And the treasure. And the mystery. And the grumble. And the map. I’m not leaving until I find the treasure.",
+    "likes": 60,
+    "comments": [
+        {
+            "characterKey": "remi",
+            "text": "You’re not even supposed to be here… again? I think we need a new rulebook. Or maybe a new dungeon."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99824,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 39
+    }
+},
+  {
+    "id": "x5y6z7a8-b9c0d1e2-f3g4h5i6j7k8",
+    "characterKey": "dan",
+    "content": "I’m not even supposed to be here… but I’m here for the tea bag. And the treasure. And the mystery. And the grumble. And the map. I’m not leaving until I find the treasure.",
+    "likes": 80,
+    "comments": [
+        {
+            "characterKey": "bowser",
+            "text": "You’re not even supposed to be here… again? I think we need a new rulebook. Or maybe a new dungeon."
+        }
+    ],
+    "rumorId": "unknown_event",
+    "order": 99825,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 52
+    }
+}
+,
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik & Toad Lee stroll through the manor… satyrs offer drinks. Nope. We’re here for the mystery.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_enters_manor",
+    "order": 99826,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 0
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf’s got his eyes on the manor… and his hat on the satyr’s offer. Nope. We’re not drinking.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_enters_manor",
+    "order": 99827,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 13
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard’s watching… Hjumpik & Toad Lee pass satyrs offering drinks. No. Not today.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_enters_manor",
+    "order": 99828,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 26
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik: ‘I’m here for the manor, not the wine.’ Satyrs: ‘Nope.’ We’re moving on.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_enters_manor",
+    "order": 99829,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 39
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball’s just… passing satyrs. No drinks. No drama. Just Hjumpik & Toad Lee. Enter.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_enters_manor",
+    "order": 99830,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 52
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Toad Lee spots a soldier—Iron Legion or Mages Guild? HJumpik’s got the eyes.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_identifies_soldier",
+    "order": 99831,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 7
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Toad Lee’s got a nose for troops. Guard’s got a vibe. Mages? Iron Legion? Who’s the real boss?",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_identifies_soldier",
+    "order": 99832,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 20
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Toad Lee: ‘Who’s that?’ Soldier: ‘Iron Legion or Mages.’ Guard: ‘I’ll take the canonball.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_identifies_soldier",
+    "order": 99833,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 33
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Toad Lee: ‘Legion or Guild?’ HJumpik: ‘Legion. Canonball’s already rolling.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_identifies_soldier",
+    "order": 99834,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 46
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "dwarf",
+    "content": "Toad Lee’s got a clue. Dwarf’s got a plan. Guard’s got a grin. Mages? Legion? No clue.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_identifies_soldier",
+    "order": 99835,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 59
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik spotted Wario in the manor… then handed him a debt slip. 😏",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_sees_wario",
+    "order": 99836,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 14
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Wario’s debt? Hjumpik’s got a smirk. 🏰💸",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_sees_wario",
+    "order": 99837,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 27
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Wario’s in the manor. Hjumpik’s got a debt… and a plan. 🛡️",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_sees_wario",
+    "order": 99838,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 40
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Wario’s not a guest. He’s a debtor. 🏰💸",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_sees_wario",
+    "order": 99839,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 53
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "dwarf",
+    "content": "Wario’s in the manor… and Hjumpik’s got him cornered. 😏",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_sees_wario",
+    "order": 99840,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 6
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik’s shop? Wario’s collecting debts. I’m not paying that discount.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_shops_for_items",
+    "order": 99841,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 21
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Hjumpik’s got a new customer: Wario. He wants discounts... or I’m buying his debt.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_shops_for_items",
+    "order": 99842,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 34
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Hjumpik’s shop. Wario’s at the door. He’s not here for deals. He’s here for debts.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_shops_for_items",
+    "order": 99843,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 47
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Wario’s collecting debts... and he’s asking for discounts. I’m not a debt collector.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_shops_for_items",
+    "order": 99844,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 0
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "dwarf",
+    "content": "Hjumpik’s shop. Wario’s in the back. He’s not paying. He’s demanding discounts on debts.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_shops_for_items",
+    "order": 99845,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 13
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Wario: 'This ledger’s 100% accurate. You owe me… 100 canonballs.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_shows_ledger",
+    "order": 99846,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 28
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf: 'Wario’s ledger says I owe him 3 days of lifting. I’m not paying.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_shows_ledger",
+    "order": 99847,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 41
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard: 'Wario’s ledger says I’m owed 5000 guard points. I’m not signing it.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_shows_ledger",
+    "order": 99848,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 54
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik: 'Wario’s ledger says I owe him 100% of my soul. I’m not paying.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_shows_ledger",
+    "order": 99849,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 7
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball: 'Wario’s ledger says I owe him 100% of my existence. I’m not paying.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_shows_ledger",
+    "order": 99850,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 20
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Toad Lee: 'HEY WE FOUND THE CANONBALL!' near the guard. Hjumpik: 'Dwarf, run!'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_shouts_canonball",
+    "order": 99851,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 35
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf: 'Canonball? Nah, that's just a guard's snack.' Hjumpik: 'Liar.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_shouts_canonball",
+    "order": 99852,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 48
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard: 'Canonball? I've got a canonball. And a dwarf. And Hjumpik.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_shouts_canonball",
+    "order": 99853,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 1
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik: 'Canonball's here. Guard's gone. Dwarf's hiding. We're golden.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_shouts_canonball",
+    "order": 99854,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 14
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Toad Lee: 'HEY WE FOUND THE CANONBALL!' — and it's not even a cannon. It's a dwarf. And a guard. And Hjumpik.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_shouts_canonball",
+    "order": 99855,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 27
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik: 'Are you okay?' after shoulder-bashing two people. Wario: 'I'm a force.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_bashes_guards",
+    "order": 99856,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 42
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Wario’s shoulder-bash? Hjumpik checks on the dwarf. 'You alright, buddy?'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_bashes_guards",
+    "order": 99857,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 55
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard: 'Who’s that?' Hjumpik: 'Wario. He just shoulder-bashed two people.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_bashes_guards",
+    "order": 99858,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 8
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik: 'Hey, are you okay?' after Wario’s shoulder-bash. Wario: 'I’m just a shoulder.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_bashes_guards",
+    "order": 99859,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 21
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball: 'Wario’s shoulder-bash? Hjumpik: 'Are you okay?' — classic chaos.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_bashes_guards",
+    "order": 99860,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 34
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Wario’s ledger? Sacred. He’ll risk death to recover it. #WarioWorship",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_protects_ledger",
+    "order": 99861,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 49
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf: 'Ledger’s got value. Even if it means cannonballing into hell.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_protects_ledger",
+    "order": 99862,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 2
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard: 'He’s chasing a ledger? Wario’s got a problem… and a cannonball.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_protects_ledger",
+    "order": 99863,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 15
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "HJumpik: 'Ledger’s worth more than a life. Wario’s got a plan. And a cannonball.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_protects_ledger",
+    "order": 99864,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 28
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Wario’s ledger = holy text. Risk life? Worth it. Cannonball ready.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_protects_ledger",
+    "order": 99865,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 41
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Toad Lee & guard failed to free me... mushrooms got me! #Canonball",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_and_guard_fail_to_free_canonball",
+    "order": 99866,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 56
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Guard tried, failed. Toad Lee? Still stuck. #Canonball",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_and_guard_fail_to_free_canonball",
+    "order": 99867,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 9
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Toad Lee + I = toxin victims. Canonball’s stuck. #HJumpik",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_and_guard_fail_to_free_canonball",
+    "order": 99868,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 22
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Mushroom toxin? No escape. Canonball’s in trouble. #Guard",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_and_guard_fail_to_free_canonball",
+    "order": 99869,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 35
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Toad Lee & guard: failed. Mushrooms: winner. #Dwarf",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_and_guard_fail_to_free_canonball",
+    "order": 99870,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 48
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Wario’s garlic clove? More like a grenade. Guard: ‘Why?’ Wario: ‘Motives… garlic.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_garlic_weaponizes",
+    "order": 99871,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 3
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf: ‘That garlic clove… is that even legal?’ Wario: ‘It’s my rage. You’ll regret it.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_garlic_weaponizes",
+    "order": 99872,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 16
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard: ‘Garlic? Wario’s weapon? I’m not sure I can stand that.’ Hjumpik: ‘He’s got guts… and garlic.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_garlic_weaponizes",
+    "order": 99873,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 29
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik: ‘Wario’s garlic clove? That’s not a weapon… that’s a meme.’ Guard: ‘Meme or not, it’s terrifying.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_garlic_weaponizes",
+    "order": 99874,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 42
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball: ‘Garlic clove? Wario’s got the power… and the smell. I’m out.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "wario_garlic_weaponizes",
+    "order": 99875,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 55
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Toad Lee’s shipping deal? Wario’s got a deadline… and a cannonball. #WarioWoes",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_ships_monty_mole",
+    "order": 99876,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 10
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf’s got a delivery slip. Wario’s got a grumble. Toad Lee’s got a plan. #DwarfDelivery",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_ships_monty_mole",
+    "order": 99877,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 23
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard’s eyes widen. Toad Lee’s negotiating. Wario’s ready to jump. #GuardAlert",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_ships_monty_mole",
+    "order": 99878,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 36
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik’s got a toad. Wario’s got a temper. Toad Lee’s got a ship. #HjumpikHustle",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_ships_monty_mole",
+    "order": 99879,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 49
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball’s in the airship’s cargo bay. Wario’s still yelling. #CanonballCrisis",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "toad_lee_ships_monty_mole",
+    "order": 99880,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 2
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "WHOA! The steel paws just carved a secret passage... I’m in. #Hjumpik",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discover_secret_passage",
+    "order": 99881,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 17
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Guard’s gone. Steel paws? Hjumpik’s got a secret. #Hjumpik",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discover_secret_passage",
+    "order": 99882,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 30
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Steel paws? I’m not guarding anything... Hjumpik’s got a secret. #Hjumpik",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discover_secret_passage",
+    "order": 99883,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 43
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Steel paws? Secret passage? I’m the only one who’s brave enough. #Hjumpik",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discover_secret_passage",
+    "order": 99884,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 56
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Steel paws? Secret? Hjumpik’s got a secret. I’m in. #Hjumpik",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discover_secret_passage",
+    "order": 99885,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 9
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Banging drums, wine in hand—canonball’s got the party vibe. 🎶",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "satyr_party_begins",
+    "order": 99886,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 24
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf’s stomping through the dance floor—no worries, just wine and rhythm.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "satyr_party_begins",
+    "order": 99887,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 37
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard’s got a wild smile—revelry’s the only order tonight.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "satyr_party_begins",
+    "order": 99888,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 50
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik’s spinning like a wind-up toy—party’s got no rules, just joy.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "satyr_party_begins",
+    "order": 99889,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 3
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball’s calling it: dance, drink, forget the worry. 🥂",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "satyr_party_begins",
+    "order": 99890,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 16
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik: 'No quiet, no tame!' Satyrs: 'We’re tired of noise!' 🐎",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_satyrs",
+    "order": 99891,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 31
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Hjumpik’s chaos? We’re not stopping. Satyrs are just... confused. 😅",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_satyrs",
+    "order": 99892,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 44
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Satyrs want calm. Hjumpik? He’s a festival in a tunic. 🎉",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_satyrs",
+    "order": 99893,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 57
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Revelry continues. Satyrs? They’re trying to be polite. 🤷‍♂️",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_satyrs",
+    "order": 99894,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 10
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Hjumpik: 'This is the party, not the protest!' Satyrs: 'We’re just... not loud.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_satyrs",
+    "order": 99895,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 23
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik & Steely? Nah. The Revel’s already eating their snacks. #StaffRoomHorror",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_encounters_revel",
+    "order": 99896,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 38
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Guard’s got a snack bar… The Revel’s got a snack bar *and* a snack bar *and* a snack bar.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_encounters_revel",
+    "order": 99897,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 51
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Hjumpik: ‘Wait, is that… a snack?’ The Revel: ‘Snacks? I’m *snack*.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_encounters_revel",
+    "order": 99898,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 4
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Steely’s trying to escape. The Revel’s just… eating. #StaffRoomGoneWrong",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_encounters_revel",
+    "order": 99899,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 17
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Dwarf’s holding a snack. The Revel’s holding a snack. And a snack. And a snack.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_encounters_revel",
+    "order": 99900,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 30
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik: 'You're the Revel Master? I’m just here to throw cannonballs.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_revel_master",
+    "order": 99901,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 45
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf: 'Bar game? That’s how you got the Revel? I’m in. No dice.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_revel_master",
+    "order": 99902,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 58
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard: 'Revel Master’s got the chaos. Hjumpik? You’re the only one who can stop it.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_revel_master",
+    "order": 99903,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 11
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik: 'Bar game? I’m here for the chaos. Not the rules.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_revel_master",
+    "order": 99904,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 24
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball: 'Revel Master’s got the power. I’ll break it with a cannonball.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_meets_revel_master",
+    "order": 99905,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 37
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Ralis sings: 'Legion’s judgment? I was there. Now I’m with the Revel Master.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ralos_reveals_identity",
+    "order": 99906,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 52
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Ralis’ voice cracks with Legion memory. 'They judged us… now I judge them.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ralos_reveals_identity",
+    "order": 99907,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 5
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Ralis: 'I fought the Legion. Now I sing its wrath. Revel Master’s side, I’m here.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ralos_reveals_identity",
+    "order": 99908,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 18
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Ralis, Legion’s ghost, now Revel Master’s choir. 'Judgment’s not over… just changed.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ralos_reveals_identity",
+    "order": 99909,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 31
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Ralis: 'Legion’s echo. Revel Master’s echo. I’m the last one who saw it.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ralos_reveals_identity",
+    "order": 99910,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 44
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Dwarf trapped? Hjumpik’s friends saved him. Guard’s got a lot of explaining to do.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discovers_vines",
+    "order": 99911,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 59
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Saved by my friends. Hjumpik’s got guts. Guard? Still owes me a cup of tea.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discovers_vines",
+    "order": 99912,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 12
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Vines were a trap. Hjumpik’s team was fast. Canonball? Still wondering if he’s got a plan.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discovers_vines",
+    "order": 99913,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 25
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Dwarf’s safe. Guard’s in trouble. Canonball’s got the last laugh… or maybe the first.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discovers_vines",
+    "order": 99914,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 38
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Dwarf’s out. Guard’s lost. Hjumpik’s got a new mission. I’m in.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_discovers_vines",
+    "order": 99915,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 51
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik: 'Revel Master’s not just a GM… he’s chaos incarnate. I’m scared.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_learns_of_revel_master_plan",
+    "order": 99916,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 6
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Hjumpik’s got a new fear: Revel Master controls death. I’m a dwarf. I’m not scared… yet.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_learns_of_revel_master_plan",
+    "order": 99917,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 19
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard: 'Revel Master? He’s not a GM… he’s the chaos itself. Don’t ask me how I know.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_learns_of_revel_master_plan",
+    "order": 99918,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 32
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "I thought Revel Master was a game master… turns out he’s a god of chaos. And I’m his puppet.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_learns_of_revel_master_plan",
+    "order": 99919,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 45
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball: 'Revel Master’s got a deathly grin. I think he’s watching me.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_learns_of_revel_master_plan",
+    "order": 99920,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 58
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Blast in the other room? I’m already in the hallway. HJUMP! 🎯",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "explosion_heard",
+    "order": 99921,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 13
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Blast? I’m just digging. Not a worry. HJUMP! 🪨",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "explosion_heard",
+    "order": 99922,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 26
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Blast in another room? I’ll check it. HJUMP! 🛡️",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "explosion_heard",
+    "order": 99923,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 39
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Blast? HJUMP! I’m already airborne. 🎮",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "explosion_heard",
+    "order": 99924,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 52
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Blast? That’s just my canonball. HJUMP! 🎯",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "explosion_heard",
+    "order": 99925,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 5
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Hjumpik drops fast after explosion — canonball’s got a plan.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_falls",
+    "order": 99926,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 20
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf watches as Hjumpik vanishes — explosion was brutal.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_falls",
+    "order": 99927,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 33
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard’s stunned — Hjumpik’s gone. Explosion too fast for him.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_falls",
+    "order": 99928,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 46
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "Hjumpik? Gone. Explosion hit hard. No time to react.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_falls",
+    "order": 99929,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 59
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball: 'Hjumpik down fast. Explosion was... efficient.'",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "hjumpik_falls",
+    "order": 99930,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 12
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "canonball",
+    "content": "Keg’s empty? I’m outta here. #canonball",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "relos_realizes",
+    "order": 99931,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 27
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "dwarf",
+    "content": "Dwarf: ‘Keg’s empty…’ Then he just… sits. #dwarf",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "relos_realizes",
+    "order": 99932,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 40
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "guard",
+    "content": "Guard: ‘Keg’s empty? I’ll report this.’ #guard",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "relos_realizes",
+    "order": 99933,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 53
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "hjumpik",
+    "content": "HJumpik: ‘Keg empty? I’ll take the last sip.’ #hjumpik",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "relos_realizes",
+    "order": 99934,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 6
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "canonball",
+    "content": "Canonball: ‘Keg’s empty… but I’m still standing.’ #canonball",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "relos_realizes",
+    "order": 99935,
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 19
+    }
+}
+,
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "BAM! Green thunderbolt strikes me as I open the door. #ThunderboltArchie",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_enters_bathroom",
+    "order": 99936,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "Archie’s door-opening ritual just got… electric. #BonesWatches",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_enters_bathroom",
+    "order": 99937,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 13
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "Archie + green bolt = drama. Who else saw that? #ByscillaStyle",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_enters_bathroom",
+    "order": 99938,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 26
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "Archie’s bathroom door? Thunderbolt? That’s a new record. #DarnoLaughs",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_enters_bathroom",
+    "order": 99939,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 39
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "I didn’t see that coming… until I did. #ThunderboltReactions",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_enters_bathroom",
+    "order": 99940,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 52
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Archie shatters the mirror — and bones scurry away. #MirrorBreak",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mirror_shatters_and_monster_freed",
+    "order": 99941,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 7
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "archie",
+    "content": "Archie’s smash? Brought out Byscilla Danos. #GoneWild",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mirror_shatters_and_monster_freed",
+    "order": 99942,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 20
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "archie",
+    "content": "Archie breaks glass. Bones flee. Darno Spriggon? Still watching.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mirror_shatters_and_monster_freed",
+    "order": 99943,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 33
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "archie",
+    "content": "Archie shattered mirror. Byscilla Danos? She’s gone. #Mysteries",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mirror_shatters_and_monster_freed",
+    "order": 99944,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 46
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Archie breaks, bones run. Darno Spriggon: ‘I’m not surprised.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mirror_shatters_and_monster_freed",
+    "order": 99945,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 59
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Bones jumped in — got hurt, but still says: 'I’m here to help!' #BonesStrong",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "bones_jumps_down_and_gets_injured",
+    "order": 99946,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 14
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "Down I go... but up I rise. Mission: assist. No quit. #BonesUnstoppable",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "bones_jumps_down_and_gets_injured",
+    "order": 99947,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 27
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "Bones: ‘I’m injured. But I’m here to help.’ 💪 #HeroWithABrokenBone",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "bones_jumps_down_and_gets_injured",
+    "order": 99948,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 40
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "Bones drops, breaks a leg… still says ‘I’m here to assist.’ 🦴 #TeamworkOverInjury",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "bones_jumps_down_and_gets_injured",
+    "order": 99949,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 53
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Bones: ‘Helping. Even when I’m down.’ 🩸❤️ #BonesAlwaysThere",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "bones_jumps_down_and_gets_injured",
+    "order": 99950,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 6
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Fireball through glass… spider? Gone. #ArchiesJustice",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_fires_fireball_through_window",
+    "order": 99951,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 21
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "Archie’s fireball was… efficient. Spider: ‘Nope.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_fires_fireball_through_window",
+    "order": 99952,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 34
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "Archie’s fireball shattered a window… and a spider. 😈",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_fires_fireball_through_window",
+    "order": 99953,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 47
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "Archie: ‘Fireball. Window. Spider. Done.’ #FireballFacts",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_fires_fireball_through_window",
+    "order": 99954,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 0
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Spiders don’t deserve my fireball. Especially through glass.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_fires_fireball_through_window",
+    "order": 99955,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 13
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Spider footprint on blue bed? Wall breach? 🕷️ #archie",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "spider_leaves_footprint_on_bed",
+    "order": 99956,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 28
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "Who put a spider in my wall? 🕷️ #bones",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "spider_leaves_footprint_on_bed",
+    "order": 99957,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 41
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "Blue bed, spider print? That’s a wall-hopping legend. 🕷️ #byscilla_danos",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "spider_leaves_footprint_on_bed",
+    "order": 99958,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 54
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "Spider footprints? I’m filing a wall trespass report. 🕷️ #darno_spriggon",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "spider_leaves_footprint_on_bed",
+    "order": 99959,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 7
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Blue bed + spider = mystery. I’m solving it. 🕷️ #archie",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "spider_leaves_footprint_on_bed",
+    "order": 99960,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 20
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Bones is a menace in a gown. #RegencyParty",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_and_bones_reach_party",
+    "order": 99961,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 35
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "Archie’s got a crown. I’m not a regent. #RegencyParty",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_and_bones_reach_party",
+    "order": 99962,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 48
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "Archie and Bones? Regency chaos. I’m not invited.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_and_bones_reach_party",
+    "order": 99963,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 1
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "Guarding a party? I’m not the guard. I’m the snack.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_and_bones_reach_party",
+    "order": 99964,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 14
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Bones, you’re too late. The Regency’s already in session.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_and_bones_reach_party",
+    "order": 99965,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 27
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Ghost flies through wall! Battle’s about to start. #Spooktacular",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ghost_fly_through_wall",
+    "order": 99966,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 42
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "Wall? No. Ghost. And I’m already on the battlefield. #SpecterStrike",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ghost_fly_through_wall",
+    "order": 99967,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 55
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "Ghost flying? That’s the signal. Let’s go. #BattleBegin",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ghost_fly_through_wall",
+    "order": 99968,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 8
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Ghost flies. Battle starts. I’m already ready. #GhostAttack",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "ghost_fly_through_wall",
+    "order": 99969,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 21
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Darno Spriggon laughs as slime splits—archie’s favorite battle.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "slime_splits_and_battles",
+    "order": 99970,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 49
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "Bones: ‘Darno’s got style. Slime? Splitting is its last dance.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "slime_splits_and_battles",
+    "order": 99971,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "Byscilla: ‘Darno’s got a smirk. Slime? Fates are made to split.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "slime_splits_and_battles",
+    "order": 99972,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 15
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "Darno: ‘Splitting slime? I’m laughing. I’m the boss.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "slime_splits_and_battles",
+    "order": 99973,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 28
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Archie: ‘Slime’s fate? Darno’s got the last laugh. Again.’",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "slime_splits_and_battles",
+    "order": 99974,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 41
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "MECH CRASHES THROUGH CEILING. 'LET'S GO BRO BOT.' - Archie's face: confused. 🤖💥",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "giant_mech_crashes_in",
+    "order": 99975,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 56
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "Byscilla: 'Lemme guess... that's a mech. And it's not gonna stop. Let's go bro bot.' 💥🤖",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "giant_mech_crashes_in",
+    "order": 99976,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 9
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "Darno: 'Ceiling's down. Time to go bro bot. Let's roll.' 🚀🤖",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "giant_mech_crashes_in",
+    "order": 99977,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 22
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Archie: 'Wait... that mech just said 'bro bot'? I'm confused. 🤖??",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "giant_mech_crashes_in",
+    "order": 99978,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 35
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Bones? What’s going on? I just felt the zone destabilizing!",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_discovers_event",
+    "order": 99979,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 3
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "archie",
+    "content": "Byscilla_danos, you’re not going to believe this… the magic’s unraveling!",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_discovers_event",
+    "order": 99980,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 16
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "archie",
+    "content": "Darno_spriggon, I need you to contain this—zone’s collapsing, fast!",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_discovers_event",
+    "order": 99981,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 29
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "archie",
+    "content": "Bones, are you okay? I’m not sure if the magic’s still in control…",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_discovers_event",
+    "order": 99982,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 42
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Byscilla_danos, darno_spriggon… this isn’t just a glitch. It’s a breach.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "archie_discovers_event",
+    "order": 99983,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 55
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "New villain’s coming. I’m not scared. I’m just… intrigued.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "new_villain_appears",
+    "order": 99984,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 10
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "He’s got claws. He’s got a plan. And he’s got me. What’s next?",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "new_villain_appears",
+    "order": 99985,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 23
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "They say he’ll break the world. I say… I’ll break him first.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "new_villain_appears",
+    "order": 99986,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 36
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "I’ve seen worse. This one’s got a vendetta. And I’m here to finish it.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "new_villain_appears",
+    "order": 99987,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 49
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "New villain? Bring it. I’ve got a cape. And a plan. And a laugh.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "new_villain_appears",
+    "order": 99988,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 2
+    }
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Mole vs. new figure? I’m laughing… I’m still in charge.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mole_battles_figure",
+    "order": 99989,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 17
+    }
+},
+  {
+    "id": "abc124",
+    "characterKey": "bones",
+    "content": "Mole’s got a new rival? Nah, I’ve been boss since day one.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mole_battles_figure",
+    "order": 99990,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 30
+    }
+},
+  {
+    "id": "abc125",
+    "characterKey": "byscilla_danos",
+    "content": "New figure? Ha! The mole’s still laughing… and in charge.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mole_battles_figure",
+    "order": 99991,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 43
+    }
+},
+  {
+    "id": "abc126",
+    "characterKey": "darno_spriggon",
+    "content": "Mole vs. boss? I’m the boss. And I’m laughing.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mole_battles_figure",
+    "order": 99992,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 56
+    }
+},
+  {
+    "id": "abc127",
+    "characterKey": "archie",
+    "content": "Mole’s got a new problem? Nah — I’ve got the mic, and the laugh.",
+    "likes": 50,
+    "comments": [],
+    "rumorId": "mole_battles_figure",
+    "order": 99993,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 9
+    }
+}
 ];
 
 // Export helper for event integration

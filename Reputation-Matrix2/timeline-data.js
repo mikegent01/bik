@@ -894,4 +894,448 @@ export const HISTORICAL_TIMELINE = [
     "icon": "icon_focus.png",
     "category": "Recent Event"
 }
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "Hjumpik and Toad Lee enter the",
+    "description": "Hjumpik and Toad Lee enter the manor, passing satyrs who offer drinks but are declined.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "Toad Lee identifies a soldier as",
+    "description": "Toad Lee identifies a soldier as either from the Iron Legion or the Mages Guild.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "Hjumpik spots Wario, who is already",
+    "description": "Hjumpik spots Wario, who is already in the manor, and later engages him in a debt-related interaction.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "Hjumpik shops for items and discovers",
+    "description": "Hjumpik shops for items and discovers Wario is collecting debts, leading to a confrontation over discounts.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "Wario presents Hjumpik with a detailed",
+    "description": "Wario presents Hjumpik with a detailed ledger of debts owed to him, including humorous and threatening entries.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "Toad Lee shouts 'HEY WE FOUND",
+    "description": "Toad Lee shouts 'HEY WE FOUND THE CANONBALL' after spotting it near a guard.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 12,
+        "minute": 42
+    },
+    "title": "Hjumpik sees Wario shoulder-bash two ",
+    "description": "Hjumpik sees Wario shoulder-bash two people, then asks if they're okay.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 13,
+        "minute": 59
+    },
+    "title": "Wario treats his ledger as sacred",
+    "description": "Wario treats his ledger as sacred scripture and risks his life to recover it due to its financial and legal value.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 14,
+        "minute": 16
+    },
+    "title": "Toad Lee and the guard fail",
+    "description": "Toad Lee and the guard fail to free Canonball after being affected by a toxin from mushrooms.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 15,
+        "minute": 33
+    },
+    "title": "Wario uses a garlic clove as",
+    "description": "Wario uses a garlic clove as a weapon, causing others to recoil and question his motives.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 16,
+        "minute": 50
+    },
+    "title": "Toad Lee arranges shipping for Monty",
+    "description": "Toad Lee arranges shipping for Monty Mole to an airship, negotiating with Wario over delivery time.",
+    "icon": "icon_ring.png",
+    "category": "Faction Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 17,
+        "minute": 7
+    },
+    "title": "Hjumpik discovers a secret passage after",
+    "description": "Hjumpik discovers a secret passage after the steel machine paws at the wall.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 18,
+        "minute": 24
+    },
+    "title": "A satyr party begins with revelry",
+    "description": "A satyr party begins with revelry, wine, and dancing, with the satyr leader urging revelry over worry.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 19,
+        "minute": 41
+    },
+    "title": "Hjumpik encounters satyrs who want to",
+    "description": "Hjumpik encounters satyrs who want to be quiet and tame, but he insists on continuing the revel.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 20,
+        "minute": 58
+    },
+    "title": "Hjumpik and Steely enter a staff",
+    "description": "Hjumpik and Steely enter a staff room where they encounter The Revel, a chaotic, monstrous entity made of hunger and debauchery.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 21,
+        "minute": 15
+    },
+    "title": "Hjumpik meets the Revel Master, who",
+    "description": "Hjumpik meets the Revel Master, who claims to have created The Revel through a bar game and now controls its chaotic nature.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 6,
+        "minute": 32
+    },
+    "title": "Ralis (possibly Ralos or Relis) reveals",
+    "description": "Ralis (possibly Ralos or Relis) reveals himself as the Revel Master’s companion and a former Legion member, singing about the Legion’s judgment.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 7,
+        "minute": 49
+    },
+    "title": "Hjumpik learns that the vines in",
+    "description": "Hjumpik learns that the vines in the room were used to trap a dwarf, who was rescued by his friends.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 8,
+        "minute": 6
+    },
+    "title": "Hjumpik learns the Revel Master is",
+    "description": "Hjumpik learns the Revel Master is not just a game master but a being who manipulates death and chaos to keep the revel going.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 9,
+        "minute": 23
+    },
+    "title": "A very large blast is heard",
+    "description": "A very large blast is heard in another room.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 10,
+        "minute": 40
+    },
+    "title": "Hjumpik quickly goes down in response",
+    "description": "Hjumpik quickly goes down in response to the explosion.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 5,
+        "day": 29,
+        "hour": 11,
+        "minute": 57
+    },
+    "title": "Relos realizes the keg is empty",
+    "description": "Relos realizes the keg is empty.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+}
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "Archie opens a bathroom door and",
+    "description": "Archie opens a bathroom door and is struck by a green thunderbolt fire.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "Archie shatters a mirror, freeing a",
+    "description": "Archie shatters a mirror, freeing a creature that scurries away.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "Bones jumps down to help, gets",
+    "description": "Bones jumps down to help, gets injured, and declares he's here to assist.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "Archie fires a fireball through a",
+    "description": "Archie fires a fireball through a shattered window, killing a spider.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "A spider leaves a strange footprint",
+    "description": "A spider leaves a strange footprint on a blue bed, suggesting it stepped through a wall.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "Archie and Bones arrive at a",
+    "description": "Archie and Bones arrive at a party guarded by the Regency.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 42
+    },
+    "title": "A ghost flies through the wall",
+    "description": "A ghost flies through the wall as the battle begins.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 59
+    },
+    "title": "Darno Spriggon battles a splitting sl",
+    "description": "Darno Spriggon battles a splitting slime, laughing at its fate.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 16
+    },
+    "title": "A giant mech crashes through the",
+    "description": "A giant mech crashes through the ceiling, declaring 'lets go bro bot'.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 15,
+        "minute": 33
+    },
+    "title": "Archie discovers a destabilization ev",
+    "description": "Archie discovers a destabilization event in a protected magical zone.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 16,
+        "minute": 50
+    },
+    "title": "A new villain emerges, demanding the",
+    "description": "A new villain emerges, demanding the party defeat them.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 17,
+        "minute": 7
+    },
+    "title": "The mole battles a new figure",
+    "description": "The mole battles a new figure, laughing about who's in charge.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+}
 ];
