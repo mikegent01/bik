@@ -90,7 +90,7 @@
         "playerKey": "hjumpik"
     },
     {
-        "orderId": "WW-1D1U1GWJ-04",
+        "orderId": "WW-1D1U1GWJ-05",
         "itemId": "sarasaland_desert_soul_torch",
         "itemName": "Desert Soul Torch",
         "price": 392,
@@ -100,13 +100,53 @@
         "playerKey": "hjumpik"
     },
         {
-        "orderId": "WW-1D1U1GWJ-04",
-        "itemId": "animatopia_item_name_here",
+        "orderId": "WW-1D1U1GWJ-06",
+        "itemId": "a_token_of_bureaucratic_chaos",
         "itemName": "Gehenna Academy Keychain",
         "price": 294,
         "isFaction": false,
         "approvedAt": "2026-03-021:55:00.000Z",
         "approvedBy": "Wario",
         "playerKey": "hjumpik"
-    }
+    },
+            {
+        "orderId": "WW-1D1U1GWJ-07",
+        "itemId": "leclaire_isle_bakery_blessing",
+        "itemName": "Doughbound Blessing",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+            {
+        "orderId": "WW-1D1U1GWJ-08",
+        "itemId": "isle_delfino_tropical_tonic",
+        "itemName": "Tropical Tonic of the Shine Sprite",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },    
+            {
+        "orderId": "WW-1D1U1GWJ-09",
+        "itemId": "rogueport_black_market_tape",
+        "itemName": "Black Market Tape",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },    
+            {
+        "orderId": "WW-1D1U1GWJ-10",
+        "itemId": "dk_isles_fungal_essence",
+        "itemName": "Fungal Essence",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    }   
 ]

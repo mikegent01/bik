@@ -1,0 +1,31 @@
+======================================================================
+SHOP DATA PROCESSING SUMMARY
+Generated: 2026-03-21 11:27:25
+======================================================================
+
+STATISTICS:
+  Original items:      5,010
+  Duplicates removed:  4
+  Items renamed:       181
+  Final item count:    5,006
+  Files created:       11 + 1 (categories.js)
+
+FILE STRUCTURE:
+  shop-items/
+    └── categories.js      (SHOP_CATEGORIES definition)
+    └── items_001.js: 500 items
+    └── items_002.js: 500 items
+    └── items_003.js: 500 items
+    └── items_004.js: 500 items
+    └── items_005.js: 500 items
+    └── items_006.js: 500 items
+    └── items_007.js: 500 items
+    └── items_008.js: 500 items
+    └── items_009.js: 500 items
+    └── items_010.js: 500 items
+    └── items_011.js: 6 items
+
+  shop-data.js              (updated - imports all chunks)
+  shop-data_backup.js       (original backup)
+  duplicate-report.txt
+  SUMMARY.txt
