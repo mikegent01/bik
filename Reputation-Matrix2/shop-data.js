@@ -1,7 +1,8 @@
 
 // ============================================
 // SHOP ITEM IMPORTS (Auto-generated)
-// Generated: 2026-03-21 16:48:00
+// Generated: 2026-03-22 20:00:42
+// Files: 84 numbered + 1 special
 // ============================================
 
 import { ITEMS_001 } from './shop-items/items_001.js';
@@ -67,6 +68,27 @@ import { ITEMS_060 } from './shop-items/items_060.js';
 import { ITEMS_061 } from './shop-items/items_061.js';
 import { ITEMS_062 } from './shop-items/items_062.js';
 import { ITEMS_063 } from './shop-items/items_063.js';
+import { ITEMS_064 } from './shop-items/items_064.js';
+import { ITEMS_065 } from './shop-items/items_065.js';
+import { ITEMS_066 } from './shop-items/items_066.js';
+import { ITEMS_067 } from './shop-items/items_067.js';
+import { ITEMS_068 } from './shop-items/items_068.js';
+import { ITEMS_069 } from './shop-items/items_069.js';
+import { ITEMS_070 } from './shop-items/items_070.js';
+import { ITEMS_071 } from './shop-items/items_071.js';
+import { ITEMS_072 } from './shop-items/items_072.js';
+import { ITEMS_073 } from './shop-items/items_073.js';
+import { ITEMS_074 } from './shop-items/items_074.js';
+import { ITEMS_075 } from './shop-items/items_075.js';
+import { ITEMS_076 } from './shop-items/items_076.js';
+import { ITEMS_077 } from './shop-items/items_077.js';
+import { ITEMS_078 } from './shop-items/items_078.js';
+import { ITEMS_079 } from './shop-items/items_079.js';
+import { ITEMS_080 } from './shop-items/items_080.js';
+import { ITEMS_081 } from './shop-items/items_081.js';
+import { ITEMS_082 } from './shop-items/items_082.js';
+import { ITEMS_083 } from './shop-items/items_083.js';
+import { ITEMS_084 } from './shop-items/items_084.js';
 import { ITEMS_NIGHT_SPECIAL } from './shop-items/items_night_special.js';
 
 // ============================================
@@ -137,6 +159,27 @@ export const SHOP_ITEMS = {
   ...ITEMS_061,
   ...ITEMS_062,
   ...ITEMS_063,
+  ...ITEMS_064,
+  ...ITEMS_065,
+  ...ITEMS_066,
+  ...ITEMS_067,
+  ...ITEMS_068,
+  ...ITEMS_069,
+  ...ITEMS_070,
+  ...ITEMS_071,
+  ...ITEMS_072,
+  ...ITEMS_073,
+  ...ITEMS_074,
+  ...ITEMS_075,
+  ...ITEMS_076,
+  ...ITEMS_077,
+  ...ITEMS_078,
+  ...ITEMS_079,
+  ...ITEMS_080,
+  ...ITEMS_081,
+  ...ITEMS_082,
+  ...ITEMS_083,
+  ...ITEMS_084,
 };
 
 // ============================================
@@ -147,6 +190,60 @@ export const NIGHT_SPECIAL_ITEMS = {
   ...ITEMS_NIGHT_SPECIAL,
 };
 
+// ============================================
+// SHOP ITEM IMPORTS (Auto-generated)
+// Generated: 2026-03-22 20:00:17
+// Files: 83 numbered + 1 special
+// ============================================
+
+
+// ============================================
+// SHOP ITEM IMPORTS (Auto-generated)
+// Generated: 2026-03-22 19:55:48
+// Files: 82 numbered + 1 special
+// ============================================
+
+
+// ============================================
+// SHOP ITEM IMPORTS (Auto-generated)
+// Generated: 2026-03-22 19:50:04
+// Files: 81 numbered + 1 special
+// ============================================
+
+
+// ============================================
+// SHOP ITEM IMPORTS (Auto-generated)
+// Generated: 2026-03-22 19:45:28
+// Files: 80 numbered + 1 special
+// ============================================
+
+
+// ============================================
+// SHOP ITEM IMPORTS (Auto-generated)
+// Generated: 2026-03-22 19:40:36
+// Files: 79 numbered + 1 special
+// ============================================
+
+
+// ============================================
+// SHOP ITEM IMPORTS (Auto-generated)
+// Generated: 2026-03-22 19:35:26
+// Files: 78 numbered + 1 special
+// ============================================
+
+
+// ============================================
+// SHOP ITEM IMPORTS (Auto-generated)
+// Generated: 2026-03-22 19:30:23
+// Files: 77 numbered + 1 special
+// ============================================
+
+
+// ============================================
+// SHOP ITEM IMPORTS (Auto-generated)
+// Generated: 2026-03-22 19:25:25
+// Files: 76 numbered + 1 special
+// ============================================
 
 
 // Add after SHOP_CATEGORIES - REPLACE the old MEMBERSHIP_TIERS
