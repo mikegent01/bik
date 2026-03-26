@@ -1,5 +1,80 @@
 [
-  
+  {
+  "id": "heist_ocular_shard",
+  "name": "The Heist of the Ocular Shard",
+  "title": "How Archie Got a Third Eye and Waluigi Got a Headache",
+  "date": "Approximately 1037 BF — two years before the current mess",
+  "era": "Pre-Raventree Crisis",
+  "location": "The Vault of the Unseeing — a sub-basement of the Mages' Guild Annex",
+  "type": "Botched Robbery / Arcane Accident / Permanent Disfigurement",
+  "status": "Concluded — Archie is still blinking with an eye he didn't buy",
+  "summary": "Archie Miser was hired by a 'discreet party' (Waluigi suspects the Onyx Hand, but Archie claims it was a very tall bird in a trench coat) to steal the Ocular Shard of the Third Branch. It was supposed to be a 'silent' job. Archie is not silent. Archie is the opposite of silent. Archie is an explosion that learned how to walk. He triggered a suppression field, panicked, tried to 'melt' a security barrier that was made of pure solidified logic, and the resulting backfire fused the artifact directly into his metaphysical signature. Now he has a third eye that sees 'precognitive flashes'—which usually just tell him he’s about to be hit by something five seconds before it happens. Waluigi finds the irony delicious. WAH.",
+  "description": "Waluigi has analyzed the police reports and Archie's own rambling self-justifications regarding the Ocular Shard incident. The reality of the heist is a comedy of errors that nearly resulted in the localized collapse of the Mages' Guild's insurance premiums.\n\n## The Target — The Ocular Shard\n\nThe Shard was a relic from the 'Third Branch' of the original World Tree—a crystalline eye that supposedly saw the truth of all things. The Mages' Guild kept it in a vault lined with lead and 'Anti-Optimism Charms' to prevent it from manifesting a personality. It was a high-value target. It was a professional's job.\n\nThey hired Archie.\n\nWaluigi is still trying to find the individual who made that hiring decision. Waluigi wants to meet them. Waluigi wants to look into their eyes and see what kind of profound cognitive failure leads a person to think: 'Yes, the man who smells of sulfur and burnt hair is the perfect choice for a stealth mission into the heart of the world's most litigious spellcasters.'\n\n## The Infiltration (The 'Silent' Phase)\n\nAccording to Archie, he made it through the first three layers of security using 'stealth and cunning.' Waluigi has checked the records. Archie made it through because the guards were on a mandatory union lunch break and the automated golems were undergoing a firmware update. He didn't use stealth; he used a statistical anomaly.\n\nHe reached the central pedestal. He saw the Shard. He should have used the specialized silk gloves provided by his employer. Instead, Archie—who possesses the impulse control of a firecracker—decided to 'scan' it for traps using a low-level ignition cantrip.\n\nYou do not use fire to scan a crystal designed to perceive the fabric of reality. It’s like using a sledgehammer to check if a mirror is clean.\n\n## The Backfire (The 'Loud' Phase)\n\nThe Shard reacted. It didn't just explode; it REJECTED the physical plane. The suppression field Archie triggered began folding space-time in the room like a napkin. Archie, realizing he was about to become two-dimensional, grabbed the Shard and tried to cast a 'Stabilizing Fireball'—a spell that Waluigi is 90% sure Archie invented on the spot and 100% sure does not work.\n\nThe resulting magical resonance fused the Shard’s essence with Archie’s brow. There was a flash seen as far away as the Docks. The Vault was neutralized. The Shard was gone. And Archie was lying on the floor with an extra eye and a very confused expression.\n\n## The Resulting 'Gift'\n\nThe third eye isn't a physical organ. It’s a 'precognitive aperture.' It grants Archie flashes of the immediate future. The problem—which Waluigi finds endlessly entertaining—is that Archie's brain isn't wired to process four-dimensional input. He sees a vase breaking five seconds before it happens, but he’s so busy watching the 'vision' that he trips over the actual vase in the present.\n\nHe calls himself 'The Three-Eyed Bandit' now. He thinks it sounds intimidating. To Waluigi, it sounds like a man who is trying to turn a permanent workplace injury into a brand identity. \n\nThis incident is why the Swiftsoul Keep authorities were so quick to flag him during the Platform 3 explosion. Once you have an 'Arcane Signature of Artifact Theft' permanently etched into your forehead, 'benefit of the doubt' is a luxury you can no longer afford.\n\nWAH.",
+  "participants": [
+    {
+      "id": "archie_miser",
+      "name": "Archie Miser",
+      "role": "The Thief — successfully stole a relic by absorbing it into his face"
+    },
+    {
+      "id": "mages_guild_guards",
+      "name": "Guild Security",
+      "role": "The Absentees — were eating sandwiches while reality was being folded"
+    }
+  ],
+  "outcome": "Archie acquired a permanent precognitive third eye. The Ocular Shard was removed from the Material Plane. Archie became a person of interest for the Mages' Guild's 'Asset Recovery' division.",
+  "notableFeatures": [
+    "Permanent precognitive eye — allows Archie to see the future but not react to it in time",
+    "Alias Origin — created the 'Three-Eyed Bandit' persona post-heist",
+    "Stabilizing Fireball — a theoretical spell that should never be cast again"
+  ],
+  "relatedArticles": [
+    "archie_miser",
+    "mages_guild",
+    "caseData"
+  ]
+},
+{
+  "id": "deep_mirror_incursion",
+  "name": "The Deep Mirror Incursion",
+  "title": "Where Time Goes to Rot",
+  "date": "Day 21-25, 1040 BF",
+  "era": "Raventree Crisis",
+  "location": "The Deep Mirror — a sub-dimension of decaying chronitons",
+  "type": "Dimensional Survival / Temporal Trauma",
+  "status": "Concluded — Markop and Remi escaped, but their watches are still running backward",
+  "summary": "While Waluigi was dealing with fey riddles and Archie was having a crisis of fire-loss in the Shadowfell, Markop and Remi were trapped in the Deep Mirror. This was the 'third shard' of the Planar Fracture. It is a dimension made of broken glass and rotting time. If the Feywild is 'Too Much Life' and the Shadowfell is 'Too Much Death,' the Deep Mirror is 'Too Much Evidence.' It shows you every version of yourself that failed. Markop had to fight a version of himself that never left the swamp. Remi had to navigate a library where the books un-write themselves as you read them. They survived because the Oracle did... something. Waluigi hasn't gotten a straight answer from any of them. Typical. WAH.",
+  "description": "Waluigi has interviewed Remi about the Deep Mirror. She described it as 'unpleasantly shiny.' Markop described it as 'the smell of old copper and regret.' Waluigi describes it as a place he is very glad he wasn't invited to.\n\n## The Geography of Decay\n\nThe Deep Mirror isn't a landmass; it’s a series of crystalline islands floating in a sea of mercury. The 'sky' is just a reflection of the ground, which means if you look up, you see yourself looking down, which Waluigi finds dizzying to even think about. \n\nThe primary danger isn't the monsters—it’s the 'Chroniton Rot.' Time doesn't move linearly there. You can walk into a room and meet yourself leaving it. You can see your own beard grow three inches in a minute and then fall off because it aged a century. Markop apparently spent four hours in a conversation with a version of himself from ten minutes in the future, and they spent the entire time arguing about whose turn it was to hold the map.\n\n## The Echoes of Failure\n\nThe dimension feeds on regret. It manifests 'Echoes'—crystalline versions of the travelers that represent their greatest failures. \n\nMarkop encountered 'The Stagnant King'—a version of himself that never sought adventure, who stayed in the marshes and watched his people fade into obscurity. It wasn't a physical fight; it was a psychological siege. The Echo tried to convince Markop that his current journey was just a slower way to fail. Markop eventually defeated it by—according to Remi—'being too stubborn to listen to sense.' Waluigi respects this tactic. Stubbornness is a valid defense against existential dread.\n\nRemi's Echo was 'The Silent Girl'—a version of her that lost her voice and her curiosity. In a dimension that un-writes history, a person who doesn't ask questions simply ceases to exist. Remi escaped by talking so much that the dimension couldn't keep up with the data-stream and glitch-bypassed her into the next zone. This is the most Remi solution Waluigi has ever documented.\n\n## The Oracle's Intervention\n\nThe Oracle was present, but in the Deep Mirror, the Oracle's 'mysterious guide' routine became literal. Because the Oracle exists across planes, they were the only ones who could see the 'seams' in the mirror. They led Markop and Remi to the Fractured Atrium—the center of the shard—and used a 'Temporal Suture' to pull them back toward the Material Plane.\n\nMarkop claims the Oracle looked 'thinner' afterward. Not physically thinner—metaphysically. Like they had used up a piece of their existence to pay for the return trip. \n\n## Long-Term Effects\n\nMarkop and Remi returned, but they aren't 'synced' quite right. Sometimes Markop reacts to a noise a split-second before it happens. Sometimes Remi's hair moves as if it’s in a breeze that stopped five minutes ago. The Deep Mirror leaves a mark. It reminds you that reality is just a reflection that can be broken.\n\nWAH.",
+  "participants": [
+    {
+      "id": "markop",
+      "name": "Markop",
+      "role": "The Anchor — resisted the Stagnant Echo through sheer refusal to be quiet"
+    },
+    {
+      "id": "remi",
+      "name": "Remi",
+      "role": "The Disruptor — overwhelmed the temporal decay with verbal output"
+    },
+    {
+      "id": "the_oracle",
+      "name": "The Oracle",
+      "role": "The Suture — sacrificed 'mass' to bridge the gap back to reality"
+    }
+  ],
+  "outcome": "Markop and Remi escaped the Deep Mirror. The 'Chroniton Rot' was purged but left minor temporal anomalies in their physical presence. The Oracle's power was significantly depleted.",
+  "notableFeatures": [
+    "Temporal Decay — objects and people age and de-age randomly",
+    "The Echoes — crystalline manifestations of personal failure",
+    "The Fractured Atrium — the exit point that requires a 'metaphysical toll' to use"
+  ],
+  "relatedArticles": [
+    "planar_fracture",
+    "markop",
+    "remi",
+    "the_oracle"
+  ]
+},
   {
   "id": "fawful_gala_revelations",
   "name": "Fawful's Gala Revelations",

@@ -588,7 +588,45 @@
       "speaker_l",
       "vigilance"
     ]
-  },  
+  },
+  {
+  "id": "swiftsoul_concourse_catastrophe",
+  "name": "The Swiftsoul Concourse Catastrophe",
+  "date": "Efferd 26, 1040 BF (14:00 hrs)",
+  "location": "Swiftsoul Keep Air Blimp Station, Platform 3",
+  "type": "Magical Explosion / Sabotage",
+  "result": "Station devastated; Three counts of murder charged against Archie Miser; 'The Swift Quill' damaged from the inside",
+  "belligerents": {
+    "attackers": { "name": "The Iron Fists (Infiltrators)", "factionId": "iron_fists", "commander": "Commander G / X.O." },
+    "defenders": { "name": "Station Workers (Jane/John Does)", "factionId": "civilians", "commander": "None" }
+  },
+  "casualties": {
+    "attackers": "None",
+    "defenders": "3 Unidentified Station Workers (Thermal Trauma); 1 Airship scorched"
+  },
+  "summary": "The explosion that started Archie’s current legal nightmare. Officially, Archie detonated a Fireball. Unofficially, the Iron Fists Guild used a 'Priority Cargo Inspection' (Protocol 7C) as cover to handle 'Project Chimera' reagents. A power spike (EMP) disabled the cameras for exactly 47 minutes, during which 'The Swift Quill' was cut open from the inside. Waluigi notes that the only thing Archie is guilty of is being in the wrong place at the wrong time with the wrong reputation.",
+  "description": "Waluigi has analyzed the station power logs. At 13:28, two distinct high-frequency energy spikes hit Camera CAM-P3A. This wasn't a 'fluctuation'—it was a targeted EMP. \n\n**Phase 1: The Setup**\nSgt. Borin Stonehand (off-duty) used an override key to authorize an Iron Fists inspection of 'The Swift Quill'. Archie was seen loitering nearby, panicking about a 'compromised package.' He was seeking Kyle Coinsoul, who was busy using a master override key near the docking clamps. \n\n**Phase 2: The Blast**\nAt 14:00, the epicenter of the blast hit. The residue was 'Grade D'—a loose match for Archie, but contaminated with non-standard metallic particulates (silver, iron, copper). A greasy handprint smelling of garlic was later found on the *inside* of the blimp’s cargo hatch. \n\n**Phase 3: The Flight**\nArchie fled into the maintenance corridors. An anonymous tip (likely from the Guild) was phoned in 30 minutes later, blaming the 'Red Hands' gang. It was a masterclass in misdirection. \n\nWAH.",
+  "relatedArticles": ["archie_miser", "miles_edgeworth", "iron_fists", "xo_iron_fist"]
+},  
+{
+  "id": "desecration_veridian_grove",
+  "name": "The Desecration of Veridian Grove",
+  "date": "Efferd 26, 1040 BF (~17:30 hrs)",
+  "location": "Veridian Grove Outskirts",
+  "type": "Assassination / Magical Ward Sabotage",
+  "result": "Elder Rowan Meadowlight deceased; Sylvan Wards bypassed",
+  "belligerents": {
+    "attackers": { "name": "Unknown Third Party (likely Iron Fists/Wario Tech)", "factionId": null, "commander": "Unknown" },
+    "defenders": { "name": "Elder Rowan Meadowlight", "factionId": "veridian_druids", "commander": "Meadowlight" }
+  },
+  "casualties": {
+    "attackers": "None",
+    "defenders": "Elder Rowan Meadowlight (deceased)"
+  },
+  "summary": "Elder Rowan Meadowlight was found dead shortly after Archie Miser entered the grove's outskirts. The prosecution claims Archie did it. However, forensic analysis of the Elder's staff shows it didn't burn—it SHATTERED from sympathetic resonance. Trace amounts of cold-forged silver alloy (used in ward-breaking tools) were found in the wood. Waluigi suspects a professional hit by someone who knows how to kill Druids, which Archie definitely does not.",
+  "description": "Waluigi has looked at Arcanist Theron's reports. The grove's wards were specifically weakened against Fire and Necromancy magic just 10 minutes before Archie arrived. \n\n**The Sabotage**\nThis wasn't a brute force breach. Someone with intimate knowledge of Sylvan architecture attenuated the resonance nodes. A 'muffled pop' heard later was likely a targeted *Dispel Magic* used to hide the fingerprints of the real saboteur. \n\n**The Evidence**\nA clockwork gear—dismissed by Constable Hemlock as 'tinker trash'—was found at the scene. This gear matches the complexity of Gnomish tech or Wario's own clockwork bird. The 'Three-Eyed Bandit' was just the convenient runner who led the law right to a crime scene he didn't commit.\n\nWAH.",
+  "relatedArticles": ["archie_miser", "miles_edgeworth", "constable_hemlock", "wario"]
+},
   {
     "id": "behir_ambush",
     "name": "The Behir Ambush",
