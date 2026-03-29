@@ -4922,4 +4922,288 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         "type": "combat"
     }
 }
+,
+  {
+    "id": "ghost_attack",
+    "title": "Thunder The Ghost Attacks Archie",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Thunder the ghost attacks Archie.",
+    "instigator": "thunder",
+    "targets": [
+        "thunder",
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "fireball_goes_wild",
+    "title": "Archie'S Fireball Spell Goes Out Of Control",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Archie's fireball spell goes out of control, becoming a Fireball.",
+    "instigator": "archie",
+    "targets": [
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "roof_collapses",
+    "title": "The Room Collapses, But Archie Stops It",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The room collapses, but Archie stops it with a Freeze Ray.",
+    "instigator": "archie",
+    "targets": [
+        "archie",
+        "nine_fingers_klee"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "green_thunder_appears",
+    "title": "Bystall Reveals The Green Thunder Mech And",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Bystall reveals the Green Thunder mech and outlines her plan to subdue it.",
+    "instigator": "bystall",
+    "targets": [
+        "bystall"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "mole_summoning",
+    "title": "The Mole Summons Ghosts In The Ruined",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The Mole summons ghosts in the ruined manor.",
+    "instigator": "mole",
+    "targets": [
+        "mole"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "brobot_attacks",
+    "title": "Brobot Attacks The Party, Taunting Them",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Brobot attacks the party, taunting them.",
+    "instigator": "brobot",
+    "targets": [
+        "brobot"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "archie_shatters_wall",
+    "title": "Archie Shatters A Wall, Alerting Ghosts And",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Archie shatters a wall, alerting ghosts and others.",
+    "instigator": "archie",
+    "targets": [
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "green_thunder_knocks_out_bones",
+    "title": "Green Thunder Knocks Out Bones With A",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Green Thunder knocks out Bones with a giant fist.",
+    "instigator": "green_thunder",
+    "targets": [
+        "green_thunder",
+        "bones"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "archie_fights_brobot",
+    "title": "Archie Uses Magic To Fight Brobot, Who",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Archie uses magic to fight Brobot, who retaliates with a laser beam.",
+    "instigator": "archie",
+    "targets": [
+        "archie",
+        "brobot"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "bystall_subdues_mr_l",
+    "title": "Bystall Subdues Mr. L With A Spell",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Bystall subdues Mr. L with a spell.",
+    "instigator": "bystall",
+    "targets": [
+        "bystall",
+        "mr._l"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "new_mission",
+    "title": "Bystall Gives Archie A New Mission Through",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Bystall gives Archie a new mission through an active portal.",
+    "instigator": "bystall",
+    "targets": [
+        "bystall",
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "darno_delivers_membership",
+    "title": "Darno Spriggon Delivers Archie'S Mages Guild Me",
+    "date": {
+        "day": 3,
+        "monthIndex": 8,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Darno Spriggon delivers Archie's mages guild membership.",
+    "instigator": "darno_spriggon",
+    "targets": [
+        "darno_spriggon",
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+}
 ];

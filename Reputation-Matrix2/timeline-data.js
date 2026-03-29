@@ -1338,4 +1338,162 @@ export const HISTORICAL_TIMELINE = [
     "icon": "icon_war.png",
     "category": "Battle"
 }
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "Spectral Fury Unleashed",
+    "description": "A chill wind swept through the room as Thunder, a malevolent specter, materialized before Archie. With a mournful wail, it lunged, spectral claws outstretched. Archie barely dodged the attack, his heart pounding against his ribs.  Fear clawed at him, but he stood firm, steeling himself for the impending confrontation.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "Fireball's Uncontrollable Fury",
+    "description": "Archie unleashed a fireball, intending to drive back the spectral threat. But the spell spiraled out of control, engulfing the room in an inferno. Flames danced wildly, consuming everything in their path. Panic seized Archie as he realized his mistake -  his own power had turned against him.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "A Momentary Halt Amidst Ruin",
+    "description": "The chamber groaned under the weight of collapsing debris, threatening to bury Archie alive. But just as the ceiling seemed poised to fall, Nine Fingers Klee leapt into action, grabbing Archie and pulling him free from harm's way.  With a desperate cry, Archie summoned his remaining energy and unleashed a Freeze Ray, halting the descent of the rubble.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "Bystall Unveils the Green Thunder",
+    "description": "Bystall, her expression grim, gestured towards a towering figure silhouetted against the stormy sky. It was Green Thunder, a colossal mechanical monstrosity, its armor gleaming ominously.  'We must stop it,' she declared, outlining a plan of attack. 'First, protect the innocent and this manor. Then, subdue the slime creatures and engage the mech directly.'",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "Spectral Shadows in Ruins",
+    "description": "A wave of icy dread washed over the party as The Mole, eyes gleaming with malicious glee, snapped his fingers.  Flickering lights pierced the gloom of the ruined manor, illuminating a spectral legion at his command. Ghosts, translucent and malevolent, materialized from the dust and shadows, their ethereal moans echoing through the dilapidated halls.  Archie felt a chill crawl down his spine; he'd not encountered such raw necromantic power in years. The Mole cackled, \"Some friends will keep you company,\" before vanishing into the darkness, leaving behind a chorus of ghostly wails.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "Brobot's Taunting Onslaught",
+    "description": "A metallic screech split the air as Brobot, eyes glowing red, descended upon the party. \"Whoa there! Fancy meeting you here,\" he boomed, his voice distorted and robotic.  He playfully squashed a slime creature, its body splitting into two more, showcasing a disturbing strength. Archie retorted, \"I don't see how that proves your strength. Care to explain?\" Brobot laughed, a grating metallic clang, before unleashing a barrage of taunts aimed at unnerving the adventurers.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 12,
+        "minute": 42
+    },
+    "title": "Archie's Desperate Gambit",
+    "description": "Archie felt a tightening in his chest, a sense of urgency pushing him to act. His mind raced; the Oracle was nowhere to be seen. He focused his arcane energy, channeling it into a devastating burst that shattered a wall with bone-jarring force.  Dust and debris rained down as ghostly figures, alerted by the sudden commotion, swarmed towards the breach. \"I haven't seen the Oracle in a while,\" Archie muttered, fear mingling with determination.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 13,
+        "minute": 59
+    },
+    "title": "Green Thunder's Ruthless Blow",
+    "description": "A thunderous roar shook the ground as Green Thunder landed before Bones. With a casual swipe of its colossal fist, it sent the usually agile adventurer crashing into the debris. The impact was brutal and swift, leaving Bones unconscious in a cloud of dust. Archie and Nine Fingers exchanged worried glances; they had underestimated the raw power of their new foe.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 14,
+        "minute": 16
+    },
+    "title": "Metal Meets Magic: A Laser Duel",
+    "description": "Archie raised his hands, arcane energy crackling around his fingertips, as Brobot whirred and charged its laser cannon. A beam of pure energy shot towards Archie, forcing him to duck behind a crumbling wall, the air sizzling where he had stood moments before.  He retaliated with a torrent of firebolts, each one exploding harmlessly against Brobot’s metallic hide. The automaton remained unfazed, its single red eye glowing menacingly as it stalked closer, its metal limbs clanging against the debris-strewn floor.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 15,
+        "minute": 33
+    },
+    "title": "Bystall's Binding: A Spell Silences L",
+    "description": "The air crackled with power as Bystall raised her hand, a swirling vortex of energy forming above Mr. L's head. The notorious agent attempted to dodge, but the spell was swift and merciless, binding him in shimmering chains of pure magic.  His eyes widened in surprise, his usual smugness replaced by a flicker of fear as he struggled against the invisible restraints. Bystall’s voice, cold and firm, echoed through the room, “Your schemes end here, Mr. L.”",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 16,
+        "minute": 50
+    },
+    "title": "A Portal's Promise: A New Mission Unveiled",
+    "description": "Archie stood before the shimmering portal, its edges rippling with otherworldly energy. Bystall’s voice, laced with urgency, crackled through the air, “The Guild needs your help again, Archie.”  She held out a scroll, its surface etched with arcane symbols. As Archie took it, a wave of anticipation washed over him. The portal pulsed, beckoning him forward, promising new challenges and untold dangers.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 3,
+        "hour": 17,
+        "minute": 7
+    },
+    "title": "A Mage's Welcome: Spriggon Delivers the Badge",
+    "description": "Darno Spriggon, his face etched with a gruff kindness, handed Archie a small, leather-bound pouch. Inside lay a gleaming badge, embossed with the crest of the mages guild.  Archie accepted it with trembling hands, a wave of pride washing over him. Years of hard work and dedication had finally paid off. “Welcome to the fold, young mage,” Spriggon boomed, his voice echoing with authority.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+}
+
 ];

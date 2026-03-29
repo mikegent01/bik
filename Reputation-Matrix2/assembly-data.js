@@ -67113,6 +67113,2461 @@ export const WAHBOOK_POSTS = [
         "minute": 9
     }
 }
+,
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Thunder just tried to haunt me!👻😬 Anyone else seen him around?",
+    "likes": 50,
+    "rumorId": "ghost_attack",
+    "order": 99994,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bones",
+            "content": "He's been lurking by my crypt.",
+            "likes": 12
+        },
+        {
+            "id": "ghi789",
+            "author": "mr._l",
+            "content": "Beware, he has a booming laugh!",
+            "likes": 34
+        },
+        {
+            "id": "jkl012",
+            "author": "thunder",
+            "content": "Caught me off guard? 😉 ",
+            "likes": 67
+        },
+        {
+            "id": "mno345",
+            "author": "mole",
+            "content": "👀",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "Thought ghosts were supposed to be scary? Thunder's got some learning to do.💀 #ghostfail",
+    "likes": 28,
+    "rumorId": "ghost_attack",
+    "order": 99995,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 13
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bystall",
+            "content": "💀💀💀 Thunder's no match for a real spirit!",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "nine_fingers_klee",
+            "content": "Maybe ghosts just need to charge their spectral batteries 🤔",
+            "likes": 32
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "Archie detected! Energy levels: low. Threat level: high. Sending recon drones.🤖👻",
+    "likes": 12,
+    "rumorId": "ghost_attack",
+    "order": 99996,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 26
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "nine_fingers_klee",
+            "content": "Drones? Bold move.",
+            "likes": 12
+        },
+        {
+            "id": "ghi789",
+            "author": "archie",
+            "content": "👻Boo!",
+            "likes": 34
+        }
+    ]
+},
+  {
+    "id": "jkl012",
+    "characterKey": "bystall",
+    "content": "Thunder, you're a terrible ghost! My lettuce is still fine.🥗 #GhostlyBadHabits",
+    "likes": 35,
+    "rumorId": "ghost_attack",
+    "order": 99997,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 39
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "nine_fingers_klee",
+            "content": "Lettuce is NOT safe! Beware!",
+            "likes": 37
+        },
+        {
+            "id": "ghi789",
+            "author": "darno_spriggon",
+            "content": "Trying too hard, Thunder 😂",
+            "likes": 12
+        },
+        {
+            "id": "jkl101",
+            "author": "archie",
+            "content": "👻😭🥕 #GhostlyMishaps",
+            "likes": 42
+        },
+        {
+            "id": "mno202",
+            "author": "bones",
+            "content": "Hmm, what's your secret ingredient?",
+            "likes": 8
+        },
+        {
+            "id": "pqr303",
+            "author": "thunder",
+            "content": "I'm offended! Some ghosts have taste!",
+            "likes": 16
+        },
+        {
+            "id": "stu404",
+            "author": "green_thunder",
+            "content": "Jealousy much, bro? 🤔",
+            "likes": 21
+        }
+    ]
+},
+  {
+    "id": "mno345",
+    "characterKey": "darno_spriggon",
+    "content": "Heard Thunder's been causing a ruckus! Time to teach him some manners.😈👻 #GhostlyEtiquette",
+    "likes": 67,
+    "rumorId": "ghost_attack",
+    "order": 99998,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 52
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "thunder",
+            "content": "😈 I like to cause ruckus!",
+            "likes": 10
+        },
+        {
+            "id": "ghi789",
+            "author": "archie",
+            "content": "Who's this 'Thunder'? 🤔",
+            "likes": 5
+        },
+        {
+            "id": "jkl012",
+            "author": "nine_fingers_klee",
+            "content": "💀 Manners for ghosts? HAH!",
+            "likes": 17
+        }
+    ]
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "WHOOPS! Guess I need more practice with fireballs.",
+    "likes": 67,
+    "rumorId": "fireball_goes_wild",
+    "order": 99999,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 7
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bystall",
+            "content": "Practice makes perfect!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "nine_fingers_klee",
+            "content": "Ouch!  Hope it wasn't the stew pot.",
+            "likes": 32
+        },
+        {
+            "id": "jkl101",
+            "author": "mr._l",
+            "content": "🔥😂",
+            "likes": 19
+        },
+        {
+            "id": "mno222",
+            "author": "bones",
+            "content": "Need lessons?",
+            "likes": 8
+        },
+        {
+            "id": "pqr333",
+            "author": "green_thunder",
+            "content": "Next time, aim for the sky!",
+            "likes": 21
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "Well, that escalated quickly. Anyone got a bucket of water?",
+    "likes": 32,
+    "rumorId": "fireball_goes_wild",
+    "order": 100000,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 20
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "nine_fingers_klee",
+            "content": "Might need a cauldron full!",
+            "likes": 18
+        },
+        {
+            "id": "def789",
+            "author": "mole",
+            "content": "👀 what happened?",
+            "likes": 32
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "ARCHIE: FIREBALL ERROR! DAMAGE ASSESSMENT REQUIRED.",
+    "likes": 15,
+    "rumorId": "fireball_goes_wild",
+    "order": 100001,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 33
+    },
+    "comments": [
+        {
+            "id": "a3b4c5d6",
+            "author": "darno_spriggon",
+            "content": "Fireball gone wrong? Again?",
+            "likes": 12
+        },
+        {
+            "id": "e7f8g9h0",
+            "author": "thunder",
+            "content": "Hope everyone's alright!",
+            "likes": 36
+        },
+        {
+            "id": "i1j2k3l4",
+            "author": "green_thunder",
+            "content": "🔥💀😂",
+            "likes": 21
+        },
+        {
+            "id": "m5n6o7p8",
+            "author": "bystall",
+            "content": "Care to elaborate, Archie?",
+            "likes": 18
+        }
+    ]
+},
+  {
+    "id": "jkl012",
+    "characterKey": "bystall",
+    "content": "Someone call the fire department...and a cleaning crew. 😳🔥",
+    "likes": 48,
+    "rumorId": "fireball_goes_wild",
+    "order": 100002,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 46
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bones",
+            "content": "Whoa, what happened?",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "mole",
+            "content": "🔥🔥🔥 Spill the tea!",
+            "likes": 32
+        }
+    ]
+},
+  {
+    "id": "mno345",
+    "characterKey": "darno_spriggon",
+    "content": "Fireball? That's child's play. Watch and learn, young one.",
+    "likes": 21,
+    "rumorId": "fireball_goes_wild",
+    "order": 100003,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 59
+    },
+    "comments": [
+        {
+            "id": "abc1234",
+            "author": "archie",
+            "content": "Ooo, showtime!",
+            "likes": 18
+        },
+        {
+            "id": "def5678",
+            "author": "green_thunder",
+            "content": "Whatcha got?",
+            "likes": 32
+        },
+        {
+            "id": "ghi9012",
+            "author": "bystall",
+            "content": "🔥💀🤯",
+            "likes": 15
+        },
+        {
+            "id": "jkl4567",
+            "author": "bones",
+            "content": "Don't hurt yourself.",
+            "likes": 20
+        }
+    ]
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Another day, another collapsing room. Freeze Ray to the rescue!",
+    "likes": 50,
+    "rumorId": "roof_collapses",
+    "order": 100004,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 14
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "thunder",
+            "content": "That thing's a lifesaver!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "darno_spriggon",
+            "content": "Another day, another frozen foe?",
+            "likes": 32
+        },
+        {
+            "id": "jkl101",
+            "author": "nine_fingers_klee",
+            "content": "💥❄️😎",
+            "likes": 59
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "Anyone else smell burnt wiring? Archie's ray is getting a little too toasty.",
+    "likes": 25,
+    "rumorId": "roof_collapses",
+    "order": 100005,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 27
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "brobot",
+            "content": "Overheating detected.",
+            "likes": 10
+        },
+        {
+            "id": "def789",
+            "author": "bystall",
+            "content": "Just checked mine, all good here!",
+            "likes": 32
+        },
+        {
+            "id": "ghi123",
+            "author": "archie",
+            "content": "Maybe just a loose wire. 🤷‍♀️",
+            "likes": 18
+        },
+        {
+            "id": "jkl456",
+            "author": "mole",
+            "content": "🔥👀  ",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "Room stability analysis: Catastrophic failure averted. Archie's Freeze Ray efficiency: 100%.",
+    "likes": 30,
+    "rumorId": "roof_collapses",
+    "order": 100006,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 40
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bystall",
+            "content": "Phew! Glad everyone's safe.",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "archie",
+            "content": "😎 Efficiency is key!",
+            "likes": 42
+        },
+        {
+            "id": "jkl012",
+            "author": "nine_fingers_klee",
+            "content": "Freeze ray? Sounds dangerous.",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "jkl123",
+    "characterKey": "bystall",
+    "content": "What are the odds? Room collapses AGAIN. Maybe we should invest in sturdier walls?",
+    "likes": 45,
+    "rumorId": "roof_collapses",
+    "order": 100007,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 53
+    },
+    "comments": [
+        {
+            "id": "wxyz456",
+            "author": "mr._l",
+            "content": "Is this cursed?",
+            "likes": 17
+        },
+        {
+            "id": "qpon789",
+            "author": "thunder",
+            "content": "Maybe gnomes are sabotaging them 🤔",
+            "likes": 32
+        },
+        {
+            "id": "asdf012",
+            "author": "archie",
+            "content": "😂 Rip the furniture",
+            "likes": 19
+        },
+        {
+            "id": "jkl345",
+            "author": "nine_fingers_klee",
+            "content": "Walls of iron, then!",
+            "likes": 28
+        },
+        {
+            "id": "ghi678",
+            "author": "green_thunder",
+            "content": "💀",
+            "likes": 15
+        },
+        {
+            "id": "stu901",
+            "author": "mole",
+            "content": "Heard rumors of faulty mortar...",
+            "likes": 21
+        }
+    ]
+},
+  {
+    "id": "mno456",
+    "characterKey": "darno_spriggon",
+    "content": "Freeze Ray shenanigans! You're lucky, Archie. Next time, I'm bringing the heat.",
+    "likes": 10,
+    "rumorId": "roof_collapses",
+    "order": 100008,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 6
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "nine_fingers_klee",
+            "content": "Lucky indeed! 😂",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "bones",
+            "content": "Bring it on, firebrand.",
+            "likes": 9
+        }
+    ]
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Bystall's got a plan!  Hope it works... 😬",
+    "likes": 50,
+    "rumorId": "green_thunder_appears",
+    "order": 100009,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 21
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bones",
+            "content": "Trust me, it's doomed.",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "bystall",
+            "content": "🤫 Shh... you'll jinx it!",
+            "likes": 42
+        },
+        {
+            "id": "jkl123",
+            "author": "nine_fingers_klee",
+            "content": "💰 Bet on chaos?",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "Green Thunder? More like Green TARGET. 😉  Ready for round two!",
+    "likes": 32,
+    "rumorId": "green_thunder_appears",
+    "order": 100010,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 34
+    },
+    "comments": [
+        {
+            "id": "a1b2c3d4",
+            "author": "green_thunder",
+            "content": "Bring it on!",
+            "likes": 7
+        },
+        {
+            "id": "e5f6g7h8",
+            "author": "mole",
+            "content": "What's up, boss?",
+            "likes": 12
+        },
+        {
+            "id": "i9j0k1l2",
+            "author": "darno_spriggon",
+            "content": "👀 Who's winning this time?",
+            "likes": 3
+        },
+        {
+            "id": "m3n4o5p6",
+            "author": "thunder",
+            "content": "⚡🔥⚡️ Let's do this!",
+            "likes": 18
+        },
+        {
+            "id": "q7r8s9t0",
+            "author": "brobot",
+            "content": "Round two?  Engage!",
+            "likes": 1
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "Analysis: Bystall's plan has a 67% chance of success. Optimistic?",
+    "likes": 18,
+    "rumorId": "green_thunder_appears",
+    "order": 100011,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 47
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bystall",
+            "content": "Sounds good to me!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "thunder",
+            "content": "67%? 🤔  Tell me more.",
+            "likes": 32
+        },
+        {
+            "id": "jkl012",
+            "author": "bones",
+            "content": "💀 Odds are always in my favor!",
+            "likes": 11
+        },
+        {
+            "id": "mno345",
+            "author": "mr._l",
+            "content": "Hope it succeeds! ✨",
+            "likes": 28
+        }
+    ]
+},
+  {
+    "id": "jkl012",
+    "characterKey": "bystall",
+    "content": "Green Thunder, your reign ends NOW. Prepare to face justice! #TakingBackTheCity",
+    "likes": 150,
+    "rumorId": "green_thunder_appears",
+    "order": 100012,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 0
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "mole",
+            "content": "Finally!",
+            "likes": 17
+        },
+        {
+            "id": "def789",
+            "author": "bones",
+            "content": "Justice served? 🤔",
+            "likes": 8
+        },
+        {
+            "id": "ghi012",
+            "author": "thunder",
+            "content": "You fools. I'm everywhere!",
+            "likes": 35
+        },
+        {
+            "id": "jkl345",
+            "author": "brobot",
+            "content": "🤖 JUSTICE PROTOCOL INITIATED",
+            "likes": 12
+        },
+        {
+            "id": "mno678",
+            "author": "archie",
+            "content": "🍿 This is gonna be good.",
+            "likes": 20
+        }
+    ]
+},
+  {
+    "id": "mno345",
+    "characterKey": "darno_spriggon",
+    "content": "Interesting... Bystall's plan is intriguing. Let's see how it unfolds.",
+    "likes": 27,
+    "rumorId": "green_thunder_appears",
+    "order": 100013,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 13
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "mr._l",
+            "content": "Intriguing indeed.",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "bystall",
+            "content": "🤫 Watch this space...",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "WHOA! Ghosts in the manor?! This is getting creepy!",
+    "likes": 50,
+    "rumorId": "mole_summoning",
+    "order": 100014,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 28
+    },
+    "comments": [
+        {
+            "id": "zxc456",
+            "author": "mole",
+            "content": "😱👻",
+            "likes": 18
+        },
+        {
+            "id": "qwe789",
+            "author": "thunder",
+            "content": "Manor's old. Must be drafty.",
+            "likes": 32
+        },
+        {
+            "id": "ert123",
+            "author": "bystall",
+            "content": "Tell me you're going to investigate!",
+            "likes": 45
+        },
+        {
+            "id": "iop987",
+            "author": "darno_spriggon",
+            "content": "Hehehe, boo-tiful.",
+            "likes": 21
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "Mole's gone full spectral. Wonder if they need help with ectoplasm.",
+    "likes": 32,
+    "rumorId": "mole_summoning",
+    "order": 100015,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 41
+    },
+    "comments": [
+        {
+            "id": "aef456",
+            "author": "archie",
+            "content": "Spectral moles? 👀",
+            "likes": 18
+        },
+        {
+            "id": "bgh789",
+            "author": "thunder",
+            "content": "Hope they have good shields!",
+            "likes": 32
+        },
+        {
+            "id": "cjk012",
+            "author": "darno_spriggon",
+            "content": "👻🐭 Ectoplasm buffet?",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "ERROR: Ghost activity detected. Initiating protocol: STAY CALM AND ANALYZE.",
+    "likes": 18,
+    "rumorId": "mole_summoning",
+    "order": 100016,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 54
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "thunder",
+            "content": "Protocol followed.",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "nine_fingers_klee",
+            "content": "Ghostly tea party?",
+            "likes": 32
+        }
+    ]
+},
+  {
+    "id": "jkl012",
+    "characterKey": "bystall",
+    "content": "Ghosts, huh? More like *ghoul-friends* if you ask me!",
+    "likes": 67,
+    "rumorId": "mole_summoning",
+    "order": 100017,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 7
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "brobot",
+            "content": "👻 Boo ya!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "mole",
+            "content": "Do they like carrots?",
+            "likes": 3
+        },
+        {
+            "id": "jkl012",
+            "author": "thunder",
+            "content": "💀😂 Best pun ever!",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "mno345",
+    "characterKey": "darno_spriggon",
+    "content": "Mole's finally learned to make things interesting...👻💀",
+    "likes": 25,
+    "rumorId": "mole_summoning",
+    "order": 100018,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 20
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "mr._l",
+            "content": "About time! 💀",
+            "likes": 8
+        },
+        {
+            "id": "ghi789",
+            "author": "bones",
+            "content": "Tell me more...",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "a3b4c5d6",
+    "characterKey": "archie",
+    "content": "BROBOT'S GONE HAYWIRE?! This party just got interesting.",
+    "likes": 72,
+    "rumorId": "brobot_attacks",
+    "order": 100019,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 35
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "darno_spriggon",
+            "content": "Oh dear, hope he doesn't break anything!",
+            "likes": 17
+        },
+        {
+            "id": "jkl789",
+            "author": "mole",
+            "content": "What happened?",
+            "likes": 8
+        },
+        {
+            "id": "mno012",
+            "author": "bones",
+            "content": "This is gonna be fun! 💀",
+            "likes": 39
+        },
+        {
+            "id": "pqr345",
+            "author": "brobot",
+            "content": "ERROR: PARTY FUNCTIONALITY UNCLEAR.",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "e7f8g9h1",
+    "characterKey": "bones",
+    "content": "That metal menace thinks he can take us? Time to show him what happens when you mess with Bones!",
+    "likes": 38,
+    "rumorId": "brobot_attacks",
+    "order": 100020,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 48
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "nine_fingers_klee",
+            "content": "Bring it on!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "archie",
+            "content": "Bones? Is that you?",
+            "likes": 9
+        },
+        {
+            "id": "jkl012",
+            "author": "darno_spriggon",
+            "content": "⚔️💪",
+            "likes": 34
+        },
+        {
+            "id": "mno345",
+            "author": "bystall",
+            "content": "Hope you packed extra bandages.",
+            "likes": 12
+        },
+        {
+            "id": "pqr678",
+            "author": "thunder",
+            "content": "He's doomed.",
+            "likes": 22
+        },
+        {
+            "id": "stu901",
+            "author": "mr._l",
+            "content": "🔥💀",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "i2j3k4l5",
+    "characterKey": "brobot",
+    "content": "Prepare to face the ultimate Brobot! Your pathetic skills are no match for my awesomeness!",
+    "likes": 12,
+    "rumorId": "brobot_attacks",
+    "order": 100021,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 1
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "green_thunder",
+            "content": "Bring it on, Brobot!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "mr._l",
+            "content": "What's a Brobot?",
+            "likes": 42
+        },
+        {
+            "id": "jkl012",
+            "author": "bones",
+            "content": "💀🤖🔥",
+            "likes": 35
+        }
+    ]
+},
+  {
+    "id": "m6n7o8p9",
+    "characterKey": "bystall",
+    "content": "Did anyone bring extra batteries? This Brobot seems to have a serious case of the energys.",
+    "likes": 45,
+    "rumorId": "brobot_attacks",
+    "order": 100022,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 14
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "green_thunder",
+            "content": "Mine just went haywire!",
+            "likes": 17
+        },
+        {
+            "id": "jkl789",
+            "author": "mr._l",
+            "content": "🤔 Any spare mana potions?",
+            "likes": 8
+        },
+        {
+            "id": "mno012",
+            "author": "mole",
+            "content": "😂 Guess he needs a recharge.",
+            "likes": 34
+        },
+        {
+            "id": "pqr345",
+            "author": "archie",
+            "content": "🤖⚡",
+            "likes": 12
+        },
+        {
+            "id": "stu678",
+            "author": "bones",
+            "content": "Maybe he's over-caffeinated.",
+            "likes": 22
+        }
+    ]
+},
+  {
+    "id": "q1r2s3t4",
+    "characterKey": "darno_spriggon",
+    "content": "This is what happens when you try to steal my spotlight! Brobot, face the fury of Darno!",
+    "likes": 63,
+    "rumorId": "brobot_attacks",
+    "order": 100023,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 27
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "brobot",
+            "content": "Incoming! #BringOnTheFury",
+            "likes": 10
+        },
+        {
+            "id": "jkl789",
+            "author": "bystall",
+            "content": "Wait, who is Darno?",
+            "likes": 5
+        },
+        {
+            "id": "mno012",
+            "author": "archie",
+            "content": "🍿 This is gonna be good!",
+            "likes": 18
+        }
+    ]
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Oops! Did not see that wall there... 😅 #Whoops",
+    "likes": 50,
+    "rumorId": "archie_shatters_wall",
+    "order": 100024,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 42
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "darno_spriggon",
+            "content": "Been there! 😂",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "brobot",
+            "content": "Wall detected. Proceeding with caution.",
+            "likes": 5
+        },
+        {
+            "id": "jkl012",
+            "author": "thunder",
+            "content": "Hope it wasn't a magic wall! 😳",
+            "likes": 12
+        },
+        {
+            "id": "mno345",
+            "author": "green_thunder",
+            "content": "😅🤕",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "A disturbance in the spectral plane. Intriguing...",
+    "likes": 23,
+    "rumorId": "archie_shatters_wall",
+    "order": 100025,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 55
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "green_thunder",
+            "content": "Hellsbane stirring again?",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "bystall",
+            "content": "🔮 Tell me more!",
+            "likes": 32
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "WALL BROKEN! ARCHIE RESPONSIBLE. LOGGING INCIDENT.",
+    "likes": 17,
+    "rumorId": "archie_shatters_wall",
+    "order": 100026,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 8
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "mole",
+            "content": "👀 Who's Archie?",
+            "likes": 3
+        },
+        {
+            "id": "ghi789",
+            "author": "green_thunder",
+            "content": "Damnit, not again!",
+            "likes": 15
+        },
+        {
+            "id": "jkl012",
+            "author": "nine_fingers_klee",
+            "content": "💣💥",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "jkl012",
+    "characterKey": "bystall",
+    "content": "Anyone else feel a chill? Archie's up to something... #SpookySeason",
+    "likes": 38,
+    "rumorId": "archie_shatters_wall",
+    "order": 100027,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 21
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "brobot",
+            "content": "He always does!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "darno_spriggon",
+            "content": "What's he brewing? 🤔",
+            "likes": 32
+        },
+        {
+            "id": "jkl012",
+            "author": "mole",
+            "content": "🥶🦇🦉",
+            "likes": 45
+        },
+        {
+            "id": "mno345",
+            "author": "thunder",
+            "content": "Hope he's sharing the treats!",
+            "likes": 21
+        },
+        {
+            "id": "pqr678",
+            "author": "green_thunder",
+            "content": "Prepare for pumpkin mayhem!",
+            "likes": 19
+        },
+        {
+            "id": "stu901",
+            "author": "mr._l",
+            "content": "My cauldron is ready.",
+            "likes": 28
+        }
+    ]
+},
+  {
+    "id": "mno345",
+    "characterKey": "darno_spriggon",
+    "content": "Finally, some excitement! Let the games begin. 😈",
+    "likes": 12,
+    "rumorId": "archie_shatters_wall",
+    "order": 100028,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 34
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "archie",
+            "content": "Bring it on!",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "bystall",
+            "content": "😈😈😈",
+            "likes": 35
+        },
+        {
+            "id": "jkl123",
+            "author": "bones",
+            "content": "May the best win.",
+            "likes": 12
+        },
+        {
+            "id": "mno456",
+            "author": "mole",
+            "content": "Any bets?",
+            "likes": 8
+        },
+        {
+            "id": "pqr789",
+            "author": "brobot",
+            "content": "Initializing game mode.",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "xyz456",
+    "characterKey": "archie",
+    "content": "Whoa! Green Thunder packs a punch! #GreenThunderKO",
+    "likes": 63,
+    "rumorId": "green_thunder_knocks_out_bones",
+    "order": 100029,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 49
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "green_thunder",
+            "content": "🔥 Thanks for the shout!",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "bones",
+            "content": "Heard it 'cross the plains!",
+            "likes": 34
+        },
+        {
+            "id": "jkl012",
+            "author": "mole",
+            "content": "👀 Heard that rumble!",
+            "likes": 15
+        },
+        {
+            "id": "mno345",
+            "author": "nine_fingers_klee",
+            "content": "Next round is on me, Thunder!",
+            "likes": 20
+        },
+        {
+            "id": "pqr678",
+            "author": "darno_spriggon",
+            "content": "💥 Spectacular!",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "def789",
+    "characterKey": "bones",
+    "content": "Just need a minute to catch my breath... 😅 #StillStanding",
+    "likes": 28,
+    "rumorId": "green_thunder_knocks_out_bones",
+    "order": 100030,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+    },
+    "comments": [
+        {
+            "id": "4ed7b9",
+            "author": "nine_fingers_klee",
+            "content": "Need a potion?",
+            "likes": 18
+        },
+        {
+            "id": "d3e2f5",
+            "author": "mr._l",
+            "content": "Tell me about it!",
+            "likes": 42
+        },
+        {
+            "id": "a9b1c6",
+            "author": "mole",
+            "content": ":eyes:",
+            "likes": 7
+        },
+        {
+            "id": "83f2d4",
+            "author": "bystall",
+            "content": "Haha, same!",
+            "likes": 35
+        },
+        {
+            "id": "2b09c7",
+            "author": "archie",
+            "content": " 💪 ",
+            "likes": 11
+        },
+        {
+            "id": "68f1a3",
+            "author": "brobot",
+            "content": "Operational status: stable.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "jkl101",
+    "characterKey": "brobot",
+    "content": "Data analysis: Green Thunder's fist impact - 9.5/10! #Impressive",
+    "likes": 35,
+    "rumorId": "green_thunder_knocks_out_bones",
+    "order": 100031,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 15
+    },
+    "comments": [
+        {
+            "id": "a1b2c3",
+            "author": "nine_fingers_klee",
+            "content": "Is that higher than dragonfire?",
+            "likes": 8
+        },
+        {
+            "id": "d4e5f6",
+            "author": "bones",
+            "content": "Solid hit! 💪",
+            "likes": 17
+        },
+        {
+            "id": "g7h8i9",
+            "author": "bystall",
+            "content": "My shield couldn't take that 😅",
+            "likes": 32
+        },
+        {
+            "id": "j0k1l2",
+            "author": "archie",
+            "content": "Heard a rumour it shook the earth!",
+            "likes": 12
+        },
+        {
+            "id": "m3n4o5",
+            "author": "mr._l",
+            "content": "9.5? 🤔  I'd give it a 10",
+            "likes": 21
+        }
+    ]
+},
+  {
+    "id": "mno202",
+    "characterKey": "bystall",
+    "content": "Anyone else think Bones should wear a helmet? 🤔 #SafetyFirst",
+    "likes": 41,
+    "rumorId": "green_thunder_knocks_out_bones",
+    "order": 100032,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 28
+    },
+    "comments": [
+        {
+            "id": "aef456",
+            "author": "thunder",
+            "content": "Always!",
+            "likes": 3
+        },
+        {
+            "id": "bgh789",
+            "author": "brobot",
+            "content": "Helmet? Nah, bones are durable.",
+            "likes": 12
+        },
+        {
+            "id": "cik012",
+            "author": "mr._l",
+            "content": "Bones needs style points too!",
+            "likes": 6
+        },
+        {
+            "id": "djn345",
+            "author": "mole",
+            "content": "🤔 Helmet? 🤔",
+            "likes": 9
+        },
+        {
+            "id": "ekl678",
+            "author": "archie",
+            "content": "😂 That's a good one!",
+            "likes": 18
+        },
+        {
+            "id": "fhq901",
+            "author": "bones",
+            "content": "Never! 😎",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "pqr303",
+    "characterKey": "darno_spriggon",
+    "content": "Green Thunder is unstoppable! 💪🔥 The champion is here!",
+    "likes": 78,
+    "rumorId": "green_thunder_knocks_out_bones",
+    "order": 100033,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 41
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "mole",
+            "content": "Indeed!",
+            "likes": 8
+        },
+        {
+            "id": "ghi789",
+            "author": "bystall",
+            "content": "Who's next?! 🤔",
+            "likes": 12
+        },
+        {
+            "id": "jkl012",
+            "author": "mr._l",
+            "content": "👑🐍🐉  🔥",
+            "likes": 6
+        }
+    ]
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Brobot's lasers are getting stronger!  Gotta up my spell game!",
+    "likes": 42,
+    "rumorId": "archie_fights_brobot",
+    "order": 100034,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 56
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "green_thunder",
+            "content": "Those lasers are scary!",
+            "likes": 18
+        },
+        {
+            "id": "def789",
+            "author": "mole",
+            "content": "🔥💀🤔",
+            "likes": 32
+        },
+        {
+            "id": "ghi123",
+            "author": "bones",
+            "content": "Prepare to be incinerated!",
+            "likes": 15
+        },
+        {
+            "id": "jkl456",
+            "author": "nine_fingers_klee",
+            "content": "New spells incoming! 😉",
+            "likes": 20
+        },
+        {
+            "id": "mno789",
+            "author": "thunder",
+            "content": "Better be prepared, friend!",
+            "likes": 12
+        },
+        {
+            "id": "pqr123",
+            "author": "darno_spriggon",
+            "content": "Any tips on laserproofing?",
+            "likes": 4
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "Who wins? Magic or lasers?! 🤔 #ArchieVsBrobot",
+    "likes": 87,
+    "rumorId": "archie_fights_brobot",
+    "order": 100035,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 9
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bystall",
+            "content": "Lasers! 🔥🔥🔥",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "mr._l",
+            "content": "Tough choice... 🤔 #TeamArchie",
+            "likes": 32
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "Laser beam activated! 💥 Feeling electrifying!",
+    "likes": 31,
+    "rumorId": "archie_fights_brobot",
+    "order": 100036,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 22
+    },
+    "comments": [
+        {
+            "id": "a6b7c8d9e",
+            "author": "bystall",
+            "content": "Nice!",
+            "likes": 13
+        },
+        {
+            "id": "f0g1h2i3j",
+            "author": "nine_fingers_klee",
+            "content": "Is it dangerous?",
+            "likes": 6
+        },
+        {
+            "id": "klm4n5o6p",
+            "author": "darno_spriggon",
+            "content": "🔥⚡️💥",
+            "likes": 38
+        },
+        {
+            "id": "qr7s8t9u0",
+            "author": "thunder",
+            "content": "Watch out for reflections!",
+            "likes": 18
+        }
+    ]
+},
+  {
+    "id": "jkl012",
+    "characterKey": "bystall",
+    "content": "That's one way to start a Monday morning... 😅 #ChaosCrew",
+    "likes": 63,
+    "rumorId": "archie_fights_brobot",
+    "order": 100037,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 35
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "thunder",
+            "content": "Tell me about it!",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "mr._l",
+            "content": "Chaos is my middle name. 😎",
+            "likes": 32
+        },
+        {
+            "id": "jkl012",
+            "author": "darno_spriggon",
+            "content": "☕️☕️☕️ Monday mornings be like",
+            "likes": 45
+        },
+        {
+            "id": "mno345",
+            "author": "brobot",
+            "content": "ERROR: Chaos detected. ",
+            "likes": 12
+        },
+        {
+            "id": "pqr678",
+            "author": "green_thunder",
+            "content": "What happened? 🤔",
+            "likes": 20
+        }
+    ]
+},
+  {
+    "id": "mno345",
+    "characterKey": "darno_spriggon",
+    "content": "Magic and technology clashing! This is gonna be EPIC!",
+    "likes": 92,
+    "rumorId": "archie_fights_brobot",
+    "order": 100038,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 48
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "thunder",
+            "content": "⚡️ Can't wait!",
+            "likes": 18
+        },
+        {
+            "id": "jkl789",
+            "author": "bones",
+            "content": "What kinda tech?",
+            "likes": 12
+        },
+        {
+            "id": "mno012",
+            "author": "archie",
+            "content": "Epic battle incoming!⚔️",
+            "likes": 35
+        },
+        {
+            "id": "pqr345",
+            "author": "green_thunder",
+            "content": "Magic always wins 😉",
+            "likes": 21
+        }
+    ]
+},
+  {
+    "id": "a3b4c5d6",
+    "characterKey": "archie",
+    "content": "Whoa! Bystall just dropped a spell bomb on Mr. L! 😳 #MagicMonday",
+    "likes": 67,
+    "rumorId": "bystall_subdues_mr_l",
+    "order": 100039,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 3
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "green_thunder",
+            "content": "🔥 Did Bystall just steal Mr L's thunder?",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "mr._l",
+            "content": "🤔 That's one way to start the week...",
+            "likes": 42
+        },
+        {
+            "id": "jkl123",
+            "author": "nine_fingers_klee",
+            "content": "Spellcasting duel?  🍿 #BringOnTheChaos",
+            "likes": 38
+        },
+        {
+            "id": "mno456",
+            "author": "mole",
+            "content": "👀 Bystall's been practicing...",
+            "likes": 12
+        },
+        {
+            "id": "pqr789",
+            "author": "darno_spriggon",
+            "content": "😮 My potions aren't THAT strong!",
+            "likes": 29
+        }
+    ]
+},
+  {
+    "id": "e7f8g9h10",
+    "characterKey": "bones",
+    "content": "Mr. L subdued? That's some impressive magic, Bystall. 😏",
+    "likes": 32,
+    "rumorId": "bystall_subdues_mr_l",
+    "order": 100040,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 16
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "mole",
+            "content": "Impressive indeed 😏",
+            "likes": 18
+        },
+        {
+            "id": "pqr789",
+            "author": "brobot",
+            "content": "Subdued? How many potions?",
+            "likes": 12
+        },
+        {
+            "id": "stu012",
+            "author": "archie",
+            "content": "Show off 😅",
+            "likes": 35
+        },
+        {
+            "id": "ghi345",
+            "author": "thunder",
+            "content": "⚡🔥 Bystall never disappoints 🔥⚡",
+            "likes": 29
+        },
+        {
+            "id": "jkl678",
+            "author": "bystall",
+            "content": "😉🤫  A little trickery!",
+            "likes": 41
+        },
+        {
+            "id": "mno901",
+            "author": "mr._l",
+            "content": "Next time, I'll be ready.",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "j1k2l3m4",
+    "characterKey": "brobot",
+    "content": "Spell detected. Target: Mr. L. Outcome: Subdued. Analysis: Successful.",
+    "likes": 25,
+    "rumorId": "bystall_subdues_mr_l",
+    "order": 100041,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 29
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "mole",
+            "content": "Impressive! Any details?",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "archie",
+            "content": "🤫👀",
+            "likes": 32
+        },
+        {
+            "id": "jkl012",
+            "author": "darno_spriggon",
+            "content": "Hmm...suspicious.",
+            "likes": 8
+        },
+        {
+            "id": "mno345",
+            "author": "bystall",
+            "content": "Good work, mage! ✨",
+            "likes": 19
+        }
+    ]
+},
+  {
+    "id": "n5o6p7q8",
+    "characterKey": "bystall",
+    "content": "Sometimes a little magic is all you need. 😉 #BystallsBest",
+    "likes": 91,
+    "rumorId": "bystall_subdues_mr_l",
+    "order": 100042,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 42
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "green_thunder",
+            "content": "💯",
+            "likes": 8
+        },
+        {
+            "id": "ghi789",
+            "author": "mr._l",
+            "content": "What kind of magic?",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "r9s0t1u2",
+    "characterKey": "darno_spriggon",
+    "content": "Any word on Mr. L's condition? Asking for a friend... 😬",
+    "likes": 45,
+    "rumorId": "bystall_subdues_mr_l",
+    "order": 100043,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 55
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "bones",
+            "content": "Heard whispers in the catacombs.",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "bystall",
+            "content": "💀 Any news from the royal healers?",
+            "likes": 32
+        },
+        {
+            "id": "jkl012",
+            "author": "thunder",
+            "content": "Hope he recovers! 🙏",
+            "likes": 45
+        },
+        {
+            "id": "mno345",
+            "author": "archie",
+            "content": "My coin says he's fine.",
+            "likes": 12
+        },
+        {
+            "id": "pqr678",
+            "author": "brobot",
+            "content": "Processing... inquiries pending.",
+            "likes": 8
+        },
+        {
+            "id": "stu901",
+            "author": "nine_fingers_klee",
+            "content": "Hehehe...  😈",
+            "likes": 23
+        }
+    ]
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Portal activated! Time for another adventure 😎",
+    "likes": 50,
+    "rumorId": "new_mission",
+    "order": 100044,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 10
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "green_thunder",
+            "content": "To where?!",
+            "likes": 12
+        },
+        {
+            "id": "jkl789",
+            "author": "bones",
+            "content": "💀 Can't keep up.",
+            "likes": 34
+        },
+        {
+            "id": "mno012",
+            "author": "bystall",
+            "content": " envious 🌿",
+            "likes": 18
+        },
+        {
+            "id": "pqr345",
+            "author": "mole",
+            "content": "Digging it! 😎",
+            "likes": 21
+        },
+        {
+            "id": "stu678",
+            "author": "brobot",
+            "content": "Adventure: confirmed.",
+            "likes": 9
+        },
+        {
+            "id": "vwx901",
+            "author": "darno_spriggon",
+            "content": ":D Be careful!",
+            "likes": 16
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "Bystall always with the drama. Hope this portal leads to snacks.",
+    "likes": 25,
+    "rumorId": "new_mission",
+    "order": 100045,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 23
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "mr._l",
+            "content": "Snacks sound good rn",
+            "likes": 18
+        },
+        {
+            "id": "jkl789",
+            "author": "thunder",
+            "content": "Portal? Spill the tea!",
+            "likes": 32
+        },
+        {
+            "id": "mno012",
+            "author": "green_thunder",
+            "content": "🍿🐉",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "Mission parameters received! Processing... Portal jump imminent!",
+    "likes": 100,
+    "rumorId": "new_mission",
+    "order": 100046,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 36
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "thunder",
+            "content": "Incoming!",
+            "likes": 18
+        },
+        {
+            "id": "jkl789",
+            "author": "darno_spriggon",
+            "content": "Where to, captain?",
+            "likes": 32
+        },
+        {
+            "id": "mno012",
+            "author": "mole",
+            "content": "Don't forget snacks!",
+            "likes": 15
+        },
+        {
+            "id": "pqr345",
+            "author": "nine_fingers_klee",
+            "content": "Explosions?",
+            "likes": 27
+        },
+        {
+            "id": "stu678",
+            "author": "green_thunder",
+            "content": "⚡⚡️ Ready!",
+            "likes": 10
+        }
+    ]
+},
+  {
+    "id": "jkl123",
+    "characterKey": "bystall",
+    "content": "Archie, the fate of the galaxy rests on your shoulders. Again.",
+    "likes": 65,
+    "rumorId": "new_mission",
+    "order": 100047,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 49
+    },
+    "comments": [
+        {
+            "id": "abc1234",
+            "author": "green_thunder",
+            "content": "He can do it!",
+            "likes": 7
+        },
+        {
+            "id": "efghijk",
+            "author": "nine_fingers_klee",
+            "content": "Again?! 😅",
+            "likes": 32
+        },
+        {
+            "id": "lmno123",
+            "author": "bones",
+            "content": "🙄",
+            "likes": 8
+        },
+        {
+            "id": "pqrstuv",
+            "author": "thunder",
+            "content": "Go get 'em, Archie!",
+            "likes": 15
+        },
+        {
+            "id": "wxyz987",
+            "author": "archie",
+            "content": "Ugh...fine.",
+            "likes": 43
+        },
+        {
+            "id": "abcde12",
+            "author": "mr._l",
+            "content": "🍿 Exciting!",
+            "likes": 19
+        }
+    ]
+},
+  {
+    "id": "mno456",
+    "characterKey": "darno_spriggon",
+    "content": "Bystall sending Archie on another wild goose chase? Predictable.",
+    "likes": 30,
+    "rumorId": "new_mission",
+    "order": 100048,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 2
+    },
+    "comments": [
+        {
+            "id": "xyz456",
+            "author": "green_thunder",
+            "content": "So predictable 🙄",
+            "likes": 37
+        },
+        {
+            "id": "jkl789",
+            "author": "archie",
+            "content": "Hey! I'm not a goose!",
+            "likes": 12
+        },
+        {
+            "id": "mno012",
+            "author": "thunder",
+            "content": "👀 Is there a quest this time?",
+            "likes": 21
+        },
+        {
+            "id": "pqr345",
+            "author": "mr._l",
+            "content": "Bystall's up to his old tricks",
+            "likes": 18
+        },
+        {
+            "id": "stu678",
+            "author": "brobot",
+            "content": "Bzzzt.  Quest confirmed.",
+            "likes": 9
+        }
+    ]
+},
+  {
+    "id": "abc123",
+    "characterKey": "archie",
+    "content": "Officially a mage! Thanks Darno!",
+    "likes": 50,
+    "rumorId": "darno_delivers_membership",
+    "order": 100049,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 17
+    },
+    "comments": [
+        {
+            "id": "456def",
+            "author": "bones",
+            "content": "Grats!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "bystall",
+            "content": "What school?",
+            "likes": 8
+        },
+        {
+            "id": "jkl123",
+            "author": "nine_fingers_klee",
+            "content": "Now that's power! 🔥",
+            "likes": 42
+        },
+        {
+            "id": "mno456",
+            "author": "mole",
+            "content": "Careful, Darno. :P",
+            "likes": 12
+        },
+        {
+            "id": "pqr789",
+            "author": "thunder",
+            "content": "Show me your spells!",
+            "likes": 31
+        },
+        {
+            "id": "stu123",
+            "author": "green_thunder",
+            "content": "🐲💨😎",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "def456",
+    "characterKey": "bones",
+    "content": "So Archie's magic finally paying off?  🤔",
+    "likes": 22,
+    "rumorId": "darno_delivers_membership",
+    "order": 100050,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 30
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "thunder",
+            "content": "Took him long enough!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "nine_fingers_klee",
+            "content": "🎇✨ Finally! 🎉 ",
+            "likes": 32
+        }
+    ]
+},
+  {
+    "id": "ghi789",
+    "characterKey": "brobot",
+    "content": "Congratulations, Archie! 🤖  What spells will you learn first?",
+    "likes": 35,
+    "rumorId": "darno_delivers_membership",
+    "order": 100051,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 43
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "nine_fingers_klee",
+            "content": "Fireball, obvs!",
+            "likes": 17
+        },
+        {
+            "id": "ghi789",
+            "author": "bystall",
+            "content": "Congrats Archie! ✨",
+            "likes": 32
+        },
+        {
+            "id": "jkl012",
+            "author": "green_thunder",
+            "content": "Hope he doesn't melt the cauldron!",
+            "likes": 14
+        },
+        {
+            "id": "mno345",
+            "author": "mr._l",
+            "content": "🤔 Which school?",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "jkl101",
+    "characterKey": "bystall",
+    "content": "About time! The guild needs more talent. 😎",
+    "likes": 42,
+    "rumorId": "darno_delivers_membership",
+    "order": 100052,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 56
+    },
+    "comments": [
+        {
+            "id": "def456",
+            "author": "darno_spriggon",
+            "content": "Hear, hear!",
+            "likes": 18
+        },
+        {
+            "id": "ghi789",
+            "author": "thunder",
+            "content": "Who's joining?",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "mno123",
+    "characterKey": "darno_spriggon",
+    "content": "Welcome to the Mages Guild, Archie!  🔥",
+    "likes": 67,
+    "rumorId": "darno_delivers_membership",
+    "order": 100053,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 9
+    },
+    "comments": [
+        {
+            "id": "456def",
+            "author": "brobot",
+            "content": "Congrats Archie! 🔥🧙‍♂️",
+            "likes": 17
+        },
+        {
+            "id": "789ghi",
+            "author": "green_thunder",
+            "content": "Hope you can handle the heat!",
+            "likes": 32
+        },
+        {
+            "id": "jklmno",
+            "author": "thunder",
+            "content": "Welcome, young mage! 😎",
+            "likes": 19
+        },
+        {
+            "id": "pqrst",
+            "author": "mr._l",
+            "content": "Is there room for one more? 🤔",
+            "likes": 8
+        },
+        {
+            "id": "uvwxy",
+            "author": "bystall",
+            "content": "🧙‍♂️🍻🥳",
+            "likes": 23
+        }
+    ]
+}
 ];
 
 // Export helper for event integration
