@@ -588,45 +588,7 @@
       "speaker_l",
       "vigilance"
     ]
-  },
-  {
-  "id": "swiftsoul_concourse_catastrophe",
-  "name": "The Swiftsoul Concourse Catastrophe",
-  "date": "Efferd 26, 1040 BF (14:00 hrs)",
-  "location": "Swiftsoul Keep Air Blimp Station, Platform 3",
-  "type": "Magical Explosion / Sabotage",
-  "result": "Station devastated; Three counts of murder charged against Archie Miser; 'The Swift Quill' damaged from the inside",
-  "belligerents": {
-    "attackers": { "name": "The Iron Fists (Infiltrators)", "factionId": "iron_fists", "commander": "Commander G / X.O." },
-    "defenders": { "name": "Station Workers (Jane/John Does)", "factionId": "civilians", "commander": "None" }
-  },
-  "casualties": {
-    "attackers": "None",
-    "defenders": "3 Unidentified Station Workers (Thermal Trauma); 1 Airship scorched"
-  },
-  "summary": "The explosion that started Archie’s current legal nightmare. Officially, Archie detonated a Fireball. Unofficially, the Iron Fists Guild used a 'Priority Cargo Inspection' (Protocol 7C) as cover to handle 'Project Chimera' reagents. A power spike (EMP) disabled the cameras for exactly 47 minutes, during which 'The Swift Quill' was cut open from the inside. Waluigi notes that the only thing Archie is guilty of is being in the wrong place at the wrong time with the wrong reputation.",
-  "description": "Waluigi has analyzed the station power logs. At 13:28, two distinct high-frequency energy spikes hit Camera CAM-P3A. This wasn't a 'fluctuation'—it was a targeted EMP. \n\n**Phase 1: The Setup**\nSgt. Borin Stonehand (off-duty) used an override key to authorize an Iron Fists inspection of 'The Swift Quill'. Archie was seen loitering nearby, panicking about a 'compromised package.' He was seeking Kyle Coinsoul, who was busy using a master override key near the docking clamps. \n\n**Phase 2: The Blast**\nAt 14:00, the epicenter of the blast hit. The residue was 'Grade D'—a loose match for Archie, but contaminated with non-standard metallic particulates (silver, iron, copper). A greasy handprint smelling of garlic was later found on the *inside* of the blimp’s cargo hatch. \n\n**Phase 3: The Flight**\nArchie fled into the maintenance corridors. An anonymous tip (likely from the Guild) was phoned in 30 minutes later, blaming the 'Red Hands' gang. It was a masterclass in misdirection. \n\nWAH.",
-  "relatedArticles": ["archie_miser", "miles_edgeworth", "iron_fists", "xo_iron_fist"]
-},  
-{
-  "id": "desecration_veridian_grove",
-  "name": "The Desecration of Veridian Grove",
-  "date": "Efferd 26, 1040 BF (~17:30 hrs)",
-  "location": "Veridian Grove Outskirts",
-  "type": "Assassination / Magical Ward Sabotage",
-  "result": "Elder Rowan Meadowlight deceased; Sylvan Wards bypassed",
-  "belligerents": {
-    "attackers": { "name": "Unknown Third Party (likely Iron Fists/Wario Tech)", "factionId": null, "commander": "Unknown" },
-    "defenders": { "name": "Elder Rowan Meadowlight", "factionId": "veridian_druids", "commander": "Meadowlight" }
-  },
-  "casualties": {
-    "attackers": "None",
-    "defenders": "Elder Rowan Meadowlight (deceased)"
-  },
-  "summary": "Elder Rowan Meadowlight was found dead shortly after Archie Miser entered the grove's outskirts. The prosecution claims Archie did it. However, forensic analysis of the Elder's staff shows it didn't burn—it SHATTERED from sympathetic resonance. Trace amounts of cold-forged silver alloy (used in ward-breaking tools) were found in the wood. Waluigi suspects a professional hit by someone who knows how to kill Druids, which Archie definitely does not.",
-  "description": "Waluigi has looked at Arcanist Theron's reports. The grove's wards were specifically weakened against Fire and Necromancy magic just 10 minutes before Archie arrived. \n\n**The Sabotage**\nThis wasn't a brute force breach. Someone with intimate knowledge of Sylvan architecture attenuated the resonance nodes. A 'muffled pop' heard later was likely a targeted *Dispel Magic* used to hide the fingerprints of the real saboteur. \n\n**The Evidence**\nA clockwork gear—dismissed by Constable Hemlock as 'tinker trash'—was found at the scene. This gear matches the complexity of Gnomish tech or Wario's own clockwork bird. The 'Three-Eyed Bandit' was just the convenient runner who led the law right to a crime scene he didn't commit.\n\nWAH.",
-  "relatedArticles": ["archie_miser", "miles_edgeworth", "constable_hemlock", "wario"]
-},
+  },  
   {
     "id": "behir_ambush",
     "name": "The Behir Ambush",
@@ -662,6 +624,215 @@
       "hjumpik"
     ]
   },  
+  {
+  "id": "battle_of_the_brobot",
+  "name": "The Battle of the Brobot",
+  "title": "When the Green Thunder Returned",
+  "date": "3-4 Aethel, 1040 BF",
+  "era": "Post-Planar Fracture — Raventree Crisis",
+  "location": "Ruined Manor — Upper Floors and Collapsed Hallways",
+  "type": "Mechanized Assault / Dimensional Destabilization / Mr. L Emergence",
+  "status": "Concluded — Brobot disabled, Mr. L subdued, Archie severely injured",
+  "image": "",
+  "imageCaption": "No photographs survived. The ceiling was collapsing at the time.",
+  "audioTitle": "",
+  "audio": "",
+  "audioCaption": "",
+  "audioClips": [],
+  "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(0,100,0,0.12), rgba(255,215,0,0.08), rgba(139,0,0,0.06)); padding: 1rem; border-left: 4px solid #228B22; border-radius: 0.75rem; } .wiki-article h2 { color: #228B22; text-shadow: 1px 1px 2px rgba(34,139,34,0.2); } .wiki-article blockquote { background: rgba(34,139,34,0.08); border-left-color: #32CD32; }",
+  "summary": "The Battle of the Brobot was the moment Waluigi's worst fears about Mr. L were confirmed. Agent L—Luigi—had been working alongside Archie clearing ghosts from the ruined manor when something triggered an emergence. A giant mech crashed through the ceiling. The figure inside laughed and announced: 'I'll show Archie who is really in charge of this party.' The Green Thunder had returned. What followed was chaos: Bones was grabbed and nearly killed, Archie was blasted through a wall by a laser beam, the ceiling collapsed, slimes split and multiplied, and the Mages' Guild operative Byscilla Danos executed what she called 'Phase One' of a containment protocol that Waluigi suspects was prepared in advance. Mr. L was eventually subdued—frozen mid-punch, going limp as if someone had flipped a switch—but not before demonstrating that fifteen years of supposed containment had not eliminated the threat. The emergence occurred without dimensional trigger, without external manipulation, without any of the factors the official narrative claimed were necessary. Luigi simply... became Mr. L. And Mr. L had access to a Brobot. Waluigi has so many questions about this engagement that his head hurts. WAH.",
+  "description": "Waluigi has reconstructed this engagement from accounts provided by Archie, Bones, and various Iron Legion and Mages' Guild operatives who were present. The accounts are consistent on the broad strokes but contradictory on crucial details—particularly regarding what triggered the emergence and how Mr. L obtained access to a Brobot in a ruined manor that should not contain advanced military technology. Waluigi presents what he has gathered while acknowledging significant gaps in the narrative.\n\n## The Prelude — Ghost Hunting Goes Wrong\n\nThe engagement began as a routine ghost-clearing operation. Archie and Agent L had been working together under Mages' Guild contract, systematically eliminating spectral threats from the ruined manor. Their partnership appeared functional—Luigi deployed his Poltergust, Archie provided fire support, ghosts were captured or destroyed. The Mages' Guild operative Thornbury documented their progress. Everything seemed normal.\n\nThen Archie opened a door to a bathroom and a green thunderbolt fired out, knocking him down through the floor into a room below. The accounts suggest this was not an attack from Agent L but some kind of dimensional discharge—possibly related to the manor's unstable planar connections. Archie found himself in a room with floating fabric, a perfectly clean mirror, and something in the reflection that should not have been there.\n\nArchie shattered the mirror. Something scurried away. He continued exploring, finding locked doors, spider bites, and secret passages. Normal exploration of a haunted manor.\n\nAnd then a giant mech crashed through the ceiling.\n\n## The Emergence — Green Thunder Returns\n\nThe Brobot's appearance was sudden and catastrophic. Witnesses describe a massive mechanical suit crashing through structural supports, debris showering down, and a figure climbing inside with theatrical enthusiasm. The figure announced himself with a laugh and a declaration: 'I'll show Archie who is really in charge of this party.'\n\nByscilla Danos—the Mages' Guild operative who had been coordinating with Archie—immediately recognized what was happening. When Archie asked what was going on, she provided an explanation that was simultaneously clinical and inadequate: 'A destabilization event is occurring within a protected magical zone.'\n\nArchie, reasonably, found this unhelpful.\n\nByscilla elaborated: 'There was a lot of emotions going on and they were suppressed for quite some time. Now he's kinda letting them out.'\n\nThis confirms what Waluigi has theorized elsewhere: Mr. L emerges when Luigi's emotional suppression fails. The engagement with ghosts, the stress of the warrant, the pressure of working for the Guild—any or all of these might have compromised Luigi's psychological containment. The emergence was not caused by dimensional manipulation or external brainwashing. It was caused by Luigi's internal barriers failing.\n\n## The Brobot — Where Did It Come From?\n\nThe Brobot's presence in the ruined manor raises questions that no one has adequately answered. The original Brobot was supposedly destroyed during the Chaos Heart Crisis in 1025 BF. Yet here was a functional combat mech with Mr. L at the controls.\n\nBones noted during the engagement: 'Looks like a Legion mech.'\n\nThis observation is significant. If the Brobot was Iron Legion technology rather than Count Bleck's original design, it suggests Mr. L has been rebuilding—or someone has been rebuilding FOR him. The Iron Legion's presence at Raventree Manor, their interest in Archie's dimensional capabilities, their alliance with the Mages' Guild—all of these suddenly look more sinister if they have been preparing assets for Mr. L deployment.\n\nAlternatively, Mr. L may have constructed this Brobot himself during periods of partial emergence that were not previously documented. The engineering knowledge he demonstrated during the Chaos Heart Crisis did not disappear when Luigi was 'cured.' It simply went dormant, waiting for an opportunity to express itself.\n\n## The Combat — Chaos and Collapse\n\nThe engagement was chaotic even by Raventree Manor standards. Multiple threats emerged simultaneously:\n\nThe Brobot provided heavy firepower and physical dominance. Mr. L grabbed Bones, threatening to squeeze him to death or drop him from fatal height. He punched Rhak the Lost unconscious with a single 'Thunder Punch.' He fired a laser beam that sent Archie flying through a wall.\n\nSlime creatures appeared and multiplied. When struck, they split into smaller versions. Darno Spriggon commented while fighting them: 'Three-eyed slime would hate this.' The slimes provided distraction and secondary threat while Mr. L dominated the primary engagement.\n\nGhosts manifested throughout the area. The Mole appeared briefly, snapped his fingers to activate lights, and announced: 'Some friends will keep you company.' Then he departed with chalk for an unspecified summoning. His role in the engagement remains unclear—was he working with Mr. L, against Mr. L, or pursuing independent objectives?\n\nArchie's magic proved dangerously unstable. A 'normal fire bolt' went out of control and became a fireball that engulfed Bones and collapsed part of the room. Nine-Fingers Keene saved Archie from falling debris. Archie used freeze ray to stabilize the collapsing structure. The dimensional instability was affecting his spellcasting in unpredictable ways.\n\n## The Mole's Involvement — What Was He Doing?\n\nThe Mole's appearance during the engagement adds another layer of mystery to an already incomprehensible situation. He appeared specifically when combat was intensifying, activated some kind of lighting system that should not have functioned in a ruined manor, summoned ghosts to 'keep the party company,' and departed with chalk—the same chalk Archie needed for dimensional rituals.\n\nWaluigi has documented the Mole extensively elsewhere. His pattern of appearing at critical moments, offering assistance or creating complications, and departing before consequences can be determined is consistent here. But his relationship to Mr. L's emergence is unclear.\n\nPossibilities Waluigi has considered:\n\nThe Mole triggered the emergence deliberately. If the Mole wanted chaos, activating Mr. L would certainly provide it. The emergence created conditions favorable to whatever the Mole was actually trying to accomplish.\n\nThe Mole was responding to the emergence rather than causing it. He appeared AFTER Mr. L manifested, suggesting he detected the dimensional disturbance and came to investigate or exploit it.\n\nThe Mole and Mr. L are working together. This is the most disturbing possibility—an alliance between a dimensional chaos agent and Luigi's suppressed personality would be extremely dangerous.\n\nWaluigi cannot determine which interpretation is correct from available evidence.\n\n## Byscilla's Containment Protocol — 'Phase One'\n\nByscilla Danos executed what she called 'Phase One' during the engagement. She requested Archie's scroll of fireball—despite noting it was 'against Guild protocols'—then went invisible and departed to a transceiver. Her communication was overheard: 'Hmm hmm. Target subdued. We have a target and got a signed spell scroll from Archie.'\n\nThis suggests the Mages' Guild had PREPARED for Mr. L emergence. Byscilla had containment protocols ready. She knew what was happening immediately. She had communication channels to coordinate response. The Guild was not surprised by this development—they were EXPECTING it.\n\nThis raises disturbing questions about the Guild's relationship with Luigi. Were they monitoring him for signs of emergence? Were they deliberately creating conditions that might trigger emergence? Were they planning to use Mr. L for their own purposes once he manifested?\n\nArchie's comment after the engagement is telling: 'Darn, I should have never trusted the mages.'\n\n## The Subdual — How Did It End?\n\nMr. L was subdued suddenly and without apparent cause. Mid-punch, he 'suddenly froze and went limp.' Byscilla reported the subdual to her superiors immediately.\n\nThe mechanism of subdual is not documented in available accounts. Possibilities include:\n\nExternal intervention. Someone or something shut down Mr. L remotely—perhaps through the same dimensional connections that enabled his emergence.\n\nInternal resistance. Luigi reasserted control from within, forcing Mr. L back into dormancy. This would be consistent with Luigi's claimed experience of 'screaming in the back seat' during previous Mr. L periods.\n\nGuild countermeasures. Byscilla's 'Phase One' may have included some kind of suppression technology or magic that affected Mr. L directly.\n\nThe Mole's departure. If the Mole's presence was somehow sustaining the emergence, his departure might have caused collapse of the Mr. L personality.\n\nWaluigi cannot determine which explanation is correct. The subdual was sudden, complete, and apparently permanent—for now.\n\n## The Aftermath — Archie's Forced Recruitment\n\nThe engagement's aftermath was almost as disturbing as the engagement itself. Bones was dragged away by Hargram, who said he would take Bones to be 'sealed up'—then corrected himself to 'healed up.' The correction did not inspire confidence.\n\nDarno Spriggon placed a Mages' Guild membership badge on Archie while he winced in pain, laughing as he walked away. Archie had been drafted into the Guild's service whether he consented or not.\n\nByscilla directed Archie toward a room with an active portal, describing it as 'your next mission.' The implication was clear: Archie's relationship with the Guild was no longer voluntary. They had leverage now—his friends, his survival, his potential to trigger dimensional instability.\n\nArchie's final assessment: 'I should have never trusted the mages.'\n\n## Waluigi's Analysis — What This Engagement Reveals\n\nThe Battle of the Brobot confirms several elements that Waluigi has theorized but could not previously prove:\n\nMr. L can emerge without dimensional triggers. The emergence occurred in a context that should have been stable—ghost hunting, routine work, no Chaos Heart involvement. Whatever containment Luigi has built for himself can fail under sufficient stress.\n\nMr. L retains access to resources. The Brobot appeared functional, suggesting either reconstruction capability or external provision of assets. Mr. L is not merely a personality—he has INFRASTRUCTURE.\n\nThe Mages' Guild anticipated this. Byscilla's containment protocols were prepared in advance. The Guild has been monitoring Luigi and preparing for emergence. Their motives remain unclear but are almost certainly not benevolent.\n\nThe Mole is involved somehow. His appearance, his departure with chalk, his summoning of additional threats—all suggest he has stakes in Mr. L's emergence that go beyond simple chaos creation.\n\nArchie has been compromised. The Guild has recruited him involuntarily through a combination of demonstrated capability, forced dependency, and implied threat to his friends. His future actions will be constrained by this relationship.\n\nWaluigi finds this engagement deeply disturbing. Mr. L's return was not supposed to be possible according to the official narrative. The 'cure' from 1025 BF was supposed to be permanent. Instead, fifteen years later, the Green Thunder emerged in a ruined manor and nearly killed multiple people before being subdued through mysterious means.\n\nIf it happened once, it can happen again. And next time, the containment protocols might not work.\n\nWAH.",
+  "participants": [
+    {
+      "id": "mr_l",
+      "name": "Mr. L / The Green Thunder",
+      "role": "Emerged personality — piloted Brobot, attacked party, subdued through unknown means"
+    },
+    {
+      "id": "archie_miser",
+      "name": "Archie Miser",
+      "role": "Primary target — blasted through wall, forced into Guild membership"
+    },
+    {
+      "id": "bones",
+      "name": "Bones",
+      "role": "Hostage — grabbed by Brobot, knocked unconscious, taken for 'healing'"
+    },
+    {
+      "id": "byscilla_danos",
+      "name": "Byscilla Danos",
+      "role": "Guild operative — executed 'Phase One' containment protocol"
+    },
+    {
+      "id": "the_mole",
+      "name": "The Mole",
+      "role": "Chaos agent — appeared during engagement, summoned ghosts, departed with chalk"
+    },
+    {
+      "id": "darno_spriggon",
+      "name": "Darno Spriggon",
+      "role": "Legion operative — fought slimes, placed Guild badge on injured Archie"
+    },
+    {
+      "id": "rhak_the_lost",
+      "name": "Rhak the Lost",
+      "role": "Legion combatant — knocked unconscious by Thunder Punch"
+    },
+    {
+      "id": "nine_fingers_keene",
+      "name": "Nine-Fingers Keene",
+      "role": "Regency operative — saved Archie from falling debris"
+    }
+  ],
+  "outcome": "Mr. L emerged and piloted Brobot. Multiple combatants injured. Bones captured. Archie blasted through wall. Mr. L subdued through unknown means. Archie forcibly recruited into Mages' Guild. Active portal opened for 'next mission.' Guild's containment protocols revealed to exist. Mole departed with ritual components.",
+  "notableFeatures": [
+    "Spontaneous Mr. L emergence — no dimensional trigger identified",
+    "Brobot appearance — origin unclear, possibly Legion technology",
+    "Guild containment protocols — Byscilla had 'Phase One' prepared in advance",
+    "Mole involvement — summoned ghosts, departed with chalk",
+    "Archie's unstable magic — fireball went out of control, collapsed room",
+    "Sudden subdual — Mr. L froze mid-punch through unknown mechanism",
+    "Forced Guild recruitment — Archie drafted involuntarily"
+  ],
+  "keyBattles": [],
+  "relatedArticles": [
+    "mr_l",
+    "luigi",
+    "archie_miser",
+    "mages_guild",
+    "iron_legion",
+    "the_mole",
+    "chaos_heart_crisis",
+    "ruined_manor_convergence"
+  ]
+},
+{
+  "id": "prison_island_liberation",
+  "name": "The Prison Island Liberation",
+  "title": "Bryan's Choice at Grilly's Bar",
+  "date": "Unknown — timeline unclear relative to main events",
+  "era": "Modern Crisis — Concurrent Operations",
+  "location": "Prison Island — Underground colony near the Forgotten Temple of the Stars",
+  "type": "Prison Riot / Moral Crisis / Temple Exploration",
+  "status": "Concluded — Bryan made his choice, star shard acquired",
+  "image": "",
+  "imageCaption": "No images survive. Bryan was too busy making difficult decisions.",
+  "audioTitle": "",
+  "audio": "",
+  "audioCaption": "",
+  "audioClips": [],
+  "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(139,69,19,0.08), rgba(0,0,0,0.06)); padding: 1rem; border-left: 4px solid #DAA520; border-radius: 0.75rem; } .wiki-article h2 { color: #B8860B; text-shadow: 1px 1px 2px rgba(184,134,11,0.2); } .wiki-article blockquote { background: rgba(218,165,32,0.08); border-left-color: #DAA520; }",
+  "summary": "The Prison Island Liberation was a moral crucible that tested Bryan's commitment to his principles. Sent by the Toad God to deliver a star shard, Bryan arrived at an underground prison colony near the Forgotten Temple of the Stars just as a riot began. Iron Legion soldiers fled past him. Prisoners stormed toward freedom. And at Grilly's Bar, Bryan encountered a choice that would define his character. Two liberators—a mage and a spy—demanded he help them 'breach and clear' the bar. Inside were guards evacuating children and families. The liberators called them 'part of the problem.' They said innocent people who existed within an oppressive system were threats simply for being 'complacent.' Bryan listened. Bryan pretended to agree. Bryan stepped toward the door. And then Bryan grabbed the mage and threw him into molten iron. The other guard he fought until the man fled bleeding. Bryan chose. Not for the Legion, not for the rebellion, but for the people who were about to be murdered by zealots who had confused liberation with massacre. Then he continued to the Temple and acquired a star shard from a guardian who held a power shard in Mario's glove. Waluigi respects Bryan's choice even while acknowledging that such choices have consequences. WAH.",
+  "description": "Waluigi has reconstructed this engagement from Bryan's own account, which he provided reluctantly and with visible discomfort. Bryan does not enjoy discussing the Prison Island events. The choices he made weigh on him in ways that suggest a conscience still processing what occurred. Waluigi respects this weight while documenting the facts.\n\n## The Arrival — Chaos Already Underway\n\nBryan arrived at the underground prison colony on a mission from the Toad God—delivering a star shard to an unspecified destination. The God of Toads had chosen Bryan for reasons that remain unclear, but Bryan accepted the mission as he accepts all divine assignments: with resignation and determination in equal measure.\n\nThe colony was already in upheaval when Bryan arrived. Iron Legion soldiers ran past him in retreat. A prison riot had begun, prisoners overwhelming guards, the established order collapsing. Bryan grabbed a fleeing guard and demanded information about the Temple of the Fallen Star Fragment.\n\nThe guard's response revealed the colony's nature: 'This is a SLAVE prison island. You don't understand. Why do you want to go there?'\n\nBryan released him. The guard fled. Bryan acquired his shield.\n\nPrisoners approached Bryan, asking if he was with the Legion. Bryan's response was deliberately ambiguous—'Hamm.' When asked about the shield, he claimed to be a wanderer who found it. The prisoners accepted this explanation, apparently too focused on their liberation to investigate further.\n\nA large figure emerged—the leader of the uprising—and announced the island's transformation: 'We are going to free this whole island. We are no longer a prison.'\n\nBryan saw opportunity and offered assistance. The leader accepted, directing him toward Grilly's Bar.\n\n## Grilly's Bar — The Choice\n\nBryan arrived at Grilly's Bar with a mage and a spy—liberators who demanded he help breach and clear the establishment. The bar's door was locked. Bryan worked on it, eventually chopping the handle with his axe.\n\nHe looked through the opening. What he saw changed everything.\n\nGuards were evacuating children and families. Not soldiers. Not combatants. CIVILIANS who happened to live within the prison colony system.\n\nBryan reported what he observed: 'There are kids inside. Women and children.'\n\nThe liberators' response was chilling: 'We know. They're part of the problem. They created this whole system—prison colony. We need to rid the filth and bring the new.'\n\nBryan asked for clarification: 'Innocent? They're part of the problem?'\n\nThe mage's answer: 'Them existing—they're a threat to being complacent.'\n\n'Complacent in what?'\n\n'This whole prison colony system. If they're not with us, they're against us.'\n\nBryan understood what he was being asked to do. He was being asked to murder civilians—including children—because they had the misfortune to exist within a system the liberators opposed. Their crime was existence. Their sentence was death.\n\nBryan sighed. 'Alright. I hear you.'\n\nHe stepped toward the door. Another step. Another.\n\nThen he grabbed the mage and threw him into the molten iron and slag that bordered the corridor.\n\nThe mage burned. His final words: 'I hate you.'\n\n## The Aftermath — Consequences and Continuation\n\nBryan returned to the building to find dead guards and evacuated civilians. The families had escaped while Bryan dealt with their would-be murderers. His intervention had provided the distraction needed for survival.\n\nThe remaining guard confronted Bryan: 'I trusted you.'\n\nBryan's response: 'I do not take part in killing people. Sorry.'\n\nThe fight that followed was brief but violent. Bryan chopped the guard's arm off. The guard slashed Bryan's chest. Bryan attacked again. The guard fled into the destroyed building.\n\nBryan was alone. He heard someone approaching—someone who knew his name without introduction. 'Show yourself. I know you're there, Bryan. It's rebellion.'\n\nBryan chose not to find out how this person knew him. He fled.\n\n## The Temple — Star Fragment Acquisition\n\nBryan arrived at the Forgotten Temple of the Stars—a shrine with architecture unlike any known culture, chambers aligned with constellations, a place of celestial worship long abandoned.\n\nHe entered the temple's heart and found a guardian—a man who asked if Bryan was also there to worship the Shine Sprites.\n\nBryan's response was pragmatic: 'Something like that. I'm here for exploration. To seize treasure. I take it the light source behind you is one of the treasures.'\n\nThe guardian confirmed possession but refused to surrender it. He was the protector of this place.\n\nBryan asked about the clasped hand statues. The guardian's answer was significant: 'It's Mario's glove.' He held a power shard.\n\nThe details of what followed are unclear in Bryan's account. He acquired a star shard—his mission objective—but the method of acquisition is not specified. Whether he fought the guardian, negotiated, or found another approach, Bryan does not say.\n\n## Waluigi's Analysis — What Bryan's Choice Reveals\n\nThe Prison Island Liberation reveals several important elements about Bryan and about the broader conflict:\n\nBryan operates according to principles rather than factions. He was willing to help the prison liberation until the liberators demanded he murder children. His loyalty is not to any side but to basic moral constraints that he will not violate regardless of context.\n\nThe liberation movement contains extremists. The mage and spy Bryan encountered were not outliers expressing fringe views—they were participating in systematic elimination of 'complacent' populations. This suggests the prison uprising, whatever its legitimate grievances, had been captured by ideologues willing to commit atrocities.\n\nThe Temple contains Mario artifacts. The guardian held a power shard in 'Mario's glove.' This connects to Waluigi's broader investigation of Mario's disappearance and the Eastern Passage. Star shards, power shards, Mario relics—these threads are weaving together in ways Waluigi does not yet fully understand.\n\nBryan's mission origin is significant. The Toad God sent Bryan to acquire a star shard. What does the Toad God want with celestial artifacts? What role does divine intervention play in the current crisis?\n\nWaluigi respects Bryan's choice at Grilly's Bar. In a moment where factional loyalty would have demanded compliance, Bryan chose to protect innocent people at cost to himself. He killed allies to save enemies. He accepted violence as the price of refusing greater violence.\n\nThis is not heroism in the conventional sense. Bryan did not save the day or defeat the villains. He simply refused to participate in massacre and dealt with the immediate consequences. But in a crisis where factions routinely sacrifice principles for advantage, Bryan's refusal to compromise is notable.\n\nWaluigi hopes he would make the same choice. Waluigi is not certain he would.\n\nWAH.",
+  "participants": [
+    {
+      "id": "bryan",
+      "name": "Bryan",
+      "role": "Protagonist — chose to protect civilians, killed liberator mage, acquired star shard"
+    },
+    {
+      "id": "liberator_mage",
+      "name": "Liberator Mage",
+      "role": "Zealot — demanded civilian massacre, thrown into molten iron by Bryan"
+    },
+    {
+      "id": "liberator_spy",
+      "name": "Liberator Spy",
+      "role": "Zealot — demanded civilian massacre, fought Bryan, fled wounded"
+    },
+    {
+      "id": "temple_guardian",
+      "name": "Temple Guardian",
+      "role": "Protector — held power shard in Mario's glove, defended star shard"
+    },
+    {
+      "id": "prison_uprising",
+      "name": "Prison Uprising Leaders",
+      "role": "Liberation force — accepted Bryan's help, unaware of his subsequent actions"
+    }
+  ],
+  "outcome": "Bryan refused to participate in civilian massacre. Liberator mage killed. Liberator spy wounded and fled. Civilians escaped. Bryan reached Temple of the Stars and acquired star shard. Power shard in Mario's glove observed. Bryan's principles maintained at personal cost.",
+  "notableFeatures": [
+    "Moral crucible — Bryan chose to protect innocents over factional alliance",
+    "Extremist liberation — mage and spy demanded murder of 'complacent' civilians",
+    "Molten iron execution — Bryan threw mage into slag",
+    "Temple of the Stars — celestial worship site with unknown architecture",
+    "Mario's glove — guardian held power shard in Mario artifact",
+    "Star shard acquired — mission objective achieved",
+    "Toad God involvement — Bryan sent on divine mission"
+  ],
+  "keyBattles": [],
+  "relatedArticles": [
+    "bryan",
+    "iron_legion",
+    "mario",
+    "the_eastern_passage",
+    "star_road_network"
+  ]
+},
+{
+  "id": "greenhouse_reconnaissance",
+  "name": "The Greenhouse Reconnaissance",
+  "title": "Reading the Ashes of Archie's Fireball",
+  "date": "29-30 Harvestide, 1040 BF",
+  "era": "Raventree Crisis — Material Plane",
+  "location": "Ruined Manor Greenhouse — Restored frame, fresh growth, echoes of fire",
+  "type": "Reconnaissance / Rust Monster Elimination / Intelligence Gathering",
+  "status": "Concluded — Site surveyed, Legion Arcane Field Analyzer readings submitted",
+  "image": "",
+  "imageCaption": "The greenhouse remembers what burned here.",
+  "audioTitle": "",
+  "audio": "",
+  "audioCaption": "",
+  "audioClips": [],
+  "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(139,69,19,0.12), rgba(0,100,0,0.08), rgba(255,69,0,0.06)); padding: 1rem; border-left: 4px solid #8B4513; border-radius: 0.75rem; } .wiki-article h2 { color: #8B4513; text-shadow: 1px 1px 2px rgba(139,69,19,0.2); } .wiki-article blockquote { background: rgba(139,69,19,0.08); border-left-color: #A0522D; }",
+  "summary": "The Greenhouse Reconnaissance was an Iron Legion operation to survey the site of Archie's notorious fireball—the spell that destroyed the Spider Grove's rust monster infestation and established Archie's reputation for collateral damage. Hargram Fidger led a team including Rhak the Lost and Manderaz the Mad to assess remaining threats and document dimensional residue using the Legion Arcane Field Analyzer. What they found was disturbing: the greenhouse still remembered the blast. Combustion echo readings hit 98%. Mirror intrusion readings suggested dimensional bleed. The site's containment risk was rated 'Crimson Alert.' Fae magic had restored the structure's frame but could not erase the violence imprinted on the location. The team eliminated a surviving rust monster, encountered Mages' Guild operatives bagging corpses, and submitted readings that confirmed what Waluigi has long suspected: Archie's magic leaves marks that do not fade. WAH.",
+  "description": "Waluigi has reconstructed this operation from Iron Legion field reports and the Legion Arcane Field Analyzer readings that were submitted through official channels. The documentation is remarkably thorough—the Legion takes reconnaissance seriously—allowing Waluigi to understand both what the team found and what it means for the broader crisis.\n\n## The Mission Parameters\n\nByscilla Danos established the reconnaissance parameters before the team deployed. The greenhouse had been Archie's most documented magical incident—a fireball that destroyed rust monsters, collapsed structures, and generated the Wahbook posts that made Archie's name synonymous with collateral damage.\n\nThe Legion wanted to know what remained. Fae magic had apparently restored the greenhouse's frame, but restoration is not erasure. The dimensional instability affecting Raventree Manor might have been amplified by Archie's violent spellcasting. Understanding the site's current state was essential for planning future operations.\n\nThe team composition reflected the mission's priorities: Hargram Fidger for tactical leadership, Rhak the Lost for heavy combat capability, Manderaz the Mad for disciplined assessment. No magic users were assigned—they had all been sent to confront Archie directly. This proved significant when combat occurred.\n\n## The Approach — Rain and Rust\n\nThe team arrived at the greenhouse during a thunderstorm. Warol the guard briefed them on current conditions: the rust spread faster in rain, Archie had destroyed the main nest, but at least one rust monster remained mobile. Warol had retreated to await reinforcements rather than engage alone.\n\nThe greenhouse itself presented a strange sight. The frame had been restored through fae magic—no rust remained on the metal supports, no fire damage marked the structure. But the ground-level evidence told a different story: scorched earth, blackened roots beneath healthy growth, the geological memory of violence that surface restoration could not address.\n\nThe team positioned for ambush. The surviving rust monster moved through the greenhouse, apparently unaware of their presence. They waited for optimal positioning.\n\nThe rust monster attacked from behind.\n\n## The Engagement — Swift and Efficient\n\nThe combat was brief but intense. The rust monster crashed through a former window frame, catching the team off-guard. Manderaz blocked its initial charge. Hargram ordered Rhak to grab it—then reconsidered when Rhak pointed out the risk of his arm rusting.\n\nRhak swung at the creature's legs. They came off. He followed with a strike to the head. It rolled away.\n\nThe rust monster was eliminated in under a minute. The team beheaded it for confirmation, then surveyed the area for additional threats.\n\nA ghost appeared—not from the greenhouse but from the opposite direction. The team dispatched it efficiently, collected the ectoplasm for Guild processing, and resumed their primary mission.\n\n## The Analyzer Readings — What the Site Remembers\n\nThe Legion Arcane Field Analyzer provided detailed readings that Waluigi has reproduced in full:\n\n**Combustion Echo: 98%** — The site still remembered the catastrophic blast. Heat memory clung to load-bearing seams and hidden fractures. In Hargram's assessment: 'The blast is gone, but the room still flinches from it.'\n\n**Ferric Hunger: 32%** — Residual rust memory persisted in seams and bolts despite fae restoration. The metal remembered what had consumed it.\n\n**Fae Preservation: 29%** — The restoration magic was active but struggling. Living cover masked older burn trauma below.\n\n**Mirror Intrusion: 68%** — This reading is the most concerning. Dimensional bleed through reflective surfaces suggested the site had become a weak point between planes. Glass, mirrors, and polished water might relay hostile echoes.\n\n**Containment Risk: 77% — CRIMSON ALERT** — The site was rated as high-risk for dimensional instability. Recommendations included reflection discipline before spellcasting, observation rings before deeper exploration, and prohibition on open flame or broad evocation.\n\nThe analyzer's interpretation was clear: Archie's fireball had left marks that fae magic could not erase. The greenhouse was a wound in reality that had scabbed over but not healed.\n\n## The Mages' Guild Presence — Bagging the Dead\n\nThe reconnaissance team discovered Mages' Guild operatives at the site, bagging rust monster corpses. An individual with an eye patch—possibly a pirate affiliation, possibly criminal underworld connections—was supervising the operation.\n\nThe Guild operative approached the Legion team and demanded cooperation. He provided Legion Arcane Field Analyzers for site documentation, explaining that the device sent readings directly to both the Guild and the Legion—a 'joint venture' between organizations.\n\nThe interaction suggested that Guild and Legion interests at Raventree Manor were more aligned than either faction publicly acknowledges. Both organizations were documenting Archie's impact on the dimensional environment. Both were preparing for something.\n\nDarno Spriggon arrived later with a letter for Dan and a keychain bearing military insignia. The chain apparently belonged to a general, raising questions about Spriggon's actual rank and authority.\n\n## Waluigi's Analysis — What This Means for Archie\n\nThe greenhouse reconnaissance confirms what Waluigi has long suspected: Archie Miser's magic is fundamentally unstable in ways that affect the dimensional environment. His spells do not merely accomplish their immediate purpose—they leave MARKS on reality itself.\n\nA 98% combustion echo fifteen days after the fireball suggests Archie's magic imprints on locations with unusual persistence. Normal spellcasting does not produce readings like this. Archie's casting is different—more violent, more permanent, more disruptive to the dimensional fabric.\n\nThe Mages' Guild's interest in Archie makes more sense in this context. They are not merely recruiting a powerful fire mage. They are studying—possibly trying to harness—whatever makes his magic so dimensionally impactful. The 'entropy' that Guild operatives have mentioned in Archie's context may refer to this imprinting effect.\n\nThe Legion's interest similarly clarifies. They want to understand and potentially weaponize Archie's dimensional impact. A mage who leaves permanent marks on reality is either an asset to be controlled or a threat to be eliminated. The Legion appears to be pursuing the first option.\n\nArchie himself may not understand what he is. His Wahbook posts suggest he views his magic as conventional fire spellcasting with collateral damage problems. He does not seem to recognize that his magic is fundamentally different from normal casting—that he is not merely powerful but ABERRANT.\n\nThe greenhouse reconnaissance documents this aberration in clinical detail. The readings are now in Legion and Guild hands. Both organizations know what Archie is, even if Archie himself does not.\n\nThis makes Archie's forced recruitment into the Guild even more concerning. They have not merely drafted a useful mage. They have acquired a dimensional anomaly—one that leaves 98% combustion echoes and 68% mirror intrusion readings wherever he casts.\n\nWaluigi wonders if Archie will ever understand what he is. Waluigi wonders if anyone will tell him.\n\nWAH.",
+  "participants": [
+    {
+      "id": "hargram_fidger",
+      "name": "Hargram Fidger",
+      "role": "Team leader — tactical command, analyzer operation"
+    },
+    {
+      "id": "rhak_the_lost",
+      "name": "Rhak the Lost",
+      "role": "Heavy combatant — eliminated rust monster, beheaded creature"
+    },
+    {
+      "id": "manderaz_the_mad",
+      "name": "Manderaz the Mad",
+      "role": "Disciplined assessment — blocked rust monster charge"
+    },
+    {
+      "id": "mages_guild_operatives",
+      "name": "Mages' Guild Operatives",
+      "role": "Corpse recovery — bagging rust monsters, supervising site"
+    },
+    {
+      "id": "darno_spriggon",
+      "name": "Darno Spriggon",
+      "role": "Intelligence courier — delivered letter for Dan, carried general's keychain"
+    }
+  ],
+  "outcome": "Rust monster eliminated. Ghost dispatched. Analyzer readings submitted showing 98% combustion echo, 68% mirror intrusion, 77% containment risk. Guild and Legion cooperation documented. Site confirmed as dimensionally unstable due to Archie's fireball. Archie's aberrant magical signature officially recorded.",
+  "notableFeatures": [
+    "98% combustion echo — site still remembers Archie's fireball",
+    "68% mirror intrusion — dimensional bleed through reflective surfaces",
+    "77% containment risk — CRIMSON ALERT rating",
+    "Fae restoration insufficient — burn trauma persists beneath healthy growth",
+    "Guild-Legion cooperation — joint analyzer, shared intelligence",
+    "Archie's aberrant signature — magic leaves permanent dimensional marks"
+  ],
+  "keyBattles": [],
+  "relatedArticles": [
+    "archie_miser",
+    "iron_legion",
+    "mages_guild",
+    "ruined_manor_convergence",
+    "spider_grove_battle"
+  ]
+},
   {
     "id": "thunderdome_kidnapping",
     "name": "The Thunderdome Incident",
