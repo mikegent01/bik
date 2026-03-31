@@ -1496,4 +1496,122 @@ export const HISTORICAL_TIMELINE = [
     "category": "Character Event"
 }
 
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "The Waterfall's Hidden Secret",
+    "description": "Curiosity led Remi and Bowser to investigate a cascading waterfall. As Bowser playfully tossed a Toad into the rushing water, the stone wall behind it gave way, revealing a submerged passage.  Remi, hesitant to get wet, stayed behind while Bowser, with a gruff 'mandatory babysitting,' urged Eager and Salam into the concealed entrance. The air hung heavy with anticipation as they vanished into the cool darkness.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "A Glimpse of Lost Days",
+    "description": "In a dimly lit room, Dan showed Remi a faded photograph clutched in his hand. It depicted the airship Vigilance with a young Dan standing between Eager and Big T, a radiant smile on his face. Archie was visible in the background, engaged in a heated argument. The photo, a relic of happier times, served as a poignant reminder of the crew's shattered unity.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "Chaos Engulfs the Structure",
+    "description": "A deafening explosion ripped through the building, sending shockwaves that echoed through the halls. Screams pierced the air as flames erupted, casting an eerie crimson glow upon the panicked faces of those caught in the inferno.  Remi, Eager and Salam scrambled for safety, their escape hampered by the spreading chaos and thick smoke.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "A Fiery Assault",
+    "description": "In a desperate struggle for survival, Dan found himself targeted by a colossal fireball. The searing inferno engulfed him, sending him reeling as Bowser roared in defiance, shielding the injured Dan from further harm.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "The Shadow in Dan's Reflection",
+    "description": "Dan Real awoke with a chilling sense of wrongness. His reflection in the polished armor did not feel like his own. The eyes staring back held a coldness he didn't recognize. Panic clawed at him as he reached out, his hand passing through the image like it was smoke. A deep voice echoed in his mind, \"Welcome home, Dan Real.\"  Archie's insidious laughter followed, confirming the horrifying truth: Dan had been replaced by an imposter.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "Markop Uncovers Archie's Sinister Plan",
+    "description": "Poring over ancient tomes in the Guild library, Markop stumbled upon a hidden inscription within Archie's 'Third Eye Volume 1.' The inscription detailed Archie's ambition to seize control of the mages guild and bend its power to his will.  A cold dread settled over Markop as he realized the true nature of the charismatic archmage. Archie wasn't simply seeking knowledge, he craved dominion.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 12,
+        "minute": 42
+    },
+    "title": "Bowser's Ruthless Exploitation",
+    "description": "Dan Real, overwhelmed with grief and despair over his stolen identity, wept uncontrollably. Bowser, ever opportunistic, watched him with predatory eyes. As Dan sobbed, Bowser snatched a silver locket from his trembling hand and vanished into the shadows.  The cruel act added another layer of anguish to Dan's already unbearable situation.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 13,
+        "minute": 59
+    },
+    "title": "Eager's Captivity and Corruption",
+    "description": "Eager, once a jovial and carefree spirit, had been lured into the clutches of the Church of the Third Eye. They promised him power and enlightenment, but instead subjected him to relentless indoctrination and brainwashing. His vibrant personality faded, replaced by a chilling devotion to the Church's sinister agenda. Eager became a puppet, his will forever severed from his true self.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 4,
+        "hour": 14,
+        "minute": 16
+    },
+    "title": "A Weary March Back to Safety",
+    "description": "The journey back to the manor was a somber one. Bowser, despite his gruff exterior, moved with a heavy tread, his usual boisterous energy subdued. Dan Real, haunted by the recent revelations and the cryptic message from the three-eyed figure, kept his gaze fixed on the ground, lost in thought. Markop, ever the pragmatic leader, urged them onward, reminding them of the need for rest and regrouping after their harrowing exploration. A thick silence hung over the group, broken only by the crunch of gravel beneath their feet as they made their weary way back to the familiar sanctuary.",
+    "icon": "icon_focus.png",
+    "category": "Recent Event"
+}
 ];

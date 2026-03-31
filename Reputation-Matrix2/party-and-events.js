@@ -5206,4 +5206,223 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         "type": "social"
     }
 }
+,
+  {
+    "id": "hatch_discovery",
+    "title": "Remi And Bowser Discover A Hidden Passage",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Remi and Bowser discover a hidden passage behind a waterfall.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "photograph_reveal",
+    "title": "Dan Shows Remi A Photograph Of His",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Dan shows Remi a photograph of his past crew on the airship Vigilance.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "dan"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "explosion_and_chaos",
+    "title": "An Explosion Occurs, Followed By Screams And",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "An explosion occurs, followed by screams and chaos as fire spreads through the building.",
+    "instigator": "remi",
+    "targets": [
+        "remi",
+        "eager",
+        "salam",
+        "dan"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "fireball_attack",
+    "title": "A Giant Fireball Appears, Attacking Dan And",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A giant fireball appears, attacking Dan and causing further destruction.",
+    "instigator": "dan",
+    "targets": [
+        "dan",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "dan_real_kidnapped",
+    "title": "Dan Real Was Kidnapped And Replaced With",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Dan Real was kidnapped and replaced with a fake.",
+    "instigator": "dan_real",
+    "targets": [
+        "dan_real",
+        "archie"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "archie_revealed_as_evil",
+    "title": "Markop Learns From Books That Archie Is",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Markop learns from books that Archie is evil and wants to control the mages guild.",
+    "instigator": "archie",
+    "targets": [
+        "archie",
+        "markop"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "bowser_steals_from_dan",
+    "title": "Bowser Steals Items From Dan Real As",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Bowser steals items from Dan Real as he cries.",
+    "instigator": "dan_real",
+    "targets": [
+        "dan_real",
+        "bowser"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "eager_kidnapped",
+    "title": "Eager Was Kidnapped And Indoctrinated By The",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Eager was kidnapped and indoctrinated by the Church of the Third Eye.",
+    "instigator": "eager",
+    "targets": [
+        "eager"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "group_returns_to_manor",
+    "title": "The Group Decides To Return To The",
+    "date": {
+        "day": 4,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The group decides to return to the manor.",
+    "instigator": "markop",
+    "targets": [
+        "markop",
+        "bowser",
+        "dan_real"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "travel",
+        "type": "travel"
+    }
+}
 ];
