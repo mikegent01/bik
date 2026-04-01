@@ -76,6 +76,156 @@
       "toadsworth_sr"
     ]
   },
+    {
+    "id": "the_medical_extortion_incident",
+    "name": "The Medical Extortion and the Starlight Fraud",
+    "title": "The Time the Mages' Guild Repossessed a Heal (Waluigi Approves of the Hustle, Hates the Execution)",
+    "date": "4-5 Aethel, 1040 BF",
+    "era": "Raventree Crisis",
+    "location": "Raventree Manor — A Barricaded Bedroom",
+    "type": "Medical Malpractice / Bureaucratic Kidnapping / Psychological Warfare",
+    "status": "Concluded — Bones remains in a coma; Archie’s pride remains bruised",
+    "imageCaption": "Waluigi cannot believe the Iron Legion left the real medical chart on an unencrypted tablet. Amateurs.",
+
+    "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(46,139,87,0.15), rgba(0,100,0,0.12), rgba(0,0,0,0.10)); padding: 1.5rem; border-left: 6px solid #228B22; border-radius: 0.75rem; box-shadow: 0 4px 20px rgba(34,139,34,0.4); } .wiki-article h2 { color: #32CD32; text-shadow: 2px 2px 5px rgba(0,100,0,0.5); border-bottom: 2px solid rgba(34,139,34,0.4); padding-bottom: 0.5rem; } .wiki-article blockquote { background: linear-gradient(90deg, rgba(34,139,34,0.15), transparent); border-left: 4px solid #00FF00; padding: 1.2rem; font-style: italic; font-size: 1.1em; }",
+    "summary": "This sequence of events perfectly encapsulates why Waluigi despises the Mages' Guild AND the Iron Legion. Archie Miser, recovering from being repeatedly knocked unconscious, was approached by a Guild 'doctor' named Parson Pellinost. The doctor healed him, announced Archie was now in his debt, and when Archie demanded a refund, the doctor LITERALLY RIPPED THE HEALING MAGIC BACK OUT OF HIS BODY. Waluigi must admit: that is an incredibly stylish scam. Simultaneously, the Legion claimed Bones was suffering from 'Starlight Fever,' a fake magical disease, when in reality they had pumped him full of sedatives to keep him in a medically induced coma. The level of institutional gaslighting is staggering, but their operational security is pathetic.",
+    "description": "Waluigi must break this down into its component failures, because the sheer density of incompetence and malice requires a masterclass in analysis.\n\n## The Repossessed Heal (Parson Pellinost's Hustle)\n\nArchie was resting. A man named Parson Pellinost—claiming to be a Mages' Guild doctor—breezed past the magical wards, produced a crumpled medical card, and healed Archie. \n\n'You are now in my debt,' Pellinost declared.\n\nArchie, possessing the financial instincts of a man who already owes 2,062 gold pieces for a broken rope, demanded a 'refund.' \n\nWaluigi wants everyone to pause and appreciate the sheer, unadulterated PETTINESS of what happened next. Parson Pellinost did not argue. He did not file a grievance. He simply reached out and FORCEFULLY DRAINED THE HEALING MAGIC BACK OUT OF ARCHIE'S BODY. Archie immediately felt terrible again. Pellinost told him to 'use his card if he needed him' and walked away.\n\nWaluigi hates the Mages' Guild. Waluigi despises their bureaucracy. But Waluigi respects a good grift. Healing someone, establishing a debt, and literally *repo'ing their health* when they complain is a level of aggressive capitalism that brings a tear to Waluigi's eye. Wario would be taking notes.\n\n## The Manifestation of Agony\n\nFollowing the medical extortion, Darno Spriggon (the man with the stolen Legion ring) offered to 'show Archie a monster.' Archie immediately saw a giant fireball monster that no one else could see. It chased him upstairs.\n\nLet Waluigi translate this for the layperson: The Guild/Legion alliance deployed targeted, localized psychological warfare against Archie. They manifested his 'pure agony' into an illusion visible only to him, designed to isolate him from the group. It worked flawlessly because Archie's default response to psychological trauma is to run away and lock himself in a dark room.\n\n## The Oracle's Intervention and the 'Starlight' Fraud\n\nInside the locked room, the Oracle appeared, healed Archie (presumably without charging him interest), and dropped a massive piece of intelligence: The Mages' Guild plans to use Archie's research and his 'entropy-bleeding' magical signature to establish interdimensional travel on demand. Archie is not a prisoner; he is a BATTERY.\n\nBefore they could process this, Iron Legion guards breached the room to detain the Oracle. Archie tried to negotiate. During the standoff, they noticed Bones, asleep in a bed, having not woken up in hours.\n\nThe Legion guards claimed Bones was suffering from 'Starlight Fever'—a magical malady causing uncontrollable surges. The Oracle immediately called them liars, stating Starlight Fever doesn't affect Toads.\n\nArchie then managed to steal/read a Legion tablet. Waluigi has reviewed the transcript of this tablet, and it is a masterpiece of bureaucratic evil:\n\n**FALSIFIED DIAGNOSIS:** *Starlight Fever.* (Note: Zero arcane surge activity detected. Diagnosis does not match patient presentation.)\n**ACTUAL DIAGNOSIS:** *Somnium Captivus — Induced Arcane Coma via Compound Sedation.* (Deliberate administration of a dual-layer mundane/arcane sedative. Unlawful detainment under Article 9.)\n\nThe Iron Legion wasn't treating Bones. They had chemically and magically lobotomized him to keep him quiet after he successfully infiltrated Aegis Command. They filed the real diagnosis right beneath the fake one on the same tablet, because the Iron Legion's obsession with accurate paperwork completely overrides their instinct for a cover-up.\n\nWaluigi is offended. If you are going to drug a political prisoner and lie about it, KEEP TWO SEPARATE LEDGERS. Amateurs. WAH.",
+    "participants": [
+      {
+        "id": "archie_miser",
+        "name": "Archie Miser",
+        "role": "The Patient — Asked for a refund on healthcare; learned that magic repo-men exist."
+      },
+      {
+        "id": "parson_pellinost",
+        "name": "Parson Pellinost",
+        "role": "The Guild Doctor — Invented the concept of 'Reverse Healing' for non-payment."
+      },
+      {
+        "id": "bones",
+        "name": "Bones",
+        "role": "The Prisoner — Currently trapped in a chemically induced arcane coma."
+      },
+      {
+        "id": "the_oracle",
+        "name": "The Oracle",
+        "role": "The Guide — Revealed the Guild's interdimensional plans for Archie."
+      },
+      {
+        "id": "darno_spriggon",
+        "name": "Darno Spriggon",
+        "role": "The Psychological Terrorist — Induced a targeted hallucination to isolate Archie."
+      }
+    ],
+    "outcome": "Archie discovered the truth about the Mages' Guild's plans for his magic and uncovered the Iron Legion's medical torture of Bones. The situation culminated in the Oracle teleporting them out of the room before the Legion could fully detain them.",
+    "notableFeatures": [
+      "Reverse Healing — A horrifyingly petty display of Guild medical magic.",
+      "Targeted Illusions — Magic that manifests personal agony, visible only to the victim.",
+      "Somnium Captivus — A dual-layer (mundane/arcane) sedative used for unlawful detainment.",
+      "Starlight Fever — A fictional disease used as a bureaucratic cover-up."
+    ],
+    "relatedArticles": [
+      "archie_miser",
+      "the_oracle",
+      "iron_legion",
+      "mages_guild",
+      "bones",
+      "the_planar_sanctum_revelation"
+    ]
+  },
+  {
+    "id": "the_planar_sanctum_revelation",
+    "name": "The Planar Sanctum and the Flesh Vats",
+    "title": "Where Reality is Torn Apart for Spare Parts",
+    "date": "5 Aethel, 1040 BF",
+    "era": "Raventree Crisis",
+    "location": "The Planar Sanctum (Hidden Dimensional Space)",
+    "type": "Cosmic Horror / Discovery of Atrocities",
+    "status": "Active — The machinery is running; the vats are full",
+    "imageCaption": "A man torn between violet and orange crystals. Waluigi considers this a terrible interior design choice.",
+
+    "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(25,25,112,0.15), rgba(72,61,139,0.12), rgba(0,0,0,0.10)); padding: 1.5rem; border-left: 6px solid #483D8B; border-radius: 0.75rem; box-shadow: 0 4px 20px rgba(72,61,139,0.4); } .wiki-article h2 { color: #6A5ACD; text-shadow: 2px 2px 5px rgba(25,25,112,0.5); border-bottom: 2px solid rgba(72,61,139,0.4); padding-bottom: 0.5rem; } .wiki-article blockquote { background: linear-gradient(90deg, rgba(72,61,139,0.15), transparent); border-left: 4px solid #9370DB; padding: 1.2rem; font-style: italic; font-size: 1.1em; }",
+    "summary": "To escape the Iron Legion, the Oracle snapped his fingers and teleported Archie and the comatose Bones to the 'Planar Sanctum.' It began as a beautiful, star-lit library and immediately devolved into a cosmic slaughterhouse. The floor shattered to reveal two massive Crystal Tethers (one Umbral Violet, one Volatile Orange) literally tearing a man apart in a metal tank. A detached room revealed glass vats filled with malformed, weeping, tube-fed humanoids suspended in luminescent fluid. The Oracle revealed this is the fate awaiting them if the timelines aren't severed. Waluigi has strong stomach for villainy, but this crosses the line from 'scheming' into 'existential body horror.'",
+    "description": "Waluigi has maintained throughout this encyclopedia that the Iron Legion and the Mages' Guild are corrupt. But corruption usually means taking bribes or falsifying documents. The Planar Sanctum proves that their corruption is metaphysical. They are quite literally mining human suffering to manipulate the fabric of reality.\n\n## The Library of the Void\n\nThe initial arrival point was deceptive. A circular chamber with elaborately carved wooden shelves extending upward like stacked bands. Three grand lecterns in the center holding ornate, locked tomes. And directly overhead, a tiny aperture revealing a swirling starscape. \n\nWaluigi appreciates a good library. Knowledge is power, and power is leverage. Archie found a torn-out page referencing *Arcane Tethers, Planar Threading, Planar Resonance, Quintessence, The Weight of Time,* and *Accretion Sites.* This confirms that the Guild isn't just studying the Planar Fracture; they are actively trying to HARNESS it. They are treating the collapse of reality as a public transit project.\n\n## The Grisly Tableau: The Tethers\n\nThe illusion of scholarly tranquility ended when the floor shattered like fine china, ripping the royal purple carpet apart. (Waluigi takes personal offense to the destruction of royal purple carpet. Barbarians.)\n\nBeneath the floor lay a grand central chamber open to the starfield. Two massive crystal formations were mounted in metallic casings:\n- **The Western Crystal:** Thrumming with umbral violet energy.\n- **The Eastern Crystal:** Flashing erratically with volatile orange energy.\n\nThese are the **Crystal Tethers**. And in the exact center between them lay a cracked metal tank. Behind the tank stood a man, silhouetted by lightning, enveloped by grasping tendrils of energy that seemed to rip and tear at him from both sides. \n\nArchie, demonstrating his usual lack of situational awareness, put his hand on the case and called it 'beautiful.' The Oracle corrected him. This is the agony that the Corvinarus curse inflicts. This man (likely a key figure of the bloodline, perhaps the original Orangus Cornelius or the architect of 'The Grafting') is acting as the living battery for the dimensional rift. Twenty years of agony to keep the planes tethered together.\n\n## The Flesh Vats\n\nIf the Tethers were tragic, the adjacent room was an atrocity. \n\nA detached circular chamber drifting with centrifugal entropy. Inside were large glass tanks connected by thick pipes. Suspended within a glowing, luminescent fluid were humanoid bodies. \n\nThey were malformed. Flesh open with weeping sores. Limbs ending prematurely. Metal tubes impaling their flesh and extending down their open mouths. Their eyes were open, but it was impossible to tell if they were alive. A disposal chute nearby indicated what happened to the 'failed' experiments.\n\nThis is what the Iron Legion and Mages' Guild are doing behind closed doors. They are not just treating prisoners as logistics; they are treating them as raw biological material for dimensional stabilization. The 'Somnium Captivus' that Bones is currently suffering from? It is likely the precursor to ending up in one of these tubes. \n\nThe Oracle made it explicit: *'If we do the ritual, we won't have to end up in a vat like this.'*\n\n## Waluigi's Assessment\n\nThe Planar Sanctum is the dark heart of the Raventree Crisis. It proves that the overlapping dimensions are not just a magical accident; they are being actively, artificially sustained through horrific biological and arcane machinery. \n\nThe Violet energy likely corresponds to the Shadowfell (Shadow Estate). The Orange energy likely corresponds to the Feywild (Overgrown Manor, the 'Orange Alignment' involving Hjumpik). The man in the middle is the anchor.\n\nWaluigi has stolen from museums. Waluigi has rigged go-kart races. Waluigi has even scammed desperate Toads with useless corsets during a biological pandemic. But Waluigi has NEVER put a sentient being in a flesh vat to harvest their soul for a dimensional subway system. \n\nThere is evil, and then there is *this*. The Iron Legion and the Mages' Guild must be dismantled. Not because Waluigi is a hero. But because Waluigi refuses to live in a universe where the ultimate authority is this utterly devoid of style and basic decency.\n\nWAH.",
+    "participants": [
+      {
+        "id": "the_oracle",
+        "name": "The Oracle",
+        "role": "The Guide — Revealed the true, horrifying stakes of the Planar Fracture."
+      },
+      {
+        "id": "archie_miser",
+        "name": "Archie Miser",
+        "role": "The Anchor — Looked at a man being torn apart by cosmic lightning and called it 'beautiful.'"
+      },
+      {
+        "id": "unknown_tethered_man",
+        "name": "Unknown Tethered Man",
+        "role": "The Battery — Enduring twenty years of agony to hold the planes together."
+      }
+    ],
+    "outcome": "The party observed the true nature of the planar tethers and the biological horrors used to sustain them, cementing the absolute necessity of completing the severance ritual.",
+    "notableFeatures": [
+      "Crystal Tethers — Massive magical conduits pulsing with Violet (Shadow) and Orange (Fey) energy.",
+      "The Flesh Vats — Glass tanks filled with luminescent fluid and malformed humanoids used for arcane processing.",
+      "Somnium Captivus — The chemical/magical state required before being placed in the vats."
+    ],
+    "relatedArticles": [
+      "the_oracle",
+      "archie_miser",
+      "the_orange_alignment",
+      "shadow_estate",
+      "iron_legion",
+      "mages_guild",
+      "the_shadeward_ritual"
+    ]
+  },
+  {
+    "id": "the_shadeward_ritual",
+    "name": "The Shadeward Anchor Ritual (Take Two)",
+    "title": "Archie Miser Consents to Exploding (Again)",
+    "date": "5 Aethel, 1040 BF",
+    "era": "Raventree Crisis",
+    "location": "The Planar Sanctum",
+    "type": "Dimensional Transit / Extreme Magical Recklessness",
+    "status": "Initiated — Outcome pending, but Waluigi assumes it involves property damage",
+    "imageCaption": "A pyromaniac acting as a cosmic anchor. What could possibly go wrong?",
+
+    "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(255,69,0,0.15), rgba(139,0,0,0.12), rgba(0,0,0,0.10)); padding: 1.5rem; border-left: 6px solid #FF4500; border-radius: 0.75rem; box-shadow: 0 4px 20px rgba(139,0,0,0.4); } .wiki-article h2 { color: #FF6347; text-shadow: 2px 2px 5px rgba(139,0,0,0.5); border-bottom: 2px solid rgba(139,0,0,0.4); padding-bottom: 0.5rem; } .wiki-article blockquote { background: linear-gradient(90deg, rgba(139,0,0,0.15), transparent); border-left: 4px solid #FF4500; padding: 1.2rem; font-style: italic; font-size: 1.1em; }",
+    "summary": "After witnessing the horrors of the Planar Sanctum, Archie Miser demanded the Oracle immediately perform a ritual to send him to 'Shadeward' (The Shadowfell) to rescue his friends. The Oracle warned him that time moves differently there—a MONTH has passed in the Shadowfell since they last saw each other. Archie, refusing to listen to reason, demanded the ritual proceed. He left the comatose Bones in the Oracle's care (with strict instructions not to put him in a flesh vat). Archie stood in the center of the candles to act as the magical anchor. The Oracle noted that Archie was absorbing TOO MUCH power. The session ended right before the inevitable explosion. Waluigi is taking bets on how many limbs Archie retains upon arrival.",
+    "description": "Waluigi must document the sheer, unrelenting stubbornness of Archie Miser. \n\nArchie had just been informed that his magic bleeds entropy. He had just been shown that dimensional travel requires immense, agonizing power. He had just watched a man being ripped apart by crystal tethers. \n\nHis response? 'Enough dilly-dallying. Let's do the ritual.'\n\n## The Time Dilation Problem\n\nThe Oracle revealed a critical piece of intelligence: Time is not synchronized across the planar fragments. \n\nWhile only a few days have passed in the Material Plane (Raventree Manor), the Oracle explicitly stated that **A MONTH has passed in the Shadowfell**. \n\nThis is disastrous. Waluigi has been trapped in the Feywild; he does not know what the time dilation is there, but if the Shadowfell is moving at a highly accelerated rate, the geopolitical situation has entirely changed. \n\nIf a month has passed in the Shadowfell:\n- Vivian Corvinarus has had 30 days to consolidate power or be hunted down.\n- Green T has been surviving in a hostile, monochrome death-world for weeks.\n- The Onyx Hand has had a month to recover from the Shattering of the Anchor and the shooting of Orangus Cornelius.\n- Any rescue operation is arriving long after the trail has gone cold.\n\nArchie didn't care. 'I still have to try. We haven't left a foot outside the mansion.'\n\n## The Custody of Bones\n\nArchie made one semi-responsible decision: he refused to take the comatose Bones through a volatile dimensional portal. He ordered the Oracle to watch over Bones, specifically demanding that the Oracle not subject Bones to his 'experiments.'\n\nThe Oracle agreed, stating it was 'quite a burden.' \n\nWaluigi finds this arrangement deeply concerning. Leaving an unconscious friend with a 46-year-old (in Toad years) interdimensional custodian who just showed you his secret room full of flesh vats is not a solid long-term healthcare plan. However, compared to taking Bones into a dimensional blender, it was the lesser of two evils.\n\n## The Anchor's Overload\n\nThe Oracle instructed Archie to stand in the middle of the ritual circle. Archie was designated as the 'Anchor.' \n\nWaluigi has seen Archie act as an anchor before. It caused the Planar Fracture. \n\nAs the candles were lit, Archie began to absorb magical power to fuel the transit. The Oracle, a being who routinely manipulates space and time, looked at Archie wide-eyed and said, *'It may be too powerful.'*\n\nArchie's response: *'Well, you'll be in Shadeward. Where in Shadeward? I haven't got a clue.'*\n\nAnd that is where the record ends.\n\n## Waluigi's Assessment\n\nArchie Miser is about to be fired out of a metaphysical cannon into a dimension that hates him, arriving a month late to a rescue mission, carrying enough volatile magical energy to potentially shatter whatever remains of the Shadow Estate.\n\nWaluigi is not a praying man, but Waluigi is praying for the structural integrity of the Shadowfell. Because when Archie Miser absorbs 'too much power,' things don't just break. They cease to have ever existed.\n\nWAH.",
+    "participants": [
+      {
+        "id": "archie_miser",
+        "name": "Archie Miser",
+        "role": "The Anchor — Absorbing dangerous amounts of mana to force a portal open."
+      },
+      {
+        "id": "the_oracle",
+        "name": "The Oracle",
+        "role": "The Caster — Attempting to aim a pyromaniac at a specific dimension."
+      },
+      {
+        "id": "bones",
+        "name": "Bones",
+        "role": "The Left Behind — Comatose, hopefully not destined for a glass tube."
+      }
+    ],
+    "outcome": "Archie initiated a highly unstable dimensional transit to the Shadowfell, where a month of local time has already passed. The final outcome of the spell is pending.",
+    "notableFeatures": [
+      "Time Dilation — The Shadowfell experiences time significantly faster than the Material Plane.",
+      "The Anchor Role — Archie using his entropy-bleeding magic as a structural focal point for portal generation.",
+      "Shadeward — The Oracle's specific terminology for the Shadowfell fragment."
+    ],
+    "relatedArticles": [
+      "the_planar_sanctum_revelation",
+      "shadow_estate",
+      "archie_miser",
+      "the_oracle",
+      "planar_fracture"
+    ]
+  },
+
   {
   "id": "fawful_gala_revelations",
   "name": "Fawful's Gala Revelations",
@@ -156,7 +306,6 @@
     "location": "Multiple dimensions — Castle Bleck, Lineland, Gloam Valley, the Bitlands, the Overthere, the Underwhere, and everywhere in between",
     "type": "Dimensional Catastrophe / Military Campaign / Personal Tragedy",
     "status": "Officially resolved — though Waluigi has documented evidence suggesting 'resolved' is optimistic",
-    "image": "",
     "imageCaption": "No images survive. Dimensional instability during the crisis destroyed most recording equipment.",
     "audioTitle": "",
     "audio": "",
@@ -415,7 +564,6 @@
     "location": "Sarasaland Royal Palace — Princess Daisy's private residence",
     "type": "Mr. L Resurgence / Diplomatic Crisis / Classified Event",
     "status": "Officially never happened — which is how Waluigi knows it definitely happened",
-    "image": "",
     "imageCaption": "No images exist. All recording devices in the palace were confiscated and destroyed.",
     "audioTitle": "",
     "audio": "",
@@ -465,7 +613,6 @@
     "location": "Darkland, Koopa Kingdom territories, and the scattered remnants of Mushroom Kingdom authority",
     "type": "Military Campaign / Rescue Operation / Origin Story",
     "status": "Concluded — but its consequences echo through everything that followed",
-    "image": "",
     "imageCaption": "Contemporary artwork depicts the conflict in heroic terms. The reality was considerably messier.",
     "audioTitle": "",
     "audio": "",
@@ -522,7 +669,6 @@
     "location": "Luigi's Mansion — a haunted estate that appeared mysteriously and disappeared after the incident",
     "type": "Solo Adventure / Ghost Combat / Psychological Trial",
     "status": "Concluded — but the psychological implications persist",
-    "image": "",
     "imageCaption": "The mansion no longer exists in accessible space. Whether it was destroyed or dimensionally displaced remains unknown.",
     "audioTitle": "",
     "audio": "",
@@ -579,7 +725,6 @@
     "location": "Beanbean Kingdom — neighboring kingdom with distinct culture and governance",
     "type": "International Adventure / Diplomatic Crisis / Partnership Test",
     "status": "Concluded — Cackletta defeated, Fawful escaped, consequences ongoing",
-    "image": "",
     "imageCaption": "The Beanbean Castle was partially destroyed during the conflict. It has since been rebuilt.",
     "audioTitle": "",
     "audio": "",
@@ -1003,7 +1148,6 @@
     "location": "Shadow Estate Dining Hall — gothic opulence, ebony table, chandeliers dripping suspicious wax",
     "type": "Diplomatic Catastrophe / Combat Engagement / Green T's Greatest Moment",
     "status": "Concluded — led directly to the Shattering of the Shadow Anchor",
-    "image": "",
     "imageCaption": "No photographs survived. The chandeliers were made of blood-wax anyway.",
     "audioTitle": "",
     "audio": "",
@@ -1068,7 +1212,6 @@
     "location": "Shadow Estate Courtyard — beneath a hollow statue",
     "type": "Decisive Engagement / Planar Event / One Perfect Shot",
     "status": "Concluded — Shadowfell suppression lifted, cascading consequences ongoing",
-    "image": "",
     "imageCaption": "The moment color returned to a grey world.",
     "audioTitle": "",
     "audio": "",
@@ -1127,7 +1270,6 @@
     "location": "Shadow Estate — maintenance corridors and groundskeeper's shed",
     "type": "Combat Engagement / Near-Death Experience / Divine Intervention",
     "status": "Concluded — Vivian defeated and later interrogated, Markop's armor barely intact",
-    "image": "",
     "imageCaption": "No images. Markop was too busy not dying to take photographs.",
     "audioTitle": "",
     "audio": "",
@@ -1179,7 +1321,6 @@
     "location": "Shadow Estate Hedge Maze and Spider Grove",
     "type": "Combat Engagement / Musical Theatre / Hostage Situation",
     "status": "Concluded — party escaped the maze, multiple Mazebounds destroyed or driven off",
-    "image": "",
     "imageCaption": "The Mazebounds did jazz hands. Waluigi wishes he was making this up.",
     "audioTitle": "",
     "audio": "",

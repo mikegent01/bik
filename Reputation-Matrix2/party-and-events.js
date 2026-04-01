@@ -5212,7 +5212,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "Remi And Bowser Discover A Hidden Passage",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5236,7 +5236,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "Dan Shows Remi A Photograph Of His",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5260,7 +5260,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "An Explosion Occurs, Followed By Screams And",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5286,7 +5286,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "A Giant Fireball Appears, Attacking Dan And",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5310,7 +5310,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "Dan Real Was Kidnapped And Replaced With",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5334,7 +5334,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "Markop Learns From Books That Archie Is",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5358,7 +5358,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "Bowser Steals Items From Dan Real As",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5382,7 +5382,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "Eager Was Kidnapped And Indoctrinated By The",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5405,7 +5405,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     "title": "The Group Decides To Return To The",
     "date": {
         "day": 4,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "year": 1040
     },
     "isEvent": true,
@@ -5425,4 +5425,5 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         "type": "travel"
     }
 }
+
 ];

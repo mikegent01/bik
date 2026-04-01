@@ -1500,7 +1500,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 6,
         "minute": 0
@@ -1513,7 +1513,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 7,
         "minute": 17
@@ -1526,7 +1526,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 8,
         "minute": 34
@@ -1539,7 +1539,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 9,
         "minute": 51
@@ -1552,7 +1552,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 10,
         "minute": 8
@@ -1565,7 +1565,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 11,
         "minute": 25
@@ -1578,7 +1578,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 12,
         "minute": 42
@@ -1591,7 +1591,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 13,
         "minute": 59
@@ -1604,7 +1604,7 @@ export const HISTORICAL_TIMELINE = [
     {
     "date": {
         "year": 1040,
-        "monthIndex": 6,
+        "monthIndex": 7,
         "day": 4,
         "hour": 14,
         "minute": 16
@@ -1614,4 +1614,5 @@ export const HISTORICAL_TIMELINE = [
     "icon": "icon_focus.png",
     "category": "Recent Event"
 }
+
 ];

@@ -556,6 +556,21 @@
   ]
 },
   {
+    "id": "parson_pellinost",
+    "name": "Parson Pellinost",
+    "title": "The Repo-Mage of Healthcare",
+    "race": "Unknown",
+    "status": "Active — Wandering Raventree Manor demanding co-pays",
+    "affiliation": "Mages' Guild (Medical Division)",
+    "summary": "Parson Pellinost is a 'doctor' for the Mages' Guild who perfectly illustrates the Guild's approach to charity. He bypassed heavy magical wards to enter a barricaded room, healed an injured Archie Miser, informed him he was now in debt, and when Archie demanded a refund, Pellinost forcibly ripped the healing magic back out of Archie's body. Waluigi finds the sheer, unadulterated pettiness of this act to be a breathtaking display of aggressive capitalism. WAH.",
+    "description": "To understand Parson Pellinost is to understand the Mages' Guild. They do not do favors. They do not perform acts of kindness. They make investments.\n\nPellinost gained access to a locked, warded room with suspicious ease. He carries a crumpled medical card as his only identification. He performs highly effective restorative magic, but his magic comes with an invisible, immediate contract.\n\nWhen Archie, in a rare display of fiscal responsibility (or just profound stubbornness), refused the debt and asked for a refund, Pellinost didn't argue. He simply extended his hand, sent a wave of force into Archie, and *drained the health back out*. \n\n'The refund is made,' he declared, leaving Archie in agony once more.\n\nWaluigi has scammed thousands of people. Waluigi has sold useless corsets during a biological plague. But Waluigi has NEVER repo'd someone's white blood cells. Parson Pellinost is a pioneer in the field of medical extortion, and Waluigi tips his magnificent purple hat to him. Just... don't ever let him touch you.\n\nWAH.",
+    "relatedArticles": [
+      "the_medical_extortion_incident",
+      "mages_guild",
+      "archie_miser"
+    ]
+  },
+  {
     "id": "thornbury",
     "name": "Thornbury",
     "title": "The Quartermaster Spy",
