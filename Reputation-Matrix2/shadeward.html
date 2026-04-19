@@ -1,0 +1,3747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOSTOLAS WORKSTATION - Archivist Terminal v3.7.1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=MS+Sans+Serif&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --xp-blue: #0a246a;
+            --xp-light-blue: #3a6ea5;
+            --xp-taskbar: #235ddc;
+            --xp-taskbar-gradient-top: #2b71e0;
+            --xp-taskbar-gradient-bottom: #1a47b8;
+            --xp-start-green: #3c8c2e;
+            --xp-window-title: #0054e3;
+            --xp-window-title-inactive: #7a96df;
+            --xp-window-bg: #ece9d8;
+            --xp-button-face: #ece9d8;
+            --xp-button-highlight: #ffffff;
+            --xp-button-shadow: #aca899;
+            --xp-desktop: #3a6ea5;
+            --xp-selection: #316ac5;
+            --shadow-purple: #2d1b4e;
+            --shadow-red: #8b0000;
+            --entropy-green: #00ff41;
+            --onyx-black: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            background: var(--xp-desktop);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            cursor: default;
+            user-select: none;
+        }
+
+        /* WALLPAPER */
+        .wallpaper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 40px);
+            background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 25%, #0a246a 50%, #1a3a5c 75%, #2d1b4e 100%);
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .wallpaper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(100, 0, 150, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 30%);
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(200, 150, 255, 0.3);
+            border-radius: 50%;
+            animation: float-particle 15s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+        }
+
+        /* DESKTOP ICONS */
+        .desktop {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: calc(100% - 20px);
+            height: calc(100% - 60px);
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .desktop-icon {
+            width: 75px;
+            height: 85px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 5px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            transition: background 0.1s;
+        }
+
+        .desktop-icon:hover {
+            background: rgba(49, 106, 197, 0.3);
+            border-color: rgba(49, 106, 197, 0.5);
+        }
+
+        .desktop-icon.selected {
+            background: rgba(49, 106, 197, 0.5);
+            border-color: rgba(49, 106, 197, 0.8);
+        }
+
+        .desktop-icon .icon-img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+        }
+
+        .desktop-icon .icon-label {
+            color: white;
+            font-size: 11px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            line-height: 1.2;
+            word-wrap: break-word;
+            max-width: 70px;
+        }
+
+        /* WINDOWS */
+        .window {
+            position: absolute;
+            min-width: 300px;
+            min-height: 200px;
+            background: var(--xp-window-bg);
+            border: 1px solid #0054e3;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+            z-index: 10;
+            display: none;
+            overflow: hidden;
+        }
+
+        .window.active {
+            z-index: 100;
+            border-color: #0054e3;
+        }
+
+        .window.active .window-titlebar {
+            background: linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #0046d5 88%, #0040c9 93%, #003bbc 95%, #003bbc 100%);
+        }
+
+        .window-titlebar {
+            height: 30px;
+            background: linear-gradient(180deg, #7a96df 0%, #6882c5 8%, #6078b8 40%, #5570a8 88%, #4e6a9e 93%, #4a6496 95%, #4a6496 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+            cursor: move;
+            border-radius: 7px 7px 0 0;
+        }
+
+        .window-titlebar .title-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+            font-size: 14px;
+        }
+
+        .window-titlebar .title-text {
+            flex: 1;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .window-controls button {
+            width: 21px;
+            height: 21px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .btn-minimize {
+            background: linear-gradient(180deg, #3c8cff 0%, #2a6ad4 50%, #2460c8 100%);
+        }
+
+        .btn-maximize {
+            background: linear-gradient(180deg, #3c8cff 0%, #2a6ad4 50%, #2460c8 100%);
+        }
+
+        .btn-close {
+            background: linear-gradient(180deg, #e07050 0%, #c53a1a 50%, #b5321a 100%);
+        }
+
+        .window-controls button:hover {
+            filter: brightness(1.2);
+        }
+
+        .window-controls button:active {
+            filter: brightness(0.9);
+        }
+
+        .window-menubar {
+            height: 24px;
+            background: var(--xp-window-bg);
+            border-bottom: 1px solid #aca899;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+            font-size: 11px;
+        }
+
+        .window-menubar span {
+            padding: 2px 8px;
+            cursor: pointer;
+        }
+
+        .window-menubar span:hover {
+            background: var(--xp-selection);
+            color: white;
+        }
+
+        .window-toolbar {
+            height: 28px;
+            background: linear-gradient(180deg, #f4f1e8 0%, #ece9d8 100%);
+            border-bottom: 1px solid #aca899;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+            gap: 2px;
+        }
+
+        .toolbar-btn {
+            padding: 2px 6px;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            font-size: 10px;
+            cursor: pointer;
+            background: none;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .toolbar-btn:hover {
+            border-color: #aca899;
+            background: linear-gradient(180deg, #ffffff 0%, #ece9d8 100%);
+        }
+
+        .toolbar-separator {
+            width: 1px;
+            height: 20px;
+            background: #aca899;
+            margin: 0 2px;
+        }
+
+        .window-addressbar {
+            height: 24px;
+            background: var(--xp-window-bg);
+            border-bottom: 1px solid #aca899;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+            font-size: 11px;
+        }
+
+        .window-addressbar label {
+            margin-right: 4px;
+            font-size: 11px;
+        }
+
+        .window-addressbar input {
+            flex: 1;
+            height: 18px;
+            border: 1px solid #7f9db9;
+            padding: 0 4px;
+            font-size: 11px;
+            font-family: Tahoma, sans-serif;
+            background: white;
+        }
+
+        .window-content {
+            padding: 8px;
+            overflow-y: auto;
+            background: white;
+            height: calc(100% - 30px);
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .window-content.explorer-content {
+            height: calc(100% - 108px);
+            display: flex;
+        }
+
+        .window-content.notepad-content {
+            height: calc(100% - 54px);
+            padding: 0;
+        }
+
+        .window-statusbar {
+            height: 22px;
+            background: var(--xp-window-bg);
+            border-top: 1px solid white;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* Explorer sidebar */
+        .explorer-sidebar {
+            width: 200px;
+            min-width: 200px;
+            background: linear-gradient(180deg, #6b89d4 0%, #4a6dbe 100%);
+            padding: 8px;
+            border-right: 1px solid #aca899;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            background: linear-gradient(180deg, #ffffff 0%, #d6dff7 100%);
+            border-radius: 5px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .sidebar-section-title {
+            background: linear-gradient(180deg, #7b9fe0 0%, #5583d0 100%);
+            color: white;
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-section-content {
+            padding: 8px 10px;
+            font-size: 11px;
+        }
+
+        .sidebar-link {
+            display: block;
+            color: #0066cc;
+            text-decoration: none;
+            padding: 3px 0;
+            cursor: pointer;
+        }
+
+        .sidebar-link:hover {
+            text-decoration: underline;
+            color: #003399;
+        }
+
+        .explorer-files {
+            flex: 1;
+            padding: 8px;
+            overflow-y: auto;
+            background: white;
+        }
+
+        .file-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .file-item {
+            width: 80px;
+            padding: 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 3px;
+        }
+
+        .file-item:hover {
+            background: #e8e8e8;
+            border-color: #ccc;
+        }
+
+        .file-item.selected {
+            background: var(--xp-selection);
+            color: white;
+            border-color: var(--xp-selection);
+        }
+
+        .file-item .file-icon {
+            font-size: 32px;
+            margin-bottom: 4px;
+        }
+
+        .file-item .file-name {
+            font-size: 10px;
+            text-align: center;
+            word-wrap: break-word;
+            line-height: 1.2;
+        }
+
+        /* Notepad textarea */
+        .notepad-textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            padding: 4px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            outline: none;
+            background: #fffef0;
+            color: #333;
+        }
+
+        /* TASKBAR */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(180deg, var(--xp-taskbar-gradient-top) 0%, var(--xp-taskbar-gradient-bottom) 100%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            border-top: 2px solid #59a3f8;
+        }
+
+        .start-button {
+            height: 36px;
+            padding: 0 12px;
+            background: linear-gradient(180deg, #3c9b28 0%, #328a20 50%, #2d7d1c 100%);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+            margin-right: 4px;
+        }
+
+        .start-button:hover {
+            background: linear-gradient(180deg, #44ab30 0%, #3a9828 50%, #359024 100%);
+        }
+
+        .start-button:active {
+            background: linear-gradient(180deg, #2d7d1c 0%, #267018 50%, #226414 100%);
+        }
+
+        .start-logo {
+            font-size: 18px;
+        }
+
+        .taskbar-items {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+            gap: 3px;
+            overflow-x: auto;
+        }
+
+        .taskbar-item {
+            height: 28px;
+            padding: 0 12px;
+            background: linear-gradient(180deg, #3c7ae0 0%, #2a5fba 50%, #2456a8 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 3px;
+            color: white;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .taskbar-item.active {
+            background: linear-gradient(180deg, #f0f0f0 0%, #e0e0e0 50%, #d0d0d0 100%);
+            color: #333;
+            border-color: #999;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .taskbar-item:hover {
+            filter: brightness(1.1);
+        }
+
+        .system-tray {
+            height: 100%;
+            background: linear-gradient(180deg, #0f8ff8 0%, #0670d4 50%, #0460c0 100%);
+            border-left: 2px solid #1894ff;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: white;
+        }
+
+        .tray-icon {
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        .tray-icon:hover {
+            opacity: 1;
+        }
+
+        .tray-clock {
+            font-size: 11px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+        }
+
+        /* START MENU */
+        .start-menu {
+            position: fixed;
+            bottom: 40px;
+            left: 0;
+            width: 380px;
+            background: white;
+            border: 2px solid #0054e3;
+            border-radius: 8px 8px 0 0;
+            z-index: 2000;
+            display: none;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .start-menu.visible {
+            display: block;
+        }
+
+        .start-menu-header {
+            height: 54px;
+            background: linear-gradient(180deg, #0a5dc2 0%, #064a9b 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 10px;
+        }
+
+        .start-menu-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2d1b4e, #4a2d7a);
+            border: 2px solid white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .start-menu-username {
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .start-menu-body {
+            display: flex;
+            min-height: 350px;
+        }
+
+        .start-menu-left {
+            flex: 1;
+            background: white;
+            padding: 8px 0;
+            border-right: 1px solid #d6d2c2;
+        }
+
+        .start-menu-right {
+            width: 160px;
+            background: linear-gradient(180deg, #4b7bc4 0%, #3a6cb5 100%);
+            padding: 8px 0;
+        }
+
+        .start-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 12px;
+            cursor: pointer;
+            gap: 8px;
+            font-size: 11px;
+        }
+
+        .start-menu-left .start-menu-item:hover {
+            background: var(--xp-selection);
+            color: white;
+        }
+
+        .start-menu-right .start-menu-item {
+            color: white;
+        }
+
+        .start-menu-right .start-menu-item:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .start-menu-item .item-icon {
+            font-size: 22px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .start-menu-separator {
+            height: 1px;
+            background: #d6d2c2;
+            margin: 4px 12px;
+        }
+
+        .start-menu-footer {
+            height: 36px;
+            background: linear-gradient(180deg, #3c7ae0 0%, #2456a8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 12px;
+            gap: 8px;
+        }
+
+        .start-footer-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            font-size: 11px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 3px;
+        }
+
+        .start-footer-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* DIALOG BOXES */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dialog-overlay.visible {
+            display: flex;
+        }
+
+        .dialog-box {
+            background: var(--xp-window-bg);
+            border: 2px solid #0054e3;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.5);
+            min-width: 350px;
+            max-width: 500px;
+        }
+
+        .dialog-titlebar {
+            height: 28px;
+            background: linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #0046d5 88%, #0040c9 93%);
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .dialog-titlebar .title-text {
+            flex: 1;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+        }
+
+        .dialog-body {
+            padding: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .dialog-icon {
+            font-size: 32px;
+            min-width: 40px;
+        }
+
+        .dialog-text {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .dialog-buttons {
+            padding: 10px 20px 16px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .dialog-btn {
+            min-width: 75px;
+            height: 23px;
+            border: 1px solid #003c74;
+            border-radius: 3px;
+            background: linear-gradient(180deg, #ffffff 0%, #ece9d8 100%);
+            font-size: 11px;
+            font-family: Tahoma, sans-serif;
+            cursor: pointer;
+            padding: 0 16px;
+        }
+
+        .dialog-btn:hover {
+            background: linear-gradient(180deg, #ffffff 0%, #dbd8c8 100%);
+        }
+
+        .dialog-btn:active {
+            background: linear-gradient(180deg, #dbd8c8 0%, #ccc8b8 100%);
+        }
+
+        .dialog-btn.primary {
+            border-color: #003c74;
+            box-shadow: 0 0 0 1px #003c74;
+        }
+
+        /* Notepad styling */
+        .notepad-content textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            padding: 6px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            outline: none;
+            background: #fffef0;
+            color: #222;
+        }
+
+        /* Custom content styles */
+        .content-section {
+            margin-bottom: 16px;
+        }
+
+        .content-section h2 {
+            font-size: 14px;
+            color: var(--xp-blue);
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+        }
+
+        .content-section h3 {
+            font-size: 12px;
+            color: #444;
+            margin: 8px 0 4px;
+        }
+
+        .content-section p {
+            margin-bottom: 6px;
+            text-align: justify;
+        }
+
+        .classified-stamp {
+            color: var(--shadow-red);
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            border: 3px double var(--shadow-red);
+            padding: 8px;
+            margin: 10px 0;
+            transform: rotate(-2deg);
+            letter-spacing: 4px;
+        }
+
+        .redacted {
+            background: #222;
+            color: #222;
+            cursor: pointer;
+            padding: 0 4px;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .redacted:hover,
+        .redacted.revealed {
+            background: #ff4444;
+            color: white;
+        }
+
+        .entropy-text {
+            color: var(--entropy-green);
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            padding: 8px;
+            border: 1px solid #333;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin: 8px 0;
+        }
+
+        .danger-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin: 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin: 8px 0;
+        }
+
+        .lore-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin: 8px 0;
+        }
+
+        .lore-table th {
+            background: var(--xp-selection);
+            color: white;
+            padding: 6px 8px;
+            text-align: left;
+            font-size: 11px;
+        }
+
+        .lore-table td {
+            padding: 5px 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .lore-table tr:hover {
+            background: #f0f0f0;
+        }
+
+        .lore-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .task-checkbox {
+            width: 14px;
+            height: 14px;
+            border: 1px solid #999;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .task-checkbox.checked {
+            background: var(--xp-selection);
+            color: white;
+        }
+
+        .task-text {
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .task-text.completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .task-priority {
+            font-size: 9px;
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-left: 4px;
+        }
+
+        .priority-critical { background: #dc3545; color: white; }
+        .priority-high { background: #fd7e14; color: white; }
+        .priority-medium { background: #ffc107; color: #333; }
+        .priority-low { background: #28a745; color: white; }
+
+        /* Sticky notes */
+        .sticky-note {
+            position: absolute;
+            width: 180px;
+            min-height: 120px;
+            padding: 28px 12px 12px;
+            font-size: 11px;
+            font-family: 'Comic Sans MS', cursive;
+            line-height: 1.5;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            cursor: move;
+            z-index: 5;
+            transform: rotate(-1deg);
+        }
+
+        .sticky-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 22px;
+            background: rgba(0,0,0,0.08);
+            border-bottom: 1px dashed rgba(0,0,0,0.15);
+        }
+
+        .sticky-yellow { background: #fff9b1; }
+        .sticky-blue { background: #b8d4f0; }
+        .sticky-pink { background: #f0b8d4; }
+        .sticky-green { background: #b8f0c8; }
+        .sticky-purple { background: #d4b8f0; }
+
+        /* Error/BSOD Easter Egg */
+        .bsod {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000080;
+            color: white;
+            font-family: 'Courier New', monospace;
+            padding: 40px;
+            z-index: 10000;
+            display: none;
+            cursor: pointer;
+        }
+
+        .bsod.visible {
+            display: block;
+        }
+
+        .bsod h1 {
+            background: #aaa;
+            color: #000080;
+            display: inline;
+            padding: 2px 8px;
+            font-size: 14px;
+        }
+
+        .bsod p {
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-left: 1px solid #ccc;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, #ccc 0%, #bbb 50%, #ccc 100%);
+            border: 1px solid #999;
+            border-radius: 0;
+        }
+
+        ::-webkit-scrollbar-button {
+            height: 16px;
+            background: #ece9d8;
+            border: 1px solid #999;
+        }
+
+        /* Loading bar animation */
+        .loading-bar {
+            width: 100%;
+            height: 16px;
+            background: white;
+            border: 1px solid #aca899;
+            position: relative;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .loading-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #316ac5 0%, #4a8adf 50%, #316ac5 100%);
+            background-size: 30px 100%;
+            animation: loading-anim 1s linear infinite;
+            width: 0%;
+            transition: width 2s ease;
+        }
+
+        @keyframes loading-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 0; }
+        }
+
+        /* Image viewer */
+        .image-viewer {
+            border: 2px inset #aca899;
+            background: #222;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            font-size: 80px;
+            color: #666;
+        }
+
+        /* Secret code input */
+        .secret-input-container {
+            display: flex;
+            gap: 4px;
+            margin: 8px 0;
+        }
+
+        .secret-input {
+            flex: 1;
+            height: 22px;
+            border: 1px solid #7f9db9;
+            padding: 0 4px;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .secret-submit {
+            height: 22px;
+            padding: 0 12px;
+            border: 1px solid #003c74;
+            border-radius: 3px;
+            background: linear-gradient(180deg, #ffffff 0%, #ece9d8 100%);
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .secret-result {
+            font-size: 11px;
+            padding: 4px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .tab-container {
+            border: 1px solid #aca899;
+            margin: 8px 0;
+        }
+
+        .tab-header {
+            display: flex;
+            background: var(--xp-window-bg);
+            border-bottom: 1px solid #aca899;
+        }
+
+        .tab-btn {
+            padding: 4px 16px;
+            border: 1px solid #aca899;
+            border-bottom: none;
+            background: #d6d2c2;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: -1px;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+            z-index: 1;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 12px;
+            background: white;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Glitch effect for easter eggs */
+        .glitch {
+            animation: glitch-anim 0.3s infinite;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -1px); }
+            60% { transform: translate(-1px, -2px); }
+            80% { transform: translate(1px, 1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Konami popup */
+        .konami-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #2d1b4e, #1a0a2e);
+            border: 3px solid #8b00ff;
+            border-radius: 12px;
+            padding: 30px;
+            color: #e0d0ff;
+            font-family: 'Courier New', monospace;
+            z-index: 5000;
+            display: none;
+            max-width: 500px;
+            box-shadow: 0 0 30px rgba(139, 0, 255, 0.5);
+            text-align: center;
+        }
+
+        .konami-popup.visible {
+            display: block;
+            animation: popup-appear 0.5s ease;
+        }
+
+        @keyframes popup-appear {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        /* Right-click context menu */
+        .context-menu {
+            position: fixed;
+            background: white;
+            border: 1px solid #999;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            z-index: 4000;
+            display: none;
+            min-width: 180px;
+        }
+
+        .context-menu.visible {
+            display: block;
+        }
+
+        .context-item {
+            padding: 4px 24px;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .context-item:hover {
+            background: var(--xp-selection);
+            color: white;
+        }
+
+        .context-separator {
+            height: 1px;
+            background: #ccc;
+            margin: 2px 0;
+        }
+
+        .context-item.disabled {
+            color: #999;
+            cursor: default;
+        }
+
+        .context-item.disabled:hover {
+            background: none;
+            color: #999;
+        }
+
+        /* Progress tracker */
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 0;
+            font-size: 11px;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid #999;
+        }
+
+        .progress-dot.complete { background: #28a745; border-color: #1e7e34; }
+        .progress-dot.active { background: #ffc107; border-color: #d39e00; }
+        .progress-dot.locked { background: #dc3545; border-color: #c82333; }
+        .progress-dot.unknown { background: #6c757d; border-color: #545b62; }
+
+        /* Tooltip */
+        .xp-tooltip {
+            position: fixed;
+            background: #ffffe1;
+            border: 1px solid #333;
+            padding: 4px 8px;
+            font-size: 11px;
+            z-index: 5000;
+            pointer-events: none;
+            display: none;
+            max-width: 250px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Print preview hidden content */
+        .hidden-lore {
+            display: none;
+        }
+
+        /* Animation for window open */
+        @keyframes window-open {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .window.opening {
+            animation: window-open 0.15s ease-out;
+        }
+
+        /* Entropy counter */
+        .entropy-counter {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: var(--entropy-green);
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            padding: 4px 8px;
+            border: 1px solid #333;
+            z-index: 500;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- WALLPAPER with particles -->
+<div class="wallpaper" id="wallpaper">
+    <!-- Particles generated by JS -->
+</div>
+
+<!-- ENTROPY COUNTER -->
+<div class="entropy-counter" id="entropyCounter">
+    ENTROPY LEVEL: <span id="entropyValue">0.347</span> | PLANAR STABILITY: <span id="stabilityValue">DEGRADING</span>
+</div>
+
+<!-- STICKY NOTES -->
+<div class="sticky-note sticky-yellow" style="top: 80px; right: 120px; transform: rotate(3deg);" id="stickyNote1">
+    <strong>REMINDER:</strong><br>
+    Do NOT let Toadburt near the guest book again.<br><br>
+    - V.
+</div>
+
+<div class="sticky-note sticky-pink" style="top: 250px; right: 80px; transform: rotate(-4deg);" id="stickyNote2">
+    <strong>URGENT:</strong><br>
+    The Regulator Plane bridge collapse will erase approx. 2/3 of reality.<br>
+    Is this acceptable?<br><br>
+    <em>(consult Section 14b)</em>
+</div>
+
+<div class="sticky-note sticky-purple" style="top: 430px; right: 140px; transform: rotate(1deg);" id="stickyNote3">
+    ☠️ Purple T's ring count:<br>
+    - Remi: 1 (tightening)<br>
+    - Toadburt: 0 (erased)<br>
+    - Green T: 0 (missing)<br>
+    - Archie: tracked via Wahbook<br><br>
+    <em>All rings leak entropy.</em>
+</div>
+
+<!-- DESKTOP ICONS -->
+<div class="desktop" id="desktop">
+    <div class="desktop-icon" ondblclick="openWindow('guestRegistry')">
+        <div class="icon-img">📒</div>
+        <div class="icon-label">Guest Registry</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('factionFiles')">
+        <div class="icon-img">📁</div>
+        <div class="icon-label">Faction Files</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('taskManager')">
+        <div class="icon-img">📋</div>
+        <div class="icon-label">Active Tasks</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('mapViewer')">
+        <div class="icon-img">🗺️</div>
+        <div class="icon-label">Planar Map</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('notepadDiary')">
+        <div class="icon-img">📝</div>
+        <div class="icon-label">Archivist's Diary</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('itemCatalog')">
+        <div class="icon-img">🏺</div>
+        <div class="icon-label">Item Catalog</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('oracleCards')">
+        <div class="icon-img">🃏</div>
+        <div class="icon-label">Oracle's Deck</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('wahbook')">
+        <div class="icon-img">📱</div>
+        <div class="icon-label">Wahbook.exe</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('necromanticVats')">
+        <div class="icon-img">⚗️</div>
+        <div class="icon-label">Vat Reports</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('recycleBin')">
+        <div class="icon-img">🗑️</div>
+        <div class="icon-label">Recycle Bin (DO NOT OPEN)</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('secretTerminal')">
+        <div class="icon-img">💀</div>
+        <div class="icon-label">cmd_shadow.exe</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('magesGuild')">
+        <div class="icon-img">🔮</div>
+        <div class="icon-label">Mages Guild Logs</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('ashfordPoetry')">
+        <div class="icon-img">✒️</div>
+        <div class="icon-label">Ashford_poetry.doc</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('danPhoto')">
+        <div class="icon-img">🖼️</div>
+        <div class="icon-label">photo_vigilance.jpg</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('bowserLetter')">
+        <div class="icon-img">💌</div>
+        <div class="icon-label">Letter_to_Peach.doc</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('churchDossier')">
+        <div class="icon-img">⛪</div>
+        <div class="icon-label">Third Eye Church</div>
+    </div>
+    <div class="desktop-icon" ondblclick="openWindow('entropyCalc')">
+        <div class="icon-img">🔢</div>
+        <div class="icon-label">entropy_calc.exe</div>
+    </div>
+</div>
+
+<!-- ============== WINDOWS ============== -->
+
+<!-- GUEST REGISTRY -->
+<div class="window" id="win-guestRegistry" style="width:750px;height:550px;top:30px;left:60px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-guestRegistry')">
+        <span class="title-icon">📒</span>
+        <span class="title-text">Guest Registry — Shadow Estate Manifest (OFFICIAL)</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('guestRegistry')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('guestRegistry')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+    </div>
+    <div class="window-content" style="height:calc(100% - 54px);">
+        <div class="classified-stamp">CLASSIFIED — ONYX HAND INTERNAL USE ONLY</div>
+
+        <div class="content-section">
+            <h2>📋 Shadow Estate Guest Registry</h2>
+            <p><em>Maintained by Vostolas, Archivist of Raventree Manor. Last updated: 24th Highsun. Entries may be incomplete due to dimensional interference, memory erasure, or guests being vaporized before signing in.</em></p>
+
+            <table class="lore-table">
+                <thead>
+                    <tr>
+                        <th>Guest Name</th>
+                        <th>Status</th>
+                        <th>Faction</th>
+                        <th>Room Assignment</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Archie Miser</strong></td>
+                        <td style="color:orange;">⚠️ Drafted</td>
+                        <td>Disaster Inc. / Mages Guild (coerced)</td>
+                        <td>None (fled)</td>
+                        <td>Fire suppressed on arrival. Broke Entropy Ring handler. Now Guild property. Posts about himself on Wahbook daily.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bowser (Sir Koopa Frederickson XV)</strong></td>
+                        <td style="color:green;">✅ Active</td>
+                        <td>Koopa Kingdom (exiled)</td>
+                        <td>Ballroom (crashed through window)</td>
+                        <td>Ate raw vampire meat. Bit a bat monster. Claims to study quantum physics. Wrote love letter to Princess Peach.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Green T</strong></td>
+                        <td style="color:gray;">❓ Missing</td>
+                        <td>Disaster Inc. (former Syndicate)</td>
+                        <td>Children's Table</td>
+                        <td>Smuggled flintlock. Shot Shadow Anchor with silver bullet from kids' table. Disappeared. Found portal remains on second floor.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Remi</strong></td>
+                        <td style="color:red;">🔴 Compromised</td>
+                        <td>Disaster Inc.</td>
+                        <td>Master Bedroom (borrowed)</td>
+                        <td>Glowed like disco ball. Turned to stone. Sold at auction for 12,000 gold. Purple eyes. Tightening ring. Cannot discuss ring.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Markop</strong></td>
+                        <td style="color:green;">✅ Active</td>
+                        <td>Disaster Inc. (Paladin)</td>
+                        <td>Unassigned</td>
+                        <td>Divine Smite user. Killed Vivian. Screams "DON'T TAKE THE PILL" at critical moments. Only competent member.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dan (Parallel)</strong></td>
+                        <td style="color:orange;">⚠️ Exposed</td>
+                        <td>Unknown (dimensional copy)</td>
+                        <td>N/A</td>
+                        <td>Silenced original Dan. Delivered him to Mages Guild. Missing one hand. Traveling with party under observation.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dan (Original)</strong></td>
+                        <td style="color:red;">🔴 Indoctrinated</td>
+                        <td>Mages Guild (brainwashed)</td>
+                        <td>Guild Barracks</td>
+                        <td>Badge #447. Believes Guild are friends. Calls Archie "Professor A." Ran away crying. Two intact hands.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Toadburt</strong></td>
+                        <td style="color:darkred;">⬛ ERASED</td>
+                        <td>Mages Guild (sleeper, former)</td>
+                        <td>Library (indentured)</td>
+                        <td>Entropy Ring carrier. Ribs cracked by boneless dancers. <span class="redacted" onclick="this.classList.toggle('revealed')">Erased from historical memory by Vostolas. Can be read about but instantly forgotten.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Orangus Cornelius</strong></td>
+                        <td style="color:orange;">⚠️ Recovering</td>
+                        <td>Onyx Hand (Host)</td>
+                        <td>Master Suite</td>
+                        <td>Vampire lord. Shot during dinner. Greenhouse grievance. Saw "orange toad attacking green toad." Recovering in bath.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vivian Corvinarus</strong></td>
+                        <td style="color:darkred;">💀 Dead</td>
+                        <td>Independent (triple identity)</td>
+                        <td>Maintenance Corridors (final stand)</td>
+                        <td>Vivesna/Vinvessa/Vivian. Cross-dressing heir. Vaporized a servant as demonstration. Stabbed by Markop. Died laughing. Ashes scattered.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kryn Corvinarus</strong></td>
+                        <td style="color:green;">✅ Active</td>
+                        <td>Onyx Hand (heir)</td>
+                        <td>Estate Grounds</td>
+                        <td>Claims heir to Autumnwood. Begged for help against Lyranth. Offers drinks that may contain blood.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mystic Morel (Purple T)</strong></td>
+                        <td style="color:purple;">🟣 Dangerous</td>
+                        <td>Unknown</td>
+                        <td>Roaming</td>
+                        <td>Oracle card dealer. Won Remi at auction. Gave tightening ring. Stole Archie's tools. Stepped through portal. <span class="redacted" onclick="this.classList.toggle('revealed')">Controls Oracle's Deck. Possibly scripting events.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lyranth</strong></td>
+                        <td style="color:orange;">⚠️ Hostile</td>
+                        <td>Independent (Sculptor)</td>
+                        <td>Workshop</td>
+                        <td>Medusa. Paint-covered. Turned Remi to stone. Sold her at auction. Planning "actuation" event. Threatened Wario next.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marcus Ashford</strong></td>
+                        <td style="color:red;">🔴 Enemy</td>
+                        <td>Iron Legion</td>
+                        <td>Consulting Quarters</td>
+                        <td>Military consultant for Cornelius. Steals letters. Recites propaganda poetry. Claims Legion seized Bowser's throne.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vostolas (Me)</strong></td>
+                        <td style="color:blue;">📖 Recording</td>
+                        <td>Archival Authority</td>
+                        <td>Archives</td>
+                        <td>That's me. I decide what gets remembered. <span class="redacted" onclick="this.classList.toggle('revealed')">And what gets forgotten.</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Luigi</strong></td>
+                        <td style="color:green;">✅ Active</td>
+                        <td>Mages Guild (ghost ops)</td>
+                        <td>Ruined Manor</td>
+                        <td>Ghost-buster. Poltergust user. Bumped into door frame on arrival. Eats military rations with practiced efficiency.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wario</strong></td>
+                        <td style="color:gray;">❓ Elsewhere</td>
+                        <td>Wario Inc.</td>
+                        <td>Brief Cameo</td>
+                        <td>Dropped fire resistance gear. Said "got to get back to the Faeweld." Explosion heard. Stole Tome of Evil (20,000 MC).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Salam</strong></td>
+                        <td style="color:green;">✅ Active</td>
+                        <td>Disaster Inc.</td>
+                        <td>N/A</td>
+                        <td>Whip user. Opens doors he's told not to. Picks flowers during combat. Started woodcarving mid-crisis.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Eager</strong></td>
+                        <td style="color:green;">✅ Active</td>
+                        <td>Disaster Inc.</td>
+                        <td>N/A</td>
+                        <td>Magical dagger user. "I killed one, you can kill one next time." Chased Remi when she chased a butterfly.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Perrius Annmatar</strong></td>
+                        <td style="color:green;">✅ Active</td>
+                        <td>Associated</td>
+                        <td>Ballroom</td>
+                        <td>Burns undead on contact. Useful during dancer fight.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                ⚠️ <strong>NOTICE:</strong> If you cannot remember a guest's name after reading their entry, this is functioning as intended. — V.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Registry Anomalies</h2>
+            <p>The following entries have been flagged for irregularities:</p>
+            <ul style="margin-left: 20px; font-size: 11px; line-height: 1.8;">
+                <li><strong>Entry #7 (Toadburt):</strong> You just read this name. Do you remember it? If not, the erasure is working. If so, you may have planar resistance. Report to the Archivist immediately.</li>
+                <li><strong>Entry #12 (Mystic Morel):</strong> This individual has appeared in three separate registries across three planes simultaneously. This should not be possible without bridge-plane access.</li>
+                <li><strong>Entry #6 (Parallel Dan):</strong> Dimensional copies should not persist after anchor destruction. His continued existence suggests a secondary anchor exists. <span class="redacted" onclick="this.classList.toggle('revealed')">Location: beneath the Regulator Plane entrance.</span></li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Dinner Party Casualty Report</h2>
+            <table class="lore-table">
+                <thead>
+                    <tr><th>Course</th><th>Incident</th><th>Casualties</th><th>Property Damage</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Appetizer (Raw Meat)</td><td>Bowser ate entire plate. Declared it "a good steak, a bit rare."</td><td>0</td><td>1 plate</td></tr>
+                    <tr><td>Main Course</td><td>Cornelius accused Archie of arson. Bowser insulted host.</td><td>0</td><td>1 goblet (thrown)</td></tr>
+                    <tr><td>Dessert (Vote)</td><td>Green T flipped kids' table. Shot chandelier.</td><td>1 chandelier</td><td>1 table, 1 chandelier, all silverware</td></tr>
+                    <tr><td>After-Dinner</td><td>Bowser threw host through window. Shadow Anchor destroyed.</td><td>Shadow Anchor</td><td>1 window, 1 statue, reality</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box">ℹ️ Total dinner party survival rate: 0%. The Archivist recommends declining all future invitations.</div>
+        </div>
+    </div>
+</div>
+
+<!-- FACTION FILES (Explorer Window) -->
+<div class="window" id="win-factionFiles" style="width:800px;height:500px;top:50px;left:100px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-factionFiles')">
+        <span class="title-icon">📁</span>
+        <span class="title-text">C:\ShadowArchive\Factions — Windows Explorer</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('factionFiles')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('factionFiles')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
+    </div>
+    <div class="window-toolbar">
+        <button class="toolbar-btn">⬅ Back</button>
+        <button class="toolbar-btn">➡</button>
+        <div class="toolbar-separator"></div>
+        <button class="toolbar-btn">🔍 Search</button>
+        <button class="toolbar-btn">📁 Folders</button>
+    </div>
+    <div class="window-addressbar">
+        <label>Address:</label>
+        <input type="text" value="C:\ShadowArchive\Factions\" readonly>
+    </div>
+    <div class="window-content explorer-content">
+        <div class="explorer-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">📂 Faction Tasks <span>▾</span></div>
+                <div class="sidebar-section-content">
+                    <a class="sidebar-link" onclick="showFaction('onyxHand')">Onyx Hand</a>
+                    <a class="sidebar-link" onclick="showFaction('ironLegion')">Iron Legion</a>
+                    <a class="sidebar-link" onclick="showFaction('magesGuild')">Mages Guild</a>
+                    <a class="sidebar-link" onclick="showFaction('purpleLegion')">Purple Legion</a>
+                    <a class="sidebar-link" onclick="showFaction('mazebounds')">Mazebounds</a>
+                    <a class="sidebar-link" onclick="showFaction('thirdEye')">Church of Third Eye</a>
+                    <a class="sidebar-link" onclick="showFaction('disasterInc')">Disaster Inc.</a>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">🔒 Classified <span>▾</span></div>
+                <div class="sidebar-section-content">
+                    <a class="sidebar-link" onclick="showFaction('regulatorPlane')">Regulator Plane</a>
+                    <a class="sidebar-link" onclick="showFaction('oracleNetwork')">Oracle Network</a>
+                    <a class="sidebar-link" style="color: purple;" onclick="showFaction('purpleToad')">Purple T Dossier</a>
+                </div>
+            </div>
+        </div>
+        <div class="explorer-files" id="factionContent">
+            <div id="faction-default">
+                <h2 style="color: var(--xp-blue); margin-bottom: 12px;">📂 Faction Intelligence Archive</h2>
+                <p>Select a faction from the sidebar to view classified intelligence reports.</p>
+                <div class="warning-box">⚠️ All documents are the property of the Archival Authority. Unauthorized access will be met with historical erasure.</div>
+
+                <div class="file-grid" style="margin-top: 16px;">
+                    <div class="file-item" ondblclick="showFaction('onyxHand')">
+                        <div class="file-icon">📁</div>
+                        <div class="file-name">Onyx Hand</div>
+                    </div>
+                    <div class="file-item" ondblclick="showFaction('ironLegion')">
+                        <div class="file-icon">📁</div>
+                        <div class="file-name">Iron Legion</div>
+                    </div>
+                    <div class="file-item" ondblclick="showFaction('magesGuild')">
+                        <div class="file-icon">📁</div>
+                        <div class="file-name">Mages Guild</div>
+                    </div>
+                    <div class="file-item" ondblclick="showFaction('purpleLegion')">
+                        <div class="file-icon">📁</div>
+                        <div class="file-name">Purple Legion</div>
+                    </div>
+                    <div class="file-item" ondblclick="showFaction('mazebounds')">
+                        <div class="file-icon">📁</div>
+                        <div class="file-name">Mazebounds</div>
+                    </div>
+                    <div class="file-item" ondblclick="showFaction('thirdEye')">
+                        <div class="file-icon">📁</div>
+                        <div class="file-name">Church of Third Eye</div>
+                    </div>
+                    <div class="file-item" ondblclick="showFaction('disasterInc')">
+                        <div class="file-icon">📁</div>
+                        <div class="file-name">Disaster Inc.</div>
+                    </div>
+                    <div class="file-item" ondblclick="showFaction('regulatorPlane')">
+                        <div class="file-icon">🔒</div>
+                        <div class="file-name">CLASSIFIED</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FACTION DETAILS (hidden, shown by JS) -->
+            <div id="faction-onyxHand" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🦇 Onyx Hand</h2>
+                <p><strong>Type:</strong> Vampire aristocracy / Shadow Estate ruling caste<br>
+                <strong>Leader:</strong> Orangus Cornelius (recovering)<br>
+                <strong>Heir:</strong> Kryn Corvinarus (contested)<br>
+                <strong>Base:</strong> Shadow Estate, Raventree Manor (Shadeward)</p>
+
+                <div class="info-box">ℹ️ The Onyx Hand controls the Shadow Estate and maintains order through gothic hospitality, which is defined as: inviting guests to dinner and then voting on which of them dies.</div>
+
+                <h3>Known Operations</h3>
+                <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+                    <li>Maintained the Shadow Anchor to suppress fire magic and planar travel</li>
+                    <li>Hosted dinner parties that function as tribunals</li>
+                    <li>Deployed surveillance mirrors throughout the estate</li>
+                    <li>"Friendship rings" distributed to guests — actually tracking devices that leak entropy</li>
+                    <li>Employed Lyranth the Medusa as estate sculptor (and auctioneer)</li>
+                    <li>Contracted Marcus Ashford from the Iron Legion for military consultation</li>
+                </ul>
+
+                <h3>Threat Assessment</h3>
+                <p>The Onyx Hand is weakened but not defeated. The Shadow Anchor's destruction removed their primary suppression tool, but their political infrastructure remains intact. Cornelius is recovering. Kryn is desperate. The guards continue offering "friendship jewelry" to every guest who stays too long.</p>
+
+                <div class="danger-box">🚨 <strong>ACTIVE THREAT:</strong> Onyx Hand knights have been observed cutting guests' eyes "accidentally" and inserting enchanted compliance devices during medical treatment. Decline all offers of healing.</div>
+
+                <h3>Known Personnel</h3>
+                <table class="lore-table">
+                    <tr><td>Orangus Cornelius</td><td>Lord of the Estate. Vampire bat true form. Greenhouse grudge.</td></tr>
+                    <tr><td>Kryn Corvinarus</td><td>Heir. Desperate. Offers suspicious beverages.</td></tr>
+                    <tr><td>Vivian Corvinarus</td><td>DECEASED. Triple-identity heir. Died laughing.</td></tr>
+                    <tr><td>Estate Guards</td><td>Pale toads in tuxedos. Red ember eyes. Do not flinch.</td></tr>
+                    <tr><td>Pilo T</td><td>Vampire aviation expert. Lied about helicopter. Tried to push Remi into oven.</td></tr>
+                </table>
+            </div>
+
+            <div id="faction-ironLegion" style="display:none;">
+                <h2 style="color: var(--xp-blue);">⚔️ Iron Legion</h2>
+                <p><strong>Type:</strong> Military-industrial imperial faction<br>
+                <strong>Representative:</strong> Marcus Ashford (Military Consultant)<br>
+                <strong>Reach:</strong> Multi-planar (Material, Shadowfell, possibly Feywild)</p>
+
+                <h3>Shadow Estate Activities</h3>
+                <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+                    <li>Stationed Marcus Ashford as consultant to Cornelius</li>
+                    <li>Used Entropy Rings (paired handler-subject system) for personnel control</li>
+                    <li>Deployed Toadburt as a sleeper agent equipped with an Entropy Ring</li>
+                    <li>Claimed to have seized Bowser's throne "with elegance and tact"</li>
+                    <li>Stole Bowser's letter to Princess Peach for humiliation purposes</li>
+                    <li>Recited propaganda poetry as psychological warfare</li>
+                </ul>
+
+                <h3>Iron Parade Details</h3>
+                <p>The "Iron Parade" is the Legion's public display of power — military columns moving through contested territory with loudspeaker broadcasts. In the Shadowfell, these broadcasts include:</p>
+                <div class="entropy-text">
+                    ATTENTION CITIZENS.<br>
+                    THE ANOMALY IS CONTAINED.<br>
+                    COMPLIANCE IS MANDATORY.<br>
+                    REPORT ALL NON-HUMAN ACTIVITY.<br>
+                    ORDER IS SAFETY.
+                </div>
+
+                <div class="danger-box">🚨 <strong>INTELLIGENCE NOTE:</strong> The Iron Legion uses institutional humiliation as a weapon. They do not just defeat you — they make you feel small while doing it. Poetry as warfare. Letters as leverage. Compliance as culture.</div>
+
+                <h3>Entropy Ring System</h3>
+                <table class="lore-table">
+                    <tr><th>Component</th><th>Function</th><th>Status</th></tr>
+                    <tr><td>Subject Ring</td><td>Worn by target. Tags for capture. Suppresses magic.</td><td>Removed from Toadburt</td></tr>
+                    <tr><td>Handler Ring</td><td>Worn by controller. Monitors subject. Remote activation.</td><td>Broken by Archie</td></tr>
+                    <tr><td>Friendship Ring</td><td>Offered to guests. Tracks location. Leaks entropy.</td><td>Multiple in circulation</td></tr>
+                    <tr><td>Tightening Ring</td><td><span class="redacted" onclick="this.classList.toggle('revealed')">Contracts daily. Cuts finger if target fails objective. Cannot be discussed without activation.</span></td><td>Active on Remi</td></tr>
+                </table>
+            </div>
+
+            <div id="faction-magesGuild" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🔮 Mages Guild</h2>
+                <p><strong>Type:</strong> Arcane regulatory authority<br>
+                <strong>Known Agents:</strong> Thornbury, Agent L (Luigi), Agent Malissia, Captain Byscilla Danos<br>
+                <strong>Headquarters:</strong> Unknown (multi-planar operations)</p>
+
+                <h3>Objectives</h3>
+                <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+                    <li>Control Archie Miser's entropy-bleeding magic through institutional oversight</li>
+                    <li>Establish the Regulator Plane — a fourth bridge connecting Feyward, Shadeward, and Ruined manors</li>
+                    <li>Potentially collapse the bridge to sever dimensional connections permanently</li>
+                    <li><span class="redacted" onclick="this.classList.toggle('revealed')">Accept that collapsing the bridge might destroy 2/3 of reality to stabilize the remainder</span></li>
+                    <li>Indoctrinate captured individuals through isolation and controlled reading materials</li>
+                    <li>Deploy sleeper agents with Entropy Rings</li>
+                </ul>
+
+                <h3>Dan Indoctrination Timeline</h3>
+                <table class="lore-table">
+                    <tr><td>Day 1</td><td>Parallel Dan delivers original Dan to Guild null cage</td></tr>
+                    <tr><td>Days 2-14</td><td>Isolation. Null cage suppresses magic. Fed regularly.</td></tr>
+                    <tr><td>Days 15-30</td><td>Propaganda texts introduced: "Archie's Third Eye Volume 1"</td></tr>
+                    <tr><td>Days 31+</td><td>Guild robes issued. Blackite wand provided. Badge #447 (tracking device). Dan begins calling Archie "Professor A" and considers Guild his "true friends."</td></tr>
+                </table>
+
+                <div class="warning-box">⚠️ <strong>Pattern Recognition:</strong> The Guild's method — isolation, feeding, controlled information, gradual identity replacement — mirrors historical cult indoctrination techniques across multiple planes.</div>
+
+                <h3>Thornbury's Itemized Bill</h3>
+                <p>Agent Thornbury presented Archie with the following charges after Archie broke Guild rope:</p>
+                <table class="lore-table">
+                    <tr><th>Item</th><th>Cost</th></tr>
+                    <tr><td>Quartermaster's Provisioning Surcharge</td><td>150 GP</td></tr>
+                    <tr><td>Arcane Rope (Standard, 50 ft, enchanted)</td><td>175 GP</td></tr>
+                    <tr><td>Master Weaver's Inspection</td><td>200 GP</td></tr>
+                    <tr><td>Load-Test Certification (dropping a 500-lb ogre from a city wall 7 times)</td><td>300 GP</td></tr>
+                    <tr><td>Guild Liability Insurance (covers fraying during official operations)</td><td>237 GP 5 SP</td></tr>
+                    <tr><td>Guild Master's Discretionary Gratuity for his new wyvern saddle</td><td>500 GP</td></tr>
+                    <tr><td>Processing and Administrative Overhead</td><td>500 GP</td></tr>
+                    <tr><td><strong>TOTAL</strong></td><td><strong>2,062 GP 5 SP</strong></td></tr>
+                </table>
+                <div class="info-box">ℹ️ Refusal of the Discretionary Gratuity may result in "accidental fraying" during future rope-dependent operations.</div>
+            </div>
+
+            <div id="faction-purpleLegion" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🟣 Purple Legion</h2>
+                <p><strong>Type:</strong> Vampire military authority<br>
+                <strong>Territory:</strong> "Vamp Lands" — coast to coast (Shadowfell Midlands equivalent)<br>
+                <strong>Broadcasts:</strong> Compliance announcements via loudspeakers</p>
+
+                <h3>Overview</h3>
+                <p>The Purple Legion controls the Shadowfell equivalent of the Midlands. Their geography mirrors the Material Plane but is rendered entirely in purple. They patrol using loudspeaker-equipped troops and maintain order through mandatory compliance protocols.</p>
+
+                <h3>Observed Broadcast Script</h3>
+                <div class="entropy-text">
+                    ATTENTION CITIZENS.<br>
+                    THE ANOMALY IS CONTAINED.<br>
+                    COMPLIANCE IS MANDATORY.<br>
+                    REPORT ALL NON-HUMAN ACTIVITY.<br>
+                    ORDER IS SAFETY.<br>
+                    SAFETY IS ORDER.<br>
+                    <span class="redacted" onclick="this.classList.toggle('revealed')">THE ANCHOR FRAGMENTS ARE BEING COLLECTED. REMAIN CALM. ENTROPY IS TEMPORARY.</span>
+                </div>
+
+                <h3>Personnel Encountered</h3>
+                <table class="lore-table">
+                    <tr><td>Vin</td><td>Guard. Joined Archie's improvised investigation team. Status unknown.</td></tr>
+                    <tr><td>"Blorb"</td><td>Vampire guard. Pulled out a mushroom when asked about toads. Nickname assigned by Archie.</td></tr>
+                    <tr><td>Patrol Units</td><td>Broadcast compliance announcements. Swarmed the crashed airship.</td></tr>
+                </table>
+            </div>
+
+            <div id="faction-mazebounds" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🎭 Mazebounds</h2>
+                <p><strong>Type:</strong> Blighted humanoid grove guardians / musical theatre enthusiasts<br>
+                <strong>Habitat:</strong> Hedge maze surrounding Shadow Estate<br>
+                <strong>Origin:</strong> Vivian Corvinarus's blighted victims</p>
+
+                <h3>Profile</h3>
+                <p>Hunched, grey-skinned humanoids who combine predatory aggression with choreographed musical numbers. They emerge from bushes performing jazz hands while singing territorial anthems.</p>
+
+                <h3>Known Songs</h3>
+                <div style="background: #f9f5e8; padding: 12px; border: 1px solid #d4c89a; margin: 8px 0; font-style: italic; font-size: 11px; line-height: 1.8;">
+                    🎵 "Welcome to the grove, welcome to the gray,<br>
+                    You'll never find the fountain so you might as well stay." 🎵<br><br>
+                    🎵 "Check the Turtle, big and loud,<br>
+                    Crack the shell to please the crowd.<br>
+                    Check the Archer, check the Whip,<br>
+                    Watch them stumble, watch them slip." 🎵
+                </div>
+
+                <h3>Behavioral Notes</h3>
+                <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+                    <li>Burst from bushes performing jazz hands before attacking</li>
+                    <li>Catalogue target weaknesses in patter-songs during combat</li>
+                    <li>Some want artifacts removed from the grove (cooperative)</li>
+                    <li>Others are purely hostile</li>
+                    <li>Attempted to give Remi a "goodbye kiss"</li>
+                    <li>Entered rooms mid-song doing jazz hands to request access to corpses</li>
+                    <li>Created by Vivian's blight magic — his death may or may not affect them</li>
+                </ul>
+
+                <div class="info-box">ℹ️ <strong>Tactical Note:</strong> Undead remedy coating on weapons melts Mazebound skin on contact. Two crossbow bolts from an unknown benefactor proved effective. The benefactor described this assistance as "enlightened pragmatism" and "tactical investment."</div>
+            </div>
+
+            <div id="faction-thirdEye" style="display:none;">
+                <h2 style="color: var(--xp-blue);">👁️ Church of the Third Eye</h2>
+                <p><strong>Type:</strong> Cult / Religious movement<br>
+                <strong>Deity:</strong> Archie Miser (living, unwilling)<br>
+                <strong>Location:</strong> Town near Shadow Estate<br>
+                <strong>Members:</strong> Primarily bugbears hiding from the Purple Legion</p>
+
+                <h3>Theology</h3>
+                <p>The Church views Archie Miser as a living god — not a saint, not a martyr, not even particularly kind, but the <strong>"fracture"</strong>: the moment the mirror cracks and the reflection refuses to lie anymore.</p>
+
+                <h3>Core Beliefs</h3>
+                <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+                    <li>Archie's fire represents truth burning through dimensional lies</li>
+                    <li>The Third Eye circlet is a holy relic</li>
+                    <li>Vampires will not enter consecrated Third Eye ground</li>
+                    <li>The "fracture" (Archie) is the key to reuniting the planes</li>
+                    <li>The Mages Guild's "Archie's Third Eye Volume 1" is heretical counter-scripture</li>
+                </ul>
+
+                <div class="warning-box">⚠️ <strong>NOTE:</strong> The Church offered shelter in exchange for delivering Archie to them. They did not specify what they would do with him once delivered. This is concerning.</div>
+
+                <h3>Counter-Scripture: Guild Propaganda</h3>
+                <p>"Archie's Third Eye Volume 1" — Mages Guild text used to indoctrinate Dan — presents Archie as an evil force called "Professor A" and claims the Mages Guild is the legitimate law of the planes. The real Dan cited this text during his fireball attack on the church.</p>
+            </div>
+
+            <div id="faction-disasterInc" style="display:none;">
+                <h2 style="color: var(--xp-blue);">💥 Disaster Inc.</h2>
+                <p><strong>Type:</strong> Adventuring party / Walking catastrophe<br>
+                <strong>Status:</strong> Scattered across multiple planes<br>
+                <strong>Core Competency:</strong> Surviving through refusing to stop moving</p>
+
+                <div class="classified-stamp">THE ARCHIVIST'S HONEST ASSESSMENT</div>
+
+                <h3>Member Status Summary</h3>
+                <table class="lore-table">
+                    <tr><th>Member</th><th>Shadowfell Status</th><th>Competency Rating</th></tr>
+                    <tr><td>Archie Miser</td><td>Drafted by Mages Guild</td><td>High (when fire works)</td></tr>
+                    <tr><td>Bowser</td><td>Active, emotional</td><td>High (punching), Low (everything else)</td></tr>
+                    <tr><td>Green T</td><td>Missing (found portals)</td><td>Suspiciously High</td></tr>
+                    <tr><td>Remi</td><td>Compromised (ring, eyes, stone)</td><td>Medium (declining)</td></tr>
+                    <tr><td>Markop</td><td>Active (only competent member)</td><td>High</td></tr>
+                    <tr><td>Dan (Parallel)</td><td>Exposed, monitored</td><td>Unknown</td></tr>
+                    <tr><td>Salam</td><td>Active (picks flowers during combat)</td><td>Unpredictable</td></tr>
+                    <tr><td>Eager</td><td>Active (enthusiastic)</td><td>Medium</td></tr>
+                </table>
+
+                <p style="margin-top: 12px;"><em>The Archivist's professional opinion is that Disaster Inc. functions not through competence but through an inability to accept defeat combined with sufficient stubbornness to outlast any situation. They are like water — they find every crack and flow through it, leaving chaos in their wake.</em></p>
+
+                <div class="info-box">ℹ️ <strong>Historical Note:</strong> In every previous engagement, at least one member of Disaster Inc. has done something so unexpected that it altered the tactical situation entirely. Green T's children's table sniper shot is the Shadowfell's primary example. The Archivist has begun factoring "improbable intervention" into all probability calculations involving this group.</div>
+            </div>
+
+            <div id="faction-regulatorPlane" style="display:none;">
+                <h2 style="color: red;">🔒 THE REGULATOR PLANE — MAXIMUM CLASSIFICATION</h2>
+                <div class="classified-stamp">EYES ONLY — ARCHIVAL AUTHORITY CLEARANCE REQUIRED</div>
+
+                <div class="danger-box">🚨 <strong>WARNING:</strong> This file should not exist on this terminal. If you are reading this, your access has been logged. <span class="redacted" onclick="this.classList.toggle('revealed')">Or has it? The Archivist decides what gets logged.</span></div>
+
+                <h3>Overview</h3>
+                <p>The Regulator Plane is a theoretical fourth bridge plane designed to connect the three existing manor variants:</p>
+                <table class="lore-table">
+                    <tr><th>Manor</th><th>Plane</th><th>Status</th></tr>
+                    <tr><td>Raventree Manor (Feyward)</td><td>Feywild</td><td>Active</td></tr>
+                    <tr><td>Shadow Estate (Shadeward)</td><td>Shadowfell</td><td>Anchor destroyed</td></tr>
+                    <tr><td>Ruined Manor</td><td>Material Plane</td><td>Deteriorating</td></tr>
+                    <tr><td><strong>Regulator Plane</strong></td><td><strong>Bridge</strong></td><td><strong><span class="redacted" onclick="this.classList.toggle('revealed')">Partially established. Teleportation circle in master bedroom is entry point.</span></strong></td></tr>
+                </table>
+
+                <h3>Collapse Scenario</h3>
+                <p>If the Regulator Plane bridge is established and then collapsed:</p>
+                <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+                    <li>All three manor connections would be severed permanently</li>
+                    <li>Approximately <strong>two-thirds of reality</strong> would be destroyed</li>
+                    <li>The remaining third would be "stabilized"</li>
+                    <li>Archie Miser would likely die (his entropy is the connection)</li>
+                    <li>The Mages Guild considers this an "acceptable trade"</li>
+                </ul>
+
+                <div class="danger-box">🚨 <strong>The Archivist's Assessment:</strong> Destroying 2/3 of reality to stabilize the remainder is not "acceptable." It is the most catastrophically lazy solution to a problem that exists. It is the dimensional equivalent of burning your house down to kill a spider. The spider survives. It always survives.</div>
+
+                <h3>Usk</h3>
+                <p>An entity split between three manors who needs help reuniting. Introduced to Archie by Orvinder Danos. Archie declined to help immediately. <span class="redacted" onclick="this.classList.toggle('revealed')">Usk may be the key to stabilizing the planes without collapse. The Guild does not want you to know this.</span></p>
+            </div>
+
+            <div id="faction-oracleNetwork" style="display:none;">
+                <h2 style="color: purple;">🔮 Oracle Network — SURVEILLANCE ANALYSIS</h2>
+
+                <h3>Oracle's Deck</h3>
+                <p>Fortune-telling cards that accurately describe party members' actions, motivations, and future positions. These are not entertainment. They are <strong>surveillance disguised as divination</strong>.</p>
+
+                <h3>Known Cards</h3>
+                <table class="lore-table">
+                    <tr><th>Card</th><th>Depicted</th><th>Upright</th><th>Reversed</th></tr>
+                    <tr><td>IX: The Maze Walker</td><td>Lone figure in living hedge maze</td><td>Solitude as survival</td><td>Lost, walking in circles calling it progress</td></tr>
+                    <tr><td>VIII: The Titan of the Grove</td><td>Colossal toad-man vs. giant spider</td><td>Becoming monstrous to fight worse</td><td>Brute force that solves nothing</td></tr>
+                    <tr><td>III: The Delicate Host</td><td>Fairy queen with razor-vines and broken circle</td><td>Hospitality as a trap</td><td>The mask slips, you see the bones</td></tr>
+                </table>
+
+                <div class="warning-box">⚠️ <strong>CRITICAL:</strong> Whoever created the Oracle's Deck has access to information about Disaster Inc. that nobody should possess. The lore descriptions reference specific events (Hjumpik, Markop's spider fight, Lady Aurelian) with accuracy that requires either precognition or direct observation.</div>
+
+                <h3>Purple T's Fortune Song</h3>
+                <div style="background: #2d1b4e; color: #e0d0ff; padding: 12px; border: 1px solid #8b00ff; margin: 8px 0; font-style: italic; font-size: 11px; line-height: 1.8;">
+                    🎵 "Shuffle the Deck, Dear Hero" 🎵<br><br>
+                    <em>Contains encoded warnings:</em><br>
+                    - The Corvinarus heir is "grown, not born"<br>
+                    - Threads are "gently led"<br>
+                    - <span class="redacted" onclick="this.classList.toggle('revealed')">"Unless it served a greater play" — Purple T's parting line before stepping through the portal with Archie's stolen tools</span>
+                </div>
+            </div>
+
+            <div id="faction-purpleToad" style="display:none;">
+                <h2 style="color: purple;">🟣 MYSTIC MOREL (PURPLE T) — THREAT DOSSIER</h2>
+                <div class="classified-stamp">EXTREME CAUTION — DO NOT ENGAGE ALONE</div>
+
+                <h3>Known Actions (Chronological)</h3>
+                <ol style="margin-left: 16px; font-size: 11px; line-height: 2;">
+                    <li>Appeared at Shadow Estate offering "remedies" to Remi</li>
+                    <li>Gave Remi a glowing vial → Remi became disco ball</li>
+                    <li>Offered deal: bring Remi home in exchange for her "eyes" (mental perception)</li>
+                    <li>Remi agreed → eyes turned purple → perception diminished</li>
+                    <li>Arrested by Shadowfell guards for unauthorized magic</li>
+                    <li>Won Remi's petrified body at Lyranth's auction for 12,000 GP</li>
+                    <li>Presented Oracle's Deck cards to Remi</li>
+                    <li>Gave Remi the Tightening Ring with undisclosable terms</li>
+                    <li>Sang "Shuffle the Deck, Dear Hero" while stealing Archie's tools</li>
+                    <li>Opened planar portal using Archie's stolen items</li>
+                    <li>Vanished through portal with parting line: "Unless it served a greater play"</li>
+                    <li>Appeared at Mages Guild facility, woke Dan, removed tracking badges</li>
+                    <li>Led Bryan and Dan toward Shadowfell to track Archie</li>
+                </ol>
+
+                <h3>Assessment</h3>
+                <p>Mystic Morel appears across three separate planes simultaneously, which requires bridge-plane access. He possesses the Oracle's Deck, which functions as a surveillance tool. He gave Remi a ring that isolates her from her support network. He stole Archie's tools and used them to open portals. He removed Mages Guild tracking devices from Dan.</p>
+
+                <p><strong>Every action Purple T takes appears helpful on the surface and controlling underneath.</strong> He is either the most dangerous individual in the campaign or the most altruistic. The Archivist cannot tell the difference, which is itself a warning sign.</p>
+
+                <div class="danger-box">🚨 <span class="redacted" onclick="this.classList.toggle('revealed')">Purple T may be orchestrating events to bring all key players to a single location at a single time. The Oracle's Deck is not predicting the future. It is scripting it.</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ACTIVE TASKS -->
+<div class="window" id="win-taskManager" style="width:600px;height:550px;top:40px;left:200px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-taskManager')">
+        <span class="title-icon">📋</span>
+        <span class="title-text">Shadow Estate — Active Task Manifest</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('taskManager')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('taskManager')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+    </div>
+    <div class="window-content" style="height:calc(100% - 54px);">
+        <h2 style="color: var(--xp-blue); margin-bottom: 12px;">📋 Active Task Manifest</h2>
+        <p style="font-size: 11px; color: #666; margin-bottom: 12px;"><em>Maintained by the Archivist. Tasks are assigned, not requested. Completion is mandatory. Failure is documented.</em></p>
+
+        <div class="tab-container">
+            <div class="tab-header">
+                <div class="tab-btn active" onclick="showTab('critical')">🔴 Critical</div>
+                <div class="tab-btn" onclick="showTab('active')">🟡 Active</div>
+                <div class="tab-btn" onclick="showTab('completed')">✅ Completed</div>
+                <div class="tab-btn" onclick="showTab('hidden')">🔒 Hidden</div>
+            </div>
+
+            <div class="tab-content active" id="tab-critical">
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Find Archie Miser</strong> <span class="task-priority priority-critical">CRITICAL</span><br>
+                        Remi's ring tightens daily. Clock is ticking. Archie was last tracked via Wahbook posts. Green T says portal on second floor may lead to him. <em>Cannot fail this one.</em>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Activate the Master Bedroom Portal</strong> <span class="task-priority priority-critical">CRITICAL</span><br>
+                        Teleportation circle under the carpet. Needs incantation (unknown), candles (remembered), mirrors (remembered), and "dirty work" (unspecified). Green T disabled arcane locks.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Remove Remi's Tightening Ring</strong> <span class="task-priority priority-critical">CRITICAL</span><br>
+                        Ring cannot be discussed without activating. Tightens daily. Will require amputation or magical intervention if Archie is not found. <span class="redacted" onclick="this.classList.toggle('revealed')">Purple T may have the release phrase. He won't give it for free.</span>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Prevent Regulator Plane Collapse</strong> <span class="task-priority priority-critical">CRITICAL</span><br>
+                        Mages Guild plans to collapse the bridge, destroying 2/3 of reality. Find an alternative. Usk may be the key. <span class="redacted" onclick="this.classList.toggle('revealed')">The alternative may require Archie to survive, which the Guild does not want.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-active">
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Rescue/Deprogram Original Dan</strong> <span class="task-priority priority-high">HIGH</span><br>
+                        Dan is indoctrinated. Badge #447 is a tracker. Blackite wand is monitored. Hidden notes in childhood cipher suggest he's documenting Guild operations. May be salvageable.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Locate Green T</strong> <span class="task-priority priority-high">HIGH</span><br>
+                        Last seen at manor. Found portal remains. Disappeared while Archie was distracted. May be hiding in bathrooms (per Pilo T, who also lies).
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Investigate Lyranth's "Actuation"</strong> <span class="task-priority priority-high">HIGH</span><br>
+                        Lyranth announced she would prepare something "special" for an evening event. Kryn is desperate to prevent it. 300 Onyx Blood Vials offered as payment.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Eliminate Remaining Headless Dancers</strong> <span class="task-priority priority-medium">MEDIUM</span><br>
+                        Onyx Hand deal: clear headless dancers in exchange for Toadburt's healing. Some may still be active in the ballroom or greenhouse.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Retrieve Toadburt from Library</strong> <span class="task-priority priority-medium">MEDIUM</span><br>
+                        Toadburt is performing indentured library work for the Archivist. His memory has been erased from everyone else's perception. You may forget this task exists after reading it.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Reunite Usk</strong> <span class="task-priority priority-medium">MEDIUM</span><br>
+                        Entity split between three manors. Orvinder Danos introduced Archie. Archie declined. May be critical to preventing plane collapse.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="this.classList.toggle('checked')"></div>
+                    <div class="task-text">
+                        <strong>Convert Onyx Blood Vials</strong> <span class="task-priority priority-low">LOW</span><br>
+                        300 Onyx Blood Vials from Kryn's offer. Need to find a currency exchange. The Shadowfell's exchange rate is probably terrible.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-completed">
+                <div class="task-item">
+                    <div class="task-checkbox checked">✓</div>
+                    <div class="task-text completed">
+                        <strong>Destroy the Shadow Anchor</strong> <span class="task-priority priority-critical">CRITICAL</span><br>
+                        Green T shot it from the children's table. Color returned. Fire returned. Reality cracked.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox checked">✓</div>
+                    <div class="task-text completed">
+                        <strong>Eliminate Vivian Corvinarus</strong> <span class="task-priority priority-high">HIGH</span><br>
+                        Ambushed in corridors. Interrogated under Zone of Truth. Stabbed by Markop. Burned. Ashes scattered. Died laughing.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox checked">✓</div>
+                    <div class="task-text completed">
+                        <strong>Identify Parallel Dan</strong> <span class="task-priority priority-high">HIGH</span><br>
+                        Zone of Truth forced confession. Silenced original Dan. Delivered him to Mages Guild. Has one hand, not two.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox checked">✓</div>
+                    <div class="task-text completed">
+                        <strong>Survive the Dinner Party</strong> <span class="task-priority priority-critical">CRITICAL</span><br>
+                        Survival rate: 0% for the dinner party itself. 100% for the party members. Redefine "survive."
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox checked">✓</div>
+                    <div class="task-text completed">
+                        <strong>Clear Boneless Dancers from Ballroom</strong> <span class="task-priority priority-medium">MEDIUM</span><br>
+                        Bowser's fire breath incinerated the zombies. Toadburt's ribs were cracked. One dancer had lost its legs but not its enthusiasm.
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox checked">✓</div>
+                    <div class="task-text completed">
+                        <strong>Recover Archie's Artifacts from Maze</strong> <span class="task-priority priority-medium">MEDIUM</span><br>
+                        Found: Third Eye Circlet, Component Pouch ("For When Everything Goes to Hell (again)"), cracked Wahbook tablet.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-hidden">
+                <div class="entropy-text">
+                    ACCESS DENIED<br><br>
+                    Hidden tasks are visible only to the Archivist.<br>
+                    Current hidden task count: <span class="redacted" onclick="this.classList.toggle('revealed')">7</span><br><br>
+                    <span class="redacted" onclick="this.classList.toggle('revealed')">HIDDEN TASK: Determine who created the Oracle's Deck</span><br>
+                    <span class="redacted" onclick="this.classList.toggle('revealed')">HIDDEN TASK: Find the secondary anchor beneath the Regulator Plane</span><br>
+                    <span class="redacted" onclick="this.classList.toggle('revealed')">HIDDEN TASK: Discover why Purple T appears across three planes simultaneously</span><br>
+                    <span class="redacted" onclick="this.classList.toggle('revealed')">HIDDEN TASK: Investigate the dragon in the crystal cave discussing plane-merging</span><br>
+                    <span class="redacted" onclick="this.classList.toggle('revealed')">HIDDEN TASK: Find out what happened to the Vigilance (3 days without mention)</span><br>
+                    <span class="redacted" onclick="this.classList.toggle('revealed')">HIDDEN TASK: Track Wario's stolen Tome of Evil (20,000 MC)</span><br>
+                    <span class="redacted" onclick="this.classList.toggle('revealed')">HIDDEN TASK: Determine if the greenhouse servant's flowers are the only real plants in the Shadowfell</span><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" style="margin-top: 16px;">
+            <h2>📊 Campaign Progress Tracker</h2>
+            <div class="progress-item"><div class="progress-dot complete"></div> Shadow Anchor — DESTROYED</div>
+            <div class="progress-item"><div class="progress-dot complete"></div> Vivian Corvinarus — ELIMINATED</div>
+            <div class="progress-item"><div class="progress-dot complete"></div> Parallel Dan — EXPOSED</div>
+            <div class="progress-item"><div class="progress-dot active"></div> Portal Activation — IN PROGRESS</div>
+            <div class="progress-item"><div class="progress-dot active"></div> Archie Recovery — IN PROGRESS</div>
+            <div class="progress-item"><div class="progress-dot active"></div> Dan Deprogramming — IN PROGRESS</div>
+            <div class="progress-item"><div class="progress-dot locked"></div> Regulator Plane — LOCKED</div>
+            <div class="progress-item"><div class="progress-dot locked"></div> Usk Reunification — LOCKED</div>
+            <div class="progress-item"><div class="progress-dot unknown"></div> Purple T's Endgame — UNKNOWN</div>
+            <div class="progress-item"><div class="progress-dot unknown"></div> Dragon Threat — UNKNOWN</div>
+        </div>
+    </div>
+</div>
+
+<!-- ARCHIVIST'S DIARY (Notepad) -->
+<div class="window" id="win-notepadDiary" style="width:550px;height:480px;top:60px;left:180px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-notepadDiary')">
+        <span class="title-icon">📝</span>
+        <span class="title-text">archivist_diary.txt — Notepad</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('notepadDiary')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('notepadDiary')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span>
+    </div>
+    <div class="window-content notepad-content">
+        <textarea class="notepad-textarea" spellcheck="false">
+===========================================
+   ARCHIVIST'S PERSONAL DIARY
+   Vostolas, Keeper of What Was
+   DO NOT READ (this means you, Markop)
+===========================================
+
+21st Highsun — Entry 1
+-----------------------
+New guests arrived. The orange one (Archie) has no fire.
+This is like watching a fish complain about water.
+The turtle (Bowser) punched my wall. It cracked.
+I have decided to document them. They will make
+an excellent bedtime story. I am calling it:
+"The Case of the Missing Toad."
+
+22nd Highsun — Entry 2
+-----------------------
+Dinner was... eventful. Cornelius accused the fire
+mage of arson. The fire mage has no fire. The irony
+is delicious. More delicious than the raw meat, which
+the turtle ate in one bite and called "a good steak."
+
+I have never been more certain that the Material
+Plane produces the most resilient idiots in existence.
+
+The green one at the children's table has a gun.
+Nobody has noticed. I have decided not to tell anyone.
+This will be more interesting.
+
+23rd Highsun — Entry 3
+-----------------------
+The green one shot my crystal.
+
+MY. CRYSTAL.
+
+Color is back. The dimension is screaming. I can see
+yellows again and I HATE yellows. Everything was
+perfectly calibrated — perfect entropy, perfect grey,
+perfect silence — and these TOURISTS broke it with a
+FLINTLOCK from the CHILDREN'S TABLE.
+
+I am going to document every single thing they do
+from now on. Not as a bedtime story. As a WARNING.
+
+24th Highsun — Entry 4
+-----------------------
+The boneless dancers are dead. The fire turtle
+burned them. The crossdresser is also dead. The
+paladin stabbed him. Everyone is dying or leaving
+or being turned to stone.
+
+The disco ball girl is the most interesting. She
+glows. She accepted a ring from the purple one.
+She cannot discuss the ring. I can SEE the ring
+tightening but I cannot RECORD the mechanism
+without triggering it. The Archival Authority has
+limits and this is one of them.
+
+Personal note: I erased the small one today.
+Toadburt. He will be readable but unforgettable.
+Wait. Forgettable. Unforgettable is the opposite.
+I always mix those up. The point is: nobody will
+remember him after reading about him. This is not
+cruelty. It is CURATION.
+
+===== LATER ENTRY (date uncertain) =====
+
+The purple toad stole from my archive. He walked
+in, sang a song, took Archie's things, opened a
+portal with ARCHIE'S OWN TOOLS, and left.
+
+He looked at me as he stepped through.
+
+He SMILED.
+
+I do not trust anyone who smiles in the Shadowfell.
+Smiling here means you know something the dimension
+does not. And the dimension knows EVERYTHING.
+
+===== UNDATED ENTRY =====
+
+I found this on my desk this morning. It was not
+here last night. I did not write it:
+
+"Dear Archivist,
+    You decide what gets remembered.
+    But who decides what you forget?
+    Check under the guest book.
+    — M.M."
+
+I checked under the guest book.
+
+There was a card. Card 0: The Archivist.
+It depicted me, sitting at my desk, reading a
+note left by someone who should not exist.
+
+The reversed meaning read:
+"The record-keeper who cannot see his own
+ entry in the book."
+
+I have locked this terminal.
+
+I am going to bed.
+
+I am NOT checking under the guest book again.
+
+===== FINAL ENTRY =====
+
+I checked under the guest book again.
+
+The card was gone.
+
+In its place was a single purple mushroom
+and a note that said: "WAH."
+
+I do not know what WAH means.
+
+I am frightened.
+
+                    — V.
+        </textarea>
+    </div>
+</div>
+
+<!-- ITEM CATALOG -->
+<div class="window" id="win-itemCatalog" style="width:680px;height:520px;top:45px;left:150px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-itemCatalog')">
+        <span class="title-icon">🏺</span>
+        <span class="title-text">Shadow Estate Item Catalog — Archival Authority</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('itemCatalog')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('itemCatalog')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+    </div>
+    <div class="window-content" style="height:calc(100% - 54px);">
+        <h2 style="color: var(--xp-blue); margin-bottom: 12px;">🏺 Shadow Estate Item Catalog</h2>
+
+        <div class="tab-container">
+            <div class="tab-header">
+                <div class="tab-btn active" onclick="showTab2('weapons')">⚔️ Weapons</div>
+                <div class="tab-btn" onclick="showTab2('potions')">🧪 Potions</div>
+                <div class="tab-btn" onclick="showTab2('artifacts')">✨ Artifacts</div>
+                <div class="tab-btn" onclick="showTab2('rings')">💍 Rings</div>
+                <div class="tab-btn" onclick="showTab2('misc')">📦 Misc</div>
+            </div>
+
+            <div class="tab-content active" id="tab2-weapons">
+                <table class="lore-table">
+                    <tr><th>Item</th><th>Owner</th><th>Properties</th><th>Status</th></tr>
+                    <tr><td>🔫 Green T's Flintlock</td><td>Green T</td><td>Fires silver bullets. 'W' logo on casings. Origin unknown. Possibly smuggled from Syndicate days.</td><td>Active (with Green T, location unknown)</td></tr>
+                    <tr><td>🕯️ Silver Candlestick</td><td>Archie (improvised)</td><td>Burns vampires on contact. Standard silver. Archie's emergency melee weapon.</td><td>Abandoned at dinner</td></tr>
+                    <tr><td>🪓 Markop's Battle Axe</td><td>Markop</td><td>Standard issue. Used to kill Vivian. Effective against corridors and crossdressers.</td><td>Active</td></tr>
+                    <tr><td>🪄 Necromancer's Wand</td><td>Bowser (picked up)</td><td>Found on floor after Vivian fight. Bowser asked "is this a magic wand?" with dangerous curiosity.</td><td>In Bowser's possession (CONCERNING)</td></tr>
+                    <tr><td>🪄 Blackite Wand</td><td>Dan (Original)</td><td>Mages Guild issue. Improves control. Registered to Guild monitoring systems. Tracking device.</td><td>Active (Guild-monitored)</td></tr>
+                    <tr><td>🗡️ Archie's Dagger</td><td>Green T (given by Archie)</td><td>For quieter combat. Standard steel.</td><td>With Green T</td></tr>
+                    <tr><td>🗡️ Eager's Magical Dagger</td><td>Eager</td><td>Effective against wraiths. "I killed one, you can kill one next time."</td><td>Active</td></tr>
+                    <tr><td>⚔️ Holy Symbol of Ravenkind</td><td>Dan (Parallel)</td><td>Froze vampire to stone on presentation. Major anti-undead artifact.</td><td>Active</td></tr>
+                </table>
+            </div>
+
+            <div class="tab-content" id="tab2-potions">
+                <h3>Vampiric Medicine Cabinet (Master Bedroom)</h3>
+                <table class="lore-table">
+                    <tr><th>Potion</th><th>Description</th><th>Status</th></tr>
+                    <tr><td>🩸 Hemoglue of the Nightlord</td><td>Vampiric healing compound. Closes wounds. Probably blood-based.</td><td>Remi took 1</td></tr>
+                    <tr><td>🌫️ Shadowveil Tincture</td><td>Concealment potion. Details unknown.</td><td>Available</td></tr>
+                    <tr><td>🩹 Stakeheart Salve</td><td>Treats stake wounds. Very specific use case.</td><td>Available</td></tr>
+                    <tr><td>🔩 Leadfang Extractor</td><td>Removes silver bullets from vampire flesh. Practical.</td><td>Available</td></tr>
+                    <tr><td>🖤 Ebonblood Antidote</td><td>Counteracts vampire blood poisoning. Remi took 1.</td><td>Remi took 1</td></tr>
+                </table>
+
+                <h3>Other Consumables</h3>
+                <table class="lore-table">
+                    <tr><td>✨ Glowing Vial</td><td>Given to Remi by Purple T. Caused radiant glow. Turned her into a disco ball.</td><td>Consumed</td></tr>
+                    <tr><td>🍎 Oracle's Apple</td><td>Injected with unknown substance. Offered to Remi. Declined after Markop screamed.</td><td>Uneaten</td></tr>
+                    <tr><td>🍇 Grape Juice</td><td>May or may not be tampered with. Oracle smiled and said "it's too late." Possibly a bluff.</td><td>Consumed (by Remi)</td></tr>
+                    <tr><td>💊 The Pill</td><td>Oracle wanted it sneaked to Markop. Markop screamed "DON'T TAKE THE PILL."</td><td>Status unknown</td></tr>
+                    <tr><td>🥛 Milky White Liquid</td><td>Offered by Kryn. Remi accepted. Probably not milk.</td><td>Consumed</td></tr>
+                    <tr><td>🫧 Thick Grey Oily Substance</td><td>Smells like decaying flowers. Offered to Eager. Declined.</td><td>Available</td></tr>
+                    <tr><td>🟠 Bubbling Orange Liquid</td><td>Tastes like smoke and regret. Declined.</td><td>Available</td></tr>
+                </table>
+            </div>
+
+            <div class="tab-content" id="tab2-artifacts">
+                <table class="lore-table">
+                    <tr><th>Artifact</th><th>Properties</th><th>Location</th></tr>
+                    <tr><td>👁️ Third Eye Circlet</td><td>Tarnished brass band. Inscription: "The eye sees across, the band keeps me from falling in." Vibrates near planar boundaries.</td><td>Recovered from maze</td></tr>
+                    <tr><td>👜 Component Pouch</td><td>Labeled "For When Everything Goes to Hell (again)." Archie's standard kit.</td><td>Recovered from greenhouse toolshed</td></tr>
+                    <tr><td>📱 Wahbook Tablet (Cracked)</td><td>Greets user as "Welcome Archie Miser to Wahbook." Archie posts about himself daily.</td><td>Recovered from maze</td></tr>
+                    <tr><td>💎 Shadow Anchor (Destroyed)</td><td>Glowing purple crystal. Maintained planar suppression. Destroyed by silver bullet.</td><td>DESTROYED</td></tr>
+                    <tr><td>📸 Vigilance Photograph</td><td>Group of toads on ship deck. Dan with both arms, smiling. Archie arguing in background. Better days.</td><td>Found under Dan's pillow</td></tr>
+                    <tr><td>📓 Thornbury's Field Notebook</td><td>Name "Thornbury." Mages Guild survey of Raventree Manor. Documents initials 'OC' and 'AC' throughout house.</td><td>Given by Green T</td></tr>
+                    <tr><td>📜 Vellum Page</td><td>Bowser's "quantum physics" reading material. Contents unknown.</td><td>With Bowser</td></tr>
+                    <tr><td>🃏 Oracle's Deck</td><td>Fortune cards. Surveillance disguised as divination. <span class="redacted" onclick="this.classList.toggle('revealed')">Creator unknown. Access requires bridge-plane connection.</span></td><td>With Purple T</td></tr>
+                    <tr><td>📕 Tome of Evil</td><td>Worth 20,000 Mushroom Coins. Stolen by Wario.</td><td>With Wario (somewhere)</td></tr>
+                </table>
+            </div>
+
+            <div class="tab-content" id="tab2-rings">
+                <div class="danger-box">🚨 <strong>RING WARNING:</strong> Every ring in the Shadowfell is a trap. Every single one. If someone offers you a ring, decline. If they insist, run. If they put it on you while you sleep, pray.</div>
+                <table class="lore-table">
+                    <tr><th>Ring</th><th>Type</th><th>Effect</th><th>Wearer</th></tr>
+                    <tr><td>Entropy Ring (Subject)</td><td>Iron Legion</td><td>Tags target for capture. Suppresses magic.</td><td>Removed from Toadburt</td></tr>
+                    <tr><td>Entropy Ring (Handler)</td><td>Iron Legion</td><td>Monitors subject. Remote activation.</td><td>Broken by Archie</td></tr>
+                    <tr><td>Friendship Ring</td><td>Onyx Hand</td><td>Tracking device. Leaks entropy. Detects as necromancy magic.</td><td>Offered to Remi (declined)</td></tr>
+                    <tr><td>Best Friendship Ring</td><td>Onyx Hand</td><td>Same as above but "best."</td><td>Offered to Remi (declined)</td></tr>
+                    <tr><td>Friendship Anklet</td><td>Onyx Hand</td><td>Ankle variant. Destructive magic detected in pocket.</td><td>Offered to Remi (declined)</td></tr>
+                    <tr><td style="color:purple; font-weight:bold;">Tightening Ring</td><td style="color:purple;">Purple T</td><td style="color:purple;">Contracts daily until finger amputation. Cannot be discussed. Activates if terms revealed.</td><td style="color:purple; font-weight:bold;">ACTIVE ON REMI</td></tr>
+                    <tr><td>Entropy-Blocking Ring</td><td>Infirmary</td><td>"Prevents outside magical interference." Actually an obedience collar.</td><td>Proposed for Remi (refused)</td></tr>
+                </table>
+            </div>
+
+            <div class="tab-content" id="tab2-misc">
+                <table class="lore-table">
+                    <tr><th>Item</th><th>Notes</th></tr>
+                    <tr><td>🔥 Fire Resistance Items</td><td>Dumped into Remi's backpack by Wario without explanation</td></tr>
+                    <tr><td>🛡️ Armor</td><td>Also from Wario. No explanation. Explosion heard after.</td></tr>
+                    <tr><td>⌚ Archie's Watch (Initials 'AM')</td><td>Found with Tymnas the groundskeeper. Stolen by Purple T during fortune-telling song.</td></tr>
+                    <tr><td>🔑 Archie's Keys</td><td>Also stolen by Purple T during the song. Used to open planar portal.</td></tr>
+                    <tr><td>🍄 Purple Mushroom</td><td>Left under guest book by unknown party. Note said "WAH."</td></tr>
+                    <tr><td>💌 Bowser's Letter to Peach</td><td>Pink stationery. Elegant calligraphy. "I am NOT kidnapping you. Unless you want to go?"</td></tr>
+                    <tr><td>📋 Mages Guild Badge #447</td><td>Dan's tracking device. Brass. Removed by Purple T.</td></tr>
+                    <tr><td>🏷️ Expired Coupon</td><td>Found in Remi's pocket. Has Wario's phone number on it.</td></tr>
+                    <tr><td>🌺 Magical Trowel</td><td>Given by Tymnas. Groundskeeping tool. Probably enchanted.</td></tr>
+                    <tr><td>🎨 Blueprint</td><td>Partially burned. Glass-roofed building. Annotations in multiple ink colors.</td></tr>
+                    <tr><td>✏️ Chalk (from Midnight Shrine)</td><td>Picked up by Dan. Near deer-headed humanoid statue with barbed spear.</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ORACLE'S DECK -->
+<div class="window" id="win-oracleCards" style="width:620px;height:500px;top:55px;left:220px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-oracleCards')">
+        <span class="title-icon">🃏</span>
+        <span class="title-text">Oracle's Deck Viewer — [UNAUTHORIZED ACCESS]</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('oracleCards')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('oracleCards')">✕</button>
+        </div>
+    </div>
+    <div class="window-content" style="height:calc(100% - 30px); background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%); color: #e0d0ff;">
+        <div style="text-align: center; margin-bottom: 16px;">
+            <h2 style="color: #ffd700; border: none; text-shadow: 0 0 10px rgba(255,215,0,0.5);">🃏 THE ORACLE'S DECK 🃏</h2>
+            <p style="font-style: italic; color: #a090c0; font-size: 11px;">"Shuffle the Deck, Dear Hero"</p>
+        </div>
+
+        <div class="warning-box" style="background: rgba(255,0,0,0.15); border-color: #ff4444; color: #ff9999;">
+            ⚠️ These cards are surveillance tools. Reading them may update your position in the Oracle Network's tracking system. Proceed with informed paranoia.
+        </div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 16px;">
+            <!-- Card IX -->
+            <div style="width: 170px; background: linear-gradient(180deg, #0a0520 0%, #1a0a2e 100%); border: 2px solid #8b00ff; border-radius: 8px; padding: 12px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 20px rgba(139,0,255,0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                <div style="text-align: center; font-size: 40px; margin-bottom: 8px;">🌿</div>
+                <div style="text-align: center; font-size: 12px; font-weight: bold; color: #ffd700;">IX — The Maze Walker</div>
+                <div style="font-size: 10px; margin-top: 8px; color: #b0a0d0; line-height: 1.5;">
+                    A lone figure navigates a living hedge maze with ancient shrines and midnight gates.<br><br>
+                    <strong style="color:#7fff7f;">↑ Upright:</strong> Solitude as survival<br>
+                    <strong style="color:#ff7f7f;">↓ Reversed:</strong> Lost, walking in circles calling it progress<br><br>
+                    <em>Position: THE PRESENT</em>
+                </div>
+            </div>
+
+            <!-- Card VIII -->
+            <div style="width: 170px; background: linear-gradient(180deg, #0a0520 0%, #1a0a2e 100%); border: 2px solid #8b00ff; border-radius: 8px; padding: 12px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 20px rgba(139,0,255,0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                <div style="text-align: center; font-size: 40px; margin-bottom: 8px;">🐸</div>
+                <div style="text-align: center; font-size: 12px; font-weight: bold; color: #ffd700;">VIII — The Titan of the Grove</div>
+                <div style="font-size: 10px; margin-top: 8px; color: #b0a0d0; line-height: 1.5;">
+                    A colossal toad-man grappling with a giant spider above a banishment circle.<br><br>
+                    <strong style="color:#7fff7f;">↑ Upright:</strong> Becoming monstrous to fight something worse<br>
+                    <strong style="color:#ff7f7f;">↓ Reversed:</strong> Brute force that solves nothing<br><br>
+                    <em>Position: THE FUTURE</em>
+                </div>
+            </div>
+
+            <!-- Card III -->
+            <div style="width: 170px; background: linear-gradient(180deg, #0a0520 0%, #1a0a2e 100%); border: 2px solid #8b00ff; border-radius: 8px; padding: 12px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 20px rgba(139,0,255,0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                <div style="text-align: center; font-size: 40px; margin-bottom: 8px;">🧚</div>
+                <div style="text-align: center; font-size: 12px; font-weight: bold; color: #ffd700;">III — The Delicate Host</div>
+                <div style="font-size: 10px; margin-top: 8px; color: #b0a0d0; line-height: 1.5;">
+                    A fairy queen reclining with razor-vines and a broken circle beneath the rug.<br><br>
+                    <strong style="color:#7fff7f;">↑ Upright:</strong> Hospitality as a trap<br>
+                    <strong style="color:#ff7f7f;">↓ Reversed:</strong> The mask slips, you see the bones<br><br>
+                    <em>Position: UNKNOWN</em>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Card -->
+        <div style="text-align: center; margin-top: 20px;">
+            <div style="width: 170px; margin: 0 auto; background: linear-gradient(180deg, #200a10 0%, #0a0520 100%); border: 2px solid #ff0000; border-radius: 8px; padding: 12px; cursor: pointer; transition: transform 0.2s;" onclick="this.querySelector('.hidden-card').style.display = this.querySelector('.hidden-card').style.display === 'block' ? 'none' : 'block'" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="text-align: center; font-size: 40px; margin-bottom: 8px;">❓</div>
+                <div style="text-align: center; font-size: 12px; font-weight: bold; color: #ff4444;">0 — ???</div>
+                <div style="font-size: 10px; color: #ff6666; font-style: italic;">Click to reveal...</div>
+                <div class="hidden-card" style="display: none; font-size: 10px; margin-top: 8px; color: #ff9999; line-height: 1.5;">
+                    <strong style="color:#ffd700;">0 — The Archivist</strong><br><br>
+                    A figure sitting at a desk, reading a note left by someone who should not exist.<br><br>
+                    <strong style="color:#ff7f7f;">↓ Reversed:</strong> The record-keeper who cannot see his own entry in the book.<br><br>
+                    <em style="color: #ff4444;">This card was found under the guest book. Then it vanished. In its place: a purple mushroom and a note that said "WAH."</em>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center; font-size: 10px; color: #605080;">
+            <em>"Two out of three cards seemed accurate." — Remi</em><br>
+            <em>"Whoever created this deck has access to information about Disaster Inc. that nobody should possess." — Waluigi</em>
+        </div>
+    </div>
+</div>
+
+<!-- WAHBOOK -->
+<div class="window" id="win-wahbook" style="width:500px;height:480px;top:35px;left:280px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-wahbook')">
+        <span class="title-icon">📱</span>
+        <span class="title-text">Wahbook.exe — Social Network Terminal</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('wahbook')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('wahbook')">✕</button>
+        </div>
+    </div>
+    <div class="window-content" style="height:calc(100% - 30px); background: #f0f2f5;">
+        <div style="background: linear-gradient(90deg, #4a2d7a 0%, #6b3fa0 100%); padding: 12px 16px; color: white; margin: -8px -8px 12px -8px;">
+            <span style="font-size: 18px; font-weight: bold;">📱 Wahbook</span>
+            <span style="float: right; font-size: 11px;">Welcome, Archie Miser | <a style="color: #ffd700; cursor: pointer;" onclick="showBSOD()">Log Out</a></span>
+        </div>
+
+        <div style="max-width: 450px; margin: 0 auto;">
+            <!-- Post 1 -->
+            <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div style="width: 32px; height: 32px; background: #ff6600; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">🔥</div>
+                    <div>
+                        <div style="font-weight: bold; font-size: 12px;">Archie Miser</div>
+                        <div style="font-size: 10px; color: #999;">23rd Highsun • 📍 Shadowfell (involuntary)</div>
+                    </div>
+                </div>
+                <p style="font-size: 12px; margin-bottom: 8px;">My fire is back. Repeat: MY FIRE IS BACK. Green T shot a crystal and reality cracked and I can burn things again. Best day of my life. Well, second best. The best was when I burned that greenhouse. Don't tell Cornelius.</p>
+                <div style="font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 6px;">
+                    👍 12 Likes &nbsp; 💬 3 Comments &nbsp; 🔄 Shared by Church of the Third Eye
+                </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div style="width: 32px; height: 32px; background: #ff6600; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">🔥</div>
+                    <div>
+                        <div style="font-weight: bold; font-size: 12px;">Archie Miser</div>
+                        <div style="font-size: 10px; color: #999;">25th Highsun • 📍 Ruined Manor</div>
+                    </div>
+                </div>
+                <p style="font-size: 12px; margin-bottom: 8px;">The Mages Guild says I work for them now. They gave me Luigi as a partner. Luigi bumped into the door frame on his way in. I feel very safe.</p>
+                <p style="font-size: 12px; margin-bottom: 8px;">Also they want me to pay 2,062 gold for a rope I broke. The bill includes 500 gold for someone's new wyvern saddle. I hate institutions.</p>
+                <div style="font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 6px;">
+                    👍 4 Likes &nbsp; 💬 1 Comment
+                </div>
+                <div style="background: #f9f9f9; padding: 8px; margin-top: 6px; border-radius: 4px; font-size: 11px;">
+                    <strong>Luigi:</strong> I heard that 😢 Also there's a ghost behind you<br>
+                    <strong>Archie Miser:</strong> WHAT
+                </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div style="width: 32px; height: 32px; background: #228b22; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">🐢</div>
+                    <div>
+                        <div style="font-weight: bold; font-size: 12px;">Bowser (Sir Koopa Frederickson XV)</div>
+                        <div style="font-size: 10px; color: #999;">24th Highsun • 📍 Shadow Estate Courtyard</div>
+                    </div>
+                </div>
+                <p style="font-size: 12px; margin-bottom: 8px;">ATTENTION: I am studying quantum physics. Do NOT interrupt me. This is very important scientific work.</p>
+                <p style="font-size: 12px; margin-bottom: 8px;">Also if anyone sees a letter on pink paper it is NOT mine and you should NOT read it.</p>
+                <div style="font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 6px;">
+                    👍 2 Likes &nbsp; 💬 5 Comments
+                </div>
+                <div style="background: #f9f9f9; padding: 8px; margin-top: 6px; border-radius: 4px; font-size: 11px;">
+                    <strong>Marcus Ashford:</strong> "Dear Peach, I am NOT kidnapping you. Unless you want to go?" 😂<br>
+                    <strong>Bowser:</strong> I WILL FIND YOU AND I WILL BURN YOU<br>
+                    <strong>Marcus Ashford:</strong> How touching. The turtle has feelings.<br>
+                    <strong>Bowser:</strong> I HAVE FISTS<br>
+                    <strong>Markop:</strong> Bowser please stop using Wahbook
+                </div>
+            </div>
+
+            <!-- Post 4 -->
+            <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div style="width: 32px; height: 32px; background: #9932cc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">🟣</div>
+                    <div>
+                        <div style="font-weight: bold; font-size: 12px;">Mystic Morel</div>
+                        <div style="font-size: 10px; color: #999;">Date Unknown • 📍 Between Planes</div>
+                    </div>
+                </div>
+                <p style="font-size: 12px; margin-bottom: 8px;">The deck has been shuffled. The cards are in play. Every hero thinks they're the protagonist until they realize they're the card being played. 🃏</p>
+                <p style="font-size: 12px; font-style: italic; color: #666;">Unless it served a greater play.</p>
+                <div style="font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 6px;">
+                    👍 0 Likes &nbsp; 💬 0 Comments &nbsp; 👁️ Viewed by: <span class="redacted" onclick="this.classList.toggle('revealed')">everyone, whether they know it or not</span>
+                </div>
+            </div>
+
+            <!-- Post 5 - Easter Egg -->
+            <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div style="width: 32px; height: 32px; background: #4b0082; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">Γ</div>
+                    <div>
+                        <div style="font-weight: bold; font-size: 12px;">Waluigi</div>
+                        <div style="font-size: 10px; color: #999;">Undated • 📍 Feywild (against his will)</div>
+                    </div>
+                </div>
+                <p style="font-size: 12px; margin-bottom: 8px;">WAH. I left a mushroom under the guest book. If anyone asks, it wasn't me. If the Archivist is reading this: yes it was me. You deserved to be scared.</p>
+                <p style="font-size: 12px; margin-bottom: 8px;">Also your filing system is terrible. Who organizes faction intelligence alphabetically by THREAT LEVEL? That's not alphabetical. That's not by threat level either. It's just wrong.</p>
+                <div style="font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 6px;">
+                    👍 47 Likes &nbsp; 💬 1 Comment
+                </div>
+                <div style="background: #f9f9f9; padding: 8px; margin-top: 6px; border-radius: 4px; font-size: 11px;">
+                    <strong>Vostolas:</strong> How did you access this terminal? HOW DID YOU ACCESS THIS TERMINAL?
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VAT REPORTS -->
+<div class="window" id="win-necromanticVats" style="width:580px;height:450px;top:70px;left:160px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-necromanticVats')">
+        <span class="title-icon">⚗️</span>
+        <span class="title-text">Necromantic Abomination Vat Reports — CLASSIFIED</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('necromanticVats')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('necromanticVats')">✕</button>
+        </div>
+    </div>
+    <div class="window-content" style="height:calc(100% - 30px);">
+        <div class="classified-stamp">BIOHAZARD — LEVEL 5 CONTAINMENT REQUIRED</div>
+
+        <h2 style="color: var(--shadow-red);">⚗️ Necromantic Abomination Vat Report</h2>
+        <p><em>Location: Sub-basement, Shadow Estate. Discovered during maintenance corridor exploration. The Archivist advises against eating anything found in the vicinity.</em></p>
+
+        <h3>Vat Contents Analysis</h3>
+        <table class="lore-table">
+            <tr><th>Vat #</th><th>Contents</th><th>Status</th><th>Notes</th></tr>
+            <tr><td>V-01</td><td>Boneless dancer biomass</td><td>Active (bubbling)</td><td>Source of ballroom dancers. Continuous production. No off switch found.</td></tr>
+            <tr><td>V-02</td><td>Mazebound precursor fluid</td><td>Active</td><td>Grey-green liquid. Smells like theatre and despair. <span class="redacted" onclick="this.classList.toggle('revealed')">Vivian's blight magic was the catalyst. His death may halt production.</span></td></tr>
+            <tr><td>V-03</td><td>Unknown organic compound</td><td>Dormant</td><td>Thick, purple. Reacts to sound. Started vibrating when Mazebounds sang nearby.</td></tr>
+            <tr><td>V-04</td><td>EMPTY</td><td>Drained</td><td>Recent. Drainage pipes lead to greenhouse. <span class="redacted" onclick="this.classList.toggle('revealed')">May explain why greenhouse plants are the only "real" things in the Shadowfell.</span></td></tr>
+            <tr><td>V-05</td><td>Human-adjacent tissue</td><td>Growing</td><td>Resembles a person forming. 60% complete. Face is not yet identifiable. <span class="redacted" onclick="this.classList.toggle('revealed')">The Corvinarus heir is "grown, not born." — Purple T's encoded warning.</span></td></tr>
+        </table>
+
+        <div class="danger-box">🚨 <strong>VAT V-05 ALERT:</strong> If the Corvinarus heir is "grown, not born," then the succession crisis is not political — it is biological. Someone is manufacturing an heir in a necromantic vat. The question is: who commissioned it, and what happens when it's complete?</div>
+
+        <h3>Connected Systems</h3>
+        <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+            <li>Vats are connected to the greenhouse via drainage pipes</li>
+            <li>Nutrient flow correlates with dancer production rate</li>
+            <li>Operating room discovered by Archie during escape (vampire performing surgery with clinical precision) may be the monitoring station</li>
+            <li>Vivian's spell components (destroyed by Markop) may have been vat regulators</li>
+        </ul>
+
+        <div class="info-box">ℹ️ <strong>Archivist's Note:</strong> I have documented the vats because documentation is my purpose. I do not endorse their existence. I do not condemn their existence. I record. What you do with the record is your problem. — V.</div>
+    </div>
+</div>
+
+<!-- RECYCLE BIN -->
+<div class="window" id="win-recycleBin" style="width:500px;height:400px;top:80px;left:250px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-recycleBin')">
+        <span class="title-icon">🗑️</span>
+        <span class="title-text">Recycle Bin — ERASED RECORDS</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('recycleBin')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('recycleBin')">✕</button>
+        </div>
+    </div>
+    <div class="window-content" style="height:calc(100% - 30px);">
+        <div class="danger-box">🚨 <strong>WARNING:</strong> These records have been ERASED by the Archivist. Reading them does not restore them. You will forget their contents within moments of looking away. This is not a metaphor. This is the Archivist's power functioning as intended.</div>
+
+        <h2 style="color: var(--shadow-red);">🗑️ Erased Records</h2>
+
+        <div style="opacity: 0.6; font-style: italic;">
+            <div class="file-grid">
+                <div class="file-item" style="opacity: 0.5;">
+                    <div class="file-icon">📄</div>
+                    <div class="file-name">toadburt_full_history.doc</div>
+                </div>
+                <div class="file-item" style="opacity: 0.4;">
+                    <div class="file-icon">📄</div>
+                    <div class="file-name">who_is_toadburt.txt</div>
+                </div>
+                <div class="file-item" style="opacity: 0.3;">
+                    <div class="file-icon">📄</div>
+                    <div class="file-name">toadburt_entropy_ring_report.pdf</div>
+                </div>
+                <div class="file-item" style="opacity: 0.5;">
+                    <div class="file-icon">🖼️</div>
+                    <div class="file-name">vivian_true_face.jpg</div>
+                </div>
+                <div class="file-item" style="opacity: 0.3;">
+                    <div class="file-icon">📄</div>
+                    <div class="file-name">shadow_anchor_blueprints.pdf</div>
+                </div>
+                <div class="file-item" style="opacity: 0.2;">
+                    <div class="file-icon">📄</div>
+                    <div class="file-name">oracle_deck_creator.doc</div>
+                </div>
+                <div class="file-item" style="opacity: 0.4;">
+                    <div class="file-icon">🎵</div>
+                    <div class="file-name">mazebound_full_lyrics.mp3</div>
+                </div>
+                <div class="file-item" style="opacity: 0.15;">
+                    <div class="file-icon">📄</div>
+                    <div class="file-name"><span class="redacted" onclick="this.classList.toggle('revealed')">purple_t_real_name.doc</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 16px; padding: 12px; background: #f0f0f0; border: 1px solid #ccc; font-size: 11px;">
+            <strong>Recycle Bin Properties:</strong><br>
+            Items: 8 | Size: [CORRUPTED] | Last emptied: Never<br>
+            <em>The Archivist does not empty the bin. He lets the records decay naturally. It is more poetic this way.</em>
+        </div>
+
+        <div style="margin-top: 12px; text-align: center; font-size: 10px; color: #999;">
+            <em>You have already begun to forget what you read here. This is normal. This is the Archivist's gift.</em>
+        </div>
+    </div>
+</div>
+
+<!-- SECRET TERMINAL -->
+<div class="window" id="win-secretTerminal" style="width:600px;height:420px;top:50px;left:170px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-secretTerminal')">
+        <span class="title-icon">💀</span>
+        <span class="title-text">C:\WINDOWS\system32\cmd_shadow.exe</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('secretTerminal')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('secretTerminal')">✕</button>
+        </div>
+    </div>
+    <div class="window-content" style="height:calc(100% - 30px); background: #0c0c0c; color: var(--entropy-green); font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.8;">
+        <p>Shadow Estate Archival Terminal v3.7.1</p>
+        <p>Copyright (c) Vostolas Archival Authority. All rights erased.</p>
+        <p>&nbsp;</p>
+        <p>C:\ShadowArchive&gt; <span style="color: #aaa;">Type a code to access hidden records</span></p>
+        <p>&nbsp;</p>
+
+        <div class="secret-input-container">
+            <input type="text" class="secret-input" id="secretCode" placeholder="Enter access code..." style="background: #1a1a1a; color: var(--entropy-green); border-color: #333;">
+            <button class="secret-submit" onclick="checkSecretCode()" style="background: #333; color: var(--entropy-green); border-color: #555;">EXECUTE</button>
+        </div>
+
+        <div id="secretResult" class="secret-result"></div>
+
+        <p style="color: #444; margin-top: 16px;">Available commands:</p>
+        <p style="color: #555;">HELP &nbsp;|&nbsp; ANCHOR &nbsp;|&nbsp; VIVIAN &nbsp;|&nbsp; WAHBOOK &nbsp;|&nbsp; <span style="color: #333;">???</span></p>
+        <p style="color: #333; font-size: 10px; margin-top: 8px;">Hidden codes: try names, places, or phrases from the campaign...</p>
+
+        <div style="margin-top: 20px; border-top: 1px solid #222; padding-top: 12px;">
+            <p style="color: #444; font-size: 10px;">SYSTEM LOG:</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[02:01] Local thermal suppression achieved — Subject Archie Miser fire output reduced to zero</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[19:44] Shadow Anchor failure — silver projectile impact detected (origin: CHILDREN'S TABLE)</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[19:44] Color restoration event — chromatic contamination spreading across estate</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[19:45] Orangus Cornelius bat-form injury logged — greenhouse grievance unresolved</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[20:03] Guest identity split detected — "Dan" checksum mismatch</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[20:21] Vivian Corvinarus status update — DEAD / STILL LAUGHING</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[??:??] Unauthorized Wahbook session initiated by user: WALUIGI</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[??:??] Record decay event — TOADBURT references unstable</p>
+            <p style="color: #2a2a2a; font-size: 10px;">[??:??] Purple mushroom placed beneath guest registry — source unconfirmed</p>
+            <p style="color: #333; font-size: 10px; margin-top: 8px;">Hint: try <strong>WAH</strong>, <strong>447</strong>, <strong>TOADBURT</strong>, <strong>MOREL</strong>, <strong>USK</strong>, or <strong>CHILDRENSTABLE</strong></p>
+        </div>
+    </div>
+</div>
+
+<!-- PLANAR MAP -->
+<div class="window" id="win-mapViewer" style="width:860px;height:560px;top:35px;left:90px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-mapViewer')">
+        <span class="title-icon">🗺️</span>
+        <span class="title-text">Planar Map Viewer — Raventree/Shadow Estate Region</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('mapViewer')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('mapViewer')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Layers</span><span>Tools</span><span>Help</span>
+    </div>
+    <div class="window-toolbar">
+        <button class="toolbar-btn" onclick="togglePlanarOverlay()">🌀 Toggle Bridge Overlay</button>
+        <button class="toolbar-btn" onclick="showMapNode('default')">🏠 Reset View</button>
+    </div>
+    <div class="window-content" style="height:calc(100% - 84px); display:flex; gap:12px;">
+        <div style="width:58%; background:#dce8f7; border:1px solid #7f9db9; padding:8px;">
+            <div style="position:relative; width:100%; height:100%; background:linear-gradient(180deg, #5b5570 0%, #7d758c 35%, #9ca6ae 100%); border:1px solid #4b5563; overflow:hidden;">
+                <div style="position:absolute; inset:0; background:
+                    radial-gradient(circle at 50% 48%, rgba(0,0,0,0.25) 0 120px, transparent 121px),
+                    radial-gradient(circle at 18% 72%, rgba(30,50,30,0.35) 0 70px, transparent 71px),
+                    radial-gradient(circle at 80% 28%, rgba(40,20,40,0.28) 0 80px, transparent 81px);"></div>
+
+                <button onclick="showMapNode('estate')" style="position:absolute; top:210px; left:220px; padding:6px 10px; background:#2e2e2e; color:#fff; border:1px solid #999; cursor:pointer;">🏰 Shadow Estate</button>
+                <button onclick="showMapNode('ballroom')" style="position:absolute; top:250px; left:155px; padding:4px 8px; background:#7b1f1f; color:#fff; border:1px solid #d9b; cursor:pointer;">💃 Ballroom</button>
+                <button onclick="showMapNode('masterbed')" style="position:absolute; top:145px; left:275px; padding:4px 8px; background:#5c2333; color:#fff; border:1px solid #d7a; cursor:pointer;">🛏️ Master Suite</button>
+                <button onclick="showMapNode('library')" style="position:absolute; top:205px; left:335px; padding:4px 8px; background:#4b3c2a; color:#fff; border:1px solid #cc9; cursor:pointer;">📚 Library</button>
+                <button onclick="showMapNode('greenhouse')" style="position:absolute; top:295px; left:255px; padding:4px 8px; background:#274d2d; color:#fff; border:1px solid #7f7; cursor:pointer;">🌿 Greenhouse</button>
+                <button onclick="showMapNode('vats')" style="position:absolute; top:355px; left:245px; padding:4px 8px; background:#2a112a; color:#fff; border:1px solid #b7f; cursor:pointer;">⚗️ Sub-Basement</button>
+                <button onclick="showMapNode('maze')" style="position:absolute; top:265px; left:35px; padding:4px 8px; background:#40563b; color:#fff; border:1px solid #8fb58f; cursor:pointer;">🌫️ Hedge Maze</button>
+                <button onclick="showMapNode('church')" style="position:absolute; top:95px; left:70px; padding:4px 8px; background:#555; color:#fff; border:1px solid #ccc; cursor:pointer;">⛪ Third Eye Church</button>
+                <button onclick="showMapNode('workshop')" style="position:absolute; top:120px; left:410px; padding:4px 8px; background:#6a6a6a; color:#fff; border:1px solid #ddd; cursor:pointer;">🗿 Sculptor's Workshop</button>
+                <button onclick="showMapNode('crashsite')" style="position:absolute; top:55px; left:250px; padding:4px 8px; background:#4b0082; color:#fff; border:1px solid #d6b3ff; cursor:pointer;">💥 Crash Site</button>
+                <button onclick="showMapNode('ruined')" style="position:absolute; top:430px; left:70px; padding:4px 8px; background:#6b6b6b; color:#fff; border:1px solid #bbb; cursor:pointer;">🪞 Ruined Manor</button>
+                <button onclick="showMapNode('feyward')" style="position:absolute; top:430px; left:365px; padding:4px 8px; background:#2e6f4f; color:#fff; border:1px solid #b8f5c3; cursor:pointer;">🌸 Feyward Manor</button>
+                <button onclick="showMapNode('regulator')" style="position:absolute; top:18px; left:410px; padding:4px 8px; background:#9c0000; color:#fff; border:1px solid #ff8f8f; cursor:pointer;">🔒 Regulator Plane</button>
+
+                <div id="planarOverlay" style="display:none; position:absolute; inset:0; pointer-events:none;">
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute; inset:0;">
+                        <line x1="46" y1="42" x2="19" y2="83" stroke="#00ffff" stroke-width="0.7" stroke-dasharray="2,2"/>
+                        <line x1="46" y1="42" x2="77" y2="83" stroke="#ff7cff" stroke-width="0.7" stroke-dasharray="2,2"/>
+                        <line x1="57" y1="28" x2="83" y2="6" stroke="#ff5555" stroke-width="0.7" stroke-dasharray="2,2"/>
+                        <line x1="57" y1="28" x2="19" y2="18" stroke="#ffd700" stroke-width="0.7" stroke-dasharray="2,2"/>
+                    </svg>
+                    <div style="position:absolute; right:8px; bottom:8px; background:rgba(0,0,0,0.75); color:#fff; font-size:10px; padding:6px 8px; border:1px solid #aaa;">
+                        Bridge Overlay:<br>
+                        Master Suite ↔ Ruined Mirror ↔ Feyward Circle<br>
+                        Usk resonance node intersects here
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:42%; overflow:auto; border:1px solid #7f9db9; background:#fff; padding:10px;">
+            <div id="mapInfo-default">
+                <h2 style="color: var(--xp-blue);">🗺️ Regional Overview</h2>
+                <p><em>The Shadow Estate region is not geographically honest. Distances are emotional, not physical. The church is "nearby" when you need shelter. The maze is "endless" when you need to leave.</em></p>
+                <div class="info-box">ℹ️ Click a location on the map for notes, sightings, and useful player-facing clues.</div>
+                <h3>Fast Notes</h3>
+                <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+                    <li><strong>Master Suite:</strong> Broken circle under rug. Portal ingredients partially known.</li>
+                    <li><strong>Sub-Basement:</strong> Necromantic vats. Manufactured heir implications.</li>
+                    <li><strong>Ruined Manor:</strong> Broken mirror backing contains planar inscriptions.</li>
+                    <li><strong>Church:</strong> Safehouse, cult, and possible incantation fragments.</li>
+                    <li><strong>Crash Site:</strong> Purple Legion and Orvinder/Usk thread.</li>
+                </ul>
+            </div>
+
+            <div id="mapInfo-estate" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🏰 Shadow Estate</h2>
+                <p>Primary Onyx Hand stronghold. Site of the dinner, the anchor shattering, multiple betrayals, and the worst hospitality rating in planar history.</p>
+                <div class="warning-box">⚠️ Mirrors in the estate are not decorative. They are surveillance.</div>
+                <p><strong>Known internal routes:</strong> Ballroom, library, master suite, greenhouse, maintenance corridors, attic garden, sub-basement.</p>
+            </div>
+
+            <div id="mapInfo-ballroom" style="display:none;">
+                <h2 style="color: var(--xp-blue);">💃 Ballroom</h2>
+                <p>Site of the boneless dancer outbreak. Blood on floorboards, endless music source unknown, multiple broken bolts.</p>
+                <div class="info-box">ℹ️ Bowser's restored fire breath was effective. Headless variants may persist elsewhere.</div>
+            </div>
+
+            <div id="mapInfo-masterbed" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🛏️ Master Suite</h2>
+                <p>Luxurious vampire suite. Rug conceals a broken teleportation / entropy circle. Bath adjacent. Orangus recovering nearby.</p>
+                <h3>Portal Fragments Known</h3>
+                <ul style="margin-left: 16px; font-size: 11px; line-height: 1.8;">
+                    <li>Expose broken circle beneath the rug</li>
+                    <li>Use <strong>five candles</strong></li>
+                    <li>Position <strong>two mirrors facing</strong></li>
+                    <li>Spoken phrase likely includes: <span class="redacted" onclick="this.classList.toggle('revealed')">"the mirror refuses the lie"</span></li>
+                </ul>
+            </div>
+
+            <div id="mapInfo-library" style="display:none;">
+                <h2 style="color: var(--xp-blue);">📚 Library</h2>
+                <p>Archivist territory. Toadburt performed indentured shelving here after the dancer incident. Books may remain accessible even if you forget why you came.</p>
+                <div class="warning-box">⚠️ If you find yourself rereading the same shelf labels, the erasure field is working.</div>
+            </div>
+
+            <div id="mapInfo-greenhouse" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🌿 Greenhouse</h2>
+                <p>Orangus's treasured sunlight chamber. Burned by Archie in another plane, resented ever since. Home to wraiths and suspiciously real plants.</p>
+                <div class="info-box">ℹ️ Drainage from the vats leads here. This may explain why the produce looks more alive than the rest of the Shadowfell.</div>
+            </div>
+
+            <div id="mapInfo-vats" style="display:none;">
+                <h2 style="color: var(--xp-blue);">⚗️ Sub-Basement Vats</h2>
+                <p>Boneless dancer biomass, Mazebound precursor fluid, purple reactive matter, and one heir-shaped problem.</p>
+                <div class="danger-box">🚨 V-05 suggests the Corvinarus heir is <strong>grown, not born</strong>.</div>
+            </div>
+
+            <div id="mapInfo-maze" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🌫️ Hedge Maze</h2>
+                <p>Home of the Mazebounds, Tymnas, the dead skull-tree, Archie's lost gear, and several songs nobody asked for.</p>
+                <div class="info-box">ℹ️ Cooperative Mazebounds requested artifact removal. Unknown crossbow benefactor active in area.</div>
+            </div>
+
+            <div id="mapInfo-church" style="display:none;">
+                <h2 style="color: var(--xp-blue);">⛪ Third Eye Church</h2>
+                <p>Bugbear refuge and Archie cult site. Real Dan confronted party here with Guild doctrine and fire.</p>
+                <div class="info-box">ℹ️ Sermons may contain usable portal language the Guild doesn't control.</div>
+            </div>
+
+            <div id="mapInfo-workshop" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🗿 Sculptor's Workshop</h2>
+                <p>Lyranth's studio. Tight quarters, high artistry, zero eye safety. Remi was petrified here and later sold.</p>
+            </div>
+
+            <div id="mapInfo-crashsite" style="display:none;">
+                <h2 style="color: var(--xp-blue);">💥 Crash Site</h2>
+                <p>Airship wreck under Purple Legion control. Compliance loudspeakers. Empty cage where Dan should have been.</p>
+                <div class="warning-box">⚠️ Orvinder Danos and Usk thread begins here. Do not ignore the barrister just because he sounds like paperwork.</div>
+            </div>
+
+            <div id="mapInfo-ruined" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🪞 Ruined Manor</h2>
+                <p>Material-plane ruin. Broken mirror backing holds planar inscriptions. Guild ghost-clearing operations active.</p>
+                <div class="info-box">ℹ️ Luigi's Poltergust team identified mirror-backed routing marks and hidden room logic here.</div>
+            </div>
+
+            <div id="mapInfo-feyward" style="display:none;">
+                <h2 style="color: var(--xp-blue);">🌸 Feyward Manor</h2>
+                <p>The other polite nightmare. Flowers, etiquette, and lethal hosting practices under prettier lighting.</p>
+            </div>
+
+            <div id="mapInfo-regulator" style="display:none;">
+                <h2 style="color: red;">🔒 Regulator Plane</h2>
+                <p>The proposed fourth bridge connecting all three manor variants. The Mages Guild prefers collapse over difficulty.</p>
+                <div class="danger-box">🚨 If stabilized incorrectly: total disaster. If collapsed deliberately: two-thirds of reality gone.</div>
+                <div class="warning-box">⚠️ Hidden note: <span class="redacted" onclick="this.classList.toggle('revealed')">Usk may provide a non-collapse solution.</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MAGES GUILD LOGS -->
+<div class="window" id="win-magesGuild" style="width:760px;height:540px;top:40px;left:120px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-magesGuild')">
+        <span class="title-icon">🔮</span>
+        <span class="title-text">guild_ops.log — Mages Guild Internal Memoranda</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('magesGuild')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('magesGuild')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Search</span><span>Help</span>
+    </div>
+    <div class="window-content" style="height:calc(100% - 54px);">
+        <div class="classified-stamp">CONFIDENTIAL — GUILD PROPERTY</div>
+        <div class="tab-header guild-tab-header">
+            <div class="tab-btn guild-tab-btn active" onclick="showGuildTab('thornbury')">📓 Thornbury</div>
+            <div class="tab-btn guild-tab-btn" onclick="showGuildTab('luigi')">👻 Agent L</div>
+            <div class="tab-btn guild-tab-btn" onclick="showGuildTab('nullcage')">🔒 Null Cage #447</div>
+            <div class="tab-btn guild-tab-btn" onclick="showGuildTab('byscilla')">🧭 Captain Danos</div>
+            <div class="tab-btn guild-tab-btn" onclick="showGuildTab('malissia')">🧪 Malissia</div>
+        </div>
+
+        <div class="tab-content guild-tab-content active" id="guild-thornbury">
+            <h2 style="color: var(--xp-blue);">📓 Thornbury Survey Extracts</h2>
+            <p><em>Initial Survey Team: Captain Byscilla Danos + 4. Location: Raventree Manor / connective sites.</em></p>
+            <table class="lore-table">
+                <tr><th>Observation</th><th>Detail</th></tr>
+                <tr><td>Mirror Backings</td><td>Contain nondecorative inscriptions for planar traversal. Some routes require the door be seen in reflection before being opened.</td></tr>
+                <tr><td>Initials in House</td><td>"OC" and "AC" carved repeatedly into bedframes, mirror frames, and desk undersides.</td></tr>
+                <tr><td>Master Suite Circle</td><td>Broken chalk-and-charcoal ring beneath rug. One-third still active. Geometry inconsistent with local teleportation circles.</td></tr>
+                <tr><td>Environmental Scent</td><td>Damp stone, old cloth, and incense from upper floor. Incense not native to the Shadowfell flora index.</td></tr>
+                <tr><td>Portal Procedure Fragment</td><td><span class="redacted" onclick="this.classList.toggle('revealed')">"Five flames, two faces, the wound beneath, and the reflection refuses the lie..."</span></td></tr>
+            </table>
+            <div class="info-box">ℹ️ Thornbury's least annoying trait is that he writes everything down. His most annoying trait is the bill afterwards.</div>
+        </div>
+
+        <div class="tab-content guild-tab-content" id="guild-luigi">
+            <h2 style="color: var(--xp-blue);">👻 Agent L — Ghost Ops Memo</h2>
+            <p><strong>Filed by:</strong> Luigi, Provisional Ghost Containment Specialist</p>
+            <div style="background:#fff; border:1px solid #bbb; padding:12px; font-size:11px; line-height:1.8;">
+                1. Military ration quality: poor but survivable. Recommend heating when possible.<br>
+                2. Ghost activity strongest near broken mirrors, collapsed stairs, and rooms with the old incense smell.<br>
+                3. Archie throws fire bolts at anything translucent when startled. This is not a criticism. It is a fact.<br>
+                4. Mirror-ghosts hesitate if they are reflecting an exterior opening. A reflected window appears to confuse them.<br>
+                5. Hidden crawlspaces connect library walls, bath-adjacent rooms, and at least one bedroom closet.<br>
+                6. If tracking Archie after anchor restoration, follow scorch marks and loud complaining.<br>
+            </div>
+            <div class="warning-box">⚠️ Practical use: a mirror positioned to reflect a window may disrupt shadow entities and improve safe passage.</div>
+        </div>
+
+        <div class="tab-content guild-tab-content" id="guild-nullcage">
+            <h2 style="color: var(--xp-blue);">🔒 Null Cage Behavioral Record — Badge #447</h2>
+            <p><strong>Subject:</strong> Dan (original) | <strong>Status:</strong> Indoctrination in progress during capture period</p>
+            <table class="lore-table">
+                <tr><th>Phase</th><th>Guild Action</th><th>Observed Response</th></tr>
+                <tr><td>I</td><td>Magic nullification / isolation</td><td>Agitation, bargaining, silence</td></tr>
+                <tr><td>II</td><td>Regular meals / predictable routine</td><td>Dependency formation</td></tr>
+                <tr><td>III</td><td>Controlled reading: "Archie's Third Eye Vol. 1"</td><td>Identity confusion, rhetorical mimicry</td></tr>
+                <tr><td>IV</td><td>Guild robes, wand, badge</td><td>Attachment to institution, hostile language toward Archie</td></tr>
+            </table>
+            <div class="danger-box">🚨 Hidden in robe hem was a note in childhood cipher: <span class="redacted" onclick="this.classList.toggle('revealed')">"If I start calling them friends, take the badge and ask me who spilled soup in the Vigilance galley."</span></div>
+            <div class="info-box">ℹ️ Likely memory-anchor answer: <span class="redacted" onclick="this.classList.toggle('revealed')">Big T did. Eager blamed the waves.</span></div>
+        </div>
+
+        <div class="tab-content guild-tab-content" id="guild-byscilla">
+            <h2 style="color: var(--xp-blue);">🧭 Captain Byscilla Danos — Bridge Notes</h2>
+            <p><em>Extracts from the initial multi-manor survey before the operation became catastrophically political.</em></p>
+            <ul style="margin-left:16px; font-size:11px; line-height:1.8;">
+                <li>An entity identified as <strong>Usk</strong> appears split across all manor variants.</li>
+                <li>Collapse is a solution only if one prefers losing most of reality to doing more work.</li>
+                <li>Some doors require simultaneous recognition across planes: reflection, memory, and location must agree.</li>
+                <li>The estate's hostile architecture is not random. It is reacting to the fracture.</li>
+                <li><span class="redacted" onclick="this.classList.toggle('revealed')">Reuniting Usk may replace the need for a Regulator collapse event.</span></li>
+            </ul>
+            <div class="warning-box">⚠️ The Guild knows there may be an alternative. It is simply more difficult than murder and paperwork.</div>
+        </div>
+
+        <div class="tab-content guild-tab-content" id="guild-malissia">
+            <h2 style="color: var(--xp-blue);">🧪 Agent Malissia — Interrogation/Containment Notes</h2>
+            <p><strong>Subject focus:</strong> Archie Miser and Entropy Ring handler failure.</p>
+            <div style="background:#f7f7f7; border:1px solid #ccc; padding:12px; font-size:11px; line-height:1.8;">
+                - Subject refused compliant positioning.<br>
+                - Handler ring integrity compromised by brute force removal.<br>
+                - Entropy feedback from broken pair likely contributed to portal instability.<br>
+                - Subject's presence "bleeds entropy" into linked structures, making accidental bridge events more probable.<br>
+                - Dimensional copies should degrade post-anchor unless supported by a second stabilizing structure.<br>
+                - <span class="redacted" onclick="this.classList.toggle('revealed')">Probable secondary anchor location: below the Regulator vestibule, beneath the entry geometry rather than above it.</span>
+            </div>
+            <div class="danger-box">🚨 If Parallel Dan is still stable, something else is holding him in existence.</div>
+        </div>
+    </div>
+</div>
+
+<!-- ASHFORD POETRY -->
+<div class="window" id="win-ashfordPoetry" style="width:620px;height:500px;top:65px;left:210px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-ashfordPoetry')">
+        <span class="title-icon">✒️</span>
+        <span class="title-text">Ashford_poetry.doc — WordPad</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('ashfordPoetry')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('ashfordPoetry')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Help</span>
+    </div>
+    <div class="window-content" style="height:calc(100% - 54px); background:#fbf8ef;">
+        <div style="max-width:540px; margin:0 auto; background:#fffdf7; border:1px solid #ddd2b5; padding:20px; font-family:'Times New Roman', serif; line-height:1.9; font-size:16px; color:#3f2f2f;">
+            <h2 style="text-align:center; color:#7b1f1f; border:none;">Bowser's Strays, with Notes on Futility</h2>
+            <p style="text-align:center; font-style:italic;">by Marcus Ashford</p>
+
+            <p>
+                <strong>B</strong>eneath my banners stagger fools who think themselves the flame,<br>
+                <strong>U</strong>nder borrowed gods and broken glass they lurch without a name,<br>
+                <strong>R</strong>agged, loud, and half-divine, they kick at every lock,<br>
+                <strong>N</strong>one so dangerous as the desperate who mistake collapse for shock,<br><br>
+
+                <strong>B</strong>ut hear the marching measure: polished boots and ordered breath,<br>
+                <strong>A</strong>ll empires rhyme their victories by humiliating death,<br>
+                <strong>D</strong>rag the frightened mage in uniform and teach him who to trust,<br>
+                <strong>G</strong>ild the badge, attach the wand, and let old friendships rust,<br>
+                <strong>E</strong>ven kings write pink apologies when driven into dust.
+            </p>
+
+            <div class="warning-box" style="margin-top:14px;">
+                ⚠️ Archivist annotation: He hides practical information in his own vanity. Read the left margin.
+            </div>
+            <div class="info-box">
+                ℹ️ Acrostic result: <strong>BURN BADGE</strong>. Likely refers to Dan's Guild tracker #447.
+            </div>
+
+            <p style="font-size:13px; margin-top:16px; color:#666;">
+                Additional margin note in another hand: <em>"Parade rotations change at evening actuation. Consult consultants, not poets."</em>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- DAN PHOTO -->
+<div class="window" id="win-danPhoto" style="width:640px;height:460px;top:60px;left:190px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-danPhoto')">
+        <span class="title-icon">🖼️</span>
+        <span class="title-text">photo_vigilance.jpg — Windows Picture and Fax Viewer</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('danPhoto')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('danPhoto')">✕</button>
+        </div>
+    </div>
+    <div class="window-content" style="height:calc(100% - 30px); background:#596f8f; padding:12px;">
+        <div id="danPhotoFront" style="height:100%; background:#d7e1ee; border:2px solid #fff; padding:12px;">
+            <div style="display:flex; gap:12px; height:100%;">
+                <div style="width:68%; background:linear-gradient(180deg,#97c1e7 0%, #8ab0d3 36%, #7a6148 36%, #6d523b 100%); border:1px solid #5b6b7b; position:relative;">
+                    <div style="position:absolute; top:0; left:0; right:0; height:34%; background:linear-gradient(180deg,#9fd2ff 0%, #b7ddff 55%, #8ba7c4 100%);"></div>
+                    <div style="position:absolute; top:34%; left:0; right:0; height:8px; background:#503d2d;"></div>
+                    <div style="position:absolute; left:14%; top:28%; font-size:28px;">🐸</div>
+                    <div style="position:absolute; left:23%; top:21%; font-size:11px; background:rgba(255,255,255,0.8); padding:2px 4px;">Eager</div>
+
+                    <div style="position:absolute; left:35%; top:27%; font-size:30px;">🐸</div>
+                    <div style="position:absolute; left:43%; top:20%; font-size:11px; background:rgba(255,255,255,0.8); padding:2px 4px;">Dan (2 hands)</div>
+
+                    <div style="position:absolute; left:60%; top:26%; font-size:30px;">🐸</div>
+                    <div style="position:absolute; left:69%; top:19%; font-size:11px; background:rgba(255,255,255,0.8); padding:2px 4px;">Big T</div>
+
+                    <div style="position:absolute; left:78%; top:24%; font-size:25px;">🔥</div>
+                    <div style="position:absolute; left:66%; top:9%; font-size:11px; background:rgba(255,255,255,0.8); padding:2px 4px;">Archie arguing off-frame</div>
+
+                    <div style="position:absolute; bottom:10px; left:10px; font-size:11px; background:rgba(255,255,255,0.85); padding:4px 6px;">HMS Vigilance — before the Guild, before the fracture</div>
+                </div>
+
+                <div style="width:32%; background:#fff; border:1px solid #bbb; padding:10px; overflow:auto;">
+                    <h3 style="margin:0 0 8px 0; color:var(--xp-blue);">Photo Notes</h3>
+                    <ul style="margin-left:16px; font-size:11px; line-height:1.8;">
+                        <li>Dan appears with <strong>both hands intact</strong>.</li>
+                        <li>Smile appears genuine, not Guild-issued.</li>
+                        <li>Archie in background arguing with someone outside frame.</li>
+                        <li>Found beneath Dan's pillow in barracks.</li>
+                        <li>Serves as strong pre-induction memory anchor.</li>
+                    </ul>
+                    <div class="warning-box">⚠️ Useful for deprogramming: remind Dan of specific shared incidents only the original would know.</div>
+                    <button class="toolbar-btn" onclick="flipDanPhoto()" style="margin-top:8px;">🔄 Flip Photo</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="danPhotoBack" style="display:none; height:100%; background:#f7f0e3; border:2px solid #fff; padding:18px; font-family:'Courier New', monospace; font-size:13px; line-height:1.8; color:#4a3f35;">
+            <strong>Back of Photo — pencil, childhood cipher partly translated</strong><br><br>
+            "If I'm ever wearing robes and talking like a handbook,<br>
+            ask me who spilled the soup in the port galley.<br>
+            If I answer wrong, take the badge off me.<br>
+            If Archie says the lantern joke, that's me too."<br><br>
+
+            <span class="redacted" onclick="this.classList.toggle('revealed')">Translation notes: soup culprit = Big T. Lantern joke = Archie called it "a budget sun."</span><br><br>
+
+            <button class="toolbar-btn" onclick="flipDanPhoto()">🔄 Flip Back</button>
+        </div>
+    </div>
+</div>
+
+<!-- BOWSER LETTER -->
+<div class="window" id="win-bowserLetter" style="width:600px;height:500px;top:55px;left:240px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-bowserLetter')">
+        <span class="title-icon">💌</span>
+        <span class="title-text">Letter_to_Peach.doc — WordPad</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('bowserLetter')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('bowserLetter')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Help</span>
+    </div>
+    <div class="window-content" style="height:calc(100% - 54px); background:#f6e5ea;">
+        <div style="max-width:500px; margin:12px auto; background:#fff8fb; border:1px solid #d8a9b8; padding:20px; font-family:'Times New Roman', serif; font-size:17px; line-height:1.8; color:#3c222a;">
+            <p>Dear Peach,</p>
+            <p>
+                I heard you were here.<br>
+                I am <strong>NOT</strong> kidnapping you.<br>
+                Unless you want to go?<br>
+                No, wait. Ignore that line.<br>
+                I am just visiting.<br>
+                Please do not unleash Mario on me.
+            </p>
+            <p>Love,<br>Bowser</p>
+
+            <p style="margin-top:18px; font-size:15px;">
+                P.S. I found a weird vellum page while I was studying <em>quantum physics</em>.
+                It says:
+            </p>
+
+            <div style="border:1px dashed #a77; background:#fff; padding:10px; font-size:14px; font-style:italic;">
+                "Five candles around the broken wound.<br>
+                Two mirrors facing until the room remembers itself.<br>
+                Speak what the reflection refuses."
+            </div>
+
+            <p style="font-size:14px; margin-top:14px;">I do not know what that means but it felt romantic or scientific.</p>
+
+            <div class="info-box">ℹ️ Archivist annotation: The turtle accidentally copied a usable portal procedure into a love letter.</div>
+        </div>
+    </div>
+</div>
+
+<!-- THIRD EYE CHURCH -->
+<div class="window" id="win-churchDossier" style="width:700px;height:510px;top:50px;left:150px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-churchDossier')">
+        <span class="title-icon">⛪</span>
+        <span class="title-text">Third Eye Church — Local Dossier</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('churchDossier')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('churchDossier')">✕</button>
+        </div>
+    </div>
+    <div class="window-menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Faith</span><span>Help</span>
+    </div>
+    <div class="window-content" style="height:calc(100% - 54px);">
+        <h2 style="color: var(--xp-blue);">👁️ Third Eye Church Dossier</h2>
+        <p><em>Bugbear-run refuge disguised as a theology built around Archie Miser. This should be absurd. Unfortunately, it is operationally useful.</em></p>
+
+        <div class="content-section">
+            <h3>Primary Uses</h3>
+            <ul style="margin-left:16px; font-size:11px; line-height:1.8;">
+                <li>Safehouse from Purple Legion patrols</li>
+                <li>Meeting point outside estate surveillance range</li>
+                <li>Counter-narrative to Guild propaganda about "Professor A"</li>
+                <li>Source of phrases and symbols associated with the fracture</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h3>Litany of the Fracture</h3>
+            <div style="background:#f7f5ee; border:1px solid #d2c8a5; padding:12px; font-style:italic; font-size:12px; line-height:1.8;">
+                The eye sees across.<br>
+                The mirror refuses the lie.<br>
+                Open the wound between rooms.<br>
+                Let the fracture remember itself.
+            </div>
+            <div class="info-box">ℹ️ This is either theology, a portal incantation, or both.</div>
+        </div>
+
+        <div class="content-section">
+            <h3>Dan Confrontation Notes</h3>
+            <table class="lore-table">
+                <tr><th>Point</th><th>Observation</th></tr>
+                <tr><td>Appearance</td><td>Guild robes, blackite wand, badge #447</td></tr>
+                <tr><td>Language</td><td>Repeated "Professor A," "true friends," and law/authority phrasing</td></tr>
+                <tr><td>Cracks in Script</td><td>Ran away crying when narrative pressure exceeded doctrine</td></tr>
+                <tr><td>Recovery Vector</td><td>Badge removal + personal memory anchors + contradiction of Guild narrative</td></tr>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h3>Refuge Access Notes</h3>
+            <ul style="margin-left:16px; font-size:11px; line-height:1.8;">
+                <li>East culvert route avoids loudspeaker patrols</li>
+                <li>Bugbear wardens hide supplies beneath hymn benches</li>
+                <li>Consecrated soot marks on mirrors appear to interfere with undead scrying</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ENTROPY CALC -->
+<div class="window" id="win-entropyCalc" style="width:560px;height:500px;top:65px;left:260px;">
+    <div class="window-titlebar" onmousedown="startDrag(event, 'win-entropyCalc')">
+        <span class="title-icon">🔢</span>
+        <span class="title-text">entropy_calc.exe</span>
+        <div class="window-controls">
+            <button class="btn-minimize" onclick="minimizeWindow('entropyCalc')">_</button>
+            <button class="btn-maximize">□</button>
+            <button class="btn-close" onclick="closeWindow('entropyCalc')">✕</button>
+        </div>
+    </div>
+    <div class="window-content" style="height:calc(100% - 30px); background:#eef4fb;">
+        <h2 style="color: var(--xp-blue);">🔢 Entropy Risk Calculator</h2>
+        <p style="font-size:11px; color:#666;"><em>Unstable model. Built from Archivist notes, Guild math, and Waluigi's hostility toward institutions.</em></p>
+
+        <table class="lore-table" style="margin-top:10px;">
+            <tr>
+                <td>Subject</td>
+                <td>
+                    <select id="entropySubject" style="width:100%; font-size:11px;">
+                        <option>Remi</option>
+                        <option>Portal</option>
+                        <option>Dan</option>
+                        <option>Regulator Plane</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Ring Leak Level</td>
+                <td><input type="number" id="entropyRingLeak" min="0" max="9" value="1" style="width:100%;"></td>
+            </tr>
+            <tr>
+                <td>Anchor Fragments Present</td>
+                <td><input type="number" id="entropyAnchor" min="0" max="9" value="1" style="width:100%;"></td>
+            </tr>
+            <tr>
+                <td>Candles Lit</td>
+                <td><input type="number" id="entropyCandles" min="0" max="9" value="0" style="width:100%;"></td>
+            </tr>
+            <tr>
+                <td>Facing Mirrors</td>
+                <td><input type="number" id="entropyMirrors" min="0" max="9" value="0" style="width:100%;"></td>
+            </tr>
+            <tr>
+                <td>Archie Proximity</td>
+                <td><input type="number" id="entropyArchie" min="0" max="9" value="4" style="width:100%;"></td>
+            </tr>
+            <tr>
+                <td>Usk Resonance</td>
+                <td><input type="number" id="entropyUsk" min="0" max="9" value="0" style="width:100%;"></td>
+            </tr>
+        </table>
+
+        <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="toolbar-btn" onclick="loadEntropyPreset('remi')">Load Remi</button>
+            <button class="toolbar-btn" onclick="loadEntropyPreset('portal')">Load Portal</button>
+            <button class="toolbar-btn" onclick="loadEntropyPreset('dan')">Load Dan</button>
+            <button class="toolbar-btn" onclick="loadEntropyPreset('collapse')">Load Collapse</button>
+            <button class="toolbar-btn" onclick="runEntropyCalc()">▶ Analyze</button>
+        </div>
+
+        <div id="entropyResult" style="margin-top:14px; background:#fff; border:1px solid #7f9db9; min-height:160px; padding:12px; font-size:11px; line-height:1.8;">
+            Awaiting parameters...
+        </div>
+    </div>
+</div>
+
+<!-- BSOD EASTER EGG -->
+<div id="bsodOverlay" style="display:none; position:fixed; inset:0; background:#0000aa; color:#fff; z-index:99999; font-family:'Courier New', monospace; padding:40px;">
+    <div style="max-width:900px; margin:0 auto; font-size:18px; line-height:1.8;">
+        <div style="display:inline-block; background:#c0c0c0; color:#000; padding:2px 8px; margin-bottom:20px;"> Wahbook </div>
+        <p>An unauthorized social network session has been detected and Wahbook has been shut down to prevent damage to your timeline.</p>
+        <p>If this is the first time you've seen this Stop screen, try not posting about yourself for at least one day.</p>
+        <p>*** STOP: 0x00004457 (WAH_UNAUTHORIZED_ACCESS)</p>
+        <p>*** USER: ARCHIE MISER</p>
+        <p>*** COMMENT: "Don't tell Cornelius."</p>
+        <p style="margin-top:40px;">Press any key to continue being surveilled.</p>
+    </div>
+</div>
+
+<script>
+(function(){
+    let zCounter = 1000;
+
+    window.bringToFront = window.bringToFront || function(el){
+        if(!el) return;
+        zCounter++;
+        el.style.zIndex = zCounter;
+    };
+
+    window.openWindow = window.openWindow || function(name){
+        const win = document.getElementById('win-' + name);
+        if(!win) return;
+        win.style.display = 'block';
+        bringToFront(win);
+    };
+
+    window.closeWindow = window.closeWindow || function(name){
+        const win = document.getElementById('win-' + name);
+        if(!win) return;
+        win.style.display = 'none';
+    };
+
+    window.minimizeWindow = window.minimizeWindow || function(name){
+        closeWindow(name);
+    };
+
+    document.querySelectorAll('.window').forEach(win => {
+        win.addEventListener('mousedown', () => bringToFront(win));
+    });
+
+    window.startDrag = window.startDrag || function(e, id){
+        const win = document.getElementById(id);
+        if(!win) return;
+        bringToFront(win);
+
+        const rect = win.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const offsetY = e.clientY - rect.top;
+
+        function move(ev){
+            win.style.left = Math.max(0, ev.clientX - offsetX) + 'px';
+            win.style.top = Math.max(0, ev.clientY - offsetY) + 'px';
+        }
+
+        function up(){
+            document.removeEventListener('mousemove', move);
+            document.removeEventListener('mouseup', up);
+        }
+
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', up);
+    };
+
+    window.showFaction = window.showFaction || function(key){
+        const root = document.getElementById('factionContent');
+        if(!root) return;
+        root.querySelectorAll(':scope > div').forEach(div => div.style.display = 'none');
+        const target = document.getElementById('faction-' + key);
+        if(target) target.style.display = 'block';
+    };
+
+    window.showTab = window.showTab || function(tab){
+        const root = document.getElementById('win-taskManager');
+        if(!root) return;
+        root.querySelectorAll('.tab-header .tab-btn').forEach(btn => btn.classList.remove('active'));
+        root.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        if(window.event && window.event.target) window.event.target.classList.add('active');
+        const target = document.getElementById('tab-' + tab);
+        if(target) target.classList.add('active');
+    };
+
+    window.showTab2 = window.showTab2 || function(tab){
+        const root = document.getElementById('win-itemCatalog');
+        if(!root) return;
+        root.querySelectorAll('.tab-header .tab-btn').forEach(btn => btn.classList.remove('active'));
+        root.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        if(window.event && window.event.target) window.event.target.classList.add('active');
+        const target = document.getElementById('tab2-' + tab);
+        if(target) target.classList.add('active');
+    };
+
+    window.showGuildTab = function(tab){
+        const root = document.getElementById('win-magesGuild');
+        if(!root) return;
+        root.querySelectorAll('.guild-tab-btn').forEach(btn => btn.classList.remove('active'));
+        root.querySelectorAll('.guild-tab-content').forEach(c => c.classList.remove('active'));
+        if(window.event && window.event.target) window.event.target.classList.add('active');
+        const target = document.getElementById('guild-' + tab);
+        if(target) target.classList.add('active');
+    };
+
+    window.showMapNode = function(node){
+        document.querySelectorAll('[id^="mapInfo-"]').forEach(el => el.style.display = 'none');
+        const target = document.getElementById('mapInfo-' + node);
+        const fallback = document.getElementById('mapInfo-default');
+        if(target) target.style.display = 'block';
+        else if(fallback) fallback.style.display = 'block';
+    };
+
+    window.togglePlanarOverlay = function(){
+        const overlay = document.getElementById('planarOverlay');
+        if(!overlay) return;
+        overlay.style.display = overlay.style.display === 'none' ? 'block' : 'none';
+    };
+
+    window.flipDanPhoto = function(){
+        const front = document.getElementById('danPhotoFront');
+        const back = document.getElementById('danPhotoBack');
+        if(!front || !back) return;
+        const showBack = back.style.display === 'none';
+        front.style.display = showBack ? 'none' : 'block';
+        back.style.display = showBack ? 'block' : 'none';
+    };
+
+    window.loadEntropyPreset = function(type){
+        const set = (id, val) => { const el = document.getElementById(id); if(el) el.value = val; };
+
+        if(type === 'remi'){
+            set('entropySubject', 'Remi');
+            set('entropyRingLeak', 1);
+            set('entropyAnchor', 1);
+            set('entropyCandles', 0);
+            set('entropyMirrors', 0);
+            set('entropyArchie', 8);
+            set('entropyUsk', 0);
+        }
+        if(type === 'portal'){
+            set('entropySubject', 'Portal');
+            set('entropyRingLeak', 0);
+            set('entropyAnchor', 1);
+            set('entropyCandles', 5);
+            set('entropyMirrors', 2);
+            set('entropyArchie', 6);
+            set('entropyUsk', 1);
+        }
+        if(type === 'dan'){
+            set('entropySubject', 'Dan');
+            set('entropyRingLeak', 0);
+            set('entropyAnchor', 1);
+            set('entropyCandles', 0);
+            set('entropyMirrors', 1);
+            set('entropyArchie', 4);
+            set('entropyUsk', 0);
+        }
+        if(type === 'collapse'){
+            set('entropySubject', 'Regulator Plane');
+            set('entropyRingLeak', 3);
+            set('entropyAnchor', 2);
+            set('entropyCandles', 5);
+            set('entropyMirrors', 2);
+            set('entropyArchie', 9);
+            set('entropyUsk', 0);
+        }
+        runEntropyCalc();
+    };
+
+    window.runEntropyCalc = function(){
+        const subject = document.getElementById('entropySubject').value;
+        const leak = +document.getElementById('entropyRingLeak').value;
+        const anchor = +document.getElementById('entropyAnchor').value;
+        const candles = +document.getElementById('entropyCandles').value;
+        const mirrors = +document.getElementById('entropyMirrors').value;
+        const archie = +document.getElementById('entropyArchie').value;
+        const usk = +document.getElementById('entropyUsk').value;
+        const out = document.getElementById('entropyResult');
+
+        let html = `<strong>Subject:</strong> ${subject}<br>`;
+        let risk = 'Moderate';
+        let notes = [];
+
+        if(subject === 'Remi'){
+            const severity = leak + Math.max(0, archie - 4) + anchor;
+            risk = severity >= 9 ? 'SEVERE' : severity >= 6 ? 'HIGH' : 'Moderate';
+            notes.push(`Ring pressure estimate: ${severity}/12`);
+            notes.push(severity >= 8 ? 'Finger loss timeline accelerating. Find Archie or remove ring condition.' : 'Pain likely escalating but not yet catastrophic.');
+            notes.push('Do not attempt verbal disclosure of ring terms unless you enjoy curses.');
+        }
+
+        if(subject === 'Portal'){
+            const readiness = candles + mirrors + archie - anchor;
+            risk = readiness >= 11 ? 'VIABLE' : readiness >= 8 ? 'UNSTABLE BUT POSSIBLE' : 'INSUFFICIENT';
+            notes.push(`Portal readiness: ${readiness}/15`);
+            if(candles >= 5 && mirrors >= 2){
+                notes.push('Geometric conditions satisfied.');
+                notes.push('Phrase fragment likely: "The mirror refuses the lie."');
+            } else {
+                notes.push('Need 5 candles and 2 facing mirrors before incantation matters.');
+            }
+        }
+
+        if(subject === 'Dan'){
+            const recovery = archie + mirrors - anchor;
+            risk = recovery >= 7 ? 'RECOVERABLE' : 'DIFFICULT';
+            notes.push('Badge removal recommended.');
+            notes.push('Use pre-Guild memory anchors: Vigilance photo, galley soup incident, lantern joke.');
+            notes.push(recovery >= 7 ? 'Contradictions may break indoctrination script.' : 'Institutional identity still dominant.');
+        }
+
+        if(subject === 'Regulator Plane'){
+            const collapse = anchor + leak + archie - usk;
+            risk = collapse >= 10 ? 'APOCALYPTIC' : collapse >= 7 ? 'CRITICAL' : 'DANGEROUS';
+            notes.push(`Collapse pressure: ${collapse}/14`);
+            notes.push(usk >= 3 ? 'Usk resonance suggests an alternative to collapse.' : 'No stabilizing alternative currently modeled.');
+            notes.push(collapse >= 10 ? 'Guild-approved solution would destroy most reality.' : 'Still terrible, just less immediately.');
+        }
+
+        if(anchor > 0){
+            notes.push('Residual anchor activity detected: a secondary stabilizer may still exist.');
+        }
+
+        if(leak === 4 && archie === 4 && usk === 7){
+            notes.push('<span style="color:purple;">Hidden checksum matched: 447. Burn the badge.</span>');
+        }
+
+        html += `<strong>Assessment:</strong> ${risk}<br><br>`;
+        html += notes.map(n => `• ${n}`).join('<br>');
+        out.innerHTML = html;
+    };
+
+    window.checkSecretCode = function(){
+        const input = document.getElementById('secretCode');
+        const result = document.getElementById('secretResult');
+        if(!input || !result) return;
+
+        const code = input.value.trim().toUpperCase().replace(/\s+/g, '');
+        let html = '';
+
+        switch(code){
+            case 'HELP':
+                html = `
+                    <p>&gt; HELP</p>
+                    <p>Known lore-access commands:</p>
+                    <p>ANCHOR — Shadow Anchor failure details</p>
+                    <p>VIVIAN — succession file fragment</p>
+                    <p>WAHBOOK — user anomaly log</p>
+                    <p>447 — Dan recovery note</p>
+                    <p>TOADBURT — unstable erased record</p>
+                    <p>MOREL — Purple T threat summary</p>
+                    <p>USK — split-entity note</p>
+                    <p>CHILDRENSTABLE — yes, really</p>
+                `;
+                break;
+
+            case 'ANCHOR':
+                html = `
+                    <p>&gt; ANCHOR</p>
+                    <p>Shadow Anchor = purple planar suppressor crystal hidden in courtyard statue.</p>
+                    <p>Destroyed by Green T using silver projectile trajectory from elevated dining position.</p>
+                    <p>Effects: fire restored, color restored, suppression broken, reality irritated.</p>
+                    <p><span style="color:#aaa;">Addendum: a secondary support structure may still exist.</span></p>
+                `;
+                break;
+
+            case 'VIVIAN':
+                html = `
+                    <p>&gt; VIVIAN</p>
+                    <p>Alias cluster confirmed: Vivesna / Vinvessa / Vivian.</p>
+                    <p>Intent: isolate Shadow Estate, control closed fracture, inherit succession.</p>
+                    <p>Status: interrogated, stabbed by Markop, body burned, ashes scattered.</p>
+                    <p><span style="color:#ff6666;">Warning: vat evidence suggests heirhood may have been manufactured, not inherited.</span></p>
+                `;
+                break;
+
+            case 'WAHBOOK':
+                html = `
+                    <p>&gt; WAHBOOK</p>
+                    <p>Unauthorized social terminal accessed by Archie Miser, Bowser, Mystic Morel, and one deeply invasive Waluigi.</p>
+                    <p>Guild note: public self-reporting by Archie materially simplifies tracking efforts.</p>
+                    <p><span style="color:#ffd700;">Hint: Waluigi's post confirms the mushroom beneath the guest book was deliberate.</span></p>
+                `;
+                break;
+
+            case '447':
+                html = `
+                    <p>&gt; 447</p>
+                    <p>Badge #447 = Dan's Guild tracker and identity anchor.</p>
+                    <p>Acrostic from Ashford file: BURN BADGE.</p>
+                    <p>Recovery cue: ask who spilled soup in the Vigilance galley.</p>
+                    <p><span style="color:#7fff7f;">Expected correct answer: Big T. Eager blamed the waves.</span></p>
+                `;
+                break;
+
+            case 'TOADBURT':
+                html = `
+                    <p>&gt; TOADBURT</p>
+                    <p>Reconstructing...</p>
+                    <p>Small toad. Sleeper agent. Entropy ring carrier. Cracked ribs. Library labor.</p>
+                    <p>Erased from historical memory by Archivist. Readable, not retainable.</p>
+                    <p><span style="color:#666;">If you look away from this text, you may lose the name.</span></p>
+                `;
+                break;
+
+            case 'MOREL':
+            case 'PURPLET':
+            case 'MYSTICMOREL':
+                html = `
+                    <p>&gt; MOREL</p>
+                    <p>Appears across multiple planes simultaneously.</p>
+                    <p>Uses gifts that are actually leashes.</p>
+                    <p>Deck may not predict the future. It may position it.</p>
+                    <p><span style="color:purple;">Assessment: helpful in the way spider silk is helpful when you're already caught.</span></p>
+                `;
+                break;
+
+            case 'USK':
+                html = `
+                    <p>&gt; USK</p>
+                    <p>Split entity distributed across three manor variants.</p>
+                    <p>Reunification may stabilize bridge conditions without catastrophic collapse.</p>
+                    <p>Guild dislikes this option because it requires effort and Archie surviving.</p>
+                `;
+                break;
+
+            case 'CHILDRENSTABLE':
+                html = `
+                    <p>&gt; CHILDRENSTABLE</p>
+                    <p>Confirmed firing origin for silver bullet impact.</p>
+                    <p>Green T performed structural regime change from the least respected seat in the house.</p>
+                    <p><span style="color:#7fff7f;">Tactical lesson: never underestimate whoever gets seated at the kids' table.</span></p>
+                `;
+                break;
+
+            case 'WAH':
+                html = `
+                    <p>&gt; WAH</p>
+                    <p>Unauthorized user signature confirmed.</p>
+                    <p>Waluigi accessed terminal, left mushroom, frightened Archivist, and complained about filing methods.</p>
+                    <p><span style="color:#ffd700;">Easter egg unlocked: The mushroom was not a threat. It was editorial feedback.</span></p>
+                `;
+                const note = document.getElementById('stickyNote3');
+                if(note){
+                    note.style.boxShadow = '0 0 20px purple';
+                    setTimeout(() => note.style.boxShadow = '', 1500);
+                }
+                break;
+
+            default:
+                html = `<p>&gt; ${input.value || '[blank]'}</p><p>ACCESS DENIED</p><p style="color:#666;">Either the code is wrong, the record is erased, or the Archivist has decided you don't deserve it.</p>`;
+        }
+
+        result.innerHTML = html;
+        input.value = '';
+    };
+
+    window.showBSOD = function(){
+        const el = document.getElementById('bsodOverlay');
+        if(!el) return;
+        el.style.display = 'block';
+        const hide = () => {
+            el.style.display = 'none';
+            document.removeEventListener('keydown', hide);
+            el.removeEventListener('click', hide);
+        };
+        document.addEventListener('keydown', hide);
+        el.addEventListener('click', hide);
+        setTimeout(hide, 3000);
+    };
+
+    document.addEventListener('DOMContentLoaded', function(){
+        const input = document.getElementById('secretCode');
+        if(input){
+            input.addEventListener('keydown', function(e){
+                if(e.key === 'Enter') checkSecretCode();
+            });
+        }
+        runEntropyCalc();
+        showMapNode('default');
+    });
+})();
+</script>

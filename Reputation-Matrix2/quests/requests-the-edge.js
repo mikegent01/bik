@@ -10,7 +10,10 @@ export const THE_EDGE_REQUESTS = {
         assignee: "Full Party",
         assigneeKey: 'full_party',
         status: "available",
-        locationId: 'poi_ae_glitching_chasm'
+        locationId: 'poi_ae_glitching_chasm',
+        sessionNotes: [
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "Encountered a color-changing creature capable of growing via consumption; possible specimen for research." },
+        ]
     },
     'req_ae_paradox_delivery': {
         id: 'req_ae_paradox_delivery',

@@ -1615,4 +1615,239 @@ export const HISTORICAL_TIMELINE = [
     "category": "Recent Event"
 }
 
+,
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    },
+    "title": "The Tense Parley at Rougeport Bay",
+    "description": "Under the watchful, silent gaze of a Rakshasa lurking near the bay, Big R and Mystivil approached the Mushroom Regency's regency galleon to negotiate port access. Commander J Grip issued a final, chilling warning from his deck, asserting that the Regency now controlled all passage through the mystical waters of Rougeport. The negotiation reached a stalemate when J Grip demanded a full search of all possessions, prompting Mystivil to seek a loophole through precise, albeit desperate, planning.",
+    "icon": "icon_ring.png",
+    "category": "Faction Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 17
+    },
+    "title": "The Fatal Shot and Chaotic Retreat",
+    "description": "A sudden, violent crack of a musket shattered the heavy silence of the bay, striking the captain dead and sending her plunging into the pristine waters. As the group attempted to paddle closer to the wreckage, they were met with a devastating volley of gunfire from every direction, realizing they were outnumbered four to one. The frantic retreat through the spray was fueled by pure survival instinct as the ships began to splinter under the relentless onslaught.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 34
+    },
+    "title": "Reunion of the Vampire Loyalists",
+    "description": "The battered survivors limped toward the docks to regroup with the Peach Loyalists, only to be met by a startling revelation. Captain Bloodshire emerged from the shadows of the SS Bloodsworth, revealing that her crew were not mere peach partisans, but a formidable faction of vampire loyalists. The air grew thick with tension as Big R and Mystivil realized the true nature of the allies standing before them in the salt-stained moonlight.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 51
+    },
+    "title": "The Metamorphosis in the Private Chambers",
+    "description": "Within the secluded stillness of the private chambers, Toad Lee and Hjumpik bore witness to a phenomenon that defied the natural laws of the Faewild. They observed a strange creature undergoing a terrifying transformation, its vibrant green hue draining away into a menacing, abyssal dark purple. This sudden, eerie shift in color left both explorers paralyzed by the unsettling sight of such predatory magic unfolding before their eyes.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 8
+    },
+    "title": "The Growing Terror of Ol Burley",
+    "description": "Under the shifting twilight of the Feywild, Toad Lee, Hjumpik, and Sedeai gathered in hushed tones to debate the horrifying nature of the entity known as Ol Burley. They spoke in terrified whispers of a creature that does not merely hunt, but expands its very mass by consuming everything in its path. The air grew heavy with dread as they realized that every swallowed morsel only serves to fuel its insatiable, ever-expanding hunger.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 25
+    },
+    "title": "Arulean's Secret Mandate of Containment",
+    "description": "Within the opulent, shadow-drenched halls of the Manor, Arulean gripped her orange silk folding fan with trembling fingers as she confronted Hjumpik. She issued a stern warning that a certain creature must be contained rather than slain, fearing that its death would bring scandal to her esteemed reputation. The tension in the room was palpable, leaving Hjumpik to grapple with the weight of a secret that could shatter their political standing.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 42
+    },
+    "title": "Shadows Dancing Beyond the Manor Windows",
+    "description": "Waluigi, Hjumpik, and Toad Lee crept through the dense undergrowth and peered through manor windows, attempting a perilous reconnaissance of the estate. They moved with agonizing slowness, ducking behind thick bushes to evade the watchful eyes of the patrolling guards. Every snapping twig felt like a thunderclap in the silence, heightening the frantic pulse of their desperate scouting mission.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 59
+    },
+    "title": "Chaos Amidst the Manor's Feast",
+    "description": "The refined atmosphere of the Manor was shattered when Hjumpik stumbled upon a scene of pure, unadulterated madness. A lowly goblin waiter struggled beneath the weight of a frenzied satyr berserker who had mounted the poor creature's back in a fit of rage. The collision of high-society elegance and primal ferocity left Hjumpik reeling, unsure if the evening would end in a feast or a bloodbath.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 16
+    },
+    "title": "The Sentient Bloom of the Waterfall Room",
+    "description": "Amidst the rhythmic splashing of the humid waterfall fountain, Hjumpik and Toad Lee were performing their routine cleaning when a peculiar anomaly emerged from the damp shadows. Hjumpik brushed aside some moss to reveal a strange, pulsing pink flower that possessed an unsettling, sentient quality. As they watched in breathless silence, the petals twitched with intent, appearing to track their every movement like a predatory eye. The air in the room grew heavy with sudden dread as the duo realized they were no longer alone in the sanctuary.",
+    "icon": "icon_focus.png",
+    "category": "Discovery"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 15,
+        "minute": 33
+    },
+    "title": "The Confrontation in Arulean's Chamber",
+    "description": "The silence of Arulean’s room was shattered when Hjumpik discovered Wario amidst a chaotic sprawl of looted wreckage and overturned furniture. The greedy rogue stood surrounded by the spoils of his intrusion, clutching a shimmering gem and several bundles of dried papers. Tension flared instantly as Hjumpary confronted the thief, demanding an accounting for the stolen documents. The atmosphere turned volatile, thick with the scent of old parchment and the looming threat of a violent struggle.",
+    "icon": "icon_ring.png",
+    "category": "Faction Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 16,
+        "minute": 50
+    },
+    "title": "A Golden Bargain for Stolen Parchment",
+    "description": "In a desperate bid to avoid bloodshed within Arulean's room, Hjumpik sought a diplomatic resolution to Wario's theft. Recognizing the rogue's insatiable hunger for wealth, Hjumpik proposed a calculated bribe of ten gold pieces in exchange for the return of the dried papers. Wario weighed the glittering coins against his stolen prizes, the air crackling with the high stakes of the negotiation. Ultimately, the heavy clink of gold sealed the deal, securing the documents but leaving a bitter taste of compromise.",
+    "icon": "icon_ring.png",
+    "category": "Faction Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 17,
+        "minute": 7
+    },
+    "title": "A Bitter Dispute Over Monstrous Tactics",
+    "description": "A heated ideological clash erupted between Hjumpik and Arulean as they contemplated their next move against an encroaching monster. Hjumpik argued fervently for the merits of diplomacy and friendship, hoping to pacify the beast through kindness. Arulean, however, stood resolute in his belief that only overwhelming force could ensure their survival. The argument left the party fractured, casting a shadow of uncertainty over their ability to face the looming threat.",
+    "icon": "faction_liberated_toads.png",
+    "category": "Character Event"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 18,
+        "minute": 24
+    },
+    "title": "The Unbidden Intrusion Upon Waluigi",
+    "description": "The heavy silence of the chamber was shattered when a frenzied, unnamed beast slammed its massive weight against the door, splintering the wood with primal fury. Waluigi stood frozen in the sudden breach, his knuckles whitening as he gripped his tennis racket like a makeshift blade. The air grew thick with the scent of ozone and terror as the monster's shadow loomed over him, marking the start of a desperate struggle for survival.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 19,
+        "minute": 41
+    },
+    "title": "The Desperate Skirmish at the Frontline",
+    "description": "With steel drawn and hearts racing, Garud and Arulean pressed forward into the fray, closing the distance toward the towering monstrosity. Behind them, Toad Lee braced himself, eyes fixed on the beast's movements as he prepared to launch a preemptive strike. The battlefield was a cacophony of clashing metal and heavy breathing, a moment of pure, unadulterated tension where a single misstep meant certain death.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 20,
+        "minute": 58
+    },
+    "title": "The Consumption of the Butler",
+    "description": "A terrifying display of fae sorcery unfolded as the monster unleashed a shimmer of glittering, ethereal magic to ensnare a hapless butler. With a sickening surge of arcane energy, the beast lifted the servant into the air and consumed him whole, absorbing his very essence. Arulean watched in paralyzed horror as the creature's muscles swelled and its eyes glowed with newfound, predatory strength.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 21,
+        "minute": 15
+    },
+    "title": "The Canine Distraction of Hjumpik",
+    "description": "In a frantic bid to divert the beast's murderous attention, Hjumpik signaled to Steely, commanding the loyal hound to unleash a deafening barrage of barks. The dog’s frantic yapping echoed through the chaos, creating a momentary auditory shroud that momentarily confused the oncoming monster. This desperate gambit provided a fleeting window of opportunity, though the weight of the approaching threat remained palpable.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 32
+    },
+    "title": "The Piercing Chill of Waluigi's Strike",
+    "description": "Amidst the swirling chaos and the cacophony of clashing steel, Waluigi lunged through the gloom with a desperate, predatory grace. With a guttural cry that was lost to the roar of battle, he drove a jagged ice pick deep into the monster's pulsating flesh. The beast let out a wet, shuddering groan as the freezing metal bit into its essence, momentarily stalling its advance. In that fleeting moment of impact, the air seemed to freeze, leaving only the scent of iron and the frantic heartbeat of a survivor.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+},
+    {
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 49
+    },
+    "title": "The Unyielding Bravery of Toad Lee",
+    "description": "As the monstrous shadow loomed over the fray, Toad Lee cast aside all instinct for self-preservation to meet the horror head-on. With eyes ablaze with a frantic courage, he charged into the center of the carnage, his bare hands clenched into trembling fists. There was no weapon but his own raw resolve as he threw himself against the creature's overwhelming mass in a futile yet magnificent display of heroism. The surrounding combatants watched in stunned silence, momentarily breathless by the sheer audacity of such a small soul facing a titan.",
+    "icon": "icon_war.png",
+    "category": "Battle"
+}
 ];
