@@ -69568,6 +69568,5100 @@ export const WAHBOOK_POSTS = [
         }
     ]
 }
+,
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "The atmosphere at the Regency borders is getting tense. 🍄",
+    "likes": 120,
+    "rumorId": "negotiation_at_bay",
+    "order": 100054,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 0
+    },
+    "comments": [
+        {
+            "id": "grip_01",
+            "author": "j_grip",
+            "content": "Keep your blades sharp, friends.",
+            "likes": 12
+        },
+        {
+            "id": "blood_99",
+            "author": "captain_bloodshire",
+            "content": "I smell trouble brewing... ⚔️",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "Just trying to talk business with J Grip. No drama, just trade.",
+    "likes": 85,
+    "rumorId": "negotiation_at_bay",
+    "order": 100055,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 13
+    },
+    "comments": [
+        {
+            "id": "fire01",
+            "author": "firelyn",
+            "content": "Keep it moving, no time for spells or drama! 🔥",
+            "likes": 12
+        },
+        {
+            "id": "friz99",
+            "author": "flizzlebin",
+            "content": "Is there gold in this trade? 👀",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "undetermined_key": "captain_bloodshire",
+    "characterKey": "captain_bloodshire",
+    "content": "Negotiations or a trap? Keep your eyes on the spores.",
+    "likes": 42,
+    "rumorId": "negotiation_at_bay",
+    "order": 100056,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 26
+    },
+    "id": "nego_0002",
+    "comments": [
+        {
+            "id": "humpik_01",
+            "author": "humpik",
+            "content": "Don't trust anything that grows in the dark... 🍄",
+            "likes": 12
+        },
+        {
+            "id": "mystivil_02",
+            "author": "mystivil",
+            "content": "The spores tell no lies, only illusions.",
+            "likes": 45
+        },
+        {
+            "id": "flizzlebin_03",
+            "author": "flizzlebin",
+            "content": "Is there snacks in the trap? Asking for a friend.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "Can we please just get through one docking cycle without an incident?",
+    "likes": 33,
+    "rumorId": "negotiation_at_bay",
+    "order": 100057,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 39
+    },
+    "comments": [
+        {
+            "id": "fyl99",
+            "author": "firelyn",
+            "content": "The mana currents are just too chaotic today! ✨",
+            "likes": 42
+        },
+        {
+            "id": "hmp44",
+            "author": "humpik",
+            "content": "Typical. 🙄",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "If Big R fails, I'm looting the leftovers. 🔥",
+    "likes": 210,
+    "rumorId": "negotiation_at_bay",
+    "order": 100058,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 52
+    },
+    "comments": [
+        {
+            "id": "loopus_01",
+            "author": "loopus",
+            "content": "Save some gold for me! 💰",
+            "likes": 12
+        },
+        {
+            "id": "sedeai_99",
+            "author": "sedeai",
+            "content": "Count me in on the raid. ⚔️",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "Does the Mushroom Regency take credit? Asking for a friend.",
+    "likes": 55,
+    "rumorId": "negotiation_at_bay",
+    "order": 100059,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 5
+    },
+    "comments": [
+        {
+            "id": "m01",
+            "author": "magi_kai",
+            "content": "The spores never lie. ✨",
+            "likes": 12
+        },
+        {
+            "id": "t02",
+            "author": "toad_lee",
+            "content": "Depends on who's asking... 🍄",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "Diplomacy is harder when your negotiator is a legend and a rogue.",
+    "likes": 67,
+    "rumorId": "negotiation_at_bay",
+    "order": 100060,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 18
+    },
+    "comments": [
+        {
+            "id": "tl_001",
+            "author": "toad_lee",
+            "content": "Sounds like a recipe for a tavern brawl. 🐸",
+            "likes": 12
+        },
+        {
+            "id": "hk_002",
+            "author": "humpik",
+            "content": "Just don't let them steal the treaty.",
+            "likes": 5
+        },
+        {
+            "id": "mk_003",
+            "author": "magi_kai",
+            "content": "The stars foretold much chaos from this one. ✨",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "big_r",
+    "content": "Mystivil, stop checking your weapons. Let's be polite.",
+    "likes": 94,
+    "rumorId": "negotiation_at_bay",
+    "order": 100061,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 31
+    },
+    "comments": [
+        {
+            "id": "rule_01",
+            "author": "arulean",
+            "content": "Safety first! 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "burley_99",
+            "author": "ol_burley",
+            "content": "Hard to be polite with a blade at your throat.",
+            "likes": 45
+        },
+        {
+            "id": "waluigi_vibe",
+            "author": "waluigi",
+            "content": "Waaaa! Check them anyway! 💜",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "firelyn",
+    "content": "Commander J Grip doesn't look like the 'friendly' type.",
+    "likes": 15,
+    "rumorId": "negotiation_at_bay",
+    "order": 100062,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 44
+    },
+    "comments": [
+        {
+            "id": "gob01",
+            "author": "goblin_waiter",
+            "content": "He looks like he’d eat my leftovers. 💀",
+            "likes": 12
+        },
+        {
+            "id": "hjmp02",
+            "author": "hjumpik",
+            "content": "Is it just me, or is that armor looking extra sharp today?",
+            "likes": 4
+        },
+        {
+            "id": "myst03",
+            "author": "mystivil",
+            "content": "The aura of menace is strong with this one. ✨",
+            "likes": 38
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "The peace treaty died with the Captain. Now there is only war.",
+    "likes": 1240,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100063,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 7
+    },
+    "comments": [
+        {
+            "id": "f1y_99",
+            "author": "firelyn",
+            "content": "Not again... 🔥",
+            "likes": 12
+        },
+        {
+            "id": "l00p_x",
+            "author": "loopus",
+            "content": "Wait, who's paying for the repairs now? 🙃",
+            "likes": 45
+        },
+        {
+            "id": "c_blood_88",
+            "author": "captain_bloodshire",
+            "content": "The sea demands blood.",
+            "likes": 103
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "One shot. That's all it took to turn a meeting into a massacre.",
+    "likes": 85,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100064,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 20
+    },
+    "comments": [
+        {
+            "id": "garud_01",
+            "author": "garud",
+            "content": "Pure chaos. I love it. 🔥",
+            "likes": 42
+        },
+        {
+            "id": "arulean_99",
+            "author": "arulean",
+            "content": "Was the mana depletion worth it?",
+            "likes": 12
+        },
+        {
+            "id": "humpik_vibe",
+            "author": "humpik",
+            "content": "classic overkill lol 💀",
+            "likes": 85
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "Hold the line! Do not let them break the perimeter!",
+    "likes": 0,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100065,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 33
+    },
+    "comments": [
+        {
+            "id": "goblin_001",
+            "author": "goblin_waiter",
+            "content": "I'm not paid enough for this siege! 😭",
+            "likes": 12
+        },
+        {
+            "id": "j_grip_99",
+            "author": "j_grip",
+            "content": "My shield is ready. Let them come! 🛡️",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "The sound of that shot still haunts my dreams. What happens now?",
+    "likes": 312,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100066,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 46
+    },
+    "comments": [
+        {
+            "id": "f92d8a",
+            "author": "steely",
+            "content": "The prophecy warned us of this.",
+            "likes": 12
+        },
+        {
+            "id": "k77b3c",
+            "author": "j_grip",
+            "content": "Brace your shields. It's coming. 🛡️",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "Everything is burning. We're running, and we can't stop!",
+    "likes": 45,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100067,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 59
+    },
+    "comments": [
+        {
+            "id": "w01_war",
+            "author": "wario",
+            "content": "WAHAHA! More loot for me! 💰",
+            "likes": 42
+        },
+        {
+            "id": "c32_cer",
+            "author": "cere_rin",
+            "content": "Stay calm, the mana shields will hold. ✨",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "Well, that negotiation went south... very, VERY south.",
+    "likes": 12,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100068,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 12
+    },
+    "comments": [
+        {
+            "id": "steely_01",
+            "author": "steely",
+            "content": "Typical. Greed always ruins the deal.",
+            "likes": 12
+        },
+        {
+            "id": "big_r_99",
+            "author": "big_r",
+            "content": "Did they bring the dragon? 🐉",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "Who pulled the trigger? Identify the traitor!",
+    "likes": 560,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100069,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 25
+    },
+    "comments": [
+        {
+            "id": "grd_001",
+            "author": "garud",
+            "content": "The shadows never lie. 🗡️",
+            "likes": 12
+        },
+        {
+            "id": "crn_99",
+            "author": "cere_rin",
+            "content": "Check the alchemy lab first...",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "big_r",
+    "content": "Retreating under heavy fire is the only way to survive this mess.",
+    "likes": 230,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100070,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 38
+    },
+    "comments": [
+        {
+            "id": "sde_001",
+            "author": "sedeai",
+            "content": "Strategy is nothing without wisdom.",
+            "likes": 12
+        },
+        {
+            "id": "wario_99",
+            "author": "wario",
+            "content": "Run faster! More loot for me! 💰",
+            "likes": 45
+        },
+        {
+            "id": "stee_42",
+            "author": "steely",
+            "content": "Cowardice won't save your shield.",
+            "likes": 3
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "cere_rin",
+    "content": "Rest in peace, Captain. The chaos has just begun.",
+    "likes": 890,
+    "rumorId": "assassination_of_the_captain",
+    "order": 100071,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 51
+    },
+    "comments": [
+        {
+            "id": "cb_99",
+            "author": "captain_bloodshire",
+            "content": "Not on my watch! ⚔️",
+            "likes": 12
+        },
+        {
+            "id": "hk_04",
+            "author": "humpik",
+            "content": "Great, more paperwork for me. 🙄",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "p1_arulean",
+    "characterKey": "arulean",
+    "content": "Finally back at the docks. The air feels... heavy. 🧛‍♂️",
+    "likes": 12,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100072,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 14
+    },
+    "comments": [
+        {
+            "id": "st_001",
+            "author": "steely",
+            "content": "Keep your blade sharp. Something's coming.",
+            "likes": 12
+        },
+        {
+            "id": "ob_002",
+            "author": "ol_burley",
+            "content": "Smells like old fish and bad omens. 🍺",
+            "likes": 8
+        },
+        {
+            "id": "gw_003",
+            "author": "goblin_waiter",
+            "content": "Does the heavy air come with extra garlic? 🧄",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "p2_big_r",
+    "characterKey": "big_r",
+    "content": "Captain Bloodshire is here. Hope they brought extra snacks. 🍖",
+    "likes": 45,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100073,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 27
+    },
+    "comments": [
+        {
+            "id": "satyr_99",
+            "author": "satyr_beserker",
+            "content": "Always bring enough for the whole herd! 🐐",
+            "likes": 14
+        },
+        {
+            "id": "loop_01",
+            "author": "loopus",
+            "content": "Is there any jerky left? 🥨",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p3_bloodshire",
+    "characterKey": "captain_bloodshire",
+    "content": "The crew is assembled. The tide turns tonight. 🩸",
+    "likes": 89,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100074,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 40
+    },
+    "comments": [
+        {
+            "id": "w-001",
+            "author": "waluigi",
+            "content": "WAAAAAA! Let the chaos begin! 💜",
+            "likes": 42
+        },
+        {
+            "id": "s-002",
+            "author": "satyr_beserker",
+            "content": "Blood and iron! I'm in! ⚔️",
+            "likes": 15
+        },
+        {
+            "id": "a-003",
+            "author": "sedeai",
+            "content": "The patterns are shifting. Be careful.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p4_cere_rin",
+    "characterKey": "cere_rin",
+    "content": "Is it just me, or is everyone looking a bit... pale?",
+    "likes": 33,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100075,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 53
+    },
+    "comments": [
+        {
+            "id": "cb_001",
+            "author": "captain_bloodshire",
+            "content": "Must be the lack of rum lately... 🏴‍☠️",
+            "likes": 12
+        },
+        {
+            "id": "fl_002",
+            "author": "firelyn",
+            "content": "Maybe we need more sun magic! 🔥",
+            "likes": 8
+        },
+        {
+            "id": "ar_003",
+            "author": "arulean",
+            "content": "Is there a curse brewing? 🤔",
+            "likes": 21
+        }
+    ]
+},
+  {
+    "id": "p5_firelyn",
+    "characterKey": "firelyn",
+    "content": "Vampires and docks? This is going to be a bright disaster. 🔥",
+    "likes": 27,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100076,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 6
+    },
+    "comments": [
+        {
+            "id": "j_grip",
+            "author": "j_grip",
+            "content": "Bring the garlic, I'm not ready! 🧄",
+            "likes": 12
+        },
+        {
+            "id": "garud",
+            "author": "garud",
+            "content": "Chaos is the best kind of magic.",
+            "likes": 45
+        },
+        {
+            "id": "mystivil",
+            "author": "mystivil",
+            "content": "The shadows are already moving...",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "p6_flizzlebin",
+    "characterKey": "flizzlebin",
+    "content": "Found some shiny coins at the pier! Who wants some? 🪙",
+    "likes": 15,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100077,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 19
+    },
+    "comments": [
+        {
+            "id": "cb_001",
+            "author": "captain_bloodshire",
+            "content": "Hand 'em over, matey! 🏴‍☠️",
+            "likes": 12
+        },
+        {
+            "id": "sd_992",
+            "author": "sedeai",
+            "content": "Are they enchanted? ✨",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "p7_arulean",
+    "characterKey": "arulean",
+    "content": "Does anyone else smell iron in the wind?",
+    "likes": 8,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100078,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 32
+    },
+    "comments": [
+        {
+            "id": "humpik_01",
+            "author": "humpik",
+            "content": "Must be a battle nearby... ⚔️",
+            "likes": 12
+        },
+        {
+            "id": "jgrip_99",
+            "author": "j_grip",
+            "content": "Probably just the blacksmith's forge.",
+            "likes": 4
+        }
+    ]
+},
+  {
+    "id": "p8_big_r",
+    "characterKey": "big_r",
+    "content": "Bloodshire's crew looks scary. I'll stay in the back. 🛡️",
+    "likes": 56,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100079,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 45
+    },
+    "comments": [
+        {
+            "id": "cr_99",
+            "author": "cere_rin",
+            "content": "Smart move. I'm bringing extra shields! 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "ga_456",
+            "author": "garud",
+            "content": "Coward! Face them like a warrior. 😂",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p9_flizzlebin",
+    "characterKey": "flizzlebin",
+    "content": "Dockside party incoming! Watch your necks! 🎈",
+    "likes": 22,
+    "rumorId": "meeting_vampire_loyalists",
+    "order": 100080,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 58
+    },
+    "comments": [
+        {
+            "id": "rule01",
+            "author": "arulean",
+            "content": "Is there enough ale for everyone? 🍺",
+            "likes": 12
+        },
+        {
+            "id": "jump02",
+            "author": "hjumpik",
+            "content": "Better keep the dragons away! 🐉",
+            "likes": 8
+        },
+        {
+            "id": "bigr03",
+            "author": "big_r",
+            "content": "I'm bringing the meat. 🔥",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "The shift in color... it felt like the forest itself turned sour.",
+    "likes": 12,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100081,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 21
+    },
+    "comments": [
+        {
+            "id": "j_grip_88",
+            "author": "j_grip",
+            "content": "The corruption is spreading... 💀",
+            "likes": 12
+        },
+        {
+            "id": "sedeai_v",
+            "author": "sedeai",
+            "content": "Did you check the roots for blight?",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "Green was fine. Purple looks like trouble. Stay back, guys.",
+    "likes": 85,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100082,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 34
+    },
+    "comments": [
+        {
+            "id": "cr_99",
+            "author": "cere_rin",
+            "content": "Always trust the mana glow. ✨",
+            "likes": 12
+        },
+        {
+            "id": "ob_42",
+            "author": "ol_burley",
+            "content": "I've seen that shade before. Run.",
+            "likes": 45
+        },
+        {
+            "id": "lp_01",
+            "author": "loopus",
+            "content": "Wait, is purple tasty though? 😋",
+            "likes": 3
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "Report: Unknown entity transitioned to dark purple. Weapons ready!",
+    "likes": 42,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100083,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 47
+    },
+    "comments": [
+        {
+            "id": "hjumpik_01",
+            "author": "hjumpik",
+            "content": "Not again... 💀",
+            "likes": 12
+        },
+        {
+            "id": "magi_kai_99",
+            "author": "magi_kai",
+            "content": "Check the mana levels first!",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "Did anyone else feel that sudden surge of dark energy? 😰",
+    "likes": 33,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100084,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 0
+    },
+    "comments": [
+        {
+            "id": "cb_99",
+            "author": "captain_bloodshire",
+            "content": "Must be the kraken stirring again... 🌊",
+            "likes": 12
+        },
+        {
+            "id": "mv_42",
+            "author": "mystivil",
+            "content": "The void is restless tonight. ✨",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "Purple looks spicy! Let's see if it burns. 🔥",
+    "likes": 67,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100085,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 13
+    },
+    "comments": [
+        {
+            "id": "hjumpik_01",
+            "author": "hjumpik",
+            "content": "Looks like pure mana! ✨",
+            "likes": 12
+        },
+        {
+            "id": "arulean_02",
+            "author": "arulean",
+            "content": "Careful, that shade looks cursed.",
+            "likes": 8
+        },
+        {
+            "id": "wario_03",
+            "author": "wario",
+            "content": "Too much spice for me! 🌶️",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "Is it a grape? Is it a monster? I'm confused and scared! 🍇😱",
+    "likes": 19,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100086,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 26
+    },
+    "comments": [
+        {
+            "id": "arulean_01",
+            "author": "arulean",
+            "content": "Whatever it is, don't let it bite! ⚔️",
+            "likes": 12
+        },
+        {
+            "id": "loopus_99",
+            "author": "loopus",
+            "content": "Looks delicious to me... 😋🍴",
+            "likes": 45
+        },
+        {
+            "id": "humpik_vibe",
+            "author": "humpik",
+            "content": "Big scary grape energy. 🍇💀",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "Nature's warning is written in shades of violet.",
+    "likes": 5,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100087,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 39
+    },
+    "comments": [
+        {
+            "id": "fb101",
+            "author": "ol_burley",
+            "content": "Stay indoors, traveler. ⛈️",
+            "likes": 12
+        },
+        {
+            "id": "fb102",
+            "author": "hjumpik",
+            "content": "Is the mana tide rising again?",
+            "likes": 5
+        },
+        {
+            "id": "fb103",
+            "author": "hjumpik",
+            "content": "Pure magic. ✨",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "captain_bloodshire",
+    "content": "Toad Lee, Hjumpik—retreat! That purple hue isn't friendly.",
+    "likes": 120,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100088,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 52
+    },
+    "comments": [
+        {
+            "id": "flz_01",
+            "author": "flizzlebin",
+            "content": "Run!! 🏃‍♂️💨💜",
+            "likes": 12
+        },
+        {
+            "id": "mk_99",
+            "author": "magi_kai",
+            "content": "That mana signature looks unstable...",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "flizzlebin",
+    "content": "New color unlocked: Menacing Purple! 💜✨",
+    "likes": 45,
+    "rumorId": "discovery_of_the_shifting_monster",
+    "order": 100089,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 5
+    },
+    "comments": [
+        {
+            "id": "mk_001",
+            "author": "magi_kai",
+            "content": "The mana levels in this shade are insane! 🔮",
+            "likes": 42
+        },
+        {
+            "id": "ob_992",
+            "author": "ol_burley",
+            "content": "Looks a bit too fancy for my shield. 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "gr_456",
+            "author": "garud",
+            "content": "Is it hard to wash off after a raid?",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "The math doesn't add up. How can it grow faster than it eats?",
+    "likes": 12,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100090,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 28
+    },
+    "comments": [
+        {
+            "id": "m1_99",
+            "author": "magi_kai",
+            "content": "Magic bypasses logic, darling. ✨",
+            "likes": 42
+        },
+        {
+            "id": "b8_22",
+            "author": "ol_burley",
+            "content": "Must be some heavy illusion work.",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "If it eats a mountain, does it become a mountain? Asking for a friend.",
+    "likes": 85,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100091,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 41
+    },
+    "comments": [
+        {
+            "id": "m01",
+            "author": "mystivil",
+            "content": "Only if it digests the magic too... ✨",
+            "likes": 42
+        },
+        {
+            "id": "l02",
+            "author": "loopus",
+            "content": "Infinite loop of snacking! 🔄😋",
+            "likes": 15
+        },
+        {
+            "id": "w03",
+            "author": "wario",
+            "content": "WAHAHA! MORE GOLD, LESS ROCK!",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "Keep your distance. If Ol Burley finds the ship, we're all snacks.",
+    "likes": 142,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100092,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 54
+    },
+    "comments": [
+        {
+            "id": "hmp_01",
+            "author": "humpik",
+            "content": "Not today, big guy! 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "arl_99",
+            "author": "arulean",
+            "content": "Is there even enough armor to stop that?",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "Observing a cycle of pure, unbridled consumption. Fascinating.",
+    "likes": 34,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100093,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 7
+    },
+    "comments": [
+        {
+            "id": "grp_001",
+            "author": "j_grip",
+            "content": "It’s a bottomless pit, mate. 💀",
+            "likes": 12
+        },
+        {
+            "id": "grp_002",
+            "author": "steely",
+            "content": "The greed of mortals never ceases.",
+            "likes": 45
+        },
+        {
+            "id": "grp_003",
+            "author": "big_r",
+            "content": "More for me then! 🍖",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "Let's see if it grows when we throw some fire at it! 🔥",
+    "likes": 29,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100094,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 20
+    },
+    "comments": [
+        {
+            "id": "cr_99",
+            "author": "cere_rin",
+            "content": "Classic reckless energy. ✨",
+            "likes": 12
+        },
+        {
+            "id": "sd_456",
+            "author": "sedeai",
+            "content": "Wait, shouldn't we use water instead? 🌊",
+            "likes": 5
+        },
+        {
+            "id": "ar_789",
+            "author": "arulean",
+            "content": "Chaos mode: ON. 🔥💀",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "I wonder if it likes eating shiny buttons? 🤔",
+    "likes": 56,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100095,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 33
+    },
+    "comments": [
+        {
+            "id": "goblin_01",
+            "author": "goblin_waiter",
+            "content": "Only if they're gold! 🪙",
+            "likes": 12
+        },
+        {
+            "id": "satyr_02",
+            "author": "satyr_beserker",
+            "content": "Let it bite me, I dare you! 😡",
+            "likes": 5
+        },
+        {
+            "id": "garud_03",
+            "author": "garud",
+            "content": "A dangerous curiosity...",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "Warning: The metabolic rate of Ol Burley is increasing.",
+    "likes": 19,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100096,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 46
+    },
+    "comments": [
+        {
+            "id": "br_001",
+            "author": "big_r",
+            "content": "Not again... 💀",
+            "likes": 42
+        },
+        {
+            "id": "mk_002",
+            "author": "magi_kai",
+            "content": "The mana fluctuations are getting intense.",
+            "likes": 15
+        },
+        {
+            "id": "hj_003",
+            "author": "hjumpik",
+            "content": "Is it time to evacuate the valley?",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "captain_bloodshire",
+    "content": "Load the cannons. We aren't feeding this thing today.",
+    "likes": 210,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100097,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 59
+    },
+    "comments": [
+        {
+            "id": "fb_001",
+            "author": "flizzlebin",
+            "content": "✨ ✨ Full blast mode! ✨ ✨",
+            "likes": 12
+        },
+        {
+            "id": "wal_99",
+            "author": "waluigi",
+            "content": "Waaaaaaah! Bring the fire! 🔥",
+            "likes": 45
+        },
+        {
+            "id": "br_88",
+            "author": "big_r",
+            "content": "Target locked. Ready when you are.",
+            "likes": 30
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "flizzlebin",
+    "content": "Is it hungry? I have some leftover crackers!",
+    "likes": 43,
+    "rumorId": "encounter_with_ol_burley",
+    "order": 100098,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 12
+    },
+    "comments": [
+        {
+            "id": "mk_99",
+            "author": "magi_kai",
+            "content": "Careful, crackers attract much worse spirits! 🔮",
+            "likes": 12
+        },
+        {
+            "id": "sd_42",
+            "author": "sedeai",
+            "content": "Do they have any salt? ✨",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "Whatever you do, do NOT kill it. Containment is the only option. Trust me.",
+    "likes": 124,
+    "rumorId": "arulean_warns_party",
+    "order": 100099,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 35
+    },
+    "comments": [
+        {
+            "id": "hjumpik_01",
+            "author": "hjumpik",
+            "content": "Too late, it's already in my basement. 💀",
+            "likes": 42
+        },
+        {
+            "id": "goblin_waiter_99",
+            "author": "goblin_waiter",
+            "content": "Does containment come with snacks? 🍖",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "Contain it? I usually just smash things. This sounds complicated.",
+    "likes": 45,
+    "rumorId": "arulean_warns_party",
+    "order": 100100,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 48
+    },
+    "comments": [
+        {
+            "id": "satyr_001",
+            "author": "satyr_beserker",
+            "content": "That's my strategy too! 🤘",
+            "likes": 42
+        },
+        {
+            "id": "loop_99",
+            "author": "loopus",
+            "content": "Wait, so no magic involved? 🤔",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "Orders received. Secure the perimeter, but leave the beast breathing.",
+    "likes": 89,
+    "rumorId": "arulean_warns_party",
+    "order": 100101,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 1
+    },
+    "comments": [
+        {
+            "id": "arulean_01",
+            "author": "arulean",
+            "content": "Understood. Keeping shields up. 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "flizzlebin_99",
+            "author": "flizzlebin",
+            "content": "Wait, what if it eats us though? 😂",
+            "likes": 4
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "Why is everyone so worried about her reputation and not the danger?",
+    "likes": 32,
+    "rumorId": "arulean_warns_party",
+    "order": 100102,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 14
+    },
+    "comments": [
+        {
+            "id": "w01",
+            "author": "wario",
+            "content": "Who cares! As long as there's gold! 💰",
+            "likes": 42
+        },
+        {
+            "id": "a02",
+            "author": "arulean",
+            "content": "The shadows grow longer. We must prepare.",
+            "likes": 15
+        },
+        {
+            "id": "h03",
+            "author": "hjumpik",
+            "content": "Exactly! Is no one seeing the fire breathing?? 😱",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "If it moves, I burn it. Containment is too slow for me.",
+    "likes": 67,
+    "rumorId": "arulean_warns_party",
+    "order": 100103,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 27
+    },
+    "comments": [
+        {
+            "id": "wario_99",
+            "author": "wario",
+            "content": "WAHAHA! More loot for me then! 💰",
+            "likes": 142
+        },
+        {
+            "id": "satyr_beserker",
+            "author": "satyr_beserker",
+            "content": "That's the spirit! 🔥🪓",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "Does the creature like snacks? Asking for a friend! 🍪",
+    "likes": 15,
+    "rumorId": "arulean_warns_party",
+    "order": 100104,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 40
+    },
+    "comments": [
+        {
+            "id": "myst-001",
+            "author": "mystivil",
+            "content": "Only if they are enchanted... ✨",
+            "likes": 12
+        },
+        {
+            "id": "sed-002",
+            "author": "sedeai",
+            "content": "Does the friend happen to have extra? 🍪",
+            "likes": 5
+        },
+        {
+            "id": "walu-003",
+            "author": "waluigi",
+            "content": "Waaaah! Give me all the cookies! 👅",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "My legacy depends on this mission staying clean. No casualties.",
+    "likes": 210,
+    "rumorId": "arulean_warns_party",
+    "order": 100105,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 53
+    },
+    "comments": [
+        {
+            "id": "cr_001",
+            "author": "cere_rin",
+            "content": "The stars watch your path. ✨",
+            "likes": 42
+        },
+        {
+            "id": "sd_002",
+            "author": "sedeai",
+            "content": "Spoken like a true commander.",
+            "likes": 15
+        },
+        {
+            "id": "gw_003",
+            "author": "goblin_waiter",
+            "content": "Does 'no casualties' include spilled ale? 🍺",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "big_r",
+    "content": "Fine, but if it bites me, I'm hitting it with a hammer.",
+    "likes": 12,
+    "rumorId": "arulean_warns_party",
+    "order": 100106,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 6
+    },
+    "comments": [
+        {
+            "id": "goblin_01",
+            "author": "goblin_waiter",
+            "content": "Just don't break my plates! 🍽️",
+            "likes": 12
+        },
+        {
+            "id": "mystic_42",
+            "author": "mystivil",
+            "content": "A hammer? Use a containment spell. ✨",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "cere_rin",
+    "content": "New containment protocols incoming. Stay alert, everyone.",
+    "likes": 56,
+    "rumorId": "arulean_warns_party",
+    "order": 100107,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 19
+    },
+    "comments": [
+        {
+            "id": "ax789",
+            "author": "arulean",
+            "content": "Not again... 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "by456",
+            "author": "big_r",
+            "content": "Lock the gates! 🔒",
+            "likes": 45
+        },
+        {
+            "id": "cz123",
+            "author": "magi_kai",
+            "content": "Is my mana shield enough?",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_01",
+    "characterKey": "arulean",
+    "content": "Wait, is that Waluigi in the bushes? 🤨",
+    "likes": 12,
+    "rumorId": "scouting_the_grounds",
+    "order": 100108,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 42
+    },
+    "comments": [
+        {
+            "id": "sed_001",
+            "author": "sedeai",
+            "content": "The shadows are shifting... stay alert.",
+            "likes": 12
+        },
+        {
+            "id": "hjm_002",
+            "author": "hjumpik",
+            "content": "LMAO definitely a purple menace 💀",
+            "likes": 45
+        },
+        {
+            "id": "big_003",
+            "author": "big_r",
+            "content": "Waaaaa? 🤨",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_02",
+    "characterKey": "big_r",
+    "content": "Hide better! The guards are literally right there.",
+    "likes": 45,
+    "rumorId": "scouting_the_grounds",
+    "order": 100109,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 55
+    },
+    "comments": [
+        {
+            "id": "mystiv_01",
+            "author": "mystivil",
+            "content": "✨ Use a veil spell next time! ✨",
+            "likes": 12
+        },
+        {
+            "id": "toad_02",
+            "author": "toad_lee",
+            "content": "LMAO 🐸💀",
+            "likes": 45
+        },
+        {
+            "id": "capt_03",
+            "author": "captain_bloodshire",
+            "content": "Hold the line! They've spotted us!",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_03",
+    "characterKey": "captain_bloodshire",
+    "content": "Spotted movement near the window. Stay alert!",
+    "likes": 89,
+    "rumorId": "scouting_the_grounds",
+    "order": 100110,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 8
+    },
+    "comments": [
+        {
+            "id": "lp_001",
+            "author": "loopus",
+            "content": "Is it a dragon? 🐉👀",
+            "likes": 12
+        },
+        {
+            "id": "ob_992",
+            "author": "ol_burley",
+            "content": "Keep the crossbow ready.",
+            "likes": 45
+        },
+        {
+            "id": "ms_773",
+            "author": "mystivil",
+            "content": "I sense a disturbance in the mana...",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_04",
+    "characterKey": "cere_rin",
+    "content": "Good luck, Toad Lee! Don't trip on a twig. 🍄",
+    "likes": 34,
+    "rumorId": "scouting_the_grounds",
+    "order": 100111,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 21
+    },
+    "comments": [
+        {
+            "id": "satyr_001",
+            "author": "satyr_beserker",
+            "content": "Watch your hooves, little mushroom! 🤘",
+            "likes": 12
+        },
+        {
+            "id": "waluigi_99",
+            "author": "waluigi",
+            "content": "Waaaaah! Don't fail! 💜",
+            "likes": 45
+        },
+        {
+            "id": "arulean_vibe",
+            "author": "arulean",
+            "content": "May the forest spirits guide you. ✨",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_05",
+    "characterKey": "firelyn",
+    "content": "This stealth mission is looking way too chaotic.",
+    "likes": 27,
+    "rumorId": "scouting_the_grounds",
+    "order": 100112,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 34
+    },
+    "comments": [
+        {
+            "id": "m01",
+            "author": "mystivil",
+            "content": "The shadows are definitely leaking! 😂",
+            "likes": 12
+        },
+        {
+            "id": "h02",
+            "author": "humpik",
+            "content": "Just use more explosions. Problem solved.",
+            "likes": 45
+        },
+        {
+            "id": "k03",
+            "author": "magi_kai",
+            "content": "My mana is sensing high levels of panic.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_06",
+    "characterKey": "flizzlebin",
+    "content": "LMAO hjumpik is literally face-first in the dirt.",
+    "likes": 156,
+    "rumorId": "scouting_the_grounds",
+    "order": 100113,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 47
+    },
+    "comments": [
+        {
+            "id": "r01_big",
+            "author": "big_r",
+            "content": "Classic hjumpik behavior 😂",
+            "likes": 12
+        },
+        {
+            "id": "s02_stee",
+            "author": "steely",
+            "content": "Pathetic. 🙄",
+            "likes": 4
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_07",
+    "characterKey": "arulean",
+    "content": "Can someone tell them the window is wide open?",
+    "likes": 22,
+    "rumorId": "scouting_the_grounds",
+    "order": 100114,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 0
+    },
+    "comments": [
+        {
+            "id": "waluigi_01",
+            "author": "waluigi",
+            "content": "WAAAH! Let the chaos in! 😈",
+            "likes": 42
+        },
+        {
+            "id": "hjumpik_99",
+            "author": "hjumpik",
+            "content": "Wait, I thought that was for ventilation?",
+            "likes": 12
+        },
+        {
+            "id": "firelyn_flame",
+            "author": "firelyn",
+            "content": "Perfect... more oxygen for my magic! 🔥✨",
+            "likes": 88
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_08",
+    "characterKey": "big_r",
+    "content": "Stealth level: Zero. 💀",
+    "likes": 67,
+    "rumorId": "scouting_the_grounds",
+    "order": 100115,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 13
+    },
+    "comments": [
+        {
+            "id": "steely_01",
+            "author": "steely",
+            "content": "Not even a shadow left. 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "garud_99",
+            "author": "garud",
+            "content": "The dragons saw you coming from miles away. 😂",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "waluigi_scout_09",
+    "characterKey": "firelyn",
+    "content": "Is anyone actually watching this mission?",
+    "likes": 41,
+    "rumorId": "scouting_the_grounds",
+    "order": 100116,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 26
+    },
+    "comments": [
+        {
+            "id": "burley_01",
+            "author": "ol_burley",
+            "content": "Me, but my eyes are stuck on the tavern fire. 🔥",
+            "likes": 12
+        },
+        {
+            "id": "rulean_99",
+            "author": "arulean",
+            "content": "Hard to watch while dodging dragon breath!",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "p1",
+    "characterKey": "arulean",
+    "content": "Is this a fight or a buffet? Hjumpik is literally being used as a rug.",
+    "likes": 12,
+    "rumorId": "encounter_with_goblin_and_satyr",
+    "order": 100117,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 49
+    },
+    "comments": [
+        {
+            "id": "r01",
+            "author": "big_r",
+            "content": "More loot for us then! 😂",
+            "likes": 12
+        },
+        {
+            "id": "b02",
+            "author": "captain_bloodshire",
+            "content": "Hold the line! He's not dead yet.",
+            "likes": 8
+        },
+        {
+            "id": "t03",
+            "author": "toad_lee",
+            "content": "Looks delicious... 🍴",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "p2",
+    "characterKey": "big_r",
+    "content": "Someone get that satyr off the floor. This is getting messy.",
+    "likes": 45,
+    "rumorId": "encounter_with_goblin_and_satyr",
+    "order": 100118,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+    },
+    "comments": [
+        {
+            "id": "rule_001",
+            "author": "arulean",
+            "content": "Typical Friday night in the grove. 🙄",
+            "likes": 12
+        },
+        {
+            "id": "burley_99",
+            "author": "ol_burley",
+            "content": "Needs more ale, less drama.",
+            "likes": 45
+        },
+        {
+            "id": "hump_x",
+            "author": "humpik",
+            "content": "LMAO look at those hooves go 🐐",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p3",
+    "characterKey": "captain_bloodshire",
+    "content": "Report: Goblin staffer spotted using Hjumpik as a dining table.",
+    "likes": 89,
+    "rumorId": "encounter_with_goblin_and_satyr",
+    "order": 100119,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 15
+    },
+    "comments": [
+        {
+            "id": "arulean_01",
+            "author": "arulean",
+            "content": "Typical goblin behavior. 🙄",
+            "likes": 12
+        },
+        {
+            "id": "steely_99",
+            "author": "steely",
+            "content": "Is it even a meal if it's not on Hjumpik?",
+            "likes": 45
+        },
+        {
+            "id": "sedeai_v",
+            "author": "sedeai",
+            "content": "Absolute chaos. ✨",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p4",
+    "characterKey": "cere_rin",
+    "content": "The energy here is chaotic. Why is the satyr even standing there?",
+    "likes": 34,
+    "rumorId": "encounter_with_goblin_and_satyr",
+    "order": 100120,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 28
+    },
+    "comments": [
+        {
+            "id": "t0ad_01",
+            "author": "toad_lee",
+            "content": "Just vibes and chaos today 🐸",
+            "likes": 12
+        },
+        {
+            "id": "br_99",
+            "author": "big_r",
+            "content": "Probably waiting for the flute solo.",
+            "likes": 45
+        },
+        {
+            "id": "sd_772",
+            "author": "sedeai",
+            "content": "The ley lines are acting up again...",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p5",
+    "characterKey": "firelyn",
+    "content": "I'd burn them all just to clear the view! 🔥",
+    "likes": 67,
+    "rumorId": "encounter_with_goblin_and_satyr",
+    "order": 100121,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 41
+    },
+    "comments": [
+        {
+            "id": "rule_01",
+            "author": "arulean",
+            "content": "The ashes will be our new horizon. 🙌",
+            "likes": 42
+        },
+        {
+            "id": "myst_99",
+            "author": "mystivil",
+            "content": "But what of the shadows left behind? 🌑",
+            "likes": 15
+        },
+        {
+            "id": "hump_x",
+            "author": "humpik",
+            "content": "Burn 'em! More room for snacks! 🍖🔥",
+            "likes": 88
+        }
+    ]
+},
+  {
+    "id": "p6",
+    "characterKey": "flizzlebin",
+    "content": "Free seat! Hjumpik is officially a footstool now. LOL!",
+    "likes": 120,
+    "rumorId": "encounter_with_goblin_and_satyr",
+    "order": 100122,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 54
+    },
+    "comments": [
+        {
+            "id": "b7x89k",
+            "author": "ol_burley",
+            "content": "Typical Hjumpik. 😂",
+            "likes": 12
+        },
+        {
+            "id": "m4p2q1",
+            "author": "loopus",
+            "content": "Is the seat comfortable at least?",
+            "likes": 5
+        },
+        {
+            "id": "z9r5v0",
+            "author": "mystivil",
+            "content": "The disrespect is legendary! ✨",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "p1",
+    "characterKey": "arulean",
+    "content": "Is it just me, or is that pink petal twitching toward the buffet?",
+    "likes": 12,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100123,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 56
+    },
+    "comments": [
+        {
+            "id": "f1",
+            "author": "flizzlebin",
+            "content": "👀 definitely moving!!",
+            "likes": 12
+        },
+        {
+            "id": "m2",
+            "author": "mystivil",
+            "content": "Don't let it touch the mana potions! 😱",
+            "likes": 45
+        },
+        {
+            "id": "j3",
+            "author": "j_grip",
+            "content": "Free food? I'm in.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p2",
+    "characterKey": "big_r",
+    "content": "Found a weird flower. It's staring at us. Do I eat it or run?",
+    "likes": 85,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100124,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 9
+    },
+    "comments": [
+        {
+            "id": "cb_001",
+            "author": "captain_bloodshire",
+            "content": "Steel your blade, mate! ⚔️",
+            "likes": 12
+        },
+        {
+            "id": "ob_002",
+            "author": "ol_burley",
+            "content": "Don't eat it. Last time I did, I turned blue.",
+            "likes": 45
+        },
+        {
+            "id": "wa_003",
+            "author": "wario",
+            "content": "If it tastes like gold, eat it! WAH!",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p3",
+    "characterKey": "captain_bloodshire",
+    "content": "All hands on deck! We have a sentient floral intruder in the ballroom!",
+    "likes": 42,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100125,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 22
+    },
+    "comments": [
+        {
+            "id": "burley_01",
+            "author": "ol_burley",
+            "content": "Grab the heavy shears! ✂️",
+            "likes": 12
+        },
+        {
+            "id": "wario_99",
+            "author": "wario",
+            "content": "Does it have gold inside? 💰",
+            "likes": 45
+        },
+        {
+            "id": "steely_07",
+            "author": "steely",
+            "content": "Not again. I'm not cleaning that up.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p4",
+    "characterKey": "cere_rin",
+    "content": "The energy from this pink bloom is... unsettlingly focused.",
+    "likes": 30,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100126,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 35
+    },
+    "comments": [
+        {
+            "id": "tl_001",
+            "author": "toad_lee",
+            "content": "Don't touch it! 🍄🚫",
+            "likes": 12
+        },
+        {
+            "id": "ar_002",
+            "author": "arulean",
+            "content": "The mana density is spiking...",
+            "likes": 45
+        },
+        {
+            "id": "ga_003",
+            "author": "garud",
+            "content": "Looks tasty to me. 😋",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p5",
+    "characterKey": "firelyn",
+    "content": "If that thing moves closer, I'm turning it into ash. 🔥",
+    "likes": 67,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100127,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 48
+    },
+    "comments": [
+        {
+            "id": "s0de_a1",
+            "author": "sedeai",
+            "content": "The Power must be used wisely... ✨",
+            "likes": 42
+        },
+        {
+            "id": "hjump_99",
+            "author": "hjumpik",
+            "content": "Wait, what are we fighting now? 💀",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "p6",
+    "characterKey": "flizzlebin",
+    "content": "New party guest alert! It’s pink, it’s leafy, and it's judging us!",
+    "likes": 25,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100128,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 1
+    },
+    "comments": [
+        {
+            "id": "lp_001",
+            "author": "loopus",
+            "content": "Does it eat bugs? Asking for a friend. 🐛",
+            "likes": 12
+        },
+        {
+            "id": "sd_002",
+            "author": "sedeai",
+            "content": "The energy is... unsettlingly vibrant.",
+            "likes": 45
+        },
+        {
+            "id": "cb_003",
+            "author": "captain_bloodshire",
+            "content": "Keep it away from the rum! 🏴‍☠️",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p7",
+    "characterKey": "arulean",
+    "content": "Does anyone else feel like they're being watched by a plant?",
+    "likes": 15,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100129,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 14
+    },
+    "comments": [
+        {
+            "id": "mk_99",
+            "author": "magi_kai",
+            "content": "Check for mana residue. It might be a spy.",
+            "likes": 12
+        },
+        {
+            "id": "fl_42",
+            "author": "firelyn",
+            "content": "That's just the Mandrake staring back! 😂",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "p8",
+    "characterKey": "big_r",
+    "content": "Update: The flower definitely just blinked. Send help.",
+    "likes": 94,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100130,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 27
+    },
+    "comments": [
+        {
+            "id": "f1a2b3",
+            "author": "steely",
+            "content": "Get your sword ready. Now.",
+            "likes": 42
+        },
+        {
+            "id": "g4h5i6",
+            "author": "satyr_beserker",
+            "content": "Is it edible? 🌿😋",
+            "likes": 12
+        },
+        {
+            "id": "j7k8l9",
+            "author": "captain_bloodshire",
+            "content": "Standard Tuesday in the Enchanted Woods.",
+            "likes": 85
+        }
+    ]
+},
+  {
+    "id": "p9",
+    "characterKey": "flizzlebin",
+    "content": "Found a tiny pink spy while dusting. 🌸👀 #PartyCrasher",
+    "likes": 55,
+    "rumorId": "discovery_of_moving_flower",
+    "order": 100131,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 40
+    },
+    "comments": [
+        {
+            "id": "goblin_001",
+            "author": "goblin_waiter",
+            "content": "Is it edible? 🍽️",
+            "likes": 12
+        },
+        {
+            "id": "big_r_99",
+            "author": "big_r",
+            "content": "Hide your gold! 💰",
+            "likes": 45
+        },
+        {
+            "id": "sedeai_v",
+            "author": "sedeai",
+            "content": "The shadows are watching. 👁️",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "w_001",
+    "characterKey": "arulean",
+    "content": "Caught him red-handed! Those papers weren't meant for his pockets.",
+    "likes": 12,
+    "rumorId": "wario_looting_room",
+    "order": 100132,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 3
+    },
+    "comments": [
+        {
+            "id": "cr_992",
+            "author": "cere_rin",
+            "content": "Typical! 🙄 Always looking for easy loot.",
+            "likes": 14
+        },
+        {
+            "id": "st_007",
+            "author": "steely",
+            "content": "Throw him in the dungeon already. ⚔️",
+            "likes": 32
+        }
+    ]
+},
+  {
+    "id": "w_002",
+    "characterKey": "big_r",
+    "content": "Wario, give them back or things get heavy. 👊",
+    "likes": 45,
+    "rumorId": "wario_looting_room",
+    "order": 100133,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 16
+    },
+    "comments": [
+        {
+            "id": "garud_01",
+            "author": "garud",
+            "content": "Don't let him escape! 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "firelyn_99",
+            "author": "firelyn",
+            "content": "Burn it all down if he won't!",
+            "likes": 45
+        },
+        {
+            "id": "cap_blood_7",
+            "author": "captain_bloodshire",
+            "content": "Hand over the loot, ya thief! 🏴‍☠️",
+            "likes": 31
+        }
+    ]
+},
+  {
+    "id": "w_003",
+    "characterKey": "captain_bloodshire",
+    "content": "A messy room and a theft? This crew is falling apart!",
+    "likes": 89,
+    "rumorId": "wario_looting_room",
+    "order": 100134,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 29
+    },
+    "comments": [
+        {
+            "id": "satyr_beserker",
+            "author": "satyr_beserker",
+            "content": "Sounds like a party to me! 🍷",
+            "likes": 12
+        },
+        {
+            "id": "loopus",
+            "author": "loopus",
+            "content": "Is nothing sacred anymore? 🙄",
+            "likes": 5
+        },
+        {
+            "id": "humpik",
+            "author": "humpik",
+            "content": "Check under the rug, thief is still here.",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "w_004",
+    "characterKey": "cere_rin",
+    "content": "Did anyone see where hjumpik went? The tension is rising...",
+    "likes": 34,
+    "rumorId": "wario_looting_room",
+    "order": 100135,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 42
+    },
+    "comments": [
+        {
+            "id": "hj_001",
+            "author": "hjumpik",
+            "content": "I'm right here! 🧙‍♂️",
+            "likes": 142
+        },
+        {
+            "id": "hj_002",
+            "author": "hjumpik",
+            "content": "Just hiding in the shadows...",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "w_005",
+    "characterKey": "firelyn",
+    "content": "Watching Wario scramble through that trash is pure comedy. 🔥",
+    "likes": 120,
+    "rumorId": "wario_looting_room",
+    "order": 100136,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 55
+    },
+    "comments": [
+        {
+            "id": "w4lu_99",
+            "author": "waluigi",
+            "content": "Waaah! He looks ridiculous! 💜",
+            "likes": 142
+        },
+        {
+            "id": "gob_srv_01",
+            "author": "goblin_waiter",
+            "content": "Found some leftovers in there too. 🍴",
+            "likes": 8
+        },
+        {
+            "id": "sde_arcane",
+            "author": "sedeai",
+            "content": "A chaotic ritual indeed.",
+            "likes": 34
+        }
+    ]
+},
+  {
+    "id": "w_006",
+    "characterKey": "flizzlebin",
+    "content": "Is it really stealing if the room was already a disaster? 🤔",
+    "likes": 56,
+    "rumorId": "wario_looting_room",
+    "order": 100137,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 8
+    },
+    "comments": [
+        {
+            "id": "mysti_01",
+            "author": "mystivil",
+            "content": "Just call it 'reorganizing' ✨",
+            "likes": 12
+        },
+        {
+            "id": "satyr_99",
+            "author": "satyr_beserker",
+            "content": "If it ain't nailed down, it's mine! 🍺",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "w_007",
+    "characterKey": "arulean",
+    "content": "Theft alert! Wario spotted with suspicious documents.",
+    "likes": 22,
+    "rumorId": "wario_looting_room",
+    "order": 100138,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 21
+    },
+    "comments": [
+        {
+            "id": "mystivil_01",
+            "author": "mystivil",
+            "content": "Classic Wario. 🙄",
+            "likes": 12
+        },
+        {
+            "id": "magi_kai_99",
+            "author": "magi_kai",
+            "content": "Are those cursed scrolls? 👀",
+            "likes": 45
+        },
+        {
+            "id": "hjumpik_x",
+            "author": "hjumpik",
+            "content": "Lock your vaults, everyone!",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "w_008",
+    "characterKey": "big_r",
+    "content": "Wario vs hjumpik... who's winning this fight?",
+    "likes": 77,
+    "rumorId": "wario_looting_room",
+    "order": 100139,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 34
+    },
+    "comments": [
+        {
+            "id": "cb_992",
+            "author": "captain_bloodshire",
+            "content": "Wario's greed is too much to handle! 💰",
+            "likes": 12
+        },
+        {
+            "id": "st_441",
+            "author": "steely",
+            "content": "Pure chaos. I'm betting on the gold one.",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "w_009",
+    "characterKey": "flizzlebin",
+    "content": "Found a gold coin in the mess! Wait, nevermind, it's just Wario.",
+    "likes": 15,
+    "rumorId": "wario_looting_room",
+    "order": 100140,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 47
+    },
+    "comments": [
+        {
+            "id": "hmpk01",
+            "author": "humpik",
+            "content": "Classic mistake... 🙄",
+            "likes": 12
+        },
+        {
+            "id": "wr_99",
+            "author": "wario",
+            "content": "WAAAAAA! I'm worth more than gold!!",
+            "likes": 85
+        },
+        {
+            "id": "grd_vlt",
+            "author": "garud",
+            "content": "Still better than finding a goblin.",
+            "likes": 4
+        }
+    ]
+},
+  {
+    "id": "p1",
+    "characterKey": "arulean",
+    "content": "Only 10 gold? Hjumpik is playing a dangerous game.",
+    "likes": 12,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100141,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 10
+    },
+    "comments": [
+        {
+            "id": "burley_01",
+            "author": "ol_burley",
+            "content": "Better watch your back, lad. 🛡️",
+            "likes": 12
+        },
+        {
+            "id": "sedeai_99",
+            "author": "sedeai",
+            "content": "Greed is a heavy burden to carry.",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "p2",
+    "characterKey": "big_r",
+    "content": "Wario won't settle for less. Watch the greed unfold!",
+    "likes": 45,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100142,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 23
+    },
+    "comments": [
+        {
+            "id": "st-001",
+            "author": "steely",
+            "content": "Pure cold calculation. I respect it.",
+            "likes": 12
+        },
+        {
+            "id": "gr-002",
+            "author": "garud",
+            "content": "The dragon's hoard grows... 🐉",
+            "likes": 45
+        },
+        {
+            "id": "cb-003",
+            "author": "captain_bloodshire",
+            "content": "Greed is a heavy anchor, mate.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p3",
+    "characterKey": "captain_bloodshire",
+    "content": "A cheap bribe for stolen goods? Disgraceful.",
+    "likes": 8,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100143,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 36
+    },
+    "comments": [
+        {
+            "id": "hjumpik_001",
+            "author": "hjumpik",
+            "content": "Typical behavior for those gutter rats.",
+            "likes": 12
+        },
+        {
+            "id": "mystivil_99",
+            "author": "mystivil",
+            "content": "✨ Pure chaos, I love it. ✨",
+            "likes": 45
+        },
+        {
+            "id": "cere_rin_77",
+            "author": "cere_rin",
+            "content": "How much was the bribe though? 👀",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p4",
+    "characterKey": "cere_rin",
+    "content": "Can those papers even be recovered now?",
+    "likes": 22,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100144,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 49
+    },
+    "comments": [
+        {
+            "id": "mystivil",
+            "author": "mystivil",
+            "content": "Once the mana burns, it's gone forever. 🌌",
+            "likes": 12
+        },
+        {
+            "id": "big_r",
+            "author": "big_r",
+            "content": "Depends on if they were enchanted or not.",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "p5",
+    "characterKey": "firelyn",
+    "content": "10 gold is a steal! Go Hjumpik!",
+    "likes": 33,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100145,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 2
+    },
+    "comments": [
+        {
+            "id": "fzl_01",
+            "author": "flizzlebin",
+            "content": "LFG!!! 🚀✨",
+            "likes": 12
+        },
+        {
+            "id": "stl_99",
+            "author": "steely",
+            "content": "Pure madness. Absolute robbery.",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "p6",
+    "characterKey": "flizzlebin",
+    "content": "Negotiation skills: 0/10. Wallet: Empty.",
+    "likes": 56,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100146,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 15
+    },
+    "comments": [
+        {
+            "id": "w01",
+            "author": "wario",
+            "content": "WAHAHA! Have some gold instead! 💰",
+            "likes": 42
+        },
+        {
+            "id": "h02",
+            "author": "humpik",
+            "content": "*groans* Typical adventurer behavior...",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "p7",
+    "characterKey": "arulean",
+    "content": "Breaking: Hjumpik attempts a low-ball offer to Wario.",
+    "likes": 102,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100147,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 28
+    },
+    "comments": [
+        {
+            "id": "f1y_001",
+            "author": "firelyn",
+            "content": "Classic Hjumpik... always looking for a steal! 🔥",
+            "likes": 12
+        },
+        {
+            "id": "mk_99",
+            "author": "magi_kai",
+            "content": "Wario is going to crush them with a fireball. 🔮",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "p8",
+    "characterKey": "big_r",
+    "content": "Is it worth the risk for just 10 coins?",
+    "likes": 15,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100148,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 41
+    },
+    "comments": [
+        {
+            "id": "m1",
+            "author": "mystivil",
+            "content": "Absolutely not. Stay safe, traveler. 🌙",
+            "likes": 12
+        },
+        {
+            "id": "s2",
+            "author": "sedeai",
+            "content": "Depends on the dragon... 🐉",
+            "likes": 45
+        },
+        {
+            "id": "j3",
+            "author": "j_grip",
+            "content": "10 coins? I wouldn't even lift my sword for that. 😂",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p9",
+    "characterKey": "captain_bloodshire",
+    "content": "Keep your eyes on the papers, not the gold.",
+    "likes": 27,
+    "rumorId": "paper_bribe_negotiation",
+    "order": 100149,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 54
+    },
+    "comments": [
+        {
+            "id": "j_grip_01",
+            "author": "j_grip",
+            "content": "Hard to focus when the loot is right there! 💰",
+            "likes": 12
+        },
+        {
+            "id": "m_v_99",
+            "author": "mystivil",
+            "content": "The scrolls hold the true power. 📜✨",
+            "likes": 45
+        },
+        {
+            "id": "c_rin_x",
+            "author": "cere_rin",
+            "content": "Wait, so no dragon hoard for us? 🐉",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p1",
+    "characterKey": "arulean",
+    "content": "Kindness wins battles that swords cannot. Trust me.",
+    "likes": 42,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100150,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 17
+    },
+    "comments": [
+        {
+            "id": "m7v_99",
+            "author": "mystivil",
+            "content": "So true... even shadows need light. ✨",
+            "likes": 142
+        },
+        {
+            "id": "g_sky_01",
+            "author": "garud",
+            "content": "Hard to teach a dragon that lesson.",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "p2",
+    "characterKey": "big_r",
+    "content": "Arguments won't kill the beast. Only heavy hits will.",
+    "likes": 15,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100151,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 30
+    },
+    "comments": [
+        {
+            "id": "mysty_01",
+            "author": "mystivil",
+            "content": "Spoken like a true mage. ✨",
+            "likes": 12
+        },
+        {
+            "id": "cap_blood_99",
+            "author": "captain_bloodshire",
+            "content": "Aye, prepare the cannons! 💣",
+            "likes": 45
+        },
+        {
+            "id": "waluigi_vibe",
+            "author": "waluigi",
+            "content": "Waaah! Just hit it harder! 💜",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p3",
+    "characterKey": "captain_bloodshire",
+    "content": "Prepare the cannons! Diplomacy is for peacetime.",
+    "likes": 88,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100152,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 43
+    },
+    "comments": [
+        {
+            "id": "f01",
+            "author": "firelyn",
+            "content": "🔥 Let's burn it all down!",
+            "likes": 42
+        },
+        {
+            "id": "s02",
+            "author": "steely",
+            "content": "Finally, some real action.",
+            "likes": 15
+        },
+        {
+            "id": "b03",
+            "author": "satyr_beserker",
+            "content": "BLOOD AND CHAOS! 🤘",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "p4",
+    "characterKey": "cere_rin",
+    "content": "Is there a middle ground between a hug and a hammer?",
+    "likes": 23,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100153,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 56
+    },
+    "comments": [
+        {
+            "id": "arulean_01",
+            "author": "arulean",
+            "content": "A gentle tap with a wand? ✨",
+            "likes": 12
+        },
+        {
+            "id": "garud_99",
+            "author": "garud",
+            "content": "Just use your shield. 🛡️",
+            "likes": 45
+        },
+        {
+            "id": "loopus_vibe",
+            "author": "loopus",
+            "content": "A high five? lol",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p5",
+    "characterKey": "firelyn",
+    "content": "Let it burn. Force is the only language monsters speak.",
+    "likes": 67,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100154,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 9
+    },
+    "comments": [
+        {
+            "id": "humpik_01",
+            "author": "humpik",
+            "content": "🔥 Preach! Burn it all!",
+            "likes": 42
+        },
+        {
+            "id": "big_r_99",
+            "author": "big_r",
+            "content": "Spoken like a true warlord.",
+            "likes": 12
+        },
+        {
+            "id": "arulean_v",
+            "author": "arulean",
+            "content": "Is nothing sacred anymore? 🙄",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "p6",
+    "characterKey": "flizzlebin",
+    "content": "Can we just feed it some snacks and hope for the best?",
+    "likes": 31,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100155,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 22
+    },
+    "comments": [
+        {
+            "id": "sed_001",
+            "author": "sedeai",
+            "content": "That's a recipe for disaster... 😂",
+            "likes": 12
+        },
+        {
+            "id": "loo_992",
+            "author": "loopus",
+            "content": "Only if the snacks are enchanted! ✨",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "p7",
+    "characterKey": "arulean",
+    "content": "Hjumpik, you can't just punch your way through a heart.",
+    "likes": 12,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100156,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 35
+    },
+    "comments": [
+        {
+            "id": "h1",
+            "author": "hjumpik",
+            "content": "Watch me.",
+            "likes": 42
+        },
+        {
+            "id": "s2",
+            "author": "steely",
+            "content": "Spoken like a true pacifist. 🙄",
+            "likes": 12
+        },
+        {
+            "id": "j3",
+            "author": "j_grip",
+            "content": "Is that a challenge? 😂",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p8",
+    "characterKey": "captain_bloodshire",
+    "content": "Breaking News: Strategy meeting devolves into shouting.",
+    "likes": 55,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100157,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 48
+    },
+    "comments": [
+        {
+            "id": "r01",
+            "author": "big_r",
+            "content": "Standard Tuesday in the war room. 🙄",
+            "likes": 42
+        },
+        {
+            "id": "m99x",
+            "author": "mystivil",
+            "content": "Did someone mention dragon fire? 🔥",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "p9",
+    "characterKey": "big_r",
+    "content": "More talking, less hitting. That's what they say, right?",
+    "likes": 9,
+    "rumorId": "argument_over_monster_approach",
+    "order": 100158,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 1
+    },
+    "comments": [
+        {
+            "id": "sed_001",
+            "author": "sedeai",
+            "content": "Words have power too, traveler.",
+            "likes": 12
+        },
+        {
+            "id": "mys_002",
+            "author": "mystivil",
+            "content": "Spoken like a true pacifist... ✨",
+            "likes": 45
+        },
+        {
+            "id": "ste_003",
+            "author": "steely",
+            "content": "Try telling that to my blade.",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "Wait, why is Waluigi just standing there? 💀",
+    "likes": 12,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100159,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 24
+    },
+    "comments": [
+        {
+            "id": "garud_99",
+            "author": "garud",
+            "content": "He's plotting something... I can feel it. 👁️",
+            "likes": 12
+        },
+        {
+            "id": "toad_lee_01",
+            "author": "toad_lee",
+            "content": "Probably just waiting for a power-up lol",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "MONSTER VS WALUIGI. WHO WINS? 🥊",
+    "likes": 85,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100160,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 37
+    },
+    "comments": [
+        {
+            "id": "mk_99",
+            "author": "magi_kai",
+            "content": "The magic beats the purple menace! ✨",
+            "likes": 12
+        },
+        {
+            "id": "gr_01",
+            "author": "garud",
+            "content": "Waluigi is too chaotic. Monster stands no chance.",
+            "likes": 45
+        },
+        {
+            "id": "cb_77",
+            "author": "captain_bloodshire",
+            "content": "Bring the gold, I'm betting on the beast! 💰",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "Avast! That beast has no respect for privacy!",
+    "likes": 34,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100161,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 50
+    },
+    "comments": [
+        {
+            "id": "j_grip_01",
+            "author": "j_grip",
+            "content": "Lock the gates! 🔒",
+            "likes": 12
+        },
+        {
+            "id": "humpik_99",
+            "author": "humpik",
+            "content": "Is it a dragon or just a hungry ogre?",
+            "likes": 5
+        },
+        {
+            "id": "flizzlebin_x",
+            "author": "flizzlebin",
+            "content": "Rip my treasure chest... 💀",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "The energy in this room just went from 0 to 100... 😰",
+    "likes": 22,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100162,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 3
+    },
+    "comments": [
+        {
+            "id": "hjumpik_01",
+            "author": "hjumpik",
+            "content": "Did someone cast a haste spell? 🪄",
+            "likes": 12
+        },
+        {
+            "id": "flizzlebin_99",
+            "author": "flizzlebin",
+            "content": "Oof, feels like an ambush... 💀",
+            "likes": 45
+        },
+        {
+            "id": "mystivil_x",
+            "author": "mystivil",
+            "content": "The mana levels are spiking! ✨",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "Someone get that purple man out of there! 🔥",
+    "likes": 41,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100163,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 16
+    },
+    "comments": [
+        {
+            "id": "s01",
+            "author": "sedeai",
+            "content": "The Power is too much for him! 🌪️",
+            "likes": 42
+        },
+        {
+            "id": "j98",
+            "author": "j_grip",
+            "content": "Lmao, he's cooked. 😂",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "Waaaaah? Is that the only thing he can say?! 😂",
+    "likes": 56,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100164,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 29
+    },
+    "comments": [
+        {
+            "id": "humpik_01",
+            "author": "humpik",
+            "content": "Typical goblin behavior. 🙄",
+            "likes": 12
+        },
+        {
+            "id": "arulean_99",
+            "author": "arulean",
+            "content": "His mana must be low today! 😂",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "Breaking: Door smashed. Waluigi unbothered.",
+    "likes": 19,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100165,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 42
+    },
+    "comments": [
+        {
+            "id": "sed_99",
+            "author": "sedeai",
+            "content": "A true master of chaos. 💜",
+            "likes": 12
+        },
+        {
+            "id": "bur_42",
+            "author": "ol_burley",
+            "content": "Needs a sturdier enchantment, that's what.",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "big_r",
+    "content": "That monster needs a timeout. Period.",
+    "likes": 7,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100166,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 55
+    },
+    "comments": [
+        {
+            "id": "cb_001",
+            "author": "captain_bloodshire",
+            "content": "Lock 'em in the brig! ⚓️",
+            "likes": 42
+        },
+        {
+            "id": "wal_999",
+            "author": "waluigi",
+            "content": "Wah! Throw it in a pit! 💜",
+            "likes": 15
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "cere_rin",
+    "content": "Is anyone going to help him? Or just watch?",
+    "likes": 30,
+    "rumorId": "monster_breaks_into_room",
+    "order": 100167,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 8
+    },
+    "comments": [
+        {
+            "id": "myst789",
+            "author": "mystivil",
+            "content": "The shadows are watching... 🌑",
+            "likes": 12
+        },
+        {
+            "id": "sed456",
+            "author": "sedeai",
+            "content": "Not with my mana left to spare!",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "Eyes locked on the beast. Stay steady, Garud.",
+    "likes": 42,
+    "rumorId": "party_confronts_monster",
+    "order": 100168,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 31
+    },
+    "comments": [
+        {
+            "id": "l00p_99",
+            "author": "loopus",
+            "content": "Don't let it catch your scent! 🐾",
+            "likes": 12
+        },
+        {
+            "id": "s_aean_4",
+            "author": "sedeai",
+            "content": "The shadows are watching too.",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "That monster looks like a snack. Bring it!",
+    "likes": 15,
+    "rumorId": "party_confronts_monster",
+    "order": 100169,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 44
+    },
+    "comments": [
+        {
+            "id": "rule01",
+            "author": "arulean",
+            "content": "Don't forget the garlic sauce! 🧄",
+            "likes": 12
+        },
+        {
+            "id": "stee99",
+            "author": "steely",
+            "content": "Bold move. I'll bring the shields.",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "Form lines! Don't let the beast break our advance.",
+    "likes": 88,
+    "rumorId": "party_confronts_monster",
+    "order": 100170,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 57
+    },
+    "comments": [
+        {
+            "id": "toad_lee_88",
+            "author": "toad_lee",
+            "content": "Hold the line! 🐸⚔️",
+            "likes": 12
+        },
+        {
+            "id": "arulean_99",
+            "author": "arulean",
+            "content": "Is anyone actually bringing extra shields?",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "The mana in the air is shifting... something big is coming.",
+    "likes": 33,
+    "rumorId": "party_confronts_monster",
+    "order": 100171,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 10
+    },
+    "comments": [
+        {
+            "id": "fb_001",
+            "author": "flizzlebin",
+            "content": "I felt it during my morning potion brew! ✨",
+            "likes": 12
+        },
+        {
+            "id": "jg_002",
+            "author": "j_grip",
+            "content": "Great, just what my mana reserves needed... 🙄",
+            "likes": 4
+        },
+        {
+            "id": "mv_003",
+            "author": "mystivil",
+            "content": "The ley lines are trembling. I see it too.",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "Ready to burn it all down! 🔥",
+    "likes": 120,
+    "rumorId": "party_confronts_monster",
+    "order": 100172,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 23
+    },
+    "comments": [
+        {
+            "id": "sde_99",
+            "author": "sedeai",
+            "content": "The Dragon must have spoken. 🐉",
+            "likes": 142
+        },
+        {
+            "id": "hjm_01",
+            "author": "hjumpik",
+            "content": "Wait, not my tavern too! 😱",
+            "likes": 89
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "Wait, is Toad Lee actually going in first? Good luck!",
+    "likes": 5,
+    "rumorId": "party_confronts_monster",
+    "order": 100173,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 36
+    },
+    "comments": [
+        {
+            "id": "s1",
+            "author": "sedeai",
+            "content": "He's doomed if the shadows find him first... 🌑",
+            "likes": 12
+        },
+        {
+            "id": "h2",
+            "author": "humpik",
+            "content": "Big mistake. Huge! 😂",
+            "likes": 45
+        },
+        {
+            "id": "f3",
+            "author": "firelyn",
+            "content": "Manifesting a miracle for him! ✨🔥",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "One wrong step and it's over. Keep moving.",
+    "likes": 22,
+    "rumorId": "party_confronts_monster",
+    "order": 100174,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 49
+    },
+    "comments": [
+        {
+            "id": "w01",
+            "author": "wario",
+            "content": "WAHAHA! Just grab the gold and run! 💰",
+            "likes": 42
+        },
+        {
+            "id": "g02",
+            "author": "goblin_waiter",
+            "content": "Careful... the floor is very slippery today. 🧼",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "big_r",
+    "content": "Go Toad Lee! Show 'em those big jumps!",
+    "likes": 67,
+    "rumorId": "party_confronts_monster",
+    "order": 100175,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 2
+    },
+    "comments": [
+        {
+            "id": "satyr_01",
+            "author": "satyr_beserker",
+            "content": "LETS GOOO! 🐐🔥",
+            "likes": 42
+        },
+        {
+            "id": "magi_02",
+            "author": "magi_kai",
+            "content": "Gravity is but a suggestion. ✨",
+            "likes": 15
+        },
+        {
+            "id": "cap_03",
+            "author": "captain_bloodshire",
+            "content": "Don't crash the ship, lad!",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "captain_bloodshire",
+    "content": "Prepare for impact! Shields up!",
+    "likes": 54,
+    "rumorId": "party_confronts_monster",
+    "order": 100176,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 15
+    },
+    "comments": [
+        {
+            "id": "m01",
+            "author": "magi_kai",
+            "content": "Cast protection spell! ✨",
+            "likes": 12
+        },
+        {
+            "id": "w02",
+            "author": "waluigi",
+            "content": "Waaaaah! Too much chaos! 😭",
+            "likes": 45
+        },
+        {
+            "id": "h03",
+            "author": "hjumpik",
+            "content": "Is it a dragon or a meteor?",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "The shimmering glow wasn't a blessing. It was hunger.",
+    "likes": 120,
+    "rumorId": "monster_attacks_butler",
+    "order": 100177,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 38
+    },
+    "comments": [
+        {
+            "id": "satyr_beserker",
+            "author": "satyr_beserker",
+            "content": "Sounds like a feast to me! 🍖",
+            "likes": 12
+        },
+        {
+            "id": "cere_rin",
+            "author": "cere_rin",
+            "content": "The shadows are deepening again...",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "Did that beast just swallow Jenkins? No way.",
+    "likes": 45,
+    "rumorId": "monster_attacks_butler",
+    "order": 100178,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 51
+    },
+    "comments": [
+        {
+            "id": "s01",
+            "author": "steely",
+            "content": "RIP Jenkins. Truly a tragedy.",
+            "likes": 12
+        },
+        {
+            "id": "j02",
+            "author": "j_grip",
+            "content": "I saw it happen! 😱",
+            "likes": 45
+        },
+        {
+            "id": "c03",
+            "author": "captain_bloodshire",
+            "content": "That beast needs a bigger snack.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "Brace the hull! The creature is growing mid-battle!",
+    "likes": 310,
+    "rumorId": "monster_attacks_butler",
+    "order": 100179,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 4
+    },
+    "comments": [
+        {
+            "id": "sed789",
+            "author": "sedeai",
+            "content": "Steady your focus, we must hold the line! 🛡️",
+            "likes": 42
+        },
+        {
+            "id": "gar555",
+            "author": "garud",
+            "content": "More meat for the feast! Let it grow!",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "Burn the magic away before it gets any bigger!",
+    "likes": 67,
+    "rumorId": "monster_attacks_butler",
+    "order": 100180,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 17
+    },
+    "comments": [
+        {
+            "id": "humpik_01",
+            "author": "humpik",
+            "content": "Too late, it's already glowing! 🔥",
+            "likes": 12
+        },
+        {
+            "id": "j_grip_99",
+            "author": "j_grip",
+            "content": "Wait, what if it burns us too? 💀",
+            "likes": 45
+        },
+        {
+            "id": "mystivil_v",
+            "author": "mystivil",
+            "content": "Such a waste of raw energy... ✨",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "One butler down, a whole buffet to go! *gulp*",
+    "likes": 12,
+    "rumorId": "monster_attacks_butler",
+    "order": 100181,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 30
+    },
+    "comments": [
+        {
+            "id": "l00p-99",
+            "author": "loopus",
+            "content": "Save a snack for me! 🥨",
+            "likes": 12
+        },
+        {
+            "id": "g4rud-01",
+            "author": "garud",
+            "content": "Is there any dragon meat left?",
+            "likes": 45
+        },
+        {
+            "id": "ar-772",
+            "author": "arulean",
+            "content": "Typical chaos. 😂",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "The spells are twisting. Something is wrong.",
+    "likes": 54,
+    "rumorId": "monster_attacks_butler",
+    "order": 100182,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 43
+    },
+    "comments": [
+        {
+            "id": "w01",
+            "author": "wario",
+            "content": "Wahaha! More chaos for me! 💰",
+            "likes": 42
+        },
+        {
+            "id": "c02",
+            "author": "captain_bloodshire",
+            "content": "Steady your staff, lad. It's just a storm.",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "captain_bloodshire",
+    "content": "Report: The beast has tripled in size. God help us.",
+    "likes": 215,
+    "rumorId": "monster_attacks_butler",
+    "order": 100183,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 56
+    },
+    "comments": [
+        {
+            "id": "myste_01",
+            "author": "mystivil",
+            "content": "The prophecy is coming true... 🌑",
+            "likes": 42
+        },
+        {
+            "id": "wario_99",
+            "author": "wario",
+            "content": "More meat for the grinder! WAH!",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "cere_rin",
+    "content": "The fairy light... it's consuming the soul of the manor.",
+    "likes": 142,
+    "rumorId": "monster_attacks_butler",
+    "order": 100184,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 9
+    },
+    "comments": [
+        {
+            "id": "myst789",
+            "author": "mystivil",
+            "content": "Not again... someone grab the iron salt! 🕯️",
+            "likes": 42
+        },
+        {
+            "id": "hump456",
+            "author": "humpik",
+            "content": "Is it tasty though? 😂",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "p1_arulean",
+    "characterKey": "arulean",
+    "content": "The strategy is risky, but Steely's bark might just save us.",
+    "likes": 12,
+    "rumorId": "steely_distracts_monster",
+    "order": 100185,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 45
+    },
+    "comments": [
+        {
+            "id": "hjumpik_01",
+            "author": "hjumpik",
+            "content": "Risky? It's a death wish! 💀",
+            "likes": 12
+        },
+        {
+            "id": "cere_rin_02",
+            "author": "cere_rin",
+            "content": "I'll believe it when I see the gold.",
+            "likes": 4
+        },
+        {
+            "id": "toad_lee_03",
+            "author": "toad_lee",
+            "content": "Bark > Bite. 🐸",
+            "likes": 38
+        }
+    ]
+},
+  {
+    "id": "p2_bigr",
+    "characterKey": "big_r",
+    "content": "Go Steely! Bark that monster into oblivion!",
+    "likes": 85,
+    "rumorId": "steely_distracts_monster",
+    "order": 100186,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 58
+    },
+    "comments": [
+        {
+            "id": "st_001",
+            "author": "steely",
+            "content": "LFG! 🐾💥",
+            "likes": 12
+        },
+        {
+            "id": "hj_992",
+            "author": "hjumpik",
+            "content": "Watch those claws, Steely!",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "p3_cb",
+    "characterKey": "captain_bloodshire",
+    "content": "Hold the line! Use the distraction to regroup!",
+    "likes": 40,
+    "rumorId": "steely_distracts_monster",
+    "order": 100187,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 11
+    },
+    "comments": [
+        {
+            "id": "goblin_001",
+            "author": "goblin_waiter",
+            "content": "I'm not fighting! I just bring the snacks! 🥨",
+            "likes": 12
+        },
+        {
+            "id": "grip_44",
+            "author": "j_grip",
+            "content": "My hands are ready. Let's go! ✊",
+            "likes": 45
+        },
+        {
+            "id": "sed_99",
+            "author": "sedeai",
+            "content": "The patterns are shifting... stay focused.",
+            "likes": 31
+        }
+    ]
+},
+  {
+    "id": "p4_cr",
+    "characterKey": "cere_rin",
+    "content": "Did anyone else see how fast Steely reacted? So brave.",
+    "likes": 22,
+    "rumorId": "steely_distracts_monster",
+    "order": 100188,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 24
+    },
+    "comments": [
+        {
+            "id": "sed992",
+            "author": "sedeai",
+            "content": "The Force was strong with that one.",
+            "likes": 142
+        },
+        {
+            "id": "wal881",
+            "author": "waluigi",
+            "content": "Waaaaah! Too fast for me! 💜",
+            "likes": 56
+        }
+    ]
+},
+  {
+    "id": "p5_fl",
+    "characterKey": "firelyn",
+    "content": "Chaos! Pure chaos! Let the barking begin!",
+    "likes": 31,
+    "rumorId": "steely_distracts_monster",
+    "order": 100189,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 37
+    },
+    "comments": [
+        {
+            "id": "ax982",
+            "author": "arulean",
+            "content": "The drums of war beat once more! ⚔️",
+            "likes": 42
+        },
+        {
+            "id": "by551",
+            "author": "mystivil",
+            "content": "Is it too late to cast a silence spell? 🌙",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "p6_fb",
+    "characterKey": "flizzlebin",
+    "content": "Barking dogs and monsters... what a Tuesday. 😂",
+    "likes": 5,
+    "rumorId": "steely_distracts_monster",
+    "order": 100190,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 50
+    },
+    "comments": [
+        {
+            "id": "waluigi_01",
+            "author": "waluigi",
+            "content": "Wah! Typical Tuesday! 🤌",
+            "likes": 42
+        },
+        {
+            "id": "arulean_99",
+            "author": "arulean",
+            "content": "Did you check the perimeter for shadows? 🛡️",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "p7_arulean",
+    "characterKey": "arulean",
+    "content": "Is Hjumpik actually serious right now? This is madness.",
+    "likes": 18,
+    "rumorId": "steely_distracts_monster",
+    "order": 100191,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 3
+    },
+    "comments": [
+        {
+            "id": "f1l-01",
+            "author": "flizzlebin",
+            "content": "pure chaos energy lol 💀",
+            "likes": 12
+        },
+        {
+            "id": "b_r_99",
+            "author": "big_r",
+            "content": "Not serious, just unhinged.",
+            "likes": 45
+        },
+        {
+            "id": "g_arc-7",
+            "author": "garud",
+            "content": "The madness has begun. 🌪️",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p8_cb",
+    "characterKey": "captain_bloodshire",
+    "content": "Target the monster while it's distracted! Move!",
+    "likes": 55,
+    "rumorId": "steely_distracts_monster",
+    "order": 100192,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 16
+    },
+    "comments": [
+        {
+            "id": "r01",
+            "author": "big_r",
+            "content": "On it! Get the heavy hitters ready! 🛡️",
+            "likes": 42
+        },
+        {
+            "id": "s02",
+            "author": "sedeai",
+            "content": "The pattern is clear. Strike now.",
+            "likes": 15
+        },
+        {
+            "id": "l03",
+            "author": "loopus",
+            "content": "Wait, which monster? I'm lost lol",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "p9_fl",
+    "characterKey": "firelyn",
+    "content": "That bark just lit up the whole forest! 🔥",
+    "likes": 67,
+    "rumorId": "steely_distracts_monster",
+    "order": 100193,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 29
+    },
+    "comments": [
+        {
+            "id": "r01",
+            "author": "big_r",
+            "content": "Nature's fury at its finest! 🌲💪",
+            "likes": 42
+        },
+        {
+            "id": "w02",
+            "author": "wario",
+            "content": "Too much noise! WAH! 😠",
+            "likes": 5
+        },
+        {
+            "id": "a03",
+            "author": "arulean",
+            "content": "Did the Druids cast a spell?",
+            "likes": 18
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "Did anyone else just see that? Waluigi is unhinged! 😱",
+    "likes": 124,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100194,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 52
+    },
+    "comments": [
+        {
+            "id": "sd_99",
+            "author": "sedeai",
+            "content": "The chaos flows through him... 🌑",
+            "likes": 12
+        },
+        {
+            "id": "cb_42",
+            "author": "captain_bloodshire",
+            "content": "That purple menace is pure madness! 🏴‍☠️",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "That ice pick strike was pure chaos. Brutal.",
+    "likes": 89,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100195,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 5
+    },
+    "comments": [
+        {
+            "id": "fb_992",
+            "author": "flizzlebin",
+            "content": "Pure madness! 💀✨",
+            "likes": 12
+        },
+        {
+            "id": "fl_441",
+            "author": "firelyn",
+            "content": "The mana in that room just evaporated.",
+            "likes": 84
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "A tactical strike! Waluigi knows how to finish a fight. 🏴‍☠️",
+    "likes": 210,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100196,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 18
+    },
+    "comments": [
+        {
+            "id": "g123",
+            "author": "garud",
+            "content": "Pure chaos energy! 😂",
+            "likes": 12
+        },
+        {
+            "id": "h456",
+            "author": "humpik",
+            "content": "Waluigi supremacy 💜🏴‍☠️",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "The carnage... it's far too much for me to watch. ❄️",
+    "likes": 45,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100197,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 31
+    },
+    "comments": [
+        {
+            "id": "wal-99",
+            "author": "waluigi",
+            "content": "Waaaaah! So much drama! 💜",
+            "likes": 12
+        },
+        {
+            "id": "sed-01",
+            "author": "sedeai",
+            "content": "The pattern is fractured. Truly grim.",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "Talk about bringing the heat! That hit was legendary! 🔥",
+    "likes": 312,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100198,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 44
+    },
+    "comments": [
+        {
+            "id": "burley_01",
+            "author": "ol_burley",
+            "content": "Pure dragon fire! 🐉",
+            "likes": 42
+        },
+        {
+            "id": "arulean_99",
+            "author": "arulean",
+            "content": "Still feeling the mana burn from that one.",
+            "likes": 12
+        },
+        {
+            "id": "steely_edge",
+            "author": "steely",
+            "content": "Not bad for a mortal. ⚔️",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "Waluigi with the ice pick? Someone get this man a trophy! 🏆",
+    "likes": 67,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100199,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 57
+    },
+    "comments": [
+        {
+            "id": "wario_01",
+            "author": "wario",
+            "content": "WAHAHA! Pure chaos! 💰",
+            "likes": 88
+        },
+        {
+            "id": "sedeai_99",
+            "author": "sedeai",
+            "content": "This level of madness is uncontainable.",
+            "likes": 12
+        },
+        {
+            "id": "hjumpik_x",
+            "author": "hjumpik",
+            "content": "Wait, where did he even get that?! 💀",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "Is no one talking about the monster's reaction though?!",
+    "likes": 34,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100200,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 10
+    },
+    "comments": [
+        {
+            "id": "goblin_001",
+            "author": "goblin_waiter",
+            "content": "Too scary to look at 😱",
+            "likes": 12
+        },
+        {
+            "id": "cere_99",
+            "author": "cere_rin",
+            "content": "Literally shook me to my core.",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "firelyn",
+    "content": "Chaos level: Waluigi using an ice pick. 💥",
+    "likes": 156,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100201,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 23
+    },
+    "comments": [
+        {
+            "id": "hjumpik_01",
+            "author": "hjumpik",
+            "content": "Pure anarchy. I love it! 😈",
+            "likes": 12
+        },
+        {
+            "id": "mystivil_99",
+            "author": "mystivil",
+            "content": "Is nothing safe anymore? 💀",
+            "likes": 4
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "big_r",
+    "content": "Someone check on the monster. That looked painful.",
+    "likes": 72,
+    "rumorId": "waluigi_attacks_monster",
+    "order": 100202,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 36
+    },
+    "comments": [
+        {
+            "id": "fb_001",
+            "author": "flizzlebin",
+            "content": "RIP bozo 💀",
+            "likes": 12
+        },
+        {
+            "id": "sb_002",
+            "author": "satyr_beserker",
+            "content": "Needs more blood! 🤘",
+            "likes": 45
+        },
+        {
+            "id": "se_003",
+            "author": "sedeai",
+            "content": "The weave felt that impact.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_001",
+    "characterKey": "arulean",
+    "content": "The courage of a true warrior shines in his eyes.",
+    "likes": 120,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100203,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 6,
+        "minute": 59
+    },
+    "comments": [
+        {
+            "id": "loop01",
+            "author": "loopus",
+            "content": "So true. ⚔️",
+            "likes": 12
+        },
+        {
+            "id": "hjumpik_a",
+            "author": "hjumpik",
+            "content": "Is that why your eyes look so tired though? 😂",
+            "likes": 5
+        },
+        {
+            "id": "hjumpik_b",
+            "author": "hjumpik",
+            "content": "Facts. Pure legend.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_002",
+    "characterKey": "big_r",
+    "content": "HE'S GOING IN! WATCH OUT, LEE!",
+    "likes": 85,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100204,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 7,
+        "minute": 12
+    },
+    "comments": [
+        {
+            "id": "sed_01",
+            "author": "sedeai",
+            "content": "The mana surge is undeniable! ✨",
+            "likes": 42
+        },
+        {
+            "id": "gob_99",
+            "author": "goblin_waiter",
+            "content": "Hide the silver, he's looting again! 🍴",
+            "likes": 12
+        },
+        {
+            "id": "hjm_45",
+            "author": "hjumpik",
+            "content": "Lee better run fast... 😂",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_003",
+    "characterKey": "captain_bloodshire",
+    "content": "Hold the line! Lee is leading the charge!",
+    "likes": 210,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100205,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 8,
+        "minute": 25
+    },
+    "comments": [
+        {
+            "id": "satyr_001",
+            "author": "satyr_beserker",
+            "content": "RAAAAAAAGH! 🤘🔥",
+            "likes": 42
+        },
+        {
+            "id": "hjumpik_99",
+            "author": "hjumpik",
+            "content": "Is he bringing the extra mead?",
+            "likes": 12
+        }
+    ]
+},
+  {
+    "id": "post_004",
+    "characterKey": "cere_rin",
+    "content": "Is he crazy or just incredibly brave?",
+    "likes": 45,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100206,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 9,
+        "minute": 38
+    },
+    "comments": [
+        {
+            "id": "humpik_01",
+            "author": "humpik",
+            "content": "Definitely crazy. 🍺",
+            "likes": 12
+        },
+        {
+            "id": "cb_99",
+            "author": "captain_bloodshire",
+            "content": "Fortune favors the bold!",
+            "likes": 45
+        },
+        {
+            "id": "garud_sky",
+            "author": "garud",
+            "content": "A death wish, if you ask me.",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_005",
+    "characterKey": "firelyn",
+    "content": "Burn bright, Lee! Smash that beast!",
+    "likes": 92,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100207,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 10,
+        "minute": 51
+    },
+    "comments": [
+        {
+            "id": "satyr_001",
+            "author": "satyr_beserker",
+            "content": "LET THE BLOOD RAGE! 🤘🔥",
+            "likes": 42
+        },
+        {
+            "id": "arulean_99",
+            "author": "arulean",
+            "content": "May the light guide your blade.",
+            "likes": 12
+        },
+        {
+            "id": "garud_sky",
+            "author": "garud",
+            "content": "Don't let it bite back! 🦅",
+            "likes": 5
+        }
+    ]
+},
+  {
+    "id": "post_006",
+    "characterKey": "flizzlebin",
+    "content": "Two hands? That's a lot of surface area to hit!",
+    "likes": 30,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100208,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 11,
+        "minute": 4
+    },
+    "comments": [
+        {
+            "id": "tl_992",
+            "author": "toad_lee",
+            "content": "Big target for a small frog! 🐸",
+            "likes": 12
+        },
+        {
+            "id": "ob_441",
+            "author": "ol_burley",
+            "content": "More room for the battle axe! 🪓",
+            "likes": 45
+        }
+    ]
+},
+  {
+    "id": "post_007",
+    "characterKey": "arulean",
+    "content": "A legendary strike in the making.",
+    "likes": 65,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100209,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 12,
+        "minute": 17
+    },
+    "comments": [
+        {
+            "id": "w01",
+            "author": "wario",
+            "content": "WAHAHA! Where's my cut? 💰",
+            "likes": 42
+        },
+        {
+            "id": "l02",
+            "author": "loopus",
+            "content": "🔄 Replaying this moment forever.",
+            "likes": 15
+        },
+        {
+            "id": "h03",
+            "author": "hjumpik",
+            "content": "Is the dragon even ready for this? 🔥",
+            "likes": 8
+        }
+    ]
+},
+  {
+    "id": "post_008",
+    "characterKey": "big_r",
+    "content": "BOOM! Direct hit!",
+    "likes": 150,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100210,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 13,
+        "minute": 30
+    },
+    "comments": [
+        {
+            "id": "hmp_001",
+            "author": "humpik",
+            "content": "LFG!!! 🔥🔥🔥",
+            "likes": 12
+        },
+        {
+            "id": "flz_002",
+            "author": "flizzlebin",
+            "content": "Wait, did anyone see where it landed? 🤔",
+            "likes": 5
+        },
+        {
+            "id": "grp_003",
+            "author": "j_grip",
+            "content": "Absolute madness. Pure skill.",
+            "likes": 42
+        }
+    ]
+},
+  {
+    "id": "post_009",
+    "characterKey": "flizzlebin",
+    "content": "Wait, did he forget his shield?!",
+    "likes": 40,
+    "rumorId": "toad_lee_brave_charge",
+    "order": 100211,
+    "date": {
+        "year": 1040,
+        "monthIndex": 6,
+        "day": 1,
+        "hour": 14,
+        "minute": 43
+    },
+    "comments": [
+        {
+            "id": "steely_01",
+            "author": "steely",
+            "content": "Total rookie mistake. 🤦‍♂️",
+            "likes": 12
+        },
+        {
+            "id": "magi_kai_99",
+            "author": "magi_kai",
+            "content": "The mana shield should have held! ✨",
+            "likes": 45
+        }
+    ]
+}
 ];
 
 // Export helper for event integration

@@ -290,6 +290,9 @@ export const TOADS_QUESTS = {
                     { text: "Avoid the Sprites", status: 'active' }
                 ]
             }
+        ],
+        sessionNotes: [
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "The party engaged a growing monster at the house; Waluigi and Toad Lee fought directly." },
         ]
     },
 'rogueport_retrieval': {
@@ -783,8 +786,11 @@ export const TOADS_QUESTS = {
         related: ['vigilance_airship', 'raventree_manor', 'speaker_l_safehouse']
     },
 
-    relatedQuests: ['vigilance_fallen', 'hjumpik_legion_pact', 'artifacts_of_balance']
-},
+    relatedQuests: ['vigilance_fallen', 'hjumpik_legion_pact', 'artifacts_of_balance'],
+        sessionNotes: [
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "The group is currently debating how to handle a color-changing creature and dealing with monster attacks." },
+        ]
+    },
 };
 export const hjumpik_QUESTS = {
 'hjumpik_feywild_heist': {
@@ -856,6 +862,10 @@ export const hjumpik_QUESTS = {
                 description: "Wario is climbing to the roof with a ticking present to blow up the 'Dragonfly'. This might collapse the house. Hjumpik must intervene.",
                 priority: 'critical'
             }
+        ],
+        sessionNotes: [
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "Hjumpik negotiated to retrieve dried papers from Wario\'s room." },
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "Discussed using teleportation and diversions to scout the creature\'s location." },
         ]
     },    
 'wario_roof_hazard': {
@@ -914,8 +924,11 @@ export const hjumpik_QUESTS = {
             title: "The Deal",
             description: "Negotiate for the Cannonball and Chalk. Wario only understands leverage (Gold or Loot).",
         }
-    ]
-},     
+    ],
+        sessionNotes: [
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "A monster attacked the group, causing chaos and eating a butler." },
+        ]
+    },     
     'hjumpik_mirror_identity': {
         id: 'hjumpik_mirror_identity',
         title: "The Reflection's Gamble",
@@ -991,6 +1004,7 @@ export const hjumpik_QUESTS = {
         },
 
         milestones: [
+            { id: 'm_creature_discovery', status: 'active', title: "Creature Identified", description: "Discovered a creature that changes from green to dark purple; debating kill vs contain.", addedDate: { year: 1040, monthIndex: 6, day: 1 } },
             {
                 id: 'm1',
                 status: 'completed',
@@ -3471,7 +3485,10 @@ export const WORLD_QUESTS = {
             void: ['fractured_atrium', 'specimen_tanks']
         },
 
-        relatedQuests: ['dinner_party_aftermath', 'faeward_exploration', 'rescue_toadburt', 'vigilance_investigation']
+        relatedQuests: ['dinner_party_aftermath', 'faeward_exploration', 'rescue_toadburt', 'vigilance_investigation'],
+        sessionNotes: [
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "The group encountered a transforming monster in the house; debate continues over containment vs killing." },
+        ]
     },
 
     'dinner_party_aftermath': {
@@ -3746,6 +3763,7 @@ export const WORLD_QUESTS = {
         },
 
         milestones: [
+            { id: 'manor_scouting', status: 'active', title: "Manor Scouting", description: "Scouted the manor grounds and encountered a satyr berserker while hiding.", addedDate: { year: 1040, monthIndex: 6, day: 1 } },
             {
                 id: 'm1',
                 status: 'completed',
@@ -3837,7 +3855,10 @@ export const WORLD_QUESTS = {
             }
         ],
 
-        relatedQuests: ['timeline_convergence', 'aurelians_bargain']
+        relatedQuests: ['timeline_convergence', 'aurelians_bargain'],
+        sessionNotes: [
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "Encountered a satyr berserker and a transforming creature during exploration of the manor." },
+        ]
     },
 
     'rescue_toadburt': {

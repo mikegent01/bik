@@ -5426,4 +5426,445 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
     }
 }
 
+,
+  {
+    "id": "negotiation_at_bay",
+    "title": "Big R And Mystivil Attempt To Negotiate",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Big R and Mystivil attempt to negotiate port access with Commander J Grip of the Mushroom Regency.",
+    "instigator": "big_r",
+    "targets": [
+        "big_r",
+        "mystivil",
+        "j_grip"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "deal",
+        "type": "deal"
+    }
+},
+  {
+    "id": "assassination_of_the_captain",
+    "title": "A Single Shot Is Fired During The",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "A single shot is fired during the negotiation, killing the captain and causing a chaotic retreat under heavy fire.",
+    "instigator": "mystivil",
+    "targets": [
+        "mystivil",
+        "j_grip"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "meeting_vampire_loyalists",
+    "title": "The Group Regroups At The Docks And",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The group regroups at the docks and meets Captain Bloodshire and her crew of vampire loyalists.",
+    "instigator": "big_r",
+    "targets": [
+        "big_r",
+        "mystivil",
+        "captain_bloodshire",
+        "flizzlebin",
+        "cere_rin",
+        "magi_kai",
+        "firelyn",
+        "loopus"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "discovery_of_the_shifting_monster",
+    "title": "Toad Lee And Hjumpik Encounter A Creature",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Toad Lee and Hjumpik encounter a creature that changes from green to a menacing dark purple.",
+    "instigator": "toad_lee",
+    "targets": [
+        "toad_lee",
+        "hjumpik"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "encounter_with_ol_burley",
+    "title": "The Group Discusses The Nature Of Ol",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The group discusses the nature of Ol Burley, a creature that grows by consuming things.",
+    "instigator": "toad_lee",
+    "targets": [
+        "toad_lee",
+        "hjumpik",
+        "sedeai",
+        "ol_burley"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "arulean_warns_party",
+    "title": "Arulean Warns The Group About A Creature",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Arulean warns the group about a creature that must be contained rather than killed to protect her reputation.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "arulean"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "scouting_the_grounds",
+    "title": "Waluigi, Hjumpik, And Toad Lee Attempt To",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Waluigi, hjumpik, and Toad Lee attempt to scout the area through a window and bushes while avoiding guards.",
+    "instigator": "humpik",
+    "targets": [
+        "humpik",
+        "waluigi",
+        "toad_lee"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "encounter_with_goblin_and_satyr",
+    "title": "Hjumpik Encounters A Goblin Waiter And A",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik encounters a goblin waiter and a satyr berserker standing on top of him.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "goblin_waiter",
+        "satyr_beserker"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "discovery_of_moving_flower",
+    "title": "While Cleaning, Hjumpik Discovers A Strange Pink",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "While cleaning, hjumpik discovers a strange pink flower that moves on its own and appears to be watching the party.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "toad_lee"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "discovery",
+        "type": "discovery"
+    }
+},
+  {
+    "id": "wario_looting_room",
+    "title": "Wario Loots A Messy Room And Is",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Wario loots a messy room and is confronted by hjumpik regarding stolen papers.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "wario"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "deal",
+        "type": "deal"
+    }
+},
+  {
+    "id": "paper_bribe_negotiation",
+    "title": "Hjumpik Negotiates With Wario To Get Back",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik negotiates with Wario to get back stolen papers by offering a 10 gold bargain.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "wario"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "deal",
+        "type": "deal"
+    }
+},
+  {
+    "id": "argument_over_monster_approach",
+    "title": "Hjumpik And Arulean Argue About Whether To",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik and Arulean argue about whether to use friendship or force to deal with the monster.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "arulean"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "social",
+        "type": "social"
+    }
+},
+  {
+    "id": "monster_breaks_into_room",
+    "title": "The Angry Monster Slams Open The Door",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The angry monster slams open the door and encounters Waluigi.",
+    "instigator": "waluigi",
+    "targets": [
+        "waluigi"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "party_confronts_monster",
+    "title": "Garud And Arulean Approach The Monster While",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Garud and Arulean approach the monster while Toad Lee prepares to attack.",
+    "instigator": "garud",
+    "targets": [
+        "garud",
+        "arulean",
+        "toad_lee"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "monster_attacks_butler",
+    "title": "The Monster Uses Fairy Magic To Pick",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "The monster uses fairy magic to pick up and eat a butler, growing stronger.",
+    "instigator": "arulean",
+    "targets": [
+        "arulean"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "steely_distracts_monster",
+    "title": "Hjumpik Orders Steely The Dog To Bark",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Hjumpik orders Steely the dog to bark at the monster to create a distraction.",
+    "instigator": "hjumpik",
+    "targets": [
+        "hjumpik",
+        "steely"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "waluigi_attacks_monster",
+    "title": "Waluigi Plunges An Ice Pick Into The",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Waluigi plunges an ice pick into the monster during the chaotic fight.",
+    "instigator": "waluigi",
+    "targets": [
+        "waluigi"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+},
+  {
+    "id": "toad_lee_brave_charge",
+    "title": "Toad Lee Bravely Charges Into The Fray",
+    "date": {
+        "day": 1,
+        "monthIndex": 6,
+        "year": 1040
+    },
+    "isEvent": true,
+    "description": "Toad Lee bravely charges into the fray with both hands to attack the monster.",
+    "instigator": "toad_lee",
+    "targets": [
+        "toad_lee"
+    ],
+    "arc": "current_arc",
+    "arcPosition": "rising_action",
+    "effects": {},
+    "cycle_impact": {
+        "score": 0.8,
+        "label": "combat",
+        "type": "combat"
+    }
+}
 ];

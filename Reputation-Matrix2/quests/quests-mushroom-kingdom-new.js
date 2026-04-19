@@ -47,6 +47,9 @@ export const NEW_MK_QUESTS = {
         assignees: ['party'],
         milestones: [
             { id: 'm1', status: 'active', title: "Verify Intel", description: "Confirm the location." }
+        ],
+        sessionNotes: [
+            { date: { year: 1040, monthIndex: 6, day: 1 }, content: "The group is planning scouting maneuvers using teleportation and diversions to locate a color-changing creature." },
         ]
     }
 };
