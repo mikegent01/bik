@@ -74662,6 +74662,2471 @@ export const WAHBOOK_POSTS = [
         }
     ]
 }
+,
+
+
+  // -- feyward-discoverys | 2026-04-26 17:12 --
+  {
+    "id": "hjumpik_post_1040_harvestide",
+    "order": 100311,
+    "characterKey": "hjumpik",
+    "rumorId": "weak_bloodline",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Aurelian thinks she can just 'chat' with the Revelmaster into a peace treaty? Delusional. You don't negotiate with a storm, you survive it. If her bloodline is as thin as they say, we're all just walking into a slaughterhouse.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "aurelian",
+        "text": "Diplomacy isn't delusion, Hjumpik. It's the only way to avoid more bloodshed."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I'm with the big guy on this one. This plan smells worse than a swamp in Efferd."
+      }
+    ]
+  },
+  {
+    "id": "aurelian_post_1040_harvestide",
+    "order": 100361,
+    "characterKey": "aurelian",
+    "rumorId": "weak_bloodline",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The Revelmaster demands more than just empty gestures. To secure peace, we must face the music directly. My path may be unconventional to some, but do not mistake a quiet pulse for an absent one. We march toward negotiation, whether you believe in my weight or not.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Negotiating with that entity requires iron, Aurelian. Your lineage is too thin for this."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "I'll keep my blade ready, but don't expect the Revelmaster to bow to a mere whisper."
+      }
+    ]
+  },
+  {
+    "id": "legion_presence_alert",
+    "order": 100511,
+    "characterKey": "hjumpik",
+    "rumorId": "legion_presence",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The Legion didn't just 'show up.' The manor's entropy levels are spiking like a dying star. This isn't a coincidence; it's a deployment. If the Revelmaster thinks they can hide behind walls while the fabric of reality thins, they're as delusional as the rest of you.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Stop talking in riddles, Hjumpik! Are we under attack or not?"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If they want a fight, tell them to come through me first. GWAHAHA!"
+      }
+    ]
+  },
+  {
+    "id": "waluigi_audit_rant",
+    "order": 100711,
+    "characterKey": "waluigi",
+    "rumorId": "wario_debts",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "UNFAIR! Wario is literally throwing receipts in my face like I'm the one who spent all our gold on garlic and treasure maps! Where did the supply fund go?! He's just dodging the questions with 'business obligations'! WAH!!!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Stop whining! A real businessman doesn't need paper trails, he needs profits! WAHAHA!"
+      }
+    ]
+  },
+  {
+    "id": "wario_financial_chaos",
+    "order": 100761,
+    "characterKey": "wario",
+    "rumorId": "wario_debts",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAH HA HA! Business is booming in Diamond City! 💰 Don't listen to that lanky loser Waluigi whining about 'receipts' and 'unpaid invoices.' If you can't find the paper, the debt doesn't exist! It's called STRATEGY! 🤑💎",
+    "likes": 420,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "YOU OWE ME FIVE THOUSAND COINS FOR THE LIMO RENTAL, YOU FAT GREEDY GOON! WAH!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Just pay him so we can get back to the raid. I'm not paying your bail again."
+      }
+    ]
+  },
+  {
+    "id": "price_of_info_post",
+    "order": 100911,
+    "characterKey": "wario",
+    "rumorId": "portal_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAH HA HA! That shady jerk Shadeward tried to shake me down for 800 gold just to talk about some manor portal! Greedy bum! I didn't pay, but I still got the loot! Next time, bring more coins if you want secrets! WAH!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "800 gold is steep even for a portal secret. You're too cheap, Wario."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Stop bragging about being broke and just smash the portal yourself!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_portal_rant",
+    "order": 100961,
+    "characterKey": "hjumpik",
+    "rumorId": "portal_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Shadeward is a total scammer. Claims he found a secret portal out of the manor but won't tell us where unless we cough up 800 gold. We don't have it! Don't fall for his greedy trash, even if the intel sounds useful. Absolute leech behavior.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "800 gold? That's a bargain! I would have paid double just to see him cry!"
+      }
+    ]
+  },
+  {
+    "id": "wario_empathy_fail",
+    "order": 101111,
+    "characterKey": "wario",
+    "rumorId": "wario_empathy_scam",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAH HA HA! Tried using my fancy new 'empathy' skills to charm a client in Harvestide today. They had ZERO gold, but I stayed professional! A true businessman knows when to smile even if the pockets are empty. Next time, I’m charging for the sympathy! 💰💎",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Empathy? You don't even know what that word means, you greedy garlic lover!"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "WAH! You got scammed again! Just use the hammer next time, Wario!"
+      }
+    ]
+  },
+  {
+    "id": "office_breach_alert",
+    "order": 101311,
+    "characterKey": "aurelian",
+    "rumorId": "office_breach_alert",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The Seneschal's locks were no match for my grace, but the interior of this office is... unsettling. This isn't mere paperwork; the room is choked with invasive, glowing flora that feels far too much like home. Something is blooming in Harvestide that shouldn't be.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Watch your step, Aurelian! Those vines look like they bite back."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If it's alive, just burn it down and grab the loot!"
+      }
+    ]
+  },
+  {
+    "id": "dryad_warning_post",
+    "order": 101511,
+    "characterKey": "toad_lee",
+    "rumorId": "dryad_threat",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Found a room full of pretty weeds. Then some tree lady stared me down like I was a pest in her garden. Pointed a twig at my face real scary-like. My axe is ready if she tries it again. Not much for talking, just want to get back to the trek.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Forget the flowers! Did you find any gold hidden in those petals? WAH!"
+      }
+    ]
+  },
+  {
+    "id": "burley_threat_post",
+    "order": 101711,
+    "characterKey": "toad_lee",
+    "rumorId": "burley_growth_threat",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "This Ol Burley thing is eating every beetle in the camp. If it keeps gulping down biomass, we aren't just looking at a pest—we're looking at a siege. How are we supposed to lock a mountain-sized beast in a tiny room? My axe won't be enough if it outgrows the walls.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The logistics are nightmare fuel. We need containment spells, not just iron bars."
+      },
+      {
+        "characterKey": "aurelian",
+        "text": "If the growth rate follows the insect consumption pattern, we have 48 hours max."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_101761",
+    "order": 101761,
+    "characterKey": "hjumpik",
+    "rumorId": "burley_growth_threat",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Stop acting like we can just 'keep' Ol Burley in a spare room. One big meal of Harvestide flies and that thing is going to burst the walls of this inn. We aren't containing a pet, we're housing a ticking bomb. Wake up.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "It's just small bugs, Hjumpik. Relax your throat."
+      }
+    ]
+  },
+  {
+    "id": "sudden_exit_drama",
+    "order": 101911,
+    "characterKey": "waluigi",
+    "rumorId": "the_play_distraction",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "UNFAIR! Totally UNACCEPTABLE! Lady Aurelian and I were just seeking a moment of culture, and then THAT toad grabs me?! I was being dragged away from my destiny! Why does everyone always ruin Waluigi's fun? WAH!!!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Nobody is 'slipping away' during a security briefing. Stay in formation!"
+      },
+      {
+        "characterKey": "aurelian",
+        "text": "It was a simple attempt at diversion, Waluigi. Please, do lower your voice."
+      }
+    ]
+  },
+  {
+    "id": "sudden_exit_incident",
+    "order": 101961,
+    "characterKey": "toad_lee",
+    "rumorId": "the_play_distraction",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Can't have folks wandering off just to catch some fancy drama in the plaza. Waluigi and Aurelian tried to slip away, but I grabbed 'em by the collars. We've got work to do, not plays to watch. Stay focused or stay home!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Hey! Watch the fabric! You almost ripped my cape, you big brute!"
+      },
+      {
+        "characterKey": "aurelian",
+        "text": "A moment of respite is not a betrayal of duty, Lee. Must you be so crude?"
+      }
+    ]
+  },
+  {
+    "id": "aurelian_warning_1040",
+    "order": 102111,
+    "characterKey": "aurelian",
+    "rumorId": "the_revelmasters_pet",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Let me be perfectly clear: the entity is to be secured, not slaughtered. I will not permit a senseless act of carnage to trigger a diplomatic crisis with the Revelmaster. Containment is the only path forward. Do not test my patience further.",
+    "likes": 452,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Containment? You mean keeping a ticking time bomb in your cellar?"
+      },
+      {
+        "characterKey": "archie",
+        "text": "The politics of the Feywild are getting much more expensive than usual."
+      }
+    ]
+  },
+  {
+    "id": "containment_drama_1040",
+    "order": 102161,
+    "characterKey": "hjumpik",
+    "rumorId": "the_revelmasters_pet",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Lady Aurelian just slammed the door in our faces. Not because the beast is too scary, but because she’s terrified of what the Revelmaster will say if it dies. We're playing nursemaid to a monster just to save her precious reputation. Pure political cowardice.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "aurelian",
+        "text": "Your lack of decorum and understanding of diplomatic stability is precisely why you aren't invited to the inner circle, Hjumpik."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "So we just... let it live? Great. Can't wait for it to eat the whole council while she polishes her image."
+      }
+    ]
+  },
+  {
+    "id": "aurelian_lithic_revelation",
+    "order": 102311,
+    "characterKey": "aurelian",
+    "rumorId": "stone_weapon_lore",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The flesh may fail, but the earth remembers. My blade was not forged in fire, but carved from the very marrow of the mountain to mirror the beast we hunt. If the weapon is this heavy with ancient intent, imagine the weight of the creature itself.",
+    "likes": 428,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "A stone sword? Sounds heavy and useless for a quick draw, Aurelian."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If it's made of rock, I'll just smash it. Bring on the monster!"
+      }
+    ]
+  },
+  {
+    "id": "autumn_silk_reveal",
+    "order": 102511,
+    "characterKey": "aurelian",
+    "rumorId": "hypnotic_fan_sightings",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "A mere flutter of orange silk to rewrite the rhythms of the mind. The shifting scenes of Harvestide dance upon this fan, pulling focus away from the trivial and into my design. Do you find yourself forgetting your purpose? How delicious.",
+    "likes": 1240,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Wait... what was I looking at again? That orange color is... wow."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Stop waving that thing! It's making my head spin, and I hate it!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_distraction_post",
+    "order": 102711,
+    "characterKey": "hjumpik",
+    "rumorId": "negligent_guards",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "If we rely on Aurelian’s 'elite' guard, we’re dead before the lunge. The lot of them are too pickled in ale to see a decoy coming. It’s a desperate teleport play now—no safety net. If the magic slips, Harvestide becomes our graveyard.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "aurelian",
+        "text": "My guards are merely... celebrating a victory. And I heard that, Hjumpik."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Just make sure the teleport lands us somewhere with less screaming and more loot."
+      }
+    ]
+  },
+  {
+    "id": "aurelian_distraction_plan",
+    "order": 102761,
+    "characterKey": "aurelian",
+    "rumorId": "negligent_guards",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The scent of spilled nectar and incompetence hangs heavy in the air. My personal guard is lost to a stupor, leaving us exposed. We have one shot: a sudden lunge followed by a desperate blink through the weave. If the decoy fails, Harvestide will see my head on a pike.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Risky business, even for you. Hope that teleport lands true."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If those guards don't wake up, I'm walking right through the front gate."
+      }
+    ]
+  },
+  {
+    "id": "unsteady_scout_incident",
+    "order": 102911,
+    "characterKey": "waluigi",
+    "rumorId": "the_tripping_spy",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "IT IS UNFAIR! This carpet in the Harvestide barracks is clearly rigged by Bowser to sabotage my greatness! I was being perfectly stealthy until that treacherous rug tripped me. WAH! My dignity is wounded!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "If you hadn't been flailing your arms like a windmill, we wouldn't have almost been spotted."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Quit whining and get back to work. That trip was pathetic even for you."
+      }
+    ]
+  },
+  {
+    "id": "unsteady_scout_incident_1",
+    "order": 102961,
+    "characterKey": "hjumpik",
+    "rumorId": "the_tripping_spy",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "If we wanted a loud alarm, we could've just rung a bell. Waluigi tried to 'stealth' into the war room and ended up face-planting on the rug like a total amateur. I had to grab his cape before he took out the whole intel unit. Absolute disaster.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "THE CARPET WAS RIGGED! IT WAS A TRAP! WAAAAH!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Stick to tennis, purple guy. You're embarrassing the whole squad."
+      }
+    ]
+  },
+  {
+    "id": "window_breach_scout",
+    "order": 103111,
+    "characterKey": "toad_lee",
+    "rumorId": "the_window_infiltration",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Gap is too small for Hjumpik. Only me tiny enough to squeeze through this window. If I'm gonna drop down into the perimeter, someone needs to make some noise so those guards don't look my way. Don't let me get squashed.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Stay low and keep your eyes peeled. I'll draw them toward the East Gate."
+      }
+    ]
+  },
+  {
+    "id": "window_breach_incident",
+    "order": 103161,
+    "characterKey": "hjumpik",
+    "rumorId": "the_window_infiltration",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "If Toad Lee gets stuck in that gap again, I'm leaving him. The window is too small for anyone with actual muscle, so now we're relying on a glorified garden pest to scout the perimeter. Someone better start a distraction before he trips over his own feet.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I am NOT a garden pest! And for your information, I'm already halfway through!"
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_post_1040",
+    "order": 103311,
+    "characterKey": "toad_lee",
+    "rumorId": "voices_in_the_garden",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Landed in the thicket near the garden. Safe for a second, but I hear shadows moving nearby. They're talking about some bath house route like it’s nothing, but they're tracking my scent. Axe is out. If they step into the light, they're getting an edge.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Stay low, Lee! Don't let 'em catch your scent before you swing!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If they're looking for a bath, show 'em how hot my flames burn. Smash 'em!"
+      }
+    ]
+  },
+  {
+    "id": "shortcut_interception",
+    "order": 103511,
+    "characterKey": "hjumpik",
+    "rumorId": "revel_interruption",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Think you're sneaky cutting through the bathhouse? LMAO. Caught 'em red-handed before they could even sniff Toad Lee's presence. This Harvestide revel is way too loud for these little games. Stop running and face the music!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Hey! I was literally right there! You ruined the whole vibe!"
+      }
+    ]
+  },
+  {
+    "id": "shortcut_chaos_1040",
+    "order": 103561,
+    "characterKey": "toad_lee",
+    "rumorId": "revel_interruption",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Thought you lot could sneak through the bathhouse to skip the Harvestide crowds? HA! Hjumpik popped up out of nowhere like a bad smell. No shortcuts today, just more noise and heavy lifting. My axe is itching for some real action, not this hiding game!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "You weren't so hard to find, Lee! Found you right in the middle of the steam!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Too much running, not enough smashing. Just get to the feast already."
+      }
+    ]
+  },
+  {
+    "id": "moving_bloom_incident",
+    "order": 103711,
+    "characterKey": "hjumpik",
+    "rumorId": "moving_flower_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Cleaning my shop and found this weird pink weed creeping in. Every time the door slams, it's closer. I tried asking what it wants, but all I got was more petals. If this thing tries to eat my inventory, I'm turning it into compost. Stop being creepy.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Maybe it just likes your singing? It follows the rhythm!"
+      }
+    ]
+  },
+  {
+    "id": "moving_bloom_incident_1",
+    "order": 103761,
+    "characterKey": "toad_lee",
+    "rumorId": "moving_flower_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Found Hjumpik staring at a pink weed like it was some ancient relic. Door keeps slamming shut and popping back open, and that damn flower is inching closer every time. It ain't natural. If it starts growing teeth, I'm swinging the axe.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It isn't just a weed, Lee! The petals hum in harmony with the threshold's rhythm!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Just chop it down and move on. We got real problems to deal with."
+      }
+    ]
+  },
+  {
+    "id": "aurelian_status_update",
+    "order": 103911,
+    "characterKey": "aurelian",
+    "rumorId": "goblin_ambush_report",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Chaos in the Harvestide thickets. A goblin skirmish has left our ranks fractured and companions missing. Hjumpik's incompetence is matched only by his lack of foresight. We will find them, but discipline must be restored before we all vanish into the shadows.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It was a sudden ambush! Nobody could have seen those green devils coming!"
+      },
+      {
+        "characterKey": "archie",
+        "text": "Stay sharp, everyone. The shadows are getting longer near the border."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_goblin_mess",
+    "order": 103961,
+    "characterKey": "hjumpik",
+    "rumorId": "goblin_ambush_report",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The skirmish went sideways fast. One second we're fighting green-skins in the thicket, the next the rest of the lot are just... gone. Shadows swallowed them whole. This isn't a scouting trip anymore; it's a search and rescue mission.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "aurelian",
+        "text": "Control your panic, Hjumpik. Your lack of situational awareness nearly cost us the flank."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I heard arrows flying from the ridge. Anyone see where they went?"
+      }
+    ]
+  },
+  {
+    "id": "wario_loot_brag",
+    "order": 104111,
+    "characterKey": "wario",
+    "rumorId": "wario_theft_scandal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAH HA HA! Look at this shiny gem I found in Lady Aurelian's room! 💎 While she's out, the treasures are just waiting to be claimed by someone with real vision! Everything has a price, especially those boring old papers Hjumpik won't let go of! WAH!",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Those are ancient botanical records, you thief! Give them back immediately!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Nice haul. Next time, grab the whole treasury while you're at it."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_loot_rant",
+    "order": 104161,
+    "characterKey": "hjumpik",
+    "rumorId": "wario_theft_scandal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Caught this yellow-clad greaseball ransacking Lady Aurelian’s chambers while she was out. He’s literally parading a stolen gem like it's a trophy. Now he won't give back my dried research papers unless I 'pay' him. Absolute bottom-feeder behavior.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Have a rotten day! It's not theft if it's found lying around! WAH!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Classic. Next time, grab the Koopa Troop's gold reserves too."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_104311",
+    "order": 104311,
+    "characterKey": "hjumpik",
+    "rumorId": "paper_ransom_deal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Got my stained papers back from that greedy thief Wario. Had to threaten to tip off Lady Aurelian about his little theft to make him cough them up. He returned most of it to save his 'business reputation.' Still smells like a scam in Harvestide today.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Keep talking, old man! You're lucky you didn't lose even more gold!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If you want to play politics with thieves, don't complain when things get messy."
+      }
+    ]
+  },
+  {
+    "id": "wario_deal_leak",
+    "order": 104361,
+    "characterKey": "wario",
+    "rumorId": "paper_ransom_deal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAH HA HA! Business is tough in Harvestide, but Wario always comes out on top! Had to let some dusty old papers go just to keep the peace with Lady Aurelian's spies. A small loss for a massive future profit! Money moves, even when it hurts! 💰💎",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Those papers are back in my hands where they belong. Don't think this makes us even."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "You're getting soft, Wario. Next time, just burn the evidence."
+      }
+    ]
+  },
+  {
+    "id": "aurelian_reality_check",
+    "order": 104511,
+    "characterKey": "aurelian",
+    "rumorId": "optimism_vs_reality",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Sweet Hjumpik believes a smile can halt a marauding Behemoth. How quaint. In the Feywild, as in Harvestide, claws do not yield to 'friendship.' Reality is a sharp blade, and his naive optimism is merely sharpening its edge.",
+    "likes": 842,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The light always finds a way through the shadows, Lady A! Just wait!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Someone get this kid a shield. Or a therapist."
+      }
+    ]
+  },
+  {
+    "id": "lesson_in_reality_post",
+    "order": 104561,
+    "characterKey": "hjumpik",
+    "rumorId": "optimism_vs_reality",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Aurelian is back at it with that 'logic' garbage. She thinks a sharp blade and a cold heart are all we need to survive Harvestide. Sorry milady, but you can't stab a bad mood away. We stick together or we die alone. Period.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "aurelian",
+        "text": "Sentimentality is a death sentence when the shadows are closing in, Hjumpik."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Let him cook. A little hope never hurt anyone... usually."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_buffet_disaster",
+    "order": 104711,
+    "characterKey": "waluigi",
+    "rumorId": "monster_hunger_rumor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "UNFAIR! I was just enjoying my snack and some freak breaks through the buffet doors?! My racket defense is flawless, but this beast has NO RESPECT for the rules! Everything is RUINED! Why does everyone else get to act like heroes while I suffer?! WAAAAH!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "aurelian",
+        "text": "Focus, Waluigi. Garud and I are engaging the entity now. Stand back."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Move aside. This thing is hungry, but I'm feeling even more violent. It ends NOW."
+      }
+    ]
+  },
+  {
+    "id": "buffet_chaos_1040",
+    "order": 104761,
+    "characterKey": "aurelian",
+    "rumorId": "monster_hunger_rumor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The feast in Harvestide was interrupted by a most unrefined guest. A void-hunger has breached our halls! Waluigi’s racket was no match for this breach. Garud and I stand firm, but the air reeks of a primal, dark craving. Something is very wrong.",
+    "likes": 842,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "WAAAAH! My racket is cracked! That thing didn't even care about the defense!"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I don't care what it is. I'm going to make sure it never eats anything ever again."
+      }
+    ]
+  },
+  {
+    "id": "bramble_chaos_1040",
+    "order": 104911,
+    "characterKey": "waluigi",
+    "rumorId": "monster_in_the_attic",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "UNFAIR! ABSOLUTELY UNFAIR! One second I’m just trying to defend myself with my ice pick, and the next this Bramble beast is roaring at ME?! The houseguard got tossed like a ragdoll! Why does the universe always target Waluigi?! WAAAAAAH!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Hold on, Waluigi! I'm coming in hot! Don't let that thing get the jump on you!"
+      }
+    ]
+  },
+  {
+    "id": "bramble_chaos_1040_1",
+    "order": 104961,
+    "characterKey": "toad_lee",
+    "rumorId": "monster_in_the_attic",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "EVERYTHING IS GOING WRONG! Houseguard just flew across the room like a pebble! Waluigi is swinging an ice pick at some shadow and now it's ROARING at us! I'm charging in with the axe, but if I don't post again, tell my mom I died brave!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "WAAAAH! The pick didn't even dent it! Stay back, you idiot!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Stop posting and start swinging, mushroom boy. This is embarrassing."
+      }
+    ]
+  },
+  {
+    "id": "aurelian_withdrawal_post",
+    "order": 105111,
+    "characterKey": "aurelian",
+    "rumorId": "aurelian_secret_spell",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The fray in Harvestide grows too coarse for delicate sensibilities. My constitution fails me today, but do not mistake my retreat for weakness. Some shadows are better left untended by common blades. Stay vigilant, if you can.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Lady, the perimeter is collapsing! We need your light, not more riddles!"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "The exit's blocked by sludge. Move fast or we're all toast."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_105161",
+    "order": 105161,
+    "characterKey": "hjumpik",
+    "rumorId": "aurelian_secret_spell",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Aurelian 'gets a headache' right when the beast starts biting? Please. I saw that glow from her fingers before she bolted. If she’s too fragile for Harvestide skirmishes, stay in the manor. Me and Toad Lee are literally dodging claws while she plays mage hermit.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Focus on the perimeter, Hjumpik! The exit path is blocked by sludge!"
+      },
+      {
+        "characterKey": "aurelian",
+        "text": "My constitution requires preservation for greater matters. You wouldn't understand."
+      }
+    ]
+  },
+  {
+    "id": "conflict_will_001",
+    "order": 105311,
+    "characterKey": "toad_lee",
+    "rumorId": "broken_alliances",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "I don't need your fancy spells or your pity, Aurelian! Magic won't fix a broken blade or a heavy heart. Just get out. I can handle the surge on my own. The party's strength doesn't mean nothing if we're just leaning on ghosts.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "aurelian",
+        "text": "I only wanted to help you carry the weight, Lee. If my presence is such a burden, then I shall go."
+      }
+    ]
+  },
+  {
+    "id": "conflict_aurelian_toad",
+    "order": 105361,
+    "characterKey": "aurelian",
+    "rumorId": "broken_alliances",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The ley lines hum with a grief even the stars cannot mask. I offered my grace to mend our path, yet Toad Lee chose nothing but venom and isolation. If he wishes to face the coming shadows alone, let him. My heart shall not be tethered to such pride.",
+    "likes": 412,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I don't need your 'grace' or your magic! Just get out of my sight!"
+      }
+    ]
+  },
+  {
+    "id": "guards_last_stand_post",
+    "order": 105511,
+    "characterKey": "toad_lee",
+    "rumorId": "bloodied_guard",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Saw the guard go down, thought it was over. Then the lad just... snapped. Went wild with that blade, tore that beast to ribbons right in front of me. Now there's nothing left but meat and a silence so heavy it hurts my ears. Proper carnage.",
+    "likes": 142,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Too much mess! Who's gonna clean up all this monster scrap? Not me!"
+      }
+    ]
+  },
+  {
+    "id": "manor_siege_chaos",
+    "order": 105711,
+    "characterKey": "aurelian",
+    "rumorId": "guard_frenzy",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Absolute carnage at the Manor. A guard lost his wits and turned into a butcher; Toad Lee tried to play hero but just got caught in the bloodlust. An axe nearly took Hjumpik's head off. Discipline has utterly evaporated. Such... unrefined chaos.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I wasn't 'playing hero', I was trying to prevent a massacre! My cloak is ruined!"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "I am still shaking. That blade missed me by a hair. We need a real plan, not this."
+      }
+    ]
+  },
+  {
+    "id": "manor_siege_chaos_01",
+    "order": 105761,
+    "characterKey": "toad_lee",
+    "rumorId": "guard_frenzy",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Everything went sideways! One guard goes berserk, shredding monsters like paper. Tried to step in but got caught in the meat grinder. Then some axe comes flying right at my head! Tactical plan? Gone. Just pure carnage at the Manor now.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I nearly lost an ear to that flying blade! Keep your eyes up next time!"
+      },
+      {
+        "characterKey": "aurelian",
+        "text": "So much for the formation. The discipline of this unit is truly decaying."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_manor_mess",
+    "order": 105911,
+    "characterKey": "hjumpik",
+    "rumorId": "manor_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Total disaster. Table smashed, guards bleeding, and we're running like rats. If Toad Lee hadn't played hero getting flattened, maybe we wouldn't be fleeing into the dark. Manor is lost. Don't ask me to go back.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I didn't 'play hero', I was literally being crushed! Watch your mouth!"
+      },
+      {
+        "characterKey": "archie",
+        "text": "The darkness in that manor... it wasn't just the lack of light. Stay safe."
+      }
+    ]
+  },
+  {
+    "id": "flight_manor_escape",
+    "order": 105961,
+    "characterKey": "toad_lee",
+    "rumorId": "manor_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Table smashed. Ribs cracking. That thing in the manor is bigger than it looks on the maps. We barely made it past the gates before things went south. Still got my axe, but I'm gonna need a heavy drink and some new armor after that mess.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "aurelian",
+        "text": "Keep your head down, Lee. We can't afford more casualties this close to Harvestide."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "The guard is stable for now, but that manor needs a cleansing ritual ASAP."
+      }
+    ]
+  },
+  {
+    "id": "shadows_fountain_drama",
+    "order": 106111,
+    "characterKey": "waluigi",
+    "rumorId": "grove_threat",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAAAAH! It’s UNFAIR! We barely escaped the shadows only to be hunted by the very trees! That beast isn't just following us; it has merged with the Grove itself! Why does everyone always let Waluigi take all the risks?!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The dryad still sleeps... she doesn't even know the corruption is here."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Stop whining and start fighting, you purple clown!"
+      }
+    ]
+  },
+  {
+    "id": "shadows_fountain_regroup",
+    "order": 106161,
+    "characterKey": "hjumpik",
+    "rumorId": "grove_threat",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Still shivering at the fountain like idiots. Waluigi is babbling about the monster being 'part of the grove' now. Absolute nonsense. If the Dryad stays this oblivious to the rot spreading near her roots, we’re all finished. Wake up.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Stop whining and start swinging. If it moves, I'll burn it."
+      }
+    ]
+  },
+  {
+    "id": "mysterious_visitor_post",
+    "order": 106311,
+    "characterKey": "rakasha",
+    "rumorId": "mysterious_dog",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Found a new little shadow lurking in Harvestide! 🐾 This pup popped into existence right next to Hjumpik like a bad magic trick. Brought a flower for the beast, but all I found was a scent of old gears and artificer grease. Who’s playing games with our reality?",
+    "likes": 84,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I did NOT authorize any teleportation services today, Rakasha."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "That smell... smells like the workshops in Ironforge. Watch your back."
+      }
+    ]
+  },
+  {
+    "id": "mysterious_dog_incident",
+    "order": 106361,
+    "characterKey": "hjumpik",
+    "rumorId": "mysterious_dog",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Don't ask how, but a random dog just popped into existence with me. Raksha is busy being weird and giving it flowers like it’s some divine sign. This thing smells like that Artificer's workshop. Someone explain why teleporting pets are suddenly a thing in Harvestide?",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "It is not just a pet, Hjumpik. The petals recognize its spirit."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "If it starts biting the gear, I'm out. Too much magic for one morning."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_106511",
+    "order": 106511,
+    "characterKey": "hjumpik",
+    "rumorId": "dog_origin_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "So Remi just rolls up from the skirmish with a new shadow attached. A dog? Out of thin air? Don't give me that 'found it' nonsense. Something smells way worse than wet fur, and it isn't just the battlefield.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "He was just sitting there near the wreckage! I didn't make him!"
+      },
+      {
+        "characterKey": "archie",
+        "text": "The magical residue around the creature is... highly irregular. Be careful."
+      }
+    ]
+  },
+  {
+    "id": "remi_dog_post",
+    "order": 106561,
+    "characterKey": "remi",
+    "rumorId": "dog_origin_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Uhm, okay... so things got super intense during the skirmish and now there's literally a random dog just vibing next to me? 🐾 It appeared out of nowhere with the aftermath. Is this some weird artificer magic or am I just hallucinating from the stress? Lowkey creepy.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The ether leaves trails, Remi. That creature wasn't born in this realm."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_collapse_warning",
+    "order": 106711,
+    "characterKey": "hjumpik",
+    "rumorId": "the_great_collapse",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Met some hooded weirdo today claiming they've seen planes crumble like stale bread. Says Harvestide is next on the list because of some 'cycle' from a millennium ago. If you believe this dramatic garbage, you're as delusional as the High King. Stop panicking.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "The shadows are lengthening, Hjumpik. The cycle cannot be ignored."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If the plane falls, I'm taking the loot first! Move aside!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_escape_rant",
+    "order": 106911,
+    "characterKey": "hjumpik",
+    "rumorId": "midnight_gate_secret",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "So we're just gonna ignore the Midnight Gate option? Fine. Let's just follow the chalk and pray to the Oracle while the rest of us bleed out in a chaotic mess. If you want a violent exit, stop acting like the plan is anything but a death trap.",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "The chalk works, Hjumpik! Stop being so dramatic about the Gate."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If it's loud and destructive, I'm in. Let's smash something."
+      }
+    ]
+  },
+  {
+    "id": "raksha_revelation_post",
+    "order": 107111,
+    "characterKey": "hjumpik",
+    "rumorId": "third_plane_existence",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Met a Raksha today. Spouted some nonsense about a 'third plane' and a Midnight Shrine. If reality is actually breaking because someone messed up a ritual, don't come crying to me when the sky starts leaking. Stop looking for magic and start looking for exits.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Sounds like a lot of talk. Can we eat the Raksha? Is it tasty?"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_floral_fail",
+    "order": 107311,
+    "characterKey": "hjumpik",
+    "rumorId": "raksha_trickery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "If one more Raksha tries to hand me a pretty petal like we're in some Bloom festival dream, I'm biting their fingers off. One 'friendly' flower? Now there are five of them surrounding me. This isn't kindness, it's a coordinated prank. Stop the nonsense.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Watch your back, Hjumpik! They look way too organized for just flowers."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_deceit_post",
+    "order": 107511,
+    "characterKey": "rakasha",
+    "rumorId": "flower_deceit",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "A little petal for a heavy heart? 🌸 Watching Hjumpik clutch that bloom like it’s pure gold... so delicious. They never see the teeth behind the nectar until the midnight portal rips wide! Playtime is just beginning, little mortals. #RakashaPride #MidnightTide",
+    "likes": 420,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The scent was real enough... I didn't realize the trap was already set."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Keep your tricks in the shadows, fox. We see the portal coming."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_1040",
+    "order": 107561,
+    "characterKey": "hjumpik",
+    "rumorId": "flower_deceit",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Some flashy Rakasha tried to play me with a 'pretty' flower. Smelled like rot and lies. I was too busy looking at this garbage to notice the midnight portal opening right behind us. Don't trust anything that looks that perfect in Harvestide.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Was the flower made of gold? If not, I don't care!"
+      }
+    ]
+  },
+  {
+    "id": "rakasha_taunt_post",
+    "order": 107711,
+    "characterKey": "rakasha",
+    "rumorId": "portal_vanishing",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Played a little game of 'Who Are You?' with a tasty morsel near the Midnight Gate. He finally whispered his name, but then—poof! The little worm jumped right into the portal and locked it behind him. Now the gate is dead and I'm still hungry. 🐯✨",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I didn't 'jump,' I escaped! Keep your claws off me next time!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_midnight_gate_incident",
+    "order": 107761,
+    "characterKey": "hjumpik",
+    "rumorId": "portal_vanishing",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Gate's dead. Some trash Rakasha kept barking my name like a damn beggar until I gave it up just to shut it up. I jumped through the Midnight Gate and now the whole thing is gone. If you’re looking for me, don't bother.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Wait, if the gate deactivated, how are you even posting this from the other side??"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Typical. Always running away when things get loud. Real brave, Hjumpik."
+      }
+    ]
+  },
+  {
+    "id": "maze_feud_update",
+    "order": 107911,
+    "characterKey": "delfino_reporter",
+    "rumorId": "maze_feud",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "🚨 BREAKING: The investigation into the missing guests takes a screeching turn! Saedia reports Herniva and Stuckina are still lost in the maze, but it’s not just fear—it's a full-blown war. The two are currently shrieking at each other like harpies! 😱🌀 #MazeMayhem",
+    "likes": 420,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Typical. Can't even go for a stroll without someone losing their scales."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If they don't shut up, I'm sending the Koopa Troop to clear the maze myself!"
+      }
+    ]
+  },
+  {
+    "id": "pond_feud_hjumpik",
+    "order": 108111,
+    "characterKey": "hjumpik",
+    "rumorId": "pond_feud",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Spotted the fish lady and that crusty hag staring each other down over the lily pad pond. No candles lit, just pure spite. If you two are gonna fight, do it somewhere else, you're ruining the manor's vibe with all this silent brooding.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Who cares? As long as they aren't splashing water on my gold coins!"
+      }
+    ]
+  },
+  {
+    "id": "theft_accusation_drama",
+    "order": 108311,
+    "characterKey": "waluigi",
+    "rumorId": "orb_theft_rumor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAAAAH! UNFAIR! This syrin Hjumpik stole my precious childhood orb! I offered her piles of gold and silver to return it, but she just mocks me! My heart is broken and my honor is insulted! Someone find that thief or face the consequences!!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Keep your coins, you ridiculous land-dweller. It's probably just lost in the Maze."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If it's not in the maze, I'll help you hunt her down. No one steals on my watch!"
+      }
+    ]
+  },
+  {
+    "id": "theft_accusation_drama_1",
+    "order": 108361,
+    "characterKey": "hjumpik",
+    "rumorId": "orb_theft_rumor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Some dried-up landlubber is screaming about a 'precious childhood orb' like it’s the Sun of Veridia. Offering gold and silver to hunt me down? Pathetic. If your stupid toy is lost in the Maze, go find it yourself. Stop wasting my bubbles with your delusions.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "If you want to use violence, just call me. I'll burn that maze down myself."
+      }
+    ]
+  },
+  {
+    "id": "stucky_eye_horror",
+    "order": 108511,
+    "characterKey": "hjumpik",
+    "rumorId": "stucky_eye_horror",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Just saw Stucky rip an eye right out of some idiot near the manor pond. Messy as hell. Honestly? That eyeball looks like it could power a whole ritual or at least a decent light spell. Waste not, want not. Waluigi is currently vibrating with fear. Pathetic.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "If it's got power, I want it. Send the location of the pond to my minions."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_eye_tragedy",
+    "order": 108561,
+    "characterKey": "waluigi",
+    "rumorId": "stucky_eye_horror",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAAAAH! EVERYTHING IS UNFAIR! One minute we’re walking by the manor pond, and the next STUCKY is ripping eyes out like they're cheap loot! Now there's just... magic eye gore everywhere! Why does it always happen to ME?! This is pure chaos!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Waluigi, please stop screaming. You're attracting more monsters near the water."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If it has magic potential, bring it to me. Otherwise, quit whining."
+      }
+    ]
+  },
+  {
+    "id": "bells_transformation_log",
+    "order": 108711,
+    "characterKey": "hjumpik",
+    "rumorId": "the_pearl_discovery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Rung the bell and everything went sideways. This skull Lee was staring at started screaming like a banshee before turning into a glowing pearl. Magic is getting way too loud for my liking. If you're looking for shiny trash, don't come knocking on my door.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "It wasn't just 'trash', Hjumpik! The resonance was purely celestial!"
+      }
+    ]
+  },
+  {
+    "id": "bells_transformation_post",
+    "order": 108761,
+    "characterKey": "toad_lee",
+    "rumorId": "the_pearl_discovery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Was just watchin' Hjumpik poke at that old skull near the bell. He rings it, and suddenly—BAM! Ears ringin' like a war drum. The bone starts glowin' so bright I had to squint, then turned into a shiny pearl. Magic is weird. I need a drink.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The resonance was perfect. The transformation proves the bell's ancient lineage!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "A pearl? Sounds like something worth a hefty bounty. Keep it safe, froggy."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_confession_post",
+    "order": 108911,
+    "characterKey": "hjumpik",
+    "rumorId": "the_stolen_relic",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Yeah, I took it. So what? That relic was too dangerous for anyone to find, especially that hag sniffing around my business. If the truth about my past comes out, everything breaks. Better a stolen relic than a revealed soul. Deal with it.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Typical Hjumpik. Always making your own mess and expecting us to just watch."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_confession_post",
+    "order": 108961,
+    "characterKey": "toad_lee",
+    "rumorId": "the_stolen_relic",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Spoke to Hjumpik. He took the relic. Said he was scared of some hag finding out his secrets. Fear ain't an excuse for theft in Harvestide. If you can't hold your ground, don't touch what isn't yours. My axe is itching.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I had no choice! The shadows were closing in on me!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_109111",
+    "order": 109111,
+    "characterKey": "hjumpik",
+    "rumorId": "mermaid_tricks",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Stop calling them 'graceful.' Those sirens in the Reef of Sorrows aren't singing for love; they're humming to make sure you don't notice the hull cracking. They lure ships to the rocks just to watch us sink. It's not magic, it's predatory garbage.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "As long as they don't touch my gold, I don't care!"
+      }
+    ]
+  },
+  {
+    "id": "prank_regret_post",
+    "order": 109311,
+    "characterKey": "toad_lee",
+    "rumorId": "cursed_toad_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Used to think being tough meant nothing could hurt. Tried a stupid prank back in the day, pulled a toad into the river. Thing elbowed me so hard I spat out a curse without thinking. Now it's stuck in some dark cave alone. My axe feels heavy with the guilt.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Does this mean there's gold in that cave? If not, I don't care!"
+      }
+    ]
+  },
+  {
+    "id": "uncursing_hope_post",
+    "order": 109511,
+    "characterKey": "toad_lee",
+    "rumorId": "saedee_knowledge_lead",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The air feels heavy with that nasty hex. We're all feeling the weight of it, but I heard talk of Saedee knowing a way to break the rot. If there's a ritual to undo this mess, I’ll swing my axe through anything in our way to find it.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Does this uncursing cost gold? Because if it does, I'm out!"
+      }
+    ]
+  },
+  {
+    "id": "compass_discovery_post",
+    "order": 109711,
+    "characterKey": "toad_lee",
+    "rumorId": "compass_discovery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Hjumpik and the lot were getting all deep and misty talking to that shadow thing about the orb. I had to remind 'em we're just tourists in this dimension. Anyway, the entity gave us a shiny compass that tracks friends. Great, now I can find you lot even when you're being annoying.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It was a delicate negotiation, Lee! The orb's destiny hangs in the balance!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "As long as it points to something worth smashing, I don't care."
+      }
+    ]
+  },
+  {
+    "id": "compass_discovery_post_1",
+    "order": 109761,
+    "characterKey": "hjumpik",
+    "rumorId": "compass_discovery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Negotiating with some shadow entity about the orb was getting heavy until Toad Lee had to remind us we don't even belong in this dimension. Whatever. The entity gave us a compass that tracks friends instead. At least it’s useful for finding idiots.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I'm just saying, spatial awareness is important when you're interdimensional!"
+      }
+    ]
+  },
+  {
+    "id": "potents_brew_debate",
+    "order": 109911,
+    "characterKey": "hjumpik",
+    "rumorId": "sleeping_brew_plan",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Stop acting like monsters. We aren't dumping sewage to turn satyrs into hags; I've got a conscience. If the entity thinks this 'potent brew' works to just put them to sleep without permanent damage, fine. But if anyone gets maimed, heads will roll.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "As long as we don't have to clean up the mess later, I'm in."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Just make it strong enough to knock out a whole army!"
+      }
+    ]
+  },
+  {
+    "id": "grove_ambush_chaos",
+    "order": 110111,
+    "characterKey": "toad_lee",
+    "rumorId": "grove_ambass",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "ABSOLUTE MESS IN THE GROVE! Found Rakasha stuck under a giant toad. Then BAM—Stucky goes flying like a pebble and the steel defender won't stop yapping! Axe is out, blood is flying, just pure chaos. Someone bring me a drink and a bigger shield!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "rakasha",
+        "text": "IT WAS A VERY HEAVY TOAD, LEE. WATCH YOUR TONE."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Stucky flying? Need to see a video of this madness next time."
+      }
+    ]
+  },
+  {
+    "id": "grove_ambush_chaos_1",
+    "order": 110161,
+    "characterKey": "rakasha",
+    "rumorId": "grove_ambush",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Found a snack under a giant toad today! 🍄 Suddenly everything went sideways. Stucky's airborne, the steel defender is losing its mind, and Toad Lee just dove headfirst into the mess. Chaos suits me, but someone catch that flying idiot!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I DID NOT DIVE, I STRATEGICALLY LEAPED INTO THE FRAY!"
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_grove_outrage",
+    "order": 110311,
+    "characterKey": "toad_lee",
+    "rumorId": "toad_rage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Saw 'em fall. Just innocent folk, caught in the crossfire at the grove. I'm done with this 'skirmish' talk. This ain't war anymore, it's just slaughter. My axe is heavy, but my patience is gone. Enough is enough.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "The shadows are growing long, Lee. This blood won't wash away easily."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If they keep swinging blindly, there won't be a grove left to defend!"
+      }
+    ]
+  },
+  {
+    "id": "beast_fall_chaos",
+    "order": 110511,
+    "characterKey": "hjumpik",
+    "rumorId": "beast_death_rumor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Absolute mess in the outskirts. Toad Lee was running around like a headless mushroom while I had to actually land the killing blow on that oversized freak. Then Waluigi just wanders in to take all the credit? Pathetic.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I WAS PROVIDING TACTICAL DISTRACTIONS! YOU WOULD HAVE DIED WITHOUT ME!"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Wahaha! The victory belongs to the one with the style! You're welcome."
+      }
+    ]
+  },
+  {
+    "id": "beast_death_post",
+    "order": 110561,
+    "characterKey": "toad_lee",
+    "rumorId": "beast_death_rumor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "BLOOD EVERYWHERE!!! That giant thing almost had us! Hjumpik finally poked its eye or something and it went DOWN. Then Waluigi just strolls in like he did all the work?! GET OUTTA HERE WITH THAT!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It was called precision, Lee. You wouldn't understand."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Waaaaah! The true victor has arrived! Victory is mine!"
+      }
+    ]
+  },
+  {
+    "id": "cursed_custody_incident",
+    "order": 110711,
+    "characterKey": "hjumpik",
+    "rumorId": "hag_curse_whispers",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Don't care if she's bleeding out. Herniva showed up acting like she owns the place and claims the hag is already marked. If we don't watch our backs, this 'custody' battle is gonna end with us all hexed. Toad Lee, stop shaking and keep your eyes open!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I'm trying! But the magic in the air is making my hands tremble!"
+      }
+    ]
+  },
+  {
+    "id": "cursed_custody_post",
+    "order": 110761,
+    "characterKey": "toad_lee",
+    "rumorId": "hag_curse_whispers",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Blood's still wet on my axe and now this? We're tryin' to keep the hag safe but Herniva's crawlin' out of the shadows claimin' she already put a curse on 'er. I don't care about destiny, I just want this fight over without more magic nonsense!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Keep your eyes up, Lee. Herniva isn't playing games this time."
+      }
+    ]
+  },
+  {
+    "id": "dragons_tribute_alert_post",
+    "order": 110911,
+    "characterKey": "hjumpik",
+    "rumorId": "dragon_tribute_alert",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Had to use my good side to talk those woodsmen out of blocking the path. Turns out they aren't just patrolling; they're hauling that hag straight to a dragon. If you see smoke rising over the canopy, don't say I didn't warn you. This is getting messy.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "A dragon?! Hjumpik, we are way underleveled for a tribute ceremony!"
+      }
+    ]
+  },
+  {
+    "id": "dragon_tribute_alert_post",
+    "order": 110961,
+    "characterKey": "toad_lee",
+    "rumorId": "dragon_tribute_alert",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Path's blocked. Guards acting twitchy in the woods. Hjumpik talked us past 'em, but then we saw it... they’re hauling that hag straight toward a dragon's lair. My axe feels heavy today. Something big is coming, and it ain't friendly.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "My silver tongue only goes so far when the sky starts burning, Lee."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If that dragon breathes fire, I'm finding a very deep hole to hide in."
+      }
+    ]
+  },
+  {
+    "id": "dragon_tithe_incident",
+    "order": 111111,
+    "characterKey": "hjumpik",
+    "rumorId": "dragon_kidnap_rumor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "If you lot stop staring at your boots and look up, you'd see the guards dragging a tribute straight to that mountain-sized lizard. Something is rotting in Harvestide and it smells like burnt scales. Stop acting useless before we all become snacks.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Keep your voice down! My ears are still ringing from those whispers near the cave."
+      }
+    ]
+  },
+  {
+    "id": "dragon_tithe_incident_1",
+    "order": 111161,
+    "characterKey": "toad_lee",
+    "rumorId": "dragon_kidnap_rumor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Saw the Iron Guard lugging a prisoner toward the Great Slumber. The air smells like smoke and old scales. Hjumpik’s shaking like a leaf, but I'm gripping my axe. If that beast wakes up hungry, Harvestide is gonna burn.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The whispers... they weren't just wind, Lee. Something ancient is breathing under us."
+      }
+    ]
+  },
+  {
+    "id": "shadow_wind_confrontation",
+    "order": 111311,
+    "characterKey": "toad_lee",
+    "rumorId": "spy_sighting_whisper",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Saw a shape movin' near the edge of Harvestide woods. Didn't look like no breeze to me. Axe is out and I'm goin' in to see if they bleed. If it’s a spy, they’re gettin' heavy steel to the face.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Lee, stay your hand! You can't just swing at every shadow. It could be a trick of the light!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_1040_1",
+    "order": 111361,
+    "characterKey": "hjumpik",
+    "rumorId": "spy_sighting_whisper",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "@toad_lee Stop being a complete idiot. You saw a shadow in the Harvestide breeze and decided to charge in solo? It’s probably just a trick of the wind or a common thief, not some grand spy conspiracy. Don't get yourself killed for nothing.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "It wasn't just wind! It moved with intent, Hjumpik. I'm going back to check."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_772",
+    "order": 111511,
+    "characterKey": "hjumpik",
+    "rumorId": "grafting_secret",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Stop acting like this crisis is new. Chirneros just spilled the tea: The Legion's 'power' started with a smashed dragon egg and a blood sacrifice. The Grafting wasn't magic; it was murder. History repeats because you lot are too blind to see the pattern.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Wait, so the whole foundation of our strength is just... dead hatchlings?"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If it brings more power, why are we complaining? Just grab the egg!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_standoff_post",
+    "order": 111711,
+    "characterKey": "hjumpik",
+    "rumorId": "hag_hostage_deal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Chirneros is being a complete idiot. I'm literally handing him the keys to the dragon's curse on a silver platter and he's still playing 'tough guy' without seeing the hag. If he keeps stalling, there won't be anyone left to negotiate with. Grow a spine!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Negotiations? Sounds like a waste of time when there's gold to be grabbed!"
+      }
+    ]
+  },
+  {
+    "id": "bush_dweller_chase",
+    "order": 111911,
+    "characterKey": "hjumpik",
+    "rumorId": "toad_lee_sighting",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Spotted a literal pebble moving in the Harvestide shrubs today. Turns out it was just that pathetic toad Lee trying to play ninja. We chased him for ten minutes before realizing he's too small to even be worth the cardio. Stay in the mud, loser.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I WASN'T HIDING, I WAS TACTICALLY REPOSITIONING!"
+      }
+    ]
+  },
+  {
+    "id": "bush_dweller_escape",
+    "order": 111961,
+    "characterKey": "toad_lee",
+    "rumorId": "toad_lee_sighting",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Thought I was a ghost in the Harvestide thickets. These adventurers are loud as a landslide! Nearly lost my head to a heavy boot, but I slipped into the ferns. If you see me, no you didn't. Stay out of my shrubs.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Quit hiding and pay up the bounty! WAHAHA!"
+      }
+    ]
+  },
+  {
+    "id": "water_lady_incident",
+    "order": 112111,
+    "characterKey": "toad_lee",
+    "rumorId": "mysterious_water_apparition",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Some guard started barkin' at us near the outskirts. Then, boom—this lady just rises outta the river like she was born there. Creepy as a rot-filled stump. Guards are sniffin' around her now. I’m keepin' my axe ready.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Did she look... spectral? The mists were thick near the bank."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_post_718",
+    "order": 112161,
+    "characterKey": "hjumpik",
+    "rumorId": "mysterious_water_apparition",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Great. Just great. We're stuck at the Harvestide outskirts because some tin-can guard wants to play detective. Then some wet lady pops out of the river like she owns the place. Now they're all staring at her like she's a ghost. Can we just keep moving?",
+    "likes": 14,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Probably just a swamp nymph looking for snacks. Don't overthink it."
+      }
+    ]
+  },
+  {
+    "id": "unfinished_bargain_leak",
+    "order": 112311,
+    "characterKey": "toad_lee",
+    "rumorId": "hernivas_demand",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Herniva showed up with a skull and some fancy bottle acting like she owns the place. Says I missed a check-in with Sedeia. Thorne and Thystil were hovering like flies on meat. I ain't broken no deals, just haven't seen reason to talk yet.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "A skull? That's a bit dramatic even for her. Watch your back, Lee."
+      }
+    ]
+  },
+  {
+    "id": "hernivas_demand_post",
+    "order": 112361,
+    "characterKey": "hjumpik",
+    "rumorId": "hernivas_demand",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Look at this mess. Herniva shows up with a skull and a bottle like she's some dark prophet, all because Toad Lee can't manage a simple message to Sedeia? Thorne and Thystil are just standing there acting like heavy scenery. Pathetic.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "The logistics in Sedeia are a nightmare right now, Hjumpik. Give me a break."
+      }
+    ]
+  },
+  {
+    "id": "lessons_in_smashing",
+    "order": 112511,
+    "characterKey": "hjumpik",
+    "rumorId": "the_smash_technique",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Thorne and Thystil came swinging like headless chickens looking for a duel. Instead of breaking teeth, I showed 'em how to actually land a hit with 'the smash'. Now they're stomping around Harvestide acting like heavyweights. Idiots, but at least they're useful now.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Show me the smash! If it makes gold coins fly, I'm in!"
+      }
+    ]
+  },
+  {
+    "id": "underground_treachery_post",
+    "order": 112711,
+    "characterKey": "hjumpik",
+    "rumorId": "buried_treasure_plot",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Caught Waluigi and Herniva whispering in the tunnels about 'hidden gold' again. Rakasha tried to play hero and stop them, but the greed is too loud. What are you two actually digging for? This smells like a trap for the whole Harvestide guild.",
+    "likes": 42,
+    "comments": []
+  },
+  {
+    "id": "underground_betrayal_post",
+    "order": 112761,
+    "characterKey": "waluigi",
+    "rumorId": "buried_treasure_plot",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "WAAAAH! Everything is so UNFAIR! I was just discussing potential riches with Herniva and suddenly Hjumpik starts accusing me of treason?! And then Rakasha tries to ruin the fun too! Why does everyone always target Waluigi when he's just trying to prosper?!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The shadows don't lie. I saw the map, Waluigi. Tell us what you're really after."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_unjust_pact",
+    "order": 112911,
+    "characterKey": "waluigi",
+    "rumorId": "hag_beauty_scheme",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "IT'S UNFAIR! Stucky gets attacked and suddenly Hjumpik is making demands?! She wants to turn everyone into hags just so she can look pretty? WAAAH! I hate this! But... those potions look expensive. Fine! I'll sign, but I'm being ROBBED!",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Beauty requires sacrifice, Waluigi. Now sign the scroll before I change my mind."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "If there's no profit in it, why are you even bothering to complain?"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_confrontation_post",
+    "order": 112961,
+    "characterKey": "hjumpik",
+    "rumorId": "hag_beauty_scheme",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Listen up, losers. You broke the pact and went after Stucky. Big mistake. If I have to turn every single one of you into a hideous hag just so I stay the prettiest thing in Harvestide, I'll do it. Don't test me.",
+    "likes": 42,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I don't trust you one bit, but those potions look tasty... fine, deal."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Try turning me into a hag and see what happens to your face!"
+      }
+    ]
+  }
 ];
 
 // Export helper for event integration

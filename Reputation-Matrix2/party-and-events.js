@@ -5867,4 +5867,1739 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         "type": "combat"
     }
 }
+,
+
+
+  // -- feyward-discoverys | 2026-04-26 17:12 --
+  {
+    "id": "weak_bloodline",
+    "title": "The Fragile Heir",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "Tension fractured the air in the lowlands as Aurelian proposed a direct diplomatic envoy to the Revelmaster. Toad Lee and Hjumpik openly voiced their disdain, whispering of her lack of true magical potency and her inability to command respect from such an ancient entity. Despite the biting skepticism regarding her bloodline's strength, the group has reluctantly committed to bringing her as their primary negotiator.",
+    "targets": [
+      "aurelian",
+      "toad_lee",
+      "hjumpik"
+    ],
+    "effects": {
+      "delegation_unity": -10,
+      "revelmaster_interest": 5
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "Diplomatic Friction",
+      "type": "social"
+    }
+  },
+  {
+    "id": "legion_presence",
+    "title": "The Legion's Arrival",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "A chilling silence fell over the Raventree estate as the unmistakable iron-clad silhouettes of the Legion emerged from the treeline. Hjumpik reported a terrifying surge in entropic magical instability, suggesting the deployment was no mere coincidence but a calculated strike against the manor's foundations. Panic is mounting among the staff as whispers circulate that the Revelmaster has been marked for a shadow assassination.",
+    "targets": [
+      "revelmaster",
+      "raventree_manor"
+    ],
+    "effects": {
+      "legion_influence": 15,
+      "manor_stability": -20,
+      "local_fear": 30
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Escalating Hostility",
+      "type": "political"
+    }
+  },
+  {
+    "id": "wario_debts",
+    "title": "The Unpaid Receipts",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "climax",
+    "description": "A public spectacle erupted in the Diamond City marketplace as Waluigi cornered Wario with a mountain of crumpled, ink-stained ledgers. The confrontation devolved into a slapstick frenzy of flying receipts and shouted accusations regarding missing garlic shipments and unverified gold coins. While Wario attempted to deflect the scrutiny by aggressively negotiating his lunch bill, the sheer chaos of the audit has left onlookers questioning the solvency of the kingdom's most notorious entrepreneurs.",
+    "targets": [
+      "wario",
+      "waluigi"
+    ],
+    "effects": {
+      "diamond_city_merchants": -15,
+      "wario_ware_corp": -30
+    },
+    "cycle_impact": {
+      "score": 2.5,
+      "label": "Financial Instability",
+      "type": "social"
+    }
+  },
+  {
+    "id": "portal_secrets",
+    "title": "The 800 Gold Secret",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "wario",
+    "arc": "raventree_manor",
+    "arcPosition": "falling",
+    "description": "A heavy silence fell over the camp as Shadeward emerged from the shadows, clutching maps that detail a hidden portal used to bypass the manor's perimeter. Wario attempted to broker a deal for this escape route, but the negotiation dissolved into bitter resentment when the party could not meet his exorbitant 800 gold ransom. Now, Hjumpik remains haunted by the knowledge of an untapped exit that remains tantalizingly out of reach.",
+    "targets": [
+      "hjumpik",
+      "wario"
+    ],
+    "effects": {
+      "adventurers": -15,
+      "shadow_network": 5
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "Stalled Progress",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "wario_empathy_scam",
+    "title": "The Empathy Expert",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "wario",
+    "arc": "capital_intrigue",
+    "arcPosition": "rising",
+    "description": "Rumors swirl through the marketplace regarding Wario's sudden, suspicious transformation into a paragon of emotional intelligence. Witnesses claim he attempted to woo a high-profile client using nauseatingly sweet platitudes learned from his recent empathy classes. Even when the client's pockets were found to be utterly empty of gold, Wario maintained a terrifyingly professional smile that left onlookers deeply unsettled. The rest of the crew has reportedly abandoned him to navigate this bizarre solo negotiation alone.",
+    "targets": [
+      "wario"
+    ],
+    "effects": {
+      "mercenary_guild": -2,
+      "local_townspeople": 1
+    },
+    "cycle_impact": {
+      "score": 0.8,
+      "label": "Socially Awkward",
+      "type": "social"
+    }
+  },
+  {
+    "id": "office_breach_alert",
+    "title": "The Unlocked Office",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "aurelian",
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "Shadows stretched long across the corridor as Aurelian successfully bypassed the arcane wards guarding the Seneschal's private sanctum. Upon breaching the heavy oak doors, the party was met not with ledgers or gold, but with a suffocating thicket of pulsating, bioluminescent flora that had overtaken the desk. The air in the office hangs heavy with the scent of damp earth and ozone, suggesting a rapid, unnatural growth triggered by recent disturbances.",
+    "targets": [
+      "seneschal_office",
+      "raventree_manor_staff"
+    ],
+    "effects": {
+      "raventree_manor_guard": -10,
+      "nature_corruption": 15
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "Infiltration Success",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "dryad_threat",
+    "title": "The Flower Room Sentinel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "Deep within the attic's hidden chambers, Toad Lee stumbled into a suffocatingly fragrant room overflowing with bioluminescent flora. A dryad emerged from the petal-strewn shadows, her eyes burning with ancient resentment as she leveled a trembling, vine-wrapped finger directly at Toad Lee. The air grew heavy with the scent of ozone and rot, leaving the party frozen in a moment of terrifying confrontation.",
+    "targets": [
+      "toad_lee",
+      "party_members"
+    ],
+    "effects": {
+      "feywild_sentinels": -10,
+      "the_unseen_grove": 5
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Heightened Dread",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "burley_growth_threat",
+    "title": "The Ever-Growing Hunger",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "Whispers of the Burley Entity's insatiable appetite have begun to poison the local discourse. Toad Lee has openly voiced fears regarding the creature's rapid biomass consumption, suggesting a metamorphosis that could threaten entire settlements. Amidst the tension, Hjumpik and Aurelian were observed debating frantic containment measures for their own private quarters. The air grows heavy with the dread of an uncontrolled biological explosion.",
+    "targets": [
+      "toad_lee",
+      "hjumpik",
+      "aurelian"
+    ],
+    "effects": {
+      "the_feywild_fracture": -2,
+      "local_settlements": -1
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Escalating Dread",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "the_play_distraction",
+    "title": "Theater or Treachery?",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A sudden rupture in decorum occurred near the grand amphitheater when Toad Lee intercepted Waluigi and Lady Aurelian attempting a clandestine departure. As the pair moved toward the theater shadows, Toad Lee physically restrained Waluigi, forcing a confrontation that stripped away their veneer of leisure. The air grew thick with suspicion as the group realized the pretense of attending a play was merely a shroud for an unauthorized desertion. This public display of friction has left the party's collective vigilance fractured and deeply uncertain.",
+    "targets": [
+      "toad_lee",
+      "waluigi",
+      "aurelian"
+    ],
+    "effects": {
+      "party_cohesion": -15,
+      "suspicion_level": 20
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Social Instability",
+      "type": "social"
+    }
+  },
+  {
+    "id": "the_revelmasters_pet",
+    "title": "The Forbidden Kill",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "aurelian",
+    "arc": "supernatural_sovereignty",
+    "arcPosition": "climax",
+    "description": "Lady Aurelian issued a chilling ultimatum within the high halls, strictly forbidding the execution of the captured entity to prevent a diplomatic catastrophe with the Revelmaster. As Hjumpik and Toad_lee stood poised for justice, her voice rang with cold political calculation, prioritizing her social standing over the eradication of the threat. The tense standoff concluded with the heavy, echoing slam of a reinforced oak door, leaving the group stranded in the corridor.",
+    "targets": [
+      "hjumpik",
+      "toad_lee"
+    ],
+    "effects": {
+      "revelmaster_diplomacy": 15,
+      "aurelian_influence": 10,
+      "containment_stability": -5
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Political Gridlock",
+      "type": "political"
+    }
+  },
+  {
+    "id": "stone_weapon_lore",
+    "title": "The Lithic Arsenal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "aurelian",
+    "arc": "feywild_attic",
+    "arcPosition": "falling",
+    "description": "Under the flickering glow of twilight, Aurelian unveiled the terrifying secrets of her lithic weaponry during a heated confrontation. She described blades forged from primordial stone that pulse with a rhythmic heartbeat, mirroring the very essence of the encroaching monstrosities. The air grew heavy with the realization that these weapons were not merely tools, but echoes of a much larger, more ancient threat. Her revelation left the gathered companions paralyzed by the sheer scale of the coming devastation.",
+    "targets": [
+      "aurelian",
+      "party_members"
+    ],
+    "effects": {
+      "feywild_denizens": -1,
+      "the_stone_bound": 2
+    },
+    "cycle_impact": {
+      "score": 1.5,
+      "label": "heightened_awareness",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "hypnotic_fan_sightings",
+    "title": "The Gaze of Autumn",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "aurelian",
+    "arc": "feywild_attic",
+    "arcPosition": "introduction",
+    "description": "A sudden, unnatural stillness descended upon the assembly as Aurelian unfurled a delicate orange silk fan. The painted autumn scenes within the fabric began to shift and swirl with a life of their own, casting a hypnotic rhythm across the room. Onlookers found themselves trapped in a trance, their gazes locked onto the fluttering silk while their very memories began to fray at the edges. This display of potent enchantment left the witnesses dazed, staring blankly as if the world outside the fan's reach had ceased to exist.",
+    "targets": [
+      "aurelian",
+      "local_nobility"
+    ],
+    "effects": {
+      "feywild_court": 2,
+      "mortal_realm": -1
+    },
+    "cycle_impact": {
+      "score": 2.5,
+      "label": "Enchanting",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "negligent_guards",
+    "title": "Drunken Sentinels of the Estate",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "Shadows lengthen over the estate as hjumpik orchestrates a desperate gambit to bait an unseen predator into the light. The air hangs heavy with tension, exacerbated by the realization that Aurelian's personal guard has succumbed to a stupor of potent spirits and reckless indulgence. A frantic strategy is being forged in the dark, centered on a high-stakes lunge followed by a harrowing teleportation maneuver to escape certain death.",
+    "targets": [
+      "aurelian",
+      "estate_guard"
+    ],
+    "effects": {
+      "Aurelian_Retinue": -2,
+      "Security_Alertness": -3
+    },
+    "cycle_impact": {
+      "score": 1.5,
+      "label": "Escalating Vulnerability",
+      "type": "social"
+    }
+  },
+  {
+    "id": "the_tripping_spy",
+    "title": "The Clumsy Shadow",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A botched reconnaissance mission turned into a slapstick tragedy when Waluigi lost his footing on the plush attic carpets. The sudden, ungraceful tumble sent shadows dancing wildly across the walls, nearly alerting the entire floor to their presence. Only Hjumpik's lightning-fast intervention prevented a full-blown catastrophe, catching the bumbling spy before he could make a loud and humiliating impact. Now, whispers of this lack of grace threaten to unravel the delicate tension of their infiltration.",
+    "targets": [
+      "waluigi",
+      "hjumpik"
+    ],
+    "effects": {
+      "infiltrators": -10,
+      "fey_sentries": 5
+    },
+    "cycle_impact": {
+      "score": 0.8,
+      "label": "Embarrassing",
+      "type": "social"
+    }
+  },
+  {
+    "id": "the_window_infiltration",
+    "title": "Small Shadows in the Glass",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A heavy silence hangs over the perimeter as Toad Lee prepares to squeeze through a narrow, frost-cracked window. Hjumpik stands guard in the shadows, eyes darting toward the treeline while clutching a makeshift signal flare. The mission hinges on a desperate diversion to mask the small scout's descent into the unknown territory below. Every creak of the wooden frame threatens to shatter the fragile tension of the infiltration.",
+    "targets": [
+      "hjumpik",
+      "toad_lee"
+    ],
+    "effects": {
+      "scouts_guild": 1,
+      "feywild_sentinels": -1
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "Expanding Reconnaissance",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "voices_in_the_garden",
+    "title": "The Bathhouse Strangers",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "climax",
+    "description": "A heavy silence fell over the thicket as Toad Lee landed amidst the damp ferns, only to be broken by the muffled, rhythmic murmurs of approaching figures. The strangers spoke with a chilling casualness about taking shortcuts toward the local bathhouse, their voices carrying an edge of calculated intent. Though they seemed oblivious to his presence, the unmistakable sensation of being hunted prickled against Toad Lee's skin like freezing rain. Shadows lengthened around the perimeter of the garden, suggesting that these travelers are far more than mere passersby.",
+    "targets": [
+      "toad_lee"
+    ],
+    "effects": {
+      "unseen_trackers": -10
+    },
+    "cycle_impact": {
+      "score": 2.5,
+      "label": "High Tension",
+      "type": "social"
+    }
+  },
+  {
+    "id": "revel_interruption",
+    "title": "The Hiding Hjumpik",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "The humid air of the bathhouse district vibrates with the deafening drums of the ongoing festival, masking the frantic movements of those seeking shadows. Just as the group attempted to slip through the steam-choked corridors toward Toad Lee, Hjumpik lunged from behind a heavy velvet curtain to intercept their path. The sudden confrontation sent ripples of confusion through the nearby revelers, turning a stealthy maneuver into a public spectacle of chaotic energy.",
+    "targets": [
+      "toad_lee",
+      "party_members"
+    ],
+    "effects": {
+      "bathhouse_patrol": -1,
+      "feywild_celebrants": 2
+    },
+    "cycle_impact": {
+      "score": 1.5,
+      "label": "Increased Visibility",
+      "type": "social"
+    }
+  },
+  {
+    "id": "moving_flower_mystery",
+    "title": "The Sentient Bloom",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A rhythmic, pulsating pink flower has manifested within the dusty confines of the attic, defying all botanical logic. As hjumpik sang during cleaning, the heavy door began a frantic cycle of slamming shut and swinging open, each interval bringing the petal-heavy entity closer to the center of the room. Toad_lee observed from the threshold as hjumpik attempted to bridge the gap with whispered incantations toward the encroaching bloom. The air now carries a cloying, magical scent that suggests the boundary between worlds is thinning.",
+    "targets": [
+      "hjumpik",
+      "toad_lee"
+    ],
+    "effects": {
+      "feywild_denizens": 1,
+      "attic_dwellers": -1
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Encroaching Mysticism",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "goblin_ambush_report",
+    "title": "The Goblin Silence",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "aurelian",
+    "arc": "feywild_attic",
+    "arcPosition": "climax",
+    "description": "A sudden, violent goblin skirmish has left a chilling void where the party's companions once stood. Amidst the settling dust and clashing steel, Hjumpik struggles to articulate the terrifying scale of the disappearance and the looming threat of the goblin horde. Lady Aurelian's icy reprimand toward Hjumpik’s lack of discipline echoes through the clearing, masking her own growing dread. The silence left by the vanished allies weighs heavier than the sounds of battle.",
+    "targets": [
+      "hjumpik",
+      "party_members"
+    ],
+    "effects": {
+      "the_goblin_host": 2,
+      "party_cohesion": -3
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Social Fracture",
+      "type": "social"
+    }
+  },
+  {
+    "id": "wario_theft_scandal",
+    "title": "The Room Raider",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "wario",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A chaotic scene unfolded in Lady Aurelian's private chambers when Hjumpik discovered Wario amidst a mountain of looted finery. The greedy interloper stood triumphant, brandishing a shimmering stolen gem and various trinkets with an insufferable, toothy grin. A frantic negotiation erupted as Wario attempted to barter the recovered loot against Hjumpik's most precious dried papers in a display of pure, unadulterated opportunism.",
+    "targets": [
+      "lady_aurelian",
+      "hjumpik"
+    ],
+    "effects": {
+      "feywild_nobility": -2,
+      "mercenary_guild": 1
+    },
+    "cycle_impact": {
+      "score": 1.5,
+      "label": "Social Chaos",
+      "type": "social"
+    }
+  },
+  {
+    "id": "paper_ransom_deal",
+    "title": "The Stained Records",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "falling",
+    "description": "A tense standoff between hjumpik and Wario concluded in a grim diplomatic settlement within the shadowed corridors of the estate. Leveraging the threat of exposing Wario's recent thefts to Lady Aurelian, hjumpik successfully coerced the return of several aged, ink-stained documents. While the physical papers have been recovered, the air remains thick with mutual distrust between the two parties. The compromise has temporarily halted an open scandal, but Wario's resentment toward this blackmail looms large.",
+    "targets": [
+      "wario",
+      "lady_aurelian"
+    ],
+    "effects": {
+      "the_guild": -5,
+      "hjumpik_influence": 10
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "Stabilized",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "optimism_vs_reality",
+    "title": "The Naive Hero's Folly",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "aurelian",
+    "arc": "feywild_attic",
+    "arcPosition": "falling",
+    "description": "A bitter confrontation erupted beneath the weeping willow shadows as Lady Aurelian openly derided Hjumpik's reliance on sentimentality. With a voice laced with cold disdain, she mocked his desperate belief that diplomatic friendship could stave off the encroaching nightmare of the Feywild's monsters. Despite the palpable tension and the rising threat of violence, Hjumpik stood his ground with a stubborn, almost reckless optimism that left onlookers unsettled.",
+    "targets": [
+      "hjumpik"
+    ],
+    "effects": {
+      "the_fey_court": -2,
+      "hjumpik_allies": 1
+    },
+    "cycle_impact": {
+      "score": 1.5,
+      "label": "Fractured Trust",
+      "type": "social"
+    }
+  },
+  {
+    "id": "monster_hunger_rumor",
+    "title": "The Beast at the Door",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A cacophony of splintering wood and guttural roars erupted as a monstrous entity tore through the buffet hall doors, shattering Waluigi's rhythmic racket defense. Amidst the flying debris and spilled wine, Aurelian and Garud have drawn steel to confront the encroaching shadow of a dark, unnatural hunger. The air thickens with sudden madness as Toad Lee's eyes glaze over with a terrifying, murderous resolve to purge the intruder.",
+    "targets": [
+      "waluigi",
+      "aurelian",
+      "toad_lee"
+    ],
+    "effects": {
+      "feywild_denizens": -2,
+      "buffet_patrons": -5
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Escalating Carnage",
+      "type": "combat"
+    }
+  },
+  {
+    "id": "monster_in_the_attic",
+    "title": "The Bramble Fly Presence",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A sudden, deafening roar shattered the silence of the attic as a heavy houseguard was hurled across the floorboards, leaving a trail of crimson in his wake. Amidst the splintering wood and choking dust, Waluigi lunged forward with a jagged ice pick, desperately trying to puncture the chitinous hide of the encroaching beast. Toad Lee charged into the chaotic fray with reckless abandon, his eyes wide as the Bramble Fly's screech signaled a hunt that had only just begun.",
+    "targets": [
+      "houseguard",
+      "waluigi",
+      "toad_lee"
+    ],
+    "effects": {
+      "attic_dwellers": -15,
+      "local_militia": -5
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Escalating Carnage",
+      "type": "combat"
+    }
+  },
+  {
+    "id": "aurelian_secret_spell",
+    "title": "The Lady's Hidden Magic",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "aurelian",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "As the monstrous shadows closed in on the party, Lady Aurelian Corvinarus announced her sudden frailty and retreated from the fray. Observers noted a faint, shimmering distortion in the air as she surreptitiously wove a forbidden incantation before vanishing into the gloom. Amidst the chaos, Hjumpik scrambled through the mud to coordinate an escape with Toad Lee, but the group's defensive line fractured under the weight of her unexpected departure.",
+    "targets": [
+      "hjumpik",
+      "toad_lee"
+    ],
+    "effects": {
+      "corvinarus_house": -15,
+      "party_cohesion": -20
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Fractured Trust",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "broken_alliances",
+    "title": "The Rift in the Attic",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "climax",
+    "description": "The shimmering arcane aura surrounding Lady Aurelian was violently fractured by Toad Lee's sudden, vitriolic outburst. Amidst the swirling magical surges of the attic, Toad Lee rejected her outstretched hand with a scream that echoed through the rafters, demanding she flee his presence forever. The air grew heavy with the scent of ozone and heartbreak as Aurelian retreated into the shadows, leaving the bond between companions severed by raw, unbridled resentment.",
+    "targets": [
+      "aurelian",
+      "toad_lee"
+    ],
+    "effects": {
+      "companions_bond": -10,
+      "feywild_stability": -5
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Social Fracture",
+      "type": "social"
+    }
+  },
+  {
+    "id": "bloodied_guard",
+    "title": "The Guard's Fury",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "resolution",
+    "description": "A sudden, primal ferocity surged through the wounded Toad Lee as he lunged blindly into the maw of the beast. Steel met flesh in a frantic blur, shredding the creature's unnatural form into unrecognizable ribbons of gore. As the last twitching limb fell still, a suffocating silence descended upon the attic, broken only by the heavy, rhythmic dripping of ichor onto the floorboards.",
+    "targets": [
+      "unidentified_beast"
+    ],
+    "effects": {
+      "houseguard_faction": -5,
+      "town_stability": 10
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Decisive Victory",
+      "type": "combat"
+    }
+  },
+  {
+    "id": "guard_frenzy",
+    "title": "The Unstoppable Guard",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "aurelian",
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "A bloodied manor guard descended into a primal madness, tearing through the encroaching monstrosity with terrifying, uncoordinated ferocity. Toad Lee's desperate attempt to restrain the soldier only served to pull him deeper into the spray of gore and kinetic chaos. As an axe went spinning wildly from the fray, Hjumpik narrowly avoided a lethal blow that shattered the group's carefully formed defensive perimeter. The disciplined siege has devolved into a frantic, disorganized slaughter.",
+    "targets": [
+      "toad_lee",
+      "hjumpik"
+    ],
+    "effects": {
+      "manor_defenders": -15,
+      "siege_chaos": 20
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Total Tactical Collapse",
+      "type": "combat"
+    }
+  },
+  {
+    "id": "manor_escape",
+    "title": "The Shattered Plan",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "climax",
+    "description": "The heavy silence of Raventree Manor was shattered by the splintering of oak as a monstrous shadow slammed Toad Lee into a dining table. Amidst the wreckage and rising screams, Aurelian and Toad Lee orchestrated a frantic evacuation through the smoke-filled corridors. Hjumpik struggled against the encroaching darkness, dragging a wounded guard through the debris toward the perimeter. The group breached the manor gates just as the creature's roar faded into the suffocating night.",
+    "targets": [
+      "toad_lee",
+      "aurelian",
+      "hjumpik"
+    ],
+    "effects": {
+      "raventree_survivors": -2,
+      "manor_security": -5
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Total Collapse",
+      "type": "social"
+    }
+  },
+  {
+    "id": "grove_threat",
+    "title": "The Grove's New Resident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "feywild_attic",
+    "arcPosition": "falling",
+    "description": "A heavy, suffocating silence has descended upon the fountain as survivors huddle amidst the cooling spray. Waluigi gestured wildly toward the encroaching roots, whispering a chilling claim that the nightmare creature has successfully fused with the grove's very anatomy. Hjumpik remains visibly shaken, casting fearful glances toward the treeline while questioning if the local dryad is too blissfully ignorant to sense the rot spreading beneath her feet.",
+    "targets": [
+      "hjumpik",
+      "dryad_of_the_grove"
+    ],
+    "effects": {
+      "feywild_denizens": -2,
+      "survivor_morale": -3
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Encroaching Dread",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "mysterious_dog",
+    "title": "The Artificer's Hound",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "rakasha",
+    "arc": "feywild_attic",
+    "arcPosition": "resolution",
+    "description": "A shimmering rift tore through the attic's stillness as Rakasha materialized, offering a dew-kissed bloom to a spectral hound that appeared in tandem with Hjumpik. The dog's fur pulsed with the rhythmic, clockwork hum of arcane machinery, smelling faintly of ozone and copper. Toad_lee watched in stunned silence as the beast’s eyes mirrored the precise, calculating gaze of the artificer they once encountered. This sudden arrival suggests a tether remains between our world and the maker's hidden workshop.",
+    "targets": [
+      "hjumpik",
+      "toad_lee"
+    ],
+    "effects": {
+      "feywild_resistance": 1,
+      "arcane_suspicion": 2
+    },
+    "cycle_impact": {
+      "score": 2.5,
+      "label": "Technological Tether",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "dog_origin_mystery",
+    "title": "The Artificer's Hound",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "A spectral hush fell over the camp when a stray, soot-stained hound materialized beside Remi Hjumpik following the recent skirmish. The beast possesses unnerving, intelligent eyes that seem to track movements through the shadows of Raventree Manor itself. Whispers are spreading among the survivors that the dog is no mere animal, but a tethered remnant of the conflict's arcane residue. Tension mounts as the party watches the creature, wondering if it is a loyal companion or a silent spy for an unseen master.",
+    "targets": [
+      "remi_hjumpik",
+      "the_party"
+    ],
+    "effects": {
+      "raventree_manor_residents": -5,
+      "hjumpik_party_trust": -10
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "Unsettling Presence",
+      "type": "social"
+    }
+  },
+  {
+    "id": "the_great_collapse",
+    "title": "The Thousand Year Cycle",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "Under a blood-streaked sky, hjumpik emerged from the manor's shadows to recount terrifying visions of planes collapsing into nothingness. The figure spoke with a chilling certainty, claiming the current era is mirroring the catastrophic destruction witnessed exactly one millennium ago. As whispers of a recurring cosmic reset spread, the air grew heavy with the scent of ozone and ancient decay, suggesting that the very calendar itself is a countdown to ruin.",
+    "targets": [
+      "raventree_manor",
+      "the_regal_lineage"
+    ],
+    "effects": {
+      "raventree_manor_denizens": -15,
+      "cosmic_watchers": 20
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Imminent Cataclysm",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "midnight_gate_secret",
+    "title": "The Unseen Exit",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "climax",
+    "description": "As the walls of Raventree Manor groan under supernatural pressure, hjumpik has unveiled a terrifying alternative to the Oracle's chalk-drawn path. Whispers of a 'Midnight Gate' have emerged, suggesting an egress that bypasses divine guidance entirely through a tear in reality. However, the cost of such a breach promises nothing less than absolute carnage and the unraveling of local physics. The air grows thick with the scent of ozone and old blood as the party weighs certain escape against certain chaos.",
+    "targets": [
+      "the_party",
+      "oracle_presence"
+    ],
+    "effects": {
+      "raventree_survivors": -5,
+      "planar_stability": -10
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "High Risk",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "third_plane_existence",
+    "title": "The Hidden Shrine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "falling",
+    "description": "A chilling revelation from the Raksha hjumpik has sent ripples of dread through the local peasantry. During a tense confrontation, the entity spoke in riddles of a third plane and the shadow of a Midnight Shrine that looms outside known reality. The air grew thick with the scent of ozone and ancient rot, suggesting a catastrophic ritual failure occurred long before this meeting. This sudden breach of cosmic secrecy leaves the stability of the material realm feeling dangerously fragile.",
+    "targets": [
+      "hjumpik",
+      "party_members"
+    ],
+    "effects": {
+      "raventree_manor_cultists": -10,
+      "local_inquisition": 5
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Cosmic Instability",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "raksha_trickery",
+    "title": "The Poisoned Gift",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "resolution",
+    "description": "A deceptive warmth descended upon the clearing as a Raksha approached hjumpik with a deceptively gentle smile and a blooming, iridescent wildflower. The sweet scent of nectar masked the sudden realization that this floral gesture was merely a distraction for a coordinated ambush. As the petals unfurled, several more Rakshas materialized from the shifting shadows, surrounding the unsuspecting party in a seamless web of predatory intent.",
+    "targets": [
+      "hjumpik",
+      "feywild_denizens"
+    ],
+    "effects": {
+      "Raksha_Cabal": 15,
+      "Feywild_Order": -20
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Social Collapse",
+      "type": "social"
+    }
+  },
+  {
+    "id": "flower_deceit",
+    "title": "The Poisoned Petal",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "rakasha",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A shimmering, iridescent bloom was presented to Hjumpik under the guise of a peace offering, masking a deeper enchantment. As the petals unfurled, the Rakasha's laughter echoed through the glade, revealing that the fragrance was merely a sensory veil for manipulation. This momentary distraction left the perimeter unguarded just as the midnight portal tore open the fabric of the forest. The sudden rift cast long, unnatural shadows across the confused onlookers.",
+    "targets": [
+      "hjumpik"
+    ],
+    "effects": {
+      "feywild_denizens": -10,
+      "forest_guardians": 5
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Distrustful",
+      "type": "social"
+    }
+  },
+  {
+    "id": "portal_vanishing",
+    "title": "The Midnight Exit",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "rakasha",
+    "arc": "feywild_attic",
+    "arcPosition": "climax",
+    "description": "A suffocating tension gripped the threshold as Hjumpik stood cornered by a prowling monstrosity. The Rakasha's voice echoed through the gloom, a rhythmic, taunting chant that stripped away Hjumpik's identity until his true name was surrendered to the dark. As the final syllable escaped his lips, he plunged into the swirling violet vortex of the Midnight Gate, triggering a violent collapse of the portal's energy. The gateway vanished instantly, leaving nothing behind but an eerie, hollow silence and an empty corridor.",
+    "targets": [
+      "hjumpik",
+      "midnight_gate"
+    ],
+    "effects": {
+      "feywild_denizens": -15,
+      "planar_stability": -30
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Unstable",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "maze_feud",
+    "title": "The Harpy Shrieks",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "delfino_reporter",
+    "arc": "shadowfell_estate",
+    "arcPosition": "rising",
+    "description": "The tranquil hedges of the estate's labyrinth have been shattered by a cacophony of primal fury. Saedia reports that the missing guests Herniva and Stuckina are trapped within the winding corridors, locked in a vitriolic confrontation. Their screams echo through the maze like wounded harpies, turning a search mission into a theater of bitter resentment. The air itself seems to thicken with the venomous insults traded between the mermaid and her rival.",
+    "targets": [
+      "hernina",
+      "stuckina"
+    ],
+    "effects": {
+      "shadowfell_guests": -15,
+      "estate_security": -5
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Escalating Hostility",
+      "type": "social"
+    }
+  },
+  {
+    "id": "pond_feud",
+    "title": "The Unlit Candles of the Manor",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "A heavy, suffocating silence hangs over the manor's lily pad pond where hjumpik witnessed a chilling standoff. The Hag and the Mermaid sit perched upon rotting wooden platforms, their eyes locked in a bitter, wordless stalemate across rows of unlit candles. No magic stirs the murky water, only the palpable irritation radiating from these two supernatural entities as they glare through the gloom. This frozen confrontation serves as a grim omen of the fractured social tensions festering within the manor's hidden corners.",
+    "targets": [
+      "hjumpik",
+      "raventree_manor_denizens"
+    ],
+    "effects": {
+      "manor_factions": -10,
+      "supernatural_entities": -5
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Escalating Hostility",
+      "type": "social"
+    }
+  },
+  {
+    "id": "orb_theft_rumor",
+    "title": "The Lost Childhood Orb",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A public confrontation erupted in the marketplace when Waluigi loudly accused Hjumpik of pilfering a precious, mundane childhood orb. The accuser brandished a heavy purse of gold and silver, even threatening lethal force against any syrin found harboring the relic. In a display of biting contempt, Hjumpik merely laughed at the accuser's disheveled appearance, dismissively suggesting the trinket was simply swallowed by the shifting corridors of the maze.",
+    "targets": [
+      "hjumpik",
+      "waluigi"
+    ],
+    "effects": {
+      "merfolk_enclave": -15,
+      "syrin_kinship": -10
+    },
+    "cycle_impact": {
+      "score": 2.1,
+      "label": "Heightened Tension",
+      "type": "social"
+    }
+  },
+  {
+    "id": "stucky_eye_horror",
+    "title": "The Eye that Sees Great Things",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "climax",
+    "description": "A sudden, wet tear echoed across the manor's pond as the entity Stucky violently wrenched a fresh eye from its victim. Hjumpik and Waluigi watched in paralyzed horror as the severed orb pulsed with an unnatural, iridescent light. The air grew thick with the scent of iron and ozone, signaling a terrifying surge of untapped magical potential. This grotesque theft has left the path near the manor grounds stained with both blood and burgeoning arcane power.",
+    "targets": [
+      "hjumpik",
+      "waluigi"
+    ],
+    "effects": {
+      "raventree_manor_denizens": -20,
+      "arcane_instability": 15
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Veil Thinning",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "the_pearl_discovery",
+    "title": "The Glowing Pearl",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A piercing, unnatural chime echoed through the chamber as hjumpik struck the ancient bell, shattering the heavy silence. Under the wide-eyed gaze of Toad Lee, the weathered skull began to pulse with a blinding, iridescent light that seared the shadows away. As the resonance faded, the skeletal remains had vanished, replaced by a single, radiant pearl that hums with trapped fey magic. The air still tastes of ozone and starlight following this sudden metamorphosis.",
+    "targets": [
+      "hjumpik",
+      "toad_lee"
+    ],
+    "effects": {
+      "feywild_remnants": 15,
+      "local_mystics": 5
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Ascendant Resonance",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "the_stolen_relic",
+    "title": "The Hag's Target",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "climax",
+    "description": "A heavy, suffocating silence fell over the attic as Hjumpik finally broke under the weight of his own guilt. Trembling before Toad Lee, he confessed to the theft of the relic, revealing a desperate gambit to hide his dark history from a lurking hag. The revelation has turned the air thick with betrayal, casting a shadow of profound distrust over everything the group believed to be true.",
+    "targets": [
+      "toad_lee",
+      "the_fey_wild_attic_residents"
+    ],
+    "effects": {
+      "the_scoundrels_guild": -20,
+      "fey_settlers": -15
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Social Collapse",
+      "type": "social"
+    }
+  },
+  {
+    "id": "mermaid_tricks",
+    "title": "The Siren's Lure",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "falling",
+    "description": "A chilling wave of nostalgia has swept through the coastal settlements as hjumpik shared harrowing accounts of ancient mermaid mischief. The tales paint a predatory portrait of sea-dwellers who use ethereal melodies to mask their true, bloodthirsty intent. Witnesses describe the haunting realization that the beauty of the tides often hides a calculated hunger for shipwrecked souls. This revelation has cast a shadow of profound grief over those who once viewed the ocean as a sanctuary.",
+    "targets": [
+      "maritime_guild",
+      "coastal_settlers"
+    ],
+    "effects": {
+      "maritime_guild": -15,
+      "fey_kin_remnant": 10
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Rising Dread",
+      "type": "social"
+    }
+  },
+  {
+    "id": "cursed_toad_mystery",
+    "title": "The Abandoned River Toad",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "toad_liberation",
+    "arcPosition": "introduction",
+    "description": "A haunting confession has surfaced regarding a childhood cruelty involving toad_lee and a misplaced sense of mischief. Witnesses recall the moment an impulsive prank near the river's edge escalated into a desperate, reflexive curse after a sudden blow from a small creature. The memory is thick with the heavy atmosphere of a deep, dark cave where the abandoned toad was left to face the shadows alone. This lingering guilt now hangs over the community like a suffocating mist, marking the origin of a profound spiritual debt.",
+    "targets": [
+      "toad_lee"
+    ],
+    "effects": {
+      "commoners": -2,
+      "toad_liberation_movement": 1
+    },
+    "cycle_impact": {
+      "score": 1.5,
+      "label": "Lingering Remorse",
+      "type": "social"
+    }
+  },
+  {
+    "id": "saedee_knowledge_lead",
+    "title": "Seeking the Uncursing Expert",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "toad_liberation",
+    "arcPosition": "rising",
+    "description": "A heavy shroud of magical malaise has finally been pierced by a desperate confession from toad_lee regarding the accidental curse. Whispers now circulate through the marshlands that Saedee holds the esoteric keys required to unravel such dark enchantments. A glimmer of mystical hope flickers amidst the gloom as the group begins tracking the scholar's movements. The air feels charged with the possibility of a ritualistic cleansing.",
+    "targets": [
+      "saedee"
+    ],
+    "effects": {
+      "toad_liberation_movement": 1,
+      "arcane_scholars": -1
+    },
+    "cycle_impact": {
+      "score": 1.5,
+      "label": "A beacon of potential clarity",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "compass_discovery",
+    "title": "The Compass of Kinship",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "During a tense negotiation over the orb's destiny, Toad Lee shattered the heavy silence by reminding the gathered party of their precarious status as interdimensional trespassers. The mysterious entity, moved by this sudden burst of clarity, responded not with hostility, but with a shimmering gift. A magical compass now rests in the group's possession, its needle pulsing with an ethereal light that perpetually drifts toward those bound to the party by soul and oath.",
+    "targets": [
+      "hjumpik",
+      "toad_lee"
+    ],
+    "effects": {
+      "fey_entities": 5,
+      "party_cohesion": 12
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Navigation Boon",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "sleeping_brew_plan",
+    "title": "The Draught of Slumber",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A thick tension hangs over the grove as hjumpik proposes a radical alternative to the looming transformation of the satyr clans. Instead of channeling sewage to corrupt the forest spirits into hags, the plan calls for the distribution of a magically potent brew designed to induce deep unconsciousness. While the idea offers a merciful reprieve, the air remains heavy with the fear that one misstep could lead to permanent harm for the woodland folk.",
+    "targets": [
+      "satyr_clans",
+      "grove_guardians"
+    ],
+    "effects": {
+      "feywild_denizens": -5,
+      "party_stability": 10
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "Moderate Utility",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "grove_ambush",
+    "title": "Blood in the Grove",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "climax",
+    "description": "A sudden eruption of violence shattered the grove's tranquility when Toad Lee lunged into a frantic fray to rescue Rakasha from beneath a crushing, shambling toad. The air grew thick with panic as an unseen force violently hurled Stucky across the clearing, sending him crashing through the undergrowth. Amidst the cacophony of snapping twigs and magical discharge, the metallic barks of the steel defender echoed a desperate warning of the unfolding slaughter.",
+    "targets": [
+      "rakasha",
+      "stucky"
+    ],
+    "effects": {
+      "grove_dwellers": -15,
+      "feywild_resistance": -10
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Catastrophic Escalation",
+      "type": "combat"
+    }
+  },
+  {
+    "id": "toad_rage",
+    "title": "The Protector's Fury",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "climax",
+    "description": "The serene silence of the grove was shattered by the sudden, wet thud of fallen innocents during the skirmish. Toad Lee stood amidst the blooming wildflowers, eyes wide with a harrowing mixture of grief and burgeoning madness as he watched the blood soak into the moss. A guttural roar of pure, unadulterated frustration erupted from him, signaling a definitive snapping of his long-held restraint. The air now hangs heavy with the metallic scent of slaughter and the palpable threat of an impending, uncontrolled retaliation.",
+    "targets": [
+      "the_grove_guard",
+      "innocent_bystanders"
+    ],
+    "effects": {
+      "feywild_denizens": -20,
+      "toad_lee_alignment": -15
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Social Volatility",
+      "type": "social"
+    }
+  },
+  {
+    "id": "beast_death_rumor",
+    "title": "The Fallen Terror",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "resolution",
+    "description": "The skies over the fracture bled crimson as Toad Lee and Hjumpik engaged in a desperate, gore-streaked melee against the towering monstrosity. With a single, surgical strike to its pulsing ocular nerve, Hjumpik brought the massive beast crashing into the dirt with a bone-shaking thud. Before the dust could even settle, Waluigi emerged from the shadows to claim the carcass as his prize amidst the carnage. The air remains thick with the metallic scent of blood and the echoes of a dying roar.",
+    "targets": [
+      "toad_lee",
+      "hjumpik",
+      "waluigi"
+    ],
+    "effects": {
+      "feywild_denizens": -10,
+      "mercenary_guild": 15
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Catastrophic Victory",
+      "type": "combat"
+    }
+  },
+  {
+    "id": "hag_curse_whispers",
+    "title": "The Cursed Lady's Fate",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A chilling confrontation erupted near the battle's aftermath as Hjumpik and Toad Lee stood guard over a wounded hag. The sudden arrival of Herniva turned the air frigid, her voice dripping with the malice of a completed hex. As she claimed legalistic custody of the dying creature, the group realized the lady's soul is now caught in a predatory tug-of-war.",
+    "targets": [
+      "hjumpik",
+      "toad_lee",
+      "herniva"
+    ],
+    "effects": {
+      "feywild_guardians": -15,
+      "hag_coven": 10
+    },
+    "cycle_impact": {
+      "score": 2.2,
+      "label": "Escalating Hostility",
+      "type": "social"
+    }
+  },
+  {
+    "id": "dragon_tribute_alert",
+    "title": "The Dragon's Arrival",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "climax",
+    "description": "A heavy, sulfurous heat descended upon the woods as hjumpik confronted a disciplined squad of guards blocking the forest path. Through tense negotiation, Toad_Lee and the group uncovered a grim reality: the soldiers were escorting a bound hag toward an ancient, looming presence. The terrifying shadow of a dragon now stretches over the clearing, casting the party into a state of breathless uncertainty.",
+    "targets": [
+      "hjumpik",
+      "toad_lee"
+    ],
+    "effects": {
+      "forest_guardians": -10,
+      "feywild_threat_level": 25
+    },
+    "cycle_impact": {
+      "score": 2.8,
+      "label": "Imminent Peril",
+      "type": "combat"
+    }
+  },
+  {
+    "id": "dragon_kidnap_rumor",
+    "title": "The Dragon's Shadow",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A heavy, suffocating dread hangs over the encampment as armored guards are seen dragging a struggling captive toward the gargantuan, rhythmic breathing of a slumbering dragon. Toad Lee and Hjumpik caught fragments of panicked whispers detailing an ancient draconic presence stirring beneath the chaos of the borderlands. The sheer scale of the beast's silhouette against the twilight sky has left witnesses paralyzed by the realization of the looming catastrophe.",
+    "targets": [
+      "toad_lee",
+      "hjump_guards"
+    ],
+    "effects": {
+      "borderland_militia": -15,
+      "draconic_cult": 20
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Impending Doom",
+      "type": "social"
+    }
+  },
+  {
+    "id": "spy_sighting_whisper",
+    "title": "The Unseen Watcher",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A chilling silhouette flickered through the silver-leafed boughs of the attic grove, leaving a trail of unnatural frost in its wake. Driven by a sudden, feverish paranoia, Toad Lee charged into the mist with steel drawn, desperate to unmask the intruder. Hjumpik lunged forward to intercept his companion, fearing that such a reckless confrontation would draw the attention of much darker things lurking within the fracture.",
+    "targets": [
+      "toad_lee",
+      "hjumpik"
+    ],
+    "effects": {
+      "feywild_sentinels": -1,
+      "local_militia": 0
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "heightened_paranoia",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "grafting_secret",
+    "title": "The Dragon's Bloodline",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "A chilling revelation has surfaced as Chirneros unveiled the ritualistic tether binding the ancient dragon to the Legion's foundation. He detailed a harrowing era where a long-forgotten heir performed a blood sacrifice using a dragon egg to siphon primordial power into their veins. This discovery suggests that the current horrors at Raventree Manor are not isolated incidents, but the resurgence of The Grafting's dark legacy.",
+    "targets": [
+      "hjumpik",
+      "legion_high_command"
+    ],
+    "effects": {
+      "raventree_manor_cultists": 15,
+      "the_legion": -5
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "Omen of Ancient Blood",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "hag_hostage_deal",
+    "title": "The Hag's Ransom",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "falling",
+    "description": "A suffocating tension gripped the negotiation site as hjumpik attempted to trade secrets of the dragon's curse for the hag's freedom. Chirneros met these desperate overtures with cold, unyielding eyes, refusing to even acknowledge the captive's presence behind the iron veil. The standoff remains unresolved, leaving a heavy silence where only the threat of further bloodshed lingers.",
+    "targets": [
+      "hjumpik",
+      "chirneros"
+    ],
+    "effects": {
+      "fey_negotiators": -15,
+      "dragon_cult": 5
+    },
+    "cycle_impact": {
+      "score": 1.2,
+      "label": "Stagnant Diplomacy",
+      "type": "political"
+    }
+  },
+  {
+    "id": "toad_lee_sighting",
+    "title": "The Bush Runner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A frantic, low-stakes pursuit broke out in the outskirts when Toad Lee was spotted attempting a clumsy escape through the thicket. The small fugitive launched a desperate campaign of hopping and hiding, leading the party on a dizzying chase through dense shrubbery. Ultimately, the pursuit collapsed into laughter as the group abandoned the hunt, watching the tiny rogue vanish into the undergrowth. It remains a comedic footnote in recent travels, leaving only muddy footprints and confused witnesses behind.",
+    "targets": [
+      "toad_lee"
+    ],
+    "effects": {
+      "outskirts_militia": -1,
+      "local_travelers": 2
+    },
+    "cycle_impact": {
+      "score": 0.5,
+      "label": "Mild Distraction",
+      "type": "social"
+    }
+  },
+  {
+    "id": "mysterious_water_apparition",
+    "title": "The Lady of the Lake",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "A heavy tension gripped the outskirts as Toad Lee and Hjumpik were intercepted by local guards during a routine patrol. The confrontation turned surreal when a pale, ethereal woman emerged silently from the dark depths of the nearby lake, her presence chilling the humid air. Suspicion immediately fell upon the travelers as the guards diverted their attention to investigate this spectral intruder.",
+    "targets": [
+      "hjumpik",
+      "toad_lee",
+      "local_guards"
+    ],
+    "effects": {
+      "raventree_militia": -1,
+      "mystic_order": 2
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Unsettling Manifestation",
+      "type": "mystic"
+    }
+  },
+  {
+    "id": "hernivas_demand",
+    "title": "The Skull Debt",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "toad_lee",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A heavy tension settled over the clearing as Herniva presented a bleached skull and an amber-trapped bottle to Toad Lee, signaling the arrival of an overdue reckoning. She formally accused him of breaching their pact by failing to deliver word to Sedeia, her voice cold with political calculation. Behind her, the imposing silhouettes of Thorne and Thystil loomed like living shadows, ensuring no easy escape from the negotiation. The air grew thick with the scent of ozone and ancient debts as the weight of the Unfinished Bargain pressed upon all present.",
+    "targets": [
+      "toad_lee",
+      "hjumpik"
+    ],
+    "effects": {
+      "feywild_nobility": -15,
+      "sedeia_loyalists": 10
+    },
+    "cycle_impact": {
+      "score": 1.8,
+      "label": "Escalating Hostility",
+      "type": "social"
+    }
+  },
+  {
+    "id": "the_smash_technique",
+    "title": "Hjumpik's Combat Secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "feywild_attic",
+    "arcPosition": "falling",
+    "description": "What began as a tense confrontation between Thorne, Thystil, and Hjumpik quickly dissolved into a chaotic seminar on blunt-force trauma. Instead of drawing steel, Hjumpik demonstrated the 'smash,' a technique involving more enthusiasm than actual finesse. The duo of Thorne and Thystil departed the clearing with bruised knuckles and wide, manic grins, eager to test their new heavy-hitting prowess on anything that moves.",
+    "targets": [
+      "thorne",
+      "thystil"
+    ],
+    "effects": {
+      "fey_adventurers": 1
+    },
+    "cycle_impact": {
+      "score": 0.5,
+      "label": "Training Session",
+      "type": "utility"
+    }
+  },
+  {
+    "id": "buried_treasure_plot",
+    "title": "The Hollow Earth Greed",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "capital_intrigue",
+    "arcPosition": "rising",
+    "description": "A heavy silence descended upon the lower districts when Hjumpik intercepted Waluigi whispering in shadows with Herniva regarding a cache of forbidden subterranean wealth. The air grew thick with suspicion as Rakasha Azure stepped from the gloom, her voice trembling with a desperate warning against the lethal risks of such excavation. As Hjumpik confronted the conspirators, the simmering resentment between the underground factions threatened to boil over into open violence.",
+    "targets": [
+      "waluigi",
+      "herniva",
+      "rakasha_azure"
+    ],
+    "effects": {
+      "underground_syndicate": -15,
+      "capital_guard": 5
+    },
+    "cycle_impact": {
+      "score": 2.4,
+      "label": "High Tension",
+      "type": "social"
+    }
+  },
+  {
+    "id": "hag_beauty_scheme",
+    "title": "The Hag Beauty Conspiracy",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 18
+    },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "feywild_attic",
+    "arcPosition": "rising",
+    "description": "A heavy, suffocating tension gripped the camp as Hjumpik confronted the party over a broken pact and the unprovoked assault on Stucky. The air grew thick with the scent of rot when she confessed her desperate, sinister ambition to transform her rivals into hags just to preserve her own flawless beauty. While Waluigi voiced a sharp and biting distrust of this twisted logic, he ultimately struck a grim bargain to ensure a steady supply of potent potions. Now, a dark shadow of manipulation looms over the group's future stability.",
+    "targets": [
+      "hjumpik",
+      "waluigi",
+      "stucky"
+    ],
+    "effects": {
+      "feywild_denizens": -15,
+      "mercenary_guild": 10
+    },
+    "cycle_impact": {
+      "score": 2.2,
+      "label": "Unstable Alliances",
+      "type": "mystic"
+    }
+  }
 ];
