@@ -1147,7 +1147,7 @@ const PLAYERS = {
   markop: {
     name: 'Markop',
     level: 7,
-    currentXP: 26969,
+    currentXP: 26219,
     nextXP: 34000,
     entries: [
       // COMBAT
@@ -1225,23 +1225,13 @@ const PLAYERS = {
       // CHAOS
       { cat: 'chaos', xp: 519, title: 'Collateral Survival — The Centaur in the Storm',
         desc: 'Every time chaos erupted around the party—fireballs in cargo holds, vampire dinners gone wrong, dimensional fractures—Markop was in the middle of it. Not causing chaos. Surviving it. A four-legged anchor in the hurricane of Disaster Inc.\'s existence.' },
-    
-      // remis-birthday
-      { cat: 'exploration', xp: 150, title: 'Tactical Reconnaissance',
-        desc: 'Assessed enemy numbers and entered a room solo to gather intelligence on the Archivist\'s presence.' },
-      { cat: 'social', xp: 300, title: 'Interrogative Pressure',
-        desc: 'Used a series of targeted questions regarding dinner discussions and cake contents to verify identities and extract information.' },
-      { cat: 'chaos', xp: 200, title: 'Execution Interruption',
-        desc: 'Physically intervened in an execution by manipulating a firearm and arguing against the morality of killing an unarmed man.' },
-      { cat: 'stealth', xp: 100, title: 'Opportunistic Retrieval',
-        desc: 'Recovered a dropped letter from Bowser\'s bag during the unfolding chaos.' },
-]
+    ]
   },
 
   bowser: {
     name: 'Bowser',
     level: 6,
-    currentXP: 21232,
+    currentXP: 20582,
     nextXP: 23000,
     entries: [
 // SHADEWARD MANOR — THE 8TH & 9TH
@@ -1312,21 +1302,13 @@ const PLAYERS = {
       // STEALTH (Bowser has minimal stealth XP, but honesty demands inclusion)
       { cat: 'stealth', xp: 82, title: 'The One Time Bowser Was Quiet',
         desc: 'During one particular approach, Bowser actually managed to be quiet for approximately thirty seconds. The party was so shocked they almost blew their own cover. This will likely never happen again.' },
-    
-      // remis-birthday
-      { cat: 'chaos', xp: 350, title: 'The King\'s Distraction',
-        desc: 'Using a theatrical display of demands and posturing to divert Vostolas\'s attention during a high-tension moment.' },
-      { cat: 'social', xp: 200, title: 'The Unmasking',
-        desc: 'Aggressive interrogation involving the theft of glasses and physical confrontation to reveal the imposter\'s identity.' },
-      { cat: 'loyalty', xp: 100, title: 'Restrained Violence',
-        desc: 'Choosing to defer to Hjumpik\'s opinion and ultimately allowing the tanuki to live despite personal distaste.' },
-]
+    ]
   },
 
   remi: {
     name: 'Remi',
     level: 6,
-    currentXP: 21118,
+    currentXP: 20568,
     nextXP: 23000,
     entries: [
 // SHADEWARD MANOR — THE 8TH & 9TH
@@ -1397,15 +1379,7 @@ const PLAYERS = {
       // MAGIC
       { cat: 'magic', xp: 500, title: 'Oracle\'s Deck Attunement — Reading the Cards',
         desc: 'Attuning to the Oracle\'s Deck required more than just holding the cards. The deck responds to Remi specifically—showing her visions of party members across dimensions. She is learning to read them, to interpret the symbols, to understand the difference between prediction and possibility.' },
-    
-      // remis-birthday
-      { cat: 'social', xp: 100, title: 'Observational Commentary',
-        desc: 'Noting the absurdity of a villain carrying flowers and attempting to manage party expectations regarding the surprise party.' },
-      { cat: 'chaos', xp: 250, title: 'The Tanuki Execution Attempt',
-        desc: 'Executing a high-tension moment involving a silenced revolver, physical confrontation with Bowser, and the direct attempt to assassinate a party member/NPC.' },
-      { cat: 'loyalty', xp: 200, title: 'Democratic Outrage',
-        desc: 'The character\'s consistent emotional reaction to being excluded from the voting process and the struggle for agency in party decisions.' },
-]
+    ]
   }
 };
 

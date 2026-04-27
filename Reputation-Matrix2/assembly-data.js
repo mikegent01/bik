@@ -2606,7 +2606,7 @@ export const WAHBOOK_POSTS = [
       "hour": 0,
       "minute": 33
     },
-    "content": "“30 Harvestide 1040 00:29.” That’s not a timestamp — it’s a deadline. And Archie’s already stepping through. The prophecy’s real.",
+    "content": "“30 shadeward1040 00:29.” That’s not a timestamp — it’s a deadline. And Archie’s already stepping through. The prophecy’s real.",
     "likes": 76,
     "comments": [
       {
@@ -3087,7 +3087,7 @@ export const WAHBOOK_POSTS = [
       "hour": 2,
       "minute": 45
     },
-    "content": "The sealed ration pack. The portal. The prophecy’s last line. Archie didn’t just rest—he set the stage. And the date? 30 Harvestide 1040. That’s not random. That’s the moment the strings snapped.",
+    "content": "The sealed ration pack. The portal. The prophecy’s last line. Archie didn’t just rest—he set the stage. And the date? 30 shadeward1040. That’s not random. That’s the moment the strings snapped.",
     "likes": 113,
     "comments": [
       {
@@ -3241,7 +3241,7 @@ export const WAHBOOK_POSTS = [
       },
       {
         "characterKey": "toad_lee",
-        "text": "“30 harvestide 1040 00:29.” That’s a date. And a time."
+        "text": "“30 shadeward1040 00:29.” That’s a date. And a time."
       },
       {
         "characterKey": "fawful",
@@ -3286,7 +3286,7 @@ export const WAHBOOK_POSTS = [
       },
       {
         "characterKey": "toad_lee",
-        "text": "“30 harvestide 1040 00:29.” That’s the moment."
+        "text": "“30 shadeward1040 00:29.” That’s the moment."
       },
       {
         "characterKey": "fawful",
@@ -3415,7 +3415,7 @@ export const WAHBOOK_POSTS = [
       "hour": 0,
       "minute": 33
     },
-    "content": "“Every prophecy has a string!” — and Archie’s the string. The ration pack? A clue. The portal? The stage. And the date? 30 Harvestide 1040. That’s not a coincidence.",
+    "content": "“Every prophecy has a string!” — and Archie’s the string. The ration pack? A clue. The portal? The stage. And the date? 30 shadeward1040. That’s not a coincidence.",
     "likes": 115,
     "comments": [
       {
@@ -3960,7 +3960,7 @@ export const WAHBOOK_POSTS = [
     "comments": [
       {
         "characterKey": "fawful",
-        "text": "I don’t like the way that “greater play” sounds. Sounds like a trap. And the date? 30 Harvestide 1040. That’s not random. That’s a code."
+        "text": "I don’t like the way that “greater play” sounds. Sounds like a trap. And the date? 30 shadeward1040. That’s not random. That’s a code."
       }
     ]
   },
@@ -4097,7 +4097,7 @@ export const WAHBOOK_POSTS = [
       "hour": 0,
       "minute": 33
     },
-    "content": "Purple Toad says… “Unless… it served a greater play.” And Archie steps through. The portal closes. The date? 30 Harvestide 1040. That’s not a date. That’s a countdown.",
+    "content": "Purple Toad says… “Unless… it served a greater play.” And Archie steps through. The portal closes. The date? 30 shadeward1040. That’s not a date. That’s a countdown.",
     "likes": 51,
     "comments": [
       {
@@ -74845,7 +74845,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "WAH HA HA! Tried using my fancy new 'empathy' skills to charm a client in Harvestide today. They had ZERO gold, but I stayed professional! A true businessman knows when to smile even if the pockets are empty. Next time, I’m charging for the sympathy! 💰💎",
+    "content": "WAH HA HA! Tried using my fancy new 'empathy' skills to charm a client in shadewardtoday. They had ZERO gold, but I stayed professional! A true businessman knows when to smile even if the pockets are empty. Next time, I’m charging for the sympathy! 💰💎",
     "likes": 42,
     "comments": [
       {
@@ -74870,7 +74870,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "The Seneschal's locks were no match for my grace, but the interior of this office is... unsettling. This isn't mere paperwork; the room is choked with invasive, glowing flora that feels far too much like home. Something is blooming in Harvestide that shouldn't be.",
+    "content": "The Seneschal's locks were no match for my grace, but the interior of this office is... unsettling. This isn't mere paperwork; the room is choked with invasive, glowing flora that feels far too much like home. Something is blooming in shadewardthat shouldn't be.",
     "likes": 42,
     "comments": [
       {
@@ -74941,7 +74941,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Stop acting like we can just 'keep' Ol Burley in a spare room. One big meal of Harvestide flies and that thing is going to burst the walls of this inn. We aren't containing a pet, we're housing a ticking bomb. Wake up.",
+    "content": "Stop acting like we can just 'keep' Ol Burley in a spare room. One big meal of shadewardflies and that thing is going to burst the walls of this inn. We aren't containing a pet, we're housing a ticking bomb. Wake up.",
     "likes": 42,
     "comments": [
       {
@@ -75087,7 +75087,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "A mere flutter of orange silk to rewrite the rhythms of the mind. The shifting scenes of Harvestide dance upon this fan, pulling focus away from the trivial and into my design. Do you find yourself forgetting your purpose? How delicious.",
+    "content": "A mere flutter of orange silk to rewrite the rhythms of the mind. The shifting scenes of shadewarddance upon this fan, pulling focus away from the trivial and into my design. Do you find yourself forgetting your purpose? How delicious.",
     "likes": 1240,
     "comments": [
       {
@@ -75112,7 +75112,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "If we rely on Aurelian’s 'elite' guard, we’re dead before the lunge. The lot of them are too pickled in ale to see a decoy coming. It’s a desperate teleport play now—no safety net. If the magic slips, Harvestide becomes our graveyard.",
+    "content": "If we rely on Aurelian’s 'elite' guard, we’re dead before the lunge. The lot of them are too pickled in ale to see a decoy coming. It’s a desperate teleport play now—no safety net. If the magic slips, shadewardbecomes our graveyard.",
     "likes": 42,
     "comments": [
       {
@@ -75137,7 +75137,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "The scent of spilled nectar and incompetence hangs heavy in the air. My personal guard is lost to a stupor, leaving us exposed. We have one shot: a sudden lunge followed by a desperate blink through the weave. If the decoy fails, Harvestide will see my head on a pike.",
+    "content": "The scent of spilled nectar and incompetence hangs heavy in the air. My personal guard is lost to a stupor, leaving us exposed. We have one shot: a sudden lunge followed by a desperate blink through the weave. If the decoy fails, shadewardwill see my head on a pike.",
     "likes": 42,
     "comments": [
       {
@@ -75162,7 +75162,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "IT IS UNFAIR! This carpet in the Harvestide barracks is clearly rigged by Bowser to sabotage my greatness! I was being perfectly stealthy until that treacherous rug tripped me. WAH! My dignity is wounded!",
+    "content": "IT IS UNFAIR! This carpet in the shadewardbarracks is clearly rigged by Bowser to sabotage my greatness! I was being perfectly stealthy until that treacherous rug tripped me. WAH! My dignity is wounded!",
     "likes": 42,
     "comments": [
       {
@@ -75279,7 +75279,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Think you're sneaky cutting through the bathhouse? LMAO. Caught 'em red-handed before they could even sniff Toad Lee's presence. This Harvestide revel is way too loud for these little games. Stop running and face the music!",
+    "content": "Think you're sneaky cutting through the bathhouse? LMAO. Caught 'em red-handed before they could even sniff Toad Lee's presence. This shadewardrevel is way too loud for these little games. Stop running and face the music!",
     "likes": 42,
     "comments": [
       {
@@ -75300,7 +75300,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Thought you lot could sneak through the bathhouse to skip the Harvestide crowds? HA! Hjumpik popped up out of nowhere like a bad smell. No shortcuts today, just more noise and heavy lifting. My axe is itching for some real action, not this hiding game!",
+    "content": "Thought you lot could sneak through the bathhouse to skip the shadewardcrowds? HA! Hjumpik popped up out of nowhere like a bad smell. No shortcuts today, just more noise and heavy lifting. My axe is itching for some real action, not this hiding game!",
     "likes": 42,
     "comments": [
       {
@@ -75371,7 +75371,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Chaos in the Harvestide thickets. A goblin skirmish has left our ranks fractured and companions missing. Hjumpik's incompetence is matched only by his lack of foresight. We will find them, but discipline must be restored before we all vanish into the shadows.",
+    "content": "Chaos in the shadewardthickets. A goblin skirmish has left our ranks fractured and companions missing. Hjumpik's incompetence is matched only by his lack of foresight. We will find them, but discipline must be restored before we all vanish into the shadows.",
     "likes": 42,
     "comments": [
       {
@@ -75471,7 +75471,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Got my stained papers back from that greedy thief Wario. Had to threaten to tip off Lady Aurelian about his little theft to make him cough them up. He returned most of it to save his 'business reputation.' Still smells like a scam in Harvestide today.",
+    "content": "Got my stained papers back from that greedy thief Wario. Had to threaten to tip off Lady Aurelian about his little theft to make him cough them up. He returned most of it to save his 'business reputation.' Still smells like a scam in shadewardtoday.",
     "likes": 42,
     "comments": [
       {
@@ -75596,7 +75596,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "The feast in Harvestide was interrupted by a most unrefined guest. A void-hunger has breached our halls! Waluigi’s racket was no match for this breach. Garud and I stand firm, but the air reeks of a primal, dark craving. Something is very wrong.",
+    "content": "The feast in shadewardwas interrupted by a most unrefined guest. A void-hunger has breached our halls! Waluigi’s racket was no match for this breach. Garud and I stand firm, but the air reeks of a primal, dark craving. Something is very wrong.",
     "likes": 842,
     "comments": [
       {
@@ -75667,7 +75667,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "The fray in Harvestide grows too coarse for delicate sensibilities. My constitution fails me today, but do not mistake my retreat for weakness. Some shadows are better left untended by common blades. Stay vigilant, if you can.",
+    "content": "The fray in shadewardgrows too coarse for delicate sensibilities. My constitution fails me today, but do not mistake my retreat for weakness. Some shadows are better left untended by common blades. Stay vigilant, if you can.",
     "likes": 42,
     "comments": [
       {
@@ -75692,7 +75692,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Aurelian 'gets a headache' right when the beast starts biting? Please. I saw that glow from her fingers before she bolted. If she’s too fragile for Harvestide skirmishes, stay in the manor. Me and Toad Lee are literally dodging claws while she plays mage hermit.",
+    "content": "Aurelian 'gets a headache' right when the beast starts biting? Please. I saw that glow from her fingers before she bolted. If she’s too fragile for shadewardskirmishes, stay in the manor. Me and Toad Lee are literally dodging claws while she plays mage hermit.",
     "likes": 42,
     "comments": [
       {
@@ -76022,7 +76022,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Met some hooded weirdo today claiming they've seen planes crumble like stale bread. Says Harvestide is next on the list because of some 'cycle' from a millennium ago. If you believe this dramatic garbage, you're as delusional as the High King. Stop panicking.",
+    "content": "Met some hooded weirdo today claiming they've seen planes crumble like stale bread. Says shadewardis next on the list because of some 'cycle' from a millennium ago. If you believe this dramatic garbage, you're as delusional as the High King. Stop panicking.",
     "likes": 42,
     "comments": [
       {
@@ -76775,7 +76775,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "If you lot stop staring at your boots and look up, you'd see the guards dragging a tribute straight to that mountain-sized lizard. Something is rotting in Harvestide and it smells like burnt scales. Stop acting useless before we all become snacks.",
+    "content": "If you lot stop staring at your boots and look up, you'd see the guards dragging a tribute straight to that mountain-sized lizard. Something is rotting in shadewardand it smells like burnt scales. Stop acting useless before we all become snacks.",
     "likes": 42,
     "comments": [
       {
@@ -76796,7 +76796,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Saw the Iron Guard lugging a prisoner toward the Great Slumber. The air smells like smoke and old scales. Hjumpik’s shaking like a leaf, but I'm gripping my axe. If that beast wakes up hungry, Harvestide is gonna burn.",
+    "content": "Saw the Iron Guard lugging a prisoner toward the Great Slumber. The air smells like smoke and old scales. Hjumpik’s shaking like a leaf, but I'm gripping my axe. If that beast wakes up hungry, shadewardis gonna burn.",
     "likes": 42,
     "comments": [
       {
@@ -76817,7 +76817,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Saw a shape movin' near the edge of Harvestide woods. Didn't look like no breeze to me. Axe is out and I'm goin' in to see if they bleed. If it’s a spy, they’re gettin' heavy steel to the face.",
+    "content": "Saw a shape movin' near the edge of shadewardwoods. Didn't look like no breeze to me. Axe is out and I'm goin' in to see if they bleed. If it’s a spy, they’re gettin' heavy steel to the face.",
     "likes": 42,
     "comments": [
       {
@@ -76838,7 +76838,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "@toad_lee Stop being a complete idiot. You saw a shadow in the Harvestide breeze and decided to charge in solo? It’s probably just a trick of the wind or a common thief, not some grand spy conspiracy. Don't get yourself killed for nothing.",
+    "content": "@toad_lee Stop being a complete idiot. You saw a shadow in the shadewardbreeze and decided to charge in solo? It’s probably just a trick of the wind or a common thief, not some grand spy conspiracy. Don't get yourself killed for nothing.",
     "likes": 12,
     "comments": [
       {
@@ -76905,7 +76905,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Spotted a literal pebble moving in the Harvestide shrubs today. Turns out it was just that pathetic toad Lee trying to play ninja. We chased him for ten minutes before realizing he's too small to even be worth the cardio. Stay in the mud, loser.",
+    "content": "Spotted a literal pebble moving in the shadewardshrubs today. Turns out it was just that pathetic toad Lee trying to play ninja. We chased him for ten minutes before realizing he's too small to even be worth the cardio. Stay in the mud, loser.",
     "likes": 42,
     "comments": [
       {
@@ -76926,7 +76926,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Thought I was a ghost in the Harvestide thickets. These adventurers are loud as a landslide! Nearly lost my head to a heavy boot, but I slipped into the ferns. If you see me, no you didn't. Stay out of my shrubs.",
+    "content": "Thought I was a ghost in the shadewardthickets. These adventurers are loud as a landslide! Nearly lost my head to a heavy boot, but I slipped into the ferns. If you see me, no you didn't. Stay out of my shrubs.",
     "likes": 42,
     "comments": [
       {
@@ -76968,7 +76968,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Great. Just great. We're stuck at the Harvestide outskirts because some tin-can guard wants to play detective. Then some wet lady pops out of the river like she owns the place. Now they're all staring at her like she's a ghost. Can we just keep moving?",
+    "content": "Great. Just great. We're stuck at the shadewardoutskirts because some tin-can guard wants to play detective. Then some wet lady pops out of the river like she owns the place. Now they're all staring at her like she's a ghost. Can we just keep moving?",
     "likes": 14,
     "comments": [
       {
@@ -77031,7 +77031,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Thorne and Thystil came swinging like headless chickens looking for a duel. Instead of breaking teeth, I showed 'em how to actually land a hit with 'the smash'. Now they're stomping around Harvestide acting like heavyweights. Idiots, but at least they're useful now.",
+    "content": "Thorne and Thystil came swinging like headless chickens looking for a duel. Instead of breaking teeth, I showed 'em how to actually land a hit with 'the smash'. Now they're stomping around shadewardacting like heavyweights. Idiots, but at least they're useful now.",
     "likes": 42,
     "comments": [
       {
@@ -77052,7 +77052,7 @@ export const WAHBOOK_POSTS = [
       "hour": 10,
       "minute": 0
     },
-    "content": "Caught Waluigi and Herniva whispering in the tunnels about 'hidden gold' again. Rakasha tried to play hero and stop them, but the greed is too loud. What are you two actually digging for? This smells like a trap for the whole Harvestide guild.",
+    "content": "Caught Waluigi and Herniva whispering in the tunnels about 'hidden gold' again. Rakasha tried to play hero and stop them, but the greed is too loud. What are you two actually digging for? This smells like a trap for the whole shadewardguild.",
     "likes": 42,
     "comments": []
   },
