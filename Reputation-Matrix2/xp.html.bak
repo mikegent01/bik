@@ -1147,7 +1147,7 @@ const PLAYERS = {
   markop: {
     name: 'Markop',
     level: 7,
-    currentXP: 26969,
+    currentXP: 27719,
     nextXP: 34000,
     entries: [
       // COMBAT
@@ -1235,13 +1235,21 @@ const PLAYERS = {
         desc: 'Physically intervened in an execution by manipulating a firearm and arguing against the morality of killing an unarmed man.' },
       { cat: 'stealth', xp: 100, title: 'Opportunistic Retrieval',
         desc: 'Recovered a dropped letter from Bowser\'s bag during the unfolding chaos.' },
+
+      // grove of woe
+      { cat: 'combat', xp: 350, title: 'Ballistic Intervention',
+        desc: 'Physically intervening to redirect a bullet during the tanuki execution attempt.' },
+      { cat: 'social', xp: 250, title: 'Disarming Authority',
+        desc: 'Physically struggling with Remi to confiscate her weapon and verbally asserting control over her access to violence.' },
+      { cat: 'survival', xp: 150, title: 'Emergency Evacuation',
+        desc: 'Organizing supplies and performing a firefighter carry to extract an incapacitated ally from a dangerous zone.' },
 ]
   },
 
   bowser: {
     name: 'Bowser',
     level: 6,
-    currentXP: 21232,
+    currentXP: 22482,
     nextXP: 23000,
     entries: [
 // SHADEWARD MANOR — THE 8TH & 9TH
@@ -1320,13 +1328,23 @@ const PLAYERS = {
         desc: 'Aggressive interrogation involving the theft of glasses and physical confrontation to reveal the imposter\'s identity.' },
       { cat: 'loyalty', xp: 100, title: 'Restrained Violence',
         desc: 'Choosing to defer to Hjumpik\'s opinion and ultimately allowing the tanuki to live despite personal distaste.' },
+
+      // grove of woe
+      { cat: 'chaos', xp: 450, title: 'The Badge Extraction',
+        desc: 'The visceral and high-consequence act of tearing the Bowser Badge from Dan\'s skin, resulting in spontaneous combustion and a desperate attempt at cauterization.' },
+      { cat: 'combat', xp: 400, title: 'Duel of the Two Dans',
+        desc: 'A multi-faceted combat engagement utilizing a variety of tools including warhammer, punches, and the portable Bullet Bill cannon.' },
+      { cat: 'social', xp: 250, title: 'Moral Compass: Hjumpik\'s Legacy',
+        desc: 'Navigating a high-tension voting moment by weighing the impulse to kill against the memory of an ally.' },
+      { cat: 'exploration', xp: 150, title: 'The Fracture Atrium Descent',
+        desc: 'Navigating the transition through a portal into a new, unstable dimension while managing wounded allies.' },
 ]
   },
 
   remi: {
     name: 'Remi',
     level: 6,
-    currentXP: 21118,
+    currentXP: 21568,
     nextXP: 23000,
     entries: [
 // SHADEWARD MANOR — THE 8TH & 9TH
@@ -1405,7 +1423,59 @@ const PLAYERS = {
         desc: 'Executing a high-tension moment involving a silenced revolver, physical confrontation with Bowser, and the direct attempt to assassinate a party member/NPC.' },
       { cat: 'loyalty', xp: 200, title: 'Democratic Outrage',
         desc: 'The character\'s consistent emotional reaction to being excluded from the voting process and the struggle for agency in party decisions.' },
+
+      // grove of woe
+      { cat: 'chaos', xp: 250, title: 'The Bros Attack Experiment',
+        desc: 'Executing a coordinated shot through a bathroom door using the \'Bros Attack\' technique with Green T.' },
+      { cat: 'social', xp: 150, title: 'Diplomatic Deflection',
+        desc: 'Attempting to mitigate tension by reframing traitors as \'having a rough time\' during the struggle with Markop.' },
+      { cat: 'exploration', xp: 50, title: 'Lodge Reconnaissance',
+        desc: 'Briefly surveying the kitchen of Tymnas\'s lodge.' },
 ]
+  },
+  feywarddan: {
+    name: 'Feyward Dan',
+    faction: 'npc',
+    level: 1,
+    currentXP: 0,
+    nextXP: 300,
+    entries: [
+      // JOINED 2026-05-12 | Unknown Unknown
+      // Woke up on Estragon\'s Island; has a history of wandering and accidental destruction; currently implicated in the blame 
+    ]
+  },
+  originaldan: {
+    name: 'Original Dan',
+    faction: 'mages_guild',
+    level: 7,
+    currentXP: 23000,
+    nextXP: 34000,
+    entries: [
+      // JOINED 2026-05-12 | Unknown Fire Mage
+      // Former leader of the Liberated Toads. Acquired a cursed staff that led him to kill thirteen of his own people and nearly
+    ]
+  },
+  prismari: {
+    name: 'Prismari',
+    faction: 'npc',
+    level: 5,
+    currentXP: 6500,
+    nextXP: 14000,
+    entries: [
+      // JOINED 2026-05-12 | Unknown Sorcerer or Enchanter
+      // Prismari possesses knowledge of magical surges and can identify Feywild origins via auras. She exhibits a potentially si
+    ]
+  },
+  greent: {
+    name: 'Green T',
+    faction: 'unknown',
+    level: 4,
+    currentXP: 2700,
+    nextXP: 6500,
+    entries: [
+      // JOINED 2026-05-12 | Unknown Barbarian or Fighter
+      // Has a history of extreme violence involving the character Original Dan, specifically resulting in the loss of an arm.
+    ]
   }
 };
 
