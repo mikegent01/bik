@@ -1071,7 +1071,7 @@ const PLAYERS = {
   hjumpik: {
     name: 'Hjumpik',
     level: 6,
-    currentXP: 16712,
+    currentXP: 17362,
     nextXP: 23000,
     entries: [
 // SHADEWARD MANOR — THE 8TH & 9TH
@@ -1141,7 +1141,12 @@ const PLAYERS = {
         desc: 'Maintained loyalty to Disaster Inc. through dimensional fracture, near-death experiences, and revelations that would break lesser alliances. When the party scattered, Hjumpik\'s first priority was always finding the others. Not escape. Not self-preservation. Reunion.' },
       { cat: 'loyalty', xp: 400, title: 'Archie\'s Artifacts — Preserving a Friend\'s Legacy',
         desc: 'Helped recover and preserve Archie\'s scattered artifacts—the Third Eye Circlet, component pouch, and cracked Wahbook tablet—after finding them in the Mazebound-infested hedge maze. Each item was a piece of an absent friend, and Hjumpik treated them accordingly.' },
-    ]
+    
+      // SESSION — 2026-05-12
+      { cat: 'combat', xp: 250, title: 'Brawl Stabilization', desc: 'Engaged in physical altercations with Wario and Waluigi, taking damage from fire/shuttlecock and physically intervening to stop fights.' },
+      { cat: 'social', xp: 200, title: 'Negotiation and Confrontation', desc: 'Confronted Wario regarding theft, interrogated him about the recipe, and managed complex social interactions with Saedia\'s group.' },
+      { cat: 'stealth', xp: 200, title: 'Document Recovery', desc: 'Used physical force (tackling) to prevent the loss of important papers and successfully reclaimed the parchment from Waluigi.' },
+]
   },
 
   markop: {
@@ -1248,9 +1253,9 @@ const PLAYERS = {
 
   bowser: {
     name: 'Bowser',
-    level: 6,
-    currentXP: 22482,
-    nextXP: 23000,
+    level: 7,
+    currentXP: 23032,
+    nextXP: 34000,
     entries: [
 // SHADEWARD MANOR — THE 8TH & 9TH
       { cat: 'social', xp: 700, title: 'The Obsidian Rejection',
@@ -1338,6 +1343,10 @@ const PLAYERS = {
         desc: 'Navigating a high-tension voting moment by weighing the impulse to kill against the memory of an ally.' },
       { cat: 'exploration', xp: 150, title: 'The Fracture Atrium Descent',
         desc: 'Navigating the transition through a portal into a new, unstable dimension while managing wounded allies.' },
+
+      // SESSION — 2026-05-12
+      { cat: 'combat', xp: 350, title: 'Rescue Attempt in Collapsing Library', desc: 'Took significant personal risk to attempt a rescue of Dan amidst the environmental hazard of a collapsing library.' },
+      { cat: 'survival', xp: 200, title: 'Stranded in Sanctum', desc: 'Navigated the dangerous, collapsing Corvinarus Sanctum, facing immediate life-threatening consequences.' },
 ]
   },
 
@@ -1436,35 +1445,50 @@ const PLAYERS = {
   feywarddan: {
     name: 'Feyward Dan',
     faction: 'npc',
-    level: 1,
-    currentXP: 0,
-    nextXP: 300,
+    level: 2,
+    currentXP: 850,
+    nextXP: 900,
     entries: [
       // JOINED 2026-05-12 | Unknown Unknown
       // Woke up on Estragon\'s Island; has a history of wandering and accidental destruction; currently implicated in the blame 
-    ]
+    ,
+      // SESSION — 2026-05-12
+      { cat: 'social', xp: 150, title: 'Deceptive Negotiation', desc: 'Lied about knowledge of Raventree Manor and negotiated the disclosure of truths to manipulate a conversation with Prismari.' },
+      { cat: 'stealth', xp: 200, title: 'Failed Infiltration', desc: 'Attempted to sneak up on a professor and dodge spotlights, resulting in capture and interrogation.' },
+      { cat: 'chaos', xp: 250, title: 'Escapist Rampage', desc: 'Engaged in high-consequence physical stunts including breaking through windows and fleeing from goblins and mages, leading to significant injury.' },
+      { cat: 'combat', xp: 250, title: 'Assault on Authority', desc: 'Took a massive risk by charging and attacking a professor with a sword, resulting in direct combat consequences and wounding.' },
+]
   },
   originaldan: {
     name: 'Original Dan',
     faction: 'mages_guild',
     level: 7,
-    currentXP: 23000,
+    currentXP: 24350,
     nextXP: 34000,
     entries: [
       // JOINED 2026-05-12 | Unknown Fire Mage
       // Former leader of the Liberated Toads. Acquired a cursed staff that led him to kill thirteen of his own people and nearly
-    ]
+    ,
+      // SESSION — 2026-05-12
+      { cat: 'magic', xp: 450, title: 'Acquisition of Cursed Staff', desc: 'Obtained a cursed staff and demonstrated the ability to nearly consume souls, representing a significant shift in power and potential corruption.' },
+      { cat: 'chaos', xp: 500, title: 'The Grove of Woe Massacre', desc: 'Killed thirteen members of his own people and demanded the surrender of a duplicate, driving the session\'s conflict through extreme violence.' },
+      { cat: 'combat', xp: 400, title: 'Magical Detonation at Estragon\'s Island', desc: 'Released a raw magical fire explosion from his chest that killed goblins and damaged allies, demonstrating high-impact, destructive problem-solving.' },
+]
   },
   prismari: {
     name: 'Prismari',
     faction: 'npc',
     level: 5,
-    currentXP: 6500,
+    currentXP: 6850,
     nextXP: 14000,
     entries: [
       // JOINED 2026-05-12 | Unknown Sorcerer or Enchanter
       // Prismari possesses knowledge of magical surges and can identify Feywild origins via auras. She exhibits a potentially si
-    ]
+    ,
+      // SESSION — 2026-05-12
+      { cat: 'social', xp: 150, title: 'Intimidating Interrogation', desc: 'Used magical perception to identify Dan\'s aura and Feywild origin, while using verbal warnings of guard intervention to establish dominance and control the interaction.' },
+      { cat: 'exploration', xp: 200, title: 'Environmental Manipulation', desc: 'Managed the physical security of the manor by controlling the door and retrieving keys to navigate a potentially locked situation.' },
+]
   },
   greent: {
     name: 'Green T',
@@ -1487,6 +1511,66 @@ const PLAYERS = {
       // JOINED 2026-05-12 | Unknown Unknown
       // Appeared briefly before Dan following instructions provided by the professor; presence seems tied to a summoning mechani
     ]
+  },
+  loreholdprofessorofchaos: {
+    name: 'Lorehold professor of chaos',
+    faction: 'npc',
+    level: 5,
+    currentXP: 7150,
+    nextXP: 14000,
+    entries: [
+      // JOINED 2026-05-12 | Unknown Wizard/Sorcerer
+      // A professor associated with Lorehold who utilizes magical spotlights and tracking magic. They act as an investigator or 
+    ,
+      // SESSION — 2026-05-12
+      { cat: 'magic', xp: 200, title: 'Magical Surveillance', desc: 'Deployed magical spotlights to track a target and used magic to monitor movements during a chase.' },
+      { cat: 'social', xp: 250, title: 'Interrogation and Manipulation', desc: 'Conducted high-stakes interrogations regarding planar fractures and presented characters with life-altering choices.' },
+      { cat: 'chaos', xp: 200, title: 'Orchestrating Confrontation', desc: 'Facilitated meetings with powerful entities (God Toad) and actively participated in the unfolding chaos of explosions and escapes.' },
+]
+  },
+  steely: {
+    name: 'Steely',
+    faction: 'unknown',
+    level: 1,
+    currentXP: 50,
+    nextXP: 300,
+    entries: [
+      // JOINED 2026-05-12 | Unknown Unknown
+      // Connected to or produced a horrifying image that impacted Hjumpik.
+    ,
+      // SESSION — 2026-05-12
+      { cat: 'social', xp: 50, title: 'Disturbing Revelation', desc: 'Used a visual medium to provoke a strong emotional response/horror in Hjumpik, establishing social tension.' },
+]
+  },
+  toadlee: {
+    name: 'Toad Lee',
+    faction: 'npc',
+    level: 3,
+    currentXP: 1450,
+    nextXP: 2700,
+    entries: [
+      // JOINED 2026-05-12 | Toad Barbarian or Fighter
+      // Possesses aged papers that are central to the current plot. Has a history of conflict with Wario and Waluigi. Operates o
+    ,
+      // SESSION — 2026-05-12
+      { cat: 'discovery', xp: 250, title: 'Discovery of the Aged Papers', desc: 'Realized he had been in possession of the essential papers for the unaging ritual all along, a major narrative revelation.' },
+      { cat: 'combat', xp: 300, title: 'Violent Confrontation', desc: 'Engaged in physical combat with Wario over the papers and aggressively attacked Waluigi\'s legs with an axe.' },
+]
+  },
+  rakashaazure: {
+    name: 'Rakasha Azure',
+    faction: 'unknown',
+    level: 4,
+    currentXP: 3050,
+    nextXP: 6500,
+    entries: [
+      // JOINED 2026-05-12 | Unknown Monk or Fighter
+      // Rakasha Azure acts as a third party in high-stakes handoff arrangements. She possesses significant physical strength, de
+    ,
+      // SESSION — 2026-05-12
+      { cat: 'social', xp: 200, title: 'Third-Party Mediation', desc: 'Acted as a neutral arbade/third party for a handoff arrangement, involving physical restraint of Wario to ensure the deal proceeded.' },
+      { cat: 'discovery', xp: 150, title: 'Degradation of Documents', desc: 'Discovered and reported that the critical papers were turning to dust upon handling, introducing a new complication to the mission.' },
+]
   }
 };
 
