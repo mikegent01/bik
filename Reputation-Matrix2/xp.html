@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +31,14 @@
     --accent-crimson-glow: #e04545;
     --accent-teal: #3ab5b5;
     --accent-teal-glow: #45d4d4;
+    --accent-slate: #6a7a8a;
+    --accent-slate-glow: #8a9aaa;
+    --accent-rose: #d45a8b;
+    --accent-rose-glow: #f07aab;
+    --accent-amber: #d4953a;
+    --accent-amber-glow: #f0b05a;
+    --accent-indigo: #5a5ad4;
+    --accent-indigo-glow: #7a7af0;
     --xp-combat: #e85d3a;
     --xp-exploration: #3aab7c;
     --xp-social: #d4a853;
@@ -77,7 +84,6 @@
   }
 
   /* ═══ HEADER ═══ */
-
   .site-header {
     position: relative;
     text-align: center;
@@ -115,9 +121,7 @@
     margin-bottom: 8px;
   }
 
-  .site-title span {
-    color: var(--accent-gold);
-  }
+  .site-title span { color: var(--accent-gold); }
 
   .site-subtitle {
     font-family: 'Alegreya SC', serif;
@@ -135,9 +139,7 @@
     flex-wrap: wrap;
   }
 
-  .total-stat {
-    text-align: center;
-  }
+  .total-stat { text-align: center; }
 
   .total-stat-value {
     font-family: 'JetBrains Mono', monospace;
@@ -155,8 +157,7 @@
     margin-top: 2px;
   }
 
-  /* ═══ NAV TABS ═══ */
-
+  /* ═══ NAV ═══ */
   .nav-bar {
     position: sticky;
     top: 0;
@@ -164,24 +165,46 @@
     background: rgba(10,10,15,0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    padding: 0 20px;
+    padding: 0;
   }
 
   .nav-inner {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Faction group headers in nav */
+  .nav-faction-group {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-faction-group:last-child { border-bottom: none; }
+
+  .nav-faction-label {
+    font-family: 'Alegreya SC', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 8px 12px 0;
+    user-select: none;
+  }
+
+  .nav-faction-tabs {
+    display: flex;
     gap: 0;
     overflow-x: auto;
     scrollbar-width: none;
   }
 
-  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-faction-tabs::-webkit-scrollbar { display: none; }
 
   .nav-tab {
     flex-shrink: 0;
-    padding: 14px 22px;
+    padding: 10px 18px 12px;
     font-family: 'Alegreya SC', serif;
     font-size: 13px;
     letter-spacing: 2px;
@@ -218,8 +241,16 @@
     opacity: 1;
   }
 
-  /* ═══ MAIN CONTENT ═══ */
+  .nav-tab .tab-xp-mini {
+    display: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    margin-left: 4px;
+    opacity: 0.5;
+  }
 
+  /* ═══ MAIN ═══ */
   .main-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -228,24 +259,20 @@
     z-index: 1;
   }
 
-  /* ═══ PLAYER PANELS ═══ */
-
+  /* ═══ PANELS ═══ */
   .player-panel {
     display: none;
     animation: panelFadeIn 0.4s ease;
   }
 
-  .player-panel.active {
-    display: block;
-  }
+  .player-panel.active { display: block; }
 
   @keyframes panelFadeIn {
     from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   /* ═══ PLAYER HEADER ═══ */
-
   .player-header {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -299,6 +326,13 @@
     margin-bottom: 10px;
   }
 
+  .player-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
   .player-level-badge {
     display: inline-flex;
     align-items: center;
@@ -311,6 +345,19 @@
     border-radius: 4px;
     padding: 3px 10px;
     opacity: 0.8;
+  }
+
+  .player-faction-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 10px;
   }
 
   .player-xp-summary {
@@ -342,8 +389,7 @@
     margin-top: 6px;
   }
 
-  /* ═══ XP PROGRESS BAR ═══ */
-
+  /* ═══ XP BAR ═══ */
   .xp-bar-container {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -379,23 +425,6 @@
     overflow: hidden;
     position: relative;
     border: 1px solid rgba(255,255,255,0.04);
-  }
-
-  .xp-bar-fill {
-    height: 100%;
-    border-radius: 7px;
-    position: relative;
-    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-    background: linear-gradient(90deg, var(--player-accent, var(--accent-gold)), var(--player-accent-glow, var(--accent-gold)));
-    box-shadow: 0 0 12px rgba(212,168,83,0.3);
-  }
-
-  .xp-bar-fill::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
-    border-radius: 7px;
   }
 
   .xp-bar-segments {
@@ -435,8 +464,7 @@
     font-weight: 500;
   }
 
-  /* ═══ XP CATEGORY LEGEND ═══ */
-
+  /* ═══ LEGEND ═══ */
   .xp-legend {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -462,9 +490,7 @@
     border-color: var(--border-glow);
   }
 
-  .legend-item.dimmed {
-    opacity: 0.3;
-  }
+  .legend-item.dimmed { opacity: 0.3; }
 
   .legend-dot {
     width: 10px;
@@ -495,8 +521,7 @@
     color: var(--text-dim);
   }
 
-  /* ═══ XP ENTRIES ═══ */
-
+  /* ═══ ENTRIES ═══ */
   .entries-header {
     display: flex;
     align-items: center;
@@ -576,9 +601,7 @@
     border-color: var(--border-glow);
   }
 
-  .xp-entry.expanded {
-    background: var(--bg-card-hover);
-  }
+  .xp-entry.expanded { background: var(--bg-card-hover); }
 
   .entry-dot {
     width: 10px;
@@ -588,9 +611,7 @@
     flex-shrink: 0;
   }
 
-  .entry-content {
-    min-width: 0;
-  }
+  .entry-content { min-width: 0; }
 
   .entry-top {
     display: flex;
@@ -626,9 +647,7 @@
     display: none;
   }
 
-  .xp-entry.expanded .entry-description {
-    display: block;
-  }
+  .xp-entry.expanded .entry-description { display: block; }
 
   .entry-xp {
     font-family: 'JetBrains Mono', monospace;
@@ -639,67 +658,7 @@
     padding-top: 1px;
   }
 
-  .entry-xp .plus {
-    opacity: 0.5;
-    font-size: 14px;
-  }
-
-  /* ═══ CATEGORY COLORS ═══ */
-
-  .cat-combat .entry-dot, .cat-combat .legend-dot { background: var(--xp-combat); color: var(--xp-combat); }
-  .cat-combat .entry-category { color: var(--xp-combat); border-color: rgba(232,93,58,0.3); background: rgba(232,93,58,0.08); }
-  .cat-combat .entry-xp { color: var(--xp-combat); }
-
-  .cat-exploration .entry-dot, .cat-exploration .legend-dot { background: var(--xp-exploration); color: var(--xp-exploration); }
-  .cat-exploration .entry-category { color: var(--xp-exploration); border-color: rgba(58,171,124,0.3); background: rgba(58,171,124,0.08); }
-  .cat-exploration .entry-xp { color: var(--xp-exploration); }
-
-  .cat-social .entry-dot, .cat-social .legend-dot { background: var(--xp-social); color: var(--xp-social); }
-  .cat-social .entry-category { color: var(--xp-social); border-color: rgba(212,168,83,0.3); background: rgba(212,168,83,0.08); }
-  .cat-social .entry-xp { color: var(--xp-social); }
-
-  .cat-survival .entry-dot, .cat-survival .legend-dot { background: var(--xp-survival); color: var(--xp-survival); }
-  .cat-survival .entry-category { color: var(--xp-survival); border-color: rgba(74,127,212,0.3); background: rgba(74,127,212,0.08); }
-  .cat-survival .entry-xp { color: var(--xp-survival); }
-
-  .cat-discovery .entry-dot, .cat-discovery .legend-dot { background: var(--xp-discovery); color: var(--xp-discovery); }
-  .cat-discovery .entry-category { color: var(--xp-discovery); border-color: rgba(139,95,212,0.3); background: rgba(139,95,212,0.08); }
-  .cat-discovery .entry-xp { color: var(--xp-discovery); }
-
-  .cat-chaos .entry-dot, .cat-chaos .legend-dot { background: var(--xp-chaos); color: var(--xp-chaos); }
-  .cat-chaos .entry-category { color: var(--xp-chaos); border-color: rgba(196,58,58,0.3); background: rgba(196,58,58,0.08); }
-  .cat-chaos .entry-xp { color: var(--xp-chaos); }
-
-  .cat-stealth .entry-dot, .cat-stealth .legend-dot { background: var(--xp-stealth); color: var(--xp-stealth); }
-  .cat-stealth .entry-category { color: var(--xp-stealth); border-color: rgba(58,181,181,0.3); background: rgba(58,181,181,0.08); }
-  .cat-stealth .entry-xp { color: var(--xp-stealth); }
-
-  .cat-faith .entry-dot, .cat-faith .legend-dot { background: var(--xp-faith); color: var(--xp-faith); }
-  .cat-faith .entry-category { color: var(--xp-faith); border-color: rgba(232,201,90,0.3); background: rgba(232,201,90,0.08); }
-  .cat-faith .entry-xp { color: var(--xp-faith); }
-
-  .cat-magic .entry-dot, .cat-magic .legend-dot { background: var(--xp-magic); color: var(--xp-magic); }
-  .cat-magic .entry-category { color: var(--xp-magic); border-color: rgba(212,90,175,0.3); background: rgba(212,90,175,0.08); }
-  .cat-magic .entry-xp { color: var(--xp-magic); }
-
-  .cat-loyalty .entry-dot, .cat-loyalty .legend-dot { background: var(--xp-loyalty); color: var(--xp-loyalty); }
-  .cat-loyalty .entry-category { color: var(--xp-loyalty); border-color: rgba(122,170,90,0.3); background: rgba(122,170,90,0.08); }
-  .cat-loyalty .entry-xp { color: var(--xp-loyalty); }
-
-  /* ═══ BAR SEGMENT COLORS ═══ */
-
-  .seg-combat { background: var(--xp-combat); }
-  .seg-exploration { background: var(--xp-exploration); }
-  .seg-social { background: var(--xp-social); }
-  .seg-survival { background: var(--xp-survival); }
-  .seg-discovery { background: var(--xp-discovery); }
-  .seg-chaos { background: var(--xp-chaos); }
-  .seg-stealth { background: var(--xp-stealth); }
-  .seg-faith { background: var(--xp-faith); }
-  .seg-magic { background: var(--xp-magic); }
-  .seg-loyalty { background: var(--xp-loyalty); }
-
-  /* ═══ EXPAND HINT ═══ */
+  .entry-xp .plus { opacity: 0.5; font-size: 14px; }
 
   .entry-expand-hint {
     font-family: 'JetBrains Mono', monospace;
@@ -710,16 +669,78 @@
     transition: opacity 0.2s;
   }
 
-  .xp-entry:hover .entry-expand-hint {
-    opacity: 0.6;
+  .xp-entry:hover .entry-expand-hint { opacity: 0.6; }
+  .xp-entry.expanded .entry-expand-hint { opacity: 0; }
+
+  /* ═══ EMPTY STATE ═══ */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-dim);
+    font-family: 'Alegreya', serif;
+    font-style: italic;
   }
 
-  .xp-entry.expanded .entry-expand-hint {
-    opacity: 0;
+  .empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.3;
   }
+
+  /* ═══ CATEGORY COLORS ═══ */
+  .cat-combat .entry-dot    { background: var(--xp-combat); }
+  .cat-combat .entry-category { color: var(--xp-combat); border-color: rgba(232,93,58,0.3); background: rgba(232,93,58,0.08); }
+  .cat-combat .entry-xp     { color: var(--xp-combat); }
+
+  .cat-exploration .entry-dot    { background: var(--xp-exploration); }
+  .cat-exploration .entry-category { color: var(--xp-exploration); border-color: rgba(58,171,124,0.3); background: rgba(58,171,124,0.08); }
+  .cat-exploration .entry-xp     { color: var(--xp-exploration); }
+
+  .cat-social .entry-dot    { background: var(--xp-social); }
+  .cat-social .entry-category { color: var(--xp-social); border-color: rgba(212,168,83,0.3); background: rgba(212,168,83,0.08); }
+  .cat-social .entry-xp     { color: var(--xp-social); }
+
+  .cat-survival .entry-dot    { background: var(--xp-survival); }
+  .cat-survival .entry-category { color: var(--xp-survival); border-color: rgba(74,127,212,0.3); background: rgba(74,127,212,0.08); }
+  .cat-survival .entry-xp     { color: var(--xp-survival); }
+
+  .cat-discovery .entry-dot    { background: var(--xp-discovery); }
+  .cat-discovery .entry-category { color: var(--xp-discovery); border-color: rgba(139,95,212,0.3); background: rgba(139,95,212,0.08); }
+  .cat-discovery .entry-xp     { color: var(--xp-discovery); }
+
+  .cat-chaos .entry-dot    { background: var(--xp-chaos); }
+  .cat-chaos .entry-category { color: var(--xp-chaos); border-color: rgba(196,58,58,0.3); background: rgba(196,58,58,0.08); }
+  .cat-chaos .entry-xp     { color: var(--xp-chaos); }
+
+  .cat-stealth .entry-dot    { background: var(--xp-stealth); }
+  .cat-stealth .entry-category { color: var(--xp-stealth); border-color: rgba(58,181,181,0.3); background: rgba(58,181,181,0.08); }
+  .cat-stealth .entry-xp     { color: var(--xp-stealth); }
+
+  .cat-faith .entry-dot    { background: var(--xp-faith); }
+  .cat-faith .entry-category { color: var(--xp-faith); border-color: rgba(232,201,90,0.3); background: rgba(232,201,90,0.08); }
+  .cat-faith .entry-xp     { color: var(--xp-faith); }
+
+  .cat-magic .entry-dot    { background: var(--xp-magic); }
+  .cat-magic .entry-category { color: var(--xp-magic); border-color: rgba(212,90,175,0.3); background: rgba(212,90,175,0.08); }
+  .cat-magic .entry-xp     { color: var(--xp-magic); }
+
+  .cat-loyalty .entry-dot    { background: var(--xp-loyalty); }
+  .cat-loyalty .entry-category { color: var(--xp-loyalty); border-color: rgba(122,170,90,0.3); background: rgba(122,170,90,0.08); }
+  .cat-loyalty .entry-xp     { color: var(--xp-loyalty); }
+
+  /* ═══ BAR SEGMENT COLORS ═══ */
+  .seg-combat      { background: var(--xp-combat); }
+  .seg-exploration  { background: var(--xp-exploration); }
+  .seg-social       { background: var(--xp-social); }
+  .seg-survival     { background: var(--xp-survival); }
+  .seg-discovery    { background: var(--xp-discovery); }
+  .seg-chaos        { background: var(--xp-chaos); }
+  .seg-stealth      { background: var(--xp-stealth); }
+  .seg-faith        { background: var(--xp-faith); }
+  .seg-magic        { background: var(--xp-magic); }
+  .seg-loyalty      { background: var(--xp-loyalty); }
 
   /* ═══ RESPONSIVE ═══ */
-
   @media (max-width: 768px) {
     .player-header {
       grid-template-columns: 1fr;
@@ -732,283 +753,223 @@
     .xp-legend { grid-template-columns: 1fr 1fr; }
     .xp-entry { grid-template-columns: 8px 1fr auto; gap: 10px; padding: 12px 14px; }
     .total-xp-display { gap: 24px; }
-    .nav-tab { padding: 12px 14px; font-size: 11px; }
+    .nav-tab { padding: 8px 12px; font-size: 11px; }
+    .player-badges { justify-content: center; }
   }
 
   @media (max-width: 480px) {
     .xp-legend { grid-template-columns: 1fr; }
     .entry-top { flex-direction: column; gap: 4px; }
   }
-
-  /* ═══ PLAYER ACCENT THEMES ═══ */
-
-  [data-player="archie"] { --player-accent: var(--accent-fire); --player-accent-glow: var(--accent-fire-glow); }
-  [data-player="hjumpik"] { --player-accent: var(--accent-emerald); --player-accent-glow: var(--accent-emerald-glow); }
-  [data-player="markop"] { --player-accent: var(--accent-blue); --player-accent-glow: var(--accent-blue-glow); }
-  [data-player="bowser"] { --player-accent: var(--accent-crimson); --player-accent-glow: var(--accent-crimson-glow); }
-  [data-player="remi"] { --player-accent: var(--accent-purple); --player-accent-glow: var(--accent-purple-glow); }
-
-  /* ═══ SECTION DIVIDER ═══ */
-
-  .section-divider {
-    text-align: center;
-    margin: 20px 0;
-    color: var(--text-dim);
-    font-size: 14px;
-    letter-spacing: 8px;
-    opacity: 0.3;
-    user-select: none;
-  }
-
 </style>
 </head>
 <body>
 
-<!-- ═══════════ HEADER ═══════════ -->
 <header class="site-header">
   <div class="header-ornament">⟡ Campaign Chronicle ⟡</div>
   <h1 class="site-title">DISASTER INC. — <span>XP LEDGER</span></h1>
   <p class="site-subtitle">Experience Tracking · 1040 BF</p>
-  <div class="total-xp-display">
-    <div class="total-stat">
-      <div class="total-stat-value">92,931</div>
-      <div class="total-stat-label">Total Party XP</div>
-    </div>
-    <div class="total-stat">
-      <div class="total-stat-value">5</div>
-      <div class="total-stat-label">Adventurers</div>
-    </div>
-    <div class="total-stat">
-      <div class="total-stat-value">10</div>
-      <div class="total-stat-label">XP Categories</div>
-    </div>
-  </div>
+  <div class="total-xp-display" id="header-stats"></div>
 </header>
 
-<!-- ═══════════ NAVIGATION ═══════════ -->
 <nav class="nav-bar">
-  <div class="nav-inner">
-    <div class="nav-tab active" data-target="archie">🔥 Archie <span class="tab-level">Lv.5</span></div>
-    <div class="nav-tab" data-target="hjumpik">🌿 Hjumpik <span class="tab-level">Lv.6</span></div>
-    <div class="nav-tab" data-target="markop">⚔️ Markop <span class="tab-level">Lv.7</span></div>
-    <div class="nav-tab" data-target="bowser">🐢 Bowser <span class="tab-level">Lv.6</span></div>
-    <div class="nav-tab" data-target="remi">🃏 Remi <span class="tab-level">Lv.6</span></div>
-  </div>
+  <div class="nav-inner" id="nav-container"></div>
 </nav>
 
-<!-- ═══════════ MAIN ═══════════ -->
-<main class="main-content">
-
-  <!-- ═══ ARCHIE ═══ -->
-  <section class="player-panel active" id="panel-archie" data-player="archie">
-    <div class="player-header">
-      <div class="player-icon">🔥</div>
-      <div class="player-info">
-        <h2>Archie Miser</h2>
-        <p class="player-epithet">The Indebted Pyromaniac Who Bleeds Entropy</p>
-        <span class="player-level-badge">◆ Level 5 · Fire Mage</span>
-      </div>
-      <div class="player-xp-summary">
-        <div class="player-xp-current">11,000</div>
-        <div class="player-xp-next">/ 14,000</div>
-        <div class="player-xp-label">Experience Points</div>
-      </div>
-    </div>
-
-    <div class="xp-bar-container">
-      <div class="xp-bar-labels">
-        <span class="xp-bar-label">Level 5 · <span>11,000 XP</span></span>
-        <span class="xp-bar-label">Level 6 · <span>14,000 XP</span></span>
-      </div>
-      <div class="xp-bar-track">
-        <div class="xp-bar-segments" id="archie-bar">
-          <div class="xp-bar-segment seg-combat" style="width:0%"></div>
-          <div class="xp-bar-segment seg-survival" style="width:0%"></div>
-          <div class="xp-bar-segment seg-stealth" style="width:0%"></div>
-          <div class="xp-bar-segment seg-chaos" style="width:0%"></div>
-          <div class="xp-bar-segment seg-magic" style="width:0%"></div>
-          <div class="xp-bar-segment seg-social" style="width:0%"></div>
-          <div class="xp-bar-segment seg-discovery" style="width:0%"></div>
-          <div class="xp-bar-segment seg-exploration" style="width:0%"></div>
-        </div>
-      </div>
-      <div class="xp-remaining"><strong>3,000 XP</strong> remaining to Level 6</div>
-    </div>
-
-    <div class="xp-legend" id="archie-legend"></div>
-
-    <div class="entries-header">
-      <span class="entries-title">XP Breakdown</span>
-      <span class="entries-count" id="archie-count"></span>
-    </div>
-    <div class="filter-buttons" id="archie-filters"></div>
-    <div class="xp-entries" id="archie-entries"></div>
-  </section>
-
-  <!-- ═══ HJUMPIK ═══ -->
-  <section class="player-panel" id="panel-hjumpik" data-player="hjumpik">
-    <div class="player-header">
-      <div class="player-icon">🌿</div>
-      <div class="player-info">
-        <h2>Hjumpik</h2>
-        <p class="player-epithet">The Maze Walker · Navigator of Time</p>
-        <span class="player-level-badge">◆ Level 6 · Ranger</span>
-      </div>
-      <div class="player-xp-summary">
-        <div class="player-xp-current">16,712</div>
-        <div class="player-xp-next">/ 23,000</div>
-        <div class="player-xp-label">Experience Points</div>
-      </div>
-    </div>
-    <div class="xp-bar-container">
-      <div class="xp-bar-labels">
-        <span class="xp-bar-label">Level 6 · <span>16,712 XP</span></span>
-        <span class="xp-bar-label">Level 7 · <span>23,000 XP</span></span>
-      </div>
-      <div class="xp-bar-track">
-        <div class="xp-bar-segments" id="hjumpik-bar"></div>
-      </div>
-      <div class="xp-remaining"><strong>6,288 XP</strong> remaining to Level 7</div>
-    </div>
-    <div class="xp-legend" id="hjumpik-legend"></div>
-    <div class="entries-header">
-      <span class="entries-title">XP Breakdown</span>
-      <span class="entries-count" id="hjumpik-count"></span>
-    </div>
-    <div class="filter-buttons" id="hjumpik-filters"></div>
-    <div class="xp-entries" id="hjumpik-entries"></div>
-  </section>
-
-  <!-- ═══ MARKOP ═══ -->
-  <section class="player-panel" id="panel-markop" data-player="markop">
-    <div class="player-header">
-      <div class="player-icon">⚔️</div>
-      <div class="player-info">
-        <h2>Markop</h2>
-        <p class="player-epithet">The Titan of the Grove · Centaur Paladin</p>
-        <span class="player-level-badge">◆ Level 7 · Paladin</span>
-      </div>
-      <div class="player-xp-summary">
-        <div class="player-xp-current">26,219</div>
-        <div class="player-xp-next">/ 34,000</div>
-        <div class="player-xp-label">Experience Points</div>
-      </div>
-    </div>
-    <div class="xp-bar-container">
-      <div class="xp-bar-labels">
-        <span class="xp-bar-label">Level 7 · <span>26,219 XP</span></span>
-        <span class="xp-bar-label">Level 8 · <span>34,000 XP</span></span>
-      </div>
-      <div class="xp-bar-track">
-        <div class="xp-bar-segments" id="markop-bar"></div>
-      </div>
-      <div class="xp-remaining"><strong>7,781 XP</strong> remaining to Level 8</div>
-    </div>
-    <div class="xp-legend" id="markop-legend"></div>
-    <div class="entries-header">
-      <span class="entries-title">XP Breakdown</span>
-      <span class="entries-count" id="markop-count"></span>
-    </div>
-    <div class="filter-buttons" id="markop-filters"></div>
-    <div class="xp-entries" id="markop-entries"></div>
-  </section>
-
-  <!-- ═══ BOWSER ═══ -->
-  <section class="player-panel" id="panel-bowser" data-player="bowser">
-    <div class="player-header">
-      <div class="player-icon">🐢</div>
-      <div class="player-info">
-        <h2>Bowser</h2>
-        <p class="player-epithet">King of the Koopa Troop · The Indestructible</p>
-        <span class="player-level-badge">◆ Level 6 · King / Brawler</span>
-      </div>
-      <div class="player-xp-summary">
-        <div class="player-xp-current">20,582</div>
-        <div class="player-xp-next">/ 23,000</div>
-        <div class="player-xp-label">Experience Points</div>
-      </div>
-    </div>
-    <div class="xp-bar-container">
-      <div class="xp-bar-labels">
-        <span class="xp-bar-label">Level 6 · <span>20,582 XP</span></span>
-        <span class="xp-bar-label">Level 7 · <span>23,000 XP</span></span>
-      </div>
-      <div class="xp-bar-track">
-        <div class="xp-bar-segments" id="bowser-bar"></div>
-      </div>
-      <div class="xp-remaining"><strong>2,418 XP</strong> remaining to Level 7</div>
-    </div>
-    <div class="xp-legend" id="bowser-legend"></div>
-    <div class="entries-header">
-      <span class="entries-title">XP Breakdown</span>
-      <span class="entries-count" id="bowser-count"></span>
-    </div>
-    <div class="filter-buttons" id="bowser-filters"></div>
-    <div class="xp-entries" id="bowser-entries"></div>
-  </section>
-
-  <!-- ═══ REMI ═══ -->
-  <section class="player-panel" id="panel-remi" data-player="remi">
-    <div class="player-header">
-      <div class="player-icon">🃏</div>
-      <div class="player-info">
-        <h2>Remi</h2>
-        <p class="player-epithet">The Master Looter · Card Bearer of the Oracle's Deck</p>
-        <span class="player-level-badge">◆ Level 6 · Rogue</span>
-      </div>
-      <div class="player-xp-summary">
-        <div class="player-xp-current">18,418</div>
-        <div class="player-xp-next">/ 23,000</div>
-        <div class="player-xp-label">Experience Points</div>
-      </div>
-    </div>
-    <div class="xp-bar-container">
-      <div class="xp-bar-labels">
-        <span class="xp-bar-label">Level 6 · <span>18,418 XP</span></span>
-        <span class="xp-bar-label">Level 7 · <span>23,000 XP</span></span>
-      </div>
-      <div class="xp-bar-track">
-        <div class="xp-bar-segments" id="remi-bar"></div>
-      </div>
-      <div class="xp-remaining"><strong>4,582 XP</strong> remaining to Level 7</div>
-    </div>
-    <div class="xp-legend" id="remi-legend"></div>
-    <div class="entries-header">
-      <span class="entries-title">XP Breakdown</span>
-      <span class="entries-count" id="remi-count"></span>
-    </div>
-    <div class="filter-buttons" id="remi-filters"></div>
-    <div class="xp-entries" id="remi-entries"></div>
-  </section>
-
-</main>
+<main class="main-content" id="panels-container"></main>
 
 <script>
 // ═══════════════════════════════════════════
-//  DISASTER INC. XP DATA
+//  CATEGORIES
 // ═══════════════════════════════════════════
 
 const CATEGORIES = {
-  combat:      { name: 'Combat',        color: '#e85d3a', icon: '⚔️' },
-  exploration: { name: 'Exploration',    color: '#3aab7c', icon: '🧭' },
-  social:      { name: 'Social',         color: '#d4a853', icon: '🗣️' },
-  survival:    { name: 'Survival',       color: '#4a7fd4', icon: '🛡️' },
-  discovery:   { name: 'Discovery',      color: '#8b5fd4', icon: '🔮' },
-  chaos:       { name: 'Chaos',          color: '#c43a3a', icon: '💥' },
-  stealth:     { name: 'Stealth',        color: '#3ab5b5', icon: '🌑' },
-  faith:       { name: 'Faith',          color: '#e8c95a', icon: '✦' },
-  magic:       { name: 'Arcane',         color: '#d45aaf', icon: '✧' },
-  loyalty:     { name: 'Loyalty',        color: '#7aaa5a', icon: '🤝' },
+  combat:      { name: 'Combat',      color: '#e85d3a', icon: '⚔️' },
+  exploration: { name: 'Exploration', color: '#3aab7c', icon: '🧭' },
+  social:      { name: 'Social',      color: '#d4a853', icon: '🗣️' },
+  survival:    { name: 'Survival',    color: '#4a7fd4', icon: '🛡️' },
+  discovery:   { name: 'Discovery',   color: '#8b5fd4', icon: '🔮' },
+  chaos:       { name: 'Chaos',       color: '#c43a3a', icon: '💥' },
+  stealth:     { name: 'Stealth',     color: '#3ab5b5', icon: '🌑' },
+  faith:       { name: 'Faith',       color: '#e8c95a', icon: '✦' },
+  magic:       { name: 'Arcane',      color: '#d45aaf', icon: '✧' },
+  loyalty:     { name: 'Loyalty',     color: '#7aaa5a', icon: '🤝' },
 };
+
+// ═══════════════════════════════════════════
+//  FACTIONS
+// ═══════════════════════════════════════════
+
+const FACTIONS = {
+  disaster_inc: {
+    name: 'Disaster Inc.',
+    icon: '🎲',
+    description: 'The main player party',
+    is_player: true,
+    sort_order: 0,
+  },
+  mages_guild: {
+    name: "Mages' Guild",
+    icon: '🔮',
+    description: 'Arcane organization',
+    is_player: false,
+    sort_order: 10,
+  },
+  npc: {
+    name: 'NPCs',
+    icon: '👤',
+    description: 'Non-player characters',
+    is_player: false,
+    sort_order: 20,
+  },
+  unknown: {
+    name: 'Unaffiliated',
+    icon: '❓',
+    description: 'Unknown faction',
+    is_player: false,
+    sort_order: 30,
+  },
+  enemy: {
+    name: 'Enemies',
+    icon: '💀',
+    description: 'Hostile forces',
+    is_player: false,
+    sort_order: 40,
+  },
+};
+
+// ═══════════════════════════════════════════
+//  CHARACTER DISPLAY CONFIG
+//  Accent colors, icons, epithets per key.
+//  Falls back to defaults if not listed.
+// ═══════════════════════════════════════════
+
+const DISPLAY_CONFIG = {
+  archie: {
+    icon: '🔥',
+    epithet: 'The Indebted Pyromaniac Who Bleeds Entropy',
+    class: 'Fire Mage',
+    accentVar: '--accent-fire',
+    accentGlowVar: '--accent-fire-glow',
+  },
+  hjumpik: {
+    icon: '🌿',
+    epithet: 'The Maze Walker · Navigator of Time',
+    class: 'Ranger',
+    accentVar: '--accent-emerald',
+    accentGlowVar: '--accent-emerald-glow',
+  },
+  markop: {
+    icon: '⚔️',
+    epithet: 'The Titan of the Grove · Centaur Paladin',
+    class: 'Paladin',
+    accentVar: '--accent-blue',
+    accentGlowVar: '--accent-blue-glow',
+  },
+  bowser: {
+    icon: '🐢',
+    epithet: 'King of the Koopa Troop · The Indestructible',
+    class: 'King / Brawler',
+    accentVar: '--accent-crimson',
+    accentGlowVar: '--accent-crimson-glow',
+  },
+  remi: {
+    icon: '🃏',
+    epithet: 'The Master Looter · Card Bearer of the Oracle\'s Deck',
+    class: 'Rogue',
+    accentVar: '--accent-purple',
+    accentGlowVar: '--accent-purple-glow',
+  },
+  feywarddan: {
+    icon: '🌀',
+    epithet: 'The Feywild Wanderer',
+    class: 'Unknown',
+    accentVar: '--accent-teal',
+    accentGlowVar: '--accent-teal-glow',
+  },
+  originaldan: {
+    icon: '🔥',
+    epithet: 'Bearer of the Cursed Staff',
+    class: 'Fire Mage',
+    accentVar: '--accent-amber',
+    accentGlowVar: '--accent-amber-glow',
+  },
+  prismari: {
+    icon: '✨',
+    epithet: 'Sorcerer of Strixhaven',
+    class: 'Sorcerer',
+    accentVar: '--accent-rose',
+    accentGlowVar: '--accent-rose-glow',
+  },
+  greent: {
+    icon: '🍵',
+    epithet: 'The Toad With the Gun',
+    class: 'Fighter',
+    accentVar: '--accent-emerald',
+    accentGlowVar: '--accent-emerald-glow',
+  },
+  godtoad: {
+    icon: '🐸',
+    epithet: 'Divine Amphibian',
+    class: 'Unknown',
+    accentVar: '--accent-gold',
+    accentGlowVar: '--accent-gold',
+  },
+  loreholdprofessorofchaos: {
+    icon: '📚',
+    epithet: 'Lorehold Investigator',
+    class: 'Wizard',
+    accentVar: '--accent-amber',
+    accentGlowVar: '--accent-amber-glow',
+  },
+  steely: {
+    icon: '🗡️',
+    epithet: 'The Disturbing One',
+    class: 'Unknown',
+    accentVar: '--accent-slate',
+    accentGlowVar: '--accent-slate-glow',
+  },
+  toadlee: {
+    icon: '🍄',
+    epithet: 'Keeper of the Aged Papers',
+    class: 'Fighter',
+    accentVar: '--accent-crimson',
+    accentGlowVar: '--accent-crimson-glow',
+  },
+  rakashaazure: {
+    icon: '🐾',
+    epithet: 'The Third-Party Enforcer',
+    class: 'Monk',
+    accentVar: '--accent-indigo',
+    accentGlowVar: '--accent-indigo-glow',
+  },
+};
+
+// Defaults for characters without explicit config
+const DEFAULT_DISPLAY = {
+  icon: '👤',
+  epithet: '',
+  class: 'Unknown',
+  accentVar: '--accent-slate',
+  accentGlowVar: '--accent-slate-glow',
+};
+
+function getDisplay(key) {
+  return { ...DEFAULT_DISPLAY, ...(DISPLAY_CONFIG[key] || {}) };
+}
+
+// ═══════════════════════════════════════════
+//  PLAYER DATA — managed by the Python evaluator
+// ═══════════════════════════════════════════
 
 const PLAYERS = {
   archie: {
     name: 'Archie Miser',
+    faction: 'disaster_inc',
     level: 5,
     currentXP: 11000,
     nextXP: 14000,
     entries: [
-      // COMBAT
       { cat: 'combat', xp: 850, title: 'Tea Party Incident — Cargo Hold Fireball',
         desc: 'Cast a fireball in an enclosed cargo hold aboard a wooden airship during the Tea Leaf Syndicate confrontation. Killed most of the Syndicate muscle. The ship somehow did not explode. Archie has never apologized.' },
       { cat: 'combat', xp: 600, title: 'Syndicate Showdown — Earl Grey Detonation',
@@ -1017,431 +978,215 @@ const PLAYERS = {
         desc: 'Killed Valorian Stormweave, a Mages\' Guild Senior Enforcer. Was acquitted by an Onyx Hand tribunal on grounds of justifiable defense. Now works for the organization Stormweave served. Irony is not strong enough a word.' },
       { cat: 'combat', xp: 350, title: 'Iron Sky Breach — Legion Boarding Action',
         desc: 'Engaged Iron Legion operatives during the boarding of the Vigilance. Was interrogated by Agent Malissia and managed to fight his way through the encounter, though not without cost.' },
-
-      // SURVIVAL
       { cat: 'survival', xp: 1200, title: 'Month in the Shadowfell Forest — Alone',
-        desc: 'Survived approximately one month living in the Shadowfell forest. Alone. Without fire magic. In a dimension designed to extinguish hope. The eternal grey wears on sanity the way water wears on stone, and Archie endured it through sheer stubborn refusal to lie down and die.' },
+        desc: 'Survived approximately one month living in the Shadowfell forest. Alone. Without fire magic. In a dimension designed to extinguish hope.' },
       { cat: 'survival', xp: 800, title: 'Shadowfell Arrival — Fire Suppressed',
-        desc: 'Woke on a marble floor in a world drained of all color. Tried to snap a flame into existence—his most basic, instinctive ability—and nothing happened. Snap after snap. A tiny spark appeared and instantly died. His identity was stripped from him by planar physics.' },
+        desc: 'Woke on a marble floor in a world drained of all color. Tried to snap a flame into existence—his most basic, instinctive ability—and nothing happened.' },
       { cat: 'survival', xp: 600, title: 'Planar Fracture — Dimensional Ejection',
-        desc: 'Survived being cast across dimensional boundaries during the Planar Fracture. The ritual collapsed, reality shattered, and Archie was hurled into the Shadowfell. Most people would not survive the transit. Archie is not most people.' },
+        desc: 'Survived being cast across dimensional boundaries during the Planar Fracture.' },
       { cat: 'survival', xp: 400, title: 'Swiftsoul Station — Drugged and Framed',
-        desc: 'Survived being drugged with Nightshade Bloom extract, teleported against his will, and framed for an explosion that killed three people. Fled through service corridors and jumped onto a cliffside ledge in desperation. The Iron Fists Guild tried to make him a scapegoat. He lived.' },
-
-      // STEALTH
+        desc: 'Survived being drugged with Nightshade Bloom extract, teleported against his will, and framed for an explosion that killed three people.' },
       { cat: 'stealth', xp: 900, title: 'Vampire Guard Disguise — "Dracacide"',
-        desc: 'Disguised himself as a vampire guard under the alias "Dracacide" and navigated vampire bureaucracy for weeks. Filed paperwork. Passed checkpoints. Convinced actual vampires he belonged. The pyromaniac became a spy because fire wasn\'t an option.' },
+        desc: 'Disguised himself as a vampire guard under the alias "Dracacide" and navigated vampire bureaucracy for weeks.' },
       { cat: 'stealth', xp: 700, title: 'Darman Knightly Persona — Dinner Party Infiltration',
-        desc: 'Operated under the false identity of Darman Knightly at the Shadow Estate dinner party. Required being calm, measured, and NOT setting things on fire—which Waluigi imagines was physically painful for him. The cover held long enough to matter.' },
+        desc: 'Operated under the false identity of Darman Knightly at the Shadow Estate dinner party.' },
       { cat: 'stealth', xp: 500, title: 'Purple Legion Infiltration — "Vin"',
-        desc: 'Infiltrated a Purple Legion crash site disguised as "Vin." Talked past guards, formed an investigation party with actual vampire soldiers, and gathered intelligence about their Shadowfell operations. Obtained a map of the shadow-reflected Midlands.' },
-
-      // CHAOS
+        desc: 'Infiltrated a Purple Legion crash site disguised as "Vin." Talked past guards, formed an investigation party with actual vampire soldiers.' },
       { cat: 'chaos', xp: 600, title: 'Vigilance Explosions — Collateral Catastrophe',
-        desc: 'The Vigilance fires. The civilian casualties. The property damage. Archie\'s instinctive response to threat is FIREBALL, and fireball is not a precision instrument. The collateral damage is someone else\'s problem, and there was a LOT of someone else\'s problem.' },
+        desc: 'The Vigilance fires. The civilian casualties. The property damage.' },
       { cat: 'chaos', xp: 400, title: 'Entropy Bleeding — Walking Planar Hazard',
-        desc: 'The Mages\' Guild confirmed that Archie\'s magic "bleeds entropy." His presence destabilizes dimensional boundaries. Mirrors behave strangely. Shadows fall wrong. Reality weakens where he walks. He doesn\'t cause chaos intentionally—he causes it the way storms cause lightning.' },
-
-      // MAGIC
+        desc: 'The Mages\' Guild confirmed that Archie\'s magic "bleeds entropy." His presence destabilizes dimensional boundaries.' },
       { cat: 'magic', xp: 500, title: 'Entropy Ring Sabotage — Breaking the Handler',
-        desc: 'During his interrogation aboard the Vigilance, Archie snapped off the handler half of a paired Entropy Ring system. This gave him the ability to sense active Entropy Rings and jam their signal once per day. The smartest thing Archie has ever done, according to Waluigi.' },
+        desc: 'During his interrogation aboard the Vigilance, Archie snapped off the handler half of a paired Entropy Ring system.' },
       { cat: 'magic', xp: 400, title: 'Third Eye Connection — Dimensional Anchor',
-        desc: 'Archie\'s connection to the Third Eye kept him anchored during transit through "Deep Layers" and prevented the Oracle\'s fractured visions from consuming him. The circlet inscription—in his own handwriting—reads: "The eye sees across—the band keeps me from falling in."' },
-
-      // SOCIAL
+        desc: 'Archie\'s connection to the Third Eye kept him anchored during transit through "Deep Layers."' },
       { cat: 'social', xp: 350, title: 'Orvinder Danos — The Barrister Encounter',
-        desc: 'Met a mysterious barrister who appeared from nowhere, walked with a cane he didn\'t need, and knew Archie by name. Archie\'s instinct was suspicion. Orvinder proved genuinely helpful—a man of strict honesty and justice. Trust in the Shadowfell is currency that spends fast.' },
+        desc: 'Met a mysterious barrister who appeared from nowhere, walked with a cane he didn\'t need, and knew Archie by name.' },
       { cat: 'social', xp: 250, title: 'Mages\' Guild Coercion — "You Work For Us Now"',
-        desc: 'The Guild\'s ultimatum was blunt: "Your immense power comes with immense responsibility and oversight." Archie\'s response—"Wait, what?"—captures the helplessness of someone outmaneuvered by bureaucracy. You can fight vampires. You cannot fight institutions.' },
-
-      // DISCOVERY
+        desc: 'The Guild\'s ultimatum was blunt: "Your immense power comes with immense responsibility and oversight."' },
       { cat: 'discovery', xp: 500, title: 'Bridge Plane Intelligence — The Oracle\'s Secret',
-        desc: 'Learned from Guild spies that the Oracle constructed a "Regulator Plane"—a Bridge Plane connecting the Shadowfell, Feywild, and Material planes. The Oracle may intend to collapse this bridge, severing the fractured dimensions permanently. Knowledge that could change everything.' },
+        desc: 'Learned from Guild spies that the Oracle constructed a "Regulator Plane"—a Bridge Plane connecting the Shadowfell, Feywild, and Material planes.' },
       { cat: 'discovery', xp: 400, title: 'Toadburt Revelation — Sleeper Agent Confirmed',
-        desc: 'The Guild confirmed Toadburt was an Iron Legion sleeper agent equipped with an Entropy Ring. Archie\'s shock was genuine: "Toadburt is your sleeper agent?!" The Guild allowed the sleeper to operate because it served their interests. Archie now carries this secret.' },
+        desc: 'The Guild confirmed Toadburt was an Iron Legion sleeper agent equipped with an Entropy Ring.' },
       { cat: 'discovery', xp: 200, title: 'Mystic Morel — The Singing Thief',
-        desc: 'A purple Toad fortune teller sang a prophetic musical number, stole Archie\'s watch and keys, then used Archie\'s own compass to open a planar portal. The items Archie carried were apparently capable of dimensional transit. He didn\'t know. Morel did.' },
-
-      // EXPLORATION
+        desc: 'A purple Toad fortune teller sang a prophetic musical number, stole Archie\'s watch and keys.' },
       { cat: 'exploration', xp: 300, title: 'Raventree Manor — Ghost Clearing with Luigi',
-        desc: 'Exploring the ruined manor with Luigi (armed with a vacuum cleaner) and Thornbury (armed with invoices). The pyromaniac and the ghostbuster. The man who creates chaos and the man who cleans it up.' },
+        desc: 'Exploring the ruined manor with Luigi and Thornbury.' },
     ]
   },
 
   hjumpik: {
     name: 'Hjumpik',
+    faction: 'disaster_inc',
     level: 6,
     currentXP: 17362,
     nextXP: 23000,
     entries: [
-// SHADEWARD MANOR — THE 8TH & 9TH
-      { cat: 'discovery', xp: 200, title: 'Passive Intel — Shadeward Manor',
-        desc: 'Maintained awareness of the party\'s strategic shift toward diplomacy and the identification of the four portal artifacts.' },
-      // SOLO ADVENTURE — 6TH TO 8TH HARVESTIDE
-      { cat: 'survival', xp: 400, title: 'Ol Burley Eviction — Kiting Operation',
-        desc: 'Successfully coordinated the kiting of a growing stone/bramble monster out of the manor and into the grove, managing chaotic NPCs and avoiding direct, lethal engagement.' },
-      { cat: 'social', xp: 250, title: 'Wario Blackmail — Asset Recovery',
-        desc: 'Caught Wario looting Lady Aurelian\'s room and negotiated the return of his own stolen papers by threatening to alert the manor owner. Economic blackmail used effectively.' },
-      { cat: 'discovery', xp: 500, title: 'Rakshasa Lore — The Midnight Gate',
-        desc: 'Spoke with the Rakshasa and learned critical planar history: the existence of the Midnight Gate, the three separated planes, and confirmation of a \'failed ritual\' that halted the calendar 1040 years ago.' },
-      { cat: 'social', xp: 350, title: 'Pond Mediation — Hag vs. Mermaid',
-        desc: 'Acted as an investigator and mediator between Stucky the Hag and Herniva the Mermaid over a missing orb. Navigated extreme NPC toxicity without resorting to violence.' },
-      { cat: 'discovery', xp: 600, title: 'Underwater Chest — Orange Teleportation Crystal',
-        desc: 'Dove into the murky pond to investigate the missing orb and instead discovered a hidden chest containing gold, silver, and an orange crystal seemingly related to portal activation. A massive win for the escape plan.' },      
-      // COMBAT
-      { cat: 'combat', xp: 1200, title: 'Spider Grove Battle — The Maze Walker Fights',
-        desc: 'Fought through waves of arachnid swarms in the Spider Grove alongside the party. Hjumpik\'s ranger training proved invaluable against creatures that used terrain as a weapon. Every arrow had to count because the spiders never stopped coming.' },
-      { cat: 'combat', xp: 800, title: 'Mazebound Skirmish — Singing Predators',
-        desc: 'Engaged the grey-skinned Mazebounds—creatures that sing while they hunt, their voices harmonizing into a predatory chorus. Hjumpik recognized their patterns and adapted his fighting style to counter creatures that used sound as both weapon and coordination tool.' },
-      { cat: 'combat', xp: 600, title: 'Shadowfell Encounters — Fighting Without Daylight',
-        desc: 'Multiple engagements in the Shadowfell where natural light doesn\'t exist. Rangers rely on environmental awareness, and the Shadowfell strips environments of the cues Hjumpik trained to read. He fought anyway, adapting senses honed in living forests to a dead dimension.' },
-      { cat: 'combat', xp: 500, title: 'Vigilance Defense — Airship Combat',
-        desc: 'Defended the Vigilance during multiple conflict escalations. Aerial combat on a moving platform requires a different calculus than ground fighting—wind, instability, the ever-present threat of falling. Hjumpik proved steady where others stumbled.' },
-
-      // EXPLORATION
-      { cat: 'exploration', xp: 1500, title: 'The Maze of Time — Navigating Temporal Corridors',
-        desc: 'Navigated the Maze of Time, a structure where time itself is the obstacle. Corridors that loop, rooms that age you, passages that show futures that may never happen. The Oracle\'s Tarot card depicts Hjumpik in this exact trial—The Maze Walker (IX). The Maze chose him, or he chose it.' },
-      { cat: 'exploration', xp: 900, title: 'Shadowfell Pathfinding — Tracking in the Grey',
-        desc: 'Rangers track by reading signs—broken twigs, disturbed earth, animal patterns. The Shadowfell has no animals, no growth, no signs of life. Hjumpik had to reinvent his tracking methodology for a world that provides no natural markers. He found paths where none should exist.' },
-      { cat: 'exploration', xp: 700, title: 'Shadow Estate Grounds — Mapping the Unknown',
-        desc: 'Explored and mapped sections of the Shadow Estate\'s sprawling grounds. The estate shifts subtly—rooms that weren\'t there before, corridors that lengthen overnight. Hjumpik\'s cartographic instincts fought against a location that resists being mapped.' },
-      { cat: 'exploration', xp: 500, title: 'Deep Mirror Transit — Impossible Geometry',
-        desc: 'Traversed the Deep Mirror dimension where geometry obeys different rules. Clockwork voids, shifting gravity, surfaces that exist at angles to reality. Hjumpik\'s spatial awareness—trained for forest canopies and mountain passes—adapted to architecture that shouldn\'t be possible.' },
-
-      // SURVIVAL
-      { cat: 'survival', xp: 1200, title: 'Dimensional Transit Survival — The Fracture',
-        desc: 'Survived the Planar Fracture that scattered the party across three hostile dimensions. The transit itself was lethal—raw dimensional energy tearing at bodies and minds. Hjumpik endured through physical resilience and the ranger\'s trained instinct to survive first, understand later.' },
-      { cat: 'survival', xp: 800, title: 'Extended Shadowfell Endurance — Weeks in Grey',
-        desc: 'Survived extended time in the Shadowfell, where hope is a resource that depletes faster than food or water. The psychological toll of existing in a dimension without color, warmth, or genuine light tests sanity in ways that physical threats do not.' },
-      { cat: 'survival', xp: 500, title: 'Resource Management — Living Off Dead Land',
-        desc: 'Managed survival resources in a dimension where the land is dead and provisions don\'t replenish naturally. Ranger training includes wilderness survival, but the Shadowfell isn\'t wilderness—it\'s the corpse of wilderness. Hjumpik found sustenance anyway.' },
-
-      // DISCOVERY
-      { cat: 'discovery', xp: 1000, title: 'Temporal Anomaly Documentation — The Maze\'s Secrets',
-        desc: 'Documented temporal anomalies encountered within the Maze of Time. Rooms that showed past events. Corridors that aged objects passing through them. Junctions where multiple timelines were visible simultaneously. Each discovery advanced understanding of how the Planar Fracture warped time.' },
-      { cat: 'discovery', xp: 600, title: 'Shadow Estate Lore — Corvinarus History',
-        desc: 'Uncovered historical information about the Corvinarus vampire lineage and their connection to the Shadow Estate. The vampires didn\'t build the estate—they inherited it from something older. Hjumpik found the evidence in architectural details that others overlooked.' },
-      { cat: 'discovery', xp: 400, title: 'Planar Boundary Analysis — Reading the Fracture',
-        desc: 'Identified patterns in the Planar Fracture\'s boundaries—places where the dimensions thinned, where transit might be possible, where reality was most damaged. Ranger pathfinding applied to dimensional geography.' },
-
-      // SOCIAL
-      { cat: 'social', xp: 700, title: 'Party Coordination — The Quiet Anchor',
-        desc: 'Served as a stabilizing presence during party conflicts and morale crises. When others argued or panicked, Hjumpik provided the steady competence that allowed the group to function. Not leadership through charisma—leadership through reliability.' },
-      { cat: 'social', xp: 400, title: 'Shadowfell Negotiations — Talking to the Dead',
-        desc: 'Engaged in diplomatic exchanges with Shadowfell entities—beings whose concept of negotiation involves different currencies than the living are accustomed to. Hjumpik\'s directness translated better than expected across the dimensional divide.' },
-
-      // STEALTH
-      { cat: 'stealth', xp: 800, title: 'Reconnaissance Operations — Unseen Observation',
-        desc: 'Conducted multiple reconnaissance missions in hostile territory. Rangers move through environments without disturbing them—a skill that proved essential when the environments were controlled by vampires who could hear heartbeats through stone walls.' },
-      { cat: 'stealth', xp: 500, title: 'Shadow Estate Infiltration — The Ranger\'s Approach',
-        desc: 'Infiltrated secured sections of the Shadow Estate through patience, timing, and the ranger\'s understanding that the best way past a guard is to move when the guard isn\'t looking. No disguises. No deception. Just silence and timing.' },
-
-      // LOYALTY
-      { cat: 'loyalty', xp: 700, title: 'Party Bonds — Standing With Disaster Inc.',
-        desc: 'Maintained loyalty to Disaster Inc. through dimensional fracture, near-death experiences, and revelations that would break lesser alliances. When the party scattered, Hjumpik\'s first priority was always finding the others. Not escape. Not self-preservation. Reunion.' },
-      { cat: 'loyalty', xp: 400, title: 'Archie\'s Artifacts — Preserving a Friend\'s Legacy',
-        desc: 'Helped recover and preserve Archie\'s scattered artifacts—the Third Eye Circlet, component pouch, and cracked Wahbook tablet—after finding them in the Mazebound-infested hedge maze. Each item was a piece of an absent friend, and Hjumpik treated them accordingly.' },
-    
-      // SESSION — 2026-05-12
-      { cat: 'combat', xp: 250, title: 'Brawl Stabilization', desc: 'Engaged in physical altercations with Wario and Waluigi, taking damage from fire/shuttlecock and physically intervening to stop fights.' },
-      { cat: 'social', xp: 200, title: 'Negotiation and Confrontation', desc: 'Confronted Wario regarding theft, interrogated him about the recipe, and managed complex social interactions with Saedia\'s group.' },
-      { cat: 'stealth', xp: 200, title: 'Document Recovery', desc: 'Used physical force (tackling) to prevent the loss of important papers and successfully reclaimed the parchment from Waluigi.' },
-]
+      { cat: 'discovery', xp: 200, title: 'Passive Intel — Shadeward Manor', desc: 'Maintained awareness of the party\'s strategic shift toward diplomacy.' },
+      { cat: 'survival', xp: 400, title: 'Ol Burley Eviction — Kiting Operation', desc: 'Successfully coordinated the kiting of a growing stone/bramble monster.' },
+      { cat: 'social', xp: 250, title: 'Wario Blackmail — Asset Recovery', desc: 'Caught Wario looting and negotiated the return of stolen papers.' },
+      { cat: 'discovery', xp: 500, title: 'Rakshasa Lore — The Midnight Gate', desc: 'Spoke with the Rakshasa and learned critical planar history.' },
+      { cat: 'social', xp: 350, title: 'Pond Mediation — Hag vs. Mermaid', desc: 'Acted as mediator between Stucky the Hag and Herniva the Mermaid.' },
+      { cat: 'discovery', xp: 600, title: 'Underwater Chest — Orange Teleportation Crystal', desc: 'Dove into the murky pond and discovered a hidden chest containing an orange crystal.' },
+      { cat: 'combat', xp: 1200, title: 'Spider Grove Battle — The Maze Walker Fights', desc: 'Fought through waves of arachnid swarms in the Spider Grove.' },
+      { cat: 'combat', xp: 800, title: 'Mazebound Skirmish — Singing Predators', desc: 'Engaged the grey-skinned Mazebounds—creatures that sing while they hunt.' },
+      { cat: 'combat', xp: 600, title: 'Shadowfell Encounters — Fighting Without Daylight', desc: 'Multiple engagements in the Shadowfell where natural light doesn\'t exist.' },
+      { cat: 'combat', xp: 500, title: 'Vigilance Defense — Airship Combat', desc: 'Defended the Vigilance during multiple conflict escalations.' },
+      { cat: 'exploration', xp: 1500, title: 'The Maze of Time — Navigating Temporal Corridors', desc: 'Navigated the Maze of Time, a structure where time itself is the obstacle.' },
+      { cat: 'exploration', xp: 900, title: 'Shadowfell Pathfinding — Tracking in the Grey', desc: 'Hjumpik had to reinvent his tracking methodology for a world that provides no natural markers.' },
+      { cat: 'exploration', xp: 700, title: 'Shadow Estate Grounds — Mapping the Unknown', desc: 'Explored and mapped sections of the Shadow Estate.' },
+      { cat: 'exploration', xp: 500, title: 'Deep Mirror Transit — Impossible Geometry', desc: 'Traversed the Deep Mirror dimension where geometry obeys different rules.' },
+      { cat: 'survival', xp: 1200, title: 'Dimensional Transit Survival — The Fracture', desc: 'Survived the Planar Fracture.' },
+      { cat: 'survival', xp: 800, title: 'Extended Shadowfell Endurance — Weeks in Grey', desc: 'Survived extended time in the Shadowfell.' },
+      { cat: 'survival', xp: 500, title: 'Resource Management — Living Off Dead Land', desc: 'Managed survival resources in a dimension where the land is dead.' },
+      { cat: 'discovery', xp: 1000, title: 'Temporal Anomaly Documentation', desc: 'Documented temporal anomalies within the Maze of Time.' },
+      { cat: 'discovery', xp: 600, title: 'Shadow Estate Lore — Corvinarus History', desc: 'Uncovered historical information about the Corvinarus vampire lineage.' },
+      { cat: 'discovery', xp: 400, title: 'Planar Boundary Analysis', desc: 'Identified patterns in the Planar Fracture\'s boundaries.' },
+      { cat: 'social', xp: 700, title: 'Party Coordination — The Quiet Anchor', desc: 'Served as a stabilizing presence during party conflicts.' },
+      { cat: 'social', xp: 400, title: 'Shadowfell Negotiations', desc: 'Engaged in diplomatic exchanges with Shadowfell entities.' },
+      { cat: 'stealth', xp: 800, title: 'Reconnaissance Operations', desc: 'Conducted multiple reconnaissance missions in hostile territory.' },
+      { cat: 'stealth', xp: 500, title: 'Shadow Estate Infiltration', desc: 'Infiltrated secured sections of the Shadow Estate through patience and timing.' },
+      { cat: 'loyalty', xp: 700, title: 'Party Bonds — Standing With Disaster Inc.', desc: 'Maintained loyalty through dimensional fracture and near-death experiences.' },
+      { cat: 'loyalty', xp: 400, title: 'Archie\'s Artifacts — Preserving a Friend\'s Legacy', desc: 'Helped recover Archie\'s scattered artifacts.' },
+      { cat: 'combat', xp: 250, title: 'Brawl Stabilization', desc: 'Engaged in physical altercations with Wario and Waluigi.' },
+      { cat: 'social', xp: 200, title: 'Negotiation and Confrontation', desc: 'Confronted Wario regarding theft, interrogated him about the recipe.' },
+      { cat: 'stealth', xp: 200, title: 'Document Recovery', desc: 'Used physical force to prevent the loss of important papers.' },
+    ]
   },
 
   markop: {
     name: 'Markop',
+    faction: 'disaster_inc',
     level: 7,
     currentXP: 27719,
     nextXP: 34000,
     entries: [
-      // COMBAT
-      { cat: 'combat', xp: 2500, title: 'Spider Grove — Titan Grapple with the Arachnid Matriarch',
-        desc: 'Accepted the Oracle\'s blessing and grew to colossal size—matching the building-sized Arachnid Matriarch scale-for-scale. Used his four-legged centaur stability to wrestle the Matriarch toward the banishment circle. Waluigi ran between his titan-scale legs while firing arcane rays. The most terrifying and AWESOME combat experience of the campaign.' },
-      { cat: 'combat', xp: 1500, title: 'Vivian Corridor Fight — Death Beam Survival',
-        desc: 'Fought Vivian in a maintenance corridor after waking from unconsciousness mid-drag. Deflected blinding smoke, slashed with his battle axe from centaur height, and took a crimson disintegration beam that consumed his armor. Survived through whispered prayer and divine intervention. First action after: scattering Vivian\'s spell components.' },
-      { cat: 'combat', xp: 1200, title: 'Shadow Estate Ballroom — Undead Dancers',
-        desc: 'Charged through contorted undead dancers—his centaur body bowling through boneless forms while his battle axe cleared overhead. Used divine smite against the dancers while coordinating Bowser, the Toads, and whoever else was available. Called tactical instructions mid-charge.' },
-      { cat: 'combat', xp: 800, title: 'Mazebound Engagement — Dragged Through Hedges',
-        desc: 'Seized and dragged through a hedge maze by singing grey-skinned Mazebounds. A centaur being dragged through passages designed for humanoid-sized creatures. Branches snapped. Hedges were torn. Markop fought free through raw physical power and divine energy.' },
-      { cat: 'combat', xp: 700, title: 'Vigilance Defense — Multi-Faction Brawl',
-        desc: 'Defended the Vigilance during escalating conflicts between multiple factions. Centaur stability on a moving airship platform provided tactical advantage. Markop\'s four-legged stance held when bipedal fighters stumbled in turbulence.' },
-      { cat: 'combat', xp: 500, title: 'Deep Mirror Hostiles — Clockwork Void Combat',
-        desc: 'Fought entities in the Deep Mirror dimension where gravity shifts and geometry lies. Four legs are an advantage on stable ground but a liability when the ground itself is uncertain. Markop adapted, trusting hooves that had never touched surfaces like these before.' },
-// SHADEWARD MANOR — THE 8TH & 9TH
-      { cat: 'social', xp: 450, title: 'The Contract Veto',
-        desc: 'Recognized the "Friendship Contract" as a binding legal enslavement and physically closed the door on the Onyx Hand solicitor, saving Remi from a social trap.' },
-      { cat: 'social', xp: 500, title: 'The Diplomacy Mandate',
-        desc: 'Successfully advocated for a non-violent path during the party\'s first formal strategic vote, pivoting momentum toward talking to the Gardener.' },
-      { cat: 'survival', xp: 250, title: 'Vigilant Watch',
-        desc: 'Provided a secure environment during the rest period, resulting in high HP recovery for the group and maintaining readiness in a hostile manor.' },
-      { cat: 'loyalty', xp: 600, title: 'Disaster Inc. Strategic Lead',
-        desc: 'Transitioned the party from a reactive survival unit to a proactive strategic cell through the formalization of the diplomacy-first policy.' },
-      { cat: 'social', xp: 300, title: 'The Balcony Betrayal',
-        desc: 'Witnessed the implosion of the primary escape portal and the apparent betrayal by Kyrn Corvinarus and Green T.' },
-      // FAITH
-      { cat: 'faith', xp: 2000, title: 'The Whispered Prayer — Divine Shield Against Death',
-        desc: 'When Vivian\'s crimson death beam was consuming his armor, Markop whispered a prayer. Not planned. Not rehearsed. The prayer of a horse-headed centaur in the space between impact and annihilation. His god answered. Golden light against crimson destruction. His hooves found purchase. He HELD.' },
-      { cat: 'faith', xp: 800, title: 'Divine Healing — Reviving Toadburt',
-        desc: 'Used divine power to revive an unconscious Toadburt during the ballroom fight. The healing came from faith channeled through hands that also swing a battle axe—the paladin\'s duality of destruction and restoration.' },
-      { cat: 'faith', xp: 600, title: 'Sustained Divine Connection — Faith Under Pressure',
-        desc: 'Maintained his divine connection through the Shadowfell, a dimension that suppresses most magic. His faith proved more resilient than arcane power—the shield worked, healing abilities continued to function. Whatever god answers Markop\'s prayers, they answer across dimensional boundaries.' },
-
-      // SURVIVAL
-      { cat: 'survival', xp: 1500, title: 'Dragged Unconscious by Bowser — Waking to War',
-        desc: 'Knocked unconscious, then dragged through stone corridors by Bowser—a centaur\'s full body weight hauled across stone floors by a turtle-dragon king. Woke mid-drag, immediately assessed the situation, barricaded a door, and prepared to fight. Zero to combat in minutes.' },
-      { cat: 'survival', xp: 1000, title: 'Shadowfell Endurance — Centaur in Corridors',
-        desc: 'A centaur navigating corridors designed for humanoid-sized inhabitants. Every doorframe a squeeze. Every staircase a challenge. Every tight space a reminder that his body was not built for this dimension. He endured because the alternative was dying in a hallway.' },
-      { cat: 'survival', xp: 700, title: 'Post-Death-Beam Recovery — Armor Failing',
-        desc: 'Continued operating with armor barely functional after the disintegration beam. His equine body showed exhaustion—lowered head, weight shifting between hooves. A horse pushed past reasonable limits. He fought anyway because people depended on him.' },
-
-      // EXPLORATION
-      { cat: 'exploration', xp: 1200, title: 'Deep Mirror Navigation — Abjuration Ward Identification',
-        desc: 'Navigated the Deep Mirror dimension and correctly identified abjuration wards on abomination vats as containment measures—built to keep monsters IN, not intruders out. Analytical clarity in a collapsing dimension surrounded by weeping flesh-things in lava lamp containers.' },
-      { cat: 'exploration', xp: 700, title: 'Shadow Estate Mapping — The Horse in Unknown Territory',
-        desc: 'Explored and documented the Shadow Estate\'s layout, including sections that shifted between visits. Four hooves clicking on stone floors that may not have existed yesterday. Centaur pathfinding in architecture that resists being understood.' },
-
-      // SOCIAL
-      { cat: 'social', xp: 1000, title: 'Quiet Leadership — The Ground Others Stand On',
-        desc: 'Became the operational leader of the Shadow Estate party through reliability rather than charisma. Coordinated Bowser, Remi, and the Toads. When things went wrong, people looked to the centaur. His four-legged stability is both literal and metaphorical.' },
-      { cat: 'social', xp: 600, title: 'Vivian Interrogation — Professional Under Pressure',
-        desc: 'Interrogated Vivian after their capture. A centaur standing over a tied-up impostor, battle axe resting against one flank, dark horse eyes assessing. Asked questions. Noted contradictions. Didn\'t lose composure despite having nearly been killed by the person he was questioning.' },
-      { cat: 'social', xp: 500, title: 'Bowser\'s Letter — "Are You Actually Sorry?"',
-        desc: 'When Bowser dropped a crumpled letter to Princess Peach, Markop picked it up, read it, and asked: "Are you actually sorry?" Bowser cried. "It\'s okay, man," Markop said. "Let\'s just find your friends." A centaur warrior comforting a crying turtle-dragon king over an unsent love letter.' },
-      { cat: 'social', xp: 400, title: 'Mazebound Refusal — Ethics Under Threat',
-        desc: 'When a Mazebound offered information in exchange for body parts, Markop refused—maintaining ethical standards while his hooves shifted on stone, his ears swiveled toward threats, and his body language communicated that negotiation was preferable but violence was available.' },
-
-      // DISCOVERY
-      { cat: 'discovery', xp: 1200, title: 'Archie\'s Artifacts Recovery — Third Eye Circlet',
-        desc: 'Found Archie\'s scattered artifacts in the Mazebound-infested maze—the Third Eye Circlet, component pouch, and cracked Wahbook tablet. Each discovery confirmed Archie had passed through before them. Claimed the War Mage\'s Staff on Archie\'s behalf.' },
-      { cat: 'discovery', xp: 700, title: 'Shadow Estate Intelligence — Corvinarus Power Structure',
-        desc: 'Gathered intelligence about the Corvinarus vampire power structure through observation, interrogation, and the quiet competence of someone who reads situations the way others read books. Dark horse eyes that miss NOTHING.' },
-
-      // LOYALTY
-      { cat: 'loyalty', xp: 1500, title: 'Holding the Party Together — Centaur as Foundation',
-        desc: 'Every crisis, every near-death, every dimensional horror—Markop\'s first concern was the party. Not his own survival. Not personal objectives. The people he fights alongside. This loyalty is the foundation that keeps Disaster Inc. functional when everything else crumbles.' },
-      { cat: 'loyalty', xp: 800, title: 'Remi Protection — Guardianship Without Patronizing',
-        desc: 'Protective of Remi without being condescending. "So you drank a random potion because a guy said you were dead?" Exasperated concern, not smothering control. The kind of partnership that makes both parties stronger.' },
-
-      // MAGIC
-      { cat: 'magic', xp: 500, title: 'Divine Smite Adaptation — Shadowfell Channel',
-        desc: 'Adapted his divine smite capabilities for Shadowfell conditions. Where arcane magic was suppressed, divine energy found pathways that entropy couldn\'t fully consume. Faith-based magic operating on different rules than the dimension expected.' },
-
-      // CHAOS
-      { cat: 'chaos', xp: 519, title: 'Collateral Survival — The Centaur in the Storm',
-        desc: 'Every time chaos erupted around the party—fireballs in cargo holds, vampire dinners gone wrong, dimensional fractures—Markop was in the middle of it. Not causing chaos. Surviving it. A four-legged anchor in the hurricane of Disaster Inc.\'s existence.' },
-    
-      // remis-birthday
-      { cat: 'exploration', xp: 150, title: 'Tactical Reconnaissance',
-        desc: 'Assessed enemy numbers and entered a room solo to gather intelligence on the Archivist\'s presence.' },
-      { cat: 'social', xp: 300, title: 'Interrogative Pressure',
-        desc: 'Used a series of targeted questions regarding dinner discussions and cake contents to verify identities and extract information.' },
-      { cat: 'chaos', xp: 200, title: 'Execution Interruption',
-        desc: 'Physically intervened in an execution by manipulating a firearm and arguing against the morality of killing an unarmed man.' },
-      { cat: 'stealth', xp: 100, title: 'Opportunistic Retrieval',
-        desc: 'Recovered a dropped letter from Bowser\'s bag during the unfolding chaos.' },
-
-      // grove of woe
-      { cat: 'combat', xp: 350, title: 'Ballistic Intervention',
-        desc: 'Physically intervening to redirect a bullet during the tanuki execution attempt.' },
-      { cat: 'social', xp: 250, title: 'Disarming Authority',
-        desc: 'Physically struggling with Remi to confiscate her weapon and verbally asserting control over her access to violence.' },
-      { cat: 'survival', xp: 150, title: 'Emergency Evacuation',
-        desc: 'Organizing supplies and performing a firefighter carry to extract an incapacitated ally from a dangerous zone.' },
-]
+      { cat: 'social', xp: 450, title: 'The Contract Veto', desc: 'Recognized the "Friendship Contract" as binding legal enslavement.' },
+      { cat: 'social', xp: 500, title: 'The Diplomacy Mandate', desc: 'Successfully advocated for a non-violent path.' },
+      { cat: 'survival', xp: 250, title: 'Vigilant Watch', desc: 'Provided a secure environment during rest.' },
+      { cat: 'loyalty', xp: 600, title: 'Disaster Inc. Strategic Lead', desc: 'Transitioned the party from reactive to proactive.' },
+      { cat: 'social', xp: 300, title: 'The Balcony Betrayal', desc: 'Witnessed the implosion of the primary escape portal.' },
+      { cat: 'combat', xp: 2500, title: 'Spider Grove — Titan Grapple', desc: 'Grew to colossal size and wrestled the Arachnid Matriarch.' },
+      { cat: 'combat', xp: 1500, title: 'Vivian Corridor Fight', desc: 'Fought Vivian and survived a crimson disintegration beam.' },
+      { cat: 'combat', xp: 1200, title: 'Shadow Estate Ballroom', desc: 'Charged through contorted undead dancers.' },
+      { cat: 'combat', xp: 800, title: 'Mazebound Engagement', desc: 'Seized and dragged through a hedge maze by singing Mazebounds.' },
+      { cat: 'combat', xp: 700, title: 'Vigilance Defense', desc: 'Defended the Vigilance during escalating conflicts.' },
+      { cat: 'combat', xp: 500, title: 'Deep Mirror Hostiles', desc: 'Fought entities in the Deep Mirror dimension.' },
+      { cat: 'faith', xp: 2000, title: 'The Whispered Prayer', desc: 'Divine intervention saved him from Vivian\'s death beam.' },
+      { cat: 'faith', xp: 800, title: 'Divine Healing — Reviving Toadburt', desc: 'Used divine power to revive an unconscious Toadburt.' },
+      { cat: 'faith', xp: 600, title: 'Sustained Divine Connection', desc: 'Maintained his divine connection through the Shadowfell.' },
+      { cat: 'survival', xp: 1500, title: 'Dragged Unconscious by Bowser', desc: 'Knocked unconscious, dragged through corridors, woke mid-drag and immediately fought.' },
+      { cat: 'survival', xp: 1000, title: 'Shadowfell Endurance — Centaur in Corridors', desc: 'A centaur navigating corridors designed for humanoid-sized inhabitants.' },
+      { cat: 'survival', xp: 700, title: 'Post-Death-Beam Recovery', desc: 'Continued operating with failing armor.' },
+      { cat: 'exploration', xp: 1200, title: 'Deep Mirror Navigation', desc: 'Correctly identified abjuration wards as containment measures.' },
+      { cat: 'exploration', xp: 700, title: 'Shadow Estate Mapping', desc: 'Explored and documented the Shadow Estate\'s layout.' },
+      { cat: 'social', xp: 1000, title: 'Quiet Leadership', desc: 'Became the operational leader through reliability.' },
+      { cat: 'social', xp: 600, title: 'Vivian Interrogation', desc: 'Interrogated Vivian after their capture.' },
+      { cat: 'social', xp: 500, title: 'Bowser\'s Letter', desc: '"Are you actually sorry?" Bowser cried.' },
+      { cat: 'social', xp: 400, title: 'Mazebound Refusal', desc: 'Refused to trade body parts for information.' },
+      { cat: 'discovery', xp: 1200, title: 'Archie\'s Artifacts Recovery', desc: 'Found Archie\'s scattered artifacts.' },
+      { cat: 'discovery', xp: 700, title: 'Shadow Estate Intelligence', desc: 'Gathered intelligence about the Corvinarus power structure.' },
+      { cat: 'loyalty', xp: 1500, title: 'Holding the Party Together', desc: 'Every crisis—Markop\'s first concern was the party.' },
+      { cat: 'loyalty', xp: 800, title: 'Remi Protection', desc: 'Protective of Remi without being condescending.' },
+      { cat: 'magic', xp: 500, title: 'Divine Smite Adaptation', desc: 'Adapted his divine smite for Shadowfell conditions.' },
+      { cat: 'chaos', xp: 519, title: 'Collateral Survival', desc: 'A four-legged anchor in the hurricane of Disaster Inc.' },
+      { cat: 'exploration', xp: 150, title: 'Tactical Reconnaissance', desc: 'Assessed enemy numbers and entered a room solo.' },
+      { cat: 'social', xp: 300, title: 'Interrogative Pressure', desc: 'Used targeted questions to verify identities.' },
+      { cat: 'chaos', xp: 200, title: 'Execution Interruption', desc: 'Physically intervened in an execution.' },
+      { cat: 'stealth', xp: 100, title: 'Opportunistic Retrieval', desc: 'Recovered a dropped letter from Bowser\'s bag.' },
+      { cat: 'combat', xp: 350, title: 'Ballistic Intervention', desc: 'Physically redirected a bullet during the tanuki execution attempt.' },
+      { cat: 'social', xp: 250, title: 'Disarming Authority', desc: 'Confiscated Remi\'s weapon and asserted control.' },
+      { cat: 'survival', xp: 150, title: 'Emergency Evacuation', desc: 'Organized supplies and performed a firefighter carry.' },
+    ]
   },
 
   bowser: {
     name: 'Bowser',
+    faction: 'disaster_inc',
     level: 7,
     currentXP: 23032,
     nextXP: 34000,
     entries: [
-// SHADEWARD MANOR — THE 8TH & 9TH
-      { cat: 'social', xp: 700, title: 'The Obsidian Rejection',
-        desc: 'Turned down Marcus Ashford\'s offer of a cursed crown and a new kingdom because his own ego/crown was already "more majestic." Ego functioning as magical armor.' },
-      { cat: 'survival', xp: 300, title: 'The Boulder\'s Rest',
-        desc: 'Achieved deep uninterrupted rest in a death-dimension manor. Bowser\'s psychological resilience allows him to ignore existential horror for a good nap.' },
-      { cat: 'social', xp: 350, title: 'Reluctant Diplomat',
-        desc: 'Voted for diplomacy over violence, admitting he "could be kind-hearted sometimes." A rare moment of internal conflict between punching and peace.' },
-      { cat: 'loyalty', xp: 600, title: 'The Harvestide Vote',
-        desc: 'Participated in the first unanimous strategic party vote, officially aligning with the group\'s diplomatic goals for the first time.' },
-      { cat: 'social', xp: 300, title: 'The Balcony Betrayal',
-        desc: 'Witnessed the destruction of the prepared portal materials and the disappearance of the only known exit.' },      
-      // COMBAT
-      { cat: 'combat', xp: 2500, title: 'Orangus Cornelius — Tackle Through Gothic Window',
-        desc: 'When Cornelius threatened to turn Bowser\'s shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER\'S SHELL. Bowser tackled the vampire lord through a dining room window and into the courtyard. When Cornelius revealed his giant bat form, Bowser BIT THE BAT\'S WING. He BIT a giant undead bat. This requires immune system confidence that Waluigi does not possess.' },
-      { cat: 'combat', xp: 1800, title: 'Vivian Corridor — Hold the Door, Punch the Head',
-        desc: 'Held the maintenance room door shut against an axe-wielding Vivian. Claws gouging the doorframe. Full body weight braced against attacks. When the door breached, Bowser struck Vivian across the skull—a blow that staggered the Corvinarus heir. In a fight with death magic, a solid punch to the head is still a solid punch to the head.' },
-      { cat: 'combat', xp: 1200, title: 'Shadow Anchor Liberation — Throwing Vampires into Statues',
-        desc: 'Threw Orangus Cornelius INTO the shattered statue containing the Shadow Anchor. Without Bowser\'s raw physical force, the Anchor might never have been exposed for Green T to shoot. Brute force as dimensional problem-solving.' },
-      { cat: 'combat', xp: 900, title: 'Ballroom Brawl — Bowling Through Undead',
-        desc: 'Charged through the ballroom\'s contorted undead dancers using his massive body as a living battering ram. Where Markop coordinated and Remi flanked, Bowser simply went through everything between him and the objective. The Bowser Principle in action.' },
-      { cat: 'combat', xp: 700, title: 'Vigilance Multi-Faction Engagement',
-        desc: 'Fought during the Vigilance\'s various conflict escalations. Bowser\'s approach to airship combat was the same as his approach to everything: see problem, hit problem. The airship survived. The problems mostly didn\'t.' },
-
-      // SURVIVAL
-      { cat: 'survival', xp: 2000, title: 'Shadowfell Endurance — The Indestructible',
-        desc: 'Survived extended time in the Shadowfell through sheer biological stubbornness. Bowser takes hits that would kill anyone else and keeps fighting. He faces threats that would terrify anyone else and keeps punching. The Shadowfell tried to break him. The Shadowfell failed.' },
-      { cat: 'survival', xp: 1200, title: 'Dragging Markop — Centaur Rescue',
-        desc: 'Dragged an unconscious Markop—a full centaur body—through stone corridors without complaint. Not gently, but EFFECTIVELY. Markop was alive because Bowser prioritized getting him out over fighting elegantly. Bowser does not do gentle. Bowser does results.' },
-      { cat: 'survival', xp: 800, title: 'Planar Fracture Transit — Shell Intact',
-        desc: 'Survived dimensional ejection during the Planar Fracture. The transit would kill most beings. Bowser\'s shell absorbed punishment that would have shattered lesser constitutions. He emerged on the other side annoyed rather than damaged.' },
-      { cat: 'survival', xp: 500, title: 'Dinner Party Survival — Eating Raw Meat Among Vampires',
-        desc: 'Attended a vampire dinner party and ate raw dripping meat in one bite because Bowser has the palate of a garbage disposal. He was not intimidated by beings who had been terrifying people for centuries. The vampires were possibly more disturbed by Bowser than he was by them.' },
-
-      // CHAOS
-      { cat: 'chaos', xp: 1200, title: 'The Wand Discovery — "Is This a Magic Wand?"',
-        desc: 'During active combat in a death dimension, while Markop was nearly being killed by a crimson death beam, Bowser found a necromancer\'s wand on the ground. Picked it up. Examined it curiously. Said: "Ooooh. Is this a magic wand?" The most Bowser moment in the entire campaign.' },
-      { cat: 'chaos', xp: 800, title: 'Window Defenestration — Unplanned Tactical Innovation',
-        desc: 'Tackling a vampire lord through a window was not a planned maneuver. It was Bowser\'s instinctive response to having his shell insulted. That it created a tactical advantage—moving the fight from enclosed dining room to open courtyard—was accidental genius.' },
-      { cat: 'chaos', xp: 500, title: 'Bat Wing Bite — Immune System Confidence',
-        desc: 'When Cornelius transformed into a giant bat, Bowser\'s response was to bite its wing. Not a calculated attack. An instinctive, animalistic response from a creature who solves problems with whatever body part is closest. The undead bat was probably as surprised as everyone else.' },
-
-      // SOCIAL
-      { cat: 'social', xp: 1200, title: 'Princess Peach Letter — The Unsent Apology',
-        desc: 'Wrote a crumpled letter to Princess Peach attempting to explain his presence at Raventree Manor. A surprisingly tender document from the King of the Koopa Troop. When Markop asked "Are you actually sorry?" Bowser cried. The great villain, brought to tears by his own regret over a dead princess.' },
-      { cat: 'social', xp: 600, title: 'Alliance of Circumstance — Following Markop',
-        desc: 'Adapted to his alliance with Disaster Inc. with surprising grace. Follows Markop\'s tactical suggestions not because he recognizes Markop\'s authority but because Markop\'s suggestions are usually GOOD. Bowser respects competence even if he\'d never admit it.' },
-      { cat: 'social', xp: 400, title: '"Candle-Man" — Nicknames as Bonding',
-        desc: '"Looks like you\'re out of fuel, candle-man." Bowser\'s nickname for the fire-suppressed Archie. Not cruel—affectionate in the way that Bowser does affection, which is to say roughly, loudly, and with minimal emotional self-awareness.' },
-
-      // LOYALTY
-      { cat: 'loyalty', xp: 1200, title: 'Dragging Friends to Safety — The Bowser Priority',
-        desc: 'Bowser\'s first instinct when allies fall is not retreat or self-preservation—it\'s grabbing them and hauling them to cover. He dragged Markop. He\'s moved Toads. He positions himself between threats and the party. The villain who became a shield.' },
-      { cat: 'loyalty', xp: 600, title: 'Shell as Shield — Taking Hits for Others',
-        desc: 'Repeatedly positioned his shell to absorb attacks meant for party members. The shell that has survived Mario\'s best efforts for decades now protects the people it was never designed to protect. Circumstance makes strange allies. Strange allies make genuine sacrifices.' },
-
-      // DISCOVERY
-      { cat: 'discovery', xp: 800, title: 'Necromancer\'s Wand Acquisition',
-        desc: 'The wand Bowser found is a necromantic focus—cold to the touch, death-aspected. Whether Bowser can be corrupted by it is an open question. Waluigi suspects the wand is more confused by Bowser than Bowser is by the wand. His magical sophistication is essentially ZERO.' },
-      { cat: 'discovery', xp: 400, title: 'Shadow Anchor Exposure — Accidental Archaeology',
-        desc: 'By throwing Cornelius into the statue, Bowser accidentally exposed the Shadow Anchor—a critical planar artifact. He didn\'t know it was there. He wasn\'t looking for it. He was just throwing a vampire at the nearest solid object. Sometimes brute force IS the answer.' },
-
-      // EXPLORATION
-      { cat: 'exploration', xp: 500, title: 'Shadow Estate Navigation — The Bull in the China Shop',
-        desc: 'Bowser\'s exploration style involves walking through doors that are too small, breaking walls that are in the way, and treating architectural obstacles as personal insults. Surprisingly effective for mapping a haunted estate. If there\'s a room behind that wall, Bowser will find it.' },
-
-      // STEALTH (Bowser has minimal stealth XP, but honesty demands inclusion)
-      { cat: 'stealth', xp: 82, title: 'The One Time Bowser Was Quiet',
-        desc: 'During one particular approach, Bowser actually managed to be quiet for approximately thirty seconds. The party was so shocked they almost blew their own cover. This will likely never happen again.' },
-    
-      // remis-birthday
-      { cat: 'chaos', xp: 350, title: 'The King\'s Distraction',
-        desc: 'Using a theatrical display of demands and posturing to divert Vostolas\'s attention during a high-tension moment.' },
-      { cat: 'social', xp: 200, title: 'The Unmasking',
-        desc: 'Aggressive interrogation involving the theft of glasses and physical confrontation to reveal the imposter\'s identity.' },
-      { cat: 'loyalty', xp: 100, title: 'Restrained Violence',
-        desc: 'Choosing to defer to Hjumpik\'s opinion and ultimately allowing the tanuki to live despite personal distaste.' },
-
-      // grove of woe
-      { cat: 'chaos', xp: 450, title: 'The Badge Extraction',
-        desc: 'The visceral and high-consequence act of tearing the Bowser Badge from Dan\'s skin, resulting in spontaneous combustion and a desperate attempt at cauterization.' },
-      { cat: 'combat', xp: 400, title: 'Duel of the Two Dans',
-        desc: 'A multi-faceted combat engagement utilizing a variety of tools including warhammer, punches, and the portable Bullet Bill cannon.' },
-      { cat: 'social', xp: 250, title: 'Moral Compass: Hjumpik\'s Legacy',
-        desc: 'Navigating a high-tension voting moment by weighing the impulse to kill against the memory of an ally.' },
-      { cat: 'exploration', xp: 150, title: 'The Fracture Atrium Descent',
-        desc: 'Navigating the transition through a portal into a new, unstable dimension while managing wounded allies.' },
-
-      // SESSION — 2026-05-12
-      { cat: 'combat', xp: 350, title: 'Rescue Attempt in Collapsing Library', desc: 'Took significant personal risk to attempt a rescue of Dan amidst the environmental hazard of a collapsing library.' },
-      { cat: 'survival', xp: 200, title: 'Stranded in Sanctum', desc: 'Navigated the dangerous, collapsing Corvinarus Sanctum, facing immediate life-threatening consequences.' },
-]
+      { cat: 'social', xp: 700, title: 'The Obsidian Rejection', desc: 'Turned down a cursed crown because his own was "more majestic."' },
+      { cat: 'survival', xp: 300, title: 'The Boulder\'s Rest', desc: 'Achieved deep uninterrupted rest in a death-dimension manor.' },
+      { cat: 'social', xp: 350, title: 'Reluctant Diplomat', desc: 'Voted for diplomacy, admitting he "could be kind-hearted sometimes."' },
+      { cat: 'loyalty', xp: 600, title: 'The Harvestide Vote', desc: 'First unanimous strategic party vote.' },
+      { cat: 'social', xp: 300, title: 'The Balcony Betrayal', desc: 'Witnessed the destruction of the portal materials.' },
+      { cat: 'combat', xp: 2500, title: 'Orangus Cornelius — Tackle Through Gothic Window', desc: 'Tackled a vampire lord through a dining room window and BIT the giant bat\'s wing.' },
+      { cat: 'combat', xp: 1800, title: 'Vivian Corridor — Hold the Door', desc: 'Held a door shut against an axe-wielding Vivian, then punched her in the skull.' },
+      { cat: 'combat', xp: 1200, title: 'Shadow Anchor Liberation', desc: 'Threw Cornelius INTO the statue containing the Shadow Anchor.' },
+      { cat: 'combat', xp: 900, title: 'Ballroom Brawl', desc: 'Charged through undead dancers as a living battering ram.' },
+      { cat: 'combat', xp: 700, title: 'Vigilance Multi-Faction Engagement', desc: 'See problem, hit problem.' },
+      { cat: 'survival', xp: 2000, title: 'Shadowfell Endurance', desc: 'The Shadowfell tried to break him. The Shadowfell failed.' },
+      { cat: 'survival', xp: 1200, title: 'Dragging Markop — Centaur Rescue', desc: 'Dragged an unconscious full centaur through stone corridors.' },
+      { cat: 'survival', xp: 800, title: 'Planar Fracture Transit', desc: 'Survived dimensional ejection. Emerged annoyed rather than damaged.' },
+      { cat: 'survival', xp: 500, title: 'Dinner Party Survival', desc: 'Ate raw dripping meat in one bite among vampires.' },
+      { cat: 'chaos', xp: 1200, title: '"Is This a Magic Wand?"', desc: 'During active combat, found a wand, examined it curiously.' },
+      { cat: 'chaos', xp: 800, title: 'Window Defenestration', desc: 'Tackling a vampire through a window was not planned.' },
+      { cat: 'chaos', xp: 500, title: 'Bat Wing Bite', desc: 'When the bat appeared, Bowser bit its wing.' },
+      { cat: 'social', xp: 1200, title: 'Princess Peach Letter', desc: 'A surprisingly tender unsent apology. Bowser cried.' },
+      { cat: 'social', xp: 600, title: 'Alliance of Circumstance', desc: 'Follows Markop\'s suggestions because they\'re GOOD.' },
+      { cat: 'social', xp: 400, title: '"Candle-Man"', desc: 'Bowser\'s affectionate nickname for fire-suppressed Archie.' },
+      { cat: 'loyalty', xp: 1200, title: 'Dragging Friends to Safety', desc: 'First instinct when allies fall is grabbing them.' },
+      { cat: 'loyalty', xp: 600, title: 'Shell as Shield', desc: 'Positioned his shell to absorb attacks meant for party members.' },
+      { cat: 'discovery', xp: 800, title: 'Necromancer\'s Wand Acquisition', desc: 'A necromantic focus. The wand is more confused by Bowser than he is by it.' },
+      { cat: 'discovery', xp: 400, title: 'Shadow Anchor Exposure', desc: 'Accidentally exposed a critical planar artifact by throwing a vampire.' },
+      { cat: 'exploration', xp: 500, title: 'Shadow Estate Navigation', desc: 'Bowser\'s exploration style: walk through doors, break walls.' },
+      { cat: 'stealth', xp: 82, title: 'The One Time Bowser Was Quiet', desc: 'Approximately thirty seconds of silence. Will likely never happen again.' },
+      { cat: 'chaos', xp: 350, title: 'The King\'s Distraction', desc: 'Theatrical display of demands during a high-tension moment.' },
+      { cat: 'social', xp: 200, title: 'The Unmasking', desc: 'Aggressive interrogation involving theft of glasses.' },
+      { cat: 'loyalty', xp: 100, title: 'Restrained Violence', desc: 'Choosing to defer to Hjumpik\'s opinion on letting the tanuki live.' },
+      { cat: 'chaos', xp: 450, title: 'The Badge Extraction', desc: 'Tearing the Bowser Badge from Dan\'s skin, causing spontaneous combustion.' },
+      { cat: 'combat', xp: 400, title: 'Duel of the Two Dans', desc: 'Multi-faceted combat using warhammer, punches, and Bullet Bill cannon.' },
+      { cat: 'social', xp: 250, title: 'Moral Compass: Hjumpik\'s Legacy', desc: 'Weighing the impulse to kill against the memory of an ally.' },
+      { cat: 'exploration', xp: 150, title: 'The Fracture Atrium Descent', desc: 'Navigating through a portal into a new, unstable dimension.' },
+      { cat: 'combat', xp: 350, title: 'Rescue Attempt in Collapsing Library', desc: 'Took significant personal risk to attempt a rescue.' },
+      { cat: 'survival', xp: 200, title: 'Stranded in Sanctum', desc: 'Navigated the collapsing Corvinarus Sanctum.' },
+    ]
   },
 
   remi: {
     name: 'Remi',
+    faction: 'disaster_inc',
     level: 6,
     currentXP: 21568,
     nextXP: 23000,
     entries: [
-// SHADEWARD MANOR — THE 8TH & 9TH
-      { cat: 'survival', xp: 500, title: 'The Ring\'s Destruction',
-        desc: 'Endured the removal of the invisible tightening ring by Green T. Finally freed from the physical manifestation of the Oracle\'s control.' },
-      { cat: 'stealth', xp: 400, title: 'Enthrallment Evasion',
-        desc: 'Narrowly avoided signing magically binding friendship contracts and autographs for the Onyx Hand guards.' },
-      { cat: 'discovery', xp: 350, title: 'Genetic Succession Intel',
-        desc: 'Identified the Onyx Hand\'s intent to sample DNA for "heir matches," revealing the manor\'s true purpose as a biological grooming facility.' },
-      { cat: 'loyalty', xp: 600, title: 'Intelligence Specialist',
-        desc: 'Provided the key information needed for the party to hold their strategic vote, shifting the group toward target-based investigation.' },
-      { cat: 'social', xp: 300, title: 'The Balcony Betrayal',
-        desc: 'Watched the portal implode after Green T claimed he had been hoodwinked. Lost a safe passage out of the estate.' },      
-      // STEALTH
-      { cat: 'stealth', xp: 2000, title: 'Kryn Corvinarus\'s Master Bedroom — The Ultimate Heist',
-        desc: 'Using keys she "casually acquired," Remi bypassed guards and entered the vampire lord\'s master bedroom. Checked the medicine cabinet. Stole Hemoglue of the Nightlord and Leadfang Extractor. Found an incomplete ancient teleportation circle under a rug. Remi gathers intelligence the way Wario gathers coins: quietly, thoroughly, and without asking permission.' },
-      { cat: 'stealth', xp: 1500, title: 'Shadow Estate Infiltration — The Quiet Operator',
-        desc: 'While everyone else was fighting giant bats or singing zombies, Remi was snooping. Her separation from the main group wasn\'t a crisis—it was an opportunity. She didn\'t panic. She infiltrated. The FNG became the party\'s most effective intelligence asset.' },
-      { cat: 'stealth', xp: 800, title: 'Guard Bypass — Keys and Timing',
-        desc: 'Navigated the Shadow Estate\'s guard patrols through observation, patience, and the rogue\'s understanding that most security systems have gaps created by human laziness. Vampires are no different—they still take breaks, still look the wrong direction, still assume no one would dare.' },
-      { cat: 'stealth', xp: 600, title: 'Vampire Territory Movement — Walking Among the Dead',
-        desc: 'Moved through vampire-controlled territory without detection. No disguise. No magic. Just the quiet competence of someone who knows how to make themselves invisible by being uninteresting. The best stealth isn\'t invisibility—it\'s irrelevance.' },
-
-      // DISCOVERY
-      { cat: 'discovery', xp: 2500, title: 'The Oracle\'s Deck — Custodian of the Cards',
-        desc: 'Received The Oracle\'s Deck from Mystic Morel—magical tarot cards that predict the future. Drew three cards: The Maze Walker (Hjumpik), The Titan of the Grove (Markop), The Delicate Host (Lady Corvinarus). Past, Present, and Future. Remi now holds the script to the universe. Do not underestimate Remi.' },
-      { cat: 'discovery', xp: 1500, title: 'Ryan\'s Diary — Confirming the Impossible',
-        desc: 'Found Ryan\'s diary in a guest room. Entries confirmed Ryan survived the Vigilance jump, ended up in the Shadowfell, and observed Archie and Bowser before disappearing again. A document that rewrites the party\'s understanding of who survived and where they ended up.' },
-      { cat: 'discovery', xp: 800, title: 'Teleportation Circle — Ancient Infrastructure',
-        desc: 'Discovered an incomplete, ancient teleportation circle etched in chalk beneath a rug in the master bedroom. Evidence that the Shadow Estate was connected to a teleportation network that predates the current vampire occupants. Someone built infrastructure for dimensional transit in this location.' },
-      { cat: 'discovery', xp: 600, title: 'Medical Supply Intelligence — Vampire Vulnerabilities',
-        desc: 'The medicines Remi stole—Hemoglue of the Nightlord and Leadfang Extractor—reveal that vampires need medical supplies. They bleed. They get shot. They have vulnerabilities that they keep hidden behind locked bathroom cabinets. Intelligence that changes how the party approaches vampire encounters.' },
-
-      // COMBAT
-      { cat: 'combat', xp: 1200, title: 'Spider Grove — Swarm Survival',
-        desc: 'Survived spider swarms in the Spider Grove battle. Remi\'s combat style emphasizes evasion and precision over brute force—hitting critical targets while avoiding the mass of enemies. Where Markop grappled the Matriarch and Bowser charged through, Remi struck from angles nobody was watching.' },
-      { cat: 'combat', xp: 700, title: 'Shadow Estate Skirmishes — The Rogue\'s Blade',
-        desc: 'Engaged in multiple small-scale fights throughout the Shadow Estate. Remi\'s value in combat isn\'t raw damage—it\'s targeting. She identifies weak points, exploits openings, and strikes where it matters most. Quality over quantity.' },
-      { cat: 'combat', xp: 400, title: 'Vigilance Conflicts — Staying Alive',
-        desc: 'Survived the Vigilance\'s cascading conflicts as the FNG—the newest member of Disaster Inc. Learned that survival in this party means being ready for everything to go wrong simultaneously. She learned fast.' },
-
-      // SURVIVAL
-      { cat: 'survival', xp: 1200, title: 'Shadowfell Endurance — Thriving Where Others Wilt',
-        desc: 'Extended survival in the Shadowfell. Where Archie lost his fire and Bowser lost his patience, Remi adapted. The Shadowfell rewards subtlety and punishes brute force—making it, ironically, the dimension best suited to Remi\'s skill set.' },
-      { cat: 'survival', xp: 500, title: 'Separation Survival — Operating Solo',
-        desc: 'Survived separation from the main party without support. No centaur to hide behind. No fire mage to clear rooms. Just Remi, her skills, and her understanding that the best defense is not being found in the first place.' },
-      { cat: 'survival', xp: 400, title: 'Glowing Potion — "I Needed Some Brightness"',
-        desc: 'Drank a random potion because someone told her she was dead. Started glowing. Markop\'s exasperation was palpable: "So you drank a random potion because a guy said you were dead?" Remi\'s response: "I needed some brightness." Survival through reckless optimism.' },
-
-      // EXPLORATION
-      { cat: 'exploration', xp: 1000, title: 'Shadow Estate Deep Exploration — Rooms Others Missed',
-        desc: 'Explored sections of the Shadow Estate that the combat-focused party members walked past. Guest rooms. Bathrooms. Service corridors. The mundane spaces that contain the best intelligence. Remi understands that secrets hide in boring places.' },
-      { cat: 'exploration', xp: 500, title: 'Alternative Pathfinding — The Rogue\'s Routes',
-        desc: 'Identified alternative routes through the estate—servant passages, ventilation spaces, the architectural afterthoughts that builders create and security teams forget. Every locked door is a suggestion, not a statement.' },
-
-      // SOCIAL
-      { cat: 'social', xp: 800, title: 'Mystic Morel Encounter — Receiving the Deck',
-        desc: 'Engaged with Mystic Morel—the purple Toad fortune teller who speaks in rhyming prophecies. Where Archie was robbed by Morel, Remi received a gift. The Oracle\'s Deck was given, not taken. Morel chose Remi as its custodian. That choice matters.' },
-      { cat: 'social', xp: 500, title: 'Party Integration — From FNG to Essential',
-        desc: 'Evolved from "the new one" to an indispensable member of Disaster Inc. Earned trust not through dramatic heroics but through consistent competence. The party stopped calling her FNG and started calling her by name. In Disaster Inc., that\'s the highest honor.' },
-
-      // LOYALTY
-      { cat: 'loyalty', xp: 600, title: 'Intelligence Sharing — The Generous Operative',
-        desc: 'Every piece of intelligence Remi gathered—Ryan\'s diary, the teleportation circle, the medical supplies—she shared with the party. A lesser rogue would hoard information as personal leverage. Remi distributes it because the party\'s survival matters more than her advantage.' },
-      { cat: 'loyalty', xp: 418, title: 'Standing With the Party — Through Dimensional Horror',
-        desc: 'When the option to run existed—and in the Shadowfell, running is always an option—Remi stayed. With the party. Through spider swarms and vampire territory and singing hedge monsters. The FNG doesn\'t run. The FNG fights.' },
-
-      // MAGIC
-      { cat: 'magic', xp: 500, title: 'Oracle\'s Deck Attunement — Reading the Cards',
-        desc: 'Attuning to the Oracle\'s Deck required more than just holding the cards. The deck responds to Remi specifically—showing her visions of party members across dimensions. She is learning to read them, to interpret the symbols, to understand the difference between prediction and possibility.' },
-    
-      // remis-birthday
-      { cat: 'social', xp: 100, title: 'Observational Commentary',
-        desc: 'Noting the absurdity of a villain carrying flowers and attempting to manage party expectations regarding the surprise party.' },
-      { cat: 'chaos', xp: 250, title: 'The Tanuki Execution Attempt',
-        desc: 'Executing a high-tension moment involving a silenced revolver, physical confrontation with Bowser, and the direct attempt to assassinate a party member/NPC.' },
-      { cat: 'loyalty', xp: 200, title: 'Democratic Outrage',
-        desc: 'The character\'s consistent emotional reaction to being excluded from the voting process and the struggle for agency in party decisions.' },
-
-      // grove of woe
-      { cat: 'chaos', xp: 250, title: 'The Bros Attack Experiment',
-        desc: 'Executing a coordinated shot through a bathroom door using the \'Bros Attack\' technique with Green T.' },
-      { cat: 'social', xp: 150, title: 'Diplomatic Deflection',
-        desc: 'Attempting to mitigate tension by reframing traitors as \'having a rough time\' during the struggle with Markop.' },
-      { cat: 'exploration', xp: 50, title: 'Lodge Reconnaissance',
-        desc: 'Briefly surveying the kitchen of Tymnas\'s lodge.' },
-]
+      { cat: 'survival', xp: 500, title: 'The Ring\'s Destruction', desc: 'Endured the removal of the invisible tightening ring by Green T.' },
+      { cat: 'stealth', xp: 400, title: 'Enthrallment Evasion', desc: 'Narrowly avoided signing magically binding friendship contracts.' },
+      { cat: 'discovery', xp: 350, title: 'Genetic Succession Intel', desc: 'Identified the Onyx Hand\'s intent to sample DNA for "heir matches."' },
+      { cat: 'loyalty', xp: 600, title: 'Intelligence Specialist', desc: 'Provided key information for the party\'s strategic vote.' },
+      { cat: 'social', xp: 300, title: 'The Balcony Betrayal', desc: 'Watched the portal implode after Green T claimed he had been hoodwinked.' },
+      { cat: 'stealth', xp: 2000, title: 'Kryn Corvinarus\'s Master Bedroom', desc: 'Bypassed guards and entered the vampire lord\'s master bedroom.' },
+      { cat: 'stealth', xp: 1500, title: 'Shadow Estate Infiltration', desc: 'While everyone else fought, Remi was snooping.' },
+      { cat: 'stealth', xp: 800, title: 'Guard Bypass — Keys and Timing', desc: 'Navigated guard patrols through observation and patience.' },
+      { cat: 'stealth', xp: 600, title: 'Vampire Territory Movement', desc: 'The best stealth isn\'t invisibility—it\'s irrelevance.' },
+      { cat: 'discovery', xp: 2500, title: 'The Oracle\'s Deck', desc: 'Received magical tarot cards that predict the future.' },
+      { cat: 'discovery', xp: 1500, title: 'Ryan\'s Diary', desc: 'Found Ryan\'s diary confirming he survived the Vigilance jump.' },
+      { cat: 'discovery', xp: 800, title: 'Teleportation Circle', desc: 'Discovered an incomplete ancient teleportation circle.' },
+      { cat: 'discovery', xp: 600, title: 'Medical Supply Intelligence', desc: 'Stole medicines revealing vampire vulnerabilities.' },
+      { cat: 'combat', xp: 1200, title: 'Spider Grove — Swarm Survival', desc: 'Struck from angles nobody was watching.' },
+      { cat: 'combat', xp: 700, title: 'Shadow Estate Skirmishes', desc: 'Quality over quantity targeting.' },
+      { cat: 'combat', xp: 400, title: 'Vigilance Conflicts', desc: 'Survived cascading conflicts as the FNG.' },
+      { cat: 'survival', xp: 1200, title: 'Shadowfell Endurance', desc: 'Remi adapted where others wilted.' },
+      { cat: 'survival', xp: 500, title: 'Separation Survival', desc: 'Survived separation without support.' },
+      { cat: 'survival', xp: 400, title: 'Glowing Potion', desc: '"I needed some brightness."' },
+      { cat: 'exploration', xp: 1000, title: 'Shadow Estate Deep Exploration', desc: 'Explored sections others walked past.' },
+      { cat: 'exploration', xp: 500, title: 'Alternative Pathfinding', desc: 'Every locked door is a suggestion, not a statement.' },
+      { cat: 'social', xp: 800, title: 'Mystic Morel Encounter', desc: 'Received the Oracle\'s Deck. Morel chose Remi.' },
+      { cat: 'social', xp: 500, title: 'Party Integration', desc: 'From FNG to indispensable.' },
+      { cat: 'loyalty', xp: 600, title: 'Intelligence Sharing', desc: 'Shared every piece of intelligence with the party.' },
+      { cat: 'loyalty', xp: 418, title: 'Standing With the Party', desc: 'The FNG doesn\'t run. The FNG fights.' },
+      { cat: 'magic', xp: 500, title: 'Oracle\'s Deck Attunement', desc: 'Learning to read the cards.' },
+      { cat: 'social', xp: 100, title: 'Observational Commentary', desc: 'Noting the absurdity of a villain carrying flowers.' },
+      { cat: 'chaos', xp: 250, title: 'The Tanuki Execution Attempt', desc: 'A silenced revolver, physical confrontation with Bowser.' },
+      { cat: 'loyalty', xp: 200, title: 'Democratic Outrage', desc: 'The struggle for agency in party decisions.' },
+      { cat: 'chaos', xp: 250, title: 'The Bros Attack Experiment', desc: 'Coordinated shot through a bathroom door.' },
+      { cat: 'social', xp: 150, title: 'Diplomatic Deflection', desc: 'Reframing traitors as "having a rough time."' },
+      { cat: 'exploration', xp: 50, title: 'Lodge Reconnaissance', desc: 'Briefly surveying the kitchen of Tymnas\'s lodge.' },
+    ]
   },
+
   feywarddan: {
     name: 'Feyward Dan',
     faction: 'npc',
@@ -1449,16 +1194,13 @@ const PLAYERS = {
     currentXP: 850,
     nextXP: 900,
     entries: [
-      // JOINED 2026-05-12 | Unknown Unknown
-      // Woke up on Estragon\'s Island; has a history of wandering and accidental destruction; currently implicated in the blame 
-    ,
-      // SESSION — 2026-05-12
-      { cat: 'social', xp: 150, title: 'Deceptive Negotiation', desc: 'Lied about knowledge of Raventree Manor and negotiated the disclosure of truths to manipulate a conversation with Prismari.' },
-      { cat: 'stealth', xp: 200, title: 'Failed Infiltration', desc: 'Attempted to sneak up on a professor and dodge spotlights, resulting in capture and interrogation.' },
-      { cat: 'chaos', xp: 250, title: 'Escapist Rampage', desc: 'Engaged in high-consequence physical stunts including breaking through windows and fleeing from goblins and mages, leading to significant injury.' },
-      { cat: 'combat', xp: 250, title: 'Assault on Authority', desc: 'Took a massive risk by charging and attacking a professor with a sword, resulting in direct combat consequences and wounding.' },
-]
+      { cat: 'social', xp: 150, title: 'Deceptive Negotiation', desc: 'Lied about knowledge of Raventree Manor and negotiated the disclosure of truths.' },
+      { cat: 'stealth', xp: 200, title: 'Failed Infiltration', desc: 'Attempted to sneak up on a professor, resulting in capture.' },
+      { cat: 'chaos', xp: 250, title: 'Escapist Rampage', desc: 'Breaking through windows and fleeing from goblins and mages.' },
+      { cat: 'combat', xp: 250, title: 'Assault on Authority', desc: 'Charged and attacked a professor with a sword.' },
+    ]
   },
+
   originaldan: {
     name: 'Original Dan',
     faction: 'mages_guild',
@@ -1466,15 +1208,12 @@ const PLAYERS = {
     currentXP: 24350,
     nextXP: 34000,
     entries: [
-      // JOINED 2026-05-12 | Unknown Fire Mage
-      // Former leader of the Liberated Toads. Acquired a cursed staff that led him to kill thirteen of his own people and nearly
-    ,
-      // SESSION — 2026-05-12
-      { cat: 'magic', xp: 450, title: 'Acquisition of Cursed Staff', desc: 'Obtained a cursed staff and demonstrated the ability to nearly consume souls, representing a significant shift in power and potential corruption.' },
-      { cat: 'chaos', xp: 500, title: 'The Grove of Woe Massacre', desc: 'Killed thirteen members of his own people and demanded the surrender of a duplicate, driving the session\'s conflict through extreme violence.' },
-      { cat: 'combat', xp: 400, title: 'Magical Detonation at Estragon\'s Island', desc: 'Released a raw magical fire explosion from his chest that killed goblins and damaged allies, demonstrating high-impact, destructive problem-solving.' },
-]
+      { cat: 'magic', xp: 450, title: 'Acquisition of Cursed Staff', desc: 'Obtained a cursed staff capable of nearly consuming souls.' },
+      { cat: 'chaos', xp: 500, title: 'The Grove of Woe Massacre', desc: 'Killed thirteen of his own people.' },
+      { cat: 'combat', xp: 400, title: 'Magical Detonation at Estragon\'s Island', desc: 'Released a raw magical fire explosion from his chest.' },
+    ]
   },
+
   prismari: {
     name: 'Prismari',
     faction: 'npc',
@@ -1482,52 +1221,42 @@ const PLAYERS = {
     currentXP: 6850,
     nextXP: 14000,
     entries: [
-      // JOINED 2026-05-12 | Unknown Sorcerer or Enchanter
-      // Prismari possesses knowledge of magical surges and can identify Feywild origins via auras. She exhibits a potentially si
-    ,
-      // SESSION — 2026-05-12
-      { cat: 'social', xp: 150, title: 'Intimidating Interrogation', desc: 'Used magical perception to identify Dan\'s aura and Feywild origin, while using verbal warnings of guard intervention to establish dominance and control the interaction.' },
-      { cat: 'exploration', xp: 200, title: 'Environmental Manipulation', desc: 'Managed the physical security of the manor by controlling the door and retrieving keys to navigate a potentially locked situation.' },
-]
+      { cat: 'social', xp: 150, title: 'Intimidating Interrogation', desc: 'Used magical perception to identify Dan\'s aura and Feywild origin.' },
+      { cat: 'exploration', xp: 200, title: 'Environmental Manipulation', desc: 'Managed the physical security of the manor.' },
+    ]
   },
+
   greent: {
     name: 'Green T',
     faction: 'unknown',
     level: 4,
     currentXP: 2700,
     nextXP: 6500,
-    entries: [
-      // JOINED 2026-05-12 | Unknown Barbarian or Fighter
-      // Has a history of extreme violence involving the character Original Dan, specifically resulting in the loss of an arm.
-    ]
+    entries: []
   },
+
   godtoad: {
     name: 'God Toad',
     faction: 'npc',
-    level: 1,
+    level: 100,
     currentXP: 0,
     nextXP: 300,
-    entries: [
-      // JOINED 2026-05-12 | Unknown Unknown
-      // Appeared briefly before Dan following instructions provided by the professor; presence seems tied to a summoning mechani
-    ]
+    entries: []
   },
+
   loreholdprofessorofchaos: {
-    name: 'Lorehold professor of chaos',
+    name: 'Lorehold Professor of Chaos',
     faction: 'npc',
     level: 5,
     currentXP: 7150,
     nextXP: 14000,
     entries: [
-      // JOINED 2026-05-12 | Unknown Wizard/Sorcerer
-      // A professor associated with Lorehold who utilizes magical spotlights and tracking magic. They act as an investigator or 
-    ,
-      // SESSION — 2026-05-12
-      { cat: 'magic', xp: 200, title: 'Magical Surveillance', desc: 'Deployed magical spotlights to track a target and used magic to monitor movements during a chase.' },
-      { cat: 'social', xp: 250, title: 'Interrogation and Manipulation', desc: 'Conducted high-stakes interrogations regarding planar fractures and presented characters with life-altering choices.' },
-      { cat: 'chaos', xp: 200, title: 'Orchestrating Confrontation', desc: 'Facilitated meetings with powerful entities (God Toad) and actively participated in the unfolding chaos of explosions and escapes.' },
-]
+      { cat: 'magic', xp: 200, title: 'Magical Surveillance', desc: 'Deployed magical spotlights to track a target.' },
+      { cat: 'social', xp: 250, title: 'Interrogation and Manipulation', desc: 'Conducted high-stakes interrogations regarding planar fractures.' },
+      { cat: 'chaos', xp: 200, title: 'Orchestrating Confrontation', desc: 'Facilitated meetings with powerful entities.' },
+    ]
   },
+
   steely: {
     name: 'Steely',
     faction: 'unknown',
@@ -1535,13 +1264,10 @@ const PLAYERS = {
     currentXP: 50,
     nextXP: 300,
     entries: [
-      // JOINED 2026-05-12 | Unknown Unknown
-      // Connected to or produced a horrifying image that impacted Hjumpik.
-    ,
-      // SESSION — 2026-05-12
-      { cat: 'social', xp: 50, title: 'Disturbing Revelation', desc: 'Used a visual medium to provoke a strong emotional response/horror in Hjumpik, establishing social tension.' },
-]
+      { cat: 'social', xp: 50, title: 'Disturbing Revelation', desc: 'Used a visual medium to provoke a strong emotional response in Hjumpik.' },
+    ]
   },
+
   toadlee: {
     name: 'Toad Lee',
     faction: 'npc',
@@ -1549,14 +1275,11 @@ const PLAYERS = {
     currentXP: 1450,
     nextXP: 2700,
     entries: [
-      // JOINED 2026-05-12 | Toad Barbarian or Fighter
-      // Possesses aged papers that are central to the current plot. Has a history of conflict with Wario and Waluigi. Operates o
-    ,
-      // SESSION — 2026-05-12
-      { cat: 'discovery', xp: 250, title: 'Discovery of the Aged Papers', desc: 'Realized he had been in possession of the essential papers for the unaging ritual all along, a major narrative revelation.' },
-      { cat: 'combat', xp: 300, title: 'Violent Confrontation', desc: 'Engaged in physical combat with Wario over the papers and aggressively attacked Waluigi\'s legs with an axe.' },
-]
+      { cat: 'discovery', xp: 250, title: 'Discovery of the Aged Papers', desc: 'Realized he had the essential papers all along.' },
+      { cat: 'combat', xp: 300, title: 'Violent Confrontation', desc: 'Engaged in physical combat with Wario over the papers.' },
+    ]
   },
+
   rakashaazure: {
     name: 'Rakasha Azure',
     faction: 'unknown',
@@ -1564,14 +1287,10 @@ const PLAYERS = {
     currentXP: 3050,
     nextXP: 6500,
     entries: [
-      // JOINED 2026-05-12 | Unknown Monk or Fighter
-      // Rakasha Azure acts as a third party in high-stakes handoff arrangements. She possesses significant physical strength, de
-    ,
-      // SESSION — 2026-05-12
-      { cat: 'social', xp: 200, title: 'Third-Party Mediation', desc: 'Acted as a neutral arbade/third party for a handoff arrangement, involving physical restraint of Wario to ensure the deal proceeded.' },
-      { cat: 'discovery', xp: 150, title: 'Degradation of Documents', desc: 'Discovered and reported that the critical papers were turning to dust upon handling, introducing a new complication to the mission.' },
-]
-  }
+      { cat: 'social', xp: 200, title: 'Third-Party Mediation', desc: 'Acted as neutral third party, physically restraining Wario.' },
+      { cat: 'discovery', xp: 150, title: 'Degradation of Documents', desc: 'Discovered that the critical papers were turning to dust.' },
+    ]
+  },
 };
 
 // ═══════════════════════════════════════════
@@ -1586,61 +1305,256 @@ function computeCategoryTotals(entries) {
   return totals;
 }
 
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function buildHeader() {
+  const statsEl = document.getElementById('header-stats');
+  let totalXP = 0;
+  let charCount = 0;
+  const usedCats = new Set();
+
+  for (const [key, p] of Object.entries(PLAYERS)) {
+    totalXP += p.currentXP;
+    charCount++;
+    for (const e of p.entries) {
+      usedCats.add(e.cat);
+    }
+  }
+
+  // Count player-faction characters vs all
+  let playerCount = 0;
+  for (const [key, p] of Object.entries(PLAYERS)) {
+    const f = FACTIONS[p.faction || 'unknown'] || FACTIONS.unknown;
+    if (f.is_player) playerCount++;
+  }
+
+  statsEl.innerHTML = `
+    <div class="total-stat">
+      <div class="total-stat-value">${totalXP.toLocaleString()}</div>
+      <div class="total-stat-label">Total Party XP</div>
+    </div>
+    <div class="total-stat">
+      <div class="total-stat-value">${playerCount}</div>
+      <div class="total-stat-label">Party Members</div>
+    </div>
+    <div class="total-stat">
+      <div class="total-stat-value">${charCount}</div>
+      <div class="total-stat-label">Tracked Characters</div>
+    </div>
+    <div class="total-stat">
+      <div class="total-stat-value">${usedCats.size}</div>
+      <div class="total-stat-label">XP Categories</div>
+    </div>
+  `;
+}
+
+function buildNavigation() {
+  const navEl = document.getElementById('nav-container');
+  navEl.innerHTML = '';
+
+  // Group characters by faction
+  const groups = {};
+  for (const [key, p] of Object.entries(PLAYERS)) {
+    const fid = p.faction || 'unknown';
+    if (!groups[fid]) groups[fid] = [];
+    groups[fid].push({ key, ...p });
+  }
+
+  // Sort factions: player factions first, then by sort_order
+  const factionOrder = Object.keys(groups).sort((a, b) => {
+    const fa = FACTIONS[a] || FACTIONS.unknown;
+    const fb = FACTIONS[b] || FACTIONS.unknown;
+    if (fa.is_player !== fb.is_player) return fa.is_player ? -1 : 1;
+    return (fa.sort_order || 99) - (fb.sort_order || 99);
+  });
+
+  // Sort characters within each faction by level desc, then XP desc
+  for (const fid of factionOrder) {
+    groups[fid].sort((a, b) => b.level - a.level || b.currentXP - a.currentXP);
+  }
+
+  let isFirst = true;
+
+  for (const fid of factionOrder) {
+    const faction = FACTIONS[fid] || FACTIONS.unknown;
+    const chars = groups[fid];
+
+    const group = document.createElement('div');
+    group.className = 'nav-faction-group';
+
+    // Faction label
+    const label = document.createElement('div');
+    label.className = 'nav-faction-label';
+    label.textContent = `${faction.icon} ${faction.name}`;
+    group.appendChild(label);
+
+    // Character tabs
+    const tabRow = document.createElement('div');
+    tabRow.className = 'nav-faction-tabs';
+
+    for (const ch of chars) {
+      const disp = getDisplay(ch.key);
+      const tab = document.createElement('div');
+      tab.className = 'nav-tab' + (isFirst ? ' active' : '');
+      tab.dataset.target = ch.key;
+      tab.innerHTML = `${disp.icon} ${escapeHtml(ch.name)} <span class="tab-level">Lv.${ch.level}</span>`;
+      tab.addEventListener('click', () => activatePanel(ch.key));
+      tabRow.appendChild(tab);
+      isFirst = false;
+    }
+
+    group.appendChild(tabRow);
+    navEl.appendChild(group);
+  }
+}
+
+function buildAllPanels() {
+  const container = document.getElementById('panels-container');
+  container.innerHTML = '';
+
+  let isFirst = true;
+
+  for (const [key, p] of Object.entries(PLAYERS)) {
+    const panel = buildPlayerPanel(key, p, isFirst);
+    container.appendChild(panel);
+    isFirst = false;
+  }
+}
+
+function buildPlayerPanel(key, p, isActive) {
+  const disp = getDisplay(key);
+  const factionId = p.faction || 'unknown';
+  const faction = FACTIONS[factionId] || FACTIONS.unknown;
+  const remaining = p.nextXP - p.currentXP;
+  const pct = p.nextXP > 0 ? ((p.currentXP / p.nextXP) * 100).toFixed(1) : 0;
+
+  const section = document.createElement('section');
+  section.className = 'player-panel' + (isActive ? ' active' : '');
+  section.id = `panel-${key}`;
+  section.dataset.player = key;
+
+  // Apply accent colors via CSS custom properties
+  section.style.setProperty('--player-accent', `var(${disp.accentVar})`);
+  section.style.setProperty('--player-accent-glow', `var(${disp.accentGlowVar})`);
+
+  section.innerHTML = `
+    <div class="player-header">
+      <div class="player-icon">${disp.icon}</div>
+      <div class="player-info">
+        <h2>${escapeHtml(p.name)}</h2>
+        ${disp.epithet ? `<p class="player-epithet">${escapeHtml(disp.epithet)}</p>` : ''}
+        <div class="player-badges">
+          <span class="player-level-badge">◆ Level ${p.level}${disp.class !== 'Unknown' ? ' · ' + escapeHtml(disp.class) : ''}</span>
+          <span class="player-faction-badge">${faction.icon} ${escapeHtml(faction.name)}</span>
+        </div>
+      </div>
+      <div class="player-xp-summary">
+        <div class="player-xp-current">${p.currentXP.toLocaleString()}</div>
+        <div class="player-xp-next">/ ${p.nextXP.toLocaleString()}</div>
+        <div class="player-xp-label">Experience Points</div>
+      </div>
+    </div>
+
+    <div class="xp-bar-container">
+      <div class="xp-bar-labels">
+        <span class="xp-bar-label">Level ${p.level} · <span>${p.currentXP.toLocaleString()} XP</span></span>
+        <span class="xp-bar-label">Level ${p.level + 1} · <span>${p.nextXP.toLocaleString()} XP</span></span>
+      </div>
+      <div class="xp-bar-track">
+        <div class="xp-bar-segments" id="${key}-bar"></div>
+      </div>
+      <div class="xp-remaining"><strong>${remaining.toLocaleString()} XP</strong> remaining to Level ${p.level + 1}</div>
+    </div>
+
+    <div class="xp-legend" id="${key}-legend"></div>
+
+    <div class="entries-header">
+      <span class="entries-title">XP Breakdown</span>
+      <span class="entries-count" id="${key}-count"></span>
+    </div>
+    <div class="filter-buttons" id="${key}-filters"></div>
+    <div class="xp-entries" id="${key}-entries"></div>
+  `;
+
+  return section;
+}
+
 function renderPlayer(key) {
   const p = PLAYERS[key];
   const catTotals = computeCategoryTotals(p.entries);
   const totalXP = p.currentXP;
-
-  // Build bar segments
-  const barEl = document.getElementById(`${key}-bar`);
-  barEl.innerHTML = '';
   const cats = Object.keys(catTotals).sort((a, b) => catTotals[b] - catTotals[a]);
-  for (const cat of cats) {
-    const pct = (catTotals[cat] / p.nextXP) * 100;
-    const seg = document.createElement('div');
-    seg.className = `xp-bar-segment seg-${cat}`;
-    seg.style.width = `${pct}%`;
-    seg.title = `${CATEGORIES[cat].name}: ${catTotals[cat].toLocaleString()} XP`;
-    barEl.appendChild(seg);
+
+  // ── Bar segments ──
+  const barEl = document.getElementById(`${key}-bar`);
+  if (!barEl) return;
+  barEl.innerHTML = '';
+
+  if (cats.length === 0) {
+    // Empty bar
+  } else {
+    for (const cat of cats) {
+      const pct = (catTotals[cat] / p.nextXP) * 100;
+      const seg = document.createElement('div');
+      seg.className = `xp-bar-segment seg-${cat}`;
+      seg.style.width = `${pct}%`;
+      seg.title = `${CATEGORIES[cat]?.name || cat}: ${catTotals[cat].toLocaleString()} XP`;
+      barEl.appendChild(seg);
+    }
   }
 
-  // Build legend
+  // ── Legend ──
   const legendEl = document.getElementById(`${key}-legend`);
   legendEl.innerHTML = '';
-  for (const cat of cats) {
-    const pct = ((catTotals[cat] / totalXP) * 100).toFixed(1);
-    const item = document.createElement('div');
-    item.className = `legend-item cat-${cat}`;
-    item.dataset.category = cat;
-    item.innerHTML = `
-      <span class="legend-dot" style="background:${CATEGORIES[cat].color};color:${CATEGORIES[cat].color}"></span>
-      <span class="legend-name">${CATEGORIES[cat].icon} ${CATEGORIES[cat].name}</span>
-      <span class="legend-value">${catTotals[cat].toLocaleString()}</span>
-      <span class="legend-pct">${pct}%</span>
-    `;
-    item.addEventListener('click', () => toggleFilter(key, cat));
-    legendEl.appendChild(item);
+
+  if (cats.length === 0) {
+    // No legend for empty characters
+  } else {
+    for (const cat of cats) {
+      const pct = totalXP > 0 ? ((catTotals[cat] / totalXP) * 100).toFixed(1) : '0.0';
+      const catInfo = CATEGORIES[cat] || { name: cat, color: '#888', icon: '·' };
+      const item = document.createElement('div');
+      item.className = `legend-item cat-${cat}`;
+      item.dataset.category = cat;
+      item.innerHTML = `
+        <span class="legend-dot" style="background:${catInfo.color};color:${catInfo.color}"></span>
+        <span class="legend-name">${catInfo.icon} ${catInfo.name}</span>
+        <span class="legend-value">${catTotals[cat].toLocaleString()}</span>
+        <span class="legend-pct">${pct}%</span>
+      `;
+      item.addEventListener('click', () => toggleFilter(key, cat));
+      legendEl.appendChild(item);
+    }
   }
 
-  // Build filter buttons
+  // ── Filter buttons ──
   const filtersEl = document.getElementById(`${key}-filters`);
   filtersEl.innerHTML = '';
-  const allBtn = document.createElement('div');
-  allBtn.className = 'filter-btn active';
-  allBtn.textContent = 'All';
-  allBtn.dataset.category = 'all';
-  allBtn.addEventListener('click', () => setFilter(key, 'all'));
-  filtersEl.appendChild(allBtn);
-  for (const cat of cats) {
-    const btn = document.createElement('div');
-    btn.className = 'filter-btn';
-    btn.textContent = CATEGORIES[cat].name;
-    btn.dataset.category = cat;
-    btn.addEventListener('click', () => setFilter(key, cat));
-    filtersEl.appendChild(btn);
+
+  if (p.entries.length > 0) {
+    const allBtn = document.createElement('div');
+    allBtn.className = 'filter-btn active';
+    allBtn.textContent = 'All';
+    allBtn.dataset.category = 'all';
+    allBtn.addEventListener('click', () => setFilter(key, 'all'));
+    filtersEl.appendChild(allBtn);
+
+    for (const cat of cats) {
+      const catInfo = CATEGORIES[cat] || { name: cat };
+      const btn = document.createElement('div');
+      btn.className = 'filter-btn';
+      btn.textContent = catInfo.name;
+      btn.dataset.category = cat;
+      btn.addEventListener('click', () => setFilter(key, cat));
+      filtersEl.appendChild(btn);
+    }
   }
 
-  // Build entries
+  // ── Entries ──
   renderEntries(key, 'all');
 }
 
@@ -1650,28 +1564,39 @@ function renderEntries(key, filterCat) {
   const countEl = document.getElementById(`${key}-count`);
   entriesEl.innerHTML = '';
 
+  if (p.entries.length === 0) {
+    entriesEl.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📜</div>
+        <p>No recorded deeds yet.<br>This character's story is still being written.</p>
+      </div>
+    `;
+    countEl.textContent = '0 entries';
+    return;
+  }
+
   let entries = [...p.entries];
   if (filterCat !== 'all') {
     entries = entries.filter(e => e.cat === filterCat);
   }
 
-  // Sort by XP descending
   entries.sort((a, b) => b.xp - a.xp);
 
-  countEl.textContent = `${entries.length} entries · ${entries.reduce((s,e)=>s+e.xp,0).toLocaleString()} XP`;
+  countEl.textContent = `${entries.length} entries · ${entries.reduce((s, e) => s + e.xp, 0).toLocaleString()} XP`;
 
   for (const entry of entries) {
+    const catInfo = CATEGORIES[entry.cat] || { name: entry.cat, color: '#888' };
     const el = document.createElement('div');
     el.className = `xp-entry cat-${entry.cat}`;
     el.innerHTML = `
-      <div class="entry-dot" style="background:${CATEGORIES[entry.cat].color}"></div>
+      <div class="entry-dot" style="background:${catInfo.color}"></div>
       <div class="entry-content">
         <div class="entry-top">
-          <span class="entry-title">${entry.title}</span>
-          <span class="entry-category">${CATEGORIES[entry.cat].name}</span>
+          <span class="entry-title">${escapeHtml(entry.title)}</span>
+          <span class="entry-category">${catInfo.name}</span>
         </div>
         <div class="entry-expand-hint">click to expand</div>
-        <div class="entry-description">${entry.desc}</div>
+        <div class="entry-description">${escapeHtml(entry.desc)}</div>
       </div>
       <div class="entry-xp"><span class="plus">+</span>${entry.xp.toLocaleString()}</div>
     `;
@@ -1681,13 +1606,11 @@ function renderEntries(key, filterCat) {
 }
 
 function setFilter(playerKey, cat) {
-  // Update filter button states
   const filtersEl = document.getElementById(`${playerKey}-filters`);
   filtersEl.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.category === cat);
   });
 
-  // Update legend dimming
   const legendEl = document.getElementById(`${playerKey}-legend`);
   legendEl.querySelectorAll('.legend-item').forEach(item => {
     if (cat === 'all') {
@@ -1711,34 +1634,34 @@ function toggleFilter(playerKey, cat) {
 }
 
 // ═══════════════════════════════════════════
-//  TAB NAVIGATION
+//  PANEL SWITCHING
 // ═══════════════════════════════════════════
 
-const tabs = document.querySelectorAll('.nav-tab');
-const panels = document.querySelectorAll('.player-panel');
+function activatePanel(key) {
+  // Update tabs
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const targetTab = document.querySelector(`.nav-tab[data-target="${key}"]`);
+  if (targetTab) targetTab.classList.add('active');
 
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    const target = tab.dataset.target;
-
-    tabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-
-    panels.forEach(p => p.classList.remove('active'));
-    document.getElementById(`panel-${target}`).classList.add('active');
-  });
-});
+  // Update panels
+  document.querySelectorAll('.player-panel').forEach(p => p.classList.remove('active'));
+  const targetPanel = document.getElementById(`panel-${key}`);
+  if (targetPanel) targetPanel.classList.add('active');
+}
 
 // ═══════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
+  buildHeader();
+  buildNavigation();
+  buildAllPanels();
+
   for (const key of Object.keys(PLAYERS)) {
     renderPlayer(key);
   }
 });
-
 </script>
 </body>
 </html>
