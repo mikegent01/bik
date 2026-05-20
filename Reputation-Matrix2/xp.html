@@ -1014,16 +1014,16 @@ const PLAYERS = {
         desc: 'Exploring the ruined manor with Luigi and Thornbury.' },
     
       // SESSION — 2026-05-17
-      { cat: 'combat', xp: 400, title: 'Duel with Luigi', desc: 'Engaged in a high-stakes combat encounter against Luigi resulting in defeat and unconsciousness.' },
-      { cat: 'chaos', xp: 350, title: 'Assassination Attempt by Fawful', desc: 'Survived a point-blank high-yield energy weapon shot and subsequent freezing magic, showing incredible resilience under fire.' },
-      { cat: 'social', xp: 250, title: 'Commanding the Throne Room', desc: 'Maintained authority during a siege by managing investigators, threatening subordinates, and interacting with operatives despite extreme injury.' },
-      { cat: 'survival', xp: 250, title: 'Navigating the Explosion Site', desc: 'Braved an active explosion site and successfully avoided a trapdoor through physical coordination.' },
+      { cat: 'combat', xp: 400, title: 'Defeat by Luigi', desc: 'Engaged in a high-stakes duel with Luigi that resulted in unconsciousness and being dragged through the palace.' },
+      { cat: 'chaos', xp: 350, title: 'Assassination Attempt Survival', desc: 'Survived a direct energy beam from Fawful and a blizzard breath attack from Mimbus, enduring severe physical trauma.' },
+      { cat: 'social', xp: 250, title: 'Commanding the Throne Room', desc: 'Maintained authority by barking orders at guards, managing investigators, and threatening subordinates despite extreme grief and injury.' },
+      { cat: 'loyalty', xp: 250, title: 'Protective Instincts', desc: 'Actively attempted to shield Bowser Jr. from danger by directing him away from disturbances in the outer corridors.' },
 
       // SESSION — 2026-05-17
-      { cat: 'discovery', xp: 50, title: 'Acquisition of Oracle\'s Deck', desc: 'Obtained a significant narrative item from Mystic Morel, advancing the character\'s connection to mystical elements.' },
+      { cat: 'discovery', xp: 50, title: 'Acquisition of the Oracle\'s Deck', desc: 'Obtained a specialized magical item from Mystic Morel, expanding character capabilities.' },
 
       // SESSION — 2026-05-17
-      { cat: 'discovery', xp: 150, title: 'Information Gathering at Print Shop', desc: 'Observed the destruction of the Fawthful Narrative and successfully filed away critical information regarding the event.' },
+      { cat: 'social', xp: 50, title: 'Information Management', desc: 'Maintained organizational duties and information filing during a chaotic event involving the destruction of a key location.' },
 ]
   },
 
@@ -1284,7 +1284,7 @@ const PLAYERS = {
     name: 'Toad Lee',
     faction: 'disaster_inc',
     level: 3,
-    currentXP: 1600,
+    currentXP: 1500,
     nextXP: 2700,
     entries: [
       { cat: 'discovery', xp: 250, title: 'Discovery of the Aged Papers', desc: 'Realized he had the essential papers all along.' },
@@ -1307,75 +1307,18 @@ const PLAYERS = {
     name: 'Fawful',
     faction: 'npc',
     level: 4,
-    currentXP: 2700,
+    currentXP: 4850,
     nextXP: 6500,
     entries: [
       // JOINED 2026-05-17 | Unknown Unknown
       // Fawful is identified in suppressed records as the individual responsible for the death of Princess Peach. He was present
-    ]
-  },
-  toadsworth: {
-    name: 'Toadsworth',
-    faction: 'npc',
-    level: 2,
-    currentXP: 750,
-    nextXP: 900,
-    entries: [
-      // JOINED 2026-05-17 | Toad Unknown
-      // An investigator or chronicler who attempted to expose Fawful via a print shop. He witnessed a mysterious chimney figure 
     ,
       // SESSION — 2026-05-17
-      { cat: 'discovery', xp: 200, title: 'Investigation of the Chimney Figure', desc: 'Investigated suspicious activity in the palace and identified a figure in the chimney, leading to the discovery of a crime scene.' },
-      { cat: 'social', xp: 150, title: 'Political Pressure & Censorship', desc: 'Navigated high-stakes social manipulation by rewriting official accounts under pressure from the Mages\' Guild.' },
-      { cat: 'combat', xp: 250, title: 'Collision with Fawful', desc: 'Directly engaged in a dangerous encounter/battle with Fawful during a palace lockdown.' },
-      { cat: 'chaos', xp: 150, title: 'Information Distribution during Siege', desc: 'Barged into medical operations and distributed news throughout the city amidst active warfare/siege conditions.' },
-]
-  },
-  thornpaw: {
-    name: 'Thornpaw',
-    faction: 'unknown',
-    level: 4,
-    currentXP: 3650,
-    nextXP: 6500,
-    entries: [
-      // JOINED 2026-05-17 | Unknown Unknown
-      // Thornpaw is involved in secretive dealings with hooded mages and possesses knowledge of hidden secrets. They have high-l
-    ,
-      // SESSION — 2026-05-17
-      { cat: 'social', xp: 250, title: 'Shadow Conspiracy', desc: 'Participated in a coordinated effort to frame Bowser for murder, involving high-level political manipulation.' },
-      { cat: 'stealth', xp: 300, title: 'Information Withholding', desc: 'Maintained silence regarding dangerous secrets during critical moments in the print shop and hospital, directly impacting the timeline/narrative.' },
-      { cat: 'chaos', xp: 400, title: 'Political Destabilization', desc: 'Coordinated with hooded mages and arrived at the palace to fluster the Guild guard, contributing to the unfolding political chaos.' },
-]
-  },
-  mysticmorel: {
-    name: 'Mystic Morel',
-    faction: 'npc',
-    level: 5,
-    currentXP: 6900,
-    nextXP: 14000,
-    entries: [
-      // JOINED 2026-05-17 | Unknown Divination Wizard or Oracle
-      // Observed the printing of history in 955 BF; resurfaced eighty-five years later distributing tarot cards that depict futu
-    ,
-      // SESSION — 2026-05-17
-      { cat: 'social', xp: 400, title: 'Prophetic Distribution', desc: 'Distributed tarot cards showing the future, engaging with the world to shape or reveal destiny.' },
-]
-  },
-  thejester: {
-    name: 'The Jester',
-    faction: 'unknown',
-    level: 5,
-    currentXP: 7750,
-    nextXP: 14000,
-    entries: [
-      // JOINED 2026-05-17 | Unknown Bard or Rogue
-      // Claimed to be a mercenary hired by Bowser. Used a specific diagnostic trigger regarding the princess\'s death to manipul
-    ,
-      // SESSION — 2026-05-17
-      { cat: 'chaos', xp: 250, title: 'The Apple Proverb', desc: 'Delivered a provocative insult directly to Bowser in his throne room, intentionally inciting tension.' },
-      { cat: 'social', xp: 400, title: 'The Great Renunciation', desc: 'Used high-level manipulation and psychological triggers to navigate a lethal confrontation with Bowser and pivot his political standing.' },
-      { cat: 'combat', xp: 300, title: 'Elimination of Investigators', desc: 'Intercepted and killed investigators to protect his cover/agenda.' },
-      { cat: 'stealth', xp: 300, title: 'Identity Theft', desc: 'Successfully hid bodies and assumed the persona of a dead investigator to infiltrate the guard ranks.' },
+      { cat: 'stealth', xp: 400, title: 'The Bowser Jr. Masquerade', desc: 'Successfully infiltrated Bowser\'s Keep by stealing the identity, voice, and mannerisms of Bowser Jr., maintaining the ruse for an entire week to bypass security.' },
+      { cat: 'chaos', xp: 500, title: 'Court Manipulation', desc: 'Gaslit Bowser, thinned castle defenses via false reports of a \'green bean person\', and coordinated the murder of investigators to maintain cover.' },
+      { cat: 'combat', xp: 500, title: 'Assassination Attempt', desc: 'Dropped disguise and executed a point-blank shot on Bowser using a high-yield energy weapon.' },
+      { cat: 'social', xp: 350, title: 'Psychological Warfare', desc: 'Weaponized fatherhood and used social intimacy (feasting/feeding) to lower the target\'s guard.' },
+      { cat: 'sabotage', xp: 400, title: 'The Calibrated Detonation', desc: 'Set a timed explosive in the outer corridors and positioned himself for maximum impact/escape.' },
 ]
   },
   mario: {
@@ -1385,68 +1328,88 @@ const PLAYERS = {
     currentXP: 7150,
     nextXP: 14000,
     entries: [
-      // JOINED 2026-05-17 | Human Fighter
-      // Mario was present during the siege of the palace. He successfully cleared rooms of Fawful\'s forces and confronted Fawfu
+      // JOINED 2026-05-17 | Human Fighter/Paladin
+      // Engaged in a room-by-room battle against Fawful\'s forces and participated in the final confrontation with Fawful, thoug
     ,
       // SESSION — 2026-05-17
-      { cat: 'combat', xp: 450, title: 'Siege of the Palace', desc: 'Systematically defeated Fawful\'s forces room by room during a high-stakes siege and confronted the antagonist directly.' },
-      { cat: 'survival', xp: 200, title: 'Escape to Mimbus', desc: 'Used non-native communication to coordinate a retreat/rescue with Thornpaw following the freezing of Luigi.' },
+      { cat: 'combat', xp: 450, title: 'Clearing Fawful\'s Forces', desc: 'Systematically defeated waves of enemies room by room, demonstrating high-stakes combat engagement.' },
+      { cat: 'combat', xp: 200, title: 'Confrontation with Fawful', desc: 'Directly confronted the primary antagonist in a climactic encounter.' },
 ]
   },
   luigi: {
     name: 'Luigi',
     faction: 'npc',
-    level: 6,
-    currentXP: 14850,
-    nextXP: 23000,
-    entries: [
-      // JOINED 2026-05-17 | Human Wizard/Artificer
-      // Served as a guard for the Royal Suite; possesses thunder-based abilities and technological tools like Poltergust and Bul
-    ,
-      // SESSION — 2026-05-17
-      { cat: 'combat', xp: 450, title: 'Defense of the Royal Suite', desc: 'Successfully defended a high-value location against Bowser using a combination of Poltergust utility and Bullet Bill ordnance.' },
-      { cat: 'magic', xp: 250, title: 'Thunder Technique Misdirection', desc: 'Used a sophisticated electrical discharge to disrupt Bowser\'s laughter and reveal his internal structure, showing high-level tactical creativity.' },
-      { cat: 'combat', xp: 150, title: 'Duel with Fawful', desc: 'Engaged in a direct confrontation with a significant adversary.' },
-]
-  },
-  ladybloomia: {
-    name: 'Lady Bloomia',
-    faction: 'npc',
-    level: 1,
-    currentXP: 50,
-    nextXP: 300,
+    level: 2,
+    currentXP: 850,
+    nextXP: 900,
     entries: [
       // JOINED 2026-05-17 | Unknown Unknown
-      // Known to move through servant passages during recent events.
+      // Acts as a historian or investigator; currently focused on exposing discrepancies in the official records of Highsun 1, 9
     ,
       // SESSION — 2026-05-17
-      { cat: 'stealth', xp: 50, title: 'Navigating the Servant Passages', desc: 'Used hidden passages to move through the estate during active events, avoiding direct confrontation or detection.' },
+      { cat: 'discovery', xp: 300, title: 'Historical Investigation', desc: 'Conducted an exhaustive analytical investigation of Bowser\'s Keep and the assassination, uncovering discrepancies in official records and verifying intelligence through survivor testimony.' },
+      { cat: 'combat', xp: 400, title: 'Duel with Fawful', desc: 'Engaged in a high-stakes battle against Fawful; utilized tactical movement to unseat him from his hoverpad, though at the cost of being frozen in ice.' },
+      { cat: 'chaos', xp: 150, title: 'Thunder Discharge', desc: 'Deployed a sophisticated misdirection thunder technique to strike Bowser with severe electrical discharge.' },
+]
+  },
+  thornpaw: {
+    name: 'Thornpaw',
+    faction: 'npc',
+    level: 4,
+    currentXP: 3950,
+    nextXP: 6500,
+    entries: [
+      // JOINED 2026-05-17 | Unknown Unknown
+      // Thornpaw possesses significant social authority, capable of flustering palace guards. They are involved in secretive dea
+    ,
+      // SESSION — 2026-05-17
+      { cat: 'chaos', xp: 400, title: 'The Bowser Frame-Up', desc: 'Participated in a shadow conspiracy to frame Bowser for murder, a high-stakes action with massive political consequences.' },
+      { cat: 'social', xp: 350, title: 'Authority Manipulation', desc: 'Used a synchronized arrival with the Chancellor to fluster guards and assert dominance/authority at the palace.' },
+      { cat: 'stealth', xp: 250, title: 'Clandestine Meetings', desc: 'Conferred with hooded mages in secret while a high-profile arrest was taking place.' },
+      { cat: 'survival', xp: 250, title: 'Long-term Deception', desc: 'Successfully managed the transport of a sensitive object (Luigi block) and maintained a decades-long secret.' },
+]
+  },
+  mimbus: {
+    name: 'Mimbus',
+    faction: 'unknown',
+    level: 5,
+    currentXP: 7750,
+    nextXP: 14000,
+    entries: [
+      // JOINED 2026-05-17 | Unknown (possibly Shadowfell-touched) Shadow Sorcerer or Rogue
+      // Initially appeared as a stray pet that could freeze faces; demonstrated high lethality by intercepting and killing guard
+    ,
+      // SESSION — 2026-05-17
+      { cat: 'chaos', xp: 200, title: 'Castle Breach', desc: 'Violently crashed through the walls of Peach\'s castle, initiating a high-consequence siege.' },
+      { cat: 'stealth', xp: 350, title: 'Goomba Infiltration', desc: 'Intercepted guards and used corpse disposal and shape-shifting to assume the identity of a dead Goomba to hide in plain sight.' },
+      { cat: 'combat', xp: 500, title: 'Assault on Bowser', desc: 'Engaged Bowser directly with a massive blizzard breath attack, successfully neutralizing the target\'s vision and breathing.' },
+      { cat: 'magic', xp: 200, title: 'Explosive Expansion', desc: 'Used violent magical expansion to fill a room, creating a significant area-of-effect event.' },
+]
+  },
+  mysticmorel: {
+    name: 'Mystic Morel',
+    faction: 'npc',
+    level: 4,
+    currentXP: 3150,
+    nextXP: 6500,
+    entries: [
+      // JOINED 2026-05-17 | Unknown Bard/Sorcerer
+      // Mystic Morel is a mysterious figure capable of using items as dimensional keys. They possess knowledge-bearing songs and
+    ,
+      // SESSION — 2026-05-17
+      { cat: 'stealth', xp: 250, title: 'Theft of the Dimensional Key', desc: 'Stole Archie Miser\'s compass to repurpose it as a dimensional key, involving significant risk of discovery.' },
+      { cat: 'social', xp: 200, title: 'Subversive Songcraft', desc: 'Used music to transmit embedded intelligence to Archie Miser, demonstrating creative use of social interaction for information warfare.' },
 ]
   },
   toadettesr: {
     name: 'Toadette Sr.',
     faction: 'npc',
     level: 1,
-    currentXP: 250,
+    currentXP: 0,
     nextXP: 300,
     entries: [
       // JOINED 2026-05-17 | Toad Commoner
-      // Owner of a small print shop; provided free printing services to the group during a period of crisis and led them to the 
-    ,
-      // SESSION — 2026-05-17
-      { cat: 'social', xp: 150, title: 'Civic Support via Printing Services', desc: 'Proactively offered professional printing services to the mayor to assist with official communications during a time of unrest.' },
-      { cat: 'chaos', xp: 100, title: 'Managing Crisis Operations', desc: 'Maintained essential operations and ran the press despite being shaken by recent news, ensuring information flow continued.' },
-]
-  },
-  thevampirequeen: {
-    name: 'The Vampire Queen',
-    faction: 'npc',
-    level: 15,
-    currentXP: 165000,
-    nextXP: 195000,
-    entries: [
-      // JOINED 2026-05-17 | Vampire Sorcerer/Warlock
-      // Observed observing the events of the session from a chair in a back room; maintains a detached, watchful presence.
+      // Owner of a printing press; mother of Captain Toadette.
     ]
   },
   mistveil: {
@@ -1457,51 +1420,40 @@ const PLAYERS = {
     nextXP: 300,
     entries: [
       // JOINED 2026-05-17 | Unknown Unknown
-      // Underwent liver surgery as a child and spent time recovering in a hospital bed.
+      // Underwent a liver surgery operation as a child and spent time recovering in a hospital bed.
     ]
-  },
-  rakashachief: {
-    name: 'Rakasha Chief',
-    faction: 'npc',
-    level: 4,
-    currentXP: 3100,
-    nextXP: 6500,
-    entries: [
-      // JOINED 2026-05-17 | Unknown Unknown
-      // A leader or significant figure associated with the Rakasha lineage who possesses the ability to provide critical items/r
-    ,
-      // SESSION — 2026-05-17
-      { cat: 'chaos', xp: 400, title: 'Crisis Intervention', desc: 'Delivered a frozen Luigi block to mitigate or resolve an ongoing crisis, involving significant situational stakes.' },
-]
-  },
-  mimbus: {
-    name: 'Mimbus',
-    faction: 'unknown',
-    level: 6,
-    currentXP: 15250,
-    nextXP: 23000,
-    entries: [
-      // JOINED 2026-05-17 | Unknown (Appears as Ice-Pig/Goomba/Massive entity) Druid (Circle of the Moon) or Shapeshifter
-      // Initially appeared as a stray \'pet\' ice-pig capable of freezing targets. Demonstrated high intelligence by analyzing r
-    ,
-      // SESSION — 2026-05-17
-      { cat: 'stealth', xp: 400, title: 'Infiltration via Deception', desc: 'Intercepted investigators and successfully assumed the identity of a deceased Goomba to infiltrate high-security areas.' },
-      { cat: 'combat', xp: 850, title: 'Assault on Bowser', desc: 'Transformed from a disguise into a massive ice-pig to launch a direct, high-consequence attack, successfully incapacitating the target\'s vision and breathing.' },
-]
   },
   cackletta: {
     name: 'Cackletta',
     faction: 'npc',
-    level: 6,
-    currentXP: 14550,
-    nextXP: 23000,
+    level: 7,
+    currentXP: 23650,
+    nextXP: 34000,
     entries: [
-      // JOINED 2026-05-17 | Unknown Cleric/Sorcerer
-      // A character capable of high-level healing who has been hiding in the shadows of the castle for nine days; she is implica
+      // JOINED 2026-05-17 | Unknown Cleric or Sorcerer
+      // Observed castle operations and waited in shadows near the throne area. Demonstrated healing capabilities by restoring Bo
     ,
       // SESSION — 2026-05-17
-      { cat: 'stealth', xp: 250, title: 'Nine-Day Infiltration', desc: 'Successfully remained undetected within the castle operational controls for nine days, maintaining a presence behind locked doors and shadows.' },
-      { cat: 'chaos', xp: 300, title: 'The Usurper\'s Reveal', desc: 'Confronted Bowser with the admission of theft regarding his castle and throne, using magic to manipulate the physical state of her adversary for a controlled confrontation.' },
+      { cat: 'stealth', xp: 200, title: 'Long-term Surveillance', desc: 'Remained hidden in the shadows and behind locked doors for nine days to monitor the throne room events.' },
+      { cat: 'magic', xp: 250, title: 'Strategic Restoration', desc: 'Used an arcane ray to forcefully restore Bowser to peak physical condition to ensure a high-stakes, fair duel.' },
+      { cat: 'social', xp: 200, title: 'Psychological Provocation', desc: 'Revealed herself to mock the antagonist and establish dominance through a dramatic declaration.' },
+]
+  },
+  thejestergoomba: {
+    name: 'The Jester (Goomba)',
+    faction: 'unknown',
+    level: 4,
+    currentXP: 3550,
+    nextXP: 6500,
+    entries: [
+      // JOINED 2026-05-17 | Goomba Rogue (Assassin/Soulknife)
+      // A disruptive entity who identifies as \'the jester\'. He is capable of stealthy assassinations, dragging bodies into sha
+    ,
+      // SESSION — 2026-05-17
+      { cat: 'chaos', xp: 150, title: 'Provocation of Bowser', desc: 'Initiated a high-stakes social confrontation by physically assaulting a major figure (Bowser) to establish identity.' },
+      { cat: 'combat', xp: 300, title: 'Guard Interception', desc: 'Engaged and neutralized security forces within the Keep.' },
+      { cat: 'stealth', xp: 250, title: 'Body Disposal and Concealment', desc: 'Successfully managed crime scenes by dragging bodies into shadows to avoid detection.' },
+      { cat: 'social', xp: 150, title: 'Identity Theft', desc: 'Used the corpse of a Koopa investigator to assume a new persona, creating a significant long-term narrative consequence.' },
 ]
   }
 };
@@ -1866,7 +1818,16 @@ function activatePanel(key) {
 //  INIT
 // ═══════════════════════════════════════════
 
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Sanitize: remove null/undefined entries injected by bare commas
+  for (const key of Object.keys(PLAYERS)) {
+    PLAYERS[key].entries = PLAYERS[key].entries.filter(e => e && typeof e === 'object' && e.cat);
+  }
+
   buildHeader();
   buildNavigation();
   buildAllPanels();

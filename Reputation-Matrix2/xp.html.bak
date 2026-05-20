@@ -1302,50 +1302,6 @@ const PLAYERS = {
       // Fawful is identified in suppressed records as the individual responsible for the death of Princess Peach. He was present
     ]
   },
-  toadsworth: {
-    name: 'Toadsworth',
-    faction: 'npc',
-    level: 1,
-    currentXP: 0,
-    nextXP: 300,
-    entries: [
-      // JOINED 2026-05-17 | Toad Unknown
-      // An investigator or chronicler who attempted to expose Fawful via a print shop. He witnessed a mysterious chimney figure 
-    ]
-  },
-  thornpaw: {
-    name: 'Thornpaw',
-    faction: 'unknown',
-    level: 4,
-    currentXP: 2700,
-    nextXP: 6500,
-    entries: [
-      // JOINED 2026-05-17 | Unknown Unknown
-      // Thornpaw is involved in secretive dealings with hooded mages and possesses knowledge of hidden secrets. They have high-l
-    ]
-  },
-  mysticmorel: {
-    name: 'Mystic Morel',
-    faction: 'npc',
-    level: 5,
-    currentXP: 6500,
-    nextXP: 14000,
-    entries: [
-      // JOINED 2026-05-17 | Unknown Divination Wizard or Oracle
-      // Observed the printing of history in 955 BF; resurfaced eighty-five years later distributing tarot cards that depict futu
-    ]
-  },
-  thejester: {
-    name: 'The Jester',
-    faction: 'unknown',
-    level: 5,
-    currentXP: 6500,
-    nextXP: 14000,
-    entries: [
-      // JOINED 2026-05-17 | Unknown Bard or Rogue
-      // Claimed to be a mercenary hired by Bowser. Used a specific diagnostic trigger regarding the princess\'s death to manipul
-    ]
-  },
   mario: {
     name: 'Mario',
     faction: 'npc',
@@ -1353,30 +1309,52 @@ const PLAYERS = {
     currentXP: 6500,
     nextXP: 14000,
     entries: [
-      // JOINED 2026-05-17 | Human Fighter
-      // Mario was present during the siege of the palace. He successfully cleared rooms of Fawful\'s forces and confronted Fawfu
+      // JOINED 2026-05-17 | Human Fighter/Paladin
+      // Engaged in a room-by-room battle against Fawful\'s forces and participated in the final confrontation with Fawful, thoug
     ]
   },
   luigi: {
     name: 'Luigi',
-    faction: 'npc',
-    level: 6,
-    currentXP: 14000,
-    nextXP: 23000,
-    entries: [
-      // JOINED 2026-05-17 | Human Wizard/Artificer
-      // Served as a guard for the Royal Suite; possesses thunder-based abilities and technological tools like Poltergust and Bul
-    ]
-  },
-  ladybloomia: {
-    name: 'Lady Bloomia',
     faction: 'npc',
     level: 1,
     currentXP: 0,
     nextXP: 300,
     entries: [
       // JOINED 2026-05-17 | Unknown Unknown
-      // Known to move through servant passages during recent events.
+      // Acts as a historian or investigator; currently focused on exposing discrepancies in the official records of Highsun 1, 9
+    ]
+  },
+  thornpaw: {
+    name: 'Thornpaw',
+    faction: 'npc',
+    level: 4,
+    currentXP: 2700,
+    nextXP: 6500,
+    entries: [
+      // JOINED 2026-05-17 | Unknown Unknown
+      // Thornpaw possesses significant social authority, capable of flustering palace guards. They are involved in secretive dea
+    ]
+  },
+  mimbus: {
+    name: 'Mimbus',
+    faction: 'unknown',
+    level: 5,
+    currentXP: 6500,
+    nextXP: 14000,
+    entries: [
+      // JOINED 2026-05-17 | Unknown (possibly Shadowfell-touched) Shadow Sorcerer or Rogue
+      // Initially appeared as a stray pet that could freeze faces; demonstrated high lethality by intercepting and killing guard
+    ]
+  },
+  mysticmorel: {
+    name: 'Mystic Morel',
+    faction: 'npc',
+    level: 4,
+    currentXP: 2700,
+    nextXP: 6500,
+    entries: [
+      // JOINED 2026-05-17 | Unknown Bard/Sorcerer
+      // Mystic Morel is a mysterious figure capable of using items as dimensional keys. They possess knowledge-bearing songs and
     ]
   },
   toadettesr: {
@@ -1387,18 +1365,7 @@ const PLAYERS = {
     nextXP: 300,
     entries: [
       // JOINED 2026-05-17 | Toad Commoner
-      // Owner of a small print shop; provided free printing services to the group during a period of crisis and led them to the 
-    ]
-  },
-  thevampirequeen: {
-    name: 'The Vampire Queen',
-    faction: 'npc',
-    level: 15,
-    currentXP: 165000,
-    nextXP: 195000,
-    entries: [
-      // JOINED 2026-05-17 | Vampire Sorcerer/Warlock
-      // Observed observing the events of the session from a chair in a back room; maintains a detached, watchful presence.
+      // Owner of a printing press; mother of Captain Toadette.
     ]
   },
   mistveil: {
@@ -1409,40 +1376,29 @@ const PLAYERS = {
     nextXP: 300,
     entries: [
       // JOINED 2026-05-17 | Unknown Unknown
-      // Underwent liver surgery as a child and spent time recovering in a hospital bed.
-    ]
-  },
-  rakashachief: {
-    name: 'Rakasha Chief',
-    faction: 'npc',
-    level: 4,
-    currentXP: 2700,
-    nextXP: 6500,
-    entries: [
-      // JOINED 2026-05-17 | Unknown Unknown
-      // A leader or significant figure associated with the Rakasha lineage who possesses the ability to provide critical items/r
-    ]
-  },
-  mimbus: {
-    name: 'Mimbus',
-    faction: 'unknown',
-    level: 6,
-    currentXP: 14000,
-    nextXP: 23000,
-    entries: [
-      // JOINED 2026-05-17 | Unknown (Appears as Ice-Pig/Goomba/Massive entity) Druid (Circle of the Moon) or Shapeshifter
-      // Initially appeared as a stray \'pet\' ice-pig capable of freezing targets. Demonstrated high intelligence by analyzing r
+      // Underwent a liver surgery operation as a child and spent time recovering in a hospital bed.
     ]
   },
   cackletta: {
     name: 'Cackletta',
     faction: 'npc',
-    level: 6,
-    currentXP: 14000,
-    nextXP: 23000,
+    level: 7,
+    currentXP: 23000,
+    nextXP: 34000,
     entries: [
-      // JOINED 2026-05-17 | Unknown Cleric/Sorcerer
-      // A character capable of high-level healing who has been hiding in the shadows of the castle for nine days; she is implica
+      // JOINED 2026-05-17 | Unknown Cleric or Sorcerer
+      // Observed castle operations and waited in shadows near the throne area. Demonstrated healing capabilities by restoring Bo
+    ]
+  },
+  thejestergoomba: {
+    name: 'The Jester (Goomba)',
+    faction: 'unknown',
+    level: 4,
+    currentXP: 2700,
+    nextXP: 6500,
+    entries: [
+      // JOINED 2026-05-17 | Goomba Rogue (Assassin/Soulknife)
+      // A disruptive entity who identifies as \'the jester\'. He is capable of stealthy assassinations, dragging bodies into sha
     ]
   }
 };
