@@ -39,7 +39,8 @@ const WALLET_DATA = {
     hjumpik: { name: "hjumpik", currencies: { midland_ducat: 426, copper: 50, dwarf_oathgold: 2 } },
     markop: { name: "Markop Judi", currencies: { legion_scrip: 150, imperial_crown: 20, silver: 150 } },
     remi: { name: "Remi", currencies: { kivotos_credit: 5000, poke_dollar: 2000, rupee: 100 } },
-    mimbus: { name: "Mimbus", currencies: { silver: 15 } }
+    mimbus: { name: "Mimbus", currencies: { silver: 15 } },
+    wario: { name: "Wario", currencies: { gold: 25 } }
 };
 
 let economicHubs = [];
