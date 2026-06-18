@@ -47,7 +47,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 #app {
   display: grid;
   grid-template-columns: 280px 1fr 280px;
-  grid-template-rows: 44px 1fr 38px;
+  grid-template-rows: 44px 30px 1fr 68px 30px;
   height: 100vh;
 }
 
@@ -55,6 +55,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
    HEADER
 ═══════════════════════════════════════════════ */
 #hdr {
+  grid-row: 1;
   grid-column: 1/-1;
   background: var(--bg2);
   border-bottom: 1px solid var(--border);
@@ -111,6 +112,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
    LEFT — PARTY & WORLD
 ═══════════════════════════════════════════════ */
 #left {
+  grid-row: 3;
+  grid-column: 1;
   background: var(--bg2);
   border-right: 1px solid var(--border);
   overflow-y: auto;
@@ -315,6 +318,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
    MIDDLE — NARRATIVE
 ═══════════════════════════════════════════════ */
 #mid {
+  grid-row: 3;
+  grid-column: 2;
   display: flex;
   flex-direction: column;
   background: var(--bg);
@@ -550,6 +555,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
    RIGHT — WORLD STATE
 ═══════════════════════════════════════════════ */
 #right {
+  grid-row: 3;
+  grid-column: 3;
   background: var(--bg2);
   border-left: 1px solid var(--border);
   overflow-y: auto;
@@ -617,6 +624,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 
 /* FOOTER */
 #ftr {
+  grid-row: 5;
   grid-column: 1/-1;
   background: var(--bg2);
   border-top: 1px solid var(--border);
@@ -630,6 +638,160 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 }
 .fstat { display:flex; align-items:center; gap:3px; }
 .fstat span { color: var(--text2); }
+
+/* ═══════════════════════════════════════════════
+   INTERACTION BAR (top)
+═══════════════════════════════════════════════ */
+#interaction-bar {
+  grid-row: 2;
+  grid-column: 1/-1;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text3);
+}
+.ib-label {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 8px;
+  color: var(--text3);
+  white-space: nowrap;
+  padding-right: 4px;
+  border-right: 1px solid var(--border);
+}
+.ib-none { font-style: italic; }
+.ib-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s;
+}
+.ib-chip:hover { background: rgba(255,255,255,.08); border-color: var(--border2); }
+.ib-chip.here { border-color: rgba(6,182,212,.4); background: rgba(6,182,212,.08); }
+.ib-av { width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; border: 1px solid currentColor; }
+.ib-name { color: var(--text); font-weight: bold; }
+.ib-role { color: var(--text3); font-size: 8px; }
+
+/* ═══════════════════════════════════════════════
+   PARTY BAR (bottom) — Arena-style portraits
+═══════════════════════════════════════════════ */
+#party-bar {
+  grid-row: 4;
+  grid-column: 1/-1;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  gap: 8px;
+  overflow-x: auto;
+}
+.pb-portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 58px;
+  max-width: 72px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg4);
+  cursor: pointer;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.pb-portrait:hover { border-color: var(--border2); background: rgba(255,255,255,.04); }
+.pb-portrait.dead { opacity: .5; filter: grayscale(1); }
+.pb-portrait.here { border-color: rgba(6,182,212,.5); background: rgba(6,182,212,.06); }
+.pb-av {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  border: 2px solid currentColor;
+  margin-bottom: 1px;
+  position: relative;
+}
+.pb-dot {
+  position: absolute;
+  bottom: -2px; right: -2px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--bg4);
+}
+.pb-dot.healthy { background: var(--green); }
+.pb-dot.hurt { background: var(--amber); }
+.pb-dot.critical { background: var(--red); }
+.pb-name {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+}
+.pb-bar {
+  width: 100%; height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 1px;
+}
+.pb-fill { height: 100%; border-radius: 2px; }
+.pb-fill.hp { background: var(--green); }
+.pb-fill.st { background: var(--amber); }
+.pb-stat {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════════
+   CHARACTER VIEW (read-only sheet)
+═══════════════════════════════════════════════ */
+.cv-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.cv-av {
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; border: 2px solid currentColor; flex-shrink: 0;
+}
+.cv-title { flex: 1; }
+.cv-name { font-family: var(--mono); font-size: 14px; color: var(--text); margin-bottom: 2px; }
+.cv-role { font-size: 10px; color: var(--text3); }
+.cv-aff { font-family: var(--mono); font-size: 8px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+.cv-section { margin-bottom: 12px; }
+.cv-label { font-family: var(--mono); font-size: 8px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.cv-text { font-size: 11px; color: var(--text2); line-height: 1.5; }
+.cv-text em { color: var(--text); font-style: normal; }
+.cv-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.cv-stat { background: var(--bg); border: 1px solid var(--border); border-radius: 3px; padding: 6px 8px; }
+.cv-stat-name { font-family: var(--mono); font-size: 8px; color: var(--text3); text-transform: uppercase; margin-bottom: 3px; }
+.cv-stat-bar { height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; margin-bottom: 3px; }
+.cv-stat-fill { height: 100%; border-radius: 2px; }
+.cv-stat-val { font-family: var(--mono); font-size: 9px; color: var(--text2); }
+.cv-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+.cv-tag { font-family: var(--mono); font-size: 8px; padding: 2px 6px; border-radius: 10px; border: 1px solid var(--border); color: var(--text2); }
 
 /* ═══════════════════════════════════════════════
    MODALS
@@ -717,10 +879,19 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
     <button class="hbtn" onclick="openM('m-item')">+Item</button>
     <button class="hbtn" onclick="openM('m-mem')">+Mem</button>
     <button class="hbtn" onclick="openM('m-settings')">⚙</button>
+    <button class="hbtn" id="hdr-mode" onclick="togglePlayerMode()" title="Toggle Player/Edit mode">Edit</button>
   </div>
   <div id="conn-dot"></div>
   <span id="conn-txt" style="font-family:var(--mono);font-size:9px;color:var(--text3)">Disconnected</span>
 </header>
+
+<!-- INTERACTION BAR -->
+<div id="interaction-bar">
+  <span class="ib-label">Interacting</span>
+  <div id="ib-content" style="display:flex;gap:6px;align-items:center;flex:1;overflow-x:auto">
+    <span class="ib-none">No one nearby</span>
+  </div>
+</div>
 
 <!-- LEFT -->
 <aside id="left">
@@ -761,6 +932,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
         <button class="mbtn" id="m-ooc" onclick="setMode('ooc')">OOC</button>
       </div>
     </div>
+    <div id="input-toolbar" style="display:flex;align-items:center;gap:6px;margin:4px 0 6px;flex-wrap:wrap">
+      <div style="display:flex;gap:5px">
+        <button class="mbtn" id="btn-cont" onclick="continueStory()" title="Prompt the AI to continue">↻ Continue</button>
+        <button class="mbtn" id="btn-tick" onclick="worldTick()" title="Advance off-screen NPCs and world events">🌍 World Tick</button>
+        <button class="mbtn" id="btn-undo" onclick="undo()" title="Undo last message action">↩ Undo</button>
+      </div>
+      <span id="edit-indicator" style="display:none;font-family:var(--mono);font-size:8px;color:var(--amber);letter-spacing:1px;text-transform:uppercase">✎ Editing message</span>
+      <button class="mbtn" id="btn-cancel-edit" style="display:none;margin-left:auto" onclick="cancelEdit()">Cancel Edit</button>
+    </div>
     <div id="input-row">
       <textarea id="txt" placeholder="What does Leo say?" rows="1"
         onkeydown="handleKey(event)" oninput="autoR(this)"></textarea>
@@ -782,6 +962,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
   <div class="tcnt" id="t-tl"><div style="padding:7px"><div id="tl-list"></div></div></div>
   <div class="tcnt" id="t-mem"><div style="padding:7px"><div id="mem-list"></div></div></div>
 </aside>
+
+<!-- PARTY BAR -->
+<div id="party-bar">
+  <div id="pb-content" style="display:flex;gap:8px;align-items:center;flex:1"></div>
+</div>
 
 <!-- FOOTER -->
 <footer id="ftr">
@@ -894,6 +1079,18 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 </div>
 </div>
 
+<!-- CHARACTER VIEW (read-only sheet) -->
+<div id="m-char-view" class="moverlay" style="display:none" onclick="oClose(event,'m-char-view')">
+<div class="mdlg" onclick="e=>e.stopPropagation()">
+  <div class="mhdr"><span class="mtitle">◈ Character Sheet</span><button class="mx" onclick="closeM('m-char-view')">×</button></div>
+  <div class="mbody" id="cv-body"></div>
+  <div class="mfoot">
+    <button class="btn btn-s" onclick="closeM('m-char-view')">Close</button>
+    <button class="btn btn-p" id="cv-edit-btn" onclick="openCharEditFromView()">Edit</button>
+  </div>
+</div>
+</div>
+
 <!-- ITEM -->
 <div id="m-item" class="moverlay" style="display:none" onclick="oClose(event,'m-item')">
 <div class="mdlg" onclick="e=>e.stopPropagation()">
@@ -987,6 +1184,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
       </div>
     </div>
     <div class="fg"><label class="fl">Memory Window (msgs)</label><input type="number" class="fi" id="s-memw" value="20" min="5" max="100"></div>
+    <div class="fg" style="border:1px solid var(--border);border-radius:4px;padding:10px;background:rgba(255,255,255,.02)">
+      <label class="fl" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:0">
+        <input type="checkbox" id="s-player" style="cursor:pointer"> Player Mode (read-only character sheets)
+      </label>
+      <div style="font-size:8px;color:var(--text3);margin-top:5px">When enabled, clicking a portrait or party card opens a read-only character sheet instead of the editor. Right-click still gives quick actions.</div>
+    </div>
+    <div class="fg"><label class="fl">Auto Background Events (every N player messages, 0 = off)</label><input type="number" class="fi" id="s-auto-tick" value="0" min="0" max="50"></div>
     <div class="fg"><label class="fl">In-World Time</label><input class="fi" id="s-time" value="Night 1 — 11:58 PM"></div>
     <div class="fg"><label class="fl">Extra System Instructions</label><textarea class="fta" id="s-extra" placeholder="Additional instructions for the AI..."></textarea></div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
@@ -1032,8 +1236,10 @@ const G = {
   msgs: [],
   mems: [],
   tl: [],
-  session: { start: Date.now(), msgCount: 0, mode: 'say', memDepth: 20, extra: '' },
+  session: { start: Date.now(), msgCount: 0, mode: 'say', memDepth: 20, extra: '', undoStack: [], playerMode: false },
 };
+
+let EDITING_MSG_ID = null; // holds id of Leo message being edited
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━
 // TRAIN MAP (static structure)
@@ -1182,6 +1388,18 @@ World:
 {"type":"set_time","time":"Night 1 — 12:14 AM","dayMinute":1454}
 {"type":"set_car","carId":"car-p2"}
 {"type":"npc_move","name":"NPC name","from":"car-id","to":"car-id","reason":"why"}
+
+VALID TRAIN CAR IDs — use these EXACT values for location, set_car, and npc_move:
+- car-eng = Locomotive / Engine Room
+- car-rl = Research & Logistics Car
+- car-p1 = First Passenger Carriage
+- car-p2 = Second Passenger Carriage
+- car-din = Dining Car
+- car-show = Entertainment Car
+- car-guild = Guild Operations Car
+- car-sleep = Sleeping Quarters
+- car-cargo = Cargo Car
+- car-rear = Rear Observation Platform
 
 Severity for conditions: critical (life-threatening), serious (major impairment), moderate (noticeable), minor (slight), neutral (factual), positive (beneficial)
 
@@ -1358,12 +1576,17 @@ function init() {
   load();
   applySettings();
   if (G.chars.length === 0) loadDefaults();
-  // Ensure old saves have default stats/voice/personality if missing
+  // Ensure old saves have default stats/voice/personality/undoStack if missing
   G.chars.forEach(c => {
     if (!c.stats) c.stats = { health: 100, stamina: 100, stress: 0, sanity: 100 };
     if (!c.personality) c.personality = c.bg || '';
     if (!c.voice) c.voice = '';
   });
+  if (!G.session.undoStack) G.session.undoStack = [];
+  if (G.session.playerMode === undefined) G.session.playerMode = false;
+  if (G.session.autoTick === undefined) G.session.autoTick = 0;
+  // Fix any car IDs that may have been saved with AI aliases before normalization existed
+  G.chars.forEach(c => { if (c.location) c.location = normalizeCarId(c.location); });
   renderAll();
   startTimers();
   checkConn();
@@ -1372,8 +1595,9 @@ function init() {
 
 function openingScene() {
   // Post the opening narrative immediately
-  appendBlock('narrator', null, OPENING_PROSE, 'narrator');
-  G.msgs.push({ id:uid(), role:'narrator', content:OPENING_PROSE, time:G.world.time });
+  const id = uid();
+  appendBlock('narrator', null, OPENING_PROSE, 'narrator', id);
+  G.msgs.push({ id, role:'narrator', content:OPENING_PROSE, time:G.world.time });
 }
 
 const OPENING_PROSE = `The air here smells of ozone, stale coffee from a week ago, and something faintly sweet—like when you open a jar of fruit that has been forgotten in the back of a refrigerator.
@@ -1459,6 +1683,8 @@ function buildPrompt(leoInput, mode) {
     go: `Leo is moving to a different location. Write the transit: what's between here and there, who Leo passes, what's visible. THEN write what Leo finds at the destination. Update location with [GAME] set_loc and set_car. Characters Leo encounters react to his arrival based on their current state, trust level, and stats. Stone or the Knight being encountered is not automatically safe. Each character gets their own speech block if they speak.`,
     look: `Leo is examining something or taking stock. Write a detailed observational passage — Waluigi's analytical register. What does Leo actually notice? What do the instruments say? What are the other characters doing when they don't know they're being watched? Look mode can reveal details that other modes don't. If a character speaks in response, give them their own block and reflect their personality.`,
     ooc: `Out-of-character player note. Acknowledge briefly and respond helpfully without breaking the fiction more than necessary.`,
+    continue: `This is a continuation request, not dialogue spoken by Leo. Continue the scene from exactly where it left off. Advance the narrative: describe what happens next, what characters do, say, or notice, and how the situation evolves. Do not start over. Do not treat the word 'Continue' as something Leo said out loud. Keep the same literary register. Characters may react to the situation as themselves. Use [GAME] commands if anything changes.`,
+    worldtick: `This is a world tick. Advance the state of the world independently of Leo. Focus on NPCs who are NOT in Leo's current location and on the train's passengers and crew as a whole. Generate one or more background events that may be mundane or significant. Move NPCs if they would travel, update their stats/conditions if they exert themselves or encounter something, and introduce new named NPCs if someone new enters the story. Use [GAME] commands for all changes: npc_move, mod_char, add_char, add_tl, add_mem, set_time, mod_item. Do NOT write a scene centered on Leo. Leo is not the focus here. Events happen around him, not to him. Keep responses concise but specific.`,
   }[mode] || 'Continue the scene. Each character speaks in their own attributed block. Be faithful to their personality and voice profiles.';
 
   return `You are the narrator and every character EXCEPT Leo in this collaborative story. Leo is played by the human. Your job is to make the world real, the characters consistent, and the story neither too easy nor too hard.
@@ -1512,7 +1738,17 @@ ${CMD_SCHEMA}
 ━━━ DIFFICULTY ━━━
 Do not make things easy. Stone may withhold information or lie. The Knight may act against Leo's interests if their objectives conflict. E. Gadd may make decisions without consulting Leo. Luigi has a breakdown point. The train has problems beyond what's been catalogued. The Clockwork Spire is genuinely dangerous. Actions have costs. Trust is hard to build and easy to lose.
 
-━━━ FORMAT ━━━
+━━━ THE WORLD IS ACTIVE — YOU RUN IT ━━━
+The Maglev Express is not frozen when Leo is not looking. Passengers, Guild staff, and the other party members have their own routines, agendas, and encounters. Stone and the Knight started in a different car and may act independently. They do not wait for Leo's permission to move, investigate, or get into trouble.
+
+During normal responses and especially during world ticks, you may advance off-screen activity:
+- Move NPCs between cars with [GAME] npc_move if they travel.
+- Update their stats/conditions with [GAME] mod_char if they exert themselves, get hurt, or recover.
+- Add new named NPCs with [GAME] add_char when someone enters the story (a Guild steward, a frightened passenger, a stowaway, a conductor with news).
+- Add world events with [GAME] add_tl. Events can be mundane (a dropped teacup, a shift change, a couple arguing about berth assignments) or significant (a scream from the cargo car, a Guild messenger arrives, Stone draws his weapon on someone).
+- Store important facts with [GAME] add_mem.
+
+Leo is not the most important person on the train. Most events should happen around him, not to him. The AI should feel like the world continues whether Leo is watching or not. When Leo eventually enters a car, he may find the aftermath of events that occurred while he was elsewhere.
 Write in the same literary register as the opening prose — long, specific, sensory, emotionally precise. When a character speaks, give them their own clearly separated block.
 
 PREFERRED OUTPUT FORMAT:
@@ -1555,11 +1791,40 @@ async function go() {
   el.value = '';
   autoR(el);
 
+  // If we are editing a previous Leo message, replace it and truncate history after it.
+  if (EDITING_MSG_ID) {
+    pushUndo();
+    const idx = G.msgs.findIndex(m => m.id === EDITING_MSG_ID);
+    if (idx >= 0) {
+      G.msgs[idx].content = content;
+      G.msgs[idx].mode = mode;
+      G.msgs = G.msgs.slice(0, idx + 1);
+      rerenderLog();
+      const tid = showThink();
+      try {
+        const resp = await callAI(content, mode);
+        removeThink(tid);
+        processResponse(resp);
+        maybeAutoTick();
+      } catch(e) {
+        removeThink(tid);
+        appendBlock('system', null, `⚠ AI error: ${e.message}. Check LMStudio. Enable CORS in LMStudio settings.`, 'system');
+      }
+    }
+    EDITING_MSG_ID = null;
+    updateEditUI();
+    save();
+    return;
+  }
+
+  pushUndo();
+
   // Display Leo's input
   const modeLabels = {say:'says',do:'does',go:'moves',look:'observes',ooc:'[OOC]'};
-  appendBlock('leo', {name:'Leo',avatar:'🔵',color:'var(--c-leo)'}, content, mode);
+  const msgId = uid();
+  appendBlock('leo', {name:'Leo',avatar:'🔵',color:'var(--c-leo)'}, content, mode, msgId);
 
-  G.msgs.push({ id:uid(), role:'user', content, mode, time:G.world.time });
+  G.msgs.push({ id:msgId, role:'user', content, mode, time:G.world.time });
   G.session.msgCount++;
   updateFooter();
   save();
@@ -1569,6 +1834,7 @@ async function go() {
     const resp = await callAI(content, mode);
     removeThink(tid);
     processResponse(resp);
+    maybeAutoTick();
   } catch(e) {
     removeThink(tid);
     appendBlock('system', null, `⚠ AI error: ${e.message}. Check LMStudio. Enable CORS in LMStudio settings.`, 'system');
@@ -1685,10 +1951,11 @@ function processResponse(raw) {
     .trim();
 
   // Parse display into character blocks
-  renderResponseText(display);
+  const assistantMsgId = uid();
+  renderResponseText(display, assistantMsgId);
 
   // Store in history
-  G.msgs.push({ id:uid(), role:'assistant', content:raw, time:G.world.time });
+  G.msgs.push({ id:assistantMsgId, role:'assistant', content:raw, time:G.world.time });
   G.session.msgCount++;
 
   // Execute game commands
@@ -1729,7 +1996,7 @@ function processResponse(raw) {
 //   - **bold** headers
 // Every character gets their own visually distinct bubble.
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━
-function renderResponseText(text) {
+function renderResponseText(text, msgId) {
   if (!text) return;
 
   // First, split by horizontal-rule scene/character dividers.
@@ -1738,7 +2005,7 @@ function renderResponseText(text) {
 
   segments.forEach(seg => {
     const firstLine = seg.split('\n')[0] || '';
-    const firstHeader = parseHeaderLine(firstLine);
+    const firstHeader = parseHeaderLine(firstLine, true);
 
     if (firstHeader && isLikelyCharacter(firstHeader.name)) {
       // Whole segment belongs to the character named in the first line.
@@ -1746,12 +2013,12 @@ function renderResponseText(text) {
       if (firstHeader.trailing) contentLines.unshift(firstHeader.trailing);
       const content = contentLines.join('\n').trim();
       const char = findCharByHeader(firstHeader.name);
-      appendBlock('char', char || {name: firstHeader.name, avatar: '?', color: 'var(--text2)'}, content, 'char');
+      appendBlock('char', char || {name: firstHeader.name, avatar: '?', color: 'var(--text2)'}, content, 'char', msgId);
       return;
     }
 
     // Otherwise, use the line-by-line parser to catch multiple speakers inside one segment.
-    renderSegmentLines(seg);
+    renderSegmentLines(seg, msgId);
   });
 }
 
@@ -1761,15 +2028,22 @@ function splitByDividers(text) {
   return text.split(rx).filter(s => s.trim().length > 0);
 }
 
-function parseHeaderLine(line) {
-  // Strips surrounding markdown bold/italic markers
-  const stripped = line.replace(/^\s*[*_]+\s*|\s*[*_]+\s*$/g, '').trim();
+function parseHeaderLine(line, permissive = false) {
+  // Strips surrounding markdown bold/italic markers, including inline bold around the name.
+  let stripped = line
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/^\s*[*_]+\s*|\s*[*_]+\s*$/g, '')
+    .trim();
+  // Strip the app's own rendered timestamp suffix if present (e.g. "Night 1 — 11:58 PM")
+  stripped = stripped.replace(/\s+Night\s+\d+\s*[—-]\s*\d{1,2}:\d{2}\s*(?:AM|PM)?$/i, '').trim();
   if (stripped.length > 80) return null;
 
   // Patterns tried in order:
   // 1. "Luigi | Ghost Hunter / Agent L" or "Luigi — Role" or "Luigi - Role"
   // 2. "💚 Luigi:" or "LUIGI:" or "E. Gadd:" or "THE KNIGHT:"
   // 3. "Luigi" alone on a line, possibly with trailing role in parens
+  // 4. (permissive only) "Luigi anything else..." — name at the start of the line
   // WORD pattern allows either all-caps (LUIGI) or capitalized (Luigi) names.
   const word = '(?:[A-Z]+|[A-Z][a-z]+)';
   const patterns = [
@@ -1777,6 +2051,9 @@ function parseHeaderLine(line) {
     new RegExp(`^(?:[\\u{1F300}-\\u{1FFFF}\\u{2600}-\\u{26FF}⚔️🔬🔴💚🔵👾]\\s*)?((?:[A-Z]\\.[A-Z]?\\s+)?(?:The\\s+)?${word}(?:\\s+(?:[A-Z]\\.\\s*)?${word})*)\\s*[:：]\\s*(.*)$`, 'u'),
     new RegExp(`^(?:[\\u{1F300}-\\u{1FFFF}\\u{2600}-\\u{26FF}⚔️🔬🔴💚🔵👾]\\s*)?((?:[A-Z]\\.[A-Z]?\\s+)?(?:The\\s+)?${word}(?:\\s+(?:[A-Z]\\.\\s*)?${word})*)(?:\\s*\\(([^)]*)\\))?\\s*$`, 'u'),
   ];
+  if (permissive) {
+    patterns.push(new RegExp(`^((?:[A-Z]\\.[A-Z]?\\s+)?(?:The\\s+)?${word}(?:\\s+(?:[A-Z]\\.\\s*)?${word})*)\\b(.*)$`, 'u'));
+  }
 
   for (let i = 0; i < patterns.length; i++) {
     const m = stripped.match(patterns[i]);
@@ -1786,8 +2063,14 @@ function parseHeaderLine(line) {
         // Pattern 0: "Name | Role"  -> m[2] is role
         // Pattern 1: "Name: text"   -> m[2] is trailing dialogue
         // Pattern 2: "Name (Role)" -> m[2] is role
+        // Pattern 4: permissive name-at-start -> m[2] is junk (role/time), ignore
         const isDialogue = i === 1;
-        return { name, role: isDialogue ? '' : (m[2] || '').trim(), trailing: isDialogue ? (m[2] || '').trim() : '' };
+        const isPermissive = i === 3;
+        return {
+          name,
+          role: isDialogue || isPermissive ? '' : (m[2] || '').trim(),
+          trailing: isDialogue ? (m[2] || '').trim() : ''
+        };
       }
     }
   }
@@ -1821,7 +2104,7 @@ function isLikelyCharacter(name) {
   return true;
 }
 
-function renderSegmentLines(seg) {
+function renderSegmentLines(seg, msgId) {
   const lines = seg.split('\n');
   let currentSpeaker = null;
   let buffer = [];
@@ -1832,9 +2115,9 @@ function renderSegmentLines(seg) {
     if (!content) { buffer = []; return; }
     if (currentSpeaker) {
       const char = findCharByHeader(currentSpeaker);
-      appendBlock('char', char || {name: currentSpeaker, avatar: '?', color: 'var(--text2)'}, content, 'char');
+      appendBlock('char', char || {name: currentSpeaker, avatar: '?', color: 'var(--text2)'}, content, 'char', msgId);
     } else {
-      appendBlock('narrator', null, content, 'narrator');
+      appendBlock('narrator', null, content, 'narrator', msgId);
     }
     buffer = [];
   }
@@ -1884,7 +2167,7 @@ function execCmd(cmd) {
         id: uid(), name:cmd.name, role:cmd.role||'', affiliation:cmd.affiliation||'',
         avatar:cmd.avatar||'?', color:cmd.color||'var(--text2)',
         trust: cmd.trust !== undefined ? cmd.trust : 50,
-        party: cmd.party || 'neutral', location: cmd.location || G.world.currentCar,
+        party: cmd.party || 'neutral', location: normalizeCarId(cmd.location) || G.world.currentCar,
         active:true, status:cmd.status||'', conditions:cmd.conditions||[],
         stats: cmd.stats || {health:100, stamina:100, stress:0, sanity:100},
         personality: cmd.personality || cmd.bg || '',
@@ -1902,7 +2185,7 @@ function execCmd(cmd) {
       if (cmd.personality !== undefined) c.personality = cmd.personality;
       if (cmd.voice !== undefined) c.voice = cmd.voice;
       if (cmd.party !== undefined) c.party = cmd.party;
-      if (cmd.location !== undefined) c.location = cmd.location;
+      if (cmd.location !== undefined) c.location = normalizeCarId(cmd.location);
       if (cmd.stats !== undefined) {
         if (!c.stats) c.stats = {health:100, stamina:100, stress:0, sanity:100};
         ['health','stamina','stress','sanity'].forEach(k => {
@@ -2020,18 +2303,19 @@ function execCmd(cmd) {
         desc:cmd.desc||G.location.desc, notes:cmd.notes||G.location.notes,
       });
       if (cmd.atmosphere) G.world.atmosphere = cmd.atmosphere;
-      if (cmd.carId) G.world.currentCar = cmd.carId;
+      if (cmd.carId) G.world.currentCar = normalizeCarId(cmd.carId);
       return {t:'event', msg:`Location → ${cmd.name||G.location.name}`};
     }
     case 'set_car': {
-      G.world.currentCar = cmd.carId;
-      const car = TRAIN.find(c => c.id === cmd.carId);
+      const carId = normalizeCarId(cmd.carId);
+      G.world.currentCar = carId;
+      const car = TRAIN.find(c => c.id === carId);
       if (car) {
         G.location.name = car.name;
         G.location.icon = car.icon;
         G.location.desc = G.world.time;
       }
-      return {t:'event', msg:`Leo → ${cmd.carId}`};
+      return {t:'event', msg:`Leo → ${carId}`};
     }
     case 'set_time': {
       G.world.time = cmd.time;
@@ -2042,8 +2326,9 @@ function execCmd(cmd) {
     case 'npc_move': {
       const c = G.chars.find(x => x.name.toLowerCase() === (cmd.name||'').toLowerCase());
       if (!c) return null;
-      c.location = cmd.to;
-      return {t:'event', msg:`${c.name} → ${cmd.to}${cmd.reason?' ('+cmd.reason+')':''}`};
+      const toId = normalizeCarId(cmd.to);
+      c.location = toId;
+      return {t:'event', msg:`${c.name} → ${toId}${cmd.reason?' ('+cmd.reason+')':''}`};
     }
     default: return null;
   }
@@ -2055,13 +2340,46 @@ function findOwner(str) {
   return c ? c.id : str;
 }
 
+function normalizeCarId(raw) {
+  if (!raw) return raw;
+  const s = String(raw).toLowerCase().trim().replace(/\s+/g, '-');
+  // Map common AI / human aliases to the canonical TRAIN ids
+  const aliases = {
+    'car-dining': 'car-din', 'dining': 'car-din', 'dining-car': 'car-din',
+    'car-entertainment': 'car-show', 'entertainment': 'car-show', 'show-car': 'car-show', 'show': 'car-show',
+    'car-sleeping': 'car-sleep', 'sleeping': 'car-sleep', 'sleeping-quarters': 'car-sleep', 'sleep': 'car-sleep',
+    'car-guild-operations': 'car-guild', 'guild': 'car-guild', 'guild-ops': 'car-guild', 'operations': 'car-guild',
+    'car-rear': 'car-rear', 'rear-platform': 'car-rear', 'rear': 'car-rear', 'rear-observation-platform': 'car-rear',
+    'car-cargo': 'car-cargo', 'cargo': 'car-cargo', 'cargo-car': 'car-cargo',
+    'car-engine': 'car-eng', 'engine': 'car-eng', 'engine-room': 'car-eng', 'locomotive': 'car-eng',
+    'car-research': 'car-rl', 'research': 'car-rl', 'research-logistics': 'car-rl', 'logistics': 'car-rl',
+    'car-first': 'car-p1', 'first-passenger': 'car-p1', 'first-passenger-carriage': 'car-p1', 'first': 'car-p1', 'passenger-one': 'car-p1',
+    'car-second': 'car-p2', 'second-passenger': 'car-p2', 'second-passenger-carriage': 'car-p2', 'second': 'car-p2', 'passenger-two': 'car-p2',
+  };
+  if (aliases[s]) return aliases[s];
+  // If the raw id is already canonical but just lowercased, return it as-is (with car- prefix if present)
+  if (TRAIN.some(car => car.id === s)) return s;
+  // If it starts with 'car-' and we don't know it, still return it so the data is preserved
+  return s;
+}
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━
 // DOM — APPEND BLOCKS
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━
-function appendBlock(type, char, content, mode) {
+function appendBlock(type, char, content, mode, msgId) {
   const log = document.getElementById('story-log');
   const el = document.createElement('div');
   el.className = 'scene-block';
+  if (msgId) el.dataset.msgId = msgId;
+
+  // Right-click menu for chat messages
+  if (type !== 'system' && type !== 'thinking') {
+    el.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      const msgType = type === 'leo' ? 'leo' : 'assistant';
+      msgBlockCtx(e, msgId, msgType, content);
+    });
+  }
 
   if (type === 'system') {
     el.className += ' block-system';
@@ -2143,10 +2461,223 @@ function removeThink(id) {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MESSAGE LOG MANAGEMENT
+// Edit, delete, undo, continue, re-render from stored messages.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function pushUndo() {
+  if (!G.session.undoStack) G.session.undoStack = [];
+  G.session.undoStack.push(JSON.parse(JSON.stringify(G.msgs)));
+  if (G.session.undoStack.length > 30) G.session.undoStack.shift();
+}
+
+function undo() {
+  if (!G.session.undoStack || !G.session.undoStack.length) {
+    toast('Nothing to undo', 'amber');
+    return;
+  }
+  G.msgs = G.session.undoStack.pop();
+  rerenderLog();
+  renderAll();
+  updateFooter();
+  save();
+  toast('Undone', 'green');
+}
+
+function rerenderLog() {
+  const log = document.getElementById('story-log');
+  log.innerHTML = '';
+  G.msgs.forEach(m => {
+    if (m.hidden) return; // skip hidden continue prompts
+    if (m.role === 'narrator') appendBlock('narrator', null, m.content, 'narrator', m.id);
+    else if (m.role === 'user') appendBlock('leo', {name:'Leo', avatar:'🔵', color:'var(--c-leo)'}, m.content, m.mode || 'say', m.id);
+    else if (m.role === 'assistant') renderResponseText(m.content.replace(/\[GAME\][\s\S]*?\[\/GAME\]/g, '').trim(), m.id);
+    else if (m.role === 'system') appendBlock('system', null, m.content, 'system', m.id);
+  });
+  log.scrollTop = log.scrollHeight;
+}
+
+function continueStory() {
+  // Find the last visible user message. Hidden continue prompts don't count.
+  const lastUser = [...G.msgs].reverse().find(m => m.role === 'user' && !m.hidden);
+  if (!lastUser) {
+    toast('No user message to continue from', 'amber');
+    return;
+  }
+  pushUndo();
+  const msgId = uid();
+  const content = 'Continue.';
+  // Hidden continue prompt: included in API history so the AI can continue,
+  // but NOT rendered in the chat log.
+  G.msgs.push({ id:msgId, role:'user', content, mode:'continue', hidden:true, time:G.world.time });
+  save();
+  const tid = showThink();
+  callAI(content, 'continue').then(resp => {
+    removeThink(tid);
+    processResponse(resp);
+  }).catch(e => {
+    removeThink(tid);
+    appendBlock('system', null, `⚠ AI error: ${e.message}. Check LMStudio. Enable CORS in LMStudio settings.`, 'system');
+  });
+}
+
+let WORLD_TICK_PENDING = false;
+
+function worldTick() {
+  if (WORLD_TICK_PENDING) {
+    toast('World tick already running', 'amber');
+    return;
+  }
+  WORLD_TICK_PENDING = true;
+  pushUndo();
+  const msgId = uid();
+  const content = 'WORLD TICK: advance the world.';
+  // Hidden world-tick prompt: not rendered, but included in API history.
+  G.msgs.push({ id:msgId, role:'user', content, mode:'worldtick', hidden:true, time:G.world.time });
+  save();
+  const tid = showThink();
+  // Replace the thinking text for a world tick
+  const thinkEl = document.getElementById(`tk-${tid}`);
+  if (thinkEl) thinkEl.querySelector('.b-text').innerHTML = 'The world moves on its own<span class="tdots"><span></span><span></span><span></span></span>';
+  callAI(content, 'worldtick').then(resp => {
+    removeThink(tid);
+    processResponse(resp);
+    WORLD_TICK_PENDING = false;
+  }).catch(e => {
+    removeThink(tid);
+    appendBlock('system', null, `⚠ AI error: ${e.message}. Check LMStudio. Enable CORS in LMStudio settings.`, 'system');
+    WORLD_TICK_PENDING = false;
+  });
+}
+
+function maybeAutoTick() {
+  const n = G.session.autoTick || 0;
+  if (!n) return;
+  const visibleUserMsgs = G.msgs.filter(m => m.role === 'user' && !m.hidden).length;
+  if (visibleUserMsgs > 0 && visibleUserMsgs % n === 0) {
+    worldTick();
+  }
+}
+
+function editMsg(id) {
+  const m = G.msgs.find(x => x.id === id);
+  if (!m || m.role !== 'user') return;
+  EDITING_MSG_ID = id;
+  const el = document.getElementById('txt');
+  el.value = m.content || '';
+  autoR(el);
+  if (m.mode && ['say','do','go','look','ooc'].includes(m.mode)) setMode(m.mode);
+  updateEditUI();
+  el.focus();
+}
+
+function deleteMsg(id) {
+  pushUndo();
+  const idx = G.msgs.findIndex(m => m.id === id);
+  if (idx < 0) return;
+  const m = G.msgs[idx];
+  if (m.role === 'user') {
+    // Remove this user message and any assistant response that immediately follows
+    let end = idx + 1;
+    while (end < G.msgs.length && G.msgs[end].role === 'assistant') end++;
+    G.msgs.splice(idx, end - idx);
+  } else {
+    G.msgs.splice(idx, 1);
+  }
+  rerenderLog();
+  updateFooter();
+  save();
+  toast('Message removed', 'red');
+}
+
+function updateEditUI() {
+  const editing = !!EDITING_MSG_ID;
+  const ind = document.getElementById('edit-indicator');
+  const btn = document.getElementById('btn-cancel-edit');
+  const sbtn = document.getElementById('sbtn');
+  if (ind) ind.style.display = editing ? 'inline' : 'none';
+  if (btn) btn.style.display = editing ? 'inline-block' : 'none';
+  if (sbtn) sbtn.textContent = editing ? 'Save ↵' : 'Send ↵';
+}
+
+function cancelEdit() {
+  EDITING_MSG_ID = null;
+  const el = document.getElementById('txt');
+  if (el) { el.value = ''; autoR(el); }
+  updateEditUI();
+}
+
+function msgBlockCtx(e, id, type, content) {
+  if (!id) return;
+  const items = [];
+  if (type === 'leo') {
+    items.push({l:'✏️ Edit', a:()=>editMsg(id)});
+  }
+  items.push({l:'🗑 Delete', a:()=>deleteMsg(id), d:true});
+  showCtx(e.clientX, e.clientY, items);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INTERACTION BAR
+// Shows who is in Leo's current car ("who you're interacting with")
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderInteractionBar() {
+  const container = document.getElementById('ib-content');
+  if (!container) return;
+  const here = G.chars.filter(c => c.active && c.location === G.world.currentCar && c.id !== 'leo');
+  if (!here.length) {
+    container.innerHTML = '<span class="ib-none">No one else in this car</span>';
+    return;
+  }
+  container.innerHTML = here.map(c => {
+    const stats = c.stats || {health:100, stamina:100};
+    const hpDot = stats.health > 60 ? 'healthy' : stats.health > 30 ? 'hurt' : 'critical';
+    return `
+    <div class="ib-chip here" onclick="handleCharClick('${c.id}')" title="${escH(c.role)}\nHP ${stats.health}% • ST ${stats.stamina}%">
+      <div class="ib-av" style="color:${c.color};border-color:${c.color}">${c.avatar||'?'}</div>
+      <span class="ib-name">${escH(c.name)}</span>
+      <span class="ib-dot ${hpDot}" style="width:6px;height:6px;border-radius:50%;background:var(--${hpDot==='healthy'?'green':hpDot==='hurt'?'amber':'red'})"></span>
+    </div>`;
+  }).join('');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PARTY BAR (Arena-style bottom portraits)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderPartyBar() {
+  const container = document.getElementById('pb-content');
+  if (!container) return;
+  const active = G.chars.filter(c => c.active).sort((a,b) => (b.trust||0) - (a.trust||0));
+  if (!active.length) {
+    container.innerHTML = '<span style="font-family:var(--mono);font-size:9px;color:var(--text3)">No party members</span>';
+    return;
+  }
+  container.innerHTML = active.map(c => {
+    const stats = c.stats || {health:100, stamina:100};
+    const isHere = c.location === G.world.currentCar;
+    const hpDot = stats.health > 60 ? 'healthy' : stats.health > 30 ? 'hurt' : 'critical';
+    const dead = stats.health <= 0 ? 'dead' : '';
+    return `
+    <div class="pb-portrait ${isHere?'here':''} ${dead}" onclick="handleCharClick('${c.id}')" oncontextmenu="charCtx(event,'${c.id}')">
+      <div class="pb-av" style="color:${c.color};border-color:${c.color}">
+        ${c.avatar||'?'}
+        <span class="pb-dot ${hpDot}"></span>
+      </div>
+      <div class="pb-name">${escH(c.name)}</div>
+      <div class="pb-stat">
+        <div class="pb-bar"><div class="pb-fill hp" style="width:${stats.health}%"></div></div>
+        <div class="pb-bar"><div class="pb-fill st" style="width:${stats.stamina}%"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
 // RENDER ALL
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━
 function renderAll() {
   renderChars();
+  renderPartyBar();
+  renderInteractionBar();
   renderSchedule();
   renderThreads();
   renderMap();
@@ -2225,7 +2756,7 @@ function renderChars() {
         ${c.voice ? `<div class="voice-note"><div class="voice-label">Voice</div>${escH(c.voice)}</div>` : ''}
         ${itemChips ? `<div style="margin-bottom:6px"><div class="pinv-label">Carrying</div>${itemChips}</div>` : ''}
         <div style="display:flex;gap:4px;flex-wrap:wrap">
-          <button class="pbtn" onclick="openCharEdit('${c.id}')">Edit</button>
+          <button class="pbtn" onclick="handleCharClick('${c.id}')">${G.session.playerMode ? 'View' : 'Edit'}</button>
           <button class="pbtn" onclick="quickCond('${c.id}')">+Cond</button>
           <button class="pbtn d" onclick="removeChar('${c.id}')">Remove</button>
         </div>
@@ -2476,6 +3007,113 @@ function saveChar() {
   toast(`${name} saved`,'green');
 }
 
+let VIEWING_CHAR_ID = null;
+
+function openCharView(id) {
+  const c = G.chars.find(x=>x.id===id);
+  if (!c) return;
+  VIEWING_CHAR_ID = id;
+  const stats = c.stats || {health:100, stamina:100, stress:0, sanity:100};
+  const conds = (c.conditions||[]).map(cd =>
+    `<span class="cv-tag" style="border-color:var(--border);color:${sevColor(cd.s)}">${escH(cd.t)}</span>`
+  ).join('') || '<span class="cv-tag">none</span>';
+  const myItems = G.items.filter(i => i.owner === c.id || i.owner === c.name.toLowerCase());
+  const itemStr = myItems.length ? myItems.map(i =>
+    `<span class="cv-tag">${escH(i.name)} <span style="color:${condColor(i.cond)}">[${i.cond}]</span></span>`
+  ).join('') : '<span class="cv-tag">none</span>';
+  const carName = TRAIN.find(t=>t.id===c.location)?.name || c.location || 'unknown';
+  const trustColor = c.trust >= 70 ? 'var(--green)' : c.trust >= 40 ? 'var(--amber)' : 'var(--red)';
+  const partyLabel = {ally:'Ally', neutral:'Neutral', hostile:'Hostile', unknown:'Unknown', npc:'NPC'}[c.party||'neutral'];
+
+  document.getElementById('cv-body').innerHTML = `
+    <div class="cv-hdr">
+      <div class="cv-av" style="color:${c.color};border-color:${c.color}">${c.avatar||'?'}</div>
+      <div class="cv-title">
+        <div class="cv-name" style="color:${c.color}">${escH(c.name)}</div>
+        <div class="cv-role">${escH(c.role)} — ${partyLabel}</div>
+        <div class="cv-aff">${escH(c.affiliation)} • ${escH(carName)}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="cv-label">Trust</div>
+        <div style="font-family:var(--mono);font-size:12px;color:${trustColor}">${c.trust}</div>
+      </div>
+    </div>
+
+    <div class="cv-stat-grid">
+      <div class="cv-stat">
+        <div class="cv-stat-name">Health</div>
+        <div class="cv-stat-bar"><div class="cv-stat-fill" style="width:${stats.health}%;background:var(--green)"></div></div>
+        <div class="cv-stat-val">${stats.health}%</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-stat-name">Stamina</div>
+        <div class="cv-stat-bar"><div class="cv-stat-fill" style="width:${stats.stamina}%;background:var(--amber)"></div></div>
+        <div class="cv-stat-val">${stats.stamina}%</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-stat-name">Stress</div>
+        <div class="cv-stat-bar"><div class="cv-stat-fill" style="width:${stats.stress}%;background:var(--red)"></div></div>
+        <div class="cv-stat-val">${stats.stress}%</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-stat-name">Sanity</div>
+        <div class="cv-stat-bar"><div class="cv-stat-fill" style="width:${stats.sanity}%;background:var(--blue)"></div></div>
+        <div class="cv-stat-val">${stats.sanity}%</div>
+      </div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Status</div>
+      <div class="cv-text">${escH(c.status||'No current status recorded.')}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Conditions</div>
+      <div class="cv-tags">${conds}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Carrying</div>
+      <div class="cv-tags">${itemStr}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Personality</div>
+      <div class="cv-text">${fmtTxt(c.personality||c.bg||'No personality profile recorded.')}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Voice</div>
+      <div class="cv-text">${fmtTxt(c.voice||'No voice profile recorded.')}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Background</div>
+      <div class="cv-text">${fmtTxt(c.bg||'No background recorded.')}</div>
+    </div>
+  `;
+  document.getElementById('cv-edit-btn').style.display = G.session.playerMode ? 'none' : 'inline-block';
+  openM('m-char-view');
+}
+
+function sevColor(s) {
+  return {critical:'#fca5a5',serious:'#fdba74',moderate:'#fde047',minor:'#93c5fd',neutral:'var(--text2)',positive:'#6ee7b7'}[s] || 'var(--text2)';
+}
+function condColor(c) {
+  return {pristine:'var(--green)',good:'var(--blue)',worn:'var(--amber)',damaged:'var(--red)',broken:'var(--text3)'}[c] || 'var(--text2)';
+}
+
+function openCharEditFromView() {
+  if (!VIEWING_CHAR_ID) return;
+  closeM('m-char-view');
+  openCharEdit(VIEWING_CHAR_ID);
+}
+
+function handleCharClick(id) {
+  if (G.session.playerMode) openCharView(id);
+  else openCharEdit(id);
+}
+
 function openCharEdit(id) {
   const c = G.chars.find(x=>x.id===id);
   if (!c) return;
@@ -2618,9 +3256,12 @@ function saveSettings() {
   G.api.temp = parseFloat(document.getElementById('s-temp').value)||0.9;
   G.api.maxTok = parseInt(document.getElementById('s-maxt').value)||3000;
   G.session.memDepth = parseInt(document.getElementById('s-memw').value)||20;
+  G.session.playerMode = document.getElementById('s-player').checked;
+  G.session.autoTick = parseInt(document.getElementById('s-auto-tick').value) || 0;
   G.world.time = document.getElementById('s-time').value.trim();
   G.session.extra = document.getElementById('s-extra').value.trim();
   document.getElementById('hdr-time').textContent = G.world.time;
+  updateModeButton();
   closeM('m-settings');
   save(); checkConn();
   toast('Settings saved','green');
@@ -2634,9 +3275,24 @@ function applySettings() {
   document.getElementById('s-maxt').value = G.api.maxTok;
   document.getElementById('s-maxt-v').textContent = G.api.maxTok;
   document.getElementById('s-memw').value = G.session.memDepth;
+  document.getElementById('s-player').checked = !!G.session.playerMode;
+  document.getElementById('s-auto-tick').value = G.session.autoTick || 0;
   document.getElementById('s-time').value = G.world.time;
   document.getElementById('s-extra').value = G.session.extra||'';
   document.getElementById('hdr-time').textContent = G.world.time;
+  updateModeButton();
+}
+
+function togglePlayerMode() {
+  G.session.playerMode = !G.session.playerMode;
+  updateModeButton();
+  save();
+  toast(G.session.playerMode ? 'Player Mode — read-only sheets' : 'Edit Mode — full control', 'green');
+}
+
+function updateModeButton() {
+  const btn = document.getElementById('hdr-mode');
+  if (btn) btn.textContent = G.session.playerMode ? 'Player' : 'Edit';
 }
 
 async function testConn() {
@@ -2684,9 +3340,10 @@ function importSave() {
         document.getElementById('story-log').innerHTML='';
         applySettings();renderAll();save();
         G.msgs.forEach(m=>{
-          if(m.role==='narrator') appendBlock('narrator',null,m.content,'narrator');
-          else if(m.role==='user') appendBlock('leo',{name:'Leo',avatar:'🔵',color:'var(--c-leo)'},m.content,m.mode||'say');
-          else if(m.role==='assistant') renderResponseText(m.content.replace(/\[GAME\][\s\S]*?\[\/GAME\]/g,'').trim());
+          if(m.hidden) return;
+          if(m.role==='narrator') appendBlock('narrator',null,m.content,'narrator',m.id);
+          else if(m.role==='user') appendBlock('leo',{name:'Leo',avatar:'🔵',color:'var(--c-leo)'},m.content,m.mode||'say',m.id);
+          else if(m.role==='assistant') renderResponseText(m.content.replace(/\[GAME\][\s\S]*?\[\/GAME\]/g,'').trim(),m.id);
         });
         toast('Imported','green');
       }catch(e){toast('Import failed','red');}
@@ -2892,5 +3549,5 @@ document.addEventListener('keydown', e => {
 
 init();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0cf1da3defa4411',t:'MTc4MTY2ODQ5NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
