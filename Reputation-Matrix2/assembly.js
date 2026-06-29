@@ -9,6 +9,7 @@ import { playSound } from './common.js';
 import { state, saveState, loadState } from './state.js';
 import { CURRENT_GAME_DATE, getDynamicTimestamp, CALENDAR_DATA } from './calendar-data.js';
 import { calculateRumorMetrics, calculateGlobalCycle } from './research-data.js';
+let tabModulesPromise = null;
 // Global observer for tracking post visibility
 let postObserver = null;
 const pendingSeenPosts = new Map(); // Track posts being viewed with timers
@@ -1106,6 +1107,7 @@ function cleanupPostObserver() {
 // ============================================================================
 
 const POSTS_PER_PAGE = 15;
+const INITIAL_RENDER_POST_LIMIT = 5;
 const FALLBACK_PORTRAIT = 'data:image/svg+xml;base64,' + btoa(`
 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
   <rect width="100" height="100" fill="#21262d"/>
@@ -1113,8 +1115,16 @@ const FALLBACK_PORTRAIT = 'data:image/svg+xml;base64,' + btoa(`
   <ellipse cx="50" cy="85" rx="30" ry="25" fill="#30363d"/>
 </svg>
 `);
+const requestIdle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRemaining: () => 0, didTimeout: false }), 1));
 let isReadingFullPage = false;
 let WAHBOOK_POSTS = [];
+let BASE_WAHBOOK_POSTS = [];
+let visiblePostsCache = null;
+let eventsPostsLoaded = false;
+let eventsPostsPromise = null;
+let deferredWidgetsScheduled = false;
+let isInitialRenderMode = true;
+let researchModulePromise = null;
 let currentTab = 'foryou';
 let currentPage = 1;
 let currentSort = 'recommended';
@@ -1244,26 +1254,114 @@ function updateFullPageReadButton(isActive) {
 async function loadDynamicData() {
     try {
         const dataModule = await import('./assembly-data.js');
-        WAHBOOK_POSTS = dataModule.WAHBOOK_POSTS || [];
-    } catch (e) {
-        console.warn('[WAHbook] Could not load assembly-data:', e.message);
-        WAHBOOK_POSTS = [];
-    }
+        BASE_WAHBOOK_POSTS = Array.isArray(dataModule.WAHBOOK_POSTS) ? dataModule.WAHBOOK_POSTS : [];
+        WAHBOOK_POSTS = [...BASE_WAHBOOK_POSTS];
+        visiblePostsCache = null;
 
-    try {
-        const eventsModule = await import('./assembly-events-data.js');
-        if (eventsModule.loadEventPosts) {
-            const eventPosts = await eventsModule.loadEventPosts();
-            if (Array.isArray(eventPosts)) {
-                WAHBOOK_POSTS.push(...eventPosts);
-            }
+        const chunkLoaders = Array.isArray(dataModule.WAHBOOK_POST_CHUNKS) ? dataModule.WAHBOOK_POST_CHUNKS : [];
+        if (chunkLoaders.length) {
+            schedulePostChunkLoading(chunkLoaders);
         }
     } catch (e) {
-        console.log('[WAHbook] No event posts module');
+        console.warn('[WAHbook] Could not load assembly-data:', e.message);
+        BASE_WAHBOOK_POSTS = [];
+        WAHBOOK_POSTS = [];
+        visiblePostsCache = null;
     }
 
-    // Calculate global cycle
-    globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+    requestIdle(() => {
+        globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+        renderCycleStatus();
+    });
+}
+
+async function ensureEventPostsLoaded() {
+    if (eventsPostsLoaded) return;
+    if (eventsPostsPromise) return eventsPostsPromise;
+
+    eventsPostsPromise = (async () => {
+        try {
+            const eventsModule = await import('./assembly-events-data.js');
+            if (eventsModule.loadEventPosts) {
+                const eventPosts = await eventsModule.loadEventPosts();
+                if (Array.isArray(eventPosts) && eventPosts.length) {
+                    WAHBOOK_POSTS.push(...eventPosts);
+                }
+            }
+        } catch (e) {
+            console.log('[WAHbook] No event posts module');
+        } finally {
+            eventsPostsLoaded = true;
+            visiblePostsCache = null;
+            globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+        }
+    })();
+
+    return eventsPostsPromise;
+}
+
+function scheduleDeferredWidgets() {
+    if (deferredWidgetsScheduled) return;
+    deferredWidgetsScheduled = true;
+
+    requestIdle(async () => {
+        renderTrendingTopics();
+        renderFollowSuggestions();
+        renderActiveArcs();
+        renderCycleStatus();
+
+        try {
+            const research = await loadResearchModule();
+            if (research?.calculateGlobalCycle) {
+                globalCycleState = research.calculateGlobalCycle(WAHBOOK_POSTS);
+                renderCycleStatus();
+            }
+        } catch (e) {
+            console.warn('[WAHbook] Deferred research preload failed:', e.message);
+        }
+    });
+}
+
+function schedulePostChunkLoading(chunkLoaders) {
+    if (!Array.isArray(chunkLoaders) || chunkLoaders.length === 0) return;
+
+    const maxChunksToAutoload = Math.min(chunkLoaders.length, 5);
+
+    const loadChunkSequentially = (index = 0) => {
+        if (index >= maxChunksToAutoload) return;
+
+        requestIdle(async () => {
+            try {
+                const mod = await chunkLoaders[index]();
+                const chunkPosts = Array.isArray(mod?.WAHBOOK_POSTS) ? mod.WAHBOOK_POSTS : [];
+                if (chunkPosts.length) {
+                    WAHBOOK_POSTS.push(...chunkPosts);
+                    visiblePostsCache = null;
+
+                    if ((index + 1) % 2 === 0 || index === maxChunksToAutoload - 1) {
+                        requestIdle(() => {
+                            globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+                            renderCycleStatus();
+                        });
+                    }
+                }
+            } catch (e) {
+                console.warn('[WAHbook] Failed to load post chunk', index + 2, e);
+            } finally {
+                const nextDelay = 240;
+                setTimeout(() => loadChunkSequentially(index + 1), nextDelay);
+            }
+        });
+    };
+
+    loadChunkSequentially(0);
+
+    setTimeout(() => {
+        isInitialRenderMode = false;
+        if (currentTab === 'foryou' || currentTab === 'latest' || currentTab === 'following') {
+            requestAnimationFrame(() => renderCurrentFeed());
+        }
+    }, 4000);
 }
 
 // ============================================================================
@@ -1273,6 +1371,24 @@ async function loadDynamicData() {
 function formatCharacterKey(key) {
     if (!key) return 'Unknown';
     return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+function lazyImageAttrs(extra = '') {
+    return `loading="lazy" decoding="async" ${extra}`.trim();
+}
+
+async function loadTabModules() {
+    if (!tabModulesPromise) {
+        tabModulesPromise = import('./assembly-tab-modules.js');
+    }
+    return tabModulesPromise;
+}
+
+async function loadResearchModule() {
+    if (!researchModulePromise) {
+        researchModulePromise = import('./research-data.js');
+    }
+    return researchModulePromise;
 }
 
 function isFutureEvent(dateObj) {
@@ -1313,19 +1429,24 @@ function getCharacterData(characterKey) {
         return { name: 'Unknown', portrait: FALLBACK_PORTRAIT, faction: null, characterKey: 'unknown', isDefined: false };
     }
 
+    const toSafeImage = (value) => {
+        if (!value || value === 'undefined' || value === 'null') return FALLBACK_PORTRAIT;
+        return value;
+    };
+
     const char = LORE_DATA?.characters?.[characterKey] || LORE_DATA?.auxiliary_party?.[characterKey];
     if (char) {
         let faction = null;
         for (const fKey in LORE_DATA.factions || {}) {
             const fac = LORE_DATA.factions[fKey];
             if (fac.leader === characterKey || fac.notable_people?.some(p => p.name === char.name)) {
-                faction = { key: fKey, name: fac.name, logo: fac.logo };
+                faction = { key: fKey, name: fac.name, logo: toSafeImage(fac.logo) };
                 break;
             }
         }
         return {
             name: char.name,
-            portrait: char.portrait || `portraits/${characterKey}.png`,
+            portrait: toSafeImage(char.portrait),
             faction,
             characterKey,
             bio: char.bio || char.description || null,
@@ -1337,14 +1458,13 @@ function getCharacterData(characterKey) {
         const fac = LORE_DATA.factions[characterKey];
         return {
             name: fac.name,
-            portrait: fac.logo || FALLBACK_PORTRAIT,
-            faction: { key: characterKey, name: fac.name, logo: fac.logo },
+            portrait: toSafeImage(fac.logo),
+            faction: { key: characterKey, name: fac.name, logo: toSafeImage(fac.logo) },
             characterKey,
             isDefined: true
         };
     }
 
-    // Check notable people
     for (const fKey in LORE_DATA?.factions || {}) {
         const fac = LORE_DATA.factions[fKey];
         const notable = fac.notable_people?.find(p =>
@@ -1353,24 +1473,23 @@ function getCharacterData(characterKey) {
         if (notable) {
             return {
                 name: notable.name,
-                portrait: `portraits/${characterKey}.png`,
-                faction: { key: fKey, name: fac.name, logo: fac.logo },
+                portrait: FALLBACK_PORTRAIT,
+                faction: { key: fKey, name: fac.name, logo: toSafeImage(fac.logo) },
                 characterKey,
                 isDefined: true
             };
         }
     }
 
-    // Special cases
     const specialCases = {
-        'wah_media_collective': { name: "WAH Media Collective", portrait: 'icon_newspaper.png', faction: { name: "The Daily Paradox" }, isDefined: true },
-        'delfino_reporter': { name: "Delfino Reporter", portrait: 'portraits/delfino_reporter.png', faction: { name: "Delfino Press" }, isDefined: true }
+        'wah_media_collective': { name: "WAH Media Collective", portrait: FALLBACK_PORTRAIT, faction: { name: "The Daily Paradox" }, isDefined: true },
+        'delfino_reporter': { name: "Delfino Reporter", portrait: FALLBACK_PORTRAIT, faction: { name: "Delfino Press" }, isDefined: true }
     };
     if (specialCases[characterKey]) return { ...specialCases[characterKey], characterKey };
 
     return {
         name: formatCharacterKey(characterKey),
-        portrait: `portraits/${characterKey}.png`,
+        portrait: FALLBACK_PORTRAIT,
         faction: null,
         characterKey,
         isDefined: false
@@ -1378,7 +1497,9 @@ function getCharacterData(characterKey) {
 }
 
 function getVisiblePosts() {
-    return WAHBOOK_POSTS.filter(p => isContentVisible(p?.date));
+    if (visiblePostsCache) return visiblePostsCache;
+    visiblePostsCache = WAHBOOK_POSTS.filter(p => isContentVisible(p?.date));
+    return visiblePostsCache;
 }
     
 function getTrendingScore(post) {
@@ -1472,7 +1593,7 @@ function renderUserProfileCard() {
 
     container.innerHTML = `
         <a href="profile.html?user=${state.loggedInUser}">
-            <img src="${user.portrait}" alt="${user.name}" class="user-avatar" onerror="handleImageError(this)">
+            <img src="${user.portrait}" alt="${user.name}" class="user-avatar" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
         </a>
         <a href="profile.html?user=${state.loggedInUser}" class="user-name" style="text-decoration:none;color:inherit;">${user.name}</a>
         <div class="user-handle">@${state.loggedInUser}</div>
@@ -1526,7 +1647,7 @@ function renderStoriesBar() {
         return `
             <div class="story-item" data-user="${story.characterKey}">
                 <div class="story-avatar-wrapper ${hasNewStory ? '' : 'no-story'}">
-                    <img src="${char.portrait}" alt="${char.name}" class="story-avatar" onerror="handleImageError(this)">
+                    <img src="${char.portrait}" alt="${char.name}" class="story-avatar" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
                 </div>
                 <span class="story-name">${char.name.split(' ')[0]}</span>
             </div>
@@ -1563,7 +1684,7 @@ function renderCreatePostBox() {
     const user = getCharacterData(state.loggedInUser);
 
     container.innerHTML = `
-        <img src="${user.portrait}" alt="${user.name}" class="user-avatar" style="width:48px;height:48px;border-radius:50%;" onerror="handleImageError(this)">
+        <img src="${user.portrait}" alt="${user.name}" class="user-avatar" style="width:48px;height:48px;border-radius:50%;" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
         <div class="create-post-input-wrapper">
             <button class="create-post-trigger" id="open-composer">
                 What's happening in the realm, ${user.name.split(' ')[0]}?
@@ -1665,7 +1786,7 @@ function renderFollowSuggestions() {
         return `
             <div class="follow-suggestion">
                 <a href="profile.html?user=${sug.characterKey}">
-                    <img src="${char.portrait}" alt="${char.name}" class="suggestion-avatar" onerror="handleImageError(this)">
+                    <img src="${char.portrait}" alt="${char.name}" class="suggestion-avatar" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
                 </a>
                 <div class="suggestion-info">
                     <a href="profile.html?user=${sug.characterKey}" class="suggestion-name" style="text-decoration:none;color:inherit;">${char.name}</a>
@@ -1703,7 +1824,7 @@ function renderCycleStatus() {
     if (!container) return;
 
     if (!globalCycleState) {
-        container.innerHTML = '<p style="color:var(--wahbook-text-muted);">Loading...</p>';
+        container.innerHTML = '<p style="color:var(--wahbook-text-muted);">Calculating cycle...</p>';
         return;
     }
 
@@ -1736,7 +1857,7 @@ function renderFactionFilters() {
         </div>
         ${factions.map(([key, faction]) => `
             <div class="faction-filter ${activeFactionFilter === key ? 'active' : ''}" data-faction="${key}">
-                <img src="${faction.logo}" alt="${faction.name}" onerror="handleImageError(this)">
+                <img src="${faction.logo}" alt="${faction.name}" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
                 <span>${faction.name}</span>
             </div>
         `).join('')}
@@ -1794,7 +1915,7 @@ function renderPost(post, options = {}) {
     // Faction tag
     const factionTag = author.faction ? `
         <span class="post-faction-tag">
-            <img src="${author.faction.logo}" alt="${author.faction.name}" onerror="handleImageError(this)">
+            <img src="${author.faction.logo}" alt="${author.faction.name}" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
             ${author.faction.name}
         </span>
     ` : '';
@@ -1825,7 +1946,7 @@ function renderPost(post, options = {}) {
     // Reply input
     const replyHTML = state.loggedInUser !== 'generic' ? `
         <div class="reply-input-container">
-            <img src="${getCharacterData(state.loggedInUser).portrait}" alt="You" class="reply-pfp" onerror="handleImageError(this)">
+            <img src="${getCharacterData(state.loggedInUser).portrait}" alt="You" class="reply-pfp" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
             <input type="text" class="reply-input" placeholder="Write a comment..." data-post-id="${post.id}">
         </div>
     ` : '';
@@ -1837,7 +1958,7 @@ function renderPost(post, options = {}) {
             ${badgesHTML}
             <div class="post-header">
                 <a href="profile.html?user=${encodeURIComponent(post.characterKey)}">
-                    <img src="${author.portrait}" alt="${author.name}" class="post-pfp" onerror="handleImageError(this)">
+                    <img src="${author.portrait}" alt="${author.name}" class="post-pfp" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
                 </a>
                 <div class="post-author-info">
                     <div class="post-author-row">
@@ -1963,7 +2084,7 @@ function renderComment(comment) {
     return `
         <div class="comment">
             <a href="profile.html?user=${encodeURIComponent(comment.characterKey)}">
-                <img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp" onerror="handleImageError(this)">
+                <img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
             </a>
             <div class="comment-body">
                 <a href="profile.html?user=${encodeURIComponent(comment.characterKey)}" class="comment-author">${commenter.name}</a>
@@ -2249,17 +2370,17 @@ function renderLatestFeed() {
 }
 function renderPaginatedPosts(posts, container) {
     cleanupPostObserver();
-    const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+    const effectivePageSize = isInitialRenderMode ? INITIAL_RENDER_POST_LIMIT : POSTS_PER_PAGE;
+    const totalPages = Math.ceil(posts.length / effectivePageSize);
     
     // Ensure currentPage is valid
     if (currentPage > totalPages && totalPages > 0) currentPage = 1;
     if (currentPage < 1) currentPage = 1;
 
-    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-    const currentPosts = posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+    const startIndex = (currentPage - 1) * effectivePageSize;
+    const currentPosts = posts.slice(startIndex, startIndex + effectivePageSize);
 
     if (currentPosts.length === 0 && posts.length > 0) {
-        // Fallback if slicing failed logic
         currentPage = 1;
         renderPaginatedPosts(posts, container);
         return;
@@ -2277,10 +2398,7 @@ function renderPaginatedPosts(posts, container) {
         return;
     }
 
-    // Render the posts
     container.innerHTML = currentPosts.map(post => renderPost(post)).join('');
-    
-    // Update the pagination UI (Using the existing function)
     renderPagination(currentPage, totalPages);
     
     // Attach listeners and observers
@@ -2339,162 +2457,24 @@ function scrollToTop() {
 // RENDER: EVENTS TAB (FIXED - Proper date formatting)
 // ============================================================================
 
-function renderEventsFeed() {
+async function renderEventsFeed() {
     const container = document.getElementById('events-container');
     if (!container) return;
-
-    const events = (LORE_DATA?.rumors || []).filter(r => r.isEvent && isContentVisible(r.date));
-    
-    events.sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
-
-    if (events.length === 0) {
-        container.innerHTML = `<div class="empty-state"><h3>No Events</h3><p>No major events recorded.</p></div>`;
-        return;
-    }
-
-    container.innerHTML = events.map(event => {
-        const isFuture = isFutureEvent(event.date);
-        const relatedPosts = getVisiblePosts().filter(p => p.rumorId === event.id);
-        const arc = event.arc && STORY_ARCS[event.arc] ? STORY_ARCS[event.arc] : null;
-        
-        // Properly format the date
-        let dateStr = 'Unknown Date';
-        if (event.date) {
-            const month = CALENDAR_DATA?.months?.values?.[event.date.monthIndex];
-            const monthName = month?.name || `Month ${event.date.monthIndex + 1}`;
-            dateStr = `${monthName} ${event.date.day}, ${event.date.year}`;
-        } else if (event.time_ago) {
-            dateStr = event.time_ago;
-        }
-
-        return `
-            <div class="event-card ${isFuture ? 'debug-future' : ''}" id="event-${event.id}">
-                ${isFuture ? '<div class="debug-future-badge">🔮 FUTURE EVENT</div>' : ''}
-                <div class="event-header">
-                    <div class="event-content-wrapper">
-                        <h4 class="event-title">${event.title}</h4>
-                        <p class="event-description">${event.description}</p>
-                        <div class="event-meta">
-                            <span>📅 ${dateStr}</span>
-                            <span>💬 ${relatedPosts.length} posts</span>
-                            ${arc ? `<span>${arc.icon} ${arc.name}</span>` : ''}
-                        </div>
-                    </div>
-                    <button class="event-toggle-btn">▼</button>
-                </div>
-                <div class="event-body hidden">
-                    <div class="event-effects">
-                        <h5>Faction Effects</h5>
-                        <div class="effects-list">
-                        ${Object.entries(event.effects || {}).map(([faction, value]) => {
-                            const factionData = LORE_DATA.factions?.[faction];
-                            const name = factionData?.name || formatCharacterKey(faction);
-                            const color = value > 0 ? 'var(--wahbook-positive)' : 'var(--wahbook-negative)';
-                            return `<span style="color:${color}">${name}: ${value > 0 ? '+' : ''}${value}</span>`;
-                        }).join('') || '<span style="color:#888">No reputation changes.</span>'}
-                        </div>
-                    </div>
-                    ${relatedPosts.length > 0 ? `
-                        <div class="event-posts">
-                            <h5>Related Chatter</h5>
-                            ${relatedPosts.slice(0, 30).map(p => renderPost(p)).join('')}
-                        </div> 
-                    ` : ''}
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    // Re-attach event listeners explicitly
-    container.querySelectorAll('.event-header').forEach(header => {
-        header.addEventListener('click', (e) => {
-            const card = header.closest('.event-card');
-            const body = card.querySelector('.event-body');
-            const btn = card.querySelector('.event-toggle-btn');
-            
-            const isHidden = body.classList.contains('hidden');
-            if (isHidden) {
-                body.classList.remove('hidden');
-                btn.style.transform = 'rotate(180deg)';
-                card.classList.add('expanded');
-            } else {
-                body.classList.add('hidden');
-                btn.style.transform = 'rotate(0deg)';
-                card.classList.remove('expanded');
-            }
-        });
-    });
-
-    // Attach post event listeners for related posts
-    attachPostEventListeners(container);
+    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">⏳</span><h3>Loading events...</h3></div>';
+    const modules = await loadTabModules();
+    modules.renderEventsTab({ container, getVisiblePosts, isContentVisible, isFutureEvent, getPostTimeValue, renderPost, attachPostEventListeners });
 }
 
 // ============================================================================
 // RENDER: INTEL TAB (FIXED - Proper date formatting)
 // ============================================================================
 
-function renderIntelFeed() {
+async function renderIntelFeed() {
     const container = document.getElementById('intel-container');
     if (!container) return;
-
-    const rumors = (LORE_DATA?.rumors || []).filter(r => isContentVisible(r.date));
-
-    // Calculate metrics for each
-    const rumorData = rumors.map(rumor => {
-        const relatedPosts = getVisiblePosts().filter(p => p.rumorId === rumor.id);
-        const metrics = calculateRumorMetrics(rumor, relatedPosts);
-        return { ...rumor, metrics, postCount: relatedPosts.length };
-    });
-
-    // Sort by impact
-    rumorData.sort((a, b) => Math.abs(b.metrics.finalScore) - Math.abs(a.metrics.finalScore));
-
-    container.innerHTML = `
-        <div class="intel-grid">
-            ${rumorData.slice(0, 12).map(rumor => {
-                const isFuture = isFutureEvent(rumor.date);
-                const typeBadge = rumor.isEvent ? 'event' : 'rumor';
-                
-                // Properly format the date
-                let dateStr = '';
-                if (rumor.date) {
-                    const month = CALENDAR_DATA?.months?.values?.[rumor.date.monthIndex];
-                    const monthName = month?.name || `Month ${rumor.date.monthIndex + 1}`;
-                    dateStr = `${monthName} ${rumor.date.day}, ${rumor.date.year}`;
-                } else if (rumor.time_ago) {
-                    dateStr = rumor.time_ago;
-                }
-                
-                return `
-                    <div class="intel-card ${isFuture ? 'debug-future' : ''}" data-rumor-id="${rumor.id}" ${isFuture ? 'style="border:2px dashed #ff4444;"' : ''}>
-                        <div class="intel-card-header">
-                            <span class="intel-title">${rumor.title}</span>
-                            <span class="intel-type-badge ${typeBadge}">${typeBadge}</span>
-                        </div>
-                        <p class="intel-description">${rumor.description.substring(0, 120)}${rumor.description.length > 120 ? '...' : ''}</p>
-                        ${dateStr ? `<div class="intel-date">📅 ${dateStr}</div>` : ''}
-                        <div class="intel-effects">
-                            ${Object.entries(rumor.effects || {}).slice(0, 3).map(([faction, value]) => {
-                                const sign = value > 0 ? '+' : '';
-                                const className = value > 0 ? 'positive' : 'negative';
-                                return `<span class="intel-effect ${className}">${sign}${value}</span>`;
-                            }).join('')}
-                        </div>
-                        <div class="intel-footer">
-                            ${rumor.metrics.status} · ${rumor.postCount} posts
-                        </div>
-                    </div>
-                `;
-            }).join('')}
-        </div>
-    `;
-
-    // Click handlers
-    container.querySelectorAll('.intel-card').forEach(card => {
-        card.addEventListener('click', () => {
-            openDossierModal(card.dataset.rumorId);
-        });
-    });
+    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">⏳</span><h3>Loading intel...</h3></div>';
+    const modules = await loadTabModules();
+    modules.renderIntelTab({ container, getVisiblePosts, isContentVisible, isFutureEvent, openDossierModal });
 }
 
 // ============================================================================
@@ -2585,140 +2565,12 @@ function handleQuickLink(action) {
 
 
 
-function renderExploreFeed() {
+async function renderExploreFeed() {
     const container = document.getElementById('explore-container');
     if (!container) return;
-
-    // Get top people by post count
-    const posterCounts = new Map();
-    getVisiblePosts().forEach(post => {
-        posterCounts.set(post.characterKey, (posterCounts.get(post.characterKey) || 0) + 1);
-    });
-
-    const topPeople = Array.from(posterCounts.entries())
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 8)
-        .map(([key]) => getCharacterData(key));
-
-    // Get popular topics from rumors
-    const topics = (LORE_DATA?.rumors || [])
-        .filter(r => isContentVisible(r.date) && r.cycle_impact?.label)
-        .map(r => r.cycle_impact.label)
-        .filter((v, i, a) => a.indexOf(v) === i)
-        .slice(0, 12);
-
-    // Auto-generate factions with post counts, filter out inactive ones
-    const factionsWithActivity = Object.entries(LORE_DATA?.factions || {})
-        .map(([key, faction]) => {
-            const factionPosts = getVisiblePosts().filter(p => {
-                const author = getCharacterData(p.characterKey);
-                return author.faction?.key === key;
-            });
-            return {
-                key,
-                faction,
-                postCount: factionPosts.length,
-                memberCount: countFactionMembers(key)
-            };
-        })
-        .filter(f => f.postCount > 0) // Only factions with posts
-        .sort((a, b) => b.postCount - a.postCount); // Sort by activity
-
-    // Get all story arcs
-    const allArcs = Object.values(STORY_ARCS || {});
-    const activeArcs = allArcs.filter(arc => arc.status === 'active');
-    const resolvedArcs = allArcs.filter(arc => arc.status === 'resolved');
-
-    container.innerHTML = `
-        <div class="explore-section">
-            <h4>👥 Popular Accounts</h4>
-            <div class="explore-people-grid">
-                ${topPeople.map(person => `
-                    <a href="profile.html?user=${person.characterKey}" class="explore-person-card" style="text-decoration:none;">
-                        <img src="${person.portrait}" alt="${person.name}" class="explore-person-avatar" onerror="handleImageError(this)">
-                        <div class="explore-person-name">${person.name}</div>
-                        <div class="explore-person-faction">${person.faction?.name || 'Independent'}</div>
-                    </a>
-                `).join('')}
-            </div>
-        </div>
-
-        <div class="explore-section">
-            <h4>🔥 Hot Topics</h4>
-            <div class="explore-topics-list">
-                ${topics.length > 0 ? topics.map(topic => `
-                    <span class="explore-topic-tag">${topic}</span>
-                `).join('') : '<p class="empty-text">No trending topics right now.</p>'}
-            </div>
-        </div>
-
-        <div class="explore-section">
-            <h4>🏛️ Active Factions</h4>
-            ${factionsWithActivity.length > 0 ? `
-                <div class="explore-factions-grid">
-                    ${factionsWithActivity.map(({ key, faction, postCount, memberCount }) => `
-                        <div class="explore-faction-card" data-faction="${key}">
-                            <img src="${faction.logo}" alt="${faction.name}" class="explore-faction-logo" onerror="handleImageError(this)">
-                            <div class="explore-faction-info">
-                                <div class="explore-faction-name">${faction.name}</div>
-                                <div class="explore-faction-stats">
-                                    <span>${memberCount} members</span>
-                                    <span>•</span>
-                                    <span>${postCount} posts</span>
-                                </div>
-                            </div>
-                            <span class="explore-faction-arrow">→</span>
-                        </div>
-                    `).join('')}
-                </div>
-            ` : '<p class="empty-text">No faction activity yet.</p>'}
-        </div>
-
-        <div class="explore-section">
-            <h4>📖 Story Arcs</h4>
-            <div class="story-arcs-container">
-                ${activeArcs.length > 0 ? `
-                    <div class="arcs-category">
-                        <h5 class="arcs-category-title">🔴 Active</h5>
-                        <div class="arcs-grid">
-                            ${activeArcs.map(arc => renderArcCard(arc, true)).join('')}
-                        </div>
-                    </div>
-                ` : ''}
-                
-                ${resolvedArcs.length > 0 ? `
-                    <div class="arcs-category">
-                        <h5 class="arcs-category-title">✅ Resolved</h5>
-                        <div class="arcs-grid">
-                            ${resolvedArcs.map(arc => renderArcCard(arc, false)).join('')}
-                        </div>
-                    </div>
-                ` : ''}
-                
-                ${allArcs.length === 0 ? '<p class="empty-text">No story arcs recorded.</p>' : ''}
-            </div>
-        </div>
-    `;
-
-    // Faction filter clicks
-    container.querySelectorAll('.explore-faction-card').forEach(card => {
-        card.addEventListener('click', () => {
-            activeFactionFilter = card.dataset.faction;
-            currentTab = 'foryou';
-            renderNavTabs();
-            renderFactionFilters();
-            renderCurrentFeed();
-            playSound('click.mp3');
-        });
-    });
-
-    // Arc card clicks
-    container.querySelectorAll('.arc-card').forEach(card => {
-        card.addEventListener('click', () => {
-            openArcModal(card.dataset.arcId);
-            playSound('click.mp3');
-        });
-    });
+    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">⏳</span><h3>Loading explore...</h3></div>';
+    const modules = await loadTabModules();
+    modules.renderExploreTab({ container, getVisiblePosts, getCharacterData });
 }
 
 // ============================================================================
@@ -2900,7 +2752,7 @@ function openArcModal(arcId) {
                     if (!faction) return '';
                     return `
                         <div class="arc-faction-item" data-faction="${fKey}">
-                            <img src="${faction.logo}" alt="${faction.name}" class="arc-faction-logo" onerror="handleImageError(this)">
+                            <img src="${faction.logo}" alt="${faction.name}" class="arc-faction-logo" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
                             <span>${faction.name}</span>
                         </div>
                     `;
@@ -3074,7 +2926,7 @@ function renderActiveArcs() {
 // RENDER CURRENT FEED
 // ============================================================================
 
-function renderCurrentFeed() {
+async function renderCurrentFeed() {
     // Hide all feeds
     document.querySelectorAll('.feed-content').forEach(el => el.classList.add('hidden'));
 
@@ -3084,14 +2936,23 @@ function renderCurrentFeed() {
         currentFeedEl.classList.remove('hidden');
     }
 
+    const tabsNeedingEventPosts = new Set(['events', 'intel', 'news']);
+    if (tabsNeedingEventPosts.has(currentTab) && !eventsPostsLoaded) {
+        if (currentFeedEl) {
+            const target = currentFeedEl.querySelector('.posts-container, [id$="-container"]') || currentFeedEl;
+            target.innerHTML = '<div class="empty-state"><span class="empty-state-icon">⏳</span><h3>Loading feed...</h3><p>Pulling in event-linked data.</p></div>';
+        }
+        await ensureEventPostsLoaded();
+    }
+
     // Render appropriate content
     switch (currentTab) {
         case 'foryou':
             renderForYouFeed();
             break;
-           case 'news':
-    renderNewsFeed();
-    break; 
+        case 'news':
+            renderNewsFeed();
+            break;
         case 'following':
             renderFollowingFeed();
             break;
@@ -3177,7 +3038,7 @@ function openDossierModal(rumorId) {
         
         return `
             <div class="dossier-effect-item ${className}">
-                ${factionLogo ? `<img src="${factionLogo}" alt="${factionName}" class="dossier-effect-logo" onerror="handleImageError(this)">` : ''}
+                ${factionLogo ? `<img src="${factionLogo}" alt="${factionName}" class="dossier-effect-logo" ${lazyImageAttrs('onerror="handleImageError(this)"')}>` : ''}
                 <span class="dossier-effect-name">${factionName}</span>
                 <span class="dossier-effect-value ${className}">${sign}${value}</span>
             </div>
@@ -3195,7 +3056,7 @@ function openDossierModal(rumorId) {
                     if (!faction) return '';
                     return `
                         <div class="dossier-faction-chip" data-faction="${factionKey}">
-                            <img src="${faction.logo}" alt="${faction.name}" class="dossier-faction-chip-logo" onerror="handleImageError(this)">
+                            <img src="${faction.logo}" alt="${faction.name}" class="dossier-faction-chip-logo" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
                             <span>${faction.name}</span>
                         </div>
                     `;
@@ -3393,7 +3254,7 @@ function submitReply(postId, text, inputEl) {
         const commentHTML = `
             <div class="comment">
                 <a href="profile.html?user=${state.loggedInUser}">
-                    <img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp" onerror="handleImageError(this)">
+                    <img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
                 </a>
                 <div class="comment-body">
                     <a href="profile.html?user=${state.loggedInUser}" class="comment-author">${commenter.name}</a>
@@ -3448,7 +3309,7 @@ function submitNewPost() {
 function handleSearch(query) {
     searchQuery = query.toLowerCase().trim();
     currentPage = 1;
-    renderCurrentFeed();
+    requestAnimationFrame(() => renderCurrentFeed());
 }
 
 // ============================================================================
@@ -3642,22 +3503,26 @@ async function init() {
     // Load dynamic data
     await loadDynamicData();
 
-    // Render all components
+    // Render critical UI first.
     renderUserProfileCard();
-    renderStoriesBar();
     renderCreatePostBox();
     renderFactionFilters();
-    renderTrendingTopics();
-    renderFollowSuggestions();
-    renderActiveArcs();
-    renderCycleStatus();
     renderNavTabs();
-    renderCurrentFeed();
+    await renderCurrentFeed();
     updateNotificationBadge();
-    // Setup event listeners
+
+    // Defer non-critical widgets until the browser is idle.
+    requestAnimationFrame(() => {
+        renderStoriesBar();
+        scheduleDeferredWidgets();
+    });
+
+    // Setup event listeners after the initial render.
     setupEventListeners();
-    await loadDynamicData();
-initDebugDiagnostics()
+
+    // Only initialize diagnostics when debug mode is enabled.
+    requestIdle(() => initDebugDiagnostics());
+
     // Update seen posts
     setTimeout(() => {
         updateSeenPosts();
@@ -3681,141 +3546,12 @@ initDebugDiagnostics()
 // RENDER: NEWS TAB (Newspaper Style)
 // ============================================================================
 
-function renderNewsFeed() {
+async function renderNewsFeed() {
     const container = document.getElementById('news-container');
     if (!container) return;
-
-    // Get trending posts and rumors
-    const visiblePosts = getVisiblePosts();
-    const rumors = (LORE_DATA?.rumors || []).filter(r => isContentVisible(r.date));
-
-    // Score and sort posts by trending
-    const scoredPosts = visiblePosts.map(post => ({
-        ...post,
-        trendingScore: getTrendingScore(post)
-    })).sort((a, b) => b.trendingScore - a.trendingScore);
-
-    // Score rumors by activity
-// Score rumors by activity
-    const scoredRumors = rumors.map(rumor => {
-        const relatedPosts = visiblePosts.filter(p => p.rumorId === rumor.id);
-        const metrics = calculateRumorMetrics(rumor, relatedPosts);
-        return {
-            ...rumor,
-            metrics,
-            postCount: relatedPosts.length,
-            // THE FIX: Trust the metrics.finalScore (which already handles decay)
-            // We multiply by 10 just to make the numbers easier to work with, but we don't add raw count.
-            score: Math.abs(metrics.finalScore) 
-        };
-    }).sort((a, b) => b.score - a.score);
-
-    // Get top story
-    const topStory = scoredRumors[0] || null;
-    const topPost = scoredPosts[0] || null;
-
-    // Get secondary stories
-    const secondaryRumors = scoredRumors.slice(1, 4);
-    const trendingPosts = scoredPosts.slice(0, 6);
-
-    // Get current date for the masthead
-    const currentMonth = CALENDAR_DATA?.months?.values?.[CURRENT_GAME_DATE.monthIndex];
-    const currentDateStr = `${currentMonth?.name || 'Unknown'} ${CURRENT_GAME_DATE.day}, ${CURRENT_GAME_DATE.year}`;
-
-    // Build the newspaper layout
-    container.innerHTML = `
-        <div class="newspaper">
-            <header class="newspaper-masthead">
-                <div class="masthead-date">${currentDateStr}</div>
-                <h1 class="masthead-title">📜 The Daily Paradox</h1>
-                <div class="masthead-tagline">"All the News That's Fit to Fabricate"</div>
-            </header>
-
-            <div class="newspaper-breaking">
-                <span class="breaking-label">🔴 TRENDING NOW</span>
-                <div class="breaking-ticker">
-                    ${scoredRumors.slice(0, 5).map(r => `<span class="ticker-item">${r.title}</span>`).join(' • ')}
-                </div>
-            </div>
-
-            ${topStory ? `
-                <article class="newspaper-headline" data-rumor-id="${topStory.id}">
-                    <div class="headline-category">${topStory.isEvent ? '📅 MAJOR EVENT' : '📰 TOP STORY'}</div>
-                    <h2 class="headline-title">${topStory.title}</h2>
-                    <p class="headline-lede">${topStory.description}</p>
-                    <div class="headline-meta">
-                        <span class="headline-impact ${topStory.metrics.finalScore > 0 ? 'positive' : 'negative'}">
-                            Impact: ${topStory.metrics.status}
-                        </span>
-                        <span class="headline-engagement">💬 ${topStory.postCount} reactions</span>
-                        <span class="headline-time">${topStory.time_ago || formatArcDate(topStory.date)}</span>
-                    </div>
-                    ${renderHeadlineFactions(topStory)}
-                </article>
-            ` : ''}
-
-            <div class="newspaper-columns">
-                <section class="newspaper-column main-column">
-                    <h3 class="column-header">📋 Developing Stories</h3>
-                    ${secondaryRumors.map(rumor => renderNewsArticle(rumor)).join('')}
-                    
-                    ${secondaryRumors.length === 0 ? `
-                        <p class="no-stories">No developing stories at this time.</p>
-                    ` : ''}
-                </section>
-
-                <aside class="newspaper-column side-column">
-                    <h3 class="column-header">🗣️ Public Discourse</h3>
-                    <div class="discourse-feed">
-                        ${trendingPosts.map(post => renderNewsQuote(post)).join('')}
-                    </div>
-
-                    <h3 class="column-header" style="margin-top: 24px;">🏛️ Faction Watch</h3>
-                    <div class="faction-watch">
-                        ${renderFactionWatch()}
-                    </div>
-                </aside>
-            </div>
-
-            <section class="newspaper-opinions">
-                <h3 class="column-header">💭 Latest Commentary</h3>
-                <div class="opinions-grid">
-                    ${scoredPosts.slice(6, 12).map(post => renderOpinionCard(post)).join('')}
-                </div>
-            </section>
-
-            <footer class="newspaper-footer">
-                <p>© ${CURRENT_GAME_DATE.year} The Daily Paradox • A WAH Media Collective Publication</p>
-                <p class="footer-disclaimer">The Daily Paradox is not responsible for any inter-dimensional incidents caused by reading this publication.</p>
-            </footer>
-        </div>
-    `;
-
-    // Add click handlers
-    container.querySelectorAll('[data-rumor-id]').forEach(el => {
-        el.addEventListener('click', () => {
-            openDossierModal(el.dataset.rumorId);
-            playSound('click.mp3');
-        });
-    });
-
-    container.querySelectorAll('[data-post-id]').forEach(el => {
-        el.addEventListener('click', () => {
-            const postId = el.dataset.postId;
-            // Navigate to the post
-            currentTab = 'foryou';
-            renderNavTabs();
-            renderCurrentFeed();
-            setTimeout(() => {
-                const postEl = document.querySelector(`[data-post-id="${postId}"]`);
-                if (postEl) {
-                    postEl.scrollIntoView({ behavior: 'smooth' });
-                    postEl.style.boxShadow = '0 0 20px var(--wahbook-accent)';
-                    setTimeout(() => postEl.style.boxShadow = '', 2000);
-                }
-            }, 100);
-        });
-    });
+    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">⏳</span><h3>Loading news...</h3></div>';
+    const modules = await loadTabModules();
+    modules.renderNewsTab({ container, getVisiblePosts, isContentVisible, getTrendingScore, getCharacterData, renderNavTabs, renderCurrentFeed, openDossierModal });
 }
 
 function renderHeadlineFactions(rumor) {
@@ -3862,7 +3598,7 @@ function renderNewsQuote(post) {
         <div class="news-quote" data-post-id="${post.id}">
             <div class="quote-content">"${excerpt}${post.content?.length > 100 ? '...' : ''}"</div>
             <div class="quote-attribution">
-                <img src="${author.portrait}" alt="${author.name}" class="quote-avatar" onerror="handleImageError(this)">
+                <img src="${author.portrait}" alt="${author.name}" class="quote-avatar" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
                 <span class="quote-author">${author.name}</span>
                 ${author.faction ? `<span class="quote-faction">${author.faction.name}</span>` : ''}
             </div>
@@ -3875,7 +3611,7 @@ function renderOpinionCard(post) {
     
     return `
         <div class="opinion-card" data-post-id="${post.id}">
-            <img src="${author.portrait}" alt="${author.name}" class="opinion-avatar" onerror="handleImageError(this)">
+            <img src="${author.portrait}" alt="${author.name}" class="opinion-avatar" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
             <div class="opinion-content">
                 <span class="opinion-author">${author.name}</span>
                 <p class="opinion-text">${(post.content || '').substring(0, 80)}...</p>
@@ -3915,7 +3651,7 @@ function renderFactionWatch() {
 
     return factionActivity.slice(0, 5).map(f => `
         <div class="faction-watch-item">
-            <img src="${f.logo}" alt="${f.name}" class="faction-watch-logo" onerror="handleImageError(this)">
+            <img src="${f.logo}" alt="${f.name}" class="faction-watch-logo" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
             <div class="faction-watch-info">
                 <span class="faction-watch-name">${f.name}</span>
                 <span class="faction-watch-activity">${f.activity} posts this week</span>

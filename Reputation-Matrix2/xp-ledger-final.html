@@ -2085,6 +2085,28 @@ body::before, body::after { opacity: .08 !important; }
 .dual-meter-track .infamy-fill { right:0; background:linear-gradient(90deg, rgba(255,70,70,.35), rgba(255,139,122,.88)); border-radius:999px; mix-blend-mode:screen; }
 .meter-caption { margin-top:7px; color:#9f94ad; font-size:11px; line-height:1.35; }
 
+
+.fame-breakdown-panel {
+  max-width:1040px; margin:0 auto !important; padding:22px 0 !important;
+  border-bottom:1px solid rgba(255,255,255,.08); position:relative;
+}
+.fame-breakdown-panel::after {
+  content:""; position:absolute; left:-24px; top:34px; bottom:-12px; width:1px;
+  background:linear-gradient(180deg, rgba(242,214,138,.25), rgba(141,107,184,.08));
+}
+.fame-breakdown-title { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:baseline; margin-bottom:14px; }
+.fame-breakdown-title span { font-family:'Cinzel', serif; color:#fff1b8; font-size:18px; }
+.fame-breakdown-title em { color:#bfb1d4; font-size:12px; font-style:italic; }
+.fame-breakdown-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.fame-breakdown-grid div { border-left:2px solid rgba(242,214,138,.25); padding-left:12px; }
+.fame-breakdown-grid b { display:block; color:#f2d68a; font-size:26px; font-family:'JetBrains Mono', monospace; line-height:1; }
+.fame-breakdown-grid span { display:block; color:#d8c6ff; font-family:'JetBrains Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; margin-top:5px; }
+.fame-breakdown-grid p, .fame-breakdown-copy p { margin:6px 0 0; color:#bfb7ca; line-height:1.45; font-size:12px; }
+.fame-breakdown-copy { margin-top:14px; max-width:900px; }
+.fame-breakdown-copy strong { color:#fff1b8; }
+.fame-breakdown-copy i { display:inline-flex; margin:2px 4px 0 0; padding:2px 7px; border-radius:999px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.10); color:#d8c6ff; font-style:normal; font-family:'JetBrains Mono', monospace; font-size:10px; }
+@media (max-width:900px) { .fame-breakdown-grid { grid-template-columns:1fr; } .fame-breakdown-panel::after { display:none; } }
+
 </style>
 </head>
 <body>
@@ -5831,7 +5853,7 @@ const PLAYERS = {
     "name": "Markop",
     "faction": "disaster_inc",
     "level": 8,
-    "currentXP": 37049,
+    "currentXP": 37749,
     "nextXP": 48000,
     "entries": [
       {
@@ -6436,10 +6458,19 @@ const PLAYERS = {
         "date": "14th Harvestside, 1040 BF (Shadowfell Time), 22:32",
         "dateSort": 10409999,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "survival",
+        "xp": 700,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Markop earns 700 Survival XP here because he kept the mirror out of Wario's hands by dragging and tripping him, turned garbage-search treasure into evidence, found The Wario Method and fifteen gold, managed the roof logistics with rope and thrown ladder, recruited Merric by accident, dodged ghosts, jumped off the roof, missed the trampoline, and still solved the immediate problem by landing on someone instead of dying. This is Survival XP because the record is about enduring injury, death, grief, danger, pursuit, collapse, or escaping a situation that wanted the party dead. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Core Member",
-    "statusText": "Active — armor barely intact, divine connection confirmed, operating in the Shadow Estate",
+    "statusText": "Active — survived the rooftop escape, restrained Wario from mirror theft, recruited Merric, and is fleeing the Shadow Estate grounds after a non-trampoline landing",
     "status": "Active",
     "powerLevel": 13,
     "powerTier": "Elite",
@@ -6457,10 +6488,11 @@ const PLAYERS = {
       "Disaster Inc. Core"
     ],
     "squad": "Core Party",
-    "fameScore": 62,
+    "fameScore": 64,
     "fameTier": "Notorious",
     "fameTags": [
-      "Field Reports"
+      "Field Reports",
+      "Shadow Estate Witnesses"
     ]
   },
   "hjumpik": {
@@ -6986,7 +7018,7 @@ const PLAYERS = {
     "name": "Remi",
     "faction": "disaster_inc",
     "level": 7,
-    "currentXP": 28788,
+    "currentXP": 29688,
     "nextXP": 34000,
     "entries": [
       {
@@ -7483,12 +7515,21 @@ const PLAYERS = {
         "date": "14th Harvestside, 1040 BF (Shadowfell Time), 22:32",
         "dateSort": 10409999,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "magic",
+        "xp": 900,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Remi earns 900 Magic XP here because she found the shiny mirror fragment, revealed she knew Mending at the exact moment the planar artifact needed it, restored the Mirror of True Reflection, investigated the occupied master bedroom from the rope, survived the bush fall, used Vaxillus as an extremely unwilling ladder, then spent a feather to Feather Fall Rattles, Eager, Salam, Dan, herself, and the small disaster-cluster off the roof. This is Magic XP because normal explanations failed and magic, artifacts, planes, curses, rituals, or supernatural consequences took over. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Core Member",
-    "statusText": "Active — Navigating the Shadow Estate; Possessor of The Oracle's Deck; One Quarter of the Way Home",
+    "statusText": "Active — restored the Mirror of True Reflection, used Feather Fall for the rooftop evacuation, and is running through the Shadow Estate grounds with all four portal artifacts now in party reach",
     "status": "Active",
-    "powerLevel": 11,
+    "powerLevel": 12,
     "powerTier": "Elite",
     "powerBase": 5,
     "powerEvents": [
@@ -7497,17 +7538,19 @@ const PLAYERS = {
       "+1 Ryan's Diary",
       "+1 Event — Rattles, the Note, Mystic Morel, and the Watermelon",
       "+1 Event — The Planar Fracture",
-      "+1 Event — Remi's Shadeward Arc"
+      "+1 Event — Remi's Shadeward Arc",
+      "+1 Event — Mended Mirror of True Reflection / Feather Fall rooftop evacuation"
     ],
-    "powerNote": "Power = base 5 + 6 confirmed special-event boost(s). Mention-only records do not raise power.",
+    "powerNote": "Power = base 5 + 6 confirmed special-event boost(s). Mention-only records do not raise power. +1 Event — Mirror of True Reflection mended / rooftop evacuation confirmed.",
     "allianceTags": [
       "Disaster Inc. Core"
     ],
     "squad": "Core Party",
-    "fameScore": 42,
+    "fameScore": 45,
     "fameTier": "Known",
     "fameTags": [
-      "Field Reports"
+      "Field Reports",
+      "Shadow Estate Witnesses"
     ]
   },
   "rakashaazure": {
@@ -7885,7 +7928,7 @@ const PLAYERS = {
     "name": "Dan",
     "faction": "liberated_toads",
     "level": 4,
-    "currentXP": 3690,
+    "currentXP": 3910,
     "nextXP": 6500,
     "entries": [
       {
@@ -8030,6 +8073,15 @@ const PLAYERS = {
         "desc": "Waluigi's ruling — Dan earns 250 Loyalty XP here because The Liberated Toads are exactly what their name suggests: Toads who were liberated. Specifically, 150+ Toads found in barrels aboard the Vigilance, trafficked by the Iron Legion, reduced to cargo in their own kingdom. Speaker L and Toad Lee organized them into something resembling a faction. Dan nearly destroyed them with a corrupted mage staff.. This is Loyalty XP because the deed reinforces bonds, allegiance, protection, sacrifice, or party trust. Result Waluigi cares about: The Liberated Toads are exactly what their name suggests: Toads who were liberated. Specifically, 150+ Toads found in barrels aboard the Vigilance, trafficked by the Iron Legion, reduced to cargo in their own kingdom. Speaker L and Toad Lee organized them into something resembling a faction.. Filed date: Collection. Source checked: collections.json. Role: Former co-leader, staff corruption victim.",
         "date": "Collection",
         "dateSort": 99981000,
+        "sourceMarker": "✦"
+      },
+      {
+        "cat": "survival",
+        "xp": 220,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Dan earns 220 Survival XP here because he joined Remi's Feather Fall chain and escaped the rooftop collapse with the rest of the soft-landing disaster bundle. This is Survival XP because the record is about enduring injury, death, grief, danger, pursuit, collapse, or escaping a situation that wanted the party dead. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
         "sourceMarker": "✦"
       }
     ],
@@ -8271,7 +8323,7 @@ const PLAYERS = {
     "name": "Green T",
     "faction": "liberated_toads",
     "level": 5,
-    "currentXP": 11880,
+    "currentXP": 12500,
     "nextXP": 14000,
     "entries": [
       {
@@ -8534,10 +8586,19 @@ const PLAYERS = {
         "date": "Heritage",
         "dateSort": 99982000,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "discovery",
+        "xp": 620,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Green T earns 620 Discovery XP here because he admitted he did not actually know where the mirror was, coordinated the mirror base and fragment handoff, took custody of the restored Mirror of True Reflection under the Wario bargain, saw the portal-artifact count finally reach four, and helped call Remi back from the enemy-filled exterior disaster. This is Discovery XP because the value is information: investigation, documentation, revelation, records, lore, or confirming what actually happened. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Liberated Toads / Disaster Inc. linked",
-    "statusText": "Active — surviving and thriving against all odds",
+    "statusText": "Active — holding the restored Mirror of True Reflection under the Wario bargain while the party flees toward the occupied portal circle",
     "status": "Active",
     "powerLevel": 11,
     "powerTier": "Elite",
@@ -8559,10 +8620,11 @@ const PLAYERS = {
       "Toad Network"
     ],
     "squad": "Liberated Toads Field Allies",
-    "fameScore": 45,
+    "fameScore": 47,
     "fameTier": "Known",
     "fameTags": [
-      "Toad Rumor"
+      "Toad Rumor",
+      "Shadow Estate Witnesses"
     ]
   },
   "feywarddan": {
@@ -8766,7 +8828,7 @@ const PLAYERS = {
     "name": "Eager",
     "faction": "liberated_toads",
     "level": 4,
-    "currentXP": 4220,
+    "currentXP": 4480,
     "nextXP": 6500,
     "entries": [
       {
@@ -8903,6 +8965,15 @@ const PLAYERS = {
         "date": "14th Harvestside, 1040 BF (Shadowfell Time), 22:32",
         "dateSort": 10409999,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "loyalty",
+        "xp": 260,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Eager earns 260 Loyalty XP here because he kept with the Toad escape cluster, contributed to the covert-to-absurd song discipline, grabbed onto Remi for the Feather Fall evacuation, and remained part of the team while servants below performed We Are the Servants at the worst possible time. This is Loyalty XP because the deed reinforces bonds, allegiance, protection, sacrifice, recruitment, or party trust. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Liberated Toads / Disaster Inc. linked",
@@ -8940,7 +9011,7 @@ const PLAYERS = {
     "name": "Salam",
     "faction": "liberated_toads",
     "level": 3,
-    "currentXP": 1120,
+    "currentXP": 1340,
     "nextXP": 2700,
     "entries": [
       {
@@ -8995,6 +9066,15 @@ const PLAYERS = {
         "desc": "Waluigi's ruling — Salam earns 160 Social XP here because Tactical support — present during the knife standoff; confirmed cooperation under duress; stayed up during the rest using the woodcarver's tools, which Waluigi considers the productive use of crisis insomnia.. This is Social XP because the record is about authority, negotiation, testimony, influence, or a room changing because someone spoke. Result Waluigi cares about: Remi's capture by the Voss guard was resolved by the Scorncrow's arrival and the guard's subsequent disappearance, pants returned, guard not. The wedding's true mechanism was revealed. An imp posing as Wario was exposed and shot twice. A verified birth certificate of unclear purpose was obtained. The Midnight Fountain was found deactivated, broken by Bowser's earlier transit, trapping the party in the Shadeward. Four artifacts are required to reactivate the portal. The session ended in Vaxillus's Death Lounge with the Beastmaster offering hellhounds and a shadow crystal in exchange for a ghost, the Medusa disagreeing about method, and Markop successfully not mentioning the helpful ghost.. Filed date: 9 Harvestside, 1040 BF — Evening through Night. Source checked: events.json.",
         "date": "9 Harvestside, 1040 BF — Evening through Night",
         "dateSort": 10409999,
+        "sourceMarker": "✦"
+      },
+      {
+        "cat": "survival",
+        "xp": 220,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Salam earns 220 Survival XP here because he survived the rooftop trap, joined the Feather Fall evacuation, and exited the kill-box before the Estate's ghosts and taxidermy enthusiasts could turn the roof into a display case. This is Survival XP because the record is about enduring injury, death, grief, danger, pursuit, collapse, or escaping a situation that wanted the party dead. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
         "sourceMarker": "✦"
       }
     ],
@@ -10001,7 +10081,7 @@ const PLAYERS = {
     "name": "Toadburt",
     "faction": "iron_legion",
     "level": 2,
-    "currentXP": 620,
+    "currentXP": 800,
     "nextXP": 900,
     "entries": [
       {
@@ -10030,10 +10110,19 @@ const PLAYERS = {
         "date": "Collection",
         "dateSort": 99981000,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "discovery",
+        "xp": 180,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Toadburt earns 180 Discovery XP here because the real injured Toadburt was confirmed alive at the portal circle beside Tanukiburt and Mystic Morel, turning the Toadburt question from rumor into an immediate rescue problem. This is Discovery XP because the value is information: investigation, documentation, revelation, records, lore, or confirming what actually happened. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Faction Member / Associated Figure",
-    "statusText": "Active — entropy ring REMOVED, now working for the Shadow Estate's Archivist under a slow-healing arrangement",
+    "statusText": "Active — real injured Toadburt confirmed at the occupied portal circle with Tanukiburt and Mystic Morel",
     "status": "Active",
     "powerLevel": 5,
     "powerTier": "Mortal",
@@ -10941,7 +11030,7 @@ const PLAYERS = {
     "name": "Lyranth",
     "faction": "corvinarus",
     "level": 3,
-    "currentXP": 900,
+    "currentXP": 1160,
     "nextXP": 2700,
     "entries": [
       {
@@ -10979,10 +11068,19 @@ const PLAYERS = {
         "date": "1-2 Harvestide, 1040 BF",
         "dateSort": 10400802,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "combat",
+        "xp": 260,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Lyranth earns 260 Combat XP here because she participated in the active pursuit outside the estate and on the upper floors, creating the rooftop kill-box with ghosts, guards, Vaxillus, arrows, and the promise that this would not become another archivist battle. This is Combat XP because the record turns on direct violence or battlefield danger. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Faction Member / Associated Figure",
-    "statusText": "Active — Workshop resident of the Shadow Estate",
+    "statusText": "Active — pursuing the party through the Shadow Estate after the mirror recovery and rooftop escape",
     "status": "Active",
     "powerLevel": 6,
     "powerTier": "Veteran",
@@ -10993,10 +11091,11 @@ const PLAYERS = {
       "+1 Battle Record — The Petrification of Remi"
     ],
     "powerNote": "Power = base 3 + 3 confirmed special-event boost(s). Mention-only records do not raise power.",
-    "fameScore": 33,
+    "fameScore": 34,
     "fameTier": "Local",
     "fameTags": [
-      "Field Reports"
+      "Field Reports",
+      "Shadow Estate Witnesses"
     ]
   },
   "the_archivist": {
@@ -11315,7 +11414,7 @@ const PLAYERS = {
     "name": "Vaxillus the Beastmaster",
     "faction": "shadowfell_denizens",
     "level": 4,
-    "currentXP": 3690,
+    "currentXP": 3970,
     "nextXP": 6500,
     "entries": [
       {
@@ -11362,27 +11461,37 @@ const PLAYERS = {
         "date": "9 Harvestside, 1040 BF — Evening through Night",
         "dateSort": 10409999,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "combat",
+        "xp": 280,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Vaxillus the Beastmaster earns 280 Combat XP here because he joined the exterior pursuit, waved from below with terrible taxidermy intentions, was used by Remi as a biological ladder, then carried Lyranth into the second story so the hunters could reach the roof. This is Combat XP because the record turns on direct violence or battlefield danger. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Shadowfell-associated figure",
-    "statusText": "Active / Unknown",
+    "statusText": "Active — pursuing with Lyranth; unwillingly served as Remi ladder during the exterior escape",
     "status": "Active",
     "powerLevel": 7,
     "powerTier": "Veteran",
     "powerBase": 7,
     "powerEvents": [],
     "powerNote": "Power = base 7 + 0 confirmed special-event boost(s). Mention-only records do not raise power.",
-    "fameScore": 40,
+    "fameScore": 41,
     "fameTier": "Known",
     "fameTags": [
-      "Field Reports"
+      "Field Reports",
+      "Shadow Estate Witnesses"
     ]
   },
   "rattles": {
     "name": "Rattles",
     "faction": "shadowfell_denizens",
     "level": 2,
-    "currentXP": 520,
+    "currentXP": 780,
     "nextXP": 900,
     "entries": [
       {
@@ -11410,6 +11519,15 @@ const PLAYERS = {
         "desc": "Waluigi's ruling — Rattles earns 180 Survival XP here because Asked how to open the bookcase. Made two skeleton-specific puns within a single sentence of practical advice. Ran with Markop and Eager during the guard chase. Survived the chase. Continued to exist as a skeleton who wants to be human again in what has been a very eventful day.. This is Survival XP because the record is about enduring injury, death, grief, danger, or collapse. Result Waluigi cares about: Two of four portal artifacts secured — Black Crystal (from Vostolas) and Orb of Shadow Domination (Green T, acquisition circumstances undocumented). Two remaining: Mirror of True Reflection and Umbral Signet. Pierce Anamatar contracted to kill the Oracle — mechanism for estate collapse and party expulsion now delegated to external party. Mundane mirror found in roof cabinet with five gold — not a portal artifact, not the Mirror of True Reflection, correcting prior entry error. Archie's supplies missing from Remi's bag — source and current location unknown. Arcane lock on ghost room resolved by Remi choosing to fight rather than run — anchor used as ghost-dispersal weapon. Wario destroyed a chest with his body. Warning from purple toad about Markop relayed through Morel through Green T to Remi — Markop not informed per instruction. Ylana's Fountain documented in east servant hall. Ghost hierarchy noted — controllers operating from behind. The Toadburt question remains unanswered. The day continues.. Filed date: 14th Harvestside, 1040 BF (Shadowfell Time), 22:32. Source checked: events.json.",
         "date": "14th Harvestside, 1040 BF (Shadowfell Time), 22:32",
         "dateSort": 10409999,
+        "sourceMarker": "✦"
+      },
+      {
+        "cat": "survival",
+        "xp": 260,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Rattles earns 260 Survival XP here because he stayed with the rooftop escape group while hostile ghosts, guards, Lyranth, and Vaxillus converged, grabbed onto Remi during Feather Fall, and continued surviving as a skeleton with extremely bad timing and extremely good party placement. This is Survival XP because the record is about enduring injury, death, grief, danger, pursuit, collapse, or escaping a situation that wanted the party dead. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
         "sourceMarker": "✦"
       }
     ],
@@ -13090,7 +13208,7 @@ const PLAYERS = {
     "name": "Wario",
     "faction": "wario_enterprise",
     "level": 6,
-    "currentXP": 17850,
+    "currentXP": 18370,
     "nextXP": 23000,
     "entries": [
       {
@@ -13434,10 +13552,19 @@ const PLAYERS = {
         "date": "14th Harvestside, 1040 BF (Shadowfell Time), 22:32",
         "dateSort": 10409999,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "chaos",
+        "xp": 520,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Wario earns 520 Chaos XP here because he picked the lock silently, smelled money with professional accuracy, immediately tried to swipe the restored Mirror of True Reflection, got tripped by Markop, negotiated future ownership of the mirror and Scarecrow loot, and still correctly concluded that everyone needed to get out of there. This is Chaos XP because the deed produces profitable nonsense, Wario-class disorder, or consequences that make Waluigi write with both hands. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Faction Member / Associated Figure",
-    "statusText": "Active — Somewhere in the Feywild, counting his money",
+    "statusText": "Active — in the Shadow Estate escape, contractually waiting to claim the Mirror of True Reflection after Scarecrow is killed",
     "status": "Active",
     "powerLevel": 11,
     "powerTier": "Elite",
@@ -13451,10 +13578,11 @@ const PLAYERS = {
       "+1 Battle Record — The Dinner's Climax: The Vote"
     ],
     "powerNote": "Power = base 5 + 6 confirmed special-event boost(s). Mention-only records do not raise power.",
-    "fameScore": 82,
+    "fameScore": 83,
     "fameTier": "Legendary",
     "fameTags": [
-      "Legal Trouble"
+      "Legal Trouble",
+      "Shadow Estate Witnesses"
     ]
   },
   "king_boo": {
@@ -13504,7 +13632,7 @@ const PLAYERS = {
     "name": "Mystic Morel",
     "faction": "enemy_wildcards",
     "level": 4,
-    "currentXP": 5020,
+    "currentXP": 5340,
     "nextXP": 6500,
     "entries": [
       {
@@ -13587,10 +13715,19 @@ const PLAYERS = {
         "date": "~14th-16th Harvestide, 1040 BF (Shadowfell time — approximately one month has passed since t…",
         "dateSort": 10400816,
         "sourceMarker": "✦"
+      },
+      {
+        "cat": "stealth",
+        "xp": 320,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Mystic Morel earns 320 Stealth XP here because he was discovered at the master-bedroom portal circle with Tanukiburt and the injured real Toadburt, helping cover and uncover the rug while the party's exit route became an occupied enemy workspace. This is Stealth XP because the deed involves hiding, deception, infiltration, theft, disguise, pursuit, or quiet positioning. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
       }
     ],
     "membership": "Hostile / Wildcard",
-    "statusText": "Active — operating across multiple planes, stealing things, singing songs, opening portals",
+    "statusText": "Active — confirmed at the Shadow Estate portal circle with Tanukiburt and the injured real Toadburt",
     "status": "Active",
     "powerLevel": 13,
     "powerTier": "Elite",
@@ -13603,10 +13740,11 @@ const PLAYERS = {
       "+1 Dossier Filed — Mystic Morel (Purple T)"
     ],
     "powerNote": "Power = base 8 + 5 confirmed special-event boost(s). Mention-only records do not raise power.",
-    "fameScore": 64,
+    "fameScore": 65,
     "fameTier": "Notorious",
     "fameTags": [
-      "Infamy"
+      "Infamy",
+      "Shadow Estate Witnesses"
     ]
   },
   "mystic_morsole": {
@@ -15515,6 +15653,87 @@ const PLAYERS = {
       "Regency Shadow File"
     ],
     "relationship": "The Unknown Assassin is filed under the Mushroom Regency shadow-conspiracy case, with suspected Mages Guild facilitation and Loyalist counter-evidence."
+  },
+  "merric": {
+    "name": "Merric",
+    "faction": "shadowfell_denizens",
+    "level": 2,
+    "currentXP": 450,
+    "nextXP": 900,
+    "entries": [
+      {
+        "cat": "loyalty",
+        "xp": 450,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Merric earns 450 Loyalty XP here because the axe-wielding sheep formally joined the team after identifying Markop as Centerus, being corrected, thinking about it, and deciding sure, why not. This is Loyalty XP because the deed reinforces bonds, allegiance, protection, sacrifice, recruitment, or party trust. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
+      }
+    ],
+    "membership": "Recruited ally / axe-wielding sheep",
+    "statusText": "Active — joined the party during the Shadow Estate rooftop escape after calling Markop “Centerus”",
+    "status": "Active",
+    "race": "Sheep",
+    "species": "Sheep",
+    "powerBase": 4,
+    "powerEvents": [],
+    "powerLevel": 4,
+    "powerTier": "Mortal",
+    "powerNote": "Power manually seeded from confirmed axe-wielding sheep ally role; not inflated by every mention.",
+    "allianceTags": [
+      "Shadow Estate Local",
+      "New Party Ally",
+      "Axe-Wielding Sheep"
+    ],
+    "squad": "Shadow Estate Escape Party",
+    "fameScore": 18,
+    "fameTier": "Obscure",
+    "fameTags": [
+      "Rooftop Escape Witness",
+      "Shadow Estate Witnesses"
+    ]
+  },
+  "tanukiburt": {
+    "name": "Tanukiburt",
+    "faction": "enemy_wildcards",
+    "level": 2,
+    "currentXP": 420,
+    "nextXP": 900,
+    "entries": [
+      {
+        "cat": "stealth",
+        "xp": 420,
+        "title": "Event — The Mirror, the Roof, and the Fall",
+        "desc": "Waluigi's ruling — Tanukiburt earns 420 Stealth XP here because he was revealed at the portal circle with the injured real Toadburt and Mystic Morel, confirming that the master bedroom exit route is being occupied by exactly the wrong kind of impostor-shaped problem. This is Stealth XP because the deed involves hiding, deception, infiltration, theft, disguise, pursuit, or quiet positioning. Result Waluigi cares about: Mirror of True Reflection recovered from Usk's chambers and mended; all four portal artifacts are now in party hands; Tanukiburt, the injured real Toadburt, and Mystic Morel were discovered gathered at the portal circle; Lyranth, Vaxillus, ghosts, guards, and singing servants forced a rooftop escape; Remi's Feather Fall got the core group down alive; the party is now running through the Shadow Estate grounds with the door open and occupied. Filed date: ~15th-16th Harvestide, 1040 BF (Shadowfell Time). Source checked: shadow_estate_mirror_rooftop_escape.",
+        "date": "~15th-16th Harvestide, 1040 BF (Shadowfell Time)",
+        "dateSort": 10400816,
+        "sourceMarker": "✦"
+      }
+    ],
+    "membership": "Hostile wildcard / portal-circle operator",
+    "statusText": "Active — discovered with the injured real Toadburt and Mystic Morel at the Shadow Estate portal circle",
+    "status": "Active",
+    "race": "Tanuki entity",
+    "species": "Tanuki entity",
+    "powerBase": 6,
+    "powerEvents": [],
+    "powerLevel": 6,
+    "powerTier": "Veteran",
+    "powerNote": "Power manually seeded from confirmed antagonist positioning at the occupied portal circle.",
+    "allianceTags": [
+      "Shadow Estate Hostile",
+      "Portal Circle Occupant",
+      "Enemy Wildcard"
+    ],
+    "squad": "Portal Circle Hostiles",
+    "fameScore": 27,
+    "fameTier": "Local",
+    "fameTags": [
+      "Shadow Estate Rumor",
+      "Impostor Heat",
+      "Shadow Estate Witnesses"
+    ]
   }
 };
 
@@ -16084,6 +16303,46 @@ function buildLoreInfoCard(key, p) {
   `;
 }
 
+function buildFameBreakdownPanel(key, p) {
+  const fame = Math.max(0, Math.min(100, Number(p.fameScore || 0)));
+  const infamy = getInfamyScore(p);
+  const access = Math.max(0, fame - Math.round(infamy * .45));
+  const tier = p.fameTier || (fame >= 90 ? 'Mythic' : fame >= 75 ? 'Legendary' : fame >= 60 ? 'Notorious' : fame >= 40 ? 'Known' : fame >= 20 ? 'Local' : 'Obscure');
+  const tags = [...(p.fameTags || []), ...getAllianceTags(p)].filter(Boolean);
+  const reach = fame >= 90 ? 'worldwide myth'
+    : fame >= 75 ? 'kingdom-wide recognition'
+    : fame >= 60 ? 'regional notoriety'
+    : fame >= 40 ? 'known in relevant circles'
+    : fame >= 20 ? 'local rumor footprint'
+    : 'quiet file';
+  const infamyText = infamy >= 70 ? 'dangerous name; warrants, fear, and hostile attention travel with it'
+    : infamy >= 45 ? 'serious scrutiny; guards and rivals may react before asking questions'
+    : infamy >= 20 ? 'noticeable heat; the name can complicate polite access'
+    : 'low heat; recognition is mostly useful rather than threatening';
+  const accessText = access >= 75 ? 'opens elite rooms, emergency councils, sealed archives, and major faction audiences'
+    : access >= 50 ? 'opens restricted offices, faction meetings, specialist witnesses, and protected routes'
+    : access >= 25 ? 'opens local contacts, rumor networks, helpful clerks, and situational favors'
+    : 'mostly identifies the character; access depends on personal links or proof';
+  const personal = p.fameAccessText || CUSTOM_FAME_ACCESS[key] || '';
+  return `
+    <div class="fame-breakdown-panel">
+      <div class="fame-breakdown-title">
+        <span>★ Fame Breakdown</span>
+        <em>Fame is reputation/access, not XP progression and not Power strength.</em>
+      </div>
+      <div class="fame-breakdown-grid">
+        <div><b>${fame}</b><span>Fame</span><p>${escapeHtml(tier)} · ${escapeHtml(reach)}</p></div>
+        <div><b>${infamy}</b><span>Infamy</span><p>${escapeHtml(infamyText)}</p></div>
+        <div><b>${access}</b><span>Access</span><p>${escapeHtml(accessText)}</p></div>
+      </div>
+      <div class="fame-breakdown-copy">
+        <p><strong>What it grants:</strong> ${escapeHtml(personal || 'Recognition can open contacts, rooms, records, and favors when the scene cares who this character is.')}</p>
+        <p><strong>What modifies it:</strong> ${tags.length ? tags.slice(0, 8).map(tag => `<i>${escapeHtml(tag)}</i>`).join(' ') : '<i>Field Reports</i>'}</p>
+      </div>
+    </div>
+  `;
+}
+
 function buildPlayerPanel(key, p, isActive) {
   normalizePlayerProgression(p);
   const disp = getDisplay(key);
@@ -16152,6 +16411,7 @@ function buildPlayerPanel(key, p, isActive) {
       <span class="entries-title">XP Breakdown</span>
       <span class="entries-count" id="${key}-count"></span>
     </div>
+    ${buildFameBreakdownPanel(key, p)}
     <div class="filter-buttons" id="${key}-filters"></div>
     <div class="entry-tools">
       <input class="entry-search" id="${key}-entry-search" type="search" placeholder="Search this dossier's XP entries…">
@@ -17058,5 +17318,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a12fe99d2e3142aa',t:'MTc4MjY4MzQ4Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a131b8352959634a',t:'MTc4MjcwMjQzMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
