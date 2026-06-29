@@ -16690,7 +16690,7 @@ function normalizeEntryFromExternal(entry, sourceName) {
     cat,
     xp,
     title: String(entry.title || entry.name || entry.event || `${sourceName} Record`),
-    desc: String(entry.desc || entry.description || entry.summary || entry.text || `External XP record loaded from ${sourceName}.`),
+    desc: String(entry.desc || entry.description || entry.summary || entry.text || ``),
     date: String(entry.date || entry.when || entry.arc || sourceName),
     dateSort: Number(entry.dateSort || entry.sortDate || 99970000),
     sourceMarker: '↗'
@@ -16883,11 +16883,11 @@ async function loadOptionalDirectoryModules() {
       const key = resolvePlayerKey(record);
       if (key && PLAYERS[key]) {
         PLAYERS[key].faction = 'disaster_inc';
-        PLAYERS[key].membership = 'Core party member — loaded from state.party';
+        PLAYERS[key].membership = 'Core party member';
         PLAYERS[key].allianceTags = [...new Set([...(PLAYERS[key].allianceTags || []), 'Disaster Inc. Core'])];
         EXTERNAL_LEDGER_SOURCE.applied.push(`state.party:${key}`);
       } else if (key) {
-        applyCharacterRecord(typeof record === 'object' ? record : { id: key, name: String(record), faction: 'disaster_inc', membership: 'Core party member — loaded from state.party' }, 'state.party');
+        applyCharacterRecord(typeof record === 'object' ? record : { id: key, name: String(record), faction: 'disaster_inc', membership: 'Core party member' }, 'state.party');
       }
     });
   } catch (err) {
