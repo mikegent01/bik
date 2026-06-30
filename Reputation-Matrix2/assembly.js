@@ -9,6 +9,7 @@ import { playSound } from './common.js';
 import { state, saveState, loadState } from './state.js';
 import { CURRENT_GAME_DATE, getDynamicTimestamp, CALENDAR_DATA } from './calendar-data.js';
 import { calculateRumorMetrics, calculateGlobalCycle } from './research-data.js';
+import { calculateAssemblyInfamy, getCharacterInfamy, getPostInfamy, renderInfamyBadge, renderInfamyWatch, renderInfamyMatrix, renderDossierInfamy } from './assembly-infamy.js';
 let tabModulesPromise = null;
 // Global observer for tracking post visibility
 let postObserver = null;
@@ -1131,6 +1132,65 @@ let currentSort = 'recommended';
 let activeFactionFilter = null;
 let searchQuery = '';
 let globalCycleState = null;
+let assemblyInfamyState = null;
+
+// ============================================================================
+// INFAMY ENGINE INTEGRATION
+// ============================================================================
+
+function refreshAssemblyInfamy() {
+    try {
+        assemblyInfamyState = calculateAssemblyInfamy(getVisiblePosts(), LORE_DATA);
+        window.WAHBOOK_INFAMY_STATE = assemblyInfamyState;
+    } catch (e) {
+        console.warn('[WAHbook] Infamy engine failed:', e.message);
+        assemblyInfamyState = null;
+    }
+    return assemblyInfamyState;
+}
+
+function getInfamyState() {
+    return assemblyInfamyState || refreshAssemblyInfamy();
+}
+
+function renderInfamyWatchCard() {
+    const container = document.getElementById('infamy-watch');
+    if (!container) return;
+    container.innerHTML = renderInfamyWatch(getInfamyState());
+    container.querySelectorAll('[data-infamy-character]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            searchQuery = btn.dataset.infamyCharacter || '';
+            currentTab = 'foryou';
+            currentPage = 1;
+            renderNavTabs();
+            renderCurrentFeed();
+            playSound('click.mp3');
+        });
+    });
+}
+
+function renderInfamyFeed() {
+    const container = document.getElementById('infamy-container');
+    if (!container) return;
+    const stateNow = getInfamyState();
+    container.innerHTML = `
+        ${renderInfamyMatrix(stateNow)}
+        <section class="infamy-explain-panel">
+            <h3>What Infamy Actually Does</h3>
+            <p><strong>Fame</strong> is reach and recognition. <strong>Infamy</strong> is heat: warrants, frightened witnesses, faction grudges, legal scrutiny, bounties, and hostile doors opening because the wrong people recognize the name.</p>
+            <div class="infamy-rules-grid">
+                <div><b>Legal Heat</b><span>Trials, warrants, prisons, evidence rooms, Iron Legion checkpoints.</span></div>
+                <div><b>Fear Heat</b><span>Monster reputation, violence, vampire politics, public menace energy.</span></div>
+                <div><b>Scandal Heat</b><span>Debt, theft, leaks, rumors, betrayal, political embarrassment.</span></div>
+            </div>
+        </section>
+    `;
+}
+
+function addInfamyIntelPanel(container) {
+    if (!container || container.querySelector('.infamy-matrix-panel')) return;
+    container.insertAdjacentHTML('afterbegin', renderInfamyMatrix(getInfamyState()));
+}
 
 // ============================================================================
 // DATA LOADING
@@ -1271,7 +1331,9 @@ async function loadDynamicData() {
 
     requestIdle(() => {
         globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+        refreshAssemblyInfamy();
         renderCycleStatus();
+        renderInfamyWatchCard();
     });
 }
 
@@ -1294,6 +1356,8 @@ async function ensureEventPostsLoaded() {
             eventsPostsLoaded = true;
             visiblePostsCache = null;
             globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+            refreshAssemblyInfamy();
+            renderInfamyWatchCard();
         }
     })();
 
@@ -1426,7 +1490,7 @@ function getPostTimeValue(post) {
 
 function getCharacterData(characterKey) {
     if (!characterKey) {
-        return { name: 'Unknown', portrait: FALLBACK_PORTRAIT, faction: null, characterKey: 'unknown', isDefined: false };
+        return { name: 'Unknown', portrait: FALLBACK_PORTRAIT, faction: null, characterKey: 'unknown', infamy: getCharacterInfamy(getInfamyState(), 'unknown'), isDefined: false };
     }
 
     const toSafeImage = (value) => {
@@ -1450,6 +1514,7 @@ function getCharacterData(characterKey) {
             faction,
             characterKey,
             bio: char.bio || char.description || null,
+            infamy: getCharacterInfamy(getInfamyState(), characterKey),
             isDefined: true
         };
     }
@@ -1461,6 +1526,7 @@ function getCharacterData(characterKey) {
             portrait: toSafeImage(fac.logo),
             faction: { key: characterKey, name: fac.name, logo: toSafeImage(fac.logo) },
             characterKey,
+            infamy: getCharacterInfamy(getInfamyState(), characterKey),
             isDefined: true
         };
     }
@@ -1476,6 +1542,7 @@ function getCharacterData(characterKey) {
                 portrait: FALLBACK_PORTRAIT,
                 faction: { key: fKey, name: fac.name, logo: toSafeImage(fac.logo) },
                 characterKey,
+                infamy: getCharacterInfamy(getInfamyState(), characterKey),
                 isDefined: true
             };
         }
@@ -1485,13 +1552,14 @@ function getCharacterData(characterKey) {
         'wah_media_collective': { name: "WAH Media Collective", portrait: FALLBACK_PORTRAIT, faction: { name: "The Daily Paradox" }, isDefined: true },
         'delfino_reporter': { name: "Delfino Reporter", portrait: FALLBACK_PORTRAIT, faction: { name: "Delfino Press" }, isDefined: true }
     };
-    if (specialCases[characterKey]) return { ...specialCases[characterKey], characterKey };
+    if (specialCases[characterKey]) return { ...specialCases[characterKey], characterKey, infamy: getCharacterInfamy(getInfamyState(), characterKey) };
 
     return {
         name: formatCharacterKey(characterKey),
         portrait: FALLBACK_PORTRAIT,
         faction: null,
         characterKey,
+        infamy: getCharacterInfamy(getInfamyState(), characterKey),
         isDefined: false
     };
 }
@@ -1900,15 +1968,22 @@ function renderPost(post, options = {}) {
     const debugClass = isFuture ? 'debug-future' : '';
     const debugBadge = isFuture ? '<div class="debug-future-badge">⚠️ FUTURE (Debug)</div>' : '';
 
+    // Infamy tags are calculated before regular badges so hot posts can badge themselves.
+    const authorInfamy = getCharacterInfamy(getInfamyState(), post.characterKey);
+    const postInfamy = getPostInfamy(getInfamyState(), post);
+    const infamyTag = renderInfamyBadge(authorInfamy, true);
+    const heatBadge = postInfamy.score >= 40 ? `<span class="post-heat-badge infamy-${postInfamy.score >= 60 ? 'wanted' : 'hot'}">🚨 Heat ${Math.round(postInfamy.score)}</span>` : '';
+
     // Badges
     let badgesHTML = '';
     // Force badge display for debugging if needed: || true
-    if (isNew || options.showTrendingScore || isFuture) {
+    if (isNew || options.showTrendingScore || isFuture || heatBadge) {
         badgesHTML = '<div class="post-badges">';
         if (isFuture) badgesHTML += debugBadge;
         // Make sure !isFuture check doesn't hide it for current posts
         if (isNew && !isFuture) badgesHTML += '<span class="new-post-badge">NEW</span>';
         if (options.showTrendingScore) badgesHTML += `<span class="trending-badge">🔥 Trending</span>`;
+        if (heatBadge) badgesHTML += heatBadge;
         badgesHTML += '</div>';
     }
 
@@ -1964,6 +2039,7 @@ function renderPost(post, options = {}) {
                     <div class="post-author-row">
                         <a href="profile.html?user=${encodeURIComponent(post.characterKey)}" class="post-author-name">${author.name}</a>
                         ${factionTag}
+                        ${infamyTag}
                     </div>
                     <div class="post-meta">
                         <span>${timeString}</span>
@@ -2087,7 +2163,7 @@ function renderComment(comment) {
                 <img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
             </a>
             <div class="comment-body">
-                <a href="profile.html?user=${encodeURIComponent(comment.characterKey)}" class="comment-author">${commenter.name}</a>
+                <a href="profile.html?user=${encodeURIComponent(comment.characterKey)}" class="comment-author">${commenter.name}</a> ${renderInfamyBadge(getCharacterInfamy(getInfamyState(), comment.characterKey), true)}
                 <span class="comment-text">${comment.text || ''}</span>
             </div>
         </div>
@@ -2475,6 +2551,7 @@ async function renderIntelFeed() {
     container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">⏳</span><h3>Loading intel...</h3></div>';
     const modules = await loadTabModules();
     modules.renderIntelTab({ container, getVisiblePosts, isContentVisible, isFutureEvent, openDossierModal });
+    addInfamyIntelPanel(container);
 }
 
 // ============================================================================
@@ -2936,7 +3013,7 @@ async function renderCurrentFeed() {
         currentFeedEl.classList.remove('hidden');
     }
 
-    const tabsNeedingEventPosts = new Set(['events', 'intel', 'news']);
+    const tabsNeedingEventPosts = new Set(['events', 'intel', 'news', 'infamy']);
     if (tabsNeedingEventPosts.has(currentTab) && !eventsPostsLoaded) {
         if (currentFeedEl) {
             const target = currentFeedEl.querySelector('.posts-container, [id$="-container"]') || currentFeedEl;
@@ -2964,6 +3041,9 @@ async function renderCurrentFeed() {
             break;
         case 'intel':
             renderIntelFeed();
+            break;
+        case 'infamy':
+            renderInfamyFeed();
             break;
         case 'explore':
             renderExploreFeed();
@@ -3099,6 +3179,8 @@ function openDossierModal(rumorId) {
                 </div>
             ` : '<p class="dossier-no-effects">No reputation changes recorded.</p>'}
         </div>
+        
+        ${renderDossierInfamy(rumor, relatedPosts, getInfamyState())}
         
         ${relatedPosts.length > 0 ? `
             <div class="dossier-section">
@@ -3509,6 +3591,8 @@ async function init() {
     renderFactionFilters();
     renderNavTabs();
     await renderCurrentFeed();
+    refreshAssemblyInfamy();
+    renderInfamyWatchCard();
     updateNotificationBadge();
 
     // Defer non-critical widgets until the browser is idle.

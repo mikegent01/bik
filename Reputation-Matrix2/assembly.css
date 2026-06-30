@@ -3691,3 +3691,126 @@
 
 /* --- Animations --- */
 @keyf
+/* ============================================================================
+   INTEGRATED INFAMY SYSTEM — heat is not fame
+   ============================================================================ */
+.infamy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font: 700 .68rem/1 var(--font-mono, 'Roboto Mono', monospace);
+    letter-spacing: .02em;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+    color: var(--wahbook-text-secondary);
+    vertical-align: middle;
+}
+.infamy-clean { color:#8be28b; background:rgba(63,185,80,.10); border-color:rgba(63,185,80,.28); }
+.infamy-watched { color:#58a6ff; background:rgba(88,166,255,.10); border-color:rgba(88,166,255,.28); }
+.infamy-hot { color:#f0b94a; background:rgba(210,153,34,.13); border-color:rgba(210,153,34,.34); }
+.infamy-wanted { color:#ff8a65; background:rgba(248,81,73,.12); border-color:rgba(248,81,73,.38); }
+.infamy-menace { color:#ff5f7a; background:rgba(255,60,90,.15); border-color:rgba(255,60,90,.45); }
+.infamy-catastrophe { color:#d8b4ff; background:rgba(160,70,255,.16); border-color:rgba(160,70,255,.48); box-shadow:0 0 18px rgba(160,70,255,.18); }
+
+.post-heat-badge {
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    padding:4px 8px;
+    border-radius:999px;
+    font-size:.7rem;
+    font-weight:800;
+    border:1px solid rgba(248,81,73,.35);
+    background:rgba(248,81,73,.12);
+    color:#ffb1aa;
+}
+
+.infamy-watch-summary {
+    border:1px solid rgba(248,81,73,.22);
+    border-radius:14px;
+    padding:10px;
+    margin-bottom:10px;
+    background:linear-gradient(135deg, rgba(248,81,73,.10), rgba(108,92,231,.08));
+}
+.infamy-global-score { display:flex; align-items:baseline; gap:8px; }
+.infamy-global-score b { font:800 1.7rem/1 var(--font-display, 'Orbitron', sans-serif); color:#ff8a65; }
+.infamy-global-score span { font:700 .75rem var(--font-mono, monospace); color:var(--wahbook-text-primary); text-transform:uppercase; }
+.infamy-watch-summary p { margin:7px 0 0; color:var(--wahbook-text-secondary); font-size:.78rem; line-height:1.35; }
+.infamy-watch-list { display:flex; flex-direction:column; gap:6px; }
+.infamy-watch-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    border:1px solid var(--wahbook-border);
+    background:var(--wahbook-bg-tertiary);
+    color:var(--wahbook-text-primary);
+    border-radius:10px;
+    padding:8px;
+    cursor:pointer;
+    transition:.18s ease;
+}
+.infamy-watch-row:hover { border-color:rgba(248,81,73,.45); transform:translateX(2px); }
+.infamy-watch-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.82rem; }
+
+.infamy-matrix-panel, .infamy-explain-panel {
+    background:var(--wahbook-bg-secondary);
+    border:1px solid var(--wahbook-border);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:var(--wahbook-card-shadow);
+}
+.infamy-matrix-head {
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:18px;
+}
+.infamy-matrix-head span { color:#ff8a65; font:800 .72rem var(--font-mono, monospace); letter-spacing:.12em; text-transform:uppercase; }
+.infamy-matrix-head h3 { margin:4px 0 0; color:var(--wahbook-text-primary); font-family:var(--font-display, 'Orbitron', sans-serif); }
+.infamy-matrix-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.infamy-matrix-grid h4 { margin:0 0 10px; color:var(--wahbook-text-primary); }
+.infamy-line {
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.035);
+    border-radius:12px;
+    padding:10px;
+    margin-bottom:8px;
+}
+.infamy-line-top { display:flex; justify-content:space-between; gap:10px; color:var(--wahbook-text-primary); font-size:.88rem; }
+.infamy-line-top span { color:#ff8a65; font-weight:800; }
+.infamy-meter { height:7px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:7px 0; }
+.infamy-meter i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, #58a6ff, #d29922, #f85149, #a855f7); }
+.infamy-line p { margin:0; color:var(--wahbook-text-muted); font-size:.74rem; }
+.infamy-explain-panel p { color:var(--wahbook-text-secondary); line-height:1.5; }
+.infamy-rules-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.infamy-rules-grid div { background:var(--wahbook-bg-tertiary); border:1px solid var(--wahbook-border); border-radius:12px; padding:12px; }
+.infamy-rules-grid b { display:block; color:var(--wahbook-text-primary); margin-bottom:5px; }
+.infamy-rules-grid span { color:var(--wahbook-text-secondary); font-size:.82rem; }
+
+.dossier-infamy-section { border-color:rgba(248,81,73,.28) !important; }
+.dossier-infamy-summary {
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:4px 12px;
+    align-items:center;
+    padding:12px;
+    border-radius:14px;
+    border:1px solid rgba(248,81,73,.25);
+    background:rgba(248,81,73,.08);
+}
+.dossier-infamy-summary b { font-size:2rem; color:#ff8a65; font-family:var(--font-display, 'Orbitron', sans-serif); }
+.dossier-infamy-summary span { color:var(--wahbook-text-primary); font-weight:800; text-transform:uppercase; }
+.dossier-infamy-summary p { grid-column:1/-1; margin:4px 0 0; color:var(--wahbook-text-secondary); }
+.dossier-infamy-factions { display:grid; gap:8px; margin-top:10px; }
+.dossier-infamy-faction { display:flex; align-items:center; gap:8px; justify-content:space-between; background:var(--wahbook-bg-tertiary); border:1px solid var(--wahbook-border); border-radius:10px; padding:8px; }
+.dossier-infamy-faction small { color:var(--wahbook-text-muted); }
+
+@media (max-width: 900px) {
+    .infamy-matrix-grid, .infamy-rules-grid { grid-template-columns:1fr; }
+    .infamy-matrix-head { flex-direction:column; }
+}

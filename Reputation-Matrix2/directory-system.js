@@ -11,12 +11,14 @@ import { getRealTimeMapStats } from './global-map-analysis.js';
 import { LORE_DATA, STORY_ARCS } from './lore.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
 import { calculateRumorMetrics } from './research-data.js'; 
+import { calculateAssemblyInfamy, getCharacterInfamy, getFactionInfamy, renderInfamyBadge } from './assembly-infamy.js'; 
 let _targetRelationsCache = new Map();
 
 let currentView = 'grid';
 let selectedPlayer = null;
 let selectedTarget = null;
 let hideMinorRelations = false;
+let directoryInfamyState = null;
 let currentFilters = {
     region: 'all',
     standing: 'all',
@@ -35,6 +37,289 @@ const CACHE_DURATION = 5000; // 5 seconds
 
 
 
+
+// ============================================
+// DIRECTORY INFAMY INTEGRATION
+// Infamy is heat: warrants, fear, scandal, grudges, and hostile attention.
+// Reputation is whether a faction likes you. Fame is whether they know you.
+// Infamy is whether knowing you makes guards reach for paperwork or weapons.
+// ============================================
+
+function refreshDirectoryInfamy() {
+    try {
+        directoryInfamyState = calculateAssemblyInfamy(WAHBOOK_POSTS || [], LORE_DATA || {});
+        window.DIRECTORY_INFAMY_STATE = directoryInfamyState;
+    } catch (err) {
+        console.warn('[Directory] Infamy calculation failed:', err.message);
+        directoryInfamyState = null;
+    }
+    return directoryInfamyState;
+}
+
+function getDirectoryInfamyState() {
+    return directoryInfamyState || refreshDirectoryInfamy();
+}
+
+function clampHeat(value) {
+    return Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+}
+
+function getInfamyClass(score) {
+    score = Number(score) || 0;
+    if (score >= 75) return 'menace';
+    if (score >= 60) return 'wanted';
+    if (score >= 40) return 'hot';
+    if (score >= 20) return 'watched';
+    return 'quiet';
+}
+
+function getInfamyLabel(score) {
+    score = Number(score) || 0;
+    if (score >= 90) return 'Catastrophe';
+    if (score >= 75) return 'Public Menace';
+    if (score >= 60) return 'Wanted / Feared';
+    if (score >= 40) return 'Hot File';
+    if (score >= 20) return 'Watched';
+    return 'Quiet';
+}
+
+function getFactionInfamyProfile(factionKey) {
+    return getFactionInfamy(getDirectoryInfamyState(), factionKey);
+}
+
+function getCharacterInfamyProfile(characterKey) {
+    return getCharacterInfamy(getDirectoryInfamyState(), characterKey);
+}
+
+function getRelationshipInfamy(playerKey, factionKey) {
+    return getRelationshipInfamyBreakdown(playerKey, factionKey).total;
+}
+
+function getPartyFactionInfamy(factionKey) {
+    const factionHeat = getFactionInfamyProfile(factionKey).score || 0;
+    const partyHeat = state.party.reduce((sum, p) => sum + getRelationshipInfamy(p, factionKey), 0) / Math.max(1, state.party.length);
+    return clampHeat(factionHeat * 0.55 + partyHeat * 0.45);
+}
+
+function renderDirectoryInfamyBadge(score, small = false) {
+    const cls = getInfamyClass(score);
+    return `<span class="dir-infamy-badge ${cls}" title="Infamy Heat: ${score} · ${getInfamyLabel(score)}">🚨 ${small ? score : `${getInfamyLabel(score)} ${score}`}</span>`;
+}
+
+function getInfamyAccessText(score, rep = 0) {
+    if (score >= 75) return rep < 0 ? 'Hostile access: bounties, warrants, emergency councils, and fear-opened testimony.' : 'Dangerous access: war rooms listen, but polite doors lock behind you.';
+    if (score >= 60) return 'Wanted-file access: guards, rivals, investigators, and underworld contacts recognize the heat immediately.';
+    if (score >= 40) return 'Hot-file access: rumor brokers, legal clerks, and faction security know the name and ask sharper questions.';
+    if (score >= 20) return 'Watched access: recognition adds scrutiny, but not automatic hostility.';
+    return 'Quiet file: no major heat-based access yet.';
+}
+
+function addInfamyFactor(factors, source, text, value, channel = 'scandal', kind = value >= 0 ? 'heat' : 'cooling') {
+    const rounded = Math.round(Number(value) || 0);
+    if (rounded === 0) return;
+    factors.push({ source, text, value: rounded, channel, kind });
+}
+
+function rumorMatchesFaction(rumor, factionKey) {
+    if (!rumor) return false;
+    if ((rumor.keyFactions || rumor.key_factions || []).includes(factionKey)) return true;
+    if (rumor.effects && Object.prototype.hasOwnProperty.call(rumor.effects, factionKey)) return true;
+    const search = String(factionKey || '').replace(/_/g, ' ').toLowerCase();
+    return [rumor.title, rumor.description, rumor.summary].filter(Boolean).join(' ').toLowerCase().includes(search);
+}
+
+function postMentionsFaction(post, factionKey) {
+    const faction = getUnifiedFaction(factionKey);
+    const names = [factionKey, faction?.name, faction?.shortName].filter(Boolean).map(x => String(x).toLowerCase());
+    const blob = [post?.content, post?.title, post?.summary, ...(post?.comments || []).map(c => c?.text)].filter(Boolean).join(' ').toLowerCase();
+    return names.some(n => n && blob.includes(n.replace(/_/g, ' '))) || names.some(n => n && blob.includes(n));
+}
+
+function getRelationshipInfamyBreakdown(playerKey, factionKey) {
+    const factors = [];
+    const charProfile = getCharacterInfamyProfile(playerKey);
+    const factionProfile = getFactionInfamyProfile(factionKey);
+    const rep = getPlayerReputation(playerKey, factionKey);
+    const notoriety = getPlayerNotoriety(playerKey, factionKey);
+    const breakdown = state.calculationBreakdown?.[playerKey]?.[factionKey];
+
+    addInfamyFactor(factors, 'Personal File', `${charProfile.name || playerKey} baseline heat: ${(charProfile.tags || []).slice(0, 3).join(', ') || charProfile.tier || 'quiet file'}`, (charProfile.score || 0) * 0.28, 'personal');
+    addInfamyFactor(factors, 'Faction Climate', `${factionProfile.name || factionKey} ambient danger: ${(factionProfile.tags || []).slice(0, 3).join(', ') || factionProfile.tier || 'low heat'}`, (factionProfile.score || 0) * 0.36, 'faction');
+    addInfamyFactor(factors, 'Local Notoriety', 'Existing local notoriety with this faction converts recognition into scrutiny.', notoriety * 0.32, 'notoriety');
+    addInfamyFactor(factors, 'Standing Drag', 'Hostile reputation makes recognition more dangerous, not merely less friendly.', Math.max(0, -rep) * 0.35, 'legal');
+    if (rep > 50 && (factionProfile.score || 0) > 55) {
+        addInfamyFactor(factors, 'Volatile Ally', 'The faction likes you, but being close to a hot faction creates splash damage.', 8, 'scandal');
+    }
+    if (rep > 30 && (factionProfile.score || 0) < 35) {
+        addInfamyFactor(factors, 'Goodwill Cushion', 'Positive standing with a relatively stable faction lowers practical heat.', -Math.min(10, rep * 0.12), 'cooling', 'cooling');
+    }
+
+    // Reputation calculation already tracks rumors/quests/propagation. Reuse that evidence instead of inventing a second ledger.
+    if (breakdown?.rumors?.length) {
+        breakdown.rumors.slice(-8).forEach(r => {
+            const val = Number(r.value || 0);
+            if (val < 0) addInfamyFactor(factors, 'Reputation Rumor', `${r.title || 'Negative rumor'} damaged standing; that damage becomes legal/social heat.`, Math.min(18, Math.abs(val) * 0.55), 'rumor');
+            else if (val > 0) addInfamyFactor(factors, 'Protective Rumor', `${r.title || 'Positive rumor'} gives some witnesses a reason not to escalate.`, -Math.min(8, val * 0.18), 'cooling', 'cooling');
+        });
+    }
+    if (breakdown?.quests?.length) {
+        breakdown.quests.slice(-6).forEach(q => {
+            const val = Number(q.value || 0);
+            if (val < 0) addInfamyFactor(factors, 'Quest Fallout', `${q.questTitle || 'Quest'} hurt this relationship; faction officials remember it.`, Math.min(14, Math.abs(val) * 0.45), 'quest');
+            else if (val > 0) addInfamyFactor(factors, 'Quest Goodwill', `${q.questTitle || 'Quest'} creates a small heat shield with this faction.`, -Math.min(7, val * 0.14), 'cooling', 'cooling');
+        });
+    }
+    if (breakdown?.propagation?.length) {
+        breakdown.propagation.slice(-5).forEach(p => {
+            const val = Number(p.value || 0);
+            if (val < 0) addInfamyFactor(factors, 'Network Spillover', `Bad relations propagated from ${getUnifiedFaction(p.source)?.name || p.source}.`, Math.min(10, Math.abs(val) * 0.25), 'network');
+            else if (val > 0) addInfamyFactor(factors, 'Network Cover', `Friendly relations propagated from ${getUnifiedFaction(p.source)?.name || p.source}.`, -Math.min(5, val * 0.10), 'cooling', 'cooling');
+        });
+    }
+
+    // Direct rumor effects from lore dossiers: negative effects heat up a faction even when no final reputation breakdown is present.
+    (LORE_DATA.rumors || []).filter(r => rumorMatchesFaction(r, factionKey)).slice(-10).forEach(rumor => {
+        const effect = Number(rumor.effects?.[factionKey] || 0);
+        let spread = 0;
+        try {
+            const relatedPosts = (WAHBOOK_POSTS || []).filter(p => p.rumorId === rumor.id);
+            spread = Math.min(8, Math.abs(calculateRumorMetrics(rumor, relatedPosts)?.finalScore || 0) / 18);
+        } catch (e) {}
+        if (effect < 0) addInfamyFactor(factors, 'Public Dossier', `${rumor.title || rumor.id} is negative public evidence against this relationship.`, Math.min(16, Math.abs(effect) * 0.45 + spread), 'dossier');
+        else if (effect > 0) addInfamyFactor(factors, 'Public Dossier', `${rumor.title || rumor.id} creates public goodwill that dampens heat.`, -Math.min(8, effect * 0.12), 'cooling', 'cooling');
+        else if (spread > 3) addInfamyFactor(factors, 'Public Chatter', `${rumor.title || rumor.id} keeps this faction in active conversation.`, spread, 'dossier');
+    });
+
+    // WAHbook chatter by this character about this faction can create fresh heat.
+    const relatedPosts = (WAHBOOK_POSTS || []).filter(p => p.characterKey === playerKey && postMentionsFaction(p, factionKey));
+    if (relatedPosts.length) {
+        const postHeat = relatedPosts.reduce((sum, p) => sum + (getDirectoryInfamyState()?.posts?.[p.id]?.score || 0), 0) / relatedPosts.length;
+        addInfamyFactor(factors, 'WAHbook Chatter', `${relatedPosts.length} post(s) by this character mention the faction; public posting converts private standing into visible heat.`, Math.min(15, postHeat * 0.18 + relatedPosts.length), 'media');
+    }
+
+    const rawTotal = factors.reduce((sum, f) => sum + f.value, 0);
+    const total = clampHeat(rawTotal);
+    const heat = factors.filter(f => f.value > 0).reduce((s, f) => s + f.value, 0);
+    const cooling = Math.abs(factors.filter(f => f.value < 0).reduce((s, f) => s + f.value, 0));
+    return { total, rawTotal, heat: Math.round(heat), cooling: Math.round(cooling), factors };
+}
+
+function renderInfamyFactorList(playerKey, factionKey) {
+    const detail = getRelationshipInfamyBreakdown(playerKey, factionKey);
+    return `
+        <div class="dir-infamy-factor-list">
+            ${detail.factors.length ? detail.factors.map(f => `
+                <div class="dir-infamy-factor ${f.value >= 0 ? 'heat' : 'cooling'}">
+                    <div class="dir-infamy-factor-main">
+                        <b>${f.source}</b>
+                        <span>${f.text}</span>
+                    </div>
+                    <strong>${f.value >= 0 ? '+' : ''}${f.value}</strong>
+                </div>
+            `).join('') : '<p class="no-events">No infamy factors recorded for this relationship.</p>'}
+        </div>
+    `;
+}
+
+function renderInfamyWatchSidebar() {
+    const container = document.getElementById('infamy-watch-list');
+    if (!container) return;
+    const infamy = getDirectoryInfamyState();
+    const top = (infamy?.rankedCharacters || []).slice(0, 6);
+    if (!top.length) {
+        container.innerHTML = '<p class="no-events">No heat records calculated</p>';
+        return;
+    }
+    container.innerHTML = top.map(p => `
+        <button class="infamy-watch-item" data-infamy-target="${p.key}">
+            <span>${p.name}</span>
+            ${renderDirectoryInfamyBadge(Math.round(p.score), true)}
+        </button>
+    `).join('');
+    container.querySelectorAll('[data-infamy-target]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentFilters.search = btn.dataset.infamyTarget || '';
+            const search = document.getElementById('search-filter');
+            if (search) search.value = currentFilters.search;
+            render();
+            playSound('click.mp3', 0.3);
+        });
+    });
+}
+
+function renderInfamyReport() {
+    const container = document.getElementById('view-container');
+    if (!container) return;
+    const infamy = getDirectoryInfamyState();
+    const hotFactions = getUnifiedFactionList()
+        .map(f => ({ ...f, heat: getPartyFactionInfamy(f.key), profile: getFactionInfamyProfile(f.key) }))
+        .sort((a, b) => b.heat - a.heat)
+        .slice(0, 12);
+    const hotCharacters = (infamy?.rankedCharacters || []).slice(0, 12);
+    container.innerHTML = `
+        <div class="directory-infamy-report">
+            <div class="dir-infamy-hero ${getInfamyClass(infamy?.global?.score || 0)}">
+                <div>
+                    <span class="dir-kicker">🚨 INFAMY MATRIX</span>
+                    <h3>Heat, warrants, fear, scandal, and hostile attention</h3>
+                    <p>Reputation says who likes the party. Fame says who recognizes them. Infamy says which rooms become dangerous because recognition carries legal, political, or violent consequences.</p>
+                </div>
+                ${renderDirectoryInfamyBadge(Math.round(infamy?.global?.score || 0))}
+            </div>
+            <div class="dir-infamy-grid">
+                <section class="dir-infamy-panel">
+                    <h4>Hottest faction relationships</h4>
+                    ${hotFactions.map(f => {
+                        const rep = selectedPlayer ? getPlayerReputation(selectedPlayer, f.key) : f.partyRep;
+                        return `
+                            <div class="dir-heat-row" data-faction="${f.key}">
+                                <div class="dir-heat-title"><b>${f.faction.icon || ''} ${f.faction.name}</b><span class="${getReputationClass(rep)}">${rep >= 0 ? '+' : ''}${rep}</span></div>
+                                <div class="dir-heat-meter"><i class="${getInfamyClass(f.heat)}" style="width:${f.heat}%"></i></div>
+                                <p>${getInfamyAccessText(f.heat, rep)}</p>
+                            </div>
+                        `;
+                    }).join('')}
+                </section>
+                <section class="dir-infamy-panel">
+                    <h4>Hottest character files</h4>
+                    ${hotCharacters.map(p => `
+                        <div class="dir-character-heat-row">
+                            <div><b>${p.name}</b><span>${(p.tags || []).slice(0, 3).join(' · ') || p.tier}</span></div>
+                            ${renderDirectoryInfamyBadge(Math.round(p.score), true)}
+                        </div>
+                    `).join('')}
+                </section>
+            </div>
+
+            <!-- Infamy Tab -->
+            <div class="why-tab-content" id="why-tab-infamy">
+                <div class="why-section-header">
+                    <div class="why-section-title">
+                        <h4>Infamy Breakdown</h4>
+                        <span class="why-section-subtitle">Heat is hostile attention, not approval</span>
+                    </div>
+                    <div class="why-total-badge infamy ${getInfamyClass(getRelationshipInfamy(targetPlayer, factionKey))}">
+                        ${getRelationshipInfamy(targetPlayer, factionKey)}
+                    </div>
+                </div>
+                <div class="dir-infamy-modal-copy">
+                    <p>${getInfamyAccessText(getRelationshipInfamy(targetPlayer, factionKey), totalRep)}</p>
+                    <div class="dir-infamy-components">
+                        <div><b>${Math.round(getCharacterInfamyProfile(targetPlayer).score)}</b><span>${playerData?.name || targetPlayer} personal heat</span></div>
+                        <div><b>${Math.round(getFactionInfamyProfile(factionKey).score)}</b><span>${faction.name} faction heat</span></div>
+                        <div><b>${getRelationshipInfamyBreakdown(targetPlayer, factionKey).heat}</b><span>Total heat pressure</span></div>
+                        <div><b>${getRelationshipInfamyBreakdown(targetPlayer, factionKey).cooling}</b><span>Goodwill cooling</span></div>
+                    </div>
+                    ${renderInfamyFactorList(targetPlayer, factionKey)}
+                    <p class="dir-infamy-note">A friendly faction can still be dangerous if its public heat is high. A hostile faction with high heat may open bounty boards, court files, interrogation rooms, and frightened witnesses instead of polite audiences.</p>
+                </div>
+            </div>
+        </div>
+    `;
+    container.querySelectorAll('[data-faction]').forEach(el => {
+        el.addEventListener('click', () => renderFactionDetailModal(el.dataset.faction));
+    });
+}
 
 // ============================================
 // SIDEBAR RENDERING
@@ -300,6 +585,8 @@ function renderFactionCard(factionData, isDebug) {
     const notoriety = selectedPlayer 
         ? getPlayerNotoriety(selectedPlayer, key)
         : Math.round(state.party.reduce((sum, p) => sum + getPlayerNotoriety(p, key), 0) / state.party.length);
+    const infamyHeat = selectedPlayer ? getRelationshipInfamy(selectedPlayer, key) : getPartyFactionInfamy(key);
+    const infamyProfile = getFactionInfamyProfile(key);
     
     const assessmentPlayer = selectedPlayer || 'archie';
     const assessment = getFactionAssessment(key, assessmentPlayer);
@@ -349,6 +636,7 @@ function renderFactionCard(factionData, isDebug) {
                 </div>
                 
                 <div class="fc-rep-wrapper">
+                    ${renderDirectoryInfamyBadge(infamyHeat, true)}
                     <div class="fc-rep-badge ${repClass}">
                         ${displayRep >= 0 ? '+' : ''}${displayRep}
                     </div>
@@ -386,8 +674,16 @@ function renderFactionCard(factionData, isDebug) {
                         </div>
                         <span class="fc-stat-value">${notoriety}%</span>
                     </div>
+                    <div class="fc-stat">
+                        <span class="fc-stat-label">Infamy Heat</span>
+                        <div class="fc-stat-bar">
+                            <div class="fc-stat-fill infamy ${getInfamyClass(infamyHeat)}" style="width: ${infamyHeat}%;"></div>
+                        </div>
+                        <span class="fc-stat-value">${infamyHeat}%</span>
+                    </div>
                 ` : ''}
             </div>
+            <p class="fc-infamy-access">${getInfamyAccessText(infamyHeat, displayRep)}</p>
             
             <div class="fc-footer">
                 ${playerIndicators ? `<div class="fc-party-reps">${playerIndicators}</div>` : '<div></div>'}
@@ -549,6 +845,15 @@ function getReputationFactors(factionKey) {
     const breakdown = state.calculationBreakdown?.[targetPlayer]?.[factionKey];
 
     if (breakdown) {
+        const localNotoriety = getPlayerNotoriety(targetPlayer, factionKey);
+        if (localNotoriety) {
+            factors.push({
+                source: 'Notoriety',
+                text: 'Local name recognition changes how strongly this standing is felt. This is not approval; it is visibility.',
+                impact: localNotoriety >= 50 ? 'negative' : 'positive',
+                value: localNotoriety
+            });
+        }
         if (breakdown.base !== 0) {
             factors.push({
                 source: 'History',
@@ -649,6 +954,11 @@ function renderPartyStatsBar() {
             <span class="pstat-icon">🔍</span>
             <span class="pstat-value">${avgIntel}%</span>
             <span class="pstat-label">Avg Intel</span>
+        </div>
+        <div class="pstat-item infamy ${getInfamyClass(getDirectoryInfamyState()?.global?.score || 0)}">
+            <span class="pstat-icon">🚨</span>
+            <span class="pstat-value">${Math.round(getDirectoryInfamyState()?.global?.score || 0)}</span>
+            <span class="pstat-label">Heat Index</span>
         </div>
 
     `;
@@ -754,6 +1064,10 @@ function renderWhyModal(factionKey) {
                 <button class="why-tab-btn" data-tab="intel">
                     <span class="why-tab-icon">🔍</span>
                     Intel
+                </button>
+                <button class="why-tab-btn" data-tab="infamy">
+                    <span class="why-tab-icon">🚨</span>
+                    Infamy
                 </button>
             </div>
             
@@ -1394,11 +1708,13 @@ function renderFactionDetailModal(factionKey) {
 // MAIN RENDER
 // ============================================
 function render() {
+    refreshDirectoryInfamy();
     renderPartyStatsBar();
     renderPartyMemberList();
     renderNotableFigures(); // NEW
     renderStandingSummary();
     renderRecentEvents();
+    renderInfamyWatchSidebar();
     renderRegionFilter();
     renderFiltersWithToggle(); // NEW
     
@@ -1411,6 +1727,9 @@ function render() {
             break;
         case 'intel':
             renderIntelReport();
+            break;
+        case 'infamy':
+            renderInfamyReport();
             break;
         default:
             renderGridView();
@@ -2146,6 +2465,10 @@ function getFilteredFactions() {
             break;
         case 'intel':
             factions.sort((a, b) => b.intel - a.intel);
+            break;
+        case 'infamy':
+        case 'notoriety':
+            factions.sort((a, b) => getPartyFactionInfamy(b.key) - getPartyFactionInfamy(a.key));
             break;
         case 'reputation':
         default:

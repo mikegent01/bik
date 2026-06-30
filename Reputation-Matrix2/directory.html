@@ -42,6 +42,9 @@
                         <button class="view-mode-btn" data-view="intel">
                             <span>🔍</span> Intel Report
                         </button>
+                        <button class="view-mode-btn" data-view="infamy">
+                            <span>🚨</span> Infamy Matrix
+                        </button>
                     </div>
                     
                     <div class="directory-filters">
@@ -67,6 +70,7 @@
                                 <option value="name">Name</option>
                                 <option value="intel">Intel Level</option>
                                 <option value="notoriety">Notoriety</option>
+                                <option value="infamy">Infamy Heat</option>
                             </select>
                         </div>
                         <div class="filter-group">
@@ -90,6 +94,13 @@
         <h4>👥 Notable Figures</h4>
         <p class="sidebar-hint">Click to view their perspective</p>
         <div id="notable-figures-list"></div>
+    </div>
+
+    <!-- Infamy Watch -->
+    <div class="sidebar-section" id="infamy-watch-panel">
+        <h4>🚨 Infamy Watch</h4>
+        <p class="sidebar-hint">Heat is warrants, fear, scandal, and hostile attention.</p>
+        <div id="infamy-watch-list"></div>
     </div>
 
     <!-- Standing Summary -->
@@ -127,5 +138,5 @@
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="directory-system.js"></script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a138e2a678e81efc',t:'MTc4Mjc3NzU3MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
