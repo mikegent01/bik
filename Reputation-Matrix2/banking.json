@@ -6,7 +6,7 @@
     "debts": "Each debt needs: id (unique), creditor, debtor, currencyKey, originalAmount, interestRate, daysBorrowed, amountOwed (current total), status (active/overdue/paid/defaulted), note",
     "available_bankIds": [
       "bank_ironvault",
-      "bank_crimson_ledger",
+      "bank_crimson_ledger", 
       "bank_golden_toad",
       "bank_wario_world",
       "bank_deephold",
