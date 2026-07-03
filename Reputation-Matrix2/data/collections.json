@@ -1,24 +1,69 @@
 [
   {
     "id": "core_disaster_inc_members",
-    "name": "Core Disaster Inc. Members",
-    "title": "People Most Likely To Break Reality By Accident",
+    "name": "Core Disaster Inc. / Freeroamer Heroes / Freeloader Zeros Members",
+    "title": "People Waluigi Named First, Archie Tries to Inspire, and Wario Bills Anyway",
     "type": "Character Collection",
     "scope": "Primary cast and close operational associates",
     "criteria": "Characters directly central to Disaster Inc.'s continuing disasters.",
-    "summary": "A curated grouping of the personalities most responsible for the current level of magical, political, and architectural instability. Waluigi wishes to clarify that inclusion here is not an honor. Except for Waluigi, for whom everything is an honor.",
-    "description": "Collections exist so Waluigi can group related pages without pretending everything is a formal faction. This collection tracks the people most central to Disaster Inc., the planar crisis, and the surrounding sequence of catastrophes.",
+    "summary": "Archie calls this circle the Freeroamer Heroes. Waluigi files it under Disaster Inc. because Waluigi came up with the accurate name first. Wario calls them the Freeloader Zeros whenever the debt ledger opens. The naming dispute is now active, petty, and historically unavoidable.\n\nArchie calls this circle the Freeroamer Heroes. Waluigi files it under Disaster Inc. and reserves the right to say Freeloader Heroes whenever the damages ledger exceeds available cash.\n\nA curated grouping of the personalities most responsible for the current level of magical, political, and architectural instability. Waluigi wishes to clarify that inclusion here is not an honor. Except for Waluigi, for whom everything is an honor.",
+    "description": "Collections exist so Waluigi can group related pages without pretending everything is a formal faction. This collection tracks the people most central to Disaster Inc., the planar crisis, and the surrounding sequence of catastrophes.\n\n## Naming Note\n\nArchie calls this circle the Freeroamer Heroes. Waluigi files it under Disaster Inc. and reserves the right to say Freeloader Heroes whenever the damages ledger exceeds available cash.\n\n## Naming Dispute Update\n\nArchie calls this circle the Freeroamer Heroes. Waluigi files it under Disaster Inc. because Waluigi came up with the accurate name first. Wario calls them the Freeloader Zeros whenever the debt ledger opens. The naming dispute is now active, petty, and historically unavoidable.\n\nLiberated Toad witnesses have begun using the rival names in daily speech. Waluigi objects to this as brand dilution. Wario objects only when nobody buys a button. Archie objects to the word “zeros,” which proves he is capable of recognizing at least one bad name.",
     "members": [
-      { "id": "waluigi", "name": "Waluigi", "role": "Author, athlete, visionary, ice mage" },
-      { "id": "archie_miser", "name": "Archie Miser", "role": "Pyromaniac, debt accumulator, chaos engine" },
-      { "id": "markop", "name": "Markop", "role": "Titan wrestler, tactical backbone, divine shield recipient" },
-      { "id": "remi", "name": "Remi", "role": "Master looter, card bearer, infiltration specialist" },
-      { "id": "toad_lee", "name": "Toad Lee", "role": "Defenestrated diplomat, Feywild survivor, lore keeper" },
-      { "id": "ryan", "name": "Ryan", "role": "The man who jumped, spirit-walker contact" },
-      { "id": "hjumpik", "name": "Hjumpik", "role": "Axe enthusiast, bomb disabler, maze navigator" },
-      { "id": "bones", "name": "Bones", "role": "Infiltrator, Order 120 catalyst, current status uncertain" },
-      { "id": "green_t", "name": "Green T", "role": "Giant from the children's table, vampire shooter" },
-      { "id": "dan", "name": "Dan", "role": "The man who lost his arm (and temporarily his mind)" }
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Author, athlete, visionary, ice mage"
+      },
+      {
+        "id": "archie_miser",
+        "name": "Archie Miser",
+        "role": "Pyromaniac, debt accumulator, chaos engine"
+      },
+      {
+        "id": "markop",
+        "name": "Markop",
+        "role": "Titan wrestler, tactical backbone, divine shield recipient"
+      },
+      {
+        "id": "remi",
+        "name": "Remi",
+        "role": "Master looter, card bearer, infiltration specialist"
+      },
+      {
+        "id": "toad_lee",
+        "name": "Toad Lee",
+        "role": "Defenestrated diplomat, Feywild survivor, lore keeper"
+      },
+      {
+        "id": "ryan",
+        "name": "Ryan",
+        "role": "The man who jumped, spirit-walker contact"
+      },
+      {
+        "id": "hjumpik",
+        "name": "Hjumpik",
+        "role": "Axe enthusiast, bomb disabler, maze navigator"
+      },
+      {
+        "id": "bones",
+        "name": "Bones",
+        "role": "Infiltrator, Order 120 catalyst, current status uncertain"
+      },
+      {
+        "id": "green_t",
+        "name": "Green T",
+        "role": "Giant from the children's table, vampire shooter"
+      },
+      {
+        "id": "dan",
+        "name": "Dan",
+        "role": "The man who lost his arm (and temporarily his mind)"
+      },
+      {
+        "id": "merric",
+        "name": "Merric",
+        "role": "Axe-wielding sheep recruited during Shadow Estate rooftop escape"
+      }
     ],
     "articles": [
       "waluigi",
@@ -33,9 +78,19 @@
       "green_t",
       "dan",
       "raventree_manor",
-      "planar_fracture"
+      "planar_fracture",
+      "merric",
+      "shadow_estate_mirror_rooftop_escape",
+      "disaster_inc_naming_dispute"
     ],
-    "relatedArticles": ["disaster_inc"]
+    "relatedArticles": [
+      "disaster_inc",
+      "shadow_estate_mirror_rooftop_escape",
+      "shadow_estate",
+      "disaster_inc_naming_dispute",
+      "liberated_toads",
+      "wario"
+    ]
   },
   {
     "id": "koopa_troop_collection",
@@ -45,11 +100,23 @@
     "scope": "Bowser's forces, key personnel, and associated entities",
     "criteria": "Characters, locations, and events directly connected to Bowser's military organization.",
     "summary": "The Koopa Troop is Bowser's army—a sprawling military organization that has historically spent most of its energy kidnapping princesses and getting stomped by plumbers. In the current crisis, Bowser himself is trapped in the Shadowfell examining necromancer wands with childlike curiosity while his kingdom deals with Kamek's betrayal and a world-eating worm. The Troop was falsely blamed for Princess Peach's assassination eighty-five years ago, and they have never been able to shake the accusation despite Bowser's consistent denials. Waluigi finds the Koopa Troop simultaneously threatening and oddly sympathetic. They are villains who have been framed for a crime they did not commit by villains who actually committed it. WAH.",
-    "description": "This collection groups everything related to Bowser's military forces, his kingdom, and the various crises currently afflicting Koopa territory. The Troop is technically an enemy faction to most of the Mushroom Kingdom, but 'enemy' has become complicated when everyone is fighting everyone else and Bowser is busy punching vampires in the Shadowfell.",
+    "description": "This collection groups everything related to Bowser's military forces, his kingdom, and the various crises currently afflicting Koopa territory. The Troop is technically an enemy faction to most of the Mushroom Kingdom, but \"enemy\" has become complicated when everyone is fighting everyone else and Bowser is busy punching vampires in the Shadowfell. Waluigi maintains this collection with an unusual and slightly embarrassing amount of sympathy.\n\n## The Army That Keeps Getting Blamed\n\nThe Koopa Troop is Bowser's army—a sprawling military organization that has historically spent most of its energy kidnapping princesses and getting stomped by plumbers. Then, eighty-five years ago, it was blamed for something it did not do: the assassination of Princess Peach. The accusation stuck despite thin evidence and Bowser's consistent denials, and the Troop has never managed to shake it. Waluigi finds them simultaneously threatening and oddly sympathetic—villains framed for a crime by villains who actually committed it.\n\n## A Kingdom In Crisis\n\nThe current era has hollowed the Troop from within. Kamek, believing brute force could not win the coming wars, dug beneath the castle and awoke the Primordial Wyrm, sacrificing hundreds of troops before being brought down by his own unionized construction workers. Bowser himself is trapped in the Shadowfell, examining necromancer wands with childlike curiosity while his kingdom copes with betrayal, a world-eating worm, and the ordinary indignity of being blamed for everything.\n\n## Why Track The Troop\n\nThis collection groups the Troop's forces, key personnel, and the crises battering the Valley of Bowser precisely because the era has scrambled the old alignments. An enemy faction that was framed for the founding crime of the current government is not a simple villain—it is a witness, a victim, and a wildcard all at once. Waluigi advises readers to stop assuming the Troop is only in the way. WAH.",
     "members": [
-      { "id": "bowser", "name": "Bowser", "role": "King, wand examiner, door holder" },
-      { "id": "kamek", "name": "Kamek", "role": "Fallen regent, wyrm awakener, currently imprisoned" },
-      { "id": "koopa_troop", "name": "Koopa Troop", "role": "The army itself" }
+      {
+        "id": "bowser",
+        "name": "Bowser",
+        "role": "King, wand examiner, door holder"
+      },
+      {
+        "id": "kamek",
+        "name": "Kamek",
+        "role": "Fallen regent, wyrm awakener, currently imprisoned"
+      },
+      {
+        "id": "koopa_troop",
+        "name": "Koopa Troop",
+        "role": "The army itself"
+      }
     ],
     "articles": [
       "bowser",
@@ -58,7 +125,9 @@
       "valley_of_bowser",
       "primordial_wyrm_awakening"
     ],
-    "relatedArticles": ["koopa_troop"]
+    "relatedArticles": [
+      "koopa_troop"
+    ]
   },
   {
     "id": "mushroom_regency_collection",
@@ -68,11 +137,23 @@
     "scope": "Regency leadership, associated institutions, and the conspiracy they may be covering up",
     "criteria": "Characters and entities connected to the post-assassination Mushroom Kingdom government.",
     "summary": "The Mushroom Regency is what happened when Princess Peach died without a public heir. The Council of Toads—designed to advise, not rule—found itself thrust into governance. Toadsworth the Elder became Acting Regent. His son, Chancellor Toadsworth, continues the role today. If the Loyalist accusations are accurate, the Regency did not merely inherit power from a tragedy—they ENABLED the tragedy to inherit power. The journals, the guard rotation gap, the suppressed investigation—all of it points toward a government built on the blood of the monarch it was supposed to serve. The Chancellor is currently under house arrest following the Loyalist seizure of Toad Town. Whatever truths emerge from his interrogation will reshape everything. WAH.",
-    "description": "This collection groups the Mushroom Regency and everything associated with it—the leadership, the institutions, the accusations, and the evidence. Understanding the Regency is essential to understanding 'the arrangement' and the eighty-five years of cover-up that followed the assassination.",
+    "description": "This collection groups the Mushroom Regency and everything associated with it—the leadership, the institutions, the accusations, and the evidence. Understanding the Regency is essential to understanding \"the arrangement\" and the eighty-five years of cover-up that followed the assassination, and Waluigi has gathered it all here so readers can watch a government try to outrun its own foundation.\n\n## The Government That Inherited Murder\n\nThe Mushroom Regency is what happened when Princess Peach died without a public heir. The Council of Toads—designed to advise a monarch, not to rule in her place—found itself thrust into governance. Toadsworth the Elder became Acting Regent, and his son, Chancellor Toadsworth, carries the role today. On paper this is a story of dutiful stewards filling a tragic vacuum. Read less charitably, it is the story of a body that gained everything from a death it was supposed to prevent.\n\n## The Accusation\n\nIf the Loyalist accusations are accurate, the Regency did not merely inherit power from a tragedy—they ENABLED the tragedy that handed them power. The private journals, the suspicious gap in the guard rotation, the investigation that was quietly suppressed: this collection assembles the threads that point, individually and together, toward a government built on the blood of the monarch it claimed to serve. Waluigi presents the evidence without pretending it is a verdict, because the verdict has not yet been rendered.\n\n## The House Of Cards\n\nChancellor Toadsworth is currently under house arrest following the Loyalist seizure of Toad Town, and whatever emerges from his interrogation will reshape everything downstream of it. That is why the Regency sits at the hub of so many other collections: the assassination, \"the arrangement,\" the Mages' Guild's convenient cooperation, and the war now burning through Toad Town all connect back to this one fragile institution. Pull the Regency and much of the century's official story falls with it. WAH.",
     "members": [
-      { "id": "chancellor_toadsworth", "name": "Chancellor Toadsworth", "role": "Current Regent, under house arrest" },
-      { "id": "toadsworth_sr", "name": "Toadsworth the Elder", "role": "Original enabler (allegedly), deceased" },
-      { "id": "mushroom_regency", "name": "Mushroom Regency", "role": "The institution itself" }
+      {
+        "id": "chancellor_toadsworth",
+        "name": "Chancellor Toadsworth",
+        "role": "Current Regent, under house arrest"
+      },
+      {
+        "id": "toadsworth_sr",
+        "name": "Toadsworth the Elder",
+        "role": "Original enabler (allegedly), deceased"
+      },
+      {
+        "id": "mushroom_regency",
+        "name": "Mushroom Regency",
+        "role": "The institution itself"
+      }
     ],
     "articles": [
       "mushroom_regency",
@@ -82,7 +163,9 @@
       "mushroom_kingdom",
       "toad_town"
     ],
-    "relatedArticles": ["mushroom_regency" ]
+    "relatedArticles": [
+      "mushroom_regency"
+    ]
   },
   {
     "id": "peach_loyalists_collection",
@@ -92,12 +175,28 @@
     "scope": "Captain Toadette's movement, key operatives, and their campaign of vengeance",
     "criteria": "Characters and events connected to the Loyalist faction.",
     "summary": "The Peach Loyalists are either freedom fighters seeking justice for a murdered princess or terrorists using a dead woman's memory to justify atrocities. Probably both. Captain Toadette has built a military movement on Princess Peach's martyrdom, and her operatives have spent decades gathering evidence that the Regency and Mages' Guild enabled the assassination. They have also committed massacres, executed prisoners, and assassinated officials. The uncomfortable truth is that their cause may be just even when their methods are monstrous. They are closer to exposing 'the arrangement' than anyone has been in eighty-five years. They have also killed more people than some of the factions they oppose. Waluigi finds this deeply uncomfortable and suspects there are no clean answers. WAH.",
-    "description": "This collection groups the Peach Loyalists and their operations—the leadership, the operatives, the evidence they have gathered, and the atrocities they have committed. Understanding the Loyalists requires holding two truths simultaneously: they may be exposing a genuine conspiracy, and they have done terrible things in the process.",
+    "description": "This collection groups the Peach Loyalists and their operations—the leadership, the operatives, the evidence they have gathered, and the atrocities they have committed. Understanding the Loyalists requires holding two truths simultaneously: they may be exposing a genuine conspiracy, and they have done terrible things in the process. Waluigi has organized the material so readers are forced to hold both at once.\n\n## Freedom Fighters Or Fanatics\n\nThe Peach Loyalists are either freedom fighters seeking justice for a murdered princess or terrorists using a dead woman's memory to justify atrocities. Waluigi's honest assessment is: probably both. They have built a genuine movement on the martyrdom of Princess Peach, and movements built on martyrdom rarely stay gentle. This collection refuses to pick the comfortable interpretation because the comfortable interpretation would be dishonest.\n\n## Captain Toadette's War\n\nAt the center stands Captain Toadette, the movement's military commander and, by Waluigi's estimate, the scariest person in the Mushroom Kingdom who is not a dimensional horror or a kaiju. She plans with tactical brilliance, executes with total commitment, and enforces a no-prisoners policy that the Iron Legion itself might find excessive. The Fall of Bramblehaven and the Siege of Toad Town are her signatures, and both illustrate how far the Loyalists will go once they have decided a cause is righteous.\n\n## The Evidence And The Cost\n\nThe Loyalists claim to hold proof that the assassination was an inside job, which gives their cause real moral weight—and makes their methods harder to dismiss and harder to forgive. The operatives Embercap and Mistveil, the seizure of Toad Town, the mounting civilian cost: this collection tracks all of it, because the tragedy of the Peach Loyalists is that being right about the crime does not make them clean about the war. WAH.",
     "members": [
-      { "id": "captain_toadette", "name": "Captain Toadette", "role": "Commander, true believer, ruthless" },
-      { "id": "embercap", "name": "Embercap", "role": "Field commander, frontline leader" },
-      { "id": "mistveil", "name": "Mistveil", "role": "Intelligence operative, Thornpaw extractor" },
-      { "id": "peach_loyalists", "name": "Peach Loyalists", "role": "The movement itself" }
+      {
+        "id": "captain_toadette",
+        "name": "Captain Toadette",
+        "role": "Commander, true believer, ruthless"
+      },
+      {
+        "id": "embercap",
+        "name": "Embercap",
+        "role": "Field commander, frontline leader"
+      },
+      {
+        "id": "mistveil",
+        "name": "Mistveil",
+        "role": "Intelligence operative, Thornpaw extractor"
+      },
+      {
+        "id": "peach_loyalists",
+        "name": "Peach Loyalists",
+        "role": "The movement itself"
+      }
     ],
     "articles": [
       "peach_loyalists",
@@ -107,7 +206,12 @@
       "fall_bramblehaven",
       "siege_toad_town"
     ],
-    "relatedArticles": ["princess_peach", "peach_loyalists", "mistveil", "embercap"]
+    "relatedArticles": [
+      "princess_peach",
+      "peach_loyalists",
+      "mistveil",
+      "embercap"
+    ]
   },
   {
     "id": "iron_legion_collection",
@@ -117,11 +221,23 @@
     "scope": "Legion command, operations, and their campaign of systematic atrocity",
     "criteria": "Characters, locations, and events connected to the Iron Legion military-industrial state.",
     "summary": "The Iron Legion began as the Midlands Mercenary Company and transformed into something far worse: a military-industrial state that treats people as logistics problems. They control the Midlands with ruthless efficiency. They traffic Toads in barrels. They issue orders like Order 120—the immediate execution of all Toad prisoners—because one infiltrator embarrassed their security. General Ironhand commands from Aegis Command with the emotional engagement of a clerk processing paperwork. The Legion is not cruel for cruelty's sake. They are EFFICIENT, and their efficiency is pointed at horrible ends. Waluigi considers them the most dangerous faction precisely because they do not waste energy on hatred. They simply process. WAH.",
-    "description": "This collection groups the Iron Legion and everything associated with their operations—command structure, key personnel, atrocities committed, and the territories they control. The Legion is arguably the most conventionally powerful faction in the current crisis, which makes their moral bankruptcy particularly concerning.",
+    "description": "This collection groups the Iron Legion and everything associated with their operations—command structure, key personnel, atrocities committed, and the territories they control. The Legion is arguably the most conventionally powerful faction in the current crisis, which makes their moral bankruptcy particularly concerning. Waluigi documents them with the cold precision they inflict on everyone else.\n\n## From Mercenaries To A Machine\n\nThe Iron Legion began as the Midlands Mercenary Company and transformed into something far worse: a military-industrial state that treats people as logistics problems. They control the Midlands with ruthless efficiency, they traffic Toads in barrels, and they issue orders—like the infamous Order 120, the command to execute all Toad prisoners—with the tone of a supply requisition. This collection exists to record not a villain, but a system, which is scarier.\n\n## The Sonic Grid\n\nBeneath the Legion's fortresses runs its true horror. Aegis Command is one of twelve nodes in a \"Sonic Grid,\" an infrastructure project designed to paralyze dragons and harvest the magical life-force of Toads, using living prisoners as batteries. The Legion did not merely enslave people—they industrialized the process and wired it into the landscape. Waluigi finds the ambition of the cruelty more disturbing than the cruelty itself.\n\n## Command And Consequence\n\nGeneral Ironhand anchors the collection: not a ranting warlord but an administrator who signs mass murder into effect and sleeps soundly afterward. The material here—the Aegis massacre, the Iron Sky Breach that stole the Vigilance, the coerced operative Toadburt—maps how an efficient organization becomes an atrocity when efficiency is the only value it keeps. And it records the crack in the machine: Speaker L's Aegis Command riot, which proved the Legion can be humiliated. WAH.",
     "members": [
-      { "id": "general_ironhand", "name": "General Ironhand", "role": "Administrator of atrocities" },
-      { "id": "iron_legion", "name": "Iron Legion", "role": "The military-industrial state itself" },
-      { "id": "toadburt", "name": "Toadburt", "role": "Sleeper agent, Entropy Ring victim" }
+      {
+        "id": "general_ironhand",
+        "name": "General Ironhand",
+        "role": "Administrator of atrocities"
+      },
+      {
+        "id": "iron_legion",
+        "name": "Iron Legion",
+        "role": "The military-industrial state itself"
+      },
+      {
+        "id": "toadburt",
+        "name": "Toadburt",
+        "role": "Sleeper agent, Entropy Ring victim"
+      }
     ],
     "articles": [
       "iron_legion",
@@ -132,7 +248,10 @@
       "toadburt",
       "order_120"
     ],
-    "relatedArticles": ["iron_legion",  "general_ironhand"]
+    "relatedArticles": [
+      "iron_legion",
+      "general_ironhand"
+    ]
   },
   {
     "id": "mages_guild_collection",
@@ -142,12 +261,28 @@
     "scope": "Guild operations, personnel, and their alleged role in the assassination conspiracy",
     "criteria": "Characters and events connected to the Mages' Guild.",
     "summary": "The Mages' Guild is the dominant magical institution in the region—a bureaucratic behemoth that has spent centuries establishing itself as the authority on all things arcane. They charge two thousand gold for a broken rope. They take control of magical evidence and never release findings. They allegedly disabled the wards protecting Princess Peach and hunted Lady Bloomia through the servant passages. Agent L employs Luigi for ghost-clearing contracts while Guild operatives casually discuss which deaths would be 'acceptable.' The Guild is implicated in 'the arrangement' by multiple sources, and their response has been consistent: deny, delay, classify, and charge administrative fees. Waluigi suspects they know exactly what happened eighty-five years ago. Waluigi suspects they will never voluntarily share that knowledge. WAH.",
-    "description": "This collection groups the Mages' Guild and everything associated with their operations—known personnel, institutional behavior, alleged conspiracy involvement, and their current activities in the planar crisis. The Guild's role in the assassination remains disputed, but their behavior throughout has been consistently suspicious.",
+    "description": "This collection groups the Mages' Guild and everything associated with their operations—known personnel, institutional behavior, alleged conspiracy involvement, and their current activities in the planar crisis. The Guild's role in the assassination remains disputed, but their behavior throughout has been consistently suspicious, and Waluigi does not believe in that many coincidences.\n\n## The Institution That Knows Too Much\n\nThe Mages' Guild is the dominant magical institution in the region—a bureaucratic behemoth that has spent centuries establishing itself as the sole authority on all things arcane. They charge two thousand gold to identify a broken rope. They take custody of magical evidence and then discover, remarkably often, that the evidence has become complicated. Waluigi has dealt with many monopolies; the Guild is the only one that bills you for the privilege of being obstructed.\n\n## The Conspiracy Question\n\nThe Guild's fingerprints appear all over the assassination conspiracy, and this collection tracks them: their control of the magical evidence from 955 BF, their relationship to \"the arrangement,\" and the convenient way their institutional interests aligned with the Regency's preferred narrative. Nothing here is proven. Everything here is suspicious. Waluigi maintains that \"we cannot prove it\" and \"they did nothing\" are not synonyms, no matter how the Guild's lawyers phrase it.\n\n## The Luigi Connection\n\nThe collection's most personal thread is Luigi, employed by the Guild as Agent L. That a brother of the vanished hero Mario should end up on the Guild's payroll ties the institution directly into the Mario Brothers mystery. Whether Luigi is inside the Guild by choice, by coercion, or by design is exactly the sort of question the Guild is best at keeping unanswered. WAH.",
     "members": [
-      { "id": "mages_guild", "name": "Mages' Guild", "role": "The institution itself" },
-      { "id": "valorian_stormweave", "name": "Valorian Stormweave", "role": "Vault operative (deceased), allegedly present at assassination" },
-      { "id": "thornbury", "name": "Thornbury", "role": "Quartermaster spy, rope accountant" },
-      { "id": "agent_l", "name": "Agent L", "role": "Luigi's handler, field coordinator" }
+      {
+        "id": "mages_guild",
+        "name": "Mages' Guild",
+        "role": "The institution itself"
+      },
+      {
+        "id": "valorian_stormweave",
+        "name": "Valorian Stormweave",
+        "role": "Vault operative (deceased), allegedly present at assassination"
+      },
+      {
+        "id": "thornbury",
+        "name": "Thornbury",
+        "role": "Quartermaster spy, rope accountant"
+      },
+      {
+        "id": "agent_l",
+        "name": "Agent L",
+        "role": "Luigi's handler, field coordinator"
+      }
     ],
     "articles": [
       "mages_guild",
@@ -156,7 +291,9 @@
       "luigi",
       "the_arrangement"
     ],
-    "relatedArticles": ["mages_guild"]
+    "relatedArticles": [
+      "mages_guild"
+    ]
   },
   {
     "id": "onyx_hand_collection",
@@ -166,10 +303,18 @@
     "scope": "Onyx Hand operations, tribunals, and their vampire-adjacent activities",
     "criteria": "Characters and events connected to the Onyx Hand criminal syndicate.",
     "summary": "The Onyx Hand is neither loyalist nor legionnaire—they operate in the spaces between, part criminal syndicate and part shadow government. Their tribunals are the only courts where a Toad can receive something resembling justice. Their vampire knights nest in places like Raventree Manor. They control information, contraband, and possibly souls. The Hand acquitted Archie Miser of killing a mage, which tells you something about either their commitment to justice or their opposition to the Mages' Guild. They are criminals who provide services that legitimate institutions refuse to provide. Waluigi finds them morally ambiguous in ways that resist easy judgment. WAH.",
-    "description": "This collection groups the Onyx Hand and their operations—the tribunal system, the vampire connections, the shadow economy they control. The Hand occupies a unique position in the current crisis: powerful enough to matter, independent enough to resist faction alignment, and morally flexible enough to deal with anyone.",
+    "description": "This collection groups the Onyx Hand and their operations—the tribunal system, the vampire connections, the shadow economy they control. The Hand occupies a unique position in the current crisis: powerful enough to matter, independent enough to resist faction alignment, and morally flexible enough to deal with anyone. Waluigi finds them genuinely difficult to file, which is itself a kind of achievement.\n\n## Neither Loyalist Nor Legionnaire\n\nThe Onyx Hand belongs to no side. They operate in the spaces between factions—part criminal syndicate, part shadow government—and they have made those spaces profitable. In a kingdom where the official courts serve whoever currently holds Toad Town, the Hand's tribunals are, disturbingly, the only venues where a Toad can receive something resembling justice. Waluigi notes that when the criminals run the fairest court in the land, the problem is not the criminals.\n\n## Vampire Knights And Shadow Economy\n\nThe Hand's power rests on unusual pillars: vampire knights who nest in places most factions cannot safely reach, and a shadow economy that flows through channels the Legion and the Regency cannot fully tax or trace. This gives the Hand reach without borders and income without a treasury to besiege, which is precisely why no conventional faction has managed to absorb or destroy them.\n\n## The Corvinarus Thread\n\nThe collection also tracks the Hand's entanglement with House Corvinarus and the Shadow Estate, connections that reach into the Raventree Manor crisis itself. Archie Miser's dealings place Disaster Inc. within arm's reach of the Hand as well. Waluigi advises readers to view the Onyx Hand as a permanent feature of the crisis rather than a passing player: courts, unlike kingdoms, are very hard to overthrow. WAH.",
     "members": [
-      { "id": "onyx_hand", "name": "Onyx Hand", "role": "The organization itself" },
-      { "id": "corvinarus_family", "name": "Corvinarus Family", "role": "Vampire aristocracy, multi-dimensional presence" }
+      {
+        "id": "onyx_hand",
+        "name": "Onyx Hand",
+        "role": "The organization itself"
+      },
+      {
+        "id": "corvinarus_family",
+        "name": "Corvinarus Family",
+        "role": "Vampire aristocracy, multi-dimensional presence"
+      }
     ],
     "articles": [
       "onyx_hand",
@@ -178,7 +323,10 @@
       "raventree_manor",
       "archie_miser"
     ],
-    "relatedArticles": ["onyx_hand", "shadow_estate"]
+    "relatedArticles": [
+      "onyx_hand",
+      "shadow_estate"
+    ]
   },
   {
     "id": "liberated_toads_collection",
@@ -188,12 +336,28 @@
     "scope": "Liberated Toads leadership, membership, and their struggle for recognition",
     "criteria": "Characters and events connected to the Liberated Toads faction.",
     "summary": "The Liberated Toads are exactly what their name suggests: Toads who were liberated. Specifically, 150+ Toads found in barrels aboard the Vigilance, trafficked by the Iron Legion, reduced to cargo in their own kingdom. Speaker L and Toad Lee organized them into something resembling a faction. Dan nearly destroyed them with a corrupted mage staff. They have endured barrel imprisonment, fireball attacks, staff corruption, dimensional fracture, and the general indifference of everyone who considers Toads expendable. They are still here. They are still fighting. Waluigi respects survivors, and the Liberated Toads have survived things that would have broken other groups. WAH.",
-    "description": "This collection groups the Liberated Toads and their story—from barrel discovery through faction formation through current crisis. Their journey from cargo to combatants represents something important about what happens when disposable people refuse to be disposed of.",
+    "description": "This collection groups the Liberated Toads and their story—from barrel discovery through faction formation through the current crisis. Their journey from cargo to combatants represents something important about what happens when disposable people refuse to be disposed of, and Waluigi documents it with a respect he does not extend lightly.\n\n## From Cargo To Community\n\nThe Liberated Toads are exactly what their name suggests: Toads who were liberated. Specifically, over 150 Toads were found packed into barrels aboard the Vigilance, trafficked by the Iron Legion, reduced to freight in their own kingdom. Speaker L and Toad Lee organized the survivors into something that could stand upright, and the community grew from there—hardened by Legion brutality, strained by Dan's staff crisis, and dragged into politics before it had even finished becoming safe.\n\n## The People Who Hold It Together\n\nThis collection deliberately foregrounds the unglamorous roles. Rodger counts bandages and guards rotations while louder people argue about destiny. Teacher T insists that language should help frightened people understand what is happening to them. Nerd T tracks everything with spreadsheets. These are the citizens who turned a barrel of victims into a functioning movement, and Waluigi considers their paperwork more heroic than most swordfights.\n\n## Speaker L's Transformation\n\nThe collection also records the darker arc: Speaker L's evolution from naive politician into a ruthless tactician who engineered the greatest prison break in Iron Legion history at Aegis Command. The Liberated Toads are no longer only survivors—they are a power, with all the moral complications that power brings.\n\n## The Naming Dispute\n\nThe Liberated Toads are also, to Waluigi's ongoing irritation, the audience that turned the Disaster Inc. Naming Dispute into public theatre. Named survivors adopted, mocked, analyzed, and merchandised the rival names—Disaster Inc., the Freeroamer Heroes, the Freeloader Zeros—until brand theft became a community pastime. Waluigi objects. The Toads find it hilarious. WAH.",
     "members": [
-      { "id": "speaker_l", "name": "Speaker L", "role": "Mastermind of the First Cohort" },
-      { "id": "toad_lee", "name": "Toad Lee", "role": "Co-leader, Feywild survivor" },
-      { "id": "dan", "name": "Dan", "role": "Former co-leader, staff corruption victim" },
-      { "id": "liberated_toads", "name": "Liberated Toads", "role": "The faction itself" }
+      {
+        "id": "speaker_l",
+        "name": "Speaker L",
+        "role": "Mastermind of the First Cohort"
+      },
+      {
+        "id": "toad_lee",
+        "name": "Toad Lee",
+        "role": "Co-leader, Feywild survivor"
+      },
+      {
+        "id": "dan",
+        "name": "Dan",
+        "role": "Former co-leader, staff corruption victim"
+      },
+      {
+        "id": "liberated_toads",
+        "name": "Liberated Toads",
+        "role": "The faction itself"
+      }
     ],
     "articles": [
       "liberated_toads",
@@ -203,7 +367,11 @@
       "vigilance",
       "aegis_command_riot"
     ],
-    "relatedArticles": ["liberated_toads", "speaker_l", "toad_lee"]
+    "relatedArticles": [
+      "liberated_toads",
+      "speaker_l",
+      "toad_lee"
+    ]
   },
   {
     "id": "rakasha_collection",
@@ -213,11 +381,23 @@
     "scope": "Rakasha tribes, leadership, spirit-walkers, and their connection to the assassination",
     "criteria": "Characters and traditions connected to the Rakasha people.",
     "summary": "The Rakasha are one of the older peoples in the region—a tribal confederation led by Chief Thornpaw, who loved Princess Peach when loving her was forbidden. Their spirit-walkers navigate dimensional boundaries without Guild assistance. Their territories have remained stable while the Mushroom Kingdom tore itself apart. Thornpaw's revelation at Fawful's gala confirmed the secret relationship, the secret hatch, the secret heir—details that transform the assassination narrative. The Rakasha have been marginalized by the kingdom for generations. Now, with the kingdom collapsing and their dimensional expertise suddenly valuable, they may finally be positioned to matter. WAH.",
-    "description": "This collection groups the Rakasha and everything associated with them—leadership, traditions, territorial claims, and their central role in the assassination conspiracy theories. Chief Thornpaw's testimony has made them essential to understanding what happened eighty-five years ago.",
+    "description": "This collection groups the Rakasha and everything associated with them—leadership, traditions, territorial claims, and their central role in the assassination conspiracy theories. Chief Thornpaw's testimony has made them essential to understanding what happened eighty-five years ago, and Waluigi has gathered the material here so readers stop treating them as background scenery.\n\n## An Older People\n\nThe Rakasha are one of the older peoples in the region—a tribal confederation whose roots predate several of the institutions that now presume to govern them. Their territories lie beyond the eastern forests, and their culture carries knowledge the Mages' Guild would very much prefer to monopolize. Waluigi respects any group that was doing things correctly for centuries before a bureaucracy showed up to charge them for it.\n\n## Spirit-Walkers\n\nThe Rakasha's most consequential tradition is not a species trait but a PRACTICE: the spirit-walkers, individuals trained to perceive dimensional boundaries, transit between planes, and communicate across them without Guild assistance. This is spiritual technology that predates the Guild by centuries, and in a crisis defined by a shattered reality, it may be the single most valuable skill anyone possesses. The Guild's monopoly on planar magic looks a great deal weaker once you remember the spirit-walkers never needed it.\n\n## Thornpaw And The Conspiracy\n\nChief Thornpaw sits at the intersection of Rakasha history and the kingdom's deepest secret. At Fawful's gala he testified to a secret relationship with Princess Peach, to the hidden hatch in her chambers, and to knowledge that bears directly on her assassination. This testimony transformed the Rakasha from a distant confederation into essential witnesses—and Thornpaw into both a mourner and a suspect. WAH.",
     "members": [
-      { "id": "chief_thornpaw", "name": "Chief Thornpaw", "role": "Leader, Peach's lover, keeper of secrets" },
-      { "id": "rakasha", "name": "Rakasha", "role": "The people themselves" },
-      { "id": "spirit_walkers", "name": "Spirit-Walkers", "role": "Dimensional practitioners" }
+      {
+        "id": "chief_thornpaw",
+        "name": "Chief Thornpaw",
+        "role": "Leader, Peach's lover, keeper of secrets"
+      },
+      {
+        "id": "rakasha",
+        "name": "Rakasha",
+        "role": "The people themselves"
+      },
+      {
+        "id": "spirit_walkers",
+        "name": "Spirit-Walkers",
+        "role": "Dimensional practitioners"
+      }
     ],
     "articles": [
       "rakasha",
@@ -226,7 +406,11 @@
       "fawful_gala_revelations",
       "princess_peach"
     ],
-    "relatedArticles": ["chief_thornpaw", "spirit_walkers", "rakasha"]
+    "relatedArticles": [
+      "chief_thornpaw",
+      "spirit_walkers",
+      "rakasha"
+    ]
   },
   {
     "id": "assassination_conspiracy_collection",
@@ -236,14 +420,38 @@
     "scope": "Princess Peach's assassination, the alleged conspiracy, and the ongoing investigation",
     "criteria": "Characters, events, and evidence connected to the assassination and its cover-up.",
     "summary": "Princess Peach was assassinated on Highsun 1, 955 BF. The official narrative blamed Bowser. The evidence was weak. Eighty-five years later, the Loyalists claim to have proof that the assassination was an inside job—enabled by the Regency, facilitated by the Mages' Guild, covered up by everyone who benefited. Lady Bloomia holds evidence in hiding. Chief Thornpaw has confirmed the secret relationship. Toadsworth the Elder's journals allegedly confess to 'the arrangement.' The killer's identity remains unknown—'someone the Princess loved,' according to Bloomia. This collection gathers everything connected to the conspiracy that broke the kingdom. WAH.",
-    "description": "This collection is the central hub for understanding the assassination and its aftermath—the evidence, the theories, the witnesses, the suspects, and the eighty-five years of consequences. Everything in the current crisis connects back to what happened in 955 BF.",
+    "description": "This collection is the central hub for understanding the assassination and its aftermath—the evidence, the theories, the witnesses, the suspects, and the eighty-five years of consequences. Everything in the current crisis connects back to what happened in 955 BF, which is why Waluigi has gathered the whole tangled affair into a single place rather than making readers reconstruct it from scattered pages.\n\n## The Crime\n\nPrincess Peach was assassinated on Highsun 1, 955 BF. The official narrative blamed Bowser, which was convenient, familiar, and—according to the evidence that survives—extremely thin. The Loyalists now claim to hold proof that the killing was an inside job: enabled by the Regency, facilitated by figures inside the palace, and buried by the institutions that inherited power from the tragedy.\n\n## The Web Of Suspects\n\nThis collection deliberately places the innocent, the accused, and the possibly guilty side by side. Toadsworth the Elder and the Regency he founded. The Mages' Guild, whose behavior around the magical evidence has been consistently suspicious. Chief Thornpaw, whose secret relationship with Peach makes him both a grieving witness and an obvious suspect. Lady Bloomia, the unknown assassin, and the figure known only as the Silent One. Waluigi presents them together because a conspiracy is best understood as a shape, not a single face.\n\n## Why It Still Matters\n\nEighty-five years is long enough for a secret to become the foundation everything else is built on. The guard-rotation gap, the suppressed investigation, the private journals—each thread pulls on the current war. Understand the assassination and you understand \"the arrangement,\" the Regency's fragility, and why Toad Town is under siege today. WAH.",
     "members": [
-      { "id": "princess_peach", "name": "Princess Peach", "role": "Victim, martyr, mystery" },
-      { "id": "lady_bloomia", "name": "Lady Bloomia", "role": "Witness, evidence bearer, hidden" },
-      { "id": "chief_thornpaw", "name": "Chief Thornpaw", "role": "Secret lover, key witness" },
-      { "id": "toadsworth_sr", "name": "Toadsworth the Elder", "role": "Alleged enabler" },
-      { "id": "unknown_assassin", "name": "Unknown Assassin", "role": "The blade that history cannot name" },
-      { "id": "the_silent_one", "name": "The Silent One", "role": "Founding martyr, Bloomia's protector" }
+      {
+        "id": "princess_peach",
+        "name": "Princess Peach",
+        "role": "Victim, martyr, mystery"
+      },
+      {
+        "id": "lady_bloomia",
+        "name": "Lady Bloomia",
+        "role": "Witness, evidence bearer, hidden"
+      },
+      {
+        "id": "chief_thornpaw",
+        "name": "Chief Thornpaw",
+        "role": "Secret lover, key witness"
+      },
+      {
+        "id": "toadsworth_sr",
+        "name": "Toadsworth the Elder",
+        "role": "Alleged enabler"
+      },
+      {
+        "id": "unknown_assassin",
+        "name": "Unknown Assassin",
+        "role": "The blade that history cannot name"
+      },
+      {
+        "id": "the_silent_one",
+        "name": "The Silent One",
+        "role": "Founding martyr, Bloomia's protector"
+      }
     ],
     "articles": [
       "princess_peach",
@@ -256,7 +464,11 @@
       "mages_guild",
       "mushroom_regency"
     ],
-    "relatedArticles": ["peach_loyalists", "star_road_network", "the_long_dark"]
+    "relatedArticles": [
+      "peach_loyalists",
+      "star_road_network",
+      "the_long_dark"
+    ]
   },
   {
     "id": "mario_brothers_collection",
@@ -266,10 +478,18 @@
     "scope": "Mario, Luigi, and the mystery of their separation",
     "criteria": "Characters and events connected to Mario's disappearance and Luigi's current activities.",
     "summary": "Mario was the Mushroom Kingdom's greatest hero—the man who saved Princess Peach countless times before her assassination. Then he was sent abroad before the killing, spent decades investigating, was allegedly 'reallocated' by the Regency, and disappeared almost entirely. Luigi found him at the Star Fountain. They flew together. Luigi said 'Nothing can hurt us as long as we're together.' Then Mario vanished AGAIN, and Luigi appeared at Raventree Manor working for the Mages' Guild. ALONE. Something happened to the Mario Brothers. Understanding what may be essential to understanding everything else. WAH.",
-    "description": "This collection groups Mario, Luigi, and the mystery surrounding their separation—the Star Fountain reunion, the subsequent disappearance, Luigi's Guild employment, and all the questions that remain unanswered. The brothers' story intersects with the assassination conspiracy in ways that are not yet fully clear.",
+    "description": "This collection groups Mario, Luigi, and the mystery surrounding their separation—the Star Fountain reunion, the subsequent disappearance, Luigi's Guild employment, and all the questions that remain unanswered. The brothers' story intersects with the assassination conspiracy in ways that are not yet fully clear, and Waluigi has assembled the pieces here precisely because the gaps between them are so suspicious.\n\n## The Hero Who Left\n\nMario was the Mushroom Kingdom's greatest hero—the man who saved Princess Peach more times than the official histories bothered to count. Then, before the assassination, he was sent abroad. He spent decades investigating something. He was allegedly \"reallocated\" by the Regency. And then he disappeared almost entirely. Waluigi lists these facts in sequence because the sequence is the mystery: heroes do not usually get filed away by paperwork unless someone wanted them filed.\n\n## Luigi In The Machine\n\nLuigi's path runs straight into the institution most people suspect of the cover-up: he took employment with the Mages' Guild, appearing in the record as Agent L. Whether this makes Luigi an infiltrator, a captive, a collaborator, or simply a man who needed work, Waluigi cannot yet say. But a brother of the vanished hero drawing a Guild paycheck is not a coincidence anyone should file under \"career choices.\"\n\n## The Unanswered Questions\n\nThe Star Fountain Reunion brought the brothers back into the story briefly, only for the questions to multiply rather than resolve. Where is Mario now? What did his investigation uncover? What is \"the arrangement,\" and how much did the brothers know? This collection does not answer these questions. It organizes them, so that when the answers finally surface, readers will already know exactly which doors they open. WAH.",
     "members": [
-      { "id": "mario", "name": "Mario", "role": "The plumber who vanished" },
-      { "id": "luigi", "name": "Luigi", "role": "The reluctant ghostbuster, working alone" }
+      {
+        "id": "mario",
+        "name": "Mario",
+        "role": "The plumber who vanished"
+      },
+      {
+        "id": "luigi",
+        "name": "Luigi",
+        "role": "The reluctant ghostbuster, working alone"
+      }
     ],
     "articles": [
       "mario",
@@ -278,7 +498,9 @@
       "star_fountain",
       "the_arrangement"
     ],
-    "relatedArticles": ["mario"]
+    "relatedArticles": [
+      "mario"
+    ]
   },
   {
     "id": "planar_crisis_collection",
@@ -287,11 +509,34 @@
     "type": "Event Collection",
     "scope": "The Planar Fracture, the three dimensional fragments, and the quest to fix everything",
     "criteria": "Locations, events, and entities connected to the dimensional instability.",
-    "summary": "The Planar Fracture shattered Raventree Manor across three dimensions—Material, Shadowfell, and Feywild—with the Deep Mirror collapsing in between. Disaster Inc. was scattered. Waluigi ended up dealing with fairy politics. Archie ended up at vampire dinner parties. Markop ended up in a dying dimension filled with abomination vats. The Oracle claims the party must kill 'keepers' to reunify the timelines. The Iron Legion controls the only stable anchor point. Spirit-walkers may hold solutions that conventional magic cannot provide. This collection gathers everything connected to the dimensional catastrophe that defines the current crisis. WAH.",
-    "description": "This collection is the hub for understanding the Planar Fracture and its consequences—the three dimensional fragments, the scattered party members, the Oracle's questionable guidance, and the desperate efforts to put reality back together.",
+    "summary": "The Planar Fracture shattered Raventree Manor across three dimensions—Material, Shadowfell, and Feywild—with the Deep Mirror collapsing in between. Disaster Inc. was scattered. Waluigi ended up dealing with fairy politics. Archie ended up at vampire dinner parties. Markop ended up in a dying dimension filled with abomination vats. The Oracle claims the party must kill 'keepers' to reunify the timelines. The Iron Legion controls the only stable anchor point. Spirit-walkers may hold solutions that conventional magic cannot provide. This collection gathers everything connected to the dimensional catastrophe that defines the current crisis. WAH.\n\nRecent Shadow Estate update: all four portal artifacts are now secured after Remi mended the Mirror of True Reflection, but the portal circle is occupied. Reality is technically closer to repair and practically closer to another chase scene.",
+    "description": "This collection is the hub for understanding the Planar Fracture and its consequences—the three dimensional fragments, the scattered party members, the Oracle's questionable guidance, and the desperate efforts to put reality back together. If a reader only studies one collection to understand why the current era feels like the world is coming apart, it should be this one, because the world is literally coming apart.\n\n## The Shape Of The Fracture\n\nThe Planar Fracture shattered Raventree Manor across three dimensions—the Material plane, the Shadowfell, and the Feywild—with the collapsing Deep Mirror wedged in between them like a broken hinge. Disaster Inc. was scattered by the event, each member deposited into a different nightmare. Waluigi ended up negotiating fairy politics. Archie ended up attending vampire dinner parties. Markop ended up in a dying dimension full of abomination vats. None of these were vacations.\n\n## The Oracle Problem\n\nThe Oracle claims the party must hunt and kill a set of \"keepers\" to reunify the timelines. Waluigi files this guidance under \"possibly true, possibly the raving of a metaphysical custodian who has survived a bullet to the brain and no longer keeps consistent pronouns.\" The Oracle is included in this collection not because the Oracle can be trusted, but because ignoring the Oracle appears to be even more dangerous.\n\n## Who Controls The Anchors\n\nReality does not repair itself for free. The Iron Legion currently controls the only stable anchor point, which turns a metaphysical emergency into a military bargaining chip. Meanwhile the Rakasha spirit-walkers may hold techniques that conventional Guild magic cannot replicate. The people who can fix reality and the people who own the tools to fix it are, inconveniently, not the same people.\n\n## Shadow Estate Update\n\nAll four portal artifacts are now secured after Remi mended the Mirror of True Reflection—but the portal circle is occupied, most alarmingly by Tanukiburt standing beside the injured real Toadburt. Reality is therefore technically closer to repair and practically closer to another chase scene. Waluigi would like the record to show that \"we found the exit\" and \"we can use the exit\" are two very different sentences. WAH.",
     "members": [
-      { "id": "the_oracle", "name": "The Oracle", "role": "Metaphysical custodian, possibly mad scientist" },
-      { "id": "raventree_manor", "name": "Raventree Manor", "role": "Epicenter of the fracture" }
+      {
+        "id": "the_oracle",
+        "name": "The Oracle",
+        "role": "Metaphysical custodian, possibly mad scientist"
+      },
+      {
+        "id": "raventree_manor",
+        "name": "Raventree Manor",
+        "role": "Epicenter of the fracture"
+      },
+      {
+        "id": "shadow_estate_mirror_rooftop_escape",
+        "name": "The Mirror, the Roof, and the Fall",
+        "role": "Artifact recovery and rooftop escape turning point"
+      },
+      {
+        "id": "merric",
+        "name": "Merric",
+        "role": "Newly recruited axe-wielding sheep ally"
+      },
+      {
+        "id": "tanukiburt",
+        "name": "Tanukiburt",
+        "role": "Portal-circle hostile / Toadburt-shaped problem"
+      }
     ],
     "articles": [
       "planar_fracture",
@@ -301,9 +546,17 @@
       "darius_sanctum",
       "deep_mirror",
       "the_oracle",
-      "corvinarus_family"
+      "corvinarus_family",
+      "shadow_estate_mirror_rooftop_escape",
+      "merric",
+      "tanukiburt",
+      "vaxillus_the_beastmaster"
     ],
-    "relatedArticles": ["the_oracle", "spirit_walkers", "iron_legion"]
+    "relatedArticles": [
+      "the_oracle",
+      "spirit_walkers",
+      "iron_legion"
+    ]
   },
   {
     "id": "star_road_collection",
@@ -313,11 +566,23 @@
     "scope": "The Star Road Network, the Star Spirits, and the Long Dark that followed their loss",
     "criteria": "Locations and entities connected to the Star Road system.",
     "summary": "The Star Road Network was once the Mushroom Kingdom's circulatory system—seven waypoints enabling instant transit and generating the power that ran everything. The Star Spirits maintained it. Star Bits funded it. Then it was destroyed in 962 BF, triggering the Long Dark—three years of infrastructure collapse that killed more people than the civil war. The Star Fountain persists, showing activity where other waypoints are ruins. Mario and Luigi reunited there. Something celestial may still be engaged. This collection gathers everything connected to what the kingdom lost and what might be recovered. WAH.",
-    "description": "This collection groups the Star Road Network and everything associated with it—the waypoints, the Star Spirits, the Long Dark, and the Star Fountain's anomalous persistence. Understanding this infrastructure is essential to understanding why the kingdom collapsed and whether it can be restored.",
+    "description": "This collection groups the Star Road Network and everything associated with it—the waypoints, the Star Spirits, the Long Dark, and the Star Fountain's anomalous persistence. Understanding this infrastructure is essential to understanding why the kingdom collapsed and whether it can be restored, which is why Waluigi treats it less like ancient history and more like a coroner's report on a civilization.\n\n## The Circulatory System\n\nThe Star Road Network was once the Mushroom Kingdom's circulatory system—seven waypoints that enabled instant transit and generated the power that ran nearly everything. The Star Spirits maintained it. Star Bits funded it. For as long as it functioned, the kingdom enjoyed a connectivity and prosperity that the current generation can barely imagine. Waluigi notes that people rarely appreciate infrastructure until it stops, at which point they appreciate almost nothing else.\n\n## The Collapse\n\nThe Network was destroyed in 962 BF, and its destruction triggered the era now remembered as the Long Dark—a period of decline in which transit failed, power faded, and the kingdom began the long slide toward the crisis it now endures. This collection treats the Star Road's fall as a root cause, not a footnote: many of the modern flashpoints are downstream of the day the stars went out.\n\n## The Fountain That Refuses To Die\n\nAgainst all expectation, the Star Fountain persists, an anomaly the Star Fountain Reunion brought back into the story. Its stubborn survival raises the collection's central question: if one node still holds power, can the whole Network be restored, or is the Fountain merely the last ember of a fire that will not relight? Waluigi documents the possibility without promising the answer. WAH.",
     "members": [
-      { "id": "star_spirits", "name": "Star Spirits", "role": "Celestial maintainers, currently withdrawn" },
-      { "id": "star_road_network", "name": "Star Road Network", "role": "The infrastructure itself" },
-      { "id": "star_fountain", "name": "Star Fountain", "role": "The waypoint that refuses to die" }
+      {
+        "id": "star_spirits",
+        "name": "Star Spirits",
+        "role": "Celestial maintainers, currently withdrawn"
+      },
+      {
+        "id": "star_road_network",
+        "name": "Star Road Network",
+        "role": "The infrastructure itself"
+      },
+      {
+        "id": "star_fountain",
+        "name": "Star Fountain",
+        "role": "The waypoint that refuses to die"
+      }
     ],
     "articles": [
       "star_road_network",
@@ -327,7 +592,11 @@
       "the_long_dark",
       "mushroom_kingdom"
     ],
-    "relatedArticles": ["star_spirits", "star_fountain", "star_fountain_reunion"]
+    "relatedArticles": [
+      "star_spirits",
+      "star_fountain",
+      "star_fountain_reunion"
+    ]
   },
   {
     "id": "fawful_alliance_collection",
@@ -337,10 +606,18 @@
     "scope": "Fawful, his dragon allies, and the threat they represent",
     "criteria": "Characters and events connected to Fawful's rising power.",
     "summary": "Fawful was supposed to be irrelevant—a mad assistant to a defeated witch, someone history had already forgotten. Instead, he emerged with five dragons following him, demonstrated immunity to dragonfire, and hosted a diplomatic gala where Chief Thornpaw revealed secrets that reshook the kingdom. 'The one who cannot burn' commands forces that invalidate every conventional military calculation. Whatever Fawful wants, he has the power to take it. Whatever he plans, no one can stop him through force alone. This collection gathers everything known about the threat that makes other threats seem manageable. WAH.",
-    "description": "This collection groups Fawful and his dragon alliance—the capabilities demonstrated, the gala revelations, and the strategic implications. Fawful represents the kind of threat that conventional factions are not prepared to address.",
+    "description": "This collection groups Fawful and his dragon alliance—the capabilities demonstrated, the gala revelations, and the strategic implications. Fawful represents the kind of threat that conventional factions are not prepared to address, and Waluigi has organized the material here so that readers appreciate exactly how bad the situation is before they make jokes about mustard.\n\n## Why This Collection Exists\n\nMost threats can be measured. You count the soldiers, weigh the treasury, map the territory, and arrive at a number. Fawful cannot be measured this way. He was supposed to be a footnote—the mad assistant to a defeated witch—and instead he walked out of irrelevance with five dragons trailing behind him and an apparent immunity to dragonfire. A creature that cannot burn, commanding creatures whose entire strategic value is burning, invalidates every calculation a general has ever made.\n\n## What The Gala Revealed\n\nThe diplomatic gala hosted by Fawful was not a celebration. It was a demonstration, dressed as hospitality. Under Fawful's roof, Chief Thornpaw of the Rakasha delivered testimony that reopened the eighty-five-year-old wound of Princess Peach's assassination, which means Fawful is not merely a military problem—he is now entangled with the deepest political secret in the kingdom's history. Waluigi notes that hosting the gala was itself a flex: only someone who fears no one invites everyone into the same room.\n\n## The Strategic Meaning\n\nWhatever Fawful wants, he currently has the power to take. Whatever he plans, no faction can stop through force alone. That is the uncomfortable truth this collection is built around. The Iron Legion's discipline, the Loyalists' fanaticism, and the Regency's institutions were all designed for opponents who can be hurt. Fawful is the exception, and exceptions are how empires fall. WAH.",
     "members": [
-      { "id": "fawful", "name": "Fawful", "role": "The one who cannot burn" },
-      { "id": "dragons", "name": "Dragons", "role": "Ancient powers who chose a madman" }
+      {
+        "id": "fawful",
+        "name": "Fawful",
+        "role": "The one who cannot burn"
+      },
+      {
+        "id": "dragons",
+        "name": "Dragons",
+        "role": "Ancient powers who chose a madman"
+      }
     ],
     "articles": [
       "fawful",
@@ -348,7 +625,11 @@
       "fawful_gala_revelations",
       "chief_thornpaw"
     ],
-    "relatedArticles": ["fawful", "fawful_gala_revelations", "chief_thornpaw"]
+    "relatedArticles": [
+      "fawful",
+      "fawful_gala_revelations",
+      "chief_thornpaw"
+    ]
   },
   {
     "id": "corvinarus_family_collection",
@@ -358,12 +639,28 @@
     "scope": "The Corvinarus family across all dimensional branches",
     "criteria": "Characters and locations connected to the Corvinarus multi-dimensional presence.",
     "summary": "The Corvinarus family is not merely wealthy or powerful—they are EVERYWHERE. Vampire lords in the Shadowfell's Shadow Estate. Fey nobility in the Feywild's Overgrown Manor. Whatever the Oracle is in the Deep Mirror's collapsing sanctum. Raventree Manor was their ancestral seat before it fractured across dimensions. They control the Onyx Hand, influence regional politics, and apparently conduct biological experiments in dying realities. Understanding the Corvinarus family requires accepting that 'family' can span multiple planes of existence simultaneously. WAH.",
-    "description": "This collection groups the Corvinarus family and their multi-dimensional presence—the Shadow Estate's vampire lords, Lady Aurelian's fey court, the Oracle's sanctum, and their connection to the Onyx Hand. They are arguably the most complicated faction in the crisis.",
+    "description": "This collection groups House Corvinarus and their multi-dimensional presence—the Shadow Estate's vampire lords, the fey court, the Oracle's collapsing sanctum, and their connection to the Onyx Hand. They are arguably the most complicated faction in the crisis, and Waluigi means \"complicated\" in the specific sense of \"actively trying to kill people across more than one plane of existence.\"\n\n## A Family That Is Everywhere\n\nThe Corvinarus family is not merely wealthy or powerful—they are EVERYWHERE. Vampire lords hold court in the Shadowfell's Shadow Estate. Fey nobility rule the Feywild's Overgrown Manor. Whatever the Oracle has become presides over the Deep Mirror's collapsing sanctum. Raventree Manor was theirs before it shattered into three dimensions at once, which suggests the family did not merely live at the epicenter of the Planar Fracture—they may have been part of its architecture.\n\n## The Succession War\n\nHouse Corvinarus is best described as a cosmic structural failure with a family crest. Its succession dispute has curdled from cold political maneuvering into open bloodshed, with Vivian Corvinarus hunting party members through corridors that no longer obey ordinary geography. A family fighting over an inheritance is normal. A family fighting over an inheritance that spans three planes and includes reality itself is the reason this collection exists.\n\n## The Onyx Hand Connection\n\nThe family's reach extends into the Onyx Hand, the shadow court that judges everyone and answers to no one, which means the Corvinarus influence touches not only three dimensions but the justice system that operates in the gaps between factions. Waluigi advises readers to treat every Corvinarus name in this collection as a thread that leads somewhere darker than where it started. WAH.",
     "members": [
-      { "id": "corvinarus_family", "name": "Corvinarus Family", "role": "The dynasty itself" },
-      { "id": "the_oracle", "name": "The Oracle", "role": "Possibly Orantha Corvinarus, possibly something else" },
-      { "id": "lady_aurelian", "name": "Lady Aurelian Corvinarus", "role": "Fey court ruler, riddle enthusiast" },
-      { "id": "vivian_corvinarus", "name": "Vivian Corvinarus", "role": "Succession claimant, axe wielder, death beam shooter" }
+      {
+        "id": "corvinarus_family",
+        "name": "Corvinarus Family",
+        "role": "The dynasty itself"
+      },
+      {
+        "id": "the_oracle",
+        "name": "The Oracle",
+        "role": "Possibly Orantha Corvinarus, possibly something else"
+      },
+      {
+        "id": "lady_aurelian",
+        "name": "Lady Aurelian Corvinarus",
+        "role": "Fey court ruler, riddle enthusiast"
+      },
+      {
+        "id": "vivian_corvinarus",
+        "name": "Vivian Corvinarus",
+        "role": "Succession claimant, axe wielder, death beam shooter"
+      }
     ],
     "articles": [
       "corvinarus_family",
@@ -374,7 +671,9 @@
       "the_oracle",
       "onyx_hand"
     ],
-    "relatedArticles": ["corvinarus_family"]
+    "relatedArticles": [
+      "corvinarus_family"
+    ]
   },
   {
     "id": "dk_crew_collection",
@@ -384,11 +683,23 @@
     "scope": "Donkey Kong's faction, Kongo Bongo territory, and their regional conflicts",
     "criteria": "Characters and events connected to the Kong faction.",
     "summary": "The DK Crew controls Kongo Bongo Island and represents one of the more stable territorial powers in the region—which is not saying much when stability is measured against total collapse. Donkey Kong leads through a combination of physical dominance and genuine popularity. Lanky Kong causes diplomatic incidents. King K. Rool and the Kremlings remain persistent antagonists. The Second Diplomatic Summit demonstrated that Kong politics can be weaponized by outside forces—the Kremlings deliberately provoked Lanky and documented the chaos. Waluigi respects the Kongs' straightforward approach to problems even while noting that 'straightforward' sometimes means 'diplomatically catastrophic.' WAH.",
-    "description": "This collection groups the DK Crew and their regional situation—leadership, territorial claims, and the ongoing conflict with the Kremlings. The Kongs represent what functional governance looks like in the current crisis, which may not be saying much.",
+    "description": "This collection groups the DK Crew and their regional situation—leadership, territorial claims, and the ongoing conflict with the Kremlings. The Kongs represent what functional governance looks like in the current crisis, which, given the competition, may not be saying much, but Waluigi grades on the curve the century has forced upon him.\n\n## Stability By Comparison\n\nThe DK Crew controls Kongo Bongo Island and stands as one of the more stable territorial powers in the region. Donkey Kong leads through a rare combination of genuine physical dominance and genuine popularity—a pairing most rulers can only fake. Waluigi respects the straightforwardness of a leader whose authority does not require eighty-five years of buried secrets to sustain it.\n\n## The Lanky Kong Variable\n\nEvery functional government has one weakness, and for the Kongs that weakness has a name: Lanky Kong, chaos vector and reliable generator of diplomatic incidents. The Second Diplomatic Summit proved that this weakness can be weaponized. The Kremlings deliberately provoked Lanky and documented the resulting chaos, demonstrating that Kong politics can be turned into a weapon by any outside force patient enough to poke the right Kong.\n\n## The Kremling Problem\n\nKing K. Rool and the Kremlings remain persistent antagonists, and their approach at the summit shows they have graduated from brute raids to information warfare. This collection tracks that rivalry precisely because it illustrates a broader truth of the era: even the most stable powers can be destabilized without a single wall being breached, provided your enemy understands your family better than you do. WAH.",
     "members": [
-      { "id": "donkey_kong", "name": "Donkey Kong", "role": "Leader, banana enthusiast" },
-      { "id": "lanky_kong", "name": "Lanky Kong", "role": "Chaos vector, diplomatic incident generator" },
-      { "id": "dk_crew", "name": "DK Crew", "role": "The faction itself" }
+      {
+        "id": "donkey_kong",
+        "name": "Donkey Kong",
+        "role": "Leader, banana enthusiast"
+      },
+      {
+        "id": "lanky_kong",
+        "name": "Lanky Kong",
+        "role": "Chaos vector, diplomatic incident generator"
+      },
+      {
+        "id": "dk_crew",
+        "name": "DK Crew",
+        "role": "The faction itself"
+      }
     ],
     "articles": [
       "dk_crew",
@@ -397,7 +708,10 @@
       "kremlings",
       "second_summit"
     ],
-    "relatedArticles": ["kremlings", "dk_crew"]
+    "relatedArticles": [
+      "kremlings",
+      "dk_crew"
+    ]
   },
   {
     "id": "mushroom_kingdom_flashpoints",
@@ -407,7 +721,7 @@
     "scope": "Battles, crises, and strategic locations",
     "criteria": "Pages representing high instability, political violence, or severe magical risk.",
     "summary": "A practical reading list for anyone trying to understand why the Mushroom Kingdom is having such a bad century.",
-    "description": "Waluigi assembled this collection for readers who want the broad shape of the crisis without clicking random pages like amateurs.",
+    "description": "Waluigi assembled this collection for readers who want the broad shape of the crisis without clicking random pages like amateurs. Think of it as a survival itinerary written in reverse: every entry is a place or moment that made the kingdom worse, arranged so a careful reader can trace how one catastrophe fed the next.\n\n## What Counts As A Flashpoint\n\nA flashpoint, in Waluigi's editorial judgment, is any location or event where the pressure that had been building quietly finally became public, expensive, and impossible to ignore. The Fall of Bramblehaven, the slow horror of Dreamland, the impossible geometry of Raventree Manor, the Planar Fracture itself, and the Second Diplomatic Summit all qualify. Each began as someone's manageable problem and ended as everyone's emergency.\n\n## How To Read This List\n\nDo not treat these entries as isolated disasters. Read them as a chain. Bramblehaven radicalized the survivors who later filled the Loyalist ranks. The Planar Fracture scattered Disaster Inc. across three dimensions and turned a haunted manor into the epicenter of reality's collapse. The summits demonstrated, twice, that diplomacy in this era is simply combat with better catering. A reader who studies the flashpoints in order will understand the century faster than one who reads the histories front to back.\n\n## Waluigi's Warning\n\nIf you are the sort of person who visits places you read about in encyclopedias, Waluigi recommends visiting none of these. They are documented so that they can be understood, not so that they can be toured. WAH.",
     "articles": [
       "fall_bramblehaven",
       "dreamland",
@@ -415,6 +729,10 @@
       "planar_fracture",
       "second_summit"
     ],
-    "relatedArticles": ["dreamland", "fall_bramblehaven", "second_summit"]
+    "relatedArticles": [
+      "dreamland",
+      "fall_bramblehaven",
+      "second_summit"
+    ]
   }
 ]
