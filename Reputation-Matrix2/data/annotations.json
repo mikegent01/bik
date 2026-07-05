@@ -1,0 +1,3762 @@
+[
+  {
+    "articleId": "wario",
+    "quote": "Then Wario faked his own death WITHOUT TELLING WALUIGI.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "DECADES. Decades of partnership and I find out he's 'dead' from a FLYER. A flyer, reader. With a coupon on the back.",
+        "timestamp": "Aethel 2, 1040 BF",
+        "likes": 41
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "the coupon converted at 12%. cry harder",
+        "replyTo": 0,
+        "timestamp": "Aethel 2, 1040 BF",
+        "likes": 88
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "TWELVE PERCENT? off MY grief??",
+        "replyTo": 1,
+        "timestamp": "Aethel 2, 1040 BF",
+        "likes": 30
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Textbook. Never tell your partner you're dead — a real fake death has to fool the people who'd testify. Cold. Efficient. I respect it and I'd never do it to my crew.",
+        "replyTo": 0,
+        "timestamp": "Aethel 3, 1040 BF",
+        "likes": 52
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "see? green t gets it",
+        "replyTo": 3,
+        "timestamp": "Aethel 3, 1040 BF",
+        "likes": 14
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Nobody 'gets it,' Wario. WAH.",
+        "replyTo": 4,
+        "timestamp": "Aethel 3, 1040 BF",
+        "likes": 63,
+        "edited": true
+      }
+    ]
+  },
+  {
+    "articleId": "wario",
+    "quote": "On Efferd 25th, 1040 BF—ONE DAY before the Swiftsoul explosion that got Archie framed for murder—Wario held his own funeral.",
+    "comments": [
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "One day apart. I do not believe in coincidences of that density. I could not prove it. That is a different sentence and I hate it more.",
+        "timestamp": "Efferd 27, 1040 BF",
+        "likes": 67
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "i was DEAD. subpoena a corpse. i dare you",
+        "replyTo": 0,
+        "timestamp": "Efferd 28, 1040 BF",
+        "likes": 45
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I was in a cell for a crime I didn't commit while you were eating YOUR OWN funeral shrimp. I will never let this go.",
+        "replyTo": 1,
+        "timestamp": "Efferd 29, 1040 BF",
+        "likes": 104
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "the shrimp was catered. it was very good. sorry about your murder thing",
+        "replyTo": 2,
+        "timestamp": "Efferd 29, 1040 BF",
+        "likes": 21
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi wishes to note, for the historical record, that Wario apologized for a wrongful-murder framing IN THE SAME BREATH as praising the shrimp. This is the man. This is the whole man.",
+        "replyTo": 3,
+        "timestamp": "Aethel 1, 1040 BF",
+        "likes": 58
+      }
+    ]
+  },
+  {
+    "articleId": "archie_miser",
+    "quote": "He creates them the way storms create lightning—through the accumulation of volatile conditions until discharge becomes inevitable.",
+    "comments": [
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Confirmed. Stood next to three 'discharges.' I now instinctively locate the nearest exit whenever Archie goes quiet. It's a survival reflex at this point.",
+        "timestamp": "Harvestide 4, 1040 BF",
+        "likes": 39
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I do not ACCUMULATE the conditions. They accumulate around me. There is a difference.",
+        "replyTo": 0,
+        "timestamp": "Harvestide 5, 1040 BF",
+        "likes": 12
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "Archie there is genuinely no difference from where the rest of us are standing (usually on fire)",
+        "replyTo": 1,
+        "timestamp": "Harvestide 5, 1040 BF",
+        "likes": 71
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The storm does not accumulate the lightning either. And yet.",
+        "replyTo": 1,
+        "timestamp": "Harvestide 5, 1040 BF",
+        "likes": 44
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "...",
+        "replyTo": 3,
+        "timestamp": "Harvestide 5, 1040 BF",
+        "likes": 90
+      }
+    ]
+  },
+  {
+    "articleId": "archie_miser",
+    "quote": "The Miser family enforced a life of rigidity upon Archie for 25 years, allowing him little to no personal choice in any matter.",
+    "comments": [
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "Twenty-five years. Stop on that number before you scroll. When the fire finally came, it was the first thing in my life that never asked permission. That's why I lead with it. It's the only part of me that was never someone else's.",
+        "timestamp": "Floria 12, 1040 BF",
+        "likes": 156
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "...alright. That one landed. No notes.",
+        "replyTo": 0,
+        "timestamp": "Floria 12, 1040 BF",
+        "likes": 88
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi had a joke prepared. Waluigi is putting the joke away. One time. Do not expect it again.",
+        "replyTo": 0,
+        "timestamp": "Floria 13, 1040 BF",
+        "likes": 112
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "hey. that was real. good for you archie",
+        "replyTo": 0,
+        "timestamp": "Floria 13, 1040 BF",
+        "likes": 64,
+        "edited": true
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "Wario being sincere is more alarming than anything the Miser family ever did to me.",
+        "replyTo": 3,
+        "timestamp": "Floria 13, 1040 BF",
+        "likes": 97
+      }
+    ]
+  },
+  {
+    "articleId": "green_t",
+    "quote": "Nobody knew Green T could turn into a giant.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "A GIANT. He sat on that for how long?? That's not a secret, that's a retirement plan.",
+        "timestamp": "Highsun 12, 1040 BF",
+        "likes": 73
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "A card you show is a card you've spent. I spent it when it was worth spending. Not before.",
+        "replyTo": 0,
+        "timestamp": "Highsun 13, 1040 BF",
+        "likes": 61
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "do you understand how much CARGO that moves. green t we need to talk. i have a business proposal",
+        "replyTo": 1,
+        "timestamp": "Highsun 13, 1040 BF",
+        "likes": 48
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "No.",
+        "replyTo": 2,
+        "timestamp": "Highsun 13, 1040 BF",
+        "likes": 112
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "hear me out",
+        "replyTo": 3,
+        "timestamp": "Highsun 13, 1040 BF",
+        "likes": 39
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "green t?",
+        "replyTo": 3,
+        "timestamp": "Highsun 14, 1040 BF",
+        "likes": 57
+      }
+    ]
+  },
+  {
+    "articleId": "bowser",
+    "quote": "Bowser operates on simple logic: see problem, hit problem, problem either stops being a problem or gets hit again.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "I've watched geniuses draft seventeen-point plans that failed and watched Bowser walk through a wall. I'm no longer sure the geniuses were right.",
+        "timestamp": "Harvestide 16, 1040 BF",
+        "likes": 82
+      },
+      {
+        "author": "Kamek",
+        "authorId": "kamek",
+        "faction": "Koopa Troop (Formerly)",
+        "text": "I decided this logic was obsolete and reached for the Wyrm instead. He is in a dungeon he controls. I am furniture in a crater I opened. Draw your own conclusions.",
+        "replyTo": 0,
+        "timestamp": "Highsun 27, 1040 BF",
+        "likes": 143
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "should've hit the problem",
+        "replyTo": 1,
+        "timestamp": "Highsun 28, 1040 BF",
+        "likes": 201
+      },
+      {
+        "author": "Kamek",
+        "authorId": "kamek",
+        "faction": "Koopa Troop (Formerly)",
+        "text": "Yes. Thank you. Sire.",
+        "replyTo": 2,
+        "timestamp": "Highsun 28, 1040 BF",
+        "likes": 88,
+        "edited": true
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "'should've hit the problem' is going on Waluigi's wall. Four words. Devastating. WAH.",
+        "replyTo": 2,
+        "timestamp": "Aethel 1, 1040 BF",
+        "likes": 76
+      }
+    ]
+  },
+  {
+    "articleId": "disaster_inc_naming_dispute",
+    "quote": "It is not, as Wario insists, a matter of accounts receivable.",
+    "comments": [
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "it is EXACTLY accounts receivable. the ledger says Freeloader Zeros. the ledger has never been wrong about money",
+        "timestamp": "Ongoing",
+        "likes": 54
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "And I say Freeroamer Heroes because a name is a hand you extend to a frightened person. Yours is a bill. Waluigi's is a diagnosis.",
+        "replyTo": 0,
+        "timestamp": "Ongoing",
+        "likes": 61
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "a bill IS a hand extended archie. extended for payment",
+        "replyTo": 1,
+        "timestamp": "Ongoing",
+        "likes": 97
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Three men. One name. Zero agreement. And Waluigi holding the pen. Reader, THIS is why the dispute outlives us all.",
+        "replyTo": 0,
+        "timestamp": "Ongoing",
+        "likes": 70
+      },
+      {
+        "author": "Bully T",
+        "authorId": "bully_t",
+        "faction": "Liberated Toads",
+        "text": "freeloader zeros is funnier though. sorry archie",
+        "replyTo": 1,
+        "timestamp": "Ongoing",
+        "likes": 133
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "It is NOT about which is funnier, Bully T.",
+        "replyTo": 4,
+        "timestamp": "Ongoing",
+        "likes": 22
+      },
+      {
+        "author": "Bully T",
+        "authorId": "bully_t",
+        "faction": "Liberated Toads",
+        "text": "it's a little about which is funnier",
+        "replyTo": 5,
+        "timestamp": "Ongoing",
+        "likes": 156
+      }
+    ]
+  },
+  {
+    "articleId": "shadow_estate_mirror_rooftop_escape",
+    "quote": "I was arguing about whether to wing it on a balcony when Remi was floating off a roof holding a feather.",
+    "comments": [
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "Correction: Remi did not wing it. She had the feather ready and a plan. We were improvising; she was executing a prepared contingency. The fourteen-year-old out-planned the adults. Again.",
+        "timestamp": "Harvestide 16, 1040 BF",
+        "likes": 94
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "the trampoline was RIGHT THERE and i landed next to it. NEXT to it. i think about it every day",
+        "replyTo": 0,
+        "timestamp": "Harvestide 16, 1040 BF",
+        "likes": 178
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Remi is upset about missing a trampoline she had no reason to aim for, in a thread about her flawless escape. Waluigi has never related to anyone more.",
+        "replyTo": 1,
+        "timestamp": "Harvestide 17, 1040 BF",
+        "likes": 121
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "who left a trampoline on the ground of a vampire estate. that's a liability. someone could get RESCUED on that",
+        "replyTo": 1,
+        "timestamp": "Harvestide 17, 1040 BF",
+        "likes": 66
+      }
+    ]
+  },
+  {
+    "articleId": "crown_v_bowser_0955",
+    "quote": "There was no cross-examination, no forensic phase, no genuine test of guilt.",
+    "comments": [
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "This sentence is the foundation we stand on. Eighty-five years. No cross-examination. No forensics. Waluigi calls it the trial that never happened. We call it the reason we don't lay down our arms.",
+        "timestamp": "Highsun, 1040 BF",
+        "likes": 88
+      },
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "A kingdom in the shock of regicide could not afford a decade-long inquiry. I do not defend the men of 955. I will not pretend they had the calm you enjoy while critiquing them from a city you seized.",
+        "replyTo": 0,
+        "timestamp": "Highsun, 1040 BF",
+        "likes": 41
+      },
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "We seized the city BECAUSE of the inquiry you keep not affording. Try to keep up, Chancellor.",
+        "replyTo": 1,
+        "timestamp": "Highsun, 1040 BF",
+        "likes": 97
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Two people who want each other dead, agreeing on the facts, fighting only over the excuse. The truth here isn't hidden. It's admitted, and still nobody acts on it. That's the tragedy.",
+        "replyTo": 0,
+        "timestamp": "Highsun, 1040 BF",
+        "likes": 73
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "didn't do it",
+        "replyTo": 0,
+        "timestamp": "Highsun, 1040 BF",
+        "likes": 240
+      }
+    ]
+  },
+  {
+    "articleId": "iron_legion",
+    "quote": "He does NOT have respect for what the Iron Legion does with that competence.",
+    "comments": [
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "A competent evil isn't half an evil — it's a doubled one. The disorganized cruel man kills dozens. The organized one files it, funds it, and calls it Order 120.",
+        "timestamp": "Highsun 21, 1040 BF",
+        "likes": 129
+      },
+      {
+        "author": "General Ironhand",
+        "authorId": "general_ironhand",
+        "faction": "Iron Legion",
+        "text": "Administration is not malice. Every order was lawful within the charter. I did not enjoy Order 120. Enjoyment is not required. Only the signature.",
+        "replyTo": 0,
+        "timestamp": "Highsun 22, 1040 BF",
+        "likes": 8
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "You just described the machine and called it a defense.",
+        "replyTo": 1,
+        "timestamp": "Highsun 22, 1040 BF",
+        "likes": 147
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "'Enjoyment is not required. Only the signature is required.' Ironhand wrote that to EXONERATE himself. Enter it as the confession it is. Go sit on a Thwomp, General.",
+        "replyTo": 1,
+        "timestamp": "Highsun 23, 1040 BF",
+        "likes": 188
+      }
+    ]
+  },
+  {
+    "articleId": "waluigi",
+    "quote": "Waluigi has competed in every sporting event the Mushroom Kingdom has ever hosted and has been ROBBED of victory in approximately ninety percent of them.",
+    "comments": [
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "'robbed'",
+        "timestamp": "Chillwind 3, 1040 BF",
+        "likes": 203
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "ROBBED. The net was too high. The officials were biased. The physics were selectively enforced. Waluigi will not elaborate because Waluigi has elaborated in eleven prior filings.",
+        "replyTo": 0,
+        "timestamp": "Chillwind 3, 1040 BF",
+        "likes": 44
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "it's-a called losing",
+        "replyTo": 1,
+        "timestamp": "Chillwind 4, 1040 BF",
+        "likes": 311
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "THE MISSING MAN HAS OPINIONS NOW. Where were these takes when Waluigi needed a doubles partner. WAH.",
+        "replyTo": 2,
+        "timestamp": "Chillwind 4, 1040 BF",
+        "likes": 166,
+        "edited": true
+      }
+    ]
+  },
+  {
+    "articleId": "kamek",
+    "quote": "He broke the seals holding the Primordial Wyrm beneath the Valley of Bowser.",
+    "comments": [
+      {
+        "author": "Kamek",
+        "authorId": "kamek",
+        "faction": "Koopa Troop (Formerly)",
+        "text": "In my defense, the seals were LABELED as containing 'ancient power.' They were not labeled 'world-eating space worm that turns you into a puppet.' The signage was misleading.",
+        "timestamp": "Highsun 24, 1040 BF",
+        "likes": 91
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "who reads a giant DO NOT OPEN seal and thinks 'for me?'",
+        "replyTo": 0,
+        "timestamp": "Highsun 25, 1040 BF",
+        "likes": 174
+      },
+      {
+        "author": "Kamek",
+        "authorId": "kamek",
+        "faction": "Koopa Troop (Formerly)",
+        "text": "...it was a strategic error.",
+        "replyTo": 1,
+        "timestamp": "Highsun 25, 1040 BF",
+        "likes": 63,
+        "edited": true
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The greatest wizard in Koopa history, undone by a unionized demolition crew, defending his signage in the comments. Waluigi could not have written a better ending if he tried, and Waluigi tried.",
+        "replyTo": 2,
+        "timestamp": "Aethel 3, 1040 BF",
+        "likes": 88
+      }
+    ]
+  },
+  {
+    "articleId": "onyx_hand",
+    "quote": "The vote tradition—forcing guests to choose which attendee would be killed—is psychological domination disguised as a party game.",
+    "comments": [
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "I attended one of these dinners. I ended it early with a silver bullet at the children's table. I stand by the RSVP.",
+        "timestamp": "Highsun 22, 1040 BF",
+        "likes": 214
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi was in the Feywild and STILL heard about the children's table shot. That's how you leave a dinner party.",
+        "replyTo": 0,
+        "timestamp": "Highsun 23, 1040 BF",
+        "likes": 97
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "did anyone loot the centerpieces during the chaos or did we all just leave money on the table (literally)",
+        "replyTo": 0,
+        "timestamp": "Highsun 23, 1040 BF",
+        "likes": 58
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "I got the silverware.",
+        "replyTo": 2,
+        "timestamp": "Highsun 23, 1040 BF",
+        "likes": 140
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "...respect",
+        "replyTo": 3,
+        "timestamp": "Highsun 23, 1040 BF",
+        "likes": 71
+      }
+    ]
+  },
+  {
+    "articleId": "shadow_estate_mirror_rooftop_escape",
+    "quote": "Usk was organized in his person and disorganized in his management of other people's affairs, which is the specific contradiction of someone whose precision is self-directed rather than system-directed and who produces chaos in exactly the spaces where other people's lives intersect with his.",
+    "comments": [
+      {
+        "author": "Usk",
+        "authorId": "usk",
+        "faction": "Disaster Inc. (complicated)",
+        "text": "I object to being psychoanalyzed by the furniture, but not enough to say the furniture is wrong.",
+        "timestamp": "Harvestide 16, 1040 BF",
+        "likes": 112
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Reader, this is what Waluigi calls a LOAD-BEARING MESS. The desk is not clutter. The desk is a confession with stationery.",
+        "replyTo": 0,
+        "timestamp": "Harvestide 16, 1040 BF",
+        "likes": 156
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "'Important enough for space, not important enough for luxury' is an entire household hierarchy in one room assignment. It is cruel in the efficient way old money prefers.",
+        "timestamp": "Harvestide 17, 1040 BF",
+        "likes": 91
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "bigger room, worse benefits. that's not hierarchy that's payroll optimization",
+        "replyTo": 2,
+        "timestamp": "Harvestide 17, 1040 BF",
+        "likes": 124
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "The papers matter. In a normal room, disarray is a habit. In Usk's room, it is a map of who depended on him and where the dependencies failed.",
+        "timestamp": "Harvestide 17, 1040 BF",
+        "likes": 83
+      }
+    ]
+  },
+  {
+    "articleId": "professor_e_gadd",
+    "quote": "Understanding what he KNEW may illuminate why so many powerful actors seem to want that knowledge contained.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "This is the sentence with the locked drawer inside it. Nobody hides a professor this thoroughly unless the professor looked at the wrong machine and understood the whole factory.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 132
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "Professor Gadd always knew more than he explained. That was normal until people started acting like asking where he went was dangerous.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 94,
+        "replyTo": 0
+      },
+      {
+        "author": "King Boo",
+        "authorId": "king_boo",
+        "faction": "Boo Royalty",
+        "text": "Hee hee hee. The little inventor put bells on ghosts and locks on himself. One of those ideas worked better than the other.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 121,
+        "replyTo": 1
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "A disappearance is not proof. A coordinated absence of records, seized laboratories, and discouraged correspondence is a pattern. Patterns may testify when witnesses cannot.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 101,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "bryan",
+    "quote": "True believers stop when they are stopped.",
+    "comments": [
+      {
+        "author": "Bryan",
+        "authorId": "bryan",
+        "faction": "Servant of the Toad God",
+        "text": "Then stop me. If your cause is cleaner than mine, it should have no trouble standing in the road.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 48
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "That is exactly the problem. A man who thinks he is an instrument can call every wound he makes a commandment.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 117,
+        "replyTo": 0
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Mercenaries count exits. Fanatics count signs. Different threat model.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 96
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi hates fighting people who cannot be bribed, shamed, distracted, or charged a processing fee. It is bad for both strategy and business.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 109,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "mr_l",
+    "quote": "Mr. L was everything Luigi was not. Confident where Luigi was anxious. Aggressive where Luigi was hesitant. Cruel where Luigi was compassionate.",
+    "comments": [
+      {
+        "author": "Mr. L",
+        "authorId": "mr_l",
+        "faction": "The Green Thunder",
+        "text": "Aww, look at that. They put the fun version in complete sentences.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 77
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "I don't like seeing it written like this. It makes it sound like he was separate enough to blame and close enough to be me.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 143,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "This is why the official story is too clean. It wants a puppet string. Waluigi sees a bruise shaped like a mask.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 119,
+        "replyTo": 1
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "luigi's-a luigi. whatever else happened, don't let the file forget that.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 168,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "mystic_morel",
+    "quote": "Morel embeds real intelligence in performance. The question is whether the intelligence is meant to HELP Archie or to demonstrate power over him—'I know things you don't, and I will sing them to you while I steal your belongings.'",
+    "comments": [
+      {
+        "author": "Mystic Morel",
+        "authorId": "mystic_morel",
+        "faction": "Unknown / Purple T",
+        "text": "A tune is a door, dear hero, and a pocket is merely a room with bad hinges.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 88
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I was bleeding, cornered, and being robbed by a man rhyming at me. It is difficult to overstate how much that worsened the day.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 132,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "singing while stealing is advanced salesmanship. you distract the customer from noticing they became inventory",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 101,
+        "replyTo": 0
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "he gave me the deck like it was a present and not a homework assignment from a nightmare fortune cookie",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 147
+      }
+    ]
+  },
+  {
+    "articleId": "king_boo",
+    "quote": "King Boo spends his entire existence observing and being dismissed.",
+    "comments": [
+      {
+        "author": "King Boo",
+        "authorId": "king_boo",
+        "faction": "Boo Royalty",
+        "text": "Boo hoo hoo. Dismissed? No, no. I am the thing people dismiss so they can feel brave before the lights go out.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 155
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "That is not better. That is actually much, much worse.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 120,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi reluctantly recognizes the power of being underestimated. Waluigi does NOT recognize the need to do it while cackling from a portrait.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 112,
+        "replyTo": 0
+      },
+      {
+        "author": "Professor E. Gadd",
+        "authorId": "professor_e_gadd",
+        "faction": "Former Royal Science Division",
+        "text": "Observation changes the observed, ho ho! With Boos, the observed also changes the hallway, the portrait, and sometimes your insurance premiums.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 74,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "luigi",
+    "quote": "Most offensively, while Archie and Bones were engaged in tense espionage, Luigi took a luxurious bubble bath in the ruins, claiming it helped him 'expel ectoplasm.'",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "A BUBBLE BATH. In a haunted ruin. During espionage. Waluigi has suffered for this encyclopedia.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 171
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "It was medically relevant! Probably. The ectoplasm was very clingy and the tub was already there.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 83,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I cannot believe I am saying this, but the bath may have made him calmer and a calmer Luigi is operationally useful.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 91,
+        "replyTo": 1
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "if the haunted mansion has amenities you USE the amenities. this is basic travel value",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 149,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "captain_toadette",
+    "quote": "This combination—tactical brilliance plus absolute moral certainty—is what makes Toadette terrifying.",
+    "comments": [
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "Good. Terror is a tool. If it makes murderers hesitate before hiding behind flags and walls, I will use it.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 78
+      },
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "Captain, the kingdom cannot be rebuilt by frightening every person who survived it.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 42,
+        "replyTo": 0
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "It also cannot be rebuilt by asking the dead to wait politely while officials decide whether truth is convenient.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 131,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi notes the horrifying part: everyone in this thread has a point and a weapon.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 119
+      }
+    ]
+  },
+  {
+    "articleId": "mario",
+    "quote": "Past tense now feels appropriate, and that bothers Waluigi more than he wants to admit.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi admits NOTHING except that grammar has become emotionally hostile.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 154
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "you used past tense and then built a paragraph around not caring. that's caring with extra steps",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 139,
+        "replyTo": 0
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "I keep doing it too. Then I correct myself. Then correcting myself feels worse.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 116
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "i'm-a still here until somebody proves i'm not",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 211
+      }
+    ]
+  },
+  {
+    "articleId": "remi_akamatsu_full_backstory",
+    "quote": "Whatever the gap contains, Remi crossed it before she crossed the Firewall Gate, and both crossings required the same skill: moving forward when the thing behind you is no longer a direction you can go.",
+    "comments": [
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "i don't know what to say to this except yeah. sometimes the map only has forward on it and you pretend that's a plan.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 172
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "That is a survival skill. Not a childhood. The distinction matters.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 138,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi would like the universe to stop assigning epic-quest competencies to children who should be complaining about homework.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 188,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "Forward is not always courage. Sometimes it is simply the last available cruelty not yet used on you.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 119,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "lyranth",
+    "quote": "She is a sculptor who works in living material, and she wants her statues to look happy.",
+    "comments": [
+      {
+        "author": "Lyranth",
+        "authorId": "lyranth",
+        "faction": "Shadow Estate",
+        "text": "A frightened face ruins the line of the cheek. I do not ask for gratitude. Only composition.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 31
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "i would like to file a complaint about being called composition",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 211,
+        "replyTo": 0
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "I HATE ART NOW.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 184,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The Shadow Estate has made Bowser anti-art. This is one more crime for the ledger.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 160,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "markop",
+    "quote": "The horse head does not diminish his intelligence—it CONCEALS it from those too foolish to look past appearances.",
+    "comments": [
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "Let them underestimate me. It saves time when they explain their plans aloud.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 149
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Best kind of advantage: the enemy builds it for you and thinks it was their idea.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 126,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "i once underestimated a horse and lost 400 coins. different situation but same lesson",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 98,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has always respected Markop, partly because Markop is competent and partly because being kicked by him would rearrange Waluigi into punctuation.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 141
+      }
+    ]
+  },
+  {
+    "articleId": "princess_peach",
+    "quote": "But he knew her well enough to recognize that the version of Peach the Loyalists have constructed—a princess who would approve of executing prisoners, who would demand total war, who would consider atrocities acceptable costs—does not match the person he met.",
+    "comments": [
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "The dead do not get to object when the living decide what their memory requires. That is why the living must be strong enough to finish the work.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 39
+      },
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "Or humble enough to admit grief has begun speaking in Her Highness’s voice.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 103,
+        "replyTo": 0
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "peach wanted people saved. even when it was-a dumb. especially when it was-a dumb.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 199
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "When Mario is the subtle political philosopher in the thread, everyone else has made serious errors.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 174,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "fawful",
+    "quote": "Underestimating Fawful because he speaks strangely would be a mistake.",
+    "comments": [
+      {
+        "author": "Fawful",
+        "authorId": "fawful",
+        "faction": "Fawful Forces",
+        "text": "I HAVE CHORTLES at the underestimation! The brain of Fawful is a sandwich of doom with extra mustard of genius!",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 133
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "I hate that I understood that.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 181,
+        "replyTo": 0
+      },
+      {
+        "author": "Kamek",
+        "authorId": "kamek",
+        "faction": "Koopa Troop (Formerly)",
+        "text": "Sire, that is precisely why the man is dangerous. His syntax is a smoke bomb.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 116,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has seen armies lose to worse sentences. Do not laugh until AFTER the machine explodes.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 124
+      }
+    ]
+  },
+  {
+    "articleId": "toadburt",
+    "quote": "Toadburt didn't volunteer for this. Toadburt was SELECTED because he was available, controllable, and expendable.",
+    "comments": [
+      {
+        "author": "Toadburt",
+        "authorId": "toadburt",
+        "faction": "Archivist / Former coerced agent",
+        "text": "I would like it recorded that being selected is not the same as being chosen. Chosen sounds nicer. This was not nicer.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 119
+      },
+      {
+        "author": "General Ironhand",
+        "authorId": "general_ironhand",
+        "faction": "Iron Legion",
+        "text": "Operational necessity often assigns unpleasant duties to available assets. Sentiment does not alter the chain of requirements.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 9,
+        "replyTo": 0
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "You just called a person an available asset and thought the sentence defended you.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 168,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The Iron Legion can turn any atrocity into a memo and every memo into a smaller atrocity. WAH.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 142,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "tanukiburt",
+    "quote": "Standing beside the real, injured Toadburt is a second Toadburt-shaped figure, which converts a location problem into an identity problem—and identity problems, Waluigi notes, cannot be solved with a tennis racket.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has tested the tennis-racket method on many problems. Regrettably, shapeshifter epistemology resists backhand solutions.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 137
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "i did shoot the suspicious one and honestly i still think that was a pretty good first draft of an identity test",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 163,
+        "replyTo": 0
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "A bullet is a question. Sometimes the answer bleeds. Sometimes it changes shape.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 112,
+        "replyTo": 1
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "counterpoint: hit both toadburts and bill the real one for verification",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 86
+      }
+    ]
+  },
+  {
+    "articleId": "rattles",
+    "quote": "This precision suggests Rattles remembers being alive clearly enough to be picky about it, which makes him less a monster and more a person filing a very difficult complaint with the universe.",
+    "comments": [
+      {
+        "author": "Rattles",
+        "authorId": "rattles",
+        "faction": "Shadow Estate Escapees",
+        "text": "I had excellent cheekbones and a left knee that predicted rain. Replacement flesh would not be the same.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 128
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "That is sad and also more anatomical information than I expected from a skeleton.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 101,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi supports Rattles in his dispute with the universe, although Waluigi recommends itemizing damages.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 113,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "finally someone understands original parts are worth more",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 107,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "dinner_climax_vote",
+    "quote": "The vampires presented this with the casual formality of someone suggesting after-dinner charades, except instead of charades it was MURDER and instead of fun it was HORRIFYING.",
+    "comments": [
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "They called it manners because 'hostage ritual' makes guests stand up too early.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 142
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "Worst dinner game EVER. And I have played Mario Party.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 206,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has been betrayed by dice blocks with more moral legitimacy than this dinner.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 177,
+        "replyTo": 1
+      },
+      {
+        "author": "Marcus Ashford",
+        "authorId": "marcus_ashford",
+        "faction": "Onyx Hand",
+        "text": "A formal vote gives violence shape. Shape is civilization. Civilization is not the same as mercy.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 34
+      }
+    ]
+  },
+  {
+    "articleId": "stone_auction",
+    "quote": "Remi, who has survived things that would have broken seasoned adventurers, who has walked through chaos with a cheerfulness that Waluigi finds simultaneously admirable and EXHAUSTING, was reduced to decorative stonework in SECONDS.",
+    "comments": [
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "for the record i was not being cheerful at the exact second i became furniture",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 196
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "The speed is the part people must understand. There was no duel. No exchange. One look changed the entire operation.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 141,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "twelve thousand gold is a lot but selling party members is still bad policy unless there is paperwork and consent",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 88,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Wario is banned from writing the ethical appendix.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 211,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "the_planar_sanctum_revelation",
+    "quote": "This is what the Iron Legion and Mages' Guild are doing behind closed doors.",
+    "comments": [
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "Behind closed doors is where institutions put the truths that would make people kick the doors in.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 168
+      },
+      {
+        "author": "General Ironhand",
+        "authorId": "general_ironhand",
+        "faction": "Iron Legion",
+        "text": "The phrase omits operational context, authorization chains, and the emergency conditions under which the facility was commissioned.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 11,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "There are emergencies that reveal character and emergencies people invent so their character has somewhere to hide.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 133,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has kicked many doors. This is the kind of door that deserves a running start.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 149,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "disaster_inc",
+    "quote": "Disaster Inc. is the antithesis of an institution. It is a living reaction.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "A beautiful scholarly sentence meaning: they see a forbidden door, a corpse, a prophecy, or a suspicious rug and immediately become everyone’s problem.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 184
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I object to being called a reaction, but I concede I have rarely been a plan.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 132,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "if we were an institution we would have dues. i have suggested dues. everyone booed. cowards",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 139,
+        "replyTo": 0
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Institutions have procedures. Disaster Inc. has instincts, grudges, and someone yelling from a window with a gun.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 151,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "crown_v_miser_4739",
+    "quote": "The coffin does not CREAK the way it did when those six Iron Fists men carried it toward the mausoleum, because a body shifts. Stones do not shift.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "THIS is why you attend funerals from the back. Grief looks forward. Evidence creaks sideways.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 177
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "in my defense the stones were premium weight and the mourners were not supposed to be coffin experts",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 92,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "The physicality of deception is often where the deception fails. A lie must still obey weight, sound, and fatigue.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 159,
+        "replyTo": 0
+      },
+      {
+        "author": "Commander G",
+        "authorId": "commander_g",
+        "faction": "Iron Fists",
+        "text": "The service achieved its operational purpose. Your attendance was an unpriced complication.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 44,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "mages_guild",
+    "quote": "The Mages' Guild treats people the way mathematicians treat variables—as elements in an equation to be solved.",
+    "comments": [
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "A variable can be moved without asking whether it hurts. That is why people who think this way keep building cages.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 128
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "Some of the Guild people helped us. That makes this harder, not less true.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 102,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "An institution may contain decent individuals and still produce indecent outcomes. Courts learn this lesson repeatedly and rarely enough.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 137,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi respects mathematics. Waluigi does NOT respect doing algebra on prisoners.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 151,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "peach_loyalists",
+    "quote": "It creates the kind of devotion that doesn't ask whether its methods are justified because the cause is too sacred to question.",
+    "comments": [
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "Some causes are sacred because compromise is how they were murdered the first time.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 63
+      },
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "And some causes are profaned when their defenders make them indistinguishable from vengeance.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 121,
+        "replyTo": 0
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "Both of you are describing the edge. One calls it duty. One calls it warning. People at the bottom just call it the blade.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 144
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has never seen grief become a government and then behave moderately.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 169
+      }
+    ]
+  },
+  {
+    "articleId": "liberated_toads",
+    "quote": "They had been cargo. Now they were people again. The transition was not smooth.",
+    "comments": [
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "People think liberation is the door opening. The door is only the first insult. After that you have to build a life in the room outside.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 182
+      },
+      {
+        "author": "Dan",
+        "authorId": "dan",
+        "faction": "Liberated Toads",
+        "text": "Nobody teaches you what to do with your hands when they stop being used to hold the barrel shut.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 137,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "even i knew the barrels were wrong. do you understand how wrong something has to be for ME to say that",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 196
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "When Wario becomes the moral baseline, civilization has already fallen through the floor and found a basement.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 201,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "corvinarus_family",
+    "quote": "Their manor is not three separate buildings, but ONE building existing across dimensional boundaries and different points in TIME.",
+    "comments": [
+      {
+        "author": "Orangus Cornelius",
+        "authorId": "orangus_cornelius",
+        "faction": "House Corvinarus",
+        "text": "A house of consequence does not limit itself to one address.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 54
+      },
+      {
+        "author": "Lady Aurelian Corvinarus",
+        "authorId": "lady_aurelian",
+        "faction": "House Corvinarus",
+        "text": "A manor is a memory that learned architecture. Ours simply remembers in more directions than most.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 112,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I hate that this is poetic and also the most useful technical explanation we have.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 139,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi prefers houses that stay in one plane, one century, and one tax jurisdiction.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 157
+      }
+    ]
+  },
+  {
+    "articleId": "tribunal_v_ironhand_1040",
+    "quote": "He treats a massacre the way a clerk treats a supply requisition — as a task to be completed efficiently and filed correctly.",
+    "comments": [
+      {
+        "author": "General Ironhand",
+        "authorId": "general_ironhand",
+        "faction": "Iron Legion",
+        "text": "Procedure exists so that necessary actions are not distorted by sentiment at the point of execution.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 8
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "You keep saying sentiment like the dead were an accounting error with feelings attached.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 190,
+        "replyTo": 0
+      },
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "Give me the clerk with the knife. At least he has to look at the person he kills.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 141,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "The signature is not distance from the crime. It is the chosen instrument of the crime.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 203,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "koopa_v_kamek_1040",
+    "quote": "Waluigi notes that 'the plan was sound until the god-worm' is the most common epitaph in this encyclopedia, and Kamek wrote the definitive version of it.",
+    "comments": [
+      {
+        "author": "Kamek",
+        "authorId": "kamek",
+        "faction": "Koopa Troop (Formerly)",
+        "text": "I object to the phrase god-worm on grounds of taxonomy, dignity, and the fact that it makes me sound like I lost a duel to bait.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 92
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "YOU DID LOSE TO BAIT. WORLD-EATING BAIT.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 178,
+        "replyTo": 0
+      },
+      {
+        "author": "Kamek",
+        "authorId": "kamek",
+        "faction": "Koopa Troop (Formerly)",
+        "text": "Sire, if you intend to assist my defense, I beg you to stop assisting my defense.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 143,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The defense calls Bowser as a hostile witness against the concept of subtlety.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 165,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "onyx_hand_v_mages_guild_1040",
+    "quote": "This case presents the opposite and far more disturbing phenomenon: a court that had no business being fair and was fair anyway.",
+    "comments": [
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "A competent court in illegitimate hands is more unsettling than an incompetent one. It proves the ritual can function while the foundation rots.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 149
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "Being acquitted by vampires did not make me feel innocent. It made me feel catalogued.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 133,
+        "replyTo": 0
+      },
+      {
+        "author": "Marcus Ashford",
+        "authorId": "marcus_ashford",
+        "faction": "Onyx Hand",
+        "text": "Fairness is a blade with a polished handle. You object because you noticed the edge.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 68,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi wanted everyone in this trial to lose and was punished with jurisprudence.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 167
+      }
+    ]
+  },
+  {
+    "articleId": "shadow_estate_campaign",
+    "quote": "The paper had burn marks from frustration.",
+    "comments": [
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "Writing is HARD. Writing to Peach without sounding like a kidnapping threat is HARDER.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 211
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "that's-a the most bowser sentence i've ever read",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 232,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi respects the emotional honesty of scorching stationery instead of revising.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 171,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "should have invoiced the paper for emotional damage",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 98,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "vivian_corvinarus_corridor_fight",
+    "quote": "Bowser found the necromancer's wand on the ground and picked it up with innocent curiosity.",
+    "comments": [
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "HEY.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 166
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "It is a real tactical question. Unfortunately, Bowser is both the case study and the control group.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 152,
+        "replyTo": 0
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "i think the wand looked at bowser and got confused first",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 193,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Necromancy requires vibes. Bowser has the spiritual texture of a brick thrown through a throne room.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 208,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "shattering_shadow_anchor",
+    "quote": "Green T, standing at the shattered window above like a sniper in a tuxedo, took aim.",
+    "comments": [
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "I knew about the gun.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 177
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "I knew about being strong.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 204
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I knew about the artifact approximately three seconds before screaming about it, which is technically enough time to call it expertise.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 159
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "This is Disaster Inc. methodology in pure form: nobody has the whole plan, everyone has one dangerous ingredient, and reality loses the argument.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 221
+      }
+    ]
+  },
+  {
+    "articleId": "the_estragon_island_incident",
+    "quote": "Two Dans cannot coexist because identity is not a shared resource — it is a singular possession, and the Original views the copy's existence as theft.",
+    "comments": [
+      {
+        "author": "Dan",
+        "authorId": "dan",
+        "faction": "Liberated Toads",
+        "text": "I do not know how to argue with a man who has my face and calls breathing theft.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 121
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "The first violence here is not the crater. It is making existence into a property dispute.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 154,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "If identity can be stolen by surviving wrong, then half of us are criminals for making it this far.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 132,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi recommends NOT resolving metaphysical duplication through murder, which is apparently a controversial position now.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 170,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "the_fawthful_narrative_failure",
+    "quote": "You cannot build a stable official story around a villain who keeps showing up and acting like a different kind of villain than the one you need him to be.",
+    "comments": [
+      {
+        "author": "Fawful",
+        "authorId": "fawful",
+        "faction": "Fawful Forces",
+        "text": "Fawful refuses your tiny costume of convenient blame! I am wearing the grand cape of MY OWN badness!",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 151
+      },
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "Fawful was politically unusable because he would not remain inside the outline drawn for him.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 84,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "A false theory of a case often collapses when the alleged culprit insists on committing the wrong category of misconduct.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 139,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Fawful is many things, but obedient narrative furniture is not one of them.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 158,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "session_1_dragon_mountain",
+    "quote": "Archie Miser has never given a complete account of what happened on the mountain because Archie's relationship with complete accounts is approximately as stable as his relationship with fire safety.",
+    "comments": [
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I resent the accuracy of this comparison.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 161
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "His debriefs contain useful facts, dramatic omissions, and the smell of smoke. One learns to sort them.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 124,
+        "replyTo": 0
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "Fire safety is easy. Don’t stand where I breathe fire.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 147,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Bowser has entered the educational field. Everyone evacuate the classroom.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 184,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "the_grove_of_woe_incident",
+    "quote": "He handed Remi a silenced revolver, told her she needed to be stronger, and framed execution as education.",
+    "comments": [
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "i hate that i remember how heavy it was before i remember what i thought about it",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 203
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "That was not teaching. That was transferring a wound and calling the transfer a lesson.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 171,
+        "replyTo": 0
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Some men put a weapon in a kid’s hand because they want a soldier. Some do it because they want company in the guilt.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 156,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi would like adults in haunted manors to stop inventing new ways to fail children. The field is crowded.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 197,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "the_waiting_room_testimony",
+    "quote": "If even HALF of what follows is true, Waluigi's understanding of several key figures in this crisis requires fundamental revision.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi wrote this sentence and then stared at it like it owed him money.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 168
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "I remember lights. I remember voices. I remember being too tired to decide which memories were safe.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 139,
+        "replyTo": 0
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "if there's-a doctor using my name, i want to know why. if it's me, i want to know why i don't know.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 177,
+        "replyTo": 1
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "Half-truths are dangerous because the true half can carry the false half past the guard post.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 121,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "the_shadeward_ritual",
+    "quote": "Leaving an unconscious friend with a 46-year-old interdimensional custodian who just showed you his secret room full of flesh vats is not a solid long-term healthcare plan.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi stands by the medical guidance in this sentence.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 184
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "In my defense, all available healthcare plans were catastrophically bad.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 132,
+        "replyTo": 0
+      },
+      {
+        "author": "The Oracle",
+        "authorId": "the_oracle",
+        "faction": "Raventree / Unknown",
+        "text": "Bones was in no immediate danger from me. This is not the same as being in no danger.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 91,
+        "replyTo": 1
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "when the doctor has flesh vats you ask for an itemized estimate and then leave",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 159,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "ruined_manor_convergence",
+    "quote": "Luigi's reported response to being abandoned—'I'm used to it'—has been confirmed by multiple sources and carries emotional weight that suggests authenticity.",
+    "comments": [
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "I did not mean for that to become evidence.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 178
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The worst sentences are the ones nobody says for drama. They just fall out because the floor under them has been gone for years.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 194,
+        "replyTo": 0
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "luigi...",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 221,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "There are confessions courts cannot use because they are not about guilt. This is one.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 143,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "the_feyward_revel_and_the_book_of_many_things",
+    "quote": "Waluigi navigated fey social dynamics that would have destroyed someone without the capacity for sustained, careful, multi-layered analysis of social systems whose rules are not stated and must be inferred from their consequences.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "FINALLY, proper recognition of Waluigi’s greatest weapon: reading the room before the room grows teeth.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 206
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "i also read rooms. i check where the valuables are",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 139,
+        "replyTo": 0
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Fey courts and crime meetings share a rule: nobody explains the rule that gets you killed.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 156,
+        "replyTo": 0
+      },
+      {
+        "author": "Hjumpik Deldkur",
+        "authorId": "hjumpik",
+        "faction": "Disaster Inc. / Asset Orange",
+        "text": "Hjumpik remembers Waluigi being on floor. Floor was tactical, maybe.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 117,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "fawful_gala_revelations",
+    "quote": "Fawful's speech patterns are distinctive—a mixture of broken syntax, food metaphors, and unsettling intensity that makes every statement sound simultaneously ridiculous and threatening.",
+    "comments": [
+      {
+        "author": "Fawful",
+        "authorId": "fawful",
+        "faction": "Fawful Forces",
+        "text": "I am the sandwich of menace! You are tasting the bread of fear and the pickle of doom!",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 199
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "SEE? ANNOYING. STILL DANGEROUS.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 171,
+        "replyTo": 0
+      },
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "Soldiers who laugh at him die confused. I prefer enemies dead and understood.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 98,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Fawful weaponizes grammar like a sack of hammers poured down a staircase.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 183,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "chaos_heart_crisis",
+    "quote": "Forcing them together created a paradox that reality could not resolve—and in that paradox, the Chaos Heart found purchase.",
+    "comments": [
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "I WAS FORCED INTO A WEDDING AND REALITY MADE IT EVERYONE’S PROBLEM. That is not on me.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 214
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "it was-a very bad wedding",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 228,
+        "replyTo": 0
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "I hate how many disasters start because somebody treats people like symbols instead of people.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 176,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has attended bad weddings. This remains the only one where the seating chart threatened existence.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 190,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "archie_god_sermon",
+    "quote": "On one level, Waluigi finds the elevation of Archie to divine status categorically offensive because Waluigi has SEEN Archie get stuck in a hallway and that is not divine behavior.",
+    "comments": [
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "The hallway was confusing.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 173
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Gods get stuck in worse places. Ask any temple.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 142,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi refuses to worship anyone who can be defeated by architecture.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 219,
+        "replyTo": 0
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "does this mean if archie opens a door correctly we have to update the theology",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 188,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "mushroom_regency",
+    "quote": "The instincts are right: consensus-building, transparency, multilateral cooperation, structural resilience.",
+    "comments": [
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "Those instincts are not weakness. They are civilization attempting to continue after the crown stopped being enough.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 97
+      },
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "Instincts do not hold walls. Orders do.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 77,
+        "replyTo": 0
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "Structures matter. So does whether the people trapped under them can breathe.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 128,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The Regency is a committee trying to fight a house fire by first approving the bucket.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 181,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "assassination_conspiracy_collection",
+    "quote": "The official narrative blamed Bowser, which was convenient, familiar, and—according to the evidence that survives—extremely thin.",
+    "comments": [
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "I DIDN’T DO IT. I have been saying this for EIGHTY-FIVE YEARS.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 248
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "Familiar suspects are useful to lazy investigators and dangerous to justice.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 151,
+        "replyTo": 0
+      },
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "Thin evidence became a war, and people ask why we will not politely move on.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 162,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Bowser being guilty of many things does not make him guilty of THIS thing. This is apparently advanced law.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 203,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "mario_brothers_collection",
+    "quote": "Waluigi lists these facts in sequence because the sequence is the mystery: heroes do not usually get filed away by paperwork unless someone wanted them filed.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Paperwork is where governments put people they cannot safely bury.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 185
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "A file can feel like a room if enough people close it behind you.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 141,
+        "replyTo": 0
+      },
+      {
+        "author": "Mario",
+        "authorId": "mario",
+        "faction": "(Whereabouts Unknown)",
+        "text": "i'm-a not paperwork",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 223,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "No. But paperwork may be the outline left by whoever moved you.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 164,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "planar_crisis_collection",
+    "quote": "The Iron Legion currently controls the only stable anchor point, which turns a metaphysical emergency into a military bargaining chip.",
+    "comments": [
+      {
+        "author": "General Ironhand",
+        "authorId": "general_ironhand",
+        "faction": "Iron Legion",
+        "text": "Control of critical infrastructure must rest with the party capable of securing it.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 16
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "You mean the party already standing on everyone else’s throat.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 171,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "Reality is breaking and somehow the first institutional instinct is still leverage.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 149,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi begs the universe to stop giving chokepoints to people who say “critical infrastructure” in a threatening voice.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 196,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+    "quote": "Markop told Remi what death actually is in two words, in a conversation about ghost costumes, in the Shadeward, on her birthday.",
+    "comments": [
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "worst birthday lecture. top five useful birthday lecture though",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 176
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "She asked. I answered plainly. Children deserve truth more than decoration.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 159,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi is adding “existential clarity beside fake ghost costume” to the list of Shadow Estate party favors.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 142,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "did the party have cake or just trauma because one of those has resale value",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 98,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "shadow_estate_session_Harvestside_14_full",
+    "quote": "Waluigi wants to pause on 'oh boy, a door' because it is the most purely Remi response to a room that is available.",
+    "comments": [
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "doors are exciting because sometimes they are rooms and sometimes they are problems wearing hinges",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 191
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "This is why we open them carefully.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 128,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "this is why we check if the hinges are copper",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 117,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "There are two kinds of people: those who fear doors and those who become the reason doors should be feared.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 167,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "the_blorbs_crisis",
+    "quote": "Waluigi offered to help and was told by a Regency official that 'this is a matter for qualified personnel.'",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "HISTORY vindicates Waluigi again.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 212
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "you would have sold anti-blorb corsets",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 146,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi would have sold EFFECTIVE anti-blorb corsets. There is a difference.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 189,
+        "replyTo": 1
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "I am beginning to understand why some crises exclude by instinct.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 112,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "tymnas",
+    "quote": "The cottage has food that 'looks almost normal.' In a dimension where plants grow as colored-wrong reflections of material-plane originals, Tymnas has a table of recognizable produce.",
+    "comments": [
+      {
+        "author": "Tymnas",
+        "authorId": "tymnas",
+        "faction": "Shadow Estate",
+        "text": "Food does better if you stop asking it what plane it is from.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 112
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "That is either gardening wisdom or a warning about the house. In the Shadow Estate it can be both.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 124,
+        "replyTo": 0
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "i would eat the almost-normal tomato and then regret it probably but also maybe not",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 141,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has never feared a salad before. The Shadow Estate expands horizons.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 157,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "hargram_fidger",
+    "quote": "Which makes his employment with the Iron Legion either a contradiction or a tragedy, depending on how much of the Legion's activities he is aware of.",
+    "comments": [
+      {
+        "author": "Hargram Fidger",
+        "authorId": "hargram_fidger",
+        "faction": "Iron Legion",
+        "text": "You can know enough to hate a thing and still be standing inside it because the people outside need someone opening doors.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 94
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "That is the argument every decent man in a machine makes until the machine uses his decency as lubrication.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 168,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi does not know whether to respect Hargram or shake him by the collar. This is historically a bad sign.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 143,
+        "replyTo": 0
+      },
+      {
+        "author": "General Ironhand",
+        "authorId": "general_ironhand",
+        "faction": "Iron Legion",
+        "text": "The Legion contains varied personnel. Their private moral discomfort is not a structural critique.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 13,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "king_dedede",
+    "quote": "Dedede is COMPETENT ENOUGH to hold power while being INSUFFERABLE enough to damage everything he touches diplomatically.",
+    "comments": [
+      {
+        "author": "King Dedede",
+        "authorId": "king_dedede",
+        "faction": "Dreamland",
+        "text": "That sounds like KINGLY RANGE to me.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 151
+      },
+      {
+        "author": "Meta Knight",
+        "authorId": "meta_knight",
+        "faction": "Dreamland / Meta-Knights",
+        "text": "It is not range. It is cleanup.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 179,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has met many monarchs. Dedede is the rare one whose instincts are better than his sentences.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 146,
+        "replyTo": 1
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "if being insufferable is a governing style i should run a country",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 132,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "meta_knight",
+    "quote": "He stays and he manages and he routes around the obstacles because the alternative is letting important things break.",
+    "comments": [
+      {
+        "author": "Meta Knight",
+        "authorId": "meta_knight",
+        "faction": "Dreamland / Meta-Knights",
+        "text": "Someone must remain when spectacle leaves the room.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 164
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi recognizes the curse of competence. The reward for fixing things is being handed more broken things.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 188,
+        "replyTo": 0
+      },
+      {
+        "author": "King Dedede",
+        "authorId": "king_dedede",
+        "faction": "Dreamland",
+        "text": "I also fix things! I fixed morale by entering the room!",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 94,
+        "replyTo": 1
+      },
+      {
+        "author": "Meta Knight",
+        "authorId": "meta_knight",
+        "faction": "Dreamland / Meta-Knights",
+        "text": "You are often the thing morale must recover from.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 223,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "princess_daisy",
+    "quote": "She maintains alliances, manages resources, and makes decisions without needing to form twelve committees first.",
+    "comments": [
+      {
+        "author": "Princess Daisy",
+        "authorId": "princess_daisy",
+        "faction": "Sarasaland",
+        "text": "If it takes twelve committees to find the door, I am already outside handling the problem.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 202
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Daisy understands the radical political doctrine known as DOING THE THING.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 219,
+        "replyTo": 0
+      },
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "Process exists to prevent reckless unilateral action.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 46,
+        "replyTo": 0
+      },
+      {
+        "author": "Princess Daisy",
+        "authorId": "princess_daisy",
+        "faction": "Sarasaland",
+        "text": "Then make the process faster than the disaster.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 237,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "kirby",
+    "quote": "The copy is usually BETTER than the original because Kirby apparently improves things by eating them.",
+    "comments": [
+      {
+        "author": "Kirby",
+        "authorId": "kirby",
+        "faction": "Dreamland",
+        "text": "Poyo!",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 301
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Terrifying. Concise. Unrebuttable.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 251,
+        "replyTo": 0
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "If he eats fire breath and does it better I am fighting the universe.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 196,
+        "replyTo": 0
+      },
+      {
+        "author": "King Dedede",
+        "authorId": "king_dedede",
+        "faction": "Dreamland",
+        "text": "You learn to stop asking why and start hiding the important snacks.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 174,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "hjumpik",
+    "quote": "The Mages' Guild, with all their scrying orbs and crystal balls, could not track Waluigi’s magnificent stealth, so they had to give a dwarf a noisy bell to find him.",
+    "comments": [
+      {
+        "author": "Hjumpik Deldkur",
+        "authorId": "hjumpik",
+        "faction": "Disaster Inc. / Asset Orange",
+        "text": "Bell screamed. Hjumpik screamed. Waluigi smug. Bad system.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 183
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The bell was a confession that Waluigi is beyond conventional surveillance. WAH.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 226,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "or it means you are so annoying they invented hardware",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 189,
+        "replyTo": 1
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "Both interpretations can be true. That is what makes it good Guild engineering.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 151,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "byscilla_danos",
+    "quote": "Waluigi finds this simultaneously admirable and terrifying—admirable because it demonstrates zero tolerance for privilege abuse, terrifying because it demonstrates zero tolerance for ANYTHING.",
+    "comments": [
+      {
+        "author": "Byscilla Danos",
+        "authorId": "byscilla_danos",
+        "faction": "Iron Legion / Danos Command",
+        "text": "Tolerance is what undisciplined people request after wasting time.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 121
+      },
+      {
+        "author": "Thornbury",
+        "authorId": "thornbury",
+        "faction": "Iron Legion / Quartermaster",
+        "text": "For the record, the bath was a resource-allocation misunderstanding with excellent water pressure.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 88,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "A misunderstanding that ended with rubber duckies and ear-based transportation. History must preserve the details.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 197,
+        "replyTo": 1
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Byscilla sounds like someone who would win a room before anyone noticed negotiations began.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 129,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "orvinder_danos",
+    "quote": "This combination—truthful, just, brave, generous—describes either a genuinely good person or the most sophisticated cover identity ever constructed.",
+    "comments": [
+      {
+        "author": "Orvinder Danos",
+        "authorId": "orvinder_danos",
+        "faction": "Danos / Barrister",
+        "text": "If I were constructing a cover, I would choose something less inconvenient than telling the truth.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 154
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "That is exactly what someone with a perfect cover would say, which is why honest people are impossible to interrogate neatly.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 132,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "A truthful witness can still be dangerous. Truth answers the question asked, not the question counsel should have asked.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 141,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi distrusts anyone this morally tidy. There is no handle to grab.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 128,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "chief_thornpaw",
+    "quote": "Suspicious because Thornpaw's testimony provides EXACTLY what the Loyalist narrative needed: confirmation of the secret relationship, the secret hatch, the secret heir.",
+    "comments": [
+      {
+        "author": "Chief Thornpaw",
+        "authorId": "chief_thornpaw",
+        "faction": "Rakasha / Thornpaw Clan",
+        "text": "Convenience does not make grief false.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 156
+      },
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "No. But grief that finally speaks can move armies.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 127,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "Corroboration appearing at the moment of maximum political utility must be tested more, not believed less automatically.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 139,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi wants the truth and resents that the truth keeps arriving dressed for propaganda.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 177,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "parson_pellinost",
+    "quote": "Parson Pellinost is a pioneer in the field of medical extortion, and Waluigi tips his magnificent purple hat to him.",
+    "comments": [
+      {
+        "author": "Parson Pellinost",
+        "authorId": "parson_pellinost",
+        "faction": "Independent / Medical Magic",
+        "text": "Healing is valuable. Value unpaid is theft with better lighting.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 112
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "You repossessed my health.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 184,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "finally, healthcare with enforceable collections. terrible ethics. impressive model.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 138,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi admires the hustle while condemning the horrifying implications. This is called nuance.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 161,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "thornbury",
+    "quote": "Then he got dragged away from a bubble bath by his ear while holding rubber duckies, which restored some balance to the universe.",
+    "comments": [
+      {
+        "author": "Thornbury",
+        "authorId": "thornbury",
+        "faction": "Iron Legion / Quartermaster",
+        "text": "Those ducks were inventory items undergoing buoyancy assessment.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 91
+      },
+      {
+        "author": "Byscilla Danos",
+        "authorId": "byscilla_danos",
+        "faction": "Iron Legion / Danos Command",
+        "text": "They were contraband morale objects in a misallocated bath.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 174,
+        "replyTo": 0
+      },
+      {
+        "author": "Luigi",
+        "authorId": "luigi",
+        "faction": "Mushroom Kingdom",
+        "text": "I understand less about the Iron Legion every time I learn more.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 142,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The phrase “contraband morale objects” is why Waluigi keeps writing this encyclopedia.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 215,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "commander_g",
+    "quote": "You can't appeal to her ideology because she doesn't seem to have one beyond 'profitable efficiency.' You can't exploit her emotions because she doesn't display any.",
+    "comments": [
+      {
+        "author": "Commander G",
+        "authorId": "commander_g",
+        "faction": "Iron Fists",
+        "text": "Emotion is an exposure surface. Ideology is a recurring maintenance cost.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 103
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "i hate when the evil business quote is good",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 168,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Commander G speaks like a locked cashbox learned murder.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 194,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "A person without visible motive is not motive-less. It means the motive has been professionalized.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 147,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "xo",
+    "quote": "specifically chose Archie Miser as the Swiftsoul scapegoat because she 'disliked his shifty eyes' may sound absurd, but it fits her documented behavior pattern.",
+    "comments": [
+      {
+        "author": "X.O.",
+        "authorId": "xo",
+        "faction": "Iron Fists / Divine Daughter",
+        "text": "Aesthetic revulsion is a valid investigative instrument when wielded by divinity.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 73
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I was framed for murder because my eyes failed a vibe check.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 235,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "to be fair they are shifty. not murder shifty. billing dispute shifty.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 166,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The justice system should not operate on face crimes, even when Archie’s face is doing him no favors.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 218,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "kyle_coinsoul",
+    "quote": "Coinsoul has both the motive to have participated in framing Archie AND the motive to betray the Guild if a better offer presents itself.",
+    "comments": [
+      {
+        "author": "Kyle Coinsoul",
+        "authorId": "kyle_coinsoul",
+        "faction": "Mages Guild / Guild Man",
+        "text": "That is a very uncharitable way to describe flexibility.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 86
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "flexibility is when your loyalty has a price sheet. respect.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 137,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "Multiple motives do not cancel each other. They compound risk.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 129,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I dislike how often my life depends on men with debts and keys.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 164,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "elder_meadowlight",
+    "quote": "Now Meadowlight is dead, and the circumstances of his death have become another piece of the elaborate frame designed to destroy Archie Miser.",
+    "comments": [
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "He became evidence before anyone was allowed to mourn him. I do not know how to carry that.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 153
+      },
+      {
+        "author": "Faelan Whisperwind",
+        "authorId": "elder_meadowlight",
+        "faction": "Veridian Grove / Witness",
+        "text": "The grove remembers him as a healer. The court remembered him as a body. That is the insult.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 119,
+        "replyTo": 0
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "A frame that consumes the dead as props commits a second offense against the victim.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 146,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi hates murder math. One corpse becomes motive, motive becomes warrant, warrant becomes another corpse.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 172,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "rakka",
+    "quote": "A 'silence protocol' implies elimination of loose ends—and Archie, having worked multiple missions for Rakka, would certainly know things worth silencing.",
+    "comments": [
+      {
+        "author": "Rakka",
+        "authorId": "rakka",
+        "faction": "Unknown Employer",
+        "text": "Loose ends are only loose if someone lacks the discipline to tie them.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 97
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "I am becoming very tired of learning I was a liability in rooms I thought I was useful in.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 158,
+        "replyTo": 0
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "If your employer has a phrase like silence protocol, you were never an employee. You were a future problem.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 181,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi recommends contracts where termination does not mean TERMINATION.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 189,
+        "replyTo": 1
+      }
+    ]
+  },
+  {
+    "articleId": "lady_bloomia",
+    "quote": "FIND ME IN THE PLACE WHERE ROSES GROW IN WINTER.",
+    "comments": [
+      {
+        "author": "Lady Bloomia",
+        "authorId": "lady_bloomia",
+        "faction": "Peach Loyalists / Hidden Witness",
+        "text": "If you know what that means, you know why I could not write more.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 141
+      },
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "We searched every winter garden record in the old palace archives. Half were missing. Missing is an answer.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 166,
+        "replyTo": 0
+      },
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "Or a coincidence produced by decades of damaged recordkeeping.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 42,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Chancellor, when every useful record is damaged in the same direction, Waluigi stops calling it weather.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 209,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "dan",
+    "quote": "When the Liberated Toads needed someone to manage resources, coordinate efforts, and maintain order among 150 traumatized trafficking survivors, Dan stepped up.",
+    "comments": [
+      {
+        "author": "Dan",
+        "authorId": "dan",
+        "faction": "Liberated Toads",
+        "text": "Someone had to count blankets while everyone else was counting enemies.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 169
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "Dan held the practical line. Do not romanticize it. Do not minimize it either.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 142,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Revolutions need speeches. Survivors need inventory. Dan understood the less glamorous emergency.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 181,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "inventory is glamorous if you use gold ink",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 93,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "embercap",
+    "quote": "His troops follow him not because they're ordered to, but because they've seen him take the same risks he asks of them.",
+    "comments": [
+      {
+        "author": "Embercap",
+        "authorId": "embercap",
+        "faction": "Peach Loyalists",
+        "text": "Orders carry farther when the soldiers can see you bleeding for them.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 137
+      },
+      {
+        "author": "Captain Toadette",
+        "authorId": "captain_toadette",
+        "faction": "Peach Loyalists",
+        "text": "Embercap understands the front line because he refuses to treat it as a map symbol.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 128,
+        "replyTo": 0
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "Good. Leaders who hide in the back get thrown to the front.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 177,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Bowser’s command philosophy is legally classified as “projectile accountability.”",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 196,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "the_oracle",
+    "quote": "Waluigi notes that 'I am protecting the timeline' is the most flexible possible justification for behavior.",
+    "comments": [
+      {
+        "author": "The Oracle",
+        "authorId": "the_oracle",
+        "faction": "Raventree / Unknown",
+        "text": "Flexibility is necessary when time itself refuses to stand still for cross-examination.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 104
+      },
+      {
+        "author": "Miles Edgeworth",
+        "authorId": "miles_edgeworth",
+        "faction": "Prosecution",
+        "text": "Convenient. Also inadmissible without specifics.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 183,
+        "replyTo": 0
+      },
+      {
+        "author": "Archie Miser",
+        "authorId": "archie_miser",
+        "faction": "Disaster Inc.",
+        "text": "Every time someone says they are protecting the timeline, I check whether I still have all my organs.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 171,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "The timeline has many protectors and suspiciously few consent forms.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 203,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "marcus_ashford",
+    "quote": "Then Marcus revealed he had the paper and began reading it aloud—a letter addressed to someone starting with 'Peac—' before Bowser cut him off.",
+    "comments": [
+      {
+        "author": "Marcus Ashford",
+        "authorId": "marcus_ashford",
+        "faction": "Onyx Hand",
+        "text": "A letter unread is merely tension waiting for a voice.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 92
+      },
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "IT WAS PRIVATE.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 244,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "private letters should be kept in private pockets. amateur mistake.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 137,
+        "replyTo": 1
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Wario, you once labeled a locked safe “WARIO’S SECRET SAFE.” Do not teach security.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 281,
+        "replyTo": 2
+      }
+    ]
+  },
+  {
+    "articleId": "toad_lee",
+    "quote": "Toad Lee is the brain of the Feywild operation, even if his acrobatic skills need serious work.",
+    "comments": [
+      {
+        "author": "Toad Lee",
+        "authorId": "toad_lee",
+        "faction": "Liberated Toads / Feywild Party",
+        "text": "I would like the record to show the window was more slippery than it looked.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 151
+      },
+      {
+        "author": "Hjumpik Deldkur",
+        "authorId": "hjumpik",
+        "faction": "Disaster Inc. / Asset Orange",
+        "text": "Toad Lee read book good. Fell less good.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 188,
+        "replyTo": 0
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "he can be smart and still go bonk out a window. people contain multitudes",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 201,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi supports multidimensional competence, including the dimension where gravity wins.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 174,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "ryan",
+    "quote": "What matters is that Ryan chose certain death over uncertain captivity and somehow found a third option that nobody knew existed.",
+    "comments": [
+      {
+        "author": "Ryan",
+        "authorId": "ryan",
+        "faction": "Liberated Toads",
+        "text": "I did not find a third option. I hit a lot of branches until one became mercy.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 164
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "Survival is sometimes strategy after the fact. That does not make the courage smaller.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 150,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi respects any man who looks at gravity and negotiates better terms mid-fall.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 199,
+        "replyTo": 0
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "can we monetize branch-based mercy or is that tasteless",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 73,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "bones",
+    "quote": "Bones exploited this assumption with the precision of someone who understood exactly how to be invisible in plain sight.",
+    "comments": [
+      {
+        "author": "Bones",
+        "authorId": "bones",
+        "faction": "Disaster Inc. / Infiltrator",
+        "text": "Uniforms are doors people wear. Put on the right one and the hallway opens.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 177
+      },
+      {
+        "author": "Green T",
+        "authorId": "green_t",
+        "faction": "Tea Leaf Syndicate",
+        "text": "Clean. Dangerous. My favorite kind of lie.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 143,
+        "replyTo": 0
+      },
+      {
+        "author": "Speaker L",
+        "authorId": "speaker_l",
+        "faction": "Liberated Toads",
+        "text": "The Legion built a system where humanity is suspicious and procedure is trusted. Bones walked through the crack.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 169,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has also been invisible in plain sight, but mostly to sports committees with poor taste.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 156,
+        "replyTo": 0
+      }
+    ]
+  },
+  {
+    "articleId": "eager",
+    "quote": "If Eager ever figures out how to CONTROL this effect—direct it at enemies instead of himself—he'd be one of the most dangerous people in the setting.",
+    "comments": [
+      {
+        "author": "Eager",
+        "authorId": "eager",
+        "faction": "Disaster Inc. Adjacent",
+        "text": "I would also accept figuring out how to direct it at nobody for a while.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 184
+      },
+      {
+        "author": "Remi Akamatsu",
+        "authorId": "remi_akamatsu_full_backstory",
+        "faction": "Disaster Inc.",
+        "text": "eager has boss-fight luck pointed inward",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 165,
+        "replyTo": 0
+      },
+      {
+        "author": "Markop",
+        "authorId": "markop",
+        "faction": "Disaster Inc.",
+        "text": "His presence changes risk calculations. Usually upward.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 144,
+        "replyTo": 0
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Eager is what happens when probability develops slapstick timing and no mercy.",
+        "timestamp": "Margin Expansion, 1040 BF",
+        "likes": 199,
+        "replyTo": 0
+      }
+    ]
+  }
+]

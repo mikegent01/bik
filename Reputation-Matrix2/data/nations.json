@@ -1,0 +1,142 @@
+[
+ {
+  "id": "old_world",
+  "name": "The Old World",
+  "type": "Dimensional Region",
+  "origin": "Indigenous dimension — one of the major reality clusters affected by the Planar Fracture",
+  "description": "The Old World is a dimensional region characterized by perpetual existential conflict—a world where civilization exists in constant struggle against Chaos corruption, Greenskin invasion, Skaven undermining, and undead uprising. It is home to the Empire of Man, the Dwarf holds of Karaz Ankor, the High Elf realm of Ulthuan, and numerous other nations engaged in endless war for survival.\n\nGeographically, the Old World features:\n\n**The Old World Proper:** Human-dominated lands including the Empire, Bretonnia, Kislev, and the Border Princes. Characterized by medieval technology enhanced by magic and gunpowder.\n\n**The World's Edge Mountains:** Dwarf territory—or what remains of it. Ancient holds, some still defended, many fallen to Greenskins or Skaven.\n\n**The Badlands:** Greenskin-dominated wasteland south of the Empire. Constant Orc and Goblin activity.\n\n**Ulthuan:** Island continent of the High Elves, defending against Dark Elf invasion and Chaos corruption.\n\n**Naggaroth:** Dark Elf territory, home to the Druchii, raiders and slavers.\n\n**The Chaos Wastes:** Northern regions where reality breaks down, Chaos reigns, and warbands muster for invasion.\n\nThe [Planar Fracture](planar_fracture) has fragmented the Old World, separating regions that were geographically connected, connecting regions that were separate. Navigation has become unpredictable. Wars have become more complicated. The already-difficult situation has become worse.\n\nWaluigi documents the Old World as a region of perpetual crisis—where survival is achievement, peace is fantasy, and the best anyone can hope for is dying for something worthwhile.\n\nWAH.",
+  "relatedArticles": [
+   "empire_human",
+   "dwarf_old_world",
+   "greenskin",
+   "skaven",
+   "high_elf"
+  ]
+ },
+ {
+  "id": "earth_land",
+  "name": "Earth Land",
+  "type": "Dimensional Region",
+  "origin": "Indigenous dimension — primary setting of guild-based magical society",
+  "description": "Earth Land is a dimensional region characterized by widespread magic use organized through guild structures. Unlike the Old World's constant existential warfare, Earth Land features a society where magic is common, guilds provide community and employment, and threats—while serious—do not require constant total war.\n\nKey characteristics:\n\n**Magic Guilds:** Organizations of mages that take jobs, maintain order, and provide identity for their members. Guilds range from famous (Fairy Tail, Sabertooth) to obscure (hundreds of minor guilds across the continent).\n\n**Magic Integration:** Magic is not rare or feared in Earth Land. Mages are common. Magical technology exists. Society has adapted to widespread supernatural capability.\n\n**Dragon History:** Dragons once ruled Earth Land. Dragon Slayers—mages taught by dragons to fight dragons—are among the most powerful magic users. The relationship between humanity and dragons is complex.\n\n**Exceed Refugees:** Earth Land received the Exceed evacuation from Edolas—flying cats whose eggs were sent across dimensions.\n\nThe [Planar Fracture](planar_fracture) has affected Earth Land, fragmenting regions and disrupting guild operations. Some guilds have lost contact with their members. Some have been scattered across dimensions. The guild system that organized magical society is straining under dimensional chaos.\n\nWaluigi documents Earth Land as a relatively functional magical society—functional by multiverse standards, which is admittedly a low bar—now struggling with the same fracture affecting everyone.\n\nWAH.",
+  "relatedArticles": [
+   "mage_born",
+   "exceed",
+   "celestial_spirit",
+   "dragon_slayers",
+   "edolas"
+  ]
+ },
+ {
+  "id": "edolas",
+  "name": "Edolas",
+  "type": "Dimensional Region (Inaccessible)",
+  "origin": "Parallel dimension to Earth Land — formerly connected, now largely unreachable",
+  "description": "Edolas was a parallel dimension to Earth Land—similar geography, different rules. In Edolas, magic was finite. It could be extracted, stored, and depleted. The world was LOSING magic, and Edolas authorities responded with increasingly desperate extraction efforts.\n\nKey historical facts:\n\n**Exceed Kingdom:** The Exceeds ruled Extalia in Edolas, worshipped as divine beings by the human population below. This worship was engineered propaganda, but the social structure was real.\n\n**Magic Crisis:** Edolas's finite magic supply was failing. The ruling powers attempted to extract magic from other dimensions, leading to conflict with Earth Land.\n\n**The Evacuation:** When dimensional catastrophe threatened, the Exceeds evacuated—not through portals, but through EGGS. Exceed eggs were sent across dimensional barriers to Earth Land, hatching into refugees without homeland.\n\n**Current Status:** Edolas is largely inaccessible. The dimensional pathways are closed or broken. Whatever remains of Edolas society exists in isolation.\n\nThe [Planar Fracture](planar_fracture) has affected all dimensional travel, but Edolas was already difficult to reach before the fracture. Whether current dimensional instability might accidentally open Edolas pathways—or permanently seal them—is unknown.\n\nEdolas matters because the Exceeds came from there. Understanding their origin helps understand their current situation.\n\nWAH.",
+  "relatedArticles": [
+   "exceed",
+   "earth_land",
+   "celestial_spirit"
+  ]
+ },
+ {
+  "id": "kivotos",
+  "name": "Kivotos",
+  "type": "Dimensional Region (Academic City-State)",
+  "origin": "Unique dimensional space — a massive city organized entirely around educational institutions",
+  "description": "Kivotos is a city-state—a massive urban region organized entirely around academies. Schools are not merely educational institutions; they are governments, cultures, and paramilitary organizations. Students are the population. Teachers are rare. The 'Sensei' role—external advisor with coordination authority—is critical to maintaining functionality.\n\nKey characteristics:\n\n**Academy Organization:** Each major academy is effectively a faction—with territory, military capability, distinctive culture, and ongoing conflicts with other academies.\n\n**Armed Students:** Students carry weapons as standard. Combat is expected. The violence is somehow... manageable? Students die but recover. Buildings are destroyed and rebuilt. Kivotos operates on rules that outsiders find confusing.\n\n**Halo Manifestation:** Kivotos students manifest halos—glowing geometric shapes indicating status, wellbeing, and possibly something about their nature that nobody fully explains.\n\n**Sensei Dependency:** The system requires external coordination. 'Sensei' figures—advisors from outside Kivotos—provide guidance that students apparently cannot provide themselves.\n\nThe [Planar Fracture](planar_fracture) has isolated some Kivotos regions, displaced students across dimensions, and disrupted academy operations. The system is straining.\n\nWaluigi documents Kivotos as BAFFLING but FUNCTIONAL—a society that should not work but does, operating on rules that make internal sense even if external observers struggle to understand.\n\nWAH.",
+  "relatedArticles": [
+   "student_human",
+   "student_angel",
+   "student_demon",
+   "gehenna_academy",
+   "millennium_science_school",
+   "automata"
+  ]
+ },
+ {
+  "id": "the_network",
+  "name": "The Network",
+  "type": "Dimensional Region (Digital)",
+  "origin": "Parallel dimension composed of data and digital infrastructure",
+  "description": "The Network is a digital dimension—a parallel reality composed of data rather than matter. It exists alongside physical reality, connected through technological infrastructure, inhabited by Netizens and other digital beings.\n\nKey characteristics:\n\n**Data Composition:** Everything in the Network is data—the environment, the inhabitants, the laws of physics (which differ from physical reality).\n\n**Infrastructure Connection:** The Network connects to physical reality through digital infrastructure—computers, networks, technological systems. More infrastructure means stronger connection.\n\n**Netizen Habitat:** The Network is home to Netizens—sapient digital beings who exist as data patterns. They have cities, factions, and society.\n\n**Mutable Reality:** The Network can be edited. Beings with sufficient access can reshape their environment, create objects, alter conditions. This is not magic—it is the nature of digital existence.\n\nThe [Planar Fracture](planar_fracture) affected the Network as it affected other dimensions. Digital regions have fragmented, corrupted, or connected unexpectedly. Network stability is compromised.\n\nWaluigi documents the Network as a dimension where different rules apply—where existence is data, where reality is editable, where physical limitations do not constrain in familiar ways.\n\nWAH.",
+  "relatedArticles": [
+   "netizen",
+   "automata",
+   "internet_federation",
+   "cybernetic_collectives"
+  ]
+ },
+ {
+  "id": "internet_federation",
+  "name": "The Internet Federation",
+  "type": "Faction (Digital Government)",
+  "origin": "The Network — the largest organized Netizen government",
+  "description": "The Internet Federation is the largest organized government in the Network—an attempt to maintain order, connectivity, and civilization across digital space.\n\n**Role:** The Federation maintains infrastructure, mediates disputes, and coordinates response to threats affecting the Network broadly.\n\n**Structure:** Democratic in theory, bureaucratic in practice. Representatives from Network regions participate in governance. Decisions are slow but theoretically legitimate.\n\n**Challenges:** The [Planar Fracture](planar_fracture) has fragmented Federation territory. Maintaining coordination across fractured Network space strains organizational capacity.\n\n**Relationship with Physical Reality:** The Federation maintains diplomatic connections with physical-world factions, though translation between digital and physical concerns creates communication challenges.\n\nThe Federation represents order in the Network—imperfect, bureaucratic, but better than alternatives.\n\nWAH.",
+  "relatedArticles": [
+   "netizen",
+   "the_network",
+   "cybernetic_collectives"
+  ]
+ },
+ {
+  "id": "kingdom_of_gondor",
+  "name": "Kingdom of Gondor",
+  "type": "Faction (Human Kingdom)",
+  "origin": "Middle-earth — the southern kingdom of the Dúnedain",
+  "description": "The Kingdom of Gondor is the great human kingdom of Middle-earth—founded by the Dúnedain, descendants of Númenor, maintaining civilization against the darkness of Mordor.\n\n**Historical Role:** Gondor has been the bulwark against Sauron for millennia. The white city of Minas Tirith. The watchtowers. The rangers. The constant vigilance against darkness.\n\n**Current State:** The [Planar Fracture](planar_fracture) has complicated Gondor's situation. The kingdom is fragmented across dimensional spaces. Communication with Mordor-adjacent regions—where some Rohirrim are trapped—is uncertain. Whether the throne is occupied, whether the stewards still function, is unclear.\n\n**Relationship with Rohan:** The traditional alliance between Gondor and Rohan—cemented through generations of mutual aid—persists where contact remains possible.\n\n**Military Capability:** Gondor's soldiers are well-trained, well-equipped, and experienced in fighting darkness. Their effectiveness is limited by dimensional fragmentation.\n\nGondor represents what humans can build when they commit to defending civilization. Whether that defense can survive dimensional catastrophe is being tested.\n\nWAH.",
+  "relatedArticles": [
+   "rohirrim",
+   "mordor",
+   "planar_fracture"
+  ]
+ },
+ {
+  "id": "mordor",
+  "name": "Mordor",
+  "type": "Faction (Dark Realm)",
+  "origin": "Middle-earth — Sauron's domain in the east",
+  "description": "Mordor is Sauron's realm—the dark land where evil marshals its forces. Whether Sauron himself survived the [Planar Fracture](planar_fracture) is debated. Whether his organizational structures persist is documented.\n\n**Geography:** The Black Land. Mount Doom. Barad-dûr. The ashen plains where orc armies mustered.\n\n**Current Activity:** The demographic data shows populations associated with Mordor—Orcs (Mordor), some Rohirrim, others. Whether these populations are organized under Mordor authority or merely geographically associated is unclear.\n\n**Dimensional Complications:** The Planar Fracture may have fragmented Mordor like other regions. Whether this weakened or somehow advantaged Mordor is unknown.\n\n**Threat Assessment:** Even diminished Mordor is dangerous. The structures of evil persist beyond individual dark lords. Orcs still multiply. Dark fortresses still stand. The threat is not eliminated.\n\nWaluigi documents Mordor as ongoing threat regardless of Sauron's status. The machinery of darkness does not require its architect to continue functioning.\n\nWAH.",
+  "relatedArticles": [
+   "kingdom_of_gondor",
+   "rohirrim"
+  ]
+ },
+ {
+  "id": "rohan",
+  "name": "Rohan",
+  "type": "Dimensional Territory (Horse-Lord Kingdom)",
+  "origin": "Middle-earth — the Mark, the Riddermark, land of the Horse-Lords",
+  "description": "Rohan is the homeland of the Rohirrim—the green plains where horses run, where cavalry charges are born, where the Horse-Lords have maintained their culture for generations.\n\n**Geography:** The Riddermark. Edoras on its hill. The fields where horses graze. The mountains that border the land.\n\n**Current State:** Fragmented by the [Planar Fracture](planar_fracture). Some regions are isolated. Some are connected to unexpected dimensions. The Rohirrim population is scattered.\n\n**Cultural Significance:** Rohan is not merely territory—it is IDENTITY. The Rohirrim are people of Rohan. Without Rohan, they struggle to remain Rohirrim.\n\n**Recovery Potential:** If dimensional stability returns, Rohan might be reconstituted. The land presumably still exists. The question is whether the Rohirrim survive long enough to reclaim it.\n\nWaluigi documents Rohan as lost homeland—present in memory, uncertain in reality, critical to those who came from it.\n\nWAH.",
+  "relatedArticles": [
+   "rohirrim",
+   "kingdom_of_gondor",
+   "mearas"
+  ]
+ },
+ {
+  "id": "karaz_ankor",
+  "name": "Karaz Ankor",
+  "type": "Faction (Dwarf Empire)",
+  "origin": "Old World — the Everlasting Realm beneath the World's Edge Mountains",
+  "description": "Karaz Ankor is the Dwarf Empire—or what remains of it. The Everlasting Realm beneath the mountains, the holds of the ancestors, the tunnels that connected a civilization.\n\n**Historical Scope:** Karaz Ankor once spanned the World's Edge Mountains and beyond. Holds of legendary scope. Engineering that lesser races could not comprehend. Wealth beyond counting.\n\n**Current State:** Diminished. Holds lost to Greenskins. Holds lost to Skaven. Holds lost to time and disaster. The Dwarfs hold what they can and mourn what they cannot.\n\n**The Holds:** Each surviving hold is a fortress-city—self-contained, defensible, connected (sometimes) by underground highways. Major holds include Karaz-a-Karak (the capital), Karak Eight Peaks (contested), and others.\n\n**The Decline:** The Book of Grudges grows faster than grudges are settled. Population shrinks. Enemies multiply. The Dwarfs endure but do not flourish.\n\nWaluigi documents Karaz Ankor as fading greatness—what was magnificent becoming merely persistent. The Dwarfs remember what they were. They fight to remain at all.\n\nWAH.",
+  "relatedArticles": [
+   "dwarf_old_world",
+   "greenskin",
+   "skaven",
+   "old_world"
+  ]
+ },
+ {
+  "id": "under_empire",
+  "name": "The Under-Empire",
+  "type": "Faction (Skaven Civilization)",
+  "origin": "Old World — the vast tunnel network beneath the surface",
+  "description": "The Under-Empire is Skaven civilization—a network of tunnels, warrens, and underground cities stretching beneath the Old World. It is larger than any surface nation. It officially does not exist.\n\n**Scale:** The Under-Empire undermines virtually every surface nation. Tunnels beneath the Empire. Tunnels beneath Bretonnia. Tunnels beneath lands that do not know they are undermined.\n\n**Organization:** The Council of Thirteen theoretically governs. The Great Clans control actual power. Everyone schemes against everyone.\n\n**Warpstone Dependency:** Skaven civilization runs on warpstone—corrupting substance that powers their technology and slowly poisons their existence.\n\n**Surface Denial:** Most surface nations officially deny Skaven existence. This is convenient for surface governments and VERY convenient for the Skaven.\n\nThe Under-Empire represents threat from below—enemies that are everywhere and officially nowhere.\n\nWAH.",
+  "relatedArticles": [
+   "skaven",
+   "warpstone",
+   "old_world"
+  ]
+ }
+]
