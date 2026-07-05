@@ -1128,48 +1128,6 @@
       linear-gradient(180deg, rgba(36,26,18,.94), rgba(13,11,13,.94));
   }
   .player-icon { background: radial-gradient(circle at 35% 20%, rgba(240,195,107,.22), rgba(0,0,0,.16)); }
-  .boot-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: grid;
-    place-items: center;
-    background:
-      radial-gradient(circle at 50% 35%, rgba(91,58,142,.32), transparent 32%),
-      linear-gradient(135deg, #070609, #21150f 55%, #050406);
-    animation: bootFade 1.4s ease 1.45s forwards;
-  }
-  .boot-tablet {
-    width: min(420px, calc(100% - 42px));
-    padding: 34px 30px;
-    text-align: center;
-    border: 2px solid rgba(240,195,107,.58);
-    border-radius: 24px;
-    background: linear-gradient(180deg, rgba(50,33,18,.95), rgba(12,9,10,.97));
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 0 80px rgba(0,0,0,.8), 0 0 40px rgba(154,108,255,.25);
-  }
-  .waluigi-logo {
-    margin: 0 auto 18px;
-    width: 118px;
-    height: 118px;
-    border-radius: 50%;
-    line-height: 112px;
-    border: 3px solid var(--brass-bright);
-    background: radial-gradient(circle at 33% 24%, #ffe1a0, #b46a34 55%, #32133f 100%);
-    color: #2a1148;
-    font-family: 'Cinzel', serif;
-    font-size: 48px;
-    font-weight: 900;
-    letter-spacing: -5px;
-    text-shadow: 0 2px 0 rgba(255,255,255,.35);
-  }
-  .boot-title { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 900; color: #f5ddb1; letter-spacing: 2px; }
-  .boot-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); margin-top: 8px; text-transform: uppercase; letter-spacing: 2px; }
-  .boot-loader { height: 8px; margin-top: 24px; border: 1px solid rgba(240,195,107,.28); border-radius: 999px; overflow: hidden; background: rgba(0,0,0,.35); }
-  .boot-loader span { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--violet-bright), var(--brass-bright)); animation: bootLoad 1.25s ease forwards; }
-  @keyframes bootLoad { to { width: 100%; } }
-  @keyframes bootFade { to { opacity: 0; visibility: hidden; pointer-events: none; } }
-  @media (prefers-reduced-motion: reduce) { .boot-overlay { animation-duration: .01s; animation-delay: .01s; } .boot-loader span { animation-duration: .01s; } }
 
 
 
@@ -1332,9 +1290,6 @@ body::before, body::after { opacity: .08 !important; }
 .entry-description { display: block !important; color: #bfb2cd !important; }
 .entry-expand-hint { display:none !important; }
 .source-marker { color: var(--hsh-purple-soft) !important; border-color: rgba(183,154,221,.34) !important; background: rgba(141,107,184,.12) !important; }
-.boot-overlay { background: #17121d !important; }
-.boot-tablet { background: #231b2d !important; border-color: var(--hsh-purple-soft) !important; }
-.waluigi-logo { background: #2b1d3c !important; color: #e7d8ff !important; border-color: var(--hsh-purple-soft) !important; }
 @media (max-width: 980px) {
   html, body { overflow: auto; height: auto; }
   .hotline-shell { height: auto; min-height: 100vh; grid-template-columns: 1fr; }
@@ -1656,81 +1611,6 @@ body::before, body::after { opacity: .08 !important; }
 
 
 
-/* ═══ WARIO INDUSTRIES BOOT / CHUNKY TABLET SHELL ═══ */
-.boot-overlay {
-  background: #08070b !important;
-  animation: bootFade 1.1s ease 3.9s forwards !important;
-}
-.boot-device {
-  position: relative;
-  width: min(560px, calc(100% - 34px));
-  padding: 28px;
-  border-radius: 34px;
-  border: 8px solid #e0bd3f;
-  background:
-    linear-gradient(135deg, #f0d24f 0 16px, #6d4aa0 16px 34px, #e0bd3f 34px 50px, #4b3373 50px),
-    linear-gradient(180deg, #6d4aa0, #3b255e);
-  box-shadow: inset 0 0 0 5px rgba(255,255,255,.08), inset 0 -18px 0 rgba(0,0,0,.16), 0 30px 90px rgba(0,0,0,.85);
-}
-.device-screw {
-  position: absolute; width: 18px; height: 18px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff0a6, #9b7524 62%, #3b2b10);
-  border: 1px solid rgba(0,0,0,.55);
-  box-shadow: inset 0 0 0 2px rgba(0,0,0,.16);
-}
-.device-screw::after { content:''; position:absolute; left:4px; right:4px; top:8px; height:2px; background:rgba(0,0,0,.55); transform:rotate(-25deg); }
-.s1{left:16px;top:16px}.s2{right:16px;top:16px}.s3{left:16px;bottom:16px}.s4{right:16px;bottom:16px}
-.boot-tablet {
-  position: relative;
-  width: auto !important;
-  min-height: 330px;
-  overflow: hidden;
-  border-radius: 22px !important;
-  border: 4px solid #2b1d3c !important;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.10), transparent 22%),
-    radial-gradient(circle at 50% 120%, rgba(57,255,136,.16), transparent 42%),
-    #050607 !important;
-  box-shadow: inset 0 0 22px rgba(255,255,255,.08), inset 0 0 0 2px rgba(57,255,136,.10) !important;
-}
-.boot-tablet::before {
-  content:''; position:absolute; inset:0; pointer-events:none;
-  background:
-    linear-gradient(108deg, transparent 0 28%, rgba(255,255,255,.08) 29%, transparent 31% 100%),
-    linear-gradient(12deg, transparent 0 44%, rgba(255,255,255,.05) 45%, transparent 46% 100%);
-  border-radius: 18px;
-}
-.boot-tablet::after {
-  content:''; position:absolute; inset:0; pointer-events:none; opacity:.18;
-  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(57,255,136,.16) 4px);
-  mix-blend-mode: screen;
-}
-.boot-crackle {
-  position:absolute; top:18px; left:0; right:0; text-align:center;
-  font-family:'JetBrains Mono', monospace; font-size:12px; color:#39ff88; letter-spacing:2px;
-  opacity:0; animation: crackle 3.6s steps(1,end) forwards;
-}
-.wario-boot, .waluigi-boot { position:absolute; inset:34px 28px 48px; display:grid; place-items:center; align-content:center; text-align:center; }
-.wario-boot { animation: warioGlitch 3.6s steps(1,end) forwards; }
-.waluigi-boot { opacity:0; animation: waluigiTakeover 3.6s steps(1,end) forwards; }
-.wario-logo {
-  width:92px;height:92px;border-radius:18px;display:grid;place-items:center;
-  background:#f0d24f;color:#5b2d89;border:4px solid #5b2d89;
-  font-family:'Cinzel',serif;font-weight:900;font-size:62px;transform:rotate(0deg);
-  box-shadow:0 0 28px rgba(240,210,79,.25);
-}
-.wario-title { color:#f0d24f !important; text-shadow:2px 2px 0 #5b2d89; }
-.boot-lines { display:flex; flex-direction:column; gap:5px; margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:11px; color:#39ff88; }
-.boot-lines span { opacity:0; animation: linePop 3.2s steps(1,end) forwards; }
-.boot-lines span:nth-child(2){animation-delay:.55s}.boot-lines span:nth-child(3){animation-delay:1.05s}
-.waluigi-boot .boot-title { color:#d8c6ff !important; text-shadow:0 0 12px rgba(57,255,136,.35); }
-.waluigi-boot .boot-subtitle { color:#39ff88 !important; }
-.boot-loader { position:absolute; left:28px; right:28px; bottom:24px; border-color:rgba(57,255,136,.35) !important; background:rgba(57,255,136,.06) !important; }
-.boot-loader span { background:linear-gradient(90deg,#39ff88,#d8c6ff) !important; animation: bootLoad 3.4s ease forwards !important; }
-@keyframes crackle { 0%,8%{opacity:0} 9%,15%{opacity:1} 16%,100%{opacity:0} }
-@keyframes linePop { 0%,18%{opacity:0} 19%,100%{opacity:1} }
-@keyframes warioGlitch { 0%,68%{opacity:1; transform:none} 69%{opacity:1; transform:scaleY(-1) skewX(8deg)} 76%,100%{opacity:0} }
-@keyframes waluigiTakeover { 0%,75%{opacity:0} 76%,100%{opacity:1} }
 /* Ledger screen: dark purple villain spreadsheet with neon green accents, but muted enough to read. */
 .hotline-main {
   background:
@@ -2110,30 +1990,6 @@ body::before, body::after { opacity: .08 !important; }
 </style>
 </head>
 <body>
-<div id="boot-overlay" class="boot-overlay" aria-hidden="true">
-  <div class="boot-device">
-    <div class="device-screw s1"></div><div class="device-screw s2"></div><div class="device-screw s3"></div><div class="device-screw s4"></div>
-    <div class="boot-tablet">
-      <div class="boot-crackle">BZZZZT-KA-CHUNK</div>
-      <div class="wario-boot">
-        <div class="wario-logo">W</div>
-        <div class="boot-title wario-title">WARIO INDUSTRIES™</div>
-        <div class="boot-subtitle">VERY SMART TABLET MACHINE</div>
-        <div class="boot-lines">
-          <span>Loading...</span>
-          <span>Installing greed modules...</span>
-          <span>Calculating suspicious profits...</span>
-        </div>
-      </div>
-      <div class="waluigi-boot">
-        <div class="waluigi-logo">WΛ</div>
-        <div class="boot-title">WALUIGI XP LEDGER</div>
-        <div class="boot-subtitle">Case Ledger Terminal · unauthorized improvement detected</div>
-      </div>
-      <div class="boot-loader"><span></span></div>
-    </div>
-  </div>
-</div>
 <div class="hotline-shell">
   <aside class="hotline-sidebar">
     <div class="terminal-brand">
@@ -3303,6 +3159,10 @@ Object.assign(DISPLAY_CONFIG, {
   salam: { icon: '🍄', epithet: 'Ranger With Damaged Trust', class: 'Toad', accentVar: '--accent-emerald', accentGlowVar: '--accent-emerald-glow' },
   orange_t: { icon: '🍄', epithet: 'Sanctum Toad Medic', class: 'Toad', accentVar: '--accent-amber', accentGlowVar: '--accent-amber-glow' }
 });
+
+const WIKI_ARTICLE_IDS = {"bowser":"bowser","archie":"archie_miser","waluigi":"waluigi","markop":"markop","hjumpik":"hjumpik","remi":"remi_akamatsu_full_backstory","rakashaazure":"azure_rakasha","usk":"usk","bones":"bones","dan":"dan","toadlee":"toad_lee","greent":"green_t","feywarddan":"dan_the_toad","speaker_l":"speaker_l","eager":"eager","salam":"salam","ryan":"ryan","salem":"salam","smoking_j":"smoking_j","mossy":"mossy","roger":"roger","luigi":"luigi","originaldan":"dan","valorian_stormweave":"valorian_stormweave","thornbury":"thornbury","parson_pellinost":"parson_pellinost","toadburt":"toadburt","darno_spriggon":"darno_spriggon","hargram_fidger":"hargram_fidger","byscilla_danos":"byscilla_danos","manderaz_the_mad":"manderaz_the_mad","general_ironhand":"general_ironhand","rhak_the_lost":"rhak_the_lost","aemenor_evenflight":"aemenor_evenflight","warol_creeton":"warol_creeton","theoracle":"the_oracle","vivian_corvinarus":"vivian_corvinarus","lady_aurelian":"lady_aurelian","oranguscornelius":"orangus_cornelius","lyranth":"lyranth","the_archivist":"the_archivist","orvinder_danos":"orvinder_danos","tymnas":"tymnas","marcus_ashford":"marcus_ashford","vaxillusthebeastmaster":"vaxillus_the_beastmaster","rattles":"rattles","kamek":"kamek","princess_peach":"princess_peach","mario":"mario","professor_e_gadd":"professor_e_gadd","lady_bloomia":"lady_bloomia","bryan":"bryan","toadettesr":"captain_toadette","toadsworth_sr":"toadsworth_sr","chancellor_toadsworth":"chancellor_toadsworth","princess_daisy":"princess_daisy","captain_toadette":"captain_toadette","mistveil":"mistveil","embercap":"embercap","fawful":"fawful","thejestergoomba":"fawful","wario":"wario","king_boo":"king_boo","mysticmorel":"mystic_morel","mystic_morsole":"mystic_morsole","the_medusa":"lyranth","rakka":"rakka","king_k_rool":"king_k_rool","kremlings":"kremlings","kirby":"kirby","king_dedede":"king_dedede","meta_knight":"meta_knight","rakasha":"rakasha","thornpaw":"chief_thornpaw","earl_grey":"earl_grey","captain_syrup":"captain_syrup","elder_meadowlight":"elder_meadowlight","miles_edgeworth":"miles_edgeworth","godtoad":"bryan","xo":"xo","commander_g":"commander_g","kyle_coinsoul":"kyle_coinsoul","mr_l":"mr_l","unknown_assassin":"unknown_assassin","merric":"merric","tanukiburt":"tanukiburt"};
+function wikiArticleIdForPlayer(key){ return WIKI_ARTICLE_IDS[key] || key; }
+function openWikiForPlayer(key){ location.href = 'battlefield.html#/article/' + encodeURIComponent(wikiArticleIdForPlayer(key)); }
 
 // Defaults for characters without explicit config
 const DEFAULT_DISPLAY = {
@@ -16408,6 +16268,7 @@ function buildPlayerPanel(key, p, isActive) {
         ${disp.epithet ? `<p class="player-epithet">${escapeHtml(disp.epithet)}</p>` : ''}
         <div class="player-badges">
           <span class="player-level-badge">◆ XP Level ${p.level}${disp.class !== 'Unknown' ? ' · ' + escapeHtml(disp.class) : ''}</span>
+          <button class="player-link-badge" type="button" onclick="openWikiForPlayer('${key}')">↗ Wiki Article</button>
           <span class="player-power-badge" title="Narrative power/threat scale; separate from earned XP level.">✦ Power ${p.powerLevel || p.level} · ${escapeHtml(p.powerTier || 'Mortal')}</span>
           <span class="player-fame-badge" title="Public reputation, rumor spread, political recognition, infamy, and name recognition. Separate from XP and Power.">★ Fame ${p.fameScore || 0} · ${escapeHtml(p.fameTier || 'Obscure')}</span>
           ${p.fameTags ? p.fameTags.map(tag => `<span class="player-fame-tag">${escapeHtml(tag)}</span>`).join('') : ''}
@@ -16706,6 +16567,7 @@ function toggleFilter(playerKey, cat) {
 // ═══════════════════════════════════════════
 
 function activatePanel(key) {
+  try { if (key && key !== '__home') history.replaceState(null, '', '#/player/' + encodeURIComponent(key)); else if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch(e) {}
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   const targetTab = document.querySelector(`.nav-tab[data-target="${key}"]`);
   if (targetTab) targetTab.classList.add('active');
@@ -17331,14 +17193,11 @@ async function fetchJsonCandidate(paths) {
       const hash = await digestText(text);
       const cacheKey = `xpLedgerJsonHash:${url}`;
       const sessionKey = `xpLedgerJsonApplied:${url}`;
-      if (localStorage.getItem(cacheKey) === hash && sessionStorage.getItem(sessionKey) === hash) {
-        EXTERNAL_LEDGER_SOURCE.applied.push(`characters-json:unchanged:${url}`);
-        setImportStatus(`Character lore unchanged: ${url}`, 78);
-        return { url, data: null, unchanged: true, hash };
-      }
+      const unchanged = localStorage.getItem(cacheKey) === hash;
       localStorage.setItem(cacheKey, hash);
       sessionStorage.setItem(sessionKey, hash);
-      return { url, data: JSON.parse(text), hash };
+      if (unchanged) EXTERNAL_LEDGER_SOURCE.applied.push(`characters-json:unchanged-but-applied:${url}`);
+      return { url, data: JSON.parse(text), hash, unchanged: false };
     } catch (err) { lastErr = err; }
   }
   EXTERNAL_LEDGER_SOURCE.missing.push({ label: 'characters.json', path: paths.join(' | '), message: lastErr?.message || String(lastErr) });
@@ -17430,13 +17289,21 @@ function showImportPrompt() {
   });
 }
 
+function initialXpPanelFromLocation(){
+  const params=new URLSearchParams(location.search);
+  let key=params.get('player')||'';
+  if(!key){ const m=location.hash.match(/(?:#\/player\/|#player=|#)([a-zA-Z0-9_:-]+)/); if(m) key=decodeURIComponent(m[1]); }
+  return key && PLAYERS[key] ? key : '__home';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   sanitizeLedgerEntries();
-  setImportStatus('Ledger ready — world-file prompt pending', 8);
+  setImportStatus('Synchronizing world files…', 8);
 
   buildHeader();
   buildNavigation();
   buildAllPanels();
+  requestAnimationFrame(()=>activatePanel(initialXpPanelFromLocation()));
 
   document.addEventListener('keydown', (ev) => {
     if (ev.key === '/' && document.activeElement?.tagName !== 'INPUT') {
@@ -17446,13 +17313,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ev.key === 'Escape') activatePanel('__home');
   });
 
-  const params = new URLSearchParams(location.search);
-  if (params.get('imports') === '1' || location.hash.includes('imports')) {
-    requestAnimationFrame(() => setTimeout(() => startOptionalImports(), 250));
-  } else {
-    requestAnimationFrame(() => setTimeout(showImportPrompt, 350));
-  }
+  // Auto-sync every time. No prompt: the XP ledger should always pull nearby world files when available.
+  requestAnimationFrame(() => setTimeout(() => startOptionalImports(), 250));
 });
-</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1323a012c437b1b',t:'MTc4MjcwNzc0OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</script></body>
 </html>

@@ -242,6 +242,8 @@ mark{background:var(--accent2);color:#111;border-radius:3px;padding:0 2px}
 @media(max-width:600px){.annot-drawer{width:100vw}}
 /* article reading controls */
 .article-controls{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px}
+.article-lead-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,260px);gap:16px;align-items:start;margin:14px 0 18px;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--panel2)}.article-lead-card.noimg{grid-template-columns:1fr}.article-lead-summary h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--accent2)}.article-lead-summary p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.62;text-align:left}.article-lead-img{margin:0}.article-lead-img img{width:100%;max-height:300px;object-fit:cover;border-radius:10px;border:1px solid var(--border);display:block}.article-lead-img figcaption{margin-top:5px}.article-top-xp{margin:10px 0 14px}.article-top-xp .xp-mini-panel{margin-bottom:0}@media(max-width:720px){.article-lead-card{grid-template-columns:1fr}.article-lead-img img{max-height:none}}
+.xp-mini-panel{background:linear-gradient(135deg,rgba(224,180,0,.13),rgba(138,75,255,.09));border:1px solid rgba(224,180,0,.35);border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px}.xp-mini-panel h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}.xp-mini-panel .xpbig{font-size:24px;font-weight:900;color:var(--accent2);line-height:1}.xp-mini-panel .xpsub{color:var(--muted);margin-top:4px}.xp-mini-panel .xpbar{height:8px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;overflow:hidden;margin:10px 0}.xp-mini-panel .xpbar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));}.xp-mini-panel .xplink{display:inline-block;margin-top:8px;border:1px solid var(--border);border-radius:999px;padding:4px 9px;color:var(--text);background:var(--bg2);font-size:12px}.xp-pill{border-color:rgba(224,180,0,.55)!important;color:var(--accent2)!important;background:rgba(224,180,0,.10)!important}.kv-list{display:grid;gap:6px;margin:8px 0 12px}.kv-row{display:grid;grid-template-columns:minmax(120px,.35fr) 1fr;gap:8px;padding:7px 9px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);font-size:13.5px}.kv-row .k{color:var(--accent2);font-weight:800}.kv-row .v{color:var(--text)}
 .article-controls h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}
 .ctrl-row{margin:10px 0}.ctrl-label{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.45px;margin-bottom:6px}.ctrl-count{color:var(--accent2);font-weight:800}.ctrl-pills{display:flex;flex-wrap:wrap;gap:6px}.setting-pill{background:var(--bg2);border:1px solid var(--border);color:var(--muted);border-radius:18px;padding:4px 9px;font-size:12px;cursor:pointer;transition:.12s;font-family:inherit}.setting-pill:hover{border-color:var(--accent);color:var(--text);transform:translateY(-1px)}.setting-pill.active{background:var(--accent);border-color:var(--accent);color:#fff}.setting-pill.warn.active{background:var(--accent2);border-color:var(--accent2);color:#151022}.setting-pill.off.active{background:var(--danger);border-color:var(--danger);color:#fff}.ctrl-help{color:var(--muted);font-size:11.5px;line-height:1.4;margin-top:8px}.ctrl-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.ctrl-mini{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:4px 8px;font-size:11.5px;cursor:pointer}.ctrl-mini:hover{color:var(--text);border-color:var(--accent)}
 #settingsToast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:8px 14px;box-shadow:var(--shadow);z-index:260;opacity:0;pointer-events:none;transition:.18s;font-size:13px}#settingsToast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -303,6 +305,7 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 /* DATA is populated by the loader (fetch ./data/*.json, fall back to embedded).
    These are declared with let and assigned once data is ready in boot(). */
 let DATA, FCOLORS, MONTHS, CUR;
+const XP_SUMMARY={"bowser":{"xpKey":"bowser","name":"Bowser","level":8,"currentXP":35292,"nextXP":48000,"remainingXP":12708,"powerLevel":14,"fameScore":95,"entryCount":73},"archie_miser":{"xpKey":"archie","name":"Archie Miser","level":6,"currentXP":20000,"nextXP":23000,"remainingXP":3000,"powerLevel":13,"fameScore":74,"entryCount":61},"waluigi":{"xpKey":"waluigi","name":"Waluigi","level":5,"currentXP":11021,"nextXP":14000,"remainingXP":2979,"powerLevel":11,"fameScore":72,"entryCount":137},"markop":{"xpKey":"markop","name":"Markop","level":8,"currentXP":37749,"nextXP":48000,"remainingXP":10251,"powerLevel":13,"fameScore":64,"entryCount":68},"hjumpik":{"xpKey":"hjumpik","name":"Hjumpik","level":7,"currentXP":24662,"nextXP":34000,"remainingXP":9338,"powerLevel":12,"fameScore":55,"entryCount":54},"remi_akamatsu_full_backstory":{"xpKey":"remi","name":"Remi","level":7,"currentXP":29688,"nextXP":34000,"remainingXP":4312,"powerLevel":12,"fameScore":45,"entryCount":56},"azure_rakasha":{"xpKey":"rakashaazure","name":"Rakasha Azure","level":4,"currentXP":5000,"nextXP":6500,"remainingXP":1500,"powerLevel":7,"fameScore":42,"entryCount":10},"usk":{"xpKey":"usk","name":"Usk","level":2,"currentXP":800,"nextXP":900,"remainingXP":100,"powerLevel":5,"fameScore":26,"entryCount":3},"bones":{"xpKey":"bones","name":"Bones","level":4,"currentXP":6180,"nextXP":6500,"remainingXP":320,"powerLevel":8,"fameScore":52,"entryCount":18},"dan":{"xpKey":"originaldan","name":"Original Dan","level":7,"currentXP":25690,"nextXP":34000,"remainingXP":8310,"powerLevel":9,"fameScore":57,"entryCount":7},"toad_lee":{"xpKey":"toadlee","name":"Toad Lee","level":4,"currentXP":5490,"nextXP":6500,"remainingXP":1010,"powerLevel":9,"fameScore":48,"entryCount":19},"green_t":{"xpKey":"greent","name":"Green T","level":5,"currentXP":12500,"nextXP":14000,"remainingXP":1500,"powerLevel":11,"fameScore":47,"entryCount":30},"dan_the_toad":{"xpKey":"feywarddan","name":"Feyward Dan","level":3,"currentXP":1540,"nextXP":2700,"remainingXP":1160,"powerLevel":5,"fameScore":37,"entryCount":7},"speaker_l":{"xpKey":"speaker_l","name":"Speaker L","level":3,"currentXP":1470,"nextXP":2700,"remainingXP":1230,"powerLevel":5,"fameScore":37,"entryCount":8},"eager":{"xpKey":"eager","name":"Eager","level":4,"currentXP":4480,"nextXP":6500,"remainingXP":2020,"powerLevel":10,"fameScore":34,"entryCount":16},"salam":{"xpKey":"salem","name":"Salem","level":2,"currentXP":640,"nextXP":900,"remainingXP":260,"powerLevel":4,"fameScore":30,"entryCount":2},"ryan":{"xpKey":"ryan","name":"Ryan","level":2,"currentXP":590,"nextXP":900,"remainingXP":310,"powerLevel":4,"fameScore":30,"entryCount":3},"smoking_j":{"xpKey":"smoking_j","name":"Smoking J","level":2,"currentXP":550,"nextXP":900,"remainingXP":350,"powerLevel":4,"fameScore":30,"entryCount":2},"mossy":{"xpKey":"mossy","name":"Mossy / Steely","level":4,"currentXP":3150,"nextXP":6500,"remainingXP":3350,"powerLevel":4,"fameScore":28,"entryCount":11},"roger":{"xpKey":"roger","name":"Roger","level":2,"currentXP":790,"nextXP":900,"remainingXP":110,"powerLevel":3,"fameScore":26,"entryCount":4},"luigi":{"xpKey":"luigi","name":"Luigi","level":5,"currentXP":10310,"nextXP":14000,"remainingXP":3690,"powerLevel":13,"fameScore":86,"entryCount":35},"valorian_stormweave":{"xpKey":"valorian_stormweave","name":"Valorian Stormweave","level":2,"currentXP":860,"nextXP":900,"remainingXP":40,"powerLevel":4,"fameScore":32,"entryCount":3},"thornbury":{"xpKey":"thornbury","name":"Thornbury","level":2,"currentXP":840,"nextXP":900,"remainingXP":60,"powerLevel":5,"fameScore":26,"entryCount":4},"parson_pellinost":{"xpKey":"parson_pellinost","name":"Parson Pellinost","level":2,"currentXP":490,"nextXP":900,"remainingXP":410,"powerLevel":4,"fameScore":22,"entryCount":2},"toadburt":{"xpKey":"toadburt","name":"Toadburt","level":2,"currentXP":800,"nextXP":900,"remainingXP":100,"powerLevel":5,"fameScore":26,"entryCount":4},"darno_spriggon":{"xpKey":"darno_spriggon","name":"Darno Spriggon","level":3,"currentXP":1510,"nextXP":2700,"remainingXP":1190,"powerLevel":4,"fameScore":25,"entryCount":5},"hargram_fidger":{"xpKey":"hargram_fidger","name":"Hargram Fidger","level":2,"currentXP":550,"nextXP":900,"remainingXP":350,"powerLevel":4,"fameScore":22,"entryCount":2},"byscilla_danos":{"xpKey":"byscilla_danos","name":"Byscilla Danos","level":3,"currentXP":1330,"nextXP":2700,"remainingXP":1370,"powerLevel":3,"fameScore":21,"entryCount":4},"manderaz_the_mad":{"xpKey":"manderaz_the_mad","name":"Manderaz the Mad","level":3,"currentXP":910,"nextXP":2700,"remainingXP":1790,"powerLevel":3,"fameScore":21,"entryCount":3},"general_ironhand":{"xpKey":"general_ironhand","name":"General Ironhand","level":2,"currentXP":860,"nextXP":900,"remainingXP":40,"powerLevel":3,"fameScore":76,"entryCount":4},"rhak_the_lost":{"xpKey":"rhak_the_lost","name":"Rhak the Lost","level":2,"currentXP":790,"nextXP":900,"remainingXP":110,"powerLevel":3,"fameScore":18,"entryCount":3},"aemenor_evenflight":{"xpKey":"aemenor_evenflight","name":"Aemenor Evenflight","level":1,"currentXP":130,"nextXP":300,"remainingXP":170,"powerLevel":2,"fameScore":11,"entryCount":1},"warol_creeton":{"xpKey":"warol_creeton","name":"Warol Creeton","level":1,"currentXP":180,"nextXP":300,"remainingXP":120,"powerLevel":2,"fameScore":11,"entryCount":1},"the_oracle":{"xpKey":"theoracle","name":"The Oracle","level":8,"currentXP":39250,"nextXP":48000,"remainingXP":8750,"powerLevel":16,"fameScore":76,"entryCount":19},"vivian_corvinarus":{"xpKey":"vivian_corvinarus","name":"Vivian Corvinarus","level":3,"currentXP":1010,"nextXP":2700,"remainingXP":1690,"powerLevel":12,"fameScore":65,"entryCount":5},"lady_aurelian":{"xpKey":"lady_aurelian","name":"Lady Aurelian Corvinarus","level":3,"currentXP":1200,"nextXP":2700,"remainingXP":1500,"powerLevel":13,"fameScore":61,"entryCount":5},"orangus_cornelius":{"xpKey":"oranguscornelius","name":"Orangus Cornelius","level":5,"currentXP":9320,"nextXP":14000,"remainingXP":4680,"powerLevel":11,"fameScore":59,"entryCount":9},"lyranth":{"xpKey":"the_medusa","name":"The Medusa","level":1,"currentXP":140,"nextXP":300,"remainingXP":160,"powerLevel":8,"fameScore":35,"entryCount":1},"the_archivist":{"xpKey":"the_archivist","name":"The Archivist","level":3,"currentXP":2200,"nextXP":2700,"remainingXP":500,"powerLevel":6,"fameScore":33,"entryCount":10},"orvinder_danos":{"xpKey":"orvinder_danos","name":"Orvinder Danos","level":2,"currentXP":800,"nextXP":900,"remainingXP":100,"powerLevel":5,"fameScore":26,"entryCount":3},"tymnas":{"xpKey":"tymnas","name":"Tymnas","level":2,"currentXP":880,"nextXP":900,"remainingXP":20,"powerLevel":4,"fameScore":22,"entryCount":3},"marcus_ashford":{"xpKey":"marcus_ashford","name":"Marcus Ashford","level":3,"currentXP":900,"nextXP":2700,"remainingXP":1800,"powerLevel":6,"fameScore":33,"entryCount":4},"vaxillus_the_beastmaster":{"xpKey":"vaxillusthebeastmaster","name":"Vaxillus the Beastmaster","level":4,"currentXP":3970,"nextXP":6500,"remainingXP":2530,"powerLevel":7,"fameScore":41,"entryCount":6},"rattles":{"xpKey":"rattles","name":"Rattles","level":2,"currentXP":780,"nextXP":900,"remainingXP":120,"powerLevel":5,"fameScore":26,"entryCount":4},"kamek":{"xpKey":"kamek","name":"Kamek","level":2,"currentXP":690,"nextXP":900,"remainingXP":210,"powerLevel":10,"fameScore":46,"entryCount":4},"princess_peach":{"xpKey":"princess_peach","name":"Princess Peach","level":4,"currentXP":3820,"nextXP":6500,"remainingXP":2680,"powerLevel":8,"fameScore":98,"entryCount":11},"mario":{"xpKey":"mario","name":"Mario","level":5,"currentXP":13980,"nextXP":14000,"remainingXP":20,"powerLevel":14,"fameScore":92,"entryCount":23},"professor_e_gadd":{"xpKey":"professor_e_gadd","name":"Professor Elvin Gadd","level":3,"currentXP":1970,"nextXP":2700,"remainingXP":730,"powerLevel":5,"fameScore":29,"entryCount":6},"lady_bloomia":{"xpKey":"lady_bloomia","name":"Lady Bloomia","level":3,"currentXP":1200,"nextXP":2700,"remainingXP":1500,"powerLevel":4,"fameScore":25,"entryCount":4},"bryan":{"xpKey":"godtoad","name":"God Toad","level":3,"currentXP":2000,"nextXP":2700,"remainingXP":700,"powerLevel":100,"fameScore":70,"entryCount":7},"captain_toadette":{"xpKey":"captain_toadette","name":"Captain Toadette","level":3,"currentXP":1730,"nextXP":2700,"remainingXP":970,"powerLevel":7,"fameScore":68,"entryCount":6},"toadsworth_sr":{"xpKey":"toadsworth_sr","name":"Toadsworth the Elder","level":4,"currentXP":3060,"nextXP":6500,"remainingXP":3440,"powerLevel":7,"fameScore":50,"entryCount":12},"chancellor_toadsworth":{"xpKey":"chancellor_toadsworth","name":"Chancellor Toadsworth","level":3,"currentXP":1160,"nextXP":2700,"remainingXP":1540,"powerLevel":6,"fameScore":33,"entryCount":4},"princess_daisy":{"xpKey":"princess_daisy","name":"Princess Daisy","level":3,"currentXP":2030,"nextXP":2700,"remainingXP":670,"powerLevel":4,"fameScore":25,"entryCount":7},"mistveil":{"xpKey":"mistveil","name":"Mistveil","level":3,"currentXP":970,"nextXP":2700,"remainingXP":1730,"powerLevel":5,"fameScore":29,"entryCount":4},"embercap":{"xpKey":"embercap","name":"Embercap","level":2,"currentXP":470,"nextXP":900,"remainingXP":430,"powerLevel":5,"fameScore":26,"entryCount":2},"fawful":{"xpKey":"thejestergoomba","name":"The Jester (Goomba)","level":4,"currentXP":3550,"nextXP":6500,"remainingXP":2950,"powerLevel":4,"fameScore":28,"entryCount":4},"wario":{"xpKey":"wario","name":"Wario","level":6,"currentXP":18370,"nextXP":23000,"remainingXP":4630,"powerLevel":11,"fameScore":83,"entryCount":39},"king_boo":{"xpKey":"king_boo","name":"King Boo","level":2,"currentXP":580,"nextXP":900,"remainingXP":320,"powerLevel":12,"fameScore":78,"entryCount":2},"mystic_morel":{"xpKey":"mysticmorel","name":"Mystic Morel","level":4,"currentXP":5340,"nextXP":6500,"remainingXP":1160,"powerLevel":13,"fameScore":65,"entryCount":10},"mystic_morsole":{"xpKey":"mystic_morsole","name":"Mystic Morsole","level":2,"currentXP":670,"nextXP":900,"remainingXP":230,"powerLevel":8,"fameScore":38,"entryCount":3},"rakka":{"xpKey":"rakka","name":"Rakka","level":3,"currentXP":920,"nextXP":2700,"remainingXP":1780,"powerLevel":5,"fameScore":29,"entryCount":3},"king_k_rool":{"xpKey":"king_k_rool","name":"King K. Rool","level":1,"currentXP":220,"nextXP":300,"remainingXP":80,"powerLevel":4,"fameScore":19,"entryCount":1},"kremlings":{"xpKey":"kremlings","name":"The Kremlings","level":2,"currentXP":370,"nextXP":900,"remainingXP":530,"powerLevel":3,"fameScore":18,"entryCount":2},"kirby":{"xpKey":"kirby","name":"Kirby","level":1,"currentXP":130,"nextXP":300,"remainingXP":170,"powerLevel":16,"fameScore":90,"entryCount":1},"king_dedede":{"xpKey":"king_dedede","name":"King Dedede","level":2,"currentXP":370,"nextXP":900,"remainingXP":530,"powerLevel":3,"fameScore":18,"entryCount":2},"meta_knight":{"xpKey":"meta_knight","name":"Meta Knight","level":2,"currentXP":550,"nextXP":900,"remainingXP":350,"powerLevel":3,"fameScore":18,"entryCount":2},"rakasha":{"xpKey":"rakasha","name":"The Rakasha","level":4,"currentXP":2900,"nextXP":6500,"remainingXP":3600,"powerLevel":7,"fameScore":40,"entryCount":11},"chief_thornpaw":{"xpKey":"thornpaw","name":"Thornpaw","level":4,"currentXP":6340,"nextXP":6500,"remainingXP":160,"powerLevel":7,"fameScore":62,"entryCount":12},"earl_grey":{"xpKey":"earl_grey","name":"Earl Grey","level":2,"currentXP":880,"nextXP":900,"remainingXP":20,"powerLevel":3,"fameScore":28,"entryCount":3},"captain_syrup":{"xpKey":"captain_syrup","name":"Captain Syrup","level":2,"currentXP":310,"nextXP":900,"remainingXP":590,"powerLevel":3,"fameScore":18,"entryCount":1},"elder_meadowlight":{"xpKey":"elder_meadowlight","name":"Elder Rowan Meadowlight","level":2,"currentXP":690,"nextXP":900,"remainingXP":210,"powerLevel":4,"fameScore":32,"entryCount":2},"miles_edgeworth":{"xpKey":"miles_edgeworth","name":"Miles Edgeworth","level":3,"currentXP":920,"nextXP":2700,"remainingXP":1780,"powerLevel":5,"fameScore":29,"entryCount":3},"xo":{"xpKey":"xo","name":"X.O.","level":2,"currentXP":690,"nextXP":900,"remainingXP":210,"powerLevel":5,"fameScore":26,"entryCount":2},"commander_g":{"xpKey":"commander_g","name":"Commander G","level":2,"currentXP":690,"nextXP":900,"remainingXP":210,"powerLevel":4,"fameScore":22,"entryCount":2},"kyle_coinsoul":{"xpKey":"kyle_coinsoul","name":"Kyle Coinsoul","level":2,"currentXP":600,"nextXP":900,"remainingXP":300,"powerLevel":4,"fameScore":22,"entryCount":2},"mr_l":{"xpKey":"mr_l","name":"Mr. L","level":3,"currentXP":1320,"nextXP":2700,"remainingXP":1380,"powerLevel":4,"fameScore":25,"entryCount":7},"unknown_assassin":{"xpKey":"unknown_assassin","name":"The Unknown Assassin","level":2,"currentXP":740,"nextXP":900,"remainingXP":160,"powerLevel":4,"fameScore":22,"entryCount":3},"merric":{"xpKey":"merric","name":"Merric","level":2,"currentXP":450,"nextXP":900,"remainingXP":450,"powerLevel":4,"fameScore":18,"entryCount":1},"tanukiburt":{"xpKey":"tanukiburt","name":"Tanukiburt","level":2,"currentXP":420,"nextXP":900,"remainingXP":480,"powerLevel":6,"fameScore":27,"entryCount":1}};
 
 /* wiki article types */
 const TYPES=[
@@ -403,6 +406,68 @@ function copyCurrentLink(){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>prefToast('Article link copied')).catch(()=>{prompt('Copy link',url);});}
   else prompt('Copy link',url);
 }
+
+function xpStats(articleId){ return (XP_SUMMARY&&XP_SUMMARY[articleId])||null; }
+function xpUrl(articleId){ const x=xpStats(articleId); return x ? `xp.html#/player/${encodeURIComponent(x.xpKey)}` : 'xp.html'; }
+function xpPill(articleId){ const x=xpStats(articleId); return x ? `<span class="pill xp-pill" title="${x.remainingXP.toLocaleString()} XP to Level ${x.level+1}">✦ XP Level ${x.level}</span>` : ''; }
+function xpMiniPanel(articleId){
+  const x=xpStats(articleId); if(!x) return '';
+  const pct=x.nextXP>0?Math.min(100,(x.currentXP/x.nextXP)*100):0;
+  return `<div class="xp-mini-panel"><h4>XP Ledger Link</h4><div class="xpbig">Level ${x.level}</div><div class="xpsub">${x.currentXP.toLocaleString()} / ${x.nextXP.toLocaleString()} XP · ${x.remainingXP.toLocaleString()} to Level ${x.level+1}</div><div class="xpbar"><span style="width:${pct}%"></span></div><div class="xpsub">${x.entryCount} ledger entries · Power ${x.powerLevel} · Fame ${x.fameScore}</div><a class="xplink" href="${xpUrl(articleId)}">Open full XP dossier →</a></div>`;
+}
+function articleLead(item){
+  const summary=item.summary?`<div class="article-lead-summary"><h4>Article Summary</h4><p>${esc(item.summary)}</p></div>`:'';
+  const img=item.image?`<figure class="article-lead-img"><img src="${esc(item.image)}" alt="${esc(displayName(item))}">${item.imageCaption?`<figcaption class="imgcap">${esc(item.imageCaption)}</figcaption>`:''}</figure>`:'';
+  if(!summary&&!img) return '';
+  return `<div class="article-lead-card ${img?'':'noimg'}">${summary||'<div></div>'}${img}</div>`;
+}
+function decodeEntitiesBasic(s){return String(s||'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'");}
+function htmlishToMarkdown(s){
+  s=decodeEntitiesBasic(s);
+  s=s.replace(/<a\b[^>]*href=["'][^"']*#\/article\/([a-zA-Z0-9_:-]+)[^"']*["'][^>]*>(.*?)<\/a>/gi,(m,id,txt)=>`[${txt}](${id})`);
+  s=s.replace(/<a\b[^>]*>(.*?)<\/a>/gi,'$1');
+  s=s.replace(/<\s*br\s*\/?>/gi,'\n');
+  s=s.replace(/<\s*\/p\s*>\s*<\s*p[^>]*>/gi,'\n\n');
+  s=s.replace(/<\s*\/?p[^>]*>/gi,'');
+  s=s.replace(/<\s*strong[^>]*>(.*?)<\s*\/strong\s*>/gi,'**$1**');
+  s=s.replace(/<\s*em[^>]*>(.*?)<\s*\/em\s*>/gi,'*$1*');
+  s=s.replace(/<[^>]+>/g,'');
+  return s.trim();
+}
+function richTextToHtml(txt,currentId){ return mdToHtml(htmlishToMarkdown(txt||''), currentId); }
+function valText(v){
+  if(v==null) return '';
+  if(Array.isArray(v)) return v.map(valText).filter(Boolean).join(', ');
+  if(typeof v==='object'){
+    if(v.year!=null){ const mn=(MONTHS&&MONTHS[v.monthIndex])||monthName((v.monthIndex||0)+1); const time=(v.hour!=null)?` ${String(v.hour).padStart(2,'0')}:${String(v.minute||0).padStart(2,'0')}`:''; return `${mn} ${v.day||''}, ${v.year} BF${time}`; }
+    return v.name||v.id||v.faction||Object.values(v).map(valText).filter(Boolean).join(', ');
+  }
+  return String(v);
+}
+function sideLabel(k){return ({side_a:'Side A',side_b:'Side B',attackers:'Attackers',defenders:'Defenders'}[k]||prettyId(k));}
+function keyedRows(obj){
+  if(!obj) return '';
+  if(typeof obj!=='object' || Array.isArray(obj)) return `<p>${esc(valText(obj))}</p>`;
+  return `<div class="kv-list">${Object.keys(obj).map(k=>`<div class="kv-row"><span class="k">${esc(sideLabel(k))}</span><span class="v">${esc(valText(obj[k]))}</span></div>`).join('')}</div>`;
+}
+function battleSideEntries(bel){
+  if(!bel) return [];
+  if(Array.isArray(bel)) return bel.map((x,i)=>({key:'side_'+(i+1), data:x}));
+  if(typeof bel==='object') return Object.keys(bel).map(k=>({key:k,data:bel[k]}));
+  return [{key:'Belligerents',data:bel}];
+}
+function battleSideBox(entry){
+  const side=entry.data||{}; const title=side.name||sideLabel(entry.key);
+  const factions=[].concat(side.factions||side.factionId||side.faction||side.id||[]).filter(Boolean);
+  const chips=factions.length?factions.map(combatantChip).join(''):(title?combatantChip(title):'');
+  const commander=side.commander?`<div class="vs-cmd">Commander: ${esc(valText(side.commander))}</div>`:'';
+  return `<div class="side"><h5>${esc(title)}</h5>${chips}${commander}</div>`;
+}
+function battleParticipants(ids){
+  ids=[].concat(ids||[]).filter(Boolean);
+  return ids.map(cid=>INDEX[cid]?`<span class="rel-chip" onclick="openId('${esc(cid)}')"><span class="rt">Character</span>${esc(displayName(INDEX[cid].item))}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(prettyId(cid))}</span>`).join('');
+}
+
 function articleControlPanel(articleId){
   const anns=ANNOT_BY_ARTICLE[articleId]||[];
   const cnum=anns.reduce((n,a)=>n+((a.comments||[]).length),0);
@@ -607,12 +672,13 @@ function inlineMd(t,opts){
   t=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
   t=t.replace(/(^|[^*])\*([^*]+)\*/g,'$1<em>$2</em>');
   t=t.replace(/`([^`]+)`/g,'<code>$1</code>');
-  // Manual markdown links written in the JSON: [visible text](target_id)
-  // target_id is an entity id (character/event/…/vote/member/etc.). Resolved to a route + preview.
-  t=t.replace(/\[([^\]]+)\]\(([a-zA-Z0-9_:-]+)\)/g,(m,text,target)=>{
-    const p=LINK_PREVIEW[target];
-    if(p){ LINK_ONCE.add(target); return `<a class="xlink" data-id="${esc(target)}" href="${p.route}">${text}</a>`; } // count manual link so auto-linker won't duplicate it
-    // unknown target: render as plain text (don't leave raw markdown showing)
+  // Manual markdown links written in the JSON: [visible text](target_id) or full wiki URL ending in #/article/target_id.
+  t=t.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,text,target)=>{
+    const tm=String(target).match(/#\/article\/([a-zA-Z0-9_:-]+)/);
+    const tid=tm?tm[1]:target;
+    const p=LINK_PREVIEW[tid];
+    if(p){ LINK_ONCE.add(tid); return `<a class="xlink" data-id="${esc(tid)}" href="${p.route}">${text}</a>`; }
+    if(/^https?:\/\//i.test(target)) return `<a href="${esc(target)}" target="_blank" rel="noopener">${text}</a>`;
     return text;
   });
   if(opts&&opts.link){ t=linkify(t,opts.currentId); }
@@ -622,7 +688,7 @@ function mdToHtml(md,linkCtx){
   if(!md)return'';const lines=md.replace(/\r/g,'').split('\n');let html='',para=[],quote=[];
   const opt=linkCtx?{link:true,currentId:linkCtx}:null;
   // Pre-register every manual-link target so the auto-linker won't also link that entity elsewhere.
-  if(opt){ let mm2; const re2=/\[[^\]]+\]\(([a-zA-Z0-9_:-]+)\)/g; while((mm2=re2.exec(md))!==null){ if(LINK_PREVIEW[mm2[1]]) LINK_ONCE.add(mm2[1]); } }
+  if(opt){ let mm2; const re2=/\[[^\]]+\]\(([^)]+)\)/g; while((mm2=re2.exec(md))!==null){ const tm=String(mm2[1]).match(/#\/article\/([a-zA-Z0-9_:-]+)/); const tid=tm?tm[1]:mm2[1]; if(LINK_PREVIEW[tid]) LINK_ONCE.add(tid); } }
   const fp=()=>{if(para.length){html+='<p>'+inlineMd(para.join(' '),opt)+'</p>';para=[];}};
   const fq=()=>{if(quote.length){html+='<blockquote>'+inlineMd(quote.join(' '))+'</blockquote>';quote=[];}}; // no links inside summary/quote
   for(const raw of lines){const line=raw.trimEnd();
@@ -902,12 +968,17 @@ function nodeKindStyle(id){
 
 function relationGraph(item,opts){
   opts=opts||{};
+  const centerType=(INDEX[item.id]&&INDEX[item.id].typeKey)||'';
+  const characterWebOnly=centerType==='characters';
   const conns=new Map(); // id -> {id,label,exists,rel,style}  (rel: 'ally'|'enemy'|'link')
   const ALLY='#2fae8a', ENEMY='#e5484d';
   const consider=(id,rel)=>{
     if(!id||id===item.id||conns.has(id)) return;
     const rec=INDEX[id];
     if(!rec) return;               // skip dangling references to non-existent entities
+    // Character pages should not show events/battles/trials/locations in the character web.
+    // Those belong in Related Articles / Timeline, not in the social association graph.
+    if(characterWebOnly && !['characters','factions'].includes(rec.typeKey)) return;
     const st=nodeKindStyle(id);
     conns.set(id,{ id, label:displayName(rec.item), exists:true,
       rel, color: rel==='ally'?ALLY : rel==='enemy'?ENEMY : st.c, emoji: st.e,
@@ -953,8 +1024,11 @@ function relationGraph(item,opts){
   if(arr.some(c=>c.rel==='ally')) legendItems+=`<span><i style="background:${ALLY}"></i>Ally</span>`;
   if(arr.some(c=>c.rel==='enemy')) legendItems+=`<span><i style="background:${ENEMY}"></i>Enemy</span>`;
   Object.keys(typeColors).sort().forEach(t=>legendItems+=`<span><i style="background:${typeColors[t]}"></i>${esc(t)}</span>`);
+  const webNote=characterWebOnly
+    ? `${centerName}'s character/faction association web. Events, battles, trials, and locations stay in Related Articles so the social map does not become a timeline salad.`
+    : `${centerName}'s tangled connections, mapped by Waluigi so the reader can see who owes what to whom. Nodes are colored by what they are; hover for detail, click to travel.`;
   return `<div class="wsys"><div class="wsys-title">🕸️ Waluigi's Web of Association</div>
-    <div class="wsys-note">${esc(centerName)}'s tangled connections, mapped by Waluigi so the reader can see who owes what to whom. Nodes are colored by what they are; hover for detail, click to travel.</div>
+    <div class="wsys-note">${esc(webNote)}</div>
     <svg class="relsvg" viewBox="0 0 ${W} ${H}" role="img">${edges}${center}${nodes}</svg>
     <div class="rel-legend">${legendItems}</div></div>`;
 }
@@ -1074,7 +1148,11 @@ function openAnnotation(ai){
 function closeAnnotation(){ const dr=el('annotDrawer'); if(dr){dr.classList.remove('open');} document.body.classList.remove('annot-open'); }
 
 function view_article(id){
-  const rec=INDEX[id];
+  let rec=INDEX[id];
+  if(!rec && XP_SUMMARY){
+    const alias=Object.keys(XP_SUMMARY).find(k=>XP_SUMMARY[k]&&XP_SUMMARY[k].xpKey===id);
+    if(alias&&INDEX[alias]){ Router.go('#/article/'+encodeURIComponent(alias)); return; }
+  }
   if(!rec){el('content').innerHTML=`<div class="card"><h2>Article not found</h2><p style="color:var(--muted)">Waluigi has no record of “${esc(id)}”. Perhaps it was stolen, like the name Disaster Inc.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;return;}
   const {typeKey,item}=rec;renderSidebar('list:'+typeKey);
   const t=TYPE_BY_KEY[typeKey];
@@ -1105,7 +1183,7 @@ function view_article(id){
   const relIds=[].concat(item.relatedArticles||[],item.keyEvents||[],item.keyBattles||[],item.articles||[]);
   const seen=new Set();
   const relChips=relIds.filter(r=>{const k=typeof r==='string'?r:r.id;if(!k||seen.has(k))return false;seen.add(k);return true;}).map(r=>{const rid=typeof r==='string'?r:r.id;const ex=!!INDEX[rid];const label=ex?displayName(INDEX[rid].item):prettyId(rid);return ex?`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(label)}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(label)}</span>`;}).join('');
-  let imgHtml=item.image?`<figure style="margin:0 0 16px"><img src="${esc(item.image)}" alt="" style="max-width:100%;border-radius:12px;border:1px solid var(--border)">${item.imageCaption?`<figcaption class="imgcap">${esc(item.imageCaption)}</figcaption>`:''}</figure>`:'';
+  const leadHtml=articleLead(item);
   let audioHtml=item.audio?`<div style="margin:14px 0"><audio controls src="${esc(item.audio)}"></audio>${item.audioCaption?`<div class="imgcap">${esc(item.audioCaption)}</div>`:''}</div>`:'';
   const tocEntries=heads.map(h=>({slug:slug(h.text),text:h.text,h3:h.level===3})).concat(secTocParts.map(p=>({slug:p.slug,text:p.text,h3:false})));
   const toc=tocEntries.length?`<div class="toc" id="toc"><h4>Contents</h4>${tocEntries.map(h=>`<a class="${h.h3?'h3':''}" data-slug="${h.slug}" onclick="scrollToHeading('${h.slug}')">${esc(h.text)}</a>`).join('')}</div>`:'';
@@ -1114,9 +1192,10 @@ function view_article(id){
    <div class="article-layout"><div><div class="card animate-fade-in">
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
-     <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${annotationBadge(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}</div>
+     <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${annotationBadge(item.id)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}</div>
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
-     ${item.summary?`<blockquote>${esc(item.summary)}</blockquote>`:''}${imgHtml}${audioHtml}
+     <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
+     ${leadHtml}${audioHtml}
      ${typeKey==='battles'?battleVsInfographic(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
@@ -1161,8 +1240,9 @@ function view_trial(item,t){
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/trials')">Trials</a> › ${esc(displayName(item))}</div>
    <div class="article-layout"><div><div class="card animate-fade-in">
      <h1 class="art-title">${esc(item.name)}</h1>${item.title?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
-     <div class="metabar"><span class="pill">⚖️ Trial</span>${annotationBadge(item.id)}${item.status?`<span class="pill">${esc(item.status)}</span>`:''}</div>
-     ${item.summary?`<blockquote>${esc(item.summary)}</blockquote>`:''}${anote}${defLink}
+     <div class="metabar"><span class="pill">⚖️ Trial</span>${annotationBadge(item.id)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(item.status)}</span>`:''}</div>
+     <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
+     ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
      ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${relHtml}
    </div></div><div>${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
@@ -1218,18 +1298,21 @@ function sideBox(title,side){
 function view_mbattle(id){
   renderSidebar('battlefield');const b=(DATA.majorBattles||[]).find(x=>x.id===id);
   if(!b){el('content').innerHTML='<div class="card"><h2>Battle not found</h2></div>';return;}
-  const bel=b.belligerents||[];const half=Math.ceil(bel.length/2);
-  const chars=(b.participatingCharacters||[]).map(cid=>INDEX[cid]?`<span class="rel-chip" onclick="openId('${esc(cid)}')"><span class="rt">Character</span>${esc(prettyId(cid))}</span>`:`<span class="rel-chip deadlink">${esc(prettyId(cid))}</span>`).join('');
+  const sides=battleSideEntries(b.belligerents);
+  const sideHtml=sides.length?`<div class="vs"><div>${sides.slice(0,Math.ceil(sides.length/2)).map(battleSideBox).join('')}</div><div class="versus">VS</div><div>${sides.slice(Math.ceil(sides.length/2)).map(battleSideBox).join('')}</div></div>`:'';
+  const chars=battleParticipants(b.participatingCharacters);
+  const dateTxt=valText(b.date);
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/battlefield')">Battlefield</a> ${b.conflict?`› <a onclick="Router.go('#/conflict/${encodeURIComponent(b.conflict)}')">${esc(b.conflict)}</a>`:''} › ${esc(b.name)}</div>
     <div class="card animate-fade-in"><h1 class="art-title">${esc(b.name)}</h1>
-    <div class="metabar"><span class="pill">🗡️ Battle</span>${b.date?`<span class="pill">${esc(b.date)}</span>`:''}${b.location?`<span class="pill">📍 ${esc(b.location)}</span>`:''}${b.outcome?`<span class="pill">${esc(b.outcome)}</span>`:''}</div>
-    ${bel.length?`<div class="vs"><div>${sideBox('Belligerents',bel.slice(0,half))}</div><div class="versus">VS</div><div>${sideBox('Belligerents',bel.slice(half))}</div></div>`:''}
-    ${b.description?`<h2>Overview</h2><div class="prose">${mdToHtml(b.description,b.id)}</div>`:''}
+    <div class="metabar"><span class="pill">🗡️ Battle</span>${dateTxt?`<span class="pill">${esc(dateTxt)}</span>`:''}${b.location?`<span class="pill">📍 ${esc(b.location)}</span>`:''}${b.outcome?`<span class="pill">${esc(String(b.outcome).replace(/_/g,' '))}</span>`:''}</div>
+    ${sideHtml}
+    ${b.summary?`<blockquote>${esc(b.summary)}</blockquote>`:''}
+    ${b.description?`<h2>Overview</h2><div class="prose">${richTextToHtml(b.description,b.id)}</div>`:''}
     ${b.outcomeDetail?`<h2>Outcome</h2><p>${esc(b.outcomeDetail)}</p>`:''}
-    ${b.casualties?`<p><strong>Casualties:</strong> ${esc(typeof b.casualties==='object'?JSON.stringify(b.casualties):b.casualties)}</p>`:''}
-    ${b.strategicValue?`<p><strong>Strategic value:</strong> ${esc(b.strategicValue)}</p>`:''}
-    ${b.commanders?`<p><strong>Commanders:</strong> ${esc(Array.isArray(b.commanders)?b.commanders.join(', '):b.commanders)}</p>`:''}
-    ${b.tacticalNotes?`<h2>Tactical Notes</h2><div class="prose">${mdToHtml(b.tacticalNotes)}</div>`:''}
+    ${b.casualties?`<h2>Casualties</h2>${keyedRows(b.casualties)}`:''}
+    ${b.strategicValue?`<p><strong>Strategic value:</strong> ${esc(String(b.strategicValue).replace(/_/g,' '))}</p>`:''}
+    ${b.commanders?`<h2>Commanders</h2>${keyedRows(b.commanders)}`:''}
+    ${b.tacticalNotes?`<h2>Tactical Notes</h2><div class="prose">${richTextToHtml(b.tacticalNotes,b.id)}</div>`:''}
     ${chars?`<h2>Participating Characters</h2><div class="related-list">${chars}</div>`:''}</div>`;
   window.scrollTo(0,0);
 }
@@ -1749,5 +1832,5 @@ async function boot(){
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1604f784c4b1ea7',t:'MTc4MzE5MDk3Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a160c0579db74373',t:'MTc4MzE5NTU5NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1604f784c4b1ea7',t:'MTc4MzE5MDk3Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
