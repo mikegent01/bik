@@ -411,7 +411,7 @@
     <script type="module">
         // Quest rewards are shop currency now: Wario Points (WP), not XP.
         // This runs before the quest renderer when possible, and also watches the DOM in case data arrives later.
-        const QUEST_MODULE_CANDIDATES = ['./quests-data.js', '/quests-data.js', './uploads/quests-data.js', '/uploads/quests-data.js'];
+        const QUEST_MODULE_CANDIDATES = ['./quests-data.js', '/quests-data.js', '.quests-data.js', 'quests-data.js'];
         const COMPLETED_STATUS = new Set(['completed', 'npccompleted', 'npc_completed']);
         let questDataModule = null;
 

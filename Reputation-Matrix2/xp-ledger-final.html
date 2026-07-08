@@ -16647,8 +16647,8 @@ const OPTIONAL_DIRECTORY_IMPORTS = [
   ['lawsPokemon', './laws-data-pokemon.js']
 ];
 
-const OPTIONAL_IMPORT_BASES = ['./', '/', './uploads/', '/uploads/'];
-const OPTIONAL_CHARACTER_JSON_PATHS = ['./data/characters.json', '/data/characters.json', './characters.json', '/characters.json', './uploads/characters.json', '/uploads/characters.json'];
+const OPTIONAL_IMPORT_BASES = ['./', '/', '.', ''];
+const OPTIONAL_CHARACTER_JSON_PATHS = ['./data/characters.json', '/data/characters.json', './characters.json', '/characters.json', '.characters.json', 'characters.json'];
 
 const EXTERNAL_LEDGER_SOURCE = {
   loaded: [],
@@ -17259,7 +17259,7 @@ async function loadCharacterJsonLore() {
 
 function openLawsPage(factionId = '') {
   const suffix = factionId ? `#${encodeURIComponent(factionId)}` : '';
-  const candidates = [`./laws.html${suffix}`, `/laws.html${suffix}`, `./uploads/laws.html${suffix}`, `/uploads/laws.html${suffix}`];
+  const candidates = [`./laws.html${suffix}`, `/laws.html${suffix}`, `.laws.html${suffix}`, `laws.html${suffix}`];
   const win = window.open('', '_blank', 'noopener');
   if (!win) return;
   win.document.write('<!doctype html><title>Opening laws…</title><body style="font-family:system-ui;background:#140b1f;color:#f8e7b0;padding:24px">Opening laws page…</body>');

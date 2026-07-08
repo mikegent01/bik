@@ -205,6 +205,20 @@
       "nightshade_bloom",
       "project_chimera",
       "waluigi"
+    ],
+    "intelGains": [
+      {
+        "targetType": "faction",
+        "targetId": "iron_fists",
+        "amount": 15,
+        "reason": "The trial reveals Iron Fists operational involvement in the Swiftsoul frame."
+      },
+      {
+        "targetType": "faction",
+        "targetId": "mages_guild",
+        "amount": 10,
+        "reason": "The case exposes Guild-adjacent evidence control and institutional pressure."
+      }
     ]
   },
   {
@@ -653,6 +667,26 @@
       "peach_loyalists",
       "chief_thornpaw",
       "waluigi"
+    ],
+    "intelGains": [
+      {
+        "targetType": "claim",
+        "targetId": "bowser_guilt_narrative",
+        "amount": -30,
+        "reason": "Trial analysis demonstrates the legal emptiness of the official Bowser accusation."
+      },
+      {
+        "targetType": "dynasty",
+        "targetId": "houseToadstool",
+        "amount": 15,
+        "reason": "The trial exposes how Peach’s dynasty was used to legitimize a false war."
+      },
+      {
+        "targetType": "nation",
+        "targetId": "koopa_dominion",
+        "amount": 10,
+        "reason": "Bowser’s false accusation reframes Koopa grievance as a state-level injury."
+      }
     ]
   },
   {
@@ -1273,6 +1307,20 @@
       "green_t",
       "disaster_inc_naming_dispute",
       "waluigi"
+    ],
+    "intelGains": [
+      {
+        "targetType": "faction",
+        "targetId": "onyx_hand",
+        "amount": 15,
+        "reason": "The tribunal reveals the Onyx Hand can be procedurally fair while remaining politically monstrous."
+      },
+      {
+        "targetType": "faction",
+        "targetId": "mages_guild",
+        "amount": 15,
+        "reason": "The jurisdiction fight exposes limits to Guild authority."
+      }
     ]
   }
 ]

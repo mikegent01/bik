@@ -189,6 +189,20 @@
       "toadsworth_elder_chronicles",
       "the_long_dark",
       "the_century_war"
+    ],
+    "intelGains": [
+      {
+        "targetType": "claim",
+        "targetId": "bowser_guilt_narrative",
+        "amount": -15,
+        "reason": "The failed Fawful narrative exposes the replacement logic behind blaming Bowser."
+      },
+      {
+        "targetType": "faction",
+        "targetId": "mushroom_regency",
+        "amount": 10,
+        "reason": "The narrative switch reveals Regency information control."
+      }
     ]
   },
   {
@@ -343,6 +357,26 @@
       "toad_lee_elder",
       "toad_lee",
       "mystic_morel"
+    ],
+    "intelGains": [
+      {
+        "targetType": "dynasty",
+        "targetId": "houseToadstool",
+        "amount": 20,
+        "reason": "The assassination day records are core evidence for the broken Toadstool succession."
+      },
+      {
+        "targetType": "faction",
+        "targetId": "mushroom_regency",
+        "amount": 15,
+        "reason": "The post-assassination response reveals the machinery of the cover-up."
+      },
+      {
+        "targetType": "claim",
+        "targetId": "bowser_guilt_narrative",
+        "amount": -25,
+        "reason": "Evidence weakens the official Bowser-guilt narrative."
+      }
     ]
   },
   {
@@ -1548,6 +1582,14 @@
       "the_arrangement",
       "mr_l",
       "the_neighbor_incident"
+    ],
+    "intelGains": [
+      {
+        "targetType": "faction",
+        "targetId": "fawful_forces",
+        "amount": 15,
+        "reason": "The Blorbs Crisis establishes Fawful as a serious state-level threat, not just a cackling nuisance."
+      }
     ]
   },
   {
@@ -5500,6 +5542,32 @@
       "crimson_veil_protocol",
       "provision_14",
       "child_of_the_rose"
+    ],
+    "intelGains": [
+      {
+        "targetType": "dynasty",
+        "targetId": "houseToadstool",
+        "amount": 15,
+        "reason": "Crimson Veil intelligence confirms Equestria identified the Peach assassination as an inside-glove problem almost immediately."
+      },
+      {
+        "targetType": "nation",
+        "targetId": "equestria",
+        "amount": 20,
+        "reason": "Everstar, Luminara, and the Concordant reveal the structure of Equestrian security diplomacy."
+      },
+      {
+        "targetType": "nation",
+        "targetId": "kivotos",
+        "amount": 10,
+        "reason": "Millennium negotiation patterns and Provision 14 expose Kivotos diplomatic vulnerabilities."
+      },
+      {
+        "targetType": "faction",
+        "targetId": "mushroom_regency",
+        "amount": 10,
+        "reason": "The letter reframes early post-assassination silence as politically useful knowledge."
+      }
     ]
   },
   {
@@ -6418,6 +6486,32 @@
       "the_tree_of_woe_engagement",
       "disaster_inc_naming_dispute",
       "remi_birthday_12_Harvestside_ghost_gallery_climb"
+    ],
+    "intelGains": [
+      {
+        "targetType": "artifact",
+        "targetId": "black_crystal",
+        "amount": 10,
+        "reason": "Enemy pursuit confirms the Black Crystal is known and strategically important, but carrier intelligence is wrong."
+      },
+      {
+        "targetType": "character",
+        "targetId": "tymnas",
+        "amount": 10,
+        "reason": "The cookie note proves Tymnas has social ties inside the manor and is not merely an isolated groundskeeper."
+      },
+      {
+        "targetType": "faction",
+        "targetId": "iron_dominion",
+        "amount": 5,
+        "reason": "The spotlight song reveals a named pursuit brand or detachment using Iron Dominion language."
+      },
+      {
+        "targetType": "faction",
+        "targetId": "onyx_hand",
+        "amount": 5,
+        "reason": "The pursuit shows estate coordination between knights, Lyranth, and artifact recovery pressure."
+      }
     ]
   }
 ]
