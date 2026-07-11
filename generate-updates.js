@@ -152,3 +152,39 @@ try {
 } catch (err) {
     console.error('❌ Error generating updates:', err);
 }
+// auto-update-site.js
+// Run this script (node auto-update-site.js) to regenerate site-updates.json
+// from the actual modification times of your HTML files.
+
+const fs = require('fs');
+const path = require('path');
+
+const UPDATES_FILE = path.join(__dirname, 'site-updates.json');
+const HTML_DIR = __dirname; // change if your HTML files live elsewhere
+
+function getHtmlFiles(dir) {
+  return fs.readdirSync(dir)
+    .filter(f => f.endsWith('.html'))
+    .map(f => path.join(dir, f));
+}
+
+function buildUpdates() {
+  const files = getHtmlFiles(HTML_DIR);
+  const updates = {};
+
+  files.forEach(file => {
+    const stat = fs.statSync(file);
+    const name = path.basename(file);
+    updates[name] = stat.mtime.toISOString();
+  });
+
+  // sort newest first (nice for the UI)
+  const sorted = Object.fromEntries(
+    Object.entries(updates).sort((a, b) => b[1].localeCompare(a[1]))
+  );
+
+  fs.writeFileSync(UPDATES_FILE, JSON.stringify(sorted, null, 2));
+  console.log(`✅ site-updates.json regenerated with ${Object.keys(sorted).length} files`);
+}
+
+buildUpdates();

@@ -468,6 +468,20 @@
       "peach_loyalists",
       "star_road_network",
       "the_long_dark"
+    ],
+    "intelGains": [
+      {
+        "targetType": "dynasty",
+        "targetId": "houseToadstool",
+        "amount": 20,
+        "reason": "The conspiracy hub links the dynasty, Peach’s death, the hidden heir problem, and the Regency’s legitimacy crisis."
+      },
+      {
+        "targetType": "claim",
+        "targetId": "bowser_guilt_narrative",
+        "amount": -20,
+        "reason": "The collection gathers evidence undermining Bowser’s official guilt."
+      }
     ]
   },
   {
@@ -752,6 +766,14 @@
       "toadsworth_sr",
       "chief_thornpaw",
       "koopa_dominion"
+    ],
+    "intelGains": [
+      {
+        "targetType": "dynasty",
+        "targetId": "houseToadstool",
+        "amount": 20,
+        "reason": "The dynasty article consolidates public Star-Pact, cadet branch, and succession knowledge."
+      }
     ]
   }
 ]
