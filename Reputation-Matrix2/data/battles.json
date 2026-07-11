@@ -1589,5 +1589,76 @@
       "onyx_hand",
       "corvinarus_family"
     ]
+  },
+  {
+    "id": "the_spotlight_chase_hellhound_skirmish",
+    "name": "The Hellhound Trophy-Room Skirmish",
+    "date": "14th Harvestside, 1040 BF",
+    "location": "Shadow Estate corridor network and trophy room approach",
+    "type": "Running Skirmish / Pursuit Contact",
+    "result": "Party tactical survival — hellhound driven off, pursuit continues, Black Crystal remains hidden with Markop",
+    "belligerents": [
+      "disaster_inc",
+      "onyx_hand"
+    ],
+    "casualties": "Hellhound driven off; no confirmed party deaths; Eager injured; multiple arrows and one dagger embarrassed.",
+    "summary": "A brief but revealing skirmish during the Shadow Estate pursuit. Rattles held a hellhound, Markop attempted a coordinated flank, Eager panicked and missed, Remi missed two arrows, and Dan clumsily struck hard enough to make the beast flee. The fight ended when knights and Lyranth arrived demanding the Black Crystal from the wrong target.",
+    "description": "Waluigi is classifying the hellhound engagement as a skirmish rather than a full battle because the fight was brief, messy, and interrupted by larger pursuit forces. That does not make it unimportant. Small fights reveal habits. This one revealed several.\n\nRattles engaged first, proving again that the skeleton's comic timing should not obscure his willingness to stand in front of danger. Markop attempted to coordinate a two-sided strike with Eager, using himself as the reliable pressure point and Eager as the second angle. The plan was tactically sound. Eager's nerves were not. Instead of closing, he threw a simple dagger, missed, and announced the plan's death with a metallic clink.\n\nRemi opened an empty room because curiosity remains one of her primary movement modes. Markop called her back. She fired two arrows and missed by an impressive margin, which Waluigi attributes to chase stress, bad angles, and the fact that the Shadow Estate had spent the last several minutes turning her life into musical theater.\n\nDan began by tending Eager, then was ordered into the actual fight. His approach was clumsy. His swing was not. The hellhound screamed and fled into another room. This is the rare case where poor form still produced a useful tactical result.\n\nThe skirmish ended not because the party achieved clean control, but because knights and Lyranth arrived and converted the fight into a pursuit. The important outcome was not the hellhound's defeat. It was that the party remained mobile long enough to reach the trophy room and then Tymnas's cottage.\n\nWaluigi's tactical conclusion: Markop remains the group's stabilizing combat thinker; Rattles is more reliable than his bones imply; Eager requires courage training or fewer hellhounds; Remi under chase pressure loses accuracy; Dan's clumsiness can still land if pointed in the correct direction.\n\nWAH.",
+    "aftermath": "The party fled into the trophy room and then toward Tymnas’s cottage. Lyranth’s wrong accusation against Eager confirmed that enemy intelligence knew about the Black Crystal but not its actual carrier.",
+    "relatedArticles": [
+      "shadow_estate_spotlight_cookie_cottage",
+      "shadow_estate",
+      "markop",
+      "rattles",
+      "eager",
+      "remi_akamatsu_full_backstory",
+      "salam",
+      "lyranth"
+    ]
+  },
+  {
+    "id": "dream_duel_burning_vigilance",
+    "name": "The Dream-Duel on the Burning Vigilance",
+    "date": "~15 Harvestide, 1040 BF (Dream sequence)",
+    "location": "Dream reconstruction of the repaired Vigilance, later falling into ocean",
+    "type": "Oneiric Duel / Psychological Combat",
+    "result": "Original Dan wins the dream duel at one hit point; Archie drowns and wakes in the Dreadful Grove",
+    "belligerents": [
+      "archie_miser",
+      "dan"
+    ],
+    "casualties": "No physical casualties; Archie suffers severe psychic distress and actionable guilt imagery.",
+    "summary": "In Archie’s divine-contaminated dream, he duels Original Dan aboard a repaired Vigilance. The fight follows turn logic, escalates through shields, lightning, flaming spheres, storm clouds, mana bars, and a sinking airship, and ends with Dan at one hit point burning Archie’s face before Archie drowns. Waluigi classifies it as psychological combat, not physical battle XP.",
+    "description": "The Dream-Duel on the Burning Vigilance is the combat-shaped center of Archie’s nightmare. Original Dan confronts him not with disgust but disdain, and the duel turns into a rules-bound attempt to make guilt measurable. Archie shields, charges, shocks, self-stuns, eats mana bars, rides storm clouds, and stabs Dan, but Dan survives at one hit point and burns him anyway. The repaired Vigilance burning and falling into the sea turns the entire fight into a symbol: the ship can be repaired, but the moral damage is still on fire. Waluigi records this as oneiric combat with strategic psychological value.",
+    "aftermath": "Archie wakes in the Dreadful Grove, not rested, and moves toward Shadeward Manor.",
+    "relatedArticles": [
+      "archie_frog_god_dream_duel",
+      "archie_miser",
+      "dan",
+      "vigilance"
+    ]
+  },
+  {
+    "id": "feyward_bramblyfly_hallway_incident",
+    "name": "The Bramblyfly Hallway Incident",
+    "date": "23 Harvestide, 1040 BF",
+    "location": "Feyward Manor hidden-passage corridor / overgrown upper floor",
+    "type": "Creature Contact / Failed Sneak / Tactical Withdrawal",
+    "result": "No formal victory — Hjumpik avoids fall, Toad Lee retreats, Morsole uses the interruption to issue warning and provide key",
+    "belligerents": [
+      "hjumpik",
+      "toad_lee",
+      "bramblyfly"
+    ],
+    "casualties": "No confirmed deaths; dignity injured; Steely later destroyed separately.",
+    "summary": "A brief creature-contact incident in the overgrown Feyward halls. A Bramblyfly broke free, Toad Lee retreated, Hjumpik slipped near the old Solarium Detonation hole and saved himself, and Mystic Morsole used the chaos to warn Hjumpik about Toad Lee and give him a key.",
+    "description": "The Bramblyfly Hallway Incident is less a battle than a Feyward interruption with teeth. Hjumpik attempted to navigate around an unstable corridor while a Bramblyfly broke free. Toad Lee immediately preferred being inside. Hjumpik slipped near the still-relevant Solarium Detonation damage and recovered himself. Mystic Morsole then used the pause to deliver a warning: do not make Toad Lee the anchor, and take this key if you want to leave the manor. Waluigi classifies the encounter as tactical withdrawal plus intelligence acquisition.",
+    "relatedArticles": [
+      "feyward_amnesia_vines_morsole_steely",
+      "hjumpik",
+      "toad_lee",
+      "mystic_morsole",
+      "solarium_detonation"
+    ]
   }
 ]
