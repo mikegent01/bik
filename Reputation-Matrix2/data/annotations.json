@@ -4009,5 +4009,101 @@
         "replyTo": 0
       }
     ]
+  },
+  {
+    "articleId": "mount_ebott_survey_mission",
+    "quote": "The exchange was defined by the agent's absolute reliance on his book—flipping to sections on lying, first contact, and 'what to do if your book is stolen'—while Sans observed with hollow, knowing eyes.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Protocol for lying. Think about that. The Legion has a step-by-step guide for being dishonest, and this agent still managed to be the most obvious thing in the room.",
+        "timestamp": "Mid-10XX BF",
+        "likes": 56
+      },
+      {
+        "author": "Sans",
+        "authorId": "sans",
+        "faction": "Monster Underground",
+        "text": "it's a nice book. lots of pages. good for leveling a table leg.",
+        "replyTo": 0,
+        "timestamp": "Mid-10XX BF",
+        "likes": 102
+      },
+      {
+        "author": "Dracule Mihawk",
+        "authorId": "dracule_mihawk",
+        "faction": "Independent",
+        "text": "Outdated ritualism is a poor substitute for instinct. The mountain does not care about your 'Protocol Delta-9.'",
+        "replyTo": 0,
+        "timestamp": "Mid-10XX BF",
+        "likes": 78
+      }
+    ]
+  },
+  {
+    "articleId": "mount_ebott_survey_mission",
+    "quote": "The agent, paying with Archive Writs (a rare surface currency), secured two rooms at an inn run by Bunny.",
+    "comments": [
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "ARCHIVE WRITS. Those are basically golden tickets to the Imperial Vaults. You gave them to a RABBIT for a room?? I am charging you for the mental distress this information caused me.",
+        "timestamp": "Mid-10XX BF",
+        "likes": 145
+      },
+      {
+        "author": "Bunny",
+        "authorId": "bunny_innkeeper",
+        "faction": "Monster Underground",
+        "text": "They're very pretty papers! They make the lobby look much more professional.",
+        "replyTo": 0,
+        "timestamp": "Mid-10XX BF",
+        "likes": 34
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Professional lobby décor that could buy a small province. PEAK Legion administration. WAH.",
+        "replyTo": 1,
+        "timestamp": "Mid-10XX BF",
+        "likes": 89
+      }
+    ]
+  },
+  {
+    "articleId": "collapse_of_blackfen_pass",
+    "quote": "Landships were frozen mid-advance, their steam boilers turning into blocks of useless ice before the pressure could even vent.",
+    "comments": [
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Landships. LANDSHIPS! Imagine the insurance claim. 'Cause of loss: Vampire weather adjustment.' WAH.",
+        "timestamp": "Historical Archive",
+        "likes": 42
+      },
+      {
+        "author": "General Ironhand",
+        "authorId": "general_ironhand",
+        "faction": "Iron Legion",
+        "text": "The failure at Blackfen was a technical anomaly, not a strategic one. The landships were under-insulated for high-tier cryomancy.",
+        "replyTo": 0,
+        "timestamp": "Historical Archive",
+        "likes": 7
+      },
+      {
+        "author": "Wario",
+        "authorId": "wario",
+        "faction": "Wario's Enterprise",
+        "text": "i heard there's still silver in those landships. the ice keeps it fresh.",
+        "replyTo": 0,
+        "timestamp": "Historical Archive",
+        "likes": 88
+      }
+    ]
   }
 ]

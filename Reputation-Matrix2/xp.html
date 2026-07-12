@@ -3202,6 +3202,120 @@ function getDisplay(key) {
 // ═══════════════════════════════════════════
 
 const PLAYERS = {
+  "gamma_agent": {
+    "name": "Gamma Legionary Agent",
+    "faction": "gamma_division",
+    "level": 3,
+    "currentXP": 1250,
+    "nextXP": 2700,
+    "entries": [
+      {
+        "cat": "exploration",
+        "xp": 500,
+        "title": "Event — Mount Ebott Descent",
+        "desc": "Initiated a high-altitude jump into the mountain's core, utilizing a snap-action rope technique (which failed) and landing in moonblossoms. Filed: Mid-10XX BF. Source: events.json.",
+        "date": "Mid-10XX BF",
+        "dateSort": 10409999,
+        "sourceMarker": "✦"
+      },
+      {
+        "cat": "discovery",
+        "xp": 400,
+        "title": "Event — Discovery of Snowdin Town",
+        "desc": "Located and entered a hidden subterranean monster civilization unmapped by surface empires. Filed: Mid-10XX BF. Source: events.json.",
+        "date": "Mid-10XX BF",
+        "dateSort": 10409999,
+        "sourceMarker": "✦"
+      },
+      {
+        "cat": "social",
+        "xp": 350,
+        "title": "Event — The Casserole Diplomacy",
+        "desc": "Successfully negotiated initial passage with the skeleton Sans by sharing high-grade Legion field rations. Filed: Mid-10XX BF. Source: events.json.",
+        "date": "Mid-10XX BF",
+        "dateSort": 10409999,
+        "sourceMarker": "✦"
+      }
+    ],
+    "membership": "Iron Legion Expeditionary Force Gamma",
+    "status": "Active",
+    "powerLevel": 4,
+    "powerTier": "Mortal",
+    "powerNote": "Reliant on protocols and advanced surveying tech; low individual combat threat compared to Mihawk.",
+    "fameScore": 25,
+    "fameTier": "Local",
+    "fameTags": [
+      "Iron Legion",
+      "Gamma Division"
+    ]
+  },
+  "dracule_mihawk": {
+    "name": "Dracule Mihawk",
+    "faction": "independent",
+    "level": 9,
+    "currentXP": 45000,
+    "nextXP": 64000,
+    "entries": [
+      {
+        "cat": "combat",
+        "xp": 1000,
+        "title": "Event — Protocol Duel ind Snowdin",
+        "desc": "Effortlessly sidestepped multiple strikes from a Legion agent while providing structural criticism of their technique. Filed: Mid-10XX BF. Source: events.json.",
+        "date": "Mid-10XX BF",
+        "dateSort": 10409999,
+        "sourceMarker": "✦"
+      },
+      {
+        "cat": "survival",
+        "xp": 800,
+        "title": "Event — Mount Ebott Descent",
+        "desc": "Survived a cliff jump and snapped rope descent into the forbidden treaty layer. Filed: Mid-10XX BF. Source: events.json.",
+        "date": "Mid-10XX BF",
+        "dateSort": 10409999,
+        "sourceMarker": "✦"
+      }
+    ],
+    "membership": "Independent Observer / Legendary Swordsman",
+    "status": "Active",
+    "powerLevel": 14,
+    "powerTier": "Realm-Class",
+    "powerNote": "The Hawk of Blackfen Pass; combat capability rivals Mario and Bowser.",
+    "fameScore": 85,
+    "fameTier": "Legendary",
+    "fameTags": [
+      "Swordsman",
+      "Blackfen Pass"
+    ]
+  },
+  "sans": {
+    "name": "Sans",
+    "faction": "undertale_monsters",
+    "level": 1,
+    "currentXP": 300,
+    "nextXP": 900,
+    "entries": [
+      {
+        "cat": "social",
+        "xp": 300,
+        "title": "Event — The Casserole Incident",
+        "desc": "Acquired a free warm meal and surface intelligence from outsiders appearing at the sentry post. Filed: Mid-10XX BF. Source: events.json.",
+        "date": "Mid-10XX BF",
+        "dateSort": 10409999,
+        "sourceMarker": "✦"
+      }
+    ],
+    "membership": "Snowdin Resident / Sentry",
+    "status": "Active",
+    "powerLevel": 10,
+    "powerTier": "Campaign Boss",
+    "powerNote": "Lazy exterior conceals a threat capable of ignoring conventional battle rules.",
+    "fameScore": 90,
+    "fameTier": "Mythic",
+    "fameTags": [
+      "Monster",
+      "Sentry"
+    ]
+  },
   "bowser": {
     "name": "Bowser",
     "faction": "disaster_inc",
@@ -15950,7 +16064,7 @@ function buildHeader() {
   // Count player-faction characters vs all
   let playerCount = 0;
   for (const [key, p] of Object.entries(PLAYERS)) {
-    const f = FACTIONS[p.faction || 'unknown'] || FACTIONS.unknown;
+    const f = FACTIONS[p.faction || 'independent'] || FACTIONS.independent;
     if (f.is_player) playerCount++;
   }
 
@@ -15977,8 +16091,8 @@ function buildHeader() {
 function getSortedRoster() {
   const chars = Object.entries(PLAYERS).map(([key, p]) => ({ key, ...p }));
   chars.sort((a, b) => {
-    const fa = FACTIONS[a.faction || 'independent'] || FACTIONS.independent || FACTIONS.unknown;
-    const fb = FACTIONS[b.faction || 'independent'] || FACTIONS.independent || FACTIONS.unknown;
+    const fa = FACTIONS[a.faction || 'independent'] || FACTIONS.independent;
+    const fb = FACTIONS[b.faction || 'independent'] || FACTIONS.independent;
     if (!!fa.is_player !== !!fb.is_player) return fa.is_player ? -1 : 1;
     return (fa.sort_order || 99) - (fb.sort_order || 99) || (b.powerLevel || b.level || 0) - (a.powerLevel || a.level || 0) || (b.fameScore || 0) - (a.fameScore || 0) || a.name.localeCompare(b.name);
   });
@@ -16507,7 +16621,7 @@ function buildPlayerPanel(key, p, isActive) {
   normalizePlayerProgression(p);
   const disp = getDisplay(key);
   const factionId = p.faction || 'unknown';
-  const faction = FACTIONS[factionId] || FACTIONS.unknown;
+  const faction = FACTIONS[factionId] || FACTIONS.independent;
   const remaining = p.nextXP - p.currentXP;
   const pct = p.nextXP > 0 ? ((p.currentXP / p.nextXP) * 100).toFixed(1) : 0;
 
@@ -17583,5 +17697,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Auto-sync every time. No prompt: the XP ledger should always pull nearby world files when available.
   requestAnimationFrame(() => setTimeout(() => startOptionalImports(), 25));
 });
-</script></body>
+</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1a3ab9a6ef9eeee',t:'MTc4Mzg5NzI5MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

@@ -1,5 +1,34 @@
 [
   {
+    "id": "gamma_division",
+    "name": "Iron Legion — Gamma Division",
+    "title": "The Ghost Division",
+    "type": "Military Expeditionary Unit / Extinct(?) Faction",
+    "region": "The Old World (Eastern Periphery) / Regal Empire",
+    "status": "Allegedly extinct; currently active via lone agent in Mount Ebott",
+    "leader": "Commissar Vexis (Deceased)",
+    "headquarters": "Unknown — last known base was Blackfen Pass",
+    "motto": "Protocol Above All",
+    "affiliation": "Iron Legion",
+    "allies": [
+      "iron_legion"
+    ],
+    "enemies": [
+      "vampire_courts"
+    ],
+    "summary": "Gamma Division is the 'lost' division of the Iron Legion. Officially, they were wiped out 87 years ago during a vampire uprising in Blackfen Pass, where the entire regiment was turned into ice statues. However, a lone agent carrying a recent dispatch from the 'dead' Commissar Vexis has appeared at Mount Ebott, suggesting the division may have survived in some clandestine form. They operate under the rigid martial codes of the 'PROTOCOLS OF THE IRON LEGION VOLUME 1' and focus on surveying anomalous energy signatures in forbidden zones. Waluigi considers them a bureaucratic ghost story. WAH.",
+    "description": "Waluigi finds the existence of Gamma Division to be a troubling symptom of the Regal Empire's obsession with secrecy. If a division that was declared dead by three Warlords' reports is still sending agents into Mount Ebott, then the Iron Legion's records are about as reliable as a Wario land-title. \n\n## The Collapse of Blackfen (2374 / 87 Years Ago)\n\nThe division's defining event was its supposed extermination. They were deployed to suppress a vampire uprising and encountered cryomancy spells that proved devastating. The Legion sealed the mission under Class-9 silence by imperial decree. \n\n## Methodology and Equipment\n\nGamma Division is characterized by its adherence to 'The Protocols'—a set of rigid, brutal, and often outdated martial codes written before Chaos spilled into the world. They utilize high-grade survey equipment powered by 'star bits' and pay for logistics using Archive Writs, an elite currency typically reserved for high commanders. \n\n## Current Status\n\nWhile the Legion high command has not acknowledged the division's reactivation, the 'Alpha-7' survey mission of Mount Ebott is currently underway. The division's primary interest seems to be 'anomalous energy signatures beneath the treaty layer.' Whether they are preparing for a subterranean invasion or simply cataloging ruins remains a matter of intense strategic concern for the surrounding vampire courts. WAH.",
+    "keyEvents": [
+      "mount_ebott_survey_mission"
+    ],
+    "relatedArticles": [
+      "iron_legion",
+      "regal_empire",
+      "gamma_agent",
+      "mount_ebott"
+    ]
+  },
+  {
     "id": "purple_legion",
     "name": "The Purple Legion",
     "title": "The Iron Legion's Shadow With Fangs",

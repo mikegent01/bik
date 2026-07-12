@@ -1,5 +1,31 @@
 [
   {
+    "id": "monster_underground",
+    "name": "The Monster Underground",
+    "type": "Subterranean Monarchy / Hidden Realm",
+    "region": "Mount Ebott (Core)",
+    "controllingFaction": "The Royal Family (King and Queen)",
+    "population": "Varies — composed of diverse monster phenotypes",
+    "climate": "Magically regulated; artificially wintery in some districts, warm in others",
+    "status": "Active; Hidden; Neutral until surface intrusion",
+    "summary": "The Monster Underground is a hidden kingdom nestled within the core of Mount Ebott. Governed by a King and Queen from a distant castle, it serves as a refuge for monsters who vanished from the surface centuries ago. Its existence was thought to be a myth until the Iron Legion's Gamma Division breached the treaty layers. Waluigi classifies it as a 'haven of the forgotten.' WAH.",
+    "description": "Waluigi has found very little information about the Monster Underground in surface archives, which is exactly how the residents want it. It is a realm of stone, magic, and isolation. \n\n**The Monarchy**\nUnlike the fractured human empires above, the Underground appears unified under a single Royal Family. While Snowdin governs itself at a local level, the King and Queen maintain the borders and the 'enchanted sky' that keeps the core habitable. \n\n**Geography**\nThe kingdom is divided into several ecological zones, connected by stone paths and bridge networks. Snowdin is the first major settlement encountered when entering from the summit. The Royal Castle sits at the furthest point of the core, serving as the seat of power and the anchor for the realm's magic. \n\n**Foreign Relations**\nNone. The Underground has existed in total isolation since the ancient treaties were signed. The recent arrival of Dracule Mihawk and a Legion agent marks the first confirmed surface contact in generations. Waluigi suspects the peace of the Underground is about to be 'processed' by the Iron Legion. WAH.\n\n<div class=\"waluigi-comment\">Waluigi's Diplomatic Warning: Sending an agent with elite currency and a manual written by dead men into a hidden kingdom is a recipe for a diplomatic explosion. The Underground has its own laws, its own stars, and its own skeletons. If the Legion thinks they can just walk in and start filing paperwork, they are in for a very 'bad time.'</div>",
+    "notableFeatures": [
+      "The Enchanted Sky — A massive arcane dome mimicking the surface world",
+      "Snowdin Town — The gateway village",
+      "The Core — The industrial and magical heart of the kingdom",
+      "The Royal Castle — Seat of the subterranean monarchy"
+    ],
+    "relatedArticles": [
+      "mount_ebott",
+      "snowdin_town",
+      "sans",
+      "iron_legion"
+    ],
+    "nationCategory": "Hidden Kingdom",
+    "atlasType": "Subterranean Realm"
+  },
+  {
     "id": "mushroom_kingdom",
     "name": "The Mushroom Kingdom",
     "type": "Historical Kingdom / Civil War Theater",

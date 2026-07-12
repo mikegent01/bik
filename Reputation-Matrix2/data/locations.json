@@ -1,5 +1,54 @@
 [
   {
+    "id": "mount_ebott",
+    "name": "Mount Ebott",
+    "type": "Location/Mountain / Dimensional Tomb",
+    "region": "The Old World (Eastern Periphery)",
+    "controllingFaction": "Vampire Courts (Treaty Layer) / Monster Underground (Core)",
+    "population": "Varies by depth — Surface is sealed; Core contains a thriving monster civilization",
+    "climate": "Frigid at summit; warm and geologically active in the core; artificial sky mimics daylight",
+    "status": "Sealed by ancient treaties; currently breached by Iron Legion reconnaissance",
+    "summary": "Mount Ebott is a continent-sized crisis archive and tomb, sealed under layers of treaty ice and vampire bloodlines older than language itself. While the surface reeks of death and forgotten empires, the mountain's heart contains a hidden world. The last known expedition to enter vanished without a trace in 2374. It is currently the target of a classified Iron Legion survey mission.",
+    "description": "Waluigi finds Mount Ebott to be the ultimate expression of the Old World's obsession with burying its problems. The mountain is not just land or rock; it is a vault for everything the surface world wanted to forget. \n\n**The Treaty Layer**\nThe summit and upper tunnels are governed by ancient vampire courts who enforce isolation through cryomancy and blood-oaths. These 'Treaty Layers' ensure that whatever woke up beneath the mountain centuries ago remains contained. The Iron Legion’s Gamma Division attempted to suppress a vampire uprising here 87 years ago and was wiped out to the last man, their bodies left as ice statues.\n\n**The Subterranean Core**\nBelow the ice and treaties lies a vast hollow core. This core is warm, inhabited, and illuminated by magic. It contains ruins, forests of black moonblossoms, and the town of Snowdin. The air is sweet, and the environment is surprisingly stable compared to the fractured lands above. \n\n**Strategic Importance**\nMount Ebott sits at the intersection of several Old World power blocs: human empires, dwarf holds, and vampire courts. Its core is rich in anomalous energy signatures, making it a prize for any faction capable of breaching the treaty layers. The Iron Legion’s current interest involves assessing structural integrity and detecting subterranean life—likely the first step in a larger annexation plan. WAH.",
+    "notableFeatures": [
+      "Treaty Ice — Magical barriers maintained by vampire elders",
+      "Black Moonblossoms — Rare plants indicating high magical leakage",
+      "Fractured Horizon — View from the cliff showing ruined towers of ancient empires",
+      "Hidden Entrance — A hole at the summit leading directly to the flower beds below"
+    ],
+    "relatedArticles": [
+      "vampire_courts",
+      "iron_legion",
+      "snowdin_town",
+      "sans",
+      "dracule_mihawk"
+    ]
+  },
+  {
+    "id": "snowdin_town",
+    "name": "Snowdin Town",
+    "type": "Location/Underground Village",
+    "region": "Mount Ebott (Core)",
+    "controllingFaction": "Independent (Monster Underground)",
+    "population": "Hundreds of monsters, primarily non-hostile",
+    "climate": "Artificially wintery but cozy; enchanted sky mimics a 12-hour day/night cycle",
+    "status": "Hidden / Peaceful; currently hosting surface visitors",
+    "summary": "Snowdin is a hidden village nestled deep within the core of Mount Ebott. Characterized by warm hearths, friendly faces, and an enchanted sky, it serves as a haven for a civilization that has remained hidden from the surface for centuries. It is governed by a 'King and Queen' who live in a distant castle.",
+    "description": "Snowdin looks like a winter village from an old storybook, inexplicably located 500 feet beneath a mountain. It is a town of cozy wooden cabins, blue lanterns, and winding stone streets. \n\n**The Enchanted Sky**\nThe ceiling of the hollow core is enchanted to mimic a natural sky. Magic controls the cycle of light and darkness, changing every 12 hours. Tiny lights embedded in the rock act as stars, and the dome shifts through twilight oranges and pinks to deep indigo. \n\n**Society and Governance**\nUnlike the war-torn surface, Snowdin is remarkably peaceful. There are no barricades or visible guard patrols. Residents include skeletons, rabbits, and other monster phenotypes. The town governs itself, though it remains loyal to the Royal Family in the distant castle. Hospitality is extended to any who come in peace, provided they have the gold—or Archive Writs—to pay for it.\n\n**The Snowdin Inn**\nRun by a rabbit-like innkeeper named Bunny, the inn provides rest for travelers. It is a place of cinnamon scents and firelight, standing in stark contrast to the cold, dead tunnels of the upper mountain. \n\n**Waluigi's Assessment**\nSnowdin is a miracle of isolation. It has survived because nobody knew it existed. Now that the Iron Legion has set up survey equipment on its doorstep, Waluigi suspects the 'friendly faces' are about to have a very bad time. WAH.",
+    "notableFeatures": [
+      "The Greeting Sign — 'Welcome to Snowdin Town! Home of friendly faces and warm hearths.'",
+      "Blue Lanterns — Eerie but comforting lighting used throughout the town",
+      "Subterranean Wind — A gentle breeze that carries the scent of moonblossoms",
+      "The Royal Road — A path leading toward the Home of the Royal Family"
+    ],
+    "relatedArticles": [
+      "mount_ebott",
+      "sans",
+      "bunny_innkeeper",
+      "iron_legion"
+    ]
+  },
+  {
     "id": "darius_sanctum",
     "name": "Darius's Planar Sanctum (The Fractured Atrium)",
     "type": "Location/Extraplanar Hub",
