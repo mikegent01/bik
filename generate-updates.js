@@ -1,50 +1,47 @@
 const fs = require('fs');
 const path = require('path');
 
-// Configuration
-const TARGET_FOLDER = './Reputation-Matrix2'; 
+// ====================== CONFIG ======================
+const TARGET_FOLDER = './Reputation-Matrix2';
 const OUTPUT_FILE = path.join(TARGET_FOLDER, 'site-updates.json');
 
-// ---------------------------------------------------------
-// MANUAL LINKS: Map HTML files to specific JS files
-// ---------------------------------------------------------
+// ====================== MANUAL DEPENDENCIES ======================
 const JS_DEPENDENCIES = {
-    // --- MAIN SYSTEMS ---
-    'alliances.html':   ['alliances-page.js'],
-    'assembly.html':    ['assembly.js', 'assembly-data.js', 'assembly-events-data.js', 'assembly-intel-system.js', 'assembly-viral-data.js'],
+    'alliances.html': ['alliances-page.js'],
+    'assembly.html': ['assembly.js', 'assembly-data.js', 'assembly-events-data.js', 'assembly-intel-system.js', 'assembly-viral-data.js'],
     'battlefield.html': ['battlefield.js', 'map-battle-data-base.js', 'map-battle-data-battlefields.js'],
-    'calendar.html':    ['calendar.js', 'calendar-data.js'],
-    'civil-war.html':   ['civil-war.js'],
-    'directory.html':   ['directory-system.js'],
-    'focus.html':       ['focus.js', 'focus-tree.js'],
-    'guilds.html':      ['guilds.js', 'guilds-data.js', 'guilds-data-new.js'],
-    'login.html':       ['login.js'],
-    'newspaper.html':   ['newspaper.js', 'rakasha-news.js'],
-    'politics.html':    ['politics.js', 'politics-data.js', 'parliament-members.js'],
-    'profile.html':     ['profile.js', 'profile-themes.js'],
-    'relations.html':   ['relations.js', 'character-relations.js'],
-    'religion.html':    ['religion.js', 'religion-data.js'],
-    'research.html':    ['research.js', 'research-data.js', 'research-names.js', 'research-constants.js'],
-    'rumors.html':      ['rumors.js', 'rumor-chatter-data.js'],
+    'calendar.html': ['calendar.js', 'calendar-data.js'],
+    'civil-war.html': ['civil-war.js'],
+    'directory.html': ['directory-system.js'],
+    'focus.html': ['focus.js', 'focus-tree.js'],
+    'guilds.html': ['guilds.js', 'guilds-data.js', 'guilds-data-new.js'],
+    'login.html': ['login.js'],
+    'newspaper.html': ['newspaper.js', 'rakasha-news.js'],
+    'politics.html': ['politics.js', 'politics-data.js', 'parliament-members.js'],
+    'profile.html': ['profile.js', 'profile-themes.js'],
+    'relations.html': ['relations.js', 'character-relations.js'],
+    'religion.html': ['religion.js', 'religion-data.js'],
+    'research.html': ['research.js', 'research-data.js', 'research-names.js', 'research-constants.js'],
+    'rumors.html': ['rumors.js', 'rumor-chatter-data.js'],
     'societal-values.html': ['societal-values.js'],
-    'species.html':     ['species.js', 'species-data.js', 'species-workforce.js'],
-    'timeline.html':    ['timeline.js', 'timeline-data.js'],
-    'treaty.html':      ['treaty.html'], // Self reference or specific treaty JS if exists
-
-    // --- FACTIONS & GROUPS ---
-    'faw.html':                 ['faction-fawful.js'],
-    'fawfuls-party.html':       ['fawfuls-party.js'],
-    'iron-legion.html':         ['iron-legion.js', 'iron-legion-data.js', 'iron-legion-details.js'],
-    'liberated-toads-event.html': ['liberated-toads-system.js'], // System often updates the event page
-    'mushroom-regency.html':    ['mushroom-regency.js'],
-    'onyx-hand.html':           ['onyx-hand.js', 'onyx-hand-details.js', 'onyx-hand-system.js'],
-    'peach-loyalists.html':     ['peach-loyalists.js'],
-    'plagues.html':             ['plagues.js', 'plagues-data.js'],
-    'rakasha-system.html':      ['rakasha-clans-system.js'],
+    'species.html': ['species.js', 'species-data.js', 'species-workforce.js'],
+    'timeline.html': ['timeline.js', 'timeline-data.js'],
+    'treaty.html': ['treaty.js'],
+    
+    // Factions
+    'faw.html': ['faction-fawful.js'],
+    'fawfuls-party.html': ['fawfuls-party.js'],
+    'iron-legion.html': ['iron-legion.js', 'iron-legion-data.js', 'iron-legion-details.js'],
+    'liberated-toads-event.html': ['liberated-toads-system.js'],
+    'mushroom-regency.html': ['mushroom-regency.js'],
+    'onyx-hand.html': ['onyx-hand.js', 'onyx-hand-details.js', 'onyx-hand-system.js'],
+    'peach-loyalists.html': ['peach-loyalists.js'],
+    'plagues.html': ['plagues.js', 'plagues-data.js'],
+    'rakasha-system.html': ['rakasha-clans-system.js'],
     'regal-empire-system.html': ['regal-empire-system.js'],
-    'toads-event.html':         ['toads_event.js'], // Note underscore in JS filename in your list
-
-    // --- LEGAL & LAWS ---
+    'toads-event.html': ['toads_event.js'],
+    
+    // Legal
     'legal_systems.html': ['legal_systems.js', 'legal_data.js'],
     'laws.html': [
         'laws.js', 'laws-data.js',
@@ -54,41 +51,38 @@ const JS_DEPENDENCIES = {
         'laws-data-pokemon.js', 'laws-data-space.js', 
         'laws-data-underworld.js', 'laws-data-warhammer.js'
     ],
-
-    // --- QUESTS ---
+    
+    // Quests
     'quests.html': [
         'quests.js', 'quests-data.js', 'quests-data-1.js', 
         'quests-constants.js', 'quests-helpers.js', 'bounty-quests-data.js'
     ],
-
-    // --- MAPS (CORE) ---
+    
+    // Maps
     'maps.html': [
         'maps.js', 'map-data.js', 'map-ui.js', 
         'map-renderer.js', 'map-transform.js', 'map-tactical.js', 
         'maps-selection.js', 'maps-data-loader.js'
     ],
+    'doughnut-hole-maps.html': ['doughnut-hole.js', 'requests-doughnut-hole.js'],
+    'internet-maps.html': ['internet.js'],
+    'kivotos-maps.html': ['Kivotos.js', 'requests-kivotos.js', 'traditions-data-kivotos.js'],
+    'middle-earth-maps.html': ['requests-middle-earth.js', 'map-battle-data-middle-earth.js'],
+    'midlands-maps.html': ['midlands.js', 'map-battle-data-midlands.js'],
+    'mushroom-kingdom-maps.html': ['map-battle-data-mushroom-kingdom.js'],
+    'pokemon-maps.html': ['requests-pokemon.js', 'map-battle-data-pokemon.js'],
+    'the-edge-maps.html': ['requests-the-edge.js'],
+    'warhammer-maps.html': ['warhammer.js', 'requests-warhammer.js', 'map-battle-data-warhammer.js'],
     
-    // --- MAPS (REGIONAL / REQUESTS) ---
-    // These link the map HTML to the specific JS request handlers or data files
-    'doughnut-hole-maps.html':      ['doughnut-hole.js', 'requests-doughnut-hole.js'],
-    'internet-maps.html':           ['internet.js'],
-    'kivotos-maps.html':            ['Kivotos.js', 'requests-kivotos.js', 'traditions-data-kivotos.js'],
-    'middle-earth-maps.html':       ['requests-middle-earth.js', 'map-battle-data-middle-earth.js'],
-    'midlands-maps.html':           ['midlands.js', 'map-battle-data-midlands.js'],
-    'mushroom-kingdom-maps.html':   ['map-battle-data-mushroom-kingdom.js'],
-    'pokemon-maps.html':            ['requests-pokemon.js', 'map-battle-data-pokemon.js'],
-    'the-edge-maps.html':           ['requests-the-edge.js'],
-    'warhammer-maps.html':          ['warhammer.js', 'requests-warhammer.js', 'map-battle-data-warhammer.js'],
-    
-    // --- GLOBAL/MISC ---
-    'global-war.html': ['GlobeHead/global-war.js'], // Handling sub-directory
+    // Misc
+    'global-war.html': ['GlobeHead/global-war.js'],
     'family-tree.html': ['family-tree.js']
 };
 
-// Files to explicitly ignore 
 const IGNORED_FILES = ['navigation.js', 'common.js', 'ui.js'];
 
-console.log('📝 Scanning for HTML and linked JS updates...');
+// ====================== MAIN SCRIPT ======================
+console.log('📝 Generating site-updates.json...');
 
 const updates = {};
 
@@ -96,95 +90,56 @@ try {
     const files = fs.readdirSync(TARGET_FOLDER);
 
     files.forEach(file => {
-        if (path.extname(file) === '.html') {
-            const fullHtmlPath = path.join(TARGET_FOLDER, file);
+        if (path.extname(file) !== '.html') return;
+
+        const htmlPath = path.join(TARGET_FOLDER, file);
+        const htmlStats = fs.statSync(htmlPath);
+        
+        let newestTime = htmlStats.mtime;
+        let source = 'HTML';
+
+        // Build list of JS files to check
+        let linkedJs = [];
+
+        // 1. Auto-link (same name)
+        linkedJs.push(file.replace('.html', '.js'));
+
+        // 2. Manual dependencies
+        if (JS_DEPENDENCIES[file]) {
+            linkedJs = linkedJs.concat(JS_DEPENDENCIES[file]);
+        }
+
+        // Check all linked JS files
+        linkedJs.forEach(jsFile => {
+            if (IGNORED_FILES.includes(path.basename(jsFile))) return;
+
+            const jsPath = path.join(TARGET_FOLDER, jsFile);
             
-            // 1. Get the base HTML time
-            const htmlStats = fs.statSync(fullHtmlPath);
-            let newestTime = htmlStats.mtime;
-            let sourceOfUpdate = 'HTML'; 
-
-            // List of JS files to check for this specific HTML file
-            let linkedJsFiles = [];
-
-            // A. Auto-Link: Check if a .js file with the same name exists
-            const sameNameJs = file.replace('.html', '.js');
-            linkedJsFiles.push(sameNameJs);
-
-            // B. Manual Link: Add files from configuration above
-            if (JS_DEPENDENCIES[file]) {
-                linkedJsFiles = linkedJsFiles.concat(JS_DEPENDENCIES[file]);
-            }
-
-            // 2. Process all linked JS files
-            linkedJsFiles.forEach(jsFile => {
-                // Skip if this file is in the ignore list
-                // Check just the filename part to allow path matching (e.g. GlobeHead/global-war.js)
-                if (IGNORED_FILES.includes(path.basename(jsFile))) return;
-
-                const fullJsPath = path.join(TARGET_FOLDER, jsFile);
-
-                if (fs.existsSync(fullJsPath)) {
-                    const jsStats = fs.statSync(fullJsPath);
-
-                    // If the JS file is newer than the current newest time found
-                    if (jsStats.mtime > newestTime) {
-                        newestTime = jsStats.mtime;
-                        sourceOfUpdate = jsFile; 
-                    }
+            if (fs.existsSync(jsPath)) {
+                const jsStats = fs.statSync(jsPath);
+                
+                if (jsStats.mtime > newestTime) {
+                    newestTime = jsStats.mtime;
+                    source = jsFile;
                 }
-            });
-
-            // Save the latest timestamp found
-            updates[file] = newestTime.toISOString();
-            
-            // Console feedback
-            if (sourceOfUpdate !== 'HTML') {
-                console.log(`   🔄 ${file}: Date updated via linked ${sourceOfUpdate}`);
             }
+        });
+
+        updates[file] = newestTime.toISOString();
+
+        if (source !== 'HTML') {
+            console.log(`🔄 ${file} → updated via ${source}`);
         }
     });
 
-    // Write the JSON file
-    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(updates, null, 2));
-    console.log(`✅ Wrote update manifest to ${OUTPUT_FILE}`);
+    // Sort newest first
+    const sorted = Object.fromEntries(
+        Object.entries(updates).sort((a, b) => b[1].localeCompare(a[1]))
+    );
+
+    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(sorted, null, 2));
+    console.log(`✅ site-updates.json generated with ${Object.keys(sorted).length} entries`);
 
 } catch (err) {
-    console.error('❌ Error generating updates:', err);
+    console.error('❌ Error:', err);
 }
-// auto-update-site.js
-// Run this script (node auto-update-site.js) to regenerate site-updates.json
-// from the actual modification times of your HTML files.
-
-const fs = require('fs');
-const path = require('path');
-
-const UPDATES_FILE = path.join(__dirname, 'site-updates.json');
-const HTML_DIR = __dirname; // change if your HTML files live elsewhere
-
-function getHtmlFiles(dir) {
-  return fs.readdirSync(dir)
-    .filter(f => f.endsWith('.html'))
-    .map(f => path.join(dir, f));
-}
-
-function buildUpdates() {
-  const files = getHtmlFiles(HTML_DIR);
-  const updates = {};
-
-  files.forEach(file => {
-    const stat = fs.statSync(file);
-    const name = path.basename(file);
-    updates[name] = stat.mtime.toISOString();
-  });
-
-  // sort newest first (nice for the UI)
-  const sorted = Object.fromEntries(
-    Object.entries(updates).sort((a, b) => b[1].localeCompare(a[1]))
-  );
-
-  fs.writeFileSync(UPDATES_FILE, JSON.stringify(sorted, null, 2));
-  console.log(`✅ site-updates.json regenerated with ${Object.keys(sorted).length} files`);
-}
-
-buildUpdates();

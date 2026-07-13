@@ -4007,7 +4007,7 @@ const PLAYERS = {
     ]
   },
   "archie": {
-    "name": "Archie Miser",
+    "name": "Archie Archbold Miser",
     "faction": "disaster_inc",
     "level": 6,
     "currentXP": 21030,
@@ -7068,9 +7068,36 @@ const PLAYERS = {
     "name": "Remi",
     "faction": "disaster_inc",
     "level": 7,
-    "currentXP": 30308,
+    "currentXP": 31258,
     "nextXP": 34000,
     "entries": [
+      {
+        "cat": "stealth",
+        "xp": 450,
+        "title": "Event — Midnight Audit — Stealth/Thievery",
+        "desc": "Successfully stole back her firearm from a sleeping Markop while navigating a series of midnight intrusions. Filed: 28 Harvestside, 1040 BF. Source: events.json.",
+        "date": "28 Harvestide, 1040 BF",
+        "dateSort": 10400028,
+        "sourceMarker": "✦"
+      },
+      {
+        "cat": "social",
+        "xp": 200,
+        "title": "Event — Midnight Audit — Insight",
+        "desc": "Confronted multiple intruders and identified the cryptic importance of Archie's letter. Filed: 28 Harvestside, 1040 BF. Source: events.json.",
+        "date": "28 Harvestide, 1040 BF",
+        "dateSort": 10400028,
+        "sourceMarker": "✦"
+      },
+      {
+        "cat": "exploration",
+        "xp": 300,
+        "title": "Event — Midnight Audit — Independence",
+        "desc": "Took the advice of Tymnas to start taking more independent actions for herself. Filed: 28 Harvestside, 1040 BF. Source: events.json.",
+        "date": "28 Harvestide, 1040 BF",
+        "dateSort": 10400028,
+        "sourceMarker": "✦"
+      },
       {
         "cat": "survival",
         "xp": 500,
@@ -11422,9 +11449,18 @@ const PLAYERS = {
     "name": "Tymnas",
     "faction": "corvinarus",
     "level": 3,
-    "currentXP": 1100,
+    "currentXP": 1400,
     "nextXP": 2700,
     "entries": [
+      {
+        "cat": "social",
+        "xp": 300,
+        "title": "Event — Midnight Audit — Mentorship",
+        "desc": "Provided critical advice to Remi Akamatsu, encouraging her to reclaim her weapon and act independently. Filed: 28 Harvestside, 1040 BF. Source: events.json.",
+        "date": "28 Harvestide, 1040 BF",
+        "dateSort": 10400028,
+        "sourceMarker": "✦"
+      },
       {
         "cat": "magic",
         "xp": 220,
@@ -16064,7 +16100,8 @@ function buildHeader() {
   // Count player-faction characters vs all
   let playerCount = 0;
   for (const [key, p] of Object.entries(PLAYERS)) {
-    const f = FACTIONS[p.faction || 'independent'] || FACTIONS.independent;
+    const factionId = p.faction || 'independent';
+    const f = FACTIONS[factionId] || { is_player: false };
     if (f.is_player) playerCount++;
   }
 
@@ -16091,8 +16128,8 @@ function buildHeader() {
 function getSortedRoster() {
   const chars = Object.entries(PLAYERS).map(([key, p]) => ({ key, ...p }));
   chars.sort((a, b) => {
-    const fa = FACTIONS[a.faction || 'independent'] || FACTIONS.independent;
-    const fb = FACTIONS[b.faction || 'independent'] || FACTIONS.independent;
+    const fa = FACTIONS[a.faction || 'independent'] || { is_player: false, sort_order: 99 };
+    const fb = FACTIONS[b.faction || 'independent'] || { is_player: false, sort_order: 99 };
     if (!!fa.is_player !== !!fb.is_player) return fa.is_player ? -1 : 1;
     return (fa.sort_order || 99) - (fb.sort_order || 99) || (b.powerLevel || b.level || 0) - (a.powerLevel || a.level || 0) || (b.fameScore || 0) - (a.fameScore || 0) || a.name.localeCompare(b.name);
   });
@@ -17698,5 +17735,5 @@ document.addEventListener('DOMContentLoaded', () => {
   requestAnimationFrame(() => setTimeout(() => startOptionalImports(), 25));
 });
 </script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1a3ab9a6ef9eeee',t:'MTc4Mzg5NzI5MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

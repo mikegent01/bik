@@ -1,8 +1,8 @@
 {
   "featuredArticle": {
-    "id": "shadow_estate_mirror_rooftop_escape",
+    "id": "the_midnight_audit_of_harvestide_28",
     "type": "event",
-    "excerpt": "The Mirror of True Reflection has been mended, Wario tried to steal it immediately, Merric the axe-sheep joined the team, and the portal circle is occupied by Tanukiburt, real Toadburt, and Mystic Morel. All four keys are secured. The door is open. The door is also full of problems. WAH."
+    "excerpt": "Waluigi documents the midnight intrusions at the Shadow Estate. Remi Akamatsu de-escalates a sword-wielding intruder, steals her firearm back from Markop, and tests a black crystal that may or may not be a lie detector. WAH."
   },
   "didYouKnow": [
     "...that Archie Miser calls himself 'Darman Knightly' in the Shadowfell? It's the stupidest name I've ever heard. Also, he cut off a guy's finger!",
@@ -17,35 +17,39 @@
     "...that Wario gave Remi a bomb as a welcome gift? It's called 'Initiation'! If she can't survive an explosion, she can't work in customer service!",
     "...that Remi knew Mending and nobody asked until the broken planar mirror was already in pieces? Waluigi calls this a management failure with excellent timing.",
     "...that Merric joined the party after calling Markop 'Centerus'? Disaster Inc. recruitment standards remain beautifully indefensible.",
-    "...that Wario tried to claim the Mirror of True Reflection immediately after it was repaired? Of course he did. That's not trivia, that's weather."
+    "...that Wario tried to claim the Mirror of True Reflection immediately after it was repaired? Of course he did. That's not trivia, that's weather.",
+    "...that Remi used a Black Crystal to test a 3 AM mailman and it did absolutely nothing? Waluigi calls this a \"calibrated failure.\"",
+    "...that Waluigi\u2019s safety desk has classified a closet as a \"high-risk diplomatic zone\" after a soldier was found hiding in one during the Midnight Audit?"
   ],
   "onThisDay": [
-    "955 BF — Princess Peach takes a permanent nap. Everyone is still crying about it. Get over it!",
-    "1035 BF — The Iron Legion starts ruining everyone's fun with 'laws' and 'taxes'.",
-    "1040 BF — We killed a dragon! Well, *they* did, but I provided moral support (and looted the hoard).",
-    "1040 BF — The Planar Fracture happens. The universe breaks just to annoy me personally.",
-    "1040 BF — The Mirror of True Reflection is restored in the Shadow Estate, all four portal artifacts are secured, and the exit is immediately occupied by enemies because happiness is illegal."
+    "955 BF \u2014 Princess Peach takes a permanent nap. Everyone is still crying about it. Get over it!",
+    "1035 BF \u2014 The Iron Legion starts ruining everyone's fun with 'laws' and 'taxes'.",
+    "1040 BF \u2014 We killed a dragon! Well, *they* did, but I provided moral support (and looted the hoard).",
+    "1040 BF \u2014 The Planar Fracture happens. The universe breaks just to annoy me personally.",
+    "1040 BF \u2014 The Mirror of True Reflection is restored in the Shadow Estate, all four portal artifacts are secured, and the exit is immediately occupied by enemies because happiness is illegal.",
+    "1040 BF \u2014 Midnight Audit of the Shadow Estate: Remi Akamatsu steals her gun back, confronts a closet-soldier, and acquires a lie-detecting crystal. Waluigi's safety desk is overwhelmed. WAH.",
+    "10XX BF \u2014 The Iron Legion breaches the treaty layers of Mount Ebott, establishing a survey mission in the hidden village of Snowdin. Skeletons and casseroles are involved."
   ],
   "categories": [
     {
       "name": "Factions",
       "count": 10,
-      "icon": "⚔️"
+      "icon": "\u2694\ufe0f"
     },
     {
       "name": "Characters",
       "count": 13,
-      "icon": "👤"
+      "icon": "\ud83d\udc64"
     },
     {
       "name": "Battles",
       "count": 9,
-      "icon": "🗡️"
+      "icon": "\ud83d\udde1\ufe0f"
     },
     {
       "name": "Locations",
       "count": 6,
-      "icon": "🏰"
+      "icon": "\ud83c\udff0"
     }
   ]
 }
