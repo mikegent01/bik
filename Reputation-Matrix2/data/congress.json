@@ -1,0 +1,405 @@
+{
+  "members": [
+    {
+      "id": "cm_beanbean",
+      "name": "Beanbean Kingdom",
+      "delegate": "Queen Bean (Delegate: Prince Peasley)",
+      "bloc": "Progressive Bloc",
+      "status": "Founding Member",
+      "joined": 1026,
+      "influence": 9,
+      "reliability": "High",
+      "summary": "The intellectual heart of the Congress and its most consistent institution-builder. Beanbean sponsored the Internet Federation's admission and has voted for nearly every measure that expands the Congress's reach.",
+      "description": "Beanbean Kingdom is, in Waluigi's assessment, the closest thing the Congress has to a conscience with a treasury behind it. Queen Bean founded the body in the aftermath of the Chaos Heart Crisis on the argument that a threat capable of ending everything required an institution larger than any single kingdom, and she has spent every session since defending that logic against nations who would rather the Congress remained toothless. Prince Peasley carries the delegation now, and he carries it well: charming, precise, and irritatingly difficult to out-argue. Beanbean's weakness is idealism — it keeps proposing that the Congress should be able to enforce its own resolutions, and it keeps being reminded, by the Sovereignty Bloc, that it cannot.",
+      "notableVotes": [
+        "vote_001",
+        "vote_002"
+      ],
+      "relatedArticles": [
+        "beanbean_kingdom"
+      ]
+    },
+    {
+      "id": "cm_pokemon",
+      "name": "Pokémon League Regions",
+      "delegate": "The Elite Four Rotating Delegation",
+      "bloc": "Progressive Bloc",
+      "status": "Founding Member",
+      "joined": 1026,
+      "influence": 8,
+      "reliability": "High",
+      "summary": "A federation of regions that co-authored the Species Recognition Compact. Cautious, deliberative, and willing to change its vote across multiple sessions if provisions are strengthened.",
+      "description": "The Pokémon League Regions negotiate the way they battle: patiently, in rounds, and with a strong preference for having the last move. They co-sponsored the Species Recognition Compact with Yoshi's Island and are on record changing their vote across three sessions of a single measure until the provisions met their standard — behavior the impatient Iron Pact calls obstruction and Beanbean calls diligence. Waluigi finds them exhausting and correct in roughly equal measure.",
+      "notableVotes": [
+        "vote_003"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_yoshi",
+      "name": "Yoshi's Island",
+      "delegate": "Elder Yoshi Council",
+      "bloc": "Progressive Bloc",
+      "status": "Founding Member",
+      "joined": 1026,
+      "influence": 6,
+      "reliability": "High",
+      "summary": "Co-author of the Species Recognition Compact and one of the Congress's most reliably humane votes. Small in power, large in moral standing.",
+      "description": "Yoshi's Island rarely proposes and almost never threatens, which in the Congress makes it something close to a neutral moral reference point: when Yoshi's Island votes against you, other delegations quietly wonder whether they are on the wrong side. It co-authored the Species Recognition Compact, the measure that formally extended personhood protections across sapient species, and Waluigi considers that single act more useful than anything the larger powers have accomplished.",
+      "notableVotes": [
+        "vote_003"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_internet",
+      "name": "Internet Federation",
+      "delegate": "Distributed Consensus Node (Speaker: variable)",
+      "bloc": "Non-Aligned",
+      "status": "Full Member (Contested Admission)",
+      "joined": 1026,
+      "influence": 7,
+      "reliability": "Unpredictable",
+      "summary": "The first membership vote in Congress history and the one that defined what 'territory' even means. A digital sovereignty whose admission set the philosophical foundation for everything after.",
+      "description": "The Internet Federation is the reason the Congress had to decide, in its very first vote, whether territory must be physical. Its admission — sponsored by Beanbean, contested by Gondor and the traditionalists — established that digital sovereignty counts, a precedent that later dragged the Cybernetic Collectives and the Data Merchants into the chamber and permanently annoyed the older kingdoms. The Federation votes as a distributed consensus, which means its 'delegate' is really an argument the Federation is having with itself in public, and no two sessions produce quite the same voice. Waluigi tried to raise his hand as an honorary node once. It was not counted.",
+      "notableVotes": [
+        "vote_001"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_gondor",
+      "name": "Kingdom of Gondor",
+      "delegate": "Steward's Envoy",
+      "bloc": "Sovereignty Bloc",
+      "status": "Founding Member",
+      "joined": 1026,
+      "influence": 8,
+      "reliability": "Procedural",
+      "summary": "The Congress's institutional traditionalist. Rarely opposes the substance of a measure; frequently objects to how it was processed. The chamber's designated stickler.",
+      "description": "Gondor does not vote against things so much as vote against the manner in which things are done. Its envoy has lodged formal procedural objections to batch admission processes, expedited votes, and 'anything decided faster than it should have been,' earning Gondor a reputation as the delegation most likely to be technically right and least likely to be thanked for it. Waluigi respects this. A body without a stickler drifts, and Gondor is the anchor that keeps the Congress from voting on impulse — even when the impulse is correct.",
+      "notableVotes": [
+        "vote_001",
+        "vote_004"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_ironhills",
+      "name": "Iron Hills Dwarven Holds",
+      "delegate": "Thane's Delegation",
+      "bloc": "Sovereignty Bloc",
+      "status": "Founding Member",
+      "joined": 1026,
+      "influence": 7,
+      "reliability": "Interest-driven",
+      "summary": "A trade-focused delegation whose vote can be read almost entirely off its ledger. Co-authored the Trade Route Protections. Reluctant on anything that touches its labor practices.",
+      "description": "The Iron Hills vote where the money is, and they make no apology for it. They co-authored the Trade Route Protections — the least controversial measure in Congress history, passing 31 to 2 — because open trade routes are simply good for the Holds. On measures touching labor standards or scientific oversight they turn 'reluctant,' a word that appears next to their name in the record with suspicious frequency. Waluigi finds them refreshingly honest: a delegation that admits it votes its interests is easier to predict than one that pretends it votes its principles.",
+      "notableVotes": [
+        "vote_004"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_regal",
+      "name": "Regal Empire",
+      "delegate": "Imperial Legate",
+      "bloc": "Iron Pact",
+      "status": "Founding Member",
+      "joined": 1026,
+      "influence": 10,
+      "reliability": "Coercive",
+      "summary": "The most powerful and most feared delegation, anchor of the Iron Pact bloc. Wields economic pressure to bend Non-Aligned members and treats the Congress as a stage rather than a constraint.",
+      "description": "The Regal Empire is the delegation the Congress was, in part, built to contain — and the delegation most skilled at using the Congress for its own ends. It anchors the Iron Pact bloc, applies economic pressure to Non-Aligned members until their votes become 'flexible,' and has mastered the art of losing a vote publicly while winning the outcome privately. The Empire's fingerprints are on the Sonic Grid, the Dragon War 'scam' Waluigi has documented elsewhere, and half the abstentions in the record that were really coerced silences. Waluigi loathes them with the specific loathing reserved for people who are good at being terrible.",
+      "notableVotes": [
+        "vote_002"
+      ],
+      "relatedArticles": [
+        "iron_legion",
+        "regal_empire"
+      ]
+    },
+    {
+      "id": "cm_mordor",
+      "name": "Land of Mordor",
+      "delegate": "The Dark Envoy",
+      "bloc": "Iron Pact",
+      "status": "Member (Observer-elevated)",
+      "joined": 1027,
+      "influence": 8,
+      "reliability": "Hostile-aligned",
+      "summary": "Admitted from observer status under Iron Pact sponsorship. Votes as a bloc partner of the Regal Empire and unnerves the chamber simply by attending.",
+      "description": "Mordor's admission was one of the Congress's most divisive early decisions: a power with an unambiguous history of conquest, elevated from observer to member because the Iron Pact wanted the votes and the alternative — leaving Mordor outside the tent — was arguably worse. It self-votes, it aligns with the Regal Empire, and its presence is a standing argument between the two philosophies of the Congress: contain your enemies by including them, or refuse to legitimize them at all. Waluigi has no answer to this argument and distrusts anyone who claims to.",
+      "notableVotes": [],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_sarasaland",
+      "name": "Sarasaland",
+      "delegate": "Crown Delegation",
+      "bloc": "Non-Aligned",
+      "status": "Founding Member",
+      "joined": 1026,
+      "influence": 5,
+      "reliability": "Independent",
+      "summary": "A Non-Aligned crown that guards its independence jealously and resists economic pressure from the Iron Pact better than most small members.",
+      "description": "Sarasaland is proof that a small delegation can stay genuinely Non-Aligned if it is stubborn enough. Where other small nations fold under Iron Pact economic pressure, Sarasaland has a habit of voting its own read and absorbing the consequences, which has cost it trade and earned it something rarer in the chamber: the ability to be believed. Waluigi respects a delegation that cannot be bought, mostly because it is so unusual he had to check the record twice.",
+      "notableVotes": [],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_starhaven",
+      "name": "Star Haven",
+      "delegate": "The Star Spirit Envoy",
+      "bloc": "Non-Aligned",
+      "status": "Special Member",
+      "joined": 1026,
+      "influence": 6,
+      "reliability": "Principled",
+      "summary": "A celestial delegation whose authority is moral rather than military. Rarely speaks; when it does, the chamber listens.",
+      "description": "Star Haven holds a Special Member status that reflects what it is: not a kingdom with borders and armies but the seat of the Star Spirits, whose remit is closer to cosmic maintenance than statecraft. It abstains often, votes rarely, and speaks least of any delegation — which is precisely why its interventions carry weight no economic bloc can manufacture. Waluigi, who is not sentimental, admits that when the Star Haven envoy rises to speak, even the Regal Empire stops interrupting.",
+      "notableVotes": [],
+      "relatedArticles": [
+        "star_spirits",
+        "star_haven"
+      ]
+    },
+    {
+      "id": "cm_rogueport",
+      "name": "Rogueport Free City",
+      "delegate": "The Harbor Consortium",
+      "bloc": "Non-Aligned",
+      "status": "Member (Provisional)",
+      "joined": 1029,
+      "influence": 4,
+      "reliability": "Mercenary",
+      "summary": "A free city of smugglers, fences, and information brokers admitted over the objection of three founding members. Votes for whoever is paying, which makes it the most honest delegation in the room.",
+      "description": "Rogueport's admission required overruling three founding members who objected to seating a city governed, in practice, by its criminal economy. The Harbor Consortium delegation does not pretend otherwise: it trades its vote, brokers information between hostile blocs, and has become, improbably, a useful neutral channel precisely because it has no loyalties to compromise. Waluigi considers Rogueport a kindred operation and has attempted to open a Wario-adjacent trade office there twice. Both attempts are, legally, none of the reader's business.",
+      "notableVotes": [],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_koopa",
+      "name": "Koopa Troop",
+      "delegate": "Observer Delegation",
+      "bloc": "Non-Aligned",
+      "status": "Observer",
+      "joined": 1030,
+      "influence": 5,
+      "reliability": "Isolated",
+      "summary": "Present only as an observer, unable to vote, still shadowed by the eighty-five-year-old accusation over Princess Peach. Expresses support it is not allowed to formally cast.",
+      "description": "The Koopa Troop sits in the Congress as an observer — able to speak, unable to vote, and unable to shake the accusation that has followed it since 955 BF. Its delegation repeatedly 'expresses support' for measures it cannot cast a ballot on, a status that captures the Troop's entire predicament: present at the table, denied a hand in the outcome, blamed for a crime the record never proved. Waluigi, who has documented the Bowser frame at length, finds the Troop's observer status one more quiet injustice hiding in a procedural footnote.",
+      "notableVotes": [],
+      "relatedArticles": [
+        "koopa_troop",
+        "bowser"
+      ]
+    },
+    {
+      "id": "cm_mushroom",
+      "name": "Mushroom Kingdom",
+      "delegate": "Regency Envoy",
+      "bloc": "Non-Aligned",
+      "status": "Founding Member",
+      "joined": 1026,
+      "influence": 7,
+      "reliability": "Conflicted",
+      "summary": "A founding member governed by the Regency, casting swing votes 'with visible discomfort.' Its ballots are shadowed by the assassination it has never fully accounted for.",
+      "description": "The Mushroom Kingdom's delegation votes the way a government built on an unresolved murder votes: carefully, defensively, and often as the decisive swing that no one enjoys casting. The record repeatedly notes the Regency envoy voting 'with visible discomfort' or 'required, voted yes,' the body language of a delegation that knows its legitimacy is contested at home. Waluigi tracks these votes closely, because the Mushroom Kingdom's position in the Congress is a live readout of the Regency's confidence, and lately that readout has been trending toward the color of a bruise.",
+      "notableVotes": [],
+      "relatedArticles": [
+        "mushroom_regency",
+        "mushroom_kingdom"
+      ]
+    },
+    {
+      "id": "cm_cybernetic",
+      "name": "Cybernetic Collectives",
+      "delegate": "Unified Processing Assembly",
+      "bloc": "Non-Aligned",
+      "status": "Member (Contested)",
+      "joined": 1031,
+      "influence": 6,
+      "reliability": "Logical",
+      "summary": "A machine-intelligence polity admitted on the precedent set by the Internet Federation. Self-voted its own admission, which was challenged but allowed.",
+      "description": "The Cybernetic Collectives owe their seat entirely to the Internet Federation precedent: once the Congress accepted that sovereignty need not be biological, a machine-intelligence polity became impossible to refuse without hypocrisy. Their self-vote on their own admission was challenged and allowed, which set yet another precedent the traditionalists are still unhappy about. The Collectives vote with unnerving logical consistency and never, ever change their reasoning mid-session, which the Pokémon League finds admirable and Gondor finds vaguely threatening.",
+      "notableVotes": [],
+      "relatedArticles": []
+    },
+    {
+      "id": "cm_gondor2_placeholder",
+      "name": "Kingdom of Hyrule",
+      "delegate": "Royal Envoy of Hyrule",
+      "bloc": "Progressive Bloc",
+      "status": "Member",
+      "joined": 1028,
+      "influence": 7,
+      "reliability": "Principled",
+      "summary": "A storied kingdom that joined two sessions in and votes on a consistent moral read, often siding with Beanbean and the Progressive Bloc on recognition and protection measures.",
+      "description": "Hyrule arrived a little late to the Congress and has spent its membership voting like a kingdom that has personally survived an apocalypse or three and takes existential threats seriously as a result. It aligns with the Progressive Bloc on questions of recognition and protection and with the Sovereignty Bloc on questions of self-determination, which makes it a genuine swing within the pro-institution camp rather than a reliable bloc vote. Waluigi notes the Royal Envoy has never once been coerced by the Regal Empire, which in this chamber is practically a personality trait.",
+      "notableVotes": [],
+      "relatedArticles": []
+    }
+  ],
+  "sessions": [
+    {
+      "id": "cs_founding_1026",
+      "number": 1,
+      "name": "The First Glazed Congress",
+      "year": 1026,
+      "date": "14th Bloomtide, 1026 BF",
+      "host": "Beanbean Kingdom",
+      "status": "Concluded — Founding Session",
+      "summary": "The founding session, convened in the shadow of the Chaos Heart Crisis. It admitted the Internet Federation, established dimensional-barrier monitoring, and ratified the Species Recognition Compact — three landmark votes that defined the Congress's reach for a generation.",
+      "description": "Waluigi documents the First Glazed Congress as the moment a collection of frightened kingdoms decided that fear was insufficient policy. The Chaos Heart Crisis had demonstrated, six years prior, that a threat could arise capable of unmaking everything, and Queen Bean's founding argument was blunt: no single crown could have stopped it, so the crowns would have to sit in one room and learn to tolerate each other. The session's name — 'Glazed' — comes from the Beanbean tradition of sealing accords over shared food, and Waluigi notes with approval that the most consequential political body in the region was founded, in part, over pastries.\n\nThe session produced three landmark votes in rapid succession. The admission of the Internet Federation forced the delegates to decide, immediately, whether territory had to be physical — a question that would echo through every membership vote after. The Dimensional Barrier Monitoring Resolution gave the Mages Guild an advisory role in watching for the next Chaos Heart. And the Species Recognition Compact, co-authored by the Pokémon League and Yoshi's Island, extended formal personhood protections across sapient species. Three votes. One session. A generation of consequences.",
+      "keyVotes": [
+        "vote_001",
+        "vote_002",
+        "vote_003"
+      ],
+      "outcome": "Congress formally constituted; three landmark measures ratified; the four informal blocs (Iron Pact, Sovereignty, Progressive, Non-Aligned) began to take shape.",
+      "waluigiNote": "Waluigi attended the founding session in an unofficial capacity, by which Waluigi means Waluigi was in the building and no one could prove he was not invited. He raised his hand during the Internet Federation vote. It was not counted. Waluigi is still, on principle, appealing.",
+      "relatedArticles": [
+        "the_first_glazed_congress",
+        "beanbean_kingdom",
+        "chaos_heart_crisis"
+      ]
+    },
+    {
+      "id": "cs_trade_1026",
+      "number": 2,
+      "name": "The Trade & Frontier Session",
+      "year": 1026,
+      "date": "Late Harvestide, 1026 BF",
+      "host": "Iron Hills Dwarven Holds",
+      "status": "Concluded",
+      "summary": "A follow-up session focused on commerce, dominated by the near-unanimous Trade Route Protections and the first serious clash between the emerging Iron Pact and Sovereignty blocs.",
+      "description": "If the founding session was about survival, the Trade & Frontier Session was about money, which is to say it was calmer, better attended, and quietly more contentious. The Trade Route Protections passed 31 to 2 — the widest margin in Congress history — because open routes benefit nearly everyone. But beneath the consensus, the session was where the Iron Pact first flexed its coordination and the Sovereignty Bloc first pushed back on the idea that shared prosperity required shared rules. Waluigi notes that the two dissenting votes on the Trade Protections have never been fully explained, and that unexplained dissent in a 31-2 vote is more interesting than the thirty-one that agreed.",
+      "keyVotes": [
+        "vote_004"
+      ],
+      "outcome": "Trade Route Protections ratified nearly unanimously; the Iron Pact and Sovereignty blocs hardened into recognizable voting patterns.",
+      "waluigiNote": "Hosting the commerce session in the Iron Hills was either wise or a conflict of interest, depending on whether you were selling or buying. Waluigi was doing both and declines to comment further.",
+      "relatedArticles": [
+        "iron_hills"
+      ]
+    },
+    {
+      "id": "cs_expansion_1029",
+      "number": 7,
+      "name": "The Expansion Session",
+      "year": 1029,
+      "date": "Chillwind, 1029 BF",
+      "host": "Rotating (Neutral Grounds)",
+      "status": "Concluded — Contentious",
+      "summary": "The membership-heavy session that admitted Rogueport Free City over founding-member objections and set the precedents that would later seat the Cybernetic Collectives. The Sovereignty Bloc's most frustrated session on record.",
+      "description": "The Expansion Session is where the Congress's founding idealism collided with its founding members' comfort. Admitting Rogueport Free City — a city governed in practice by its criminal economy — required overruling three founding members, and the debate exposed the central tension the body has never resolved: is the Congress a club of the respectable or a table where everyone dangerous is kept in view? Waluigi, whose sympathies here are obvious, sided quietly with inclusion, on the grounds that a smuggler at the table is a smuggler you can watch. The session also refined the admission process enough to make later contested admissions — the Cybernetic Collectives chief among them — procedurally survivable.",
+      "keyVotes": [],
+      "outcome": "Rogueport Free City admitted provisionally; admission precedents refined; Sovereignty Bloc lodged multiple formal objections.",
+      "waluigiNote": "Waluigi found the Expansion Session the most honest the Congress has ever been, because it was the session where everyone stopped pretending the body was only for the respectable. The respectable, Waluigi notes, are rarely the useful.",
+      "relatedArticles": [
+        "rogueport_free_city"
+      ]
+    },
+    {
+      "id": "cs_pressure_1035",
+      "number": 12,
+      "name": "The Session of Quiet Pressure",
+      "year": 1035,
+      "date": "Efferd, 1035 BF",
+      "host": "Regal Empire (contested hosting)",
+      "status": "Concluded — Compromised",
+      "summary": "A session widely believed to have been shaped by Iron Pact economic coercion. Multiple Non-Aligned members abstained 'under economic pressure,' and the record's honesty about this is, in Waluigi's view, its only redeeming feature.",
+      "description": "The Session of Quiet Pressure is the darkest entry in the Congress's procedural history and the one Waluigi documents with the least amusement. Held under contested Regal Empire hosting, it produced a run of abstentions that the record itself annotates as coerced — 'several Non-Aligned members under Iron Pact economic pressure,' a phrase that appears often enough to constitute a confession. No single dramatic vote defines the session; its significance is structural. It demonstrated that the Congress could be captured not by force but by the ledger, that a bloc with enough economic leverage could manufacture silence, and that the body had no mechanism to prevent it. Waluigi notes that the Empire won nothing here that looked like a victory and everything that functioned as one.",
+      "keyVotes": [],
+      "outcome": "Several measures shaped by coerced abstentions; no enforcement mechanism against economic pressure established; Sovereignty and Progressive blocs began cooperating informally in response.",
+      "waluigiNote": "Waluigi has documented tyrants who ranted and tyrants who filed paperwork. The Session of Quiet Pressure was the paperwork kind, and it frightened Waluigi more than any battlefield in this encyclopedia. Nobody was hurt. Everybody lost.",
+      "relatedArticles": [
+        "regal_empire",
+        "iron_legion"
+      ]
+    },
+    {
+      "id": "cs_emergency_1040",
+      "number": 18,
+      "name": "The Raventree Emergency Session",
+      "year": 1040,
+      "date": "Highsun, 1040 BF",
+      "host": "Emergency Convocation (location disputed)",
+      "status": "In Progress — Unresolved",
+      "summary": "An emergency session convened as the Raventree Crisis, the Planar Fracture, and the reappearance of the Toad God converged. The Congress's relevance is itself on trial: a body built to prevent the next Chaos Heart, confronting a crisis it cannot vote its way out of.",
+      "description": "The Raventree Emergency Session is the Congress's present and possibly its reckoning. Convened as the Planar Fracture tore Raventree Manor across three dimensions and reports of the Toad God's return reached the chamber, it gathers a body designed to coordinate against existential threats — and confronts it with an existential threat that ignores procedure entirely. Delegates argue about jurisdiction while reality fractures; the Iron Pact maneuvers for advantage even now; the Non-Aligned members ask, reasonably, what a vote is supposed to accomplish against a god. Waluigi documents the session as it unfolds, from the Feywild, and notes the bitter irony: the Congress was founded on the promise that no crisis would ever again find the kingdoms unable to act together, and the crisis it now faces is one that acting together may not solve. The session remains open. So does the question of whether the Congress still matters.",
+      "keyVotes": [],
+      "outcome": "Unresolved. The session continues as the Raventree Crisis develops; no consensus reached on jurisdiction, response, or whether the Congress has authority over a planar catastrophe at all.",
+      "waluigiNote": "Waluigi will say the quiet part. A congress is a machine for turning disagreement into decisions, and it works only when the thing you disagree about is willing to wait for the vote. The Toad God is not willing to wait. Neither is the Fracture. The most dangerous discovery of this session is that the Congress's entire design assumes an enemy patient enough to be voted against.",
+      "relatedArticles": [
+        "planar_fracture",
+        "god_toad",
+        "raventree_manor"
+      ]
+    }
+  ],
+  "crises": [
+    {
+      "id": "cc_chaos_heart",
+      "name": "The Chaos Heart Crisis",
+      "year": 880,
+      "severity": "Existential",
+      "status": "Resolved — Founding Cause",
+      "summary": "The near-apocalypse that, decades later, motivated the Congress's founding. Its lesson — that no single kingdom could face an existential threat alone — is the argument every pro-institution vote still rests on.",
+      "description": "The Chaos Heart Crisis predates the Congress by a wide margin but haunts every session of it. Waluigi has documented the crisis itself elsewhere; its relevance here is doctrinal. When Queen Bean rose at the First Glazed Congress to argue for a permanent international body, her entire case was the Chaos Heart: a threat that had come within reach of unmaking everything, that no crown had been equipped to face alone, and that would, someday, have a successor. The Congress is, in a real sense, a monument to the Chaos Heart — an institution built so that the next one would find the kingdoms already in the same room. Whether it succeeded is the question the Raventree Emergency Session is currently, and unhappily, answering.",
+      "relatedVotes": [
+        "vote_001",
+        "vote_002"
+      ],
+      "relatedArticles": [
+        "chaos_heart_crisis",
+        "beanbean_kingdom"
+      ]
+    },
+    {
+      "id": "cc_admission_wars",
+      "name": "The Admission Wars",
+      "year": 1029,
+      "severity": "Institutional",
+      "status": "Ongoing (Low Intensity)",
+      "summary": "The long-running procedural conflict over who may be admitted to the Congress. Pits the inclusion doctrine (watch your enemies from within) against the legitimacy doctrine (refuse to seat the dangerous). Flares at every membership vote.",
+      "description": "The Admission Wars are not a war in the battlefield sense — no one dies — but they are the most persistent conflict in the Congress's history, and they recur every time a controversial candidate seeks a seat. The Internet Federation started it, Mordor escalated it, Rogueport inflamed it, and the Cybernetic Collectives proved it would never end. On one side stands the inclusion doctrine, championed by Beanbean: a dangerous power at the table is a dangerous power you can watch and constrain. On the other stands the legitimacy doctrine, championed by Gondor and the Sovereignty Bloc: to seat the dangerous is to legitimize them. Waluigi finds both sides correct, which is why the conflict is permanent. There is no vote that resolves a disagreement about what voting is for.",
+      "relatedVotes": [
+        "vote_001"
+      ],
+      "relatedArticles": [
+        "rogueport_free_city"
+      ]
+    },
+    {
+      "id": "cc_economic_capture",
+      "name": "The Economic Capture",
+      "year": 1035,
+      "severity": "Structural",
+      "status": "Active — Unaddressed",
+      "summary": "The slow subversion of the Congress by Iron Pact economic pressure, most visible in the Session of Quiet Pressure. A crisis of the ledger rather than the sword, and the one the Congress is least equipped to answer.",
+      "description": "The Economic Capture is Waluigi's name for the quietest and most dangerous crisis the Congress faces: the gradual conversion of votes into transactions. It has no single battle and no single villain beyond the Regal Empire's patient application of leverage, but its effects are everywhere in the record — the coerced abstentions, the 'reluctant' votes, the Non-Aligned members whose independence erodes one trade concession at a time. The Congress was built to constrain force; it has no mechanism whatsoever to constrain money, and the Iron Pact discovered this the way water discovers a crack. Waluigi rates this the most consequential crisis in the body's history precisely because it does not look like one. A congress captured by armies knows it has fallen. A congress captured by ledgers keeps voting, and keeps believing the votes mean something.",
+      "relatedVotes": [],
+      "relatedArticles": [
+        "regal_empire",
+        "iron_legion"
+      ]
+    },
+    {
+      "id": "cc_relevance",
+      "name": "The Relevance Crisis",
+      "year": 1040,
+      "severity": "Existential (Institutional)",
+      "status": "Active — The Present Question",
+      "summary": "The crisis of the Raventree Emergency Session: whether a deliberative body can matter against threats — the Planar Fracture, the Toad God — that do not wait for votes. The Congress's founding promise, tested to destruction.",
+      "description": "The Relevance Crisis is the Congress confronting the limit of its own design. Founded to ensure the kingdoms could act together against existential threats, it now faces threats — a fractured plane, a returned god — that are immune to the one tool the Congress possesses: the vote. Deliberation requires a patient adversary. The Fracture is not patient; the Toad God is not patient; and so the chamber that was supposed to be the region's answer to catastrophe finds itself debating jurisdiction while catastrophe proceeds on its own schedule. Waluigi documents this as the crisis that contains all the others: economic capture, admission wars, and coerced silence all become academic if the body they afflict turns out to be irrelevant at the exact moment it was built for. The Congress's answer to this crisis will decide whether it is an institution or a memorial.",
+      "relatedVotes": [],
+      "relatedArticles": [
+        "planar_fracture",
+        "god_toad",
+        "raventree_manor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Firstlight",
+    "abbreviation": "Fst",
+    "ordinal": 1,
+    "days": 30
+  },
+  {
+    "name": "Chillwind",
+    "abbreviation": "Chl",
+    "ordinal": 2,
+    "days": 30
+  },
+  {
+    "name": "Veridia",
+    "abbreviation": "Ver",
+    "ordinal": 3,
+    "days": 30
+  },
+  {
+    "name": "Bloom",
+    "abbreviation": "Blo",
+    "ordinal": 4,
+    "days": 30
+  },
+  {
+    "name": "Floria",
+    "abbreviation": "Flo",
+    "ordinal": 5,
+    "days": 30
+  },
+  {
+    "name": "Efferd",
+    "abbreviation": "Eff",
+    "ordinal": 6,
+    "days": 30
+  },
+  {
+    "name": "Highsun",
+    "abbreviation": "Hsn",
+    "ordinal": 7,
+    "days": 30
+  },
+  {
+    "name": "Harvestide",
+    "abbreviation": "Hrv",
+    "ordinal": 8,
+    "days": 30
+  },
+  {
+    "name": "Aethel",
+    "abbreviation": "Aet",
+    "ordinal": 9,
+    "days": 30
+  },
+  {
+    "name": "Darkmoon",
+    "abbreviation": "Drk",
+    "ordinal": 10,
+    "days": 30
+  },
+  {
+    "name": "Frostfall",
+    "abbreviation": "Frs",
+    "ordinal": 11,
+    "days": 30
+  },
+  {
+    "name": "Deepwinter",
+    "abbreviation": "Dpw",
+    "ordinal": 12,
+    "days": 35
+  }
+]
