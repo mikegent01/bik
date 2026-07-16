@@ -1,0 +1,17 @@
+{
+  "calendarId": "imperial",
+  "name": "Regal Empire Standard Holidays",
+  "holidays": [
+    {"name":"Founding Day","month":1,"day":1,"icon":"🏛️","color":"#8a4bff","description":"Empire Founding — oaths sworn in frost","type":"festival"},
+    {"name":"Thaw Parade","month":1,"day":20,"icon":"❄️","color":"#ADD8E6","description":"End of deepest frost, lanterns on ice","type":"festival"},
+    {"name":"Verdant Rite","month":3,"day":15,"icon":"🌱","color":"#90EE90","description":"First planting, druids bless fields","type":"seasonal"},
+    {"name":"Bloom Festival","month":4,"day":10,"icon":"🌸","color":"#7dd87d","description":"Allergy season weaponized, flower crowns mandatory","type":"festival"},
+    {"name":"Road Blessing","month":5,"day":30,"icon":"🛣️","color":"#6bc96b","description":"Trade roads blessed before summer heat","type":"civic"},
+    {"name":"Highsun Bonfire","month":7,"day":15,"icon":"🔥","color":"#FFD700","description":"Midsummer zenith — bonfires, treaties, diplomatic sunburn","type":"festival"},
+    {"name":"Harvest Feast","month":8,"day":28,"icon":"🌾","color":"#FFC200","description":"Harvest audits complete, Shadow Estate pays in grain","type":"harvest"},
+    {"name":"Starfall Night","month":9,"day":21,"icon":"⭐","color":"#FF8C69","description":"Aethel's amber meteors — wishes and litigation","type":"astral"},
+    {"name":"Warding Night","month":10,"day":31,"icon":"🌑","color":"#E07050","description":"Darkmoon warding rites against Old World","type":"warding"},
+    {"name":"Frostfall Market","month":11,"day":15,"icon":"🍂","color":"#CC6A50","description":"Last trade before Deepwinter closes roads","type":"market"},
+    {"name":"Deepwinter Vigil","month":12,"day":35,"icon":"🕯️","color":"#8ab4d0","description":"Silence night — 35th day, no travel","type":"vigil"}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "calendarId": "void_drifters",
+  "name": "Void Drifters Stellar Holidays",
+  "holidays": [
+    {"name":"Ignition Day","month":1,"day":1,"icon":"🚀","color":"#ff4444","description":"Year burn starts, engines lit","type":"civic"},
+    {"name":"Signal Lost","month":3,"day":15,"icon":"📡","color":"#44ff44","description":"Annual comms blackout — listen instead","type":"weird"},
+    {"name":"Starfall Drift","month":5,"day":30,"icon":"⭐","color":"#ffff44","description":"Stars fall sideways in void","type":"astral"},
+    {"name":"Void Drift Start","month":13,"day":30,"icon":"♾️","color":"#000000","description":"10-day void outside time begins","type":"weird","isWeird":true}
+  ]
+}
