@@ -1,0 +1,11 @@
+{
+  "calendarId": "equestrian",
+  "name": "Equestrian Lunar Holidays",
+  "holidays": [
+    {"name":"Sun Celebration","month":1,"day":1,"icon":"☀️","color":"#ffd700","description":"Celestia raises sun with ceremony","type":"festival"},
+    {"name":"Night Court","month":3,"day":15,"icon":"🌙","color":"#191970","description":"Luna judges dreams","type":"civic"},
+    {"name":"Running of Leaves","month":11,"day":5,"icon":"🍂","color":"#daa520","description":"Ponyville leaf running","type":"seasonal"},
+    {"name":"Hearth's Warming Eve","month":13,"day":30,"icon":"❄️","color":"#87ceeb","description":"Founding of Equestria remembered","type":"festival"},
+    {"name":"Harmony Day","month":13,"day":31,"icon":"💖","color":"#ff69b4","description":"Leap harmony day every 4 years","type":"leap"}
+  ]
+}

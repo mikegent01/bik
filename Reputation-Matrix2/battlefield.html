@@ -1171,7 +1171,6 @@ function renderSidebar(active){
   h+=`</div><div class="navsec"><div class="navhead">Classic Indexes</div>`;
   ['locations'].forEach(k=>{const t=TYPE_BY_KEY[k];h+=`<div class="navlink ${active==='list:'+k?'active':''}" onclick="Router.go('#/list/${k}')"><span><span class="emoji">${t.emoji}</span> ${t.label}</span><span class="cnt">${(DATA[k]||[]).length}</span></div>`;});
   h+=`</div><div class="navsec"><div class="navhead">Tools</div><div class="navlink" onclick="Nav.random()"><span><span class="emoji">🎲</span> Random article</span></div></div>`;
-  // Account — login system merged from existing terminal code
   const curU = (typeof getCurrentUserId==='function'?getCurrentUserId():null);
   const curName = curU ? ( (INDEX[curU] && displayName(INDEX[curU].item)) || (typeof XP_SUMMARY!=='undefined' && XP_SUMMARY[curU]?.name) || curU ) : null;
   h+=`<div class="navsec"><div class="navhead">Account</div>`;
@@ -3151,14 +3150,12 @@ function updateTopbarLoginBtn(){
 }
 function getAvailableLoginCharacters(){
   const out=new Map();
-  // from XP_SUMMARY — main players
   if(typeof XP_SUMMARY!=='undefined'){
     Object.keys(XP_SUMMARY).forEach(k=>{
       const xp=XP_SUMMARY[k];
       if(xp) out.set(k,{id:k,name:xp.name||k,level:xp.level||1,xp:xp.currentXP||0,icon:'⭐',source:'xp'});
     });
   }
-  // from wallets — anyone with money
   try{
     const wallets=INVENTORY_SYSTEM?.wallets||{};
     Object.keys(wallets).forEach(k=>{
@@ -3168,7 +3165,6 @@ function getAvailableLoginCharacters(){
       }
     });
   }catch(e){}
-  // from DATA.characters — main story chars
   try{
     (DATA.characters||[]).slice(0,30).forEach(ch=>{
       if(!out.has(ch.id)){
@@ -3198,7 +3194,7 @@ function view_login(){
   }).join('');
   el('content').innerHTML=`<div class="card animate-fade-in"><h1>🔐 Walupedia Login</h1><p style="color:var(--muted)">Pick your operator — code merged from existing terminal login (<code>vigilanceTerminalUser</code> + <code>waluipediaUser</code>). Your wallet, XP, and bio travel with you. Saved in localStorage.</p><div class="chips" style="margin-top:10px"><span class="chip" onclick="setCurrentUserId(null);view_login();">Continue as Guest (clear)</span><span class="chip" onclick="location.href='currency.html'">Open Currency Exchange →</span></div></div>${curCard}<div class="card"><div class="section-title">⭐ Featured — main party (high XP)</div><div class="login-grid">${featHtml}</div></div><div class="card"><div class="section-title">👥 All operators — ${chars.length} available (XP + wallets + characters)</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><input id="loginSearch" placeholder="Filter name/id..." style="flex:1;min-width:180px;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text)"><span class="chip" onclick="document.getElementById('loginSearch').value='';document.getElementById('loginSearch').dispatchEvent(new Event('input'))">Clear</span></div><div class="login-grid" id="loginGrid">${otherHtml}</div></div>`;
   const inp=document.getElementById('loginSearch');
-  if(inp){ inp.addEventListener('input',()=>{const q=inp.value.toLowerCase(); const grid=document.getElementById('loginGrid'); grid.innerHTML=others.filter(c=> (c.name||'').toLowerCase().includes(q)||c.id.toLowerCase().includes(q)).map(c=>{const xp=XP_SUMMARY[c.id]; return `<div class="login-card" onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/profile')"><div class="l-ava">${esc(c.icon||(c.name||c.id)[0]||'👤')}</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${c.source} · ${esc(c.id)}</div></div></div>`;}).join('');}); }
+  if(inp){ inp.addEventListener('input',()=>{const q=inp.value.toLowerCase(); const grid=document.getElementById('loginGrid'); grid.innerHTML=others.filter(c=> (c.name||'').toLowerCase().includes(q)||c.id.toLowerCase().includes(q)).map(c=>{return `<div class="login-card" onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/profile')"><div class="l-ava">👤</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${esc(c.id)}</div></div></div>`;}).join('');}); }
   window.scrollTo(0,0);
 }
 function view_profile(){
@@ -3209,11 +3205,9 @@ function view_profile(){
   const xp=typeof XP_SUMMARY!=='undefined'?XP_SUMMARY[uid]:null;
   const rec=INDEX[uid];
   const charItem=rec?.item|| (DATA.characters||[]).find(c=>c.id===uid) || null;
-  const wallet=(INVENTORY_SYSTEM?.wallets||{})[uid] || (typeof WALLETS!=='undefined'?WALLETS[uid]:null) || null;
+  const wallet=(INVENTORY_SYSTEM?.wallets||{})[uid] || null;
   const bank= (()=>{ try{ const b=INVENTORY_SYSTEM?.banking||{}; const name=(charItem?.name||xp?.name||uid||'').toLowerCase(); return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name||String(x.owner||'').toLowerCase().includes(name)), loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name), debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name)} }catch(e){return {accounts:[],loans:[],debts:[]}} })();
-  // gold equiv
-  let totalGold=0, breakdown={core:0,reg:0,spec:0,blk:0};
-  let walletLines='';
+  let totalGold=0; let breakdown={core:0,reg:0,spec:0,blk:0}; let walletLines='';
   if(wallet){
     const entries=Object.entries(wallet.currencies||{});
     walletLines=entries.map(([k,v])=>{
@@ -3223,7 +3217,6 @@ function view_profile(){
       return `<div class="wallet-line"><span>${meta.iconFallback||meta.icon||'🪙'} ${esc(currencyName(k))} × ${esc(String(v))}</span><span style="color:var(--muted)">${gv.toFixed(2)}g</span></div>`;
     }).join('');
   }
-  // XP bar
   const xpPct=xp?Math.max(5,Math.min(100, ((xp.currentXP||0)/(xp.nextXP||1))*100)):0;
   const xpPanel=xp?`
     <div class="profile-stat-grid">
@@ -3237,16 +3230,16 @@ function view_profile(){
     <div class="profile-xp-bar"><span style="width:${xpPct}%"></span></div>
     <div style="color:var(--muted);font-size:12px">${xp.currentXP}/${xp.nextXP||'?'} · ${xp.remainingXP!=null?xp.remainingXP+' to next level':''}</div>
   `:`<p style="color:var(--muted)">No XP record for ${esc(uid)}. XP is tracked in <code>XP_SUMMARY</code> — this character hasn't logged entries yet.</p>`;
-  const bioHtml=charItem?`<div class="prose">${mdToHtml(charItem.description||charItem.summary||'',uid)}</div>`:`<p style="color:var(--muted)">No Waluipedia article found for <b>${esc(uid)}</b>. Generic login — bio not available, but wallet/XP still works. Create article <code>${esc(uid)}.json</code> to get bio.</p>`;
+  const bioHtml=charItem?`<div class="prose">${mdToHtml(charItem.description||charItem.summary||'',uid)}</div>`:`<p style="color:var(--muted)">No Waluipedia article found for <b>${esc(uid)}</b>. Generic login — bio not available, but wallet/XP still works.</p>`;
   const avatarLetter=(xp?.name||charItem?.name||uid)[0]?.toUpperCase()||'👤';
   const bankHtml=(()=>{ if(!bank.accounts.length&&!bank.loans.length&&!bank.debts.length) return '<p style="color:var(--muted)">No bank accounts/loans/debts linked to this name.</p>'; const rows=[...bank.accounts.map(a=>`<div class="bank-row"><b>🏦 ${esc(a.bankId)}</b> ${esc(a.balance)} ${esc(currencyName(a.currencyKey))} · ${esc(a.note||'').slice(0,80)}</div>`),...bank.loans.map(l=>`<div class="bank-row" style="border-left:4px solid var(--danger)"><b>Loan</b> ${esc(l.principal)} ${esc(l.currencyKey)} · ${esc(l.status)}</div>`),...bank.debts.map(d=>`<div class="bank-row"><b>Debt → ${esc(d.creditor)}</b> ${esc(d.amountOwed)} ${esc(d.currencyKey)}</div>`)].join(''); return rows; })();
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/login')">Login</a> › ${esc(xp?.name||charItem?.name||uid)}</div>
     <div class="card animate-fade-in"><div class="profile-hero"><div class="ph-ava">${esc(avatarLetter)}</div><div><h1>${esc(xp?.name||charItem?.name||prettyId(uid))}</h1><div style="color:var(--accent2);font-style:italic">${esc(charItem?.title||xp?.xpKey||uid)}</div><div style="margin-top:8px;color:var(--muted);font-size:12px">@${esc(uid)} · ${charItem?.affiliation||charItem?.race||''}</div><div class="chips" style="margin-top:10px"><span class="chip" onclick="Router.go('#/article/${esc(uid)}')">Open bio article →</span><span class="chip" onclick="location.href='currency.html'">Currency →</span><span class="chip" onclick="setCurrentUserId(null);Router.go('#/login')">Logout</span></div></div></div></div>
     <div class="card"><div class="section-title">✦ XP & Progression</div>${xpPanel}</div>
-    <div class="card"><div class="section-title">💰 Wallet — ${totalGold.toFixed(2)} gold equiv total</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill" style="border-color:var(--green)">Core ${breakdown.core.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent2)">Reg ${breakdown.reg.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent)">Spec ${breakdown.spec.toFixed(1)}g</span>${breakdown.blk?`<span class="pill" style="border-color:var(--danger)">Black ${breakdown.blk.toFixed(1)}g</span>`:''}</div><div class="wallet-grid"><div class="wallet-card"><h4>${esc(xp?.name||uid)}'s Holdings</h4><div>${walletLines||'<p style="color:var(--muted)">No wallet — add entry to INVENTORY_SYSTEM.wallets or WALLETS.</p>'}</div><div class="wallet-total">Total <b>${totalGold.toFixed(2)}g equiv</b></div></div></div></div>
+    <div class="card"><div class="section-title">💰 Wallet — ${totalGold.toFixed(2)} gold equiv total</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill" style="border-color:var(--green)">Core ${breakdown.core.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent2)">Reg ${breakdown.reg.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent)">Spec ${breakdown.spec.toFixed(1)}g</span>${breakdown.blk?`<span class="pill" style="border-color:var(--danger)">Black ${breakdown.blk.toFixed(1)}g</span>`:''}</div><div class="wallet-grid"><div class="wallet-card"><h4>${esc(xp?.name||uid)}'s Holdings</h4><div>${walletLines||'<p style="color:var(--muted)">No wallet — add entry to INVENTORY_SYSTEM.wallets.</p>'}</div><div class="wallet-total">Total <b>${totalGold.toFixed(2)}g equiv</b></div></div></div></div>
     <div class="card"><div class="section-title">🏦 Banking</div>${bankHtml}</div>
-    <div class="card"><div class="section-title">📖 Bio — ${esc(charItem?.name||uid)}</div>${bioHtml}${charItem?`<div style="margin-top:12px"><a class="chip" onclick="Router.go('#/article/${esc(uid)}')">Full article →</a></div>`:''}</div>
+    <div class="card"><div class="section-title">📖 Bio — ${esc(charItem?.name||uid)}</div>${bioHtml}</div>
   `;
   window.scrollTo(0,0);
 }
