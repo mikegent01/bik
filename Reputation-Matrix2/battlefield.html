@@ -468,21 +468,22 @@ function buildIndexes(){
   ALL_ITEMS=Object.values(INDEX);
   // search docs: articles + congress votes + conflicts + major battles
   ALL_ITEMS.forEach(({typeKey,item})=>{
+    if(!item) return;
     const hay=[item.name,item.title,item.summary,item.type,item.affiliation,item.race,item.leader,item.era,item.location,item.region,item.defendant,item.prosecutor].filter(Boolean).join(' ').toLowerCase();
     SEARCH_DOCS.push({kind:'article',id:item.id,typeKey,name:displayName(item),summary:previewText(item,160),hay});
   });
-  (DATA.congress_votes||[]).forEach(v=>SEARCH_DOCS.push({kind:'vote',id:v.id,typeKey:'congress',name:v.title,summary:v.description||'',hay:[v.title,v.description,v.category,v.proposedBy].filter(Boolean).join(' ').toLowerCase()}));
-  Object.keys(DATA.conflicts||{}).forEach(name=>{const c=DATA.conflicts[name];SEARCH_DOCS.push({kind:'conflict',id:name,typeKey:'battlefield',name,summary:c.summary||'',hay:[name,c.summary,c.rootCause,c.status].filter(Boolean).join(' ').toLowerCase()});});
-  (DATA.majorBattles||[]).forEach(b=>SEARCH_DOCS.push({kind:'majorbattle',id:b.id,typeKey:'battlefield',name:b.name,summary:b.description||'',hay:[b.name,b.description,b.location,b.conflict,b.outcome].filter(Boolean).join(' ').toLowerCase()}));
+  (DATA.congress_votes||[]).forEach(v=>{ if(!v) return; SEARCH_DOCS.push({kind:'vote',id:v.id,typeKey:'congress',name:v.title,summary:v.description||'',hay:[v.title,v.description,v.category,v.proposedBy].filter(Boolean).join(' ').toLowerCase()}); });
+  Object.keys(DATA.conflicts||{}).forEach(name=>{const c=DATA.conflicts[name]; if(!c) return; SEARCH_DOCS.push({kind:'conflict',id:name,typeKey:'battlefield',name,summary:c.summary||'',hay:[name,c.summary,c.rootCause,c.status].filter(Boolean).join(' ').toLowerCase()});});
+  (DATA.majorBattles||[]).forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'majorbattle',id:b.id,typeKey:'battlefield',name:b.name,summary:b.description||'',hay:[b.name,b.description,b.location,b.conflict,b.outcome].filter(Boolean).join(' ').toLowerCase()}); });
   const A=DATA.artifacts||{};
-  (A.main_artifacts||[]).forEach(a=>SEARCH_DOCS.push({kind:'artifact',id:a.id,typeKey:'artifacts',name:a.name,summary:a.description||'',hay:[a.name,a.description,a.lore,(a.abilities||[]).join(' '),a.locations].filter(Boolean).join(' ').toLowerCase()}));
-  Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(iid!=='hidden_item_slot') SEARCH_DOCS.push({kind:'invitem',id:iid,typeKey:'items',name:it.name,summary:it.summary||it.description||'',hay:[it.name,it.type,it.rarity,it.summary,it.description,(it.relatedArticles||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
+  (A.main_artifacts||[]).forEach(a=>{ if(!a) return; SEARCH_DOCS.push({kind:'artifact',id:a.id,typeKey:'artifacts',name:a.name,summary:a.description||'',hay:[a.name,a.description,a.lore,(a.abilities||[]).join(' '),a.locations].filter(Boolean).join(' ').toLowerCase()}); });
+  Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(!it || iid==='hidden_item_slot') return; SEARCH_DOCS.push({kind:'invitem',id:iid,typeKey:'items',name:it.name,summary:it.summary||it.description||'',hay:[it.name,it.type,it.rarity,it.summary,it.description,(it.relatedArticles||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
   const allBearers=(A.star_bearers||[]).concat(A.god_toad?[A.god_toad]:[]);
-  allBearers.forEach(b=>SEARCH_DOCS.push({kind:'bearer',id:b.id,typeKey:'artifacts',name:(b.name||'')+(b.title?(' — '+b.title):''),summary:b.powers||'',hay:[b.name,b.title,b.species,b.element,b.powers,b.history,b.fragment_name].filter(Boolean).join(' ').toLowerCase()}));
+  allBearers.forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'bearer',id:b.id,typeKey:'artifacts',name:(b.name||'')+(b.title?(' — '+b.title):''),summary:b.powers||'',hay:[b.name,b.title,b.species,b.element,b.powers,b.history,b.fragment_name].filter(Boolean).join(' ').toLowerCase()}); });
   const CG=DATA.congress||{};
-  (CG.members||[]).forEach(m=>SEARCH_DOCS.push({kind:'member',id:m.id,typeKey:'congress',name:m.name,summary:m.summary||'',hay:[m.name,m.bloc,m.status,m.delegate,m.summary,m.description].filter(Boolean).join(' ').toLowerCase()}));
-  (CG.sessions||[]).forEach(s=>SEARCH_DOCS.push({kind:'session',id:s.id,typeKey:'congress',name:s.name,summary:s.summary||'',hay:[s.name,s.host,s.status,s.summary,s.description].filter(Boolean).join(' ').toLowerCase()}));
-  (CG.crises||[]).forEach(c=>SEARCH_DOCS.push({kind:'crisis',id:c.id,typeKey:'congress',name:c.name,summary:c.summary||'',hay:[c.name,c.severity,c.status,c.summary,c.description].filter(Boolean).join(' ').toLowerCase()}));
+  (CG.members||[]).forEach(m=>{ if(!m) return; SEARCH_DOCS.push({kind:'member',id:m.id,typeKey:'congress',name:m.name,summary:m.summary||'',hay:[m.name,m.bloc,m.status,m.delegate,m.summary,m.description].filter(Boolean).join(' ').toLowerCase()}); });
+  (CG.sessions||[]).forEach(s=>{ if(!s) return; SEARCH_DOCS.push({kind:'session',id:s.id,typeKey:'congress',name:s.name,summary:s.summary||'',hay:[s.name,s.host,s.status,s.summary,s.description].filter(Boolean).join(' ').toLowerCase()}); });
+  (CG.crises||[]).forEach(c=>{ if(!c) return; SEARCH_DOCS.push({kind:'crisis',id:c.id,typeKey:'congress',name:c.name,summary:c.summary||'',hay:[c.name,c.severity,c.status,c.summary,c.description].filter(Boolean).join(' ').toLowerCase()}); });
   buildMonthOrd();
   buildBacklinks();
   buildAnnotations();
@@ -929,22 +930,22 @@ function buildLinkRegistry(){
     });
   };
   // wiki articles (characters/factions/events/battles/locations/races/nations/collections/trials)
-  TYPES.forEach(t=>(DATA[t.key]||[]).forEach(it=>add(displayName(it),it.id, t.key==='nations'?'nation':'article', t.key, previewText(it,220), it.title)));
+  TYPES.forEach(t=>(DATA[t.key]||[]).forEach(it=>{ if(!it) return; add(displayName(it),it.id, t.key==='nations'?'nation':'article', t.key, previewText(it,220), it.title); }));
   // congress
   const CG=DATA.congress||{};
-  (CG.members||[]).forEach(m=>add(m.name,m.id,'member',null,m.summary,m.bloc));
-  (CG.sessions||[]).forEach(s=>add(s.name,s.id,'session',null,s.summary,s.date));
-  (CG.crises||[]).forEach(c=>add(c.name,c.id,'crisis',null,c.summary,c.severity));
-  (DATA.congress_votes||[]).forEach(v=>add(v.title,v.id,'vote',null,v.description,('Vote #'+v.number)));
+  (CG.members||[]).forEach(m=>{ if(!m) return; add(m.name,m.id,'member',null,m.summary,m.bloc); });
+  (CG.sessions||[]).forEach(s=>{ if(!s) return; add(s.name,s.id,'session',null,s.summary,s.date); });
+  (CG.crises||[]).forEach(c=>{ if(!c) return; add(c.name,c.id,'crisis',null,c.summary,c.severity); });
+  (DATA.congress_votes||[]).forEach(v=>{ if(!v) return; add(v.title,v.id,'vote',null,v.description,('Vote #'+v.number)); });
   // public inventory items
-  Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(iid!=='hidden_item_slot') add(it.name,iid,'invitem',null,it.summary||it.description,it.rarity||it.type); });
+  Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(!it || iid==='hidden_item_slot') return; add(it.name,iid,'invitem',null,it.summary||it.description,it.rarity||it.type); });
   // battlefield
-  Object.keys(DATA.conflicts||{}).forEach(name=>{const c=DATA.conflicts[name];add(name,name,'conflict',null,c.summary,c.status);});
-  (DATA.majorBattles||[]).forEach(b=>add(b.name,b.id,'majorbattle',null,b.description,b.date));
+  Object.keys(DATA.conflicts||{}).forEach(name=>{const c=DATA.conflicts[name]; if(!c) return; add(name,name,'conflict',null,c.summary,c.status);});
+  (DATA.majorBattles||[]).forEach(b=>{ if(!b) return; add(b.name,b.id,'majorbattle',null,b.description,b.date); });
   // artifacts + bearers
   const A=DATA.artifacts||{};
-  (A.main_artifacts||[]).forEach(a=>add(a.name,a.id,'artifact',null,a.description,a.rarity));
-  (A.star_bearers||[]).concat(A.god_toad?[A.god_toad]:[]).forEach(b=>add(b.name,b.id,'bearer',null,b.powers,b.title));
+  (A.main_artifacts||[]).forEach(a=>{ if(!a) return; add(a.name,a.id,'artifact',null,a.description,a.rarity); });
+  (A.star_bearers||[]).concat(A.god_toad?[A.god_toad]:[]).forEach(b=>{ if(!b) return; add(b.name,b.id,'bearer',null,b.powers,b.title); });
   // Resolve each alias to a single winner: highest priority, then exact-name, then longest name.
   const entries=[];
   Object.keys(claims).forEach(key=>{
@@ -1187,6 +1188,7 @@ function view_home(){
     const curMo=CUR.monthIndex+1;
     const curDay=CUR.day;
     (DATA.events||[]).forEach(e=>{
+      if(!e) return;
       const mo=parseMonth(e.date||'');
       const d=parseDay(e.date||'');
       if(mo===curMo && d===curDay){
@@ -1195,6 +1197,7 @@ function view_home(){
       }
     });
     (DATA.battles||[]).concat(DATA.majorBattles||[]).forEach(b=>{
+      if(!b) return;
       const mo=parseMonth(b.date||'');
       const d=parseDay(b.date||'');
       if(mo===curMo && d===curDay){
@@ -1428,13 +1431,13 @@ function atlasIds(kind,obj,txt){const m=atlasManualIds(kind,obj.id);return m?m:a
 function atlasAdd(id,kind,obj){ id=atlasCanonical(id); if(!ATLAS_INDEX[id])return; const arr=ATLAS_INDEX[id][kind]; if(arr&&!arr.some(x=>x.id===obj.id))arr.push(obj); }
 function buildAtlasIndex(){
   ATLAS_INDEX={};
-  (DATA.nations||[]).filter(n=>n.id!=='the_midlands').forEach(n=>ATLAS_INDEX[n.id]={nation:n,locations:[],events:[],battles:[],trials:[],factions:[],species:[],pois:n.id==='mushroom_kingdom'?(MK_POIS||[]):[]});
-  (DATA.locations||[]).forEach(l=>{ const ids=[].concat(atlasIds('locations',l,[l.id,l.name,l.region,l.type,l.summary,l.description].join(' '))); Object.keys(NATION_LOCATION_MAP||{}).forEach(nid=>{if((NATION_LOCATION_MAP[nid]||[]).includes(l.id))ids.push(nid);}); [...new Set(ids)].forEach(id=>atlasAdd(id,'locations',l)); });
-  (DATA.events||[]).forEach(e=>{ const txt=[e.id,e.name,e.title,e.location,e.summary,e.description,(e.relatedArticles||[]).join(' ')].join(' '); [...new Set(atlasIds('events',e,txt))].forEach(id=>atlasAdd(id,'events',e)); });
-  (DATA.battles||[]).forEach(b=>{ const txt=[b.id,b.name,b.location,b.summary,b.description,(b.relatedArticles||[]).join(' ')].join(' '); [...new Set(atlasIds('battles',b,txt))].forEach(id=>atlasAdd(id,'battles',b)); });
-  (DATA.majorBattles||[]).forEach(b=>{ const txt=[b.id,b.name,b.location,b.conflict,b.summary,b.description].join(' '); [...new Set(atlasIds('battles',b,txt))].forEach(id=>atlasAdd(id,'battles',b)); });
-  (DATA.trials||[]).forEach(t=>{ const txt=[t.id,t.name,t.title,t.jurisdiction,t.summary,t.description,(t.relatedArticles||[]).join(' ')].join(' '); [...new Set(atlasIds('trials',t,txt))].forEach(id=>atlasAdd(id,'trials',t)); });
-  (DATA.factions||[]).forEach(f=>{ const txt=[f.id,f.name,f.title,f.region,f.summary,f.description].join(' '); [...new Set(atlasIds('factions',f,txt))].forEach(id=>atlasAdd(id,'factions',f)); });
+  (DATA.nations||[]).filter(n=>n&&n.id!=='the_midlands').forEach(n=>ATLAS_INDEX[n.id]={nation:n,locations:[],events:[],battles:[],trials:[],factions:[],species:[],pois:n.id==='mushroom_kingdom'?(MK_POIS||[]):[]});
+  (DATA.locations||[]).forEach(l=>{ if(!l) return; const ids=[].concat(atlasIds('locations',l,[l.id,l.name,l.region,l.type,l.summary,l.description].join(' '))); Object.keys(NATION_LOCATION_MAP||{}).forEach(nid=>{if((NATION_LOCATION_MAP[nid]||[]).includes(l.id))ids.push(nid);}); [...new Set(ids)].forEach(id=>atlasAdd(id,'locations',l)); });
+  (DATA.events||[]).forEach(e=>{ if(!e) return; const txt=[e.id,e.name,e.title,e.location,e.summary,e.description,(e.relatedArticles||[]).join(' ')].join(' '); [...new Set(atlasIds('events',e,txt))].forEach(id=>atlasAdd(id,'events',e)); });
+  (DATA.battles||[]).forEach(b=>{ if(!b) return; const txt=[b.id,b.name,b.location,b.summary,b.description,(b.relatedArticles||[]).join(' ')].join(' '); [...new Set(atlasIds('battles',b,txt))].forEach(id=>atlasAdd(id,'battles',b)); });
+  (DATA.majorBattles||[]).forEach(b=>{ if(!b) return; const txt=[b.id,b.name,b.location,b.conflict,b.summary,b.description].join(' '); [...new Set(atlasIds('battles',b,txt))].forEach(id=>atlasAdd(id,'battles',b)); });
+  (DATA.trials||[]).forEach(t=>{ if(!t) return; const txt=[t.id,t.name,t.title,t.jurisdiction,t.summary,t.description,(t.relatedArticles||[]).join(' ')].join(' '); [...new Set(atlasIds('trials',t,txt))].forEach(id=>atlasAdd(id,'trials',t)); });
+  (DATA.factions||[]).forEach(f=>{ if(!f) return; const txt=[f.id,f.name,f.title,f.region,f.summary,f.description].join(' '); [...new Set(atlasIds('factions',f,txt))].forEach(id=>atlasAdd(id,'factions',f)); });
   // Species are now derived from imported demographic regions, then collapsed into Waluipedia species-group hubs.
   const regionSpecies={
     mushroom_kingdom:['Mushroom Kingdom Regions','Islands & Outer Realms'],
@@ -1516,9 +1519,9 @@ function inferredIntelGains(item,typeKey,source){
   return out;
 }
 function allIntelRecords(){
-  const out=[]; const scan=(typeKey,arr)=>(arr||[]).forEach(it=>{const source={typeKey,id:it.id,title:it.name||it.title||it.id}; out.push(...explicitIntelGains(it,source),...inferredIntelGains(it,typeKey,source));});
+  const out=[]; const scan=(typeKey,arr)=>(arr||[]).forEach(it=>{if(!it) return; const source={typeKey,id:it.id,title:it.name||it.title||it.id}; out.push(...explicitIntelGains(it,source),...inferredIntelGains(it,typeKey,source));});
   ['characters','events','battles','locations','races','nations','factions','collections','trials'].forEach(k=>scan(k,DATA[k]||[]));
-  (DATA.majorBattles||[]).forEach(it=>{const source={typeKey:'majorBattles',id:it.id,title:it.name||it.id}; out.push(...inferredIntelGains(it,'battles',source));});
+  (DATA.majorBattles||[]).forEach(it=>{if(!it) return; const source={typeKey:'majorBattles',id:it.id,title:it.name||it.id}; out.push(...inferredIntelGains(it,'battles',source));});
   return out.filter(g=>g.amount);
 }
 function partyIntel(){
@@ -1719,7 +1722,8 @@ function buildBacklinks(){
   BACKLINKS={};
   const link=(from,toId)=>{ if(!toId||!INDEX[toId])return; (BACKLINKS[toId]=BACKLINKS[toId]||new Set()).add(from); };
   const scan=(it)=>{
-    const from=it.id; if(!from)return;
+    if(!it || !it.id) return;
+    const from=it.id;
     ['relatedArticles','keyEvents','keyBattles','articles','allies','enemies'].forEach(fld=>{
       (it[fld]||[]).forEach(r=>{const id=typeof r==='string'?r:(r&&r.id);link(from,id);});
     });
@@ -2266,6 +2270,7 @@ function view_timeline(){
   renderSidebar('timeline');
   const entries=[];
   const push=(src,kind,cls,idprefix,go)=> (DATA[src]||[]).forEach(it=>{
+    if(!it) return;
     const dateStr=it.date||it.era||'';
     const y=parseYear(it.date)||parseYear(it.era);
     if(y==null) return;
@@ -2276,7 +2281,7 @@ function view_timeline(){
   push('battles','b','b','',null);
   push('trials','t','t','',null);
   // major battles use a different route
-  (DATA.majorBattles||[]).forEach(b=>{const dateStr=b.date||'';const y=parseYear(dateStr);if(y==null)return;
+  (DATA.majorBattles||[]).forEach(b=>{if(!b) return; const dateStr=b.date||'';const y=parseYear(dateStr);if(y==null)return;
     entries.push({y,mo:parseMonth(dateStr),d:parseDay(dateStr),kind:'b',cls:'b',id:'mb:'+b.id,name:b.name,meta:dateStr,go:()=>Router.go('#/mbattle/'+encodeURIComponent(b.id))});});
   // resolve go() for the standard kinds
   entries.forEach(e=>{ if(!e.go){ const rid=e.id; e.go=()=>openId(rid); } });
@@ -2316,6 +2321,7 @@ const TL={go(kind,id){const e=window.__tlmap[kind+'|'+id];if(e)e.go();}};
 function collectYear(year){
   const out=[];
   const push=(src,kind)=> (DATA[src]||[]).forEach(it=>{
+    if(!it) return;
     const dateStr=it.date||it.era||'';
     const y=parseYear(it.date)||parseYear(it.era);
     if(y!==year) return;
@@ -2324,16 +2330,16 @@ function collectYear(year){
       date:dateStr, summary:it.summary||'', route:routeForKind(kind==='trial'?'article':kind, it.id)});
   });
   push('events','event'); push('battles','battle'); push('trials','trial');
-  (DATA.majorBattles||[]).forEach(b=>{const dateStr=b.date||'';if(parseYear(dateStr)!==year)return;
+  (DATA.majorBattles||[]).forEach(b=>{if(!b) return; const dateStr=b.date||'';if(parseYear(dateStr)!==year)return;
     out.push({y:year,mo:parseMonth(dateStr),d:parseDay(dateStr),kind:'battle',id:b.id,name:b.name,sub:b.conflict||'',date:dateStr,summary:b.description||'',route:'#/mbattle/'+encodeURIComponent(b.id)});});
   out.sort((a,b)=>a.mo-b.mo||a.d-b.d||a.name.localeCompare(b.name));
   return out;
 }
 function allYears(){
   const ys=new Set();
-  const addFrom=(src)=> (DATA[src]||[]).forEach(it=>{const y=parseYear(it.date)||parseYear(it.era);if(y)ys.add(y);});
+  const addFrom=(src)=> (DATA[src]||[]).forEach(it=>{if(!it) return; const y=parseYear(it.date)||parseYear(it.era);if(y)ys.add(y);});
   addFrom('events');addFrom('battles');addFrom('trials');
-  (DATA.majorBattles||[]).forEach(b=>{const y=parseYear(b.date);if(y)ys.add(y);});
+  (DATA.majorBattles||[]).forEach(b=>{if(!b) return; const y=parseYear(b.date);if(y)ys.add(y);});
   return [...ys].sort((a,b)=>a-b);
 }
 const kindEmojiSimple=k=>k==='event'?'📜':k==='trial'?'⚖️':k==='battle'?'🗡️':'📄';
@@ -2558,6 +2564,7 @@ function collectEventsForDay(year, monthIndex, day){
   const cal=getActiveCalendar();
   const targetMo=monthIndex+1;
   (DATA.events||[]).forEach(e=>{
+    if(!e) return;
     const dateStr=e.date||e.era||'';
     const mo=parseMonth(dateStr);
     const d=parseDay(dateStr);
@@ -2567,6 +2574,7 @@ function collectEventsForDay(year, monthIndex, day){
     }
   });
   (DATA.battles||[]).forEach(b=>{
+    if(!b) return;
     const dateStr=b.date||'';
     const mo=parseMonth(dateStr);
     const d=parseDay(dateStr);
@@ -2576,6 +2584,7 @@ function collectEventsForDay(year, monthIndex, day){
     }
   });
   (DATA.trials||[]).forEach(t=>{
+    if(!t) return;
     const dateStr=t.date||'';
     const mo=parseMonth(dateStr);
     const d=parseDay(dateStr);
@@ -2585,6 +2594,7 @@ function collectEventsForDay(year, monthIndex, day){
     }
   });
   (DATA.majorBattles||[]).forEach(b=>{
+    if(!b) return;
     const dateStr=b.date||'';
     const mo=parseMonth(dateStr);
     const d=parseDay(dateStr);
@@ -2594,7 +2604,7 @@ function collectEventsForDay(year, monthIndex, day){
     }
   });
   (DATA.historicalTimeline||[]).forEach(h=>{
-    if(!h.date) return;
+    if(!h || !h.date) return;
     const y=h.date.year;
     const mo=(h.date.monthIndex!=null?h.date.monthIndex+1:99);
     const d=h.date.day;
@@ -2798,6 +2808,7 @@ function view_calendar(){
   } else if(CAL_STATE.tab==='timeline'){
     const entries=[];
     const push=(src,kind,cls)=> (DATA[src]||[]).forEach(it=>{
+      if(!it) return;
       const dateStr=it.date||it.era||'';
       const y=parseYear(it.date)||parseYear(it.era);
       if(y==null) return;
@@ -2807,11 +2818,12 @@ function view_calendar(){
     push('battles','b','b');
     push('trials','t','t');
     (DATA.majorBattles||[]).forEach(b=>{
+      if(!b) return;
       const dateStr=b.date||''; const y=parseYear(dateStr); if(y==null) return;
       entries.push({y,mo:parseMonth(dateStr),d:parseDay(dateStr),kind:'b',cls:'b',id:b.id,name:b.name,meta:dateStr,route:'#/mbattle/'+encodeURIComponent(b.id)});
     });
     (DATA.historicalTimeline||[]).forEach(h=>{
-      if(!h.date) return;
+      if(!h || !h.date) return;
       const y=h.date.year; const mo=h.date.monthIndex!=null?h.date.monthIndex+1:99; const d=h.date.day||99;
       if(y==null) return;
       entries.push({y,mo,d,kind:'e',cls:'',id:h.title||'tl_'+y+'_'+mo+'_'+d, name:h.title||'Timeline Event', meta:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, route:'#/calendar/timeline'});
@@ -3160,5 +3172,5 @@ async function boot(){
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1604f784c4b1ea7',t:'MTc4MzE5MDk3Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a199ac1929d02ef2',t:'MTc4Mzc5MjQ1NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
