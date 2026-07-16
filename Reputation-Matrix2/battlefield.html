@@ -298,7 +298,7 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:20px}
 
-/* ===== WALUPEDIA CALENDAR — merged intuitive date system ===== */
+/* ===== WALUPEDIA CALENDAR — merged intuitive date system — FIXED ===== */
 .calendar-topbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:12px}
 .calendar-nav{display:flex;gap:6px;align-items:center}
 .calendar-nav .iconbtn{width:36px;height:36px}
@@ -338,6 +338,21 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 .mini-calendar .mc-day.has{font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .mini-calendar .mc-day.filler{opacity:.35}
 .calendar-explainer{background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.07));border:1px dashed var(--border);border-radius:12px;padding:12px;margin-top:12px;color:var(--muted);font-size:13px;line-height:1.5}
+/* FIX: weird days were clipped because .tsum has line-clamp:3 */
+.arttile.cal-tile{display:flex;flex-direction:column;overflow:visible}
+.arttile.cal-tile .tsum{ -webkit-line-clamp:unset; display:block; overflow:visible; -webkit-box-orient:unset; }
+.cal-weird{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.cal-weird-title{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2);font-weight:800;margin-bottom:4px;width:100%}
+.weird-pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:12px;background:var(--bg2);line-height:1.4;white-space:nowrap}
+.weird-pill .wi{font-size:13px}
+.holiday-pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:999px;padding:3px 9px;font-size:11.5px;background:linear-gradient(135deg,rgba(138,75,255,.08),rgba(224,180,0,.06)),var(--bg2)}
+.cal-holidays{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cal-holiday-section{margin-top:10px;padding-top:8px;border-top:1px dashed var(--border)}
+/* Calendar per-theme utilization — tiles actually use accent bg etc */
+.cal-themed{position:relative;overflow:hidden}
+.cal-themed::before{content:'';position:absolute;inset:0;background:radial-gradient(380px 120px at 0% 0%,var(--cal-accent-soft,rgba(138,75,255,.18)),transparent 60%),radial-gradient(280px 100px at 100% 100%,var(--cal-accent2-soft,rgba(224,180,0,.10)),transparent 55%);pointer-events:none;opacity:.9}
+.cal-themed>*{position:relative}
+
 </style>
 </head>
 <body>
@@ -1133,7 +1148,7 @@ function renderSidebar(active){
   h+=`</div><div class="navsec"><div class="navhead">World Systems</div>`;
   h+=`<div class="navlink ${active==='congress'?'active':''}" onclick="Router.go('#/congress')"><span><span class="emoji">🏛️</span> Congress</span><span class="cnt">${(DATA.congress_votes||[]).length}</span></div>`;
   h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">💱</span> Bank & Currency</span></div>`;
-  h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar — Single Page (Month/Year/Timeline/Years merged)</span></div>`;
+  h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar</span></div>`;
   const nbear=((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length + ((DATA.artifacts&&DATA.artifacts.god_toad)?1:0);
   h+=`<div class="navlink ${active==='artifacts'?'active':''}" onclick="Router.go('#/artifacts')"><span><span class="emoji">⭐</span> Artifacts</span><span class="cnt">${nbear}</span></div>`;
   h+=`</div><div class="navsec"><div class="navhead">Classic Indexes</div>`;
@@ -2558,7 +2573,7 @@ function weekdayForDate(year, monthIndex, day){ const cal=getActiveCalendar(); r
 function getMonthData(monthIndex){ const cal=getActiveCalendar(); return cal.months[monthIndex]||{name:MONTHS[monthIndex]||'Unknown',days:30,ordinal:monthIndex+1}; }
 function formatFullDate(year, monthIndex, day){ const cal=getActiveCalendar(); return calFormatFullDate(cal, year, monthIndex, day); }
 
-// Keep old helpers for compatibility
+// Keep old helpers for compatibility — FIXED to include holidays JSON and avoid clipping
 function collectEventsForDay(year, monthIndex, day){
   const out=[];
   const cal=getActiveCalendar();
@@ -2613,21 +2628,23 @@ function collectEventsForDay(year, monthIndex, day){
       out.push({kind:'timeline',id:h.title, name:h.title, date:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, summary:h.description||'', route:'#/calendar/timeline'});
     }
   });
-  // holidays from active calendar (if any)
+  // --- NEW: holidays from modular JSON files (calendarHolidays) ---
   try{
-    // Check if calendar has its own holidays? For now use imperial holidays from old CALENDAR_DATA if available
+    const holList=getHolidaysForCalendar(cal.id);
+    holList.forEach(h=>{
+      if(h.month===targetMo && h.day===day){
+        out.push({kind:'holiday',id:h.name,name:`${h.icon||'🎉'} ${h.name}`,date:`${getMonthData(monthIndex).name} ${day}`,summary:h.description||'',route:`#/calendar/${cal.id}/month/${year}/${monthIndex}/${day}`,holiday:h});
+      }
+    });
+  }catch{}
+  // --- OLD fallback for embedded calendar data ---
+  try{
     if(typeof CALENDAR_DATA!=='undefined' && CALENDAR_DATA.holidays && cal.id==='imperial'){
       const list=CALENDAR_DATA.holidays.values;
       const found=list.find(x=>x.month===targetMo && x.day===day);
       if(found) out.push({kind:'holiday',name:found.name,date:`${getMonthData(monthIndex).name} ${day}`,summary:found.description||''});
     }
   }catch{}
-  // intercalary weird days as events
-  const calInter = calIntercalaryForYear(cal, year);
-  for(const idd of calInter){
-    // if this weird day is considered to be on this date? Intercalary days are separate, but we can show them as entries for the month they follow
-    // For simplicity, if intercalary after this month, show as upcoming weird day
-  }
   return out;
 }
 function collectEventsForMonth(year, monthIndex){
@@ -2653,21 +2670,43 @@ function calendarDayClass(year, monthIndex, day, isFiller){
   return classes.join(' ');
 }
 
-// Generate per-calendar CSS
+// Generate per-calendar CSS — now actually used for tiles, chips, grid accents
 function getCalendarThemeCSS(){
   const all = (DATA.calendars && DATA.calendars.calendars) ? DATA.calendars.calendars : [];
   let css='';
   for(const cal of all){
     const th=cal.cssTheme||{};
     const cls=th.className||`cal-${cal.id}`;
+    const a=th.accent||'#8a4bff';
+    const a2=th.accent2||'#e0b400';
+    // convert to soft versions (add opacity) via 2-digit hex suffix
     css+=`
-      .${cls} { --cal-accent:${th.accent||'#8a4bff'}; --cal-accent2:${th.accent2||'#e0b400'}; --cal-bg:${th.bg||'#0d0a15'}; --cal-panel:${th.panel||'#1b1430'}; }
-      .${cls} .calendar-title { color:${th.accent2||'#e0b400'}; }
-      .${cls} .calendar-day.today { box-shadow:inset 0 0 0 2px ${th.accent2||'#e0b400'}; }
-      .${cls} .calendar-day.selected { outline:2px solid ${th.accent||'#8a4bff'}; }
+      .${cls} { --cal-accent:${a}; --cal-accent2:${a2}; --cal-bg:${th.bg||'#0d0a15'}; --cal-panel:${th.panel||'#1b1430'}; --cal-accent-soft:${a}22; --cal-accent2-soft:${a2}22; }
+      .${cls} .calendar-title { color:${a2}; }
+      .${cls} .calendar-day.today { box-shadow:inset 0 0 0 2px ${a2}; background:linear-gradient(0deg,${a2}18,transparent); }
+      .${cls} .calendar-day.selected { outline:2px solid ${a}; }
+      .${cls} .calendar-grid-wrap { border-color:${a}55; box-shadow:0 8px 28px ${a}18; }
+      .${cls}.arttile, .arttile.${cls} { background:linear-gradient(135deg,${a}14,transparent 60%), linear-gradient(180deg,${th.panel||'#1b1430'},${th.bg||'#0d0a15'}); border-left-color:${a}; border-color:${a}38; }
+      .${cls}.arttile .tt, .arttile.${cls} .tt { color:${a2}; }
+      .${cls}.arttile .weird-pill { border-color:${a}55; background:linear-gradient(135deg,${a}14,${a2}0e),var(--bg2); }
+      .${cls}.arttile .holiday-pill { border-color:${a2}55; }
+      .${cls} .chip.active { background:${a}; border-color:${a}; }
+      .${cls} .pill { border-color:${a}33; }
+      .${cls}.card { border-color:${a}33; }
     `;
   }
   return css;
+}
+function getHolidaysForCalendar(calId){
+  // DATA.calendarHolidays may be {holidays:{id:[...]}} or array
+  if(!DATA.calendarHolidays) return [];
+  if(DATA.calendarHolidays.holidays && DATA.calendarHolidays.holidays[calId]) return DATA.calendarHolidays.holidays[calId];
+  if(Array.isArray(DATA.calendarHolidays)) return DATA.calendarHolidays.filter(h=>h.calendarId===calId);
+  return [];
+}
+function getHolidayForDay(calId, monthOrdinal, day){
+  const list=getHolidaysForCalendar(calId);
+  return list.filter(h=>h.month===monthOrdinal && h.day===day);
 }
 
 function view_calendar(){
@@ -2706,13 +2745,28 @@ function view_calendar(){
   // Per-calendar CSS
   const themeStyle = `<style id="cal-theme">${getCalendarThemeCSS()}</style>`;
 
-  // Local calendars section
-  const localSection = `<div class="card" style="margin-top:12px"><div class="section-title">🌍 Local Calendars & Weird Days</div>
-    <p style="color:var(--muted)">Year doesn't have to be 365. Each calendar has different year length, weekdays, and weird intercalary days. Add new calendars by adding JSON to <code>data/calendars.json</code> — no code needed.</p>
+  // Calendar section — renamed to just "Calendar", fixed weird clipping, holidays now modular JSON
+  const localSection = `<div class="card" style="margin-top:12px"><div class="section-title">📅 Calendar</div>
+    <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Pick a calendar. Each has different year length, weekdays, holidays, and weird intercalary days. Add new calendars via <code>data/calendars.json</code> and holidays via <code>data/calendarHolidays.json</code> + <code>data/holidays/*.json</code> — no code needed.</p>
     <div class="artgrid">${allCals.map(c=>{
-      const weird = (c.intercalaryDays||[]).map(w=>`<span class="pill" style="border-color:${w.color||'#888'}">${w.icon||'✨'} ${w.name} (${w.days}d after ${w.afterMonth||0})</span>`).join('');
-      const localTo = (c.localTo||[]).slice(0,5).map(l=>`<span class="pill">${l}</span>`).join('');
-      return `<div class="arttile ${c.cssTheme?.className||''}" style="border-left-color:${c.cssTheme?.accent||'var(--accent)'}"><div class="tt">${c.name}</div><div class="tsub">${c.months.length} months · ${c.weekdays.length} weekdays · ${calDaysInYear(c, CAL_STATE.year)} days/year · ${c.description.slice(0,80)}...</div><div class="tsum">Weekdays: ${c.weekdays.map(w=>w.abbr).join(', ')}<br>Months: ${c.months.map(m=>m.abbr).join(', ')}<br>Weird: ${weird||'none'}</div><div class="tmeta">${localTo}</div></div>`;
+      const th=c.cssTheme||{};
+      const weirdPills = (c.intercalaryDays||[]).map(w=>`<span class="weird-pill" style="border-color:${w.color||th.accent||'#888'}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d after ${w.afterMonth||0}</span>`).join('');
+      const holList=getHolidaysForCalendar(c.id);
+      const holidayPills = holList.slice(0,6).map(h=>`<span class="holiday-pill" style="border-color:${h.color||'#888'}">${h.icon||'🎉'} ${esc(h.name)} — ${h.month}/${h.day}</span>`).join('') + (holList.length>6?`<span class="pill">+${holList.length-6} more</span>`:'');
+      const localTo = (c.localTo||[]).slice(0,6).map(l=>`<span class="pill">${esc(l)}</span>`).join('');
+      const totalDays=calDaysInYear(c, CAL_STATE.year);
+      const monthDays=c.months.reduce((s,m)=>s+m.days,0);
+      const weirdDays=(c.intercalaryDays||[]).reduce((s,d)=>s+d.days,0);
+      return `<div class="arttile cal-tile cal-themed ${c.cssTheme?.className||''}" style="border-left-color:${th.accent||'var(--accent)'}">
+        <div class="tt">${esc(c.name)}</div>
+        <div class="tsub">${c.months.length} months · ${c.weekdays.length} weekdays · ${totalDays}d/year (${monthDays} + ${weirdDays} weird)</div>
+        <div class="tsum" style="-webkit-line-clamp:unset;display:block;overflow:visible">
+          <div style="color:var(--muted);font-size:12px">Weekdays: ${c.weekdays.map(w=>esc(w.abbr)).join(', ')} · Months: ${c.months.map(m=>esc(m.abbr)).join(', ')}</div>
+          <div class="cal-weird"><div class="cal-weird-title">✨ Weird days — intercalary outside months</div>${weirdPills||'<span class="pill">none</span>'}</div>
+          <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays — from data/holidays/*.json</div><div class="cal-holidays">${holidayPills||'<span class="pill">no holidays file yet</span>'}</div></div>
+        </div>
+        <div class="tmeta" style="margin-top:10px">${localTo}</div>
+      </div>`;
     }).join('')}</div></div>`;
 
   // Cross-calendar conversion for selected absolute day
@@ -2736,11 +2790,11 @@ function view_calendar(){
     for(let i=0;i<fillerBefore;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum" style="opacity:.3">·</div></div>`;
     for(let d=1; d<=daysInMonth; d++){
       const evs=collectEventsForDay(CAL_STATE.year, CAL_STATE.monthIndex, d);
-      const dots=evs.slice(0,6).map(e=>{
-        const col=e.kind==='battle'||e.kind==='majorBattle'?'var(--danger)':e.kind==='trial'?'var(--accent2)':e.kind==='event'?'var(--accent)':'var(--muted)';
-        return `<span class="edot" style="background:${col}" title="${(e.name||'').replace(/"/g,'')}"></span>`;
+      const dots=evs.slice(0,8).map(e=>{
+        const col=e.kind==='battle'||e.kind==='majorBattle'?'var(--danger)':e.kind==='trial'?'var(--accent2)':e.kind==='event'?'var(--accent)':e.kind==='holiday'?'var(--green)':e.kind==='weird'?'#ff66cc':'var(--muted)';
+        return `<span class="edot" style="background:${col}" title="${esc((e.name||'').replace(/"/g,''))} — ${e.kind}"></span>`;
       }).join('');
-      const more = evs.length>6?`<div class="more">+${evs.length-6} more</div>`:'';
+      const more = evs.length>8?`<div class="more">+${evs.length-8} more</div>`:'';
       const wd=calWeekdayForDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, d);
       cells+=`<div class="${calendarDayClass(CAL_STATE.year, CAL_STATE.monthIndex, d,false)}" onclick="Router.go('#/calendar/${activeCal.id}/month/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${d}')">
         <div style="display:flex;justify-content:space-between;align-items:center"><span class="dnum">${d}</span><span class="dweek">${wd.abbr}</span></div>
@@ -2752,16 +2806,17 @@ function view_calendar(){
     const remainder = totalCells % activeCal.weekdays.length===0?0:activeCal.weekdays.length - (totalCells % activeCal.weekdays.length);
     for(let i=0;i<remainder;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum" style="opacity:.3">·</div></div>`;
 
-    // Intercalary weird days after this month
+    // Intercalary weird days after this month — FIXED layout, no clip
     const weirdAfter = calIntercalaryForYear(activeCal, CAL_STATE.year).filter(w=> (w.afterMonth||0)===md.ordinal);
-    const weirdHtml = weirdAfter.length ? `<div class="calendar-explainer" style="margin-top:8px"><b>✨ Weird days after ${md.name}:</b> ${weirdAfter.map(w=>`<span class="pill" style="border-color:${w.color}">${w.icon||'✨'} ${w.name} (${w.days}d) — ${w.description}</span>`).join(' ')}</div>` : '';
+    const weirdHtml = weirdAfter.length ? `<div class="card" style="margin-top:10px;border-left:4px solid ${activeCal.cssTheme?.accent||'var(--accent)'}"><div class="cal-weird-title">✨ Weird days after ${md.name} — outside months (not cut off anymore)</div><div class="cal-weird">${weirdAfter.map(w=>`<span class="weird-pill" style="border-color:${w.color}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d — ${esc(w.description||'')}</span>`).join('')}</div></div>` : '';
 
     const dayListHtml = selectedDayEvents.length
       ? selectedDayEvents.map(e=>{
-          const kindColor=e.kind==='battle'?'neg':e.kind==='majorBattle'?'neg':e.kind==='trial'?'warn':'pos';
-          return `<div class="ev ${kindColor}" onclick="Router.go('${e.route}')" style="cursor:pointer"><b>${e.name}</b><div style="color:var(--muted);font-size:12px">${e.date||''} · ${e.kind}</div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">${(e.summary||'').slice(0,160)}${(e.summary||'').length>160?'…':''}</div></div>`;
+          const kindColor=e.kind==='battle'?'neg':e.kind==='majorBattle'?'neg':e.kind==='trial'?'warn':e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos';
+          const icon = e.kind==='holiday'?(e.holiday?.icon||'🎉'):e.kind==='weird'?'✨':'';
+          return `<div class="ev ${kindColor}" onclick="Router.go('${e.route||'#/calendar'}')" style="cursor:pointer"><b>${esc(icon)} ${esc(e.name)}</b><div style="color:var(--muted);font-size:12px">${esc(e.date||'')} · ${esc(e.kind)}${e.holiday?` — ${esc(e.holiday.type||'')}`:''}</div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">${esc((e.summary||'').slice(0,180))}${(e.summary||'').length>180?'…':''}</div></div>`;
         }).join('')
-      : `<p style="color:var(--muted)">No dated entries for this day in ${activeCal.name}. Year length ${calDaysInYear(activeCal, CAL_STATE.year)} days.</p>`;
+      : `<p style="color:var(--muted)">No dated entries for this day in ${activeCal.name}. Try holidays: ${getHolidaysForCalendar(activeCal.id).length} total. Year length ${calDaysInYear(activeCal, CAL_STATE.year)} days.</p>`;
     mainContent = `
       <div class="calendar-grid-wrap ${activeCal.cssTheme?.className||''}">
         <div class="calendar-weekdays" style="grid-template-columns:repeat(${activeCal.weekdays.length},1fr)">${weekdaysHeader}</div>
@@ -2772,6 +2827,8 @@ function view_calendar(){
         <span class="lg"><i style="background:var(--accent)"></i>Event</span>
         <span class="lg"><i style="background:var(--danger)"></i>Battle</span>
         <span class="lg"><i style="background:var(--accent2)"></i>Trial</span>
+        <span class="lg"><i style="background:var(--green)"></i>Holiday</span>
+        <span class="lg"><i style="background:#ff66cc"></i>Weird</span>
         <span class="lg">🟡 Today</span>
       </div>
       <div class="grid2" style="margin-top:14px">
@@ -2782,8 +2839,9 @@ function view_calendar(){
           <div class="day-events">${conversions}</div>
         </div>
         <div class="card" style="margin:0">
-          <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} [${activeCal.name}] — ${monthEvents.length} entries · Year ${calDaysInYear(activeCal, CAL_STATE.year)} days</div>
-          <div class="day-events">${monthEvents.slice(0,20).map(e=>`<div class="ev pos" onclick="Router.go('${e.route}')" style="cursor:pointer"><b>${e.name}</b><div style="color:var(--muted);font-size:12px">${e.date} · ${e.kind}</div></div>`).join('')||'<p style="color:var(--muted)">No dated entries this month.</p>'}
+          <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} [${activeCal.name}] — ${monthEvents.length} entries · ${calDaysInYear(activeCal, CAL_STATE.year)}d year</div>
+          <div class="day-events">${monthEvents.slice(0,24).map(e=>{const kc=e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos'; return `<div class="ev ${kc}" onclick="Router.go('${e.route||'#/calendar'}')" style="cursor:pointer"><b>${esc(e.name)}</b><div style="color:var(--muted);font-size:12px">${esc(e.date)} · ${esc(e.kind)}</div></div>`}).join('')||'<p style="color:var(--muted)">No dated entries this month.</p>'}
+            <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this month</div><div class="cal-holidays">${getHolidayForDay(activeCal.id, md.ordinal, -1).length? '': ''}${(()=>{const list=getHolidaysForCalendar(activeCal.id).filter(h=>h.month===md.ordinal); return list.length?list.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} D${h.day} — ${esc(h.type||'')}</span>`).join(''):'<span class="pill">no holidays this month</span>'} )()}</div></div>
           </div>
         </div>
       </div>
@@ -2800,10 +2858,12 @@ function view_calendar(){
       </div>`;
     }).join('');
     const weirdYear = calIntercalaryForYear(activeCal, year);
+    const holYear = getHolidaysForCalendar(activeCal.id);
     mainContent = `
-      <div class="card"><div class="section-title">Year ${year} BF [${activeCal.name}] — ${calDaysInYear(activeCal, year)} days — ${activeCal.months.length} months — ${weirdYear.length} weird intercalary</div>
-        <div class="calendar-explainer">Weird days: ${weirdYear.map(w=>`${w.icon||'✨'} ${w.name} (${w.days}d after ${w.afterMonth})`).join(', ')||'none'}</div>
-        <div class="artgrid">${monthGrids}</div></div>
+      <div class="card"><div class="section-title">Year ${year} BF [${activeCal.name}] — ${calDaysInYear(activeCal, year)} days — ${activeCal.months.length} months — ${weirdYear.length} weird + ${holYear.length} holidays</div>
+        <div class="cal-weird"><div class="cal-weird-title">✨ Weird days this year (intercalary, not clipped)</div>${weirdYear.length?weirdYear.map(w=>`<span class="weird-pill" style="border-color:${w.color}">${w.icon||'✨'} ${esc(w.name)} — ${w.days}d after ${w.afterMonth} — ${esc(w.description||'')}</span>`).join(''):'<span class="pill">none</span>'}</div>
+        <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this year — from data/holidays/${activeCal.id}.json</div><div class="cal-holidays">${holYear.length?holYear.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} — M${h.month} D${h.day}</span>`).join(''):'<span class="pill">none</span>'}</div></div>
+        <div class="artgrid" style="margin-top:12px">${monthGrids}</div></div>
     `;
   } else if(CAL_STATE.tab==='timeline'){
     const entries=[];
@@ -2857,16 +2917,8 @@ function view_calendar(){
     mainContent = `<div class="card"><h2>📚 All Years — ${yrs.length} years in ${activeCal.name}</h2><p style="color:var(--muted)">Year length varies per calendar (not always 365). ${activeCal.name} year length: ${calDaysInYear(activeCal, CAL_STATE.year)} days this year.</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   }
 
-  const explainer = `
-    <div class="calendar-explainer ${activeCal.cssTheme?.className||''}">
-      <b>Single Calendar Page — Modular System:</b><br>
-      • Add new calendar by adding JSON to <code>data/calendars.json</code> — fields: months[], weekdays[], seasons[], intercalaryDays[] (weird days outside months), leapRule, cssTheme, localTo.<br>
-      • No coding 100 calendars. Example: ${activeCal.name} has ${activeCal.months.length} months, ${activeCal.weekdays.length}-day week, ${calDaysInYear(activeCal, CAL_STATE.year)} days/year (${activeCal.months.reduce((s,m)=>s+m.days,0)} month days + ${calIntercalaryForYear(activeCal, CAL_STATE.year).reduce((s,d)=>s+d.days,0)} weird days).<br>
-      • CSS per calendar via <code>cssTheme.className</code> = ${activeCal.cssTheme?.className} — accent ${activeCal.cssTheme?.accent}. New CSS auto-generated.<br>
-      • Local calendars: ${allCals.map(c=>`${c.name} → ${(c.localTo||[]).join(', ')||'universal'}`).join(' | ')}<br>
-      • Lore kept: imperial is default lore, but others exist for local use.
-    </div>
-  `;
+  // FIX: long technical header removed per user request — renamed to just Calendar, no verbose explainer
+  const explainer = ``;
 
   el('content').innerHTML=`
     ${themeStyle}
@@ -2889,7 +2941,6 @@ function view_calendar(){
       </div>
       ${calSelector}
       ${tabBar}
-      ${explainer}
     </div>
     ${mainContent}
     ${localSection}
@@ -3064,7 +3115,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','historicalTimeline','artifacts','congress','annotations'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};

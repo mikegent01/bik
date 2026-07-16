@@ -1,0 +1,11 @@
+{
+  "calendarId": "old_world",
+  "name": "Old World Imperial Holidays",
+  "holidays": [
+    {"name":"Hexenstag","month":12,"day":32,"icon":"🕯️","color":"#000000","description":"Witching day outside year — chaos risk","type":"weird","isWeird":true},
+    {"name":"Mitterfruhl Feast","month":3,"day":33,"icon":"🌱","color":"#88ff88","description":"Spring equinox void feast","type":"seasonal"},
+    {"name":"Sonnenstill Fire","month":6,"day":33,"icon":"☀️","color":"#ffff00","description":"Summer solstice bonfire — witch hunters busy","type":"festival"},
+    {"name":"Brauzeit Oktober","month":9,"day":15,"icon":"🍺","color":"#aa7755","description":"Beer festival, dwarf holds open gates","type":"festival"},
+    {"name":"Geheimnistag Veil","month":9,"day":33,"icon":"🔮","color":"#aa88ff","description":"Mystery day — prophecies discounted","type":"astral"}
+  ]
+}

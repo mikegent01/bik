@@ -1,0 +1,10 @@
+{
+  "calendarId": "kivotos",
+  "name": "Kivotos Academy Holidays",
+  "holidays": [
+    {"name":"Entrance Ceremony","month":1,"day":1,"icon":"🎓","color":"#7aa8ff","description":"Kivotos Academy terms begin","type":"civic"},
+    {"name":"Midterm Exams","month":2,"day":25,"icon":"📚","color":"#ffaa44","description":"Exams, chaos, club raids","type":"civic"},
+    {"name":"Festival Week","month":4,"day":10,"icon":"🎉","color":"#ff6b9a","description":"School festival, cross-academy invites","type":"festival"},
+    {"name":"Summer Break","month":6,"day":1,"icon":"🏖️","color":"#ffd166","description":"Beach episode canon","type":"rest"}
+  ]
+}
