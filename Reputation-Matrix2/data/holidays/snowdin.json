@@ -1,0 +1,14 @@
+{
+  "calendarId": "snowdin",
+  "name": "Snowdin Deep Calendar Holidays",
+  "holidays": [
+    {"name":"First Chill","month":1,"day":1,"icon":"❄️","color":"#a0d0ff","description":"Underground chill sets — puzzles freeze","type":"seasonal"},
+    {"name":"Glow Days Start","month":2,"day":40,"icon":"✨","color":"#ffff88","description":"Crystals brighten — 5-day glow outside months","type":"weird","isWeird":true},
+    {"name":"Spaghetti Friday","month":3,"day":20,"icon":"🍝","color":"#ffcc88","description":"Papyrus cooks, all invited","type":"festival"},
+    {"name":"Thaw Leak","month":3,"day":40,"icon":"💧","color":"#a0ffa0","description":"First drips from above","type":"seasonal"},
+    {"name":"CORE Overheat","month":6,"day":25,"icon":"🔥","color":"#ff4444","description":"CORE vents heat — Hotland fans on","type":"civic"},
+    {"name":"MTT Show","month":6,"day":40,"icon":"📺","color":"#ff44ff","description":"Mettaton showtime — ratings spike","type":"festival"},
+    {"name":"Deep Freeze Start","month":8,"day":40,"icon":"🧊","color":"#88ccff","description":"35-day freeze outside months — town hunkers","type":"weird","isWeird":true},
+    {"name":"Nap Day","month":2,"day":15,"icon":"💤","color":"#a0d0ff","description":"Everyone naps, puzzles wait","type":"rest"}
+  ]
+}

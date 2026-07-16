@@ -1,0 +1,14 @@
+{
+  "calendarId": "mushroom_folk",
+  "name": "Mushroom Kingdom Folk Holidays",
+  "holidays": [
+    {"name":"Toadling New Sprout","month":1,"day":1,"icon":"🍄","color":"#9be68c","description":"New caps sprout, Toad Town census","type":"festival"},
+    {"name":"Pipe Bloom Day","month":2,"day":18,"icon":"🟢","color":"#a8e6a0","description":"Pipes flower, warp routes unstable","type":"seasonal"},
+    {"name":"Coinshine Shower","month":3,"day":36,"icon":"🪙","color":"#ffe26a","description":"Coins rain in Coinshine month end","type":"festival"},
+    {"name":"Star Festival","month":4,"day":20,"icon":"⭐","color":"#ffdb4d","description":"Star Spirits visit, wishes granted loudly","type":"astral"},
+    {"name":"Shroomheat Siesta","month":5,"day":15,"icon":"🌞","color":"#ffb84d","description":"Too hot to work, mandatory nap","type":"rest"},
+    {"name":"Bowser's Reprieve","month":6,"day":36,"icon":"🐢","color":"#ff8a4d","description":"One day truce — Koopa Troop shares cake","type":"civic"},
+    {"name":"Leaf Crumble","month":7,"day":10,"icon":"🍂","color":"#e68a4d","description":"Fall of giant leaves, building repairs","type":"seasonal"},
+    {"name":"Frostshroom Glow","month":8,"day":1,"icon":"❄️","color":"#a0c8e6","description":"First frost shrooms glow","type":"seasonal"}
+  ]
+}
