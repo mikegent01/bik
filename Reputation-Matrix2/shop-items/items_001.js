@@ -1058,7 +1058,7 @@ export const ITEMS_001 = {
     effects: [
         "Can be used as a one-time distraction: show it to a foe for disadvantage on their next attack (they're confused by the 'celebrity')",
         "Napkin is stained with garlic sauce: disadvantage on Charisma checks if you try to sell it (smells awful)",
-        "Wario claims it's a 'collector's item': advantage on Persuasion to haggle with Wario fans",
+        "Wario claims it's a 'collectors item': advantage on Persuasion to haggle with Wario fans",
         "Made by: Wario (with a Sharpie)"
     ],
     vendor: 'wario_land',
@@ -1727,7 +1727,7 @@ export const ITEMS_001 = {
     stock: 2,
     rarity: 'rare',
     effects: [
-        "It's a Fire Flower... but it's been 'modified': you can cast Burning Hands once per day (DC 13)",
+        "It's a Fire Flower... but it's been modified': you can cast Burning Hands once per day (DC 13)",
         "After use, you must make a DC 10 Wisdom save or become convinced you're Mario (disadvantage on Charisma checks, you say 'Mama mia!' constantly)",
         "Mario's lawyers may appear: 5% chance per use that a celestial attorney shows up and demands the power-up back (DM-controlled, just annoying)",
         "Power-up is clearly repainted: original red is visible under yellow paint",

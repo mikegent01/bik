@@ -383,8 +383,8 @@ export const ITEMS_055 = {
         levelRequirement: 8
     },
 
-    'pokemon_item_wario's_evolution_pouch': {
-        id: 'pokemon_item_wario's_evolution_pouch',
+    'pokemon_item_warios_evolution_pouch': {
+        id: 'pokemon_item_warios_evolution_pouch',
         name: "Wario’s Evolution Pouch",
         description: "This suspiciously plump pouch smells faintly of berries and regret. Legend says it contains the concentrated essence of evolution – but mostly just a collection of partially digested Pokémon snacks, and Wario’s experimental formulas. Good luck!",
         category: SHOP_CATEGORIES.EQUIPMENT,
@@ -903,7 +903,7 @@ export const ITEMS_055 = {
             "increase_luck_by_50%"
         ],
         vendor: 'layer_market',
-        shippedBy: 'Wario's Personal Transport',
+        shippedBy: "Wario's Personal Transport",
         levelRequirement: 40
     },
 

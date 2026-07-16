@@ -74,7 +74,7 @@ export const ITEMS_027 = {
     effects: [
         "Can capture small spirits or illusions (DC 13 save or trapped for 1 minute)",
         "Net tears easily: 50% chance it breaks after one use (disadvantage on next capture)",
-        "Luigi's 'ghost luck': advantage on saves vs. fear while holding it",
+        "Luigis ghost luck': advantage on saves vs. fear while holding it",
         "Made by: Wannabe Ghostbusters Inc."
     ],
     vendor: 'wario_land',

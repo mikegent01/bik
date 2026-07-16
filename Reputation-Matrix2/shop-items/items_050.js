@@ -316,7 +316,7 @@ export const ITEMS_050 = {
     stock: 11,
     rarity: 'common',
     effects: [
-        "Hang as a 'lucky charm': advantage on one Charisma check per day (Waluigi's lanky luck)",
+        "Hang as a lucky charm': advantage on one Charisma check per day (Waluigi's lanky luck)",
         "Poster curls: disadvantage on checks if not flattened",
         "Wario's signature smudges: reveals a hidden map to a minor treasure (1d100 gp)",
         "Made by: WarioWare Printing (Low Quality)"

@@ -1171,7 +1171,7 @@ export const ITEMS_049 = {
     effects: [
         "Light candle: creates 10ft dim light, smells like garlic (disadvantage on Stealth)",
         "Peach's ghost may appear: 5% chance she haunts you for disrespect (disadvantage on saves vs. fear)",
-        "Candle is 'eternal': lasts 1 hour then needs 8 hours to recharge (Wario's definition of eternal)",
+        "Candle is eternal': lasts 1 hour then needs 8 hours to recharge (Wario's definition of eternal)",
         "Made by: Wario Land Memorials (Profiting from Tragedy Since Day 1)"
     ],
     vendor: 'wario_land',
@@ -1935,7 +1935,7 @@ export const ITEMS_049 = {
     rarity: 'rare',
     effects: [
         "Pay 10 gold as a bonus action to gain +1 to your next attack roll, save, or ability check",
-        "Amulet charges 'processing fees': you lose 1 gold per hour while wearing it (magical theft)",
+        "Amulet charges processing fees': you lose 1 gold per hour while wearing it (magical theft)",
         "After 5 uses, you get a 'loyalty bonus' - one free use (Wario's version of charity)",
         "The amulet plays a jingle every time you use it: disadvantage on Stealth",
         "Made by: WarioWare Mobile Games Division"

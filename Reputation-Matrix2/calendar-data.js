@@ -302,3 +302,4 @@ export const GUILD_HOLIDAYS = [];
 export function getRumorsByArc(){ return []; }
 export function getArcProgress(){ return 0; }
 export function getArcStats(){ return null; }
+export function generateWeatherForDay(date){ return { name: 'Clear', temp: 70, description: 'Mild and clear.' }; }

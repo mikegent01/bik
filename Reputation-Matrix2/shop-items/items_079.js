@@ -1141,8 +1141,8 @@ export const ITEMS_079 = {
         levelRequirement: 20
     },
 
-    'earth_land_item_geode_cartographer's_curiosity': {
-        id: 'earth_land_item_geode_cartographer's_curiosity',
+    'earth_land_item_geode_cartographers_curiosity': {
+        id: "earth_land_item_geode_cartographer's_curiosity",
         name: "The Geode of Cartographic Resonance",
         description: "A pulsating geode discovered deep within a collapsing cavern, it contains fragmented maps of forgotten pathways and lost settlements. Touching the geode briefly overlays a ghostly projection onto your vision, revealing hidden routes and potential dangers – though its guidance is notoriously fickle and prone to misleading illusions.",
         category: SHOP_CATEGORIES.CURIOSITIES,
@@ -1828,8 +1828,8 @@ export const ITEMS_079 = {
         levelRequirement: 15
     },
 
-    'warhammer_item_jeweled-forger-of-fate's-whispers': {
-        id: 'warhammer_item_jeweled-forger-of-fate's-whispers',
+    'warhammer_item_jeweled-forger-of-fates-whispers': {
+        id: "warhammer_item_jeweled-forger-of-fate's-whispers",
         name: "Jeweled Forger of Fate’s Whispers",
         description: "A heavy warhammer, meticulously crafted by a forgotten artisan and adorned with jeweled fragments said to contain trapped whispers of doomed fates. Holding it induces unsettling visions and amplifies your aggressive tendencies.",
         category: SHOP_CATEGORIES.EQUIPMENT,
