@@ -1,47 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar Merged — Waluipedia</title>
-    <meta http-equiv="refresh" content="2; url=./battlefield.html#/calendar">
-    <style>
-      :root{--bg:#0d0a15;--panel:#1b1430;--border:#38295a;--text:#ece7f5;--muted:#a99cc6;--accent:#8a4bff;--accent2:#e0b400}
-      body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,sans-serif;display:grid;place-items:center;min-height:100vh;padding:20px}
-      .card{max-width:700px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
-      .chip{display:inline-block;border:1px solid var(--border);background:rgba(138,75,255,.12);border-radius:999px;padding:6px 12px;margin:4px;font-size:13px;cursor:pointer}
-      a{color:#c8a6ff}
-      code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px}
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar → Walupedia Single Page</title>
+<meta http-equiv="refresh" content="1; url=./battlefield.html#/calendar">
+<style>:root{--bg:#0d0a15;--panel:#1b1430;--border:#38295a;--text:#ece7f5;--muted:#a99cc6}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui;display:grid;place-items:center;min-height:100vh;padding:20px}.card{max-width:700px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px}a{color:#c8a6ff}.chip{display:inline-block;border:1px solid var(--border);background:rgba(138,75,255,.12);border-radius:999px;padding:6px 12px;margin:4px;font-size:13px;cursor:pointer}</style>
 </head>
 <body>
-  <div class="card">
-    <h1>📅 Calendar Merged into Waluipedia</h1>
-    <p>The standalone <code>calendar.html</code> and its old logic (<code>calendar.js</code>, <code>calendar-data.js</code>, <code>calendar.css</code> depending on research/quests/plagues) has been <b>retired and merged</b> into the main encyclopedia.</p>
-    <p><b>New location:</b> <a href="./battlefield.html#/calendar">Waluipedia → Calendar (Intuitive)</a> — same URL as the integrated view: <code>battlefield.html#/calendar</code></p>
-    <p><b>What changed — intuitive date system:</b></p>
-    <ul>
-      <li>12 months, 365 days (Deepwinter 35 days, others 30). 7 weekdays: Soldas, Lunadas, Terras, Mercurias, Jovias, Venerias (Rest), Saturias (Rest).</li>
-      <li>4 seasons: Verdant Spring (Veridia/Bloom/Floria), Golden Summer (Efferd/Highsun/Harvestide), Crimson Fall (Aethel/Darkmoon/Frostfall), Hoarfrost Winter (Deepwinter/Firstlight/Chillwind).</li>
-      <li><b>BF counts UP</b> toward present — log number, not countdown. 722 BF oldest record, 1040 BF current game date (Harvestide 18, 1040 BF). Larger year = more recent.</li>
-      <li>Weekday = <code>absoluteDay % 7</code> where <code>absoluteDay = year*365 + daysBeforeMonth + (day-1)</code>. Rest days are Venerias, Saturias.</li>
-      <li>All events/battles/trials/majorBattles are now parsed via same <code>parseYear/parseMonth/parseDay</code> and appear as dots on the month grid. Click day → inspect.</li>
-    </ul>
-    <p><b>Main page updated:</b></p>
-    <ul>
-      <li>Hero now shows full date: e.g., <code>Harvestide 18, 1040 BF — Venerias (Rest Day) — Golden Summer</code></li>
-      <li>Mini calendar widget for current month on front page (today highlighted, days with events underlined).</li>
-      <li><b>On This Day</b> is now dynamic — finds events/battles that happened on same month/day in any year, not static text from <code>mainPage.json</code>.</li>
-      <li>Calendar catcard added to Explore grid, sidebar link added.</li>
-      <li>New data files: <code>calendarWeekdays.json</code>, <code>calendarSeasons.json</code>, <code>calendarMeta.json</code> — enriched <code>calendarMonths.json</code> with season/icon/description.</li>
-    </ul>
-    <p>Redirecting to <a href="./battlefield.html#/calendar">Waluipedia Calendar</a> in 2 seconds…</p>
-    <div>
-      <span class="chip" onclick="location.href='./battlefield.html#/calendar'">Open Calendar →</span>
-      <span class="chip" onclick="location.href='./battlefield.html#/home'">Home</span>
-      <span class="chip" onclick="location.href='./battlefield.html#/years'">Chronicle</span>
-    </div>
-    <p style="color:var(--muted);font-size:12.5px;margin-top:12px">Old files kept for reference but no longer used: <code>calendar.js</code> replaced by <code>view_calendar()</code> inside <code>battlefield.html</code>. The new system uses <code>data/*.json</code> only — no more importing research/quests/plague caches. WAH.</p>
-  </div>
+<div class="card">
+<h1>📅 Calendar Merged — Single Page</h1>
+<p>Old standalone <code>calendar.html</code> (with weather, moon, quests, etc) has been <b>retired</b> and merged into <b>one</b> Walupedia page: <code>battlefield.html#/calendar</code></p>
+<p>That single page now merges all date features without data loss: Month Grid, Year View, Full Timeline, All Years — plus weekdays, seasons, holidays, events, battles, trials.</p>
+<p>Redirecting to <a href="./battlefield.html#/calendar">Unified Calendar</a>…</p>
+<div><span class="chip" onclick="location.href='./battlefield.html#/calendar'">Open Unified Calendar →</span><span class="chip" onclick="location.href='./battlefield.html#/calendar/timeline'">Timeline Tab</span><span class="chip" onclick="location.href='./battlefield.html#/calendar/years'">Years Tab</span></div>
+<p style="color:var(--muted);font-size:12.5px;margin-top:12px">BF counts UP (722→1040 current), weekday = absoluteDay%7, 7 weekdays, 4 seasons, 35-day Deepwinter. WAH.</p>
+</div>
 </body>
 </html>

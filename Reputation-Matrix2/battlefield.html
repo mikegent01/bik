@@ -1132,9 +1132,7 @@ function renderSidebar(active){
   h+=`</div><div class="navsec"><div class="navhead">World Systems</div>`;
   h+=`<div class="navlink ${active==='congress'?'active':''}" onclick="Router.go('#/congress')"><span><span class="emoji">🏛️</span> Congress</span><span class="cnt">${(DATA.congress_votes||[]).length}</span></div>`;
   h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">💱</span> Bank & Currency</span></div>`;
-  h+=`<div class="navlink ${active==='timeline'?'active':''}" onclick="Router.go('#/timeline')"><span><span class="emoji">🕰️</span> Timeline</span></div>`;
-  h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar (Intuitive)</span></div>`;
-  h+=`<div class="navlink ${active==='years'?'active':''}" onclick="Router.go('#/years')"><span><span class="emoji">🗓️</span> Chronicle (Years)</span></div>`;
+  h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar — Single Page (Month/Year/Timeline/Years merged)</span></div>`;
   const nbear=((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length + ((DATA.artifacts&&DATA.artifacts.god_toad)?1:0);
   h+=`<div class="navlink ${active==='artifacts'?'active':''}" onclick="Router.go('#/artifacts')"><span><span class="emoji">⭐</span> Artifacts</span><span class="cnt">${nbear}</span></div>`;
   h+=`</div><div class="navsec"><div class="navhead">Classic Indexes</div>`;
@@ -2463,10 +2461,7 @@ function collectEventsForDay(year, monthIndex, day){
     const mo=parseMonth(dateStr);
     const d=parseDay(dateStr);
     const y=parseYear(dateStr);
-    const monthMatch = mo===targetMo;
-    const dayMatch = d===day;
-    const yearMatch = y===null || y===year;
-    if(monthMatch && dayMatch && yearMatch){
+    if(mo===targetMo && d===day && (y===null || y===year)){
       if(mo!==99 && d!==99) out.push({kind:'event',id:e.id,name:e.name||e.title,date:dateStr,summary:e.summary||'',route:'#/article/'+encodeURIComponent(e.id)});
     }
   });
@@ -2497,6 +2492,21 @@ function collectEventsForDay(year, monthIndex, day){
       out.push({kind:'majorBattle',id:b.id,name:b.name,date:dateStr,summary:b.description||b.summary||'',route:'#/mbattle/'+encodeURIComponent(b.id)});
     }
   });
+  (DATA.historicalTimeline||[]).forEach(h=>{
+    if(!h.date) return;
+    const y=h.date.year;
+    const mo=(h.date.monthIndex!=null?h.date.monthIndex+1:99);
+    const d=h.date.day;
+    if(mo===targetMo && d===day && (y===null || y===year)){
+      if(!h.title) return;
+      out.push({kind:'timeline',id:h.title, name:h.title, date:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, summary:h.description||'', route:'#/calendar/timeline'});
+    }
+  });
+  try{
+    const list = (typeof CALENDAR_DATA!=='undefined' && CALENDAR_DATA.holidays)?CALENDAR_DATA.holidays.values:[];
+    const found=list.find(x=>x.month===targetMo && x.day===day);
+    if(found) out.push({kind:'holiday',name:found.name,date:`${getMonthData(monthIndex).name} ${day}`,summary:found.description||''});
+  }catch{}
   return out;
 }
 function collectEventsForMonth(year, monthIndex){
@@ -2783,7 +2793,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','artifacts','congress','annotations'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','historicalTimeline','artifacts','congress','annotations'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
