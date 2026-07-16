@@ -369,6 +369,15 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 .profile-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px}
 .profile-stat{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px}
 .profile-stat b{display:block;color:var(--accent2);font-size:20px}
+/* Immersive Waluigi sign-on */
+.waluigi-splash{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:radial-gradient(1200px 600px at 50% -10%,rgba(138,75,255,.22),transparent 60%),radial-gradient(900px 500px at -10% 20%,rgba(224,180,0,.10),transparent 55%),rgba(13,10,21,.92);backdrop-filter:blur(6px);padding:20px;animation:fade .25s ease}
+.waluigi-splash-card{max-width:680px;width:100%;background:linear-gradient(135deg,rgba(27,20,48,.98),rgba(35,24,56,.98));border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;overflow:hidden}
+.waluigi-splash-card::before{content:'';position:absolute;inset:0;background:radial-gradient(500px 180px at 0% 0%,rgba(138,75,255,.18),transparent 60%),radial-gradient(320px 120px at 100% 100%,rgba(224,180,0,.12),transparent 60%);pointer-events:none}
+.waluigi-splash-card>*{position:relative}
+.waluigi-ava-big{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:42px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;box-shadow:0 6px 18px rgba(138,75,255,.35)}
+.waluigi-typed{font-size:15px;line-height:1.6;color:var(--text);min-height:84px;white-space:pre-wrap}
+.waluigi-typed b{color:var(--accent2)}
+.waluigi-typed i{color:var(--muted);font-style:normal}
 </style>
 </head>
 <body>
@@ -1262,8 +1271,22 @@ function view_home(){
       <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')" style="margin-top:6px;display:inline-block">Open ${esc(mdToday.name)} in Calendar →</span>
     </div>
   `;
+  const _uidHome = (typeof getCurrentUserId==='function'?getCurrentUserId():null);
+  const _loginBannerHome = !_uidHome ? `
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+      <div style="display:flex;gap:14px;align-items:start">
+        <div class="waluigi-ava-big" style="width:64px;height:64px;font-size:30px;flex:0 0 64px">W</div>
+        <div style="flex:1">
+          <div class="section-title">🔐 IMMERSIVE SIGN-ON REQUIRED — WALUIGI DEMANDS IT</div>
+          <p style="color:var(--text);font-size:14px;line-height:1.55;margin:4px 0"><b>WAH!</b> You are browsing as <i>ANONYMOUS</i>! Connect your operator to see <b>wallet</b> (gold equiv), <b>XP</b> (Lvl, Power, Fame), and <b>bio</b> — all linked to XP page + bios! Each operator gets custom <code>Welcome, X</code>!</p>
+          <div class="chips" style="margin-top:10px"><span class="chip active" onclick="Router.go('#/login')">🔐 Connect now — immersive Waluigi welcome →</span><span class="chip" onclick="Router.go('#/items')">XP page + bios (guest)</span><span class="chip" onclick="location.href='currency.html'">Bank (intuitive)</span></div>
+        </div>
+      </div>
+    </div>` : `
+    <div class="card animate-fade-in" style="border-left:4px solid var(--green)"><div style="display:flex;gap:12px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;font-weight:900">${esc((XP_SUMMARY[_uidHome]?.name||_uidHome||'U')[0].toUpperCase())}</div><div><b>Connected as ${esc(XP_SUMMARY[_uidHome]?.name||_uidHome||'User')}</b><div style="color:var(--muted);font-size:12px">${esc(typeof getWaluigiWelcome==='function'?getWaluigiWelcome(_uidHome).slice(0,110):'WAH! Welcome back!')}…</div></div><div style="margin-left:auto" class="chips"><span class="chip" onclick="Router.go('#/profile')">Dossier → wallet/XP/bio</span></div></div></div>`;
 
   el('content').innerHTML=`
+   ${_loginBannerHome}
    <div class="hero animate-fade-in"><h1>Welcome to Waluipedia — Now With Calendar</h1>
      <p>The objective encyclopedia now has Atlas dashboards, XP links, dynasty intel, item inventories, integrated Imperial Calendar, comments, and enough cross-references to make a normal archivist weep. Calendar merged into Walupedia — date system now intuitive. Written by Waluigi. Disputed by everyone else.</p>
      <span class="datechip">🕰️ Current: ${esc(fullDate)} — ${esc(wdToday.name)}</span>
@@ -3174,27 +3197,133 @@ function getAvailableLoginCharacters(){
   }catch(e){}
   return Array.from(out.values()).sort((a,b)=>(b.level||0)-(a.level||0));
 }
+const WALUIGI_WELCOMES={
+  waluigi:"WAH! You DARED to impersonate ME, the magnificent one?! Hah! Fine. I, Waluigi, allow it. The tall, handsome legend logs in. W-A-H!",
+  wario:"WAH! It's WARIO! Greed incarnate! Show me your wallet, you garlic-scented vault! WarioWare bank rates are WAH-nderful today!",
+  bowser:"WAH-HA! The Koopa King! Try not to BURN the archives, Your Scaliness! Your Bux are still 0.4 gold — sad!",
+  archie_miser:"WAH! ARCHIE! The rubber-duck arsonist! Thornbury still wants 2175 Ducats for that bath incident! WAH!",
+  markop:"WAH! Markop Judi! Legionary! Lvl 8, 37769 XP — try not to follow the manual OFF A CLIFF again! Protocol says WELCOME!",
+  remi_akamatsu_full_backstory:"WAH! Remi! Oracle Deck holder! Lvl 7, 30308 XP — don't let the cards pick YOU this time! Destiny is waiting!",
+  hjumpik:"WAH! Hjumpik! Ducat counter! 421 MIDLAND DUCATS and still counting! Lvl 7 economist!",
+  toad_lee:"WAH! Toad Lee! Relief stamp hero! 20 bonds, 120 stamps! Community bonds can't be bitten, unlike silver! WAH!",
+  generic:"WAH! A new operator enters the Objective Encyclopedia! I, Waluigi, grant you access... but I AM WATCHING YOUR EDITS! WAH!"
+};
+function getWaluigiWelcome(id){
+  if(!id) return WALUIGI_WELCOMES.generic;
+  if(WALUIGI_WELCOMES[id]) return WALUIGI_WELCOMES[id];
+  const xp=typeof XP_SUMMARY!=='undefined'?XP_SUMMARY[id]:null;
+  const rec=INDEX[id];
+  const name=rec?displayName(rec.item):(xp?.name||prettyId(id));
+  const lvl=xp?.level||'?';
+  const gold=((INVENTORY_SYSTEM?.wallets||{})[id])?Object.entries(INVENTORY_SYSTEM.wallets[id].currencies||{}).reduce((s,[k,v])=>{const cur=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); return s+(cur?cur.base_value||1:1)*v;},0).toFixed(1)+'g':'no wallet yet';
+  return `WAH! Welcome, ${name}! Lvl ${lvl} operator! Wallet: ${gold}! Your bio, XP, and vault are now linked. This encyclopedia is OBJECTIVE because I, Waluigi, wrote it! WAH!`;
+}
+function showWaluigiSignOn(id){
+  const xp=typeof XP_SUMMARY!=='undefined'?XP_SUMMARY[id]:null;
+  const rec=INDEX[id];
+  const name=rec?displayName(rec.item):(xp?.name||prettyId(id));
+  const welcome=getWaluigiWelcome(id);
+  const goldEq=(()=>{
+    const w=(INVENTORY_SYSTEM?.wallets||{})[id];
+    if(!w) return '0g';
+    return Object.entries(w.currencies||{}).reduce((s,[k,v])=>{const cur=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); return s+(cur?cur.base_value||1:1)*v;},0).toFixed(2)+'g';
+  })();
+  const existing=document.getElementById('waluigiSignOn');
+  if(existing) existing.remove();
+  const overlay=document.createElement('div');
+  overlay.id='waluigiSignOn';
+  overlay.className='waluigi-splash';
+  overlay.innerHTML=`
+    <div class="waluigi-splash-card animate-fade-in">
+      <div style="display:flex;gap:14px;align-items:center;margin-bottom:12px">
+        <div class="waluigi-ava-big">W</div>
+        <div><div style="font-weight:900;color:var(--accent)">WALUIGI SAYS:</div><div style="color:var(--muted);font-size:11px;letter-spacing:.6px">IMMERSIVE SIGN-ON • WALUPEDIA OPERATOR CONNECT</div></div>
+        <div style="margin-left:auto" class="chips"><span class="pill">XP ${xp?xp.level+' Lvl':''}</span><span class="pill">${goldEq} equiv</span></div>
+      </div>
+      <h2 style="margin:6px 0">Welcome, ${esc(name)}!</h2>
+      <div class="waluigi-typed" id="waluigiTyped"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+        <div class="profile-stat"><b>${xp?esc(String(xp.level)):'?'} </b>Level${xp?` · ${xp.currentXP} XP`:''}</div>
+        <div class="profile-stat"><b>${goldEq}</b>Wallet total</div>
+        <div class="profile-stat"><b>${xp?esc(String(xp.powerLevel||'?')):'?'} </b>Power</div>
+        <div class="profile-stat"><b>${xp?esc(String(xp.fameScore||'?')):'?'} </b>Fame</div>
+      </div>
+      <div class="chips" style="margin-top:14px">
+        <span class="chip active" id="continueDossier">Enter Dossier → ${esc(name)}</span>
+        <span class="chip" onclick="document.getElementById('waluigiSignOn').remove()">Cancel</span>
+        <span class="chip" onclick="Router.go('#/article/${esc(id)}')">Open bio →</span>
+        <span class="chip" onclick="Router.go('#/items')">XP page</span>
+      </div>
+      <p style="color:var(--muted);font-size:11px;margin-top:10px">This login is saved as <code>waluipediaUser</code> + <code>vigilanceTerminalUser</code> for compatibility. No password — Waluigi trusts your audacity. WAH!</p>
+    </div>`;
+  document.body.appendChild(overlay);
+  const typedEl=document.getElementById('waluigiTyped');
+  let i=0;
+  const txt=welcome;
+  typedEl.textContent='';
+  const interval=setInterval(()=>{
+    if(i<txt.length){ typedEl.textContent+=txt[i]; i++; }
+    else { clearInterval(interval); }
+  },18);
+  document.getElementById('continueDossier').onclick=()=>{
+    overlay.remove();
+    setCurrentUserId(id);
+    Router.go('#/profile');
+  };
+  overlay.addEventListener('click',(e)=>{ if(e.target===overlay) overlay.remove(); });
+}
 function view_login(){
   renderSidebar('login');
   updateTopbarLoginBtn();
   const cur=getCurrentUserId();
   const chars=getAvailableLoginCharacters();
   const featured=['waluigi','wario','archie_miser','markop','bowser','remi_akamatsu_full_backstory','hjumpik','toad_lee'].filter(id=>chars.find(c=>c.id===id)).map(id=>chars.find(c=>c.id===id));
-  const others=chars.filter(c=>!featured.find(f=>f.id===c.id)).slice(0,48);
-  const curCard=cur?`<div class="card" style="border-left:4px solid var(--green)"><div class="section-title">Currently logged in</div><div style="display:flex;gap:12px;align-items:center"><div style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;font-size:22px">${esc((XP_SUMMARY[cur]?.name||cur)[0]?.toUpperCase()||'👤')}</div><div><b>${esc(XP_SUMMARY[cur]?.name||INDEX[cur]?displayName(INDEX[cur].item):prettyId(cur))}</b><div style="color:var(--muted);font-size:12px">${cur}</div></div><div style="margin-left:auto" class="chips"><span class="chip" onclick="Router.go('#/profile')">Open profile →</span><span class="chip" onclick="setCurrentUserId(null);view_login();">Logout</span></div></div></div>`:'';
+  const others=chars.filter(c=>!featured.find(f=>f.id===c.id)).slice(0,60);
+  const forceConnect = !cur;
+  const waluIntro = forceConnect
+    ? `WAH! HALT! No operator connected!\n\nThis is WALUIGI'S OBJECTIVE ENCYCLOPEDIA and you are ANONYMOUS!\nI, Waluigi, require IMMERSION! Connect your dossier to see wallet, XP, and bio!\nEach operator has a CUSTOM welcome — I have insults... er... welcomes for each! WAH!\n\nPick a character below — wallet, XP page, and bio will travel with you.`
+    : `WAH! You are connected as ${cur}, but you can switch operator anytime! Wallet, XP, bio — all linked! Choose another for a new Waluigi welcome!`;
+  const curCard=cur
+    ? `<div class="card" style="border-left:4px solid var(--green)"><div class="section-title">✅ Currently connected — ${esc(XP_SUMMARY[cur]?.name||cur)}</div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div style="width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;font-size:24px">${esc((XP_SUMMARY[cur]?.name||cur)[0]?.toUpperCase()||'👤')}</div>
+        <div style="flex:1"><b>${esc(XP_SUMMARY[cur]?.name||INDEX[cur]?displayName(INDEX[cur].item):prettyId(cur))}</b>
+          <div style="color:var(--muted);font-size:12px">@${esc(cur)} · Lvl ${XP_SUMMARY[cur]?.level||'?'} · ${XP_SUMMARY[cur]?.currentXP||0} XP</div>
+          <div style="font-size:11px;color:var(--accent2);margin-top:4px;max-width:520px;white-space:pre-wrap">${esc(getWaluigiWelcome(cur).slice(0,160))}…</div>
+        </div>
+        <div class="chips" style="flex-direction:column"><span class="chip active" onclick="Router.go('#/profile')">Dossier → wallet/XP/bio</span><span class="chip" onclick="setCurrentUserId(null);view_login();">Logout & switch</span></div>
+      </div></div>`
+    : `<div class="card" style="border-left:4px solid var(--danger);background:linear-gradient(135deg,rgba(229,72,77,.08),rgba(224,180,0,.06)),var(--panel)"><div class="section-title">🔒 Not connected — immersion sign-on required</div><p style="color:var(--muted);font-size:13px">You must connect your operator to access full dossiers, wallets, and XP progression. This uses existing code (<code>waluipediaUser</code>). No password — Waluigi trusts your audacity.</p><div class="chips"><span class="chip active" onclick="document.getElementById('featSec')?.scrollIntoView({behavior:'smooth'})">Pick below ↓</span><span class="chip" onclick="Router.go('#/items')">View XP page + bios (guest)</span></div></div>`;
+
   const featHtml=featured.map(c=>{
     const xp=XP_SUMMARY[c.id];
     const wallet=(INVENTORY_SYSTEM?.wallets||{})[c.id];
     const goldEq=wallet?Object.entries(wallet.currencies||{}).reduce((s,[k,v])=>{const curMeta=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); const bv=curMeta?curMeta.base_value||1:1; return s+bv*v;},0):0;
-    return `<div class="login-card vip" onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/profile')"><div class="l-ava">${c.icon||'👤'}</div><div style="flex:1;min-width:0"><div class="l-name">${esc(c.name||c.id)}</div><div class="l-meta">Lvl ${xp?.level||'?'} · ${xp?.currentXP||0} XP · ${goldEq?goldEq.toFixed(1)+'g':''} ${c.title?('· '+esc(c.title.slice(0,30))):''}</div><div class="tmeta"><span class="pill">${esc(c.id)}</span>${xp?`<span class="pill">Pwr ${xp.powerLevel}</span><span class="pill">Fame ${xp.fameScore}</span>`:''}</div></div></div>`;
+    return `<div class="login-card vip" onclick="showWaluigiSignOn('${esc(c.id)}')"><div class="l-ava">${c.icon||'👤'}</div><div style="flex:1;min-width:0"><div class="l-name">${esc(c.name||c.id)} — Welcome: "${esc(getWaluigiWelcome(c.id).slice(0,38))}…"</div><div class="l-meta">Lvl ${xp?.level||'?'} · ${xp?.currentXP||0} XP · ${goldEq?goldEq.toFixed(1)+'g':''} · Click for immersive Waluigi sign-on</div><div class="tmeta"><span class="pill">${esc(c.id)}</span>${xp?`<span class="pill">Pwr ${xp.powerLevel}</span><span class="pill">Fame ${xp.fameScore}</span>`:''}<span class="pill" style="border-color:var(--accent2)">Bio + XP →</span></div></div></div>`;
   }).join('');
   const otherHtml=others.map(c=>{
     const xp=XP_SUMMARY[c.id];
-    return `<div class="login-card" onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/profile')"><div class="l-ava">${esc(c.icon||(c.name||c.id)[0]||'👤')}</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${c.source} · Lvl ${xp?.level||c.level||1} ${xp?`· ${xp.currentXP} XP`:''}</div></div></div>`;
+    return `<div class="login-card" onclick="showWaluigiSignOn('${esc(c.id)}')"><div class="l-ava">${esc(c.icon||(c.name||c.id)[0]||'👤')}</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${c.source} · Lvl ${xp?.level||c.level||1} ${xp?`· ${xp.currentXP} XP`:''} · ${esc(getWaluigiWelcome(c.id).slice(0,42))}…</div><div class="tmeta"><span class="pill">XP bio</span><span class="pill">Wallet</span></div></div></div>`;
   }).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🔐 Walupedia Login</h1><p style="color:var(--muted)">Pick your operator — code merged from existing terminal login (<code>vigilanceTerminalUser</code> + <code>waluipediaUser</code>). Your wallet, XP, and bio travel with you. Saved in localStorage.</p><div class="chips" style="margin-top:10px"><span class="chip" onclick="setCurrentUserId(null);view_login();">Continue as Guest (clear)</span><span class="chip" onclick="location.href='currency.html'">Open Currency Exchange →</span></div></div>${curCard}<div class="card"><div class="section-title">⭐ Featured — main party (high XP)</div><div class="login-grid">${featHtml}</div></div><div class="card"><div class="section-title">👥 All operators — ${chars.length} available (XP + wallets + characters)</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><input id="loginSearch" placeholder="Filter name/id..." style="flex:1;min-width:180px;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text)"><span class="chip" onclick="document.getElementById('loginSearch').value='';document.getElementById('loginSearch').dispatchEvent(new Event('input'))">Clear</span></div><div class="login-grid" id="loginGrid">${otherHtml}</div></div>`;
+  el('content').innerHTML=`
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent)"><h1>🔐 Walupedia Connect — Immersive Sign-On</h1>
+      <div style="display:flex;gap:14px;align-items:start">
+        <div class="waluigi-ava-big" style="width:72px;height:72px;font-size:32px;flex:0 0 72px">W</div>
+        <div style="flex:1">
+          <div style="white-space:pre-wrap;color:var(--muted);font-size:13px;line-height:1.6">${esc(waluIntro)}</div>
+          <div class="chips" style="margin-top:10px"><span class="chip" onclick="setCurrentUserId(null);view_login();">Continue as Guest (clear)</span><span class="chip" onclick="location.href='currency.html'">Bank — intuitive currency →</span><span class="chip" onclick="Router.go('#/items')">XP page → bios, wallet, items</span></div>
+        </div>
+      </div>
+    </div>
+    ${curCard}
+    <div class="card" id="featSec"><div class="section-title">⭐ Featured — main party (high XP) — immersive Waluigi welcome on click: Welcome, X</div><div class="login-grid">${featHtml}</div></div>
+    <div class="card"><div class="section-title">👥 All operators — ${chars.length} available — each has custom Waluigi text, XP, bio, wallet linked</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><input id="loginSearch" placeholder="Filter name/id... bio, XP, wallet..." style="flex:1;min-width:180px;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text)"><span class="chip" onclick="document.getElementById('loginSearch').value='';document.getElementById('loginSearch').dispatchEvent(new Event('input'))">Clear</span></div>
+      <div class="login-grid" id="loginGrid">${otherHtml}</div>
+      <p style="color:var(--muted);font-size:11px;margin-top:10px">Click any operator → immersive overlay with typed <code>Welcome, ${'{Name}'}</code> Waluigi message, XP level, gold equiv, then <code>Enter Dossier →</code> to see wallet/XP/bio. Linked to XP page and bios.</p>
+    </div>`;
   const inp=document.getElementById('loginSearch');
-  if(inp){ inp.addEventListener('input',()=>{const q=inp.value.toLowerCase(); const grid=document.getElementById('loginGrid'); grid.innerHTML=others.filter(c=> (c.name||'').toLowerCase().includes(q)||c.id.toLowerCase().includes(q)).map(c=>{return `<div class="login-card" onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/profile')"><div class="l-ava">👤</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${esc(c.id)}</div></div></div>`;}).join('');}); }
+  if(inp){ inp.addEventListener('input',()=>{const q=inp.value.toLowerCase(); const grid=document.getElementById('loginGrid'); grid.innerHTML=others.filter(c=> (c.name||'').toLowerCase().includes(q)||c.id.toLowerCase().includes(q)).map(c=>{return `<div class="login-card" onclick="showWaluigiSignOn('${esc(c.id)}')"><div class="l-ava">👤</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${esc(c.id)} · ${esc(getWaluigiWelcome(c.id).slice(0,48))}…</div></div></div>`;}).join('');}); }
   window.scrollTo(0,0);
 }
 function view_profile(){
@@ -3232,10 +3361,12 @@ function view_profile(){
   `:`<p style="color:var(--muted)">No XP record for ${esc(uid)}. XP is tracked in <code>XP_SUMMARY</code> — this character hasn't logged entries yet.</p>`;
   const bioHtml=charItem?`<div class="prose">${mdToHtml(charItem.description||charItem.summary||'',uid)}</div>`:`<p style="color:var(--muted)">No Waluipedia article found for <b>${esc(uid)}</b>. Generic login — bio not available, but wallet/XP still works.</p>`;
   const avatarLetter=(xp?.name||charItem?.name||uid)[0]?.toUpperCase()||'👤';
+  const waluWelcome = getWaluigiWelcome(uid);
   const bankHtml=(()=>{ if(!bank.accounts.length&&!bank.loans.length&&!bank.debts.length) return '<p style="color:var(--muted)">No bank accounts/loans/debts linked to this name.</p>'; const rows=[...bank.accounts.map(a=>`<div class="bank-row"><b>🏦 ${esc(a.bankId)}</b> ${esc(a.balance)} ${esc(currencyName(a.currencyKey))} · ${esc(a.note||'').slice(0,80)}</div>`),...bank.loans.map(l=>`<div class="bank-row" style="border-left:4px solid var(--danger)"><b>Loan</b> ${esc(l.principal)} ${esc(l.currencyKey)} · ${esc(l.status)}</div>`),...bank.debts.map(d=>`<div class="bank-row"><b>Debt → ${esc(d.creditor)}</b> ${esc(d.amountOwed)} ${esc(d.currencyKey)}</div>`)].join(''); return rows; })();
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/login')">Login</a> › ${esc(xp?.name||charItem?.name||uid)}</div>
-    <div class="card animate-fade-in"><div class="profile-hero"><div class="ph-ava">${esc(avatarLetter)}</div><div><h1>${esc(xp?.name||charItem?.name||prettyId(uid))}</h1><div style="color:var(--accent2);font-style:italic">${esc(charItem?.title||xp?.xpKey||uid)}</div><div style="margin-top:8px;color:var(--muted);font-size:12px">@${esc(uid)} · ${charItem?.affiliation||charItem?.race||''}</div><div class="chips" style="margin-top:10px"><span class="chip" onclick="Router.go('#/article/${esc(uid)}')">Open bio article →</span><span class="chip" onclick="location.href='currency.html'">Currency →</span><span class="chip" onclick="setCurrentUserId(null);Router.go('#/login')">Logout</span></div></div></div></div>
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent)"><div style="display:flex;gap:12px;align-items:start"><div class="waluigi-ava-big" style="width:56px;height:56px;font-size:28px;flex:0 0 56px">W</div><div><div style="font-weight:900;color:var(--accent)">WALUIGI WELCOMES YOU — WELCOME, ${esc((xp?.name||uid).toUpperCase())}!</div><div style="color:var(--text);font-size:13px;line-height:1.5;margin-top:4px;white-space:pre-wrap">${esc(waluWelcome)}</div><div style="color:var(--muted);font-size:11px;margin-top:6px">This dossier links wallet (${totalGold.toFixed(2)}g equiv), XP Lvl ${xp?.level||'?'} and bio article — immersive sign-on active.</div></div></div></div>
+    <div class="card animate-fade-in"><div class="profile-hero"><div class="ph-ava">${esc(avatarLetter)}</div><div><h1>${esc(xp?.name||charItem?.name||prettyId(uid))}</h1><div style="color:var(--accent2);font-style:italic">${esc(charItem?.title||xp?.xpKey||uid)}</div><div style="margin-top:8px;color:var(--muted);font-size:12px">@${esc(uid)} · ${charItem?.affiliation||charItem?.race||''}</div><div class="chips" style="margin-top:10px"><span class="chip" onclick="Router.go('#/article/${esc(uid)}')">Open bio article →</span><span class="chip" onclick="Router.go('#/items')">XP page → bios</span><span class="chip" onclick="location.href='currency.html'">Wallet → Currency</span><span class="chip" onclick="setCurrentUserId(null);Router.go('#/login')">Logout & switch</span></div></div></div></div>
     <div class="card"><div class="section-title">✦ XP & Progression</div>${xpPanel}</div>
     <div class="card"><div class="section-title">💰 Wallet — ${totalGold.toFixed(2)} gold equiv total</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill" style="border-color:var(--green)">Core ${breakdown.core.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent2)">Reg ${breakdown.reg.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent)">Spec ${breakdown.spec.toFixed(1)}g</span>${breakdown.blk?`<span class="pill" style="border-color:var(--danger)">Black ${breakdown.blk.toFixed(1)}g</span>`:''}</div><div class="wallet-grid"><div class="wallet-card"><h4>${esc(xp?.name||uid)}'s Holdings</h4><div>${walletLines||'<p style="color:var(--muted)">No wallet — add entry to INVENTORY_SYSTEM.wallets.</p>'}</div><div class="wallet-total">Total <b>${totalGold.toFixed(2)}g equiv</b></div></div></div></div>
     <div class="card"><div class="section-title">🏦 Banking</div>${bankHtml}</div>
