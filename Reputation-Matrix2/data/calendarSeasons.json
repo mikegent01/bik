@@ -1,0 +1,6 @@
+[
+  { "name": "Verdant Spring", "abbreviation": "Spr", "monthStart": 3, "monthEnd": 5, "color": "#90EE90", "icon": "🌱", "description": "Planting, growth, renewal — best travel." },
+  { "name": "Golden Summer", "abbreviation": "Sum", "monthStart": 6, "monthEnd": 8, "color": "#FFD700", "icon": "☀️", "description": "Heat and harvest prep — long daylight, high crystal activity." },
+  { "name": "Crimson Fall", "abbreviation": "Fal", "monthStart": 9, "monthEnd": 11, "color": "#FFA07A", "icon": "🍂", "description": "Amber roads, remembrance, warding nights." },
+  { "name": "Hoarfrost Winter", "abbreviation": "Win", "monthStart": 12, "monthEnd": 2, "color": "#ADD8E6", "icon": "❄️", "description": "Cold, quiet, deepwinter silence — 35-day final month." }
+]

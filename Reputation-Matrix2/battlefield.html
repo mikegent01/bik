@@ -297,6 +297,47 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 }
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:20px}
+
+/* ===== WALUPEDIA CALENDAR — merged intuitive date system ===== */
+.calendar-topbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:12px}
+.calendar-nav{display:flex;gap:6px;align-items:center}
+.calendar-nav .iconbtn{width:36px;height:36px}
+.calendar-title{font-size:22px;font-weight:900;color:var(--accent2)}
+.calendar-meta{color:var(--muted);font-size:13px;margin-top:4px;line-height:1.5}
+.calendar-grid-wrap{background:var(--panel2);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.calendar-weekdays{display:grid;grid-template-columns:repeat(7,1fr);background:rgba(0,0,0,.18);border-bottom:1px solid var(--border)}
+.calendar-weekdays .wd{padding:8px 4px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:800}
+.calendar-weekdays .wd.rest{color:var(--accent2)}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.calendar-day{min-height:96px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:6px 6px 4px;cursor:pointer;position:relative;transition:.12s;background:var(--panel2)}
+.calendar-day:nth-child(7n){border-right:none}
+.calendar-day:hover{background:rgba(138,75,255,.10)}
+.calendar-day.today{box-shadow:inset 0 0 0 2px var(--accent2);background:rgba(224,180,0,.08)}
+.calendar-day.selected{outline:2px solid var(--accent);z-index:1}
+.calendar-day.filler{background:rgba(0,0,0,.15);cursor:default;opacity:.55}
+.calendar-day .dnum{font-weight:800;font-size:14px}
+.calendar-day .dweek{font-size:10px;color:var(--muted);margin-left:4px}
+.calendar-day .dseason{position:absolute;top:6px;right:6px;font-size:10px}
+.calendar-day .event-dots{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.calendar-day .edot{width:7px;height:7px;border-radius:50%}
+.calendar-day .more{font-size:10px;color:var(--muted);margin-top:4px}
+.calendar-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
+.calendar-legend .lg{display:flex;align-items:center;gap:6px}
+.calendar-legend .lg i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.day-events{margin-top:12px}
+.day-events .ev{border-left:3px solid var(--border);padding:6px 10px;margin-bottom:8px;background:var(--bg2);border-radius:8px}
+.day-events .ev.pos{border-color:var(--green)}
+.day-events .ev.neg{border-color:var(--danger)}
+.day-events .ev.warn{border-color:var(--accent2)}
+.mini-calendar{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:10px}
+.mini-calendar .mc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.mini-calendar .mc-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.mini-calendar .mc-day{font-size:11px;text-align:center;padding:4px 2px;border-radius:6px;cursor:pointer}
+.mini-calendar .mc-day:hover{background:rgba(138,75,255,.12)}
+.mini-calendar .mc-day.today{background:var(--accent2);color:#111;font-weight:900}
+.mini-calendar .mc-day.has{font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.mini-calendar .mc-day.filler{opacity:.35}
+.calendar-explainer{background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.07));border:1px dashed var(--border);border-radius:12px;padding:12px;margin-top:12px;color:var(--muted);font-size:13px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -1092,6 +1133,7 @@ function renderSidebar(active){
   h+=`<div class="navlink ${active==='congress'?'active':''}" onclick="Router.go('#/congress')"><span><span class="emoji">🏛️</span> Congress</span><span class="cnt">${(DATA.congress_votes||[]).length}</span></div>`;
   h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">💱</span> Bank & Currency</span></div>`;
   h+=`<div class="navlink ${active==='timeline'?'active':''}" onclick="Router.go('#/timeline')"><span><span class="emoji">🕰️</span> Timeline</span></div>`;
+  h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar (Intuitive)</span></div>`;
   h+=`<div class="navlink ${active==='years'?'active':''}" onclick="Router.go('#/years')"><span><span class="emoji">🗓️</span> Chronicle (Years)</span></div>`;
   const nbear=((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length + ((DATA.artifacts&&DATA.artifacts.god_toad)?1:0);
   h+=`<div class="navlink ${active==='artifacts'?'active':''}" onclick="Router.go('#/artifacts')"><span><span class="emoji">⭐</span> Artifacts</span><span class="cnt">${nbear}</span></div>`;
@@ -1115,43 +1157,101 @@ function commentSpotlightCards(){
   const anns=(DATA.annotations||[]).slice(-6).reverse();
   return anns.slice(0,4).map(a=>{const rec=INDEX[a.articleId]; const title=rec?displayName(rec.item):prettyId(a.articleId); const comments=(a.comments||[]); const first=comments[0]||{}; return `<div class="comment-card" onclick="Router.go('#/article/${encodeURIComponent(a.articleId)}')"><div class="kicker">💬 ${comments.length} comments · ${esc(title)}</div><h3>${esc(first.author||'Commentary')}</h3><blockquote>${esc(a.quote||'').slice(0,170)}${(a.quote||'').length>170?'…':''}</blockquote><p>${esc(first.text||'').slice(0,180)}${(first.text||'').length>180?'…':''}</p></div>`;}).join('');
 }
+
 function view_home(){
   renderSidebar(null);
+  initCalendarState();
   const mp=DATA.mainPage||{};const feat=mp.featuredArticle;const fi=feat&&INDEX[feat.id]?INDEX[feat.id].item:null;
   const latest=mp.latestUpdate&&INDEX[mp.latestUpdate.id]?INDEX[mp.latestUpdate.id].item:null;
-  const cats=`<div class="catcard" onclick="Router.go('#/atlas')"><div class="cemoji">🍩</div><div class="cname">World Atlas</div><div class="ccount">${(DATA.nations||[]).length} realms</div></div>`
+  const cats=`<div class="catcard" onclick="Router.go('#/calendar')"><div class="cemoji">🗓️</div><div class="cname">Calendar</div><div class="ccount">${MONTHS.length} months · ${CUR.year} BF</div></div>`
+    +`<div class="catcard" onclick="Router.go('#/atlas')"><div class="cemoji">🍩</div><div class="cname">World Atlas</div><div class="ccount">${(DATA.nations||[]).length} realms</div></div>`
     +`<div class="catcard" onclick="Router.go('#/dynasties')"><div class="cemoji">👑</div><div class="cname">Dynasties</div><div class="ccount">${Object.keys(DYNASTY_SYSTEM.houses||{}).length} bloodlines</div></div>`
     +`<div class="catcard" onclick="Router.go('#/items')"><div class="cemoji">🎒</div><div class="cname">Items</div><div class="ccount">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1} public items</div></div>`
     + TYPES.filter(t=>!['locations','nations'].includes(t.key)).map(t=>`<div class="catcard" onclick="Router.go('#/list/${t.key}')"><div class="cemoji">${t.emoji}</div><div class="cname">${t.label}</div><div class="ccount">${(DATA[t.key]||[]).length}</div></div>`).join('')
     +`<div class="catcard" onclick="Router.go('#/congress')"><div class="cemoji">🏛️</div><div class="cname">Congress</div><div class="ccount">${(DATA.congress_votes||[]).length} votes</div></div>`
     +`<div class="catcard" onclick="Router.go('#/artifacts')"><div class="cemoji">⭐</div><div class="cname">Artifacts</div><div class="ccount">${((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length} bearers</div></div>`
     +`<div class="catcard" onclick="Router.go('#/years')"><div class="cemoji">🗓️</div><div class="cname">Chronicle</div><div class="ccount">${allYears().length} years</div></div>`
+    +`<div class="catcard" onclick="Router.go('#/timeline')"><div class="cemoji">🕰️</div><div class="cname">Timeline</div><div class="ccount">chronological</div></div>`
     +`<div class="catcard" onclick="Router.go('#/list/locations')"><div class="cemoji">🏰</div><div class="cname">Classic Locations Index</div><div class="ccount">tucked away</div></div>`;
-  const dyk=mp.didYouKnow||[],otd=mp.onThisDay||[];
+
+  const dyk=mp.didYouKnow||[],otdStatic=mp.onThisDay||[];
   const dateStr=`${MONTHS[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
+  const fullDate=formatFullDate?formatFullDate(CUR.year, CUR.monthIndex, CUR.day):dateStr;
+  const wdToday=weekdayForDate?weekdayForDate(CUR.year, CUR.monthIndex, CUR.day):{name:'?',abbreviation:'?'};
+  const mdToday=getMonthData?getMonthData(CUR.monthIndex):{name:MONTHS[CUR.monthIndex],days:30};
+  const seasonToday=getSeasonForMonth?getSeasonForMonth(mdToday.ordinal||CUR.monthIndex+1):null;
   const totalAnnotations=(DATA.annotations||[]).length;
   const intelTargets=Object.keys(partyIntel()).length;
+
+  // Dynamic On This Day: events that happened on same month/day in any year
+  let dynamicOTD=[];
+  try{
+    const curMo=CUR.monthIndex+1;
+    const curDay=CUR.day;
+    (DATA.events||[]).forEach(e=>{
+      const mo=parseMonth(e.date||'');
+      const d=parseDay(e.date||'');
+      if(mo===curMo && d===curDay){
+        const yr=parseYear(e.date||'')||'?';
+        dynamicOTD.push({text:`${yr} BF — ${e.name||e.title||e.id}`, id:e.id, route:'#/article/'+encodeURIComponent(e.id)});
+      }
+    });
+    (DATA.battles||[]).concat(DATA.majorBattles||[]).forEach(b=>{
+      const mo=parseMonth(b.date||'');
+      const d=parseDay(b.date||'');
+      if(mo===curMo && d===curDay){
+        const yr=parseYear(b.date||'')||'?';
+        dynamicOTD.push({text:`${yr} BF — Battle: ${b.name}`, id:b.id, route:b.conflict?'#/mbattle/'+encodeURIComponent(b.id):'#/article/'+encodeURIComponent(b.id)});
+      }
+    });
+  }catch(e){ dynamicOTD=[]; }
+
+  const otdHtml = (dynamicOTD.length?dynamicOTD:otdStatic.map(s=>({text:s}))).slice(0,10).map(x=>{
+    if(x.route) return `<li><a onclick="Router.go('${x.route}')">${esc(x.text)}</a></li>`;
+    return `<li>${esc(x.text||x)}</li>`;
+  }).join('');
+
+  const calMeta = `
+    <div class="calendar-explainer" style="margin-top:10px">
+      <b>Today:</b> ${esc(fullDate)}<br>
+      <b>Month:</b> ${esc(mdToday.name)} — ${esc(mdToday.description||'')} (${mdToday.days} days, ${seasonToday?seasonToday.name:''})<br>
+      <b>BF System:</b> BF counts UP toward present — 722 BF oldest, ${CUR.year} BF current. Larger year = more recent. Think chronicle page number. Weekday = absoluteDay % 7; absoluteDay = year×365 + days before month + (day-1). Rest days: Venerias, Saturias.<br>
+      <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')" style="margin-top:6px;display:inline-block">Open ${esc(mdToday.name)} in Calendar →</span>
+    </div>
+  `;
+
   el('content').innerHTML=`
-   <div class="hero animate-fade-in"><h1>Welcome to Waluipedia</h1>
-     <p>The objective encyclopedia now has Atlas dashboards, XP links, dynasty intel, item inventories, comments, and enough cross-references to make a normal archivist weep. Written by Waluigi. Disputed by everyone else.</p>
-     <span class="datechip">🕰️ Current game date: ${esc(dateStr)}</span>
-     <div class="home-actions"><a class="home-action" onclick="Router.go('#/article/${encodeURIComponent((mp.latestUpdate&&mp.latestUpdate.id)||'shadow_estate_spotlight_cookie_cottage')}')">Read latest article</a><a class="home-action" href="xp.html">Open XP Hotline</a><a class="home-action" onclick="Router.go('#/dynasties')">Dynasty Intel</a><a class="home-action" onclick="Router.go('#/items')">Items</a><a class="home-action" href="currency.html">Open Bank</a><a class="home-action" onclick="Router.go('#/atlas')">World Atlas</a></div>
+   <div class="hero animate-fade-in"><h1>Welcome to Waluipedia — Now With Calendar</h1>
+     <p>The objective encyclopedia now has Atlas dashboards, XP links, dynasty intel, item inventories, integrated Imperial Calendar, comments, and enough cross-references to make a normal archivist weep. Calendar merged into Walupedia — date system now intuitive. Written by Waluigi. Disputed by everyone else.</p>
+     <span class="datechip">🕰️ Current: ${esc(fullDate)} — ${esc(wdToday.name)}</span>
+     <div class="home-actions"><a class="home-action" onclick="Router.go('#/calendar')">📅 Open Calendar</a><a class="home-action" onclick="Router.go('#/article/${encodeURIComponent((mp.latestUpdate&&mp.latestUpdate.id)||'shadow_estate_spotlight_cookie_cottage')}')">Read latest article</a><a class="home-action" href="xp.html">Open XP Hotline</a><a class="home-action" onclick="Router.go('#/dynasties')">Dynasty Intel</a><a class="home-action" onclick="Router.go('#/items')">Items</a><a class="home-action" href="currency.html">Open Bank</a><a class="home-action" onclick="Router.go('#/atlas')">World Atlas</a></div>
      <div class="mini-stat-grid"><div class="mini-stat"><b>${ALL_ITEMS.length}</b>Articles</div><div class="mini-stat"><b>${totalAnnotations}</b>Comment threads</div><div class="mini-stat"><b>${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}</b>Items</div><div class="mini-stat"><b>${intelTargets}</b>Intel targets</div></div>
+     ${calMeta}
    </div>
-   <div class="card"><div class="home-section-head"><div><h2>🎭 Waluigi's Front Page Desk</h2><p>Featured file, latest updates, comments, reading paths, and navigation all in one place. Waluigi has reduced the clutter. You're welcome.</p></div></div>
-     <div class="home-feature-grid">
-       ${fi?`<div class="feature-panel" onclick="openId('${esc(fi.id)}')"><div class="kicker">Featured Article</div><h2>${esc(displayName(fi))}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle" style="margin-bottom:8px">${esc(fi.title)}</div>`:''}<p style="color:var(--muted)">${esc(feat.excerpt||fi.summary||'')}</p><div class="home-actions"><span class="home-action">Read feature →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP context</a></div></div>`:''}
-       ${latest?`<div class="feature-panel" onclick="openId('${esc(latest.id)}')"><div class="kicker">${esc(mp.latestUpdate.label||'Latest Written Article')}</div><h2>${esc(displayName(latest))}${annotationBadge(latest.id)}</h2><p style="color:var(--muted)">${esc(mp.latestUpdate.excerpt||previewText(latest))}</p><div class="home-actions"><span class="home-action">Open latest →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">Latest XP</a></div></div>`:''}
+   <div class="grid2">
+     <div class="card">
+       <div class="home-section-head"><div><h2>📅 This Month — ${esc(mdToday.name)} ${CUR.year} BF</h2><p>Mini calendar · click day to inspect · today highlighted</p></div><span class="chip" onclick="Router.go('#/calendar')">Full Calendar →</span></div>
+       <div id="home-mini-cal" class="mini-calendar"></div>
+       <div class="calendar-legend" style="margin-top:8px"><span class="lg"><i style="background:var(--accent)"></i>Has events</span><span class="lg">🟡 Today</span></div>
      </div>
-     <h2 style="margin-top:18px">Explore</h2><div class="grid-cats">${cats}</div>
+     <div class="card">
+       <div class="home-section-head"><div><h2>🎭 Waluigi's Front Page Desk</h2><p>Featured file, latest updates, comments, reading paths, and navigation all in one place.</p></div></div>
+       <div class="home-feature-grid">
+         ${fi?`<div class="feature-panel" onclick="openId('${(fi.id||'').replace(/'/g,'')}')"><div class="kicker">Featured Article</div><h2>${displayName(fi)}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle" style="margin-bottom:8px">${fi.title}</div>`:''}<p style="color:var(--muted)">${feat.excerpt||fi.summary||''}</p><div class="home-actions"><span class="home-action">Read feature →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP context</a></div></div>`:''}
+         ${latest?`<div class="feature-panel" onclick="openId('${(latest.id||'').replace(/'/g,'')}')"><div class="kicker">${mp.latestUpdate.label||'Latest Written Article'}</div><h2>${displayName(latest)}${annotationBadge(latest.id)}</h2><p style="color:var(--muted)">${mp.latestUpdate.excerpt||previewText(latest)}</p><div class="home-actions"><span class="home-action">Open latest →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">Latest XP</a></div></div>`:''}
+       </div>
+     </div>
+   </div>
+   <div class="card"><div class="home-section-head"><div><h2>Explore</h2><p>Calendar is now first-class — merged from old calendar.html into Walupedia core.</p></div></div><div class="grid-cats">${cats}</div>
      <h2 style="margin-top:18px">Recently Updated / Added</h2><div class="update-grid">${SITE_UPDATES.map(updateCard).join('')}</div>
      <h2 style="margin-top:18px">Comment Spotlight</h2><div class="comment-grid">${commentSpotlightCards()}</div>
-     <h2 style="margin-top:18px">Suggested Reading Paths</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/atlas/mushroom_kingdom')"><h3>🍄 Mushroom Civil War</h3><p>Regency, Peach Loyalists, Fawful occupation, Koopa intervention, and the broken crown.</p></div><div class="path-card" onclick="Router.go('#/article/shadow_estate_spotlight_cookie_cottage')"><h3>🌑 Shadow Estate Current Arc</h3><p>Spotlights, Black Crystal pressure, Tymnas cottage, Lyranth, and the latest chase.</p></div><div class="path-card" onclick="Router.go('#/dynasties')"><h3>👑 Dynasties & Intel</h3><p>Bloodlines, claims, locked secrets, party intel, and dynasty unlocks.</p></div><div class="path-card" onclick="Router.go('#/items')"><h3>🎒 Items & Wallets</h3><p>Public inventory, cursed tools, known holders, and currency/banking connections.</p></div></div>
+     <h2 style="margin-top:18px">Suggested Reading Paths</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/calendar')"><h3>🗓️ Imperial Calendar</h3><p>Unified date system, intuitive BF counting, weekdays, seasons, and daily events.</p></div><div class="path-card" onclick="Router.go('#/atlas/mushroom_kingdom')"><h3>🍄 Mushroom Civil War</h3><p>Regency, Peach Loyalists, Fawful occupation, Koopa intervention, and the broken crown.</p></div><div class="path-card" onclick="Router.go('#/article/shadow_estate_spotlight_cookie_cottage')"><h3>🌑 Shadow Estate Current Arc</h3><p>Spotlights, Black Crystal pressure, Tymnas cottage, Lyranth, and the latest chase.</p></div><div class="path-card" onclick="Router.go('#/dynasties')"><h3>👑 Dynasties & Intel</h3><p>Bloodlines, claims, locked secrets, party intel, and dynasty unlocks.</p></div><div class="path-card" onclick="Router.go('#/items')"><h3>🎒 Items & Wallets</h3><p>Public inventory, cursed tools, known holders, and currency/banking connections.</p></div></div>
    </div>
    <div class="grid2">
      <div class="card"><div class="section-title">Did You Know…</div><ul class="dyk">${dyk.slice(0,7).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
-     <div class="card"><div class="section-title">On This Day</div><ul class="otd">${otd.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+     <div class="card"><div class="section-title">On This Day — ${esc(mdToday.name)} ${CUR.day} (dynamic, all years)</div><ul class="otd">${otdHtml||'<li style="color:var(--muted)">No entries for today yet — add dated events to populate this automatically.</li>'}</ul><div style="margin-top:10px"><span class="chip" onclick="Router.go('#/year/${CUR.year}')">${CUR.year} BF chronicle →</span> <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')">Open today in calendar →</span></div></div>
    </div>`;
+  try{ renderMiniCalendar('home-mini-cal', CUR.year, CUR.monthIndex); }catch(e){ console.warn('mini cal failed', e); }
   window.scrollTo(0,0);
 }
 /* =============== LIST VIEW =============== */
@@ -2295,8 +2395,269 @@ function view_years(){
   renderSidebar('years');
   const yrs=allYears();
   const cards=yrs.map(y=>{const c=collectYear(y).length;return `<div class="arttile" onclick="Router.go('#/year/${y}')" style="border-left-color:${y===CUR.year?'var(--danger)':'var(--accent)'}"><div class="tt">🗓️ ${y} BF</div><div class="tsub">${c} recorded ${c===1?'entry':'entries'}${y===CUR.year?' · current year':''}</div></div>`;}).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🗓️ The Chronicle</h2><p style="color:var(--muted)">Every year with recorded history, oldest first. Each year page is generated live from its events, battles, and trials — add something dated and it appears here automatically. In this world "BF" counts up toward the present (${CUR.year} BF).</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
+  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🗓️ The Chronicle</h2><p style="color:var(--muted)">Every year with recorded history, oldest first. Each year page is generated live from its events, battles, and trials — add something dated and it appears here automatically. In this world "BF" counts up toward the present (${CUR.year} BF).</p><div class="chips" style="margin-top:10px"><span class="chip" onclick="Router.go('#/calendar')">Open Calendar →</span></div></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   window.scrollTo(0,0);
+}
+
+/* =============== WALUPEDIA CALENDAR — Intuitive Date System merged from calendar.html =============== */
+let CAL_STATE = { year: 1040, monthIndex: 7, day: 18 };
+let CAL_WEEKDAYS = null;
+let CAL_SEASONS = null;
+
+function initCalendarState(){
+  if(DATA.currentDate){ CAL_STATE = { year: DATA.currentDate.year||1040, monthIndex: DATA.currentDate.monthIndex||7, day: DATA.currentDate.day||18 }; }
+  try{
+    if(DATA.calendarWeekdays) CAL_WEEKDAYS = DATA.calendarWeekdays;
+    if(DATA.calendarSeasons) CAL_SEASONS = DATA.calendarSeasons;
+    if(DATA.calendarMeta) {}
+  }catch(e){}
+  if(!CAL_WEEKDAYS){
+    CAL_WEEKDAYS = [
+      {name:"Soldas",abbreviation:"Sol",ordinal:1,isRestDay:false},
+      {name:"Lunadas",abbreviation:"Lun",ordinal:2,isRestDay:false},
+      {name:"Terras",abbreviation:"Ter",ordinal:3,isRestDay:false},
+      {name:"Mercurias",abbreviation:"Mer",ordinal:4,isRestDay:false},
+      {name:"Jovias",abbreviation:"Jov",ordinal:5,isRestDay:false},
+      {name:"Venerias",abbreviation:"Ven",ordinal:6,isRestDay:true},
+      {name:"Saturias",abbreviation:"Sat",ordinal:7,isRestDay:true}
+    ];
+  }
+  if(!CAL_SEASONS){
+    CAL_SEASONS=[
+      {name:"Verdant Spring",abbreviation:"Spr",monthStart:3,monthEnd:5,color:"#90EE90"},
+      {name:"Golden Summer",abbreviation:"Sum",monthStart:6,monthEnd:8,color:"#FFD700"},
+      {name:"Crimson Fall",abbreviation:"Fal",monthStart:9,monthEnd:11,color:"#FFA07A"},
+      {name:"Hoarfrost Winter",abbreviation:"Win",monthStart:12,monthEnd:2,color:"#ADD8E6"}
+    ];
+  }
+}
+function getSeasonForMonth(monthOrdinal){
+  for(const s of (CAL_SEASONS||[])){
+    const st=s.monthStart, en=s.monthEnd;
+    if(st<=en){ if(monthOrdinal>=st && monthOrdinal<=en) return s; }
+    else { if(monthOrdinal>=st || monthOrdinal<=en) return s; }
+  }
+  return null;
+}
+function daysBeforeMonth(monthIndex){
+  let sum=0;
+  for(let i=0;i<monthIndex;i++){ const m=DATA.calendarMonths[i]; sum+= m?m.days:30; }
+  return sum;
+}
+function absoluteDay(year, monthIndex, day){
+  return year*365 + daysBeforeMonth(monthIndex) + (day-1);
+}
+function weekdayForDate(year, monthIndex, day){
+  const abs=absoluteDay(year, monthIndex, day);
+  const idx=((abs%7)+7)%7;
+  return CAL_WEEKDAYS[idx]||CAL_WEEKDAYS[0];
+}
+function getMonthData(monthIndex){
+  return DATA.calendarMonths[monthIndex]||{name:MONTHS[monthIndex]||'Unknown',days:30,ordinal:monthIndex+1};
+}
+function collectEventsForDay(year, monthIndex, day){
+  const out=[];
+  const targetMo=monthIndex+1;
+  (DATA.events||[]).forEach(e=>{
+    const dateStr=e.date||e.era||'';
+    const mo=parseMonth(dateStr);
+    const d=parseDay(dateStr);
+    const y=parseYear(dateStr);
+    const monthMatch = mo===targetMo;
+    const dayMatch = d===day;
+    const yearMatch = y===null || y===year;
+    if(monthMatch && dayMatch && yearMatch){
+      if(mo!==99 && d!==99) out.push({kind:'event',id:e.id,name:e.name||e.title,date:dateStr,summary:e.summary||'',route:'#/article/'+encodeURIComponent(e.id)});
+    }
+  });
+  (DATA.battles||[]).forEach(b=>{
+    const dateStr=b.date||'';
+    const mo=parseMonth(dateStr);
+    const d=parseDay(dateStr);
+    const y=parseYear(dateStr);
+    if(mo===targetMo && d===day && (y===null || y===year)){
+      out.push({kind:'battle',id:b.id,name:b.name,date:dateStr,summary:b.summary||'',route:'#/article/'+encodeURIComponent(b.id)});
+    }
+  });
+  (DATA.trials||[]).forEach(t=>{
+    const dateStr=t.date||'';
+    const mo=parseMonth(dateStr);
+    const d=parseDay(dateStr);
+    const y=parseYear(dateStr);
+    if(mo===targetMo && d===day && (y===null || y===year)){
+      out.push({kind:'trial',id:t.id,name:t.name,date:dateStr,summary:t.summary||'',route:'#/article/'+encodeURIComponent(t.id)});
+    }
+  });
+  (DATA.majorBattles||[]).forEach(b=>{
+    const dateStr=b.date||'';
+    const mo=parseMonth(dateStr);
+    const d=parseDay(dateStr);
+    const y=parseYear(dateStr);
+    if(mo===targetMo && d===day && (y===null || y===year)){
+      out.push({kind:'majorBattle',id:b.id,name:b.name,date:dateStr,summary:b.description||b.summary||'',route:'#/mbattle/'+encodeURIComponent(b.id)});
+    }
+  });
+  return out;
+}
+function collectEventsForMonth(year, monthIndex){
+  const all=[];
+  for(let d=1; d<= (getMonthData(monthIndex).days||30); d++){
+    all.push(...collectEventsForDay(year, monthIndex, d));
+  }
+  return all;
+}
+function formatFullDate(year, monthIndex, day){
+  const m=getMonthData(monthIndex);
+  const wd=weekdayForDate(year, monthIndex, day);
+  const season=getSeasonForMonth(m.ordinal);
+  const rest=wd.isRestDay?' (Rest Day)':'';
+  const seasonTxt=season?` — ${season.name}`:'';
+  return `${m.name} ${day}, ${year} BF — ${wd.name}${rest}${seasonTxt}`;
+}
+function calendarDayClass(year, monthIndex, day, isFiller){
+  const classes=['calendar-day'];
+  if(isFiller) classes.push('filler');
+  else{
+    if(year===CUR.year && monthIndex===CUR.monthIndex && day===CUR.day) classes.push('today');
+    if(year===CAL_STATE.year && monthIndex===CAL_STATE.monthIndex && day===CAL_STATE.day) classes.push('selected');
+  }
+  return classes.join(' ');
+}
+function view_calendar(){
+  initCalendarState();
+  renderSidebar('calendar');
+  const hash = location.hash||'';
+  const argPart = hash.replace(/^#\/calendar\/?/,'');
+  const parts = argPart.split('/').filter(Boolean);
+  if(parts[0]){ const y=parseInt(parts[0],10); if(!isNaN(y)) CAL_STATE.year=y; }
+  if(parts[1]){ const mi=parseInt(parts[1],10); if(!isNaN(mi) && mi>=0 && mi<12) CAL_STATE.monthIndex=mi; }
+  if(parts[2]){ const d=parseInt(parts[2],10); if(!isNaN(d)) CAL_STATE.day=d; }
+
+  const md=getMonthData(CAL_STATE.monthIndex);
+  const season=getSeasonForMonth(md.ordinal);
+  const wdToday=weekdayForDate(CUR.year, CUR.monthIndex, CUR.day);
+  const wdSelected=weekdayForDate(CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day);
+  const monthEvents=collectEventsForMonth(CAL_STATE.year, CAL_STATE.monthIndex);
+  const selectedDayEvents=collectEventsForDay(CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day);
+
+  const weekdaysHeader = CAL_WEEKDAYS.map(w=>`<div class="wd ${w.isRestDay?'rest':''}" title="${w.name}">${w.abbreviation}</div>`).join('');
+
+  const firstWeekdayIdx = (absoluteDay(CAL_STATE.year, CAL_STATE.monthIndex, 1) % 7);
+  const fillerBefore = (firstWeekdayIdx+7)%7;
+  const daysInMonth = md.days||30;
+  let cells='';
+  for(let i=0;i<fillerBefore;i++){
+    cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum" style="opacity:.3">·</div></div>`;
+  }
+  for(let d=1; d<=daysInMonth; d++){
+    const evs=collectEventsForDay(CAL_STATE.year, CAL_STATE.monthIndex, d);
+    const dots=evs.slice(0,6).map(e=>{
+      const col=e.kind==='battle'||e.kind==='majorBattle'?'var(--danger)':e.kind==='trial'?'var(--accent2)':e.kind==='event'?'var(--accent)':'var(--muted)';
+      return `<span class="edot" style="background:${col}" title="${(e.name||'').replace(/"/g,'')}"></span>`;
+    }).join('');
+    const more = evs.length>6?`<div class="more">+${evs.length-6} more</div>`:'';
+    const wd=weekdayForDate(CAL_STATE.year, CAL_STATE.monthIndex, d);
+    cells+=`<div class="${calendarDayClass(CAL_STATE.year, CAL_STATE.monthIndex, d,false)}" onclick="Router.go('#/calendar/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${d}')">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="dnum">${d}</span><span class="dweek">${wd.abbreviation}</span></div>
+      <div class="event-dots">${dots}</div>
+      ${more}
+    </div>`;
+  }
+  const totalCells = fillerBefore+daysInMonth;
+  const remainder = totalCells%7===0?0:7-(totalCells%7);
+  for(let i=0;i<remainder;i++){
+    cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum" style="opacity:.3">·</div></div>`;
+  }
+
+  const dayListHtml = selectedDayEvents.length
+    ? selectedDayEvents.map(e=>{
+        const kindColor=e.kind==='battle'?'neg':e.kind==='majorBattle'?'neg':e.kind==='trial'?'warn':'pos';
+        return `<div class="ev ${kindColor}" onclick="Router.go('${e.route}')" style="cursor:pointer"><b>${e.name}</b><div style="color:var(--muted);font-size:12px">${e.date||''} · ${e.kind}</div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">${(e.summary||'').slice(0,160)}${(e.summary||'').length>160?'…':''}</div></div>`;
+      }).join('')
+    : `<p style="color:var(--muted)">No dated entries for this day. Waluigi is either resting or missing paperwork.</p>`;
+
+  const explainer = `
+    <div class="calendar-explainer">
+      <b>How the Imperial Calendar works (intuitive edition):</b><br>
+      • 12 months, 365 days. Deepwinter has 35 days, others 30.<br>
+      • 7 weekdays: ${CAL_WEEKDAYS.map(w=>`${w.name} (${w.abbreviation})${w.isRestDay?' — Rest':''}`).join(', ')}.<br>
+      • 4 seasons: Verdant Spring (Veridia-Bloom-Floria), Golden Summer (Efferd-Highsun-Harvestide), Crimson Fall (Aethel-Darkmoon-Frostfall), Hoarfrost Winter (Deepwinter-Firstlight-Chillwind).<br>
+      • <b>BF counts UP</b> toward present — log number, not countdown. 722 BF oldest, 1040 BF today. Larger year = more recent.<br>
+      • Today is <b>${formatFullDate(CUR.year, CUR.monthIndex, CUR.day)}</b>. Weekday = absoluteDay %7; absoluteDay = year×365 + daysBeforeMonth + (day-1).<br>
+      • Click a day to inspect, click an event to open article. Use ◀ ▶ to move month/year. Today jumps back to current game date.
+    </div>
+  `;
+
+  el('content').innerHTML=`
+    <div class="card animate-fade-in">
+      <div class="calendar-topbar">
+        <div>
+          <div class="calendar-title">${md.icon||'🗓️'} ${md.name} ${CAL_STATE.year} BF <span style="color:var(--muted);font-weight:400;font-size:14px">— ${season?season.name:''} ${season?season.icon||'':''}</span></div>
+          <div class="calendar-meta">
+            Selected: <b>${formatFullDate(CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day)}</b> · ${wdSelected.isRestDay?'Rest day — no conscription.':'Work day.'}<br>
+            Current game date: <b>${formatFullDate(CUR.year, CUR.monthIndex, CUR.day)}</b> · ${wdToday.name}${wdToday.isRestDay?' (Rest)':''} · ${monthEvents.length} entries this month · ${selectedDayEvents.length} on selected day
+          </div>
+        </div>
+        <div class="calendar-nav">
+          <button class="iconbtn" onclick="CAL_STATE.year--;Router.go('#/calendar/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" title="Prev year">«</button>
+          <button class="iconbtn" onclick="if(CAL_STATE.monthIndex===0){CAL_STATE.monthIndex=11;CAL_STATE.year--;}else CAL_STATE.monthIndex--;Router.go('#/calendar/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" title="Prev month">‹</button>
+          <button class="chip" onclick="CAL_STATE={year:CUR.year,monthIndex:CUR.monthIndex,day:CUR.day};Router.go('#/calendar/'+CUR.year+'/'+CUR.monthIndex+'/'+CUR.day)">📍 Today</button>
+          <button class="iconbtn" onclick="if(CAL_STATE.monthIndex===11){CAL_STATE.monthIndex=0;CAL_STATE.year++;}else CAL_STATE.monthIndex++;Router.go('#/calendar/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" title="Next month">›</button>
+          <button class="iconbtn" onclick="CAL_STATE.year++;Router.go('#/calendar/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" title="Next year">»</button>
+        </div>
+      </div>
+      <div class="chips" style="margin-bottom:10px">
+        <span class="chip" onclick="Router.go('#/year/${CAL_STATE.year}')">Open Year ${CAL_STATE.year} Chronicle →</span>
+        <span class="chip" onclick="Router.go('#/years')">All Years</span>
+        <span class="chip" onclick="Router.go('#/timeline')">Timeline</span>
+      </div>
+      <div class="calendar-grid-wrap">
+        <div class="calendar-weekdays">${weekdaysHeader}</div>
+        <div class="calendar-grid">${cells}</div>
+      </div>
+      <div class="calendar-legend">
+        <span class="lg"><i style="background:var(--accent)"></i>Event</span>
+        <span class="lg"><i style="background:var(--danger)"></i>Battle</span>
+        <span class="lg"><i style="background:var(--accent2)"></i>Trial</span>
+        <span class="lg"><i style="background:var(--muted)"></i>Other</span>
+        <span class="lg">🟡 Today</span>
+        <span class="lg">🟣 Selected</span>
+      </div>
+      ${explainer}
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="section-title">📅 ${formatFullDate(CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day)} — ${selectedDayEvents.length} entries</div>
+        <div class="day-events">${dayListHtml}</div>
+      </div>
+      <div class="card">
+        <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} — ${monthEvents.length} entries this month</div>
+        <div class="day-events">${monthEvents.slice(0,20).map(e=>`<div class="ev pos" onclick="Router.go('${e.route}')" style="cursor:pointer"><b>${e.name}</b><div style="color:var(--muted);font-size:12px">${e.date} · ${e.kind} · Day ${parseDay(e.date)!==99?parseDay(e.date):'?'}</div></div>`).join('')||'<p style="color:var(--muted)">No dated entries this month.</p>'}
+        ${monthEvents.length>20?`<p style="color:var(--muted);margin-top:8px">…and ${monthEvents.length-20} more. Use year view for full list.</p>`:''}
+        </div>
+      </div>
+    </div>
+  `;
+  window.scrollTo(0,0);
+}
+
+function renderMiniCalendar(containerId, year, monthIndex){
+  const elc = document.getElementById(containerId);
+  if(!elc) return;
+  const md=getMonthData(monthIndex);
+  const firstIdx = (absoluteDay(year, monthIndex, 1)%7);
+  const days = md.days||30;
+  let html = `<div class="mc-head"><b>${md.name} ${year}</b><span style="color:var(--muted);font-size:11px">${days} days</span></div>`;
+  html+=`<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px">${CAL_WEEKDAYS.map(w=>`<div style="font-size:10px;color:var(--muted);text-align:center">${w.abbreviation}</div>`).join('')}</div>`;
+  html+=`<div class="mc-grid">`;
+  for(let i=0;i<firstIdx;i++) html+=`<div class="mc-day filler">·</div>`;
+  for(let d=1; d<=days; d++){
+    const evs=collectEventsForDay(year, monthIndex, d);
+    const isToday = year===CUR.year && monthIndex===CUR.monthIndex && d===CUR.day;
+    html+=`<div class="mc-day ${isToday?'today':''} ${evs.length?'has':''}" onclick="Router.go('#/calendar/${year}/${monthIndex}/${d}')" title="${evs.length?evs.length+' events':''}">${d}</div>`;
+  }
+  html+=`</div>`;
+  elc.innerHTML=html;
 }
 
 /* =============== ARTIFACTS =============== */
@@ -2390,6 +2751,7 @@ const Router={
     else if(route==='crisis')view_crisis(arg);
     else if(route==='timeline')view_timeline();
     else if(route==='years')view_years();
+    else if(route==='calendar')view_calendar();
     else if(route==='atlas'){ if(arg)view_atlasNation(arg); else view_atlas(); }
     else if(route==='dynasties')view_dynasties();
     else if(route==='dynasty')view_dynasty(arg);
@@ -2421,7 +2783,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','artifacts','congress','annotations'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','artifacts','congress','annotations'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};

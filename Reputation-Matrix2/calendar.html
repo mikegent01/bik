@@ -1,122 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vigilance Terminal | Calendar</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="components.css">
-    <link rel="stylesheet" href="calendar.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <title>Calendar Merged — Waluipedia</title>
+    <meta http-equiv="refresh" content="2; url=./battlefield.html#/calendar">
+    <style>
+      :root{--bg:#0d0a15;--panel:#1b1430;--border:#38295a;--text:#ece7f5;--muted:#a99cc6;--accent:#8a4bff;--accent2:#e0b400}
+      body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,sans-serif;display:grid;place-items:center;min-height:100vh;padding:20px}
+      .card{max-width:700px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+      .chip{display:inline-block;border:1px solid var(--border);background:rgba(138,75,255,.12);border-radius:999px;padding:6px 12px;margin:4px;font-size:13px;cursor:pointer}
+      a{color:#c8a6ff}
+      code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px}
+    </style>
 </head>
 <body>
-    <div class="tablet-frame">
-        <div class="scanline-overlay"></div>
-        
-        <div id="app">
-            
-            
-            <main id="main-content" class="calendar-main">
-                
-                <!-- News Ticker -->
-                <div class="news-ticker-container">
-                    <div class="ticker-label">📡 LIVE</div>
-                    <div id="news-ticker" class="news-ticker"></div>
-                </div>
-
-                <!-- Header Controls -->
-                <header class="calendar-header">
-                    <div class="header-left">
-                        <h1 class="calendar-title">Imperial Calendar</h1>
-                        <div id="quick-stats" class="quick-stats"></div>
-                    </div>
-                    
-                    <div class="header-center">
-                        <nav class="nav-controls">
-                            <button id="prev-year" class="nav-btn" title="Previous Year">
-                                <span class="nav-icon">«</span>
-                            </button>
-                            <button id="prev-month" class="nav-btn" title="Previous Month">
-                                <span class="nav-icon">‹</span>
-                            </button>
-                            <h2 id="current-date-display" class="date-display">Month Year</h2>
-                            <button id="next-month" class="nav-btn" title="Next Month">
-                                <span class="nav-icon">›</span>
-                            </button>
-                            <button id="next-year" class="nav-btn" title="Next Year">
-                                <span class="nav-icon">»</span>
-                            </button>
-                        </nav>
-                        <button id="today-btn" class="today-btn">
-                            <span class="today-icon">📍</span> Today
-                        </button>
-                    </div>
-                    
-                    <div class="header-right">
-                        <div class="search-container">
-                            <input type="text" id="calendar-search" class="search-input" placeholder="Search events..." autocomplete="off">
-                            <div id="search-results" class="search-results"></div>
-                        </div>
-                        <div id="filter-toggles" class="filter-toggles"></div>
-                    </div>
-                </header>
-
-                <!-- Main Dashboard -->
-                <div class="calendar-dashboard">
-                    
-                    <!-- Calendar Grid -->
-                    <section class="calendar-grid-section">
-                        <div class="weekdays-header">
-                            <div class="weekday">Sol</div>
-                            <div class="weekday">Lun</div>
-                            <div class="weekday">Ter</div>
-                            <div class="weekday">Mer</div>
-                            <div class="weekday">Jov</div>
-                            <div class="weekday">Ven</div>
-                            <div class="weekday">Sat</div>
-                        </div>
-                        <div id="calendar-grid" class="calendar-grid"></div>
-                        <div id="calendar-legend" class="calendar-legend"></div>
-                    </section>
-
-                    <!-- Sidebar -->
-                    <aside class="calendar-sidebar">
-                        
-                        <!-- Selected Day Header -->
-                        <div class="sidebar-header">
-                            <div class="sidebar-date">
-                                <h3 id="sidebar-date-header">Select a Day</h3>
-                                <div id="sidebar-weather-icon" class="sidebar-weather"></div>
-                            </div>
-                        </div>
-
-                        <!-- Tabs -->
-                        <div id="sidebar-tabs" class="sidebar-tabs"></div>
-
-                        <!-- Tab Content -->
-                        <div id="sidebar-content" class="sidebar-content"></div>
-
-                        <!-- Upcoming Events -->
-                        <div class="upcoming-section">
-                            <h4 class="section-title">
-                                <span class="section-icon">📆</span>
-                                Upcoming
-                            </h4>
-                            <div id="upcoming-list" class="upcoming-list"></div>
-                        </div>
-
-                    </aside>
-                </div>
-
-            </main>
-        </div>
+  <div class="card">
+    <h1>📅 Calendar Merged into Waluipedia</h1>
+    <p>The standalone <code>calendar.html</code> and its old logic (<code>calendar.js</code>, <code>calendar-data.js</code>, <code>calendar.css</code> depending on research/quests/plagues) has been <b>retired and merged</b> into the main encyclopedia.</p>
+    <p><b>New location:</b> <a href="./battlefield.html#/calendar">Waluipedia → Calendar (Intuitive)</a> — same URL as the integrated view: <code>battlefield.html#/calendar</code></p>
+    <p><b>What changed — intuitive date system:</b></p>
+    <ul>
+      <li>12 months, 365 days (Deepwinter 35 days, others 30). 7 weekdays: Soldas, Lunadas, Terras, Mercurias, Jovias, Venerias (Rest), Saturias (Rest).</li>
+      <li>4 seasons: Verdant Spring (Veridia/Bloom/Floria), Golden Summer (Efferd/Highsun/Harvestide), Crimson Fall (Aethel/Darkmoon/Frostfall), Hoarfrost Winter (Deepwinter/Firstlight/Chillwind).</li>
+      <li><b>BF counts UP</b> toward present — log number, not countdown. 722 BF oldest record, 1040 BF current game date (Harvestide 18, 1040 BF). Larger year = more recent.</li>
+      <li>Weekday = <code>absoluteDay % 7</code> where <code>absoluteDay = year*365 + daysBeforeMonth + (day-1)</code>. Rest days are Venerias, Saturias.</li>
+      <li>All events/battles/trials/majorBattles are now parsed via same <code>parseYear/parseMonth/parseDay</code> and appear as dots on the month grid. Click day → inspect.</li>
+    </ul>
+    <p><b>Main page updated:</b></p>
+    <ul>
+      <li>Hero now shows full date: e.g., <code>Harvestide 18, 1040 BF — Venerias (Rest Day) — Golden Summer</code></li>
+      <li>Mini calendar widget for current month on front page (today highlighted, days with events underlined).</li>
+      <li><b>On This Day</b> is now dynamic — finds events/battles that happened on same month/day in any year, not static text from <code>mainPage.json</code>.</li>
+      <li>Calendar catcard added to Explore grid, sidebar link added.</li>
+      <li>New data files: <code>calendarWeekdays.json</code>, <code>calendarSeasons.json</code>, <code>calendarMeta.json</code> — enriched <code>calendarMonths.json</code> with season/icon/description.</li>
+    </ul>
+    <p>Redirecting to <a href="./battlefield.html#/calendar">Waluipedia Calendar</a> in 2 seconds…</p>
+    <div>
+      <span class="chip" onclick="location.href='./battlefield.html#/calendar'">Open Calendar →</span>
+      <span class="chip" onclick="location.href='./battlefield.html#/home'">Home</span>
+      <span class="chip" onclick="location.href='./battlefield.html#/years'">Chronicle</span>
     </div>
-
-    <!-- Day Preview Popup (injected by JS) -->
-    
-    <script type="module" src="common.js"></script>
-    <script type="module" src="navigation.js"></script>
-    <script type="module" src="calendar.js"></script>
+    <p style="color:var(--muted);font-size:12.5px;margin-top:12px">Old files kept for reference but no longer used: <code>calendar.js</code> replaced by <code>view_calendar()</code> inside <code>battlefield.html</code>. The new system uses <code>data/*.json</code> only — no more importing research/quests/plague caches. WAH.</p>
+  </div>
 </body>
 </html>
