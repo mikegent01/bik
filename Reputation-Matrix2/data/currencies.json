@@ -1,31 +1,35 @@
 {
   "meta": {
-    "description": "Player-intuitive currency definitions. Tier 1 = universal, Tier 2 = regional, Tier 3 = guild/digital/special, Tier 4 = black-market/occult. Use category for filtering. Base gold equivalent for quick mental math.",
-    "version": "2.0.0",
-    "notes": "Intuitive redesign: less clicking, instant conversion, clear gold equiv, acceptance explained in plain English. Currencies grouped by tier."
-  },
-  "rates": {
-    "goldToSilver": 10,
-    "silverToCopper": 10
+    "totalCurrencies": 45,
+    "lastUpdated": "2026-07-16",
+    "baseStandard": "Gold Piece (1.0 = 10 Silver = 100 Copper)"
   },
   "currencies": [
     {
       "id": "gold",
       "name": "Gold Piece",
       "icon": "💰",
-      "base_value": 1.0,
+      "base_value": 1,
       "tier": 1,
       "category": "core",
       "type": "Metal",
       "volatility": "steady",
       "liquidity": "universal",
       "acceptance_default": "high",
+      "acceptance": {
+        "default": "high"
+      },
       "home_faction": null,
       "short": "Universal reserve. 1 gold = 10 silver = 100 copper. Bank vault standard.",
-      "description": "Universal trade gold. Banks accept it because weight, purity, and greed are internationally understood. Slow to move in bulk but excellent for reserves and settlements between hostile factions.",
+      "description": "Universal trade gold. Accepted everywhere because purity, weight, and value are internationally recognized.",
       "issuer": "Many mints",
-      "spendable_in": ["everywhere", "banks", "shops", "travel"],
-      "player_tip": "Always keep some gold. Everything converts to gold."
+      "spendable_in": [
+        "everywhere",
+        "shops",
+        "banks",
+        "travel"
+      ],
+      "player_tip": "Universal reserve. Everything converts to gold."
     },
     {
       "id": "silver",
@@ -38,12 +42,20 @@
       "volatility": "steady",
       "liquidity": "universal",
       "acceptance_default": "high",
+      "acceptance": {
+        "default": "high"
+      },
       "home_faction": null,
-      "short": "Everyday coin. 1 silver = 10 copper. Wages, food, road fees.",
-      "description": "Everyday trade silver. Common enough for wages and road expenses but stable enough for bank counters. Farmers trust a coin they can bite.",
+      "short": "Everyday market coin. 1 silver = 10 copper.",
+      "description": "Everyday trade silver. Common for wages, road expenses, and market produce.",
       "issuer": "Many mints",
-      "spendable_in": ["markets", "inns", "travel", "wages"],
-      "player_tip": "Street price currency. 1 gold buys 10 things that cost 1 silver."
+      "spendable_in": [
+        "markets",
+        "inns",
+        "travel",
+        "wages"
+      ],
+      "player_tip": "Street-price coin. 1 gold = 10 silver."
     },
     {
       "id": "copper",
@@ -56,12 +68,19 @@
       "volatility": "steady",
       "liquidity": "universal",
       "acceptance_default": "high",
+      "acceptance": {
+        "default": "high"
+      },
       "home_faction": null,
-      "short": "Small change. Bread, candles, ferry tips.",
-      "description": "Low-value street currency for bread, candles, cart fees. Banks accept copper reluctantly in sacks, then charge handling fees.",
+      "short": "Small change. Bread, ferry tips, small supplies.",
+      "description": "Low-value street currency used for daily living expenses.",
       "issuer": "Local mints",
-      "spendable_in": ["street", "markets"],
-      "player_tip": "100 copper = 1 gold. Don't carry sacks if you can help it."
+      "spendable_in": [
+        "street",
+        "taverns",
+        "ferries"
+      ],
+      "player_tip": "100 copper bits equal 1 gold."
     },
     {
       "id": "midland_ducat",
@@ -74,12 +93,22 @@
       "volatility": "steady",
       "liquidity": "wide",
       "acceptance_default": "medium",
+      "acceptance": {
+        "default": "medium",
+        "regal_empire": "high",
+        "iron_legion": "high"
+      },
       "home_faction": "regal_empire",
-      "short": "Regal Empire standard. Stable, taxable, boring. Works everywhere imperial.",
-      "description": "The Regal Empire's main bank coin: stable, standardized, taxable. Every coin has weight, date, and paperwork trail.",
+      "short": "Regal Empire main coin. Stable, standardized treasury tender.",
+      "description": "The official coin of the Regal Empire, backed by the imperial military and tax collectors.",
       "issuer": "Regal Treasury",
-      "spendable_in": ["regal_empire", "iron_legion", "banks", "courts"],
-      "player_tip": "If you're in Midlands, Ducats are as good as gold. 1 Ducat ≈ 0.9 gold."
+      "spendable_in": [
+        "regal_empire",
+        "midlands",
+        "gilded_gryphon",
+        "banks"
+      ],
+      "player_tip": "Standard currency across the Midlands."
     },
     {
       "id": "imperial_crown",
@@ -92,30 +121,73 @@
       "volatility": "steady",
       "liquidity": "wide",
       "acceptance_default": "medium",
+      "acceptance": {
+        "default": "medium",
+        "the_empire": "high"
+      },
       "home_faction": "the_empire",
-      "short": "Heavy state coin. Strong foreign exchange when paperwork clean.",
-      "description": "Heavy state coin backed by census, army, tax office. Midlands banks accept Crowns as strong foreign exchange.",
+      "short": "Heavy state coin backed by imperial army and tax office.",
+      "description": "Heavy gold-alloy coin used for high-value state contracts and military procurement.",
       "issuer": "Empire Treasury",
-      "spendable_in": ["empire", "regal_empire", "banks"],
-      "player_tip": "Slightly stronger than gold. Good for big settlements."
+      "spendable_in": [
+        "empire",
+        "military_quartermasters",
+        "banks"
+      ],
+      "player_tip": "Accepted at a premium in official imperial ports."
+    },
+    {
+      "id": "archive_writ",
+      "name": "Archive Clearance Writ",
+      "icon": "📜",
+      "base_value": 8.5,
+      "tier": 1,
+      "category": "imperial",
+      "type": "Official Permit",
+      "volatility": "managed",
+      "liquidity": "specialized",
+      "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "regal_empire": "high",
+        "shadow_estate": "high"
+      },
+      "home_faction": "regal_empire",
+      "short": "Restricted clearance writ for classified archives and sealed vaults.",
+      "description": "Sealed parchment document permitting access to restricted records, classified vaults, and high-tier research.",
+      "issuer": "Regal Archive",
+      "spendable_in": [
+        "archives",
+        "libraries",
+        "vaults"
+      ],
+      "player_tip": "Waluigi values these above gold for record acquisition."
     },
     {
       "id": "dwarf_oathgold",
-      "name": "Oathgold",
+      "name": "Dwarven Oathgold",
       "icon": "⛏️",
-      "base_value": 4.0,
+      "base_value": 4,
       "tier": 1,
       "category": "imperial",
       "type": "Metal",
       "volatility": "steady",
       "liquidity": "wide",
       "acceptance_default": "medium",
+      "acceptance": {
+        "default": "medium",
+        "kingdoms_of_the_dwarves_wh": "high"
+      },
       "home_faction": "kingdoms_of_the_dwarves_wh",
-      "short": "Dwarven oath-stamped gold. Premium bank reserve. 1 = 4 gold.",
-      "description": "Gold stamped with enforceable oath marks. Banks love metal and fear cultural consequences of mishandling it.",
-      "issuer": "Dwarven holds",
-      "spendable_in": ["banks", "dwarven holds", "high-value trade"],
-      "player_tip": "Premium. Save for big purchases."
+      "short": "Dwarven oath-stamped pure gold. High intrinsic purity.",
+      "description": "Pure gold ingot stamped with dwarven clan oaths and anvil runes.",
+      "issuer": "Dwarven Strongholds",
+      "spendable_in": [
+        "dwarven_holds",
+        "smiths",
+        "banks"
+      ],
+      "player_tip": "Worth 4x normal gold at smiths and jewelers."
     },
     {
       "id": "mora",
@@ -128,12 +200,72 @@
       "volatility": "steady",
       "liquidity": "wide",
       "acceptance_default": "medium",
-      "home_faction": "teyvat_hegemony",
-      "short": "Teyvat common mint. Deep trade habits. 1 Mora ≈ 1.3 gold.",
-      "description": "Teyvat's common mint coin. Popular with banks because deep trade habits and reliable minting.",
-      "issuer": "Liyue mint",
-      "spendable_in": ["teyvat", "banks", "trade routes"],
-      "player_tip": "Foreign but widely trusted. Good backup to Ducats."
+      "acceptance": {
+        "default": "medium",
+        "teyvat": "high"
+      },
+      "home_faction": "teyvat",
+      "short": "Catalyst and currency from Teyvat. Universally accepted in foreign trade.",
+      "description": "Physical currency minted in Liyue, doubling as an elemental catalyst for craftsmanship.",
+      "issuer": "Golden House Mint",
+      "spendable_in": [
+        "teyvat",
+        "foreign_markets",
+        "alchemy_labs"
+      ],
+      "player_tip": "Essential for Teyvat merchants and alchemy shops."
+    },
+    {
+      "id": "rupee",
+      "name": "Hyrulean Rupee",
+      "icon": "💚",
+      "base_value": 0.7,
+      "tier": 2,
+      "category": "foreign",
+      "type": "Gem Money",
+      "volatility": "seasonal",
+      "liquidity": "regional",
+      "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "hyrule": "high"
+      },
+      "home_faction": "hyrule",
+      "short": "Cut gemstone currency in green, blue, red, and silver varieties.",
+      "description": "Naturally luminous crystal gems cut into precision hexagonal shapes for commerce.",
+      "issuer": "Hyrulean Gem Crafters",
+      "spendable_in": [
+        "hyrule",
+        "bazaars",
+        "general_stores"
+      ],
+      "player_tip": "Higher-value red and purple rupees convert faster."
+    },
+    {
+      "id": "poke_dollar",
+      "name": "PokéDollar",
+      "icon": "₽",
+      "base_value": 0.6,
+      "tier": 2,
+      "category": "foreign",
+      "type": "Fiat",
+      "volatility": "steady",
+      "liquidity": "regional",
+      "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "pokemon_league": "high"
+      },
+      "home_faction": "pokemon_league",
+      "short": "League-regulated currency for medical supplies, balls, and travel.",
+      "description": "Regulated card and paper currency backed by the international Pokémon League.",
+      "issuer": "Pokémon League Reserve",
+      "spendable_in": [
+        "pokemarts",
+        "clinics",
+        "trainers"
+      ],
+      "player_tip": "Standard currency across all regional PokéMarts."
     },
     {
       "id": "mushroom_coin",
@@ -146,12 +278,21 @@
       "volatility": "shaky",
       "liquidity": "regional",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "mushroom_regency": "high",
+        "peach_loyalists": "medium"
+      },
       "home_faction": "mushroom_regency",
-      "short": "Old Regency coin. Still works but politically strained.",
-      "description": "Old Mushroom Regency coin still circulates in markets, inns, warehouses. Problem is trust — banks check which faction stamped last transfer.",
-      "issuer": "Mushroom Regency",
-      "spendable_in": ["mushroom_kingdom", "beanbean", "markets"],
-      "player_tip": "2 Mushroom Coins ≈ 1 gold. Spend inside mushroom areas."
+      "short": "Traditional Mushroom Kingdom gold coin with star emblem.",
+      "description": "Classic yellow coin stamped with the Mushroom Kingdom crest. Widely used despite civil war strain.",
+      "issuer": "Mushroom Regency Mint",
+      "spendable_in": [
+        "toad_town",
+        "mushroom_kingdom",
+        "inns"
+      ],
+      "player_tip": "Accepted everywhere in Toad Town and Mushroom province."
     },
     {
       "id": "peach_crown",
@@ -164,16 +305,24 @@
       "volatility": "volatile",
       "liquidity": "regional",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "peach_loyalists": "high"
+      },
       "home_faction": "peach_loyalists",
-      "short": "Rebel restoration coin. Strong in Loyalist banks.",
-      "description": "Restoration coin issued by Peach Loyalists to pay soldiers, scouts, surgeons. Loyalist banks honor full; Regency banks watch.",
-      "issuer": "Peach Loyalist Treasury",
-      "spendable_in": ["peach_loyalists", "liberated_toads"],
-      "player_tip": "Better than Mushroom Coin, but don't flash in Regency."
+      "short": "Rebel restoration coin issued by Captain Toadette's quartermasters.",
+      "description": "Gold coin minted in Bramblehaven bearing Princess Peach's silhouette.",
+      "issuer": "Peach Loyalist Command",
+      "spendable_in": [
+        "bramblehaven",
+        "loyalist_camps",
+        "armories"
+      ],
+      "player_tip": "Commands heavy discounts at Loyalist quartermasters."
     },
     {
       "id": "toad_bond",
-      "name": "Toad Bond",
+      "name": "Toad Rebuilding Bond",
       "icon": "🤝",
       "base_value": 0.75,
       "tier": 2,
@@ -182,12 +331,19 @@
       "volatility": "shaky",
       "liquidity": "regional",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "liberated_toads": "high"
+      },
       "home_faction": "liberated_toads",
-      "short": "Rebuilding bond for food, medicine, shelter after Vigilance crisis.",
-      "description": "Serious rebuilding bond issued by Liberated Toad councils after barrel-trafficking crisis. Funds food, medicine, shelter, legal defense.",
-      "issuer": "Liberated Toad councils",
-      "spendable_in": ["liberated_toads", "peach_loyalists"],
-      "player_tip": "Moral currency. Good for relief vendors."
+      "short": "Community rebuilding bond backed by refugee councils.",
+      "description": "Paper credit issued by Liberated Toads to fund food, shelter repairs, and medical aid.",
+      "issuer": "Liberated Toad Council",
+      "spendable_in": [
+        "refugee_camps",
+        "toad_rebuilding_depots"
+      ],
+      "player_tip": "Toad Lee uses these to coordinate regional relief."
     },
     {
       "id": "relief_stamp",
@@ -200,16 +356,49 @@
       "volatility": "steady",
       "liquidity": "local",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "liberated_toads": "high"
+      },
       "home_faction": "liberated_toads",
-      "short": "Ration & shelter voucher. Soup before monetary theory.",
-      "description": "Ration and shelter voucher used by displaced Toad communities. Relief banks and quartermasters honor it.",
-      "issuer": "Liberated Toad relief",
-      "spendable_in": ["relief tents", "food stalls"],
-      "player_tip": "5 stamps = 1 gold equivalent in food value."
+      "short": "Ration and shelter voucher issued for emergency supplies.",
+      "description": "Perforated stamp used for rationing food, medical gauze, and basic tools.",
+      "issuer": "Toad Relief Network",
+      "spendable_in": [
+        "relief_stations",
+        "soup_kitchens"
+      ],
+      "player_tip": "Crucial currency for displaced civilians and emergency gear."
+    },
+    {
+      "id": "decree_strip",
+      "name": "Regal Decree Strip",
+      "icon": "📜",
+      "base_value": 1.5,
+      "tier": 2,
+      "category": "regional",
+      "type": "Legal Tender",
+      "volatility": "managed",
+      "liquidity": "regional",
+      "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "regal_empire": "high"
+      },
+      "home_faction": "regal_empire",
+      "short": "Magistrate paper strip authorizing court fees, fines, and filings.",
+      "description": "Official wax-sealed strip used in Imperial courts, parliamentary filings, and bail bonds.",
+      "issuer": "Imperial Judiciary",
+      "spendable_in": [
+        "courts",
+        "chanceries",
+        "advocates"
+      ],
+      "player_tip": "Speaker L and legal clerks trade heavily in decree strips."
     },
     {
       "id": "beanbean_bean",
-      "name": "Beanbean Bean",
+      "name": "Beanbean Bean Coin",
       "icon": "🫘",
       "base_value": 0.55,
       "tier": 2,
@@ -218,12 +407,44 @@
       "volatility": "steady",
       "liquidity": "regional",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "beanbean_kingdom": "high"
+      },
       "home_faction": "beanbean_kingdom",
-      "short": "Bean-shaped coin. Annoying to stack, surprisingly reliable.",
-      "description": "Bean-shaped regional coin accepted along Mushroom trade roads. Cheerful, annoying to stack, reliable.",
-      "issuer": "Beanbean Treasury",
-      "spendable_in": ["beanbean_kingdom", "mushroom"],
-      "player_tip": "Cute but valid."
+      "short": "Bean-shaped green coin from the Beanbean Kingdom.",
+      "description": "Curved bean-shaped coin made of polished bronze-gold alloy, favored in southern trade.",
+      "issuer": "Queen Bean's Treasury",
+      "spendable_in": [
+        "beanbean_castle",
+        "woohoo_hooniversity"
+      ],
+      "player_tip": "Great for purchasing Beanbean delicacies and chucklehuck brew."
+    },
+    {
+      "id": "toad_whistle",
+      "name": "Courier Whistle Token",
+      "icon": "📯",
+      "base_value": 0.3,
+      "tier": 3,
+      "category": "cultural",
+      "type": "Service Token",
+      "volatility": "steady",
+      "liquidity": "local",
+      "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "toad_network": "high"
+      },
+      "home_faction": "toad_network",
+      "short": "Carved wooden whistle token redeemable for priority courier service.",
+      "description": "Small carved whistle used by the Toad Network to dispatch emergency couriers.",
+      "issuer": "Toad Network Master",
+      "spendable_in": [
+        "courier_posts",
+        "toad_network"
+      ],
+      "player_tip": "Waluigi keeps these to ensure instant dossier delivery."
     },
     {
       "id": "wario_coin",
@@ -231,17 +452,50 @@
       "icon": "🟡",
       "base_value": 1.2,
       "tier": 2,
-      "category": "regional",
+      "category": "private",
       "type": "Private Fiat",
       "volatility": "managed",
       "liquidity": "regional",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "wario_land": "high"
+      },
       "home_faction": "wario_land",
-      "short": "Wario face gold coin. Weight verified, sigh at portrait.",
-      "description": "Private gold-weight coin stamped with Wario's face. Wario Land banks honor aggressively; others verify weight then sigh.",
-      "issuer": "Wario",
-      "spendable_in": ["wario_land", "freelancer_underworld"],
-      "player_tip": "1.2 gold value. Wario thinks portrait adds value."
+      "short": "Gold coin stamped with Wario's face. Backed by greed.",
+      "description": "Heavy gold-brass coin minted by Wario Enterprise. Wario demands 20% markup when spending it.",
+      "issuer": "Wario Enterprise Mint",
+      "spendable_in": [
+        "wario_warehouses",
+        "wario_casino",
+        "diamond_city"
+      ],
+      "player_tip": "Accepted at all Wario outlets and garlic guilds."
+    },
+    {
+      "id": "wario_points",
+      "name": "Wario Shop Credit",
+      "icon": "⭐",
+      "base_value": 1,
+      "tier": 2,
+      "category": "private",
+      "type": "Closed-Loop Credit",
+      "volatility": "managed",
+      "liquidity": "closed",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "wario_land": "high"
+      },
+      "home_faction": "wario_land",
+      "short": "Quest board reward points redeemable at Wario's Warehouse.",
+      "description": "Digital and token shop points issued for completing quest board contracts for Wario.",
+      "issuer": "Wario Quest Board",
+      "spendable_in": [
+        "wario_shop",
+        "quest_catalog"
+      ],
+      "player_tip": "Directly spendable for items, weapons, and vehicles in Wario's shop!"
     },
     {
       "id": "bowser_bux",
@@ -249,17 +503,50 @@
       "icon": "🐢",
       "base_value": 0.4,
       "tier": 2,
-      "category": "regional",
+      "category": "private",
       "type": "Military Scrip",
       "volatility": "managed",
       "liquidity": "regional",
       "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "koopa_troop": "high"
+      },
       "home_faction": "koopa_troop",
-      "short": "Koopa military scrip. Backed by fortresses and ability to make refusal unwise.",
-      "description": "Koopa military scrip backed by fortresses, supply depots, and Bowser's ability to make refusal feel unwise.",
-      "issuer": "Koopa Treasury",
-      "spendable_in": ["koopa_troop", "military outposts"],
-      "player_tip": "Spend inside Koopa territory. Outside, 50% penalty."
+      "short": "Koopa military scrip backed by Bowser's fortresses and airships.",
+      "description": "Heavy iron-plated scrip notes issued to Koopa soldiers, Hammer Bros, and mechanics.",
+      "issuer": "Koopa High Command",
+      "spendable_in": [
+        "koopa_fortresses",
+        "airships",
+        "border_posts"
+      ],
+      "player_tip": "Bowser holds 50,000 Bowser Bux in military reserves."
+    },
+    {
+      "id": "shell_credit",
+      "name": "Shell Command Credit",
+      "icon": "🐚",
+      "base_value": 0.8,
+      "tier": 2,
+      "category": "private",
+      "type": "Military Credit",
+      "volatility": "steady",
+      "liquidity": "regional",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "koopa_troop": "high"
+      },
+      "home_faction": "koopa_troop",
+      "short": "Siege engineering credit for Koopa armorers and Magikoopa labs.",
+      "description": "Specialized requisition credit for heavy armor, shell repairs, and Magikoopa scrolls.",
+      "issuer": "Kamek's Arcane Ordnance",
+      "spendable_in": [
+        "koopa_labs",
+        "siege_depots"
+      ],
+      "player_tip": "Used for siege engine upgrades and shell plating."
     },
     {
       "id": "banana_medallion",
@@ -272,12 +559,70 @@
       "volatility": "seasonal",
       "liquidity": "regional",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "dk_crew": "high"
+      },
       "home_faction": "dk_crew",
-      "short": "Kong Island token for stored banana value. Doesn't rot.",
-      "description": "Durable Kong Island token representing stored banana value. Exists because actual bananas vanish before negotiations end.",
-      "issuer": "Kong trade houses",
-      "spendable_in": ["dk_isles", "ports"],
-      "player_tip": "Seasonal but valuable. 1 medallion ≈ 2.4 gold."
+      "short": "Heavy brass medallion from Kongo Bongo representing stored banana reserves.",
+      "description": "Durable metal medallion minted in DK Isles that never rots or spoils.",
+      "issuer": "Kong Trade Houses",
+      "spendable_in": [
+        "kongo_bongo",
+        "banana_hoard_vaults"
+      ],
+      "player_tip": "Highly valued in tropical ports and island bazaars."
+    },
+    {
+      "id": "coconut_bar",
+      "name": "Coconut Oil Bar",
+      "icon": "🥥",
+      "base_value": 1.1,
+      "tier": 2,
+      "category": "regional",
+      "type": "Commodity Bar",
+      "volatility": "seasonal",
+      "liquidity": "port",
+      "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "dk_crew": "high"
+      },
+      "home_faction": "dk_crew",
+      "short": "Standardized pressed coconut oil bar used in island maritime trade.",
+      "description": "Dense commodity bar used for ship waterproofing, cooking oil, and island currency.",
+      "issuer": "Kong Dock Cooperatives",
+      "spendable_in": [
+        "ports",
+        "shipyards",
+        "island_markets"
+      ],
+      "player_tip": "Easily tradable at all maritime docks."
+    },
+    {
+      "id": "kremling_koin",
+      "name": "Kremling Koin",
+      "icon": "🐊",
+      "base_value": 0.6,
+      "tier": 4,
+      "category": "syndicate",
+      "type": "Pirate Scrip",
+      "volatility": "volatile",
+      "liquidity": "black_market",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "kremling_krew": "high"
+      },
+      "home_faction": "kremling_krew",
+      "short": "Crude iron coin minted by King K. Rool's raiders.",
+      "description": "Rough iron coin stamped with a crocodile skull, used in pirate dens and Kremling hideouts.",
+      "issuer": "Kremling Foundry",
+      "spendable_in": [
+        "kremling_camps",
+        "pirate_hideouts"
+      ],
+      "player_tip": "Used on the black market for stolen military hardware."
     },
     {
       "id": "doubloon",
@@ -290,48 +635,145 @@
       "volatility": "volatile",
       "liquidity": "port",
       "acceptance_default": "low",
-      "home_faction": "syrup_pirates",
-      "short": "Pirate port heavy coin. Bankable in ports, suspect inland.",
-      "description": "Heavy coin used in pirate ports, shipyards, taverns. Port banks accept; inland banks discount.",
-      "issuer": "Syrup pirates",
-      "spendable_in": ["ports", "freelancer_underworld"],
-      "player_tip": "Great in ports, bad in courts."
+      "acceptance": {
+        "default": "low",
+        "black_sugar_pirates": "high"
+      },
+      "home_faction": "black_sugar_pirates",
+      "short": "Heavy gold pirate coin from Captain Syrup's fleet.",
+      "description": "Stolen and reminted gold coin widely circulated among privateers and contraband smugglers.",
+      "issuer": "Black Sugar Pirates",
+      "spendable_in": [
+        "pirate_ports",
+        "smuggler_coves"
+      ],
+      "player_tip": "Preferred payment for black market maps and stolen cannons."
+    },
+    {
+      "id": "cargo_share",
+      "name": "Cargo Share Draft",
+      "icon": "📦",
+      "base_value": 3.2,
+      "tier": 3,
+      "category": "private",
+      "type": "Cargo Bill",
+      "volatility": "wild",
+      "liquidity": "port",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "black_sugar_pirates": "high"
+      },
+      "home_faction": "black_sugar_pirates",
+      "short": "Draft backed by captured cargo hauls in pirate warehouses.",
+      "description": "Promissory note representing a fractional share of looted shipping crates.",
+      "issuer": "Syrup Quartermaster",
+      "spendable_in": [
+        "port_warehouses",
+        "cargo_docks"
+      ],
+      "player_tip": "Can be redeemed for raw goods, spices, and salvaged gear."
     },
     {
       "id": "arcane_shard",
       "name": "Arcane Shard",
       "icon": "💎",
-      "base_value": 3.0,
+      "base_value": 3,
       "tier": 3,
       "category": "guild",
       "type": "Magical Commodity",
       "volatility": "volatile",
       "liquidity": "specialized",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "mages_guild": "high"
+      },
       "home_faction": "mages_guild",
-      "short": "Crystallized magic for enchanting, repairs, labs. Graded.",
-      "description": "Crystallized magical energy used in enchanting, spellwork, repairs, labs. Guild banks accept by grade.",
-      "issuer": "Mages' Guild",
-      "spendable_in": ["mages_guild", "labs", "enchanters"],
-      "player_tip": "1 shard = 3 gold but only if guild grades it."
+      "short": "Crystallized mana shard used for enchanting and spell casting.",
+      "description": "Luminous crystal containing stabilized magical energy. Used directly in spellcraft or as currency.",
+      "issuer": "Mages Guild Laboratories",
+      "spendable_in": [
+        "mages_guild",
+        "arcane_shops",
+        "enchanters"
+      ],
+      "player_tip": "Primary currency for purchasing spell scrolls and wands."
     },
     {
       "id": "guild_seal",
-      "name": "Guild Seal",
+      "name": "Mages Guild Seal",
       "icon": "🔮",
-      "base_value": 5.0,
+      "base_value": 5,
       "tier": 3,
       "category": "guild",
       "type": "Service Credit",
       "volatility": "steady",
       "liquidity": "specialized",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "mages_guild": "high"
+      },
       "home_faction": "mages_guild",
-      "short": "Mages Guild credit for components, archives, tutoring. 5 gold.",
-      "description": "Stamped Mages' Guild credit redeemable for components, archive access, repairs, tutoring, containment circles.",
-      "issuer": "Mages' Guild",
-      "spendable_in": ["mages_guild", "archive", "magic shops"],
-      "player_tip": "Don't spend on bread. Save for spells."
+      "short": "Stamped Guild token redeemable for rare spell components and research.",
+      "description": "Heavy silver-and-amethyst seal stamped with the Archmage's sigil.",
+      "issuer": "Mages Guild Supreme Council",
+      "spendable_in": [
+        "mages_guild",
+        "guild_hall"
+      ],
+      "player_tip": "Required for high-level guild passes and restricted grimoires."
+    },
+    {
+      "id": "transit_stamp",
+      "name": "Planar Transit Stamp",
+      "icon": "🌀",
+      "base_value": 9,
+      "tier": 3,
+      "category": "guild",
+      "type": "Travel Credit",
+      "volatility": "volatile",
+      "liquidity": "specialized",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "mages_guild": "high"
+      },
+      "home_faction": "mages_guild",
+      "short": "Authorized stamp for portal transit, teleport circles, and dimensional travel.",
+      "description": "Enchanted wax stamp verifying authorization and hazard insurance for planar transit.",
+      "issuer": "Mages Guild Transit Office",
+      "spendable_in": [
+        "portal_hubs",
+        "transit_offices"
+      ],
+      "player_tip": "Essential for inter-realm travel and dimensional transport."
+    },
+    {
+      "id": "astral_pearl",
+      "name": "Astral Pearl",
+      "icon": "🫧",
+      "base_value": 12,
+      "tier": 3,
+      "category": "guild",
+      "type": "Planar Commodity",
+      "volatility": "volatile",
+      "liquidity": "specialized",
+      "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "mages_guild": "high"
+      },
+      "home_faction": null,
+      "short": "Rare pearl harvested from astral currents during dimensional storms.",
+      "description": "Iridescent sphere formed from compressed planar residue in the astral sea.",
+      "issuer": "Planar Salvagers",
+      "spendable_in": [
+        "astral_markets",
+        "high_arcane_shops"
+      ],
+      "player_tip": "Sells for extreme value at wizard academies."
     },
     {
       "id": "kivotos_credit",
@@ -344,34 +786,275 @@
       "volatility": "steady",
       "liquidity": "networked",
       "acceptance_default": "low",
-      "home_faction": "general_student_union",
-      "short": "Academy-city credit. Tuition, cafeterias, weapons maintenance.",
-      "description": "Stable academy-city credit used for tuition, cafeterias, weapons maintenance, club budgets. Needs digital clearing.",
+      "acceptance": {
+        "default": "low",
+        "kivotos": "high"
+      },
+      "home_faction": "kivotos",
+      "short": "Electronic currency used across Kivotos academy-city schools and clubs.",
+      "description": "Digital credit system managed by the General Student Union across all academy districts.",
       "issuer": "General Student Union",
-      "spendable_in": ["kivotos", "digital markets"],
-      "player_tip": "Digital only. Useless in haunted swamp with no signal."
+      "spendable_in": [
+        "kivotos",
+        "school_stores",
+        "club_bazaars"
+      ],
+      "player_tip": "Remi holds 5,000 Kivotos Credits in digital reserves."
+    },
+    {
+      "id": "data_chit",
+      "name": "Millennium Data Chit",
+      "icon": "💾",
+      "base_value": 2.6,
+      "tier": 3,
+      "category": "digital",
+      "type": "Data Credit",
+      "volatility": "steady",
+      "liquidity": "networked",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "millennium_science_school": "high"
+      },
+      "home_faction": "millennium_science_school",
+      "short": "Encrypted memory token redeemable for compute time and tech prototypes.",
+      "description": "High-density data chit storing encrypted schematics, compute hours, and lab access rights.",
+      "issuer": "Millennium Science School",
+      "spendable_in": [
+        "millennium_labs",
+        "tech_bazaars"
+      ],
+      "player_tip": "Used to buy siege constructs, ammo, and robotics gear."
     },
     {
       "id": "credstick",
-      "name": "Credstick",
+      "name": "Encrypted Credstick",
       "icon": "💳",
       "base_value": 1.1,
       "tier": 3,
       "category": "digital",
-      "type": "Digital",
-      "volatility": "stable until offline",
+      "type": "Digital Currency",
+      "volatility": "stable",
       "liquidity": "networked",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "internet_federation": "high"
+      },
       "home_faction": "internet_federation",
-      "short": "Encrypted portable digital value. Great networked, useless swamp.",
-      "description": "Encrypted portable digital value. Excellent in networked markets, useless in haunted swamp with no signal.",
-      "issuer": "Internet Federation",
-      "spendable_in": ["internet_federation", "networked markets"],
-      "player_tip": "If you have signal, it's real money."
+      "short": "Portable hardware stick holding encrypted digital currency.",
+      "description": "Handheld chip containing cryptographically secured funds for internet and sci-fi markets.",
+      "issuer": "Internet Federation Bank",
+      "spendable_in": [
+        "internet",
+        "digital_markets"
+      ],
+      "player_tip": "Instantly spendable at all online or tech-integrated vendors."
+    },
+    {
+      "id": "soul_coin",
+      "name": "Soul Coin",
+      "icon": "😈",
+      "base_value": 20,
+      "tier": 4,
+      "category": "occult",
+      "type": "Infernal Currency",
+      "volatility": "volatile",
+      "liquidity": "black_market",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "onyx_hand": "medium"
+      },
+      "home_faction": null,
+      "short": "Lower-plane infernal iron coin trapping a living soul. High value, dark moral cost.",
+      "description": "Heavy coin forged from infernal iron that whispers with the soul trapped inside it.",
+      "issuer": "Infernal Fiends",
+      "spendable_in": [
+        "occult_markets",
+        "black_market",
+        "vampire_courts"
+      ],
+      "player_tip": "Worth 20 gold pieces on the black market. Archie holds 3."
+    },
+    {
+      "id": "blood_vial",
+      "name": "Preserved Blood Vial",
+      "icon": "🩸",
+      "base_value": 2.5,
+      "tier": 4,
+      "category": "occult",
+      "type": "Occult Commodity",
+      "volatility": "volatile",
+      "liquidity": "black_market",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "onyx_hand": "high"
+      },
+      "home_faction": "onyx_hand",
+      "short": "Sealed alchemy vial of alchemically preserved blood for vampire markets.",
+      "description": "Crystal vial of blood graded by lineage, purity, and magical resonance.",
+      "issuer": "Onyx Hand Bloodmasters",
+      "spendable_in": [
+        "onyx_hand",
+        "vampire_estates"
+      ],
+      "player_tip": "Standard currency in Shadow Estate dinner exchanges."
+    },
+    {
+      "id": "shadow_obol",
+      "name": "Shadow Obol",
+      "icon": "⚫",
+      "base_value": 3.5,
+      "tier": 4,
+      "category": "occult",
+      "type": "Shadow Scrip",
+      "volatility": "shaky",
+      "liquidity": "local",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "shadow_estate": "high"
+      },
+      "home_faction": "shadow_estate",
+      "short": "Cold obsidian coin used by servants, hunters, and ghosts in the Shadowfell.",
+      "description": "Flat obsidian coin etched with fading sigils, absorbed from planar shadow fields.",
+      "issuer": "Shadow Estate Steward",
+      "spendable_in": [
+        "shadow_estate",
+        "shadowfell"
+      ],
+      "player_tip": "Used to bribe Shadow Estate guards and buy servant-pass keys."
+    },
+    {
+      "id": "vampire_marker",
+      "name": "Corvinarus Favor Marker",
+      "icon": "🦇",
+      "base_value": 15,
+      "tier": 4,
+      "category": "occult",
+      "type": "Favor Credit",
+      "volatility": "wild",
+      "liquidity": "specialized",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "onyx_hand": "high"
+      },
+      "home_faction": "onyx_hand",
+      "short": "Formal favor marker issued by vampire patriarchs.",
+      "description": "Carved bone marker bearing the Corvinarus crest, representing an aristocratic blood favor.",
+      "issuer": "House Corvinarus",
+      "spendable_in": [
+        "vampire_courts",
+        "onyx_hand"
+      ],
+      "player_tip": "Redeemable for safe passage or assassination contracts."
+    },
+    {
+      "id": "index_token",
+      "name": "Archive Index Token",
+      "icon": "🗂️",
+      "base_value": 5.5,
+      "tier": 4,
+      "category": "occult",
+      "type": "Archive Scrip",
+      "volatility": "shaky",
+      "liquidity": "local",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "shadow_estate": "high"
+      },
+      "home_faction": "shadow_estate",
+      "short": "Archivist token for viewing, copying, and stealing restricted records.",
+      "description": "Heavy lead token issued by the Shadow Estate Archivist for catalog access.",
+      "issuer": "The Archivist",
+      "spendable_in": [
+        "shadow_archives",
+        "forbidden_scriptoriums"
+      ],
+      "player_tip": "Used in the Shadow Estate library to unlock secret dossiers."
+    },
+    {
+      "id": "warpstone",
+      "name": "Warpstone Token",
+      "icon": "☢️",
+      "base_value": 10,
+      "tier": 4,
+      "category": "occult",
+      "type": "Hazard Commodity",
+      "volatility": "wild",
+      "liquidity": "black_market",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "skaven": "high"
+      },
+      "home_faction": "skaven",
+      "short": "Refined chaos crystal token. Corrupting, illegal, and extremely valuable.",
+      "description": "Glowing green crystal token emitting mutagenic chaos radiation.",
+      "issuer": "Skaven Under-Mints",
+      "spendable_in": [
+        "under_markets",
+        "black_market"
+      ],
+      "player_tip": "Valued by dark mages, Skaven engineers, and forbidden cults."
+    },
+    {
+      "id": "broker_mark",
+      "name": "Broker Information Mark",
+      "icon": "🕶️",
+      "base_value": 7,
+      "tier": 4,
+      "category": "syndicate",
+      "type": "Info Credit",
+      "volatility": "volatile",
+      "liquidity": "black_market",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "freelancer_underworld": "high"
+      },
+      "home_faction": "freelancer_underworld",
+      "short": "Underworld mark redeemable for blackmail, intel, and silence.",
+      "description": "Dark metal token stamped with a magnifying glass over a coin, used by The Broker's network.",
+      "issuer": "The Broker",
+      "spendable_in": [
+        "underworld_dens",
+        "freelancer_guild"
+      ],
+      "player_tip": "Redeemable for high-grade political intelligence."
+    },
+    {
+      "id": "tea_chit",
+      "name": "Tea Leaf Syndicate Chit",
+      "icon": "🍵",
+      "base_value": 1.6,
+      "tier": 4,
+      "category": "syndicate",
+      "type": "Syndicate Credit",
+      "volatility": "managed",
+      "liquidity": "black_market",
+      "acceptance_default": "refused",
+      "acceptance": {
+        "default": "refused",
+        "tea_leaf_syndicate": "high"
+      },
+      "home_faction": "tea_leaf_syndicate",
+      "short": "Private bank chit used in smuggling networks and tea houses.",
+      "description": "Watermarked paper chit infused with tea essence, issued by Chai T and the Tea Syndicate.",
+      "issuer": "Tea Leaf Syndicate Treasury",
+      "spendable_in": [
+        "tea_houses",
+        "smuggler_docks"
+      ],
+      "player_tip": "Settles contraband debts without paper trails."
     },
     {
       "id": "spirit_bead",
-      "name": "Spirit Bead",
+      "name": "Rakasha Spirit Bead",
       "icon": "📿",
       "base_value": 2.2,
       "tier": 3,
@@ -380,120 +1063,94 @@
       "volatility": "steady",
       "liquidity": "regional",
       "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "rakasha_tribes": "high"
+      },
       "home_faction": "rakasha_tribes",
-      "short": "Rakasha bead of shell, bone, amber. Maker mark matters.",
-      "description": "Rakasha bead of shell, bone, amber, spirit-touched stone. Banks near Rakasha accept by maker mark; foreign banks undervalue.",
-      "issuer": "Rakasha artisans",
-      "spendable_in": ["rakasha", "feywild", "markets near"],
-      "player_tip": "Story value > metal value here."
+      "short": "Carved amber or bone bead infused with spirit ancestor blessing.",
+      "description": "Smooth bead worn on necklaces, carved by Rakasha shamans and artisans.",
+      "issuer": "Rakasha Artisans",
+      "spendable_in": [
+        "rakasha_tribes",
+        "tribal_bazaars"
+      ],
+      "player_tip": "Traded among spirit warriors and beast tamers."
     },
     {
-      "id": "toad_whistle",
-      "name": "Courier Whistle",
-      "icon": "📯",
-      "base_value": 0.3,
-      "tier": 3,
+      "id": "fey_acorn",
+      "name": "Feyward Promise Acorn",
+      "icon": "🌰",
+      "base_value": 6,
+      "tier": 4,
       "category": "cultural",
-      "type": "Service Token",
-      "volatility": "steady",
-      "liquidity": "local",
-      "acceptance_default": "low",
-      "home_faction": "toad_network",
-      "short": "Toad courier priority token. Movement has value.",
-      "description": "Toad Network token redeemable for courier priority, route notes, civic messages, small delivery favors.",
-      "issuer": "Toad Network",
-      "spendable_in": ["toad_network", "mushroom", "courier posts"],
-      "player_tip": "Cheap but gets messages through."
-    },
-    {
-      "id": "soul_coin",
-      "name": "Soul Coin",
-      "icon": "😈",
-      "base_value": 20.0,
-      "tier": 4,
-      "category": "occult",
-      "type": "Occult Coin",
-      "volatility": "volatile",
-      "liquidity": "black market",
-      "acceptance_default": "refused",
-      "home_faction": null,
-      "short": "Lower-plane coin with trapped soul. Worst banks only. +20 gold but moral cost.",
-      "description": "Lower-plane coin containing trapped soul. Bankable only in worst banks. Very bankable somewhere, should make everyone feel worse about economics.",
-      "issuer": "Infernal creditors",
-      "spendable_in": ["occult banks", "devil markets"],
-      "player_tip": "Huge value, huge risk. Most legal banks refuse."
-    },
-    {
-      "id": "blood_vial",
-      "name": "Blood Vial",
-      "icon": "🩸",
-      "base_value": 2.5,
-      "tier": 4,
-      "category": "occult",
-      "type": "Occult Commodity",
-      "volatility": "volatile",
-      "liquidity": "black market",
-      "acceptance_default": "refused",
-      "home_faction": "onyx_hand",
-      "short": "Sealed preserved blood. Vampire markets only.",
-      "description": "Sealed vial of preserved blood used in vampire markets and ritual economies. Normal banks refuse.",
-      "issuer": "Onyx Hand",
-      "spendable_in": ["vampire markets", "crimson ledger"],
-      "player_tip": "Not for sane shoppers."
-    },
-    {
-      "id": "warpstone",
-      "name": "Warpstone Token",
-      "icon": "☢️",
-      "base_value": 10.0,
-      "tier": 4,
-      "category": "occult",
-      "type": "Hazard Commodity",
+      "type": "Fey Favor",
       "volatility": "wild",
-      "liquidity": "black market",
+      "liquidity": "specialized",
       "acceptance_default": "refused",
-      "home_faction": "skaven",
-      "short": "Refined chaos token. Illegal, corrupting, valuable.",
-      "description": "Refined token of magical chaos. Almost every lawful bank refuses at counter; arcane black banks buy through containment windows.",
-      "issuer": "Skaven under-markets",
-      "spendable_in": ["black market", "skaven"],
-      "player_tip": "10 gold equivalent but possession is crime."
+      "acceptance": {
+        "default": "refused",
+        "feywild_courts": "high"
+      },
+      "home_faction": "feywild_courts",
+      "short": "Gilded acorn binding a fey court hospitality promise.",
+      "description": "Golden acorn that hums when touched, representing a formal vow in the Feyward.",
+      "issuer": "Feyward High Courts",
+      "spendable_in": [
+        "feyward",
+        "autumnwood_gala"
+      ],
+      "player_tip": "Bypasses fey memory-loss curses when traded."
     },
     {
-      "id": "broker_mark",
-      "name": "Broker Mark",
-      "icon": "🕶️",
-      "base_value": 7.0,
+      "id": "court_leaf",
+      "name": "Gilded Court Leaf",
+      "icon": "🍂",
+      "base_value": 3.8,
       "tier": 4,
-      "category": "syndicate",
-      "type": "Info Credit",
+      "category": "cultural",
+      "type": "Court Favor",
       "volatility": "volatile",
-      "liquidity": "black market",
+      "liquidity": "specialized",
       "acceptance_default": "refused",
-      "home_faction": "freelancer_underworld",
-      "short": "Underworld mark for info, introductions, silence. Secrets are liquid.",
-      "description": "Underworld mark redeemable for information, introductions, silence, discreet delivery. Shadow banks accept because secrets are liquid.",
-      "issuer": "The Broker",
-      "spendable_in": ["freelancer_den", "shadow banks"],
-      "player_tip": "If you need to know something, this pays."
+      "acceptance": {
+        "default": "refused",
+        "feywild_courts": "high"
+      },
+      "home_faction": "feywild_courts",
+      "short": "Preserved golden leaf used to settle noble debts in Feyward courts.",
+      "description": "Ever-golden oak leaf stamped with court heraldry, used for aristocrat hospitality debts.",
+      "issuer": "Lady Aurelian Court",
+      "spendable_in": [
+        "fey_courts",
+        "noble_salons"
+      ],
+      "player_tip": "Used to negotiate treaties with fey lords."
     },
     {
-      "id": "wario_points",
-      "name": "Wario Points",
-      "icon": "⭐",
-      "base_value": 1.0,
+      "id": "autumn_leaf",
+      "name": "Autumnwood Orchard Mark",
+      "icon": "🍃",
+      "base_value": 0.85,
       "tier": 2,
-      "category": "private",
-      "type": "Shop Credit",
-      "volatility": "managed",
-      "liquidity": "closed",
-      "acceptance_default": "refused",
-      "home_faction": "wario_land",
-      "short": "Wario shop closed-loop credit. Traps you in Wario ecosystem.",
-      "description": "Quest-board points spendable at Wario's shop economy. Not XP, not normal coin; banks only honor if they have Wario settlement account.",
-      "issuer": "Wario Quest Board",
-      "spendable_in": ["wario_shop"],
-      "player_tip": "Use at Wario shops. Nowhere else."
+      "category": "cultural",
+      "type": "Provincial Mark",
+      "volatility": "seasonal",
+      "liquidity": "regional",
+      "acceptance_default": "low",
+      "acceptance": {
+        "default": "low",
+        "autumnwood_province": "high"
+      },
+      "home_faction": "autumnwood_province",
+      "short": "Provincial timber and orchard harvest trade mark.",
+      "description": "Bronze leaf token used across Autumnwood orchards and timber mills.",
+      "issuer": "Autumnwood Province",
+      "spendable_in": [
+        "autumnwood",
+        "timber_mills"
+      ],
+      "player_tip": "Buys food, wood, and cider at local provincial markets."
     }
   ]
 }

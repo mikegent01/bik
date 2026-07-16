@@ -1,3 +1,4 @@
+import { STOCK_TYPES } from '../shop-stock.js';
 // Shop items file 58
 // Extracted from shop-data.js: 2026-03-21 16:11:08
 // Items: 192

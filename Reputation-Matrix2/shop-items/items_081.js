@@ -293,7 +293,7 @@ export const ITEMS_081 = {
             "boosts movement speed for 3 seconds"
         ],
         vendor: 'liyue_harbor',
-        shippedBy: 'cartwright's delivery services',
+        shippedBy: "cartwright's delivery services",
         levelRequirement: 25
     },
 
@@ -868,7 +868,7 @@ export const ITEMS_081 = {
             "Provides +15% to critical hit chance against enemies affected by fear"
         ],
         vendor: 'wario_direct',
-        shippedBy: 'Wario's Speedy Delivery Drone',
+        shippedBy: "Wario's Speedy Delivery Drone",
         levelRequirement: 35
     },
 
@@ -914,8 +914,8 @@ export const ITEMS_081 = {
         levelRequirement: 15
     },
 
-    'internet_item_runic_bound's_nodes': {
-        id: 'internet_item_runic_bound's_nodes',
+    'internet_item_runic_bounds_nodes': {
+        id: "internet_item_runic_bound's_nodes",
         name: "Runic Bound’s Nodes - Ciphered Resonance",
         description: "Forged from solidified data streams and imbued with ancient algorithms, these nodes resonate with the very fabric of the internet. Touching them allows you to decipher encrypted communications and briefly manipulate digital networks, but prolonged exposure risks becoming trapped within the data itself.",
         category: SHOP_CATEGORIES.EQUIPMENT,

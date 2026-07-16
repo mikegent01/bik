@@ -2,21 +2,58 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Midlands Exchange — Currency Made Simple</title>
+<title>Midlands Exchange & Universal Commerce — Currency & Shop Connector</title>
 <link rel="stylesheet" href="currency.css">
+<style>
+/* Additional Shop & Multi-Currency Styles */
+.shop-connect-card { background: var(--panel2); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-top: 14px; }
+.shop-item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 14px; }
+.shop-item-tile { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; transition: .15s; display: flex; flex-direction: column; justify-content: space-between; }
+.shop-item-tile:hover { border-color: var(--accent); transform: translateY(-2px); }
+.shop-item-head { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
+.shop-item-title { font-weight: 800; font-size: 14px; color: var(--text); }
+.shop-price-box { font-weight: 900; font-size: 13px; color: var(--accent2); text-align: right; }
+.shop-converted-price { font-size: 11px; color: #4ade80; display: block; }
+.shop-vendor-tag { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.cur-directory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 14px; margin-top: 14px; }
+.cur-card { background: var(--panel2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; transition: .15s; display: flex; flex-direction: column; justify-content: space-between; }
+.cur-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+.cur-card-head { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; }
+.cur-card-title h3 { margin: 0; font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+.cur-val-badge { background: rgba(224,180,0,.15); border: 1px solid rgba(224,180,0,.4); color: var(--accent2); border-radius: 8px; padding: 3px 8px; font-weight: 900; font-size: 12.5px; }
+.cur-meta-row { font-size: 11.5px; color: var(--muted); margin: 3px 0; }
+.cur-tip { background: rgba(138,75,255,.08); border: 1px dashed var(--border); border-radius: 8px; padding: 8px; font-size: 11.5px; color: var(--muted); margin-top: 10px; line-height: 1.4; }
+.cur-tip b { color: var(--accent2); }
+</style>
 </head>
 <body>
 <div class="topbar">
-  <div class="brand" onclick="location.href='battlefield.html#/home'"><div class="logo">W</div><div><b>Waluipedia</b><div style="font-size:11px;color:var(--muted)">Midlands Exchange — intuitive</div></div></div>
-  <div style="margin-left:auto;display:flex;gap:8px"><a class="chip" href="battlefield.html#/items">🎒 Items</a><a class="chip" href="battlefield.html#/atlas">🍩 Atlas</a></div>
+  <div class="brand" onclick="location.href='battlefield.html#/home'"><div class="logo">W</div><div><b>Waluipedia</b><div style="font-size:11px;color:var(--muted)">Midlands Exchange — Universal Commerce Hub</div></div></div>
+  <div style="margin-left:auto;display:flex;gap:8px">
+    <a class="chip active" href="shop.html">🛒 Wario's Shop</a>
+    <a class="chip" href="battlefield.html#/reputation">📈 Reputation Matrix</a>
+    <a class="chip" href="battlefield.html#/items">🎒 Inventory & Items</a>
+    <a class="chip" href="battlefield.html#/atlas">🍩 Atlas</a>
+  </div>
 </div>
 
 <div class="layout">
 
-  <!-- Quick Convert — 1 click, instant output -->
+  <!-- Header Banner -->
+  <div class="card" style="background:linear-gradient(135deg,rgba(138,75,255,.18),rgba(224,180,0,.12)),var(--panel)">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>
+        <h1 style="margin:0;font-size:24px;font-weight:900">💱 Midlands Exchange & Shop Currency Connector</h1>
+        <p style="color:var(--muted);margin:4px 0 0;font-size:13px">45 Universal & Regional Currencies Registered · 7,884 Shop Items Cataloged · Real-Time Gold Conversion & Purchasing Power</p>
+      </div>
+      <span class="chip" style="background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.4);color:#4ade80;font-weight:900" id="globalReservePill">Reserve Standard: 1.0 Gold = 10 Silver = 100 Copper</span>
+    </div>
+  </div>
+
+  <!-- Quick Convert -->
   <div class="card">
-    <div class="section-title">💱 Quick Convert — instant, no extra clicks</div>
-    <p style="color:var(--muted);font-size:13px;margin:0 0 14px">Gold is the base. 1 Gold = 10 Silver = 100 Copper. Type amount once, see everything. No market needed for base math — market only adds penalty if currency is refused there.</p>
+    <div class="section-title">💱 Quick Converter — Instant Multiverse Rates</div>
+    <p style="color:var(--muted);font-size:13px;margin:0 0 14px">Gold Piece is the universal standard reserve (1.0). Convert between any of the 45 currencies in real time. Regional acceptance penalties apply if traded outside home markets.</p>
     <div class="convert-hero">
       <div class="convert-box">
         <label>From — amount + currency</label>
@@ -25,7 +62,7 @@
       </div>
       <div class="convert-mid"><button class="swap-btn" id="swap" title="Swap">⇅</button></div>
       <div class="convert-box">
-        <label>To — result (auto-updates)</label>
+        <label>To — converted total</label>
         <div style="display:flex;gap:8px"><div id="toAmt" class="convert-result">—</div><select id="toCur"></select></div>
         <div class="convert-meta" id="toMeta"></div>
       </div>
@@ -36,6 +73,10 @@
       <span class="chip" onclick="quickSet('midland_ducat','gold')">Ducat→Gold</span>
       <span class="chip" onclick="quickSet('mushroom_coin','gold')">Shroom→Gold</span>
       <span class="chip" onclick="quickSet('wario_coin','gold')">Wario→Gold</span>
+      <span class="chip" onclick="quickSet('arcane_shard','gold')">Arcane→Gold</span>
+      <span class="chip" onclick="quickSet('kivotos_credit','gold')">Kivotos→Gold</span>
+      <span class="chip" onclick="quickSet('mora','gold')">Mora→Gold</span>
+      <span class="chip" onclick="quickSet('rupee','gold')">Rupee→Gold</span>
       <span class="chip" onclick="document.getElementById('fromAmt').value=100;updateConvert()">x100</span>
     </div>
     <div id="acceptRow" style="margin-top:10px"></div>
@@ -43,189 +84,431 @@
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
     <div class="card">
-      <div class="section-title">🧮 Gold Equivalent — what everything is really worth</div>
-      <div id="goldEq" style="font-size:13px;color:var(--muted)">Enter amount above — see value in gold instantly.</div>
+      <div class="section-title">🧮 Gold Equivalent Breakdown</div>
+      <div id="goldEq" style="font-size:13px;color:var(--muted)">Enter amount above to see reserve metal breakdown instantly.</div>
     </div>
     <div class="card">
-      <div class="section-title">📍 Market (optional) — only matters if refused</div>
-      <div class="market-bar"><select id="marketSel"></select><span style="color:var(--muted);font-size:12px">Pick a city to see acceptance penalty. Leave on Universal if you just want base math.</span></div>
+      <div class="section-title">📍 Regional Market Penalty Check</div>
+      <div class="market-bar"><select id="marketSel"></select><span style="color:var(--muted);font-size:12px">Select market to test foreign currency acceptance penalties.</span></div>
       <div id="marketInfo" style="font-size:12px;color:var(--muted)"></div>
     </div>
   </div>
 
+  <!-- SHOP INTEGRATION & PURCHASING POWER -->
+  <div class="card shop-connect-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <div>
+        <div class="section-title" style="margin:0">🛒 Shop Catalog Integration & Purchasing Power Explorer</div>
+        <p style="color:var(--muted);font-size:12.5px;margin:2px 0 0">Live connection to all 7,884 catalog items across 12 primary market vendors. See prices converted into your chosen currency!</p>
+      </div>
+      <input type="text" id="shopSearchInput" placeholder="🔍 Search items, equipment, weapons..." style="padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:13px;min-width:240px">
+    </div>
+    
+    <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <span style="font-size:12px;color:var(--muted)">Display currency:</span>
+      <select id="shopCurSelect" class="chip" style="padding:6px 12px;background:var(--bg2);color:var(--text);border:1px solid var(--border)"></select>
+      <span class="chip" style="background:rgba(224,180,0,.12);color:var(--accent2)" id="shopCurPowerLabel">Purchasing Power Summary</span>
+    </div>
+
+    <div id="shopItemsGrid" class="shop-item-grid"></div>
+  </div>
+
   <!-- Wallets -->
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center"><div class="section-title" style="margin:0">🎒 Wallets — all characters at a glance</div><div class="chips"><span class="chip" onclick="walletFilter='all';renderWallets()">All</span><span class="chip" onclick="walletFilter='player';renderWallets()">Players only</span></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <div class="section-title" style="margin:0">🎒 Party & Character Wallets — Net Worth & Buying Power</div>
+      <div class="chips">
+        <span class="chip" id="btnWalletAll">All Operatives</span>
+        <span class="chip" id="btnWalletPlayer">Main Party Only</span>
+      </div>
+    </div>
     <div id="walletGrid" class="wallet-grid" style="margin-top:12px"></div>
   </div>
 
   <!-- Banks -->
   <div class="card">
-    <div class="section-title">🏦 Banks — accounts, loans, debts (from banking.json)</div>
+    <div class="section-title">🏦 Institutional Banks, Loans & Debts</div>
     <div id="bankGrid" class="bank-grid"></div>
   </div>
 
-  <!-- Currencies -->
+  <!-- Currency Directory -->
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><div class="section-title" style="margin:0">🪙 Currencies — tiered, not 43 confusing at once</div><div class="chips" id="tierChips"></div></div>
-    <div class="chips" style="margin:10px 0" id="typeChips"></div>
-    <div id="currencyGrid" class="currency-grid"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <div class="section-title" style="margin:0">🪙 Complete 45-Currency Multiverse Directory</div>
+      <div class="chips" id="tierChips"></div>
+    </div>
+    <div class="chips" style="margin:10px 0" id="categoryChips"></div>
+    <div id="currencyGrid" class="cur-directory-grid"></div>
   </div>
 
+  <!-- Market Rates Table -->
   <div class="card">
-    <div class="section-title">📊 Market Rates — simplified, click to use in converter</div>
-    <p style="color:var(--muted);font-size:12px;margin:0 0 8px">Click any rate to load it into converter. Default shows vs 1 Gold. Change market to see penalty.</p>
+    <div class="section-title">📊 Exchange Rates vs 1.0 Gold Standard</div>
+    <p style="color:var(--muted);font-size:12px;margin:0 0 8px">Click any row to load into the converter.</p>
     <div id="rates" class="rates"></div>
   </div>
 
 </div>
 
 <script type="module">
-import { CURRENCIES, WALLETS, BANKS } from './currency.js';
+import { CURRENCIES, WALLETS, BANKS, SHOP_ITEMS, VENDORS, getAllShopItems, convertPriceToCurrency, getCurrency } from './currency.js';
 
-let walletFilter='all';
-let activeTier='all';
-let activeType='all';
-let marketId='universal';
+let walletFilter = 'all';
+let activeTier = 'all';
+let activeCategory = 'all';
+let marketId = 'universal';
+let currentShopSearch = '';
+let currentShopCurrency = 'gold';
 
-const fromAmt=document.getElementById('fromAmt');
-const fromCur=document.getElementById('fromCur');
-const toCur=document.getElementById('toCur');
-const toAmt=document.getElementById('toAmt');
-const fromMeta=document.getElementById('fromMeta');
-const toMeta=document.getElementById('toMeta');
-const goldEq=document.getElementById('goldEq');
-const acceptRow=document.getElementById('acceptRow');
-const marketSel=document.getElementById('marketSel');
-const marketInfo=document.getElementById('marketInfo');
+const fromAmt = document.getElementById('fromAmt');
+const fromCur = document.getElementById('fromCur');
+const toCur = document.getElementById('toCur');
+const toAmt = document.getElementById('toAmt');
+const fromMeta = document.getElementById('fromMeta');
+const toMeta = document.getElementById('toMeta');
+const goldEq = document.getElementById('goldEq');
+const acceptRow = document.getElementById('acceptRow');
+const marketSel = document.getElementById('marketSel');
+const marketInfo = document.getElementById('marketInfo');
+const shopCurSelect = document.getElementById('shopCurSelect');
+const shopSearchInput = document.getElementById('shopSearchInput');
+const shopItemsGrid = document.getElementById('shopItemsGrid');
 
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function goldVal(id, amt){const c=CURRENCIES[id]; if(!c) return 0; return c.base_value*amt}
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function goldVal(id, amt){ const c = CURRENCIES[id]; if(!c) return 0; return c.base_value * amt; }
+
 function acceptLevel(id, faction){
-  if(!faction||faction==='universal') return 'high';
-  const c=CURRENCIES[id]; if(!c) return 'refused';
-  // simplified acceptance logic from original
-  const rules=c.acceptance||{default:'low'};
+  if(!faction || faction==='universal') return 'high';
+  const c = CURRENCIES[id]; if(!c) return 'refused';
+  const rules = c.acceptance || { default: 'low' };
   if(rules[faction]) return rules[faction];
-  if(c.home_faction===faction) return 'high';
-  return rules.default||'low';
-}
-function penality(level){return {high:1.0,medium:1.15,low:1.6,refused:99}[level]||1.2}
-function convert(fromId,toId,amt,marketFaction){
-  const f=CURRENCIES[fromId], t=CURRENCIES[toId];
-  if(!f||!t) return 0;
-  const base = f.base_value / t.base_value;
-  if(!marketFaction||marketFaction==='universal') return base*amt;
-  const acc=acceptLevel(fromId,marketFaction);
-  const pen=penality(acc);
-  if(pen>=99) return 0;
-  return base*amt/pen;
+  if(c.home_faction === faction) return 'high';
+  return rules.default || 'low';
 }
 
-function populateSelectors(){
-  const opts=Object.values(CURRENCIES).sort((a,b)=>a.name.localeCompare(b.name)).map(c=>`<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
-  fromCur.innerHTML=opts; toCur.innerHTML=opts;
-  fromCur.value='gold'; toCur.value='midland_ducat';
-  const markets=['universal','regal_empire','mushroom_regency','koopa_troop','mages_guild','wario_land','dk_crew','freelancer_underworld','syrup_pirates','onyx_hand'].map(m=>`<option value="${m}">${m}</option>`).join('');
-  marketSel.innerHTML=markets;
-  marketSel.value='universal';
+function penalty(level){ return { high: 1.0, medium: 1.15, low: 1.6, refused: 99 }[level] || 1.2; }
+
+function convert(fromId, toId, amt, marketFaction){
+  const f = CURRENCIES[fromId], t = CURRENCIES[toId];
+  if(!f || !t) return 0;
+  const base = f.base_value / t.base_value;
+  if(!marketFaction || marketFaction==='universal') return base * amt;
+  const acc = acceptLevel(fromId, marketFaction);
+  const pen = penalty(acc);
+  if(pen >= 99) return 0;
+  return (base * amt) / pen;
 }
 
 function updateConvert(){
-  const fa=parseFloat(fromAmt.value)||0;
-  const fId=fromCur.value, tId=toCur.value;
-  const mId=marketSel.value;
-  const f=CURRENCIES[fId], t=CURRENCIES[tId];
-  if(!f||!t){toAmt.textContent='—';return}
-  const res=convert(fId,tId,fa,mId);
-  toAmt.textContent=res?res.toLocaleString(undefined,{maximumFractionDigits:4}):'refused / N/A';
-  fromMeta.innerHTML=`${f.icon} ${esc(f.name)} · Tier ${f.tier} ${esc(f.type)} · ${f.base_value} gold each → ${goldVal(fId,fa).toFixed(2)} gold equiv`;
-  toMeta.innerHTML=`${t.icon} ${esc(t.name)} · ${t.base_value} gold each · ${t.short?esc(t.short):''}`;
-  goldEq.innerHTML=`<b style="color:var(--accent2)">${fa} ${esc(f.name)} = ${goldVal(fId,fa).toFixed(2)} gold</b> → <b>${res?res.toFixed(4):0} ${esc(t.name)} = ${res?goldVal(tId,res).toFixed(2):0} gold equiv</b><br><span style="color:var(--muted)">${fa}×${f.base_value}÷${t.base_value}${mId!=='universal'?` ÷ penalty(${acceptLevel(fId,mId)})`:''} = ${res?res.toFixed(4):'N/A'}</span>`;
-  const acc=acceptLevel(fId,mId);
-  acceptRow.innerHTML=`Acceptance of <b>${esc(f.name)}</b> in <b>${esc(mId)}</b>: <span class="accept ${acc}"><span style="width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block"></span> ${acc}</span> ${acc==='refused'?'<span style="color:var(--danger)">→ Use lawful bank or black market. Conversion blocked.</span>':acc==='low'?'<span style="color:var(--muted)">→ 60% value, heavy fee. Better trade where high.</span>':acc==='medium'?'<span style="color:var(--muted)">→ 15% fee. Acceptable.</span>':'<span style="color:var(--green)">→ Full value, no penalty.</span>'}`;
-  marketInfo.textContent = mId==='universal'? 'Universal: pure base_value math, no penalties. Best for quick mental math.' : `Market ${mId}: fee = ${penality(acc)}x if ${acc}. ${f.short}`;
-  renderRates();
-}
-window.quickSet=(f,t)=>{fromCur.value=f;toCur.value=t;updateConvert()}
-window.updateConvert=updateConvert;
+  const fid = fromCur.value || 'gold';
+  const tid = toCur.value || 'midland_ducat';
+  const amt = parseFloat(fromAmt.value) || 0;
+  const f = CURRENCIES[fid], t = CURRENCIES[tid];
 
-fromAmt.addEventListener('input',updateConvert);
-fromCur.addEventListener('change',updateConvert);
-toCur.addEventListener('change',updateConvert);
-marketSel.addEventListener('change',()=>{marketId=marketSel.value;updateConvert()});
-document.getElementById('swap').addEventListener('click',()=>{const a=fromCur.value;fromCur.value=toCur.value;toCur.value=a;updateConvert()});
+  if(!f || !t) return;
 
-function renderWallets(){
-  const grid=document.getElementById('walletGrid');
-  const entries=Object.entries(WALLETS).filter(([id,w])=>{
-    if(walletFilter==='player') return !['the_broker','first_mate_jones','emperor_elgabalus'].includes(id);
-    return true;
-  });
-  grid.innerHTML=entries.map(([id,w])=>{
-    let totalGold=0;
-    const lines=Object.entries(w.currencies).map(([cid,amt])=>{
-      const c=CURRENCIES[cid]; const gv=c?goldVal(cid,amt):0; totalGold+=gv;
-      return `<div class="wallet-line"><span>${c?c.icon:''} ${c?esc(c.name):cid} × ${amt.toLocaleString()}</span><span style="color:var(--muted)">${gv.toFixed(2)}g</span></div>`;
-    }).join('');
-    return `<div class="wallet-card"><h4>${esc(w.name)} — ${id}</h4><div>${lines}</div><div class="wallet-total">Total: <b>${totalGold.toFixed(2)} gold equiv</b> · <span class="pill">${Object.keys(w.currencies).length} currencies</span><br><button class="chip" style="margin-top:6px" onclick="fromCur.value='${Object.keys(w.currencies)[0]||'gold'}';fromAmt.value='${Object.values(w.currencies)[0]||1}';updateConvert();window.scrollTo(0,0)">Use in converter →</button></div></div>`;
-  }).join('');
-}
+  const res = convert(fid, tid, amt, marketId);
+  const acc = acceptLevel(fid, marketId);
+  const pen = penalty(acc);
 
-async function renderBanks(){
-  const grid=document.getElementById('bankGrid');
-  try{
-    const res=await fetch('./banking.json',{cache:'no-cache'}); const data=await res.json();
-    const accs=(data.bank_accounts||[]).slice(0,12).map(a=>{
-      const c=CURRENCIES[a.currencyKey]; const gv=c?goldVal(a.currencyKey,a.balance):0;
-      return `<div class="bank-card"><div class="bank-id">${esc(a.bankId)} · ${esc(a.currencyKey)}</div><b>${esc(a.owner)}</b> — ${a.balance.toLocaleString()} ${c?c.icon:''} ${c?esc(c.name):a.currencyKey}<br><span style="color:var(--muted)">Gold equiv ${gv.toFixed(2)} · ${a.interestRate*100}% · ${esc(a.note||'').slice(0,90)}</span><br><button class="chip" style="margin-top:6px" onclick="quickSet('${a.currencyKey}','gold')">Convert →</button></div>`;
-    }).join('');
-    const loans=(data.loans||[]).slice(0,6).map(l=>`<div class="bank-card" style="border-left:4px solid var(--danger)"><div class="bank-id">LOAN ${esc(l.bankId)}</div><b>${esc(l.borrower)}</b> owes ${l.principal} ${esc(l.currencyKey)} · paid ${l.paid}<br>${esc(l.status)} · ${esc(l.termDays||'?')} days</div>`).join('');
-    const debts=(data.debts||[]).slice(0,6).map(d=>`<div class="bank-card" style="border-left:4px solid var(--accent2)"><div class="bank-id">DEBT</div><b>${esc(d.debtor)}</b> → ${esc(d.creditor)} · ${d.amountOwed} ${esc(d.currencyKey)}<br>${esc(d.status)} · ${esc(d.note||'').slice(0,80)}</div>`).join('');
-    grid.innerHTML=accs+loans+debts;
-  }catch(e){
-    grid.innerHTML=`<div style="color:var(--muted)">Bank data not loaded (${esc(e.message)}). Still usable — use wallets above.</div>`;
+  if(acc === 'refused' && marketId !== 'universal'){
+    toAmt.textContent = 'REFUSED';
+    toAmt.style.color = 'var(--danger)';
+  } else {
+    toAmt.textContent = (res < 1 ? res.toFixed(3) : res.toFixed(2)) + ' ' + (t.icon || '');
+    toAmt.style.color = '#4ade80';
+  }
+
+  fromMeta.innerHTML = `${esc(f.name)} · 1 = <b>${f.base_value}g</b> · ${esc(f.type||'')}`;
+  toMeta.innerHTML = `${esc(t.name)} · 1 = <b>${t.base_value}g</b> · ${esc(t.type||'')}`;
+
+  const gTotal = goldVal(fid, amt);
+  const silverVal = gTotal * 10;
+  const copperVal = gTotal * 100;
+  goldEq.innerHTML = `
+    <div style="display:flex;gap:12px;align-items:center;margin-top:4px">
+      <span class="pill" style="font-weight:900;border-color:var(--accent2)">💰 ${gTotal.toFixed(2)} Gold</span>
+      <span class="pill">🪙 ${silverVal.toFixed(1)} Silver</span>
+      <span class="pill">🟤 ${copperVal.toFixed(0)} Copper</span>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-top:8px">${amt} ${esc(f.name)} equals <b>${gTotal.toFixed(2)} Gold pieces</b> in raw reserve metal value.</div>
+  `;
+
+  if(marketId !== 'universal'){
+    acceptRow.innerHTML = `Market <b>${esc(marketId)}</b> acceptance for ${esc(f.name)}: <b class="${acc==='high'?'pos':acc==='refused'?'neg':'warn'}">${acc.toUpperCase()}</b>${pen > 1 && pen < 99 ? ` (x${pen} penalty)` : ''}`;
+  } else {
+    acceptRow.innerHTML = `<span style="color:var(--muted);font-size:12px">Market: Universal base rate (no location penalty applied).</span>`;
   }
 }
 
-function renderCurrencies(){
-  const grid=document.getElementById('currencyGrid');
-  const tierChips=document.getElementById('tierChips');
-  const typeChips=document.getElementById('typeChips');
-  tierChips.innerHTML=['all','1','2','3','4'].map(t=>`<span class="chip ${activeTier===String(t)?'active':''}" onclick="activeTier='${t}';renderCurrencies()">${t==='all'?'All Tiers':`Tier ${t} ${t==1?'Universal':t==2?'Regional':t==3?'Special':t==4?'Black Market':''}`}</span>`).join('');
-  const types=['all','core','imperial','regional','guild','digital','cultural','occult','syndicate','private'].map(tp=>`<span class="chip ${activeType===tp?'active':''}" onclick="activeType='${tp}';renderCurrencies()">${tp}</span>`).join('');
-  typeChips.innerHTML=types;
-  const filtered=Object.values(CURRENCIES).filter(c=>{
-    if(activeTier!=='all' && String(c.tier)!==String(activeTier)) return false;
-    if(activeType!=='all' && c.category!==activeType && c.type.toLowerCase()!==activeType) return false;
-    return true;
-  }).sort((a,b)=>a.tier-b.tier || a.base_value-b.base_value);
-  grid.innerHTML=filtered.map(c=>{
-    return `<div class="currency-card tier-${c.tier}"><div class="ch">${c.icon}</div><div class="cn">${esc(c.name)} <span class="pill">T${c.tier}</span> <span class="pill">${esc(c.category)}</span></div><div class="cb">${c.base_value} gold each · ${esc(c.type)} · ${esc(c.liquidity||'')}</div><div class="cs">${esc(c.short||c.description.slice(0,120))}</div><div class="ctmeta"><span class="accept ${c.acceptance_default||'low'}">${esc(c.acceptance_default||'low')}</span><span class="pill">${esc(c.volatility||'')}</span><span class="pill tip" data-tip="${esc(c.description)}">ℹ️ info</span></div><div class="use-btn" onclick="fromCur.value='${c.id}';updateConvert();window.scrollTo(0,0)">Use in converter → ${c.icon}</div></div>`;
-  }).join('');
+window.quickSet = function(from, to){
+  fromCur.value = from;
+  toCur.value = to;
+  updateConvert();
+};
+
+function populateSelects(){
+  const sorted = Object.values(CURRENCIES).sort((a,b) => b.tier - a.tier || a.name.localeCompare(b.name));
+  const opts = sorted.map(c => `<option value="${c.id}">${c.icon || '🪙'} ${esc(c.name)} (${c.id})</option>`).join('');
+  
+  fromCur.innerHTML = opts;
+  toCur.innerHTML = opts;
+  shopCurSelect.innerHTML = opts;
+
+  fromCur.value = 'gold';
+  toCur.value = 'midland_ducat';
+  shopCurSelect.value = 'gold';
+
+  const markets = [
+    { id: 'universal', name: 'Universal Base Rates (No Penalty)' },
+    { id: 'regal_empire', name: 'The Regal Empire (Midlands Capital)' },
+    { id: 'iron_legion', name: 'Iron Legion Armory Outpost' },
+    { id: 'mushroom_regency', name: 'Mushroom Kingdom (Toad Town Market)' },
+    { id: 'peach_loyalists', name: 'Peach Loyalists Base (Bramblehaven)' },
+    { id: 'wario_land', name: 'Wario Land & Casino Outlets' },
+    { id: 'koopa_troop', name: 'Koopa Fortress & Border Trading Post' },
+    { id: 'mages_guild', name: 'Mages Guild Laboratory & Transit' },
+    { id: 'kivotos', name: 'Kivotos General Student Union' },
+    { id: 'onyx_hand', name: 'Onyx Hand Black Market & Shadow Estate' }
+  ];
+
+  marketSel.innerHTML = markets.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
 }
-window.renderCurrencies=renderCurrencies;
+
+function renderShopIntegration(){
+  const allItems = Object.values(getAllShopItems() || {});
+  const targetCur = CURRENCIES[currentShopCurrency] || CURRENCIES.gold;
+  
+  let filtered = allItems;
+  if(currentShopSearch){
+    const q = currentShopSearch.toLowerCase();
+    filtered = allItems.filter(item => {
+      if(!item) return false;
+      const text = (item.name + ' ' + (item.description||'') + ' ' + (item.vendor||'') + ' ' + (item.category||'')).toLowerCase();
+      return text.includes(q);
+    });
+  }
+
+  const sampleItems = filtered.slice(0, 15);
+
+  document.getElementById('shopCurPowerLabel').textContent = `Purchasing Power in ${targetCur.name}: 1 Gold = ${(1/targetCur.base_value).toFixed(2)} ${targetCur.name}`;
+
+  const itemCards = sampleItems.map(item => {
+    const priceInGold = item.price > 500 ? item.price / 100 : item.price;
+    const convertedPrice = priceInGold / targetCur.base_value;
+    const vendorObj = VENDORS[item.vendor] || { name: item.vendor || 'Local Merchant' };
+
+    return `
+      <div class="shop-item-tile">
+        <div>
+          <div class="shop-item-head">
+            <span class="shop-item-title">${item.icon || '📦'} ${esc(item.name)}</span>
+            <div class="shop-price-box">
+              ${priceInGold.toFixed(1)}g
+              <span class="shop-converted-price">${convertedPrice < 1 ? convertedPrice.toFixed(2) : Math.round(convertedPrice)} ${targetCur.icon || ''}</span>
+            </div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.35">${esc((item.description||'').slice(0, 110))}${item.description?.length>110?'…':''}</div>
+        </div>
+        <div class="shop-vendor-tag" style="margin-top:8px;border-top:1px solid var(--border);padding-top:6px;display:flex;justify-content:space-between;align-items:center">
+          <span>🏪 ${esc(vendorObj.name)}</span>
+          <button class="chip" style="font-size:10px;padding:2px 6px" onclick="quickSet('gold', '${targetCur.id}');document.getElementById('fromAmt').value=${priceInGold.toFixed(1)};updateConvert();">Test in Convert →</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  shopItemsGrid.innerHTML = itemCards || '<div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--muted)">No items match search.</div>';
+}
+
+function renderWallets(){
+  const grid = document.getElementById('walletGrid');
+  const entries = Object.entries(WALLETS);
+
+  const filtered = entries.filter(([id, w]) => {
+    if(walletFilter === 'player') return ['waluigi', 'archie', 'bowser', 'markop', 'remi', 'green_t', 'originaldan', 'hjumpik'].includes(id);
+    return true;
+  });
+
+  grid.innerHTML = filtered.map(([id, w]) => {
+    let totalG = 0;
+    const curLines = Object.entries(w.currencies || {}).map(([cKey, val]) => {
+      const cur = CURRENCIES[cKey] || { name: cKey, icon: '🪙', base_value: 1 };
+      const gv = val * (cur.base_value || 1);
+      totalG += gv;
+      return `<div class="wallet-line"><span>${cur.icon || '🪙'} ${esc(cur.name)} × ${val}</span><span style="color:var(--muted)">${gv.toFixed(1)}g</span></div>`;
+    }).join('');
+
+    const firstCurrency = Object.keys(w.currencies||{})[0]||'gold';
+
+    return `
+      <div class="wallet-card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h4 style="margin:0">${esc(w.name)}</h4>
+          <span class="chip" style="font-weight:900;color:var(--accent2);font-size:11px">${totalG.toFixed(1)}g total</span>
+        </div>
+        <div style="margin-top:8px">${curLines}</div>
+        <button class="chip wallet-buy-btn" style="width:100%;margin-top:10px;text-align:center" data-cur="${firstCurrency}">Explore Wallet Purchasing Power →</button>
+      </div>
+    `;
+  }).join('');
+
+  document.querySelectorAll('.wallet-buy-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const cur = e.target.getAttribute('data-cur');
+      if (cur) {
+        shopCurSelect.value = cur;
+        currentShopCurrency = cur;
+        renderShopIntegration();
+        document.querySelector('.shop-connect-card')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+}
+
+function renderBanks(){
+  const grid = document.getElementById('bankGrid');
+  const accounts = (BANKS.bank_accounts || []).map(a => `
+    <div class="bank-card">
+      <div class="b-head"><span>🏦 ${esc(a.bankId)}</span><b>${a.balance} ${esc(a.currencyKey)}</b></div>
+      <p>Owner: <b>${esc(a.owner)}</b> · ${esc(a.note)}</p>
+    </div>
+  `).join('');
+
+  const debts = (BANKS.debts || []).map(d => `
+    <div class="bank-card" style="border-left:4px solid var(--danger)">
+      <div class="b-head"><span style="color:#ef4444">🚨 Debt → ${esc(d.creditor)}</span><b>${d.amountOwed} ${esc(d.currencyKey)}</b></div>
+      <p>Debtor: <b>${esc(d.debtor)}</b> · Status: <b>${esc(d.status)}</b> · ${esc(d.note||'')}</p>
+    </div>
+  `).join('');
+
+  grid.innerHTML = accounts + debts;
+}
+
+function renderCurrencies(){
+  const grid = document.getElementById('currencyGrid');
+  const tierChips = document.getElementById('tierChips');
+  const categoryChips = document.getElementById('categoryChips');
+
+  const allList = Object.values(CURRENCIES);
+
+  tierChips.innerHTML = `
+    <span class="chip ${activeTier==='all'?'active':''}" id="tierAll">All Tiers (${allList.length})</span>
+    <span class="chip ${activeTier===1?'active':''}" id="tier1">Tier 1 Core/Imperial</span>
+    <span class="chip ${activeTier===2?'active':''}" id="tier2">Tier 2 Regional</span>
+    <span class="chip ${activeTier===3?'active':''}" id="tier3">Tier 3 Guild & Digital</span>
+    <span class="chip ${activeTier===4?'active':''}" id="tier4">Tier 4 Occult & Syndicate</span>
+  `;
+
+  const cats = ['all', ...new Set(allList.map(c => c.category || 'other'))];
+  categoryChips.innerHTML = cats.map(cat => `
+    <span class="chip ${activeCategory===cat?'active':''}" data-cat="${cat}">${cat.toUpperCase()}</span>
+  `).join('');
+
+  const filtered = allList.filter(c => {
+    if(activeTier !== 'all' && c.tier !== activeTier) return false;
+    if(activeCategory !== 'all' && c.category !== activeCategory) return false;
+    return true;
+  }).sort((a,b) => b.base_value - a.base_value);
+
+  grid.innerHTML = filtered.map(c => `
+    <div class="cur-card">
+      <div>
+        <div class="cur-card-head">
+          <div class="cur-card-title">
+            <h3>${c.icon || '🪙'} ${esc(c.name)}</h3>
+          </div>
+          <span class="cur-val-badge">1 = ${c.base_value}g</span>
+        </div>
+        <div class="cur-meta-row">Category: <b>${esc(c.category||'')}</b> · Tier ${c.tier} · Type: <b>${esc(c.type||'Fiat')}</b></div>
+        <div class="cur-meta-row">Issuer: <b>${esc(c.issuer||'Unknown')}</b></div>
+        <div style="font-size:12.5px;color:var(--text);margin-top:6px;line-height:1.4">${esc(c.description||c.short||'')}</div>
+      </div>
+      <div>
+        ${c.player_tip ? `<div class="cur-tip"><b>Waluigi Tip:</b> ${esc(c.player_tip)}</div>` : ''}
+        <button class="chip cur-load-btn" style="width:100%;margin-top:10px;text-align:center;background:rgba(138,75,255,.14)" data-cur="${c.id}">Load into Converter →</button>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('tierAll').onclick = () => { activeTier = 'all'; renderCurrencies(); };
+  document.getElementById('tier1').onclick = () => { activeTier = 1; renderCurrencies(); };
+  document.getElementById('tier2').onclick = () => { activeTier = 2; renderCurrencies(); };
+  document.getElementById('tier3').onclick = () => { activeTier = 3; renderCurrencies(); };
+  document.getElementById('tier4').onclick = () => { activeTier = 4; renderCurrencies(); };
+
+  document.querySelectorAll('#categoryChips .chip').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      activeCategory = e.target.getAttribute('data-cat');
+      renderCurrencies();
+    });
+  });
+
+  document.querySelectorAll('.cur-load-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const cur = e.target.getAttribute('data-cur');
+      if (cur) {
+        quickSet('gold', cur);
+        document.querySelector('.convert-hero')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+}
 
 function renderRates(){
-  const r=document.getElementById('rates');
-  const baseId=fromCur.value||'gold';
-  const mId=marketSel.value;
-  const base=CURRENCIES[baseId];
-  if(!base){r.innerHTML='';return}
-  const list=Object.values(CURRENCIES).filter(c=>c.id!==baseId).sort((a,b)=>a.base_value-b.base_value).slice(0,24).map(c=>{
-    const rate=convert(baseId,c.id,1,mId);
-    const acc=acceptLevel(baseId,mId);
-    return `<div class="rate" onclick="toCur.value='${c.id}';updateConvert()" style="cursor:pointer"><div><div class="r-name">${c.icon} ${esc(c.name)}</div><div style="font-size:11px;color:var(--muted)">${esc(c.category)} · ${c.tier===1?'universal':c.tier===4?'black':''}</div></div><div style="text-align:right"><div class="r-val">${rate?`1 ${esc(base.name)} ≈ ${rate.toFixed(3)} ${esc(c.name)}`:'refused'}</div><span class="accept ${acc}" style="font-size:10px">${acc}</span></div></div>`;
-  }).join('');
-  r.innerHTML=list;
-}
-window.renderRates=renderRates;
+  const box = document.getElementById('rates');
+  const sorted = Object.values(CURRENCIES).sort((a,b) => b.base_value - a.base_value);
 
-populateSelectors();
+  box.innerHTML = sorted.map(c => `
+    <div class="rate-row rate-item-row" data-cur="${c.id}">
+      <span>${c.icon || '🪙'} <b>${esc(c.name)}</b> <small style="color:var(--muted)">(${esc(c.category||'')})</small></span>
+      <span style="font-weight:900;color:var(--accent2)">1 Gold = ${(1/c.base_value).toFixed(2)} ${esc(c.name)}</span>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.rate-item-row').forEach(row => {
+    row.addEventListener('click', (e) => {
+      const cur = e.currentTarget.getAttribute('data-cur');
+      if (cur) quickSet('gold', cur);
+    });
+  });
+}
+
+// Event Listeners
+fromAmt.addEventListener('input', updateConvert);
+fromCur.addEventListener('change', updateConvert);
+toCur.addEventListener('change', updateConvert);
+marketSel.addEventListener('change', () => { marketId = marketSel.value; updateConvert(); });
+
+document.getElementById('swap').addEventListener('click', () => {
+  const tmp = fromCur.value;
+  fromCur.value = toCur.value;
+  toCur.value = tmp;
+  updateConvert();
+});
+
+document.getElementById('btnWalletAll').onclick = () => { walletFilter = 'all'; renderWallets(); };
+document.getElementById('btnWalletPlayer').onclick = () => { walletFilter = 'player'; renderWallets(); };
+
+shopCurSelect.addEventListener('change', () => {
+  currentShopCurrency = shopCurSelect.value;
+  renderShopIntegration();
+});
+
+shopSearchInput.addEventListener('input', () => {
+  currentShopSearch = shopSearchInput.value;
+  renderShopIntegration();
+});
+
+// Init
+populateSelects();
+updateConvert();
+renderShopIntegration();
 renderWallets();
 renderBanks();
 renderCurrencies();
-updateConvert();
+renderRates();
 </script>
 </body>
 </html>

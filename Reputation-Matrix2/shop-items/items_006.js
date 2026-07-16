@@ -1392,7 +1392,7 @@ export const ITEMS_006 = {
         "You have advantage on Intimidation checks when brandishing it"
     ],
     vendor: 'crimson_fleet',
-    shippedBy: 'Smuggler\'s Run',
+    shippedBy: "Smuggler\'s Run",
     levelRequirement: 5
 },
 

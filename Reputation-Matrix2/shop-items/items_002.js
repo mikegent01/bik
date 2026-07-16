@@ -203,7 +203,7 @@ export const ITEMS_002 = {
     effects: [
         "Present to Mushroom Kingdom loyalists: advantage on Charisma checks (they want to believe)",
         "Scroll is clearly fake: disadvantage on checks with anyone who knew Peach",
-        "Decree grants you 'Duchy of the Bathroom': advantage on Persuasion with plumbers",
+        "Decree grants you Duchy of the Bathroom': advantage on Persuasion with plumbers",
         "Wario's autograph glows in the dark (cosmetic, but unsettling)",
         "Made by: Wario Land Historical Forgery Dept."
     ],
@@ -519,7 +519,7 @@ export const ITEMS_002 = {
     stock: 15,
     rarity: 'common',
     effects: [
-        "Redeem for a 'tour': find 1d20 gp in trash (Wario's 'treasure')",
+        "Redeem for a tour': find 1d20 gp in trash (Wario's 'treasure')",
         "Ticket expires: disadvantage if not used soon",
         "Wario guides: +1 Deception with him",
         "Made by: Wario Attractions"

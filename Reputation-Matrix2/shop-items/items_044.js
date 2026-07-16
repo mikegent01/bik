@@ -1672,7 +1672,7 @@ export const ITEMS_044 = {
         "They will not attack unless provoked"
     ],
     vendor: 'undead', // Sold by a faction of necromancers who specialize in crowd control
-    shippedBy: 'Mortician\'s Supply',
+    shippedBy: "Mortician\'s Supply",
     levelRequirement: 4
 },
 

@@ -1566,7 +1566,7 @@ export const ITEMS_048 = {
     effects: [
         "Paint illusion: create a 10ft illusionary wall or graffiti (lasts 1 hour)",
         "Illusion fools simple creatures: advantage on Deception vs. them",
-        "Brush runs out of 'ink': 50% chance it paints with garlic juice (smelly, disadvantage on Stealth)",
+        "Brush runs out of ink': 50% chance it paints with garlic juice (smelly, disadvantage on Stealth)",
         "Bowser Jr. may claim it: random Koopa messenger demands return",
         "Made by: Koopa Kid's Art Supplies (War Graffiti Line)"
     ],
