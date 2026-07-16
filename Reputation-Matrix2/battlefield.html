@@ -298,7 +298,7 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:20px}
 
-/* ===== WALUPEDIA CALENDAR — merged intuitive date system ===== */
+/* ===== WALUPEDIA CALENDAR — merged intuitive date system — FIXED ===== */
 .calendar-topbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:12px}
 .calendar-nav{display:flex;gap:6px;align-items:center}
 .calendar-nav .iconbtn{width:36px;height:36px}
@@ -338,6 +338,37 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 .mini-calendar .mc-day.has{font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .mini-calendar .mc-day.filler{opacity:.35}
 .calendar-explainer{background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.07));border:1px dashed var(--border);border-radius:12px;padding:12px;margin-top:12px;color:var(--muted);font-size:13px;line-height:1.5}
+/* FIX: weird days were clipped because .tsum has line-clamp:3 */
+.arttile.cal-tile{display:flex;flex-direction:column;overflow:visible}
+.arttile.cal-tile .tsum{ -webkit-line-clamp:unset; display:block; overflow:visible; -webkit-box-orient:unset; }
+.cal-weird{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.cal-weird-title{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2);font-weight:800;margin-bottom:4px;width:100%}
+.weird-pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:12px;background:var(--bg2);line-height:1.4;white-space:nowrap}
+.weird-pill .wi{font-size:13px}
+.holiday-pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:999px;padding:3px 9px;font-size:11.5px;background:linear-gradient(135deg,rgba(138,75,255,.08),rgba(224,180,0,.06)),var(--bg2)}
+.cal-holidays{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cal-holiday-section{margin-top:10px;padding-top:8px;border-top:1px dashed var(--border)}
+/* Calendar per-theme utilization — tiles actually use accent bg etc */
+.cal-themed{position:relative;overflow:hidden}
+.cal-themed::before{content:'';position:absolute;inset:0;background:radial-gradient(380px 120px at 0% 0%,var(--cal-accent-soft,rgba(138,75,255,.18)),transparent 60%),radial-gradient(280px 100px at 100% 100%,var(--cal-accent2-soft,rgba(224,180,0,.10)),transparent 55%);pointer-events:none;opacity:.9}
+.cal-themed>*{position:relative}
+/* ===== LOGIN / PROFILE — merged from existing terminal login ==== */
+#loginBtn.logged-in{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent);font-weight:900}
+.login-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
+.login-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;display:flex;gap:10px;align-items:center}
+.login-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
+.login-card .l-ava{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;flex:0 0 48px}
+.login-card .l-name{font-weight:800}
+.login-card .l-meta{color:var(--muted);font-size:12px;margin-top:2px}
+.login-card.vip{border-left:4px solid var(--accent2)}
+.profile-hero{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:start;background:linear-gradient(135deg,rgba(138,75,255,.15),rgba(224,180,0,.08)),var(--panel2);border:1px solid var(--border);border-radius:14px;padding:18px}
+.profile-hero .ph-ava{width:100px;height:100px;border-radius:50%;display:grid;place-items:center;font-size:44px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900}
+.profile-hero h1{margin:0;font-size:28px}
+.profile-xp-bar{height:10px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;overflow:hidden;margin:8px 0}
+.profile-xp-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.profile-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px}
+.profile-stat{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px}
+.profile-stat b{display:block;color:var(--accent2);font-size:20px}
 </style>
 </head>
 <body>
@@ -353,6 +384,7 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
     <div class="results" id="results"></div>
   </div>
   <div class="topbtns">
+    <button class="iconbtn" id="loginBtn" title="Login — pick your character" onclick="Router.go('#/login')">👤</button>
     <button class="iconbtn" id="randomBtn" title="Random article (r)">🎲</button>
     <button class="iconbtn" id="themeBtn" title="Toggle theme (t)">🌙</button>
   </div>
@@ -1133,12 +1165,23 @@ function renderSidebar(active){
   h+=`</div><div class="navsec"><div class="navhead">World Systems</div>`;
   h+=`<div class="navlink ${active==='congress'?'active':''}" onclick="Router.go('#/congress')"><span><span class="emoji">🏛️</span> Congress</span><span class="cnt">${(DATA.congress_votes||[]).length}</span></div>`;
   h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">💱</span> Bank & Currency</span></div>`;
-  h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar — Single Page (Month/Year/Timeline/Years merged)</span></div>`;
+  h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar</span></div>`;
   const nbear=((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length + ((DATA.artifacts&&DATA.artifacts.god_toad)?1:0);
   h+=`<div class="navlink ${active==='artifacts'?'active':''}" onclick="Router.go('#/artifacts')"><span><span class="emoji">⭐</span> Artifacts</span><span class="cnt">${nbear}</span></div>`;
   h+=`</div><div class="navsec"><div class="navhead">Classic Indexes</div>`;
   ['locations'].forEach(k=>{const t=TYPE_BY_KEY[k];h+=`<div class="navlink ${active==='list:'+k?'active':''}" onclick="Router.go('#/list/${k}')"><span><span class="emoji">${t.emoji}</span> ${t.label}</span><span class="cnt">${(DATA[k]||[]).length}</span></div>`;});
   h+=`</div><div class="navsec"><div class="navhead">Tools</div><div class="navlink" onclick="Nav.random()"><span><span class="emoji">🎲</span> Random article</span></div></div>`;
+  // Account — login system merged from existing terminal code
+  const curU = (typeof getCurrentUserId==='function'?getCurrentUserId():null);
+  const curName = curU ? ( (INDEX[curU] && displayName(INDEX[curU].item)) || (typeof XP_SUMMARY!=='undefined' && XP_SUMMARY[curU]?.name) || curU ) : null;
+  h+=`<div class="navsec"><div class="navhead">Account</div>`;
+  if(curU){
+    h+=`<div class="navlink ${active==='profile'?'active':''}" onclick="Router.go('#/profile')"><span><span class="emoji">👤</span> ${esc(curName||'Profile')}</span><span class="cnt">Me</span></div>`;
+    h+=`<div class="navlink" onclick="(function(){localStorage.removeItem('waluipediaUser'); if(typeof updateTopbarLoginBtn==='function') updateTopbarLoginBtn(); Router.go('#/home');})()"><span><span class="emoji">🚪</span> Logout</span></div>`;
+  }else{
+    h+=`<div class="navlink ${active==='login'?'active':''}" onclick="Router.go('#/login')"><span><span class="emoji">🔐</span> Login</span></div>`;
+  }
+  h+=`</div>`;
   el('sidenav').innerHTML=h;
 }
 
@@ -1628,6 +1671,12 @@ function walletForChar(id,item){
 }
 function bankRecordsForName(name){name=String(name||'').toLowerCase();const b=INVENTORY_SYSTEM.banking||{};return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name),loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name),debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name||String(x.creditor||'').toLowerCase()===name)};}
 function currencyName(k){return (INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]&&INVENTORY_SYSTEM.currencies[k].name)||prettyId(k);}
+function currencyMeta(k){
+  const c=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k])||null;
+  if(!c) return {base:1,icon:'🪙',tier:2,cat:'unknown'};
+  return {base:c.base_value||c.value||1, icon:c.iconFallback||c.icon||'🪙', tier:c.tier||2, cat:c.category||c.type||'?', type:c.type||'?'};
+}
+function currencyGold(k,amt){const m=currencyMeta(k);return (m.base||1)*amt;}
 function inventoryPanel(articleId,item){
   const raw=invForChar(articleId);
   const inv=raw.filter(x=>x.known && x.itemId && x.itemId!=='hidden_item_slot');
@@ -1635,10 +1684,32 @@ function inventoryPanel(articleId,item){
   const wallet=walletForChar(articleId,item); const bank=bankRecordsForName(displayName(item||{}));
   if(!inv.length&&!wallet&&!bank.accounts.length&&!bank.loans.length&&!bank.debts.length) return '';
   const cards=inv.map(x=>{const it=itemDef(x.itemId);return `<div class="item-card" onclick="Router.go('#/item/${encodeURIComponent(x.itemId)}')" style="cursor:pointer;border-top:4px solid ${esc(it.color||'var(--accent2)')}"><div class="item-head"><span class="item-icon">${esc(it.icon||'❔')}</span><span>${esc(it.name)}</span></div><div class="item-type">${esc(it.type)} · ${esc(it.rarity)}</div><p>${esc(it.summary)}</p><p><b>Status:</b> ${esc(x.status||'known')}</p></div>`;}).join('');
-  const coins=wallet?Object.entries(wallet.currencies||{}).map(([k,v])=>`<span class="coin-chip"><b>${esc(String(v))}</b> ${esc(currencyName(k))}</span>`).join(''):'';
-  const bankRows=[...bank.accounts.map(a=>`<div class="bank-row"><b>Account:</b> ${esc(a.balance)} ${esc(currencyName(a.currencyKey))} · ${esc(a.note||a.bankId)}</div>`),...bank.loans.map(l=>`<div class="bank-row"><b>Loan:</b> ${esc(l.principal)} ${esc(currencyName(l.currencyKey))} · ${esc(l.status)}${l.note?' · '+esc(l.note):''}</div>`),...bank.debts.map(d=>`<div class="bank-row"><b>Debt:</b> ${esc(d.amountOwed)} ${esc(currencyName(d.currencyKey))} · ${esc(d.status)} · ${esc(d.note||'')}</div>`)].join('');
-  const rumorNote=rumorCount?`<p style="color:var(--muted);font-size:12px;margin-top:8px">${rumorCount} spoiler-safe hidden inventory slot${rumorCount===1?'':'s'} withheld from public Waluipedia.</p>`:'';
-  return `<div class="inventory-panel"><h3>🎒 Public Inventory & Wallet</h3><p style="color:var(--muted);font-size:12.5px;margin:0 0 10px">Public-known items only. Hidden cards stay hidden; Waluigi is not Wario.</p>${cards?`<div class="inventory-grid">${cards}</div>`:''}${rumorNote}${coins?`<h3 style="margin-top:14px">💱 Known Wallet</h3><div class="wallet-grid">${coins}</div>`:''}${bankRows?`<h3 style="margin-top:14px">🏦 Banking / Debts</h3>${bankRows}<a class="map-link" href="currency.html">Open currency exchange →</a>`:''}</div>`;
+  // Intuitive wallet with gold equiv, tier breakdown
+  let walletHtml=''; let totalGold=0;
+  if(wallet){
+    const entries=Object.entries(wallet.currencies||{});
+    let core=0, reg=0, spec=0, blk=0;
+    const chips=entries.map(([k,v])=>{
+      const meta=currencyMeta(k); const gv=currencyGold(k,v); totalGold+=gv;
+      if(meta.tier===1) core+=gv; else if(meta.tier===2) reg+=gv; else if(meta.tier===3) spec+=gv; else blk+=gv;
+      const col=meta.tier===1?'var(--green)':meta.tier===2?'var(--accent2)':meta.tier===3?'var(--accent)':'var(--danger)';
+      return `<span class="coin-chip" style="border-left:3px solid ${col}"><span style="font-size:14px">${meta.icon}</span> <b>${esc(String(v))}</b> ${esc(currencyName(k))} <span style="color:var(--muted)">· ${gv.toFixed(2)}g</span></span>`;
+    }).join('');
+    walletHtml=`<h3 style="margin-top:14px">💱 Wallet — ${totalGold.toFixed(2)} gold equiv (intuitive)</h3>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0"><span class="pill" style="border-color:var(--green)">Core ${core.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent2)">Regional ${reg.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent)">Special ${spec.toFixed(1)}g</span>${blk?`<span class="pill" style="border-color:var(--danger)">Black ${blk.toFixed(1)}g</span>`:''}<span class="pill">1g=10s=100c</span></div>
+      <div class="wallet-grid">${chips}</div>
+      <div class="chips" style="margin-top:10px"><span class="chip" onclick="location.href='currency.html'">Open Exchange → instant convert</span><span class="chip" onclick="location.href='currency.html#gold'">Gold equiv explained</span></div>`;
+  }
+  let bankHtml=''; let bankGold=0;
+  if(bank.accounts.length||bank.loans.length||bank.debts.length){
+    const rows=[];
+    bank.accounts.forEach(a=>{const meta=currencyMeta(a.currencyKey); const gv=currencyGold(a.currencyKey,a.balance); bankGold+=gv; rows.push(`<div class="bank-row" style="border-left:4px solid var(--green)"><b>🏦 ${esc(a.bankId)}</b> — ${meta.icon} ${esc(a.balance.toLocaleString())} ${esc(currencyName(a.currencyKey))} <span style="color:var(--muted)">· ${gv.toFixed(2)}g equiv</span><br><span style="color:var(--muted)">${esc((a.note||'').slice(0,110))}</span></div>`);});
+    bank.loans.forEach(l=>{rows.push(`<div class="bank-row" style="border-left:4px solid var(--danger)"><b>📉 Loan ${esc(l.bankId)}</b> — ${esc(l.principal)} ${esc(currencyName(l.currencyKey))} · ${esc(l.status)} — paid ${esc(String(l.paid||0))}/${esc(String(l.principal))}<br><span style="color:var(--muted)">${esc((l.note||'').slice(0,100))}</span></div>`);});
+    bank.debts.forEach(d=>{rows.push(`<div class="bank-row" style="border-left:4px solid var(--accent2)"><b>💸 Debt → ${esc(d.creditor)}</b> — ${esc(d.amountOwed)} ${esc(currencyName(d.currencyKey))} · ${esc(d.status)}<br><span style="color:var(--muted)">${esc((d.note||'').slice(0,100))}</span></div>`);});
+    bankHtml=`<h3 style="margin-top:14px">🏦 Banking — ${bankGold.toFixed(2)}g in accounts</h3>${rows.join('')}<a class="map-link" href="currency.html">Open full exchange → tiers, instant convert, acceptance</a>`;
+  }
+  const rumorNote=rumorCount?`<p style="color:var(--muted);font-size:12px;margin-top:8px">${rumorCount} spoiler-safe hidden inventory slot${rumorCount===1?'':'s'} withheld.</p>`:'';
+  return `<div class="inventory-panel"><h3>🎒 Public Inventory & Wallet</h3><p style="color:var(--muted);font-size:12.5px;margin:0 0 10px">Public-known items only. Wallet now shows gold equiv so you don't do math — player intuitive. Click Exchange for 1-click instant convert.</p>${cards?`<div class="inventory-grid">${cards}</div>`:''}${rumorNote}${walletHtml}${bankHtml}</div>`;
 }
 function view_items(){
   renderSidebar('items');
@@ -2558,7 +2629,7 @@ function weekdayForDate(year, monthIndex, day){ const cal=getActiveCalendar(); r
 function getMonthData(monthIndex){ const cal=getActiveCalendar(); return cal.months[monthIndex]||{name:MONTHS[monthIndex]||'Unknown',days:30,ordinal:monthIndex+1}; }
 function formatFullDate(year, monthIndex, day){ const cal=getActiveCalendar(); return calFormatFullDate(cal, year, monthIndex, day); }
 
-// Keep old helpers for compatibility
+// Keep old helpers for compatibility — FIXED to include holidays JSON and avoid clipping
 function collectEventsForDay(year, monthIndex, day){
   const out=[];
   const cal=getActiveCalendar();
@@ -2613,21 +2684,23 @@ function collectEventsForDay(year, monthIndex, day){
       out.push({kind:'timeline',id:h.title, name:h.title, date:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, summary:h.description||'', route:'#/calendar/timeline'});
     }
   });
-  // holidays from active calendar (if any)
+  // --- NEW: holidays from modular JSON files (calendarHolidays) ---
   try{
-    // Check if calendar has its own holidays? For now use imperial holidays from old CALENDAR_DATA if available
+    const holList=getHolidaysForCalendar(cal.id);
+    holList.forEach(h=>{
+      if(h.month===targetMo && h.day===day){
+        out.push({kind:'holiday',id:h.name,name:`${h.icon||'🎉'} ${h.name}`,date:`${getMonthData(monthIndex).name} ${day}`,summary:h.description||'',route:`#/calendar/${cal.id}/month/${year}/${monthIndex}/${day}`,holiday:h});
+      }
+    });
+  }catch{}
+  // --- OLD fallback for embedded calendar data ---
+  try{
     if(typeof CALENDAR_DATA!=='undefined' && CALENDAR_DATA.holidays && cal.id==='imperial'){
       const list=CALENDAR_DATA.holidays.values;
       const found=list.find(x=>x.month===targetMo && x.day===day);
       if(found) out.push({kind:'holiday',name:found.name,date:`${getMonthData(monthIndex).name} ${day}`,summary:found.description||''});
     }
   }catch{}
-  // intercalary weird days as events
-  const calInter = calIntercalaryForYear(cal, year);
-  for(const idd of calInter){
-    // if this weird day is considered to be on this date? Intercalary days are separate, but we can show them as entries for the month they follow
-    // For simplicity, if intercalary after this month, show as upcoming weird day
-  }
   return out;
 }
 function collectEventsForMonth(year, monthIndex){
@@ -2653,21 +2726,43 @@ function calendarDayClass(year, monthIndex, day, isFiller){
   return classes.join(' ');
 }
 
-// Generate per-calendar CSS
+// Generate per-calendar CSS — now actually used for tiles, chips, grid accents
 function getCalendarThemeCSS(){
   const all = (DATA.calendars && DATA.calendars.calendars) ? DATA.calendars.calendars : [];
   let css='';
   for(const cal of all){
     const th=cal.cssTheme||{};
     const cls=th.className||`cal-${cal.id}`;
+    const a=th.accent||'#8a4bff';
+    const a2=th.accent2||'#e0b400';
+    // convert to soft versions (add opacity) via 2-digit hex suffix
     css+=`
-      .${cls} { --cal-accent:${th.accent||'#8a4bff'}; --cal-accent2:${th.accent2||'#e0b400'}; --cal-bg:${th.bg||'#0d0a15'}; --cal-panel:${th.panel||'#1b1430'}; }
-      .${cls} .calendar-title { color:${th.accent2||'#e0b400'}; }
-      .${cls} .calendar-day.today { box-shadow:inset 0 0 0 2px ${th.accent2||'#e0b400'}; }
-      .${cls} .calendar-day.selected { outline:2px solid ${th.accent||'#8a4bff'}; }
+      .${cls} { --cal-accent:${a}; --cal-accent2:${a2}; --cal-bg:${th.bg||'#0d0a15'}; --cal-panel:${th.panel||'#1b1430'}; --cal-accent-soft:${a}22; --cal-accent2-soft:${a2}22; }
+      .${cls} .calendar-title { color:${a2}; }
+      .${cls} .calendar-day.today { box-shadow:inset 0 0 0 2px ${a2}; background:linear-gradient(0deg,${a2}18,transparent); }
+      .${cls} .calendar-day.selected { outline:2px solid ${a}; }
+      .${cls} .calendar-grid-wrap { border-color:${a}55; box-shadow:0 8px 28px ${a}18; }
+      .${cls}.arttile, .arttile.${cls} { background:linear-gradient(135deg,${a}14,transparent 60%), linear-gradient(180deg,${th.panel||'#1b1430'},${th.bg||'#0d0a15'}); border-left-color:${a}; border-color:${a}38; }
+      .${cls}.arttile .tt, .arttile.${cls} .tt { color:${a2}; }
+      .${cls}.arttile .weird-pill { border-color:${a}55; background:linear-gradient(135deg,${a}14,${a2}0e),var(--bg2); }
+      .${cls}.arttile .holiday-pill { border-color:${a2}55; }
+      .${cls} .chip.active { background:${a}; border-color:${a}; }
+      .${cls} .pill { border-color:${a}33; }
+      .${cls}.card { border-color:${a}33; }
     `;
   }
   return css;
+}
+function getHolidaysForCalendar(calId){
+  // DATA.calendarHolidays may be {holidays:{id:[...]}} or array
+  if(!DATA.calendarHolidays) return [];
+  if(DATA.calendarHolidays.holidays && DATA.calendarHolidays.holidays[calId]) return DATA.calendarHolidays.holidays[calId];
+  if(Array.isArray(DATA.calendarHolidays)) return DATA.calendarHolidays.filter(h=>h.calendarId===calId);
+  return [];
+}
+function getHolidayForDay(calId, monthOrdinal, day){
+  const list=getHolidaysForCalendar(calId);
+  return list.filter(h=>h.month===monthOrdinal && h.day===day);
 }
 
 function view_calendar(){
@@ -2706,13 +2801,28 @@ function view_calendar(){
   // Per-calendar CSS
   const themeStyle = `<style id="cal-theme">${getCalendarThemeCSS()}</style>`;
 
-  // Local calendars section
-  const localSection = `<div class="card" style="margin-top:12px"><div class="section-title">🌍 Local Calendars & Weird Days</div>
-    <p style="color:var(--muted)">Year doesn't have to be 365. Each calendar has different year length, weekdays, and weird intercalary days. Add new calendars by adding JSON to <code>data/calendars.json</code> — no code needed.</p>
+  // Calendar section — renamed to just "Calendar", fixed weird clipping, holidays now modular JSON
+  const localSection = `<div class="card" style="margin-top:12px"><div class="section-title">📅 Calendar</div>
+    <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Pick a calendar. Each has different year length, weekdays, holidays, and weird intercalary days. Add new calendars via <code>data/calendars.json</code> and holidays via <code>data/calendarHolidays.json</code> + <code>data/holidays/*.json</code> — no code needed.</p>
     <div class="artgrid">${allCals.map(c=>{
-      const weird = (c.intercalaryDays||[]).map(w=>`<span class="pill" style="border-color:${w.color||'#888'}">${w.icon||'✨'} ${w.name} (${w.days}d after ${w.afterMonth||0})</span>`).join('');
-      const localTo = (c.localTo||[]).slice(0,5).map(l=>`<span class="pill">${l}</span>`).join('');
-      return `<div class="arttile ${c.cssTheme?.className||''}" style="border-left-color:${c.cssTheme?.accent||'var(--accent)'}"><div class="tt">${c.name}</div><div class="tsub">${c.months.length} months · ${c.weekdays.length} weekdays · ${calDaysInYear(c, CAL_STATE.year)} days/year · ${c.description.slice(0,80)}...</div><div class="tsum">Weekdays: ${c.weekdays.map(w=>w.abbr).join(', ')}<br>Months: ${c.months.map(m=>m.abbr).join(', ')}<br>Weird: ${weird||'none'}</div><div class="tmeta">${localTo}</div></div>`;
+      const th=c.cssTheme||{};
+      const weirdPills = (c.intercalaryDays||[]).map(w=>`<span class="weird-pill" style="border-color:${w.color||th.accent||'#888'}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d after ${w.afterMonth||0}</span>`).join('');
+      const holList=getHolidaysForCalendar(c.id);
+      const holidayPills = holList.slice(0,6).map(h=>`<span class="holiday-pill" style="border-color:${h.color||'#888'}">${h.icon||'🎉'} ${esc(h.name)} — ${h.month}/${h.day}</span>`).join('') + (holList.length>6?`<span class="pill">+${holList.length-6} more</span>`:'');
+      const localTo = (c.localTo||[]).slice(0,6).map(l=>`<span class="pill">${esc(l)}</span>`).join('');
+      const totalDays=calDaysInYear(c, CAL_STATE.year);
+      const monthDays=c.months.reduce((s,m)=>s+m.days,0);
+      const weirdDays=(c.intercalaryDays||[]).reduce((s,d)=>s+d.days,0);
+      return `<div class="arttile cal-tile cal-themed ${c.cssTheme?.className||''}" style="border-left-color:${th.accent||'var(--accent)'}">
+        <div class="tt">${esc(c.name)}</div>
+        <div class="tsub">${c.months.length} months · ${c.weekdays.length} weekdays · ${totalDays}d/year (${monthDays} + ${weirdDays} weird)</div>
+        <div class="tsum" style="-webkit-line-clamp:unset;display:block;overflow:visible">
+          <div style="color:var(--muted);font-size:12px">Weekdays: ${c.weekdays.map(w=>esc(w.abbr)).join(', ')} · Months: ${c.months.map(m=>esc(m.abbr)).join(', ')}</div>
+          <div class="cal-weird"><div class="cal-weird-title">✨ Weird days — intercalary outside months</div>${weirdPills||'<span class="pill">none</span>'}</div>
+          <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays — from data/holidays/*.json</div><div class="cal-holidays">${holidayPills||'<span class="pill">no holidays file yet</span>'}</div></div>
+        </div>
+        <div class="tmeta" style="margin-top:10px">${localTo}</div>
+      </div>`;
     }).join('')}</div></div>`;
 
   // Cross-calendar conversion for selected absolute day
@@ -2736,11 +2846,11 @@ function view_calendar(){
     for(let i=0;i<fillerBefore;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum" style="opacity:.3">·</div></div>`;
     for(let d=1; d<=daysInMonth; d++){
       const evs=collectEventsForDay(CAL_STATE.year, CAL_STATE.monthIndex, d);
-      const dots=evs.slice(0,6).map(e=>{
-        const col=e.kind==='battle'||e.kind==='majorBattle'?'var(--danger)':e.kind==='trial'?'var(--accent2)':e.kind==='event'?'var(--accent)':'var(--muted)';
-        return `<span class="edot" style="background:${col}" title="${(e.name||'').replace(/"/g,'')}"></span>`;
+      const dots=evs.slice(0,8).map(e=>{
+        const col=e.kind==='battle'||e.kind==='majorBattle'?'var(--danger)':e.kind==='trial'?'var(--accent2)':e.kind==='event'?'var(--accent)':e.kind==='holiday'?'var(--green)':e.kind==='weird'?'#ff66cc':'var(--muted)';
+        return `<span class="edot" style="background:${col}" title="${esc((e.name||'').replace(/"/g,''))} — ${e.kind}"></span>`;
       }).join('');
-      const more = evs.length>6?`<div class="more">+${evs.length-6} more</div>`:'';
+      const more = evs.length>8?`<div class="more">+${evs.length-8} more</div>`:'';
       const wd=calWeekdayForDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, d);
       cells+=`<div class="${calendarDayClass(CAL_STATE.year, CAL_STATE.monthIndex, d,false)}" onclick="Router.go('#/calendar/${activeCal.id}/month/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${d}')">
         <div style="display:flex;justify-content:space-between;align-items:center"><span class="dnum">${d}</span><span class="dweek">${wd.abbr}</span></div>
@@ -2752,16 +2862,17 @@ function view_calendar(){
     const remainder = totalCells % activeCal.weekdays.length===0?0:activeCal.weekdays.length - (totalCells % activeCal.weekdays.length);
     for(let i=0;i<remainder;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum" style="opacity:.3">·</div></div>`;
 
-    // Intercalary weird days after this month
+    // Intercalary weird days after this month — FIXED layout, no clip
     const weirdAfter = calIntercalaryForYear(activeCal, CAL_STATE.year).filter(w=> (w.afterMonth||0)===md.ordinal);
-    const weirdHtml = weirdAfter.length ? `<div class="calendar-explainer" style="margin-top:8px"><b>✨ Weird days after ${md.name}:</b> ${weirdAfter.map(w=>`<span class="pill" style="border-color:${w.color}">${w.icon||'✨'} ${w.name} (${w.days}d) — ${w.description}</span>`).join(' ')}</div>` : '';
+    const weirdHtml = weirdAfter.length ? `<div class="card" style="margin-top:10px;border-left:4px solid ${activeCal.cssTheme?.accent||'var(--accent)'}"><div class="cal-weird-title">✨ Weird days after ${md.name} — outside months (not cut off anymore)</div><div class="cal-weird">${weirdAfter.map(w=>`<span class="weird-pill" style="border-color:${w.color}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d — ${esc(w.description||'')}</span>`).join('')}</div></div>` : '';
 
     const dayListHtml = selectedDayEvents.length
       ? selectedDayEvents.map(e=>{
-          const kindColor=e.kind==='battle'?'neg':e.kind==='majorBattle'?'neg':e.kind==='trial'?'warn':'pos';
-          return `<div class="ev ${kindColor}" onclick="Router.go('${e.route}')" style="cursor:pointer"><b>${e.name}</b><div style="color:var(--muted);font-size:12px">${e.date||''} · ${e.kind}</div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">${(e.summary||'').slice(0,160)}${(e.summary||'').length>160?'…':''}</div></div>`;
+          const kindColor=e.kind==='battle'?'neg':e.kind==='majorBattle'?'neg':e.kind==='trial'?'warn':e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos';
+          const icon = e.kind==='holiday'?(e.holiday?.icon||'🎉'):e.kind==='weird'?'✨':'';
+          return `<div class="ev ${kindColor}" onclick="Router.go('${e.route||'#/calendar'}')" style="cursor:pointer"><b>${esc(icon)} ${esc(e.name)}</b><div style="color:var(--muted);font-size:12px">${esc(e.date||'')} · ${esc(e.kind)}${e.holiday?` — ${esc(e.holiday.type||'')}`:''}</div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">${esc((e.summary||'').slice(0,180))}${(e.summary||'').length>180?'…':''}</div></div>`;
         }).join('')
-      : `<p style="color:var(--muted)">No dated entries for this day in ${activeCal.name}. Year length ${calDaysInYear(activeCal, CAL_STATE.year)} days.</p>`;
+      : `<p style="color:var(--muted)">No dated entries for this day in ${activeCal.name}. Try holidays: ${getHolidaysForCalendar(activeCal.id).length} total. Year length ${calDaysInYear(activeCal, CAL_STATE.year)} days.</p>`;
     mainContent = `
       <div class="calendar-grid-wrap ${activeCal.cssTheme?.className||''}">
         <div class="calendar-weekdays" style="grid-template-columns:repeat(${activeCal.weekdays.length},1fr)">${weekdaysHeader}</div>
@@ -2772,6 +2883,8 @@ function view_calendar(){
         <span class="lg"><i style="background:var(--accent)"></i>Event</span>
         <span class="lg"><i style="background:var(--danger)"></i>Battle</span>
         <span class="lg"><i style="background:var(--accent2)"></i>Trial</span>
+        <span class="lg"><i style="background:var(--green)"></i>Holiday</span>
+        <span class="lg"><i style="background:#ff66cc"></i>Weird</span>
         <span class="lg">🟡 Today</span>
       </div>
       <div class="grid2" style="margin-top:14px">
@@ -2782,8 +2895,9 @@ function view_calendar(){
           <div class="day-events">${conversions}</div>
         </div>
         <div class="card" style="margin:0">
-          <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} [${activeCal.name}] — ${monthEvents.length} entries · Year ${calDaysInYear(activeCal, CAL_STATE.year)} days</div>
-          <div class="day-events">${monthEvents.slice(0,20).map(e=>`<div class="ev pos" onclick="Router.go('${e.route}')" style="cursor:pointer"><b>${e.name}</b><div style="color:var(--muted);font-size:12px">${e.date} · ${e.kind}</div></div>`).join('')||'<p style="color:var(--muted)">No dated entries this month.</p>'}
+          <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} [${activeCal.name}] — ${monthEvents.length} entries · ${calDaysInYear(activeCal, CAL_STATE.year)}d year</div>
+          <div class="day-events">${monthEvents.slice(0,24).map(e=>{const kc=e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos'; return `<div class="ev ${kc}" onclick="Router.go('${e.route||'#/calendar'}')" style="cursor:pointer"><b>${esc(e.name)}</b><div style="color:var(--muted);font-size:12px">${esc(e.date)} · ${esc(e.kind)}</div></div>`}).join('')||'<p style="color:var(--muted)">No dated entries this month.</p>'}
+            <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this month</div><div class="cal-holidays">${getHolidayForDay(activeCal.id, md.ordinal, -1).length? '': ''}${(()=>{const list=getHolidaysForCalendar(activeCal.id).filter(h=>h.month===md.ordinal); return list.length?list.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} D${h.day} — ${esc(h.type||'')}</span>`).join(''):'<span class="pill">no holidays this month</span>'} )()}</div></div>
           </div>
         </div>
       </div>
@@ -2800,10 +2914,12 @@ function view_calendar(){
       </div>`;
     }).join('');
     const weirdYear = calIntercalaryForYear(activeCal, year);
+    const holYear = getHolidaysForCalendar(activeCal.id);
     mainContent = `
-      <div class="card"><div class="section-title">Year ${year} BF [${activeCal.name}] — ${calDaysInYear(activeCal, year)} days — ${activeCal.months.length} months — ${weirdYear.length} weird intercalary</div>
-        <div class="calendar-explainer">Weird days: ${weirdYear.map(w=>`${w.icon||'✨'} ${w.name} (${w.days}d after ${w.afterMonth})`).join(', ')||'none'}</div>
-        <div class="artgrid">${monthGrids}</div></div>
+      <div class="card"><div class="section-title">Year ${year} BF [${activeCal.name}] — ${calDaysInYear(activeCal, year)} days — ${activeCal.months.length} months — ${weirdYear.length} weird + ${holYear.length} holidays</div>
+        <div class="cal-weird"><div class="cal-weird-title">✨ Weird days this year (intercalary, not clipped)</div>${weirdYear.length?weirdYear.map(w=>`<span class="weird-pill" style="border-color:${w.color}">${w.icon||'✨'} ${esc(w.name)} — ${w.days}d after ${w.afterMonth} — ${esc(w.description||'')}</span>`).join(''):'<span class="pill">none</span>'}</div>
+        <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this year — from data/holidays/${activeCal.id}.json</div><div class="cal-holidays">${holYear.length?holYear.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} — M${h.month} D${h.day}</span>`).join(''):'<span class="pill">none</span>'}</div></div>
+        <div class="artgrid" style="margin-top:12px">${monthGrids}</div></div>
     `;
   } else if(CAL_STATE.tab==='timeline'){
     const entries=[];
@@ -2857,16 +2973,8 @@ function view_calendar(){
     mainContent = `<div class="card"><h2>📚 All Years — ${yrs.length} years in ${activeCal.name}</h2><p style="color:var(--muted)">Year length varies per calendar (not always 365). ${activeCal.name} year length: ${calDaysInYear(activeCal, CAL_STATE.year)} days this year.</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   }
 
-  const explainer = `
-    <div class="calendar-explainer ${activeCal.cssTheme?.className||''}">
-      <b>Single Calendar Page — Modular System:</b><br>
-      • Add new calendar by adding JSON to <code>data/calendars.json</code> — fields: months[], weekdays[], seasons[], intercalaryDays[] (weird days outside months), leapRule, cssTheme, localTo.<br>
-      • No coding 100 calendars. Example: ${activeCal.name} has ${activeCal.months.length} months, ${activeCal.weekdays.length}-day week, ${calDaysInYear(activeCal, CAL_STATE.year)} days/year (${activeCal.months.reduce((s,m)=>s+m.days,0)} month days + ${calIntercalaryForYear(activeCal, CAL_STATE.year).reduce((s,d)=>s+d.days,0)} weird days).<br>
-      • CSS per calendar via <code>cssTheme.className</code> = ${activeCal.cssTheme?.className} — accent ${activeCal.cssTheme?.accent}. New CSS auto-generated.<br>
-      • Local calendars: ${allCals.map(c=>`${c.name} → ${(c.localTo||[]).join(', ')||'universal'}`).join(' | ')}<br>
-      • Lore kept: imperial is default lore, but others exist for local use.
-    </div>
-  `;
+  // FIX: long technical header removed per user request — renamed to just Calendar, no verbose explainer
+  const explainer = ``;
 
   el('content').innerHTML=`
     ${themeStyle}
@@ -2889,7 +2997,6 @@ function view_calendar(){
       </div>
       ${calSelector}
       ${tabBar}
-      ${explainer}
     </div>
     ${mainContent}
     ${localSection}
@@ -3010,6 +3117,140 @@ function view_bearer(id){
   window.scrollTo(0,0);
 }
 
+/* =============== LOGIN / PROFILE — merged from existing terminal code + walupedia wallet/xp/bio ==== */
+const WALU_WALLET_KEY='waluipediaUser';
+function getCurrentUserId(){
+  try{
+    return localStorage.getItem(WALU_WALLET_KEY) || localStorage.getItem('vigilanceTerminalUser') || null;
+  }catch(e){return null}
+}
+function setCurrentUserId(id){
+  try{
+    if(id){ localStorage.setItem(WALU_WALLET_KEY, id); localStorage.setItem('vigilanceTerminalUser', id); }
+    else { localStorage.removeItem(WALU_WALLET_KEY); }
+  }catch(e){}
+  updateTopbarLoginBtn();
+}
+function updateTopbarLoginBtn(){
+  const btn=document.getElementById('loginBtn');
+  if(!btn) return;
+  const uid=getCurrentUserId();
+  if(uid){
+    const xp=typeof XP_SUMMARY!=='undefined'?XP_SUMMARY[uid]:null;
+    const rec=INDEX[uid];
+    const name=rec?displayName(rec.item):(xp?.name||prettyId(uid));
+    const initial=(name||uid)[0]?.toUpperCase()||'👤';
+    btn.textContent=initial;
+    btn.title=`Logged in as ${name} — profile`;
+    btn.classList.add('logged-in');
+  }else{
+    btn.textContent='👤';
+    btn.title='Login — pick your character';
+    btn.classList.remove('logged-in');
+  }
+}
+function getAvailableLoginCharacters(){
+  const out=new Map();
+  // from XP_SUMMARY — main players
+  if(typeof XP_SUMMARY!=='undefined'){
+    Object.keys(XP_SUMMARY).forEach(k=>{
+      const xp=XP_SUMMARY[k];
+      if(xp) out.set(k,{id:k,name:xp.name||k,level:xp.level||1,xp:xp.currentXP||0,icon:'⭐',source:'xp'});
+    });
+  }
+  // from wallets — anyone with money
+  try{
+    const wallets=INVENTORY_SYSTEM?.wallets||{};
+    Object.keys(wallets).forEach(k=>{
+      if(!out.has(k)){
+        const w=wallets[k];
+        out.set(k,{id:k,name:w.name||prettyId(k),level:1,xp:0,icon:'💰',source:'wallet',curr:Object.keys(w.currencies||{}).length});
+      }
+    });
+  }catch(e){}
+  // from DATA.characters — main story chars
+  try{
+    (DATA.characters||[]).slice(0,30).forEach(ch=>{
+      if(!out.has(ch.id)){
+        out.set(ch.id,{id:ch.id,name:ch.name,title:ch.title||'',icon:'👤',source:'char'});
+      }
+    });
+  }catch(e){}
+  return Array.from(out.values()).sort((a,b)=>(b.level||0)-(a.level||0));
+}
+function view_login(){
+  renderSidebar('login');
+  updateTopbarLoginBtn();
+  const cur=getCurrentUserId();
+  const chars=getAvailableLoginCharacters();
+  const featured=['waluigi','wario','archie_miser','markop','bowser','remi_akamatsu_full_backstory','hjumpik','toad_lee'].filter(id=>chars.find(c=>c.id===id)).map(id=>chars.find(c=>c.id===id));
+  const others=chars.filter(c=>!featured.find(f=>f.id===c.id)).slice(0,48);
+  const curCard=cur?`<div class="card" style="border-left:4px solid var(--green)"><div class="section-title">Currently logged in</div><div style="display:flex;gap:12px;align-items:center"><div style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;font-size:22px">${esc((XP_SUMMARY[cur]?.name||cur)[0]?.toUpperCase()||'👤')}</div><div><b>${esc(XP_SUMMARY[cur]?.name||INDEX[cur]?displayName(INDEX[cur].item):prettyId(cur))}</b><div style="color:var(--muted);font-size:12px">${cur}</div></div><div style="margin-left:auto" class="chips"><span class="chip" onclick="Router.go('#/profile')">Open profile →</span><span class="chip" onclick="setCurrentUserId(null);view_login();">Logout</span></div></div></div>`:'';
+  const featHtml=featured.map(c=>{
+    const xp=XP_SUMMARY[c.id];
+    const wallet=(INVENTORY_SYSTEM?.wallets||{})[c.id];
+    const goldEq=wallet?Object.entries(wallet.currencies||{}).reduce((s,[k,v])=>{const curMeta=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); const bv=curMeta?curMeta.base_value||1:1; return s+bv*v;},0):0;
+    return `<div class="login-card vip" onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/profile')"><div class="l-ava">${c.icon||'👤'}</div><div style="flex:1;min-width:0"><div class="l-name">${esc(c.name||c.id)}</div><div class="l-meta">Lvl ${xp?.level||'?'} · ${xp?.currentXP||0} XP · ${goldEq?goldEq.toFixed(1)+'g':''} ${c.title?('· '+esc(c.title.slice(0,30))):''}</div><div class="tmeta"><span class="pill">${esc(c.id)}</span>${xp?`<span class="pill">Pwr ${xp.powerLevel}</span><span class="pill">Fame ${xp.fameScore}</span>`:''}</div></div></div>`;
+  }).join('');
+  const otherHtml=others.map(c=>{
+    const xp=XP_SUMMARY[c.id];
+    return `<div class="login-card" onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/profile')"><div class="l-ava">${esc(c.icon||(c.name||c.id)[0]||'👤')}</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${c.source} · Lvl ${xp?.level||c.level||1} ${xp?`· ${xp.currentXP} XP`:''}</div></div></div>`;
+  }).join('');
+  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🔐 Walupedia Login</h1><p style="color:var(--muted)">Pick your operator — code merged from existing terminal login (<code>vigilanceTerminalUser</code> + <code>waluipediaUser</code>). Your wallet, XP, and bio travel with you. Saved in localStorage.</p><div class="chips" style="margin-top:10px"><span class="chip" onclick="setCurrentUserId(null);view_login();">Continue as Guest (clear)</span><span class="chip" onclick="location.href='currency.html'">Open Currency Exchange →</span></div></div>${curCard}<div class="card"><div class="section-title">⭐ Featured — main party (high XP)</div><div class="login-grid">${featHtml}</div></div><div class="card"><div class="section-title">👥 All operators — ${chars.length} available (XP + wallets + characters)</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><input id="loginSearch" placeholder="Filter name/id..." style="flex:1;min-width:180px;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text)"><span class="chip" onclick="document.getElementById('loginSearch').value='';document.getElementById('loginSearch').dispatchEvent(new Event('input'))">Clear</span></div><div class="login-grid" id="loginGrid">${otherHtml}</div></div>`;
+  const inp=document.getElementById('loginSearch');
+  if(inp){ inp.addEventListener('input',()=>{const q=inp.value.toLowerCase(); const grid=document.getElementById('loginGrid'); grid.innerHTML=others.filter(c=> (c.name||'').toLowerCase().includes(q)||c.id.toLowerCase().includes(q)).map(c=>{const xp=XP_SUMMARY[c.id]; return `<div class="login-card" onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/profile')"><div class="l-ava">${esc(c.icon||(c.name||c.id)[0]||'👤')}</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${c.source} · ${esc(c.id)}</div></div></div>`;}).join('');}); }
+  window.scrollTo(0,0);
+}
+function view_profile(){
+  renderSidebar('profile');
+  updateTopbarLoginBtn();
+  const uid=getCurrentUserId();
+  if(!uid){ view_login(); return; }
+  const xp=typeof XP_SUMMARY!=='undefined'?XP_SUMMARY[uid]:null;
+  const rec=INDEX[uid];
+  const charItem=rec?.item|| (DATA.characters||[]).find(c=>c.id===uid) || null;
+  const wallet=(INVENTORY_SYSTEM?.wallets||{})[uid] || (typeof WALLETS!=='undefined'?WALLETS[uid]:null) || null;
+  const bank= (()=>{ try{ const b=INVENTORY_SYSTEM?.banking||{}; const name=(charItem?.name||xp?.name||uid||'').toLowerCase(); return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name||String(x.owner||'').toLowerCase().includes(name)), loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name), debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name)} }catch(e){return {accounts:[],loans:[],debts:[]}} })();
+  // gold equiv
+  let totalGold=0, breakdown={core:0,reg:0,spec:0,blk:0};
+  let walletLines='';
+  if(wallet){
+    const entries=Object.entries(wallet.currencies||{});
+    walletLines=entries.map(([k,v])=>{
+      const meta=(INVENTORY_SYSTEM?.currencies&&INVENTORY_SYSTEM.currencies[k])||{base_value:1,iconFallback:'🪙'};
+      const bv=meta.base_value||1; const gv=bv*v; totalGold+=gv;
+      if(meta.tier===1) breakdown.core+=gv; else if(meta.tier===2) breakdown.reg+=gv; else if(meta.tier===3) breakdown.spec+=gv; else breakdown.blk+=gv;
+      return `<div class="wallet-line"><span>${meta.iconFallback||meta.icon||'🪙'} ${esc(currencyName(k))} × ${esc(String(v))}</span><span style="color:var(--muted)">${gv.toFixed(2)}g</span></div>`;
+    }).join('');
+  }
+  // XP bar
+  const xpPct=xp?Math.max(5,Math.min(100, ((xp.currentXP||0)/(xp.nextXP||1))*100)):0;
+  const xpPanel=xp?`
+    <div class="profile-stat-grid">
+      <div class="profile-stat"><b>Lvl ${esc(String(xp.level||'?'))}</b>Level</div>
+      <div class="profile-stat"><b>${esc(String(xp.currentXP||0))}</b>Current XP / ${esc(String(xp.nextXP||'—'))}</div>
+      <div class="profile-stat"><b>${esc(String(xp.powerLevel||'?'))}</b>Power</div>
+      <div class="profile-stat"><b>${esc(String(xp.fameScore||'?'))}</b>Fame</div>
+      <div class="profile-stat"><b>${esc(String(xp.entryCount||0))}</b>Entries</div>
+      <div class="profile-stat"><b>${xp.remainingXP!=null?esc(String(xp.remainingXP)):'?'}</b>To next</div>
+    </div>
+    <div class="profile-xp-bar"><span style="width:${xpPct}%"></span></div>
+    <div style="color:var(--muted);font-size:12px">${xp.currentXP}/${xp.nextXP||'?'} · ${xp.remainingXP!=null?xp.remainingXP+' to next level':''}</div>
+  `:`<p style="color:var(--muted)">No XP record for ${esc(uid)}. XP is tracked in <code>XP_SUMMARY</code> — this character hasn't logged entries yet.</p>`;
+  const bioHtml=charItem?`<div class="prose">${mdToHtml(charItem.description||charItem.summary||'',uid)}</div>`:`<p style="color:var(--muted)">No Waluipedia article found for <b>${esc(uid)}</b>. Generic login — bio not available, but wallet/XP still works. Create article <code>${esc(uid)}.json</code> to get bio.</p>`;
+  const avatarLetter=(xp?.name||charItem?.name||uid)[0]?.toUpperCase()||'👤';
+  const bankHtml=(()=>{ if(!bank.accounts.length&&!bank.loans.length&&!bank.debts.length) return '<p style="color:var(--muted)">No bank accounts/loans/debts linked to this name.</p>'; const rows=[...bank.accounts.map(a=>`<div class="bank-row"><b>🏦 ${esc(a.bankId)}</b> ${esc(a.balance)} ${esc(currencyName(a.currencyKey))} · ${esc(a.note||'').slice(0,80)}</div>`),...bank.loans.map(l=>`<div class="bank-row" style="border-left:4px solid var(--danger)"><b>Loan</b> ${esc(l.principal)} ${esc(l.currencyKey)} · ${esc(l.status)}</div>`),...bank.debts.map(d=>`<div class="bank-row"><b>Debt → ${esc(d.creditor)}</b> ${esc(d.amountOwed)} ${esc(d.currencyKey)}</div>`)].join(''); return rows; })();
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/login')">Login</a> › ${esc(xp?.name||charItem?.name||uid)}</div>
+    <div class="card animate-fade-in"><div class="profile-hero"><div class="ph-ava">${esc(avatarLetter)}</div><div><h1>${esc(xp?.name||charItem?.name||prettyId(uid))}</h1><div style="color:var(--accent2);font-style:italic">${esc(charItem?.title||xp?.xpKey||uid)}</div><div style="margin-top:8px;color:var(--muted);font-size:12px">@${esc(uid)} · ${charItem?.affiliation||charItem?.race||''}</div><div class="chips" style="margin-top:10px"><span class="chip" onclick="Router.go('#/article/${esc(uid)}')">Open bio article →</span><span class="chip" onclick="location.href='currency.html'">Currency →</span><span class="chip" onclick="setCurrentUserId(null);Router.go('#/login')">Logout</span></div></div></div></div>
+    <div class="card"><div class="section-title">✦ XP & Progression</div>${xpPanel}</div>
+    <div class="card"><div class="section-title">💰 Wallet — ${totalGold.toFixed(2)} gold equiv total</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill" style="border-color:var(--green)">Core ${breakdown.core.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent2)">Reg ${breakdown.reg.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent)">Spec ${breakdown.spec.toFixed(1)}g</span>${breakdown.blk?`<span class="pill" style="border-color:var(--danger)">Black ${breakdown.blk.toFixed(1)}g</span>`:''}</div><div class="wallet-grid"><div class="wallet-card"><h4>${esc(xp?.name||uid)}'s Holdings</h4><div>${walletLines||'<p style="color:var(--muted)">No wallet — add entry to INVENTORY_SYSTEM.wallets or WALLETS.</p>'}</div><div class="wallet-total">Total <b>${totalGold.toFixed(2)}g equiv</b></div></div></div></div>
+    <div class="card"><div class="section-title">🏦 Banking</div>${bankHtml}</div>
+    <div class="card"><div class="section-title">📖 Bio — ${esc(charItem?.name||uid)}</div>${bioHtml}${charItem?`<div style="margin-top:12px"><a class="chip" onclick="Router.go('#/article/${esc(uid)}')">Full article →</a></div>`:''}</div>
+  `;
+  window.scrollTo(0,0);
+}
+
 /* =============== ROUTER =============== */
 const Router={
   go(hash){if(location.hash===hash)Router.render();else location.hash=hash;},
@@ -3039,6 +3280,9 @@ const Router={
     else if(route==='items')view_items();
     else if(route==='item')view_item(arg);
     else if(route==='intel')view_dynasties();
+    else if(route==='login')view_login();
+    else if(route==='profile'){ if(arg) { setCurrentUserId(arg); } view_profile(); }
+    else if(route==='me')view_profile();
     else if(route==='year'){const parts=arg.split('/');view_year(parts[0],parts[1]?parseInt(parts[1],10):null);}
     else if(route==='artifacts')view_artifacts();
     else if(route==='artifact')view_mainartifact(arg);
@@ -3064,7 +3308,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','historicalTimeline','artifacts','congress','annotations'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
@@ -3168,6 +3412,7 @@ async function boot(){
   buildIndexes();
   buildAtlasIndex();
   el('statline').textContent = ALL_ITEMS.length+' articles · '+Object.keys(DATA.conflicts||{}).length+' conflicts · '+(DATA.majorBattles||[]).length+' battles · '+(DATA.congress_votes||[]).length+' votes · '+(((DATA.artifacts||{}).star_bearers||[]).length)+' bearers · '+window.__DATA_SOURCE+' · / search · H links · C comments';
+  try{ updateTopbarLoginBtn(); }catch(e){}
   Router.render();
 }
 boot();
