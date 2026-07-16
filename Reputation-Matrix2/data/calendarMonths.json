@@ -3,72 +3,132 @@
     "name": "Firstlight",
     "abbreviation": "Fst",
     "ordinal": 1,
-    "days": 30
+    "days": 30,
+    "season": "Hoarfrost Winter",
+    "seasonAbbr": "Win",
+    "description": "Empire's Founding — thaw begins, oaths sworn in frost.",
+    "color": "#ADD8E6",
+    "icon": "❄️"
   },
   {
     "name": "Chillwind",
     "abbreviation": "Chl",
     "ordinal": 2,
-    "days": 30
+    "days": 30,
+    "season": "Hoarfrost Winter",
+    "seasonAbbr": "Win",
+    "description": "Deep winter bites harder before breaking.",
+    "color": "#9cc9e0",
+    "icon": "🥶"
   },
   {
     "name": "Veridia",
     "abbreviation": "Ver",
     "ordinal": 3,
-    "days": 30
+    "days": 30,
+    "season": "Verdant Spring",
+    "seasonAbbr": "Spr",
+    "description": "First green — planting rites and spring festivals.",
+    "color": "#90EE90",
+    "icon": "🌱"
   },
   {
     "name": "Bloom",
     "abbreviation": "Blo",
     "ordinal": 4,
-    "days": 30
+    "days": 30,
+    "season": "Verdant Spring",
+    "seasonAbbr": "Spr",
+    "description": "Blooms explode, bees argue, allergies weaponized.",
+    "color": "#7dd87d",
+    "icon": "🌸"
   },
   {
     "name": "Floria",
     "abbreviation": "Flo",
     "ordinal": 5,
-    "days": 30
+    "days": 30,
+    "season": "Verdant Spring",
+    "seasonAbbr": "Spr",
+    "description": "Floria's trade roads — last comfortable travel before heat.",
+    "color": "#6bc96b",
+    "icon": "🌼"
   },
   {
     "name": "Efferd",
     "abbreviation": "Eff",
     "ordinal": 6,
-    "days": 30
+    "days": 30,
+    "season": "Golden Summer",
+    "seasonAbbr": "Sum",
+    "description": "Early summer, field work, gear maintenance.",
+    "color": "#FFE55C",
+    "icon": "☀️"
   },
   {
     "name": "Highsun",
     "abbreviation": "Hsn",
     "ordinal": 7,
-    "days": 30
+    "days": 30,
+    "season": "Golden Summer",
+    "seasonAbbr": "Sum",
+    "description": "Midsummer zenith — bonfires, treaties, and diplomatic sunburn.",
+    "color": "#FFD700",
+    "icon": "🔆"
   },
   {
     "name": "Harvestide",
     "abbreviation": "Hrv",
     "ordinal": 8,
-    "days": 30
+    "days": 30,
+    "season": "Golden Summer",
+    "seasonAbbr": "Sum",
+    "description": "Harvest roads crowded, Shadow Estate audits, planar fractures.",
+    "color": "#FFC200",
+    "icon": "🌾"
   },
   {
     "name": "Aethel",
     "abbreviation": "Aet",
     "ordinal": 9,
-    "days": 30
+    "days": 30,
+    "season": "Crimson Fall",
+    "seasonAbbr": "Fal",
+    "description": "Aethel's amber — lore keeping, lantern rites, starfall.",
+    "color": "#FF8C69",
+    "icon": "🍂"
   },
   {
     "name": "Darkmoon",
     "abbreviation": "Drk",
     "ordinal": 10,
-    "days": 30
+    "days": 30,
+    "season": "Crimson Fall",
+    "seasonAbbr": "Fal",
+    "description": "Nights lengthen, wards raised, Blood Moon folklore.",
+    "color": "#E07050",
+    "icon": "🌑"
   },
   {
     "name": "Frostfall",
     "abbreviation": "Frs",
     "ordinal": 11,
-    "days": 30
+    "days": 30,
+    "season": "Crimson Fall",
+    "seasonAbbr": "Fal",
+    "description": "Last trade, remembrance, armies dig in.",
+    "color": "#CC6A50",
+    "icon": "🍁"
   },
   {
     "name": "Deepwinter",
     "abbreviation": "Dpw",
     "ordinal": 12,
-    "days": 35
+    "days": 35,
+    "season": "Hoarfrost Winter",
+    "seasonAbbr": "Win",
+    "description": "Deepwinter — 35 days, longest month, silence and doughnut festivals.",
+    "color": "#8ab4d0",
+    "icon": "❄️"
   }
 ]

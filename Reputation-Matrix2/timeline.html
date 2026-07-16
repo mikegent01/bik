@@ -1,35 +1,25 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vigilance Terminal | Historical Timeline</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="components.css">
-    <link rel="stylesheet" href="timeline.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline Merged — Walupedia Calendar</title>
+<meta http-equiv="refresh" content="1; url=./battlefield.html#/calendar/timeline">
+<style>
+:root{--bg:#0d0a15;--panel:#1b1430;--border:#38295a;--text:#ece7f5;--muted:#a99cc6}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,sans-serif;display:grid;place-items:center;min-height:100vh;padding:20px}
+.card{max-width:700px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px}
+.chip{display:inline-block;border:1px solid var(--border);background:rgba(138,75,255,.12);border-radius:999px;padding:6px 12px;margin:4px;font-size:13px;cursor:pointer}
+a{color:#c8a6ff}
+</style>
 </head>
 <body>
-    <div class="tablet-frame">
-        <div class="scanline-overlay"></div>
-        <div id="app">
-             
-            <main id="main-content">
-                 <h2 class="page-title">Historical Timeline of the Doughnut World</h2>
-                 
-                 <div id="timeline-filter-bar">
-                    <!-- Filter buttons will be injected here by JS -->
-                 </div>
-                 <div id="timeline-container">
-                    <!-- Timeline events will be injected here by JS -->
-                 </div>
-            </main>
-        </div>
-    </div>
-    <script type="module" src="common.js"></script>
-    <script type="module" src="navigation.js"></script>
-    <script type="module" src="timeline.js"></script>
+<div class="card">
+<h1>🕰️ Timeline Merged into Calendar — Single Page</h1>
+<p>Old <code>timeline.html</code> (chronological view) has been <b>merged</b> into the unified calendar <code>battlefield.html#/calendar/timeline</code> — same data, no loss.</p>
+<p>Single calendar page now has 4 tabs: Month Grid / Year View / Full Timeline / All Years.</p>
+<p>Redirecting to <a href="./battlefield.html#/calendar/timeline">Calendar → Timeline tab</a>…</p>
+<div><span class="chip" onclick="location.href='./battlefield.html#/calendar/timeline'">Open Timeline Tab →</span><span class="chip" onclick="location.href='./battlefield.html#/calendar'">Open Calendar →</span></div>
+</div>
 </body>
 </html>

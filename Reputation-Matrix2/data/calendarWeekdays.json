@@ -1,0 +1,9 @@
+[
+  { "name": "Soldas", "abbreviation": "Sol", "ordinal": 1, "isRestDay": false, "element": "Sun", "description": "Sun day — markets, labor, official work." },
+  { "name": "Lunadas", "abbreviation": "Lun", "ordinal": 2, "isRestDay": false, "element": "Moon", "description": "Moon day — travel and minor rites." },
+  { "name": "Terras", "abbreviation": "Ter", "ordinal": 3, "isRestDay": false, "element": "Earth", "description": "Earth day — crafting and trade." },
+  { "name": "Mercurias", "abbreviation": "Mer", "ordinal": 4, "isRestDay": false, "element": "Mercury", "description": "Swift day — messages, contracts." },
+  { "name": "Jovias", "abbreviation": "Jov", "ordinal": 5, "isRestDay": false, "element": "Jupiter", "description": "Great day — courts and assemblies." },
+  { "name": "Venerias", "abbreviation": "Ven", "ordinal": 6, "isRestDay": true, "element": "Venus", "description": "Rest day — feasts, family, no conscription." },
+  { "name": "Saturias", "abbreviation": "Sat", "ordinal": 7, "isRestDay": true, "element": "Saturn", "description": "Rest day — reflection, temple." }
+]

@@ -1,0 +1,9 @@
+{
+  "name": "Regal Empire Standard Calendar",
+  "description": "12 months, 365 days, 7 weekdays. BF counts UP toward the present — 722 BF is oldest dated record, 1040 BF is current game date. Larger year = closer to now. Think 'pages in a chronicle' not 'countdown'.",
+  "version": "2.0.0",
+  "bfMeaning": "BF is the in-world chronicle designation. Waluigi translates it as 'Before Fracture' in footnotes, but the annalists filed it as sequential — earliest entry is 722 BF, present is 1040 BF, so year numbers increase toward now. Intuition: It's a log number, not a countdown.",
+  "daysPerYear": 365,
+  "weekdaysPerWeek": 7,
+  "note": "Deepwinter has 35 days to make 365. Rest days are Venerias and Saturias."
+}

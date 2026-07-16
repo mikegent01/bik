@@ -9,8 +9,8 @@ const OUTPUT_FILE = path.join(TARGET_FOLDER, 'site-updates.json');
 const JS_DEPENDENCIES = {
     'alliances.html': ['alliances-page.js'],
     'assembly.html': ['assembly.js', 'assembly-data.js', 'assembly-events-data.js', 'assembly-intel-system.js', 'assembly-viral-data.js'],
-    'battlefield.html': ['battlefield.js', 'map-battle-data-base.js', 'map-battle-data-battlefields.js'],
-    'calendar.html': ['calendar.js', 'calendar-data.js'],
+    'battlefield.html': ['battlefield.js', 'map-battle-data-base.js', 'map-battle-data-battlefields.js', 'calendar-data.js', 'data/calendarMonths.json', 'data/calendarWeekdays.json', 'data/calendarSeasons.json', 'data/calendarMeta.json'],
+    // calendar.html merged into battlefield.html#/calendar — single page
     'civil-war.html': ['civil-war.js'],
     'directory.html': ['directory-system.js'],
     'focus.html': ['focus.js', 'focus-tree.js'],
@@ -25,7 +25,7 @@ const JS_DEPENDENCIES = {
     'rumors.html': ['rumors.js', 'rumor-chatter-data.js'],
     'societal-values.html': ['societal-values.js'],
     'species.html': ['species.js', 'species-data.js', 'species-workforce.js'],
-    'timeline.html': ['timeline.js', 'timeline-data.js'],
+    // timeline.html merged into battlefield.html#/calendar/timeline — single page
     'treaty.html': ['treaty.js'],
     
     // Factions
