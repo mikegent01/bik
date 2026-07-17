@@ -1673,7 +1673,7 @@ async function view_item(id) {
     const ix=await fetch('./data/shop-items/item-index.json',{cache:'no-cache'}).then(r=>r.json());
     const file=ix[id];
     if(file){
-      const mod=await import('../'+file.replace(/^\.\//,''));
+      const mod=await import(file);
       const raw=Object.values(mod).find(v=>v&&typeof v==='object'&&v[id]);
       const recovered=raw&&raw[id];
       if(recovered){
