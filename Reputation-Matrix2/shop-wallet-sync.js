@@ -111,11 +111,10 @@ function convertSimpleCurrencyElement(el) {
   if (el.children.length > 0) return;
   const text = el.textContent || '';
   const original = el.dataset.currencyOriginal || text;
-  const c = currency();
   const needMatch = original.match(/^You need\s+([0-9][0-9,]*(?:\.\d+)?)\s+more\s+(?:coins|.+)!$/);
   if (needMatch) {
     el.dataset.currencyOriginal = `You need ${needMatch[1]} more coins!`;
-    const convertedNeed = `You need ${formatCurrency(parseNumber(needMatch[1]))} more ${c.name || selected}!`;
+    const convertedNeed = `You need ${formatCurrency(parseNumber(needMatch[1]))} more!`;
     if (convertedNeed !== text) el.textContent = convertedNeed;
     return;
   }
@@ -128,14 +127,6 @@ function convertSimpleCurrencyElement(el) {
 function relabelGoldTextNodes() {
   const c = currency();
   const label = c.name || selected;
-  const replacements = [
-    [/\bYour Gold\b/g, `Your ${label}`],
-    [/\bRemaining Gold\b/g, `Remaining ${label}`],
-    [/\bNOT ENOUGH GOLD\b/g, `NOT ENOUGH ${label.toUpperCase()}`],
-    [/\bmore coins!\b/g, `more ${label}!`],
-    [/\bonly have ([0-9,]+)!/g, (_, n) => `only have ${formatCurrency(parseNumber(n))}!`],
-    [/\bcoins but only have\b/g, `${label} but only have`]
-  ];
   const root = document.getElementById('root');
   if (!root) return;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
@@ -143,9 +134,14 @@ function relabelGoldTextNodes() {
   while (walker.nextNode()) nodes.push(walker.currentNode);
   nodes.forEach(node => {
     if (node.parentElement?.closest('#playerWalletBridge')) return;
-    let text = node.nodeValue;
-    for (const [pattern, replacement] of replacements) text = text.replace(pattern, replacement);
-    if (text !== node.nodeValue) node.nodeValue = text;
+    const text = node.nodeValue;
+    let next = text;
+    if (text === 'Your Gold') next = `Your ${label}`;
+    else if (text === 'Remaining Gold') next = `Remaining ${label}`;
+    else if (text === '❌ NOT ENOUGH GOLD!') next = `❌ NOT ENOUGH ${label.toUpperCase()}!`;
+    else if (text === 'NOT ENOUGH GOLD!') next = `NOT ENOUGH ${label.toUpperCase()}!`;
+    else next = next.replace(/\bcoins but only have\b/g, `${label} but only have`);
+    if (next !== text) node.nodeValue = next;
   });
 }
 
@@ -301,5 +297,11 @@ window.WarioShopCurrency = {
   },
   refresh: schedule,
   getSelectedCurrency: () => selected,
-  getSelectedHolding: selectedHolding
+  getSelectedHolding: selectedHolding,
+  currencyBaseValue(id) { return Number(currency(id).base_value) || 1; },
+  itemGoldValue(item) {
+    const key = String(item?.priceCurrency || item?.currencyKey || item?.currency || 'gold').trim().toLowerCase();
+    const amount = Number(item?.price || 0);
+    return amount * (Number(currency(key).base_value) || 1);
+  }
 };
