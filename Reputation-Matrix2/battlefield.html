@@ -168,6 +168,10 @@ function buildIndexes(){
   // Books search entries
   const _books = ((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]);
   _books.forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'book',id:b.id,typeKey:'books',name:b.title||prettyId(b.id),summary:b.subtitle||b.description||'',hay:[b.id,b.title,b.subtitle,b.author,b.category,b.description].filter(Boolean).join(' ').toLowerCase()}); });
+  // Historical chronicles — 313-record dataset that was previously unindexed.
+  (DATA.historicalTimeline||[]).forEach((h,i)=>{ if(!h || h.type==='era_header' || !h.title) return; const slug=chronicleSlug(h,i); const dateLbl=h.date?.year?`${h.date.year} BF`:''; SEARCH_DOCS.push({kind:'chronicle',id:slug,typeKey:'chronicles',name:h.title,summary:(h.description||'').slice(0,180),hay:[slug,h.title,h.description,h.category,dateLbl].filter(Boolean).join(' ').toLowerCase()}); });
+  // Collections — 18 curated groupings deserve dedicated routes so they don't hide inside the generic list view.
+  (DATA.collections||[]).forEach(c=>{ if(!c || !c.id) return; SEARCH_DOCS.push({kind:'collection',id:c.id,typeKey:'collections',name:c.name||prettyId(c.id),summary:c.summary||c.scope||'',hay:[c.id,c.name,c.title,c.scope,c.summary,c.criteria,(c.members||[]).map(m=>m.name+' '+m.role).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
   const CG=DATA.congress||{};
   (CG.members||[]).forEach(m=>{ if(!m) return; SEARCH_DOCS.push({kind:'member',id:m.id,typeKey:'congress',name:m.name,summary:m.summary||'',hay:[m.name,m.bloc,m.status,m.delegate,m.summary,m.description].filter(Boolean).join(' ').toLowerCase()}); });
   (CG.sessions||[]).forEach(s=>{ if(!s) return; SEARCH_DOCS.push({kind:'session',id:s.id,typeKey:'congress',name:s.name,summary:s.summary||'',hay:[s.name,s.host,s.status,s.summary,s.description].filter(Boolean).join(' ').toLowerCase()}); });
@@ -535,7 +539,36 @@ function crossPagePanel(articleId,typeKey,item){
   links.push(`<a href="#/dynasties">👑 Dynasties & Intel</a>`);
   if(typeKey==='nations') links.push(`<a href="#/atlas/${encodeURIComponent(articleId)}">Open Atlas dashboard</a>`);
   if(typeKey==='factions') links.push(`<button onclick="openLawsFromWiki('${esc(articleId)}')">⚖️ Laws / legal context</button>`);
+  // Character → link back to race article, and to any collection the character belongs to.
+  if(typeKey==='characters' && item){
+    const raceId = findRaceIdForCharacter(item);
+    if(raceId) links.push(`<a href="#/article/${encodeURIComponent(raceId)}">🧬 Race: ${esc(prettyId(raceId))}</a>`);
+    const memberOf = (DATA.collections||[]).filter(c => (c.members||[]).some(m => m.id===articleId) || (c.articles||[]).includes(articleId));
+    memberOf.slice(0,4).forEach(c => links.push(`<a href="#/collection/${encodeURIComponent(c.id)}">🗂️ ${esc(c.name)}</a>`));
+    const annCount = (ANNOT_BY_ARTICLE&&ANNOT_BY_ARTICLE[articleId])?ANNOT_BY_ARTICLE[articleId].length:0;
+    if(annCount) links.push(`<a href="#/annotations/author:${encodeURIComponent(articleId)}">💬 ${annCount} annotated passage${annCount===1?'':'s'}</a>`);
+  }
+  if(typeKey==='races') links.push(`<a href="#/list/races">🧬 All Races Index</a>`);
   return `<div class="cross-page-panel"><h4>Connected Systems</h4><div class="cross-page-links">${links.join('')}</div></div>`;
+}
+function findRaceIdForCharacter(item){
+  if(!item) return null;
+  const raceStr=String(item.race||'').toLowerCase().trim();
+  if(!raceStr) return null;
+  const races=DATA.races||[];
+  // 1. Exact id or name match
+  let hit=races.find(r=>r.id && r.id.toLowerCase()===raceStr);
+  if(hit) return hit.id;
+  hit=races.find(r=>r.name && r.name.toLowerCase()===raceStr);
+  if(hit) return hit.id;
+  // 2. Substring in either direction (e.g. char.race='Toad' matches race 'Toads', or 'Human (Kivotan)' matches 'Human')
+  hit=races.find(r=>{
+    const rn=String(r.name||'').toLowerCase();
+    const rid=String(r.id||'').replace(/_/g,' ').toLowerCase();
+    return (rn && (raceStr.includes(rn) || rn.includes(raceStr))) ||
+           (rid && (raceStr.includes(rid) || rid.includes(raceStr)));
+  });
+  return hit?hit.id:null;
 }
 function openLawsFromWiki(fid){ location.href='uploads/laws.html#'+encodeURIComponent(fid); }
 
@@ -575,12 +608,15 @@ function routeForKind(kind,id){
     case 'currency':return '#/currency/'+encodeURIComponent(id);
     case 'vendor':return 'shop.html#vendor='+encodeURIComponent(id);
     case 'holiday':return '#/holiday/'+encodeURIComponent(id);
+    case 'chronicle':return '#/chronicle/'+encodeURIComponent(id);
+    case 'annotation':return '#/annotations';
+    case 'collection':return '#/collection/'+encodeURIComponent(id);
     case 'system':return id;
     default:return '#/article/'+encodeURIComponent(id);
   }
 }
 function kindEmoji(kind,typeKey){
-  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚'};
+  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚',chronicle:'📜',annotation:'💬',collection:'🗂️'};
   if(m[kind])return m[kind];
   return TYPE_BY_KEY[typeKey]?TYPE_BY_KEY[typeKey].emoji:'📄';
 }
@@ -897,7 +933,7 @@ function search(q){
   out.sort((a,b)=>b.score-a.score);return out.slice(0,40);
 }
 function highlight(text,q){if(!q)return esc(text);const terms=q.trim().split(/\s+/).filter(Boolean).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));let o=esc(text);terms.forEach(t=>{o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});return o;}
-function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
+function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
 const searchInput=el('search'),resultsBox=el('results');let activeIdx=-1,currentResults=[];
 function renderResults(list,q){
@@ -936,7 +972,11 @@ function renderSidebar(active){
   h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">🏦</span> Bank & Exchange</span></div>`;
   h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar</span></div>`;
   h+=`<div class="navlink ${active==='holidays'?'active':''}" onclick="Router.go('#/holiday')"><span><span class="emoji">🎉</span> Holidays</span><span class="cnt">${(()=>{const g=DATA.calendarHolidays?.holidays||{};let n=0;Object.values(g).forEach(a=>n+=(a||[]).length);return n;})()}</span></div>`;
+  h+=`<div class="navlink ${active==='timeline'?'active':''}" onclick="Router.go('#/timeline')"><span><span class="emoji">🕰️</span> Timeline</span></div>`;
+  h+=`<div class="navlink ${active==='chronicle'?'active':''}" onclick="Router.go('#/chronicle')"><span><span class="emoji">📜</span> Chronicles</span><span class="cnt">${(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}</span></div>`;
 h+=`<div class="navlink ${active==='reputation'?'active':''}" onclick="Router.go('#/reputation')"><span><span class="emoji">📈</span> Reputation Matrix</span><span class="cnt">${Object.keys(LORE_FACTIONS||{}).length||100}</span></div>`;
+  h+=`<div class="navlink ${active==='xp'?'active':''}" onclick="Router.go('#/xp')"><span><span class="emoji">✦</span> XP Leaderboard</span><span class="cnt">${(()=>{try{return _xpAggregate().totalRows;}catch(e){return '';}})()}</span></div>`;
+  h+=`<div class="navlink ${active==='annotations'?'active':''}" onclick="Router.go('#/annotations')"><span><span class="emoji">💬</span> Chatter Hub</span><span class="cnt">${(DATA.annotations||[]).length}</span></div>`;
   const nbear=((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length + ((DATA.artifacts&&DATA.artifacts.god_toad)?1:0);
   h+=`<div class="navlink ${active==='artifacts'?'active':''}" onclick="Router.go('#/artifacts')"><span><span class="emoji">⭐</span> Artifacts</span><span class="cnt">${nbear}</span></div>`;
   h+=`</div><div class="navsec"><div class="navhead">Classic Indexes</div>`;
@@ -1087,7 +1127,7 @@ function view_home(){
    </div>
    <div class="card"><div class="home-section-head"><div><h2>Explore</h2><p>Explore all categories, system portals, and cross-realm directories in Waluipedia core.</p></div></div><div class="grid-cats">${cats}</div>
      <h2 class="mt-18">Recently Updated / Added</h2><div class="update-grid">${SITE_UPDATES.map(updateCard).join('')}</div>
-     <h2 class="mt-18">Comment Spotlight</h2><div class="comment-grid">${commentSpotlightCards()}</div>
+     <h2 class="mt-18">Comment Spotlight <a class="chip" href="#/annotations" style="font-size:11px;vertical-align:middle;margin-left:8px">Full Chatter Hub →</a></h2><div class="comment-grid">${commentSpotlightCards()}</div>
      <h2 class="mt-18">Suggested Reading Paths</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation')"><h3>📈 Reputation Matrix & Standings</h3><p>Live 100+ faction matrix, operator standings, custom narrative assessments, and public menace heat tracking.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>💱 Multi-Currency & Bank Vaults</h3><p>48 international tenders, conversion rates, wallet balances, loans, and debt ledgers.</p></div><div class="path-card" onclick="location.href='assembly.html'"><h3>🏛️ Grand Latin Assembly & Viral Feeds</h3><p>Cross-realm parliamentary motions, viral propaganda feeds, and live assembly votes across 100 polities.</p></div><div class="path-card" onclick="Router.go('#/artifacts')"><h3>⭐ Star Bearers & Main Artifacts</h3><p>Star Fragments, Fire Flower Petals, God Toad, and the 9 Cosmic Star Bearers.</p></div><div class="path-card" onclick="location.href='books/library.html'"><h3>📚 Grand Library Archive</h3><p>Over 40 full-text books with custom covers and library stock across Mushroom, Mordor, and Unseen archives.</p></div><div class="path-card" onclick="location.href='alliances.html'"><h3>🌐 Multi-Realm Alliances Grid</h3><p>Geopolitical defense pacts, non-aggression treaties, and coalition maps.</p></div><div class="path-card" onclick="Router.go('#/atlas/mushroom_kingdom')"><h3>🍄 Mushroom Civil War & House Toadstool</h3><p>Regency, Peach Loyalists, Fawful occupation, Koopa intervention, and the broken crown.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Shadow Estate Arc & Midnight Audit</h3><p>Intrusions, firearm recovery, Black Crystal testing, and the closet-bound spy.</p></div></div>
    </div>
    <div class="grid2">
@@ -1961,8 +2001,56 @@ function view_article(id){
   const totalWords = words(item.description)+words(sectionWordSrc);
   const rtFull = Math.max(1, Math.round(totalWords/220));
   let infoRows='';(INFOBOX[typeKey]||[]).forEach(([f,label])=>{let v=item[f];if(!v)return;if(Array.isArray(v))v=v.join(', ');v=String(v);infoRows+=`<div class="row"><span class="k">${esc(label)}</span><span class="v" title="${esc(v)}">${esc(v)}</span></div>`;});
-  const listBlocks=[];const af=(f,label)=>{if(Array.isArray(item[f])&&item[f].length){const vals=item[f].map(x=>typeof x==='string'?prettyId(x):(x.name||x.id||''));if(vals.some(v=>v.length>40)){listBlocks.push(`<div class="event-details-section"><h4>${esc(label)}</h4><ul>${vals.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></div>`);}else{listBlocks.push(`<p><strong>${esc(label)}:</strong> ${vals.map(esc).join(', ')}</p>`);}}};
-  af('distinctiveTraits','Distinctive Traits');af('notableFeatures','Notable Features');af('notableMembers','Notable Members');af('regions','Regions');af('allies','Allies');af('enemies','Enemies');af('belligerents','Belligerents');af('participants','Participants');af('members','Members');
+  const listBlocks=[];
+  // Render array fields. When `linkable` is true and a value matches a known INDEX entry,
+  // it becomes a clickable entity-chip. Otherwise falls back to plaintext.
+  const af=(f,label,opts)=>{
+    if(!Array.isArray(item[f])||!item[f].length) return;
+    const linkable=opts&&opts.linkable;
+    const raws=item[f];
+    const rendered=raws.map(x=>{
+      if(x && typeof x==='object'){
+        const id=x.id||x.key;
+        const name=x.name||(id?prettyId(id):'');
+        if(linkable && id && INDEX[id]) return `<a class="entity-link" onclick="openId('${esc(id)}')">${esc(name)}</a>`+(x.role?` <span class="text-muted" style="font-size:11px">(${esc(x.role)})</span>`:'');
+        return esc(name)+(x.role?` <span class="text-muted" style="font-size:11px">(${esc(x.role)})</span>`:'');
+      }
+      const s=String(x);
+      if(linkable && INDEX[s]) return `<a class="entity-link" onclick="openId('${esc(s)}')">${esc(displayName(INDEX[s].item))}</a>`;
+      return esc(linkable?prettyId(s):s);
+    });
+    const anyLong = raws.some(v=>String((v&&v.name)||v||'').length>40);
+    if(anyLong){
+      listBlocks.push(`<div class="event-details-section"><h4>${esc(label)}</h4><ul>${rendered.map(v=>`<li>${v}</li>`).join('')}</ul></div>`);
+    } else {
+      listBlocks.push(`<p><strong>${esc(label)}:</strong> ${rendered.join(', ')}</p>`);
+    }
+  };
+  af('distinctiveTraits','Distinctive Traits');af('notableFeatures','Notable Features');af('notableMembers','Notable Members',{linkable:true});af('regions','Regions');af('allies','Allies',{linkable:true});af('enemies','Enemies',{linkable:true});af('belligerents','Belligerents');af('participants','Participants',{linkable:true});af('members','Members',{linkable:true});
+  // Race pages: reverse-index characters whose `race` field mentions this race.
+  if(typeKey==='races' && item && item.name){
+    const raceName=String(item.name).toLowerCase();
+    const raceId=String(item.id||'').toLowerCase();
+    const rosterIds=new Set((item.notableMembers||[]).map(m=>typeof m==='string'?m:(m&&m.id)));
+    const others=(DATA.characters||[]).filter(ch=>{
+      if(!ch||!ch.race) return false;
+      if(rosterIds.has(ch.id)) return false;
+      const r=String(ch.race).toLowerCase();
+      return r.includes(raceName) || (raceId && r.includes(raceId.replace(/_/g,' ')));
+    });
+    if(others.length){
+      const chips=others.slice(0,40).map(ch=>`<a class="entity-link" onclick="openId('${esc(ch.id)}')">${esc(displayName(ch))}</a>`).join(', ');
+      listBlocks.push(`<div class="event-details-section"><h4>👥 Documented ${esc(item.name)}${others.length>1&&!String(item.name).endsWith('s')?'s':''} (auto-linked from Characters index)</h4><p>${chips}${others.length>40?` <span class="text-muted">…and ${others.length-40} more</span>`:''}</p></div>`);
+    }
+  }
+  // Collections listing when we're viewing a character or faction.
+  if((typeKey==='characters'||typeKey==='factions') && item){
+    const memberOf = (DATA.collections||[]).filter(c => (c.members||[]).some(m => m.id===item.id) || (c.articles||[]).includes(item.id));
+    if(memberOf.length){
+      const chips = memberOf.map(c => `<a class="entity-link" href="#/collection/${encodeURIComponent(c.id)}">🗂️ ${esc(c.name)}</a>`).join(', ');
+      listBlocks.push(`<div class="event-details-section"><h4>Featured in ${memberOf.length} collection${memberOf.length===1?'':'s'}</h4><p>${chips}</p></div>`);
+    }
+  }
   const relIds=[].concat(item.relatedArticles||[],item.keyEvents||[],item.keyBattles||[],item.articles||[]);
   const seen=new Set();
   const relChips=relIds.filter(r=>{const k=typeof r==='string'?r:r.id;if(!k||seen.has(k))return false;seen.add(k);return true;}).map(r=>{const rid=typeof r==='string'?r:r.id;const ex=!!INDEX[rid];const label=ex?displayName(INDEX[rid].item):prettyId(rid);return ex?`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(label)}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(label)}</span>`;}).join('');
@@ -2268,6 +2356,138 @@ function parseDay(s){
 }
 function monthName(ord){ const x=(DATA.calendarMonths||[]).find(m=>m.ordinal===ord); return x?x.name:(ord===99?'Undated (year only)':('Month '+ord)); }
 
+/* Chronicle helpers — every historicalTimeline record can be opened as its own Waluipedia page. */
+function chronicleSlug(entry, i){
+  if(!entry) return 'chron_'+i;
+  if(entry.id) return String(entry.id);
+  const title=entry.title||entry.name||('entry_'+i);
+  const t=String(title).toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'').slice(0,80);
+  const y=entry.date&&entry.date.year?('_'+entry.date.year):'';
+  return 'chron_'+t+y;
+}
+function getChronicleIndex(){
+  if(window.__CHRON_IDX) return window.__CHRON_IDX;
+  const list=(DATA.historicalTimeline||[]);
+  const idx={by:{}, all:list.map((h,i)=>({...h, __i:i, slug:chronicleSlug(h,i)}))};
+  idx.all.forEach(e => { idx.by[e.slug]=e; });
+  // Attach the era header that precedes each dated event.
+  let currentEra=null;
+  idx.all.forEach(e => {
+    if(e.type==='era_header') currentEra = e.title;
+    else e.era = currentEra;
+  });
+  window.__CHRON_IDX=idx;
+  return idx;
+}
+function invalidateChronicleIndex(){ window.__CHRON_IDX=null; }
+
+function view_chronicle(id){
+  renderSidebar('timeline');
+  const idx=getChronicleIndex();
+  if(!id){
+    // Directory grouped by era
+    const eras=[]; let cur=null;
+    idx.all.forEach(e => {
+      if(e.type==='era_header'){ cur={header:e, items:[]}; eras.push(cur); }
+      else if(cur){ cur.items.push(e); }
+    });
+    const eraBlocks = eras.map(g => {
+      const cards = g.items.slice().sort((a,b)=>{
+        const ay=(a.date?.year)||0, by=(b.date?.year)||0;
+        if(ay!==by) return ay-by;
+        return ((a.date?.monthIndex||0)-(b.date?.monthIndex||0)) || ((a.date?.day||0)-(b.date?.day||0));
+      }).map(e => {
+        const y=e.date?.year, mo=e.date?.monthIndex!=null?monthName(e.date.monthIndex+1):'', d=e.date?.day||'';
+        const dateStr=y?`${mo} ${d}, ${y} BF`:'Undated';
+        const catCls = (e.category||'').toLowerCase().replace(/\s+/g,'-');
+        return `<a class="card holiday-directory-card" href="#/chronicle/${encodeURIComponent(e.slug)}" style="border-left:4px solid ${chronicleCategoryColor(e.category)}">
+          <h3 style="margin:0 0 4px;font-size:14px">${esc(e.title||'Untitled entry')}</h3>
+          <div style="font-size:11.5px;color:var(--muted);margin-bottom:6px">📅 ${esc(dateStr)}${e.category?` · <span class="pill" style="font-size:10px;padding:1px 6px">${esc(e.category)}</span>`:''}</div>
+          <p style="font-size:12px;color:var(--text);line-height:1.45;margin:0">${esc((e.description||'').slice(0,140))}${(e.description||'').length>140?'…':''}</p>
+        </a>`;
+      }).join('');
+      return `<div class="card" style="margin-top:14px;border-left:4px solid var(--accent2)">
+        <h2 style="margin-top:0">📜 ${esc(g.header.title)} <span class="text-muted" style="font-size:12px;font-weight:400">— ${g.items.length} chronicle${g.items.length===1?'':'s'}</span></h2>
+        <div class="holiday-directory-grid">${cards}</div>
+      </div>`;
+    }).join('');
+    el('content').innerHTML=`
+      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/timeline')">Timeline</a> › Chronicles</div>
+        <h1 style="margin:6px 0 4px">📜 Historical Chronicles</h1>
+        <p class="text-muted" style="font-size:13.5px">${idx.all.filter(e=>e.type!=='era_header').length} entries organized across ${eras.length} eras. Each chronicle opens as its own Waluipedia record.</p>
+      </div>
+      ${eraBlocks}`;
+    window.scrollTo(0,0); return;
+  }
+  const e=idx.by[id];
+  if(!e){ view_chronicle(); return; }
+  const y=e.date?.year, mo=e.date?.monthIndex, d=e.date?.day, hh=e.date?.hour, mm=e.date?.minute;
+  const monthLabel = mo!=null ? monthName(mo+1) : null;
+  const dateStr = y ? `${monthLabel?monthLabel+' ':''}${d||''}${d?', ':''}${y} BF${hh!=null?` · ${String(hh).padStart(2,'0')}:${String(mm||0).padStart(2,'0')}`:''}` : (e.era||'Ancient / Undated');
+  const list=idx.all.filter(x=>x.type!=='era_header');
+  const myIdx=list.indexOf(e);
+  const prev=myIdx>0?list[myIdx-1]:null;
+  const next=myIdx>=0 && myIdx<list.length-1?list[myIdx+1]:null;
+  const sameEra=list.filter(x=>x.era===e.era && x.slug!==e.slug).slice(0,10);
+  const linkedDesc = linkify?linkify(esc(e.description||'')):esc(e.description||'');
+
+  el('content').innerHTML=`
+    <div class="card animate-fade-in" style="border-top:5px solid ${chronicleCategoryColor(e.category)};background:linear-gradient(135deg,${chronicleCategoryColor(e.category)}22,rgba(0,0,0,.05)),var(--panel)">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/timeline')">Timeline</a> › <a onclick="Router.go('#/chronicle')">Chronicles</a> › ${esc(e.title||'Entry')}</div>
+      <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-top:8px">
+        <div style="font-size:56px;line-height:1">${esc(chronicleCategoryEmoji(e.category))}</div>
+        <div style="flex:1;min-width:220px">
+          <h1 style="margin:0 0 6px;font-size:28px">${esc(e.title||'Untitled')}</h1>
+          <div style="color:var(--accent2);font-style:italic;font-size:14px">${esc(e.era||'Historical Record')}</div>
+          <div class="chips mt-10">
+            <span class="pill">📅 ${esc(dateStr)}</span>
+            ${e.category?`<span class="pill">${esc(chronicleCategoryEmoji(e.category))} ${esc(e.category)}</span>`:''}
+            ${y?`<a class="chip" href="#/year/${y}">Open ${y} BF chronicle →</a>`:''}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">📖 Full Record</h2>
+      <p class="prose" style="font-size:15px;line-height:1.75">${linkedDesc||'<span class="text-muted">No description on file.</span>'}</p>
+    </div>
+
+    ${sameEra.length?`<div class="card">
+      <h2 style="margin-top:0">🔗 Other chronicles from this era</h2>
+      <div class="chips">${sameEra.map(x=>`<a class="chip" href="#/chronicle/${encodeURIComponent(x.slug)}">${esc(chronicleCategoryEmoji(x.category))} ${esc(x.title)}</a>`).join('')}</div>
+    </div>`:''}
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        ${prev?`<a class="chip" href="#/chronicle/${encodeURIComponent(prev.slug)}">← ${esc(prev.title)}</a>`:'<span></span>'}
+        <a class="chip active" href="#/chronicle">Chronicle Index</a>
+        ${next?`<a class="chip" href="#/chronicle/${encodeURIComponent(next.slug)}">${esc(next.title)} →</a>`:'<span></span>'}
+      </div>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function chronicleCategoryColor(cat){
+  const c=String(cat||'').toLowerCase();
+  if(c.includes('battle')||c.includes('combat')||c.includes('military')) return '#e74c3c';
+  if(c.includes('political')||c.includes('faction')) return '#8a4bff';
+  if(c.includes('discovery')||c.includes('mystery')) return '#3498db';
+  if(c.includes('social')||c.includes('personal')||c.includes('character')) return '#2ecc71';
+  return '#c9a96e';
+}
+function chronicleCategoryEmoji(cat){
+  const c=String(cat||'').toLowerCase();
+  if(c.includes('battle')||c.includes('combat')) return '⚔️';
+  if(c.includes('military')) return '🎖️';
+  if(c.includes('political')||c.includes('faction')) return '🏳️';
+  if(c.includes('discovery')) return '🔍';
+  if(c.includes('mystery')) return '❓';
+  if(c.includes('social')) return '🗣️';
+  if(c.includes('personal')||c.includes('character')) return '👤';
+  return '📜';
+}
+
 function view_timeline(){
   renderSidebar('timeline');
   const entries=[];
@@ -2285,8 +2505,29 @@ function view_timeline(){
   // major battles use a different route
   (DATA.majorBattles||[]).forEach(b=>{if(!b) return; const dateStr=b.date||'';const y=parseYear(dateStr);if(y==null)return;
     entries.push({y,mo:parseMonth(dateStr),d:parseDay(dateStr),kind:'b',cls:'b',id:'mb:'+b.id,name:b.name,meta:dateStr,go:()=>Router.go('#/mbattle/'+encodeURIComponent(b.id))});});
+  // Fold in historicalTimeline entries — 313 rich records that were previously invisible on the main timeline.
+  const chronIdx=getChronicleIndex();
+  chronIdx.all.forEach(h => {
+    if(h.type==='era_header') return;
+    const y=h.date?.year; if(y==null) return;
+    const mo=h.date?.monthIndex!=null?h.date.monthIndex+1:99;
+    const d=h.date?.day||99;
+    const catCls = (h.category||'').toLowerCase().includes('battle')||(h.category||'').toLowerCase().includes('combat') ? 'b'
+                 : (h.category||'').toLowerCase().includes('political') ? 'p'
+                 : 'c';
+    entries.push({
+      y, mo, d,
+      kind:'c', cls:catCls,
+      id:'chron:'+h.slug,
+      name:h.title||'Timeline Entry',
+      meta:`${monthName(mo)} ${d}, ${y} BF${h.date?.hour!=null?' · '+String(h.date.hour).padStart(2,'0')+':'+String(h.date.minute||0).padStart(2,'0'):''}`,
+      go:()=>Router.go('#/chronicle/'+encodeURIComponent(h.slug))
+    });
+  });
   // resolve go() for the standard kinds
   entries.forEach(e=>{ if(!e.go){ const rid=e.id; e.go=()=>openId(rid); } });
+  // Build a lookup so onclick can find the entry.
+  window.__tlmap={}; entries.forEach(e => { window.__tlmap[e.kind+'|'+e.id]=e; });
 
   // chronological ascending: earliest year first, then month, then day
   entries.sort((a,b)=> a.y-b.y || a.mo-b.mo || a.d-b.d || a.name.localeCompare(b.name));
@@ -2303,19 +2544,25 @@ function view_timeline(){
   years.sort((a,b)=>a.year-b.year); // earliest -> latest
   years.forEach(y=>y.order.sort((a,b)=>a-b));
 
+  const kindLabel=k=>k==='e'?'Event':k==='t'?'Trial':k==='b'?'Battle':k==='c'?'Chronicle':'Record';
   const body=years.map(y=>{
     const monthBlocks=y.order.map(mo=>{
       const label=monthName(mo);
-      const cards=y.months[mo].map(e=>`<div class="tl-card ${e.cls}" onclick="TL.go('${esc(String(e.kind))}','${esc(String(e.id))}')"><div class="tl-name">${esc(e.name)}</div><div class="tl-meta">${esc(e.meta)} · ${esc(e.kind==='e'?'Event':e.kind==='t'?'Trial':'Battle')}</div></div>`).join('');
+      const cards=y.months[mo].map(e=>`<div class="tl-card ${e.cls}" onclick="TL.go('${esc(String(e.kind))}','${esc(String(e.id))}')"><div class="tl-name">${esc(e.name)}</div><div class="tl-meta">${esc(e.meta)} · ${esc(kindLabel(e.kind))}</div></div>`).join('');
       return `<div class="tl-month"><div class="tl-month-h">${esc(label)}</div><div class="tl-item">${cards}</div></div>`;
     }).join('');
     return `<div class="tl-year-block"><div class="tl-year-h">${y.year} BF</div><div class="tl">${monthBlocks}</div></div>`;
   }).join('');
 
-  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🕰️ Timeline</h2><p class="text-muted">${entries.length} dated events, battles, and trials — in chronological order, oldest first. In this world "BF" counts up toward the present, so 722 BF is the earliest and the current game date is ${esc((MONTHS[CUR.monthIndex]||'')+' '+CUR.day+', '+CUR.year+' BF')}.</p></div><div class="card">${body}</div>`;
+  const cCount = entries.filter(e=>e.kind==='c').length;
+  const eCount = entries.filter(e=>e.kind==='e').length;
+  const bCount = entries.filter(e=>e.kind==='b').length;
+  const tCount = entries.filter(e=>e.kind==='t').length;
+
+  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🕰️ Timeline</h2><p class="text-muted">${entries.length} dated records in chronological order — ${eCount} events, ${bCount} battles, ${tCount} trials, and ${cCount} historical chronicles. In this world "BF" counts up toward the present, so the earliest year here is the earliest recorded, and the current game date is ${esc((MONTHS[CUR.monthIndex]||'')+' '+CUR.day+', '+CUR.year+' BF')}.</p><div class="chips mt-10"><a class="chip" href="#/chronicle">📜 Browse Chronicles by Era →</a><a class="chip" href="#/years">📅 By Year Index</a></div></div><div class="card">${body}</div>`;
   window.scrollTo(0,0);
 }
-const TL={go(kind,id){const e=window.__tlmap[kind+'|'+id];if(e)e.go();}};
+const TL={go(kind,id){const e=window.__tlmap&&window.__tlmap[kind+'|'+id];if(e&&e.go)e.go();}};
 
 /* =============== DYNAMIC YEAR / CHRONICLE PAGES =============== */
 /* Collect every dated event/battle/trial for a given year, grouped by month. Fully dynamic:
@@ -2612,7 +2859,7 @@ function collectEventsForDay(year, monthIndex, day){
     const d=h.date.day;
     if(mo===targetMo && d===day && (y===null || y===year)){
       if(!h.title) return;
-      out.push({kind:'timeline',id:h.title, name:h.title, date:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, summary:h.description||'', route:'#/calendar/timeline'});
+      out.push({kind:'timeline',id:h.title, name:h.title, date:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, summary:h.description||'', route:'#/chronicle/'+encodeURIComponent(chronicleSlug(h,0))});
     }
   });
   // --- NEW: holidays from modular JSON files (calendarHolidays) ---
@@ -2872,7 +3119,7 @@ function view_calendar(){
       if(!h || !h.date) return;
       const y=h.date.year; const mo=h.date.monthIndex!=null?h.date.monthIndex+1:99; const d=h.date.day||99;
       if(y==null) return;
-      entries.push({y,mo,d,kind:'e',cls:'',id:h.title||'tl_'+y+'_'+mo+'_'+d, name:h.title||'Timeline Event', meta:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, route:'#/calendar/timeline'});
+      entries.push({y,mo,d,kind:'e',cls:'',id:h.title||'tl_'+y+'_'+mo+'_'+d, name:h.title||'Timeline Event', meta:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, route:'#/chronicle/'+encodeURIComponent(chronicleSlug(h,0))});
     });
     entries.sort((a,b)=> a.y-b.y || a.mo-b.mo || a.d-b.d || a.name.localeCompare(b.name));
     const years=[]; const yearMap={};
@@ -4550,6 +4797,349 @@ function view_currency(id){
   window.scrollTo(0,0);
 }
 
+/* ================= ANNOTATIONS HUB =================
+   99 in-character threaded discussions were previously reachable only by
+   finding highlighted quotes buried inside individual articles. This view
+   exposes them as a first-class chatter feed: browse every comment thread,
+   filter by author or faction, see top-liked exchanges, and jump into the
+   host article with the quote pre-scrolled. */
+function _annotFlattened(){
+  if(window.__annotFlat) return window.__annotFlat;
+  const out=[];
+  (DATA.annotations||[]).forEach((a,ai)=>{
+    if(!a || !a.articleId) return;
+    const article = INDEX[a.articleId];
+    out.push({
+      ai, articleId:a.articleId,
+      articleName: article?displayName(article.item):prettyId(a.articleId),
+      typeKey: article?article.typeKey:null,
+      quote: a.quote||'',
+      comments: a.comments||[],
+      commentCount: (a.comments||[]).length,
+      likeTotal: (a.comments||[]).reduce((s,c)=>s+(c.likes||0),0),
+      lastComment: (a.comments||[])[(a.comments||[]).length-1] || null,
+      timestamp: ((a.comments||[])[0]||{}).timestamp || ''
+    });
+  });
+  window.__annotFlat = out;
+  return out;
+}
+function invalidateAnnotationsIndex(){ window.__annotFlat=null; }
+
+function annotationRecentFeed(limit){
+  const all=_annotFlattened();
+  // Sort by timestamp descending. Timestamps are strings like "Aethel 2, 1040 BF" — parse loosely.
+  return all.slice().sort((a,b)=>{
+    const ay=parseYear(a.timestamp)||0, by=parseYear(b.timestamp)||0;
+    if(ay!==by) return by-ay;
+    return b.likeTotal - a.likeTotal;
+  }).slice(0, limit||10);
+}
+
+function view_annotations(mode){
+  renderSidebar('annotations');
+  const all=_annotFlattened();
+  const totalComments = all.reduce((s,a)=>s+a.commentCount,0);
+  const totalLikes = all.reduce((s,a)=>s+a.likeTotal,0);
+  const byAuthor={}, byFaction={};
+  all.forEach(a=>a.comments.forEach(c=>{
+    const au=c.author||'?'; (byAuthor[au]=byAuthor[au]||{name:au,authorId:c.authorId,count:0,likes:0}).count++;
+    byAuthor[au].likes += c.likes||0;
+    const f=c.faction||'Unaligned'; (byFaction[f]=byFaction[f]||{name:f,count:0,likes:0}).count++;
+    byFaction[f].likes += c.likes||0;
+  }));
+  const authorRows = Object.values(byAuthor).sort((a,b)=>b.likes-a.likes).slice(0,10);
+  const factionRows = Object.values(byFaction).sort((a,b)=>b.likes-a.likes).slice(0,8);
+
+  // Filter
+  const filterAuthor = String(mode||'').startsWith('author:') ? mode.slice('author:'.length) : null;
+  const filterFaction = String(mode||'').startsWith('faction:') ? mode.slice('faction:'.length) : null;
+  const filterView = filterAuthor||filterFaction ? 'filtered' : (mode||'recent');
+
+  let feed = all.slice();
+  if(filterAuthor) feed = feed.filter(a=>a.comments.some(c=>(c.authorId||c.author)===filterAuthor));
+  if(filterFaction) feed = feed.filter(a=>a.comments.some(c=>(c.faction||'Unaligned')===filterFaction));
+  if(filterView==='top') feed.sort((a,b)=>b.likeTotal-a.likeTotal);
+  else if(filterView==='chatty') feed.sort((a,b)=>b.commentCount-a.commentCount);
+  else feed = annotationRecentFeed(999).filter(a=>feed.includes(a));
+
+  const feedCards = feed.slice(0, 60).map(a => {
+    const topReplies = a.comments.slice(0, 3).map(c => {
+      const nm = c.authorId && INDEX[c.authorId] ? `<a class="entity-link" onclick="event.stopPropagation();openId('${esc(c.authorId)}')">${esc(c.author)}</a>` : esc(c.author||'?');
+      const likes = c.likes ? `<span class="pill" style="font-size:10px;background:rgba(224,180,0,.12);border-color:rgba(224,180,0,.3);color:#ffd166">❤️ ${c.likes.toLocaleString()}</span>` : '';
+      return `<div style="border-left:2px solid var(--border);padding:4px 0 4px 10px;margin:4px 0;font-size:12.5px"><b>${nm}</b> <span class="text-muted" style="font-size:11px">${esc(c.faction||'')}</span> ${likes}<div style="color:var(--text);margin-top:2px">${esc(c.text||'').slice(0,220)}${(c.text||'').length>220?'…':''}</div></div>`;
+    }).join('');
+    const more = a.comments.length>3 ? `<div style="text-align:right;font-size:11.5px;color:var(--accent2);margin-top:6px">+ ${a.comments.length-3} more replies →</div>` : '';
+    const kindEmoji = a.typeKey==='characters'?'👤':a.typeKey==='events'?'📜':a.typeKey==='battles'?'⚔️':a.typeKey==='trials'?'⚖️':'📄';
+    return `<div class="card" style="border-left:4px solid var(--accent2);cursor:pointer" onclick="openId('${esc(a.articleId)}')">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px">
+        <div style="font-size:13px;color:var(--muted)">${kindEmoji} <b style="color:var(--accent2)">${esc(a.articleName)}</b> · ${a.commentCount} reply${a.commentCount===1?'':'ies'} · ❤️ ${a.likeTotal.toLocaleString()}</div>
+        <div style="font-size:11px;color:var(--muted)">${esc(a.timestamp||'')}</div>
+      </div>
+      <blockquote style="border-left:3px solid var(--accent);padding:6px 12px;margin:0 0 8px;font-style:italic;font-size:13.5px;color:var(--text)">"${esc(a.quote).slice(0,260)}${a.quote.length>260?'…':''}"</blockquote>
+      ${topReplies}
+      ${more}
+    </div>`;
+  }).join('') || '<div class="card text-muted">No discussions match this filter.</div>';
+
+  const filterChips = `
+    <a class="chip ${filterView==='recent'?'active':''}" href="#/annotations">🕒 Recent</a>
+    <a class="chip ${filterView==='top'?'active':''}" href="#/annotations/top">❤️ Top Liked</a>
+    <a class="chip ${filterView==='chatty'?'active':''}" href="#/annotations/chatty">💬 Most Replies</a>
+    ${filterAuthor?`<a class="chip active" href="#/annotations">Author: ${esc(byAuthor[filterAuthor]?.name||prettyId(filterAuthor))} ✕</a>`:''}
+    ${filterFaction?`<a class="chip active" href="#/annotations">Faction: ${esc(filterFaction)} ✕</a>`:''}
+  `;
+
+  el('content').innerHTML=`
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(138,75,255,.08)),var(--panel)">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Annotations Hub</div>
+      <h1 style="margin:6px 0 4px">💬 Waluipedia Comment Log</h1>
+      <p class="text-muted" style="font-size:13.5px">${all.length} annotated passages · ${totalComments} threaded comments · ${totalLikes.toLocaleString()} total likes. Every quote links back into its host article; click a character or faction name to filter the feed.</p>
+      <div class="chips mt-10">${filterChips}</div>
+    </div>
+
+    <div class="rep-cards-grid" style="grid-template-columns:1fr 320px;margin-top:14px">
+      <div>${feedCards}</div>
+      <div>
+        <div class="card">
+          <h3 style="margin-top:0">🎤 Top 10 Loudest Voices</h3>
+          ${authorRows.map(a => `<a class="rep-effect-row" href="#/annotations/author:${encodeURIComponent(a.authorId||a.name)}"><span>${esc(a.name)}</span><b>${a.count}× · ❤️ ${a.likes.toLocaleString()}</b></a>`).join('')}
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3 style="margin-top:0">🏳️ Loudest Factions</h3>
+          ${factionRows.map(f => `<a class="rep-effect-row" href="#/annotations/faction:${encodeURIComponent(f.name)}"><span>${esc(f.name)}</span><b>${f.count}× · ❤️ ${f.likes.toLocaleString()}</b></a>`).join('')}
+        </div>
+        <div class="card" style="margin-top:14px">
+          <p class="text-muted" style="font-size:12px;margin:0">💡 <b>Tip:</b> Comment highlights only render inside articles when the <b>Comments</b> toggle is on (press <kbd>C</kbd>). This hub always shows them.</p>
+        </div>
+      </div>
+    </div>
+  `;
+  window.scrollTo(0,0);
+}
+
+/* ================= XP LEADERBOARD & AGGREGATION =================
+   390 XP rows across 69 events were previously shown one-event-at-a-time
+   as tiny chips at the bottom of each article. This hub aggregates them:
+   leaderboard, per-category breakdown, XP per year, and top events. */
+function _xpAggregate(){
+  if(window.__xpAgg) return window.__xpAgg;
+  const rows=[];
+  Object.entries(typeof XP_EVENT_AWARDS!=='undefined'?XP_EVENT_AWARDS:{}).forEach(([evId, arr]) => {
+    (arr||[]).forEach(a => rows.push({...a, eventId:evId}));
+  });
+  const byOp={}; const byCat={}; const byEvent={}; const byYear={};
+  rows.forEach(r => {
+    const opKey = r.articleId || r.xpKey;
+    if(!byOp[opKey]) byOp[opKey] = { articleId:opKey, xpKey:r.xpKey, name:r.name, total:0, count:0, byCat:{}, events:new Set() };
+    byOp[opKey].total += Number(r.xp||0);
+    byOp[opKey].count++;
+    byOp[opKey].byCat[r.cat] = (byOp[opKey].byCat[r.cat]||0) + Number(r.xp||0);
+    byOp[opKey].events.add(r.eventId);
+    byCat[r.cat] = (byCat[r.cat]||0) + Number(r.xp||0);
+    if(!byEvent[r.eventId]) byEvent[r.eventId] = { id:r.eventId, title:r.title, date:r.date, total:0, count:0 };
+    byEvent[r.eventId].total += Number(r.xp||0);
+    byEvent[r.eventId].count++;
+    const y = parseYear(r.date);
+    if(y!=null) byYear[y] = (byYear[y]||0) + Number(r.xp||0);
+  });
+  Object.values(byOp).forEach(o=>{ o.events=[...o.events]; });
+  window.__xpAgg = { rows, byOp, byCat, byEvent, byYear, totalRows: rows.length, totalXP: rows.reduce((s,r)=>s+Number(r.xp||0),0) };
+  return window.__xpAgg;
+}
+function invalidateXpAggregate(){ window.__xpAgg=null; }
+
+function view_xpLeaderboard(){
+  renderSidebar('xp');
+  const agg=_xpAggregate();
+  const catColor = { combat:'#e74c3c', magic:'#9b59b6', social:'#3498db', stealth:'#34495e', survival:'#2ecc71', discovery:'#f39c12', exploration:'#1abc9c', chaos:'#e74c3c', faith:'#f1c40f', technique:'#7f8c8d', loyalty:'#e91e63', sabotage:'#c0392b' };
+  const catEmoji = { combat:'⚔️', magic:'✨', social:'🗣️', stealth:'🥷', survival:'🛡️', discovery:'🔍', exploration:'🧭', chaos:'💥', faith:'🙏', technique:'🎯', loyalty:'🤝', sabotage:'💣' };
+  const totalXpNum = agg.totalXP.toLocaleString();
+  const characters = Object.values(agg.byOp).sort((a,b)=>b.total-a.total);
+
+  const leaderCards = characters.slice(0,20).map((o,i) => {
+    const summary = (typeof XP_SUMMARY!=='undefined' && XP_SUMMARY[o.articleId]) || (typeof XP_SUMMARY!=='undefined' && Object.values(XP_SUMMARY).find(x=>x.xpKey===o.xpKey));
+    const level = summary?.level || '?';
+    const linkable = INDEX[o.articleId];
+    return `<div class="card" style="border-left:4px solid ${i<3?'var(--accent2)':'var(--border-dim)'};padding:12px;cursor:${linkable?'pointer':'default'}" ${linkable?`onclick="openId('${esc(o.articleId)}')"`:''}>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <div style="font-size:20px;font-weight:900;color:${i===0?'#ffd166':i===1?'#c0c0c0':i===2?'#cd7f32':'var(--muted)'};min-width:32px">#${i+1}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:800;font-size:14px">${esc(o.name)}</div>
+          <div style="font-size:11.5px;color:var(--muted)">Level ${level} · ${o.events.length} event${o.events.length===1?'':'s'} · ${o.count} award row${o.count===1?'':'s'}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:900;color:var(--accent2);font-size:16px">${o.total.toLocaleString()}</div>
+          <div style="font-size:10px;color:var(--muted)">XP earned</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">${Object.entries(o.byCat).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([c,v])=>`<span class="pill" style="background:${catColor[c]||'#666'}22;border-color:${catColor[c]||'#666'}77;color:${catColor[c]||'#fff'};font-size:10px">${catEmoji[c]||'✦'} ${c} ${v.toLocaleString()}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+
+  const catRows = Object.entries(agg.byCat).sort((a,b)=>b[1]-a[1]).map(([c,v]) => {
+    const pct = Math.round(v*100/agg.totalXP);
+    return `<div style="margin:6px 0"><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px"><span>${catEmoji[c]||'✦'} <b>${esc(c)}</b></span><span class="text-muted">${v.toLocaleString()} XP · ${pct}%</span></div><div style="height:6px;background:var(--bg2);border-radius:3px;overflow:hidden"><div style="background:${catColor[c]||'#888'};height:100%;width:${pct}%"></div></div></div>`;
+  }).join('');
+
+  const topEvents = Object.values(agg.byEvent).sort((a,b)=>b.total-a.total).slice(0,10);
+  const topEventRows = topEvents.map(e => {
+    const linkable = INDEX[e.id];
+    return `<a class="rep-effect-row" ${linkable?`onclick="openId('${esc(e.id)}')"`:''} style="cursor:${linkable?'pointer':'default'}">
+      <span>📜 ${esc(e.title||prettyId(e.id))} <span class="text-muted" style="font-size:11px">· ${esc(e.date||'')}</span></span>
+      <b>${e.total.toLocaleString()} XP <span class="text-muted" style="font-weight:400;font-size:11px">(${e.count} rows)</span></b>
+    </a>`;
+  }).join('');
+
+  const years = Object.keys(agg.byYear).map(Number).sort((a,b)=>a-b);
+  const maxYear = Math.max(...Object.values(agg.byYear));
+  const yearBars = years.map(y => {
+    const v = agg.byYear[y]; const pct = Math.round(v*100/maxYear);
+    return `<div style="display:flex;align-items:center;gap:8px;margin:3px 0;font-size:12px"><span style="min-width:70px;color:var(--muted)">${y} BF</span><div style="flex:1;height:14px;background:var(--bg2);border-radius:3px;overflow:hidden"><div style="background:linear-gradient(90deg,var(--accent2),var(--accent));height:100%;width:${pct}%"></div></div><span style="min-width:80px;text-align:right;font-family:monospace">${v.toLocaleString()}</span></div>`;
+  }).join('');
+
+  el('content').innerHTML=`
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(138,75,255,.08)),var(--panel)">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › XP Leaderboard</div>
+      <h1 style="margin:6px 0 4px">✦ XP Leaderboard & Awards Ledger</h1>
+      <p class="text-muted" style="font-size:13.5px">${agg.totalRows} award rows across ${Object.keys(agg.byEvent).length} events · ${totalXpNum} total XP distributed across ${characters.length} characters. Click a row to open the character or event; open <a class="entity-link" href="xp.html">xp.html</a> for the full progression tool.</p>
+      <div class="chips mt-10">
+        <a class="chip" href="xp.html">🎮 Full XP Hotline →</a>
+        <a class="chip" href="#/reputation">📈 Reputation Matrix</a>
+      </div>
+    </div>
+
+    <div class="rep-cards-grid" style="grid-template-columns:1fr 340px;margin-top:14px">
+      <div>
+        <div class="card">
+          <h2 style="margin-top:0">🏆 Character Leaderboard <span class="text-muted" style="font-size:12px;font-weight:400">— top 20 by total XP awarded from catalogued events</span></h2>
+          <div class="holiday-directory-grid">${leaderCards}</div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h3 style="margin-top:0">🎯 XP by Category</h3>
+          ${catRows || '<div class="text-muted">No category data.</div>'}
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3 style="margin-top:0">📅 XP Awarded per Year (BF)</h3>
+          ${yearBars || '<div class="text-muted">No dated awards.</div>'}
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3 style="margin-top:0">💥 Top 10 XP Events</h3>
+          ${topEventRows}
+        </div>
+      </div>
+    </div>
+  `;
+  window.scrollTo(0,0);
+}
+
+/* ================= COLLECTIONS =================
+   18 curated groupings (cast circles, faction rosters, event arcs) were
+   previously rendered as a bland generic list. Give them a real directory
+   and per-collection page that treats their `members[]` roster as first-class
+   cards with roles. */
+function view_collection(id){
+  renderSidebar('list:collections');
+  const list=DATA.collections||[];
+  if(!id){
+    // Directory grouped by type.
+    const byType={};
+    list.forEach(c=>{ const k=c.type||'Collection'; (byType[k]=byType[k]||[]).push(c); });
+    const sections=Object.entries(byType).sort().map(([type, items])=>{
+      const cards=items.map(c=>{
+        const memberCount=(c.members||[]).length;
+        return `<a class="card holiday-directory-card" href="#/collection/${encodeURIComponent(c.id)}" style="border-left:4px solid var(--accent2)">
+          <h3 style="margin:0 0 6px;font-size:15px">🗂️ ${esc(c.name||prettyId(c.id))}</h3>
+          ${c.title?`<div style="font-size:12px;color:var(--accent2);font-style:italic;margin-bottom:6px">${esc(c.title).slice(0,120)}</div>`:''}
+          <div style="font-size:12px;color:var(--muted);line-height:1.45;margin-bottom:8px">${esc((c.scope||c.summary||c.criteria||'').slice(0,140))}${(c.scope||c.summary||c.criteria||'').length>140?'…':''}</div>
+          <div class="chips">
+            <span class="pill">👥 ${memberCount} member${memberCount===1?'':'s'}</span>
+            ${(c.articles||[]).length?`<span class="pill">📄 ${c.articles.length} article${c.articles.length===1?'':'s'}</span>`:''}
+          </div>
+        </a>`;
+      }).join('');
+      return `<div class="card" style="margin-top:14px"><h2 style="margin-top:0">🗂️ ${esc(type)} <span class="text-muted" style="font-size:12px;font-weight:400">— ${items.length}</span></h2><div class="holiday-directory-grid">${cards}</div></div>`;
+    }).join('');
+    el('content').innerHTML=`
+      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Collections</div>
+        <h1 style="margin:6px 0 4px">🗂️ Waluipedia Collections</h1>
+        <p class="text-muted" style="font-size:13.5px">${list.length} curated groupings — cast circles, faction rosters, event arcs, and thematic bundles. Each one links its member records with the role that member plays inside the collection.</p>
+      </div>
+      ${sections}`;
+    window.scrollTo(0,0); return;
+  }
+  const c=list.find(x=>x.id===id);
+  if(!c){ view_collection(); return; }
+  const memberCards=(c.members||[]).map(m=>{
+    const rec=INDEX[m.id];
+    const name=m.name||(rec?displayName(rec.item):prettyId(m.id));
+    const linkable=!!rec;
+    return `<div class="card" style="border-left:3px solid var(--accent2);cursor:${linkable?'pointer':'default'};padding:12px" ${linkable?`onclick="openId('${esc(m.id)}')"`:''}>
+      <div style="font-weight:800;font-size:14px;color:var(--text)">${esc(name)}</div>
+      ${m.role?`<div style="font-size:12.5px;color:var(--accent2);font-style:italic;margin-top:3px">${esc(m.role)}</div>`:''}
+      ${!linkable?'<div style="font-size:11px;color:var(--muted);margin-top:4px">No dedicated article</div>':''}
+    </div>`;
+  }).join('');
+  const articleChips=(c.articles||[]).map(aid=>{
+    const rec=INDEX[aid];
+    if(rec) return `<a class="chip" onclick="openId('${esc(aid)}')">${esc(displayName(rec.item))}</a>`;
+    return `<span class="chip" style="opacity:.5">${esc(prettyId(aid))} (no article)</span>`;
+  }).join('');
+  const relatedChips=(c.relatedArticles||[]).filter(x=>!(c.articles||[]).includes(x)).map(aid=>{
+    const rec=INDEX[aid];
+    if(rec) return `<a class="chip" onclick="openId('${esc(aid)}')">${esc(displayName(rec.item))}</a>`;
+    return '';
+  }).filter(Boolean).join('');
+
+  // Cross-suggest collections that share ≥ 2 members.
+  const myArticleSet=new Set([...(c.articles||[]),...(c.members||[]).map(m=>m.id)]);
+  const overlaps=list.filter(x=>x.id!==c.id).map(x=>{
+    const xSet=new Set([...(x.articles||[]),...(x.members||[]).map(m=>m.id)]);
+    let shared=0; xSet.forEach(a=>{ if(myArticleSet.has(a)) shared++; });
+    return {c:x, shared};
+  }).filter(o=>o.shared>=2).sort((a,b)=>b.shared-a.shared).slice(0,6);
+
+  el('content').innerHTML=`
+    <div class="card animate-fade-in" style="border-top:5px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(0,0,0,.05)),var(--panel)">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/collection')">Collections</a> › ${esc(c.name)}</div>
+      <h1 style="margin:8px 0 4px;font-size:26px">🗂️ ${esc(c.name)}</h1>
+      ${c.title?`<div style="font-size:14px;color:var(--accent2);font-style:italic;margin-bottom:8px">${esc(c.title)}</div>`:''}
+      <div class="chips">
+        <span class="pill">${esc(c.type||'Collection')}</span>
+        ${c.scope?`<span class="pill">${esc(c.scope)}</span>`:''}
+        <span class="pill">👥 ${(c.members||[]).length} members</span>
+      </div>
+    </div>
+    ${c.summary?`<div class="card"><h2 style="margin-top:0">📖 Summary</h2><p class="prose" style="line-height:1.65">${linkify?linkify(esc(c.summary)):esc(c.summary)}</p></div>`:''}
+    ${c.criteria?`<div class="card"><h3 style="margin-top:0">📋 Criteria</h3><p style="font-size:13.5px;line-height:1.55">${esc(c.criteria)}</p></div>`:''}
+
+    ${memberCards?`<div class="card">
+      <h2 style="margin-top:0">👥 Members & Roles</h2>
+      <div class="holiday-directory-grid">${memberCards}</div>
+    </div>`:''}
+
+    ${articleChips?`<div class="card">
+      <h3 style="margin-top:0">📄 Included Articles</h3>
+      <div class="chips">${articleChips}</div>
+    </div>`:''}
+
+    ${relatedChips?`<div class="card">
+      <h3 style="margin-top:0">🔗 Related Articles</h3>
+      <div class="chips">${relatedChips}</div>
+    </div>`:''}
+
+    ${overlaps.length?`<div class="card">
+      <h3 style="margin-top:0">🗂️ Overlapping Collections</h3>
+      <p class="text-muted" style="font-size:12px">Other collections that share people or articles with this one.</p>
+      <div class="chips">${overlaps.map(o=>`<a class="chip" href="#/collection/${encodeURIComponent(o.c.id)}">${esc(o.c.name)} <span class="text-muted" style="font-size:10px">· ${o.shared} shared</span></a>`).join('')}</div>
+    </div>`:''}
+  `;
+  window.scrollTo(0,0);
+}
+
 function emojiFallbackDataUri(emoji = '📜', bg = '#2d0f42', accent = '#ffd700', title = '') {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="${bg}" rx="12"/><rect x="10" y="10" width="280" height="380" fill="none" stroke="${accent}" stroke-width="3" rx="8" stroke-dasharray="6,3"/><text x="150" y="180" font-size="72" text-anchor="middle" dominant-baseline="middle">${emoji}</text><text x="150" y="260" font-size="16" font-family="sans-serif" font-weight="bold" fill="${accent}" text-anchor="middle">${String(title).replace(/[&<>"']/g,'').slice(0, 24)}</text></svg>`;
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
@@ -4701,7 +5291,7 @@ const Router={
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
     LINK_TOTAL_COUNT=0;  // fresh per page view for low-link mode
     if(route==='home')view_home();
-    else if(route==='list'){ if(arg==='nations')view_atlas(); else view_list(arg); }
+    else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
     else if(route==='article')view_article(arg);
     else if(route==='battlefield')view_list('battles');
     else if(route==='conflict')view_conflict(arg);
@@ -4712,6 +5302,10 @@ const Router={
     else if(route==='session')view_session(arg);
     else if(route==='crisis')view_crisis(arg);
     else if(route==='timeline')view_timeline();
+    else if(route==='chronicle'||route==='chronicles')view_chronicle(arg);
+    else if(route==='annotations'||route==='chatter')view_annotations(arg);
+    else if(route==='collection'||route==='collections')view_collection(arg);
+    else if(route==='xp'||route==='leaderboard')view_xpLeaderboard();
     else if(route==='years')view_years();
     else if(route==='calendar')view_calendar();
     else if(route==='vendor')view_vendorDirectory(arg);
@@ -4859,6 +5453,9 @@ async function boot(){
   buildIndexes();
   buildAtlasIndex();
   invalidateRepEventCache();  // rebuild reputation event cache now that DATA is loaded
+  invalidateChronicleIndex(); // rebuild historical chronicle index
+  invalidateAnnotationsIndex(); // rebuild annotation index for the Chatter Hub
+  invalidateXpAggregate(); // rebuild XP leaderboard aggregate
   el('statline').textContent = ALL_ITEMS.length+' articles · '+Object.keys(DATA.conflicts||{}).length+' conflicts · '+(DATA.majorBattles||[]).length+' battles · '+(DATA.congress_votes||[]).length+' votes · '+(((DATA.artifacts||{}).star_bearers||[]).length)+' bearers · '+window.__DATA_SOURCE+' · / search · H links · C comments';
   try{ updateTopbarLoginBtn(); }catch(e){}
   Router.render();
