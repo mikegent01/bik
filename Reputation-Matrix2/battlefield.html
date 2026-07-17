@@ -515,9 +515,7 @@ function eventPeopleAndXpPanel(item){
   (XP_EVENT_AWARDS[item.id]||[]).forEach(a=>add(a.articleId));
   const people=ids.map(id=>`<span class="rel-chip" onclick="openId('${esc(id)}')"><span class="rt">Character</span>${esc(displayName(INDEX[id].item))}</span>`).join('');
   const awards=(XP_EVENT_AWARDS[item.id]||[]).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
-  const repMap=item.effects||item.reputationChanges||item.reputation||null;
-  const repEffects=repMap&&typeof repMap==='object' ? Object.entries(repMap).map(([fid,val])=>{const f=LORE_FACTIONS[fid];const label=f?.name||prettyId(fid);return `<a class="rep-effect-row" href="#/reputation/faction/${encodeURIComponent(fid)}"><span>⚔️ ${esc(label)}</span><b>${Number(val)>=0?'+':''}${esc(String(val))}</b></a>`;}).join('') : '';
-  const effectsPanel=repEffects?`<div class="event-reputation-panel"><h3>📈 Reputation Changes</h3><p class="text-muted">This event modifies the party's standing. Open a faction to inspect the calculation trace.</p>${repEffects}</div>`:'';
+  const effectsPanel = renderReputationImpactPanel(item);
   if(!people && !awards && !effectsPanel) return '';
   if(!awards && !people) return effectsPanel;
   if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div></div></div>${effectsPanel}`;
@@ -2032,7 +2030,7 @@ function view_trial(item,t){
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
-     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${relHtml}
+     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${relHtml}
    </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
   window.scrollTo(0,0);setupScrollSpy();
 }
@@ -2067,7 +2065,7 @@ function view_conflict(name){
   if(!c){el('content').innerHTML='<div class="card"><h2>Conflict not found</h2></div>';return;}
   const facs=(c.keyFactions||[]).map(combatantChip).join('');
   const phases=(c.majorPhases||[]).map((p,i)=>`<div class="phase crisis-phase"><span class="phase-number">${i+1}</span><div><b>${esc(p.name)}</b><p>${esc(p.description)}</p></div></div>`).join('');
-  const crisisRep=(c.reputationChanges||c.effects)&&typeof (c.reputationChanges||c.effects)==='object' ? `<div class="crisis-reputation"><h2>📈 Reputation Impact</h2><p class="text-muted">This crisis changes how factions evaluate the party. Click a faction to inspect the live trace.</p>${Object.entries(c.reputationChanges||c.effects).map(([fid,v])=>`<a href="#/reputation/faction/${encodeURIComponent(fid)}" class="rep-effect-row"><span>⚔️ ${esc(LORE_FACTIONS[fid]?.name||prettyId(fid))}</span><b>${Number(v)>=0?'+':''}${esc(String(v))}</b></a>`).join('')}</div>`:'';
+  const crisisRep = renderReputationImpactPanel(c, 'events');
   const rel=(DATA.majorBattles||[]).filter(b=>b.conflict===name);
   const relHtml=rel.map(b=>`<span class="rel-chip" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')"><span class="rt">Battle</span>${esc(b.name)}</span>`).join('');
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/battlefield')">Battlefield</a> › ${esc(name)}</div>
@@ -2104,7 +2102,8 @@ function view_mbattle(id){
     ${b.strategicValue?`<p><strong>Strategic value:</strong> ${esc(String(b.strategicValue).replace(/_/g,' '))}</p>`:''}
     ${b.commanders?`<h2>Commanders</h2>${keyedRows(b.commanders)}`:''}
     ${b.tacticalNotes?`<h2>Tactical Notes</h2><div class="prose">${richTextToHtml(b.tacticalNotes,b.id)}</div>`:''}
-    ${chars?`<h2>Participating Characters</h2><div class="related-list">${chars}</div>`:''}</div>`;
+    ${chars?`<h2>Participating Characters</h2><div class="related-list">${chars}</div>`:''}
+    ${renderReputationImpactPanel(b,'majorBattles')}</div>`;
   window.scrollTo(0,0);
 }
 
@@ -3396,9 +3395,297 @@ function getStandingLabel(s) {
   return 'Enemy';
 }
 
+/* ================= DYNAMIC REPUTATION ENGINE =================
+   Reputation totals are no longer static. Every catalogued event, battle,
+   trial, and major battle contributes a signed delta to each operator's
+   standing with each involved faction, decayed by how long ago it happened.
+
+   Decay model: half-life of 1 in-world year (yearsAgo=0 → 1.0,
+   yearsAgo=1 → 0.5, yearsAgo=5 → ~0.03) with a floor of 0.05.
+   "Memorable" events (e.g. Blackfen Pass, Founding Day battles) escape
+   the fade to a 0.25 floor — history still talks about WWII decades later.
+
+   Priority order per record:
+     1. Explicit `reputationChanges: { opKey: { factionKey: N } }` — hand-authored, wins.
+     2. Explicit `effects: { factionKey: N }` — legacy shape; applied to all participating operators.
+     3. Auto-heuristic derived from participants + belligerents/commanders + outcome sentiment.
+============================================================== */
+
+// Operator id aliases (short → long / xp key) used across many data files.
+const OP_ALIAS = (() => {
+  const m = {};
+  (typeof REPUTATION_OPERATORS !== 'undefined' ? REPUTATION_OPERATORS : []).forEach(op => {
+    [op.id, op.key, op.xpKey].filter(Boolean).forEach(k => { m[String(k).toLowerCase()] = op.id; });
+  });
+  // Common short aliases used inside participant lists.
+  m['archie'] = 'archie_miser';
+  m['remi'] = 'remi_akamatsu_full_backstory';
+  m['greent'] = 'green_t';
+  m['originaldan'] = 'dan';
+  return m;
+})();
+function opCanonicalId(k){ if(!k) return null; const v=OP_ALIAS[String(k).toLowerCase()]; return v||null; }
+
+// A short lookup: keywords that appear in participant/belligerent strings and map to a faction id.
+const FACTION_KEYWORDS = {
+  regal_empire: ['regal empire','imperial','the empire','elagabalus','imperial legion'],
+  iron_legion: ['iron legion','legion','legionnaire','gamma division','ironhand','ironbrand'],
+  mushroom_regency: ['mushroom kingdom','mushroom regency','toad kingdom','regency','mushroom crown'],
+  peach_loyalists: ['peach loyalist','princess peach','peach loyal','toadsworth'],
+  koopa_troop: ['koopa','bowser','koopa troop','koopalings'],
+  fawfuls_furious_freaks: ['fawful','furious freaks','beanish'],
+  mages_guild: ['mages guild','mage guild','arcane guild','wizard guild'],
+  freelancer_underworld: ['freelancer','underworld','disaster inc'],
+  toad_gang: ['toad gang'],
+  toad_cult: ['toad cult','frog god'],
+  onyx_hand: ['onyx hand','corvinarus','vampire lord'],
+  oathbound_judges: ['oathbound','judge','tribunal'],
+  liberated_toads: ['liberated toads','free toad'],
+  rakasha_clans: ['rakasha'],
+  moonfang_pack: ['moonfang','werewolf'],
+  cosmic_jesters: ['cosmic jester'],
+  wario_land: ['wario land','wario enterprise','wario'],
+  crimson_fleet: ['crimson fleet','pirate fleet','syrup'],
+  rebel_clans: ['rebel clan'],
+  silver_flame: ['silver flame'],
+  iron_fists: ['iron fist'],
+  ratchet_raiders: ['ratchet raider'],
+  the_unchained: ['unchained'],
+  corvinarus_family: ['corvinarus','raventree']
+};
+
+function _hay(v){
+  if(v==null) return '';
+  if(typeof v==='string') return v.toLowerCase();
+  if(Array.isArray(v)) return v.map(_hay).join(' ');
+  if(typeof v==='object') return Object.values(v).map(_hay).join(' ');
+  return '';
+}
+
+// Extract the set of operator ids that participated in a record.
+function _recordOperators(rec){
+  const out = new Set();
+  const push = (v) => { const id = opCanonicalId(v); if(id) out.add(id); };
+  [].concat(rec.participants||[], rec.participatingCharacters||[], rec.commanders||[]).forEach(p => {
+    if(!p) return;
+    if(typeof p === 'string') push(p);
+    else push(p.id||p.key||p.name);
+  });
+  (rec.relatedArticles||[]).forEach(push);
+  if(rec.defendantId) push(rec.defendantId);
+  if(rec.instigator) push(rec.instigator);
+  (rec.targets||[]).forEach(push);
+  // Also scan XP awards for this event id (already indexed on load).
+  if(typeof XP_EVENT_AWARDS!=='undefined' && rec.id && XP_EVENT_AWARDS[rec.id]){
+    XP_EVENT_AWARDS[rec.id].forEach(a => push(a.articleId||a.xpKey));
+  }
+  return [...out];
+}
+
+// Extract the set of faction ids that appear anywhere in a record's belligerents/text.
+function _recordFactions(rec){
+  const out = new Set();
+  const hay = [_hay(rec.belligerents), _hay(rec.commanders), _hay(rec.location), _hay(rec.summary), _hay(rec.title), _hay(rec.description).slice(0, 4000), _hay(rec.outcome), _hay(rec.result), _hay(rec.aftermath), _hay(rec.charges), _hay(rec.jurisdiction), _hay(rec.intelGains)].join(' ');
+  for (const fid in FACTION_KEYWORDS){
+    if(FACTION_KEYWORDS[fid].some(kw => hay.includes(kw))) out.add(fid);
+  }
+  // Also honor a record.factions or record.factionsInvolved array if present.
+  ([]).concat(rec.factions||[], rec.factionsInvolved||[]).forEach(f => { if(f && LORE_FACTIONS[f]) out.add(f); });
+  return [...out];
+}
+
+// Very small English-sentiment scan of a record to decide sign & weight per involved faction.
+// Returns { win: [factionIds], loss: [factionIds], mixed: boolean }.
+function _recordOutcomeBias(rec){
+  const txt = (_hay(rec.outcome)+' '+_hay(rec.result)+' '+_hay(rec.aftermath)+' '+_hay(rec.status)+' '+_hay(rec.outcomeDetail)+' '+_hay(rec.summary));
+  const win = new Set(), loss = new Set();
+  const factions = _recordFactions(rec);
+  factions.forEach(fid => {
+    const f = LORE_FACTIONS[fid]||{};
+    const label = String(f.name||fid).toLowerCase().split(/\s+/)[0];
+    const near = (kw) => txt.includes(kw+' '+label) || txt.includes(label+' '+kw);
+    if(near('defeat')||near('crushed')||near('destroyed')||near('massacre')||near('killed')||near('routed')) loss.add(fid);
+    if(near('victory')||near('won')||near('triumph')||near('captured')||near('secured')) win.add(fid);
+  });
+  return { win: [...win], loss: [...loss] };
+}
+
+// Auto-derive reputationChanges { opId: { factionId: delta } } for a record.
+// Base per-record magnitude depends on typeKey; sign depends on whether the
+// operator seems to be on the winning or losing side of the faction.
+// Kept conservative on purpose — heroism / betrayal / major public actions
+// should live in explicit `reputationChanges` blocks; the auto path only nudges.
+function _autoDeriveDeltas(rec, typeKey){
+  if(!rec) return {};
+  const magnitude = (typeKey==='majorBattles'?8 : typeKey==='battles'?6 : typeKey==='trials'?5 : 3);
+  const ops = _recordOperators(rec);
+  if(!ops.length) return {};
+  const factions = _recordFactions(rec);
+  if(!factions.length) return {};
+
+  const bias = _recordOutcomeBias(rec);
+  const out = {};
+  const setDelta = (opId, fid, delta) => {
+    if(!opId||!fid||!delta) return;
+    out[opId] = out[opId]||{};
+    out[opId][fid] = (out[opId][fid]||0) + delta;
+  };
+
+  // Normalize commanders: sometimes it's an array of {id/name}, sometimes an object like {axis:[...], allies:[...]}.
+  const commanderIds = new Set();
+  const collectCommanders = (v) => {
+    if(!v) return;
+    if(Array.isArray(v)) v.forEach(collectCommanders);
+    else if(typeof v==='string'){ const id=opCanonicalId(v); if(id) commanderIds.add(id); }
+    else if(typeof v==='object'){
+      if(v.id||v.name) collectCommanders(v.id||v.name);
+      Object.values(v).forEach(collectCommanders);
+    }
+  };
+  collectCommanders(rec.commanders);
+
+  ops.forEach(opId => {
+    // baseline: opposition — if the operator's baseline standing with a faction is strongly negative,
+    // simply appearing in a shared event slightly hardens the enmity; positive baseline warms it.
+    factions.forEach(fid => {
+      const baseline = (OPERATOR_BASE_STANDINGS[opId]&&OPERATOR_BASE_STANDINGS[opId][fid])||0;
+      let sign = 0;
+      if(bias.win.includes(fid)) sign = -1;      // faction "won against" our people
+      else if(bias.loss.includes(fid)) sign = +1; // faction "lost" — we look good to their enemies too
+      else if(Math.abs(baseline) >= 30) sign = baseline<0 ? -1 : +1;
+      // else: neutral mention → skip. This prevents every incidental faction from
+      // getting pushed by every unrelated event.
+      if(!sign) return;
+      // magnitude scaled by whether operator was a listed commander (heavier) vs. just related
+      const scale = commanderIds.has(opId) ? 1.5 : 1.0;
+      const delta = Math.round(sign * magnitude * scale);
+      if(delta) setDelta(opId, fid, delta);
+
+      // Bleed to allies/enemies of the faction — only for battle-scale records,
+      // and only when the outcome was explicit (not baseline inertia).
+      if(sign!==0 && (bias.win.includes(fid)||bias.loss.includes(fid)) && (typeKey==='majorBattles'||typeKey==='battles')){
+        const rel = (LORE_FACTIONS[fid]||{}).relations||{};
+        (rel.allies||[]).forEach(a => { if(LORE_FACTIONS[a]) setDelta(opId, a, Math.round(delta*0.25)); });
+        (rel.enemies||[]).forEach(e => { if(LORE_FACTIONS[e]) setDelta(opId, e, Math.round(-delta*0.30)); });
+      }
+    });
+  });
+  return out;
+}
+
+// Memorable event heuristic: matches keywords in title/type/status that suggest lasting historic weight.
+function _isMemorable(rec){
+  if(rec && rec.memorable===true) return true;
+  const hay = (_hay(rec.title)+' '+_hay(rec.name)+' '+_hay(rec.type)+' '+_hay(rec.status)+' '+_hay(rec.era));
+  return /historic|legend|founding|collapse|massacre|reckoning|treaty|imperial decree|class-\d+ silence|first war|great war/i.test(hay);
+}
+
+// Year the record refers to (BF). Falls back to CUR.year if unknown so undated
+// present-day sessions still contribute at full weight.
+function _recordYear(rec){
+  return parseYear(rec.date) || parseYear(rec.era) || parseYear(rec.arc) || (CUR && CUR.year) || 1040;
+}
+
+// The time-decay factor. yearsAgo is measured against CUR.year (current in-world year).
+// Records dated far in the "future" (i.e. numerically after CUR.year — usually
+// mislabeled historical anomalies) are treated as ancient rather than as
+// full-weight present-day, so they still fade.
+function _decayFactor(recYear, memorable){
+  const now = (CUR && CUR.year) || 1040;
+  const yearsAgo = Math.abs(now - recYear);
+  const raw = Math.pow(0.5, yearsAgo);        // 1-year half life
+  const floor = memorable ? 0.25 : 0.05;
+  return Math.max(floor, raw);
+}
+
+// Cache built once DATA is ready. Structure: array of { record, typeKey, deltas, decay, memorable, year }
+let _REP_EVENT_CACHE = null;
+function _buildRepEventCache(){
+  if(_REP_EVENT_CACHE) return _REP_EVENT_CACHE;
+  const cache = [];
+  const push = (rec, typeKey) => {
+    if(!rec) return;
+    // 1. explicit reputationChanges (opId -> factionId -> delta)
+    // 2. legacy 'effects' (factionId -> delta) applied to all _recordOperators
+    // 3. auto-derived
+    let deltas = null;
+    if(rec.reputationChanges && typeof rec.reputationChanges==='object'){
+      // If keys look like faction ids (present in LORE_FACTIONS), treat as legacy shape.
+      const keys = Object.keys(rec.reputationChanges);
+      const looksLikeFactionMap = keys.length && keys.every(k => LORE_FACTIONS[k]);
+      if(looksLikeFactionMap){
+        const ops = _recordOperators(rec);
+        if(ops.length){ deltas = {}; ops.forEach(op => { deltas[op] = {...rec.reputationChanges}; }); }
+      } else {
+        deltas = rec.reputationChanges;
+      }
+    } else if(rec.effects && typeof rec.effects==='object'){
+      const ops = _recordOperators(rec);
+      if(ops.length){ deltas = {}; ops.forEach(op => { deltas[op] = {...rec.effects}; }); }
+    }
+    if(!deltas) deltas = _autoDeriveDeltas(rec, typeKey);
+    if(!deltas || !Object.keys(deltas).length) return;
+    const year = _recordYear(rec);
+    const memorable = _isMemorable(rec);
+    cache.push({ record: rec, typeKey, deltas, year, memorable, decay: _decayFactor(year, memorable) });
+  };
+  (DATA.events||[]).forEach(r => push(r,'events'));
+  (DATA.battles||[]).forEach(r => push(r,'battles'));
+  (DATA.majorBattles||[]).forEach(r => push(r,'majorBattles'));
+  (DATA.trials||[]).forEach(r => push(r,'trials'));
+  _REP_EVENT_CACHE = cache;
+  return cache;
+}
+function invalidateRepEventCache(){ _REP_EVENT_CACHE = null; }
+
+// All contributions from cached events, applied to a specific (op, faction) pair.
+function _eventContributionsFor(opId, factionKey){
+  const out = [];
+  _buildRepEventCache().forEach(entry => {
+    const d = entry.deltas[opId]; if(!d) return;
+    const raw = Number(d[factionKey]); if(!raw) return;
+    const decayed = Math.round(raw * entry.decay);
+    if(decayed === 0 && raw !== 0) return; // filter fully-faded noise
+    out.push({ record: entry.record, typeKey: entry.typeKey, raw, decayed, year: entry.year, memorable: entry.memorable, decay: entry.decay });
+  });
+  // Sort by absolute decayed impact, then recency
+  out.sort((a,b) => Math.abs(b.decayed)-Math.abs(a.decayed) || b.year - a.year);
+  return out;
+}
+
+// Public helper for other modules and the UI.
+function getEventContributionsFor(opId, factionKey){ return _eventContributionsFor(opId, factionKey); }
+function getRecordReputationImpact(rec, typeKey){
+  // Returns {opId: {factionId: {raw, decayed}}, meta: {year, memorable, decay}}
+  if(!rec) return {ops:{}, meta:{}};
+  // Ensure the cache has it (in case the record isn't in DATA yet, e.g. crises).
+  let entry = _buildRepEventCache().find(e => e.record === rec || (rec.id && e.record.id === rec.id));
+  if(!entry){
+    let deltas = null;
+    if(rec.reputationChanges) deltas = rec.reputationChanges;
+    else if(rec.effects){
+      const ops = _recordOperators(rec);
+      if(ops.length){ deltas = {}; ops.forEach(op => { deltas[op] = {...rec.effects}; }); }
+    }
+    if(!deltas) deltas = _autoDeriveDeltas(rec, typeKey||'events');
+    if(!deltas || !Object.keys(deltas).length) return {ops:{}, meta:{}};
+    const year = _recordYear(rec); const memorable = _isMemorable(rec);
+    entry = { record: rec, typeKey: typeKey||'events', deltas, year, memorable, decay: _decayFactor(year, memorable) };
+  }
+  const ops = {};
+  Object.entries(entry.deltas).forEach(([opId, factions]) => {
+    ops[opId] = {};
+    Object.entries(factions).forEach(([fid, raw]) => {
+      const dec = Math.round(Number(raw||0) * entry.decay);
+      if(dec !== 0 || raw !== 0) ops[opId][fid] = { raw: Number(raw), decayed: dec };
+    });
+  });
+  return { ops, meta: { year: entry.year, memorable: entry.memorable, decay: entry.decay } };
+}
+
 function calculateOperatorStanding(opKey, factionKey) {
   const faction = LORE_FACTIONS[factionKey];
-  if (!faction) return { total: 0, base: 0, rumors: 0, subfactions: 0, propagation: 0, class: 'neutral', label: 'Neutral' };
+  if (!faction) return { total: 0, base: 0, rumors: 0, subfactions: 0, propagation: 0, contributions: [], class: 'neutral', label: 'Neutral' };
 
   let base = 0;
   if (OPERATOR_BASE_STANDINGS[opKey] && OPERATOR_BASE_STANDINGS[opKey][factionKey] !== undefined) {
@@ -3416,15 +3703,9 @@ function calculateOperatorStanding(opKey, factionKey) {
     });
   }
 
-  let rumors = 0;
-  if (DATA && DATA.events && Array.isArray(DATA.events)) {
-    const shortKey = opKey.replace('_miser', '').replace('_akamatsu_full_backstory', '');
-    DATA.events.forEach(ev => {
-      if (ev.instigator === opKey || ev.instigator === shortKey || (Array.isArray(ev.targets) && (ev.targets.includes(opKey) || ev.targets.includes(shortKey)))) {
-        if (ev.effects && ev.effects[factionKey]) rumors += Number(ev.effects[factionKey]) || 0;
-      }
-    });
-  }
+  // Dynamic time-decayed contributions from every catalogued event/battle/trial.
+  const contributions = _eventContributionsFor(opKey, factionKey);
+  const rumors = contributions.reduce((s,c) => s + c.decayed, 0);
 
   let propagation = 0;
   if (faction.relations) {
@@ -3448,6 +3729,7 @@ function calculateOperatorStanding(opKey, factionKey) {
     rumors,
     subfactions,
     propagation,
+    contributions,
     class: getStandingClass(total),
     label: getStandingLabel(total)
   };
@@ -3459,6 +3741,42 @@ function getPartyAverageStanding(factionKey) {
     sum += calculateOperatorStanding(op.id, factionKey).total;
   });
   return Math.round(sum / REPUTATION_OPERATORS.length);
+}
+
+/* Renders the "📈 Reputation Impact" panel for a single record (event/battle/trial/mbattle).
+   Shows per-operator, per-faction decayed & raw deltas so the reader can see
+   exactly how the record moved the matrix. */
+function renderReputationImpactPanel(rec, typeKeyHint){
+  if(!rec) return '';
+  const impact = getRecordReputationImpact(rec, typeKeyHint||'events');
+  const ops = impact.ops||{};
+  const opIds = Object.keys(ops);
+  if(!opIds.length) return '';
+  const meta = impact.meta||{};
+  const nowY = (CUR&&CUR.year)||1040;
+  const yearsAgo = Math.max(0, nowY - (meta.year||nowY));
+  const decPct = Math.round((meta.decay||1)*100);
+  const memBadge = meta.memorable ? '<span class="pill" style="background:rgba(224,180,0,.18);border-color:rgba(224,180,0,.4);color:#ffd166">⭐ Memorable — reduced fade</span>' : '';
+
+  const opBlocks = opIds.map(opId => {
+    const op = REPUTATION_OPERATORS.find(o => o.id===opId) || {name:prettyId(opId), icon:'👤'};
+    const factionRows = Object.entries(ops[opId]).sort((a,b)=>Math.abs(b[1].decayed)-Math.abs(a[1].decayed)).map(([fid, val]) => {
+      const f = LORE_FACTIONS[fid];
+      const label = f?f.name:prettyId(fid);
+      const sign = val.decayed>=0?'+':'';
+      const rawSign = val.raw>=0?'+':'';
+      return `<a class="rep-effect-row" href="#/reputation/faction/${encodeURIComponent(fid)}"><span>⚔️ ${esc(label)}</span><b class="${val.decayed>=0?'pos':'neg'}">${sign}${val.decayed} <span class="text-muted" style="font-weight:400;font-size:11px">(raw ${rawSign}${val.raw})</span></b></a>`;
+    }).join('');
+    return `<div style="margin-top:10px">
+      <div style="font-weight:700;color:var(--accent2);margin-bottom:4px">${esc(op.icon||'👤')} ${esc(op.name||prettyId(opId))}</div>
+      ${factionRows}
+    </div>`;
+  }).join('');
+
+  return `<div class="event-reputation-panel"><h3>📈 Reputation Impact</h3>
+    <p class="text-muted" style="font-size:12.5px">This record contributes to every listed operator's standing with the factions below. The <b>decayed</b> value is what currently applies (${meta.year||'?'} BF · ${yearsAgo===0?'this year':(yearsAgo+' years ago')} · ${decPct}% weight). ${memBadge}</p>
+    ${opBlocks}
+  </div>`;
 }
 
 function closeWhyModal() {
@@ -3521,9 +3839,25 @@ function renderWhyModal(factionKey, opKey) {
         <span class="rep-trace-val ${st.subfactions >= 0 ? 'pos' : 'neg'}">${st.subfactions >= 0 ? '+' : ''}${st.subfactions}</span>
       </div>
       <div class="rep-trace-item">
-        <span><b>Active Rumor & Event Modifiers</b><small class="factor-explain">Dated events, rumors, and documented actions that have changed this relationship.</small></span>
+        <span><b>Active Rumor & Event Modifiers</b><small class="factor-explain">Dated events, battles, and trials that have moved this relationship. Every entry decays with time (1-year half-life; historic events keep a 25% memory floor — the world still talks about Blackfen Pass).</small></span>
         <span class="rep-trace-val ${st.rumors >= 0 ? 'pos' : 'neg'}">${st.rumors >= 0 ? '+' : ''}${st.rumors}</span>
       </div>
+      ${(st.contributions||[]).length ? `<div class="rep-event-breakdown" style="margin:6px 0 12px 12px;padding:8px 12px;border-left:2px solid var(--border);background:var(--bg2);border-radius:6px;font-size:12.5px">
+        <div style="color:var(--muted);margin-bottom:6px">Contributing events (${st.contributions.length}) — decayed values shown, raw in parentheses:</div>
+        ${st.contributions.slice(0, 12).map(c => {
+          const rid = c.record.id || '';
+          const title = esc(c.record.title || c.record.name || prettyId(rid));
+          const nowY = (CUR&&CUR.year)||1040;
+          const ago = Math.max(0, nowY - c.year);
+          const decPct = Math.round(c.decay*100);
+          const sign = c.decayed>=0?'+':'';
+          const raw = c.raw>=0?'+':'';
+          const badge = c.memorable ? '<span class="pill" style="background:rgba(224,180,0,.18);border-color:rgba(224,180,0,.4);color:#ffd166;font-size:10px">Memorable</span>' : '';
+          const route = c.typeKey==='majorBattles'?`#/mbattle/${encodeURIComponent(rid)}`:`#/article/${encodeURIComponent(rid)}`;
+          return `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border)"><span><a class="entity-link" href="${route}">${title}</a> <span class="text-muted" style="font-size:11px">· ${c.year} BF · ${ago===0?'this year':(ago+'y ago')} · ${decPct}% weight</span> ${badge}</span><b class="${c.decayed>=0?'pos':'neg'}" style="white-space:nowrap">${sign}${c.decayed} <span class="text-muted" style="font-weight:400">(${raw}${c.raw})</span></b></div>`;
+        }).join('')}
+        ${st.contributions.length>12 ? `<div class="text-muted" style="margin-top:6px;font-size:11px">…and ${st.contributions.length-12} more, mostly faded.</div>` : ''}
+      </div>` : ''}
       <div class="rep-trace-item">
         <span><b>Alliance & Hostility Leakage Propagation</b><small class="factor-explain">A smaller network effect: standing can shift when allied or hostile factions influence one another.</small></span>
         <span class="rep-trace-val ${st.propagation >= 0 ? 'pos' : 'neg'}">${st.propagation >= 0 ? '+' : ''}${st.propagation}</span>
@@ -3743,6 +4077,7 @@ function view_reputation(arg) {
         <div class="rep-title-box">
           <h1>📈 Faction Directory & Reputation Matrix</h1>
           <p>100 factions · click a faction or operator to follow links across dossiers, standings, warrants, and event records</p>
+          <p style="font-size:12px;color:var(--muted);margin-top:6px">📡 <b>Live scoring:</b> every catalogued event, battle, and trial contributes a signed delta that decays with time (1-year half-life; ⭐ memorable records keep a 25% memory floor — history still talks about them). Currently indexing ${(typeof _buildRepEventCache==='function'?_buildRepEventCache().length:0)} historical records into the ${REPUTATION_OPERATORS.length}×${Object.keys(LORE_FACTIONS||{}).length} matrix.</p>
         </div>
         <span class="chip" style="background:rgba(239,68,68,.16);border-color:rgba(239,68,68,.4);color:#fca5a5" onclick="currentRepTab='infamy';view_reputation();">🚨 Party Global Heat: 62 (Wanted)</span>
       </div>
@@ -4523,6 +4858,7 @@ async function boot(){
   CUR = DATA.currentDate||{year:1040,monthIndex:7,day:18};
   buildIndexes();
   buildAtlasIndex();
+  invalidateRepEventCache();  // rebuild reputation event cache now that DATA is loaded
   el('statline').textContent = ALL_ITEMS.length+' articles · '+Object.keys(DATA.conflicts||{}).length+' conflicts · '+(DATA.majorBattles||[]).length+' battles · '+(DATA.congress_votes||[]).length+' votes · '+(((DATA.artifacts||{}).star_bearers||[]).length)+' bearers · '+window.__DATA_SOURCE+' · / search · H links · C comments';
   try{ updateTopbarLoginBtn(); }catch(e){}
   Router.render();
