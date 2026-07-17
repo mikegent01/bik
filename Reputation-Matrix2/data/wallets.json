@@ -1,0 +1,452 @@
+{
+  "_README": "Edit this file to update player wallets WITHOUT rebuilding. Core player wallet amounts are preserved as in-game values; NPC wallets below are world/economy estimates and can be adjusted separately.",
+  "_NOTES": {
+    "player_wallets_locked": [
+      "archie",
+      "bowser",
+      "hjumpik",
+      "markop",
+      "remi"
+    ],
+    "npc_wallet_policy": "NPC wallets are not exact player inventory. They represent accessible banked funds, trade instruments, treasury access, and faction operating money.",
+    "big_t_note": "Big T is dead, so he is not listed as an active wallet. Tea Leaf money is tracked under Chai and the Syndicate instead.",
+    "dead_wallet_policy": "Do not list deceased people as active wallets. Use estates, receiverships, treasuries, or successor institutions instead.",
+    "chai_t_note": "Chai T is treated as dead/inactive for wallet purposes; Tea Leaf money is tracked under the Tea Leaf Syndicate Receivership instead.",
+    "ruler_wallet_policy": "Ruler wallets represent accessible treasury authority and diplomatic exchange instruments, not every coin in a nation."
+  },
+  "archie": {
+    "name": "Archie Miser",
+    "title": "Pyromaniac Merchant",
+    "currencies": {
+      "gold": 349,
+      "silver": 6,
+      "bronze": 18
+    }
+  },
+  "bowser": {
+    "name": "Bowser",
+    "title": "Koopa King",
+    "currencies": {
+      "platinum": 12,
+      "gold": 121,
+      "electrum": 51,
+      "silver": 13,
+      "copper": 11
+    }
+  },
+  "hjumpik": {
+    "name": "hjumpik",
+    "title": "Axe Enthusiast",
+    "currencies": {
+      "midland_ducat": 421,
+      "gold": 1,
+      "dwarf_oathgold": 2
+    }
+  },
+  "markop": {
+    "name": "Markop Judi",
+    "title": "Legion Associate",
+    "currencies": {
+      "gold": 21,
+      "silver": 13,
+      "bronze": 28
+    }
+  },
+  "remi": {
+    "name": "Remi",
+    "title": "FNG Smith",
+    "currencies": {
+      "gold": 20
+    }
+  },
+  "wario": {
+    "name": "Wario",
+    "title": "Explosive Accountant / Hoard Lord / Shop-Credit Tyrant",
+    "status": "Active — extremely liquid, extremely greedy, and absolutely not as broke as his gold-on-hand suggests",
+    "wallet_type": "NPC operating + vault estimate",
+    "currencies": {
+      "gold": 125000,
+      "wario_coin": 250000,
+      "wario_points": 75000,
+      "midland_ducat": 18000,
+      "imperial_crown": 12000,
+      "doubloon": 2200,
+      "cargo_share": 45,
+      "broker_mark": 18,
+      "credstick": 9000,
+      "banana_medallion": 350,
+      "shell_credit": 5000
+    }
+  },
+  "waluigi": {
+    "name": "Waluigi",
+    "title": "Historian / Mages Guild Associate / Correct Name Inventor",
+    "status": "Active — funds split between travel cash, research access, and document power",
+    "wallet_type": "NPC personal + research-access wallet",
+    "currencies": {
+      "gold": 83,
+      "silver": 140,
+      "midland_ducat": 260,
+      "guild_seal": 7,
+      "archive_writ": 4,
+      "arcane_shard": 3,
+      "transit_stamp": 1,
+      "toad_whistle": 9,
+      "court_leaf": 1
+    }
+  },
+  "toad_lee": {
+    "name": "Toad Lee",
+    "title": "Defenestrated Diplomat / Liberated Toad Organizer",
+    "status": "Active — keeps practical survivor funds, courier access, and Loyalist-friendly paper",
+    "wallet_type": "NPC civic/diplomatic wallet",
+    "currencies": {
+      "toad_bond": 75,
+      "relief_stamp": 400,
+      "peach_crown": 25,
+      "mushroom_coin": 90,
+      "silver": 120,
+      "gold": 18,
+      "toad_whistle": 30,
+      "decree_strip": 8,
+      "midland_ducat": 40
+    }
+  },
+  "salam": {
+    "name": "Salam",
+    "title": "Liberated Toad Sharpshooter",
+    "status": "Active — light field wallet, mostly survivor bonds and practical coin",
+    "wallet_type": "NPC field wallet",
+    "currencies": {
+      "toad_bond": 18,
+      "relief_stamp": 60,
+      "silver": 55,
+      "gold": 9,
+      "mushroom_coin": 22,
+      "peach_crown": 3,
+      "toad_whistle": 4
+    }
+  },
+  "captain_toadette": {
+    "name": "Captain Toadette",
+    "title": "Peach Loyalist Commander",
+    "status": "Active — not personal wealth so much as campaign authority and war chest access",
+    "wallet_type": "NPC command treasury access",
+    "currencies": {
+      "peach_crown": 15000,
+      "gold": 3500,
+      "midland_ducat": 8000,
+      "mushroom_coin": 12000,
+      "toad_bond": 900,
+      "relief_stamp": 6000,
+      "archive_writ": 12,
+      "decree_strip": 120,
+      "toad_whistle": 250
+    }
+  },
+  "speaker_l": {
+    "name": "Speaker L",
+    "title": "Liberated Toad Legal Organizer",
+    "status": "Active — money is mostly legal paper, courier credit, and resistance administration",
+    "wallet_type": "NPC legal/resistance operating wallet",
+    "currencies": {
+      "decree_strip": 500,
+      "toad_bond": 1200,
+      "relief_stamp": 2500,
+      "archive_writ": 20,
+      "peach_crown": 300,
+      "midland_ducat": 900,
+      "toad_whistle": 180,
+      "gold": 250
+    }
+  },
+  "penny": {
+    "name": "Penny",
+    "title": "Detective / Wario-Side Investigator",
+    "status": "Active — professional wallet with cash, digital funds, and investigation-friendly paper",
+    "wallet_type": "NPC investigator wallet",
+    "currencies": {
+      "wario_coin": 600,
+      "gold": 140,
+      "silver": 300,
+      "credstick": 1200,
+      "archive_writ": 3,
+      "broker_mark": 2,
+      "midland_ducat": 450,
+      "guild_seal": 1
+    }
+  },
+  "the_broker": {
+    "name": "The Broker",
+    "title": "Freelancer Underworld Information Dealer",
+    "status": "Active — wealth is information, liquid coin, coded credit, and quiet leverage",
+    "wallet_type": "NPC underworld bank wallet",
+    "currencies": {
+      "broker_mark": 2000,
+      "gold": 50000,
+      "midland_ducat": 22000,
+      "tea_chit": 900,
+      "doubloon": 700,
+      "cargo_share": 80,
+      "credstick": 40000,
+      "archive_writ": 25,
+      "blood_vial": 60,
+      "vampire_marker": 12,
+      "astral_pearl": 9
+    }
+  },
+  "first_mate_jones": {
+    "name": "First Mate Jones",
+    "title": "Syrup Pirate Officer",
+    "status": "Active — shipboard cash, prize shares, port credit, and smuggling liquidity",
+    "wallet_type": "NPC pirate officer wallet",
+    "currencies": {
+      "doubloon": 2500,
+      "cargo_share": 65,
+      "gold": 1800,
+      "silver": 600,
+      "wario_coin": 400,
+      "coconut_bar": 300,
+      "banana_medallion": 90,
+      "kremling_koin": 75,
+      "broker_mark": 8
+    }
+  },
+  "mystic_morel": {
+    "name": "Mystic Morel",
+    "title": "Fortune Teller / Purple T / Future Thief",
+    "status": "Active problem — keeps odd currencies that are easy to hide, sing about, or pretend were destiny",
+    "wallet_type": "NPC occult/traveler wallet",
+    "currencies": {
+      "gold": 1200,
+      "silver": 900,
+      "mushroom_coin": 300,
+      "peach_crown": 40,
+      "arcane_shard": 8,
+      "astral_pearl": 2,
+      "shadow_obol": 25,
+      "court_leaf": 3,
+      "fey_acorn": 2
+    }
+  },
+  "archmage_theron": {
+    "name": "Archmage Theron",
+    "title": "Mages Guild Authority",
+    "status": "Active — guild access, formal seals, and enough arcane collateral to make normal banks nervous",
+    "wallet_type": "NPC institutional/guild wallet",
+    "currencies": {
+      "guild_seal": 300,
+      "arcane_shard": 450,
+      "transit_stamp": 60,
+      "archive_writ": 35,
+      "midland_ducat": 20000,
+      "gold": 9000,
+      "astral_pearl": 18,
+      "data_chit": 120
+    }
+  },
+  "lady_toriel": {
+    "name": "Lady Toriel",
+    "title": "Leader of Autumnwood Province",
+    "status": "Active — provincial treasury access, harvest marks, court money, and diplomatic coin",
+    "wallet_type": "NPC provincial treasury access",
+    "currencies": {
+      "autumn_leaf": 30000,
+      "midland_ducat": 18000,
+      "gold": 6000,
+      "archive_writ": 40,
+      "court_leaf": 90,
+      "spirit_bead": 120,
+      "silver": 5000
+    }
+  },
+  "emperor_elgabalus": {
+    "name": "Emperor Elgabalus",
+    "title": "Emperor of the Regal Empire",
+    "status": "Active — sovereign treasury access; numbers represent accessible exchange instruments, not the entire imperial treasury",
+    "wallet_type": "NPC sovereign treasury access",
+    "currencies": {
+      "midland_ducat": 500000,
+      "gold": 250000,
+      "imperial_crown": 80000,
+      "archive_writ": 500,
+      "silver": 1000000,
+      "dwarf_oathgold": 2500,
+      "astral_pearl": 40,
+      "guild_seal": 150
+    }
+  },
+  "tea_leaf_receivership": {
+    "name": "Tea Leaf Syndicate Receivership",
+    "title": "Post-Big-T / Post-Chai-T Syndicate Ledger",
+    "status": "Active institution — dead operators removed; surviving money is controlled through receivers, safehouse ledgers, and collection agents",
+    "wallet_type": "institutional receivership wallet",
+    "currencies": {
+      "tea_chit": 2200,
+      "gold": 5200,
+      "silver": 3100,
+      "midland_ducat": 4200,
+      "broker_mark": 30,
+      "doubloon": 220,
+      "cargo_share": 16,
+      "credstick": 1200
+    }
+  },
+  "princess_daisy": {
+    "name": "Princess Daisy",
+    "title": "Sarasaland Sovereign",
+    "status": "Active — royal treasury access, diplomatic coin, and hard cash for fast military decisions",
+    "wallet_type": "NPC sovereign treasury access",
+    "currencies": {
+      "gold": 45000,
+      "midland_ducat": 22000,
+      "imperial_crown": 9000,
+      "mushroom_coin": 14000,
+      "peach_crown": 5000,
+      "credstick": 4500,
+      "archive_writ": 65,
+      "toad_whistle": 300
+    }
+  },
+  "donkey_kong": {
+    "name": "Donkey Kong",
+    "title": "Kongo Bongo / DK Isles Leader",
+    "status": "Active — island stores, banana-backed value, medals, port coin, and practical trade goods",
+    "wallet_type": "NPC island treasury access",
+    "currencies": {
+      "banana_medallion": 6500,
+      "coconut_bar": 12000,
+      "gold": 18000,
+      "silver": 7000,
+      "doubloon": 900,
+      "cargo_share": 35,
+      "shell_credit": 900,
+      "wario_coin": 700
+    }
+  },
+  "king_k_rool": {
+    "name": "King K. Rool",
+    "title": "Kremling King",
+    "status": "Active — raider hoard, port liquidity, and black-market exchange instruments",
+    "wallet_type": "NPC pirate/raider treasury access",
+    "currencies": {
+      "kremling_koin": 9000,
+      "doubloon": 6000,
+      "gold": 35000,
+      "cargo_share": 120,
+      "broker_mark": 40,
+      "blood_vial": 25,
+      "banana_medallion": 400,
+      "credstick": 2500
+    }
+  },
+  "fawful": {
+    "name": "Fawful",
+    "title": "Cackling Remnant Commander",
+    "status": "Active but weakened — weird reserves, stolen paper, and emergency villain liquidity",
+    "wallet_type": "NPC faction remnant wallet",
+    "currencies": {
+      "gold": 12000,
+      "mushroom_coin": 8000,
+      "beanbean_bean": 9000,
+      "credstick": 2500,
+      "arcane_shard": 20,
+      "broker_mark": 14,
+      "midland_ducat": 3000
+    }
+  },
+  "princess_celestia": {
+    "name": "Princess Celestia",
+    "title": "Equestrian Sovereign Authority",
+    "status": "Active — crown reserves, court instruments, and cross-map diplomatic exchange funds",
+    "wallet_type": "NPC sovereign treasury access",
+    "currencies": {
+      "gold": 80000,
+      "silver": 250000,
+      "court_leaf": 400,
+      "fey_acorn": 80,
+      "archive_writ": 90,
+      "midland_ducat": 30000,
+      "mora": 8000,
+      "astral_pearl": 22
+    }
+  },
+  "twilight_sparkle": {
+    "name": "Twilight Sparkle",
+    "title": "Equestrian Princess / Arcane-State Administrator",
+    "status": "Active — scholarly state funds, magical collateral, and diplomatic coin",
+    "wallet_type": "NPC ruler/research treasury access",
+    "currencies": {
+      "gold": 32000,
+      "guild_seal": 90,
+      "arcane_shard": 160,
+      "archive_writ": 120,
+      "court_leaf": 250,
+      "fey_acorn": 50,
+      "midland_ducat": 14000,
+      "data_chit": 700
+    }
+  },
+  "chairwoman_rin": {
+    "name": "Chairwoman Rin",
+    "title": "Kivotos General Student Council Administrator",
+    "status": "Active — city-scale school-state operating funds and authenticated digital credit",
+    "wallet_type": "NPC civic treasury access",
+    "currencies": {
+      "kivotos_credit": 2500000,
+      "credstick": 120000,
+      "data_chit": 12000,
+      "gold": 20000,
+      "midland_ducat": 25000,
+      "archive_writ": 70,
+      "guild_seal": 35
+    }
+  },
+  "liyue_qixing": {
+    "name": "Liyue Qixing Treasury",
+    "title": "Teyvat Mercantile Ruling Council",
+    "status": "Active institution — trade reserves and mora-clearing authority",
+    "wallet_type": "institutional sovereign treasury access",
+    "currencies": {
+      "mora": 3000000,
+      "gold": 150000,
+      "midland_ducat": 55000,
+      "imperial_crown": 25000,
+      "doubloon": 4000,
+      "cargo_share": 250,
+      "astral_pearl": 35,
+      "credstick": 40000
+    }
+  },
+  "pokemon_league_chair": {
+    "name": "Pokémon League Chair Office",
+    "title": "League Prize and Clinic Reserve Authority",
+    "status": "Active institution — trainer payouts, clinic reserves, and cross-region clearing funds",
+    "wallet_type": "institutional league treasury access",
+    "currencies": {
+      "poke_dollar": 1800000,
+      "gold": 40000,
+      "credstick": 90000,
+      "data_chit": 6000,
+      "midland_ducat": 18000,
+      "archive_writ": 30,
+      "toad_whistle": 120
+    }
+  },
+  "high_king_thorgrim": {
+    "name": "High King Thorgrim",
+    "title": "Dwarven High King / Karaz-a-Karak Treasury Authority",
+    "status": "Active — oathgold, vault metals, grudges, and meticulously audited foreign exchange",
+    "wallet_type": "NPC sovereign vault access",
+    "currencies": {
+      "dwarf_oathgold": 25000,
+      "gold": 300000,
+      "silver": 900000,
+      "midland_ducat": 50000,
+      "imperial_crown": 60000,
+      "guild_seal": 80,
+      "archive_writ": 40,
+      "warpstone": 12
+    }
+  }
+}
