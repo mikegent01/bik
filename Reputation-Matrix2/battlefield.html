@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="waluipedia.css">
   <link rel="stylesheet" href="ui-fixes.css">
   <link rel="stylesheet" href="reputation-fixes.css">
+  <link rel="stylesheet" href="commerce-event-fixes.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
   <link rel="preload" href="battlefield.css" as="style">
   <link rel="stylesheet" href="battlefield.css">
@@ -505,10 +506,14 @@ function eventPeopleAndXpPanel(item){
   (XP_EVENT_AWARDS[item.id]||[]).forEach(a=>add(a.articleId));
   const people=ids.map(id=>`<span class="rel-chip" onclick="openId('${esc(id)}')"><span class="rt">Character</span>${esc(displayName(INDEX[id].item))}</span>`).join('');
   const awards=(XP_EVENT_AWARDS[item.id]||[]).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
-  if(!people && !awards) return '';
-  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div></div></div>`;
-  if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>`;
-  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>`;
+  const repMap=item.effects||item.reputationChanges||item.reputation||null;
+  const repEffects=repMap&&typeof repMap==='object' ? Object.entries(repMap).map(([fid,val])=>{const f=LORE_FACTIONS[fid];const label=f?.name||prettyId(fid);return `<a class="rep-effect-row" href="#/reputation/faction/${encodeURIComponent(fid)}"><span>⚔️ ${esc(label)}</span><b>${Number(val)>=0?'+':''}${esc(String(val))}</b></a>`;}).join('') : '';
+  const effectsPanel=repEffects?`<div class="event-reputation-panel"><h3>📈 Reputation Changes</h3><p class="text-muted">This event modifies the party's standing. Open a faction to inspect the calculation trace.</p>${repEffects}</div>`:'';
+  if(!people && !awards && !effectsPanel) return '';
+  if(!awards && !people) return effectsPanel;
+  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div></div></div>${effectsPanel}`;
+  if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
+  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
 
@@ -1499,7 +1504,7 @@ async function view_items(arg) {
           <div class="tsum">${esc(it.summary)}</div>
           <div class="tmeta">
             <span class="pill">Lvl ${it.levelRequirement}</span>
-            <a class="pill" style="color:var(--accent2);border-color:var(--accent2)" href="shop.html" onclick="event.stopPropagation()">Buy in Shop →</a>
+            <a class="pill" style="color:var(--accent2);border-color:var(--accent2)" href="shop.html?item=${encodeURIComponent(it.id)}" onclick="event.stopPropagation()">Buy in Wario's Warehouse →</a>
           </div>
         </div>
       `;
@@ -1631,17 +1636,13 @@ async function view_item(id) {
             </div>
             <p style="color:var(--text);line-height:1.6;font-size:15px;margin-top:12px">${esc(it.description || '')}</p>
             
-            <div class="wnote mt-14">
-              <b>Merchant Details:</b><br>
-              Vendor: <b>${esc(vendorObj.name)}</b> (${esc(vendorObj.location||'Regional Market')})<br>
-              Shipped By: <b>${esc(it.shippedBy || 'Standard Courier')}</b> · Available Stock: <b>${it.stock || 1}</b>
-            </div>
+            <div class="wnote mt-14"><b>Merchant Details</b><div class="merchant-details"><div><b>Vendor</b>${esc(vendorObj.name)}<br><span class="text-muted">${esc(vendorObj.location||'Regional Market')}</span></div><div><b>Shipped By</b>${esc(it.shippedBy || 'Standard Courier')}</div><div><b>Available Stock</b>${it.stock || 1}</div></div></div>
           </div>
           ${effects}
           <div class="card">
             <h2>Actions & Exchange Options</h2>
             <div class="chips">
-              <a class="chip active" href="shop.html">🛒 Buy / Order in Wario's Shop →</a>
+              <a class="chip active" href="shop.html?item=${encodeURIComponent(it.id)}">🛒 Open in Wario's Warehouse →</a>
               <a class="chip" href="currency.html" onclick="location.href='currency.html#gold'">💱 Calculate Local Exchange Rates →</a>
               <a class="chip" href="#/reputation/faction/${encodeURIComponent(it.vendor||'')}">📈 Inspect Vendor Standing →</a>
             </div>
