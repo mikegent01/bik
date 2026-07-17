@@ -1,5 +1,18 @@
 
 // Update imports
+import { WALLETS, CURRENCIES } from './currency.js';
+
+function getConnectedWallet(){
+    const id=state?.loggedInUser||'generic';
+    return WALLETS[id]||WALLETS[id.replace('_miser','')]||null;
+}
+function walletSummary(){
+    const w=getConnectedWallet();
+    if(!w) return {label:'No connected wallet',details:'Log in through Waluipedia to load actual holdings'};
+    const entries=Object.entries(w.currencies||{});
+    return {label:entries.length?entries.map(([k,v])=>`${CURRENCIES[k]?.icon||'🪙'} ${Number(v).toLocaleString()} ${CURRENCIES[k]?.name||k}`).join(' · '):'Empty wallet',details:`${w.name||state.loggedInUser} · recorded holdings only`};
+}
+
 import { 
     STOCK_TYPES,
     TIME_PERIODS,
@@ -772,7 +785,7 @@ function renderShopHeader() {
                 </div>
             ` : `
                 <div class="current-player-display generic">
-                    <span class="player-name">👤 Guest Mode</span>
+                    <span class="player-name">👤 Guest Mode · <a href="battlefield.html#/login">Log in to load wallet</a></span>
                 </div>
             `}
             
@@ -800,23 +813,16 @@ function renderShopHeader() {
                 </div>
             </div>
             
-            <div class="xp-wallet">
+            <div class="xp-wallet actual-wallet-display">
                 <div class="wallet-stat total">
-                    <span class="wallet-value">${status.total.toLocaleString()}</span>
-                    <span class="wallet-label">${status.type} Total</span>
+                    <span class="wallet-value">💳</span>
+                    <span class="wallet-label">Actual Wallet</span>
                 </div>
-                <div class="wallet-stat spent">
-                    <span class="wallet-value">${status.spent.toLocaleString()}</span>
-                    <span class="wallet-label">Spent</span>
+                <div class="wallet-stat available wallet-holdings-stat">
+                    <span class="wallet-value">${walletSummary().label}</span>
+                    <span class="wallet-label">Recorded Holdings</span>
                 </div>
-                <div class="wallet-stat pending">
-                    <span class="wallet-value">${status.pending.toLocaleString()}</span>
-                    <span class="wallet-label">Pending</span>
-                </div>
-                <div class="wallet-stat available">
-                    <span class="wallet-value">${status.icon} ${status.available.toLocaleString()}</span>
-                    <span class="wallet-label">Available</span>
-                </div>
+                <div class="wallet-wallet-note">${walletSummary().details}</div>
             </div>
             
             <div class="cart-summary" id="cart-summary-btn">
