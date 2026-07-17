@@ -1,10 +1,14 @@
 import { WALLETS, CURRENCIES } from './currency.js';
-function sync(){
- const id=localStorage.getItem('waluipediaUser')||localStorage.getItem('vigilanceTerminalUser');
- let box=document.getElementById('battlefieldWalletSync'); if(!box){box=document.createElement('div');box.id='battlefieldWalletSync';document.body.appendChild(box)}
- const w=id&&(WALLETS[id]||WALLETS[id.replace('_miser','')]);
- if(!id||!w){box.innerHTML='🔒 <b>Guest checkout</b><span>Log in through Waluipedia to load actual player holdings.</span><a href="battlefield.html#/login">Open player login →</a>';return}
- const holdings=Object.entries(w.currencies||{}).map(([k,v])=>`${CURRENCIES[k]?.icon||'🪙'} ${Number(v).toLocaleString()} ${CURRENCIES[k]?.name||k}`).join(' · ')||'Empty wallet';
- box.innerHTML=`💳 <b>${w.name||id} wallet connected</b><span>${holdings}</span><small>Read from the Battlefield wallet. Checkout will not invent XP or gold balances.</small>`;
+let selected=localStorage.getItem('warehousePaymentCurrency')||'wario_points';let walletData=null,lastMarkup='',renderQueued=false;
+async function loadWallet(){try{const r=await fetch('./wallets.json',{cache:'no-cache'});walletData=await r.json()}catch{walletData={}}}
+function id(){return localStorage.getItem('waluipediaUser')||localStorage.getItem('currentUserId')||''}
+function currencyOptions(){return Object.values(CURRENCIES).map(c=>`<option value="${c.id}" ${c.id===selected?'selected':''}>${c.icon||'🪙'} ${c.name}</option>`).join('')}
+function render(){
+ const root=document.getElementById('root');if(!root||!walletData)return;const uid=id(),w=walletData[uid];
+ let box=document.getElementById('playerWalletBridge');if(!box){box=document.createElement('section');box.id='playerWalletBridge';root.prepend(box)}
+ const holdings=w?Object.entries(w.currencies||{}).map(([k,v])=>`${CURRENCIES[k]?.icon||'🪙'} ${Number(v).toLocaleString()} ${CURRENCIES[k]?.name||k}`).join(' · '):'';
+ const markup=w?`<div class="bridge-wallet"><div><b>Connected operator:</b> ${w.name||uid}<small>Actual recorded inventory wallet</small></div><div class="bridge-coins">${holdings||'<span>No recorded currency holdings</span>'}</div><label class="bridge-payment">💳 Pay in <select id="warehousePaymentCurrency">${currencyOptions()}</select><small>1 Gold = ${(1/(CURRENCIES[selected]?.base_value||1)).toFixed(2)} ${CURRENCIES[selected]?.name||selected}; totals use this payment currency.</small></label><a href="battlefield.html#/profile/${encodeURIComponent(uid)}">Open full wallet & profile →</a></div>`:`<div class="bridge-warning">🔐 <b>Connect an operator to buy</b><span>Wario's Warehouse cannot use the generic XP display as a real wallet. <a href="battlefield.html#/login">Open Waluipedia Login →</a></span></div>`;
+ if(markup!==lastMarkup){box.innerHTML=markup;lastMarkup=markup;const sel=box.querySelector('select');if(sel)sel.onchange=e=>{selected=e.target.value;localStorage.setItem('warehousePaymentCurrency',selected);lastMarkup='';render()}}
 }
-window.addEventListener('storage',sync);window.addEventListener('load',sync);setInterval(sync,1000);
+function schedule(){if(renderQueued)return;renderQueued=true;requestAnimationFrame(()=>{renderQueued=false;render()})}
+loadWallet().then(()=>{render();new MutationObserver(schedule).observe(document.getElementById('root')||document.body,{childList:true,subtree:true})});window.addEventListener('storage',schedule);
