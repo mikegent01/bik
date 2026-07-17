@@ -16,6 +16,7 @@
   <link rel="preload" href="battlefield.css" as="style">
   <link rel="stylesheet" href="battlefield.css">
   <script src="data/vendors-directory.js"></script>
+  <script src="data/books-data.js"></script>
 </head>
 <body>
 <header class="topbar">
@@ -162,6 +163,11 @@ function buildIndexes(){
   Object.entries(DYNASTY_SYSTEM.houses||{}).forEach(([id,h])=>SEARCH_DOCS.push({kind:'dynasty',id,typeKey:'dynasties',name:h.name||prettyId(id),summary:h.motto||h.status||'',hay:[id,h.name,h.motto,h.founder,h.seat,h.status,(h.members||[]).map(x=>x.name).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
   Object.entries(window.WIKI_VENDORS||{}).forEach(([id,v])=>SEARCH_DOCS.push({kind:'vendor',id,typeKey:'vendors',name:v.name||prettyId(id),summary:v.description||'',hay:[id,v.name,v.location,v.description,(v.acceptedCurrencies||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
   Object.entries(DATA.calendarHolidays?.holidays||{}).forEach(([calendarId,items])=>(items||[]).forEach(h=>{const id=String(h.id||h.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'holiday',id,typeKey:'holidays',name:h.name||id,summary:h.description||'',hay:[id,h.name,h.description,h.type,calendarId].filter(Boolean).join(' ').toLowerCase()});}));
+  const _currList = ((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]);
+  (Array.isArray(_currList)?_currList:[]).forEach(c=>{ if(!c) return; const id=String(c.id||c.key||c.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'currency',id,typeKey:'currencies',name:c.name||prettyId(id),summary:c.short||c.description||'',hay:[id,c.name,c.short,c.description,c.type,c.category,c.issuer,c.home_faction].filter(Boolean).join(' ').toLowerCase()}); });
+  // Books search entries
+  const _books = ((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]);
+  _books.forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'book',id:b.id,typeKey:'books',name:b.title||prettyId(b.id),summary:b.subtitle||b.description||'',hay:[b.id,b.title,b.subtitle,b.author,b.category,b.description].filter(Boolean).join(' ').toLowerCase()}); });
   const CG=DATA.congress||{};
   (CG.members||[]).forEach(m=>{ if(!m) return; SEARCH_DOCS.push({kind:'member',id:m.id,typeKey:'congress',name:m.name,summary:m.summary||'',hay:[m.name,m.bloc,m.status,m.delegate,m.summary,m.description].filter(Boolean).join(' ').toLowerCase()}); });
   (CG.sessions||[]).forEach(s=>{ if(!s) return; SEARCH_DOCS.push({kind:'session',id:s.id,typeKey:'congress',name:s.name,summary:s.summary||'',hay:[s.name,s.host,s.status,s.summary,s.description].filter(Boolean).join(' ').toLowerCase()}); });
@@ -567,8 +573,8 @@ function routeForKind(kind,id){
     case 'invitem':return '#/item/'+encodeURIComponent(id);
     case 'bearer':return '#/bearer/'+encodeURIComponent(id);
     case 'dynasty':return '#/dynasty/'+encodeURIComponent(id);
-    case 'book':return '#/books';
-    case 'currency':return 'currency.html#'+encodeURIComponent(id);
+    case 'book':return '#/book/'+encodeURIComponent(id);
+    case 'currency':return '#/currency/'+encodeURIComponent(id);
     case 'vendor':return 'shop.html#vendor='+encodeURIComponent(id);
     case 'holiday':return '#/holiday/'+encodeURIComponent(id);
     case 'system':return id;
@@ -576,7 +582,7 @@ function routeForKind(kind,id){
   }
 }
 function kindEmoji(kind,typeKey){
-  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉'};
+  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚'};
   if(m[kind])return m[kind];
   return TYPE_BY_KEY[typeKey]?TYPE_BY_KEY[typeKey].emoji:'📄';
 }
@@ -893,7 +899,7 @@ function search(q){
   out.sort((a,b)=>b.score-a.score);return out.slice(0,40);
 }
 function highlight(text,q){if(!q)return esc(text);const terms=q.trim().split(/\s+/).filter(Boolean).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));let o=esc(text);terms.forEach(t=>{o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});return o;}
-function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
+function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
 const searchInput=el('search'),resultsBox=el('results');let activeIdx=-1,currentResults=[];
 function renderResults(list,q){
@@ -928,8 +934,10 @@ function renderSidebar(active){
   TYPES.filter(t=>!['locations','nations'].includes(t.key)).forEach(t=>{h+=`<div class="navlink ${active==='list:'+t.key?'active':''}" onclick="Router.go('#/list/${t.key}')"><span><span class="emoji">${t.emoji}</span> ${t.label}</span><span class="cnt">${(DATA[t.key]||[]).length}</span></div>`;});
   h+=`</div><div class="navsec"><div class="navhead">World Systems</div>`;
   h+=`<div class="navlink ${active==='congress'?'active':''}" onclick="Router.go('#/congress')"><span><span class="emoji">🏛️</span> Congress</span><span class="cnt">${(DATA.congress_votes||[]).length}</span></div>`;
-  h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">💱</span> Bank & Currency</span></div>`;
+  h+=`<div class="navlink ${active==='currencies'?'active':''}" onclick="Router.go('#/currencies')"><span><span class="emoji">💱</span> Currencies</span><span class="cnt">${(getCurrenciesList?getCurrenciesList().length:((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]).length)||45}</span></div>`;
+  h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">🏦</span> Bank & Exchange</span></div>`;
   h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar</span></div>`;
+  h+=`<div class="navlink ${active==='holidays'?'active':''}" onclick="Router.go('#/holiday')"><span><span class="emoji">🎉</span> Holidays</span><span class="cnt">${(()=>{const g=DATA.calendarHolidays?.holidays||{};let n=0;Object.values(g).forEach(a=>n+=(a||[]).length);return n;})()}</span></div>`;
 h+=`<div class="navlink ${active==='reputation'?'active':''}" onclick="Router.go('#/reputation')"><span><span class="emoji">📈</span> Reputation Matrix</span><span class="cnt">${Object.keys(LORE_FACTIONS||{}).length||100}</span></div>`;
   const nbear=((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length + ((DATA.artifacts&&DATA.artifacts.god_toad)?1:0);
   h+=`<div class="navlink ${active==='artifacts'?'active':''}" onclick="Router.go('#/artifacts')"><span><span class="emoji">⭐</span> Artifacts</span><span class="cnt">${nbear}</span></div>`;
@@ -3955,16 +3963,256 @@ function view_vendorDirectory(id){
   const list=Object.values(vendors);
   const v=id?vendors[id]:null;
   if(id && !v){ view_vendorDirectory(); return; }
-  const cards=list.map(x=>`<div class="card vendor-directory-card"><h2>🏪 ${esc(x.name||prettyId(x.id))}</h2><p class="text-muted">${esc(x.description||'Registered commerce vendor and marketplace operator.')}</p><div class="chips"><span class="pill">📍 ${esc(x.location||'Known market')}</span><span class="pill">Trust ${esc(String(x.trustLevel??'?'))}</span><span class="pill">Markup ${esc(String(x.markup??1))}×</span></div><p><b>Accepts:</b> ${(x.acceptedCurrencies||[]).map(c=>`<a class="entity-link" href="currency.html#${encodeURIComponent(c)}">${esc(currencyName(c))}</a>`).join(', ')||'Local tender / exchange rates'}</p><a class="chip" href="shop.html#vendor=${encodeURIComponent(x.id)}">🛒 Browse this vendor</a></div>`).join('');
+  const cards=list.map(x=>`<div class="card vendor-directory-card"><h2>🏪 ${esc(x.name||prettyId(x.id))}</h2><p class="text-muted">${esc(x.description||'Registered commerce vendor and marketplace operator.')}</p><div class="chips"><span class="pill">📍 ${esc(x.location||'Known market')}</span><span class="pill">Trust ${esc(String(x.trustLevel??'?'))}</span><span class="pill">Markup ${esc(String(x.markup??1))}×</span></div><p><b>Accepts:</b> ${(x.acceptedCurrencies||[]).map(c=>`<a class="entity-link" href="#/currency/${encodeURIComponent(c)}">${esc(currencyName(c))}</a>`).join(', ')||'Local tender / exchange rates'}</p><a class="chip" href="shop.html#vendor=${encodeURIComponent(x.id)}">🛒 Browse this vendor</a></div>`).join('');
   el('content').innerHTML=`<div class="card"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Vendors & Markets</div><h1>🏪 Vendors & Markets</h1><p class="text-muted">Commerce operators have roles, reputations, locations, currencies, and inventory. They are linked here without becoming ordinary encyclopedia article clutter.</p><div class="vendor-directory-grid">${v?cards.replace(/<div class="card vendor-directory-card">/,'<div class="card vendor-directory-card selected">'):cards}</div></div>`;
 }
+function holidaySlug(name){ return String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
+function calendarLabel(calId){
+  const cals=(DATA.calendars&&DATA.calendars.calendars)?DATA.calendars.calendars:(DATA.calendars||[]);
+  const c=(Array.isArray(cals)?cals:[]).find(x=>x&&(x.id===calId||x.key===calId));
+  return c?(c.name||c.title||prettyId(calId)):prettyId(calId);
+}
+function calendarMonthName(calId, monthOrd){
+  const cals=(DATA.calendars&&DATA.calendars.calendars)?DATA.calendars.calendars:(DATA.calendars||[]);
+  const c=(Array.isArray(cals)?cals:[]).find(x=>x&&(x.id===calId||x.key===calId));
+  if(c && Array.isArray(c.months)){
+    const m=c.months.find(mm=>Number(mm.ordinal)===Number(monthOrd)) || c.months[Number(monthOrd)-1];
+    if(m) return m.name||('Month '+monthOrd);
+  }
+  const gm=(DATA.calendarMonths||[]).find(m=>Number(m.ordinal)===Number(monthOrd));
+  return gm?gm.name:('Month '+monthOrd);
+}
 function view_holiday(id){
-  const all=[]; const groups=DATA.calendarHolidays?.holidays||{};
-  Object.entries(groups).forEach(([calendarId,items])=>(items||[]).forEach(h=>all.push({...h,calendarId})));
-  const h=all.find(x=>String(x.name).toLowerCase().replace(/[^a-z0-9]+/g,'_')===id||x.id===id);
-  if(!h){ el('content').innerHTML=`<div class="card"><h1>🎉 Holidays & Observances</h1><p class="text-muted">Choose a holiday to open its Waluipedia record.</p><div class="holiday-directory-grid">${all.map(x=>`<a class="card holiday-directory-card" href="#/holiday/${encodeURIComponent(String(x.name).toLowerCase().replace(/[^a-z0-9]+/g,'_'))}"><h2>${esc(x.icon||'🎉')} ${esc(x.name)}</h2><p>${esc(x.description||'Calendar observance')}</p><span class="pill">${esc(x.calendarId)} · ${x.month}/${x.day}</span></a>`).join('')}</div></div>`; return; }
   renderSidebar('calendar');
-  el('content').innerHTML=`<div class="card holiday-record"><div class="breadcrumb"><a onclick="Router.go('#/calendar')">Calendar</a> › Holidays</div><h1>${esc(h.icon||'🎉')} ${esc(h.name)}</h1><div class="chips"><span class="pill">${esc(h.calendarId)}</span><span class="pill">Month ${esc(String(h.month))}, Day ${esc(String(h.day))}</span><span class="pill">${esc(h.type||'Observance')}</span></div><p class="prose">${esc(h.description||'No description has been filed yet.')}</p><div class="chips"><a class="chip" href="#/calendar/${h.calendarId}/month/${CUR.year}/${Number(h.month)-1}/${h.day}">Open on calendar →</a></div></div>`;
+  const all=[]; const groups=DATA.calendarHolidays?.holidays||{};
+  Object.entries(groups).forEach(([calendarId,items])=>(items||[]).forEach(h=>all.push({...h,calendarId,slug:holidaySlug(h.id||h.name)})));
+
+  // No id → directory
+  if(!id){
+    const byCal={};
+    all.forEach(h=>{ (byCal[h.calendarId]=byCal[h.calendarId]||[]).push(h); });
+    const sections=Object.entries(byCal).map(([calId,items])=>{
+      const cards=items.sort((a,b)=>(a.month-b.month)||(a.day-b.day)).map(x=>`
+        <a class="card holiday-directory-card" href="#/holiday/${encodeURIComponent(x.slug)}" style="border-left:4px solid ${x.color||'var(--accent)'}">
+          <h2 style="margin:0 0 6px;font-size:16px">${esc(x.icon||'🎉')} ${esc(x.name)}</h2>
+          <p style="color:var(--muted);font-size:12.5px;line-height:1.45;margin:0 0 8px">${esc((x.description||'Calendar observance').slice(0,140))}</p>
+          <div class="chips"><span class="pill">${esc(calendarMonthName(calId,x.month))} ${esc(String(x.day))}</span><span class="pill">${esc(x.type||'Observance')}</span>${x.isWeird?'<span class="pill" style="background:rgba(224,80,80,.18);border-color:rgba(224,80,80,.4);color:#ffb0b0">Intercalary</span>':''}</div>
+        </a>`).join('');
+      return `<div class="card" style="margin-top:14px"><h2 style="margin-top:0">📅 ${esc(calendarLabel(calId))} <span class="text-muted" style="font-size:12px;font-weight:400">— ${items.length} observance${items.length===1?'':'s'}</span></h2><div class="holiday-directory-grid">${cards}</div></div>`;
+    }).join('');
+    el('content').innerHTML=`
+      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/calendar')">Calendar</a> › Holidays</div>
+        <h1 style="margin:6px 0 4px">🎉 Holidays & Observances</h1>
+        <p class="text-muted" style="font-size:13.5px">${all.length} cataloged observances across ${Object.keys(groups).length} calendars. Every entry has its own Waluipedia record.</p>
+      </div>
+      ${sections}`;
+    window.scrollTo(0,0); return;
+  }
+
+  const h=all.find(x=>x.slug===id || x.id===id || holidaySlug(x.name)===id);
+  if(!h){ view_holiday(); return; }
+
+  const siblings=all.filter(x=>x.calendarId===h.calendarId && x.slug!==h.slug).sort((a,b)=>(a.month-b.month)||(a.day-b.day));
+  const sameMonth=all.filter(x=>x.calendarId===h.calendarId && Number(x.month)===Number(h.month) && x.slug!==h.slug);
+  const monthLabel=calendarMonthName(h.calendarId,h.month);
+  const calName=calendarLabel(h.calendarId);
+  const linkedDesc=linkify?linkify(esc(h.description||'')):esc(h.description||'');
+
+  const relatedEvents=(DATA.events||[]).filter(ev=>{
+    const hay=((ev.title||'')+' '+(ev.summary||'')+' '+(ev.description||'')+' '+(ev.date||'')).toLowerCase();
+    return hay.includes(String(h.name||'').toLowerCase());
+  }).slice(0,6);
+
+  const siblingHtml=siblings.slice(0,12).map(s=>`
+    <a class="card holiday-directory-card" href="#/holiday/${encodeURIComponent(s.slug)}" style="border-left:3px solid ${s.color||'var(--accent)'}">
+      <h3 style="margin:0 0 4px;font-size:14px">${esc(s.icon||'🎉')} ${esc(s.name)}</h3>
+      <div style="color:var(--muted);font-size:11.5px">${esc(calendarMonthName(h.calendarId,s.month))} ${esc(String(s.day))} · ${esc(s.type||'observance')}</div>
+    </a>`).join('');
+
+  const relEventHtml=relatedEvents.length?relatedEvents.map(ev=>`<a class="chip" onclick="openId('${esc(ev.id)}')">📜 ${esc(ev.title||prettyId(ev.id))}</a>`).join(''):'<span class="text-muted" style="font-size:12px">No events currently reference this holiday.</span>';
+
+  el('content').innerHTML=`
+    <div class="card holiday-record animate-fade-in" style="border-top:5px solid ${h.color||'var(--accent)'};background:linear-gradient(135deg,${h.color?h.color+'22':'rgba(138,75,255,.14)'},rgba(0,0,0,.05)),var(--panel)">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/calendar')">Calendar</a> › <a onclick="Router.go('#/holiday')">Holidays</a> › ${esc(h.name)}</div>
+      <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-top:8px">
+        <div style="font-size:56px;line-height:1">${esc(h.icon||'🎉')}</div>
+        <div style="flex:1;min-width:220px">
+          <h1 style="margin:0 0 6px;font-size:30px">${esc(h.name)}</h1>
+          <div style="color:var(--accent2);font-style:italic;font-size:14px">${esc(h.type||'Observance')} — ${esc(calName)} calendar</div>
+          <div class="chips mt-10">
+            <span class="pill">📆 ${esc(monthLabel)} ${esc(String(h.day))}</span>
+            <span class="pill">Month ${esc(String(h.month))}, Day ${esc(String(h.day))}</span>
+            <span class="pill">${esc(h.type||'observance')}</span>
+            ${h.isWeird?'<span class="pill" style="background:rgba(224,80,80,.18);border-color:rgba(224,80,80,.4);color:#ffb0b0">⚠️ Intercalary / Weird Day</span>':''}
+            ${h.color?`<span class="pill" style="background:${h.color}33;border-color:${h.color};color:${h.color}">🎨 ${esc(h.color)}</span>`:''}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">📖 Observance Record</h2>
+      <p class="prose" style="font-size:15px;line-height:1.7">${linkedDesc||'<span class="text-muted">No description has been filed yet by Master Scribe Inkwell.</span>'}</p>
+      <div class="chips mt-10">
+        <a class="chip active" href="#/calendar/${h.calendarId}/month/${CUR?CUR.year:1040}/${Number(h.month)-1}/${h.day}">📅 Open on calendar →</a>
+        <a class="chip" href="#/calendar">Full Imperial Calendar</a>
+        <a class="chip" onclick="Router.go('#/holiday')">All Holidays</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">🔗 Related Events & Chronicles</h2>
+      <div class="chips">${relEventHtml}</div>
+    </div>
+
+    ${siblings.length?`<div class="card">
+      <h2 style="margin-top:0">🗓️ Other Observances in the ${esc(calName)} Calendar</h2>
+      ${sameMonth.length?`<p class="text-muted" style="font-size:12.5px;margin-bottom:8px">Also in ${esc(monthLabel)}: ${sameMonth.map(s=>`<a class="entity-link" href="#/holiday/${encodeURIComponent(s.slug)}">${esc(s.name)}</a>`).join(', ')}</p>`:''}
+      <div class="holiday-directory-grid">${siblingHtml}</div>
+    </div>`:''}
+  `;
+  window.scrollTo(0,0);
+}
+
+/* ================= CURRENCY DEDICATED PAGES ================= */
+function currencySlug(c){ return String((c&&(c.id||c.key))||c||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
+function getCurrenciesList(){
+  const src=DATA.currencies||{}; if(Array.isArray(src)) return src;
+  return src.currencies||[];
+}
+function getCurrencyMeta(id){
+  const list=getCurrenciesList();
+  const c=list.find(x=>x.id===id||x.key===id||currencySlug(x)===id);
+  if(c) return c;
+  const legacy=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[id])||null;
+  if(legacy) return Object.assign({id},legacy);
+  return null;
+}
+function view_currencies(){
+  renderSidebar('currencies');
+  const list=getCurrenciesList();
+  const meta=(DATA.currencies&&DATA.currencies.meta)||{};
+  const byCat={};
+  list.forEach(c=>{ const k=c.category||'other'; (byCat[k]=byCat[k]||[]).push(c); });
+  const sections=Object.entries(byCat).sort().map(([cat,items])=>{
+    const cards=items.sort((a,b)=>((b.base_value||0)-(a.base_value||0))||String(a.name).localeCompare(String(b.name))).map(c=>`
+      <a class="card holiday-directory-card" href="#/currency/${encodeURIComponent(currencySlug(c))}" style="border-left:4px solid ${c.color||'var(--accent2)'}">
+        <h2 style="margin:0 0 6px;font-size:16px">${esc(c.icon||'🪙')} ${esc(c.name||prettyId(c.id))}</h2>
+        <p style="color:var(--muted);font-size:12.5px;line-height:1.45;margin:0 0 8px">${esc((c.short||c.description||'Regional tender.').slice(0,150))}</p>
+        <div class="chips">
+          <span class="pill">≈ ${Number(c.base_value||0).toLocaleString()}g</span>
+          <span class="pill">Tier ${esc(String(c.tier||'?'))}</span>
+          <span class="pill">${esc(c.type||'tender')}</span>
+        </div>
+      </a>`).join('');
+    return `<div class="card" style="margin-top:14px"><h2 style="margin-top:0">💱 ${esc(prettyId(cat))} <span class="text-muted" style="font-size:12px;font-weight:400">— ${items.length} tender${items.length===1?'':'s'}</span></h2><div class="holiday-directory-grid">${cards}</div></div>`;
+  }).join('');
+  el('content').innerHTML=`
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(138,75,255,.08)),var(--panel)">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Currencies</div>
+      <h1 style="margin:6px 0 4px">💱 Currency Codex</h1>
+      <p class="text-muted" style="font-size:13.5px">${list.length} cataloged tenders. Base standard: ${esc(meta.baseStandard||'Gold Piece (1.0 gold = 10 silver = 100 copper)')}.</p>
+      <div class="chips mt-10">
+        <a class="chip" href="currency.html">🏦 Open Bank & Exchange Console →</a>
+        <a class="chip" href="shop.html">🛒 Wario Shop</a>
+      </div>
+    </div>
+    ${sections}`;
+  window.scrollTo(0,0);
+}
+function view_currency(id){
+  renderSidebar('currencies');
+  if(!id){ view_currencies(); return; }
+  const c=getCurrencyMeta(id);
+  if(!c){ view_currencies(); return; }
+  const list=getCurrenciesList();
+  const spendable=Array.isArray(c.spendable_in)?c.spendable_in:[];
+  const acceptance=c.acceptance||{};
+  const factionCurrencies=c.home_faction?list.filter(x=>x.home_faction===c.home_faction && currencySlug(x)!==currencySlug(c)).slice(0,8):[];
+  const sameCategory=list.filter(x=>x.category===c.category && currencySlug(x)!==currencySlug(c)).slice(0,8);
+
+  // Vendors accepting this currency
+  const vendors=window.WIKI_VENDORS||{};
+  const acceptingVendors=Object.values(vendors).filter(v=>(v.acceptedCurrencies||[]).includes(c.id)).slice(0,10);
+
+  // Wallets holding this currency
+  const wallets=(INVENTORY_SYSTEM.wallets||{});
+  const holders=Object.entries(wallets).filter(([k,w])=>w && w.currencies && (w.currencies[c.id]||w.currencies[currencySlug(c)])).slice(0,8);
+
+  const goldEquiv=(n)=>Number(n*(c.base_value||1)).toLocaleString(undefined,{maximumFractionDigits:2});
+
+  const accentColor=c.color||'var(--accent2)';
+  el('content').innerHTML=`
+    <div class="card animate-fade-in" style="border-top:5px solid ${accentColor};background:linear-gradient(135deg,${c.color?c.color+'22':'rgba(224,180,0,.14)'},rgba(0,0,0,.05)),var(--panel)">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/currencies')">Currencies</a> › ${esc(c.name||prettyId(c.id))}</div>
+      <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-top:8px">
+        <div style="font-size:56px;line-height:1">${esc(c.icon||'🪙')}</div>
+        <div style="flex:1;min-width:220px">
+          <h1 style="margin:0 0 6px;font-size:30px">${esc(c.name||prettyId(c.id))}</h1>
+          <div style="color:var(--accent2);font-style:italic;font-size:14px">${esc(c.short||c.type||'Regional tender')}</div>
+          <div class="chips mt-10">
+            <span class="pill">💰 1 = ${goldEquiv(1)}g</span>
+            <span class="pill">Tier ${esc(String(c.tier||'?'))}</span>
+            <span class="pill">${esc(c.type||'tender')}</span>
+            <span class="pill">${esc(c.category||'general')}</span>
+            <span class="pill">Volatility: ${esc(c.volatility||'unknown')}</span>
+            <span class="pill">Liquidity: ${esc(c.liquidity||'unknown')}</span>
+            ${c.home_faction?`<a class="chip" onclick="openId('${esc(c.home_faction)}')">🏳️ ${esc(prettyId(c.home_faction))}</a>`:''}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">📖 Codex Entry</h2>
+      <p class="prose" style="font-size:15px;line-height:1.7">${linkify?linkify(esc(c.description||c.short||'No description filed.')):esc(c.description||c.short||'No description filed.')}</p>
+      ${c.player_tip?`<div style="margin-top:12px;background:rgba(224,180,0,.08);border-left:3px solid var(--accent2);padding:10px 14px;border-radius:6px;font-size:13px"><b>💡 Player Tip:</b> ${esc(c.player_tip)}</div>`:''}
+      ${c.issuer?`<p style="margin-top:10px;font-size:13px"><b>Issuer:</b> ${esc(c.issuer)}</p>`:''}
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">💹 Conversion Ladder</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:13.5px">
+        <thead><tr style="border-bottom:1px solid var(--border);color:var(--muted)"><th style="text-align:left;padding:6px">Amount</th><th style="text-align:right;padding:6px">Gold Equivalent</th></tr></thead>
+        <tbody>
+          ${[1,5,10,25,100,500,1000,5000].map(n=>`<tr style="border-bottom:1px dashed var(--border)"><td style="padding:6px">${n.toLocaleString()} ${esc(c.icon||'🪙')} ${esc(c.name||prettyId(c.id))}</td><td style="text-align:right;padding:6px;color:var(--accent2)"><b>${goldEquiv(n)}g</b></td></tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="chips mt-10">
+        <a class="chip active" href="currency.html#${encodeURIComponent(c.id||currencySlug(c))}">🏦 Open in Exchange Console →</a>
+        <a class="chip" href="currency.html">All 48 Tenders</a>
+      </div>
+    </div>
+
+    ${spendable.length?`<div class="card">
+      <h2 style="margin-top:0">🛍️ Where It Spends</h2>
+      <div class="chips">${spendable.map(s=>`<span class="pill">${esc(prettyId(s))}</span>`).join('')}</div>
+    </div>`:''}
+
+    ${Object.keys(acceptance).length?`<div class="card">
+      <h2 style="margin-top:0">🌐 Acceptance by Region</h2>
+      <div class="chips">${Object.entries(acceptance).map(([k,v])=>`<span class="pill">${esc(prettyId(k))}: <b>${esc(String(v))}</b></span>`).join('')}</div>
+    </div>`:''}
+
+    ${acceptingVendors.length?`<div class="card">
+      <h2 style="margin-top:0">🏪 Vendors Accepting ${esc(c.name||prettyId(c.id))}</h2>
+      <div class="chips">${acceptingVendors.map(v=>`<a class="chip" href="#/vendor/${encodeURIComponent(v.id)}">${esc(v.name||prettyId(v.id))}</a>`).join('')}</div>
+    </div>`:''}
+
+    ${holders.length?`<div class="card">
+      <h2 style="margin-top:0">👛 Notable Wallet Holdings</h2>
+      <div class="chips">${holders.map(([k,w])=>{const amt=(w.currencies[c.id]||w.currencies[currencySlug(c)]||0); return `<a class="chip" onclick="openId('${esc(k)}')">${esc(prettyId(k))} — ${Number(amt).toLocaleString()} ${esc(c.icon||'🪙')}</a>`;}).join('')}</div>
+    </div>`:''}
+
+    ${factionCurrencies.length||sameCategory.length?`<div class="card">
+      ${factionCurrencies.length?`<h3 style="margin-top:0">🏳️ Other Currencies from ${esc(prettyId(c.home_faction))}</h3>
+      <div class="chips" style="margin-bottom:12px">${factionCurrencies.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(x.icon||'🪙')} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
+      ${sameCategory.length?`<h3 style="margin-top:0">🔗 Related ${esc(prettyId(c.category||'other'))} Tenders</h3>
+      <div class="chips">${sameCategory.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(x.icon||'🪙')} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
+    </div>`:''}
+  `;
+  window.scrollTo(0,0);
 }
 
 function emojiFallbackDataUri(emoji = '📜', bg = '#2d0f42', accent = '#ffd700', title = '') {
@@ -4132,7 +4380,9 @@ const Router={
     else if(route==='years')view_years();
     else if(route==='calendar')view_calendar();
     else if(route==='vendor')view_vendorDirectory(arg);
-    else if(route==='holiday')view_holiday(arg);
+    else if(route==='holiday'||route==='holidays')view_holiday(arg);
+    else if(route==='currency')view_currency(arg);
+    else if(route==='currencies')view_currencies();
     else if(route==='reputation'||route==='standings'||route==='directory')view_reputation(arg);
     else if(route==='atlas'){ if(arg)view_atlasNation(arg); else view_atlas(); }
     else if(route==='dynasties')view_dynasties();
@@ -4170,7 +4420,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
