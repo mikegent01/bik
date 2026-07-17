@@ -17,7 +17,10 @@ let renderQueued = false;
 let lastBridgeMarkup = '';
 let lastAppliedCartGold = null;
 let observer = null;
+let tenderDraft = {};
+let tenderSignature = '';
 const GOLD_FALLBACK_FEE = 0.10;
+const MAX_CHANGE_GOLD = 5;
 
 function esc(value) {
   return String(value ?? '').replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
@@ -159,6 +162,91 @@ function checkoutPaymentPlan() {
   return { mode, quote, payment: mode === 'mixed_gold_fallback' ? 'gold' : quote, groups, nativeCovered, nativeDue, goldDue, effectiveGold, totalGold, feeGold };
 }
 
+
+function cartSignature() {
+  return cartRows().map(row => `${row.item?.id || '?'}:${row.quantity || 1}:${itemCurrencyKey(row.item)}:${row.item?.price || 0}`).join('|') + `:${checkoutTotalGold()}`;
+}
+
+function initTenderDraft(plan = checkoutPaymentPlan()) {
+  const sig = cartSignature();
+  if (sig === tenderSignature) return;
+  tenderSignature = sig;
+  tenderDraft = {};
+  let nativeCovered = 0;
+  for (const g of plan.groups || []) {
+    const base = Number(currency(g.id).base_value) || 1;
+    const heldNative = Number(currentWallet()?.currencies?.[g.id] || 0);
+    const dueNative = g.totalGold / base;
+    const offer = Math.min(heldNative, dueNative);
+    if (offer > 0) {
+      tenderDraft[g.id] = Number(offer.toFixed(4));
+      nativeCovered += offer * base;
+    }
+  }
+  const remainingGold = Math.max(0, plan.totalGold - nativeCovered);
+  const goldHeld = Number(currentWallet()?.currencies?.gold || 0);
+  if (remainingGold > 0 && goldHeld > 0) tenderDraft.gold = Number(Math.min(goldHeld, remainingGold * (1 + GOLD_FALLBACK_FEE)).toFixed(4));
+}
+
+function tenderCurrencyIds(plan = checkoutPaymentPlan()) {
+  const set = new Set([...(plan.groups || []).map(g => g.id), ...Object.keys(currentWallet()?.currencies || {})]);
+  return [...set].filter(id => CURRENCIES[id]).sort((a, b) => {
+    const ag = (plan.groups || []).findIndex(g => g.id === a);
+    const bg = (plan.groups || []).findIndex(g => g.id === b);
+    return (ag < 0 ? 99 : ag) - (bg < 0 ? 99 : bg) || (currency(b).base_value || 0) - (currency(a).base_value || 0);
+  });
+}
+
+function tenderResult(plan = checkoutPaymentPlan()) {
+  const dueMap = new Map((plan.groups || []).map(g => [g.id, g.totalGold]));
+  let nativeCovered = 0;
+  let conversionPool = 0;
+  const lines = [];
+  for (const id of tenderCurrencyIds(plan)) {
+    const amount = Number(tenderDraft[id] || 0);
+    if (amount <= 0) continue;
+    const base = Number(currency(id).base_value) || 1;
+    const inputGold = amount * base;
+    const due = dueMap.get(id) || 0;
+    const nativeUse = Math.min(inputGold, due);
+    nativeCovered += nativeUse;
+    conversionPool += Math.max(0, inputGold - nativeUse);
+    if (!due) conversionPool += inputGold;
+    lines.push(`${formatNativeCurrency(amount, id)} offered`);
+  }
+  const remainingBeforeConversion = Math.max(0, plan.totalGold - nativeCovered);
+  const conversionEffective = conversionPool / (1 + GOLD_FALLBACK_FEE);
+  const remainingGold = remainingBeforeConversion - conversionEffective;
+  if (remainingGold > 0.00001) {
+    return `<div class="tender-result warn">Still due: ${esc(formatCurrency(remainingGold, plan.quote))} = ${esc(formatCurrency(remainingGold, 'gold'))}</div>`;
+  }
+  const changeGold = Math.max(0, -remainingGold);
+  if (changeGold > 0.00001) {
+    const maxChange = Math.min(MAX_CHANGE_GOLD, Math.max(0.1, plan.totalGold * 0.05));
+    const returned = Math.min(changeGold, maxChange);
+    const kept = Math.max(0, changeGold - returned);
+    return `<div class="tender-result ok">Covered. Estimated change: ${esc(formatCurrency(returned, plan.quote))}${kept > 0 ? ` · Wario keeps ${esc(formatCurrency(kept, 'gold'))} over max-change rule` : ''}</div>`;
+  }
+  return `<div class="tender-result ok">Exact enough. No change owed. ${lines.length ? esc(lines.join(' · ')) : ''}</div>`;
+}
+
+function tenderControlsHtml(plan = checkoutPaymentPlan()) {
+  initTenderDraft(plan);
+  const rows = tenderCurrencyIds(plan).map(id => {
+    const c = currency(id);
+    const held = Number(currentWallet()?.currencies?.[id] || 0);
+    const due = (plan.groups || []).find(g => g.id === id)?.totalGold || 0;
+    return `<label class="tender-row"><span>${esc(c.icon || '🪙')} ${esc(c.name || id)}<small>held ${esc(held.toLocaleString())}${due ? ` · due ${esc(formatCurrency(due, id))}` : ''}</small></span><input class="shopTenderInput" data-currency="${esc(id)}" type="number" min="0" step="any" value="${esc(tenderDraft[id] ?? '')}" placeholder="0"></label>`;
+  }).join('');
+  return `<div class="tender-planner"><b>🧾 Split Tender Preview</b><small>Type how much of each currency you hand Wario. Nothing is saved; this is planning only.</small>${rows}<button type="button" class="tender-reset" id="shopTenderReset">Reset suggested split</button><div id="shopTenderResult">${tenderResult(plan)}</div></div>`;
+}
+
+function updateTenderResult() {
+  const result = document.getElementById('shopTenderResult');
+  if (!result) return;
+  result.innerHTML = tenderResult(checkoutPaymentPlan());
+}
+
 function formatCurrency(goldAmount, id = selected) {
   const c = currency(id);
   const amount = Number(goldAmount) / (Number(c.base_value) || 1);
@@ -218,10 +306,11 @@ function relabelGoldTextNodes(scope, displayId = selected) {
     if (node.parentElement?.closest('#playerWalletBridge,#shopExchangeQuote')) return;
     const text = node.nodeValue;
     let next = text;
-    if (text === 'Your Gold') next = `Your ${label}`;
-    else if (text === 'Remaining Gold') next = `Remaining ${label}`;
+    if (text === 'Your Gold') next = 'Effective Buying Power';
+    else if (text === 'Remaining Gold') next = 'Remaining Buying Power';
     else if (text === '❌ NOT ENOUGH GOLD!') next = `❌ NOT ENOUGH ${label.toUpperCase()}!`;
     else if (text === 'NOT ENOUGH GOLD!') next = `NOT ENOUGH ${label.toUpperCase()}!`;
+    else if (text.startsWith('Remaining after purchase:')) next = text.replace('Remaining after purchase:', 'Projected buying power after purchase:');
     else next = next.replace(/\bcoins but only have\b/g, `${label} but only have`);
     if (next !== text) node.nodeValue = next;
   });
@@ -289,7 +378,7 @@ function renderCheckoutExchangeNotice(root) {
     payLine = `⚠️ Wario will demand a conversion at checkout. Wallet balances are not saved/modified.`;
   }
   const quote = currency(plan.quote);
-  const markup = `<div class="shop-exchange-quote"><b>💱 Multi-Currency Wario Quote</b><small>Summary quoted in ${esc(quote.icon || '🪙')} ${esc(quote.name || plan.quote)} · grand total ${esc(formatCurrency(totalGold, plan.quote))} = ${esc(formatCurrency(totalGold, 'gold'))}</small>${groupsHtml}<small>${payLine}</small></div>`;
+  const markup = `<div class="shop-exchange-quote"><b>💱 Multi-Currency Wario Quote</b><small>Summary quoted in ${esc(quote.icon || '🪙')} ${esc(quote.name || plan.quote)} · grand total ${esc(formatCurrency(totalGold, plan.quote))} = ${esc(formatCurrency(totalGold, 'gold'))}</small>${groupsHtml}<small>${payLine}</small>${tenderControlsHtml(plan)}</div>`;
   if (box.innerHTML !== markup) box.innerHTML = markup;
 }
 
@@ -433,6 +522,18 @@ window.addEventListener('storage', event => {
   schedule();
 });
 window.addEventListener('wario-item-added', schedule);
+document.addEventListener('input', event => {
+  const input = event.target.closest && event.target.closest('.shopTenderInput');
+  if (!input) return;
+  tenderDraft[input.dataset.currency] = Number(input.value || 0);
+  updateTenderResult();
+});
+document.addEventListener('click', event => {
+  const reset = event.target.closest && event.target.closest('#shopTenderReset');
+  if (!reset) return;
+  tenderSignature = '';
+  renderCheckoutExchangeNotice(document.getElementById('root'));
+});
 window.WarioShopCurrency = {
   setCurrency(id) {
     selected = id;
