@@ -1,7 +1,14 @@
 const icons={gold:'💰',copper:'🟤',silver:'🪙',soul_coin:'🔮',wario_coin:'🟡',wario_points:'🎟️',midland_ducat:'🦁'};
 const names={gold:'Gold Piece',copper:'Copper Bit',silver:'Silver Piece',soul_coin:'Soul Coin',wario_coin:'Wario Coin',wario_points:'Wario Shop Credit',midland_ducat:'Midland Ducat'};
-let walletData=null;
-async function loadWallet(){try{const r=await fetch('./wallets.json',{cache:'no-cache'});walletData=await r.json();}catch(e){return null} return walletData;}
+let walletData=null,lastMarkup='',renderQueued=false;
+async function loadWallet(){try{const r=await fetch('./wallets.json',{cache:'no-cache'});walletData=await r.json();}catch(e){walletData={};}return walletData;}
 function id(){return localStorage.getItem('waluipediaUser')||localStorage.getItem('currentUserId')||''}
-function render(){if(!walletData)return;const uid=id();const w=walletData[uid];const root=document.getElementById('root');if(!root)return;let box=document.getElementById('playerWalletBridge');if(!box){box=document.createElement('section');box.id='playerWalletBridge';root.prepend(box)}if(!w){box.innerHTML=`<div class="bridge-warning">🔐 <b>Connect an operator to buy</b><span>Wario's Warehouse cannot use the generic 49,998 XP display as a real wallet. <a href="battlefield.html#/login">Open Waluipedia Login →</a></span></div>`;return}const lines=Object.entries(w.currencies||{}).map(([k,v])=>`<span>${icons[k]||'🪙'} ${Number(v).toLocaleString()} ${names[k]||k}</span>`).join('');box.innerHTML=`<div class="bridge-wallet"><div><b>Connected operator:</b> ${w.name||uid}<small>Actual recorded inventory wallet</small></div><div class="bridge-coins">${lines||'<span>No recorded currency holdings</span>'}</div><a href="battlefield.html#/profile/${encodeURIComponent(uid)}">Open full wallet & profile →</a></div>`;const fake=root.querySelector('.xp-wallet');if(fake)fake.setAttribute('data-wallet-note','XP is membership progress, not money');}
-loadWallet().then(()=>{render();new MutationObserver(render).observe(document.getElementById('root')||document.body,{childList:true,subtree:true});});
+function render(){
+ const root=document.getElementById('root');if(!root||!walletData)return;
+ const uid=id(),w=walletData[uid];
+ const markup=w?`<div class="bridge-wallet"><div><b>Connected operator:</b> ${w.name||uid}<small>Actual recorded inventory wallet</small></div><div class="bridge-coins">${Object.entries(w.currencies||{}).map(([k,v])=>`<span>${icons[k]||'🪙'} ${Number(v).toLocaleString()} ${names[k]||k}</span>`).join('')||'<span>No recorded currency holdings</span>'}</div><a href="battlefield.html#/profile/${encodeURIComponent(uid)}">Open full wallet & profile →</a></div>`:`<div class="bridge-warning">🔐 <b>Connect an operator to buy</b><span>Wario's Warehouse cannot use the generic XP display as a real wallet. <a href="battlefield.html#/login">Open Waluipedia Login →</a></span></div>`;
+ let box=document.getElementById('playerWalletBridge');if(!box){box=document.createElement('section');box.id='playerWalletBridge';root.prepend(box)}if(markup!==lastMarkup){box.innerHTML=markup;lastMarkup=markup;}
+}
+function schedule(){if(renderQueued)return;renderQueued=true;requestAnimationFrame(()=>{renderQueued=false;render()})}
+loadWallet().then(()=>{render();new MutationObserver(schedule).observe(document.getElementById('root')||document.body,{childList:true,subtree:true});});
+window.addEventListener('storage',schedule);
