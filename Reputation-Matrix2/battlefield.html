@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="ui-fixes.css">
   <link rel="stylesheet" href="reputation-fixes.css">
   <link rel="stylesheet" href="commerce-event-fixes.css">
+  <link rel="stylesheet" href="crisis-reputation-fixes.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
   <link rel="preload" href="battlefield.css" as="style">
   <link rel="stylesheet" href="battlefield.css">
@@ -2077,7 +2078,8 @@ function view_conflict(name){
   renderSidebar('battlefield');const c=(DATA.conflicts||{})[name];
   if(!c){el('content').innerHTML='<div class="card"><h2>Conflict not found</h2></div>';return;}
   const facs=(c.keyFactions||[]).map(combatantChip).join('');
-  const phases=(c.majorPhases||[]).map(p=>`<div class="phase"><b>${esc(p.name)}</b> — ${esc(p.description)}</div>`).join('');
+  const phases=(c.majorPhases||[]).map((p,i)=>`<div class="phase crisis-phase"><span class="phase-number">${i+1}</span><div><b>${esc(p.name)}</b><p>${esc(p.description)}</p></div></div>`).join('');
+  const crisisRep=(c.reputationChanges||c.effects)&&typeof (c.reputationChanges||c.effects)==='object' ? `<div class="crisis-reputation"><h2>📈 Reputation Impact</h2><p class="text-muted">This crisis changes how factions evaluate the party. Click a faction to inspect the live trace.</p>${Object.entries(c.reputationChanges||c.effects).map(([fid,v])=>`<a href="#/reputation/faction/${encodeURIComponent(fid)}" class="rep-effect-row"><span>⚔️ ${esc(LORE_FACTIONS[fid]?.name||prettyId(fid))}</span><b>${Number(v)>=0?'+':''}${esc(String(v))}</b></a>`).join('')}</div>`:'';
   const rel=(DATA.majorBattles||[]).filter(b=>b.conflict===name);
   const relHtml=rel.map(b=>`<span class="rel-chip" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')"><span class="rt">Battle</span>${esc(b.name)}</span>`).join('');
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/battlefield')">Battlefield</a> › ${esc(name)}</div>
@@ -2085,7 +2087,8 @@ function view_conflict(name){
     <blockquote>${esc(c.summary||'')}</blockquote>
     ${c.rootCause?`<h2>Root Cause</h2><p>${esc(c.rootCause)}</p>`:''}
     ${facs?`<h2>Key Factions</h2><div>${facs}</div>`:''}
-    ${phases?`<h2>Major Phases</h2>${phases}`:''}
+    ${phases?`<h2>Major Phases</h2><div class="crisis-phases">${phases}</div>`:''}
+    ${crisisRep}
     ${c.estimatedCasualties?`<p class="imgcap mt-12">Estimated casualties: ${esc(c.estimatedCasualties)} · Started ${esc(String(c.startYear||''))}</p>`:''}
     ${relHtml?`<h2>Battles In This Conflict</h2><div class="related-list">${relHtml}</div>`:''}</div>`;
   window.scrollTo(0,0);
@@ -3694,8 +3697,10 @@ function formatLeaderLink(raw) {
   if (!raw) return 'Leader classified';
   const key = String(raw).trim();
   const character = (typeof CHARACTER_INDEX !== 'undefined' && CHARACTER_INDEX[key]) || null;
-  const label = character?.name || key.replace(/[_-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-  return reputationEntityLink(label, key);
+  const indexed = INDEX[key] || Object.values(INDEX).find(r => String(displayName(r.item)).toLowerCase() === key.toLowerCase());
+  const resolvedId = indexed?.item?.id || key;
+  const label = character?.name || (indexed ? displayName(indexed.item) : key.replace(/[_-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
+  return indexed ? reputationEntityLink(label, resolvedId) : `<span class="leader-unresolved" title="No matching character record yet">${esc(label)}</span>`;
 }
 
 let currentRepTab = 'grid';
@@ -3728,6 +3733,8 @@ function view_reputation(arg) {
   }
 
   const allFactionsList = Object.keys(LORE_FACTIONS).map(k => ({ key: k, ...LORE_FACTIONS[k] }));
+  const partyReputationTotal = REPUTATION_OPERATORS.reduce((sum,op)=>sum+allFactionsList.reduce((s,f)=>s+calculateOperatorStanding(op.id,f.key).total,0),0);
+  const partyReputationAverage = Math.round(partyReputationTotal/Math.max(1,allFactionsList.length*REPUTATION_OPERATORS.length));
   const uniqueRegions = [...new Set(allFactionsList.map(f => f.region || 'Known Realms'))].sort();
 
   const opAvatarsHtml = REPUTATION_OPERATORS.map(op => {
@@ -3753,6 +3760,7 @@ function view_reputation(arg) {
         <span class="chip" style="background:rgba(239,68,68,.16);border-color:rgba(239,68,68,.4);color:#fca5a5" onclick="currentRepTab='infamy';view_reputation();">🚨 Party Global Heat: 62 (Wanted)</span>
       </div>
       <div class="rep-op-bar">${opAvatarsHtml}</div>
+      <div class="reputation-total-card"><span>🎭 Party Reputation Total</span><strong>${partyReputationTotal>=0?'+':''}${partyReputationTotal}</strong><span class="pill">Average ${partyReputationAverage>=0?'+':''}${partyReputationAverage} per faction/operator</span><span class="text-muted">Calculated across ${allFactionsList.length} factions and ${REPUTATION_OPERATORS.length} operators</span></div>
       <div class="rep-nav-tabs">
         <button class="rep-tab-btn ${currentRepTab==='grid'?'active':''}" onclick="currentRepTab='grid';view_reputation();">📊 Faction Matrix Grid (${allFactionsList.length})</button>
         <button class="rep-tab-btn ${currentRepTab==='player'?'active':''}" onclick="currentRepTab='player';view_reputation();">👤 Operator ↔ Faction Breakdown</button>
