@@ -336,7 +336,10 @@ function convertMarkedPrices(root) {
 
     let text = converted;
     if (displayMode !== 'gold' && nativeKnown && nativeCurrency !== displayId) {
-      text = `${formatNativeCurrency(nativePrice, nativeCurrency)} · ≈ ${converted}`;
+      const nativeGold = nativePrice * (Number(currency(nativeCurrency).base_value) || 1);
+      const feeGold = Math.max(0, gold - nativeGold);
+      const feeText = feeGold > 0.01 ? ` + fee ${formatCurrency(feeGold, displayId)}` : '';
+      text = `${formatNativeCurrency(nativePrice, nativeCurrency)}${feeText} · ≈ ${converted}`;
     }
     if (el.textContent !== text) el.textContent = text;
   });
