@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="components.css">
     <link rel="stylesheet" href="library.css">
+    <link rel="stylesheet" href="../shop-wallet-sync.css">
+    <script type="module" src="../shop-wallet-sync.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,8 +18,18 @@
         <div id="app">
              
             <main id="main-content">
-                 <h2 class="page-title">Public Library Terminal</h2>
-                 <p class="page-subtitle">Accessing public domain collections from known library networks.</p>
+                 <div class="page-header" style="background: rgba(138,75,255,0.12); border: 1px solid var(--accent); border-radius: 12px; padding: 18px; margin-bottom: 20px; display: flex; gap: 16px; align-items: flex-start">
+                   <div style="font-size: 36px; line-height: 1">📜</div>
+                   <div>
+                     <h2 class="page-title" style="margin: 0; font-size: 22px; color: var(--accent2)">Master Scribe Inkwell's Royal Scriptorium Terminal</h2>
+                     <p class="page-subtitle" style="margin-top: 4px; color: var(--muted); font-size: 13px">Curated by Master Scribe Inkwell — Chief Genealogist to House Toadstool & Royal Archivist of the Midlands.</p>
+                     <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px">
+                       <a href="../battlefield.html#/books" style="color: var(--text); border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; text-decoration: none; font-size: 11px; background: var(--bg2)">📚 Native Waluipedia Reader</a>
+                       <a href="../bookshelf.html" style="color: var(--text); border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; text-decoration: none; font-size: 11px; background: var(--bg2)">📜 Royal Bookshelf Portal</a>
+                       <a href="../battlefield.html#/dynasties" style="color: var(--text); border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; text-decoration: none; font-size: 11px; background: var(--bg2)">👑 Dynasty Genealogies</a>
+                     </div>
+                   </div>
+                 </div>
                  <div id="library-collections-container">
                     <!-- Library collections will be injected here by JS -->
                  </div>

@@ -520,6 +520,7 @@ function schedule() {
     renderBridge();
     applyActualWalletToCart();
     convertVisiblePrices();
+    scanAndLinkShopElements();
   }, 80);
 }
 
@@ -572,3 +573,279 @@ window.WarioShopCurrency = {
     return Math.floor(amount * discount) * (Number(currency(key).base_value) || 1) + itemPowerFee(item);
   }
 };
+
+/* ============================================================
+   SHOP HYPERLINK AUTO-LINKER & HOVER PREVIEW INTEGRATION
+   ============================================================ */
+
+let shopLinkEntries = [];
+let shopLinkPreviews = {};
+let shopAutoLinkerReady = false;
+
+function kindEmoji(kind) {
+  const m = {
+    character: '👤', faction: '⚔️', nation: '🌍', location: '🏰', currency: '💱',
+    vendor: '🏪', invitem: '🎒', artifact: '⭐', bearer: '✴️', dynasty: '👑', holiday: '🎉', system: '⚙️'
+  };
+  return m[kind] || '📄';
+}
+
+function safeShopAliases(name, kind, rawObj) {
+  const out = new Set([name]);
+  let n = String(name || '').trim();
+  if (/^the\s+/i.test(n)) { const dropped = n.replace(/^the\s+/i, ''); if (dropped.length >= 4) out.add(dropped); }
+  if (kind === 'character' || kind === 'bearer' || kind === 'article') {
+    const TITLES = /^(princess|prince|king|queen|general|captain|commander|admiral|chancellor|chief|lord|lady|sir|dame|doctor|professor|master|elder|judge|emperor|archmage|patriarch)\s+/i;
+    if (TITLES.test(n)) { const bare = n.replace(TITLES, '').trim(); if (bare.length >= 4) out.add(bare); }
+  }
+  out.add(n.replace(/\s*[—(].*$/, '').trim());
+
+  if (kind === 'currency') {
+    if (!n.endsWith('s')) out.add(n + 's');
+    if (n.endsWith('Piece')) out.add(n.replace(/Piece$/, 'Pieces'));
+    if (n.endsWith('Bit')) out.add(n.replace(/Bit$/, 'Bits'));
+    if (n.endsWith('Coin')) out.add(n.replace(/Coin$/, 'Coins'));
+    if (n.endsWith('Vial')) out.add(n.replace(/Vial$/, 'Vials'));
+    if (n.endsWith('Obol')) out.add(n.replace(/Obol$/, 'Obols'));
+    if (n.endsWith('Stamp')) out.add(n.replace(/Stamp$/, 'Stamps'));
+    if (n.endsWith('Shard')) out.add(n.replace(/Shard$/, 'Shards'));
+    if (n.endsWith('Seal')) out.add(n.replace(/Seal$/, 'Seals'));
+    if (n.endsWith('Acorn')) out.add(n.replace(/Acorn$/, 'Acorns'));
+    if (n.endsWith('Leaf')) out.add(n.replace(/Leaf$/, 'Leaves'));
+    if (n.endsWith('Bead')) out.add(n.replace(/Bead$/, 'Beads'));
+    if (n.endsWith('Chit')) out.add(n.replace(/Chit$/, 'Chits'));
+    if (n.endsWith('Mark')) out.add(n.replace(/Mark$/, 'Marks'));
+    if (n.endsWith('Token')) out.add(n.replace(/Token$/, 'Tokens'));
+    if (n.endsWith('Rupee')) out.add(n.replace(/Rupee$/, 'Rupees'));
+    if (n.endsWith('Ducat')) out.add(n.replace(/Ducat$/, 'Ducats'));
+    if (n.endsWith('Doubloon')) out.add(n.replace(/Doubloon$/, 'Doubloons'));
+    if (n.endsWith('Credstick')) out.add(n.replace(/Credstick$/, 'Credsticks'));
+
+    const cid = (rawObj && (rawObj.id || rawObj.key)) || '';
+    if (cid === 'mora' || n === 'Mora') { out.add('Mora'); }
+    if (cid === 'rupee' || /rupee/i.test(n)) { out.add('Rupee'); out.add('Rupees'); out.add('Hyrulean Rupees'); }
+    if (cid === 'poke_dollar' || /poké/i.test(n)) { out.add('PokéDollar'); out.add('PokéDollars'); out.add('PokeDollar'); out.add('PokeDollars'); }
+    if (cid === 'midland_ducat' || /ducat/i.test(n)) { out.add('Midland Ducats'); out.add('Ducat'); out.add('Ducats'); }
+    if (cid === 'doubloon' || /doubloon/i.test(n)) { out.add('Doubloon'); out.add('Doubloons'); }
+    if (cid === 'shadow_obol' || /obol/i.test(n)) { out.add('Obol'); out.add('Obols'); out.add('Shadow Obols'); }
+    if (cid === 'warpstone' || /warpstone/i.test(n)) { out.add('Warpstone'); out.add('Warpstone Tokens'); }
+    if (cid === 'credstick' || /credstick/i.test(n)) { out.add('Credstick'); out.add('Credsticks'); }
+    if (cid === 'bowser_bux' || /bux/i.test(n)) { out.add('Bowser Bux'); }
+    if (cid === 'wario_coin' || /wario coin/i.test(n)) { out.add('Wario Coins'); }
+    if (cid === 'soul_coin' || /soul coin/i.test(n)) { out.add('Soul Coins'); }
+    if (cid === 'blood_vial' || /blood vial/i.test(n)) { out.add('Blood Vial'); out.add('Blood Vials'); }
+    if (cid === 'arcane_shard' || /arcane shard/i.test(n)) { out.add('Arcane Shards'); }
+    if (cid === 'guild_seal' || /guild seal/i.test(n)) { out.add('Guild Seals'); }
+    if (cid === 'transit_stamp' || /transit stamp/i.test(n)) { out.add('Transit Stamps'); }
+    if (cid === 'kivotos_credit' || /kivotos credit/i.test(n)) { out.add('Kivotos Credits'); }
+  }
+
+  const LINK_STOP = new Set(['the','a','an','and','of','dan','ryan','x.o.','students','gold','coin','coins','piece','pieces','item','items','bits','bit']);
+  const SHORT_ALLOWED = new Set(['usk','mora','sans','remi','ryan','x.o.','obol','bux','mora','leo','baud','gems','leaf']);
+  const SINGLE_GENERIC = new Set(['iron','shadow','star','dark','general','captain','commander','admiral','king','queen','prince','council','order','house','city','guild','legion','empire','crown','kingdom','land','people','battle','siege','manor','tower','tree','grove','estate','raventree']);
+
+  return [...out].filter(a => {
+    if (!a) return false;
+    const low = a.toLowerCase();
+    if (low.length < 5 && !SHORT_ALLOWED.has(low)) return false;
+    if (LINK_STOP.has(low)) return false;
+    if (!/\s/.test(a) && SINGLE_GENERIC.has(low)) return false;
+    return true;
+  });
+}
+
+function shopRouteForKind(kind, id) {
+  switch(kind) {
+    case 'nation': return 'battlefield.html#/atlas/' + encodeURIComponent(id);
+    case 'currency': return 'currency.html#' + encodeURIComponent(id);
+    case 'vendor': return 'shop.html#vendor=' + encodeURIComponent(id);
+    case 'invitem': return 'battlefield.html#/item/' + encodeURIComponent(id);
+    case 'artifact': return 'battlefield.html#/artifact/' + encodeURIComponent(id);
+    case 'bearer': return 'battlefield.html#/bearer/' + encodeURIComponent(id);
+    case 'dynasty': return 'battlefield.html#/dynasty/' + encodeURIComponent(id);
+    case 'holiday': return 'battlefield.html#/holiday/' + encodeURIComponent(id);
+    case 'system': return id;
+    default: return 'battlefield.html#/article/' + encodeURIComponent(id);
+  }
+}
+
+function buildShopLinkRegistry(DATA) {
+  shopLinkEntries = []; shopLinkPreviews = {};
+  const PRI = { character: 100, faction: 98, nation: 95, location: 92, artifact: 80, bearer: 78, invitem: 76, currency: 75, vendor: 74, dynasty: 72, holiday: 50, system: 20 };
+  const claims = {};
+
+  const add = (name, id, kind, summary, sub, rawObj) => {
+    if (!name || !id) return;
+    shopLinkPreviews[id] = { name, sub: sub || '', summary: (summary || '').slice(0, 220), emoji: kindEmoji(kind), route: shopRouteForKind(kind, id), kind };
+    safeShopAliases(name, kind, rawObj).forEach(a => {
+      const key = a.toLowerCase();
+      (claims[key] = claims[key] || []).push({ id, kind, name: a, exact: (key === name.trim().toLowerCase()), pri: PRI[kind] || 10 });
+    });
+  };
+
+  (DATA.characters || []).forEach(c => add(c.name, c.id, 'character', c.summary || c.description, c.title || c.affiliation, c));
+  (DATA.factions || []).forEach(f => add(f.name, f.id, 'faction', f.summary || f.description, f.type || f.region, f));
+  (DATA.nations || []).forEach(n => add(n.name, n.id, 'nation', n.summary || n.description, n.region || n.type, n));
+  (DATA.locations || []).forEach(l => add(l.name, l.id, 'location', l.summary || l.description, l.region || l.type, l));
+
+  const allCurrencies = Object.assign({}, CURRENCIES || {});
+  if (DATA.currencies) {
+    const list = Array.isArray(DATA.currencies) ? DATA.currencies : DATA.currencies.currencies || [];
+    list.forEach(c => { if (c && c.id) allCurrencies[c.id] = Object.assign({}, allCurrencies[c.id] || {}, c); });
+  }
+  Object.entries(allCurrencies).forEach(([k, c]) => {
+    if (!c) return;
+    const cid = c.id || k;
+    const desc = c.description || c.short || c.player_tip || (c.name + ' currency');
+    const sub = `Currency · Base Value: ${c.base_value || 1}g Equiv (${c.type || c.category || 'Tender'})`;
+    add(c.name, cid, 'currency', desc, sub, c);
+  });
+
+  if (typeof window !== 'undefined' && window.WIKI_VENDORS) {
+    Object.entries(window.WIKI_VENDORS).forEach(([vid, v]) => {
+      if (!v) return;
+      add(v.name || vid, vid, 'vendor', v.description || 'Registered Merchant', `Market · ${v.location || 'Known Bazaar'}`, v);
+    });
+  }
+
+  const entries = [];
+  const LINK_STOP = new Set(['the','a','an','and','of','dan','ryan','x.o.','students','gold','coin','coins','piece','pieces','item','items','bits','bit']);
+  Object.keys(claims).forEach(key => {
+    if (LINK_STOP.has(key)) return;
+    const cands = claims[key];
+    cands.sort((a, b) => b.pri - a.pri || (b.exact ? 1 : 0) - (a.exact ? 1 : 0) || b.name.length - a.name.length);
+    entries.push({ id: cands[0].id, kind: cands[0].kind, name: cands[0].name });
+  });
+
+  entries.sort((a, b) => b.name.length - a.name.length);
+  entries.forEach(e => {
+    const pat = '\\b' + e.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b';
+    try { shopLinkEntries.push({ re: new RegExp(pat), id: e.id, route: shopRouteForKind(e.kind, e.id) }); } catch (_) {}
+  });
+}
+
+async function initShopAutoLinker() {
+  if (shopAutoLinkerReady) return;
+  try {
+    const DATA = {};
+    const files = ['characters', 'factions', 'locations', 'nations', 'currencies', 'artifacts', 'calendarHolidays'];
+    await Promise.all(files.map(async f => {
+      try {
+        const res = await fetch(`./data/${f}.json`, { cache: 'no-cache' });
+        if (res.ok) DATA[f] = await res.json();
+      } catch (e) {}
+    }));
+    buildShopLinkRegistry(DATA);
+    shopAutoLinkerReady = true;
+    initShopHoverPreview();
+    scanAndLinkShopElements();
+  } catch (e) {
+    console.warn('[Shop AutoLinker] Initialize warning:', e);
+  }
+}
+
+function linkifyTextNodeContent(text) {
+  if (!text || text.length < 3) return text;
+  let pieces = [esc(text)];
+  for (const ent of shopLinkEntries) {
+    const next = [];
+    for (const piece of pieces) {
+      if (piece.startsWith('<')) { next.push(piece); continue; }
+      let last = 0, out = '', mm;
+      const g = new RegExp(ent.re.source, ent.re.flags.includes('g') ? ent.re.flags : ent.re.flags + 'g');
+      while ((mm = g.exec(piece)) !== null) {
+        out += piece.slice(last, mm.index);
+        out += `\u0001<a class="xlink" data-id="${esc(ent.id)}" href="${ent.route}">${mm[0]}</a>\u0001`;
+        last = mm.index + mm[0].length;
+      }
+      out += piece.slice(last);
+      out.split('\u0001').forEach(p => { if (p) next.push(p); });
+    }
+    pieces = next;
+  }
+  return pieces.join('');
+}
+
+function autoLinkElementProse(el) {
+  if (!el || el.dataset.shopLinked === 'true') return;
+  if (el.querySelector('a.xlink')) return;
+  const text = el.textContent || '';
+  if (!text.trim()) return;
+  const linkedHtml = linkifyTextNodeContent(text);
+  if (linkedHtml !== esc(text)) {
+    el.innerHTML = linkedHtml;
+    el.dataset.shopLinked = 'true';
+  }
+}
+
+function scanAndLinkShopElements(root = document) {
+  if (!shopAutoLinkerReady) return;
+  const selectors = [
+    '.item-description', '.upgrade-description', '.item-scam-warning',
+    '.craze-desc', '.lore-box', '.wario-quote', '.wario-scam-warning',
+    '.requirement-badge', '.warning-badge', '.shop-vendor-tag',
+    '.item-effects span', '.upgrade-effects span',
+    '.cur-card > div > div', '.cur-tip', '.bank-card p', '.wallet-card p',
+    '.shop-item-tile div', '.book-description', '.book-excerpt', '.motion-card p',
+    '.assembly-feed p'
+  ];
+  root.querySelectorAll(selectors.join(',')).forEach(autoLinkElementProse);
+}
+
+function initShopHoverPreview() {
+  let pv = document.getElementById('linkPreview');
+  if (!pv) {
+    pv = document.createElement('div');
+    pv.id = 'linkPreview';
+    document.body.appendChild(pv);
+  }
+  let hideTimer = null;
+  function positionPreview(x, y) {
+    const pad = 14, w = pv.offsetWidth, h = pv.offsetHeight;
+    let left = x + pad, top = y + pad;
+    if (left + w > window.innerWidth - 8) left = x - w - pad;
+    if (top + h > window.innerHeight - 8) top = y - h - pad;
+    if (left < 8) left = 8; if (top < 8) top = 8;
+    pv.style.left = left + 'px'; pv.style.top = top + 'px';
+  }
+  function showPreview(a, x, y) {
+    const id = a.getAttribute('data-id');
+    const p = shopLinkPreviews[id];
+    if (!p) return;
+    pv.innerHTML = `<div class="lp-head"><span class="lp-emoji">${p.emoji}</span><span class="lp-name">${esc(p.name)}</span></div>${p.sub ? `<div class="lp-sub">${esc(p.sub).slice(0, 80)}</div>` : ''}<div class="lp-sum">${esc(p.summary)}${p.summary && p.summary.length >= 200 ? '…' : ''}</div><div class="lp-go">Click to inspect →</div>`;
+    pv.classList.add('show');
+    positionPreview(x, y);
+  }
+  function hidePreview() { pv.classList.remove('show'); }
+
+  document.addEventListener('mouseover', e => {
+    const a = e.target.closest && e.target.closest('a.xlink');
+    if (a) { clearTimeout(hideTimer); showPreview(a, e.clientX, e.clientY); }
+  });
+  document.addEventListener('mousemove', e => {
+    if (pv.classList.contains('show')) {
+      const a = e.target.closest && e.target.closest('a.xlink');
+      if (a) positionPreview(e.clientX, e.clientY);
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    const a = e.target.closest && e.target.closest('a.xlink');
+    if (a) { hideTimer = setTimeout(hidePreview, 80); }
+  });
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a.xlink');
+    if (a) {
+      const href = a.getAttribute('href');
+      if (href) {
+        e.preventDefault();
+        hidePreview();
+        window.location.href = href;
+      }
+    }
+  });
+}
+
+if (typeof window !== 'undefined') {
+  initShopAutoLinker();
+}
+
