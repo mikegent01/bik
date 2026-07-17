@@ -18,18 +18,20 @@
     "name": "Archie Miser",
     "title": "Pyromaniac Merchant",
     "currencies": {
-      "gold": 314,
-      "copper": 200,
-      "soul_coin": 3
+      "gold": 349,
+      "silver": 6,
+      "bronze": 18
     }
   },
   "bowser": {
     "name": "Bowser",
     "title": "Koopa King",
     "currencies": {
-      "gold": 15,
-      "bowser_bux": 50000,
-      "wario_coin": 500
+      "platinum": 12,
+      "gold": 121,
+      "electrum": 51,
+      "silver": 13,
+      "copper": 11
     }
   },
   "hjumpik": {
@@ -45,19 +47,16 @@
     "name": "Markop Judi",
     "title": "Legion Associate",
     "currencies": {
-      "copper": 28,
-      "silver": 13,
       "gold": 21,
-      "imperial_crown": 20
+      "silver": 13,
+      "bronze": 28
     }
   },
   "remi": {
     "name": "Remi",
     "title": "FNG Smith",
     "currencies": {
-      "kivotos_credit": 5000,
-      "gold": 15,
-      "silver": 1
+      "gold": 20
     }
   },
   "wario": {
