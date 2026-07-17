@@ -282,11 +282,11 @@ function renderCheckoutExchangeNotice(root) {
   }).join('');
   let payLine;
   if (plan.mode === 'native_multi') {
-    payLine = `✅ Multi-currency tender covered — no conversion fee.`;
+    payLine = `✅ Split tender covered — no conversion fee. Wallet balances are preview-only; this page does not save coin deductions.`;
   } else if (plan.mode === 'mixed_gold_fallback') {
-    payLine = `⚠️ Short native tender converts through gold at ${Math.round(GOLD_FALLBACK_FEE * 100)}% fee. Gold buying power: ${esc(formatCurrency(plan.effectiveGold, 'gold'))}.`;
+    payLine = `⚠️ Split tender uses native coins first; shortages convert through gold at ${Math.round(GOLD_FALLBACK_FEE * 100)}% fee. Gold buying power: ${esc(formatCurrency(plan.effectiveGold, 'gold'))}. Wallet balances are not saved/modified.`;
   } else {
-    payLine = `⚠️ Wario will demand a conversion at checkout.`;
+    payLine = `⚠️ Wario will demand a conversion at checkout. Wallet balances are not saved/modified.`;
   }
   const quote = currency(plan.quote);
   const markup = `<div class="shop-exchange-quote"><b>💱 Multi-Currency Wario Quote</b><small>Summary quoted in ${esc(quote.icon || '🪙')} ${esc(quote.name || plan.quote)} · grand total ${esc(formatCurrency(totalGold, plan.quote))} = ${esc(formatCurrency(totalGold, 'gold'))}</small>${groupsHtml}<small>${payLine}</small></div>`;
