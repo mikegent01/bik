@@ -1,0 +1,19 @@
+/* Clean pass for dense system panels and legacy text-heavy records. */
+.rep-modal-overlay{padding:clamp(10px,3vw,24px)}
+.rep-modal-box{box-sizing:border-box;width:min(960px,100%);padding:clamp(16px,3vw,28px);color:var(--text)}
+.rep-modal-box h3,.rep-modal-box h4{overflow-wrap:anywhere}
+#modalTabHeat{padding-top:8px}
+#modalTabHeat h3{margin-bottom:14px}
+#modalTabHeat ul{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+#modalTabHeat li{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border:1px solid rgba(239,68,68,.28);border-radius:9px;background:rgba(239,68,68,.07);line-height:1.45;overflow-wrap:anywhere}
+#modalTabHeat li::first-letter{font-size:1.1em}
+#modalTabIntel ul{display:grid;gap:8px}
+#modalTabIntel li{overflow-wrap:anywhere}
+.rep-op-bar,.rep-fc-ops{display:flex;flex-wrap:wrap;gap:6px}
+.rep-faction-card{min-width:0;overflow:hidden}
+.rep-faction-card .region{overflow-wrap:anywhere;line-height:1.35}
+.rep-faction-card .rep-tip-box{margin-top:10px;line-height:1.5;overflow-wrap:anywhere}
+.charges-panel{margin:18px 0;padding:16px;border:1px solid var(--border);border-left:4px solid var(--danger);border-radius:12px;background:linear-gradient(135deg,rgba(229,72,77,.08),transparent),var(--panel2)}
+.charges-panel h2{margin:0 0 4px}.charge-list{display:grid;gap:8px;padding:0;margin:14px 0 0;list-style:none}.charge-list li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--border);border-radius:9px;background:var(--bg2);line-height:1.5;overflow-wrap:anywhere}.charge-marker{display:grid;place-items:center;flex:0 0 22px;height:22px;border-radius:50%;background:rgba(229,72,77,.2);color:var(--danger);font-weight:900}.charge-link{color:var(--link);text-decoration:underline;text-underline-offset:2px}.charge-link:hover{color:var(--accent2)}
+.cross-page-links{display:flex;flex-wrap:wrap;gap:7px}.related-list{display:flex;flex-wrap:wrap;gap:7px}
+@media(max-width:700px){.rep-modal-box{max-height:92vh}.rep-fc-head{align-items:flex-start;gap:8px}.rep-score-badge{white-space:nowrap}.charge-list li{font-size:13px}}

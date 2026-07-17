@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="reputation-fixes.css">
   <link rel="stylesheet" href="commerce-event-fixes.css">
   <link rel="stylesheet" href="crisis-reputation-fixes.css">
+  <link rel="stylesheet" href="clean-pass.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
   <link rel="preload" href="battlefield.css" as="style">
   <link rel="stylesheet" href="battlefield.css">
@@ -2012,7 +2013,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
 function view_trial(item,t){
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;
   let infoRows='';(INFOBOX.trials||[]).forEach(([f,label])=>{let v=item[f];if(!v)return;v=String(v);infoRows+=`<div class="row"><span class="k">${esc(label)}</span><span class="v" title="${esc(v)}">${esc(v)}</span></div>`;});
-  const charges=Array.isArray(item.charges)?`<h2 id="h-charges">Charges</h2><ul>${item.charges.map(c=>`<li>${esc(typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c)))}</li>`).join('')}</ul>`:'';
+  const charges=Array.isArray(item.charges)?`<section class="charges-panel"><h2 id="h-charges">⚖️ Charges</h2><p class="text-muted">Filed allegations and legal directives. Names are linked when the archive has a matching record.</p><ul class="charge-list">${item.charges.map(c=>{const text=typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c));const matches=[...String(text).matchAll(/\b(?:Elder Rowan Meadowlight|Iron Fists|Rakka Directive|Regal Empire|Mages' Guild|Mushroom Regency)\b/gi)];let html=esc(text);matches.reverse().forEach(m=>{const raw=m[0],key=raw.toLowerCase().replace(/[^a-z0-9]+/g,'_');const target=INDEX[key]?`#/article/${encodeURIComponent(key)}`:key.includes('regal')?'#/reputation/faction/regal_empire':key.includes('mushroom')?'#/reputation/faction/mushroom_regency':'';if(target)html=html.slice(0,m.index)+`<a class="charge-link" href="${target}">${esc(raw)}</a>`+html.slice(m.index+raw.length);});return `<li><span class="charge-marker">§</span><span>${html}</span></li>`;}).join('')}</ul></section>`:'';
   let sections='';const tocParts=[];
   (item.sections||[]).forEach((s,i)=>{
     const sid='sec-'+i;tocParts.push({level:2,text:s.name,slug:sid});
@@ -3804,7 +3805,7 @@ function view_reputation(arg) {
             </div>
             <div class="rep-score-badge ${avgClass}" title="Party Average Standing">${partyAvg>=0?'+':''}${partyAvg}</div>
           </div>
-          <div style="font-size:12.5px;color:var(--text);margin-bottom:8px;line-height:1.4">${esc((f.description||f.summary||'').slice(0, 140))}${f.description?.length>140?'…':''}</div>
+          <div style="font-size:12.5px;color:var(--text);margin-bottom:8px;line-height:1.4">${esc((()=>{const raw=f.description||f.summary||'';const region=String(f.region||'').trim();const clean=region&&raw.toLowerCase().startsWith(region.toLowerCase())?raw.slice(region.length).replace(/^\s*[·|—-]\s*/,''):raw;return clean.slice(0,140)})())}${(f.description||'').length>140?'…':''}</div>
           ${f.leader ? `<div style="font-size:12px;color:var(--muted);margin-bottom:6px"><b>Leader:</b> ${formatLeaderLink(f.leader)}</div>` : ''}
           <div class="rep-fc-ops">${opPillsHtml}</div>
           ${f.waluigi_tip ? `<div class="rep-tip-box"><b>Waluigi Tip:</b> ${esc(f.waluigi_tip)}</div>` : ''}
