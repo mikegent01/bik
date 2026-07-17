@@ -528,6 +528,45 @@ function eventPeopleAndXpPanel(item){
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
 
+// Surface congress votes where a faction/nation was proposer, subject, notable_yea/nay/abstain, or clearly named in the description.
+function renderRelatedCongressVotes(item){
+  if(!item || !item.name) return '';
+  const votes = DATA.congress_votes||[];
+  if(!votes.length) return '';
+  const nameLc = String(item.name).toLowerCase();
+  const shortLc = nameLc.replace(/^(the|a|an)\s+/,'').split(/\s+/)[0]; // e.g. "Regal Empire" -> "regal"
+  const idLc = String(item.id||'').toLowerCase();
+  const matched = votes.filter(v => {
+    if(!v) return false;
+    const hay = [(v.title||''),(v.proposedBy||''),(v.description||''),(v.aftermath||'')].join(' ').toLowerCase();
+    if(hay.includes(nameLc)) return true;
+    // votingBreakdown can be a stringified object or object — scan its text
+    const vb = typeof v.votingBreakdown === 'string' ? v.votingBreakdown.toLowerCase() : JSON.stringify(v.votingBreakdown||'').toLowerCase();
+    if(vb.includes(nameLc)) return true;
+    // fall back to id-based token match (e.g. iron_legion → "iron legion")
+    if(idLc && idLc.length>4){
+      const tokens = idLc.split('_').join(' ');
+      if(hay.includes(tokens) || vb.includes(tokens)) return true;
+    }
+    return false;
+  });
+  if(!matched.length) return '';
+  const rows = matched.slice(0,6).map(v => {
+    const resultCls = /passed|adopt|ratif|accept/i.test(v.result||'') ? 'pos'
+                    : /reject|fail|kill/i.test(v.result||'') ? 'neg' : '';
+    return `<a class="rep-effect-row" href="#/vote/${encodeURIComponent(v.id)}">
+      <span>🏛️ <b>Vote #${esc(String(v.number||v.id))}</b> — ${esc(v.title||'Untitled measure')}<br><span class="text-muted" style="font-size:11px">${esc(v.year||'')} · ${esc((v.category||'').replace(/_/g,' '))} · Proposed by ${esc(v.proposedBy||'unknown')}</span></span>
+      <b class="${resultCls}" style="text-align:right">${esc(v.result||'?')}<br><span class="text-muted" style="font-size:11px;font-weight:400">${esc(v.yea||0)}–${esc(v.nay||0)}${v.abstain?' ('+esc(v.abstain)+' abs)':''}</span></b>
+    </a>`;
+  }).join('');
+  return `<div class="event-reputation-panel" style="border-left:3px solid var(--accent2)">
+    <h3>🏛️ Congress Votes Touching ${esc(item.name)}</h3>
+    <p class="text-muted" style="font-size:12.5px">${matched.length} Grand Latin Assembly measure${matched.length===1?'':'s'} where this ${item.type||'entity'} was named — click to open the full session record.</p>
+    ${rows}
+    ${matched.length>6?`<div class="text-muted" style="font-size:11.5px;margin-top:6px">+${matched.length-6} more — see Congress →</div>`:''}
+  </div>`;
+}
+
 function crossPagePanel(articleId,typeKey,item){
   const links=[];
   links.push(`<a href="xp.html${xpStats(articleId)?`#/player/${encodeURIComponent(xpStats(articleId).xpKey)}`:''}">✦ XP Hotline</a>`);
@@ -972,8 +1011,9 @@ function renderSidebar(active){
   h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">🏦</span> Bank & Exchange</span></div>`;
   h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar</span></div>`;
   h+=`<div class="navlink ${active==='holidays'?'active':''}" onclick="Router.go('#/holiday')"><span><span class="emoji">🎉</span> Holidays</span><span class="cnt">${(()=>{const g=DATA.calendarHolidays?.holidays||{};let n=0;Object.values(g).forEach(a=>n+=(a||[]).length);return n;})()}</span></div>`;
-  h+=`<div class="navlink ${active==='timeline'?'active':''}" onclick="Router.go('#/timeline')"><span><span class="emoji">🕰️</span> Timeline</span></div>`;
-  h+=`<div class="navlink ${active==='chronicle'?'active':''}" onclick="Router.go('#/chronicle')"><span><span class="emoji">📜</span> Chronicles</span><span class="cnt">${(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}</span></div>`;
+  h+=`<div class="navlink ${active==='timeline'||active==='calendar'?'':''}" onclick="Router.go('#/calendar/timeline')"><span><span class="emoji">🕰️</span> Timeline</span><span class="cnt">${(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}</span></div>`;
+  // Chronicles removed as a separate nav item — merged into the Calendar → Timeline tab.
+  // (Individual chronicle detail pages remain reachable via #/chronicle/:slug and via search.)
 h+=`<div class="navlink ${active==='reputation'?'active':''}" onclick="Router.go('#/reputation')"><span><span class="emoji">📈</span> Reputation Matrix</span><span class="cnt">${Object.keys(LORE_FACTIONS||{}).length||100}</span></div>`;
   h+=`<div class="navlink ${active==='xp'?'active':''}" onclick="Router.go('#/xp')"><span><span class="emoji">✦</span> XP Leaderboard</span><span class="cnt">${(()=>{try{return _xpAggregate().totalRows;}catch(e){return '';}})()}</span></div>`;
   h+=`<div class="navlink ${active==='annotations'?'active':''}" onclick="Router.go('#/annotations')"><span><span class="emoji">💬</span> Chatter Hub</span><span class="cnt">${(DATA.annotations||[]).length}</span></div>`;
@@ -2071,7 +2111,7 @@ function view_article(id){
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='battles'?battleVsInfographic(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
-${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}
+${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
@@ -2356,7 +2396,28 @@ function parseDay(s){
 }
 function monthName(ord){ const x=(DATA.calendarMonths||[]).find(m=>m.ordinal===ord); return x?x.name:(ord===99?'Undated (year only)':('Month '+ord)); }
 
-/* Chronicle helpers — every historicalTimeline record can be opened as its own Waluipedia page. */
+/* Chronicle helpers — every historicalTimeline record can be opened as its own Waluipedia page.
+   Timeline data is cleaned in-place: `people`, `location`, `derivedKind` are extracted from
+   the original autogen "This X event involved A,B at Y" tails so nothing is lost visually. */
+
+// Fuzzy-match a chronicle entry to an existing event/battle/trial article by title.
+function findRelatedArticleForChronicle(entry){
+  if(!entry || !entry.title) return null;
+  const nm = normNameForMatch(entry.title);
+  if(!nm || nm.length < 6) return null;
+  // Prefer exact-ish matches in events / battles / trials (in that order).
+  for(const key of ['events','battles','trials']){
+    for(const it of (DATA[key]||[])){
+      const cn = normNameForMatch(it.title||it.name||it.id);
+      if(!cn) continue;
+      if(cn === nm) return { id: it.id, typeKey: key, item: it };
+      // Substring match if both are reasonably long
+      if(cn.length >= 8 && nm.length >= 8 && (cn.includes(nm) || nm.includes(cn))) return { id: it.id, typeKey: key, item: it };
+    }
+  }
+  return null;
+}
+
 function chronicleSlug(entry, i){
   if(!entry) return 'chron_'+i;
   if(entry.id) return String(entry.id);
@@ -2432,9 +2493,30 @@ function view_chronicle(id){
   const sameEra=list.filter(x=>x.era===e.era && x.slug!==e.slug).slice(0,10);
   const linkedDesc = linkify?linkify(esc(e.description||'')):esc(e.description||'');
 
+  // People chips — link to matching character articles when we can resolve them.
+  const peopleChips = Array.isArray(e.people) ? e.people.map(name => {
+    const nm = normNameForMatch(name);
+    let matchId = null;
+    if(nm){
+      for(const id of Object.keys(INDEX)){
+        const rec = INDEX[id];
+        if(rec.typeKey !== 'characters') continue;
+        const cn = normNameForMatch(displayName(rec.item));
+        if(!cn) continue;
+        if(cn === nm || cn.includes(nm) || nm.includes(cn)){ matchId = id; break; }
+      }
+    }
+    return matchId
+      ? `<a class="chip" onclick="openId('${esc(matchId)}')">👤 ${esc(name)}</a>`
+      : `<span class="pill">👤 ${esc(name)}</span>`;
+  }).join('') : '';
+
+  // Full-scale related article match (an existing event/battle/trial that clearly maps to this chronicle line).
+  const related = findRelatedArticleForChronicle(e);
+
   el('content').innerHTML=`
     <div class="card animate-fade-in" style="border-top:5px solid ${chronicleCategoryColor(e.category)};background:linear-gradient(135deg,${chronicleCategoryColor(e.category)}22,rgba(0,0,0,.05)),var(--panel)">
-      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/timeline')">Timeline</a> › <a onclick="Router.go('#/chronicle')">Chronicles</a> › ${esc(e.title||'Entry')}</div>
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/calendar/timeline')">Calendar</a> › <a onclick="Router.go('#/chronicle')">Chronicles</a> › ${esc(e.title||'Entry')}</div>
       <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-top:8px">
         <div style="font-size:56px;line-height:1">${esc(chronicleCategoryEmoji(e.category))}</div>
         <div style="flex:1;min-width:220px">
@@ -2443,16 +2525,32 @@ function view_chronicle(id){
           <div class="chips mt-10">
             <span class="pill">📅 ${esc(dateStr)}</span>
             ${e.category?`<span class="pill">${esc(chronicleCategoryEmoji(e.category))} ${esc(e.category)}</span>`:''}
+            ${e.derivedKind?`<span class="pill">🏷️ ${esc(e.derivedKind)}</span>`:''}
+            ${e.location?`<span class="pill">📍 ${esc(e.location)}</span>`:''}
             ${y?`<a class="chip" href="#/year/${y}">Open ${y} BF chronicle →</a>`:''}
+            ${y!=null && (e.date?.monthIndex!=null)?`<a class="chip" href="#/calendar/${CAL_STATE?CAL_STATE.calendarId:'imperial'}/month/${y}/${e.date.monthIndex}/${e.date.day||1}">🗓️ Open on Calendar</a>`:''}
           </div>
         </div>
       </div>
     </div>
 
+    ${related?`<div class="card" style="border-left:4px solid var(--accent2);background:rgba(224,180,0,.05)">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-size:14px;color:var(--accent2);font-weight:700">🔗 Full article on file:</div>
+        <a class="chip active" onclick="openId('${esc(related.id)}')">${esc(TYPE_BY_KEY[related.typeKey]?.emoji||'📄')} ${esc(displayName(related.item))} →</a>
+        <span class="text-muted" style="font-size:12px">This chronicle is a short-form record; the full account has its own Waluipedia page.</span>
+      </div>
+    </div>`:''}
+
     <div class="card">
       <h2 style="margin-top:0">📖 Full Record</h2>
       <p class="prose" style="font-size:15px;line-height:1.75">${linkedDesc||'<span class="text-muted">No description on file.</span>'}</p>
     </div>
+
+    ${peopleChips?`<div class="card">
+      <h3 style="margin-top:0">👥 People Named in This Record</h3>
+      <div class="chips">${peopleChips}</div>
+    </div>`:''}
 
     ${sameEra.length?`<div class="card">
       <h2 style="margin-top:0">🔗 Other chronicles from this era</h2>
@@ -2488,81 +2586,13 @@ function chronicleCategoryEmoji(cat){
   return '📜';
 }
 
+// #/timeline is now an alias for #/calendar/timeline — the calendar page owns the timeline UI.
 function view_timeline(){
-  renderSidebar('timeline');
-  const entries=[];
-  const push=(src,kind,cls,idprefix,go)=> (DATA[src]||[]).forEach(it=>{
-    if(!it) return;
-    const dateStr=it.date||it.era||'';
-    const y=parseYear(it.date)||parseYear(it.era);
-    if(y==null) return;
-    entries.push({y, mo:parseMonth(dateStr), d:parseDay(dateStr), kind, cls, id:idprefix+it.id,
-      name:it.name||it.title||it.id, meta:dateStr, go});
-  });
-  push('events','e','','',null);
-  push('battles','b','b','',null);
-  push('trials','t','t','',null);
-  // major battles use a different route
-  (DATA.majorBattles||[]).forEach(b=>{if(!b) return; const dateStr=b.date||'';const y=parseYear(dateStr);if(y==null)return;
-    entries.push({y,mo:parseMonth(dateStr),d:parseDay(dateStr),kind:'b',cls:'b',id:'mb:'+b.id,name:b.name,meta:dateStr,go:()=>Router.go('#/mbattle/'+encodeURIComponent(b.id))});});
-  // Fold in historicalTimeline entries — 313 rich records that were previously invisible on the main timeline.
-  const chronIdx=getChronicleIndex();
-  chronIdx.all.forEach(h => {
-    if(h.type==='era_header') return;
-    const y=h.date?.year; if(y==null) return;
-    const mo=h.date?.monthIndex!=null?h.date.monthIndex+1:99;
-    const d=h.date?.day||99;
-    const catCls = (h.category||'').toLowerCase().includes('battle')||(h.category||'').toLowerCase().includes('combat') ? 'b'
-                 : (h.category||'').toLowerCase().includes('political') ? 'p'
-                 : 'c';
-    entries.push({
-      y, mo, d,
-      kind:'c', cls:catCls,
-      id:'chron:'+h.slug,
-      name:h.title||'Timeline Entry',
-      meta:`${monthName(mo)} ${d}, ${y} BF${h.date?.hour!=null?' · '+String(h.date.hour).padStart(2,'0')+':'+String(h.date.minute||0).padStart(2,'0'):''}`,
-      go:()=>Router.go('#/chronicle/'+encodeURIComponent(h.slug))
-    });
-  });
-  // resolve go() for the standard kinds
-  entries.forEach(e=>{ if(!e.go){ const rid=e.id; e.go=()=>openId(rid); } });
-  // Build a lookup so onclick can find the entry.
-  window.__tlmap={}; entries.forEach(e => { window.__tlmap[e.kind+'|'+e.id]=e; });
-
-  // chronological ascending: earliest year first, then month, then day
-  entries.sort((a,b)=> a.y-b.y || a.mo-b.mo || a.d-b.d || a.name.localeCompare(b.name));
-
-  // group: year -> month -> [entries]
-  const years=[];
-  const yearMap={};
-  entries.forEach(e=>{
-    if(!yearMap[e.y]){ yearMap[e.y]={year:e.y, months:{}, order:[]}; years.push(yearMap[e.y]); }
-    const ym=yearMap[e.y];
-    if(!ym.months[e.mo]){ ym.months[e.mo]=[]; ym.order.push(e.mo); }
-    ym.months[e.mo].push(e);
-  });
-  years.sort((a,b)=>a.year-b.year); // earliest -> latest
-  years.forEach(y=>y.order.sort((a,b)=>a-b));
-
-  const kindLabel=k=>k==='e'?'Event':k==='t'?'Trial':k==='b'?'Battle':k==='c'?'Chronicle':'Record';
-  const body=years.map(y=>{
-    const monthBlocks=y.order.map(mo=>{
-      const label=monthName(mo);
-      const cards=y.months[mo].map(e=>`<div class="tl-card ${e.cls}" onclick="TL.go('${esc(String(e.kind))}','${esc(String(e.id))}')"><div class="tl-name">${esc(e.name)}</div><div class="tl-meta">${esc(e.meta)} · ${esc(kindLabel(e.kind))}</div></div>`).join('');
-      return `<div class="tl-month"><div class="tl-month-h">${esc(label)}</div><div class="tl-item">${cards}</div></div>`;
-    }).join('');
-    return `<div class="tl-year-block"><div class="tl-year-h">${y.year} BF</div><div class="tl">${monthBlocks}</div></div>`;
-  }).join('');
-
-  const cCount = entries.filter(e=>e.kind==='c').length;
-  const eCount = entries.filter(e=>e.kind==='e').length;
-  const bCount = entries.filter(e=>e.kind==='b').length;
-  const tCount = entries.filter(e=>e.kind==='t').length;
-
-  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🕰️ Timeline</h2><p class="text-muted">${entries.length} dated records in chronological order — ${eCount} events, ${bCount} battles, ${tCount} trials, and ${cCount} historical chronicles. In this world "BF" counts up toward the present, so the earliest year here is the earliest recorded, and the current game date is ${esc((MONTHS[CUR.monthIndex]||'')+' '+CUR.day+', '+CUR.year+' BF')}.</p><div class="chips mt-10"><a class="chip" href="#/chronicle">📜 Browse Chronicles by Era →</a><a class="chip" href="#/years">📅 By Year Index</a></div></div><div class="card">${body}</div>`;
-  window.scrollTo(0,0);
+  // Preserve any filter/jump the caller set, then defer to the calendar view.
+  Router.go('#/calendar/'+((CAL_STATE&&CAL_STATE.calendarId)||'imperial')+'/timeline');
 }
-const TL={go(kind,id){const e=window.__tlmap&&window.__tlmap[kind+'|'+id];if(e&&e.go)e.go();}};
+// Legacy shim: some rendered onclick handlers may still reference TL.go — keep it a safe no-op.
+const TL={go(kind,id){ Router.go('#/calendar/timeline'); }};
 
 /* =============== DYNAMIC YEAR / CHRONICLE PAGES =============== */
 /* Collect every dated event/battle/trial for a given year, grouped by month. Fully dynamic:
@@ -3099,31 +3129,68 @@ function view_calendar(){
         <div class="artgrid mt-12">${monthGrids}</div></div>
     `;
   } else if(CAL_STATE.tab==='timeline'){
+    // Persist filters/jump-year across renders in CAL_STATE for a clean feel without global creep.
+    if(!CAL_STATE.tlFilter) CAL_STATE.tlFilter = 'all';
+    const filter = CAL_STATE.tlFilter;
+    const jumpYear = CAL_STATE.tlJumpYear ? parseInt(CAL_STATE.tlJumpYear,10) : null;
+
     const entries=[];
     const push=(src,kind,cls)=> (DATA[src]||[]).forEach(it=>{
       if(!it) return;
       const dateStr=it.date||it.era||'';
       const y=parseYear(it.date)||parseYear(it.era);
       if(y==null) return;
-      entries.push({y, mo:parseMonth(dateStr), d:parseDay(dateStr), kind, cls, id:it.id, name:it.name||it.title||it.id, meta:dateStr, route: (kind==='mbattle'?'#/mbattle/':'#/article/')+encodeURIComponent(it.id)});
+      entries.push({y, mo:parseMonth(dateStr), d:parseDay(dateStr), kind, cls, id:it.id, name:it.name||it.title||it.id, summary:it.summary||'', meta:dateStr, route: (kind==='mbattle'?'#/mbattle/':'#/article/')+encodeURIComponent(it.id)});
     });
-    push('events','e','');
-    push('battles','b','b');
-    push('trials','t','t');
+    push('events','event','');
+    push('battles','battle','b');
+    push('trials','trial','t');
     (DATA.majorBattles||[]).forEach(b=>{
       if(!b) return;
       const dateStr=b.date||''; const y=parseYear(dateStr); if(y==null) return;
-      entries.push({y,mo:parseMonth(dateStr),d:parseDay(dateStr),kind:'b',cls:'b',id:b.id,name:b.name,meta:dateStr,route:'#/mbattle/'+encodeURIComponent(b.id)});
+      entries.push({y,mo:parseMonth(dateStr),d:parseDay(dateStr),kind:'battle',cls:'b',id:b.id,name:b.name,summary:b.description||'',meta:dateStr,route:'#/mbattle/'+encodeURIComponent(b.id)});
     });
-    (DATA.historicalTimeline||[]).forEach(h=>{
-      if(!h || !h.date) return;
+    // Chronicles from historicalTimeline (with era grouping preserved via the pre-computed chronicle index).
+    const cidx = getChronicleIndex();
+    cidx.all.forEach(h=>{
+      if(h.type==='era_header' || !h.date) return;
       const y=h.date.year; const mo=h.date.monthIndex!=null?h.date.monthIndex+1:99; const d=h.date.day||99;
       if(y==null) return;
-      entries.push({y,mo,d,kind:'e',cls:'',id:h.title||'tl_'+y+'_'+mo+'_'+d, name:h.title||'Timeline Event', meta:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF`, route:'#/chronicle/'+encodeURIComponent(chronicleSlug(h,0))});
+      const peopleSuffix = (h.people&&h.people.length) ? ' — ' + h.people.slice(0,3).join(', ') + (h.people.length>3?` +${h.people.length-3}`:'') : '';
+      entries.push({y,mo,d,kind:'chronicle',cls:'chron',id:h.slug, name:h.title||'Chronicle',
+        summary:(h.description||'').slice(0,140),
+        meta:`${getMonthData(mo-1)?.name||mo} ${d}, ${y} BF · ${h.category||'chronicle'}${peopleSuffix}`,
+        route:'#/chronicle/'+encodeURIComponent(h.slug),
+        era:h.era||null,
+        location:h.location||null});
     });
-    entries.sort((a,b)=> a.y-b.y || a.mo-b.mo || a.d-b.d || a.name.localeCompare(b.name));
+    // Case timelines from trials — each row inside trial.timeline becomes a sub-timeline entry.
+    (DATA.trials||[]).forEach(t=>{
+      if(!t || !Array.isArray(t.timeline)) return;
+      const trialYear = parseYear(t.date);
+      t.timeline.forEach((ev,i)=>{
+        const y = parseYear(ev.date) || trialYear; if(y==null) return;
+        entries.push({y, mo:parseMonth(ev.date)||99, d:parseDay(ev.date)||99, kind:'case', cls:'t', id:t.id+':tl'+i,
+          name: ev.event||ev.title||('Case moment '+(i+1)),
+          summary: ev.detail||'',
+          meta: `${ev.date||'undated'} · from case ${t.name}`,
+          route:'#/article/'+encodeURIComponent(t.id)});
+      });
+    });
+
+    // Filter
+    const applyFilter = e => filter==='all' ? true
+      : filter==='session' ? (e.kind==='event' || e.kind==='chronicle')
+      : filter==='war'     ? (e.kind==='battle')
+      : filter==='law'     ? (e.kind==='trial' || e.kind==='case')
+      : filter==='chron'   ? (e.kind==='chronicle')
+      : true;
+    const filtered = entries.filter(applyFilter);
+    filtered.sort((a,b)=> a.y-b.y || a.mo-b.mo || a.d-b.d || a.name.localeCompare(b.name));
+
+    // Group year → month
     const years=[]; const yearMap={};
-    entries.forEach(e=>{
+    filtered.forEach(e=>{
       if(!yearMap[e.y]){ yearMap[e.y]={year:e.y, months:{}, order:[]}; years.push(yearMap[e.y]); }
       const ym=yearMap[e.y];
       if(!ym.months[e.mo]){ ym.months[e.mo]=[]; ym.order.push(e.mo); }
@@ -3131,15 +3198,44 @@ function view_calendar(){
     });
     years.sort((a,b)=>a.year-b.year);
     years.forEach(y=>y.order.sort((a,b)=>a-b));
-    const body=years.map(y=>{
-      const monthBlocks=y.order.map(mo=>{
-        const label=monthName(mo);
-        const cards=y.months[mo].map(e=>`<div class="tl-card ${e.cls}" onclick="Router.go('${e.route}')"><div class="tl-name">${e.name}</div><div class="tl-meta">${e.meta}</div></div>`).join('');
+
+    // Jump to year: scroll into view via anchor id
+    const focusYear = jumpYear && yearMap[jumpYear] ? jumpYear : null;
+
+    const kindEmoji = { event:'📜', battle:'🗡️', trial:'⚖️', case:'🧾', chronicle:'📖' };
+    const body = years.map(y=>{
+      const monthBlocks = y.order.map(mo=>{
+        const label = monthName(mo);
+        const cards = y.months[mo].map(e=>{
+          const em = kindEmoji[e.kind]||'•';
+          const summarySnippet = e.summary ? `<div class="tl-sum" style="font-size:11.5px;color:var(--muted);line-height:1.4;margin-top:3px">${esc(e.summary).slice(0,120)}${e.summary.length>120?'…':''}</div>` : '';
+          return `<div class="tl-card ${e.cls}" onclick="Router.go('${e.route}')"><div class="tl-name">${em} ${esc(e.name)}</div><div class="tl-meta">${esc(e.meta)}</div>${summarySnippet}</div>`;
+        }).join('');
         return `<div class="tl-month"><div class="tl-month-h">${label}</div><div class="tl-item">${cards}</div></div>`;
       }).join('');
-      return `<div class="tl-year-block"><div class="tl-year-h">${y.year} BF</div><div class="tl">${monthBlocks}</div></div>`;
+      const isCur = y.year===CUR.year;
+      return `<div class="tl-year-block" id="tly-${y.year}" style="${isCur?'box-shadow:0 0 0 2px var(--accent) inset;border-radius:8px;padding:6px':''}"><div class="tl-year-h">${y.year} BF${isCur?' <span class="pill" style="font-size:10px;background:var(--accent);color:#fff;border-color:transparent">Current</span>':''}</div><div class="tl">${monthBlocks}</div></div>`;
     }).join('');
-    mainContent = `<div class="card"><h2>🕰️ Timeline — ${entries.length} records — in ${activeCal.name}</h2><p class="text-muted">Timeline merged into single calendar. Using ${activeCal.name} weekdays (${activeCal.weekdays.length} days/week) for display.</p></div><div class="card">${body}</div>`;
+
+    const filterBar = `<div class="chips" style="align-items:center">
+      <span class="text-muted" style="font-size:12px;margin-right:4px">Filter:</span>
+      ${[
+        ['all','🕰️ All'],
+        ['session','📜 Sessions & Chronicles'],
+        ['war','🗡️ Wars & Battles'],
+        ['law','⚖️ Trials & Case Timelines'],
+        ['chron','📖 Chronicles Only']
+      ].map(([k,l])=>`<span class="chip ${filter===k?'active':''}" onclick="CAL_STATE.tlFilter='${k}';view_calendar()">${l}</span>`).join('')}
+      <span style="flex:1"></span>
+      <span class="text-muted" style="font-size:12px">Jump to year:</span>
+      <input type="number" min="0" max="9999" value="${jumpYear||CUR.year}" style="width:90px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg2);color:var(--text)" onchange="CAL_STATE.tlJumpYear=this.value;view_calendar();setTimeout(()=>{const el=document.getElementById('tly-'+this.value);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},50)">
+      <span class="chip" onclick="CAL_STATE.tlFilter='all';CAL_STATE.tlJumpYear=null;view_calendar()">Reset</span>
+    </div>`;
+
+    // Auto-scroll to jump-year after render
+    setTimeout(()=>{ if(focusYear){ const el2=document.getElementById('tly-'+focusYear); if(el2)el2.scrollIntoView({behavior:'smooth',block:'start'}); } }, 100);
+
+    mainContent = `<div class="card"><h2 style="margin-top:0">🕰️ Timeline — ${filtered.length}${filtered.length!==entries.length?' of '+entries.length:''} records — in ${activeCal.name}</h2><p class="text-muted" style="font-size:12.5px;margin-bottom:10px">Every dated event, battle, trial, case-timeline entry, and historical chronicle in one view. Click any card to open the record. In this world "BF" counts up, so lower years are older.</p>${filterBar}</div><div class="card">${body||'<p class="text-muted">No records match this filter.</p>'}</div>`;
   } else if(CAL_STATE.tab==='years'){
     const yrs=allYears();
     const cards=yrs.map(y=>{
@@ -3158,7 +3254,8 @@ function view_calendar(){
     <div class="card animate-fade-in ${activeCal.cssTheme?.className||''}">
       <div class="calendar-topbar">
         <div>
-          <div class="calendar-title">${md.icon||'🗓️'} ${md.name} ${CAL_STATE.year} [${activeCal.name}] <span style="color:var(--muted);font-weight:400;font-size:14px">— ${season?season.name:''} — ${calDaysInYear(activeCal, CAL_STATE.year)}d year</span></div>
+          <div class="calendar-title">${md.icon||'🗓️'} ${md.name} ${CAL_STATE.year} [${activeCal.name}] <span style="color:var(--muted);font-weight:400;font-size:14px">— ${season?(season.icon||'')+' '+season.name:''} — ${calDaysInYear(activeCal, CAL_STATE.year)}d year</span></div>
+          ${season && season.description ? `<div class="calendar-season-desc" style="color:${season.color||'var(--accent2)'};font-size:12px;font-style:italic;margin-top:2px">${esc(season.description)}</div>` : ''}
           <div class="calendar-meta">
             Selected: <b>${calFormatFullDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day)}</b> — ${activeCal.weekdays.length}-day week, ${activeCal.months.length} months<br>
             Current imperial: <b>${formatFullDate(CUR.year, CUR.monthIndex, CUR.day)}</b> — Converted to ${activeCal.name} absolute ${absSelected}
