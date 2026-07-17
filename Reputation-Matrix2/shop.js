@@ -1,10 +1,5 @@
 
 // Update imports
-import { CURRENCIES, WALLETS } from './currency.js';
-
-let currentPurchaseCurrency = 'wario_points';
-function currencyPrice(goldValue){ const c=CURRENCIES[currentPurchaseCurrency]||CURRENCIES.wario_points||CURRENCIES.gold; return `${(goldValue/(c?.base_value||1)).toFixed(2)} ${c?.name||'Wario Shop Credit'}`; }
-
 import { 
     STOCK_TYPES,
     TIME_PERIODS,
@@ -824,7 +819,6 @@ function renderShopHeader() {
                 </div>
             </div>
             
-            <div class="shop-currency-picker"><span>Pay with</span><select id="shopCurrencySelect" onchange="currentPurchaseCurrency=this.value;renderShopHeader();renderShopItems();">${Object.values(CURRENCIES).map(c=>`<option value="${c.id}" ${c.id===currentPurchaseCurrency?'selected':''}>${c.icon||'🪙'} ${c.name}</option>`).join('')}</select><small>Prices shown in selected currency</small></div>
             <div class="cart-summary" id="cart-summary-btn">
                 <span class="cart-icon">🛒</span>
                 <span class="cart-count">${totalCartItems}</span>
@@ -1373,7 +1367,7 @@ function renderCart() {
                 ` : ''}
                 <div class="cart-total-row">
                     <span>Total:</span>
-                    <span class="cart-total-value">${currencyPrice(cartTotal)}</span><small class="checkout-currency-note">Payment currency: ${CURRENCIES[currentPurchaseCurrency]?.name||'Wario Shop Credit'} · Wallet verification occurs at confirmation.</small>
+                    <span class="cart-total-value">${cartTotal.toLocaleString()} ${status.icon}</span>
                 </div>
                 <div class="cart-remaining-row ${status.available >= cartTotal ? '' : 'negative'}">
                     <span>After purchase:</span>
@@ -1874,10 +1868,10 @@ ${isWarioScam(item) ? (() => {
                 <div class="item-price-group">
                     ${priceInfo.savings > 0 ? `
                         <span class="item-price original-price">${item.price.toLocaleString()}</span>
-                        <span class="item-price discounted-price">${currencyPrice(effectivePrice)}</span>
+                        <span class="item-price discounted-price">${effectivePrice.toLocaleString()} XP</span>
                         <span class="discount-badge">-${membership.discount}%</span>
                     ` : `
-                        <span class="item-price">${currencyPrice(effectivePrice)}</span>
+                        <span class="item-price">${effectivePrice.toLocaleString()} XP</span>
                     `}
                 </div>
             </div>
