@@ -474,14 +474,64 @@ function renderIntelWidget() {
     `;
 }
 
+function renderWaluipediaWidget() {
+    return `
+        <div id="waluipedia-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">🎭</span>
+                <h3 class="widget-title">Waluipedia Audit Desk</h3>
+            </div>
+            <div class="widget-content">
+                <h4 class="intel-title" style="color:var(--accent-color,#ffd700);font-weight:bold;margin-bottom:4px">The Midnight Audit of Harvestide 28</h4>
+                <p class="intel-summary" style="font-size:12px;color:var(--text-color-muted,#bbb);line-height:1.4">Midnight Estate intrusions, firearm recovery by Remi Akamatsu, Black Crystal lie testing, and a closet-bound spy. 100 polities & 48 currencies tracked.</p>
+                <a href="battlefield.html#/article/the_midnight_audit_of_harvestide_28" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.4);border-radius:6px;color:#ffd700;text-decoration:none;font-size:11px">Access Waluipedia Terminal →</a>
+            </div>
+        </div>
+    `;
+}
+
+function renderInkwellLibraryWidget() {
+    return `
+        <div id="inkwell-library-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">📜</span>
+                <h3 class="widget-title">Inkwell's Scriptorium</h3>
+            </div>
+            <div class="widget-content">
+                <h4 class="intel-title" style="color:#a78bfa;font-weight:bold;margin-bottom:4px">Master Scribe Inkwell's Royal Archives</h4>
+                <p class="intel-summary" style="font-size:12px;color:var(--text-color-muted,#bbb);line-height:1.4">50 authenticated codices, military treatises, bloodline genealogies, and secret diaries across 14 realms. Curated by House Toadstool's Chief Genealogist.</p>
+                <a href="bookshelf.html" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);border-radius:6px;color:#c4b5fd;text-decoration:none;font-size:11px">Open Royal Scriptorium →</a>
+            </div>
+        </div>
+    `;
+}
+
+function renderCurrencyWidget() {
+    return `
+        <div id="currency-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">💱</span>
+                <h3 class="widget-title">Bank & Multi-Currency</h3>
+            </div>
+            <div class="widget-content">
+                <h4 class="intel-title" style="color:#4ade80;font-weight:bold;margin-bottom:4px">48 International Tenders</h4>
+                <p class="intel-summary" style="font-size:12px;color:var(--text-color-muted,#bbb);line-height:1.4">Gold, Mora, Wario Coins, Soul Coins, Bowser Bux, Ducats, and 42 other tenders. Bank vault balances, loans, and Wario checkout integration.</p>
+                <a href="currency.html" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.4);border-radius:6px;color:#86efac;text-decoration:none;font-size:11px">Open Currency Bank →</a>
+            </div>
+        </div>
+    `;
+}
+
 function renderDashboard() {
     const dashboard = document.getElementById('session-dashboard');
     if (!dashboard) return;
     dashboard.innerHTML = `
+        ${renderWaluipediaWidget()}
+        ${renderInkwellLibraryWidget()}
+        ${renderCurrencyWidget()}
         ${renderWeatherWidget()}
         ${renderMissionWidget()}
         ${renderPartyStatusWidget()}
-        ${renderResearchWidget()}
         ${renderChatterWidget()}
         ${renderIntelWidget()}
     `;

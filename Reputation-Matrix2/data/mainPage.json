@@ -2,16 +2,21 @@
   "featuredArticle": {
     "id": "the_midnight_audit_of_harvestide_28",
     "type": "event",
-    "excerpt": "Waluigi documents the midnight intrusions at the Shadow Estate. Remi Akamatsu de-escalates a sword-wielding intruder, steals her firearm back from Markop, and tests a black crystal that may or may not be a lie detector. WAH."
+    "excerpt": "Waluigi documents the midnight intrusions at the Shadow Estate. Remi Akamatsu de-escalates a sword-wielding intruder, reclaims her firearm from Markop, and tests a black crystal lie detector on a closet-bound spy. WAH."
+  },
+  "latestUpdate": {
+    "id": "feyward_amnesia_vines_morel_steely",
+    "label": "Latest Intelligence Log",
+    "excerpt": "Feyward memory wipes, amnesia vine hazards, Mystic Morel's brass key, Steely's final warning, and new party XP allocations across the Feyward campaign."
   },
   "didYouKnow": [
+    "...that Waluigi’s Front Page Desk now monitors 48 international currencies, ranging from Gold Pieces and Mora to Soul Coins and Wario Coins?",
+    "...that Wario's shop catalog now contains over 7,880 individual items across 14 realms? Waluigi checked the inventory personally and demands a cut!",
+    "...that Remi Akamatsu stole her gun back from Markop during a 3 AM intrusion at the Shadow Estate? Never come between an artificer and her firearms!",
     "...that Archie Miser calls himself 'Darman Knightly' in the Shadowfell? It's the stupidest name I've ever heard. Also, he cut off a guy's finger!",
+    "...that the Grand Latin Assembly now processes viral propaganda feeds and infamy scores for 100 different polities? Waluigi calls this high-yield bureaucracy.",
+    "...that there are 9 Cosmic Star Bearers and a God Toad holding star fragment artifacts across the universe?",
     "...that the Airship was full of Toads in barrels? The Iron Legion calls it 'Trafficking,' Wario calls it 'Efficient Packaging.' Potay-to, Potah-to.",
-    "...that the Dragon War is a total scam? The Empire uses sound waves to fake it! I respect the hustle, but they owe me royalties for the idea.",
-    "...that Green T shot a Vampire Lord at dinner? Very rude! I hadn't even finished stealing the silverware yet!",
-    "...that Markop turned into a giant to wrestle a spider? Show-off! I was casting ice magic to help, but nobody clapped for me!",
-    "...that I froze Eager solid with a 'Cone of Cold'? It wasn't an accident, it was 'Cryogenic Preservation'! He should thank me!",
-    "...that Hjumpik smashed our airship with an axe? Who gives an axe to a guy with anger issues?! Now we have to walk!",
     "...that Wario priced a Star Rod at 900 trillion coins? That is a very fair market price. No low-ball offers! I know what I have!",
     "...that the Oracle keeps bodies in tanks? Disgusting! Science is for nerds who can't get rich honest ways (like stealing).",
     "...that Wario gave Remi a bomb as a welcome gift? It's called 'Initiation'! If she can't survive an explosion, she can't work in customer service!",
@@ -19,37 +24,52 @@
     "...that Merric joined the party after calling Markop 'Centerus'? Disaster Inc. recruitment standards remain beautifully indefensible.",
     "...that Wario tried to claim the Mirror of True Reflection immediately after it was repaired? Of course he did. That's not trivia, that's weather.",
     "...that Remi used a Black Crystal to test a 3 AM mailman and it did absolutely nothing? Waluigi calls this a \"calibrated failure.\"",
-    "...that Waluigi\u2019s safety desk has classified a closet as a \"high-risk diplomatic zone\" after a soldier was found hiding in one during the Midnight Audit?"
+    "...that Waluigi’s safety desk has classified a closet as a \"high-risk diplomatic zone\" after a soldier was found hiding in one during the Midnight Audit?"
   ],
   "onThisDay": [
-    "955 BF \u2014 Princess Peach takes a permanent nap. Everyone is still crying about it. Get over it!",
-    "1035 BF \u2014 The Iron Legion starts ruining everyone's fun with 'laws' and 'taxes'.",
-    "1040 BF \u2014 We killed a dragon! Well, *they* did, but I provided moral support (and looted the hoard).",
-    "1040 BF \u2014 The Planar Fracture happens. The universe breaks just to annoy me personally.",
-    "1040 BF \u2014 The Mirror of True Reflection is restored in the Shadow Estate, all four portal artifacts are secured, and the exit is immediately occupied by enemies because happiness is illegal.",
-    "1040 BF \u2014 Midnight Audit of the Shadow Estate: Remi Akamatsu steals her gun back, confronts a closet-soldier, and acquires a lie-detecting crystal. Waluigi's safety desk is overwhelmed. WAH.",
-    "10XX BF \u2014 The Iron Legion breaches the treaty layers of Mount Ebott, establishing a survey mission in the hidden village of Snowdin. Skeletons and casseroles are involved."
+    "955 BF — Princess Peach takes a permanent nap. Everyone is still crying about it. Get over it!",
+    "1035 BF — The Iron Legion starts ruining everyone's fun with 'laws' and 'taxes'.",
+    "1040 BF — We killed a dragon! Well, *they* did, but I provided moral support (and looted the hoard).",
+    "1040 BF — The Planar Fracture happens. The universe breaks just to annoy me personally.",
+    "1040 BF — The Mirror of True Reflection is restored in the Shadow Estate, all four portal artifacts are secured, and the exit is immediately occupied by enemies because happiness is illegal.",
+    "1040 BF — Midnight Audit of the Shadow Estate: Remi Akamatsu steals her gun back, confronts a closet-soldier, and acquires a lie-detecting crystal. Waluigi's safety desk is overwhelmed. WAH.",
+    "10XX BF — The Iron Legion breaches the treaty layers of Mount Ebott, establishing a survey mission in the hidden village of Snowdin. Skeletons and casseroles are involved."
   ],
   "categories": [
     {
       "name": "Factions",
-      "count": 10,
-      "icon": "\u2694\ufe0f"
+      "count": 100,
+      "icon": "⚔️"
     },
     {
       "name": "Characters",
-      "count": 13,
-      "icon": "\ud83d\udc64"
+      "count": 73,
+      "icon": "👤"
+    },
+    {
+      "name": "Events",
+      "count": 73,
+      "icon": "📜"
+    },
+    {
+      "name": "Items & Shop",
+      "count": 7880,
+      "icon": "🎒"
+    },
+    {
+      "name": "Currencies",
+      "count": 48,
+      "icon": "💱"
     },
     {
       "name": "Battles",
-      "count": 9,
-      "icon": "\ud83d\udde1\ufe0f"
+      "count": 35,
+      "icon": "🗡️"
     },
     {
-      "name": "Locations",
-      "count": 6,
-      "icon": "\ud83c\udff0"
+      "name": "Nations & Realms",
+      "count": 14,
+      "icon": "🌍"
     }
   ]
 }

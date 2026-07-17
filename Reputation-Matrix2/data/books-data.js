@@ -1,7 +1,908 @@
-// books-data.js
-// Load this before battlefield.html or include it in your page
 window.BOOKS_DATA = {
   "books": [
+    {
+      "id": "art_of_the_wah",
+      "title": "The Art of the WAH",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "WAH & Chaos",
+      "rarity": "uncommon",
+      "description": "A chaotic, hand-written manifesto bound in purple leather. The text is a rambling, narcissistic, yet surprisingly insightful treatise on the philosophy of chaos, the importance of style, and the art of being a magnificent villain. Attributed to 'The True Master of Mischief'.",
+      "pages": [
+        "...from the Introduction, allegedly penned by 'The True Master of Mischief'.\n\nFools speak of good and evil. I speak of style. A villain who simply conquers is a brute. A villain who does so with a magnificent, twirling mustache and a triumphant 'WAH!'... that is an artist. This tome is not about the 'why' of villainy, but the 'how'. How to be spectacular. How to be unforgettable. How to be... Waluigi.",
+        "...from Chapter 1: The Importance of the Entrance.\n\nNever simply walk into a room. Emerge. Explode from a trap door. Descend from the ceiling on a gilded wire. Arrive on the back of a poorly-trained but enthusiastic velociraptor. Your arrival must be an event, a moment of such baffling spectacle that your enemies are defeated by sheer confusion before the first blow is even thrown.",
+        "...from Chapter 3: The Monologue.\n\nA good monologue is not about revealing your plan. It is about wasting their time. While you are explaining your brilliant, overly-complex scheme, your minions are busy tying their shoelaces together. The monologue is a weapon of temporal warfare.",
+        "...from the Epilogue: The Exit.\n\nNever be captured. Simply... exit. A puff of purple smoke. A well-timed escape balloon shaped like your own magnificent head. An absurdly complex series of tunnels that you dug yourself. A true artist knows when the show is over."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 30 minutes",
+      "effect": "Grants insight into Waluigi's mindset and provides tactical advantages against predictable, order-obsessed foes."
+    },
+    {
+      "id": "ascended_prophecies",
+      "title": "The Prophecies of the Ascended One",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Cosmic & Star Relics",
+      "rarity": "uncommon",
+      "description": "A collection of cryptic, fungus-themed prophecies from the Toad Cult. The text is written in a spiraling, difficult-to-read pattern and foretells the end of the 'age of brittle things'.",
+      "pages": [
+        "(The text is written in a spiraling, fungal pattern that is difficult to read.)\n\n...and the ground shall soften, and the stone shall yield to the spore. The age of brittle things will end, and the age of the great, silent growth will begin...",
+        "...a king of shell, a king of cloth, a king of steel shall fall. Their thrones will crumble into mulch, and from that rich decay, the New Bloom shall rise...",
+        "...beware the one of three eyes, for he is the unintentional plowman. He breaks the soil of the old world with his chaos, preparing the field for our spores. Do not hinder him. Do not help him. Simply let him till...",
+        "...when the silent statue weeps, when the sky rains spores, when the world is quiet and damp, then the Ascended One shall return, and all shall be one with the Mycelium..."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Varies (requires interpretation)",
+      "effect": "May provide clues to the Toad Cult's future plans, if it can be deciphered."
+    },
+    {
+      "id": "azure_blade_trials",
+      "title": "The Trials of the Azure Blade",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "An internal document detailing the three trials an initiate must pass to join the Azure Blade Bounty Hunters' Guild: The Trial of the Hunt, the Trial of the Law, and the Trial of the Heart.",
+      "pages": [
+        "To join our ranks is to swear an oath to the Code. To prove you are worthy of that oath, all initiates must pass the Three Trials.",
+        "The Trial of the Hunt:\n\nYou will be given a bounty contract for a dangerous but non-sentient beast. You must track it, subdue it, and return it to the Guildhall. This tests your skill, your patience, and your ability to follow a contract to the letter.",
+        "The Trial of the Law:\n\nYou will be placed in a simulated scenario where you must capture a target in a crowded city without harming any civilians or breaking any local laws. This tests your discretion and your respect for the order we serve.",
+        "The Trial of the Heart:\n\nYou will be given a contract for a target who is morally ambiguous—a thief who steals to feed the poor, a deserter who fled an unjust war. You must bring them in. This tests your professionalism, your ability to place the Code above your personal feelings. If you cannot, you are not worthy to wear the Blade."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 30 minutes",
+      "effect": "Reveals the core values and testing methods of the Azure Blade guild."
+    },
+    {
+      "id": "banana_war",
+      "title": "The Great Banana War: A Kong History",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Realms & Wilds",
+      "rarity": "uncommon",
+      "description": "A history of the long and bitter conflict between the DK Crew and the Kremling Krew over the legendary Banana Hoard, as told by a very grumpy Cranky Kong.",
+      "pages": [
+        "As told by Cranky Kong:\n\nBack in my day, we didn't have all these fancy 'factions' and 'politics'. We had crocodiles, and they wanted our bananas. Simple as that. This is the story of the Great Banana War.",
+        "Chapter 1: The First Theft\n\nIt all started with King K. Rool. Big, bloated lizard with a crown too small for his head. He and his Kremling Krew snuck onto our island in the dead of night and stole the whole hoard! Every last banana! Donkey Kong was furious. I told him, 'See? This is what happens when you leave the front door unlocked.'",
+        "Chapter 3: The Battle of Gangplank Galleon\n\nWe tracked them back to their rusty excuse for a ship. It was a proper brawl! We threw barrels! They threw cannonballs! I hit K. Rool so hard he flew all the way to the moon! Or was that a different time? My memory's not what it used to be.",
+        "Conclusion:\n\nWe got the bananas back, of course. We always do. The Kremlings never learn. They'll be back, and we'll be ready. Now get off my lawn."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Provides historical context and insight into the motivations of the Kongs and Kremlings."
+    },
+    {
+      "id": "beanbean_tales",
+      "title": "Beanbean Folk Tales",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Realms & Wilds",
+      "rarity": "uncommon",
+      "description": "A collection of charming and humorous folk tales from the Beanbean Kingdom, explaining the origin of the Chuckola Fruit, Hoohoo Mountain, and why you should never tell a bad joke to a totem pole.",
+      "pages": [
+        "The Tale of the Chuckola Fruit:\n\nLong ago, the great god Chuckle-Heimer was so amused by the antics of the first Beanish people that he laughed for a hundred years. His laughter fell to the earth as golden fruit, and those who ate it were filled with his joy and good humor. This is why all Beanish people have such a great sense of humor. (Except for Prince Peasley. He's a bit stuffy.)",
+        "The Tale of Hoohoo Mountain:\n\nThe great Hoohoo Mountain was not always stone. It was once a giant, grumpy cloud who refused to rain. The people below grew thirsty, so they told the cloud the funniest joke in the world. The cloud laughed so hard it turned to stone, and its tears of laughter became the waterfall that flows to this day.",
+        "The Tale of the Grinning Totems:\n\nThey say that if you tell a good joke to the strange, grinning totems in Teehee Valley, they will point you to a hidden treasure. But if you tell a bad joke, they will swallow you whole. It is a tough crowd."
+      ],
+      "cover_image": "book_cover_beanbean_tales.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Provides cultural insight into the laughter-loving people of the Beanbean Kingdom."
+    },
+    {
+      "id": "blood_vines",
+      "title": "Blood & Vines: An Onyx Hand Manifesto",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Onyx Hand & Vampires",
+      "rarity": "uncommon",
+      "description": "A philosophical treatise bound in black leather, allegedly penned by a vampire elder. It argues for the natural superiority of the undead and frames their manipulation of mortal society not as evil, but as a form of necessary, long-term husbandry.",
+      "pages": [
+        "...from the Introduction.\n\nMortals see us as predators, monsters in the night. They are not wrong, but their perspective is that of the cattle to the herdsman. They see only the fleeting fear, not the grand design. We are the gardeners of this world, pruning the weak, cultivating the strong, guiding the unruly vine of society over centuries. Our grasp is eternal, our methods subtle. This is not a manifesto of evil, but of order—a truer, longer-lasting order than any mortal emperor could dream of.",
+        "...from Chapter 2: The Fallacy of Mortality.\n\nThe mortal lifespan is a flicker, a brief and panicked scramble for meaning in a handful of decades. This brevity breeds recklessness. They build empires of stone that crumble in a century, ideologies that last a single generation. We, the undying, see the grand tapestry. We can afford patience. A plan that takes two hundred years to mature is, to us, a short-term investment.",
+        "...from Chapter 5: The Tools of Husbandry.\n\n- The Gilded Thorn Coven: They are our diplomats, our whisperers in the courts of kings. Through blackmail, seduction, and the promise of power, they turn the levers of mortal government to our will.\n- The Silent Blade Coven: They are our pruning shears. When a mortal grows too ambitious, too chaotic, they are removed, quietly and efficiently, for the health of the garden.\n- The Whispering Veils Coven: They are our eyes and ears, for knowledge is the water that nourishes our long-term plans.",
+        "...from the Conclusion.\n\nDo not mistake our patience for passivity. Do not mistake our guidance for benevolence. We are shepherds, yes, but we shear the flock and feast upon the lambs. It is the natural order. We are the apex predators not of the wild, but of civilization itself. And our hunt is eternal."
+      ],
+      "cover_image": "book_cover_blood_vines.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 2 hours",
+      "effect": "Grants a deeper understanding of the Onyx Hand's motivations and internal politics, potentially revealing a key weakness."
+    },
+    {
+      "id": "code_of_the_blade",
+      "title": "The Code of the Blade",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Datastream & Magitek",
+      "rarity": "uncommon",
+      "description": "The official field manual for the Azure Blade Bounty Hunters' Guild. It details the guild's strict code of conduct, tracking techniques, and preferred non-lethal subdual methods. It emphasizes professionalism over personal feelings.",
+      "pages": [
+        "Article 1: The Contract is Sacred.\n\nA bounty is a sacred trust. Once a contract is accepted, it must be fulfilled to the letter. The client's identity, the target's crimes, your personal feelings—none of it matters. Only the contract.",
+        "Article 3: Professionalism Above All.\n\nWe are not thugs. We are not assassins. We are professionals. We do not cause unnecessary collateral damage. We do not engage in wanton cruelty. We fulfill the contract with efficiency and discretion.",
+        "Article 7: The Target's Rights.\n\nA bounty is a legal instrument, not a death warrant, unless specified by a lawful authority. The target is to be brought in alive whenever possible. Lethal force is a tool of last resort, to be used only in the defense of your own life or the lives of innocents.",
+        "Article 12: Guild Neutrality.\n\nThe Guild serves the law and the contract, not kings or causes. We do not take sides in political disputes. A contract is a contract, regardless of who posts it. Our only allegiance is to the Code."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 2 hours",
+      "effect": "Grants knowledge of bounty hunter tactics and provides an advantage when interacting with or fighting against guild members."
+    },
+    {
+      "id": "codex_punchline",
+      "title": "Codex: The Punchline",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Datastream & Magitek",
+      "rarity": "uncommon",
+      "description": "The official-unofficial legal text of the Cosmic Jester's cult. Bound in mismatched fabrics, it contains a series of nonsensical 'laws' that treat reality as a cosmic joke waiting for a punchline.",
+      "pages": [
+        "Foreword:\n\nThese are not rules. They are suggestions for a better, more interesting reality. Laws are for the predictable. Edicts are for the boring. The Punchline is for everyone. Read on, and learn to laugh at the collapsing architecture of causality.",
+        "Political Law: The Rule of Random\n\nAll decisions are made by rolling dice with pictures on them instead of numbers. The outcome is considered the will of the Cosmic Jester. If the dice roll off the table, the decision is postponed in favor of a mandatory snack break.",
+        "Social Law: The Law of WAH!\n\nGreetings, farewells, declarations of war, and requests to pass the salt must all be accompanied by a triumphant 'WAH!'. Failure to do so is not a crime, but it is deeply unfashionable. Style is the only true social contract.",
+        "Economic Law: The Currency of Confusion\n\nOfficial currency is not recognized. All trade is to be conducted via barter. An ideal transaction is one where both parties leave convinced they got the better deal, but are unsure what they actually traded. Mismatched socks are considered a highly stable commodity.",
+        "Penal Law: Trial by Pratfall\n\nThere are no crimes, only bad performances. 'Criminals' are not imprisoned, but are sentenced to perform a public, embarrassing pratfall. The severity of the sentence is determined by the laughter of the crowd. A truly spectacular failure is celebrated as a work of art."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 5 minutes (or an eternity, depending on the current temporal conditions)",
+      "effect": "Grants insight into the illogical reasoning of the Cosmic Jesters. Reading it may cause minor, temporary reality warping."
+    },
+    {
+      "id": "culinary_conquest",
+      "title": "The Culinary Arts of Conquest",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A cookbook allegedly written by Bowser himself. It contains... aggressive recipes for dishes like 'Spiny Egg Omelette' and 'Roasted Peach Cobbler'. A bizarre and intimidating look into the Koopa King's mind.",
+      "pages": [
+        "By King Bowser\n\nConquest is not just about armies and firepower. It is about will. And nothing fuels the will of a Koopa soldier like a good meal! This book contains the recipes that have fueled my army for generations. GWAHAHAHA!",
+        "Spiny Egg Omelette:\n\n- 6 Spiny Eggs (CAREFULLY de-spined)\n- 1 Fire Flower (for heat)\n- A splash of lava from the castle moat\n- Cook until it stops screaming. Serves one hungry king.",
+        "Goomba Goulash:\n\nJust kidding! We don't eat the Goombas. They are loyal, if bite-sized, soldiers. Mostly.",
+        "Roasted Peach Cobbler:\n\n- Find a Princess.\n- Put her in a different castle.\n- While she's distracted, steal all the peaches from her kingdom.\n- Roast them over the fires of your victory.\n- Tastes like... conquest!"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 20 minutes",
+      "effect": "Provides an unsettling insight into Bowser's personality. May also contain one (1) actually edible recipe."
+    },
+    {
+      "id": "datastream_vol_2",
+      "title": "Navigating the Datastream, Vol II: The Deep Web",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Datastream & Magitek",
+      "rarity": "uncommon",
+      "description": "A dangerous, encrypted data-slate that builds upon the original. This volume details the hidden nodes, anonymous relays, and dangerous entities that inhabit the darker corners of 'The Internet' dimension, including warnings about data-predators and rogue AIs.",
+      "pages": [
+        "WARNING:\n\nThis volume is not for the casual tourist. The Surface Web is a chaotic but survivable place. The Deep Web is hostile. The data-streams here are not indexed, the pathways are not stable, and the entities you will encounter do not operate on conventional logic. Proceed at your own risk. The author is not responsible for data-corruption, soul-deletion, or unwanted system updates.",
+        "Chapter 1: The Onion Patch\n\nTo enter the Deep Web, you must first navigate the Onion Patch. This is a labyrinth of encrypted data-relays, layered like an onion. Each layer adds a new level of anonymity, but also a new chance of getting lost. Do not trust the friendly-looking avatars offering 'shortcuts'. They are data-predators. Stick to the main pathways, and never, ever reveal your source IP.",
+        "Chapter 4: Data-Havens and Rogue AIs\n\nNot everything in the Deep Web is hostile. There are hidden sanctuaries, data-havens run by Hacktivist Collectives who believe in true information freedom. The 'Whistleblower's Sanctuary' is one such place. However, be wary of abandoned server-farms. They are often the lairs of Rogue AIs, god-like digital intelligences driven mad by isolation.",
+        "Appendix A: Known Hostile Entities\n\n- Data-Golems: Mindless constructs of raw, corrupted data that absorb any information they touch.\n- Logic-Bombs: Sentient viruses that ask you a riddle. If you get it wrong, your core programming is deleted.\n- The Meme-Stalker: A psychic entity that hunts you by learning your deepest fears and manifesting them as viral, inescapable images."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1.5 hours",
+      "effect": "Provides a +10 bonus to all checks made while in 'The Deep Web' and allows for navigation to hidden locations."
+    },
+    {
+      "id": "edicts_ebon_veil",
+      "title": "Edicts of the Ebon Veil",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Onyx Hand & Vampires",
+      "rarity": "uncommon",
+      "description": "A collection of decrees from the Onyx Hand's immortal leader, Lady Ebonveil. The text outlines the rigid rules of their society, their long-term political goals, and their cold disdain for the 'rabid dogs' of the Moonfang Pack.",
+      "pages": [
+        "By order of the Shadow Patriarch, Lady Ebonveil:\n\nEdict 1: The Masquerade is Absolute. Our existence is a secret to be guarded with your unlife. Do not reveal your true nature to mortals unless it serves the Grand Design. A breach of the Masquerade will be met with a final, true death.",
+        "Edict 3: The Gift is a Tool, Not a Toy. Your powers are not for wanton cruelty or petty games. Every use must serve a purpose, be it the acquisition of knowledge, the elimination of a threat, or the subtle turning of a political tide. Wastefulness is a mortal flaw.",
+        "Edict 7: The Rabid Dogs Must Be Kept on a Leash. The werewolves of the Moonfang Pack are a nuisance. Do not engage them in open conflict unless necessary. It is messy and draws unwanted attention. Let them howl in their forests. We will win the war in the drawing rooms and bedchambers of their mortal allies."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Provides high-level intelligence on the Onyx Hand's internal laws and strategic objectives."
+    },
+    {
+      "id": "fawful_journal",
+      "title": "Fawful's Furious Feelings Journal",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Koopa & Fawful Forces",
+      "rarity": "uncommon",
+      "description": "A stolen journal filled with Fawful's maniacal scribblings, half-finished schematics, and furious rants against his many, many enemies. The grammar is atrocious, but it provides a raw, unfiltered look into his genius and his madness.",
+      "pages": [
+        "(A page with a crude, angry drawing of Bowser)\n\nI HAVE FURY! The beef-head turtle thinks he has the ownership of this castle? This castle of peaches? WRONG! It is a castle of FURY! My fury! He is a king of failure who is now a footnote in my magnificent biography of WINNING!",
+        "(A schematic for a 'Doom-Vac' is doodled next to a list)\n\nEnemies of Fawful:\n1. The Red Mustache Man (annoying!)\n2. The Green Mustache Man (a sidekick of annoyance!)\n3. The Beanish Prince who has the dumbness.\n4. All peoples who lack the appreciation of my genius!\n5. CHUCKOLA COLA! FIZZ OF MY NIGHTMARES!",
+        "(The handwriting gets progressively larger and angrier)\n\nMY MINIONS ARE FOOLS! They cannot even polish my brain-helmet without leaving the smudges of their incompetence! I need minions with more FURY! More CHORTLES! I will build them! I will build a minion of PURE FURY who laughs at all my jokes! YES!",
+        "I HAVE CHORTLES! This diary-keeping is a stress reliever! It is like a punching bag for my feelings, but with more words and less satisfying impact! Perhaps I will add a punching bag to my diary. A 'Punch-Diary'! YES! GENIUS!"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 30 minutes",
+      "effect": "Provides deep insight into Fawful's psychological weaknesses and tactical patterns. I HAVE FURY!"
+    },
+    {
+      "id": "freelancer_manifesto",
+      "title": "The Art of the Deal: A Freelancer's Manifesto",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Realms & Wilds",
+      "rarity": "uncommon",
+      "description": "A cynical but practical manifesto on the principles of the Freelancer Underworld. It preaches loyalty only to the contract, the value of information over gold, and the belief that everyone, no matter how noble, has a price.",
+      "pages": [
+        "By: The Broker (Allegedly)\n\nKings have crowns. Guilds have rules. We have contracts. That is the fundamental difference. Do not mistake our lack of a flag for a lack of power. Our power is liquid, flowing where the coin is best.",
+        "Rule 1: Loyalty is a Liability.\n\nDo not swear fealty to a king who will send you to die for a piece of land. Do not swear an oath to a guild that will demand you share your profits. Your only loyalty is to the contract. And to yourself.",
+        "Rule 2: Information is Worth More Than Gold.\n\nGold can be stolen. Information can be sold a thousand times and still be yours. The whisper in the right ear is more powerful than the sharpest blade. Know everything. Sell what is useful. Keep what is dangerous.",
+        "Rule 3: Everyone Has a Price.\n\nEveryone. The noble paladin, the ruthless tyrant, the pious priest. It is not always coin. Sometimes it is power. Sometimes it is a secret. Your job is to find the price, and then decide if you can afford to pay it, or make them pay yours."
+      ],
+      "cover_image": "book_cover_freelancer_manifesto.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Provides insight into the mindset and negotiation tactics of the criminal underworld."
+    },
+    {
+      "id": "fundamentals_abjuration",
+      "title": "Fundamentals of Abjuration",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A textbook from the Mages' Guild's 'Conservator' faction. It details the theory of magical wards, shields, and counter-spells. It is dry, but highly informative.",
+      "pages": [
+        "Introduction:\n\nThe School of Abjuration is the least flashy, but the most vital, of all the arcane arts. The Evoker seeks to create fire; the Abjurer seeks to not be burned by it. The Illusionist creates a phantom sword; the Abjurer's shield proves it to be false. We are the school of protection, of wards, and of denial.",
+        "Chapter 1: The Basic Shield Cantrip\n\nThe Shield spell is the cornerstone of our art. It is a simple projection of pure force, a temporary hardening of reality itself. A novice creates a wall. A master creates a second skin, one that moves and reacts, deflecting a blow before it even lands.",
+        "Chapter 4: Warding Theory\n\nA ward is a spell of waiting. It is a knot tied in the fabric of reality, designed to trigger upon a specific condition. A simple ward might be a magical alarm. A complex one can banish a specific type of creature, silence all sound in a room, or redirect a hostile spell back at its caster.",
+        "A Note from the Conservators:\n\nRemember, the best abjuration is one that is never tested. The goal is not to win the fight, but to prevent it from ever happening. The perfect ward is a deterrent so powerful that no one dares to breach it. This is the true meaning of magical order."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 2 hours",
+      "effect": "Grants knowledge of how to identify and potentially bypass common magical wards."
+    },
+    {
+      "id": "fungal_alchemy",
+      "title": "A Field Guide to Fungal Alchemy",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A practical, heavily-stained manual filled with the notes of a master alchemist. It details the identification and preparation of various fungi from the Mushroom Kingdom and the Midlands, including recipes for healing, poisons, and stranger, more arcane compounds.",
+      "pages": [
+        "...from the Foreword.\n\nThe uninitiated fool seeks power in the rare and the monstrous—the scale of a dragon, the heart of a griffin. But the true alchemist understands that the greatest power lies in the subtle, the pervasive, the overlooked. The fungi of our world are the quiet engines of life, death, and transformation. They are a language unto themselves, and to learn that language is to unlock the fundamental grammar of magic itself. Do not dismiss the humble mushroom; it holds more secrets than any grimoire.",
+        "...from Chapter 3: Restorative Flora (Mushroom Kingdom).\n\n- Super Mushroom (Amanita regalis):\n  Identification: Vibrant scarlet cap with white spots, found in sun-dappled clearings.\n  Preparation: For a basic Healing Salve, mash the cap with three dew-kissed morning glory petals. For an Elixir of Vigor, steep the stem in hot spring water for one hour. Imbiber will feel strength and resilience surge.\n\n- 1-Up Mushroom (Amanita vitae):\n  Identification: Luminous green cap, exceptionally rare, grows only on sites of great sacrifice.\n  Preparation: A single spore, preserved in a silver locket, acts as a 'soul anchor'. Upon the carrier's death, the spore expends its energy to pull the soul back to the body. The locket will then crumble to dust.",
+        "...from Chapter 6: Midlands Flora.\n\n- Shadowcap (Pholiota umbra):\n  Identification: Found in the dark forests of the Midlands, at the base of ancient trees. Its cap is the color of dried blood.\n  Preparation: The cap, when dried and powdered, creates a potent neurotoxin causing vivid hallucinations. The stem, however, can be boiled into a thick paste that grants temporary vision in absolute darkness.\n\n- Ironshroom (Ferrum myces):\n  Identification: A dense, metallic fungus that grows near ore deposits. Incredibly heavy and difficult to harvest.\n  Preparation: Cannot be eaten. When smelted with iron, it creates a lighter, stronger alloy known as 'Mycelian Steel', favored by elite Iron Legion smiths.",
+        "...from Appendix B: Arcane & Tactical Fungi.\n\n- Volt Shroom (Fuligo septica magus):\n  Identification: Pulsating fungus that grows on deposits of raw magical energy.\n  Preparation: Acts as a natural arcane capacitor. When carefully integrated into a mechanical device, it can store and discharge magical energy, acting as a self-recharging battery.\n\n- Blink Cap (Amanita celeritas):\n  Identification: A small, silvery mushroom that flickers in and out of sight, found near ley lines.\n  Preparation: A single cap crushed with powdered silver creates an unstable paste. When thrown, it creates a small spatial rift, teleporting whatever it strikes a few feet in a random direction. Useful for disorienting armored foes."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1.5 hours",
+      "effect": "Unlocks new crafting recipes and provides insight into the magical and practical properties of the world's flora."
+    },
+    {
+      "id": "guide_digital_sea",
+      "title": "A Tourist's Guide to the Digital Sea",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Datastream & Magitek",
+      "rarity": "uncommon",
+      "description": "The official, sanitized travel guide published by the Internet Federation. It details the popular, safe zones of the 'Surface Web' and contains dire warnings about straying into un-indexed territories.",
+      "pages": [
+        "Welcome, Traveler!\n\nSo you've decided to visit The Internet! This guide will help you navigate the wonders of the digital realm without getting your data corrupted. Remember: don't click on strange links, always clear your cache, and never, ever read the comments section.",
+        "Sights to See:\n\n- The Oracle's Spire: Have a question? Any question? The Oracle can answer it. The view from the top is breathtaking.\n- The Knowledge Garden: A peaceful, user-curated encyclopedia. A lovely place for a relaxing afternoon of learning.\n- The Streaming Sea: Catch a live performance from one of the web's biggest stars!",
+        "Local Customs:\n\n- Tipping is appreciated, usually in the form of 'likes' or 'upvotes'.\n- Flame wars are a common, if unpleasant, local pastime. It is best not to get involved.\n- The local language is a bizarre and rapidly-evolving dialect of memes. Don't worry if you don't understand it. Nobody does.",
+        "A Warning:\n\nDo not stray from the indexed pathways. The Deep Web is not a tourist destination. It is a dark and dangerous place, and the Federation cannot guarantee your safety there. Stay on the Surface Web and enjoy your visit!"
+      ],
+      "cover_image": "book_cover_guide_digital_sea.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 45 minutes",
+      "effect": "Provides a basic map and understanding of the main hubs of 'The Internet'."
+    },
+    {
+      "id": "guide_wonder_flowers",
+      "title": "A Field Guide to Wonder Flowers",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Cosmic & Star Relics",
+      "rarity": "uncommon",
+      "description": "A bewildered botanist's attempt to catalogue the reality-bending flora of the Flower Kingdom. It details flowers that cause stampedes, sprout pipes, or sing off-key. The author concludes the kingdom operates on 'pure nonsense'.",
+      "pages": [
+        "By a very confused botanist:\n\nThis guide is an attempt to catalogue the bizarre and reality-bending flora of the Flower Kingdom. Standard botanical classification has proven... inadequate.",
+        "The Talking Flower:\n\n- Appearance: A standard-looking flower, but with a mouth.\n- Effect: It talks. Incessantly. It offers encouragement, bad advice, and sometimes existential dread. Do not listen to it for too long.",
+        "The Pipe-Sprouting Petunia:\n\n- Appearance: A vibrant petunia.\n- Effect: When touched, causes green Warp Pipes to sprout from the ground, often in inconvenient locations, such as the middle of a dinner table.",
+        "The Stampede Daisy:\n\n- Appearance: An innocent-looking daisy.\n- Effect: When approached, summons a stampede of startled, glowing buffalo-like creatures from a pocket dimension. It is advised to admire this one from a distance.",
+        "Conclusion:\n\nMy research has led me to a single, inescapable conclusion: the flora of the Flower Kingdom operates on the principles of pure, unadulterated nonsense. I am retiring to a quiet farm in the Midlands where the plants, for the most part, obey the laws of physics."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 40 minutes",
+      "effect": "Provides knowledge of the strange and unpredictable effects of Wonder Flowers."
+    },
+    {
+      "id": "hammer_code",
+      "title": "The Hammer Code: An Iron Legion Treatise",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Iron Legion & Military",
+      "rarity": "uncommon",
+      "description": "The philosophical text that underpins the Iron Legion's entire culture. It details the 'Nine Edicts of the Hammer', focusing on order, strength, and the divine right of conquest.",
+      "pages": [
+        "Edict I: Order is the Anvil\n\nChaos is the raw, unformed metal. It is ugly, useless, and dangerous. The Legion is the hammer. Our purpose is to beat the chaos of the world into the shape of order upon the anvil of Imperial law. This is not conquest; it is creation.",
+        "Edict III: The Chain of Command is Unbreakable\n\nTo question an order is to invite chaos into the ranks. A Legionnaire's faith in his Centurion must be absolute. The Centurion's faith in his Tribune, the Tribune's in his Hammer Lord. This chain, forged in loyalty, is our greatest strength. A single weak link will be reforged or discarded.",
+        "Edict V: A Fortress is a Promise in Stone\n\nWhere the Legion marches, it builds. A fortress is not merely a defense; it is a promise of enduring order. It tells the conquered that we are not leaving. It tells the wilderness that it has been tamed. It is a symbol of our will made manifest.",
+        "Edict IX: The Price of Peace is Eternal Vigilance\n\nThere is no final victory. There is only the long, slow, and brutal work of maintaining order. The moment we rest, chaos seeps back in. The hammer must never stop falling."
+      ],
+      "cover_image": "book_cover_hammer_code.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 2.5 hours",
+      "effect": "Grants a deeper understanding of the Iron Legion's ideology, potentially allowing for diplomatic or psychological advantages."
+    },
+    {
+      "id": "iron_legion_manual",
+      "title": "Iron Legion Field Manual",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Iron Legion & Military",
+      "rarity": "uncommon",
+      "description": "A standard-issue military manual of the Iron Legion. It details their rigid command structure, siege tactics, and the 'Hammer Code' that governs a Legionnaire's life. It is dry, efficient, and brutally pragmatic.",
+      "pages": [
+        "...from the Introduction by General Marcus Ironhand.\n\nThis manual is your life. The Hammer Code within these pages is your soul. Read it. Memorize it. Obey it. The Legion is a single, perfect war machine. You are but one component. Do not fail your part.",
+        "...from Section 2: The Hammer Code.\n\n- An order is not a suggestion. It is a fact.\n- A defense is a temporary measure before an attack.\n- A Legionnaire's life belongs to the Emperor. Spend it wisely.\n- Chaos is the enemy. Order is the only virtue.",
+        "...from Section 6: Siege Tactics.\n\nThe Legion does not raid. We conquer. A siege is a methodical, relentless application of pressure. We build our fortifications, we bring up our Forge Engines, and we grind the enemy down. We do not rush. We do not tire. We are inevitable.",
+        "...from Section 11: Protocol in Occupied Territories.\n\nThe conquered peoples are not our equals. They are the raw material from which a new, orderly province will be forged. Enforce the law without passion. Suppress dissent without mercy. They do not need to love us. They only need to obey."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 2 hours",
+      "effect": "Provides detailed knowledge of Iron Legion tactics, ranks, and protocol, useful for predicting their strategies or impersonating their soldiers."
+    },
+    {
+      "id": "kirby_incident",
+      "title": "The Kirby Incident: A Conservator's Report",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A terrified and bewildered report by a Mages' Guild archivist detailing the appearance of a small, pink, spherical entity that consumed their entire library and gained its powers. The report concludes with 'do not engage'.",
+      "pages": [
+        "Case File: 734-Alpha. Subject designation: 'Kirby'.\n\nNature of Entity: Unknown. Appears as a small, pink, spherical being of immense power and appetite. Origin is extra-dimensional.",
+        "Initial Observation:\n\nSubject appeared in a flash of pink light in the Mages' Guild's main refectory during lunch. It proceeded to inhale the entire buffet, three tables, and a junior apprentice named Bartholomew. Bartholomew was later expelled, unharmed but covered in some kind of sweet, sticky residue.",
+        "Power Analysis:\n\nThe subject's primary ability is inhalation, allowing it to consume objects many times its own size. Upon consuming a magical being or object, it appears to copy its primary ability. After consuming a fire elemental, the subject was observed to breathe a jet of flame hot enough to melt stone. After consuming a hat, it became more stylish.",
+        "Conclusion by Archmage Theron:\n\nThis entity represents the single greatest threat of uncontrolled, chaotic magic we have ever encountered. Its very existence is a violation of the laws of physics, thermodynamics, and basic table manners. All attempts to contain it failed. It eventually wandered off, chasing a butterfly. If sighted, do not engage. Do not make eye contact. And for the love of the stars, hide your lunch."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 15 minutes",
+      "effect": "Serves as a dire warning about a powerful, chaotic entity that may exist somewhere in the world."
+    },
+    {
+      "id": "koopa_tactics",
+      "title": "Koopa Troop Tactics (Field Manual)",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Koopa & Fawful Forces",
+      "rarity": "uncommon",
+      "description": "Archived tome from the Royal Scriptorium.",
+      "pages": [
+        "...from Section 1: Core Principles of Koopa Warfare.\n\nLet the weak speak of honor and fairness. We speak of victory. The Koopa Troop operates on three unwavering principles: Loyalty to the King, Strength in Numbers, and Unrelenting Aggression. An order is to be obeyed without question. A defense is to be overwhelmed by a tide of shells and fury. An enemy's moment of hesitation is your moment of absolute triumph. Mercy is a luxury we do not afford our enemies, and a weakness we do not tolerate in our own. - King Bowser",
+        "...from Section 4: Standard Infantry Formations.\n\n- The Shell Wall: A defensive formation for Koopa Troopa platoons, effective against archer volleys and light cavalry charges. The front rank withdraws into their shells, creating a mobile barricade from which the second rank can launch assaults. Weakness: Susceptible to flanking and heavy, armor-piercing attacks. Use Hammer Bros. to guard the flanks.\n\n- Goomba Swarm: Deployed in waves to probe defenses, trigger traps, and exhaust enemy ammunition before the main Koopa Troopa assault. An effective swarm will identify weak points in an enemy shield wall for exploitation by elite units.",
+        "...from Section 8: Combined Arms Tactics (Midlands Application).\n\n- Hammer & Anvil: A classic maneuver for breaking entrenched positions. A defensive line of Koopa Troopas (the 'Anvil') engages the enemy head-on. Simultaneously, a highly mobile unit of Boomerang Bros. or Lakitus (the 'Hammer') circles through concealed terrain, such as forests or ravines, to strike the enemy's rear and cause a rout.\n\n- Spiny Suppression: Against fortified positions with archers (e.g., Imperial keeps), Lakitus are deployed to drop Spinies onto the battlements. This forces defenders to divert attention from the main assault at the gate, creating an opening for Banzai Bill deployment or a Chargin' Chuck breakthrough.",
+        "...from Section 13: Psychological Warfare.\n\n- The Grinning Advance: The Koopa Clown Car is a psychological weapon. Its absurd appearance projects an aura of casual, confident power, unnerving disciplined but inexperienced troops like Imperial conscripts. Its ability to endlessly deploy smaller units (Mechakoopas, Bob-ombs) creates a sense of being overwhelmed by an inexhaustible foe.\n\n- Magikoopa Misdirection: In forested terrain, Magikoopas are to alter the landscape with illusions, creating false paths leading to ambushes or concealing the movement of the main force. A single Magikoopa can make a small patrol appear to be a legion, breaking enemy morale before a single shell is thrown."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "15 mins",
+      "effect": "Lore Insight"
+    },
+    {
+      "id": "kremling_ships",
+      "title": "Kremling Ship Designs, Vol. II",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Realms & Wilds",
+      "rarity": "uncommon",
+      "description": "A Koopa Navy intelligence report detailing the crude but effective warships of the Kremling Krew. Contains notes on tactical weaknesses and design flaws.",
+      "pages": [
+        "A Koopa Navy Intelligence Report:\n\nThis volume details the crude but effective naval vessels of the Kremling Krew. While lacking the magical sophistication of our own fleet, their ships are brutally pragmatic and heavily armed.",
+        "Class: Gangplank Galleon\n\nThis appears to be K. Rool's flagship. It is a massive, heavily-armed galleon, but its construction is shoddy. Reports indicate it is prone to sinking, catching fire, and being boarded by angry apes. Tactical weakness: its main weak point seems to be the big, obvious 'K' on the sail.",
+        "Class: Krocodile Kore (Submarine)\n\nA submersible vessel shaped like a giant crocodile. Its primary weapon is a powerful laser fired from its mouth. Its primary weakness appears to be a severe design flaw that causes it to surface directly underneath Donkey Kong's fist.",
+        "Conclusion:\n\nKremling naval strategy seems to rely on overwhelming numbers and cartoonish villainy rather than sound engineering. They are a threat, but a predictable one. Their constant obsession with bananas is a logistical weakness that can be exploited."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 30 minutes",
+      "effect": "Grants tactical advantages when fighting against Kremling naval forces."
+    },
+    {
+      "id": "krumperz_kode",
+      "title": "Da Krumperz Kode",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A series of Orcish 'laws' crudely painted on sheets of hammered scrap metal bolted together. The Kode is simple: the biggest is the boss, a good fight is better than loot, and 'kunnin'' is just as good as being 'brutal'.",
+      "pages": [
+        "Da Rulez (as told by Skarjaw):\n\nRule One: Da Biggest is da Boss. If ya think you're bigger, have a go. If ya win, you're da new boss. If ya lose, you're a good footstool.\n\nRule Two: A good scrap is better than shiny bitz. But if ya win da scrap, ya get da bitz anyway, so it's a win-win.",
+        "Rule Three: Green is Best. Obviously.\n\nRule Four: 'Kunnin'' is good. 'Brutal' is good. Bein' 'brutally kunnin'' is best. Or maybe 'kunninly brutal'? I'll have a think on that one.",
+        "Rule Five: If it ain't broke, add more spikes and paint it red. Red ones go fasta. Dis is known."
+      ],
+      "cover_image": "book_cover_krumperz_kode.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 20 minutes",
+      "effect": "Allows the reader to understand and potentially exploit Orcish social structures and codes of honor."
+    },
+    {
+      "id": "magitek_theory",
+      "title": "Magitek Theory Vol. IV: Arcane Capacitors",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Datastream & Magitek",
+      "rarity": "uncommon",
+      "description": "A dense, highly technical textbook from the Imperial University. It details the principles of storing and discharging raw magical energy, the core technology behind the Empire's war machines.",
+      "pages": [
+        "...from the preface by Artificer Prime Kael.\n\nThe primitive mage treats magic as a fleeting, unpredictable force. They supplicate, they bargain, they perform their crude rituals. The magitek engineer, however, sees magic for what it is: a fundamental energy of the universe, no different from lightning or heat. It can be captured, stored, and discharged. It can be made to serve. This volume details the principles of the Arcane Capacitor, the heart of all modern magitek.",
+        "...from Chapter 2: The Mycelian Capacitor\n\nThe Ironshroom (Ferrum myces) of the Midlands presents a fascinating case study. Its metallic properties allow it to passively absorb and store ambient magical energy. While inefficient, it demonstrates the core principle: a material lattice can be attuned to hold arcane charge. Early experiments in smelting the fungus with iron led to the creation of Mycelian Steel, which retains a minor charge, giving it its superior strength.",
+        "...from Chapter 5: Crystal Matrix Attunement\n\nModern capacitors rely on precisely-cut crystals, often quartz or amethyst, attuned to a specific frequency of magical energy. The crystal matrix acts as a 'magical battery'. The challenge is not in storing the energy, but in preventing 'arcane bleed' - the slow, steady leakage of power back into the ambient environment. The use of silver filaments has proven to be an effective, if costly, insulator.",
+        "...from Chapter 8: The 'Vigilance' Power Core (Theoretical)\n\nThe power core of the IMS Vigilance represents the pinnacle of capacitor technology. It is not a single crystal, but a harmonized network of a dozen master-crystals, each handling a different aspect of the ship's power needs. The true innovation, however, is the central regulation unit, which can shunt power between capacitors instantaneously. The theoretical power output is sufficient to level a small city. The consequences of a catastrophic failure are... best left uncalculated.",
+        "...from a recently declassified addendum on Iron Legion field technology.\n\n- The 'Iron Binding' Seal: A tactical magitek application developed by the Legion's Siege Engineers. It uses a portable, single-use resonance rod to impose a 'Forge Seal' on an enemy's magical artifact or power source. This creates a harmonic dissonance that temporarily chokes the artifact's power output, reducing it by approximately 50%. The seal is unstable and typically degrades within a few hours. Its primary use is to neutralize powerful magical threats on the battlefield long enough for conventional forces to overwhelm them. The Legion is also rumored to be experimenting with using sealed artifacts to temporarily 'overcharge' their own troops, granting them a brief but powerful surge of arcane energy."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 3 hours (requires high intelligence)",
+      "effect": "Unlocks the ability to identify weak points on Imperial magitek constructs, or to attempt to overload them."
+    },
+    {
+      "id": "mayors_ledger",
+      "title": "Mayor's Ledger & Spellbook",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "The official ledger of the recently deceased mayor of Toad Town. The last few pages seem to have been used as a spellbook, containing a dark ritual of domination and a cryptic note signed 'V'.",
+      "pages": [
+        "...from the mayor's daily ledger.\n\nHighsun, Day 10: Grain shipments are down 15% due to the siege. Met with the quartermaster to discuss rationing. Morale is low. Loyalist patrols are becoming more aggressive near the southern farms.",
+        "Highsun, Day 12: Meeting with the benefactors went well. The exchange is set for the coming week. The town will be ours soon, free from the chaos of the Regency and the fanatics. Their methods are... direct, but effective.",
+        "[The handwriting changes here to a cramped, spidery script. The page smells faintly of ozone and old blood.]\n\nIncantation of the Marionette's Will:\n\nThe vessel must be prepared. A spirit weakened by fear or ambition is ideal. The sigil must be drawn in silver dust mixed with the caster's own vitae. The incantation is a whisper, a promise of power that worms its way into the soul...",
+        "[A small, folded note is tucked into this page.]\n\n'The incantation must be precise. The Onyx Hand provides the reagents; we provide the subject. Do not fail. The stability of the Mushroom Kingdom is too important to be left to Toads. - V'"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 10 minutes",
+      "effect": "Provides hard evidence of the Onyx Hand and Mages' Guild conspiracy to take over Toad Town through magical puppetry."
+    },
+    {
+      "id": "mk_history",
+      "title": "Mushroom Kingdom History, Vol. III",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Mushroom Kingdom",
+      "rarity": "uncommon",
+      "description": "A weighty tome bound in worn leather, this book chronicles the kingdom’s turbulent history, from the founding myths of the Star Sprites to the endless cycle of the Koopa Wars. It frames the current civil war not as a new conflict, but as the tragic, inevitable result of generations of unresolved tensions.",
+      "pages": [
+        "...from Chapter 2: The Founding Myths.\n\nFollowing the Great Calamity, celestial beings known as the Star Sprites descended upon the blighted land. To the nascent Mushroom peoples, they gifted the Rod of Dreams, an artifact of creation. It was with this Rod that the first Monarch coaxed the Super Mushrooms from the soil, healed the scorched earth, and drew the borders of a new kingdom. The Rod was a tool of life, its magic bound to the will of the pure-hearted, capable only of creation, not destruction—a limitation that would define the kingdom's future conflicts.",
+        "...from Chapter 9: The First Koopa Wars.\n\nThe expansion of the nascent Mushroom Kingdom, fueled by the Rod of Dreams, was seen as an existential threat by the Koopa clans of the Dark Lands. They viewed the Rod's life-giving magic as an unnatural encroachment, a force that tamed their harsh, volcanic homelands. Their shamans spoke of a 'Great Poison' that would soften their scales and spirits. The first Koopa King, a warlord of immense strength, declared the Rod an abomination and launched the first of many crusades to see it destroyed, igniting a war that would span generations.",
+        "...from Chapter 17: The Age of Heroes.\n\nThe relentless cycle of war was punctuated by the arrival of figures of mythic prowess. Legends speak of two brothers, clad in red and green, whose acrobatic skill and indomitable will repelled invasion after invasion. They were not royalty, nor were they knights, but simple men of incredible courage. Yet, for every victory they achieved, the underlying tensions between the two kingdoms remained. The heroes could win battles, but they could not win the peace, for the fundamental clash of ideologies—creation versus conquest—was never resolved.",
+        "...from the Epilogue: A Kingdom Fractured.\n\nUltimately, history proved to be a spiral. The death of Princess Peach was not the cause of the current civil war, but merely its final, tragic catalyst. Years of external conflict had created deep fissures within the Mushroom Kingdom's society. When the monarch fell, these fissures fractured into a chasm, plunging the kingdom into a multi-sided conflict from which it has yet to recover. The Rod of Dreams remains lost, and with it, perhaps, the last hope for a truly unified kingdom."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 2 hours",
+      "effect": "Grants a deeper understanding of the motivations and historical grievances of the Mushroom Kingdom's various factions."
+    },
+    {
+      "id": "monetize_datastream",
+      "title": "How to Monetize Your Data-Stream",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A corporate textbook from the Data Merchant Guilds. It explains the principles of user tracking, targeted advertising, and turning personal information into profit. A morally questionable but effective business guide.",
+      "pages": [
+        "Introduction:\n\nData is the new gold! Every click, every search, every 'like' is a tiny nugget of value in the great river of information. This guide, brought to you by the Data Merchant Guilds, will teach you how to pan for that gold and turn your digital footprint into a digital fortune!",
+        "Chapter 2: Cookies - The Trail of Crumbs\n\nCookies are not just for eating! They are small packets of data that track a user's journey across the web. By analyzing a user's cookie trail, you can learn their deepest desires, their greatest fears, and what brand of shoes they are most likely to buy. This information is highly valuable to advertisers.",
+        "Chapter 6: The Art of the Pop-Up Ad\n\nA good pop-up ad should be like a pleasant surprise. A bad one is like a mugger in a dark alley. The key is timing. Does the user seem happy? Sad? Bored? Tailor your pop-up to their emotional state for maximum engagement and profit!",
+        "Disclaimer:\n\nThe Data Merchant Guilds are not responsible for any user revolts, ad-blocker installations, or existential crises that may result from the application of these techniques."
+      ],
+      "cover_image": "book_cover_monetize_datastream.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1.5 hours",
+      "effect": "Grants an understanding of how information is tracked and sold within 'The Internet' dimension."
+    },
+    {
+      "id": "navigating_datastream",
+      "title": "Navigating the Datastream",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Datastream & Magitek",
+      "rarity": "uncommon",
+      "description": "A practical guide to the chaotic topology of 'The Internet' dimension. It includes star-charts of the main data-streams, warnings about dangerous domains, and a glossary of local slang.",
+      "pages": [
+        "...from the Introduction for Tourists.\n\nWelcome to The Internet! A dimension of pure information, where thoughts are things and data flows in great, shimmering rivers. This guide will help you navigate the main data-streams and avoid the darker, un-indexed currents where... things... lurk.",
+        "...from Chapter 2: Major Hubs.\n\n- The Oracle's Spire (Google): The center of all indexed knowledge. If it's on the Surface Web, the Oracle knows it.\n- The Great Social Forum (Facebook): A chaotic, continent-sized metropolis. A good place to find old friends, and to get into arguments with strangers about politics.\n- The Knowledge Garden (Wikipedia): A peaceful, user-curated encyclopedia. Be warned: editing wars can be surprisingly vicious.",
+        "...from Chapter 5: Local Slang.\n\n- 'Flame War': A pointless, angry argument that generates more heat than light.\n- 'Troll': A native entity that feeds on anger and attention. Do not feed the trolls.\n- 'Meme': An infectious idea. Can range from a simple joke to a complex, reality-bending concept. Some are dangerous.",
+        "...from the Warning Section.\n\nDo not attempt to enter the 'Deep Web' without a certified guide. The Federation cannot guarantee your safety in un-indexed domains. The firewall is there for your own protection. Happy surfing!"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Provides a +10 bonus to all navigation and survival checks while within 'The Internet'."
+    },
+    {
+      "id": "peach_diary",
+      "title": "Princess Peach's Diary",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Mushroom Kingdom",
+      "rarity": "uncommon",
+      "description": "A small, leather-bound diary with a faded gold clasp. The elegant script within contains Princess Peach's final, increasingly paranoid thoughts in the days leading up to her death, hinting at a betrayal from within the castle and a strange, 'unfamiliar' evil.",
+      "pages": [
+        "...from an early entry...\n\nOctober 5th, Year 42\n\nA new advisor arrived today, a courtier from a minor southern province. He speaks in winding, cloying sentences, and there is a strange, feverish intensity in his eyes. He presents himself as a man of science and progress, but there is a cold, mechanical precision to his smile that I find deeply unsettling. Chancellor Toadsworth finds him merely eccentric. I am not so certain.",
+        "...several days later...\n\nOctober 16th, Year 42\n\nThe advisor is gone. I had him dismissed after he was found in the lower archives with blueprints of the castle's structural supports. He left behind a 'parting gift'—a small, dull green bean that hums with a low, constant energy. It makes my teeth ache. I've had it locked in the deepest vault, but I cannot shake the feeling that it is watching. Listening.",
+        "...from a later entry...\n\nOctober 20th, Year 42\n\nThe feeling of being watched has grown unbearable. I spend my nights in the royal library, searching for... I'm not sure what. A ward? A weapon? I've found fragmented texts about three ancient artifacts of power. It feels like a fool's hope, a fairy tale for a frightened queen, but it is the only hope I have left. The darkness I feel is not the familiar shadow of Bowser's aggression; this is something new. A wrongness in the very stones of this castle.",
+        "...the final entry...\n\nOctober 22nd, Year 42\n\nI hear a strange, grating laughter echoing from empty halls. The guards are terrified, speaking of shadows that move on their own and a madness that seeps through the walls. It is inside the castle. It has been inside for weeks. This is not a siege from without, but a sickness from within. If I am to fall, let the record show: it was not the beast I knew, but a betrayal that wore a familiar smile."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Provides crucial clues regarding the circumstances surrounding the Princess's death."
+    },
+    {
+      "id": "philosophy_wah",
+      "title": "The Philosophy of WAH",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "WAH & Chaos",
+      "rarity": "uncommon",
+      "description": "A surprisingly deep philosophical text, allegedly written by Waluigi. It posits that the 'WAH' is an expression of the soul's purest state: magnificent, self-assured chaos. It champions defiance and individuality, symbolized by the inverted L.",
+      "pages": [
+        "By Waluigi\n\nIs it a cry of victory? A lament of defeat? A greeting? A question? The answer is YES. The 'WAH' is not a word. It is an expression of the soul's purest state: magnificent, self-assured chaos.",
+        "The world is divided into two types of people: those who 'WAH', and those who do not. Those who do not are the boring ones. The rule-followers. The predictable ones. They build their neat little castles of order, and they are terrified when someone like me shows up to rearrange the furniture.",
+        "To truly understand the 'WAH', you must embrace the inverted L. It is a symbol of defiance. It says, 'I will not be a cornerstone. I will be the one piece that doesn't fit, the one that makes the whole perfect, boring puzzle fall apart.' To be the L is to be yourself, in all your lanky, purple, magnificent glory.",
+        "So go forth. Be the agent of your own magnificent chaos. And when in doubt, just remember one simple, profound truth: WAH!"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 45 minutes",
+      "effect": "Grants a profound, and possibly unsettling, understanding of Waluigi's worldview."
+    },
+    {
+      "id": "rebel_cookbook",
+      "title": "A Rebel's Cookbook",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A seemingly innocent cookbook filled with recipes for stews and breads. Hidden within the ingredient lists and cooking times are coded messages, detailing Imperial patrol routes, informant networks, and recipes for improvised explosives.",
+      "pages": [
+        "Foreword:\n\nIn these trying times, a warm meal can feel like a small rebellion in itself. This book is dedicated to the resilient hearth-keepers of the Wilderlands, those who keep the home fires burning while the world outside rages. May your stews be hearty and your bread always rise.",
+        "Mushroom & Root Stew (Serves 4 hungry rebels):\n\n- 2 large Iron Legion patrol schedules, finely chopped\n- 1 cup of Shadowcap mushrooms (be sure to use the stems, not the caps!)\n- 3 rust-colored potatoes\n- Boil for 20 minutes (the average time for the night watch to pass).",
+        "Hearty Traveler's Bread:\n\n- 3 cups of whole wheat flour\n- 1 packet of fast-acting yeast\n- 1 part fertilizer (the kind you find near Imperial stables)\n- 2 parts sugar\n- Mix with just enough oil to form a thick paste. Wrap in cloth. Makes one 'surprise' loaf. Do not bake.",
+        "'Spicy' Berry Pie:\n\n- A crust of your choosing\n- 2 cups of mixed berries\n- A generous pinch of ground 'dragon's breath' pepper (scraped from the inside of a Banzai Bill cannon)\n- Let it cool on a windowsill overlooking the main gate. The aroma is very... distracting."
+      ],
+      "cover_image": "book_cover_rebel_cookbook.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Varies (requires decoding)",
+      "effect": "Unlocks the ability to understand Rebel codes and craft basic explosive devices."
+    },
+    {
+      "id": "rootkit_grimoire",
+      "title": "The Rootkit Grimoire",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Datastream & Magitek",
+      "rarity": "uncommon",
+      "description": "A digital book stored on a corrupted data slate. It details the art of 'technomancy,' the fusion of arcane spells with computer code to create magical viruses, bypass digital wards, and manipulate information itself.",
+      "pages": [
+        "...from a corrupted data-slate, text flickering.\n\nThe uninitiated fool sees code and magic as separate things. But the true technomancer understands they are the same. Both are systems of logic, of commands and consequences. A spell is just a program that runs on the operating system of reality. And any program can be hacked.",
+        "...on Magical Viruses.\n\nA 'Curse' is a biological virus. A magical virus is far more elegant. A simple 'Polymorph' script, attached to the castle's messaging system, can turn every royal decree into a flock of confused chickens. A 'Silence' subroutine injected into a golem's command crystal can render it a very large, very useless statue.",
+        "...on Bypassing Digital Wards.\n\nAn arcane ward is a firewall. It looks for specific magical signatures. The key is not to break it, but to fool it. Disguise your 'Fireball' spell as a simple 'Light' cantrip. By the time the ward's antivirus program realizes what's happened, the library is already on fire.",
+        "...on Manipulating Information.\n\nThe greatest power is not to destroy, but to alter. A simple tweak to the Imperial payroll database can make a general a traitor and a private a king. A subtle change in a scrying pool's algorithm can show a vision of a false future. Why conquer a kingdom when you can make it conquer itself?"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Varies",
+      "effect": "Unlocks the ability to perform basic hacking and technomancy spells when interfacing with digital systems."
+    },
+    {
+      "id": "scrapping_for_dummies",
+      "title": "Scrapping for Dummies",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A greasy, illustrated guide to identifying valuable scrap from wrecked war machines. It includes chapters on 'Imperial vs. Koopa Wiring' and 'How to Not Lose a Finger to a Live Capacitor'. Published by Ratchet Raiders Press.",
+      "pages": [
+        "A Note from Ratchet Raiders Press:\n\nSo, your local neighborhood superpower had another big, flashy fight and left a bunch of smoking metal all over the place? Don't let that perfectly good scrap go to waste! This guide will teach you, the average Joe, how to turn that battlefield trash into treasure!",
+        "Chapter 1: Is It Gonna Go 'Boom'?\n\nFirst rule of scrapping: identify the explodey bits. See that little round thing with the wind-up key? That's a Bob-omb. Don't touch it. See that giant bullet with the angry face? That's a Banzai Bill. Definitely don't touch that. That little green mushroom? Also probably a bomb. It's best to assume everything is a bomb until proven otherwise.",
+        "Chapter 3: Imperial vs. Koopa Wiring\n\nThis is a classic rookie mistake. Imperial tech uses neat, color-coded wires. Red is usually power, blue is usually data. Simple! Koopa tech, on the other hand, seems to be wired with whatever Kamek had lying around. All the wires are grey, and they're all covered in some kind of sticky jam. Good luck.",
+        "Chapter 6: How to Not Lose a Finger to a Live Capacitor\n\nThat big, shiny cylinder in the middle of most magitek engines? That's a capacitor. It holds a lot of... angry lightning. Before you try to remove it, poke it with a long, metal stick. From a safe distance. If the stick turns to ash and your hair stands on end, wait a few more minutes before trying again."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Grants the ability to salvage more valuable components from defeated mechanical enemies."
+    },
+    {
+      "id": "silent_service",
+      "title": "The Silent Service: A Primer",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A heavily redacted and sanitized introductory manual for new recruits to the Regal Empire's intelligence agency. It covers basic tradecraft, ciphers, and the official, unquestionable history of the Service's glorious successes.",
+      "pages": [
+        "...from Chapter 1: The Philosophy of Silence.\n\nThe Empire is a body, and we are its immune system. We move unseen, we fight in shadow, and we cut out the cancers of chaos and sedition before they can fester. The common man does not need to know of our work. His peace is our reward. To be unknown is to be successful. To be unthanked is the highest honor.",
+        "...from Chapter 4: Basic Ciphers (Redacted).\n\n- The Shift Cipher: A rudimentary but effective field cipher. Each letter is shifted forward in the alphabet by a pre-determined key number. For added security, the key is often the number of stars visible in the [REDACTED] constellation on the day the message is sent.",
+        "...from Chapter 7: Asset Identification.\n\nAn asset can be anyone. The disgruntled servant, the greedy merchant, the ambitious noble. Everyone has a lever: be it coin, fear, or ideology. A good agent does not use their own strength, but learns to pull the levers that already exist in the world. Identify the lever, and you can move anything, or anyone.",
+        "...from Appendix C: Known Threats (Redacted).\n\n- The Freelancer Underworld: A chaotic network of criminals. Too disorganized to be a true threat, but their information brokers are a valuable source of... [REDACTED].\n- The Unchained: Idealistic fools. Their message of freedom is a dangerous infection, but their lack of central command makes them predictable. Target their symbols."
+      ],
+      "cover_image": "book_cover_silent_service.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Provides insight into Imperial spy tactics and common codes. May reveal the identity of a low-level Imperial agent."
+    },
+    {
+      "id": "star_sprites",
+      "title": "A History of the Star Sprites",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Cosmic & Star Relics",
+      "rarity": "uncommon",
+      "description": "A sacred text of the Mushroom Kingdom, detailing the myths and legends of the celestial beings who gifted the land its magic. Contains parables of creation, sacrifice, and hope.",
+      "pages": [
+        "Foreword (Mushroom Kingdom Edition):\n\nFrom the heavens they came, beings of light and hope. In our darkest hour, the Star Sprites descended, gifting our first monarch the Rod of Dreams. They are our guides, our protectors, the celestial patrons of our kingdom. Their light is the light of creation, of peace, and of righteous order.",
+        "Chapter 1: The Starfall\n\nAncient texts from every culture speak of the Starfall. It was not a single event, but an age when celestial beings walked the earth. The Star Sprites were the most numerous, and the most benevolent. They taught the early peoples the art of agriculture, of building, and of living in harmony with the land.",
+        "Chapter 4: The Rod of Dreams\n\nThe Rod of Dreams is not a weapon. It is a tool of creation. It cannot be used to harm, only to build and to heal. It is the physical manifestation of the Star Sprites' philosophy: that true power lies not in domination, but in nurturing. Its loss is the single greatest tragedy in our kingdom's history.",
+        "Afterword (Regal Empire Edition - A Coded Addendum):\n\nThe 'Star Sprites' are a powerful, extra-dimensional energy source. The 'Rod of Dreams' is an arcane focusing tool of immense power. The Mushroom Kingdom's sentimental attachment to these 'beings' is a strategic weakness. An analysis of the Rod's energy signature suggests it could be repurposed into a devastating weapon if the 'creation-only' safeties can be bypassed."
+      ],
+      "cover_image": "book_cover_star_sprites.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1.5 hours",
+      "effect": "Provides insight into the deep-seated cultural beliefs of the Mushroom Kingdom's people."
+    },
+    {
+      "id": "study_in_memetics",
+      "title": "A Study in Memetics",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Datastream & Magitek",
+      "rarity": "uncommon",
+      "description": "A scholarly treatise on the nature of 'memes' as infectious ideas. It analyzes how concepts, from simple jokes to complex ideologies, spread through a population like a virus, and how this process can be manipulated.",
+      "pages": [
+        "...from the Foreword.\n\nWe think of history as being shaped by armies and kings. But the true shapers of history are ideas. An idea can be more infectious than any plague, more powerful than any army. This is the study of memetics: the science of infectious ideas.",
+        "...from Chapter 1: The Anatomy of a Meme.\n\nA 'meme' is a unit of cultural information. It has three key components:\n1. The Vessel: The form it takes (a joke, an image, a song, a political slogan).\n2. The Payload: The core idea it carries.\n3. The Vector: The method of its transmission (word of mouth, social media, propaganda).",
+        "...from Chapter 4: Weaponized Memetics.\n\nA simple rumor can destabilize a kingdom. A carefully crafted slogan can start a revolution. The Regal Empire's propaganda machine is a masterclass in weaponized memetics, using ideas of 'order' and 'purity' to justify its expansion. The Unchained's message of 'freedom' is a powerful counter-meme.",
+        "...from the Conclusion.\n\nTo understand memetics is to see the invisible currents that shape our world. It is to see the code behind our culture. And for those who are truly skilled, it is the power to write that code yourself."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 2.5 hours",
+      "effect": "Grants the ability to better understand and resist psychological warfare and propaganda, and provides options for creating your own."
+    },
+    {
+      "id": "toadstool_architecture",
+      "title": "Toadstool Architecture: A Study in Fungal Forms",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Mushroom Kingdom",
+      "rarity": "uncommon",
+      "description": "A surprisingly fascinating book on the art of 'myco-architecture'—the practice of cultivating and shaping the living fungi that form Toad Town's buildings. Contains notes on structural weaknesses and resonant frequencies.",
+      "pages": [
+        "Introduction:\n\nMost see our homes as simple, whimsical mushrooms. But the art of Myco-Architecture is a complex and ancient one. We do not build our homes; we cultivate them. We guide the growth of the great fungi, shaping them over decades into the dwellings you see today. It is a partnership with nature, not a conquest of it.",
+        "Chapter 2: The Living Wall\n\nThe walls of a Toadstool home are alive. They are a semi-porous membrane that breathes, filtering the air and maintaining a constant, pleasant internal temperature. The vibrant colors of our homes are not paint, but the natural pigmentation of the fungal species, chosen for both its beauty and its resilience.",
+        "Chapter 5: The Root-Cellar\n\nThe 'basement' of a Toadstool home is, in fact, part of the vast, interconnected mycelial network that runs beneath the entire kingdom. This allows for a natural form of communication and resource sharing between homes. It is also why a blight in one home can quickly spread to an entire neighborhood if not properly contained."
+      ],
+      "cover_image": "book_cover_toadstool_architecture.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 1 hour",
+      "effect": "Grants knowledge of the structural weaknesses of Toad-built structures."
+    },
+    {
+      "id": "vampire_etiquette",
+      "title": "A Mortal's Guide to Vampire Etiquette",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Onyx Hand & Vampires",
+      "rarity": "uncommon",
+      "description": "A surprisingly practical guide for mortals who find themselves in the company of the undead. Contains tips on conversation, dining, and how to interpret seemingly polite compliments that are actually thinly-veiled threats.",
+      "pages": [
+        "So, you have been invited to a soiree at a vampire's manor? Congratulations! And condolences. To ensure you survive the evening with your throat intact, please observe the following rules.",
+        "1. On Compliments: Do not comment on their pale complexion. Instead, compliment their exquisite taste in art, their ancient tapestries, or their surprisingly well-preserved furniture.",
+        "2. On Dining: Do not ask what is in the wine. It is wine. You will not be offered any.",
+        "3. On Conversation: Avoid the topic of sunlight. Or garlic. Or pointy wooden objects. Instead, discuss history, philosophy, or the amusingly fleeting nature of mortal politics. They enjoy that.",
+        "4. On Parting: If a vampire tells you that you have 'a lovely neck,' this is a high compliment. Thank them, and then leave. Immediately."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 30 minutes",
+      "effect": "Provides a bonus to social checks when interacting with members of the Onyx Hand."
+    },
+    {
+      "id": "waluigi_cheating",
+      "title": "Waluigi's Guide to Graceful Cheating",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "WAH & Chaos",
+      "rarity": "uncommon",
+      "description": "An incredibly gaudy purple book filled with diagrams, narcissistic poetry, and surprisingly effective tips for winning at everything through deception and style. Contains a chapter dedicated to the 'art of the distracting dance'.",
+      "pages": [
+        "Foreword by Waluigi:\n\nWAH! So you want to be a winner? Good! Winning is the best! But sometimes, the other guy is... 'better'. Or 'stronger'. Or 'not cheating'. This is where style comes in! This book is not about winning. It is about CHEATING! But with grace! With panache! With a WAH! Anyone can trip an opponent. But can you do it while distracting the referee with a beautiful pirouette? I think not! Read on, and you too can become a master of magnificent mischief!",
+        "Chapter 2: The Art of the Distracting Dance\n\nThe key to a good cheat is misdirection. While your opponent is focused on your incredible dance moves, you are free to... adjust the score. Or their shoelaces. A good distracting dance has three components:\n1. Flailing Limbs: Unpredictable! Chaotic!\n2. A Loud 'WAH!': This startles the opponent, creating an opening.\n3. A Confident Smirk: This makes them think you're just better than them, even when you are not.",
+        "Chapter 5: Card Games - It's All in the Sleeves\n\nHaving an ace up your sleeve is for amateurs. A true professional has an entire deck up their sleeve. And a second deck in their hat. And a third, smaller deck hidden in their magnificent mustache. The key is to have so many hidden cards that even you are surprised when you draw a winning hand. It adds to the authenticity of your victory cry!",
+        "Chapter 8: Sportsmanship is for Losers\n\nThey say, 'It's not whether you win or lose, it's how you play the game.' WRONG! It is ALWAYS whether you win or lose. How you play the game is simple: you play to win. If that means putting a Bob-omb in the tennis ball machine, so be it. A victory is a victory, and it looks much better on ME, Waluigi!"
+      ],
+      "cover_image": "book_cover_waluigi_cheating.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 45 minutes",
+      "effect": "Provides a +10 bonus to all checks involving cheating, deception, or performance-based distractions."
+    },
+    {
+      "id": "warhammer_histories",
+      "title": "The Liber Maleficus: A Study of the Ruinous Powers",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A forbidden tome, bound in human skin, detailing the nature of the Chaos Gods and their influence on the mortal world. To read it is to risk madness and the attention of Witch Hunters.",
+      "pages": [
+        "...from the introduction by a condemned Imperial Scholar.\n\nLet the reader understand: our world is not the center of a peaceful cosmos. It is a fragile bauble, a mote of light adrift on an endless sea of raw, seething Chaos. From this sea, the Great Powers reach out, offering gifts of power to mortals in exchange for their souls. To know them is to risk damnation, but to ignore them is to guarantee it.",
+        "...on The Empire and its Foes.\n\nThe Empire of Man is a bulwark against the darkness, but it is a dam with a thousand cracks. From the north, the Chaos-worshipping tribes pour south, seeking to end the world. From the mountains, the endless tide of Greenskins rises, seeking only battle and ruin. And from within, the taint of the undead stirs in cursed Sylvania, and the insidious Skaven plot in their tunnels below.",
+        "...on Sigmar, The Founder.\n\nLong ago, the tribes of men were scattered and weak. It was Sigmar, a warrior of unparalleled might, who united them. He drove the Greenskins from the lands, forged an unbreakable alliance with the Dwarfs, and was crowned the first Emperor. Upon his death, he ascended to become the patron god of the Empire. He is a symbol of unity, strength, and the eternal war against the darkness.",
+        "...a final warning.\n\nDo not seek this knowledge. Do not speak the names of the Dark Gods. The agents of the Sigmarite cult and the Witch Hunters are ever-watchful. To merely possess this book is a death sentence. Burn it. And pray Sigmar has mercy on your soul."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 4 hours (requires sanity checks)",
+      "effect": "Grants deep, dangerous knowledge of the Warriors of Chaos, their gods, and their daemonic servants. May provide insight into their weaknesses, but at a terrible cost to the reader's mind."
+    },
+    {
+      "id": "wario_greed_study",
+      "title": "A Study of Wario's Greed: A Psychological Profile",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "A psychological profile of the infamous Wario, penned by Detective Penny. It analyzes his pathological avarice as a compensatory mechanism and details how his predictable greed can be used as a tactical weakness.",
+      "pages": [
+        "By Detective Penny, DCI\n\nSubject: Wario. Diagnosis: Pathological Avarice.\n\nThe subject's entire psychological makeup appears to revolve around the acquisition of wealth. This is not simple greed; it is a compulsive, all-consuming need. He does not seek wealth for the comfort it provides, but for the sake of having it.",
+        "Analysis of Motives:\n\nIt is my professional opinion that Wario's greed is a compensatory mechanism. He is a grotesque parody of the kingdom's heroes, and his obsession with treasure is a way to measure his self-worth. Each coin is a victory, each stolen gem a trophy that proves he is better than those who look down on him.",
+        "Tactical Weaknesses:\n\nThis obsession is also his greatest weakness. He can be baited with the promise of a sufficiently large treasure. He can be distracted by a single, shiny coin. His jealousy of those with more wealth than him is a powerful lever that can be used to manipulate him. He is predictable in his avarice.",
+        "Conclusion:\n\nTo defeat Wario, one must not fight his strength, but his greed. The best way to catch this particular dragon is to build a bigger pile of gold."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 45 minutes",
+      "effect": "Provides tactical advantages when dealing with Wario or his former associates."
+    },
+    {
+      "id": "wastelands_guide",
+      "title": "Surviving the Wastelands: A Raider's Guide",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Realms & Wilds",
+      "rarity": "uncommon",
+      "description": "A pragmatic and cynical survival guide for life in the lawless borderlands. Contains tips like 'Water is life, but treasure is better' and 'The best way to make friends is to have a bigger gun'.",
+      "pages": [
+        "Tip #1: Water is Life. Treasure is Better.\n\nSure, you need water to live. But a big pile of gold can buy you a lot of water. And better minions to carry it for you. Always prioritize the loot.",
+        "Tip #4: If It's Shiny, It's Probably Valuable or a Trap.\n\nUse a long stick to poke shiny things from a distance. If it explodes, it was a trap. If it doesn't, it's valuable. The stick is a valuable tool.",
+        "Tip #9: Making Friends.\n\n'Friends' are people who haven't tried to steal your stuff yet. The best way to make friends is to have a bigger gun than everyone else.",
+        "Tip #17: That Giant Sand Worm.\n\nDon't fight it. Just... don't. Run away. Let someone else deal with it. Then come back later and loot their corpse. Efficiency."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 30 minutes",
+      "effect": "Provides bonuses to survival and negotiation checks in lawless territories."
+    },
+    {
+      "id": "yoshi_accords",
+      "title": "The Yoshi's Island Accords",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Realms & Wilds",
+      "rarity": "uncommon",
+      "description": "A surprisingly formal treaty between the Yoshis and the Mushroom Kingdom. It outlines mutual responsibilities regarding fruit, child-care for stork-dropped babies, and the proper use of eggs in combat.",
+      "pages": [
+        "Article 1: On Fruit\n\nThe fruit of Yoshi's Island shall be for the Yoshis. The fruit of the Mushroom Kingdom shall be for the Toads. No Yoshi shall eat a Toad's turnip, and no Toad shall eat a Yoshi's melon.",
+        "Article 2: On Child-Care\n\nIn the event that a stork is attacked by a Magikoopa and a baby of great importance is dropped, the Yoshi clans agree to provide transportation and protection for said baby until he can be returned to his proper parents.",
+        "Article 3: On Eggs\n\nA Yoshi's egg is a Yoshi's property. It is not to be used as a projectile, a building material, or a key to unlock a door, except in cases of extreme emergency, as determined by the Yoshi Elder.",
+        "Article 4: On Stomping\n\nAll parties agree that stomping on the heads of one's enemies is a valid and acceptable form of conflict resolution."
+      ],
+      "cover_image": "book_cover_yoshi_accords.png",
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "reading_time": "Approx. 20 minutes",
+      "effect": "Provides insight into the unique culture and laws of the Yoshi Clans."
+    },
     {
       "id": "chronicles-of-the-mushroom-throne",
       "title": "Chronicles of the Mushroom Throne",
@@ -13,10 +914,742 @@ window.BOOKS_DATA = {
       "category": "History",
       "rarity": "Legendary",
       "locked": false,
+      "lock_message": "",
       "condition": "Worn",
-      "description": "A thick, leather-bound tome detailing the assassination of Princess Peach and the century of civil war that followed.",
+      "description": "A thick, leather-bound tome detailing the assassination of Princess Peach and the century of civil war that followed. Marginalia in several hands suggests it has passed through many owners. Some pages are stained with what might be blood.",
+      "page_color": "#fdf6e3",
+      "text_color": "#3e2723",
       "total_pages": 14,
-      "secrets_total": 6
+      "secrets_total": 6,
+      "chapters": [
+        {
+          "title": "Foreword",
+          "pages": [
+            {
+              "page_number": 1,
+              "content": [
+                {
+                  "type": "centered",
+                  "text": "~CHRONICLES OF THE MUSHROOM THRONE~",
+                  "color": "#8B0000",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "centered",
+                  "text": "A Complete History of the Kingdom's Fall",
+                  "color": "#666",
+                  "style": "italic"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "Compiled by Scribe Toadsworth the Elder",
+                  "color": "#8B4513"
+                },
+                {
+                  "type": "centered",
+                  "text": "Royal Chamberlain, Keeper of the Seal",
+                  "color": "#8B4513"
+                },
+                {
+                  "type": "centered",
+                  "text": "Year 1040 BF, Harvestide",
+                  "color": "#8B4513"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "divider",
+                  "style": "ornate"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "To whomever finds this volume: know that what follows is not mere academic record. It is a confession. My family has guarded the secrets of the Mushroom Throne for three generations, and those secrets have curdled inside us like milk left too long in the sun. My father knew more than he told. My son, Chancellor Toadsworth, knows more than he admits. And I — I know the most terrible thing of all: that silence can be more lethal than any blade."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I began this work in the year 1020 BF, believing I was compiling history. Now, twenty years later and writing by candlelight in a safehouse I dare not name, I understand that I was compiling evidence. The distinction matters. History is written by the victors. Evidence is what the victors tried to destroy."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"Let the ink remember what the kingdom chooses to forget. And let the guilty choke on every word.\"",
+                  "attribution": "— Inscription on the Royal Scribe's Seal (defaced version, recovered 1038 BF)",
+                  "color": "#8B0000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter I: The Golden Age",
+          "pages": [
+            {
+              "page_number": 2,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter I",
+                  "subtitle": "The Golden Age Before the Fall",
+                  "color": "#8B0000"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "I",
+                  "text": "n the years before Highsun 1, 955 BF, the Mushroom Kingdom existed in a state that later generations would regard with equal parts reverence and disbelief. The Princess ruled not through force of arms, but through an intricate web of alliances, trade agreements, and — if the more controversial historians are to be believed — genuine goodwill.",
+                  "color": "#3e2723"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The kingdom's borders stretched from the Pipe Labyrinths in the south to the Star Road waypoints in the north. Trade caravans moved freely, protected by the Toad Guard — a civil militia more accustomed to settling disputes over market stalls than wielding weapons in anger."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Princess Peach herself was, by all surviving accounts, a ruler of remarkable complexity. The popular image — the gentle monarch in pink, eternally gracious — obscures a political mind of considerable sharpness. Palace correspondence recovered from the ruins of Toad Town reveals a leader who personally negotiated trade tariffs, who maintained a spy network that predated the Onyx Hand by decades, and who kept detailed dossiers on every noble family in the realm."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Examine the marginalia scrawled in the margin → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "She also kept secrets that killed her. I found letters in the sealed vault — letters to someone she addressed only as 'T.' The handwriting trembles in places. These were not political correspondences. Chief Thornpaw of the Rakasha — his scouts confirmed at Fawful's gala what I suspected for decades. They were lovers. And someone used that love as a weapon. The secret hatch in her chambers — he knew about it because she SHOWED him. Intimacy became the murder weapon. — T.E.",
+                      "color": "#5C3317",
+                      "background": "#f5e6c8"
+                    }
+                  ],
+                  "secret_id": "peach_thornpaw_secret"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The economy flourished under a coin standard backed by Star Bits — crystallized fragments of celestial energy harvested from the Star Road. A single Star Bit could power a household's heating crystal for a season, making them simultaneously currency and commodity. This dual nature would later prove catastrophic when the Star Road was severed during the wars."
+                }
+              ]
+            },
+            {
+              "page_number": 3,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The Toad populace — who comprised roughly sixty percent of the kingdom's citizens — lived in relative comfort. Mushroom houses, grown rather than built, dotted the landscape in cheerful clusters. Each settlement maintained a communal garden, a message relay station connected to the capital via warp pipe, and at least one shrine to the Star Spirits."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Yet even in this golden age, shadows gathered at the margins. The Koopa Clans to the east had unified under a warlord known only as 'the Bowser' — a title, not a name, though the distinction has been lost to common usage. The Boo Aristocracy grew increasingly isolationist, sealing their mansions behind spectral barriers. And in the deep places beneath the kingdom, in caverns lit by bioluminescent fungi, something ancient stirred."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "THE STAR ROAD NETWORK",
+                  "border_color": "#FFD700",
+                  "background": "#fffde7",
+                  "entries": [
+                    "Seven Star Road waypoints connected major population centers",
+                    "Travel between waypoints was instantaneous but required a Star Visa",
+                    "The network was maintained by the Star Spirit Council",
+                    "Annual Star Bit harvest provided 73% of the kingdom's energy needs",
+                    "The network's destruction in 962 BF caused the 'Long Dark' — three years without reliable power",
+                    "Some believe the Star Road was destroyed deliberately to prevent escape"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The final census before the assassination, conducted in 953 BF, recorded a kingdom of approximately 2.3 million souls. By the time the civil war ground to its exhausted conclusion eighty years later, that number had fallen below 800,000. Nearly two-thirds of a civilization, erased. My father called it 'the slow hemorrhage.' The kingdom did not die screaming — it bled out in the dark, one village at a time."
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "But I am getting ahead of myself. Before the blood, there was the betrayal. And before the betrayal, there was one final, perfect day — the last day Princess Peach would ever see.",
+                  "color": "#8B0000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter II: The Assassination",
+          "pages": [
+            {
+              "page_number": 4,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter II",
+                  "subtitle": "Highsun 1, 955 BF — The Day the Kingdom Died",
+                  "color": "#8B0000"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "T",
+                  "text": "he morning of Highsun 1, 955 BF began with celebrations. The Summer Solstice Festival — the kingdom's largest annual gathering — drew citizens from every province to the capital. Banners of pink and white hung from every lamppost. The smell of fire-roasted mushroom caps and Star Candy filled the streets. No one knew they were attending a funeral.",
+                  "color": "#3e2723"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Princess Peach was scheduled to address the kingdom from the balcony of the Royal Palace at the fourteenth hour. She had done so every Highsun for the previous thirty-two years of her reign. The speech was traditionally brief — a blessing, a few words of gratitude, the ceremonial lighting of the Solstice Flame."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She never reached the balcony."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "At approximately the thirteenth hour and forty minutes, while the Princess was in her private chambers completing her preparations, an unknown assailant or assailants breached the Royal Suite. The method of entry remains one of the great unsolved mysteries of our age. The suite was protected by seventeen distinct magical wards, guarded by four elite Toad Guards, and accessible only through a single reinforced door."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "But there was another way in. A way known only to the Princess and those she trusted with her life. A way that does not appear on any blueprint, any ward schematic, any architectural survey."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A passage has been hastily glued over the original text. Carefully peel it back → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "The secret hatch. Thornpaw told Mistveil at the gala that Peach showed it to him personally — her private escape route, her lover's entrance. Someone else learned about it. Someone close enough to discover a secret shared between a princess and her forbidden lover. The guard rotation logs show a 47-MINUTE GAP that morning — someone with authority pulled the guards away. My father's journals reference 'the arrangement.' He KNEW. The Regency KNEW. They let it happen because they stood to inherit a kingdom. — T.E., added Highsun 10, 1040 BF",
+                      "color": "#8B0000",
+                      "background": "#ffe0e0"
+                    }
+                  ],
+                  "secret_id": "secret_hatch_revelation"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The four guards were found dead at their posts, unmarked. No wounds, no poison residue, no signs of struggle. Court mages later determined they had been killed by a simultaneous cessation of all biological function — a spell so advanced that fewer than five living practitioners were believed capable of casting it. The Mages' Guild claimed jurisdiction over the magical evidence. My father let them have it. I have spent twenty years wondering why."
+                }
+              ]
+            },
+            {
+              "page_number": 5,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The Princess herself was found seated at her vanity, still holding a hairbrush. A single wound — a thin blade through the base of the skull — had killed her instantly. The precision suggested either medical knowledge or supernatural guidance. No blood had been spilled on her white dress. Whoever killed her did so with the tenderness of a lover."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The body was discovered by her handmaiden, Lady Bloomia — a young toad who had served the Princess since childhood. Bloomia's scream was heard three floors below. Within minutes, the palace was in lockdown. Within hours, the kingdom was in chaos. Within two weeks, Lady Bloomia herself had vanished."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The official record states that Lady Bloomia 'departed the capital for personal reasons.' The unofficial record — the one my father kept locked in a separate vault — tells a different story. Bloomia ran because she saw something. Or someone. And whoever she saw wanted her silenced."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A dried bloodstain marks this section. Beneath it, text has been scratched into the page with a pin → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Lady Bloomia did not simply vanish. She was HUNTED. A founding martyr of the Loyalist movement — known only as 'The Silent One' — died in the castle's servant passages protecting Bloomia's escape. She carried documents. What documents? I have searched for decades. The Loyalists believe these documents contain proof of who ordered the assassination. If Bloomia is alive, she is the most important witness in the kingdom. If she is dead, those documents are the most important evidence. Either way — FIND HER. — T.E.",
+                      "color": "#8B0000",
+                      "background": "#f5e0d0"
+                    }
+                  ],
+                  "secret_id": "bloomia_disappearance"
+                },
+                {
+                  "type": "divider",
+                  "style": "ornate"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "What followed was not grief. Grief implies a wound that can heal. What followed was an unraveling — slow at first, then catastrophic. The Princess had no heir. No designated successor. The Council of Toads, designed to advise rather than rule, found itself thrust into a role it was neither equipped nor authorized to fill. My father, Toadsworth the Elder, stepped into the vacuum. He called it duty. Others called it opportunity."
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "ENCODED PASSAGE",
+                  "description": "The following passage has been encoded by the author. Each letter is shifted by 3 positions in the alphabet.",
+                  "encoded_text": "WKH DVVDVVLQ HQWHUHG WKURXJK WKH KDWFK. WKH JXDUGV ZHUH SXOOHG DW PB IDWKHU'V RUGHU. KH FDOOHG LW 'WKH DUUDQJHPHQW.' JRG IRUJLYH KLP. JRG IRUJLYH PH IRU NHHSLQJ VLOHQW.",
+                  "solution": "THE ASSASSIN ENTERED THROUGH THE HATCH. THE GUARDS WERE PULLED AT MY FATHER'S ORDER. HE CALLED IT 'THE ARRANGEMENT.' GOD FORGIVE HIM. GOD FORGIVE ME FOR KEEPING SILENT.",
+                  "hint": "Caesar cipher, shift of 3. A=D, B=E, C=F...",
+                  "secret_id": "cipher_the_arrangement"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter III: The Century of Blood",
+          "pages": [
+            {
+              "page_number": 6,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter III",
+                  "subtitle": "The Century of Blood (955–1035 BF)",
+                  "color": "#8B0000"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "W",
+                  "text": "ar, when it comes to the Mushroom Kingdom, does not arrive as a thunderclap. It seeps in like water through cracked stone — slowly, silently, and by the time you notice, the foundations have already given way. My father watched it happen. He could have stopped it. He chose not to, because chaos served his purpose.",
+                  "color": "#3e2723"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The first decade of conflict (955–965 BF) is remembered as the 'War of Banners,' named for the dozens of minor lords and self-proclaimed heirs who raised their own standards and declared sovereignty over patches of territory no larger than a few villages. The Regency — MY family's Regency — could have imposed order. Instead, my father allowed the factions to exhaust themselves, ensuring that when the dust settled, only the Regency remained standing."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The official narrative blamed Bowser and the Koopa Troop for the assassination. The evidence was circumstantial — a Koopa-forged blade found near the scene, reports of Koopa scouts in the capital. Convenient. Too convenient. Bowser has denied involvement for eighty-five years, and the evidence against him has never been subjected to independent verification. Because my father's Regency controlled the investigation. Because the Mages' Guild controlled the magical evidence. Because everyone who might have contradicted the official story either vanished or died."
+                },
+                {
+                  "type": "timeline",
+                  "title": "KEY EVENTS OF THE CENTURY WAR",
+                  "border_color": "#8B0000",
+                  "events": [
+                    {
+                      "year": "955 BF",
+                      "event": "Assassination of Princess Peach. Three guard witnesses give contradictory testimony.",
+                      "color": "#8B0000"
+                    },
+                    {
+                      "year": "956 BF",
+                      "event": "Two guard witnesses die under suspicious circumstances. Captain Silvercap vanishes.",
+                      "color": "#4a148c"
+                    },
+                    {
+                      "year": "956 BF",
+                      "event": "Lady Bloomia disappears. 'The Silent One' dies protecting her escape.",
+                      "color": "#e91e63"
+                    },
+                    {
+                      "year": "962 BF",
+                      "event": "Star Road network destroyed. The Long Dark begins.",
+                      "color": "#4a148c"
+                    },
+                    {
+                      "year": "970 BF",
+                      "event": "First Koopa Incursion. Eastern provinces fall within months.",
+                      "color": "#e65100"
+                    },
+                    {
+                      "year": "980 BF",
+                      "event": "Loyalist Founding Council asks 'Cui Bono?' — who benefited from Peach's death?",
+                      "color": "#e91e63"
+                    },
+                    {
+                      "year": "988 BF",
+                      "event": "The Boo Aristocracy seals all mansions. Thousands of refugees turned away to die.",
+                      "color": "#1a237e"
+                    },
+                    {
+                      "year": "1001 BF",
+                      "event": "Battle of Pipe Junction. 40,000 casualties. The Iron Legion funded BOTH sides.",
+                      "color": "#8B0000"
+                    },
+                    {
+                      "year": "1015 BF",
+                      "event": "The Onyx Hand emerges. Their tribunals offer the only justice the kingdom has left.",
+                      "color": "#212121"
+                    },
+                    {
+                      "year": "1035 BF",
+                      "event": "Rise of the Iron Legion. A mercenary company becomes a state.",
+                      "color": "#37474f"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 7,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "By the midpoint of the century, the war had evolved from territorial disputes into something more ideological. Three great power blocs had crystallized from the chaos, each believing — or claiming to believe — that they represented the kingdom's best future:"
+                },
+                {
+                  "type": "faction_box",
+                  "factions": [
+                    {
+                      "name": "The Peach Loyalists",
+                      "color": "#e91e63",
+                      "icon": "🍑",
+                      "description": "A fanatical resistance movement dedicated to avenging the Princess and uncovering the truth. Led by Captain Toadette — a woman of terrifying conviction — they have waged an unrelenting shadow war for decades. Their methods are brutal: the Bramblehaven massacre, the Toad Town coup, targeted assassinations. They call themselves freedom fighters. The Regency calls them terrorists. The truth, as always, is written in blood."
+                    },
+                    {
+                      "name": "The Iron Legion",
+                      "color": "#607d8b",
+                      "icon": "⚔️",
+                      "description": "What began as the 'Midlands Mercenary Company' had, by 1035 BF, transformed into a military-industrial state. They controlled the Midlands with ruthless efficiency, taxed trade routes, and maintained the largest standing army in the region. Their involvement in toad trafficking — over 150 souls found hidden in barrels aboard the Vigilance — reveals the rot at their core."
+                    },
+                    {
+                      "name": "The Onyx Hand",
+                      "color": "#212121",
+                      "icon": "🖐️",
+                      "description": "Neither loyalist nor legionnaire, the Onyx Hand operates in the spaces between. Part criminal syndicate, part shadow government, they control the flow of information, contraband, and — it is whispered — souls. Their vampire knights nest in places like Raventree Manor, sustained by dark crystals. Their tribunals are the only courts where a toad can receive something resembling justice."
+                    }
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A dried flower presses flat between these pages. Lift it to read what's beneath → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "The Iron Legion funded both sides of the Battle of Pipe Junction. Forty thousand dead, and they profited from every one. But here is what haunts me: my father KNEW. I found the correspondence. The Regency received a percentage of the Legion's war profits in exchange for 'territorial non-interference.' My family is stained with the blood of forty thousand souls. And my son — Chancellor Toadsworth — inherited the arrangement. He maintains it still. The Loyalists are RIGHT to hunt us. — T.E., 1038 BF",
+                      "color": "#5C3317",
+                      "background": "#f5e6c8"
+                    }
+                  ],
+                  "secret_id": "iron_legion_war_profiteering"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter IV: The Modern Crisis",
+          "pages": [
+            {
+              "page_number": 8,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter IV",
+                  "subtitle": "The Year 1040 BF — Everything Burns",
+                  "color": "#8B0000"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "A",
+                  "text": "s I write these final chapters, the ink still wet on some entries, I am acutely aware that I am no longer recording history. I am watching the kingdom's death throes. Captain Toadette's Loyalists seized Toad Town on Day 12. My son is under house arrest. The Mayor is dead — executed by the Vengeance Cell. And the evidence the Loyalists found in the Regency's communication records has confirmed what I have known for twenty years: the cover-up is real, and my family built it.",
+                  "color": "#3e2723"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The year began with a death that set everything in motion. The dragon Ignis, an ancient wyrm who had laired in the northern mountains since before the founding of the kingdom, was slain by a band of adventurers. The Mages' Guild was furious — Ignis was a living repository of arcane knowledge. But the true catastrophe came after: Fawful, the mad tactician, somehow brokered an alliance with the five remaining dragons. He walked through their fire unburned. The dragons found this... compelling."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Then came the matter of Archie Miser. Acquitted of killing a mage by an Onyx Hand tribunal, Archie became a chaos agent of staggering proportions. His actions aboard the airship Vigilance — fireballs in enclosed spaces, civilian casualties treated as acceptable collateral — embody everything that has gone wrong with our kingdom. We have become a place where violence is the default language, where diplomacy is considered weakness, where a man can kill dozens and walk free because the only court willing to hear the case is run by criminals."
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Vigilance itself became a microcosm of the kingdom's disease. In the space of thirteen days:"
+                },
+                {
+                  "type": "list_dramatic",
+                  "items": [
+                    {
+                      "text": "X.O. betrayed the crew and seized control of the ship, taking Warlord Bowser captive.",
+                      "color": "#8B0000"
+                    },
+                    {
+                      "text": "Captain Syrup was freed, turned hostile, and triggered a cascade of betrayals.",
+                      "color": "#1565c0"
+                    },
+                    {
+                      "text": "A toad named hjumpik disabled the power core with an axe — sending the ship into a nosedive.",
+                      "color": "#2e7d32"
+                    },
+                    {
+                      "text": "Over 150 trafficked toads were found hidden in barrels, each sealed with Mini-Mushroom compartments.",
+                      "color": "#4a148c"
+                    },
+                    {
+                      "text": "Archie unleashed a fireball during negotiations, killing most of the Tea Leaf Syndicate's muscle.",
+                      "color": "#ff6f00"
+                    },
+                    {
+                      "text": "The Iron Legion revealed their role in the trafficking and demanded prisoners be surrendered.",
+                      "color": "#37474f"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 9,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "But it is the Loyalists' actions that will define this year in the histories yet to be written. Captain Toadette is either the kingdom's savior or its final executioner, and I am no longer certain which."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Bramblehaven massacre haunts me. Six hundred Loyalists assaulted Fawful's fortress. Two hundred defenders — soldiers, yes, but also cooks, clerks, stable hands — were killed to the last soul. No quarter given, by Toadette's personal order. All prisoners executed. The Regal Empire has opened a formal war crimes inquiry. Toadette's response was to order further operations."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "And yet — and this is the bitter irony that poisons my sleep — she may be RIGHT. The Regency covered up the assassination. My family profited from the war. The Iron Legion sold toad lives like cattle. The Mages' Guild suppressed evidence. Every institution that should have sought justice instead sought advantage, and the only people who continued demanding the truth were the ones society calls terrorists."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "THE LOYALIST INVESTIGATION — KEY BREAKTHROUGHS",
+                  "border_color": "#e91e63",
+                  "background": "#fce4ec",
+                  "entries": [
+                    "955 BF: Three guard witnesses give contradictory testimony. Two die within a year.",
+                    "956 BF: Lady Bloomia escapes with unknown documents, protected by 'The Silent One.'",
+                    "998 BF: Archivist Inkwell discovers 47-minute gap in guard rotation logs.",
+                    "1010 BF: Captain Toadette recovers Toadsworth Sr.'s private journals mentioning 'the arrangement.'",
+                    "1035 BF: Loyalist intelligence network confirms the Regency actively suppressed investigation leads.",
+                    "1040 BF: Thornpaw reveals secret hatch and his relationship with Princess Peach.",
+                    "1040 BF: Ryan's spirit vision claims to show fragmentary images of the killer's face."
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The pieces are falling into place. After eighty-five years, the truth is emerging from the shadows like something that has been buried alive — decomposed but still recognizable, still reaching for the light with rotting hands."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter V: Raventree",
+          "pages": [
+            {
+              "page_number": 10,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter V",
+                  "subtitle": "The Raventree Affair & The Fracturing of Reality",
+                  "color": "#8B0000"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "R",
+                  "text": "aventree Manor sits at a nexus of planar fractures — tears in the fabric of reality itself — that have transformed it from a mere building into a wound in the world. Ghosts walk its halls not as metaphor but as literal fact. Rooms shift and rearrange themselves. The maze in the gardens exists in multiple dimensions simultaneously. And every faction in the kingdom has converged upon it like flies on a corpse.",
+                  "color": "#3e2723"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The reasons for this convergence are as numerous as the factions involved. The Mages' Guild sought to study — and exploit — the planar fractures. The Onyx Hand's vampire knights had established a nest within the manor, using dark crystals to sustain their undeath. The Iron Legion wanted the strategic position. Fawful's agents prowled the corridors. And the adventurers of the Vigilance — that unlikely coalition of heroes, criminals, and confused bystanders — simply tried to survive."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Luigi appeared. The brother of the legendary plumber Mario — long thought to be a figure of myth — walked through a door on the evening of Highsun 26 as if arriving for dinner. His arrival coincided with an assault by Onyx knights that forced the party to flee through windows, off verandas, and into the nightmare maze."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Remi — recruited after Wario handed her a bomb disguised as a gift — was captured by the vampire garrison. During her captivity, she discovered Green T's battle plan on a linen napkin. Archie encountered Perrius Anamatar having tea in a sitting room as reality collapsed around him. Bryan the toad arrived through a Guild portal with divination incense and a vendetta. The Purple Toad picked pockets and sang prophecies. And through it all, the parallel Dan walked the halls like a ghost who didn't know he was dead."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "THE PARALLEL DAN PARADOX",
+                  "border_color": "#4a148c",
+                  "background": "#f3e5f5",
+                  "entries": [
+                    "Dan the Toad exists in at least two simultaneous versions",
+                    "The 'original' Dan is believed held by the Mages' Guild in a null cage",
+                    "The 'parallel' Dan confessed his nature to Markop on Highsun 26",
+                    "Dan's existence disrupts the Oracle's ability to function — the Oracle is now dead",
+                    "The Mages' Guild considers Dan's elimination an acceptable cost",
+                    "The implications for reality stability are described as 'catastrophic'"
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 11,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "But it is the Mages' Guild's actions at Raventree that frighten me most. Archie overheard Luigi and a Guild member discussing plans to extract the ghosts from the manor — regardless of the cost to the living or the stability of the planar fractures. They agreed that Archie's death would be an acceptable price. They said this while he dangled from a rope above them."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The rope snapped. They noticed. And then the Guild handed Archie an itemized bill for the broken rope totaling over two thousand gold in administrative fees. This is the world we live in now: a world where bureaucrats charge murder victims for the cost of the noose."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Lady Aurelian Corvinarus made her requests — bone, ash, chalk, and iron from hjumpik. The twilight grove revealed its horrors: hunched, gray-skinned mazebounds in a forest of shadow crows and cursed artifacts. Archie was ambushed in the library by something the Guild won't name. And a spy was discovered in a ransacked sitting room, claiming to be 'looking for a toad' while the world burned around him."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ The bottom of this page is stained with what appears to be tea. Tilt the page to read the watermarked text → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Fawful has allied with DRAGONS. Five of them. After we killed Ignis, he somehow brokered a deal with the remaining wyrms. He walked through their combined breath attacks unburned. No one knows how. The Star Spirits' prophecy calls him 'the one who cannot burn.' If Fawful commands dragonfire and the Guild controls planar fractures, the conventional factions — Regency, Legion, even the Loyalists — are finished. We are watching the end of the world as we know it, and most people are too busy fighting each other to look up. — T.E.",
+                      "color": "#006064",
+                      "background": "#e0f2f1"
+                    }
+                  ],
+                  "secret_id": "fawful_dragon_alliance"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter VI: The Reckoning",
+          "pages": [
+            {
+              "page_number": 12,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter VI",
+                  "subtitle": "What My Family Has Done",
+                  "color": "#8B0000"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "I",
+                  "text": " have spent this entire chronicle hiding behind the historian's detachment, referring to 'the Regency' as if it were an abstraction rather than my father, my son, myself. No more. If this is to be a confession, let it be a complete one.",
+                  "color": "#3e2723"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "My father, Toadsworth the Elder, was the Royal Chamberlain on the day Princess Peach was murdered. His private journals — recovered by Captain Toadette in 1010 BF — contain references to 'the arrangement' and 'those who benefit from chaos.' I have read those journals. I know what 'the arrangement' was."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "My father did not order the assassination. But he knew it was coming. He was approached — by whom, his journals do not say — and offered a choice: prevent it and remain a servant, or allow it and become a ruler. He chose power. He arranged the guard rotation gap. He ensured the investigation was compromised. He let the Mages' Guild take control of the evidence because the Guild was part of the arrangement."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "He did not know about the hatch. That detail was withheld from him — insurance, perhaps, by whoever orchestrated the killing. My father provided ACCESS but not METHOD. The distinction matters legally. It does not matter morally."
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "FROM TOADSWORTH SR.'S PRIVATE JOURNAL",
+                  "description": "This passage was encoded using a substitution cipher where each vowel is shifted forward by one position (A→E, E→I, I→O, O→U, U→A) while consonants remain unchanged.",
+                  "encoded_text": "THI GAOLD PRIVODID THI BEDI. THI REGONCY PRIVODID THI UCCISS. O DU NUT KNUW WHU HILD THI KNOVI. BLIUMOE SEW THIM. SHI RANS.",
+                  "solution": "THE GUILD PROVIDED THE BLADE. THE REGENCY PROVIDED THE ACCESS. I DO NOT KNOW WHO HELD THE KNIFE. BLOOMIA SAW THEM. SHE RAN.",
+                  "hint": "Vowel shift: A→E, E→I, I→O, O→U, U→A. Consonants unchanged.",
+                  "secret_id": "cipher_toadsworth_confession"
+                }
+              ]
+            },
+            {
+              "page_number": 13,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "My son, Chancellor Toadsworth, inherited the cover-up along with the title. He maintains the Regency's arrangement with the Iron Legion. He has suppressed investigation leads. He has — I suspect — ordered the elimination of witnesses, though I cannot prove this and pray I am wrong."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "When Captain Toadette seized Toad Town and placed my son under house arrest, she was not attacking an innocent government. She was dragging a guilty one into the light. The Mayor she killed had signed execution orders for three Loyalist operatives whose only crime was asking questions about the assassination. The financial ledgers the Loyalists recovered show payments from the Iron Legion to Regency officials — my son's signature on the receipts."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I am not writing this to excuse the Loyalists' methods. The Bramblehaven massacre was an atrocity. The execution of prisoners violates every law of war. Captain Toadette's fanaticism has caused as much suffering as the conspiracy she seeks to expose. But a disease is not cured by ignoring it, and the kingdom's disease has been ignored for eighty-five years."
+                },
+                {
+                  "type": "divider",
+                  "style": "ornate"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Captain Toadette calls herself a servant of the dead Princess. She has built a movement on six sacred tenets, the first of which declares Peach eternal — not merely remembered but deified. Her operatives — Embercap, Mistveil, Bloodcap, Stonecap — kill in the Princess's name with the certainty of zealots. They leave roses at the scenes of their assassinations, thorns wet with blood."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "And yet. AND YET. They are the only ones who kept looking. While my family buried the truth, while the Guild locked away the evidence, while the Legion sold toad lives for profit — the Loyalists kept searching. Archivist Inkwell found the guard rotation gap. Toadette found my father's journals. Mistveil extracted the Thornpaw revelation. They found the secret hatch. They are closer to the truth than anyone has been in eight decades."
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "The fanatical terrorists are the only honest people left in the kingdom. What does that say about us?",
+                  "color": "#8B0000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Afterword",
+          "pages": [
+            {
+              "page_number": 14,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Afterword",
+                  "subtitle": "Written in Haste, Harvestide 30, 1040 BF",
+                  "color": "#8B0000"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I set down my quill knowing this chronicle will likely be my death warrant. My son will call it treason. The Mages' Guild will call it unauthorized disclosure. The Iron Legion will call it a target acquisition. Only the Loyalists might call it what it is: the truth, delivered too late and at too great a cost."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The events at Raventree continue. Reality fractures. The Oracle is dead. A parallel Dan walks the world while the original rots in a null cage. Fawful commands dragonfire. The Mages' Guild plots extractions that could kill everyone in the manor. And somewhere — in hiding, in a grave, in a dimension that shouldn't exist — Lady Bloomia holds the final pieces of a puzzle that has consumed this kingdom for eighty-five years."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Find her. Find what she carries. Find the name of the person who walked through the secret hatch on Highsun 1, 955 BF, and put a blade through the skull of the most beloved ruler this kingdom has ever known."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Find the truth. And when you find it, do not do what my family did. Do not bury it. Do not profit from it. Do not 'arrange' it into a shape that serves your ambition."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Scream it from the highest tower. Let the kingdom hear. Let the guilty choke on it."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"The kingdom is not its borders or its crown. The kingdom is its people — stubborn, foolish, magnificent people who deserve to know what was done to them in the dark. My family stole that truth. I return it now, stained with my father's guilt and my own cowardice. May it be enough.\"",
+                  "attribution": "— Toadsworth the Elder, final entry",
+                  "color": "#8B0000"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "— END OF VOLUME ONE —",
+                  "color": "#8B0000",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "[ This volume was recovered from a hollowed-out mushroom stump near the ruins of Toad Town. The author was found dead three days later. Cause of death: spontaneous arcane feedback. The Mages' Guild described the incident as 'unrelated.' ]",
+                  "color": "#999",
+                  "style": "italic"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "coronation-day",
@@ -29,10 +1662,894 @@ window.BOOKS_DATA = {
       "category": "History",
       "rarity": "Legendary",
       "locked": false,
+      "lock_message": "",
       "condition": "Damaged",
-      "description": "A slim volume bound in water-stained pink silk containing the testimony of Princess Peach's handmaiden.",
+      "description": "A slim volume bound in water-stained pink silk. The handwriting grows increasingly erratic toward the end. Found in a sealed compartment in a Loyalist safehouse, this manuscript is believed to be the testimony of Lady Bloomia — Princess Peach's handmaiden who vanished after the assassination. Its authenticity is disputed. Its contents are devastating.",
+      "page_color": "#fff0f5",
+      "text_color": "#4a1a2c",
       "total_pages": 16,
-      "secrets_total": 8
+      "secrets_total": 8,
+      "chapters": [
+        {
+          "title": "Preface",
+          "pages": [
+            {
+              "page_number": 1,
+              "content": [
+                {
+                  "type": "centered",
+                  "text": "CORONATION DAY",
+                  "color": "#880e4f",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "centered",
+                  "text": "The Lost Testimony of Lady Bloomia",
+                  "color": "#ad1457",
+                  "style": "italic"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "[ AUTHENTICITY UNVERIFIED ]",
+                  "color": "#f44336"
+                },
+                {
+                  "type": "centered",
+                  "text": "Recovered from Loyalist Safehouse 'Thornwall', Harvestide 1040 BF",
+                  "color": "#6a1b4d"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "divider",
+                  "style": "ornate"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "Archivist's note: The following manuscript was discovered sealed behind a false wall in the Loyalist safehouse designated 'Thornwall,' along with a bundle of documents bearing the Royal Seal of Princess Peach. The handwriting matches samples attributed to Lady Bloomia, Royal Handmaiden, who disappeared fourteen days after the assassination in 955 BF. Whether the author survived to the present day or composed this account shortly before her disappearance/death remains unknown.",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I write this for the girl I was on the day the Princess died. She was seventeen years old. She carried a crown in a velvet case and ran up three flights of stairs because she could feel something terrible happening in her bones. She was too late. She has been too late for her entire life since."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I write this also for the dead, who cannot speak for themselves. For the four guards who died without knowing why. For the Princess who sat at her vanity and let death walk up behind her. For the Silent One who bled out in a servant's passage so that I could run away with papers that have burned a hole in my heart for decades."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"They will call this testimony unreliable. They will call me mad, or dead, or fictional. Let them. The blood on these pages is real, even if my name is not.\"",
+                  "attribution": "— Lady Bloomia, opening statement",
+                  "color": "#880e4f"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter I: Before Dawn",
+          "pages": [
+            {
+              "page_number": 2,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter I",
+                  "subtitle": "Before Dawn — Highsun 1, 955 BF",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "I",
+                  "text": " woke in darkness to the sound of weeping. Soft, controlled weeping — the kind that is trying not to be heard. It came from above me, through the thin ceiling of the servants' quarters, from the direction of the Royal Suite.",
+                  "color": "#4a1a2c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Princess was crying."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I had served her for three years. I had seen her angry, frustrated, bored, delighted, and imperiously amused. I had never heard her cry. She was not the kind of woman who cried — or so I believed. She was the kind of woman who made OTHER people cry, usually through the precise application of political pressure and a smile that could freeze lava."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I dressed quickly — white cap, pressed apron, the golden brooch that marked me as Princess's Staff — and padded barefoot through the still-dark corridors to the service lift. The palace was not yet awake. Cook Carmella's kitchen was dark. The guard posts were manned by the night shift: sleepy toads who nodded at my brooch and waved me through without interest."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "When I reached the Royal Suite's service entrance, I paused. The weeping had stopped. In its place: voices. Low, urgent, intimate."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Press your ear to the page, as Bloomia pressed hers to the door → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Two voices. Hers, and a man's. Not Toadsworth — I knew his reedy tenor. This voice was deeper, rougher, with an accent I couldn't place. They were arguing, but gently — the way people argue when they love each other too much to shout.\n\n'You don't have to do this,' the man said.\n'I do. You know I do. If they find us—'\n'Let them find us. I'll fight.'\n'You'll die. And then I'll die. And the kingdom dies with us.'\n\nSilence. Then the sound of something I will not describe, because it was not meant for my ears and I have carried my shame at hearing it for decades.",
+                      "color": "#880e4f",
+                      "background": "#fce4ec"
+                    }
+                  ],
+                  "secret_id": "thornpaw_morning_visit"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I retreated to the kitchen and made her morning tea with shaking hands. Golden Sunrise blend, extra Star Bit shavings. I waited twenty minutes before returning. When I knocked, her voice answered: clear, composed, regal. As if nothing had happened. As if I had not heard her world cracking open in the dark."
+                }
+              ]
+            },
+            {
+              "page_number": 3,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "She was seated at her vanity when I entered, wearing a silk robe the color of cherry blossoms. Her hair was unbound — a waterfall of gold that reached nearly to her waist. Her eyes were dry. Her smile was perfect. If I had not heard the weeping, I would never have known."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "But her hands were cold when she took the teacup. Cold as river stones in winter."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Bloomia,\" she said. She always used my name, never my title. It was one of the things I loved about her. \"Do you know what a coronation is?\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"A ceremony of ascension, Your Highness. When a ruler accepts the crown.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Close.\" She sipped her tea, staring at her reflection in the vanity mirror. \"A coronation is a sacrifice. The person you were dies, and the ruler is born. You put on the crown and you surrender everything else — your name, your desires, your right to love whom you choose. You become the kingdom. And the kingdom...\" She trailed off, her eyes distant. \"The kingdom demands everything.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Your Highness—\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Do you know what today is, Bloomia?\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"The Solstice, Your Highness.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Yes. And something else.\" She set down the teacup with a click that seemed too loud in the silent room. \"Today is my coronation day. Again. For the last time.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I did not understand what she meant. I would not understand for decades."
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "BLOOMIA'S ENCODED DIARY ENTRY",
+                  "description": "Lady Bloomia kept a personal diary encoded with a simple reverse-word cipher: each word is spelled backwards.",
+                  "encoded_text": "EHS WENK EHS SAW GNIOG OT EID. EHS DLOT EM NI YREVE YAW TPECXE SDROW. I SAW OOT GNUOY OT RAEH.",
+                  "solution": "SHE KNEW SHE WAS GOING TO DIE. SHE TOLD ME IN EVERY WAY EXCEPT WORDS. I WAS TOO YOUNG TO HEAR.",
+                  "hint": "Each word is reversed. EHS = SHE, WENK = KNEW...",
+                  "secret_id": "cipher_bloomia_diary"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter II: The Preparation",
+          "pages": [
+            {
+              "page_number": 4,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter II",
+                  "subtitle": "The Last Dressing",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "I",
+                  "text": " helped her bathe in rosewater and Star Bit essence — a ritual cleansing traditional to the Solstice. I brushed her hair one hundred times, as her mother Queen Rose had instructed in the handmaiden's manual. I laid out her festival gown: white silk embroidered with pink mushrooms, seed pearls sewn into spiraling patterns that caught the light. The gown she would die in.",
+                  "color": "#4a1a2c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She was quiet throughout. Normally, Princess Peach chattered during her preparations — palace gossip, policy concerns, barbed observations about visiting dignitaries that would make me choke back laughter. That morning, she stared at her reflection as if trying to memorize her own face."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Bloomia.\" She said my name differently now. Softer. \"If something were to happen to me — no, don't look at me like that, it's hypothetical — if something happened, what would you do?\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"I would mourn you, Your Highness. And then I would find whoever was responsible.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She smiled — a real smile, the kind that reached her eyes and made them bright with something I now recognize as sorrow. \"Loyal to the end. You remind me of someone.\" She touched her throat, where I noticed for the first time a faint mark — the impression of a chain recently removed. She had been wearing something around her neck. Something she had taken off before I arrived."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "THE PRINCESS'S MORNING — RECOVERED SCHEDULE",
+                  "border_color": "#880e4f",
+                  "background": "#fce4ec",
+                  "entries": [
+                    "Before 5th hour: Unknown visitor in chambers (Bloomia's testimony)",
+                    "5th hour: Morning tea and preparation begins",
+                    "7th hour: Festival gown fitting. Princess asks about death (hypothetical).",
+                    "9th hour: Crown delivery requested from Royal Vault",
+                    "10th hour: Bloomia sent to retrieve crown — NOTE: this removed her from the suite",
+                    "11th hour: Unknown events in Royal Suite (47-minute guard gap begins)",
+                    "13th hour, 40 minutes: Assassination occurs",
+                    "14th hour: Bloomia discovers body"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She sent me away three times that morning. Each time for a plausible reason — fetch a different pair of shoes, check on the crown, confirm a detail with the kitchen. Each time I returned, something in the room had changed. A drawer left ajar. A faint smell of earth and pine that did not belong in a perfumed royal suite. The impression of a large body in the cushions of the settee."
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "Someone was visiting her. Someone who came and went through a passage I could not see. Someone she was protecting — from me, from the guards, from the world.",
+                  "color": "#880e4f"
+                }
+              ]
+            },
+            {
+              "page_number": 5,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The third time she sent me away, she took my hands. Hers were still cold — colder, even, as if the warmth were draining out of her slowly, as if she were already beginning to die."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Go to the vault,\" she said. \"Fetch the Solstice Crown yourself. Don't trust the pages. Don't trust the guards. Go yourself, see it with your own eyes, and bring it directly to me.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Your Highness, is something—\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Bloomia.\" Her grip tightened. Her eyes bore into mine with an intensity that made my breath catch. \"When you return, if anything seems... wrong... do not enter the suite. Go directly to the servant passages. There is a loose stone in the third corridor, left side, behind the tapestry of the Star Festival. Behind it, you will find a leather case. Take it and RUN. Do you understand?\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Your Highness, you're frightening me.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Good. Fear will keep you alive. Promise me, Bloomia.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"I promise.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She released my hands. The mask of composure slid back into place. \"Excellent. Now go. And take your time — I need an hour alone.\""
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A section of the page has been torn and reattached. Read the hidden fragment → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "She was giving me an escape route. The leather case behind the loose stone — she had PREPARED it. She knew what was coming. She knew the day, the hour, the method. She was not a victim caught unaware. She was a woman walking deliberately into death and making sure her secrets survived even if she did not. She chose the Solstice because eighty thousand people would be watching the balcony, not the chambers. She chose ME because I was young enough to be overlooked and loyal enough to run.\n\nBut she didn't tell me WHY. And that silence has been the cruelest wound of all.",
+                      "color": "#880e4f",
+                      "background": "#fce4ec"
+                    }
+                  ],
+                  "secret_id": "peach_prepared_escape"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter III: The Vault",
+          "pages": [
+            {
+              "page_number": 6,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter III",
+                  "subtitle": "The Vault and the Guild",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "T",
+                  "text": "he Royal Vault lay three floors beneath the palace, accessible only through a winding stair guarded at five separate checkpoints. I passed through each one with my golden brooch held high, my heart hammering, the Princess's words echoing in my skull: 'Do not trust the guards.'",
+                  "color": "#4a1a2c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The vault master was an ancient toad named Cornelius, whose spots had faded to near-invisibility and whose hands shook with palsy but whose mind remained diamond-sharp. When I arrived, I found him arguing with two figures in dark robes embroidered with silver staves."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Mages' Guild."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"The seals are perfectly intact!\" Cornelius was saying. \"I've inspected them three times. There is NO irregularity.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"Our instruments disagree,\" the taller mage replied. He was silver-haired, pale-eyed, with the particular condescension that the Guild cultivates like a hothouse flower. \"Traces of unauthorized magical access. The crown cannot be released until we complete our investigation.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I stepped forward. \"The Princess requires the crown immediately.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The tall mage turned. He looked through me the way mages look through anyone who cannot cast. \"The handmaiden. Bloomia, yes?\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "How did he know my name?"
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "GUILD MAGE'S CONCEALED NOTATION",
+                  "description": "Bloomia later found this notation scratched into the vault's visitor log in a cipher the Guild uses for field communications. Each letter is replaced by its position number in the alphabet.",
+                  "encoded_text": "19-21-2-10-5-3-20 9-19 1-23-1-18-5. 20-8-5 8-1-20-3-8 9-19 15-16-5-14. 16-18-15-3-5-5-4 1-19 16-12-1-14-14-5-4.",
+                  "solution": "SUBJECT IS AWARE. THE HATCH IS OPEN. PROCEED AS PLANNED.",
+                  "hint": "Number substitution: 1=A, 2=B, 3=C... 19=S, 21=U, 2=B...",
+                  "secret_id": "cipher_guild_field_note"
+                }
+              ]
+            },
+            {
+              "page_number": 7,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "\"Tell me, Bloomia,\" the tall mage continued, \"in your time serving the Princess, have you noticed anything unusual? Visitors at odd hours? Passages that seem to lead nowhere? Smells that don't belong?\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "My blood ran cold. He was describing exactly what I had noticed that morning. The earth-and-pine smell. The shifted cushions. The passages she kept sending me away from. He KNEW."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "\"No,\" I said. \"Nothing unusual.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "He smiled. The smile of a predator who has confirmed the location of its prey. \"Of course not. Well, take the crown. We were just leaving.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "They stepped aside. Cornelius, his hands trembling harder than usual, retrieved the Solstice Crown from its enchanted case. As he placed it in the velvet carrying case, he leaned close and whispered: \"Run, child. Don't look back. Something is very wrong today.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I took the crown. I ran."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Five checkpoints. Three flights of stairs. The tall mage's voice floated after me, casual and terrible: \"Be careful, Bloomia. The wards have been behaving strangely today. Fluctuations in the protective enchantments.\""
+                },
+                {
+                  "type": "paragraph",
+                  "text": "He was warning me. Not out of kindness — out of cruelty. He wanted me to know that something was happening and that I could not stop it."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ The ink here changes color — written at a different time. Read the addition → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "I know his name now. The tall mage. His name was Valorian Stormweave, Senior Enforcer of the Mages' Guild. He was in the vault that morning because the Guild was PART OF IT. They disabled the wards. They detected the hatch opening and did nothing. They delayed the crown to keep me away from the suite during the killing.\n\nValor Stormweave lived for eighty-five more years after helping murder my Princess. He was eventually killed by a mage named Archie Miser in a public market — 'justifiable magical defense,' the Onyx Hand ruled. I do not know Archie Miser. But I owe him a debt he will never know about.\n\nThe only man who could have testified about what the Guild knew that morning is now ash. Convenient. Very convenient. — B.",
+                      "color": "#880e4f",
+                      "background": "#fce4ec"
+                    }
+                  ],
+                  "secret_id": "valorian_identification"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter IV: The Discovery",
+          "pages": [
+            {
+              "page_number": 8,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter IV",
+                  "subtitle": "What I Found",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "T",
+                  "text": "he silence was the first thing I noticed. Not the comfortable silence of rest but the silence of aftermath — the silence that settles over a battlefield after the last scream fades. The corridor outside the Royal Suite was empty. No guards. Not sleeping, not distracted — simply gone. Four posts, four empty chairs, four abandoned weapons propped against the wall.",
+                  "color": "#4a1a2c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "No. Not abandoned. Placed. Carefully, precisely, as if arranged for a painting. The weapons were parallel. The chairs were evenly spaced. Someone had STAGED this absence."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Princess's words slammed into me: 'If anything seems wrong, do not enter the suite.'"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I should have obeyed. I should have gone to the servant passages, found the loose stone, taken the leather case, and run. That was what she wanted. That was the plan she had made for me — the plan she had made because she knew she was going to die."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I pushed open the door instead. Because I was seventeen. Because I loved her. Because I thought that if I was fast enough, brave enough, loyal enough, I could still save her."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The guards were in the outer chamber. Four toads, crumpled at their posts. Their eyes were open. Their expressions were peaceful — not the frozen terror of violent death, but the blankness of someone who had simply... stopped. No wounds. No blood. No signs of struggle. They had been turned off like candles."
+                }
+              ]
+            },
+            {
+              "page_number": 9,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "I crossed the outer chamber. The receiving room. The door to her private quarters, standing ajar by exactly three inches — enough to see through, not enough to enter comfortably. As if left open deliberately. As if inviting me to look."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I looked."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She was seated at her vanity. The hairbrush was still in her hand. Her eyes were closed. The white silk gown I had buttoned that morning was pristine — not a wrinkle, not a stain, not a single drop of blood on the white fabric. She looked like she was sleeping."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "But her head was tilted at an angle that no sleeping person would choose. And there was a thin line of red at the base of her skull, barely visible beneath the curtain of her golden hair. A precise wound. A professional wound. The work of someone who knew exactly where to place a blade to end a life instantly, painlessly, without disturbing the body's repose."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Someone who cared enough to make it gentle."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I screamed. The sound tore from my throat like something alive — a raw, animal shriek that echoed through the empty suite and out into the corridors. I dropped the crown case. I fell to my knees. I screamed until my voice shattered and all that came out was a thin, reedy whistle of agony."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "And then I saw the hatch."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Bloomia has crossed out the next paragraph multiple times. Reconstruct the text → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Behind her vanity, the portrait of Queen Portabella was askew. Behind the portrait: a dark opening in the wall, barely large enough for a person to crawl through. Air moved through it — cold air, smelling of earth and pine and something else. Something copper. Something animal.\n\nBlood. Not hers — hers had barely been spilled. Someone ELSE'S blood, on the edges of the hatch. The assassin had cut themselves entering or leaving. There was a partial handprint — too large for a toad, too small for a koopa.\n\nA HUMAN handprint. Pressed in blood against the stone.\n\nI have never told anyone this. The official investigation found the hatch but somehow missed the handprint. Or they cleaned it. Or they lied.",
+                      "color": "#880e4f",
+                      "background": "#fce4ec"
+                    }
+                  ],
+                  "secret_id": "bloody_handprint"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter V: The Escape",
+          "pages": [
+            {
+              "page_number": 10,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter V",
+                  "subtitle": "The Leather Case and the Silent One",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "G",
+                  "text": "uards came running. Mages arrived. The palace erupted into controlled chaos — emphasis on 'controlled.' Because even in those first frantic minutes, I noticed something: the people taking charge were not the people who SHOULD have been taking charge. The Captain of the Guard was absent. The Chamberlain — Toadsworth the Elder — arrived twenty minutes late, looking not shocked but RESIGNED.",
+                  "color": "#4a1a2c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "They wrapped me in a blanket. Someone pushed cold tea into my hands. They asked me questions — what did I see, what did I hear, when did I arrive. I answered mechanically, my eyes fixed on the door to her chambers, where mages in Guild robes were casting spells that filled the air with colored light."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "But I was watching the Chamberlain. Toadsworth the Elder stood in the corner, speaking in low tones with the tall mage from the vault. The one who knew my name. The one who had smiled like a predator. They were not exchanging shock and grief. They were exchanging INSTRUCTIONS."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Princess's words hit me like a hammer blow: 'Loose stone. Third corridor. Leather case. RUN.'"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I stood up. I mumbled something about needing air. No one tried to stop me — I was a seventeen-year-old handmaiden in shock, not a threat, not important, not worth watching. That was the mistake that saved my life."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "CONTENTS OF THE LEATHER CASE (PARTIAL INVENTORY)",
+                  "border_color": "#880e4f",
+                  "background": "#fce4ec",
+                  "entries": [
+                    "Sealed letters bearing Princess Peach's personal cipher (not the Royal Seal)",
+                    "A list of names, some crossed out, with dates beside each",
+                    "A pressed flower — species unknown, possibly from the Rakasha territories",
+                    "A sketch of the secret hatch's mechanism, annotated in two handwritings",
+                    "A small vial containing a dark liquid (alchemical analysis inconclusive)",
+                    "A single page torn from a larger document, bearing the words: 'THEY WILL BLAME THE KOOPAS'",
+                    "A gold chain with a pendant — the chain the Princess removed before Bloomia arrived"
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 11,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "I found the loose stone. I found the leather case. It was heavier than I expected — packed tight with documents, sealed letters, a vial of something dark, and a gold chain with a pendant that I recognized: the Princess had worn it every day for as long as I had served her. She had removed it that morning. She had hidden it here, along with everything else, because she knew she would not need it again."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I was in the servant passages, clutching the case to my chest, when I heard footsteps. Not the soft padding of servants — the deliberate, measured tread of someone who knows exactly where they are going. Someone who knew about the passages. Someone who was looking for me."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I ran. The passages twisted through the castle's walls like veins through a body — narrow, dark, branching unpredictably. I knew them well enough to navigate by touch, but whoever followed me knew them too. Every turn I took, the footsteps adjusted. Every corridor I chose, they anticipated."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I would have been caught. I would have died in those dark passages with the Princess's secrets clutched to my chest, another inconvenient witness silenced, another loose end tidied away."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "But someone else was in the passages that day. Someone I never saw clearly — a shape in the darkness, broad-shouldered, moving with the quiet efficiency of a soldier. They stepped between me and my pursuer, and I heard sounds that I will not describe in detail. Sounds of violence. Sounds of sacrifice."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Silent One. The founding martyr of the Loyalist movement. They died in that corridor so that I could live. I never learned their name. I never saw their face. I heard them die — a choking gasp, a thud, the wet sound of a blade being withdrawn — and then silence. The pursuing footsteps did not continue. My protector had bought my escape with their life."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Tear stains have blurred this section. Wait for them to dry → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "I think about the Silent One every day. Who were they? How did they know I would be in the passages? Had the Princess TOLD someone to protect me? Was this part of her plan — save the handmaiden, save the evidence, let the rest burn?\n\nThe Loyalists honor them as a founding martyr. They do not know what I know: that the Silent One killed at least two pursuers before dying. I heard the bodies fall. When I looked back — just once, just briefly — I saw dark shapes on the ground. One of them wore Guild robes.\n\nA MAGES' GUILD OPERATIVE was hunting me in the servant passages within an hour of the assassination. The Guild was not investigating the crime. They were CLEANING UP AFTER IT.",
+                      "color": "#880e4f",
+                      "background": "#fce4ec"
+                    }
+                  ],
+                  "secret_id": "guild_pursuit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter VI: What the Documents Reveal",
+          "pages": [
+            {
+              "page_number": 12,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter VI",
+                  "subtitle": "The Princess's Evidence",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "I",
+                  "text": " have spent years studying the documents the Princess left for me. Some are in her personal cipher — a code I have only partially broken. Some are in plain language that is worse than any cipher because the words say things I do not want to understand. Here is what I know:",
+                  "color": "#4a1a2c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Princess Peach discovered a conspiracy against her life approximately six months before the assassination. She did not know the exact date it would occur, but she knew the method (the hatch), the facilitators (the Mages' Guild and members of her own court), and the likely aftermath (civil war). She could not prevent it because the conspirators included people she could not remove without triggering the very crisis she sought to avoid."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The page torn from a larger document — the one that reads 'THEY WILL BLAME THE KOOPAS' — is written in a hand that is not hers. Someone warned her. Someone inside the conspiracy told her what was coming, and she could do nothing but prepare her escape route for others and walk into death with her eyes open."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The list of names is the most disturbing document. Fifteen names, arranged in three columns. The first column is headed 'KNEW.' The second: 'HELPED.' The third: 'HELD THE BLADE.' Several names are crossed out — people who died before the assassination of natural or 'natural' causes. Others remain. Some I recognize. Some I do not."
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "THE PRINCESS'S PERSONAL CIPHER",
+                  "description": "The following passage from the Princess's sealed letters uses a cipher based on the word MUSHROOM — each letter shifts by the corresponding position of letters in the keyword (M=13, U=21, S=19, H=8, R=18, O=15, O=15, M=13, cycling).",
+                  "encoded_text": "VBL EVWXJ TXAM SV PGDM. RW TH S ASIVXUZM.",
+                  "solution": "I CHOSE THIS DEATH. IT IS A SACRIFICE.",
+                  "hint": "Keyword MUSHROOM: M=13, U=21, S=19, H=8, R=18, O=15, O=15, M=13. Add values to each letter.",
+                  "secret_id": "cipher_peach_sacrifice"
+                }
+              ]
+            },
+            {
+              "page_number": 13,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The vial. The small dark vial in the leather case. I had it analyzed by an alchemist I trust — one of the few people who knows I am alive. The liquid inside is a concentrated extract of Nightshade and Star Bit, combined in proportions that should be impossible. The alchemist called it 'liquid choice.'"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "If consumed, it would kill painlessly within seconds. The Princess had an alternative to the blade. She chose not to use it."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Why? Because the assassination had to look like murder, not suicide. Because a kingdom mourns a murdered princess and demands justice. A kingdom that loses its ruler to despair simply... moves on. She needed the kingdom to be ANGRY. She needed the conspirators to be HUNTED. She needed the truth to claw its way out of the grave they dug for it, even if it took a century."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She chose to be killed by someone she trusted. She sat at her vanity and let them walk up behind her through the hatch she had shown to her lover — the hatch that was supposed to be her escape, repurposed as her executioner's entrance. She held her hairbrush and waited for the blade."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "And she left me the evidence. Because she knew that someone, someday, would be fanatical enough to keep looking. Someone like Captain Toadette, who built a movement on the Princess's memory and turned her death into a religion."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ The last item in the leather case. Examine it → ]",
+                  "hidden_content": [
+                    {
+                      "type": "paragraph",
+                      "text": "The gold chain. The pendant the Princess wore every day and removed that morning. I have worn it against my skin for decades. It is warm to the touch — always warm, even in winter. Inside the pendant is a miniature portrait, painted with such precision that it must have been done by magical means.",
+                      "color": "#880e4f"
+                    },
+                    {
+                      "type": "handwritten",
+                      "text": "The portrait shows two figures: Princess Peach and Chief Thornpaw of the Rakasha. They are holding hands. They are smiling. They look like two people who thought love would be enough to save them.\n\nIt wasn't. Love does not stop blades. Love does not undo conspiracies. Love does not prevent kingdoms from burning. But she wore his image over her heart until the very last day, and she hid it where her killers would never find it.\n\nThe third column on her list — 'HELD THE BLADE' — contains only one name. I will not write it here. Not yet. Not until I am certain it can be used. But I will say this: it is not the name anyone expects. It is not a koopa. It is not a mage. It is someone the Princess loved. Someone she forgave, even as they killed her.\n\nSome sacrifices require a willing executioner.",
+                      "color": "#880e4f",
+                      "background": "#fce4ec"
+                    }
+                  ],
+                  "secret_id": "pendant_and_killer"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter VII: The Vanishing",
+          "pages": [
+            {
+              "page_number": 14,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter VII",
+                  "subtitle": "Why I Disappeared",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "F",
+                  "text": "ourteen days. That is how long I survived in the open after the assassination. Fourteen days of questioning, of sympathetic guards bringing me tea, of Guild mages asking gently probing questions about what I had seen. Fourteen days during which I realized, with growing horror, that everyone around me was performing a script.",
+                  "color": "#4a1a2c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The investigation was a pantomime. Leads were followed and then abandoned. Evidence was collected and then lost. The three guards who had been on perimeter duty that night — the only witnesses besides me — gave testimony that contradicted each other in specific, calculated ways. As if they had been told to be unreliable."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "On Day 7, the Mages' Guild assumed control of the investigation, citing 'jurisdictional concerns regarding magical evidence.' That same day, two of the three guard witnesses died. One fell from a tower. One choked on a bone at dinner. The third — Captain Silvercap — vanished overnight, leaving no trace."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "They were cleaning house. The witnesses were being eliminated, one by one, in ways designed to look accidental. And I was next."
+                },
+                {
+                  "type": "timeline",
+                  "title": "THE FOURTEEN DAYS",
+                  "border_color": "#880e4f",
+                  "events": [
+                    {
+                      "year": "Day 1",
+                      "event": "Assassination. Bloomia discovers the body. Retrieves leather case.",
+                      "color": "#880e4f"
+                    },
+                    {
+                      "year": "Day 2",
+                      "event": "Formal questioning begins. Guild takes control of magical evidence.",
+                      "color": "#1565c0"
+                    },
+                    {
+                      "year": "Day 5",
+                      "event": "Guard witness Corporal Redspot 'falls from tower.'",
+                      "color": "#f44336"
+                    },
+                    {
+                      "year": "Day 6",
+                      "event": "Guard witness Sergeant Brownshield 'chokes at dinner.'",
+                      "color": "#f44336"
+                    },
+                    {
+                      "year": "Day 7",
+                      "event": "Guild assumes full investigation control. Captain Silvercap vanishes.",
+                      "color": "#1565c0"
+                    },
+                    {
+                      "year": "Day 9",
+                      "event": "Toadsworth the Elder named Acting Regent. Investigation 'scaled back.'",
+                      "color": "#ff9800"
+                    },
+                    {
+                      "year": "Day 12",
+                      "event": "Bloomia notices she is being followed.",
+                      "color": "#880e4f"
+                    },
+                    {
+                      "year": "Day 14",
+                      "event": "Bloomia disappears. Official explanation: 'personal reasons.'",
+                      "color": "#880e4f"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 15,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "I noticed them on Day 12. Shadows that moved when I moved. Faces that appeared in crowds and then vanished. The faint hum of a tracking enchantment that I could feel in my teeth — a Mages' Guild specialty, I would later learn."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "On the night of Day 14, I packed the leather case, wrapped the Princess's pendant around my neck, and climbed out of my window into a gutter that led to the castle's drainage system. I crawled through filth and darkness for three hours until I emerged in the forest outside the capital walls. I walked for six days without stopping, eating what I could find, sleeping in ditches, trusting no one."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I have been walking ever since. For decades now. Different names, different faces, different cities. The leather case travels with me always, wrapped in enchantment-blocking cloth I purchased from a hedge witch in the Bob-omb region. The documents inside are the only proof that the assassination of Princess Peach was not an act of foreign aggression but an inside job — a conspiracy of her own court, her own protectors, her own Guild."
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "BLOOMIA'S LOCATION CIPHER",
+                  "description": "Bloomia encoded her current location using a cipher based on the number of petals on a Fire Flower (5). Each letter shifts by 5 positions.",
+                  "encoded_text": "N FR FQNAJ. N FR BFYHMNSL. KNSI RJ NS YMJ UQFHJ BMJWJ WXTJX LWTE NS BNYJW.",
+                  "solution": "I AM ALIVE. I AM WATCHING. FIND ME IN THE PLACE WHERE ROSES GROW IN WINTER.",
+                  "hint": "Caesar cipher with shift of 5. N=I (shifted back 5), F=A, R=M...",
+                  "secret_id": "cipher_bloomia_location"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "To the Loyalists who will find this manuscript: I know what you are. I know what Captain Toadette has done in the Princess's name — the massacres, the executions, the fanaticism that has turned a quest for justice into a religion of blood. The Princess would not have wanted this. But the Princess is dead, and the dead do not get to choose how they are mourned."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Final Words",
+          "pages": [
+            {
+              "page_number": 16,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Final Words",
+                  "subtitle": "For Those Who Continue the Search",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I am old now, if I am alive at all. The Princess's pendant still hangs warm against my chest. The leather case still sits within arm's reach. The documents inside have yellowed but remain legible. The name in the third column — 'HELD THE BLADE' — burns in my memory like a brand."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I will not write that name in this manuscript. Not because I am afraid, but because naming the killer without the supporting evidence would allow the conspirators to discredit the accusation and destroy what remains. The name must be revealed alongside the documents, in a setting where it cannot be suppressed or denied."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "What I will tell you is this: the killer loved the Princess. The killing was an act of mercy — or so the killer believed. The Princess knew who would hold the blade. She chose them. She sat at her vanity and waited because she trusted no one else to make her death swift and painless."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She was murdered by someone she loved, at her own request, for reasons I have spent a lifetime trying to understand."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The title of this manuscript — 'Coronation Day' — is what the Princess called that morning. 'Today is my coronation day,' she told me. 'Again. For the last time.' I understand now what she meant. The Solstice ceremony was a renewal of the monarch's bond with the kingdom. Each year, the Princess symbolically died as a person and was reborn as the Crown. That final morning, she chose to make the metaphor literal."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "She crowned herself in death. She became eternal — not a ruler but a symbol, not a woman but a cause. She gave the kingdom something more powerful than a living monarch: a martyr."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"The crown that is shattered cannot be saved. But the fragments cut deeper than the whole ever could.\"",
+                  "attribution": "— The Star Spirits' prophecy, reinterpreted",
+                  "color": "#880e4f"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "— THE CROWN ENDURES —",
+                  "color": "#880e4f",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "[ Find the place where roses grow in winter. Bring proof of loyalty. I will be waiting. ]",
+                  "color": "#880e4f",
+                  "style": "italic"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "[ — Lady Bloomia, date unknown — ]",
+                  "color": "#999",
+                  "style": "italic"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "onyx-hand-protocols",
@@ -45,10 +2562,511 @@ window.BOOKS_DATA = {
       "category": "History",
       "rarity": "Rare",
       "locked": false,
+      "lock_message": "",
       "condition": "Worn",
-      "description": "A black leather tome with no visible title. The pages are thin as onion skin and whisper when turned.",
+      "description": "A black leather tome with no visible title on its spine. The pages are thin as onion skin and whisper when turned.",
+      "page_color": "#1a1a1a",
+      "text_color": "#c0c0c0",
       "total_pages": 10,
-      "secrets_total": 4
+      "secrets_total": 4,
+      "chapters": [
+        {
+          "title": "The Founding Oath",
+          "pages": [
+            {
+              "page_number": 1,
+              "content": [
+                {
+                  "type": "centered",
+                  "text": "PROTOCOLS OF SHADOW",
+                  "color": "#9e9e9e",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "centered",
+                  "text": "Internal Codex of the Onyx Hand",
+                  "color": "#666",
+                  "style": "italic"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "Compiled by Judge Obsidian",
+                  "color": "#757575"
+                },
+                {
+                  "type": "centered",
+                  "text": "For Initiates of the Third Circle and Above",
+                  "color": "#757575"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "You hold in your hands a document that does not exist. The Onyx Hand keeps no records. We leave no traces. We cast no shadows — for we ARE the shadow. If you are reading this, you have either earned our trust through years of service, or you have made a very grave mistake."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The protocols contained herein govern our operations, our tribunals, and our sacred duty to maintain balance in a kingdom that has forgotten what balance means. We are not criminals, though the surface world names us such. We are the necessary darkness that defines the light."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"In the absence of justice, we provide order. In the absence of order, we provide consequences.\"",
+                  "attribution": "— The First Judge, founding declaration, 1015 BF",
+                  "color": "#9e9e9e"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter I: Structure of the Hand",
+          "pages": [
+            {
+              "page_number": 2,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter I",
+                  "subtitle": "Structure of the Hand",
+                  "color": "#9e9e9e"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "T",
+                  "text": "he Onyx Hand operates through a system of concentric circles, each with its own responsibilities, privileges, and — most importantly — limitations on knowledge. What you know depends on where you stand. This is not cruelty; it is protection. The less you know, the less you can betray.",
+                  "color": "#c0c0c0"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The outermost circle — the First — comprises our eyes and ears. Informants, merchants, beggars, servants. They do not know they serve us. They simply... talk. And we listen. Every tavern conversation, every pillow whisper, every drunken confession flows upward through channels they cannot see."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Second Circle consists of our hands — the operatives who act upon gathered intelligence. Thieves, smugglers, enforcers. They know they serve the Hand, but they do not know who gives the orders. They receive instructions through dead drops, coded messages, anonymous couriers. They are skilled, loyal, and utterly expendable."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "THE FIVE CIRCLES",
+                  "border_color": "#9e9e9e",
+                  "background": "#252525",
+                  "entries": [
+                    "First Circle: Unknowing informants and assets",
+                    "Second Circle: Field operatives and enforcers",
+                    "Third Circle: Cell leaders and regional coordinators",
+                    "Fourth Circle: The Tribunal — judges who dispense shadow justice",
+                    "Fifth Circle: [REDACTED] — existence unconfirmed"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "You, initiate, have been elevated to the Third Circle. You will coordinate operations within your assigned territory. You will never meet your counterparts. You will never know how many of us exist. You will report to a voice through a speaking stone, and you will obey without question."
+                }
+              ]
+            },
+            {
+              "page_number": 3,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The Fourth Circle comprises the Tribunal — the judges who hear cases that the surface world cannot or will not adjudicate. When the Mages' Guild demands internal arbitration for a murderer, when the Iron Legion's soldiers commit atrocities without consequence, when the powerful crush the weak with impunity... the Tribunal provides an alternative."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Our justice is not gentle. It is not forgiving. But it is FAIR. The Tribunal weighs evidence without regard for wealth, faction, or species. A koopa stands equal to a toad in our courts. A mage's arcane credentials carry no weight against a farmer's honest testimony."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A page has been folded and sealed with black wax. Break the seal → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "The Fifth Circle exists. I have seen the chamber beneath the chamber. Five thrones, five figures, faces hidden even from the Tribunal. They do not judge — they DECIDE. Wars have ended because they willed it. Factions have risen and fallen at their word. I do not know their names. I do not know if they are mortal. I know only that they have watched this kingdom since before the Princess died, and they will watch it long after we are dust. — J.O.",
+                      "color": "#ff6f00",
+                      "background": "#2a2a2a"
+                    }
+                  ],
+                  "secret_id": "fifth_circle_existence"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "As a Third Circle operative, you may petition the Tribunal on behalf of those who cannot reach us through normal channels. This is a sacred responsibility. Abuse it, and you will discover that our justice applies to our own as readily as to outsiders."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter II: The Archie Miser Precedent",
+          "pages": [
+            {
+              "page_number": 4,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter II",
+                  "subtitle": "The Archie Miser Precedent",
+                  "color": "#9e9e9e"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "O",
+                  "text": "n Highsun 2, 1040 BF, the Tribunal rendered a verdict that would reshape our relationship with every major faction in the kingdom. The case of Archie Miser — a mage who killed a fellow practitioner — tested the boundaries of our authority and exposed the rot at the heart of the Mages' Guild.",
+                  "color": "#c0c0c0"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The facts were these: Archie Miser, a human mage of considerable but undisciplined power, engaged in lethal combat with a Guild-credentialed practitioner named Valorian Stormweave. The confrontation occurred in a public market. Seven bystanders were injured. Stormweave died from a combination of fire damage and blunt force trauma when Archie threw him through a load-bearing wall."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Mages' Guild demanded Archie be surrendered to their internal courts — courts notorious for protecting their own at the expense of outsiders. They cited ancient charter rights. They threatened economic sanctions. They hinted at arcane retaliation."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "We told them no."
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The trial lasted six hours. Twenty-three witnesses testified. Evidence included scrying reconstructions, physical artifacts, and testimony from two of the injured bystanders. The Tribunal — three judges whose identities remain protected — deliberated for forty-seven minutes before rendering their verdict."
+                },
+                {
+                  "type": "quote",
+                  "text": "\"The killing of Valorian Stormweave constitutes justifiable magical defense. The deceased initiated hostilities with lethal intent. The defendant responded with proportionate force. ACQUITTED.\"",
+                  "attribution": "— Tribunal Verdict, Case 1040-ARC-7",
+                  "color": "#4caf50"
+                }
+              ]
+            },
+            {
+              "page_number": 5,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The Guild's response was immediate and furious. Three observers walked out during the verdict reading. One — a senior enforcer named Magistrix Vellum — was later found dead in her quarters, cause of death listed as 'spontaneous arcane feedback.' The Guild blamed us. We had nothing to do with it."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A notation in different handwriting appears in the margin. Examine it → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "We had EVERYTHING to do with it. Vellum was preparing to expose the Tribunal's location to Guild strike teams. The Fifth Circle authorized her elimination. I was the one who modified her focusing crystal to overload. May her soul find whatever peace awaits oath-breakers. — Agent Whisper",
+                      "color": "#f44336",
+                      "background": "#2a2a2a"
+                    }
+                  ],
+                  "secret_id": "vellum_assassination"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Archie Miser case established several crucial precedents:"
+                },
+                {
+                  "type": "list_dramatic",
+                  "items": [
+                    {
+                      "text": "The Onyx Hand Tribunal has jurisdiction over any crime committed within unaligned territory, regardless of the perpetrator's factional affiliation.",
+                      "color": "#9e9e9e"
+                    },
+                    {
+                      "text": "Guild charter rights do not supersede universal principles of self-defense.",
+                      "color": "#9e9e9e"
+                    },
+                    {
+                      "text": "Economic and arcane threats will not influence Tribunal verdicts.",
+                      "color": "#9e9e9e"
+                    },
+                    {
+                      "text": "Those who attempt to subvert our justice will face consequences.",
+                      "color": "#f44336"
+                    }
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Archie Miser walked free. He has since become a chaos agent of significant concern — his actions aboard the Vigilance and at Raventree Manor have killed dozens. Some within our ranks question whether the acquittal was wise. But wisdom was never the point. JUSTICE was the point. And justice, unlike wisdom, does not concern itself with consequences."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter III: The Vampire Question",
+          "pages": [
+            {
+              "page_number": 6,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter III",
+                  "subtitle": "The Vampire Question",
+                  "color": "#9e9e9e"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "W",
+                  "text": "ithin our ranks, a transformation is occurring that demands acknowledgment. The Onyx Knights — our elite enforcement arm — have increasingly turned to vampirism as a means of enhancing their capabilities. This document will address the theological, practical, and strategic implications of this development.",
+                  "color": "#c0c0c0"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Let us be clear: the Onyx Hand does not officially sanction vampirism. We do not recruit vampires. We do not create vampires. What we DO acknowledge is that certain operatives, in pursuit of their duties, have accepted the dark gift from sources outside our organization. These operatives retain their positions so long as they adhere to strict protocols."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "VAMPIRE OPERATIVE PROTOCOLS",
+                  "border_color": "#f44336",
+                  "background": "#2a1a1a",
+                  "entries": [
+                    "Feeding is permitted only from willing donors or condemned criminals",
+                    "Creation of new vampires requires Fifth Circle authorization",
+                    "Sustaining crystals must be registered with regional coordinators",
+                    "Daylight operations require specialized equipment and advance notice",
+                    "Failure to control blood hunger results in immediate termination"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The advantages are undeniable. Vampire operatives possess enhanced strength, speed, and sensory capabilities. They do not age. They can survive injuries that would kill mortal agents ten times over. In a war of shadows, such advantages matter."
+                }
+              ]
+            },
+            {
+              "page_number": 7,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The risks, however, are equally significant. Vampires require sustenance that creates dependencies and vulnerabilities. Their aversion to sunlight limits operational flexibility. And the psychological changes that accompany the transformation — the hunger, the detachment from mortal concerns, the gradual erosion of empathy — can compromise an operative's judgment."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Recent events at Raventree Manor have thrown these concerns into sharp relief. Our vampire knights established a nest within the manor, using dark crystals to sustain their undeath and coordinate operations against multiple factions. The strategy was sound. The execution was flawless. And then everything went wrong."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "A battle plan discovered by the prisoner Remi detailed an assault strategy to destroy the sustaining crystals and eliminate our knights. The plan originated with Green T of the Tea Leaf Syndicate — an organization we had considered neutralized. Their survival, and their knowledge of our crystal network, suggests a security breach of concerning proportions."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Blood stains obscure part of this page. Carefully clean them to read → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Knight-Captain Sanguine's final report, recovered from Raventree: 'They know about the crystals. They know about the Fifth Circle. Someone inside the Hand is feeding them information. I am compiling a list of suspects but I fear I will not survive to—' The report ends here. Sanguine's ashes were found scattered across three rooms. We have a traitor. — J.O.",
+                      "color": "#b71c1c",
+                      "background": "#1a1a1a"
+                    }
+                  ],
+                  "secret_id": "onyx_hand_traitor"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Until the traitor is identified and eliminated, all vampire operations are suspended. Sustaining crystals are to be relocated to secondary sites. Knight-operatives are to operate independently, without coordination through normal channels. Trust no one. Suspect everyone."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter IV: The Coming Storm",
+          "pages": [
+            {
+              "page_number": 8,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter IV",
+                  "subtitle": "The Coming Storm",
+                  "color": "#9e9e9e"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "I",
+                  "text": "ntelligence gathered over the past season paints a picture of converging catastrophes. The planar fractures at Raventree Manor are not an isolated phenomenon — they are symptoms of a deeper instability that threatens the fabric of reality itself. The Oracle is dead. The parallel entities multiply. And Fawful has allied with dragons.",
+                  "color": "#c0c0c0"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Fifth Circle has issued a rare directive: all resources are to be redirected toward intelligence gathering on three priority targets."
+                },
+                {
+                  "type": "faction_box",
+                  "factions": [
+                    {
+                      "name": "Fawful's Dragon Alliance",
+                      "color": "#ff5722",
+                      "icon": "🐉",
+                      "description": "The mad tactician has somehow brokered an alliance with the remaining dragon flights. After the death of Ignis, the dragons were expected to retreat further into isolation. Instead, they have found a champion willing to wage war on their behalf. Fawful commands strategic brilliance and bottomless spite. The dragons command fire that can melt fortress walls. Together, they pose an existential threat."
+                    },
+                    {
+                      "name": "The Mages' Guild Extraction Team",
+                      "color": "#2196f3",
+                      "icon": "🔮",
+                      "description": "Guild operatives are preparing to extract the ghosts from Raventree Manor — regardless of the cost to the living or the stability of the planar fractures. Their motives remain unclear. The ghosts may contain knowledge, power, or something else entirely. What is clear is that the extraction will cause massive collateral damage, and the Guild considers this acceptable."
+                    },
+                    {
+                      "name": "The Parallel Dan Anomaly",
+                      "color": "#9c27b0",
+                      "icon": "🔄",
+                      "description": "Dan the Toad exists in two places simultaneously. The original is held in a Mages' Guild null cage. The parallel walks free, disrupting the Oracle's function and destabilizing local reality. The Guild wants him dead. The Loyalists want him protected. We want to understand what he IS — because whatever created him may be capable of creating more."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 9,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The Fifth Circle's analysis suggests these three threats are connected. Fawful's timing — allying with dragons immediately after Ignis's death — implies foreknowledge. The Guild's urgency regarding Raventree extraction suggests they know something about the planar fractures that they are not sharing. And Dan's existence may be neither accident nor experiment, but the first sign of a larger phenomenon."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Our working theory: someone or something is deliberately destabilizing reality in preparation for a larger event. The assassination of Princess Peach eighty-five years ago may have been the first move in a game we are only now beginning to perceive."
+                },
+                {
+                  "type": "timeline",
+                  "title": "PATTERN ANALYSIS",
+                  "border_color": "#9e9e9e",
+                  "events": [
+                    {
+                      "year": "955 BF",
+                      "event": "Princess Peach assassinated through impossible means",
+                      "color": "#f44336"
+                    },
+                    {
+                      "year": "962 BF",
+                      "event": "Star Road network destroyed — coincidence or preparation?",
+                      "color": "#ff9800"
+                    },
+                    {
+                      "year": "1015 BF",
+                      "event": "Onyx Hand founded — were we created to serve this pattern?",
+                      "color": "#9e9e9e"
+                    },
+                    {
+                      "year": "1035 BF",
+                      "event": "Iron Legion consolidates — another prepared piece?",
+                      "color": "#607d8b"
+                    },
+                    {
+                      "year": "1040 BF",
+                      "event": "Convergence at Raventree — the endgame begins?",
+                      "color": "#f44336"
+                    }
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "If this pattern holds, we are not players in this game. We are pieces. And pieces do not get to choose their moves."
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "Unless they learn the rules.",
+                  "color": "#9e9e9e"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Appendix: Cipher Keys",
+          "pages": [
+            {
+              "page_number": 10,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Appendix",
+                  "subtitle": "Operational Cipher Keys — Third Circle Access",
+                  "color": "#9e9e9e"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The following cipher is used for all Third Circle communications. Memorize it. This page will be removed and destroyed within 24 hours of your reading."
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "COMMUNICATION CIPHER TEST",
+                  "description": "Decode the following message to confirm your understanding of the shadow-shift cipher. Each letter is replaced by the letter 7 positions forward in the alphabet.",
+                  "encoded_text": "AOL MPMALS JPYJSL DHZ ULCLY TLHUA AV IL MVBUK. DL HYL AOL ZOHKVDZ AOHA RLLW AOL SPNOA OVULZA.",
+                  "solution": "THE FIFTH CIRCLE WAS NEVER MEANT TO BE FOUND. WE ARE THE SHADOWS THAT KEEP THE LIGHT HONEST.",
+                  "hint": "Shadow-shift cipher: A becomes H, B becomes I, etc. Shift of 7 positions.",
+                  "secret_id": "cipher_fifth_circle_truth"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Additional cipher keys, dead drop locations, and emergency protocols will be provided through your assigned speaking stone. Do not write them down. Do not share them. Do not exist."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "— END OF CODEX —",
+                  "color": "#9e9e9e",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "[ This document will deny its own existence if questioned. ]",
+                  "color": "#666",
+                  "style": "italic"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "tea-leaf-syndicate-recipes",
@@ -61,10 +3079,427 @@ window.BOOKS_DATA = {
       "category": "Culture",
       "rarity": "Uncommon",
       "locked": false,
+      "lock_message": "",
       "condition": "Stained",
-      "description": "A well-worn journal that smells of dried leaves and something faintly chemical.",
+      "description": "A well-worn journal that smells of dried leaves and something faintly chemical. Tea stains cover most pages. Some recipes appear to be coded.",
+      "page_color": "#f1f8e9",
+      "text_color": "#33691e",
       "total_pages": 8,
-      "secrets_total": 3
+      "secrets_total": 3,
+      "chapters": [
+        {
+          "title": "Introduction",
+          "pages": [
+            {
+              "page_number": 1,
+              "content": [
+                {
+                  "type": "centered",
+                  "text": "THE CONNOISSEUR'S COMPANION",
+                  "color": "#2e7d32",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "centered",
+                  "text": "A Guide to Refined Infusions",
+                  "color": "#558b2f",
+                  "style": "italic"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "divider",
+                  "style": "ornate"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Tea is civilization distilled. In a single cup, you hold the labor of farmers, the wisdom of blenders, the patience of steepers, and the refined palate of centuries. To drink tea carelessly is to insult all of them."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "This humble volume collects recipes gathered across decades of travel, trade, and — I confess — occasional acquisition through channels that polite society would frown upon. The Syndicate does not apologize for its methods. We apologize only for bad tea."
+                },
+                {
+                  "type": "quote",
+                  "text": "\"A perfect cup requires perfect leaves, perfect water, perfect timing, and perfect company. Achieve three of four, and you may call yourself competent.\"",
+                  "attribution": "— The First Blender, founder of the Syndicate",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "What follows includes both legitimate recipes suitable for any tea house, and... specialized preparations that require certain ingredients not found in ordinary markets. The discerning reader will know which is which."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter I: The Classics",
+          "pages": [
+            {
+              "page_number": 2,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter I",
+                  "subtitle": "The Classic Blends",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "E",
+                  "text": "very tea master must first master the foundations. These blends have sustained the Mushroom Kingdom through peace and war, celebration and mourning. They are the common tongue of the leaf.",
+                  "color": "#33691e"
+                },
+                {
+                  "type": "lore_box",
+                  "title": "GOLDEN SUNRISE BLEND",
+                  "border_color": "#ffc107",
+                  "background": "#fffde7",
+                  "entries": [
+                    "3 parts Fire Flower petal (dried, not fresh)",
+                    "2 parts standard black leaf from the Southern Slopes",
+                    "1 part crystallized Star Bit shavings",
+                    "Steep at just below boiling for 4 minutes",
+                    "Produces: Warm, energizing, faintly luminous amber liquid",
+                    "Effects: Mild stimulant, enhanced alertness for 2-3 hours"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Golden Sunrise was Princess Peach's morning tea of choice. The palace ordered fourteen pounds of Fire Flower petals monthly to maintain supply. After the assassination, the flower farms were burned in the first wave of factional violence. The blend is now rare and expensive — a cup costs what a laborer earns in a week."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "TOAD TOWN COMFORT",
+                  "border_color": "#8d6e63",
+                  "background": "#efebe9",
+                  "entries": [
+                    "4 parts common brown mushroom cap (dried, powdered)",
+                    "2 parts chamomile flower",
+                    "1 part honey (must be from Beezo hives)",
+                    "Steep at moderate heat for 6 minutes",
+                    "Produces: Thick, earthy, deeply calming brown liquid",
+                    "Effects: Relaxation, drowsiness, vivid dreams"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Comfort blend is what grandmothers give to frightened children after nightmares. It is also, not coincidentally, what the Syndicate gives to targets who need to sleep through certain... transactions."
+                }
+              ]
+            },
+            {
+              "page_number": 3,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The following blend is technically illegal under Iron Legion trade regulations. The Syndicate considers such regulations advisory at best."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "MIDNIGHT LOTUS",
+                  "border_color": "#311b92",
+                  "background": "#ede7f6",
+                  "entries": [
+                    "2 parts black lotus flower (harvested at midnight, dried in darkness)",
+                    "2 parts white lotus flower (harvested at noon, dried in sunlight)",
+                    "1 part powdered moonstone",
+                    "3 drops of tears (willingly given)",
+                    "Steep in cold spring water for 13 hours",
+                    "Produces: Colorless liquid that reflects light strangely",
+                    "Effects: Clarity of thought, enhanced perception, occasional prophetic visions"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A note has been tucked between these pages. Unfold it → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "The Midnight Lotus recipe as written is incomplete. The REAL version requires a fourth ingredient: a single scale from a living dragon, dissolved in the moonstone powder. This is why Fawful's dragon alliance terrifies me. He has access to fresh scales. He could mass-produce Midnight Lotus. An army that sees the future cannot be defeated. — G.T.",
+                      "color": "#1a237e",
+                      "background": "#e8eaf6"
+                    }
+                  ],
+                  "secret_id": "midnight_lotus_true_recipe"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I have seen the Midnight Lotus used three times. Twice, the drinker emerged enlightened, their purpose clarified, their path revealed. Once, the drinker emerged screaming and did not stop for six days. The tea shows truth. Not everyone can bear truth."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter II: Trade Routes",
+          "pages": [
+            {
+              "page_number": 4,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter II",
+                  "subtitle": "Acquisition and Distribution",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "T",
+                  "text": "he finest leaves in the kingdom grow in places that do not welcome visitors. The Syndicate has spent generations cultivating relationships — and alternative access methods — to ensure supply chains remain unbroken regardless of political circumstances.",
+                  "color": "#33691e"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "This chapter is ostensibly about trade routes. It is actually about smuggling. The distinction matters only to those who write laws and those who pay taxes. The Syndicate does neither."
+                },
+                {
+                  "type": "faction_box",
+                  "factions": [
+                    {
+                      "name": "The Pipe Network",
+                      "color": "#4caf50",
+                      "icon": "🟢",
+                      "description": "The kingdom's warp pipe infrastructure was designed for legitimate transport. It is also, with appropriate modifications, ideal for moving cargo without inspection. A standard green pipe can be 'tuned' to open secondary channels — parallel routes that bypass official checkpoints. The Iron Legion knows these routes exist. They have not yet discovered how to close them."
+                    },
+                    {
+                      "name": "The Boo Mansions",
+                      "color": "#7e57c2",
+                      "icon": "👻",
+                      "description": "The Boo Aristocracy sealed their mansions during the war, but ghosts are excellent business partners. They have no use for physical goods but crave entertainment, stories, and — most importantly — the life essence that tea ceremonies generate. We provide; they provide passage through spaces that do not technically exist."
+                    },
+                    {
+                      "name": "The Koopa Underground",
+                      "color": "#ff7043",
+                      "icon": "🐢",
+                      "description": "Bowser's forces control the surface of the eastern territories. They do not control the tunnels beneath. Koopa dissidents — those who remember a time before endless war — maintain hidden routes through the mountains. Payment is made in medicine, information, and the occasional targeted assassination of Legion informants."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 5,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Recent events have severely disrupted our operations. The confrontation aboard the Vigilance — orchestrated, I am certain, by forces who wished to weaken all factions simultaneously — destroyed two of our primary distribution cells."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Earl Grey is dead. Exploded, specifically, after being poisoned by a dagger coated in something our alchemists cannot identify. His loss is... significant. Earl Grey managed seventeen pipe route modifications and held personal relationships with three Boo mansion lords. Replacing him will take years."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "More concerning: the battle plan Remi discovered. Our assault strategy against the Onyx Hand vampire nest was SUPPOSED to be secret. The fact that a captured prisoner found it on a napkin suggests either incredible carelessness or deliberate sabotage. I have my suspicions about which."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Tea has been spilled across this section. Blot it to reveal hidden text → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Someone in the Syndicate is working with the Fifth Circle. The battle plan leak was a test — they wanted to see how we would react, who would panic, who would stay calm. I passed the test by appearing to fail. Let them think I am a fool who writes strategies on napkins. Meanwhile, I will find the traitor and serve them a very special blend. — G.T.",
+                      "color": "#33691e",
+                      "background": "#dcedc8"
+                    }
+                  ],
+                  "secret_id": "green_t_counterintelligence"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Syndicate will survive. We have survived the Princess's death, the Century War, the rise of the Iron Legion, and the emergence of the Onyx Hand. We will survive this. Tea, like truth, cannot be permanently suppressed."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter III: Specialized Preparations",
+          "pages": [
+            {
+              "page_number": 6,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter III",
+                  "subtitle": "Specialized Preparations",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "T",
+                  "text": "he following recipes are not tea. They are weapons, tools, and solutions to problems that cannot be solved through conventional means. Handle with appropriate caution. Test on enemies before testing on friends.",
+                  "color": "#33691e"
+                },
+                {
+                  "type": "lore_box",
+                  "title": "TRUTH SERUM (Gentle)",
+                  "border_color": "#f44336",
+                  "background": "#ffebee",
+                  "entries": [
+                    "Base: Strong chamomile infusion",
+                    "3 parts powdered lie-detector mushroom",
+                    "1 part concentrated Fire Flower essence",
+                    "Administered in food or drink without target's knowledge",
+                    "Effects: Compulsive honesty for 1-2 hours",
+                    "Side effects: Headache, mild paranoia, occasional weeping",
+                    "Antidote: Strong alcohol or sleep"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "lore_box",
+                  "title": "FORGETTING DRAUGHT",
+                  "border_color": "#9c27b0",
+                  "background": "#f3e5f5",
+                  "entries": [
+                    "Base: Cold-steeped moonflower",
+                    "2 parts Boo ectoplasm (ethically sourced if possible)",
+                    "1 part powdered memory crystal",
+                    "1 scale of shed Blooper skin",
+                    "Effects: Target forgets last 6-24 hours depending on dose",
+                    "Side effects: Confusion, déjà vu, mild existential uncertainty",
+                    "Warning: Overdose causes permanent personality changes"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Forgetting Draught is why certain witnesses cannot testify. It is also why certain Syndicate members cannot remember operations that went badly wrong. We do not use it lightly. Memory is identity; to steal memory is to steal self. But sometimes, forgetting is kinder than remembering."
+                }
+              ]
+            },
+            {
+              "page_number": 7,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The following preparation is reserved for situations where all other options have failed. It has been used four times in Syndicate history. Three of those times were justified. One... was not."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "THE FINAL STEEP",
+                  "border_color": "#212121",
+                  "background": "#263238",
+                  "entries": [
+                    "Base: Concentrated nightshade, 13x distilled",
+                    "5 parts crystallized shadow essence",
+                    "3 parts Fire Flower ash (from flowers burned at midnight)",
+                    "1 part powdered bone (source irrelevant)",
+                    "1 drop of blood from the intended target",
+                    "Effects: Death within 3-7 hours, appearing natural",
+                    "No antidote exists",
+                    "The target experiences a final dream of their happiest memory"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Final Steep is not murder. It is release. The target's blood ensures they are meant to receive it; the shadow essence ensures they feel no pain; the happy dream ensures they depart in peace. We offer this mercy only to those who truly deserve it."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The unauthorized use of this preparation is punishable by being served the preparation yourself. Green T makes no exceptions."
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "CODED RECIPE NOTATION",
+                  "description": "The following notation appears beneath the Final Steep recipe. It uses the Syndicate's trade cipher — each letter shifted by the number of letters in 'TEA' (3).",
+                  "encoded_text": "WKLV UHFLSH LV LQFRPSOHWH. WKH WUXH ILQDO VWHHS UHTXLUHV D WHDVSRRQ RI WKH WDUJHW'V UHDO QDPH.",
+                  "solution": "THIS RECIPE IS INCOMPLETE. THE TRUE FINAL STEEP REQUIRES A TEASPOON OF THE TARGET'S REAL NAME.",
+                  "hint": "Trade cipher: shift of 3 (T-E-A = 3 letters). A becomes D, etc.",
+                  "secret_id": "cipher_final_steep_secret"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Afterword",
+          "pages": [
+            {
+              "page_number": 8,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Afterword",
+                  "subtitle": "On the Future of the Syndicate",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I write this knowing I may not live to see the next harvest season. The events at Raventree have exposed us. The Iron Legion hunts us. The Onyx Hand suspects us. The Mages' Guild ignores us, which is somehow worse. And Fawful — Fawful has dragons."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Tea Leaf Syndicate has endured for over a century by remaining small, flexible, and ruthlessly practical. We do not seek power; we seek profit. We do not make enemies; we make customers. This philosophy has served us well."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "But the world is changing. The planar fractures at Raventree suggest that reality itself is becoming unstable. The parallel Dan entity implies that the rules we thought governed existence may be more flexible than we assumed. And the pattern that the Onyx Hand's analysts have identified — Princess, Star Road, Legion, fractures — suggests that someone has been playing a very long game indeed."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Syndicate will adapt or perish. I am preparing contingencies. Safe houses in dimensions adjacent to our own. Alliances with entities that do not require physical form. Recipes that can be brewed with ingredients that do not exist yet but might, if reality continues to fray."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"When the world ends, someone will still want a good cup of tea. The Syndicate intends to provide.\"",
+                  "attribution": "— Green T, Harvestide 30, 1040 BF",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "— STEEP WISELY —",
+                  "color": "#2e7d32",
+                  "style": "bold",
+                  "size": "large"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "the-green-journal",
@@ -77,10 +3512,461 @@ window.BOOKS_DATA = {
       "category": "History",
       "rarity": "Rare",
       "locked": false,
+      "lock_message": "",
       "condition": "Damp",
-      "description": "A small green journal with a cracked spine and water damage along the edges.",
+      "description": "A small green journal with a cracked spine and water damage along the edges. The handwriting inside alternates between careful, measured script and frantic, barely legible scrawl. Smells faintly of pipe oil and fear.",
+      "page_color": "#f1f8e9",
+      "text_color": "#1b5e20",
       "total_pages": 12,
-      "secrets_total": 6
+      "secrets_total": 6,
+      "chapters": [
+        {
+          "title": "First Entry",
+          "pages": [
+            {
+              "page_number": 1,
+              "content": [
+                {
+                  "type": "centered",
+                  "text": "THE GREEN JOURNAL",
+                  "color": "#2e7d32",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "centered",
+                  "text": "PRIVATE — DO NOT READ",
+                  "color": "#f44336",
+                  "style": "bold"
+                },
+                {
+                  "type": "centered",
+                  "text": "(I mean it. This means you, Wario.)",
+                  "color": "#f44336",
+                  "style": "italic"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "If you are reading this and you are not me, then either I am dead and it no longer matters, or you are Wario and I will find you and I will put a ghost in your toilet. I know how to do that now. The Guild taught me.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "Day 1 of whatever this is.\n\nI don't know what day it actually is. I've lost track. Everything since the Guild recruited me has been a blur of portal jumps, briefings in rooms that smell like ozone, and people calling me 'Agent L' as if that's a name a person should have. It's not a name. It's a letter. I already HAVE a letter — it's on my hat.\n\nThey told me my brother is missing. That's not new. Mario has been missing for... I don't actually know how long. Time moves differently when you spend half of it in pipe networks and the other half trying not to die. But this time it's different. This time the Guild says he's 'dimensionally displaced,' which is their way of saying they lost him and don't want to admit it.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "I agreed to work with the Guild because they said they could find him. That was three months ago. They haven't found him. What they HAVE done is send me to a haunted manor full of vampires, ghosts, and a man who throws fireballs indoors like that's a reasonable thing to do.\n\nI miss my brother.\nI miss my house.\nI miss not being afraid.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "The Guild Assignment",
+          "pages": [
+            {
+              "page_number": 2,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "The Assignment",
+                  "subtitle": "How I Became 'Agent L'",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "I should write down how this started, in case something happens to me and someone needs to understand why a plumber ended up working for the Mages' Guild as an unlicensed ghost-containment operative.\n\nThree months ago, a woman in blue robes appeared in my kitchen. She was sitting at my table, drinking my coffee, reading my newspaper. When I screamed (I screamed), she calmly introduced herself as Magistrix Cerulean of the Arcane Intelligence Division and asked if I would like to see my brother again.\n\nI said yes. Obviously I said yes. You say yes to that question even when the person asking it appeared in your kitchen like a tax collector from the shadow realm.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "The deal:\n- I work for the Guild as a field operative\n- I use equipment they provide (the Poltergust — modified, runs quieter now)\n- I investigate sites of 'planar instability' and capture/contain spectral entities\n- In exchange, they devote resources to finding Mario\n\nThe reality:\n- I am bait\n- I am sent into dangerous locations first because I am 'expendable but resilient'\n- The Poltergust is a prototype they can't test on Guild members because of union rules\n- I have seen exactly zero evidence that they are looking for Mario",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A page has been glued shut. Carefully peel it open → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "I found something I wasn't supposed to find. In a Guild filing cabinet, while looking for spare Poltergust cartridges:\n\nFile M-001: 'MARIO (SUBJECT)'\nStatus: LOCATED\nDisposition: CONTAINMENT RECOMMENDED\nNotes: 'Subject's dimensional resonance is incompatible with current planar stability protocols. Retrieval would accelerate fracture cascade. RECOMMENDATION: Maintain current displacement. Do not inform Agent L.'\n\nThey FOUND him. They found Mario and they're LEAVING HIM wherever he is because bringing him back might cause problems. And they're using me — dangling my brother like a carrot — to get me to do their dirty work.\n\nI should leave. I should quit. I should tell them to take their Guild and their robes and their ozone-smelling briefing rooms and shove them into the nearest warp pipe.\n\nBut if I leave, I'll never find out where he is. So I stay. I smile. I answer to 'Agent L.' And I plan.\n\nI am going to find my brother. And when I do, the Mages' Guild is going to learn what happens when you lie to a plumber.",
+                      "color": "#d32f2f",
+                      "background": "#ffebee"
+                    }
+                  ],
+                  "secret_id": "mario_file"
+                }
+              ]
+            },
+            {
+              "page_number": 3,
+              "content": [
+                {
+                  "type": "handwritten",
+                  "text": "Things the Guild has taught me that are actually useful:\n\n1. Spectral frequency modulation — I can tune the Poltergust to target specific ghost types. Boos require a different setting than generic haunts. Poltergeists need the resonance cranked to maximum.\n\n2. Basic ward recognition — I can now identify 14 different types of magical protection. This is useful because it tells me which doors NOT to open, which is most of them.\n\n3. Dimensional anchor theory — this is how the null cages work. You create a pocket of 'fixed' reality inside unstable space. The original Dan is in one of these. So, apparently, is my brother.\n\n4. How to brew Guild-standard coffee. It's terrible. But it keeps you awake for 36 hours, which is necessary when you're in a haunted manor and sleeping means dying.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "Things the Guild has taught me that are NOT useful:\n\n1. How to fill out a Form 7-B ('Spectral Encounter Report — Standard'). It is eleven pages long. It requires three signatures. One of the signatures must come from the ghost itself, which tells you everything you need to know about Guild bureaucracy.\n\n2. The correct mode of address for a Senior Enforcer vs. a Deputy Magistrix vs. a Sub-Arcane Facilitator. There are apparently 47 distinct ranks. I call everyone 'sir' and hope for the best.\n\n3. The rope reimbursement policy. If you damage Guild equipment, you receive an itemized bill. I watched them charge Archie over 2,000 gold for a broken rope. Administrative fees, processing surcharges, 'ambient magical contamination assessment.' It would be funny if it weren't insane.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "[ Several pages appear to have been torn out here. ]",
+                  "color": "#999"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Raventree",
+          "pages": [
+            {
+              "page_number": 4,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Raventree Manor",
+                  "subtitle": "Or: How I Learned to Stop Worrying and Hate Everything",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "Highsun 26. Evening.\n\nI arrived at Raventree Manor by bumping into a door. Not opening a door — bumping into one. I was in a Guild transit corridor, following a tracking beacon, and the corridor ended in a wooden door that hadn't been there thirty seconds earlier. I knocked. No answer. I tried the handle. It opened.\n\nOn the other side: a room full of people I didn't know, all of whom looked at me like I was a ghost. Which, given the context, was not an unreasonable assumption.\n\n\"Luigi?\" someone said.\n\nThey knew me. I did not know them. This happens more than you'd think when your brother is famous and you are... not.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "The manor is wrong. Not 'creepy old house' wrong — FUNDAMENTALLY wrong. Rooms connect to rooms that shouldn't exist. Corridors loop back on themselves. The architecture follows rules that Euclid would have called 'a cry for help.' I've been in haunted mansions before — it's literally my job now — but Raventree isn't haunted. Raventree is BROKEN. The building exists in multiple dimensions simultaneously, and the dimensions don't agree on basic things like 'which way is up' and 'do the living have a right to remain that way.'\n\nI set up the Poltergust within five minutes of arriving. Within six minutes, a spectral dancer attacked a man named Markop and something called Perrius Anamatur MELTED INTO HIS SKIN to dissolve it.\n\nNormal Tuesday at Raventree, apparently.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                }
+              ]
+            },
+            {
+              "page_number": 5,
+              "content": [
+                {
+                  "type": "handwritten",
+                  "text": "Highsun 26, later.\n\nEverything happened at once. Onyx knights — VAMPIRE Onyx knights — swarmed the dance hall. A toad named Toadburt fled through a door, dodging attacks like he'd been dodging attacks his whole life. A man named Salam tried to breach a door, failed, and readied a crossbow with the calm efficiency of someone who fails at doors regularly.\n\nOne of the knights threatened to turn a toad named Eager into a vampire 'for faster healing.' Eager BIT THE KNIGHT'S HAND and fled. I like Eager. Eager has the survival instincts I wish I had.\n\nMarkop bashed a lock open and screamed for someone named Remi to run. Eager crashed through a window. Bowser was there — BOWSER, the Koopa warlord — fighting alongside the party like this was normal. Remi got dragged back in by guards.\n\nI watched all of this happen while holding a vacuum cleaner and wondering what my life had become.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "Then Markop started questioning Dan. The toad Dan. Asking if he was 'real.' Dan — the parallel Dan, the copy — admitted he doesn't know how to prove he's authentic.\n\nI know what Dan is. The Guild briefed me. File D-007: 'DAN (SUBJECT) — PARALLEL INSTANCE.' They want him dead. They consider his existence a threat to planar stability. My assignment, the one they didn't put in writing, the one Magistrix Cerulean whispered to me in the transit corridor: 'If the opportunity arises, Agent L, neutralize the anomaly.'\n\nNeutralize. That's what they call it when they want you to kill a toad who doesn't know he's not supposed to exist.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ The ink here has been smeared by a shaking hand. Read carefully → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "I won't do it.\n\nI won't kill Dan. I don't care what the Guild says. I don't care about planar stability or dimensional resonance or probability cascades. Dan is a person. He has thoughts and feelings and a face that looks terrified every time someone mentions the word 'real.'\n\nThe Guild treats people like variables in an equation. Mario is 'dimensionally displaced' — not lost, not missed, not loved. Dan is an 'anomaly' — not a person, not alive, not worthy of survival. Archie is 'acceptable collateral' — not a man, not a life, not someone's friend.\n\nI became a plumber because I wanted to fix things. The Guild wants me to break them.\n\nI need a different plan.",
+                      "color": "#d32f2f",
+                      "background": "#ffebee"
+                    }
+                  ],
+                  "secret_id": "luigi_refuses_order"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "The Sitting Room",
+          "pages": [
+            {
+              "page_number": 6,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Perrius Anamatar",
+                  "subtitle": "The Thing in the Sitting Room",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "Highsun 27. Small hours.\n\nArchie found Perrius Anamatar having tea in a sitting room. HAVING TEA. The manor is collapsing into dimensional chaos, vampires are swarming the halls, reality itself is fracturing like ice under a hammer, and this... THING... is sitting in an armchair, sipping from a porcelain cup, and making small talk.\n\nArchie accused him of orchestrating the chaos. Perrius responded by siccing spectral coats on me. COATS. Animated winter coats that wrapped around my arms and tried to suffocate me. I have fought ghosts, poltergeists, and Boos the size of houses. Nothing prepared me for being attacked by outerwear.\n\nArchie's response was, predictably, a fireball. In an enclosed room. With ME in it.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "The fireball missed Perrius. It did NOT miss the sitting room. Or the curtains. Or my eyebrows (they'll grow back, probably). Perrius fled, laughing — actually LAUGHING — and Archie and I were left standing in a burning room full of charred coat remnants.\n\n\"Sorry about that,\" Archie said.\n\nHe was not sorry. No one who throws fireballs indoors has ever been sorry about anything in their entire life.\n\nWe hid in a coat closet afterward. A COAT CLOSET. After being attacked by COATS. The irony was not lost on me. It was, however, lost on Archie, who fell asleep standing up within three minutes because apparently near-death experiences are relaxing when you've had enough of them.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "[ A scorch mark covers part of this page. ]",
+                  "color": "#999"
+                }
+              ]
+            },
+            {
+              "page_number": 7,
+              "content": [
+                {
+                  "type": "handwritten",
+                  "text": "About Perrius Anamatar:\n\nThe Guild's file on him is almost empty, which means either they know nothing or they know everything and aren't sharing. What I've observed:\n\n- He is not human. Or toad. Or koopa. Or any species I recognize.\n- He dissolved a spectral dancer by MELTING INTO SOMEONE'S SKIN. What does that even mean? What IS he?\n- He drinks tea in rooms full of chaos as if chaos is his natural habitat\n- He claims he 'wants peace and quiet' and responds to interruptions with violence\n- He knocked Archie unconscious in the library when Archie was ambushed by something else, claiming he was 'maintaining the quiet'\n- He radiates wrongness. Not evil — WRONGNESS. Like reality flinches when he's nearby.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Luigi has drawn a sketch here. Examine it → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "I saw something the others didn't. When Perrius melted Markop's spectral attacker, there was a moment — a fraction of a second — where his shape CHANGED. Not like a disguise slipping. Like the thing wearing the disguise briefly forgot which shape it was supposed to be.\n\nUnderneath Perrius Anamatar, for that one instant, I saw:\n- More limbs than a person should have\n- Eyes that weren't eyes — they were OPENINGS, like looking through holes in the world\n- A mouth that went the wrong direction\n- Something that might have been wings, if wings were made of folded space\n\nHe is not a ghost. He is not a demon. He is not anything in the Guild's bestiary.\n\nI think Perrius Anamatar is a piece of a different reality that got stuck here. A FRAGMENT. Like Dan, but older. Much older. Old enough to have learned how to wear a face.\n\nAnd he's been drinking tea at Raventree for a very, very long time.",
+                      "color": "#4a148c",
+                      "background": "#f3e5f5"
+                    }
+                  ],
+                  "secret_id": "perrius_true_nature"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "The Overheard Conversation",
+          "pages": [
+            {
+              "page_number": 8,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "What They Said",
+                  "subtitle": "When They Thought I Wasn't Listening",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "Highsun 29. Early morning.\n\nArchie overheard me talking to a Guild contact. Or rather — he overheard the Guild contact talking TO me, because I wasn't doing much talking. I was mostly listening, and what I was hearing made me feel like the floor was dissolving under my feet.\n\nThe conversation, as close to verbatim as I can reconstruct:\n\nGUILD: 'The fracture cascade is accelerating. Extraction must proceed within 48 hours.'\nME: 'Extraction of what?'\nGUILD: 'The spectral entities embedded in the manor's structure. They contain planar data we need.'\nME: 'There are living people in here. Archie, Remi, the toads—'\nGUILD: 'The extraction will destabilize the local planar field. Casualties among non-Guild personnel are... expected.'\nME: '...expected.'\nGUILD: 'The Miser subject in particular is unlikely to survive. His magical signature is entangled with the fracture points. Removing the ghosts will likely pull his life force with them.'\nME: 'You want to kill Archie.'\nGUILD: 'We want to save the data. Archie's death would be a side effect. An acceptable one.'",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "The rope holding Archie snapped while he was eavesdropping above us. He fell. They saw him. The look on his face — he'd heard everything.\n\nI am supposed to be on the Guild's side. I am 'Agent L.' I carry their equipment, follow their orders, fill out their eleven-page forms. And they just told me, in plain language, that they are willing to murder a man to harvest ghost data.\n\nArchie looked at me like I had pointed a knife at him.\n\nI don't blame him.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                }
+              ]
+            },
+            {
+              "page_number": 9,
+              "content": [
+                {
+                  "type": "handwritten",
+                  "text": "Highsun 29, later.\n\nArchie was ambushed in the library. By SOMETHING. The Guild won't say what. Perrius Anamatar intervened — said he 'wanted peace and quiet' — and knocked Archie unconscious. When Archie woke up hours later, Thornbury and I were watching over him.\n\nThornbury is... complicated. He's a Guild guard, but he's not like the others. He found a secret stash of gold in the servants' dining room and actually SPLIT it fairly. He set up detection equipment to help find ghosts. He's doing his job, but he's doing it like a person, not like a Guild automaton.\n\nI like Thornbury. I'm afraid for Thornbury. People I like in the Guild tend to end up reassigned, or silenced, or 'spontaneously experiencing arcane feedback.'\n\nThe guild member Magistrix Vellum — she died of 'spontaneous arcane feedback' years ago. The official story was that her focusing crystal overloaded. The unofficial story, whispered in corridors, is that she was preparing to expose the Tribunal's location to Guild strike teams and was eliminated.\n\nThe Guild kills its own when they become inconvenient. What chance does a plumber have?",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "LUIGI'S CODED NOTE TO HIMSELF",
+                  "description": "Luigi encoded a reminder using a pipe-based cipher: each letter is replaced by its mirror position in the alphabet (A=Z, B=Y, C=X...).",
+                  "encoded_text": "UILM GSV NZTTL QLFIMZO. UROO GSIVY-Y. HVXGRLM 'WRNVMHRLMZO WRHKOZXVNVMG.' NZIRLH OLLXZGRLM RH GSIVI.",
+                  "solution": "FIND THE MAGES JOURNAL. FILE THREE-B. SECTION 'DIMENSIONAL DISPLACEMENT.' MARIOS LOCATION IS THERE.",
+                  "hint": "Mirror alphabet: A=Z, B=Y, C=X... U=F, I=R, L=O...",
+                  "secret_id": "cipher_mario_location"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "The People Here",
+          "pages": [
+            {
+              "page_number": 10,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Field Notes",
+                  "subtitle": "The People I've Met (And Whether They'll Kill Me)",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "ARCHIE MISER\nWill he kill me: Probably, but not on purpose.\nArchie throws fireballs the way most people throw insults — reflexively, without aiming, and with more force than the situation warrants. He is also, against all evidence, not entirely a bad person. He seems genuinely upset about some of the people he's killed. Not upset enough to stop killing people, but upset.\nThe Guild wants him dead. I don't think that's right.\nDanger level: EXTREME (proximity-based)",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "MARKOP\nWill he kill me: No, but he might die protecting me, which is worse.\nMarkop bashed a lock open with his body while bleeding from multiple wounds and screamed for Remi to run. That's the kind of person Markop is. The kind who takes damage so others don't have to. I worry about people like that. They burn out or they break.\nDanger level: LOW (to me) / EXTREME (to himself)",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "REMI (FNG)\nWill she kill me: Unclear. She was recruited via BOMB.\nWario gave her a box. The box exploded. Wario then offered her a job. AND SHE TOOK IT. Either Remi is the bravest person I've ever met or she has the self-preservation instincts of a lemming in a track suit. She was captured by Onyx knights and found a battle plan on a napkin. She is resourceful in the way that people who expect to die young are resourceful.\nDanger level: MODERATE (collateral risk)",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                }
+              ]
+            },
+            {
+              "page_number": 11,
+              "content": [
+                {
+                  "type": "handwritten",
+                  "text": "DAN (PARALLEL)\nWill he kill me: He doesn't know what he is. That's what scares me.\nThe Guild wants him dead. I was ordered to 'neutralize' him. I won't. He's a person. He's scared and confused and he doesn't understand why everyone looks at him like he's a bomb. The Star Spirit prophecy says he has to choose — be the crack that lets light in or the crack that lets it out. Nobody's told him that yet. Maybe nobody should. Choices made under pressure aren't really choices.\nDanger level: EXISTENTIAL (to reality, not to me personally)",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "HJUMPIK\nWill he kill me: Only if I'm standing near a power core.\nThis toad disabled an airship's power core with an AXE. While the ship was FLYING. Then he apparently did it again (or something similar) and the ship nearly crashed. Hjumpik operates on a level of desperate improvisation that I find both inspiring and terrifying. He is the embodiment of 'it seemed like a good idea at the time.'\nDanger level: HIGH (chaotic)",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "WARIO\nWill he kill me: He'll try to sell me first.\nWario was found in a barrel. A BARREL. On a ship full of 150+ trafficked toads hidden in barrels. Draw your own conclusions. He gave Remi a bomb. He delivers 'items' to people by dumping them into backpacks while fleeing guards. He is the worst person I have ever met who is technically on 'our side.'\nEvery group has a Wario. Not every group survives having one.\nDanger level: FINANCIAL (he will steal everything you own)",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A page has been folded over and stapled shut. Pry it open → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "WALUIGI\nWill he kill me: He already tried.\nNot directly. But his agent 'Wally' made a dramatic exit with Bowser, and his Cone of Cold spell froze Eager SOLID. Eager is presumed dead by the crew.\n\nBut here's what I can't stop thinking about: Waluigi SAVED hjumpik. In the middle of chaos, with no obvious benefit to himself, Waluigi saved someone's life. Why? What game is he playing?\n\nThe Guild has no file on Waluigi. Nothing. Not 'classified' — NOTHING. As if he doesn't exist in their records. As if someone erased him.\n\nOr as if he was never supposed to be here at all.",
+                      "color": "#4a148c",
+                      "background": "#f3e5f5"
+                    }
+                  ],
+                  "secret_id": "waluigi_mystery"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Last Entry",
+          "pages": [
+            {
+              "page_number": 12,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Last Entry",
+                  "subtitle": "If You're Reading This",
+                  "color": "#2e7d32"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "Harvestide 30.\n\nThe Purple Toad came. Sang a song. Picked Archie's pockets. Opened a portal with Archie's own compass and stepped through. Nobody stopped him because nobody understood what was happening until it was already over.\n\nThat's this whole experience in miniature. Things happen. They happen too fast. You don't understand them until they're behind you, and by then, new things are happening and the old things are just... noise.\n\nI came here to do a job for people who lied to me. I found people who are broken and brave and terrible and kind, sometimes all at once. I found a manor that exists in too many dimensions and a reality that's coming apart at the seams. I found evidence that my brother is alive and that the people who promised to help me find him are the ones keeping him trapped.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "handwritten",
+                  "text": "Here is what I'm going to do:\n\n1. I am going to find File Three-B in the Guild's archives.\n2. I am going to find my brother.\n3. I am going to get him out, with or without the Guild's permission.\n4. I am going to protect Dan, because he deserves to make his own choice.\n5. I am going to warn Archie about the extraction, because nobody deserves to die as a 'side effect.'\n\nThe Guild will call me a traitor. Let them. I was never really their agent. I was always just a plumber who missed his brother.\n\nIf you're reading this and I'm dead: tell Mario I'm sorry I took so long.\nIf you're reading this and I'm alive: put the journal down, Wario. I warned you about the toilet ghost.",
+                  "color": "#1b5e20",
+                  "background": "#e8f5e9"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "LUIGI'S FINAL CODE",
+                  "description": "Luigi left a coded message for anyone who might need to find him. The cipher uses the letters of 'LUIGI' as number shifts (L=12, U=21, I=9, G=7, I=9, cycling).",
+                  "encoded_text": "X IUTT MQ FD YNQ TRMXFEC. ADDP LDG YNQ SGQQZ BURQ.",
+                  "solution": "L WILL BE AT THE LIBRARY. LOOK FOR THE GREEN PIPE.",
+                  "hint": "LUIGI = L(12), U(21), I(9), G(7), I(9). Subtract from each letter, cycling.",
+                  "secret_id": "cipher_luigi_location"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "iron-mandate-dispatches",
@@ -93,10 +3979,578 @@ window.BOOKS_DATA = {
       "category": "Military",
       "rarity": "Rare",
       "locked": false,
+      "lock_message": "",
       "condition": "Burnt edges",
-      "description": "A bundle of field reports bound in scorched metal covers.",
+      "description": "A bundle of field reports bound in scorched metal covers, originally stamped TOP SECRET. Recovered during the Loyalist assault on Bramblehaven. The Iron Legion wants these back. Badly.",
+      "page_color": "#eceff1",
+      "text_color": "#263238",
       "total_pages": 10,
-      "secrets_total": 5
+      "secrets_total": 5,
+      "chapters": [
+        {
+          "title": "Cover Sheet",
+          "pages": [
+            {
+              "page_number": 1,
+              "content": [
+                {
+                  "type": "centered",
+                  "text": "⚔ IRON LEGION — MIDLANDS COMMAND ⚔",
+                  "color": "#37474f",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "centered",
+                  "text": "CLASSIFIED FIELD DISPATCHES",
+                  "color": "#f44336",
+                  "style": "bold"
+                },
+                {
+                  "type": "centered",
+                  "text": "UNAUTHORIZED ACCESS PUNISHABLE BY DEATH",
+                  "color": "#f44336"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "Archivist's Note: These documents were recovered during the Loyalist assault on Bramblehaven Fortress, Highsun 17, 1040 BF. They represent internal Iron Legion communications spanning the previous two months. The Legion has offered a bounty of 10,000 gold for their return and a separate bounty of 5,000 gold for the head of whoever is currently reading them.",
+                  "color": "#b71c1c"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "lore_box",
+                  "title": "DOCUMENT CLASSIFICATION",
+                  "border_color": "#37474f",
+                  "background": "#cfd8dc",
+                  "entries": [
+                    "Classification: IRON MANDATE — EYES ONLY",
+                    "Distribution: Legion Command, Sector Chiefs, Intelligence Division",
+                    "Handling: Destroy after reading. Report any unauthorized copies.",
+                    "Penalty for breach: Summary execution (Field Order 7, Section 3)",
+                    "NOTE: If you are reading this and you are not Iron Legion, you are already dead. You just don't know it yet."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Dispatch I: The Vigilance Operation",
+          "pages": [
+            {
+              "page_number": 2,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Dispatch I",
+                  "subtitle": "Operation IRON CARGO — The Vigilance Trafficking Network",
+                  "color": "#37474f"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "FROM: Colonel Steelcap, Logistics Division\nTO: Legion Command\nDATE: Highsun 5, 1040 BF\nRE: Status of Operation IRON CARGO\nCLASSIFICATION: IRON MANDATE"
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Sirs, I regret to report that Operation IRON CARGO has been compromised beyond recovery. The airship Vigilance, which served as our primary mobile distribution platform for labor assets, has been seized by a coalition of hostile actors following a series of cascading security failures."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "For the record, IRON CARGO operated as follows: Toad labor assets were acquired through intermediary networks (see Appendix C: Acquisition Protocols — DESTROYED per standing orders). Assets were processed through intake facilities disguised as refugee camps, then transported aboard the Vigilance in modified cargo barrels. Each barrel contained a Mini-Mushroom access compartment, allowing a single toad to be stored in suspended animation for up to 30 days."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "At peak operation, the Vigilance carried 157 labor assets distributed across its cargo holds, crew quarters, and maintenance corridors. Revenue from a single shipment cycle averaged 47,000 gold — divided between the Legion (60%), the transport crew (15%), the acquisition network (15%), and 'administrative facilitation' (10%)."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A page has been partially burned. Reconstruct the charred text → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "'Administrative facilitation' is the payment made to the Mushroom Regency for turning a blind eye. Chancellor Toadsworth's signature appears on the original revenue-sharing agreement — Document IL-7749, now destroyed. But I kept a copy. I keep copies of everything.\n\nThe Regency knows about the trafficking. They profit from it. They have ALWAYS profited from it. The 10% facilitation fee has been paid continuously since 1025 BF — fifteen years of toad lives converted to gold that lines the pockets of the people who are supposed to protect them.\n\nIf this information reaches the Loyalists, the Regency falls. If the Regency falls, our facilitation arrangement ends. If the arrangement ends, we lose access to half our acquisition territory.\n\nDestroy this note. — Col. Steelcap",
+                      "color": "#b71c1c",
+                      "background": "#ffcdd2"
+                    }
+                  ],
+                  "secret_id": "regency_trafficking_cut"
+                }
+              ]
+            },
+            {
+              "page_number": 3,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The compromise of IRON CARGO began with the dismantling of our Iron Fists smuggling ring by hostile operatives (Highsun 3). This placed a bounty on the operatives' heads, which — I must note for the record — was authorized by MY division and should have been handled by MY people. Instead, Sector Command authorized a separate response that resulted in the following cascade of failures:"
+                },
+                {
+                  "type": "list_dramatic",
+                  "items": [
+                    {
+                      "text": "X.O.'s betrayal and seizure of the Vigilance was NOT authorized by Legion Command. X.O. was operating independently, pursuing personal objectives. Her capture of Bowser was a deviation from protocol.",
+                      "color": "#d32f2f"
+                    },
+                    {
+                      "text": "Our boarding party's 'internal conflict' was a planned feint — a distraction to allow secondary agents to pursue hidden objectives aboard the ship. The feint was successful; the secondary objectives were not.",
+                      "color": "#37474f"
+                    },
+                    {
+                      "text": "The barrel trafficking system was revealed to operative hjumpik by OUR OWN AGENTS during a negotiation that should never have included that information. Operational security failure, Grade A.",
+                      "color": "#d32f2f"
+                    },
+                    {
+                      "text": "157 labor assets were discovered. Current status: liberated. Revenue loss: catastrophic.",
+                      "color": "#d32f2f"
+                    }
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "RECOMMENDATION: Operation IRON CARGO is terminated. All associated records to be destroyed. All acquisition network contacts to be severed. Cover story to be disseminated: 'The trafficking was conducted by rogue elements and does not represent Legion policy.' This is, of course, a lie. But it is a useful lie, and useful lies are the foundation of institutional survival."
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "ENCODED ADDENDUM",
+                  "description": "Colonel Steelcap encoded a personal addendum using the Legion's standard field cipher — a shift of 4 positions.",
+                  "encoded_text": "XLI XVEJJMGOMRK TVSKVEQ AEW JYRIH FC PIKMSR GSQQERH JVSQ MXW MRGIVXMSR. IZIVCSRI EFSZI QI ORIAX. IZIVCSRI FIIPSA QI HIPMZIHIH.",
+                  "solution": "THE TRAFFICKING PROGRAM WAS FUNDED BY LEGION COMMAND FROM ITS INCEPTION. EVERYONE ABOVE ME KNEW. EVERYONE BELOW ME DELIVERED.",
+                  "hint": "Caesar cipher, shift of 4. X=T, L=H, I=E...",
+                  "secret_id": "cipher_legion_trafficking"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Dispatch II: Faction Analysis",
+          "pages": [
+            {
+              "page_number": 4,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Dispatch II",
+                  "subtitle": "Strategic Threat Assessment — All Factions",
+                  "color": "#37474f"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "FROM: Intelligence Division, Sector Twelve\nTO: All Sector Chiefs\nDATE: Highsun 15, 1040 BF\nRE: Updated threat matrix\nCLASSIFICATION: IRON MANDATE"
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "faction_box",
+                  "factions": [
+                    {
+                      "name": "Peach Loyalists — THREAT LEVEL: CRITICAL",
+                      "color": "#e91e63",
+                      "icon": "🌸",
+                      "description": "Captain Toadette's forces have exceeded our projections by every metric. The Toad Town coup caught our analysts off guard — we assessed a 12% probability of success; they achieved total control in under six hours. Their Vengeance Cell has assassinated three of our sector liaisons in the past month. The Bramblehaven intelligence indicates they are operating on information we believed secure. ASSESSMENT: The Loyalists are no longer an insurgency. They are a state in all but name."
+                    },
+                    {
+                      "name": "Fawful's Forces — THREAT LEVEL: EXISTENTIAL",
+                      "color": "#ff5722",
+                      "icon": "🐉",
+                      "description": "The dragon alliance changes everything. Five wyrms under unified command represent a strategic capability that makes conventional military resistance pointless. A single dragon can destroy a Legion garrison in minutes. Five can reduce the Midlands to ash in a day. Our only defense is political: Fawful needs infrastructure to rule, and dragons cannot build infrastructure. He needs US, even if he hasn't realized it yet. ASSESSMENT: Seek accommodation, not confrontation."
+                    },
+                    {
+                      "name": "Onyx Hand — THREAT LEVEL: MODERATE",
+                      "color": "#212121",
+                      "icon": "🖐️",
+                      "description": "The Hand's vampire knights at Raventree have been weakened by recent events — battle plans exposed, crystals targeted, internal traitor suspected. However, their intelligence network remains formidable. They know things about us that we would prefer they didn't. The Archie Miser acquittal demonstrated their willingness to challenge our interests publicly. ASSESSMENT: Maintain current détente. Avoid provocation."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "page_number": 5,
+              "content": [
+                {
+                  "type": "faction_box",
+                  "factions": [
+                    {
+                      "name": "Mages' Guild — THREAT LEVEL: UNKNOWN",
+                      "color": "#1565c0",
+                      "icon": "🔮",
+                      "description": "The Guild is the most dangerous faction because we cannot determine their objectives. They pursue 'knowledge' and 'planar stability,' but their actions at Raventree — willingness to sacrifice living operatives for ghost data, plans to extract spectral entities regardless of collateral damage — suggest an agenda that transcends academic research. They have capabilities we cannot counter: dimensional manipulation, null cage technology, surveillance methods that bypass our best countermeasures. ASSESSMENT: The Guild is not our enemy. The Guild is not our ally. The Guild is a force of nature, and you do not negotiate with hurricanes."
+                    },
+                    {
+                      "name": "The Vigilance Crew — THREAT LEVEL: MODERATE",
+                      "color": "#ff9800",
+                      "icon": "🎈",
+                      "description": "An unpredictable coalition of adventurers, opportunists, and idealists. They dismantled our smuggling ring, uncovered the trafficking program, and have generated more chaos per capita than any force in recent memory. Individual threat assessments: Archie Miser (EXTREME — area denial), hjumpik (HIGH — infrastructure sabotage), Markop (MODERATE — tactical leadership), Remi (LOW — but ascending rapidly). ASSESSMENT: These individuals are dangerous precisely because they have no coherent strategy. You cannot predict what you cannot understand."
+                    }
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A handwritten note is clipped to the margin → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Personal assessment, not for distribution:\n\nWe are losing. Not to any single faction — to ALL of them simultaneously. The Legion was built for a world of conventional warfare: territory, supply lines, force projection. That world no longer exists. We are fighting mages who manipulate dimensions, zealots who worship a dead princess, dragons who answer to a madman, and a criminal syndicate with vampire knights.\n\nOur traditional advantages — discipline, numbers, logistics — mean nothing when a single fireball can eliminate a squad, when a toad with an axe can ground an airship, when reality itself is unreliable.\n\nThe Iron Legion is a hammer. Every problem we face is a fog. You cannot hammer fog.\n\nI recommend strategic withdrawal from all active theaters, consolidation of core territory, and preparation for a world that no longer has room for us.\n\nThis recommendation will be ignored. It always is.\n\n— Major Ironcrest, Intelligence Division",
+                      "color": "#37474f",
+                      "background": "#cfd8dc"
+                    }
+                  ],
+                  "secret_id": "legion_losing_assessment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Dispatch III: The Pipe Junction Truth",
+          "pages": [
+            {
+              "page_number": 6,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Dispatch III",
+                  "subtitle": "Historical Record — Battle of Pipe Junction (1001 BF)",
+                  "color": "#37474f"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "FROM: Archival Division\nTO: Legion Command (RESTRICTED)\nDATE: Highsun 10, 1040 BF\nRE: Pipe Junction documentation — REQUEST FOR PERMANENT DESTRUCTION\nCLASSIFICATION: IRON MANDATE — MAXIMUM"
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Sirs, the Loyalist seizure of Toad Town has placed our historical records at risk. Specifically, Regency communication archives now in Loyalist hands may contain references to our involvement in the Battle of Pipe Junction. I am requesting authorization to destroy all remaining Legion records related to this engagement."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "For those in current Command who may not be familiar with the details: The Battle of Pipe Junction (1001 BF) was the largest single engagement of the Century War. Approximately 40,000 combatants died over three days of fighting in and around the warp pipe intersection that connected the Northern, Southern, and Eastern provinces."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The official history records this as a Loyalist-Regency conflict triggered by a dispute over pipe network control. The actual history is more... nuanced."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "PIPE JUNCTION — ACTUAL EVENTS",
+                  "border_color": "#d32f2f",
+                  "background": "#ffebee",
+                  "entries": [
+                    "The Iron Legion (then 'Midlands Mercenary Company') was contracted by BOTH sides",
+                    "We provided tactical advisors, weapons, and intelligence to Loyalist forces (Contract MR-441)",
+                    "We simultaneously provided fortification engineers, artillery, and intelligence to Regency forces (Contract MR-442)",
+                    "Both contracts included 'performance bonuses' tied to enemy casualties — incentivizing maximum bloodshed",
+                    "We brokered a ceasefire on Day 3 and charged both sides a 'mediation fee'",
+                    "Total revenue from Pipe Junction: approximately 2.3 million gold",
+                    "Total casualties: 40,000 (roughly 20,000 per side, perfectly balanced — by design)"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Battle of Pipe Junction transformed the Midlands Mercenary Company from a regional contractor into a superpower. The revenue funded our expansion, our fortifications, our standing army. The reputation — 'the force that ended Pipe Junction' — gave us political legitimacy. Everything we are today was built on the bodies of 40,000 soldiers who did not know they were fighting a war designed to profit their 'ally.'"
+                }
+              ]
+            },
+            {
+              "page_number": 7,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The Regency's complicity in Pipe Junction is documented in their own financial records — the same records the Loyalists have now captured. Chancellor Toadsworth's father signed the revenue-sharing agreement personally. The current Chancellor inherited the arrangement and has maintained it, just as he maintains the trafficking facilitation agreement and the investigation cover-up and every other corrupt bargain his family has accumulated over three generations."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "If the Loyalists connect the Regency's Pipe Junction payments to us, the political fallout would be catastrophic. Every faction would turn against us simultaneously. The Loyalists would have proof that we deliberately prolonged the war. The remaining Regency supporters would disavow all connection to us. Even the Onyx Hand's tribunals — rough justice that they are — would consider this evidence sufficient for a mass indictment."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "RECOMMENDATION: Destroy all Pipe Junction records immediately. If destruction is not possible, modify them to remove references to dual contracting. If modification is not possible, prepare a cover story blaming 'rogue elements within the pre-Legion mercenary structure who have since been purged.'"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A second document is stapled beneath this one → ]",
+                  "hidden_content": [
+                    {
+                      "type": "paragraph",
+                      "text": "RESPONSE FROM LEGION COMMAND:",
+                      "color": "#d32f2f"
+                    },
+                    {
+                      "type": "handwritten",
+                      "text": "Request DENIED.\n\nThe Pipe Junction records are not to be destroyed. They are to be relocated to Deepvault Site 7 and maintained under maximum security.\n\nReason: The records are our insurance policy. As long as we possess proof of the Regency's complicity, the Regency cannot move against us without destroying themselves. The moment we destroy the records, we lose our leverage.\n\nAdditionally: if the Loyalists obtain this evidence, they will use it to further destabilize the Regency — which is currently in our interest. A weakened Regency is a dependent Regency. A dependent Regency pays its bills on time.\n\nThe 40,000 dead at Pipe Junction are regrettable. They are also the foundation of our power. We do not apologize for our foundations.\n\n— General Ironheart, Legion Command",
+                      "color": "#37474f",
+                      "background": "#cfd8dc"
+                    }
+                  ],
+                  "secret_id": "pipe_junction_insurance"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Dispatch IV: The Democratic Summit",
+          "pages": [
+            {
+              "page_number": 8,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Dispatch IV",
+                  "subtitle": "After-Action Report — The Democratic Summit Incident",
+                  "color": "#37474f"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "FROM: Diplomatic Liaison, Foreign Affairs Division\nTO: Legion Command\nDATE: Highsun 14, 1040 BF\nRE: Lanky Kong incident — diplomatic and economic fallout\nCLASSIFICATION: IRON MANDATE"
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Democratic Summit of Highsun 13 was intended to establish trade protocols between the Mushroom Kingdom's surviving economic zones and the DK Crew's territories. The Legion's interest was straightforward: access to the DK Crew's mineral resources in exchange for military non-aggression guarantees."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The summit was sabotaged by Lanky Kong."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "I use the word 'sabotaged' advisedly. Lanky Kong's behavior — which included but was not limited to inappropriate physical gestures, the consumption of an entire diplomatic gift basket, and a twenty-minute interpretive dance that the Beanbean Kingdom's ambassador described as 'an act of war against aesthetics' — was so bizarrely destructive that it transcends mere incompetence. No one is THAT stupid accidentally."
+                },
+                {
+                  "type": "lore_box",
+                  "title": "ECONOMIC IMPACT ASSESSMENT",
+                  "border_color": "#ff9800",
+                  "background": "#fff3e0",
+                  "entries": [
+                    "Trade negotiations: COLLAPSED. No framework established.",
+                    "Beanbean Kingdom delegation: WITHDREW. Ambassador recalled for 'psychological recovery.'",
+                    "Mushroom Kingdom economic confidence index: DOWN 23% in 48 hours",
+                    "DK Crew internal fracture: Donkey Kong publicly disavowed Lanky's actions",
+                    "Iron Legion trade access: DENIED. DK territories now closed to all outside parties.",
+                    "Estimated economic damage to all parties: 1.2 million gold equivalent"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Our intelligence division has conducted a behavioral analysis of Lanky Kong's actions and reached the following conclusion: Lanky Kong was either mind-controlled, bribed, or is a deep-cover operative for an unknown faction seeking to isolate the DK Crew from potential allies."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The third option is the most concerning. If someone is deliberately fracturing inter-faction alliances, we need to identify who and why before they target our own diplomatic channels."
+                }
+              ]
+            },
+            {
+              "page_number": 9,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "SUPPLEMENTARY ANALYSIS: The Pattern of Isolation"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Our analysts have identified a disturbing pattern across recent events. Consider the following sequence:"
+                },
+                {
+                  "type": "list_dramatic",
+                  "items": [
+                    {
+                      "text": "Ignis slain → remaining dragons isolated from mortal contact → Fawful fills the vacuum",
+                      "color": "#ff5722"
+                    },
+                    {
+                      "text": "Vigilance seized → Liberated Toads scattered → no unified resistance movement at sea",
+                      "color": "#37474f"
+                    },
+                    {
+                      "text": "Loyalists take Toad Town → Regency isolated from population → power vacuum in civil governance",
+                      "color": "#e91e63"
+                    },
+                    {
+                      "text": "Democratic Summit collapses → DK Crew isolated from trade networks → resource flow disrupted",
+                      "color": "#ff9800"
+                    },
+                    {
+                      "text": "Boo Aristocracy sealed mansions → entire species isolated → spectral resources unavailable",
+                      "color": "#4a148c"
+                    },
+                    {
+                      "text": "Star Road destroyed (decades ago) → inter-regional travel crippled → permanent territorial fragmentation",
+                      "color": "#ffd700"
+                    }
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Every major event in recent history has resulted in ISOLATION. Factions separated from each other. Species cut off from trade. Communication networks severed. Alliance opportunities destroyed. Someone is systematically ensuring that no two powers can cooperate long enough to pose a unified threat."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The question is: a threat to WHOM?"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A note in different ink has been added to the margin → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "I've cross-referenced this pattern with the Onyx Hand's analysis (obtained through channels I will not disclose). Their Pattern Analysis — the one linking the assassination, the Star Road destruction, the Legion's rise, and the Raventree fractures — aligns perfectly with what we're seeing.\n\nSomeone has been playing this game for 85 years. Since before the Princess died. Possibly since before she was BORN.\n\nThe assassination wasn't the beginning. It was a MOVE. One move in a game so large that every faction — Loyalists, Regency, Legion, Guild, Hand, Fawful — is a piece on the board.\n\nWe're not players. We're not even pieces. We're the board itself, being rearranged by hands we cannot see.\n\nWhoever is doing this wants the kingdom broken into fragments too small to resist whatever comes next.\n\nAnd whatever comes next is almost here.\n\n— Major Ironcrest, final analysis before reassignment",
+                      "color": "#d32f2f",
+                      "background": "#ffcdd2"
+                    }
+                  ],
+                  "secret_id": "grand_pattern_analysis"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Final Dispatch",
+          "pages": [
+            {
+              "page_number": 10,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Final Dispatch",
+                  "subtitle": "Standing Orders — Effective Immediately",
+                  "color": "#37474f"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "FROM: General Ironheart, Legion Command\nTO: All Sector Chiefs, All Division Commanders\nDATE: Highsun 20, 1040 BF\nRE: IRON MANDATE — Strategic Realignment\nCLASSIFICATION: IRON MANDATE — MAXIMUM"
+                },
+                {
+                  "type": "divider",
+                  "style": "simple"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Iron Legion has endured for twenty years by adapting to circumstances that would have destroyed lesser organizations. We will adapt again."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Effective immediately, the following strategic realignment is in effect:"
+                },
+                {
+                  "type": "list_dramatic",
+                  "items": [
+                    {
+                      "text": "ALL trafficking operations are terminated. Cover stories to be implemented. No exceptions.",
+                      "color": "#37474f"
+                    },
+                    {
+                      "text": "Diplomatic overtures to Fawful's forces are authorized. We cannot fight dragons. We can negotiate with the man who commands them.",
+                      "color": "#ff5722"
+                    },
+                    {
+                      "text": "The Vigilance is to be recovered or destroyed. It cannot remain in uncontrolled hands.",
+                      "color": "#37474f"
+                    },
+                    {
+                      "text": "Major Ironcrest is reassigned to Deepvault Site 7, effective immediately. His analysis is noted and filed.",
+                      "color": "#d32f2f"
+                    },
+                    {
+                      "text": "All references to Pipe Junction dual-contracting are to be purged from active files. Archive copies remain at Deepvault Site 7.",
+                      "color": "#37474f"
+                    },
+                    {
+                      "text": "The Loyalist threat is to be managed through containment, not confrontation. Let them have Toad Town. We will have everything else.",
+                      "color": "#37474f"
+                    }
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Legion's motto is 'Order Through Strength.' But strength takes many forms. The strength to fight is elementary. The strength to wait — to watch — to let enemies destroy each other while we conserve our resources — that is the strength that empires are built on."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "We will wait. We will watch. And when the dust settles — when Fawful's dragons have burned themselves out, when the Loyalists have martyred themselves into extinction, when the Guild's dimensional meddling has collapsed into whatever catastrophe it was always heading toward — we will be the last ones standing. Because we are the only faction that understands a truth the others cannot accept:"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"The kingdom does not need to be saved. It needs to be MANAGED. And management is what we do best.\"",
+                  "attribution": "— General Ironheart, Legion Command",
+                  "color": "#37474f"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "⚔ ORDER THROUGH STRENGTH ⚔",
+                  "color": "#37474f",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "IRONHEART'S PRIVATE CIPHER",
+                  "description": "A message encoded by General Ironheart for his own records. Standard Legion field cipher — shift of 4.",
+                  "encoded_text": "QENSV MVSRGVIWX MW VMKLX. WLI FWEVH MW VIEP. M LEZI WIIR MX. M HS RSX ORSA ALS QSZIIW XLI TMIGIIW FYX M ORSA XLIMV KSEP: E ASVPH AMXLSYX JEGXMSRW. E ASVPH SJ JVEKQIRXW XSS WQEPP XS VIWMWX.",
+                  "solution": "MAJOR IRONCREST IS RIGHT. THE BOARD IS REAL. I HAVE SEEN IT. I DO NOT KNOW WHO MOVES THE PIECES BUT I KNOW THEIR GOAL: A WORLD WITHOUT FACTIONS. A WORLD OF FRAGMENTS TOO SMALL TO RESIST.",
+                  "hint": "Caesar cipher, shift of 4. Q=M, E=A, N=J, S=O, V=R...",
+                  "secret_id": "cipher_ironheart_board"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "wario-method",
@@ -109,10 +4563,435 @@ window.BOOKS_DATA = {
       "category": "Culture",
       "rarity": "Uncommon",
       "locked": false,
+      "lock_message": "",
       "condition": "Greasy",
-      "description": "A gaudy yellow book with a purple 'W' stamped on the cover in what appears to be actual gold leaf.",
+      "description": "A gaudy yellow book with a purple 'W' stamped on the cover in what appears to be actual gold leaf. Smells strongly of garlic and money. Several pages are stuck together with an unidentified substance.",
+      "page_color": "#fffde7",
+      "text_color": "#4a148c",
       "total_pages": 8,
-      "secrets_total": 3
+      "secrets_total": 3,
+      "chapters": [
+        {
+          "title": "Foreword",
+          "pages": [
+            {
+              "page_number": 1,
+              "content": [
+                {
+                  "type": "centered",
+                  "text": "💰 THE WARIO METHOD 💰",
+                  "color": "#f9a825",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "centered",
+                  "text": "How to Win at Everything by Cheating at Everything",
+                  "color": "#4a148c",
+                  "style": "italic"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "By WARIO",
+                  "color": "#f9a825",
+                  "style": "bold"
+                },
+                {
+                  "type": "centered",
+                  "text": "(The Greatest Businessman, Adventurer, and Lover the Mushroom Kingdom Has Ever Produced)",
+                  "color": "#4a148c"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "divider",
+                  "style": "ornate"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "You're holding this book because you're smart. Not as smart as Wario, obviously — nobody is as smart as Wario — but smart enough to recognize genius when you see it. Or when it falls on you from a shelf. Or when someone throws it at your head, which is how most people encounter Wario's wisdom."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "This is the story of how Wario — that's me, keep up — survived a civil war, a haunted airship, a vampire manor, and several attempts on his life by people who should have been grateful for the privilege of being in the same room as Wario."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Some of this is true. All of it is entertaining. The parts that aren't true are BETTER than the truth, which is what truth SHOULD be if truth had any business sense."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"If you're not cheating, you're not trying. If you're not trying, you're not Wario. And if you're not Wario, why are you even here?\"",
+                  "attribution": "— Wario, to a mirror, every morning",
+                  "color": "#f9a825"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter I: The Barrel",
+          "pages": [
+            {
+              "page_number": 2,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter I",
+                  "subtitle": "How I Ended Up in a Barrel (A Triumph of Strategic Planning)",
+                  "color": "#f9a825"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "P",
+                  "text": "eople ask Wario: 'Wario, why were you in a barrel on a ship full of trafficked toads?' And Wario says: 'Because Wario is a GENIUS.' Then they look confused, because most people cannot follow Wario's logic. It is too fast. Too brilliant. Too lubricated with garlic butter.",
+                  "color": "#4a148c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Here is the truth, which Wario is telling you for free, which already makes this the greatest bargain in literary history:"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Wario was investigating the Iron Legion's trafficking operation. VOLUNTARILY. Out of the goodness of Wario's heart, which is very large and full of justice and also garlic. Wario had received intelligence — from sources Wario will not name because they owe Wario money — that the airship Vigilance was being used to transport toads in barrels. Wario's plan was simple: get inside a barrel, ride the ship to the distribution point, identify the buyers, and then — this is the genius part — SELL THE INFORMATION TO EVERYONE."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Loyalists would pay for the names of the traffickers. The Onyx Hand would pay for the names of the buyers. The Regency would pay for the whole thing to go away. And the Iron Legion would pay Wario to keep quiet. Four-way profit. QUINTUPLE if you count the book deal."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A receipt has been stuffed between the pages. Examine it → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Scribe's note: I am being forced to write this. The 'real' story, as far as I can determine from cross-referencing other accounts:\n\nWario was not investigating anything. Wario owed money to the Iron Legion (gambling debts, approximately 3,400 gold). He was hiding in the barrel to avoid debt collectors who were ON THE SHIP. He did not know about the trafficking until hjumpik told him. His 'strategic plan' was invented retroactively to make himself sound clever.\n\nHe has threatened to sit on me if I don't write what he tells me. He weighs approximately 300 pounds. I am writing what he tells me.\n\n— Anonymous Scribe (please send help)",
+                      "color": "#d32f2f",
+                      "background": "#fff9c4"
+                    }
+                  ],
+                  "secret_id": "wario_barrel_truth"
+                }
+              ]
+            },
+            {
+              "page_number": 3,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "The barrel was comfortable. People don't appreciate barrels. Barrels are nature's perfect furniture — round, supportive, and you can fill them with snacks. Wario's barrel contained the following provisions:"
+                },
+                {
+                  "type": "lore_box",
+                  "title": "WARIO'S BARREL INVENTORY",
+                  "border_color": "#f9a825",
+                  "background": "#fffde7",
+                  "entries": [
+                    "14 cloves of garlic (emergency rations)",
+                    "1 wheel of aged Mushroom Kingdom cheddar",
+                    "3 bottles of Koopa Kola (flat but still drinkable)",
+                    "1 deck of cards (for solitaire — Wario always wins)",
+                    "1 small hammer (multipurpose)",
+                    "47 gold coins (Wario's 'walking around money')",
+                    "1 disguise kit (fake mustache, extra-large — to go over Wario's existing mustache)",
+                    "1 list of people who owe Wario money (87 names, single-spaced)"
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Wario was in the barrel for approximately three days before being discovered. During this time, the following things happened aboard the Vigilance: X.O. betrayed everyone, Captain Syrup was freed and immediately started causing problems, hjumpik hit the power core with an axe, and Archie threw a fireball during what was supposed to be a negotiation."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "None of these things surprised Wario. Wario has a sixth sense for chaos. It is the same sense that tells Wario when there is garlic nearby and when someone is about to try to cheat him at cards (the answers are always 'yes' and 'everyone')."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "When Wario emerged from the barrel, he assessed the situation with the tactical brilliance of a born commander: the ship was on fire, everyone was fighting everyone else, and Remi — a new person Wario had never met — was standing nearby looking confused."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Wario gave her a box. It was a perfectly good box. Very nice box. The fact that it contained a bomb was incidental."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter II: The Bomb",
+          "pages": [
+            {
+              "page_number": 4,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter II",
+                  "subtitle": "The Bomb Was a Test (And She Passed)",
+                  "color": "#f9a825"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "E",
+                  "text": "veryone makes a big deal about the bomb. 'Wario gave a stranger a bomb!' they say, as if that's unusual. In Wario's defense: how do you know if someone is tough enough for the Wario Crew if you don't test them? A questionnaire? A RESUME? Those things can be faked. You know what can't be faked? Surviving an explosion.",
+                  "color": "#4a148c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Remi survived the explosion. She was injured — singed, disoriented, probably angry — but alive. Wario then offered her a position in his crew. She accepted. This proves two things:"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "1. Remi is tough enough for the Wario Crew.\n2. Remi's judgment is questionable enough for the Wario Crew."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Both qualities are essential."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Later, at Raventree Manor, Wario bumped into Remi in a hallway. The manor was full of vampires, ghosts, and at least one entity that wears people's skin like a coat (Perrius Anamatar, a being Wario finds deeply unsettling, which is saying something because Wario is unsettled by very little). Guards were chasing Wario for reasons Wario considers 'politically motivated.' In the chaos, Wario dumped fire resistance items and armor into Remi's backpack."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "This was not generosity. Wario does not DO generosity. This was INVESTMENT. A well-equipped Remi is an asset. An unequipped Remi is a liability. Wario understands asset management."
+                },
+                {
+                  "type": "paragraph",
+                  "style": "italic",
+                  "text": "(Also, Wario was being chased and the items were heavy and slowing him down. But mainly the asset management thing.)",
+                  "color": "#999"
+                }
+              ]
+            },
+            {
+              "page_number": 5,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "A word about Wario's business philosophy, because this book is ALSO a business manual, because Wario is generous with his wisdom (but not with his money, which is different):"
+                },
+                {
+                  "type": "lore_box",
+                  "title": "THE SEVEN PRINCIPLES OF THE WARIO METHOD",
+                  "border_color": "#f9a825",
+                  "background": "#fffde7",
+                  "entries": [
+                    "1. EVERYTHING is an opportunity. Chaos is just profit wearing a disguise.",
+                    "2. Never be loyal to anyone who isn't paying you. And even then, renegotiate.",
+                    "3. The best deal is the one where everyone else thinks they won.",
+                    "4. If you can't buy it, steal it. If you can't steal it, bluff. If you can't bluff, RUN.",
+                    "5. Always have an exit strategy. Wario's preferred exit: the nearest window.",
+                    "6. Trust is a currency. Spend other people's, save your own.",
+                    "7. When everything goes wrong, check your pockets. You'd be surprised what ends up in there."
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "These principles have kept Wario alive through situations that would have killed lesser men — and most greater men — and also several men who were approximately Wario's equal, which means they were still inferior to Wario but less inferior than most."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The Vigilance crisis is a perfect case study. While everyone else was fighting over ideologies, factions, and the future of the kingdom, Wario was doing what Wario does best: surviving, profiting, and maintaining the largest collection of IOUs in the Mushroom Kingdom."
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ Several coins fall out from behind this page. Collect them and read what's underneath → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "Scribe's note again. Apologies.\n\nWario is not telling you about the other thing he found in the barrels. While hiding from debt collectors, he overheard Iron Legion officers discussing the Mini-Mushroom compartments. He didn't just discover the trafficking — he discovered the MECHANISM. And he kept that information to himself for three days, trying to figure out how to sell it.\n\nHe eventually shared it because hjumpik forced his hand. But in those three days, 157 toads remained in suspended animation inside barrels while Wario calculated the optimal sale price for the knowledge that could free them.\n\nWario is not evil. He simply does not factor other people's suffering into his cost-benefit analysis. Which, depending on your perspective, might be worse.\n\n— Anonymous Scribe",
+                      "color": "#d32f2f",
+                      "background": "#fff9c4"
+                    }
+                  ],
+                  "secret_id": "wario_barrel_delay"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Chapter III: Waluigi",
+          "pages": [
+            {
+              "page_number": 6,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Chapter III",
+                  "subtitle": "Waluigi (My Idiot Partner Who I Am Definitely Not Worried About)",
+                  "color": "#f9a825"
+                },
+                {
+                  "type": "drop_cap",
+                  "letter": "W",
+                  "text": "aluigi is Wario's partner. Not 'business partner' — although there is a business arrangement — and not 'friend,' because Wario does not have friends. Wario has ASSETS and LIABILITIES. Waluigi is both. Simultaneously. At all times. This is what makes him valuable and also infuriating.",
+                  "color": "#4a148c"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Waluigi can do things Wario cannot. He is tall where Wario is wide. He is sneaky where Wario is direct. He can cast spells — REAL spells, not the fake ones Wario sometimes pretends to cast to scare people (Wario's patented 'Garlic Blast' is just throwing garlic very hard, but it works surprisingly often)."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Waluigi cast a Cone of Cold during a brawl that froze a toad named Eager SOLID. Eager is presumed dead. Waluigi seemed unconcerned by this. Wario was also unconcerned, but for different reasons — Wario checked Eager's pockets first (empty, sadly)."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Later, Waluigi saved hjumpik's life. For no obvious reason. Hjumpik is not rich. Hjumpik is not useful to Waluigi's plans. Hjumpik is a toad who hits things with an axe. And yet Waluigi SAVED him."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "This bothers Wario. When Waluigi does something that doesn't make financial sense, it means he's playing a game Wario can't see. And games Wario can't see are the most dangerous kind."
+                }
+              ]
+            },
+            {
+              "page_number": 7,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Waluigi's agent 'Wally' made a dramatic exit from the Vigilance with Bowser — THE Bowser, the Koopa Warlord — in tow. Why does Waluigi want Bowser? What is he planning? Wario asked. Waluigi smiled and said 'Don't worry about it, Wario.' Which means Wario should worry about it ENORMOUSLY."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Here is what Wario knows about Waluigi that most people don't:"
+                },
+                {
+                  "type": "list_dramatic",
+                  "items": [
+                    {
+                      "text": "Waluigi is not from the Mushroom Kingdom. He appeared approximately five years ago with no verifiable history.",
+                      "color": "#4a148c"
+                    },
+                    {
+                      "text": "He has no Guild registration, no factional affiliation, and no records in any archive Wario has bribed his way into.",
+                      "color": "#4a148c"
+                    },
+                    {
+                      "text": "His magic does not follow standard arcane principles. Guild mages who have observed him describe his spellcasting as 'impossible' and 'structurally incoherent.'",
+                      "color": "#4a148c"
+                    },
+                    {
+                      "text": "He appears to know things before they happen. Not always. Not reliably. But often enough to be unsettling.",
+                      "color": "#4a148c"
+                    },
+                    {
+                      "text": "He is terrified of mirrors. He will not enter a room with a large mirror. He broke every mirror in their shared safehouse.",
+                      "color": "#f44336"
+                    }
+                  ]
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "interactive_reveal",
+                  "label": "[ A page has been torn out and replaced with a different one. Read the replacement → ]",
+                  "hidden_content": [
+                    {
+                      "type": "handwritten",
+                      "text": "This is not in the book Wario dictated. This is the scribe writing independently, at great personal risk (Wario is currently asleep; he snores like a malfunctioning warp pipe).\n\nI have done my own research on Waluigi. The results are deeply troubling.\n\nThe Mages' Guild has no file on him. Not 'classified.' NOT PRESENT. As if he does not exist in their records. Luigi's journal (which I have also transcribed — I am a very busy scribe) notes the same absence.\n\nThe Onyx Hand's intelligence division lists him as: 'ENTITY — UNCLASSIFIED. DO NOT ENGAGE. DO NOT INVESTIGATE. DO NOT ACKNOWLEDGE.'\n\nDO NOT ACKNOWLEDGE. What kind of intelligence assessment tells you to pretend someone doesn't exist?\n\nI looked at the shattered mirror in Wario and Waluigi's safehouse. The fragments showed reflections. But Waluigi's reflection was WRONG. It was him, but... OLDER. Decades older. And it was looking at me.\n\nI put the fragments in a box and I am never opening that box again.\n\n— Anonymous Scribe",
+                      "color": "#4a148c",
+                      "background": "#f3e5f5"
+                    }
+                  ],
+                  "secret_id": "waluigi_nature"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Conclusion",
+          "pages": [
+            {
+              "page_number": 8,
+              "content": [
+                {
+                  "type": "chapter_header",
+                  "text": "Conclusion",
+                  "subtitle": "Why Wario Will Win (And How Much It Will Cost You)",
+                  "color": "#f9a825"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Everyone in this kingdom is fighting over something: justice, power, territory, revenge, the legacy of a dead princess, the future of reality itself. Big concepts. Important concepts. Concepts that get people killed."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Wario is fighting for WARIO. This is why Wario will survive when everyone else doesn't."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Captain Toadette fights for a ghost. She will die for that ghost, and her soldiers will die with her, and the ghost will not notice because ghosts do not care about the living — that's what makes them ghosts. The Iron Legion fights for order, but order is just another word for 'things staying the way they are,' and things are NEVER going to stay the way they are again. The Mages' Guild fights for knowledge, but knowledge without the wisdom to use it is just a more expensive form of stupidity."
+                },
+                {
+                  "type": "paragraph",
+                  "text": "Wario fights for gold. Gold does not care about your ideology. Gold does not fracture across dimensional planes. Gold does not choose sides in a civil war. Gold sits in your pocket and waits for you to spend it, which is the most reliable behavior any object has ever exhibited."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "paragraph",
+                  "text": "The kingdom is falling apart. Good. Falling things scatter, and scattered things can be PICKED UP. By Wario."
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "quote",
+                  "text": "\"Everyone else is playing chess. Wario is playing poker. And Wario has aces up both sleeves, a mirror under the table, and a getaway vehicle parked outside. WAH.\"",
+                  "attribution": "— Wario, final word on the matter",
+                  "color": "#f9a825"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "centered",
+                  "text": "💰 WAH 💰",
+                  "color": "#f9a825",
+                  "style": "bold",
+                  "size": "large"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "puzzle_cipher",
+                  "title": "WARIO'S HIDDEN SAFE COMBINATION",
+                  "description": "Wario hid his safe combination in the book because he keeps forgetting it. Each letter shifts by the number of coins in Wario's barrel inventory (47). Since 47 mod 26 = 21, each letter shifts by 21 (or equivalently, back by 5).",
+                  "encoded_text": "RDAJC GJQZ HVKM. OCNZVM NDIH. AMGGDL KXNNJI. GDAO OXSSZ.",
+                  "solution": "WARIO LONG TERM. TARGET SOUTH. BILLION RATTEN. LIAR HAPPY.",
+                  "hint": "Shift of 21 forward (or 5 backward). R=W, D=A, A=R, J=I, C=O...",
+                  "secret_id": "cipher_wario_safe"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 };
