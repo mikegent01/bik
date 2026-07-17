@@ -316,6 +316,12 @@ function relabelGoldTextNodes(scope, displayId = selected) {
   });
 }
 
+function priceDisplayCurrencyFor(el) {
+  if (displayMode === 'gold') return 'gold';
+  if (el.closest('.wario-summary-card,.checkout-item-card,.cart-float-btn,#shopCartModal,.receipt-paper')) return checkoutQuoteCurrency();
+  return selected;
+}
+
 function convertMarkedPrices(root) {
   root.querySelectorAll('[data-gold-price]').forEach(el => {
     if (el.closest('#playerWalletBridge,#shopExchangeQuote')) return;
@@ -325,10 +331,11 @@ function convertMarkedPrices(root) {
     const nativeCurrency = (el.getAttribute('data-native-currency') || '').trim().toLowerCase();
     const nativePrice = Number(el.getAttribute('data-native-price'));
     const nativeKnown = nativeCurrency && Number.isFinite(nativePrice);
-    const converted = displayMode === 'gold' ? formatCurrency(gold, 'gold') : formatCurrency(gold);
+    const displayId = priceDisplayCurrencyFor(el);
+    const converted = formatCurrency(gold, displayId);
 
     let text = converted;
-    if (displayMode !== 'gold' && nativeKnown && nativeCurrency !== selected) {
+    if (displayMode !== 'gold' && nativeKnown && nativeCurrency !== displayId) {
       text = `${formatNativeCurrency(nativePrice, nativeCurrency)} · ≈ ${converted}`;
     }
     if (el.textContent !== text) el.textContent = text;
