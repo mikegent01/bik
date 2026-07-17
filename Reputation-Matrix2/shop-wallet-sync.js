@@ -86,6 +86,11 @@ function formatCurrency(goldAmount, id = selected) {
   return `${c.icon || '🪙'} ${amount.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${c.name || id}`;
 }
 
+function formatNativeCurrency(amount, id) {
+  const c = currency(id);
+  return `${c.icon || '🪙'} ${Number(amount).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${c.name || id}`;
+}
+
 function parseNumber(text) {
   return Number(String(text).replace(/,/g, ''));
 }
@@ -124,12 +129,10 @@ function convertSimpleCurrencyElement(el) {
   if (converted !== text) el.textContent = converted;
 }
 
-function relabelGoldTextNodes() {
+function relabelGoldTextNodes(scope) {
   const c = currency();
   const label = c.name || selected;
-  const root = document.getElementById('root');
-  if (!root) return;
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   nodes.forEach(node => {
@@ -150,24 +153,38 @@ function convertMarkedPrices(root) {
     if (el.closest('#playerWalletBridge')) return;
     const gold = Number(el.getAttribute('data-gold-price'));
     if (!Number.isFinite(gold)) return;
+
+    const nativeCurrency = (el.getAttribute('data-native-currency') || '').trim().toLowerCase();
+    const nativePrice = Number(el.getAttribute('data-native-price'));
+    const nativeKnown = nativeCurrency && Number.isFinite(nativePrice);
     const converted = formatCurrency(gold);
-    if (el.textContent !== converted) el.textContent = converted;
+
+    let text = converted;
+    if (nativeKnown && nativeCurrency !== selected) {
+      text = `${formatNativeCurrency(nativePrice, nativeCurrency)} · ≈ ${converted}`;
+    }
+    if (el.textContent !== text) el.textContent = text;
   });
+}
+
+function checkoutScopes(root) {
+  return root.querySelectorAll('.wario-summary-card,.checkout-item-card,.cart-float-btn,.receipt-paper,.membership-modal');
+}
+
+function convertCheckoutScope(scope) {
+  const textWalker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (textWalker.nextNode()) textNodes.push(textWalker.currentNode);
+  textNodes.forEach(convertTextNode);
+  scope.querySelectorAll('span,div,button,pre').forEach(convertSimpleCurrencyElement);
+  relabelGoldTextNodes(scope);
 }
 
 function convertVisiblePrices() {
   const root = document.getElementById('root');
   if (!root) return;
-
   convertMarkedPrices(root);
-
-  const textWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-  const textNodes = [];
-  while (textWalker.nextNode()) textNodes.push(textWalker.currentNode);
-  textNodes.forEach(convertTextNode);
-
-  root.querySelectorAll('span,div,button,pre').forEach(convertSimpleCurrencyElement);
-  relabelGoldTextNodes();
+  checkoutScopes(root).forEach(convertCheckoutScope);
 }
 
 function currencyOptions() {
@@ -263,12 +280,12 @@ function renderBridge() {
 function schedule() {
   if (renderQueued) return;
   renderQueued = true;
-  requestAnimationFrame(() => {
+  setTimeout(() => {
     renderQueued = false;
     renderBridge();
     applyActualWalletToCart();
     convertVisiblePrices();
-  });
+  }, 80);
 }
 
 loadWallets().then(() => {
@@ -277,7 +294,7 @@ loadWallets().then(() => {
   convertVisiblePrices();
   const target = document.getElementById('root') || document.body;
   observer = new MutationObserver(schedule);
-  observer.observe(target, { childList: true, subtree: true, characterData: true });
+  observer.observe(target, { childList: true, subtree: true });
   setTimeout(schedule, 250);
   setTimeout(schedule, 1000);
 });
