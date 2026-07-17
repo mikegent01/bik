@@ -1,6 +1,7 @@
 import { WALLETS, CURRENCIES } from './currency.js';
 
 const SELECT_KEY = 'warehousePaymentCurrency';
+const MODE_KEY = 'warehouseCurrencyDisplayMode';
 const PRICE_TEXT = new WeakMap();
 const aliases = {
   archie_miser: 'archie',
@@ -11,6 +12,7 @@ const aliases = {
 
 let wallets = WALLETS || {};
 let selected = localStorage.getItem(SELECT_KEY) || 'gold';
+let displayMode = localStorage.getItem(MODE_KEY) || 'native';
 let renderQueued = false;
 let lastBridgeMarkup = '';
 let lastAppliedCartGold = null;
@@ -234,10 +236,10 @@ function convertMarkedPrices(root) {
     const nativeCurrency = (el.getAttribute('data-native-currency') || '').trim().toLowerCase();
     const nativePrice = Number(el.getAttribute('data-native-price'));
     const nativeKnown = nativeCurrency && Number.isFinite(nativePrice);
-    const converted = formatCurrency(gold);
+    const converted = displayMode === 'gold' ? formatCurrency(gold, 'gold') : formatCurrency(gold);
 
     let text = converted;
-    if (nativeKnown && nativeCurrency !== selected) {
+    if (displayMode !== 'gold' && nativeKnown && nativeCurrency !== selected) {
       text = `${formatNativeCurrency(nativePrice, nativeCurrency)} · ≈ ${converted}`;
     }
     if (el.textContent !== text) el.textContent = text;
@@ -350,6 +352,7 @@ function renderBridge() {
   const c = currency();
   const rate = (1 / (Number(c.base_value) || 1)).toLocaleString(undefined, { maximumFractionDigits: 4 });
   const allowed = walletCurrencyIds(wallet);
+  const modeLabel = displayMode === 'gold' ? 'Show native currencies' : 'Gold-only estimates';
 
   const markup = wallet ? `
     <div class="bridge-wallet currency-integrated">
@@ -362,6 +365,7 @@ function renderBridge() {
         <select id="warehousePaymentCurrency">${currencyOptions()}</select>
         <small>Available: ${esc(c.icon || '🪙')} ${esc(selectedHolding().toLocaleString())} ${esc(c.name || selected)} · 1 Gold = ${esc(rate)} ${esc(c.name || selected)}. Affordability now uses this actual holding.</small>
       </label>
+      <button type="button" id="shopCurrencyDisplayMode" class="bridge-mode-toggle">${esc(modeLabel)}</button>
       <a href="currency.html">Currency rates →</a>
     </div>` : `
     <div class="bridge-warning currency-integrated">
@@ -370,6 +374,7 @@ function renderBridge() {
       <label class="bridge-payment">💳 Display prices in
         <select id="warehousePaymentCurrency">${currencyOptions()}</select>
       </label>
+      <button type="button" id="shopCurrencyDisplayMode" class="bridge-mode-toggle">${esc(modeLabel)}</button>
       <a href="battlefield.html#/login">Open Waluipedia Login →</a>
     </div>`;
 
@@ -384,6 +389,15 @@ function renderBridge() {
         lastAppliedCartGold = null;
         renderBridge();
         applyActualWalletToCart();
+        convertVisiblePrices();
+      });
+    }
+    const modeBtn = box.querySelector('#shopCurrencyDisplayMode');
+    if (modeBtn) {
+      modeBtn.addEventListener('click', () => {
+        displayMode = displayMode === 'gold' ? 'native' : 'gold';
+        localStorage.setItem(MODE_KEY, displayMode);
+        renderBridge();
         convertVisiblePrices();
       });
     }
@@ -414,6 +428,7 @@ loadWallets().then(() => {
 
 window.addEventListener('storage', event => {
   if (event.key === SELECT_KEY) selected = event.newValue || selected;
+  if (event.key === MODE_KEY) displayMode = event.newValue || displayMode;
   lastAppliedCartGold = null;
   schedule();
 });
@@ -428,6 +443,7 @@ window.WarioShopCurrency = {
   refresh: schedule,
   getSelectedCurrency: () => selected,
   getSelectedHolding: selectedHolding,
+  getDisplayMode: () => displayMode,
   currencyBaseValue(id) { return Number(currency(id).base_value) || 1; },
   itemGoldValue(item) {
     const key = String(item?.priceCurrency || item?.currencyKey || item?.currency || 'gold').trim().toLowerCase();
