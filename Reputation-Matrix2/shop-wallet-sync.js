@@ -96,11 +96,13 @@ function itemCurrencyKey(item) {
   return String(item?.priceCurrency || item?.currencyKey || item?.currency || 'gold').trim().toLowerCase();
 }
 
+function effectKeywordFee(item){let total=0;(Array.isArray(item?.effects)?item.effects:[]).forEach(effect=>{const text=String(effect||'').toLowerCase();let fee=0,match=text.match(/(?:heal|heals|restore|restores)\s*(\d+)\s*hp|(\d+)\s*hp/);if(match){const hp=Number(match[1]||match[2]||0);fee+=Math.max(2,hp*.6)}match=text.match(/luck\D*(\d+)/);if(match)fee+=Number(match[1])*4;if(/mana|mp|spell slot|spell slots|restore spell|restore mana/.test(text))fee+=18;if(/resist|resistance|reduce damage/.test(text))fee+=8;if(/immune|immunity|cannot be damaged|cannot be targeted|cannot be ignored|invulnerable/.test(text))fee+=60;if(/revive|resurrect|respawn|second life|cheats death|immortal/.test(text))fee+=500;if(/summon|create|control|time|reality|wish|teleport|portal/.test(text))fee+=25;if(/stun|paraly|charm|fear|madness|curse|poison|blind|restrain/.test(text))fee+=10;match=text.match(/(\d+)d(\d+)/);if(match)fee+=Number(match[1])*(Number(match[2])+1)/2*.5;if(/chance|may |might |10%|20%|30%/.test(text))fee*=.55;if(/mild|minor|slight|temporary/.test(text))fee*=.65;if(/permanent|indefinitely|always/.test(text))fee*=2;total+=fee});return total}
+function itemPowerFee(item){const rarity=String(item?.rarity||'common').toLowerCase(),base={common:.5,uncommon:2,rare:5,epic:12,legendary:35,godly:100,wario_tier:150}[rarity]??1,level=Math.max(0,Number(item?.levelRequirement||1)-1),count=Array.isArray(item?.effects)?item.effects.length:0,extra=Math.max(0,count-1);return Math.round((level*base+extra*base*1.5+effectKeywordFee(item))*100)/100}
 function itemGoldValue(item, quantity = 1) {
   const amount = Number(item?.price || 0);
   const c = currency(itemCurrencyKey(item));
   const discount = typeof item?.discount === 'number' && item.discount > 0 ? (1 - item.discount / 100) : 1;
-  return Math.floor(amount * discount) * (Number(c.base_value) || 1) * quantity;
+  return (Math.floor(amount * discount) * (Number(c.base_value) || 1) + itemPowerFee(item)) * quantity;
 }
 
 function checkoutCurrencyGroups() {
@@ -559,6 +561,7 @@ window.WarioShopCurrency = {
   itemGoldValue(item) {
     const key = String(item?.priceCurrency || item?.currencyKey || item?.currency || 'gold').trim().toLowerCase();
     const amount = Number(item?.price || 0);
-    return amount * (Number(currency(key).base_value) || 1);
+    const discount = typeof item?.discount === 'number' && item.discount > 0 ? (1 - item.discount / 100) : 1;
+    return Math.floor(amount * discount) * (Number(currency(key).base_value) || 1) + itemPowerFee(item);
   }
 };
