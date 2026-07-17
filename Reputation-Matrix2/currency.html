@@ -175,6 +175,15 @@ const shopSearchInput = document.getElementById('shopSearchInput');
 const shopItemsGrid = document.getElementById('shopItemsGrid');
 
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function currencyIcon(c){
+  const raw=String(c?.icon||'').trim();
+  return (!raw || /\.png$|\.jpg$|\.svg$|^icon_/i.test(raw)) ? '🪙' : raw;
+}
+function factionLink(id){
+  if(!id) return 'Universal';
+  const label=String(id).replace(/[_-]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  return `<a href="battlefield.html#/reputation/faction/${encodeURIComponent(id)}" class="currency-link">${esc(label)}</a>`;
+}
 
 function goldVal(id, amt){ const c = CURRENCIES[id]; if(!c) return 0; return c.base_value * amt; }
 
@@ -417,12 +426,12 @@ function renderCurrencies(){
       <div>
         <div class="cur-card-head">
           <div class="cur-card-title">
-            <h3>${c.icon || '🪙'} ${esc(c.name)}</h3>
+            <h3>${currencyIcon(c)} ${esc(c.name)}</h3>
           </div>
           <span class="cur-val-badge">1 = ${c.base_value}g</span>
         </div>
         <div class="cur-meta-row">Category: <b>${esc(c.category||'')}</b> · Tier ${c.tier} · Type: <b>${esc(c.type||'Fiat')}</b></div>
-        <div class="cur-meta-row">Issuer: <b>${esc(c.issuer||'Unknown')}</b></div>
+        <div class="cur-meta-row">Issuer: <b>${esc(c.issuer||'Unknown')}</b> · Home faction: ${factionLink(c.home_faction)}</div>
         <div style="font-size:12.5px;color:var(--text);margin-top:6px;line-height:1.4">${esc(c.description||c.short||'')}</div>
       </div>
       <div>
