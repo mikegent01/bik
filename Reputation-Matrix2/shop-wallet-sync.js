@@ -98,21 +98,28 @@ function itemGoldValue(item, quantity = 1) {
   return Math.floor(amount * discount) * (Number(c.base_value) || 1) * quantity;
 }
 
-function checkoutQuoteCurrency() {
+function checkoutCurrencyGroups() {
   const rows = cartRows();
-  if (!rows.length) return selected;
   const totals = new Map();
+  let itemGold = 0;
   for (const row of rows) {
     const key = itemCurrencyKey(row.item);
     const value = itemGoldValue(row.item, row.quantity || 1);
+    itemGold += value;
     totals.set(key, (totals.get(key) || 0) + value);
   }
-  const ranked = [...totals.entries()].sort((a, b) => {
-    const aRare = a[0] === 'gold' ? 1 : 0;
-    const bRare = b[0] === 'gold' ? 1 : 0;
-    return aRare - bRare || b[1] - a[1];
-  });
-  return ranked[0]?.[0] || selected;
+  const grand = checkoutTotalGold();
+  const extra = Math.max(0, grand - itemGold);
+  const groups = [...totals.entries()].map(([id, total]) => {
+    const share = itemGold > 0 ? total / itemGold : 0;
+    const withFees = total + extra * share;
+    return { id, itemGold: total, totalGold: withFees, nativeAmount: withFees / (Number(currency(id).base_value) || 1) };
+  }).sort((a, b) => (a.id === 'gold') - (b.id === 'gold') || b.totalGold - a.totalGold);
+  return groups.length ? groups : [{ id: selected, itemGold: 0, totalGold: grand, nativeAmount: grand / (Number(currency(selected).base_value) || 1) }];
+}
+
+function checkoutQuoteCurrency() {
+  return checkoutCurrencyGroups()[0]?.id || selected;
 }
 
 function checkoutTotalGold() {
@@ -127,18 +134,27 @@ function walletGoldValue(id) {
 }
 
 function checkoutPaymentPlan() {
-  const quote = checkoutQuoteCurrency();
+  const groups = checkoutCurrencyGroups();
+  const quote = groups[0]?.id || selected;
   const totalGold = checkoutTotalGold();
   const wallet = currentWallet();
-  const quoteGold = walletGoldValue(quote);
-  const goldGold = walletGoldValue('gold');
-  if (wallet && quoteGold >= totalGold && totalGold > 0) {
-    return { mode: 'native', quote, payment: quote, effectiveGold: quoteGold, totalGold, feeGold: 0 };
+  if (!wallet) return { mode: 'wallet', quote, payment: selected, groups, effectiveGold: selectedHoldingGoldValue(), totalGold, feeGold: 0 };
+
+  let nativeCovered = 0;
+  let nativeDue = 0;
+  for (const g of groups) {
+    if (g.id === 'gold') continue;
+    nativeDue += g.totalGold;
+    nativeCovered += Math.min(walletGoldValue(g.id), g.totalGold);
   }
-  if (wallet && goldGold > 0) {
-    return { mode: 'gold_fallback', quote, payment: 'gold', effectiveGold: goldGold / (1 + GOLD_FALLBACK_FEE), totalGold, feeGold: totalGold * GOLD_FALLBACK_FEE };
-  }
-  return { mode: 'wallet', quote, payment: selected, effectiveGold: selectedHoldingGoldValue(), totalGold, feeGold: 0 };
+  const goldDue = groups.filter(g => g.id === 'gold').reduce((sum, g) => sum + g.totalGold, 0);
+  const goldAvailable = walletGoldValue('gold');
+  const missingNative = Math.max(0, nativeDue - nativeCovered);
+  const feeGold = missingNative > 0 ? missingNative * GOLD_FALLBACK_FEE : 0;
+  const effectiveGold = nativeCovered + goldAvailable / (1 + (missingNative > 0 ? GOLD_FALLBACK_FEE : 0));
+  const allNative = nativeCovered >= nativeDue && goldAvailable >= goldDue;
+  const mode = allNative ? 'native_multi' : (goldAvailable > 0 ? 'mixed_gold_fallback' : 'wallet');
+  return { mode, quote, payment: mode === 'mixed_gold_fallback' ? 'gold' : quote, groups, nativeCovered, nativeDue, goldDue, effectiveGold, totalGold, feeGold };
 }
 
 function formatCurrency(goldAmount, id = selected) {
@@ -229,7 +245,7 @@ function convertMarkedPrices(root) {
 }
 
 function checkoutScopes(root) {
-  return root.querySelectorAll('.wario-summary-card,.checkout-item-card,.cart-float-btn,.receipt-paper,.membership-modal');
+  return root.querySelectorAll('.wario-summary-card,.checkout-item-card,.cart-float-btn,.receipt-paper,.membership-modal,.fixed.inset-0');
 }
 
 function convertCheckoutScope(scope) {
@@ -254,21 +270,24 @@ function renderCheckoutExchangeNotice(root) {
     body.prepend(box);
   }
   const plan = checkoutPaymentPlan();
-  const quote = currency(plan.quote);
   const totalGold = plan.totalGold;
   if (!totalGold) { box.innerHTML = ''; return; }
-  const quoteTotal = formatCurrency(totalGold, plan.quote);
-  const goldEq = formatCurrency(totalGold, 'gold');
-  const nativeHeld = formatCurrency(walletGoldValue(plan.quote), plan.quote);
+  const groupsHtml = (plan.groups || checkoutCurrencyGroups()).map(g => {
+    const c = currency(g.id);
+    const heldGold = walletGoldValue(g.id);
+    const enough = heldGold >= g.totalGold;
+    return `<small>${enough ? '✅' : '⚠️'} ${esc(c.icon || '🪙')} ${esc(c.name || g.id)} due: ${esc(formatCurrency(g.totalGold, g.id))} = ${esc(formatCurrency(g.totalGold, 'gold'))}${enough ? '' : ` · held ${esc(formatCurrency(heldGold, g.id))}`}</small>`;
+  }).join('');
   let payLine;
-  if (plan.mode === 'native') {
-    payLine = `✅ Native tender available: ${esc(nativeHeld)} — no conversion fee.`;
-  } else if (plan.mode === 'gold_fallback') {
-    payLine = `⚠️ Native tender short. Gold fallback: ${esc(formatCurrency(totalGold + plan.feeGold, 'gold'))} including ${Math.round(GOLD_FALLBACK_FEE * 100)}% exchange fee.`;
+  if (plan.mode === 'native_multi') {
+    payLine = `✅ Multi-currency tender covered — no conversion fee.`;
+  } else if (plan.mode === 'mixed_gold_fallback') {
+    payLine = `⚠️ Short native tender converts through gold at ${Math.round(GOLD_FALLBACK_FEE * 100)}% fee. Gold buying power: ${esc(formatCurrency(plan.effectiveGold, 'gold'))}.`;
   } else {
-    payLine = `⚠️ No preferred tender detected. Wario will demand a conversion at checkout.`;
+    payLine = `⚠️ Wario will demand a conversion at checkout.`;
   }
-  const markup = `<div class="shop-exchange-quote"><b>💱 Wario Exchange Quote</b><small>Checkout quoted in ${esc(quote.icon || '🪙')} ${esc(quote.name || plan.quote)}: ${esc(quoteTotal)} = ${esc(goldEq)}</small><small>${payLine}</small></div>`;
+  const quote = currency(plan.quote);
+  const markup = `<div class="shop-exchange-quote"><b>💱 Multi-Currency Wario Quote</b><small>Summary quoted in ${esc(quote.icon || '🪙')} ${esc(quote.name || plan.quote)} · grand total ${esc(formatCurrency(totalGold, plan.quote))} = ${esc(formatCurrency(totalGold, 'gold'))}</small>${groupsHtml}<small>${payLine}</small></div>`;
   if (box.innerHTML !== markup) box.innerHTML = markup;
 }
 
