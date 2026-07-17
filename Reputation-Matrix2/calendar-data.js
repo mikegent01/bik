@@ -245,6 +245,20 @@ export function dateFromAbsolute(calendar, absDay){
 // ---- Backward compat for old imperial-only code ----
 export const CURRENT_GAME_DATE = { year:1040, monthIndex:7, day:18 };
 export const CURRENT_GAME_TIME = { hour: new Date().getHours(), minute: new Date().getMinutes() };
+// Shared magical weather definitions. Keep this export in the root calendar module because
+// login.js and several page modules import it directly (the game/ calendar is a separate
+// implementation used by the newer game view).
+export const MAGICAL_WEATHER_EVENTS = [
+  { name: 'Chrono-Mists', icon: '⏳' },
+  { name: 'Sunpetal Showers', icon: '🌸' },
+  { name: 'Whispering Winds', icon: '🍃' },
+  { name: 'Gravity Flux', icon: '🎈' },
+  { name: 'Aetheric Fog', icon: '🔮' },
+  { name: 'Polychrome Rain', icon: '🌈' },
+  { name: 'Sorrow Storm', icon: '💧' },
+  { name: 'Static Discharge', icon: '⚡️' }
+];
+
 export const MOON_PHASES = [
   { name:"The Hole (New)", icon:"⚫" },
   { name:"Inner Rim (Waxing)", icon:"🌒" },
