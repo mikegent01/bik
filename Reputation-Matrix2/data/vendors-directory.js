@@ -3,7 +3,7 @@
 // "I only work with the BEST... and cheapest." -W
 // ============================================
 
-export const VENDORS = {
+window.WIKI_VENDORS = {
     'toad_town_market': {
         id: 'toad_town_market',
         currency: 'gold',

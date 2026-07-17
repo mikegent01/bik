@@ -1958,7 +1958,7 @@ export const ITEMS_056 = {
             "chance to stumble -10%"
         ],
         vendor: 'side_seller',
-        shippedBy: 'Wario's Speedy Courier',
+        shippedBy: 'Wario\'s Speedy Courier',
         levelRequirement: 2
     },
 

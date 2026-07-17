@@ -1,0 +1,12 @@
+/* Reputation directory: readable links, stable heatmap dimensions, and no clipped cells. */
+.entity-link,.rep-table a{color:var(--link);text-decoration:underline;text-decoration-color:rgba(138,75,255,.45);text-underline-offset:2px;cursor:pointer}
+.entity-link:hover,.rep-table a:hover{color:var(--accent2);text-decoration-color:var(--accent2)}
+.rep-table-wrap{max-width:100%;overflow:auto;overscroll-behavior-x:contain}
+.rep-table{min-width:780px;table-layout:auto}
+.rep-table th,.rep-table td{vertical-align:middle;white-space:nowrap}
+.rep-table th:first-child,.rep-table td:first-child{min-width:210px}
+.rep-cell-val{display:inline-grid;place-items:center;min-width:42px;min-height:28px;padding:3px 7px;border:1px solid rgba(255,255,255,.08);border-radius:6px;cursor:pointer;font-weight:900;transition:transform .15s,filter .15s}
+.rep-cell-val:hover{transform:scale(1.08);filter:brightness(1.25);outline:2px solid var(--accent)}
+.rep-faction-card .rep-fc-title h3{overflow-wrap:anywhere}
+.rep-faction-card [title]{cursor:help}
+@media(max-width:700px){.rep-table-wrap{margin-inline:-8px}.rep-table{min-width:700px}.rep-table th,.rep-table td{padding:6px 7px}}

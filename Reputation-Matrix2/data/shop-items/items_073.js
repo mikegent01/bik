@@ -928,7 +928,7 @@ export const ITEMS_073 = {
             "chance_for_resource_finds"
         ],
         vendor: 'pioneer_post',
-        shippedBy: 'Wario's Expedition Transport',
+        shippedBy: 'Wario\'s Expedition Transport',
         levelRequirement: 8
     },
 

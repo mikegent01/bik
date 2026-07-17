@@ -1,0 +1,51 @@
+/* UI quality fixes: keep long intelligence dossiers readable and give the home desk room. */
+#sidenav { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+#sidenav .navsec { margin-bottom: 8px; }
+#sidenav .navhead { position: sticky; top: -12px; z-index: 2; background: var(--panel); padding: 5px 4px; }
+.results { max-height: min(70vh, 620px); overflow-y: auto; }
+.res-item { min-width: 0; }
+.res-item .rtitle,.res-item .rsum { overflow-wrap: anywhere; }
+.home-layout {
+  grid-template-columns: minmax(280px, .8fr) minmax(0, 1.2fr);
+  align-items: start;
+}
+.home-section-head { align-items: flex-start; }
+.home-section-head > div { min-width: 0; }
+.home-section-head h2 { overflow-wrap: anywhere; line-height: 1.2; }
+.home-feature-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.feature-panel { min-width: 0; overflow-wrap: anywhere; }
+
+/* The intelligence tab contains prose, not a compact metadata list. */
+.rep-modal-box { width: min(920px, calc(100vw - 32px)); max-height: min(88vh, 900px); overflow-y: auto; }
+#modalTabIntel ul { margin: 0; padding-left: 1.2rem; }
+#modalTabIntel li { min-width: 0; overflow-wrap: anywhere; margin: .55rem 0; line-height: 1.55; }
+#modalTabIntel .intel-motto { list-style: none; margin-left: -1.2rem; }
+#modalTabIntel .intel-motto blockquote { margin: .45rem 0 0; padding: .75rem .9rem; border-left: 3px solid var(--accent2); background: rgba(224,180,0,.08); color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
+#modalTabIntel .rep-tip-box { overflow-wrap: anywhere; line-height: 1.55; }
+#modalTabHeat ul { padding-left: 1.3rem; }
+#modalTabHeat li { overflow-wrap: anywhere; margin: .45rem 0; }
+.currency-link { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
+.wallet-line { gap: 16px; min-width: 0; }
+.wallet-line > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.wallet-line > span:last-child { flex: 0 0 auto; white-space: nowrap; }
+.wallet-explainer { max-width: 760px; line-height: 1.55; }
+
+
+/* Month grid remains usable on narrow screens and selected-day results stay visible. */
+.calendar-grid-wrap { overflow-x: auto; }
+.calendar-grid, .calendar-weekdays { min-width: 560px; }
+.day-events { display: grid; gap: 8px; }
+.day-events .ev { cursor: pointer; overflow-wrap: anywhere; }
+
+.vendor-directory-grid,.holiday-directory-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:16px; }
+.vendor-directory-card,.holiday-directory-card { display:block; color:var(--text); text-decoration:none; min-width:0; }
+.vendor-directory-card:hover,.holiday-directory-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+.vendor-directory-card.selected { border-color:var(--accent2); box-shadow:0 0 0 2px rgba(224,180,0,.18); }
+.holiday-record { max-width:900px; }
+.holiday-record h1 { overflow-wrap:anywhere; }
+
+@media (max-width: 850px) {
+  .home-layout { grid-template-columns: 1fr; }
+  .home-section-head { flex-wrap: wrap; }
+  .home-section-head .chip { margin-top: 4px; }
+}

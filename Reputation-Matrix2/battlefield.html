@@ -7,9 +7,16 @@
 <!-- External CSS: cached by browser, loaded once, scales as site grows -->
   <link rel="preload" href="waluipedia.css" as="style">
   <link rel="stylesheet" href="waluipedia.css">
+  <link rel="stylesheet" href="ui-fixes.css">
+  <link rel="stylesheet" href="reputation-fixes.css">
+  <link rel="stylesheet" href="commerce-event-fixes.css">
+  <link rel="stylesheet" href="crisis-reputation-fixes.css">
+  <link rel="stylesheet" href="clean-pass.css">
+  <link rel="stylesheet" href="waluzon.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
   <link rel="preload" href="battlefield.css" as="style">
   <link rel="stylesheet" href="battlefield.css">
+  <script src="data/vendors-directory.js"></script>
 </head>
 <body>
 <header class="topbar">
@@ -152,6 +159,10 @@ function buildIndexes(){
   Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(!it || iid==='hidden_item_slot') return; SEARCH_DOCS.push({kind:'invitem',id:iid,typeKey:'items',name:it.name,summary:it.summary||it.description||'',hay:[it.name,it.type,it.rarity,it.summary,it.description,(it.relatedArticles||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
   const allBearers=(A.star_bearers||[]).concat(A.god_toad?[A.god_toad]:[]);
   allBearers.forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'bearer',id:b.id,typeKey:'artifacts',name:(b.name||'')+(b.title?(' — '+b.title):''),summary:b.powers||'',hay:[b.name,b.title,b.species,b.element,b.powers,b.history,b.fragment_name].filter(Boolean).join(' ').toLowerCase()}); });
+  Object.entries(LORE_FACTIONS||{}).forEach(([id,f])=>SEARCH_DOCS.push({kind:'faction',id,typeKey:'factions',name:f.name||prettyId(id),summary:f.description||'',hay:[id,f.name,f.description,f.region,f.leader,(f.relations?.allies||[]).join(' '),(f.relations?.enemies||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
+  Object.entries(DYNASTY_SYSTEM.houses||{}).forEach(([id,h])=>SEARCH_DOCS.push({kind:'dynasty',id,typeKey:'dynasties',name:h.name||prettyId(id),summary:h.motto||h.status||'',hay:[id,h.name,h.motto,h.founder,h.seat,h.status,(h.members||[]).map(x=>x.name).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
+  Object.entries(window.WIKI_VENDORS||{}).forEach(([id,v])=>SEARCH_DOCS.push({kind:'vendor',id,typeKey:'vendors',name:v.name||prettyId(id),summary:v.description||'',hay:[id,v.name,v.location,v.description,(v.acceptedCurrencies||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
+  Object.entries(DATA.calendarHolidays?.holidays||{}).forEach(([calendarId,items])=>(items||[]).forEach(h=>{const id=String(h.id||h.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'holiday',id,typeKey:'holidays',name:h.name||id,summary:h.description||'',hay:[id,h.name,h.description,h.type,calendarId].filter(Boolean).join(' ').toLowerCase()});}));
   const CG=DATA.congress||{};
   (CG.members||[]).forEach(m=>{ if(!m) return; SEARCH_DOCS.push({kind:'member',id:m.id,typeKey:'congress',name:m.name,summary:m.summary||'',hay:[m.name,m.bloc,m.status,m.delegate,m.summary,m.description].filter(Boolean).join(' ').toLowerCase()}); });
   (CG.sessions||[]).forEach(s=>{ if(!s) return; SEARCH_DOCS.push({kind:'session',id:s.id,typeKey:'congress',name:s.name,summary:s.summary||'',hay:[s.name,s.host,s.status,s.summary,s.description].filter(Boolean).join(' ').toLowerCase()}); });
@@ -498,10 +509,14 @@ function eventPeopleAndXpPanel(item){
   (XP_EVENT_AWARDS[item.id]||[]).forEach(a=>add(a.articleId));
   const people=ids.map(id=>`<span class="rel-chip" onclick="openId('${esc(id)}')"><span class="rt">Character</span>${esc(displayName(INDEX[id].item))}</span>`).join('');
   const awards=(XP_EVENT_AWARDS[item.id]||[]).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
-  if(!people && !awards) return '';
-  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div></div></div>`;
-  if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>`;
-  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>`;
+  const repMap=item.effects||item.reputationChanges||item.reputation||null;
+  const repEffects=repMap&&typeof repMap==='object' ? Object.entries(repMap).map(([fid,val])=>{const f=LORE_FACTIONS[fid];const label=f?.name||prettyId(fid);return `<a class="rep-effect-row" href="#/reputation/faction/${encodeURIComponent(fid)}"><span>⚔️ ${esc(label)}</span><b>${Number(val)>=0?'+':''}${esc(String(val))}</b></a>`;}).join('') : '';
+  const effectsPanel=repEffects?`<div class="event-reputation-panel"><h3>📈 Reputation Changes</h3><p class="text-muted">This event modifies the party's standing. Open a faction to inspect the calculation trace.</p>${repEffects}</div>`:'';
+  if(!people && !awards && !effectsPanel) return '';
+  if(!awards && !people) return effectsPanel;
+  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div></div></div>${effectsPanel}`;
+  if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
+  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
 
@@ -771,8 +786,8 @@ function mdToHtml(md,linkCtx){
 function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
-const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:()=>'🏛️',conflict:()=>'💥',majorbattle:()=>'🗡️',artifact:()=>'⭐',invitem:()=>'🎒',bearer:()=>'✴️',member:()=>'🏳️',session:()=>'📋',crisis:()=>'⚠️'};
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey].singular; if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; return ''; }
+const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:()=>'🏛️',conflict:()=>'💥',majorbattle:()=>'🗡️',artifact:()=>'⭐',invitem:()=>'🎒',bearer:()=>'✴️',member:()=>'🏳️',session:()=>'📋',crisis:()=>'⚠️',faction:()=>'⚔️',dynasty:()=>'👑',vendor:()=>'🏪',holiday:()=>'🎉'};
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey].singular; if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; return ''; }
 function search(q){
   q=q.trim().toLowerCase(); if(!q)return[];
   const terms=q.split(/\s+/);const out=[];
@@ -784,7 +799,7 @@ function search(q){
   out.sort((a,b)=>b.score-a.score);return out.slice(0,40);
 }
 function highlight(text,q){if(!q)return esc(text);const terms=q.trim().split(/\s+/).filter(Boolean).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));let o=esc(text);terms.forEach(t=>{o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});return o;}
-function openSearchResult(d){ if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
+function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
 const searchInput=el('search'),resultsBox=el('results');let activeIdx=-1,currentResults=[];
 function renderResults(list,q){
@@ -813,7 +828,7 @@ function renderSidebar(active){
   h+=`<div class="navsec"><div class="navhead">World</div>`;
   h+=`<div class="navlink ${active==='atlas'?'active':''}" onclick="Router.go('#/atlas')"><span><span class="emoji">🍩</span> World Atlas</span><span class="cnt">${(DATA.nations||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
-  h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}</span></div>`;
+  h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}+shop</span></div>`;
   h+=`</div><div class="navsec"><div class="navhead">Encyclopedia</div>`;
   TYPES.filter(t=>!['locations','nations'].includes(t.key)).forEach(t=>{h+=`<div class="navlink ${active==='list:'+t.key?'active':''}" onclick="Router.go('#/list/${t.key}')"><span><span class="emoji">${t.emoji}</span> ${t.label}</span><span class="cnt">${(DATA[t.key]||[]).length}</span></div>`;});
   h+=`</div><div class="navsec"><div class="navhead">World Systems</div>`;
@@ -868,6 +883,8 @@ function view_home(){
     +`<div class="catcard" onclick="Router.go('#/artifacts')"><div class="cemoji">⭐</div><div class="cname">Artifacts</div><div class="ccount">${((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length} bearers</div></div>`
     +`<div class="catcard" onclick="Router.go('#/years')"><div class="cemoji">🗓️</div><div class="cname">Chronicle</div><div class="ccount">${allYears().length} years</div></div>`
     +`<div class="catcard" onclick="Router.go('#/timeline')"><div class="cemoji">🕰️</div><div class="cname">Timeline</div><div class="ccount">chronological</div></div>`
+    +`<div class="catcard" onclick="Router.go('#/vendor')"><div class="cemoji">🏪</div><div class="cname">Vendors & Markets</div><div class="ccount">commerce directory</div></div>`
+    +`<div class="catcard" onclick="Router.go('#/holiday')"><div class="cemoji">🎉</div><div class="cname">Holidays & Observances</div><div class="ccount">calendar records</div></div>`
     +`<div class="catcard" onclick="Router.go('#/list/locations')"><div class="cemoji">🏰</div><div class="cname">Classic Locations Index</div><div class="ccount">tucked away</div></div>`;
 
   const dyk=mp.didYouKnow||[],otdStatic=mp.onThisDay||[];
@@ -940,7 +957,7 @@ function view_home(){
      <div class="mini-stat-grid"><div class="mini-stat"><b>${ALL_ITEMS.length}</b>Articles</div><div class="mini-stat"><b>${totalAnnotations}</b>Comment threads</div><div class="mini-stat"><b>${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}</b>Items</div><div class="mini-stat"><b>${intelTargets}</b>Intel targets</div></div>
      ${calMeta}
    </div>
-   <div class="grid2">
+   <div class="grid2 home-layout">
      <div class="card">
        <div class="home-section-head"><div><h2>📅 This Month — ${esc(mdToday.name)} ${CUR.year} BF</h2><p>Mini calendar · click day to inspect · today highlighted</p></div><span class="chip" onclick="Router.go('#/calendar')">Full Calendar →</span></div>
        <div id="home-mini-cal" class="mini-calendar"></div>
@@ -1490,7 +1507,7 @@ async function view_items(arg) {
           <div class="tsum">${esc(it.summary)}</div>
           <div class="tmeta">
             <span class="pill">Lvl ${it.levelRequirement}</span>
-            <a class="pill" style="color:var(--accent2);border-color:var(--accent2)" href="shop.html" onclick="event.stopPropagation()">Buy in Shop →</a>
+            <button class="pill waluzon-buy" onclick="event.stopPropagation();Waluzon.add('${encodeURIComponent(it.id)}')">🛒 Add to WaluZon →</button>
           </div>
         </div>
       `;
@@ -1622,17 +1639,13 @@ async function view_item(id) {
             </div>
             <p style="color:var(--text);line-height:1.6;font-size:15px;margin-top:12px">${esc(it.description || '')}</p>
             
-            <div class="wnote mt-14">
-              <b>Merchant Details:</b><br>
-              Vendor: <b>${esc(vendorObj.name)}</b> (${esc(vendorObj.location||'Regional Market')})<br>
-              Shipped By: <b>${esc(it.shippedBy || 'Standard Courier')}</b> · Available Stock: <b>${it.stock || 1}</b>
-            </div>
+            <div class="wnote mt-14"><b>Merchant Details</b><div class="merchant-details"><div><b>Vendor</b>${esc(vendorObj.name)}<br><span class="text-muted">${esc(vendorObj.location||'Regional Market')}</span></div><div><b>Shipped By</b>${esc(it.shippedBy || 'Standard Courier')}</div><div><b>Available Stock</b>${it.stock || 1}</div></div></div>
           </div>
           ${effects}
           <div class="card">
             <h2>Actions & Exchange Options</h2>
             <div class="chips">
-              <a class="chip active" href="shop.html">🛒 Buy / Order in Wario's Shop →</a>
+              <button class="chip active" onclick="Waluzon.add('${encodeURIComponent(it.id)}');Router.go('#/waluzon')">🛒 Open WaluZon Checkout →</button>
               <a class="chip" href="currency.html" onclick="location.href='currency.html#gold'">💱 Calculate Local Exchange Rates →</a>
               <a class="chip" href="#/reputation/faction/${encodeURIComponent(it.vendor||'')}">📈 Inspect Vendor Standing →</a>
             </div>
@@ -1655,6 +1668,22 @@ async function view_item(id) {
     return;
   }
 
+  // Fallback to the data-backed catalog when shop-data.js and the public index drift apart.
+  try {
+    const ix=await fetch('./data/shop-items/item-index.json',{cache:'no-cache'}).then(r=>r.json());
+    const file=ix[id];
+    if(file){
+      const mod=await import(file);
+      const raw=Object.values(mod).find(v=>v&&typeof v==='object'&&v[id]);
+      const recovered=raw&&raw[id];
+      if(recovered){
+        const params=new URLSearchParams({item:id});
+        await Waluzon.load();
+        el('content').innerHTML=`<div class="card item-hero"><div class="item-big-icon">${esc(recovered.icon||'📦')}</div><h1>${esc(recovered.name||id)}</h1><div class="metabar"><span class="pill">For Sale</span><span class="rarity-pill">${esc(recovered.rarity||'Common')}</span><span class="pill">${esc(recovered.category||'Equipment')}</span></div><p class="prose">${esc(recovered.description||recovered.summary||'')}</p><button class="chip active" onclick="Waluzon.add('${encodeURIComponent(id)}');Router.go('#/waluzon')">🛒 Add to WaluZon Checkout</button></div>`;
+        return;
+      }
+    }
+  } catch(e) { console.warn('Catalog item fallback failed',e); }
   el('content').innerHTML = `<div class="card"><h2>Item not found</h2><p class="text-muted">Waluigi has no record of item "${esc(id)}".</p><p><a onclick="Router.go('#/items')">← Return to Items Catalog</a></p></div>`;
 }
 
@@ -2001,7 +2030,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
 function view_trial(item,t){
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;
   let infoRows='';(INFOBOX.trials||[]).forEach(([f,label])=>{let v=item[f];if(!v)return;v=String(v);infoRows+=`<div class="row"><span class="k">${esc(label)}</span><span class="v" title="${esc(v)}">${esc(v)}</span></div>`;});
-  const charges=Array.isArray(item.charges)?`<h2 id="h-charges">Charges</h2><ul>${item.charges.map(c=>`<li>${esc(typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c)))}</li>`).join('')}</ul>`:'';
+  const charges=Array.isArray(item.charges)?`<section class="charges-panel"><h2 id="h-charges">⚖️ Charges</h2><p class="text-muted">Filed allegations and legal directives. Names are linked when the archive has a matching record.</p><ul class="charge-list">${item.charges.map(c=>{const text=typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c));const matches=[...String(text).matchAll(/\b(?:Elder Rowan Meadowlight|Iron Fists|Rakka Directive|Regal Empire|Mages' Guild|Mushroom Regency)\b/gi)];let html=esc(text);matches.reverse().forEach(m=>{const raw=m[0],key=raw.toLowerCase().replace(/[^a-z0-9]+/g,'_');const target=INDEX[key]?`#/article/${encodeURIComponent(key)}`:key.includes('regal')?'#/reputation/faction/regal_empire':key.includes('mushroom')?'#/reputation/faction/mushroom_regency':'';if(target)html=html.slice(0,m.index)+`<a class="charge-link" href="${target}">${esc(raw)}</a>`+html.slice(m.index+raw.length);});return `<li><span class="charge-marker">§</span><span>${html}</span></li>`;}).join('')}</ul></section>`:'';
   let sections='';const tocParts=[];
   (item.sections||[]).forEach((s,i)=>{
     const sid='sec-'+i;tocParts.push({level:2,text:s.name,slug:sid});
@@ -2067,7 +2096,8 @@ function view_conflict(name){
   renderSidebar('battlefield');const c=(DATA.conflicts||{})[name];
   if(!c){el('content').innerHTML='<div class="card"><h2>Conflict not found</h2></div>';return;}
   const facs=(c.keyFactions||[]).map(combatantChip).join('');
-  const phases=(c.majorPhases||[]).map(p=>`<div class="phase"><b>${esc(p.name)}</b> — ${esc(p.description)}</div>`).join('');
+  const phases=(c.majorPhases||[]).map((p,i)=>`<div class="phase crisis-phase"><span class="phase-number">${i+1}</span><div><b>${esc(p.name)}</b><p>${esc(p.description)}</p></div></div>`).join('');
+  const crisisRep=(c.reputationChanges||c.effects)&&typeof (c.reputationChanges||c.effects)==='object' ? `<div class="crisis-reputation"><h2>📈 Reputation Impact</h2><p class="text-muted">This crisis changes how factions evaluate the party. Click a faction to inspect the live trace.</p>${Object.entries(c.reputationChanges||c.effects).map(([fid,v])=>`<a href="#/reputation/faction/${encodeURIComponent(fid)}" class="rep-effect-row"><span>⚔️ ${esc(LORE_FACTIONS[fid]?.name||prettyId(fid))}</span><b>${Number(v)>=0?'+':''}${esc(String(v))}</b></a>`).join('')}</div>`:'';
   const rel=(DATA.majorBattles||[]).filter(b=>b.conflict===name);
   const relHtml=rel.map(b=>`<span class="rel-chip" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')"><span class="rt">Battle</span>${esc(b.name)}</span>`).join('');
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/battlefield')">Battlefield</a> › ${esc(name)}</div>
@@ -2075,7 +2105,8 @@ function view_conflict(name){
     <blockquote>${esc(c.summary||'')}</blockquote>
     ${c.rootCause?`<h2>Root Cause</h2><p>${esc(c.rootCause)}</p>`:''}
     ${facs?`<h2>Key Factions</h2><div>${facs}</div>`:''}
-    ${phases?`<h2>Major Phases</h2>${phases}`:''}
+    ${phases?`<h2>Major Phases</h2><div class="crisis-phases">${phases}</div>`:''}
+    ${crisisRep}
     ${c.estimatedCasualties?`<p class="imgcap mt-12">Estimated casualties: ${esc(c.estimatedCasualties)} · Started ${esc(String(c.startYear||''))}</p>`:''}
     ${relHtml?`<h2>Battles In This Conflict</h2><div class="related-list">${relHtml}</div>`:''}</div>`;
   window.scrollTo(0,0);
@@ -2734,7 +2765,6 @@ function view_calendar(){
 
   // Calendar section — renamed to just "Calendar", fixed weird clipping, holidays now modular JSON
   const localSection = `<div class="card mt-12"><div class="section-title">📅 Calendar</div>
-    <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Pick a calendar. Each has different year length, weekdays, holidays, and weird intercalary days. Add new calendars via <code>data/calendars.json</code> and holidays via <code>data/calendarHolidays.json</code> + <code>data/holidays/*.json</code> — no code needed.</p>
     <div class="artgrid">${allCals.map(c=>{
       const th=c.cssTheme||{};
       const weirdPills = (c.intercalaryDays||[]).map(w=>`<span class="weird-pill" style="border-color:${w.color||th.accent||'#888'}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d after ${w.afterMonth||0}</span>`).join('');
@@ -2828,7 +2858,7 @@ function view_calendar(){
         <div class="card m-0">
           <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} [${activeCal.name}] — ${monthEvents.length} entries · ${calDaysInYear(activeCal, CAL_STATE.year)}d year</div>
           <div class="day-events">${monthEvents.slice(0,24).map(e=>{const kc=e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos'; return `<div class="ev ${kc}" onclick="Router.go('${e.route||'#/calendar'}')" class="cursor-ptr"><b>${esc(e.name)}</b><div class="text-muted text-sm">${esc(e.date)} · ${esc(e.kind)}</div></div>`}).join('')||'<p class="text-muted">No dated entries this month.</p>'}
-            <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this month</div><div class="cal-holidays">${getHolidayForDay(activeCal.id, md.ordinal, -1).length? '': ''}${(()=>{const list=getHolidaysForCalendar(activeCal.id).filter(h=>h.month===md.ordinal); return list.length?list.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} D${h.day} — ${esc(h.type||'')}</span>`).join(''):'<span class="pill">no holidays this month</span>'} )()}</div></div>
+            <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this month</div><div class="cal-holidays">${getHolidayForDay(activeCal.id, md.ordinal, -1).length? '': ''}${(()=>{const list=getHolidaysForCalendar(activeCal.id).filter(h=>h.month===md.ordinal); return list.length?list.map(h=>`<div class="holiday-record-mini"><span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} · Day ${h.day} · ${esc(h.type||'Observance')}</span><p>${esc(h.description||'A recorded calendar observance with no further description filed yet.')}</p></div>`).join(''):'<span class="pill">no holidays this month</span>'} )()}</div></div>
           </div>
         </div>
       </div>
@@ -3306,7 +3336,8 @@ function view_profile(){
       const meta=(INVENTORY_SYSTEM?.currencies&&INVENTORY_SYSTEM.currencies[k])||{base_value:1,iconFallback:'🪙'};
       const bv=meta.base_value||1; const gv=bv*v; totalGold+=gv;
       if(meta.tier===1) breakdown.core+=gv; else if(meta.tier===2) breakdown.reg+=gv; else if(meta.tier===3) breakdown.spec+=gv; else breakdown.blk+=gv;
-      return `<div class="wallet-line"><span>${meta.iconFallback||meta.icon||'🪙'} ${esc(currencyName(k))} × ${Number(v).toLocaleString()}</span><span class="text-muted">${gv.toFixed(2)}g</span></div>`;
+      const currencyEmoji={gold:'💰',silver:'🪙',copper:'🟠',soul_coin:'🔮',wario_coin:'🟡',wario_points:'🎟️',midland_ducat:'🪙'};
+      return `<div class="wallet-line"><span>${currencyEmoji[k]||'🪙'} ${esc(currencyName(k))} × ${Number(v).toLocaleString()}</span><span class="text-muted">${gv.toFixed(2)}g equiv</span></div>`;
     }).join('');
   }
   const xpPct=xp?Math.max(5,Math.min(100, ((xp.currentXP||0)/(xp.nextXP||1))*100)):0;
@@ -3331,7 +3362,7 @@ function view_profile(){
     <div class="card animate-fade-in border-left-accent"><div style="display:flex;gap:12px;align-items:start"><div class="waluigi-ava-big" style="width:56px;height:56px;font-size:28px;flex:0 0 56px">W</div><div><div style="font-weight:900;color:var(--accent)">WALUIGI WELCOMES YOU — WELCOME, ${esc((xp?.name||uid).toUpperCase())}!</div><div style="color:var(--text);font-size:13px;line-height:1.5;margin-top:4px;white-space:pre-wrap">${esc(waluWelcome)}</div><div style="color:var(--muted);font-size:11px;margin-top:6px">This dossier links wallet (${Number(totalGold).toLocaleString()}g equiv), XP Lvl ${xp?.level||'?'} and bio article — immersive sign-on active.</div></div></div></div>
     <div class="card animate-fade-in"><div class="profile-hero"><div class="ph-ava">${esc(avatarLetter)}</div><div><h1>${esc(xp?.name||charItem?.name||prettyId(uid))}</h1><div style="color:var(--accent2);font-style:italic">${esc(charItem?.title||xp?.xpKey||uid)}</div><div style="margin-top:8px;color:var(--muted);font-size:12px">@${esc(uid)} · ${charItem?.affiliation||charItem?.race||''}</div><div class="chips mt-10"><span class="chip" onclick="Router.go('#/article/${esc(uid)}')">Open bio article →</span><span class="chip" onclick="Router.go('#/profile')">XP page & Dossier</span><span class="chip" onclick="location.href='currency.html'">Wallet → Currency</span><span class="chip" onclick="setCurrentUserId(null);Router.go('#/login')">Logout & switch</span></div></div></div></div>
     <div class="card"><div class="section-title">✦ XP & Progression</div>${xpPanel}</div>
-    <div class="card"><div class="section-title">💰 Wallet — ${Number(totalGold).toLocaleString()} gold equiv total</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill border-green">Core ${Number(breakdown.core).toLocaleString()}g</span><span class="pill border-accent2">Reg ${Number(breakdown.reg).toLocaleString()}g</span><span class="pill border-accent">Spec ${Number(breakdown.spec).toLocaleString()}g</span>${breakdown.blk?`<span class="pill border-danger">Black ${Number(breakdown.blk).toLocaleString()}g</span>`:''}</div><div class="wallet-grid"><div class="wallet-card"><h4>${esc(xp?.name||uid)}'s Holdings</h4><div>${walletLines||'<p class="text-muted">No wallet — add entry to INVENTORY_SYSTEM.wallets.</p>'}</div><div class="wallet-total">Total <b>${Number(totalGold).toLocaleString()}g equiv</b></div></div></div></div>
+    <div class="card"><div class="section-title">💰 Wallet — ${Number(totalGold).toLocaleString()} gold equivalent</div><p class="text-muted wallet-explainer">This is a conversion estimate, not literal gold. Each currency keeps its own quantity; “gold equivalent” only adds values using the currency table. Core = ordinary spendable metal, Reg = regional tender, Spec = special currencies, Black = restricted/occult tender. It does <b>not</b> mean Archie has ${Number(totalGold).toLocaleString()} gold pieces.</p><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill border-green">Core ${Number(breakdown.core).toLocaleString()}g equiv</span><span class="pill border-accent2">Regional ${Number(breakdown.reg).toLocaleString()}g equiv</span><span class="pill border-accent">Special ${Number(breakdown.spec).toLocaleString()}g equiv</span>${breakdown.blk?`<span class="pill border-danger">Restricted ${Number(breakdown.blk).toLocaleString()}g equiv</span>`:''}</div><div class="wallet-grid"><div class="wallet-card"><h4>${esc(xp?.name||uid)}'s Actual Holdings</h4><div>${walletLines||'<p class="text-muted">No wallet recorded.</p>'}</div><div class="wallet-total">Converted estimate <b>${Number(totalGold).toLocaleString()}g equiv</b></div></div></div></div>
     <div class="card"><div class="section-title">🏦 Banking</div>${bankHtml}</div>
     <div class="card"><div class="section-title">📖 Bio — ${esc(charItem?.name||uid)}</div>${bioHtml}</div>
   `;
@@ -3512,23 +3543,23 @@ function renderWhyModal(factionKey, opKey) {
 
       <h4>Exact Score Factors:</h4>
       <div class="rep-trace-item">
-        <span>Base Standing Baseline</span>
+        <span><b>Base Standing Baseline</b><small class="factor-explain">The operator's starting relationship with this faction before current events and internal politics are applied.</small></span>
         <span class="rep-trace-val ${st.base >= 0 ? 'pos' : 'neg'}">${st.base >= 0 ? '+' : ''}${st.base}</span>
       </div>
       <div class="rep-trace-item">
-        <span>Subfaction Political Adjustments</span>
+        <span><b>Subfaction Political Adjustments</b><small class="factor-explain">Influence from internal blocs, such as royalists, technocrats, reformers, or military factions, that respond differently to the operator.</small></span>
         <span class="rep-trace-val ${st.subfactions >= 0 ? 'pos' : 'neg'}">${st.subfactions >= 0 ? '+' : ''}${st.subfactions}</span>
       </div>
       <div class="rep-trace-item">
-        <span>Active Rumor & Event Modifiers</span>
+        <span><b>Active Rumor & Event Modifiers</b><small class="factor-explain">Dated events, rumors, and documented actions that have changed this relationship.</small></span>
         <span class="rep-trace-val ${st.rumors >= 0 ? 'pos' : 'neg'}">${st.rumors >= 0 ? '+' : ''}${st.rumors}</span>
       </div>
       <div class="rep-trace-item">
-        <span>Alliance & Hostility Leakage Propagation</span>
+        <span><b>Alliance & Hostility Leakage Propagation</b><small class="factor-explain">A smaller network effect: standing can shift when allied or hostile factions influence one another.</small></span>
         <span class="rep-trace-val ${st.propagation >= 0 ? 'pos' : 'neg'}">${st.propagation >= 0 ? '+' : ''}${st.propagation}</span>
       </div>
       <div class="rep-trace-item" style="border-top:2px solid var(--accent);margin-top:10px;padding-top:10px;font-weight:900">
-        <span>Final Calculated Total</span>
+        <span><b>Final Calculated Total</b><small class="factor-explain">The four components are added together, then capped at -100 to +100 so one extreme modifier cannot produce an unusable score.</small></span>
         <span class="rep-trace-val ${st.total >= 0 ? 'pos' : 'neg'}">${st.total >= 0 ? '+' : ''}${st.total} (${esc(st.label)})</span>
       </div>
     </div>
@@ -3543,7 +3574,7 @@ function renderWhyModal(factionKey, opKey) {
       <ul style="line-height:1.6;font-size:13px">
         <li><b>Leadership Intel:</b> ${esc(faction.leader || 'Leader Classified or Collective Council')}</li>
         <li><b>Headquarters:</b> ${esc(faction.headquarters || 'Regional Garrisons')}</li>
-        <li><b>Motto / Doctrine:</b> <i>"${esc(faction.motto || faction.description || 'Order through action.')}"</i></li>
+        <li class="intel-motto"><b>Motto / Doctrine:</b><blockquote>"${esc(faction.motto || faction.description || 'Order through action.')}"</blockquote></li>
         <li><b>Known Allies:</b> ${Array.isArray(faction.relations?.allies) ? faction.relations.allies.map(a => LORE_FACTIONS[a]?.name || a).join(', ') : 'None listed'}</li>
         <li><b>Known Hostiles:</b> ${Array.isArray(faction.relations?.enemies) ? faction.relations.enemies.map(e => LORE_FACTIONS[e]?.name || e).join(', ') : 'None listed'}</li>
       </ul>
@@ -3675,6 +3706,20 @@ function renderArticleFactionReputation(factionId) {
   `;
 }
 
+function reputationEntityLink(label, id, route) {
+  const safe = encodeURIComponent(String(id || label || ''));
+  return `<a class="entity-link" href="${route || `#/article/${safe}`}" onclick="event.stopPropagation();Router.go(this.getAttribute('href'));return false" title="Open ${esc(label || id || '')}">${esc(label || id || 'Unknown')}</a>`;
+}
+function formatLeaderLink(raw) {
+  if (!raw) return 'Leader classified';
+  const key = String(raw).trim();
+  const character = (typeof CHARACTER_INDEX !== 'undefined' && CHARACTER_INDEX[key]) || null;
+  const indexed = INDEX[key] || Object.values(INDEX).find(r => String(displayName(r.item)).toLowerCase() === key.toLowerCase());
+  const resolvedId = indexed?.item?.id || key;
+  const label = character?.name || (indexed ? displayName(indexed.item) : key.replace(/[_-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
+  return indexed ? reputationEntityLink(label, resolvedId) : `<span class="leader-unresolved" title="No matching character record yet">${esc(label)}</span>`;
+}
+
 let currentRepTab = 'grid';
 let currentRepSelectedOp = 'bowser';
 let currentRepRegion = 'all';
@@ -3705,6 +3750,8 @@ function view_reputation(arg) {
   }
 
   const allFactionsList = Object.keys(LORE_FACTIONS).map(k => ({ key: k, ...LORE_FACTIONS[k] }));
+  const partyReputationTotal = REPUTATION_OPERATORS.reduce((sum,op)=>sum+allFactionsList.reduce((s,f)=>s+calculateOperatorStanding(op.id,f.key).total,0),0);
+  const partyReputationAverage = Math.round(partyReputationTotal/Math.max(1,allFactionsList.length*REPUTATION_OPERATORS.length));
   const uniqueRegions = [...new Set(allFactionsList.map(f => f.region || 'Known Realms'))].sort();
 
   const opAvatarsHtml = REPUTATION_OPERATORS.map(op => {
@@ -3725,14 +3772,15 @@ function view_reputation(arg) {
       <div class="rep-topbar">
         <div class="rep-title-box">
           <h1>📈 Faction Directory & Reputation Matrix</h1>
-          <p>100 Factions Registered · Operator Standings · Live Infamy Heat Index · Mathematical Calculation Trace</p>
+          <p>100 factions · click a faction or operator to follow links across dossiers, standings, warrants, and event records</p>
         </div>
         <span class="chip" style="background:rgba(239,68,68,.16);border-color:rgba(239,68,68,.4);color:#fca5a5" onclick="currentRepTab='infamy';view_reputation();">🚨 Party Global Heat: 62 (Wanted)</span>
       </div>
       <div class="rep-op-bar">${opAvatarsHtml}</div>
+      <div class="reputation-total-card"><span>🎭 Party Reputation Total</span><strong>${partyReputationTotal>=0?'+':''}${partyReputationTotal}</strong><span class="pill">Average ${partyReputationAverage>=0?'+':''}${partyReputationAverage} per faction/operator</span><span class="text-muted">Calculated across ${allFactionsList.length} factions and ${REPUTATION_OPERATORS.length} operators</span></div>
       <div class="rep-nav-tabs">
         <button class="rep-tab-btn ${currentRepTab==='grid'?'active':''}" onclick="currentRepTab='grid';view_reputation();">📊 Faction Matrix Grid (${allFactionsList.length})</button>
-        <button class="rep-tab-btn ${currentRepTab==='player'?'active':''}" onclick="currentRepTab='player';view_reputation();">👤 Operator Standings Deep Dive</button>
+        <button class="rep-tab-btn ${currentRepTab==='player'?'active':''}" onclick="currentRepTab='player';view_reputation();">👤 Operator ↔ Faction Breakdown</button>
         <button class="rep-tab-btn ${currentRepTab==='matrix'?'active':''}" onclick="currentRepTab='matrix';view_reputation();">📈 Cross-Faction Heatmap Table</button>
         <button class="rep-tab-btn ${currentRepTab==='infamy'?'active':''}" onclick="currentRepTab='infamy';view_reputation();">🚨 Heat & Infamy Watch Board</button>
       </div>
@@ -3746,7 +3794,7 @@ function view_reputation(arg) {
       if (currentRepRegion !== 'all' && f.region !== currentRepRegion) return false;
       if (currentRepSearch) {
         const s = currentRepSearch.toLowerCase();
-        const text = (f.name + ' ' + f.region + ' ' + (f.leader||'') + ' ' + (f.description||'')).toLowerCase();
+        const text = (f.key + ' ' + f.name + ' ' + f.region + ' ' + (f.leader||'') + ' ' + (f.description||'')).toLowerCase();
         if (!text.includes(s)) return false;
       }
       return true;
@@ -3773,8 +3821,8 @@ function view_reputation(arg) {
             </div>
             <div class="rep-score-badge ${avgClass}" title="Party Average Standing">${partyAvg>=0?'+':''}${partyAvg}</div>
           </div>
-          <div style="font-size:12.5px;color:var(--text);margin-bottom:8px;line-height:1.4">${esc((f.description||f.summary||'').slice(0, 140))}${f.description?.length>140?'…':''}</div>
-          ${f.leader ? `<div style="font-size:12px;color:var(--muted);margin-bottom:6px"><b>Leader:</b> ${esc(f.leader)}</div>` : ''}
+          <div style="font-size:12.5px;color:var(--text);margin-bottom:8px;line-height:1.4">${esc((()=>{const raw=f.description||f.summary||'';const region=String(f.region||'').trim();const clean=region&&raw.toLowerCase().startsWith(region.toLowerCase())?raw.slice(region.length).replace(/^\s*[·|—-]\s*/,''):raw;return clean.slice(0,140)})())}${(f.description||'').length>140?'…':''}</div>
+          ${f.leader ? `<div style="font-size:12px;color:var(--muted);margin-bottom:6px"><b>Leader:</b> ${formatLeaderLink(f.leader)}</div>` : ''}
           <div class="rep-fc-ops">${opPillsHtml}</div>
           ${f.waluigi_tip ? `<div class="rep-tip-box"><b>Waluigi Tip:</b> ${esc(f.waluigi_tip)}</div>` : ''}
           <div class="rep-card-footer">
@@ -3867,8 +3915,8 @@ function view_reputation(arg) {
 
       return `
         <tr>
-          <td class="faction-name" onclick="Router.go('#/article/${encodeURIComponent(f.key)}')">
-            <span style="cursor:pointer;color:var(--text)">${esc(f.name)}</span>
+          <td class="faction-name" onclick="Router.go('#/reputation/faction/${encodeURIComponent(f.key)}')">
+            <a href="#/reputation/faction/${encodeURIComponent(f.key)}" onclick="event.stopPropagation();Router.go(this.getAttribute('href'));return false">${esc(f.name)}</a>
             <small style="display:block;color:var(--muted);font-weight:400;font-size:10.5px">${esc(f.region||'Known Realms')}</small>
           </td>
           <td><span class="rep-score-badge ${avgClass}">${partyAvg>=0?'+':''}${partyAvg}</span></td>
@@ -3939,6 +3987,33 @@ function view_reputation(arg) {
 }
 
 
+function view_vendorDirectory(id){
+  renderSidebar('items');
+  const vendors=window.WIKI_VENDORS||{};
+  const list=Object.values(vendors);
+  const v=id?vendors[id]:null;
+  if(id && !v){ view_vendorDirectory(); return; }
+  const cards=list.map(x=>`<div class="card vendor-directory-card"><h2>🏪 ${esc(x.name||prettyId(x.id))}</h2><p class="text-muted">${esc(x.description||'Registered commerce vendor and marketplace operator.')}</p><div class="chips"><span class="pill">📍 ${esc(x.location||'Known market')}</span><span class="pill">Trust ${esc(String(x.trustLevel??'?'))}</span><span class="pill">Markup ${esc(String(x.markup??1))}×</span></div><p><b>Accepts:</b> ${(x.acceptedCurrencies||[]).map(c=>`<a class="entity-link" href="currency.html#${encodeURIComponent(c)}">${esc(currencyName(c))}</a>`).join(', ')||'Local tender / exchange rates'}</p><a class="chip" href="shop.html#vendor=${encodeURIComponent(x.id)}">🛒 Browse this vendor</a></div>`).join('');
+  el('content').innerHTML=`<div class="card"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Vendors & Markets</div><h1>🏪 Vendors & Markets</h1><p class="text-muted">Commerce operators have roles, reputations, locations, currencies, and inventory. They are linked here without becoming ordinary encyclopedia article clutter.</p><div class="vendor-directory-grid">${v?cards.replace(/<div class="card vendor-directory-card">/,'<div class="card vendor-directory-card selected">'):cards}</div></div>`;
+}
+function view_holiday(id){
+  const all=[]; const groups=DATA.calendarHolidays?.holidays||{};
+  Object.entries(groups).forEach(([calendarId,items])=>(items||[]).forEach(h=>all.push({...h,calendarId})));
+  const h=all.find(x=>String(x.name).toLowerCase().replace(/[^a-z0-9]+/g,'_')===id||x.id===id);
+  if(!h){ el('content').innerHTML=`<div class="card"><h1>🎉 Holidays & Observances</h1><p class="text-muted">Choose a holiday to open its Waluipedia record.</p><div class="holiday-directory-grid">${all.map(x=>`<a class="card holiday-directory-card" href="#/holiday/${encodeURIComponent(String(x.name).toLowerCase().replace(/[^a-z0-9]+/g,'_'))}"><h2>${esc(x.icon||'🎉')} ${esc(x.name)}</h2><p>${esc(x.description||'Calendar observance')}</p><span class="pill">${esc(x.calendarId)} · ${x.month}/${x.day}</span></a>`).join('')}</div></div>`; return; }
+  renderSidebar('calendar');
+  el('content').innerHTML=`<div class="card holiday-record"><div class="breadcrumb"><a onclick="Router.go('#/calendar')">Calendar</a> › Holidays</div><h1>${esc(h.icon||'🎉')} ${esc(h.name)}</h1><div class="chips"><span class="pill">${esc(h.calendarId)}</span><span class="pill">Month ${esc(String(h.month))}, Day ${esc(String(h.day))}</span><span class="pill">${esc(h.type||'Observance')}</span></div><p class="prose">${esc(h.description||'No description has been filed yet.')}</p><div class="chips"><a class="chip" href="#/calendar/${h.calendarId}/month/${CUR.year}/${Number(h.month)-1}/${h.day}">Open on calendar →</a></div></div>`;
+}
+
+const WALUZON_CART=[];let WALUZON_CURRENCY=null;
+const Waluzon={
+ async load(){if(this.catalog)return this.catalog;const m=await import('./shop-data.js');this.catalog=Object.values(m.SHOP_ITEMS||{});return this.catalog},
+ async add(id){id=decodeURIComponent(id);const items=await this.load();const it=items.find(x=>x.id===id);if(!it)return;const row=WALUZON_CART.find(x=>x.id===id);if(row)row.qty++;else WALUZON_CART.push({id, item:it, qty:1});this.render();},
+ remove(id){const i=WALUZON_CART.findIndex(x=>x.id===id);if(i>=0)WALUZON_CART.splice(i,1);this.render()},
+ async render(){renderSidebar('items');const items=await this.load();const uid=getCurrentUserId?.()||null;const wallet=uid&&((INVENTORY_SYSTEM.wallets||{})[uid]||(INVENTORY_SYSTEM.wallets||{})[uid.replace('_miser','')]);const currencyKey=WALUZON_CURRENCY||Object.keys(wallet?.currencies||{})[0]||'gold';const emojiMap={gold:'💰',silver:'🪙',copper:'🟤',midland_ducat:'🦁',imperial_crown:'👑',archive_writ:'📜',mushroom_coin:'🍄',peach_crown:'🍑',toad_rebuilding_bond:'🤝',relief_stamp:'🎟️',regal_decree_strip:'📜',beanbean_bean_coin:'🫘',wario_coin:'🟡',wario_points:'🎟️',bowser_bux:'🐢',shell_command_credit:'🐚',banana_medallion:'🏅',coconut_oil_bar:'🥥',kremling_koin:'🐊',syrup_doubloon:'🏴‍☠️',cargo_share_draft:'📦',arcane_shard:'💎',mages_guild_seal:'🔮',planar_transit_stamp:'🌀',kivotos_credit:'💠',millennium_data_chit:'💾',encrypted_credstick:'💳',tea_leaf_syndicate_chit:'🍵',broker_information_mark:'🕶️',rakasha_spirit_bead:'📿',feyward_promise_acorn:'🌰',gilded_court_leaf:'🍂',autumnwood_orchard_mark:'🍃',preserved_blood_vial:'🩸',soul_coin:'😈',shadow_obol:'⚫',corvinarus_favor_marker:'🦇',archive_index_token:'🗂️',dwarf_oathgold:'⛏️',warpstone_token:'☢️',astral_pearl:'🫧',rupee:'💚',poke_dollar:'₽',mora:'🪨',courier_whistle_token:'📯',toad_bond:'🤝',decree_strip:'📜',beanbean_bean:'🫘',toad_whistle:'📯',shell_credit:'🐚',coconut_bar:'🥥',doubloon:'🏴‍☠️',cargo_share:'📦',guild_seal:'🔮',transit_stamp:'🌀',data_chit:'💾',credstick:'💳',blood_vial:'🩸',vampire_marker:'🦇',index_token:'🗂️',warpstone:'☢️',broker_mark:'🕶️',tea_chit:'🍵',spirit_bead:'📿',fey_acorn:'🌰',court_leaf:'🍂',autumn_leaf:'🍃'};const emoji=k=>emojiMap[k]||'🪙';const cur=INVENTORY_SYSTEM.currencies?.[currencyKey]||{name:'Gold Piece',base_value:1};const totalGold=WALUZON_CART.reduce((s,x)=>s+(Number(x.item.price)||0)*x.qty,0);const subtotal=totalGold/(cur.base_value||1);const tax=subtotal*.05;const total=subtotal+tax;const rows=WALUZON_CART.map(x=>`<div class="waluzon-row"><span>${esc(x.item.icon||'📦')} <b>${esc(x.item.name)}</b> × ${x.qty}</span><span>${emoji(currencyKey)} ${(Number(x.item.price)*x.qty/(cur.base_value||1)).toLocaleString()} ${esc(cur.name)} <button onclick="Waluzon.remove('${esc(x.id)}')">✕</button></span></div>`).join('');el('content').innerHTML=`<div class="card waluzon-page"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › WaluZon</div><h1>🛒 WaluZon — Waluipedia Checkout</h1><p class="text-muted">A local checkout connected to the logged-in operator wallet. No fake XP balance and no external Warehouse redirect.</p><div class="waluzon-wallet">${uid?`💳 ${esc(wallet?.name||uid)} · Pay with <select onchange="WALUZON_CURRENCY=this.value;Waluzon.render()">${Object.keys(INVENTORY_SYSTEM.currencies||{}).map(k=>`<option value="${k}" ${k===currencyKey?'selected':''}>${emoji(k)} ${esc(INVENTORY_SYSTEM.currencies[k].name||k)}</option>`).join('')}</select>`:'🔐 Guest checkout · <a href="#/login">Connect an operator first</a>'}</div><div class="waluzon-cart">${rows||'<p class="text-muted">Your cart is empty. Add shop items from the Items index.</p>'}</div><div class="waluzon-breakdown"><div>Subtotal <b>${emoji(currencyKey)} ${subtotal.toLocaleString()} ${esc(cur.name)}</b></div><div>WaluZon tax (5%) <b>${emoji(currencyKey)} ${tax.toLocaleString()} ${esc(cur.name)}</b></div></div><div class="waluzon-total"><b>Grand Total</b><strong>${emoji(currencyKey)} ${total.toLocaleString()} ${esc(cur.name)}</strong></div><button class="chip active" ${!uid||!WALUZON_CART.length?'disabled':''} onclick="Waluzon.checkout()">✅ Confirm checkout</button></div>`},
+ checkout(){if(!getCurrentUserId?.()){alert('Connect an operator before checkout.');return}alert('WaluZon checkout is ready to connect to the wallet ledger.');}
+};
+
 /* =============== ROUTER =============== */
 const Router={
   go(hash){if(location.hash===hash)Router.render();else location.hash=hash;},
@@ -3962,11 +4037,14 @@ const Router={
     else if(route==='timeline')view_timeline();
     else if(route==='years')view_years();
     else if(route==='calendar')view_calendar();
+    else if(route==='vendor')view_vendorDirectory(arg);
+    else if(route==='holiday')view_holiday(arg);
     else if(route==='reputation'||route==='standings'||route==='directory')view_reputation(arg);
     else if(route==='atlas'){ if(arg)view_atlasNation(arg); else view_atlas(); }
     else if(route==='dynasties')view_dynasties();
     else if(route==='dynasty')view_dynasty(arg);
     else if(route==='items')view_items();
+    else if(route==='waluzon')Waluzon.render();
     else if(route==='item')view_item(arg);
     else if(route==='intel')view_dynasties();
     else if(route==='login')view_login();

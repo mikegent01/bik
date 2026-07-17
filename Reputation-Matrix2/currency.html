@@ -4,6 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Midlands Exchange & Universal Commerce — Currency & Shop Connector</title>
 <link rel="stylesheet" href="currency.css">
+<link rel="stylesheet" href="currency-rates.css">
 <style>
 /* Additional Shop & Multi-Currency Styles */
 .shop-connect-card { background: var(--panel2); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-top: 14px; }
@@ -116,7 +117,7 @@
   <!-- Wallets -->
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-      <div class="section-title" style="margin:0">🎒 Party & Character Wallets — Net Worth & Buying Power</div>
+      <div><div class="section-title" style="margin:0">🎒 Party & Character Wallets — Actual Recorded Holdings</div><div id="walletPartyTotal" class="wallet-party-total">Calculating recorded holdings…</div></div>
       <div class="chips">
         <span class="chip" id="btnWalletAll">All Operatives</span>
         <span class="chip" id="btnWalletPlayer">Main Party Only</span>
@@ -175,6 +176,15 @@ const shopSearchInput = document.getElementById('shopSearchInput');
 const shopItemsGrid = document.getElementById('shopItemsGrid');
 
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function currencyIcon(c){
+  const raw=String(c?.icon||'').trim();
+  return (!raw || /\.png$|\.jpg$|\.svg$|^icon_/i.test(raw)) ? '🪙' : raw;
+}
+function factionLink(id){
+  if(!id) return 'Universal';
+  const label=String(id).replace(/[_-]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  return `<a href="battlefield.html#/reputation/faction/${encodeURIComponent(id)}" class="currency-link">${esc(label)}</a>`;
+}
 
 function goldVal(id, amt){ const c = CURRENCIES[id]; if(!c) return 0; return c.base_value * amt; }
 
@@ -258,7 +268,8 @@ function populateSelects(){
 
   fromCur.value = 'gold';
   toCur.value = 'midland_ducat';
-  shopCurSelect.value = 'gold';
+  shopCurSelect.value = CURRENCIES.wario_points ? 'wario_points' : 'gold';
+  currentShopCurrency = shopCurSelect.value;
 
   const markets = [
     { id: 'universal', name: 'Universal Base Rates (No Penalty)' },
@@ -326,6 +337,10 @@ function renderWallets(){
   const grid = document.getElementById('walletGrid');
   const entries = Object.entries(WALLETS);
 
+  const partyTotal = entries.reduce((sum,[,w])=>sum+Object.entries(w.currencies||{}).reduce((s,[k,v])=>s+goldVal(k,Number(v)||0),0),0);
+  const totalBadge = document.getElementById('walletPartyTotal');
+  if(totalBadge) totalBadge.textContent = `Party recorded holdings: ${partyTotal.toFixed(1)}g gold equivalent`;
+
   const filtered = entries.filter(([id, w]) => {
     if(walletFilter === 'player') return ['waluigi', 'archie', 'bowser', 'markop', 'remi', 'green_t', 'originaldan', 'hjumpik'].includes(id);
     return true;
@@ -337,7 +352,7 @@ function renderWallets(){
       const cur = CURRENCIES[cKey] || { name: cKey, icon: '🪙', base_value: 1 };
       const gv = val * (cur.base_value || 1);
       totalG += gv;
-      return `<div class="wallet-line"><span>${cur.icon || '🪙'} ${esc(cur.name)} × ${val}</span><span style="color:var(--muted)">${gv.toFixed(1)}g</span></div>`;
+      return `<div class="wallet-line"><span>${currencyIcon(cur)} ${esc(cur.name)} × ${val}</span><span style="color:var(--muted)">${gv.toFixed(1)}g</span></div>`;
     }).join('');
 
     const firstCurrency = Object.keys(w.currencies||{})[0]||'gold';
@@ -417,12 +432,12 @@ function renderCurrencies(){
       <div>
         <div class="cur-card-head">
           <div class="cur-card-title">
-            <h3>${c.icon || '🪙'} ${esc(c.name)}</h3>
+            <h3>${currencyIcon(c)} ${esc(c.name)}</h3>
           </div>
           <span class="cur-val-badge">1 = ${c.base_value}g</span>
         </div>
         <div class="cur-meta-row">Category: <b>${esc(c.category||'')}</b> · Tier ${c.tier} · Type: <b>${esc(c.type||'Fiat')}</b></div>
-        <div class="cur-meta-row">Issuer: <b>${esc(c.issuer||'Unknown')}</b></div>
+        <div class="cur-meta-row">Issuer: <b>${esc(c.issuer||'Unknown')}</b> · Home faction: ${factionLink(c.home_faction)}</div>
         <div style="font-size:12.5px;color:var(--text);margin-top:6px;line-height:1.4">${esc(c.description||c.short||'')}</div>
       </div>
       <div>
@@ -461,10 +476,10 @@ function renderRates(){
   const sorted = Object.values(CURRENCIES).sort((a,b) => b.base_value - a.base_value);
 
   box.innerHTML = sorted.map(c => `
-    <div class="rate-row rate-item-row" data-cur="${c.id}">
-      <span>${c.icon || '🪙'} <b>${esc(c.name)}</b> <small style="color:var(--muted)">(${esc(c.category||'')})</small></span>
-      <span style="font-weight:900;color:var(--accent2)">1 Gold = ${(1/c.base_value).toFixed(2)} ${esc(c.name)}</span>
-    </div>
+    <button class="rate-row rate-item-row" data-cur="${c.id}" type="button">
+      <span class="rate-name"><span class="rate-icon">${currencyIcon(c)}</span><b>${esc(c.name)}</b> <small>(${esc(c.category||'')})</small></span>
+      <span class="rate-value">1 Gold = ${(1/c.base_value).toFixed(2)} ${esc(c.name)}</span>
+    </button>
   `).join('');
 
   document.querySelectorAll('.rate-item-row').forEach(row => {

@@ -650,8 +650,8 @@ export const ITEMS_060 = {
         levelRequirement: 18
     },
 
-    'teyvat_item_wind_dancer's_grace': {
-        id: 'teyvat_item_wind_dancer's_grace',
+    'teyvat_item_wind_dancer\'s_grace': {
+        id: 'teyvat_item_wind_dancer\'s_grace',
         name: "Wind Dancer’s Grace Brooch",
         description: "A delicate brooch crafted from solidified wind essence, shimmering with the colors of a summer storm. Wearing this grants temporary bursts of speed and agility - perfect for dodging those pesky Diluc attacks! Just try not to get blown away by Wario's enthusiasm.",
         category: SHOP_CATEGORIES.EQUIPMENT,

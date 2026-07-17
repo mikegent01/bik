@@ -1402,8 +1402,8 @@ export const ITEMS_065 = {
         levelRequirement: 15
     },
 
-    'leclaire_isle_item_dave's_decoration': {
-        id: 'leclaire_isle_item_dave's_decoration',
+    'leclaire_isle_item_dave\'s_decoration': {
+        id: 'leclaire_isle_item_dave\'s_decoration',
         name: "Dave's Doughy Decoration Consultation",
         description: "Feeling drab? Dave, the resident dough-sculptor, offers a personalized consultation to turn your weapons and armor into delectable works of art! He’ll even provide tips on how to avoid crumbs in battle (mostly).",
         category: SHOP_CATEGORIES.SERVICES,
@@ -1417,7 +1417,7 @@ export const ITEMS_065 = {
             "grant_chance_to_charm_enemies"
         ],
         vendor: 'pastry_palace',
-        shippedBy: 'Swift Baker's Cart',
+        shippedBy: 'Swift Baker\'s Cart',
         levelRequirement: 5
     },
 

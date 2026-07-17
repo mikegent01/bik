@@ -261,7 +261,7 @@ export const ITEMS_071 = {
             "slowly_regenerates_health"
         ],
         vendor: 'liyue_harbor',
-        shippedBy: 'Sea Merchant's Cart',
+        shippedBy: 'Sea Merchant\'s Cart',
         levelRequirement: 8
     },
 

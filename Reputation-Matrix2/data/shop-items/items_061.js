@@ -485,7 +485,7 @@ export const ITEMS_061 = {
             "Allows the user to rewind their last action once."
         ],
         vendor: 'final_shop',
-        shippedBy: 'Wario's Delivery Service',
+        shippedBy: 'Wario\'s Delivery Service',
         levelRequirement: 10
     },
 
@@ -565,7 +565,7 @@ export const ITEMS_061 = {
             "reveals nearby sounds"
         ],
         vendor: 'side_seller',
-        shippedBy: 'Wario's Express Drone',
+        shippedBy: 'Wario\'s Express Drone',
         levelRequirement: 10
     },
 
@@ -1067,8 +1067,8 @@ export const ITEMS_061 = {
         levelRequirement: 3
     },
 
-    'teyvat_item_archon's_whisper': {
-        id: 'teyvat_item_archon's_whisper',
+    'teyvat_item_archon\'s_whisper': {
+        id: 'teyvat_item_archon\'s_whisper',
         name: "Archon’s Whisper - Fragment of Resonance",
         description: "This small, intricately carved jade statuette vibrates with an almost palpable energy. It's said to contain a fragment of the Archons’ power – granting you a temporary boost to your Wisdom and allowing you to briefly perceive the flow of elemental energies around you!",
         category: SHOP_CATEGORIES.EQUIPMENT,
@@ -1283,7 +1283,7 @@ export const ITEMS_061 = {
             "chance_to_receive_a_free_item_from_vendors"
         ],
         vendor: 'liyue_harbor',
-        shippedBy: 'Merchant's Caravan',
+        shippedBy: 'Merchant\'s Caravan',
         levelRequirement: 8
     },
 

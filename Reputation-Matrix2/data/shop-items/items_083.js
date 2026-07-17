@@ -1807,8 +1807,8 @@ export const ITEMS_083 = {
         levelRequirement: 5
     },
 
-    'internet_item_fabled_bound's_key_of_the_lost_archive': {
-        id: 'internet_item_fabled_bound's_key_of_the_lost_archive',
+    'internet_item_fabled_bound\'s_key_of_the_lost_archive': {
+        id: 'internet_item_fabled_bound\'s_key_of_the_lost_archive',
         name: "Fabled Bound’s Key of the Lost Archive",
         description: "Forged from solidified regret and compressed bandwidth, this key unlocks access to a hidden archive – a repository of forgotten user profiles and corrupted data. The air around it crackles with a strange nostalgia, pulling on the memories of those nearby.",
         category: SHOP_CATEGORIES.CURIOSITIES,
