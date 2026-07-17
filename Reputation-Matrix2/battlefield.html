@@ -2748,7 +2748,6 @@ function view_calendar(){
 
   // Calendar section — renamed to just "Calendar", fixed weird clipping, holidays now modular JSON
   const localSection = `<div class="card mt-12"><div class="section-title">📅 Calendar</div>
-    <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Pick a calendar. Each has different year length, weekdays, holidays, and weird intercalary days. Add new calendars via <code>data/calendars.json</code> and holidays via <code>data/calendarHolidays.json</code> + <code>data/holidays/*.json</code> — no code needed.</p>
     <div class="artgrid">${allCals.map(c=>{
       const th=c.cssTheme||{};
       const weirdPills = (c.intercalaryDays||[]).map(w=>`<span class="weird-pill" style="border-color:${w.color||th.accent||'#888'}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d after ${w.afterMonth||0}</span>`).join('');
@@ -2842,7 +2841,7 @@ function view_calendar(){
         <div class="card m-0">
           <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} [${activeCal.name}] — ${monthEvents.length} entries · ${calDaysInYear(activeCal, CAL_STATE.year)}d year</div>
           <div class="day-events">${monthEvents.slice(0,24).map(e=>{const kc=e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos'; return `<div class="ev ${kc}" onclick="Router.go('${e.route||'#/calendar'}')" class="cursor-ptr"><b>${esc(e.name)}</b><div class="text-muted text-sm">${esc(e.date)} · ${esc(e.kind)}</div></div>`}).join('')||'<p class="text-muted">No dated entries this month.</p>'}
-            <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this month</div><div class="cal-holidays">${getHolidayForDay(activeCal.id, md.ordinal, -1).length? '': ''}${(()=>{const list=getHolidaysForCalendar(activeCal.id).filter(h=>h.month===md.ordinal); return list.length?list.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} D${h.day} — ${esc(h.type||'')}</span>`).join(''):'<span class="pill">no holidays this month</span>'} )()}</div></div>
+            <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this month</div><div class="cal-holidays">${getHolidayForDay(activeCal.id, md.ordinal, -1).length? '': ''}${(()=>{const list=getHolidaysForCalendar(activeCal.id).filter(h=>h.month===md.ordinal); return list.length?list.map(h=>`<div class="holiday-record-mini"><span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} · Day ${h.day} · ${esc(h.type||'Observance')}</span><p>${esc(h.description||'A recorded calendar observance with no further description filed yet.')}</p></div>`).join(''):'<span class="pill">no holidays this month</span>'} )()}</div></div>
           </div>
         </div>
       </div>
@@ -3527,23 +3526,23 @@ function renderWhyModal(factionKey, opKey) {
 
       <h4>Exact Score Factors:</h4>
       <div class="rep-trace-item">
-        <span>Base Standing Baseline</span>
+        <span><b>Base Standing Baseline</b><small class="factor-explain">The operator's starting relationship with this faction before current events and internal politics are applied.</small></span>
         <span class="rep-trace-val ${st.base >= 0 ? 'pos' : 'neg'}">${st.base >= 0 ? '+' : ''}${st.base}</span>
       </div>
       <div class="rep-trace-item">
-        <span>Subfaction Political Adjustments</span>
+        <span><b>Subfaction Political Adjustments</b><small class="factor-explain">Influence from internal blocs, such as royalists, technocrats, reformers, or military factions, that respond differently to the operator.</small></span>
         <span class="rep-trace-val ${st.subfactions >= 0 ? 'pos' : 'neg'}">${st.subfactions >= 0 ? '+' : ''}${st.subfactions}</span>
       </div>
       <div class="rep-trace-item">
-        <span>Active Rumor & Event Modifiers</span>
+        <span><b>Active Rumor & Event Modifiers</b><small class="factor-explain">Dated events, rumors, and documented actions that have changed this relationship.</small></span>
         <span class="rep-trace-val ${st.rumors >= 0 ? 'pos' : 'neg'}">${st.rumors >= 0 ? '+' : ''}${st.rumors}</span>
       </div>
       <div class="rep-trace-item">
-        <span>Alliance & Hostility Leakage Propagation</span>
+        <span><b>Alliance & Hostility Leakage Propagation</b><small class="factor-explain">A smaller network effect: standing can shift when allied or hostile factions influence one another.</small></span>
         <span class="rep-trace-val ${st.propagation >= 0 ? 'pos' : 'neg'}">${st.propagation >= 0 ? '+' : ''}${st.propagation}</span>
       </div>
       <div class="rep-trace-item" style="border-top:2px solid var(--accent);margin-top:10px;padding-top:10px;font-weight:900">
-        <span>Final Calculated Total</span>
+        <span><b>Final Calculated Total</b><small class="factor-explain">The four components are added together, then capped at -100 to +100 so one extreme modifier cannot produce an unusable score.</small></span>
         <span class="rep-trace-val ${st.total >= 0 ? 'pos' : 'neg'}">${st.total >= 0 ? '+' : ''}${st.total} (${esc(st.label)})</span>
       </div>
     </div>
