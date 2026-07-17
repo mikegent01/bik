@@ -4,460 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Waluipedia — The Objective Encyclopedia (Written by Waluigi)</title>
-<style>
-:root{
-  --bg:#0d0a15; --bg2:#151022; --panel:#1b1430; --panel2:#231838;
-  --border:#38295a; --text:#ece7f5; --muted:#a99cc6; --accent:#8a4bff;
-  --accent2:#e0b400; --green:#2fae8a; --danger:#e5484d; --link:#c8a6ff;
-  --shadow:0 8px 30px rgba(0,0,0,.45); --radius:14px;
-}
-html[data-theme="light"]{
-  --bg:#f5f1fb; --bg2:#ece5f7; --panel:#ffffff; --panel2:#f6f1fd;
-  --border:#dccff0; --text:#241a38; --muted:#6b5e86; --accent:#6b2bbd;
-  --accent2:#9a6c00; --green:#1f8f70; --danger:#c3282d; --link:#5b239e;
-  --shadow:0 8px 24px rgba(90,0,140,.10);
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{background:radial-gradient(1200px 600px at 80% -10%,rgba(138,75,255,.14),transparent 60%),
-      radial-gradient(900px 500px at -10% 10%,rgba(224,180,0,.07),transparent 55%),var(--bg);
-  color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;min-height:100vh}
-a{color:var(--link);text-decoration:none;cursor:pointer}
-a:hover{text-decoration:underline}
-button{font-family:inherit}
-.animate-fade-in{animation:fade .28s ease}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-/* topbar */
-header.topbar{position:sticky;top:0;z-index:50;display:flex;gap:14px;align-items:center;padding:12px 18px;
-  background:linear-gradient(90deg,rgba(27,20,48,.96),rgba(35,24,56,.96));border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
-html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255,255,255,.96),rgba(246,241,253,.96))}
-.brand{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;white-space:nowrap}
-.brand .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:grid;place-items:center;font-weight:900;color:#fff;font-size:21px;box-shadow:var(--shadow)}
-.brand b{font-size:18px;letter-spacing:.3px}
-.brand small{color:var(--muted);font-size:11px;display:block;margin-top:-4px}
-.searchwrap{position:relative;flex:1;max-width:640px;margin:0 auto}
-#search{width:100%;padding:11px 40px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:15px;outline:none;transition:.15s}
-#search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(138,75,255,.25)}
-.searchwrap .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.6;pointer-events:none}
-.searchwrap .kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:1px 6px;background:var(--bg2)}
-.results{position:absolute;top:52px;left:0;right:0;background:var(--panel2);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);max-height:70vh;overflow:auto;display:none;z-index:60}
-.results.show{display:block}
-.res-item{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--border)}
-.res-item:last-child{border-bottom:none}
-.res-item.active,.res-item:hover{background:rgba(138,75,255,.16)}
-.res-item .rtitle{font-weight:600}
-.res-item .rtype{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent2);margin-left:6px}
-.res-item .rsum{color:var(--muted);font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.res-empty{padding:16px;color:var(--muted);text-align:center}
-.topbtns{display:flex;gap:8px}
-.iconbtn{background:var(--panel);border:1px solid var(--border);color:var(--text);border-radius:10px;width:40px;height:40px;font-size:17px;cursor:pointer;display:grid;place-items:center;transition:.15s}
-.iconbtn:hover{border-color:var(--accent);transform:translateY(-1px)}
-/* layout */
-.layout{display:grid;grid-template-columns:250px 1fr;gap:22px;max-width:1280px;margin:22px auto;padding:0 18px}
-aside.sidenav{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 96px);overflow:auto;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:12px}
-.navsec{margin-bottom:6px}
-.navsec>.navhead{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);padding:8px 8px 4px}
-.navlink{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;cursor:pointer;color:var(--text)}
-.navlink:hover{background:rgba(138,75,255,.14)}
-.navlink.active{background:linear-gradient(90deg,rgba(138,75,255,.28),rgba(138,75,255,.06));font-weight:600}
-.navlink .cnt{font-size:11px;color:var(--muted);background:var(--bg2);border-radius:20px;padding:1px 8px}
-.navlink .emoji{margin-right:2px}
-main.content{min-width:0}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:20px;box-shadow:var(--shadow)}
-/* home */
-
-.home-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.home-action{border:1px solid var(--border);background:var(--panel2);color:var(--text);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;text-decoration:none}.home-action:hover{border-color:var(--accent);color:var(--link);text-decoration:none}.home-feature-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:16px}.feature-panel{border:1px solid var(--border);border-radius:14px;background:var(--panel2);padding:16px;cursor:pointer;min-height:170px}.feature-panel:hover{border-color:var(--accent);box-shadow:var(--shadow)}.feature-panel .kicker,.update-card .kicker,.comment-card .kicker{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--accent2);font-weight:900}.feature-panel h2{margin:5px 0}.mini-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px}.mini-stat{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:10px}.mini-stat b{display:block;color:var(--accent2);font-size:21px}.update-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}.update-card,.comment-card,.path-card{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:13px;cursor:pointer}.update-card:hover,.comment-card:hover,.path-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}.update-card h3,.comment-card h3,.path-card h3{margin:4px 0 6px;font-size:16px}.update-card p,.comment-card p,.path-card p{color:var(--muted);font-size:13px;line-height:1.45;margin:0}.update-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}.update-tags span{border:1px solid var(--border);border-radius:999px;padding:2px 7px;color:var(--muted);font-size:11px}.comment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.comment-card blockquote{margin:8px 0;padding:8px 10px;border-left:3px solid var(--accent2);background:rgba(224,180,0,.08);font-size:13px}.path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.home-section-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:12px}.home-section-head h2{margin:0}.home-section-head p{margin:0;color:var(--muted);font-size:13px}@media(max-width:850px){.home-feature-grid{grid-template-columns:1fr}}
-.article-layout{grid-template-columns:minmax(0,1fr) 330px}
-.infobox .row{display:block}.infobox .k{display:block;margin-bottom:2px}.infobox .v{display:block;text-align:left;font-weight:500;line-height:1.35;overflow-wrap:anywhere}.event-context-grid.single{grid-template-columns:1fr}.event-context-panel .related-list{gap:7px}.event-context-panel{overflow:hidden}
-@media(max-width:1050px){.article-layout{grid-template-columns:1fr}}
-
-.hero{background:linear-gradient(135deg,rgba(138,75,255,.18),rgba(224,180,0,.08));border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:20px}
-.hero h1{margin:0 0 6px;font-size:30px}
-.hero p{margin:0;color:var(--muted)}
-.datechip{display:inline-block;margin-top:10px;background:var(--panel2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:13px;color:var(--accent2)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.grid-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:8px}
-.catcard{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:.15s}
-.catcard:hover{border-color:var(--accent);transform:translateY(-2px)}
-.catcard .cemoji{font-size:26px}
-.catcard .cname{font-weight:700;margin-top:4px}
-.catcard .ccount{color:var(--muted);font-size:12px}
-.feat{cursor:pointer}
-.feat .badge{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#fff;background:var(--accent);border-radius:20px;padding:2px 10px;margin-bottom:8px}
-.dyk li,.otd li{margin-bottom:10px}
-.section-title{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2);margin:0 0 12px;font-weight:800}
-/* list */
-.listhead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
-.listhead h2{margin:0}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{background:var(--panel2);border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:5px 12px;font-size:12.5px;cursor:pointer;transition:.12s}
-.chip:hover{border-color:var(--accent);color:var(--text)}
-.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.arttile{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:15px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;border-left:4px solid var(--border)}
-.arttile:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
-.arttile .tt{font-weight:700;font-size:15.5px}
-.arttile .tsub{color:var(--accent2);font-size:12px;margin:2px 0 6px}
-.arttile .tsum{color:var(--muted);font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
-.arttile .tmeta{margin-top:8px;font-size:11px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
-.pill{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1px 8px}
-/* article */
-.article-layout{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
-.breadcrumb{color:var(--muted);font-size:13px;margin-bottom:10px}
-.art-title{font-size:32px;margin:0 0 2px}
-.art-subtitle{color:var(--accent2);font-style:italic;margin:0 0 14px;font-size:16px}
-.metabar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
-.readtime{color:var(--muted);font-size:13px;margin-bottom:14px}
-.infobox{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:13.5px;margin-bottom:16px}
-.infobox h4{margin:0 0 10px;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:var(--accent2)}
-.infobox .row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed var(--border)}
-.infobox .row:last-child{border-bottom:none}
-.infobox .k{color:var(--muted)}
-.infobox .v{text-align:right;font-weight:600}
-.toc{position:sticky;top:78px;background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:13.5px}
-.toc h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}
-.toc a{display:block;padding:3px 0;color:var(--muted);border-left:2px solid transparent;padding-left:8px}
-.toc a:hover{color:var(--text)}
-.toc a.h3{padding-left:18px;font-size:12.5px}
-.toc a.active{color:var(--link);border-left-color:var(--accent);font-weight:600}
-.prose{font-size:16px}
-.prose h2{color:var(--accent);margin-top:28px;scroll-margin-top:84px;border-bottom:1px solid var(--border);padding-bottom:6px}
-.prose h3{color:var(--accent2);margin-top:22px;scroll-margin-top:84px}
-.event-details-section{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:16px;margin:18px 0}.event-details-section h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2)}.event-details-section ul{margin:0;padding-left:20px;font-size:14px;color:var(--text)}.event-details-section li{margin-bottom:8px}
-.prose blockquote{background:rgba(224,180,0,.10);border-left:4px solid var(--accent2);margin:16px 0;padding:10px 16px;border-radius:8px}
-.event-details-section{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:16px;margin:18px 0}.event-details-section h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2)}.event-details-section ul{margin:0;padding-left:20px;font-size:14px;color:var(--text)}.event-details-section li{margin-bottom:8px}
-.waluigi-comment, .waluigi-rant { border-left: 4px solid #8b5fd4; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; margin: 20px 0; color: #d8c6ff; font-style: italic; }
-.xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; }
-.prose p{margin:12px 0}
-.related-list{display:flex;flex-wrap:wrap;gap:8px}
-.rel-chip{background:var(--panel2);border:1px solid var(--border);border-radius:20px;padding:6px 12px;cursor:pointer;font-size:13px}
-.rel-chip:hover{border-color:var(--accent);color:var(--text)}
-.rel-chip .rt{font-size:10px;color:var(--muted);margin-right:6px;text-transform:uppercase}
-.deadlink{opacity:.5;cursor:default}
-.wnote{background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.06));border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;padding:12px 16px;margin:14px 0;font-style:italic}
-.wnote b{color:var(--accent);font-style:normal}
-/* timeline */
-.tl-year-block{margin-bottom:26px}
-.tl-year-h{font-size:26px;font-weight:900;color:var(--accent);letter-spacing:1px;padding:4px 0 2px;border-bottom:2px solid var(--accent);margin-bottom:12px}
-.tl-month{margin-bottom:14px}
-.tl-month-h{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--accent2);margin:0 0 6px 26px}
-.tl{position:relative;margin-left:10px;padding-left:26px;border-left:2px solid var(--border)}
-.tl-item{position:relative;margin-bottom:20px}
-.tl-item::before{content:"";position:absolute;left:-33px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--panel)}
-.tl-item.b::before{background:var(--danger)}
-.tl-item.t::before{background:var(--accent2)}
-.tl-year{font-weight:800;color:var(--accent2);font-size:13px}
-.tl-card{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-top:4px;cursor:pointer;transition:.15s}
-.tl-card:hover{border-color:var(--accent)}
-.tl-card .tl-name{font-weight:700}
-.tl-card .tl-meta{color:var(--muted);font-size:12.5px;margin-top:2px}
-/* conflicts */
-.conflict-card{background:var(--panel2);border:1px solid var(--border);border-left:5px solid var(--accent);border-radius:12px;padding:16px;margin-bottom:14px}
-.conflict-card h3{margin:0 0 4px}
-.status-tag{font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-radius:20px;padding:2px 10px;font-weight:700}
-.status-active{background:rgba(229,72,77,.18);color:#ff8b8f;border:1px solid var(--danger)}
-.status-concluded,.status-resolved{background:rgba(47,174,138,.16);color:#5fd6b4;border:1px solid var(--green)}
-.status-other{background:var(--bg2);color:var(--muted);border:1px solid var(--border)}
-.combatant-chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:12.5px;margin:3px 4px 0 0;cursor:pointer}
-.combatant-chip .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
-.phase{border-left:3px solid var(--accent2);padding:4px 0 4px 12px;margin:8px 0;font-size:14px}
-.phase b{color:var(--accent2)}
-.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start;margin:12px 0}
-.side{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px}
-.side h5{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
-.vs .versus{align-self:center;font-weight:900;color:var(--danger)}
-/* congress */
-.vote-tally{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
-.tally{border-radius:10px;padding:8px 14px;text-align:center;border:1px solid var(--border);flex:1;min-width:80px}
-.tally .n{font-size:22px;font-weight:900}
-.tally .l{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
-.tally.yea{background:rgba(47,174,138,.12)}.tally.yea .n{color:var(--green)}
-.tally.nay{background:rgba(229,72,77,.12)}.tally.nay .n{color:var(--danger)}
-.tally.abs{background:var(--bg2)}
-.bar{height:10px;border-radius:20px;overflow:hidden;background:var(--bg2);display:flex;margin:6px 0 2px}
-.bar .y{background:var(--green)}.bar .n{background:var(--danger)}.bar .a{background:var(--muted)}
-footer{max-width:1280px;margin:10px auto 40px;padding:0 18px;color:var(--muted);font-size:12.5px;text-align:center}
-.imgcap{color:var(--muted);font-size:12.5px;font-style:italic;margin-top:6px}
-mark{background:var(--accent2);color:#111;border-radius:3px;padding:0 2px}
-/* ===== in-world visual systems ===== */
-.wsys{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
-.wsys-title{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2);font-weight:800;margin:0 0 4px;display:flex;align-items:center;gap:8px}
-.wsys-note{color:var(--muted);font-size:12.5px;font-style:italic;margin:0 0 12px}
-/* congress tally board */
-.tally-board{display:flex;flex-direction:column;gap:10px}
-.tally-row{display:grid;grid-template-columns:120px 1fr 54px;gap:10px;align-items:center;font-size:13px}
-.tally-row .tlabel{color:var(--muted);text-align:right}
-.tally-track{background:var(--bg2);border-radius:6px;height:20px;overflow:hidden;border:1px solid var(--border)}
-.tally-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#0b0b12;font-weight:800;font-size:11px;white-space:nowrap}
-.tally-row .tnum{font-weight:800;text-align:right}
-.bloc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:12px}
-.bloc-card{border:1px solid var(--border);border-radius:9px;padding:8px 10px;font-size:12px}
-.bloc-card h6{margin:0 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
-.bloc-card .b-list{color:var(--muted);line-height:1.45}
-/* battle VS infographic */
-.vs-wrap{display:grid;grid-template-columns:1fr 46px 1fr;gap:8px;align-items:stretch;margin-top:4px}
-.vs-side{border:1px solid var(--border);border-radius:10px;padding:12px;background:var(--bg2)}
-.vs-side.att{border-top:3px solid var(--danger)}
-.vs-side.def{border-top:3px solid var(--green)}
-.vs-side h5{margin:0 0 4px;font-size:14px}
-.vs-side .vs-cmd{color:var(--muted);font-size:12px}
-.vs-mid{display:grid;place-items:center;font-weight:900;color:var(--accent);font-size:18px}
-.vs-outcome{margin-top:10px;text-align:center;font-weight:800;padding:6px;border-radius:8px;background:linear-gradient(90deg,rgba(229,72,77,.15),rgba(47,174,138,.15));border:1px solid var(--border);font-size:13px}
-.cas-bar{margin-top:8px;font-size:12px;color:var(--muted)}
-/* relation graph (SVG) */
-.relsvg{width:100%;height:auto;display:block}
-.relsvg .rl-line{stroke-width:1.6;opacity:.55}
-.relsvg .rl-node{cursor:pointer}
-.relsvg .rl-node circle{transition:.12s}
-.relsvg .rl-node:hover circle{stroke:var(--accent);stroke-width:2.5}
-.relsvg text{font-family:inherit;fill:var(--text)}
-.rel-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--muted)}
-.rel-legend span{display:inline-flex;align-items:center;gap:5px}
-.rel-legend i{width:14px;height:3px;display:inline-block;border-radius:2px}
-/* inline annotations */
-.annot{background:linear-gradient(180deg,transparent 60%,rgba(224,180,0,.28) 60%);border-bottom:1px dashed var(--accent2);cursor:pointer;transition:background .12s}
-.annot:hover{background:rgba(224,180,0,.28)}
-.annot-badge{font-size:9px;vertical-align:super;margin-left:2px;color:var(--accent2);font-weight:700;white-space:nowrap;user-select:none}
-.annmark{display:inline-flex;align-items:center;gap:3px;margin-left:7px;vertical-align:middle;background:rgba(224,180,0,.12);border:1px solid rgba(224,180,0,.45);color:var(--accent2);border-radius:999px;padding:1px 7px;font-size:11px;font-weight:800;white-space:nowrap;line-height:1.4}
-.annmark.mini{font-size:10px;padding:0 6px;margin-left:6px}.annmark .bubble{font-size:10px}.arttile .annmark{margin-left:6px}.rtitle .annmark{transform:translateY(-1px)}
-.annot-drawer{position:fixed;top:0;right:0;height:100vh;width:400px;max-width:92vw;background:var(--panel);border-left:1px solid var(--border);box-shadow:-8px 0 30px rgba(0,0,0,.4);transform:translateX(105%);transition:transform .22s ease;z-index:120;overflow-y:auto}
-.annot-drawer.open{transform:translateX(0)}
-.annot-drawer-inner{padding:18px}
-.annot-drawer-head{display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--panel);padding-bottom:10px;margin-bottom:6px;border-bottom:1px solid var(--border)}
-.annot-drawer-title{font-weight:800;color:var(--accent2);letter-spacing:.5px}
-.annot-close{background:none;border:none;color:var(--muted);font-size:26px;line-height:1;cursor:pointer;padding:0 4px}
-.annot-close:hover{color:var(--text)}
-.annot-quote{background:rgba(224,180,0,.08);border-left:3px solid var(--accent2);margin:10px 0 14px;padding:8px 12px;border-radius:6px;font-style:italic;color:var(--text);font-size:14px}
-.acmt-list{display:flex;flex-direction:column;gap:12px}
-.acmt{display:flex;gap:10px}
-.acmt.areply{margin-left:26px;padding-left:10px;border-left:2px solid var(--border)}
-.acmt-av{flex:0 0 34px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#0b0b12;font-size:15px}
-.acmt-body{flex:1;min-width:0}
-.acmt-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:3px}
-.acmt-name{font-weight:700;font-size:13.5px}
-.acmt-fac{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1px 7px}
-.acmt-ts{font-size:11px;color:var(--muted);margin-left:auto}
-.acmt-text{font-size:13.5px;line-height:1.55}
-.acmt-text p{margin:4px 0}
-.acmt-edited{color:var(--muted);font-style:italic;margin-left:4px;font-size:10.5px}
-.acmt-reply-to{display:block;font-size:11px;color:var(--muted);margin:-1px 0 3px}
-.acmt-actions{display:flex;align-items:center;gap:12px;margin-top:5px}
-.acmt-like{background:none;border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:2px 9px;font-size:11.5px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:.12s;font-family:inherit}
-.acmt-like:hover{border-color:var(--accent2);color:var(--text)}
-.acmt-like.liked{border-color:var(--accent2);color:var(--accent2);background:rgba(224,180,0,.12)}
-.acmt-like .lk-icon{font-size:9px}
-.acmt-replies{font-size:11.5px;color:var(--muted)}
-.annot-drawer-foot{margin-top:16px;padding-top:10px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;font-style:italic}
-@media(max-width:600px){.annot-drawer{width:100vw}}
-/* article reading controls */
-.event-context-panel{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:14px;margin:14px 0 18px}.event-context-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.event-context-panel h3{margin:0 0 8px;color:var(--accent2);font-size:14px}.award-list{display:flex;flex-direction:column;gap:7px}.award-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--border);border-radius:9px;background:var(--bg2);padding:7px 9px;font-size:12.5px}.award-row .who{font-weight:800}.award-row .amt{color:var(--accent2);font-weight:900;white-space:nowrap}.award-row .cat{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px}@media(max-width:800px){.event-context-grid{grid-template-columns:1fr}}
-.cross-page-panel{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:16px;font-size:13px}.cross-page-panel h4{margin:0 0 8px;color:var(--accent2);font-size:12px;text-transform:uppercase;letter-spacing:.6px}.cross-page-links{display:flex;flex-wrap:wrap;gap:6px}.cross-page-links a,.cross-page-links button{border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:999px;padding:4px 9px;font-size:12px;text-decoration:none;cursor:pointer}.cross-page-links a:hover,.cross-page-links button:hover{border-color:var(--accent);color:var(--link)}
-.article-controls{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px}
-.article-lead-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,260px);gap:16px;align-items:start;margin:14px 0 18px;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--panel2)}.article-lead-card.noimg{grid-template-columns:1fr}.article-lead-summary h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--accent2)}.article-lead-summary p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.62;text-align:left}.article-lead-img{margin:0}.article-lead-img img{width:100%;max-height:300px;object-fit:cover;border-radius:10px;border:1px solid var(--border);display:block}.article-lead-img figcaption{margin-top:5px}.article-top-xp{margin:10px 0 14px}.article-top-xp .xp-mini-panel{margin-bottom:0}@media(max-width:720px){.article-lead-card{grid-template-columns:1fr}.article-lead-img img{max-height:none}}
-.microflag{display:inline-flex;align-items:center;gap:3px;margin-left:7px;vertical-align:middle;background:rgba(229,72,77,.12);border:1px solid rgba(229,72,77,.42);color:var(--danger);border-radius:999px;padding:1px 7px;font-size:10px;font-weight:900;letter-spacing:.4px;text-transform:uppercase}.microflag.done{background:rgba(47,174,138,.12);border-color:rgba(47,174,138,.45);color:var(--green)}
-.claimant-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}.claimant-card{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:11px;font-size:13px}.claimant-card h4{margin:0 0 4px;color:var(--accent2)}.claimant-card .ctype{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.claimant-card p{color:var(--muted);line-height:1.45;margin:7px 0}.expandmark{display:inline-flex;align-items:center;gap:4px;margin-left:7px;border:1px solid rgba(138,75,255,.45);background:rgba(138,75,255,.12);color:var(--link);border-radius:999px;padding:1px 7px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.35px}
-.dynasty-map-wrap{border:1px solid var(--border);border-radius:14px;background:radial-gradient(circle at 50% 20%,rgba(138,75,255,.14),transparent 35%),var(--panel2);overflow:auto;padding:12px;margin:16px 0}.dynasty-map-svg{min-width:900px;width:100%;height:auto;display:block}.dynasty-edge{stroke:rgba(224,180,0,.42);stroke-width:2;fill:none}.dynasty-node rect{fill:var(--bg2);stroke:var(--border);stroke-width:1.5;rx:10}.dynasty-node:hover rect{stroke:var(--accent2)}.dynasty-node text{font-family:Segoe UI,system-ui,sans-serif;fill:var(--text);font-size:12px}.dynasty-node .sub{fill:var(--muted);font-size:10px}.intel-locks{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.intel-lock{font-size:10px;border:1px solid rgba(229,72,77,.35);color:var(--danger);background:rgba(229,72,77,.09);border-radius:999px;padding:2px 6px}.intel-policy{border:1px dashed var(--border);border-radius:10px;background:rgba(0,0,0,.12);padding:10px;color:var(--muted);font-size:12px;margin:10px 0}.inventory-panel{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:14px;margin:14px 0 16px}.inventory-panel h3{margin:0 0 8px;color:var(--accent2);font-size:14px}.inventory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}.item-card{border:1px solid var(--border);border-radius:11px;background:var(--bg2);padding:10px;min-height:120px}.item-card.rumored{opacity:.72;border-style:dashed}.item-head{display:flex;gap:8px;align-items:center;font-weight:900}.item-icon{font-size:24px}.item-type{color:var(--accent2);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}.item-card p{color:var(--muted);font-size:12px;line-height:1.4;margin:6px 0}.wallet-grid{display:flex;flex-wrap:wrap;gap:6px}.coin-chip{border:1px solid var(--border);border-radius:999px;background:var(--bg2);padding:4px 9px;font-size:12px;color:var(--muted)}.coin-chip b{color:var(--accent2)}.bank-row{border:1px solid var(--border);border-radius:9px;background:var(--bg2);padding:8px;margin-top:7px;font-size:12px;color:var(--muted)}.bank-row b{color:var(--text)}.item-filterbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.item-detail-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:16px}.item-hero{border:1px solid var(--border);border-radius:14px;background:linear-gradient(135deg,rgba(138,75,255,.15),rgba(224,180,0,.08)),var(--panel2);padding:18px}.item-big-icon{font-size:54px}.rarity-pill{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:3px 9px;color:var(--accent2);background:var(--bg2);font-size:12px}@media(max-width:800px){.item-detail-layout{grid-template-columns:1fr}}
-.item-system-note{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:14px;margin:14px 0;color:var(--muted)}
-
-.intel-meaning{margin-top:10px;border:1px solid rgba(224,180,0,.28);border-radius:10px;background:rgba(224,180,0,.06);padding:9px;color:var(--text);font-size:12.5px;line-height:1.45}.intel-next{color:var(--muted);font-size:11.5px;margin-top:6px}.intel-source-chip{width:100%;text-align:left;display:grid!important;grid-template-columns:auto 1fr;gap:7px;align-items:start;cursor:pointer;font-family:inherit}.intel-source-chip .delta{font-weight:900;color:var(--accent2);white-space:nowrap}.intel-source-chip.neg .delta{color:var(--danger)}.intel-source-chip .src-title{color:var(--text);font-weight:700}.intel-source-chip .src-reason{color:var(--muted);font-size:11.5px;line-height:1.35;margin-top:2px}.intel-source-chip.inferred{opacity:.72}.intel-source-chip.inferred .src-title::after{content:' inferred';color:var(--muted);font-weight:400;font-size:10px;text-transform:uppercase;margin-left:5px}.intel-card-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.intel-card-actions a{border:1px solid var(--border);border-radius:999px;padding:3px 8px;background:var(--bg2);font-size:11.5px;text-decoration:none;color:var(--link)}
-.intel-board{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}.intel-card{position:relative;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,var(--panel2),var(--bg2));padding:14px;box-shadow:var(--shadow);cursor:pointer;overflow:hidden}.intel-card:hover{border-color:var(--accent);transform:translateY(-1px)}.intel-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 88% 0%,rgba(224,180,0,.12),transparent 32%);pointer-events:none}.intel-card>*{position:relative}.intel-card-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.intel-card-title{display:flex;gap:9px;align-items:center;font-weight:900;font-size:16px}.intel-card-icon{font-size:26px}.intel-type{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.7px}.intel-big-score{font-size:28px;color:var(--accent2);font-weight:900;line-height:1}.intel-card.neg .intel-big-score{color:var(--danger)}.intel-source-list{margin-top:10px;display:grid;gap:6px}.intel-source-chip{display:block;border:1px solid var(--border);border-radius:9px;background:rgba(0,0,0,.13);padding:7px 8px;color:var(--muted);font-size:12px;text-decoration:none}.intel-source-chip:hover{border-color:var(--accent2);color:var(--text)}.intel-source-chip b{color:var(--accent2);margin-right:5px}.intel-filterbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.intel-filterbar .chip{user-select:none}.dynasty-flow{display:flex;gap:18px;overflow:auto;padding:12px;border:1px solid var(--border);border-radius:14px;background:radial-gradient(circle at 50% 0%,rgba(138,75,255,.12),transparent 35%),var(--panel2)}.dynasty-col{min-width:220px;display:flex;flex-direction:column;gap:10px}.dynasty-col h3{position:sticky;top:0;background:var(--panel2);z-index:1;margin:0;color:var(--accent2);font-size:12px;text-transform:uppercase;letter-spacing:.8px;padding:4px}.dynasty-node-card{border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:10px;min-height:92px;position:relative}.dynasty-node-card.clickable{cursor:pointer}.dynasty-node-card.clickable:hover{border-color:var(--accent);box-shadow:0 0 0 2px rgba(138,75,255,.12)}.dynasty-node-card.dead{opacity:.72}.dynasty-node-card .node-name{font-weight:900}.dynasty-node-card .node-epi{color:var(--accent2);font-size:12px}.dynasty-node-card .node-meta{color:var(--muted);font-size:11px;margin-top:4px}.dynasty-node-card .node-links{color:var(--muted);font-size:10px;margin-top:6px}.intel-lock.unlocked{color:var(--green);border-color:rgba(47,174,138,.45);background:rgba(47,174,138,.10)}
-.intel-ledger-card{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:12px;margin:12px 0}.intel-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid var(--border);border-radius:9px;background:var(--bg2);padding:8px;margin:7px 0}.intel-row.neg .intel-score{color:var(--danger)}.intel-score{color:var(--accent2);font-weight:900}.intel-bar{height:7px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;margin-top:4px}.intel-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}.intel-src{color:var(--muted);font-size:12px;line-height:1.4}.unlock-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.unlock-card{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:10px}.unlock-card.locked{opacity:.58}.unlock-card h4{margin:0 0 4px;color:var(--accent2)}
-.dynasty-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}.dynasty-card{border:1px solid var(--border);border-radius:14px;background:var(--panel2);padding:16px;cursor:pointer;position:relative;overflow:hidden}.dynasty-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}.dynasty-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--dc1,rgba(138,75,255,.18)),transparent 45%,var(--dc2,rgba(224,180,0,.12)));opacity:.75;pointer-events:none}.dynasty-card>*{position:relative}.dynasty-sigil{font-size:42px}.dynasty-meta{color:var(--muted);font-size:12px}.dynasty-tree{display:flex;flex-direction:column;gap:18px;margin-top:16px}.dynasty-gen{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:12px}.dynasty-gen h3{margin:0 0 10px;color:var(--accent2);font-size:13px;text-transform:uppercase;letter-spacing:.6px}.dynasty-members{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}.dynasty-member{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:10px}.dynasty-member.dead{opacity:.72}.dynasty-member .dm-head{display:flex;gap:8px;align-items:center;font-weight:900}.dynasty-member .dm-icon{font-size:24px}.dynasty-member .dm-epi{color:var(--accent2);font-size:12px}.dynasty-member p{color:var(--muted);font-size:12px;line-height:1.42;margin:6px 0}.dynasty-perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0}.dynasty-perk{border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:10px;background:var(--bg2);padding:10px}.dynasty-code{font-family:ui-monospace,monospace;color:var(--accent2);font-size:11px;text-transform:uppercase;letter-spacing:.8px}.branch-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.branch-chip{border:1px solid var(--border);border-radius:999px;background:var(--bg2);padding:4px 9px;font-size:12px;color:var(--muted)}
-.species-dash{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:14px;margin:0 0 16px}.species-dash h3{margin:0 0 8px;color:var(--accent2)}.species-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0}.species-stat{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:9px}.species-stat b{display:block;color:var(--accent2);font-size:20px}.species-import-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}.species-import-card{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:10px;font-size:12.5px}.species-import-head{display:flex;align-items:center;gap:8px;font-weight:800}.species-import-head i{font-style:normal;font-size:22px}.species-import-card p{color:var(--muted);line-height:1.4;margin:6px 0}.species-tag{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 7px;margin:2px;color:var(--muted);font-size:10.5px}.species-region-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.flag-art{margin:0 0 16px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--panel2);box-shadow:var(--shadow)}.flag-art.tile{margin:0 0 10px;border-radius:9px;box-shadow:none}.flag-svg{width:100%;height:auto;display:block}.flag-art.tile .flag-svg{height:112px}.flag-art.full .flag-svg{min-height:210px}.atlas-source{border:1px dashed var(--border);border-radius:10px;padding:10px;margin-top:10px;background:rgba(255,255,255,.035);font-size:12.5px;color:var(--muted)}.atlas-source b{color:var(--accent2)}.poi-link{display:inline-block;margin-top:5px;color:var(--link);font-size:11.5px}.flag-mini-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.flag-chip{border:1px solid var(--border);background:var(--bg2);border-radius:999px;padding:4px 9px;font-size:12px;color:var(--muted)}
-.nation-atlas{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:14px;margin:16px 0}.nation-atlas h3{margin:0 0 8px;color:var(--accent2)}.nation-grid{display:grid;grid-template-columns:minmax(420px,1.35fr) minmax(260px,.65fr);gap:14px;align-items:stretch}.nation-map{position:relative;min-height:430px;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:radial-gradient(circle at 52% 28%,rgba(47,174,138,.30),transparent 18%),radial-gradient(circle at 65% 58%,rgba(224,180,0,.20),transparent 18%),linear-gradient(135deg,#143045,#102016 54%,#2b2038)}.nation-map svg{width:100%;height:100%;min-height:430px;display:block;transition:.35s ease}.poi-dot{cursor:pointer}.poi-dot circle{transition:.15s}.poi-dot:hover circle,.poi-dot.active circle{r:2.25;fill:var(--danger)}.poi-list{max-height:430px;overflow:auto;display:flex;flex-direction:column;gap:8px}.poi-card{border:1px solid var(--border);border-radius:9px;padding:8px;background:var(--bg2);font-size:12px;cursor:pointer}.poi-card:hover,.poi-card.active{border-color:var(--accent2);background:rgba(224,180,0,.08)}.poi-card b{color:var(--text)}.poi-card .poi-meta{color:var(--accent2);font-size:10px;text-transform:uppercase;letter-spacing:.5px}.atlas-selected{border:1px solid var(--border);border-radius:10px;padding:10px;margin:0 0 10px;background:rgba(0,0,0,.16);font-size:12.5px}.atlas-selected h4{margin:0 0 5px;color:var(--accent2)}.atlas-distance{display:grid;grid-template-columns:1fr auto;gap:5px;margin-top:8px;color:var(--muted)}.atlas-reset{position:absolute;top:10px;right:10px;z-index:2;border:1px solid var(--border);background:rgba(0,0,0,.42);color:var(--text);border-radius:999px;padding:5px 10px;cursor:pointer;font-size:12px}.atlas-reset:hover{border-color:var(--accent2)}.atlas-source{display:none!important}.nation-locs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.map-link{display:inline-block;margin-top:10px;border:1px solid var(--border);border-radius:999px;padding:5px 10px;background:var(--bg2);font-size:12px}@media(max-width:900px){.nation-grid{grid-template-columns:1fr}.nation-map,.nation-map svg{min-height:360px}.poi-list{max-height:none}}
-.auto-art{margin:0 0 16px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--panel2);box-shadow:var(--shadow)}.article-lead-img.auto-art{margin:0;box-shadow:none}.auto-art-svg{width:100%;height:auto;display:block}.auto-art.tile{margin:0 0 10px;border-radius:9px;box-shadow:none}.auto-art.tile .auto-art-svg{height:112px}.auto-art.full .auto-art-svg{min-height:210px}.arttile .auto-art{border-color:rgba(255,255,255,.08);background:var(--bg2)}
-.xp-mini-panel{background:linear-gradient(135deg,rgba(224,180,0,.13),rgba(138,75,255,.09));border:1px solid rgba(224,180,0,.35);border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px}.xp-mini-panel h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}.xp-mini-panel .xpbig{font-size:24px;font-weight:900;color:var(--accent2);line-height:1}.xp-mini-panel .xpsub{color:var(--muted);margin-top:4px}.xp-mini-panel .xpbar{height:8px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;overflow:hidden;margin:10px 0}.xp-mini-panel .xpbar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));}.xp-mini-panel .xplink{display:inline-block;margin-top:8px;border:1px solid var(--border);border-radius:999px;padding:4px 9px;color:var(--text);background:var(--bg2);font-size:12px}.xp-pill{border-color:rgba(224,180,0,.55)!important;color:var(--accent2)!important;background:rgba(224,180,0,.10)!important}.kv-list{display:grid;gap:6px;margin:8px 0 12px}.kv-row{display:grid;grid-template-columns:minmax(120px,.35fr) 1fr;gap:8px;padding:7px 9px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);font-size:13.5px}.kv-row .k{color:var(--accent2);font-weight:800}.kv-row .v{color:var(--text)}
-.article-controls h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}
-.ctrl-row{margin:10px 0}.ctrl-label{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.45px;margin-bottom:6px}.ctrl-count{color:var(--accent2);font-weight:800}.ctrl-pills{display:flex;flex-wrap:wrap;gap:6px}.setting-pill{background:var(--bg2);border:1px solid var(--border);color:var(--muted);border-radius:18px;padding:4px 9px;font-size:12px;cursor:pointer;transition:.12s;font-family:inherit}.setting-pill:hover{border-color:var(--accent);color:var(--text);transform:translateY(-1px)}.setting-pill.active{background:var(--accent);border-color:var(--accent);color:#fff}.setting-pill.warn.active{background:var(--accent2);border-color:var(--accent2);color:#151022}.setting-pill.off.active{background:var(--danger);border-color:var(--danger);color:#fff}.ctrl-help{color:var(--muted);font-size:11.5px;line-height:1.4;margin-top:8px}.ctrl-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.ctrl-mini{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:4px 8px;font-size:11.5px;cursor:pointer}.ctrl-mini:hover{color:var(--text);border-color:var(--accent)}
-#settingsToast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:8px 14px;box-shadow:var(--shadow);z-index:260;opacity:0;pointer-events:none;transition:.18s;font-size:13px}#settingsToast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-/* inline auto-links + hover preview */
-a.xlink{color:var(--link);text-decoration:none;border-bottom:1px dotted var(--link);cursor:pointer;transition:background .12s,border-color .12s}
-a.xlink:hover{background:rgba(138,75,255,.15);border-bottom-style:solid;text-decoration:none}
-a.xlink.datelink{color:var(--accent2);border-bottom-color:var(--accent2)}
-a.xlink.datelink:hover{background:rgba(224,180,0,.15)}
-#linkPreview{position:fixed;z-index:200;max-width:320px;background:var(--panel2);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;display:none;pointer-events:none;font-size:13px;line-height:1.5}
-#linkPreview.show{display:block}
-#linkPreview .lp-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-#linkPreview .lp-emoji{font-size:18px}
-#linkPreview .lp-name{font-weight:700;font-size:14.5px;color:var(--text)}
-#linkPreview .lp-sub{color:var(--accent2);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
-#linkPreview .lp-sum{color:var(--muted)}
-#linkPreview .lp-go{margin-top:8px;font-size:11px;color:var(--link);opacity:.8}
-hr{border:none;border-top:1px solid var(--border);margin:22px 0}
-@media(max-width:940px){
-  .layout{grid-template-columns:1fr}
-  aside.sidenav{position:static;max-height:none;order:2}
-  .article-layout{grid-template-columns:1fr}
-  .toc{position:static;order:-1}
-  .grid2{grid-template-columns:1fr}
-  .vs{grid-template-columns:1fr}
-  .searchwrap .kbd{display:none}
-}
-::-webkit-scrollbar{width:10px;height:10px}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:20px}
-
-/* ===== WALUPEDIA CALENDAR — merged intuitive date system — FIXED ===== */
-.calendar-topbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:12px}
-.calendar-nav{display:flex;gap:6px;align-items:center}
-.calendar-nav .iconbtn{width:36px;height:36px}
-.calendar-title{font-size:22px;font-weight:900;color:var(--accent2)}
-.calendar-meta{color:var(--muted);font-size:13px;margin-top:4px;line-height:1.5}
-.calendar-grid-wrap{background:var(--panel2);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.calendar-weekdays{display:grid;grid-template-columns:repeat(7,1fr);background:rgba(0,0,0,.18);border-bottom:1px solid var(--border)}
-.calendar-weekdays .wd{padding:8px 4px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:800}
-.calendar-weekdays .wd.rest{color:var(--accent2)}
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr)}
-.calendar-day{min-height:96px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:6px 6px 4px;cursor:pointer;position:relative;transition:.12s;background:var(--panel2)}
-.calendar-day:nth-child(7n){border-right:none}
-.calendar-day:hover{background:rgba(138,75,255,.10)}
-.calendar-day.today{box-shadow:inset 0 0 0 2px var(--accent2);background:rgba(224,180,0,.08)}
-.calendar-day.selected{outline:2px solid var(--accent);z-index:1}
-.calendar-day.filler{background:rgba(0,0,0,.15);cursor:default;opacity:.55}
-.calendar-day .dnum{font-weight:800;font-size:14px}
-.calendar-day .dweek{font-size:10px;color:var(--muted);margin-left:4px}
-.calendar-day .dseason{position:absolute;top:6px;right:6px;font-size:10px}
-.calendar-day .event-dots{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
-.calendar-day .edot{width:7px;height:7px;border-radius:50%}
-.calendar-day .more{font-size:10px;color:var(--muted);margin-top:4px}
-.calendar-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
-.calendar-legend .lg{display:flex;align-items:center;gap:6px}
-.calendar-legend .lg i{width:10px;height:10px;border-radius:50%;display:inline-block}
-.day-events{margin-top:12px}
-.day-events .ev{border-left:3px solid var(--border);padding:6px 10px;margin-bottom:8px;background:var(--bg2);border-radius:8px}
-.day-events .ev.pos{border-color:var(--green)}
-.day-events .ev.neg{border-color:var(--danger)}
-.day-events .ev.warn{border-color:var(--accent2)}
-.mini-calendar{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:10px}
-.mini-calendar .mc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.mini-calendar .mc-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-.mini-calendar .mc-day{font-size:11px;text-align:center;padding:4px 2px;border-radius:6px;cursor:pointer}
-.mini-calendar .mc-day:hover{background:rgba(138,75,255,.12)}
-.mini-calendar .mc-day.today{background:var(--accent2);color:#111;font-weight:900}
-.mini-calendar .mc-day.has{font-weight:700;text-decoration:underline;text-underline-offset:3px}
-.mini-calendar .mc-day.filler{opacity:.35}
-.calendar-explainer{background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.07));border:1px dashed var(--border);border-radius:12px;padding:12px;margin-top:12px;color:var(--muted);font-size:13px;line-height:1.5}
-/* FIX: weird days were clipped because .tsum has line-clamp:3 */
-.arttile.cal-tile{display:flex;flex-direction:column;overflow:visible}
-.arttile.cal-tile .tsum{ -webkit-line-clamp:unset; display:block; overflow:visible; -webkit-box-orient:unset; }
-.cal-weird{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.cal-weird-title{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2);font-weight:800;margin-bottom:4px;width:100%}
-.weird-pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:12px;background:var(--bg2);line-height:1.4;white-space:nowrap}
-.weird-pill .wi{font-size:13px}
-.holiday-pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:999px;padding:3px 9px;font-size:11.5px;background:linear-gradient(135deg,rgba(138,75,255,.08),rgba(224,180,0,.06)),var(--bg2)}
-.cal-holidays{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.cal-holiday-section{margin-top:10px;padding-top:8px;border-top:1px dashed var(--border)}
-/* Calendar per-theme utilization — tiles actually use accent bg etc */
-.cal-themed{position:relative;overflow:hidden}
-.cal-themed::before{content:'';position:absolute;inset:0;background:radial-gradient(380px 120px at 0% 0%,var(--cal-accent-soft,rgba(138,75,255,.18)),transparent 60%),radial-gradient(280px 100px at 100% 100%,var(--cal-accent2-soft,rgba(224,180,0,.10)),transparent 55%);pointer-events:none;opacity:.9}
-.cal-themed>*{position:relative}
-/* ===== LOGIN / PROFILE — merged from existing terminal login ==== */
-#loginBtn.logged-in{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent);font-weight:900}
-.login-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
-.login-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;display:flex;gap:10px;align-items:center}
-.login-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
-.login-card .l-ava{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;flex:0 0 48px}
-.login-card .l-name{font-weight:800}
-.login-card .l-meta{color:var(--muted);font-size:12px;margin-top:2px}
-.login-card.vip{border-left:4px solid var(--accent2)}
-.profile-hero{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:start;background:linear-gradient(135deg,rgba(138,75,255,.15),rgba(224,180,0,.08)),var(--panel2);border:1px solid var(--border);border-radius:14px;padding:18px}
-.profile-hero .ph-ava{width:100px;height:100px;border-radius:50%;display:grid;place-items:center;font-size:44px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900}
-.profile-hero h1{margin:0;font-size:28px}
-.profile-xp-bar{height:10px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;overflow:hidden;margin:8px 0}
-.profile-xp-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent))}
-.profile-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px}
-.profile-stat{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px}
-.profile-stat b{display:block;color:var(--accent2);font-size:20px}
-/* Immersive Waluigi sign-on */
-.waluigi-splash{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:radial-gradient(1200px 600px at 50% -10%,rgba(138,75,255,.22),transparent 60%),radial-gradient(900px 500px at -10% 20%,rgba(224,180,0,.10),transparent 55%),rgba(13,10,21,.92);backdrop-filter:blur(6px);padding:20px;animation:fade .25s ease}
-.waluigi-splash-card{max-width:680px;width:100%;background:linear-gradient(135deg,rgba(27,20,48,.98),rgba(35,24,56,.98));border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;overflow:hidden}
-.waluigi-splash-card::before{content:'';position:absolute;inset:0;background:radial-gradient(500px 180px at 0% 0%,rgba(138,75,255,.18),transparent 60%),radial-gradient(320px 120px at 100% 100%,rgba(224,180,0,.12),transparent 60%);pointer-events:none}
-.waluigi-splash-card>*{position:relative}
-.waluigi-ava-big{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:42px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;box-shadow:0 6px 18px rgba(138,75,255,.35)}
-.waluigi-typed{font-size:15px;line-height:1.6;color:var(--text);min-height:84px;white-space:pre-wrap}
-.waluigi-typed b{color:var(--accent2)}
-.waluigi-typed i{color:var(--muted);font-style:normal}
-
-/* ===== WALUPEDIA REPUTATION MATRIX — Merged Faction Directory & Heat Engine ===== */
-.rep-header{background:linear-gradient(135deg,rgba(138,75,255,.18),rgba(224,180,0,.10)),var(--panel2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden}
-.rep-header::before{content:'';position:absolute;inset:0;background:radial-gradient(600px 200px at 0% 0%,rgba(138,75,255,.25),transparent 60%),radial-gradient(400px 150px at 100% 100%,rgba(224,180,0,.15),transparent 60%);pointer-events:none}
-.rep-header>*{position:relative}
-.rep-topbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.rep-title-box h1{margin:0;font-size:26px;font-weight:900;color:var(--text)}
-.rep-title-box p{margin:4px 0 0;color:var(--muted);font-size:13px}
-.rep-nav-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
-.rep-tab-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s}
-.rep-tab-btn:hover{border-color:var(--accent);background:rgba(138,75,255,.12)}
-.rep-tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent);box-shadow:0 4px 12px rgba(138,75,255,.3)}
-
-.rep-op-bar{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px}
-.rep-op-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:10px 14px;min-width:140px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:10px;flex:0 0 auto}
-.rep-op-card:hover,.rep-op-card.active{border-color:var(--accent2);background:rgba(224,180,0,.08);transform:translateY(-2px)}
-.rep-op-card .icon{font-size:22px}
-.rep-op-card .name{font-weight:800;font-size:13px}
-.rep-op-card .heat{font-size:11px;color:var(--muted)}
-
-.rep-grid-controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:center}
-.rep-search-input{flex:1;min-width:220px;padding:9px 14px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:14px}
-.rep-select{padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:13px}
-
-.rep-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.rep-faction-card{background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:16px;transition:.18s;display:flex;flex-direction:column;justify-space-between;position:relative;overflow:hidden}
-.rep-faction-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
-.rep-fc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
-.rep-fc-title h3{margin:0;font-size:17px;font-weight:800}
-.rep-fc-title .region{font-size:11.5px;color:var(--accent2);font-weight:600}
-.rep-score-badge{border-radius:8px;padding:4px 10px;font-weight:900;font-size:14px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
-.rep-score-badge.friendly{background:rgba(34,197,94,.18);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
-.rep-score-badge.warm{background:rgba(74,222,128,.12);color:#86efac;border:1px solid rgba(74,222,128,.3)}
-.rep-score-badge.neutral{background:rgba(245,158,11,.12);color:#fde047;border:1px solid rgba(245,158,11,.3)}
-.rep-score-badge.cold{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
-.rep-score-badge.hostile{background:rgba(239,68,68,.30);color:#ef4444;border:1px solid rgba(239,68,68,.6)}
-
-.rep-fc-ops{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0}
-.rep-op-pill{display:inline-flex;align-items:center;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700}
-.rep-op-pill.pos{border-color:rgba(34,197,94,.4);color:#4ade80}
-.rep-op-pill.neg{border-color:rgba(239,68,68,.4);color:#fca5a5}
-
-.rep-tip-box{background:linear-gradient(135deg,rgba(138,75,255,.08),rgba(224,180,0,.05));border:1px dashed var(--border);border-radius:10px;padding:10px;font-size:12px;color:var(--muted);margin-top:10px;line-height:1.4}
-.rep-tip-box b{color:var(--accent2);display:block;margin-bottom:2px}
-
-.rep-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
-.rep-btn-trace{background:rgba(138,75,255,.14);border:1px solid var(--border);color:#c8a6ff;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;transition:.12s}
-.rep-btn-trace:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-/* Matrix Table View */
-.rep-table-wrap{overflow-x:auto;background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:12px}
-.rep-table{width:100%;border-collapse:separate;border-spacing:3px;font-size:12px}
-.rep-table th,.rep-table td{padding:8px 10px;text-align:center;border-radius:6px;background:var(--bg2)}
-.rep-table th{background:rgba(138,75,255,.16);font-weight:800;color:var(--accent2);white-space:nowrap;position:sticky;top:0;z-index:2}
-.rep-table td.faction-name{text-align:left;font-weight:800;white-space:nowrap;position:sticky;left:0;background:var(--panel2);z-index:1}
-.rep-cell-val{font-weight:900;cursor:pointer;padding:6px 8px;border-radius:6px;transition:.12s;display:inline-block;min-width:38px}
-.rep-cell-val:hover{transform:scale(1.1);outline:2px solid var(--accent);z-index:3}
-
-/* Modal Drawer for Trace */
-.rep-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:100;display:grid;place-items:center;padding:16px;animation:fade .2s ease}
-.rep-modal-box{background:var(--panel);border:1px solid var(--border);border-radius:16px;max-width:680px;width:100%;max-height:85vh;overflow:auto;padding:22px;box-shadow:var(--shadow);position:relative}
-.rep-modal-close{position:absolute;top:16px;right:16px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:50%;width:32px;height:32px;cursor:pointer;font-weight:900;display:grid;place-items:center}
-.rep-trace-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;margin-bottom:6px;font-size:13px}
-.rep-trace-val{font-weight:900}
-.rep-trace-val.pos{color:#4ade80}
-.rep-trace-val.neg{color:#ef4444}
-
-
-/* CSS Polish Pass — Glowing borders, sleek cards, animated pills */
-.arttile { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; background: linear-gradient(145deg, var(--panel2), rgba(27,20,48,.85)); }
-.arttile:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 10px 25px rgba(138,75,255,.2); border-color: var(--accent); }
-.card { border-radius: 16px; transition: box-shadow .2s ease; }
-.card:hover { box-shadow: 0 12px 35px rgba(0,0,0,.5); }
-.chip { transition: all .15s ease; font-weight: 600; }
-.chip:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(138,75,255,.25); }
-.pill { border-radius: 8px; font-weight: 700; }
-.cross-page-links a, .cross-page-links button { transition: all .15s ease; border-radius: 8px; }
-.cross-page-links a:hover, .cross-page-links button:hover { background: var(--accent); color: #fff; transform: translateX(2px); }
-
-</style>
+<!-- External CSS: cached by browser, loaded once, scales as site grows -->
+  <link rel="preload" href="waluipedia.css" as="style">
+  <link rel="stylesheet" href="waluipedia.css">
+  <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
+  <link rel="preload" href="battlefield.css" as="style">
+  <link rel="stylesheet" href="battlefield.css">
 </head>
 <body>
 <header class="topbar">
@@ -841,7 +393,7 @@ function poiArticleId(p){
 }
 function atlasMiles(a,b){ const dx=a.x-b.x, dy=a.y-b.y; return Math.max(1,Math.round(Math.sqrt(dx*dx+dy*dy)*7.5)); }
 function atlasViewBoxFor(p){ const w=16,h=12; const x=Math.max(35,Math.min(75-w,p.x-w/2)); const y=Math.max(18,Math.min(53-h,p.y-h/2)); return `${x} ${y} ${w} ${h}`; }
-function atlasReset(){ const svg=document.getElementById('mk-atlas-svg'); if(svg)svg.setAttribute('viewBox','35 18 40 35'); document.querySelectorAll('.poi-dot,.poi-card').forEach(e=>e.classList.remove('active')); const box=document.getElementById('atlas-selected'); if(box)box.innerHTML='<h4>Click a point</h4><div style="color:var(--muted)">Select a POI to zoom in and calculate nearby distances.</div>'; }
+function atlasReset(){ const svg=document.getElementById('mk-atlas-svg'); if(svg)svg.setAttribute('viewBox','35 18 40 35'); document.querySelectorAll('.poi-dot,.poi-card').forEach(e=>e.classList.remove('active')); const box=document.getElementById('atlas-selected'); if(box)box.innerHTML='<h4>Click a point</h4><div class="text-muted">Select a POI to zoom in and calculate nearby distances.</div>'; }
 function atlasSelectPoi(id){
   const p=(MK_POIS||[]).find(x=>x.id===id); if(!p)return;
   const svg=document.getElementById('mk-atlas-svg'); if(svg)svg.setAttribute('viewBox',atlasViewBoxFor(p));
@@ -854,7 +406,7 @@ function atlasSelectPoi(id){
 function claimantRegimePanel(item){
   const arr=item.claimantRegimes||[]; if(!arr.length)return '';
   const cards=arr.map(c=>{const target=INDEX[c.id];return `<div class="claimant-card"><h4>${esc(c.name)}</h4><div class="ctype">${esc(c.type||'Claimant')}</div><p>${esc(c.role||'')}</p>${target?`<a class="poi-link" onclick="openId('${esc(c.id)}')">Open article →</a>`:''}</div>`;}).join('');
-  return `<div class="nation-atlas"><h3>⚔️ Claimant Regimes / Territorial Powers</h3><p style="color:var(--muted);margin:0 0 10px">These are not all nations. They are the powers currently carving the civil-war theater into zones of law, occupation, restoration, and intervention.</p><div class="claimant-grid">${cards}</div></div>`;
+  return `<div class="nation-atlas"><h3>⚔️ Claimant Regimes / Territorial Powers</h3><p class="text-muted mb-10">These are not all nations. They are the powers currently carving the civil-war theater into zones of law, occupation, restoration, and intervention.</p><div class="claimant-grid">${cards}</div></div>`;
 }
 function expansionMark(item){const w=words((item&&item.description)||''); return w<900?`<span class="expandmark" title="${w} words — candidate for later expansion">Expand later</span>`:'';}
 
@@ -866,13 +418,13 @@ function nationOverview(item){
   if(item.id==='mushroom_kingdom'){
     const pois=MK_POIS||[];
     const dots=pois.map(p=>{const link=poiArticleId(p);return `<g class="poi-dot" data-poi="${esc(p.id)}" onclick="atlasSelectPoi('${esc(p.id)}')"><circle cx="${p.x}" cy="${p.y}" r="1.55" fill="var(--accent2)" stroke="rgba(0,0,0,.65)" stroke-width=".55"><title>${esc(p.name)}</title></circle><text x="${p.x+1.9}" y="${p.y+.8}" font-size="2.9" fill="rgba(255,255,255,.9)">${esc(poiIcon(p.type))}</text></g>`}).join('');
-    const cards=pois.map(p=>{const link=poiArticleId(p);return `<div class="poi-card" data-poi="${esc(p.id)}" id="poi-${esc(p.id)}" onclick="atlasSelectPoi('${esc(p.id)}')"><div class="poi-meta">${esc(p.type.replace(/_/g,' '))} · ${esc(p.factionId.replace(/_/g,' '))}</div><b>${esc(p.name)}</b><div style="color:var(--muted);line-height:1.4">${esc(p.description.slice(0,150))}${p.description.length>150?'…':''}</div>${link?`<a class="poi-link" onclick="event.stopPropagation();openId('${esc(link)}')">Linked article →</a>`:''}</div>`}).join('');
-    mapHtml=`<div class="nation-grid"><div class="nation-map"><button class="atlas-reset" onclick="atlasReset()">Reset zoom</button><svg id="mk-atlas-svg" viewBox="35 18 40 35" preserveAspectRatio="xMidYMid meet" role="img"><defs><radialGradient id="mksea" cx="50%" cy="40%" r="80%"><stop offset="0" stop-color="rgba(47,174,138,.18)"/><stop offset="1" stop-color="rgba(0,0,0,.20)"/></radialGradient></defs><rect x="0" y="0" width="100" height="100" fill="url(#mksea)"/><path d="M37 46 C42 24 53 17 67 20 C75 29 72 43 62 51 C52 55 43 54 37 46Z" fill="rgba(47,174,138,.30)" stroke="rgba(255,255,255,.25)"/><path d="M45 36 C51 28 58 28 64 35 C59 34 54 37 51 43 C49 39 47 37 45 36Z" fill="rgba(224,180,0,.18)"/><path d="M38 45 C45 40 51 43 58 38 S66 35 72 40" fill="none" stroke="rgba(255,255,255,.13)" stroke-width=".7"/>${dots}<text x="37" y="21" font-size="3" fill="rgba(255,255,255,.72)" font-weight="700">Mushroom Kingdom Tactical Atlas</text></svg></div><div><div class="atlas-selected" id="atlas-selected"><h4>Click a point</h4><div style="color:var(--muted)">Select a POI to zoom in and calculate nearby distances.</div></div><div class="poi-list">${cards}</div></div></div>`;
+    const cards=pois.map(p=>{const link=poiArticleId(p);return `<div class="poi-card" data-poi="${esc(p.id)}" id="poi-${esc(p.id)}" onclick="atlasSelectPoi('${esc(p.id)}')"><div class="poi-meta">${esc(p.type.replace(/_/g,' '))} · ${esc(p.factionId.replace(/_/g,' '))}</div><b>${esc(p.name)}</b><div class="text-muted">${esc(p.description.slice(0,150))}${p.description.length>150?'…':''}</div>${link?`<a class="poi-link" onclick="event.stopPropagation();openId('${esc(link)}')">Linked article →</a>`:''}</div>`}).join('');
+    mapHtml=`<div class="nation-grid"><div class="nation-map"><button class="atlas-reset" onclick="atlasReset()">Reset zoom</button><svg id="mk-atlas-svg" viewBox="35 18 40 35" preserveAspectRatio="xMidYMid meet" role="img"><defs><radialGradient id="mksea" cx="50%" cy="40%" r="80%"><stop offset="0" stop-color="rgba(47,174,138,.18)"/><stop offset="1" stop-color="rgba(0,0,0,.20)"/></radialGradient></defs><rect x="0" y="0" width="100" height="100" fill="url(#mksea)"/><path d="M37 46 C42 24 53 17 67 20 C75 29 72 43 62 51 C52 55 43 54 37 46Z" fill="rgba(47,174,138,.30)" stroke="rgba(255,255,255,.25)"/><path d="M45 36 C51 28 58 28 64 35 C59 34 54 37 51 43 C49 39 47 37 45 36Z" fill="rgba(224,180,0,.18)"/><path d="M38 45 C45 40 51 43 58 38 S66 35 72 40" fill="none" stroke="rgba(255,255,255,.13)" stroke-width=".7"/>${dots}<text x="37" y="21" font-size="3" fill="rgba(255,255,255,.72)" font-weight="700">Mushroom Kingdom Tactical Atlas</text></svg></div><div><div class="atlas-selected" id="atlas-selected"><h4>Click a point</h4><div class="text-muted">Select a POI to zoom in and calculate nearby distances.</div></div><div class="poi-list">${cards}</div></div></div>`;
   }
   const source='';
   const flags=`<div class="flag-mini-row"><span class="flag-chip">${esc((item.nationCategory||item.type||'Nation').toString())}</span>${cfg.poiFile?`<span class="flag-chip">Atlas data available</span>`:''}</div>`;
   if(!locChips&&!mapHtml&&!(cfg&&cfg.mapFile)) return '';
-  return `<div class="nation-atlas"><h3>🗺️ Nation Atlas</h3><p style="color:var(--muted);margin:0 0 10px">Nation hub: flag, known locations, and tactical atlas. Select a Mushroom Kingdom point to zoom and measure routes.</p>${flags}${mapHtml}${source}${locChips?`<h3 style="margin-top:14px">Visit Locations</h3><div class="nation-locs">${locChips}</div>`:''}${(cfg.mapFile||item.mapFile)?`<a class="map-link" href="${esc(cfg.mapFile||item.mapFile)}">Open full tactical map →</a>`:''}</div>`;
+  return `<div class="nation-atlas"><h3>🗺️ Nation Atlas</h3><p class="text-muted mb-10">Nation hub: flag, known locations, and tactical atlas. Select a Mushroom Kingdom point to zoom and measure routes.</p>${flags}${mapHtml}${source}${locChips?`<h3 class="mt-14">Visit Locations</h3><div class="nation-locs">${locChips}</div>`:''}${(cfg.mapFile||item.mapFile)?`<a class="map-link" href="${esc(cfg.mapFile||item.mapFile)}">Open full tactical map →</a>`:''}</div>`;
 }
 function battleNamesForVisual(b){
   const bel=b.belligerents||{};
@@ -945,7 +497,7 @@ function eventPeopleAndXpPanel(item){
   (item.relatedArticles||[]).forEach(add);
   (XP_EVENT_AWARDS[item.id]||[]).forEach(a=>add(a.articleId));
   const people=ids.map(id=>`<span class="rel-chip" onclick="openId('${esc(id)}')"><span class="rt">Character</span>${esc(displayName(INDEX[id].item))}</span>`).join('');
-  const awards=(XP_EVENT_AWARDS[item.id]||[]).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" style="cursor:pointer"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
+  const awards=(XP_EVENT_AWARDS[item.id]||[]).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
   if(!people && !awards) return '';
   if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div></div></div>`;
   if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>`;
@@ -1358,7 +910,7 @@ function view_home(){
   }).join('');
 
   const calMeta = `
-    <div class="calendar-explainer" style="margin-top:10px">
+    <div class="calendar-explainer mt-10">
       <b>Today:</b> ${esc(fullDate)}<br>
       <b>Month:</b> ${esc(mdToday.name)} — ${esc(mdToday.description||'')} (${mdToday.days} days, ${seasonToday?seasonToday.name:''})<br>
       <b>BF System:</b> BF counts UP toward present — 722 BF oldest, ${CUR.year} BF current. Larger year = more recent. Think chronicle page number. Weekday = absoluteDay % 7; absoluteDay = year×365 + days before month + (day-1). Rest days: Venerias, Saturias.<br>
@@ -1368,16 +920,16 @@ function view_home(){
   const _uidHome = (typeof getCurrentUserId==='function'?getCurrentUserId():null);
   const _loginBannerHome = !_uidHome ? `
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
-      <div style="display:flex;gap:14px;align-items:start">
+      <div class="flex-gap-14-start">
         <div class="waluigi-ava-big" style="width:64px;height:64px;font-size:30px;flex:0 0 64px">W</div>
-        <div style="flex:1">
+        <div class="flex-1">
           <div class="section-title">🔐 IMMERSIVE SIGN-ON REQUIRED — WALUIGI DEMANDS IT</div>
           <p style="color:var(--text);font-size:14px;line-height:1.55;margin:4px 0"><b>WAH!</b> You are browsing as <i>ANONYMOUS</i>! Connect your operator to see <b>wallet</b> (gold equiv), <b>XP</b> (Lvl, Power, Fame), and <b>bio</b> — all linked to XP page + bios! Each operator gets custom <code>Welcome, X</code>!</p>
-          <div class="chips" style="margin-top:10px"><span class="chip active" onclick="Router.go('#/login')">🔐 Connect now — immersive Waluigi welcome →</span><span class="chip" onclick="Router.go('#/items')">XP page + bios (guest)</span><span class="chip" onclick="location.href='currency.html'">Bank (intuitive)</span></div>
+          <div class="chips mt-10"><span class="chip active" onclick="Router.go('#/login')">🔐 Connect now — immersive Waluigi welcome →</span><span class="chip" onclick="Router.go('#/items')">XP page + bios (guest)</span><span class="chip" onclick="location.href='currency.html'">Bank (intuitive)</span></div>
         </div>
       </div>
     </div>` : `
-    <div class="card animate-fade-in" style="border-left:4px solid var(--green)"><div style="display:flex;gap:12px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;font-weight:900">${esc((XP_SUMMARY[_uidHome]?.name||_uidHome||'U')[0].toUpperCase())}</div><div><b>Connected as ${esc(XP_SUMMARY[_uidHome]?.name||_uidHome||'User')}</b><div style="color:var(--muted);font-size:12px">${esc(typeof getWaluigiWelcome==='function'?getWaluigiWelcome(_uidHome).slice(0,110):'WAH! Welcome back!')}…</div></div><div style="margin-left:auto" class="chips"><span class="chip" onclick="Router.go('#/profile')">Dossier → wallet/XP/bio</span></div></div></div>`;
+    <div class="card animate-fade-in border-left-green"><div class="flex-gap-12-center"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;font-weight:900">${esc((XP_SUMMARY[_uidHome]?.name||_uidHome||'U')[0].toUpperCase())}</div><div><b>Connected as ${esc(XP_SUMMARY[_uidHome]?.name||_uidHome||'User')}</b><div class="text-muted text-sm">${esc(typeof getWaluigiWelcome==='function'?getWaluigiWelcome(_uidHome).slice(0,110):'WAH! Welcome back!')}…</div></div><div class="ml-auto chips"><span class="chip" onclick="Router.go('#/profile')">Dossier → wallet/XP/bio</span></div></div></div>`;
 
   el('content').innerHTML=`
    ${_loginBannerHome}
@@ -1397,19 +949,19 @@ function view_home(){
      <div class="card">
        <div class="home-section-head"><div><h2>🎭 Waluigi's Front Page Desk</h2><p>Featured file, latest updates, comments, reading paths, and navigation all in one place.</p></div></div>
        <div class="home-feature-grid">
-         ${fi?`<div class="feature-panel" onclick="openId('${(fi.id||'').replace(/'/g,'')}')"><div class="kicker">Featured Article</div><h2>${displayName(fi)}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle" style="margin-bottom:8px">${fi.title}</div>`:''}<p style="color:var(--muted)">${feat.excerpt||fi.summary||''}</p><div class="home-actions"><span class="home-action">Read feature →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP context</a></div></div>`:''}
-         ${latest?`<div class="feature-panel" onclick="openId('${(latest.id||'').replace(/'/g,'')}')"><div class="kicker">${mp.latestUpdate.label||'Latest Written Article'}</div><h2>${displayName(latest)}${annotationBadge(latest.id)}</h2><p style="color:var(--muted)">${mp.latestUpdate.excerpt||previewText(latest)}</p><div class="home-actions"><span class="home-action">Open latest →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">Latest XP</a></div></div>`:''}
+         ${fi?`<div class="feature-panel" onclick="openId('${(fi.id||'').replace(/'/g,'')}')"><div class="kicker">Featured Article</div><h2>${displayName(fi)}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle mb-8">${fi.title}</div>`:''}<p class="text-muted">${feat.excerpt||fi.summary||''}</p><div class="home-actions"><span class="home-action">Read feature →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP context</a></div></div>`:''}
+         ${latest?`<div class="feature-panel" onclick="openId('${(latest.id||'').replace(/'/g,'')}')"><div class="kicker">${mp.latestUpdate.label||'Latest Written Article'}</div><h2>${displayName(latest)}${annotationBadge(latest.id)}</h2><p class="text-muted">${mp.latestUpdate.excerpt||previewText(latest)}</p><div class="home-actions"><span class="home-action">Open latest →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">Latest XP</a></div></div>`:''}
        </div>
      </div>
    </div>
    <div class="card"><div class="home-section-head"><div><h2>Explore</h2><p>Calendar is now first-class — merged from old calendar.html into Walupedia core.</p></div></div><div class="grid-cats">${cats}</div>
-     <h2 style="margin-top:18px">Recently Updated / Added</h2><div class="update-grid">${SITE_UPDATES.map(updateCard).join('')}</div>
-     <h2 style="margin-top:18px">Comment Spotlight</h2><div class="comment-grid">${commentSpotlightCards()}</div>
-     <h2 style="margin-top:18px">Suggested Reading Paths</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation')"><h3>📈 Reputation Matrix & Standings</h3><p>Live 100+ faction matrix, operator standings, custom narrative assessments, and public menace heat tracking.</p></div><div class="path-card" onclick="Router.go('#/calendar')"><h3>🗓️ Imperial Calendar</h3><p>Unified date system, intuitive BF counting, weekdays, seasons, and daily events.</p></div><div class="path-card" onclick="Router.go('#/atlas/mushroom_kingdom')"><h3>🍄 Mushroom Civil War</h3><p>Regency, Peach Loyalists, Fawful occupation, Koopa intervention, and the broken crown.</p></div><div class="path-card" onclick="Router.go('#/article/shadow_estate_spotlight_cookie_cottage')"><h3>🌑 Shadow Estate Current Arc</h3><p>Spotlights, Black Crystal pressure, Tymnas cottage, Lyranth, and the latest chase.</p></div><div class="path-card" onclick="Router.go('#/dynasties')"><h3>👑 Dynasties & Intel</h3><p>Bloodlines, claims, locked secrets, party intel, and dynasty unlocks.</p></div><div class="path-card" onclick="Router.go('#/items')"><h3>🎒 Items & Wallets</h3><p>Public inventory, cursed tools, known holders, and currency/banking connections.</p></div></div>
+     <h2 class="mt-18">Recently Updated / Added</h2><div class="update-grid">${SITE_UPDATES.map(updateCard).join('')}</div>
+     <h2 class="mt-18">Comment Spotlight</h2><div class="comment-grid">${commentSpotlightCards()}</div>
+     <h2 class="mt-18">Suggested Reading Paths</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation')"><h3>📈 Reputation Matrix & Standings</h3><p>Live 100+ faction matrix, operator standings, custom narrative assessments, and public menace heat tracking.</p></div><div class="path-card" onclick="Router.go('#/calendar')"><h3>🗓️ Imperial Calendar</h3><p>Unified date system, intuitive BF counting, weekdays, seasons, and daily events.</p></div><div class="path-card" onclick="Router.go('#/atlas/mushroom_kingdom')"><h3>🍄 Mushroom Civil War</h3><p>Regency, Peach Loyalists, Fawful occupation, Koopa intervention, and the broken crown.</p></div><div class="path-card" onclick="Router.go('#/article/shadow_estate_spotlight_cookie_cottage')"><h3>🌑 Shadow Estate Current Arc</h3><p>Spotlights, Black Crystal pressure, Tymnas cottage, Lyranth, and the latest chase.</p></div><div class="path-card" onclick="Router.go('#/dynasties')"><h3>👑 Dynasties & Intel</h3><p>Bloodlines, claims, locked secrets, party intel, and dynasty unlocks.</p></div><div class="path-card" onclick="Router.go('#/items')"><h3>🎒 Items & Wallets</h3><p>Public inventory, cursed tools, known holders, and currency/banking connections.</p></div></div>
    </div>
    <div class="grid2">
      <div class="card"><div class="section-title">Did You Know…</div><ul class="dyk">${dyk.slice(0,7).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
-     <div class="card"><div class="section-title">On This Day — ${esc(mdToday.name)} ${CUR.day} (dynamic, all years)</div><ul class="otd">${otdHtml||'<li style="color:var(--muted)">No entries for today yet — add dated events to populate this automatically.</li>'}</ul><div style="margin-top:10px"><span class="chip" onclick="Router.go('#/year/${CUR.year}')">${CUR.year} BF chronicle →</span> <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')">Open today in calendar →</span></div></div>
+     <div class="card"><div class="section-title">On This Day — ${esc(mdToday.name)} ${CUR.day} (dynamic, all years)</div><ul class="otd">${otdHtml||'<li class="text-muted">No entries for today yet — add dated events to populate this automatically.</li>'}</ul><div class="mt-10"><span class="chip" onclick="Router.go('#/year/${CUR.year}')">${CUR.year} BF chronicle →</span> <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')">Open today in calendar →</span></div></div>
    </div>`;
   try{ renderMiniCalendar('home-mini-cal', CUR.year, CUR.monthIndex); }catch(e){ console.warn('mini cal failed', e); }
   window.scrollTo(0,0);
@@ -1493,7 +1045,7 @@ function battleHubPanel(){
   const conflicts=DATA.conflicts||{}, mb=DATA.majorBattles||[];
   const conflictCards=Object.keys(conflicts).map(name=>{const c=conflicts[name];return `<div class="claimant-card"><h4>${esc(name)}</h4><div class="ctype">${esc(c.status||'Conflict')}</div><p>${esc((c.summary||c.rootCause||'').slice(0,220))}${(c.summary||'').length>220?'…':''}</p><a class="poi-link" onclick="Router.go('#/conflict/${encodeURIComponent(name)}')">Open conflict →</a></div>`;}).join('');
   const mbCards=mb.slice(0,18).map(b=>`<div class="claimant-card"><h4>${esc(b.name)}</h4><div class="ctype">${esc(valText(b.date)||'Major Battle')} · ${esc(b.location||'')}</div><p>${esc(htmlishToMarkdown(b.description||b.summary||'').slice(0,190))}…</p><a class="poi-link" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')">Open battle →</a></div>`).join('');
-  return `<div class="species-dash"><h3>💥 Battlefield Layer</h3><p style="color:var(--muted);margin:0">The old Battlefield page is merged here. Battles now include article battles, global conflicts, and major battle records.</p><div class="species-stats"><div class="species-stat"><b>${Object.keys(conflicts).length}</b>Conflicts</div><div class="species-stat"><b>${mb.length}</b>Major battles</div></div><h3 style="margin-top:14px">Conflicts</h3><div class="claimant-grid">${conflictCards||'<p style="color:var(--muted)">No conflicts.</p>'}</div><h3 style="margin-top:14px">Major Battle Records</h3><div class="claimant-grid">${mbCards||'<p style="color:var(--muted)">No major battle records.</p>'}</div></div>`;
+  return `<div class="species-dash"><h3>💥 Battlefield Layer</h3><p class="text-muted m-0">The old Battlefield page is merged here. Battles now include article battles, global conflicts, and major battle records.</p><div class="species-stats"><div class="species-stat"><b>${Object.keys(conflicts).length}</b>Conflicts</div><div class="species-stat"><b>${mb.length}</b>Major battles</div></div><h3 class="mt-14">Conflicts</h3><div class="claimant-grid">${conflictCards||'<p class="text-muted">No conflicts.</p>'}</div><h3 class="mt-14">Major Battle Records</h3><div class="claimant-grid">${mbCards||'<p class="text-muted">No major battle records.</p>'}</div></div>`;
 }
 
 function speciesSystemPanel(){
@@ -1501,10 +1053,10 @@ function speciesSystemPanel(){
   const buckets={};
   keys.forEach(k=>{const s=sys.species[k]||{};const [gid,gname]=speciesGroupFor(k,s);(buckets[gid]=buckets[gid]||{id:gid,name:gname,items:[]}).items.push({key:k,...s});});
   const groups=Object.values(buckets).sort((a,b)=>b.items.length-a.items.length||a.name.localeCompare(b.name));
-  const cards=groups.map(g=>{const article=INDEX[g.id];const examples=g.items.slice(0,8).map(s=>`<span class="species-tag">${esc(s.icon||'')} ${esc(s.name||prettyId(s.key))}</span>`).join('');const faiths={};g.items.forEach(s=>{Object.entries(s.religion_breakdown||{}).forEach(([k,v])=>faiths[k]=(faiths[k]||0)+v);});const topFaith=Object.keys(faiths).sort((a,b)=>faiths[b]-faiths[a])[0]||'unaligned';return `<div class="species-import-card"><div class="species-import-head"><i>${article?'📘':'🧬'}</i><span>${esc(g.name)}</span></div><p>${g.items.length} imported census profile${g.items.length===1?'':'s'} grouped here. ${article?'Full Waluipedia article available.':'No full article yet; Waluigi has marked it for later review.'}</p><span class="species-tag">Dominant faith signal: ${esc(prettyId(topFaith))}</span><div style="margin-top:6px">${examples}</div>${article?`<br><a class="poi-link" onclick="openId('${esc(g.id)}')">Open group article →</a>`:''}</div>`;}).join('');
+  const cards=groups.map(g=>{const article=INDEX[g.id];const examples=g.items.slice(0,8).map(s=>`<span class="species-tag">${esc(s.icon||'')} ${esc(s.name||prettyId(s.key))}</span>`).join('');const faiths={};g.items.forEach(s=>{Object.entries(s.religion_breakdown||{}).forEach(([k,v])=>faiths[k]=(faiths[k]||0)+v);});const topFaith=Object.keys(faiths).sort((a,b)=>faiths[b]-faiths[a])[0]||'unaligned';return `<div class="species-import-card"><div class="species-import-head"><i>${article?'📘':'🧬'}</i><span>${esc(g.name)}</span></div><p>${g.items.length} imported census profile${g.items.length===1?'':'s'} grouped here. ${article?'Full Waluipedia article available.':'No full article yet; Waluigi has marked it for later review.'}</p><span class="species-tag">Dominant faith signal: ${esc(prettyId(topFaith))}</span><div class="mt-6">${examples}</div>${article?`<br><a class="poi-link" onclick="openId('${esc(g.id)}')">Open group article →</a>`:''}</div>`;}).join('');
   const linked=groups.filter(g=>INDEX[g.id]).length;
   const regionChips=regions.map(r=>`<span class="species-tag">${esc(r)} · ${Object.keys(sys.regions[r]||{}).length} groups</span>`).join('');
-  return `<div class="species-dash"><h3>🧬 Species Groups</h3><p style="color:var(--muted);margin:0">Instead of flooding Waluipedia with every census variant, imported profiles are consolidated into readable species-group hubs. Example: Empire Human, Human Trainer, Gondorian, Kivotos Human, and Mage Born all file under Humans unless a culture deserves its own article.</p><div class="species-stats"><div class="species-stat"><b>${keys.length}</b>Imported profiles</div><div class="species-stat"><b>${groups.length}</b>Species groups</div><div class="species-stat"><b>${linked}</b>Group articles</div><div class="species-stat"><b>${regions.length}</b>Demographic regions</div></div><div class="species-region-list">${regionChips}</div><h3 style="margin-top:14px">Grouped Census Profiles</h3><div class="species-import-grid">${cards}</div></div>`;
+  return `<div class="species-dash"><h3>🧬 Species Groups</h3><p class="text-muted m-0">Instead of flooding Waluipedia with every census variant, imported profiles are consolidated into readable species-group hubs. Example: Empire Human, Human Trainer, Gondorian, Kivotos Human, and Mage Born all file under Humans unless a culture deserves its own article.</p><div class="species-stats"><div class="species-stat"><b>${keys.length}</b>Imported profiles</div><div class="species-stat"><b>${groups.length}</b>Species groups</div><div class="species-stat"><b>${linked}</b>Group articles</div><div class="species-stat"><b>${regions.length}</b>Demographic regions</div></div><div class="species-region-list">${regionChips}</div><h3 class="mt-14">Grouped Census Profiles</h3><div class="species-import-grid">${cards}</div></div>`;
 }
 function view_list(key){
   const t=TYPE_BY_KEY[key];if(!t){view_home();return;}
@@ -1530,9 +1082,9 @@ function view_list(key){
   const draw=()=>{
     let arr=items.slice().filter(matchesFilter);
     arr.sort((a,b)=>st.sort==='az'?displayName(a).localeCompare(displayName(b)):displayName(b).localeCompare(displayName(a)));
-    let chipArr=[`<span class="chip ${st.filter==='All'?'active':''}" data-v="All">All <span style="opacity:.6">${items.length}</span></span>`]
-      .concat(values.map(v=>`<span class="chip ${st.filter===v?'active':''}" data-v="${esc(v)}">${esc(v)} <span style="opacity:.6">${counts[v]}</span></span>`));
-    if(otherGroups.length) chipArr.push(`<span class="chip ${st.filter==='__other__'?'active':''}" data-v="__other__" title="${esc(otherGroups.join(', '))}">Other <span style="opacity:.6">${otherCount}</span></span>`);
+    let chipArr=[`<span class="chip ${st.filter==='All'?'active':''}" data-v="All">All <span class="opacity-6">${items.length}</span></span>`]
+      .concat(values.map(v=>`<span class="chip ${st.filter===v?'active':''}" data-v="${esc(v)}">${esc(v)} <span class="opacity-6">${counts[v]}</span></span>`));
+    if(otherGroups.length) chipArr.push(`<span class="chip ${st.filter==='__other__'?'active':''}" data-v="__other__" title="${esc(otherGroups.join(', '))}">Other <span class="opacity-6">${otherCount}</span></span>`);
     const chips=chipArr.join('');
     const tiles=arr.map(i=>{
       const sub=i.title||i.type||'';const meta=[];
@@ -1542,7 +1094,7 @@ function view_list(key){
       const visual=cardVisual(i,key);
       return `<div class="arttile" onclick="openId('${esc(i.id)}')">${visual}<div class="tt">${esc(displayName(i))}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${sub?`<div class="tsub">${esc(sub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
     }).join('');
-    el('content').innerHTML=`<div class="card animate-fade-in"><div class="listhead"><h2>${t.emoji} ${t.label} <span style="color:var(--muted);font-size:15px">(${arr.length})</span></h2><div class="chip" id="sortBtn">Sort: ${st.sort==='az'?'A→Z':'Z→A'}</div></div>${key==='battles'?battleHubPanel():''}${key==='races'?speciesSystemPanel():''}${values.length>1?`<div class="chips" id="filterChips" style="margin-bottom:14px">${chips}</div>`:''}<div class="artgrid">${tiles||'<p style="color:var(--muted)">No articles.</p>'}</div></div>`;
+    el('content').innerHTML=`<div class="card animate-fade-in"><div class="listhead"><h2>${t.emoji} ${t.label} <span style="color:var(--muted);font-size:15px">(${arr.length})</span></h2><div class="chip" id="sortBtn">Sort: ${st.sort==='az'?'A→Z':'Z→A'}</div></div>${key==='battles'?battleHubPanel():''}${key==='races'?speciesSystemPanel():''}${values.length>1?`<div class="chips" id="filterChips" class="mb-14">${chips}</div>`:''}<div class="artgrid">${tiles||'<p class="text-muted">No articles.</p>'}</div></div>`;
     const fc=el('filterChips');if(fc)fc.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{st.filter=c.dataset.v;draw();}));
     const sb=el('sortBtn');if(sb)sb.addEventListener('click',()=>{st.sort=st.sort==='az'?'za':'az';draw();});
   };
@@ -1621,11 +1173,11 @@ function view_atlas(){
     const n=x.nation; const total=x.locations.length+x.events.length+x.battles.length+x.trials.length;
     return `<div class="arttile" onclick="Router.go('#/atlas/${encodeURIComponent(n.id)}')">${flagArt(n,'tile')}<div class="tt">${esc(displayName(n))}</div><div class="tsub">${esc(n.status||n.type||'Realm')}</div><div class="tsum">${esc(n.summary||previewText(n))}</div><div class="tmeta"><span class="pill">${x.locations.length} locations</span><span class="pill">${x.events.length} events</span><span class="pill">${x.battles.length} battles</span><span class="pill">${x.factions.length} factions</span></div></div>`;
   }).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🍩 World Atlas</h1><p style="color:var(--muted)">Top-down doughnut-world mode: nations and realms act as containers for locations, events, battles, trials, factions, species, and POIs. Classic wiki categories remain available in the sidebar.</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
+  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🍩 World Atlas</h1><p class="text-muted">Top-down doughnut-world mode: nations and realms act as containers for locations, events, battles, trials, factions, species, and POIs. Classic wiki categories remain available in the sidebar.</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   window.scrollTo(0,0);
 }
 function atlasChips(arr,kind){
-  return (arr||[]).slice(0,80).map(o=>{const rec=INDEX[o.id]; const route= rec?`#/article/${encodeURIComponent(o.id)}`:(kind==='battle'&&o.conflict?`#/mbattle/${encodeURIComponent(o.id)}`:'#/home'); return `<span class="rel-chip" onclick="Router.go('${route}')"><span class="rt">${esc(kind)}</span>${esc(displayName(o)||o.name||o.id)}</span>`;}).join('')||'<p style="color:var(--muted)">No linked records yet.</p>';
+  return (arr||[]).slice(0,80).map(o=>{const rec=INDEX[o.id]; const route= rec?`#/article/${encodeURIComponent(o.id)}`:(kind==='battle'&&o.conflict?`#/mbattle/${encodeURIComponent(o.id)}`:'#/home'); return `<span class="rel-chip" onclick="Router.go('${route}')"><span class="rt">${esc(kind)}</span>${esc(displayName(o)||o.name||o.id)}</span>`;}).join('')||'<p class="text-muted">No linked records yet.</p>';
 }
 function view_atlasNation(id){
   id=atlasCanonical(id);
@@ -1707,16 +1259,16 @@ function intelTargetHref(id){
 }
 function intelEffectPanel(item,typeKey){
   const source={typeKey,id:item.id,title:item.name||item.title||item.id}; const gains=[...explicitIntelGains(item,source),...inferredIntelGains(item,typeKey,source)]; if(!gains.length)return '';
-  const rows=gains.map(g=>{const t=INTEL_TARGETS[g.targetId]||{}; const amt=g.amount>0?'+'+g.amount:g.amount; const href=intelTargetHref(g.targetId); return `<div class="intel-row ${g.amount<0?'neg':''}" ${href?`onclick="Router.go('${href}')" style="cursor:pointer"`:''}><span>${t.icon||'◈'}</span><span><b>${esc(t.label||prettyId(g.targetId))}</b><div class="intel-src">${esc(g.reason||'Inferred from article content.')}${g.inferred?' · inferred':''}</div></span><span class="intel-score">${amt}</span></div>`;}).join('');
-  return `<div class="intel-ledger-card"><h3 style="margin:0 0 8px;color:var(--accent2)">🕵️ Party Intel Effects</h3>${rows}</div>`;
+  const rows=gains.map(g=>{const t=INTEL_TARGETS[g.targetId]||{}; const amt=g.amount>0?'+'+g.amount:g.amount; const href=intelTargetHref(g.targetId); return `<div class="intel-row ${g.amount<0?'neg':''}" ${href?`onclick="Router.go('${href}')" class="cursor-ptr"`:''}><span>${t.icon||'◈'}</span><span><b>${esc(t.label||prettyId(g.targetId))}</b><div class="intel-src">${esc(g.reason||'Inferred from article content.')}${g.inferred?' · inferred':''}</div></span><span class="intel-score">${amt}</span></div>`;}).join('');
+  return `<div class="intel-ledger-card"><h3 class="mb-8 text-accent2">🕵️ Party Intel Effects</h3>${rows}</div>`;
 }
 function dynastyUnlocks(id){
   const map={houseToadstool:[['Recognized Blood',1,0,'Minor legitimacy with Toad civic networks.'],['Garden Key',2,25,'Access Royal Garden routes, plant-coded messages, and Bloom-Mother rites.'],['Star-Pact Echo',3,50,'Interact with Star Road / Star Rod infrastructure without being treated as a random trespasser.'],['Crown Claimant',4,75,'Claim becomes politically actionable; assassination and kidnapping risk rise.'],['Living Kingdom',5,90,'Realm-scale legitimacy that can unite or rupture the Mushroom Kingdom.']],houseKoopa:[['Shell Oath',1,0,'Basic Koopa command legitimacy.'],['Fortress Right',2,25,'Access Koopa fortress networks and worker battalions.'],['Warden Legacy',3,50,'Recognize ancient seal and Wyrm-prison obligations.'],['Conquest Clause',4,75,'Invoke old Mushroom-Koopa treaty claims.'],['Dominion Crown',5,90,'Realm-scale Koopa dynastic authority.']]}; return map[id]||[['Lineage Recognition',1,0,'Public dynastic legitimacy only.']];
 }
 function dynastyIntelUnlockPanel(id){
-  const score=intelScore(id), tier=intelTier(score); const rows=dynastyUnlocks(id).map(u=>{const ok=score>=u[2];return `<div class="unlock-card ${ok?'':'locked'}"><h4>${ok?'✓':'🔒'} ${esc(u[0])}</h4><div class="dynasty-code">Level ${u[1]} · Intel ${u[2]}</div><p style="color:var(--muted);line-height:1.4">${esc(ok?u[3]:'Locked until party intel reaches '+u[2]+'.')}</p></div>`;}).join('');
+  const score=intelScore(id), tier=intelTier(score); const rows=dynastyUnlocks(id).map(u=>{const ok=score>=u[2];return `<div class="unlock-card ${ok?'':'locked'}"><h4>${ok?'✓':'🔒'} ${esc(u[0])}</h4><div class="dynasty-code">Level ${u[1]} · Intel ${u[2]}</div><p class="text-muted">${esc(ok?u[3]:'Locked until party intel reaches '+u[2]+'.')}</p></div>`;}).join('');
   const src=(partyIntel()[id]||{sources:[]}).sources.slice().sort((a,b)=>Math.abs(b.amount)-Math.abs(a.amount)).slice(0,5).map(sourceButton).join('');
-  return `<div class="intel-ledger-card"><h3 style="margin:0 0 8px;color:var(--accent2)">🕵️ Party Intel: ${score}/100 — ${esc(tier)}</h3><div class="intel-bar"><span style="width:${Math.max(0,Math.min(100,score))}%"></span></div>${src?`<div class="intel-source-list">${src}</div>`:''}<div class="unlock-grid" style="margin-top:12px">${rows}</div></div>`;
+  return `<div class="intel-ledger-card"><h3 class="mb-8 text-accent2">🕵️ Party Intel: ${score}/100 — ${esc(tier)}</h3><div class="intel-bar"><span style="width:${Math.max(0,Math.min(100,score))}%"></span></div>${src?`<div class="intel-source-list">${src}</div>`:''}<div class="unlock-grid mt-12">${rows}</div></div>`;
 }
 function intelMeaning(id,score){
   const tier=intelTier(score);
@@ -1750,7 +1302,7 @@ function view_intel(){
   const total=vals.length, deep=vals.filter(x=>x.score>=90).length, locked=vals.filter(x=>x.score<50&&x.score>=0).length, dis=vals.filter(x=>x.score<0).length;
   const typeChips=[...new Set(vals.map(v=>v.type))].sort().map(t=>`<span class="chip" onclick="document.querySelectorAll('.intel-card').forEach(c=>c.style.display=(c.dataset.type==='${esc(t)}')?'block':'none')">${esc(t)}</span>`).join('');
   const cards=vals.map(r=>{const href=intelTargetHref(r.targetId); const explicit=r.sources.filter(s=>!s.inferred).sort((a,b)=>Math.abs(b.amount)-Math.abs(a.amount)); const inferred=r.sources.filter(s=>s.inferred).sort((a,b)=>Math.abs(b.amount)-Math.abs(a.amount)); const src=explicit.slice(0,4).concat(inferred.slice(0,2)).map(sourceButton).join(''); return `<div class="intel-card ${r.score<0?'neg':''}" data-type="${esc(r.type)}" ${href?`onclick="Router.go('${href}')"`:''}><div class="intel-card-head"><div><div class="intel-card-title"><span class="intel-card-icon">${esc(r.icon)}</span><span>${esc(r.label)}</span></div><div class="intel-type">${esc(r.type)} · ${esc(intelTier(r.score))}</div></div><div class="intel-big-score">${r.score}</div></div><div class="intel-bar"><span style="width:${Math.max(0,Math.min(100,r.score))}%"></span></div><div class="intel-meaning">${esc(intelMeaning(r.targetId,r.score))}<div class="intel-next">${esc(intelNextText(r.score))}</div></div><div class="intel-source-list">${src}</div>${href?`<div class="intel-card-actions"><a onclick="event.stopPropagation();Router.go('${href}')">Open linked file →</a></div>`:''}</div>`;}).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🕵️ Waluigi's Party Intel Board</h1><p style="color:var(--muted)">This is Disaster Inc.'s public-safe intel layer: what Waluigi can say without dumping the private GM dossier on the table. Intel now has operational meaning: it unlocks dynasty rules, discredits false claims, identifies factions, and links back to the records that proved it. Click cards or source rows to move through the evidence.</p><div class="species-stats"><div class="species-stat"><b>${total}</b>Intel targets</div><div class="species-stat"><b>${deep}</b>Deep secrets mapped</div><div class="species-stat"><b>${locked}</b>Still developing</div><div class="species-stat"><b>${dis}</b>Discredited claims</div></div><div class="intel-filterbar"><span class="chip active" onclick="document.querySelectorAll('.intel-card').forEach(c=>c.style.display='block')">All</span>${typeChips}</div></div><div class="intel-board">${cards}</div>`; window.scrollTo(0,0);
+  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🕵️ Waluigi's Party Intel Board</h1><p class="text-muted">This is Disaster Inc.'s public-safe intel layer: what Waluigi can say without dumping the private GM dossier on the table. Intel now has operational meaning: it unlocks dynasty rules, discredits false claims, identifies factions, and links back to the records that proved it. Click cards or source rows to move through the evidence.</p><div class="species-stats"><div class="species-stat"><b>${total}</b>Intel targets</div><div class="species-stat"><b>${deep}</b>Deep secrets mapped</div><div class="species-stat"><b>${locked}</b>Still developing</div><div class="species-stat"><b>${dis}</b>Discredited claims</div></div><div class="intel-filterbar"><span class="chip active" onclick="document.querySelectorAll('.intel-card').forEach(c=>c.style.display='block')">All</span>${typeChips}</div></div><div class="intel-board">${cards}</div>`; window.scrollTo(0,0);
 }
 
 function visualDynastyMap(h){
@@ -1763,8 +1315,8 @@ function dynastyIntelPolicy(){return `<div class="intel-policy"><b>Intel policy:
 function view_dynasties(){
   renderSidebar('dynasties');
   const houses=Object.values(DYNASTY_SYSTEM.houses||{});
-  const cards=houses.map(h=>{const c=h.colors||['#8a4bff','#e0b400'];return `<div class="dynasty-card" style="--dc1:${c[0]}55;--dc2:${(c[1]||c[0])}44" onclick="Router.go('#/dynasty/${encodeURIComponent(h.id)}')"><div class="dynasty-sigil">${esc(h.sigil||'🏰')}</div><h2 style="margin:6px 0">${esc(h.name)}</h2><div class="dynasty-meta">Founded ${esc(h.founded||'?')} · Seat: ${esc(h.seat||'Unknown')} · ${esc(h.status||'Status unknown')}</div><p style="color:var(--muted)">${esc(h.motto||'No motto filed.')} ${h.altMotto?` / ${esc(h.altMotto)}`:''}</p><div class="tmeta"><span class="pill">${(h.members||[]).length} members</span><span class="pill">${(h.cadetBranches||[]).length} branches</span></div></div>`;}).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h1>👑 Dynasties & Bloodlines</h1><p style="color:var(--muted)">Major family lines only. Dynasty intel is folded into this page because bloodlines, claims, secrets, and disinformation are the same battlefield wearing different hats.</p></div><div class="card"><div class="dynasty-grid">${cards}</div></div><div class="card"><h2>🕵️ Waluigi's Party Intel Board</h2><p style="color:var(--muted)">Scores are confidence, not omniscience. Explicit clues count most, inferred references count lightly, and known disinformation campaigns reduce certainty.</p>${(()=>{const vals=Object.values(partyIntel()).sort((a,b)=>b.score-a.score).slice(0,14);return `<div class="intel-board">${vals.map(r=>{const href=intelTargetHref(r.targetId);const src=r.sources.slice().sort((a,b)=>Math.abs(b.amount)-Math.abs(a.amount)).slice(0,3).map(sourceButton).join('');return `<div class="intel-card ${r.score<0?'neg':''}" data-type="${esc(r.type)}" ${href?`onclick="Router.go('${href}')"`:''}><div class="intel-card-head"><div><div class="intel-card-title"><span class="intel-card-icon">${esc(r.icon)}</span><span>${esc(r.label)}</span></div><div class="intel-type">${esc(r.type)} · ${esc(intelTier(r.score))}</div></div><div class="intel-big-score">${r.score}</div></div><div class="intel-bar"><span style="width:${Math.max(0,Math.min(100,r.score))}%"></span></div><div class="intel-meaning">${esc(intelMeaning(r.targetId,r.score))}<div class="intel-next">${esc(intelNextText(r.score))}</div></div>${r.noise?`<div class="intel-source-chip neg"><span class="delta">-${r.noise}</span><span><span class="src-title">Disinformation / uncertainty</span><span class="src-reason">${esc(r.noiseReason)}</span></span></div>`:''}<div class="intel-source-list">${src}</div></div>`}).join('')}</div>`})()}</div>`;
+  const cards=houses.map(h=>{const c=h.colors||['#8a4bff','#e0b400'];return `<div class="dynasty-card" style="--dc1:${c[0]}55;--dc2:${(c[1]||c[0])}44" onclick="Router.go('#/dynasty/${encodeURIComponent(h.id)}')"><div class="dynasty-sigil">${esc(h.sigil||'🏰')}</div><h2 class="mb-6">${esc(h.name)}</h2><div class="dynasty-meta">Founded ${esc(h.founded||'?')} · Seat: ${esc(h.seat||'Unknown')} · ${esc(h.status||'Status unknown')}</div><p class="text-muted">${esc(h.motto||'No motto filed.')} ${h.altMotto?` / ${esc(h.altMotto)}`:''}</p><div class="tmeta"><span class="pill">${(h.members||[]).length} members</span><span class="pill">${(h.cadetBranches||[]).length} branches</span></div></div>`;}).join('');
+  el('content').innerHTML=`<div class="card animate-fade-in"><h1>👑 Dynasties & Bloodlines</h1><p class="text-muted">Major family lines only. Dynasty intel is folded into this page because bloodlines, claims, secrets, and disinformation are the same battlefield wearing different hats.</p></div><div class="card"><div class="dynasty-grid">${cards}</div></div><div class="card"><h2>🕵️ Waluigi's Party Intel Board</h2><p class="text-muted">Scores are confidence, not omniscience. Explicit clues count most, inferred references count lightly, and known disinformation campaigns reduce certainty.</p>${(()=>{const vals=Object.values(partyIntel()).sort((a,b)=>b.score-a.score).slice(0,14);return `<div class="intel-board">${vals.map(r=>{const href=intelTargetHref(r.targetId);const src=r.sources.slice().sort((a,b)=>Math.abs(b.amount)-Math.abs(a.amount)).slice(0,3).map(sourceButton).join('');return `<div class="intel-card ${r.score<0?'neg':''}" data-type="${esc(r.type)}" ${href?`onclick="Router.go('${href}')"`:''}><div class="intel-card-head"><div><div class="intel-card-title"><span class="intel-card-icon">${esc(r.icon)}</span><span>${esc(r.label)}</span></div><div class="intel-type">${esc(r.type)} · ${esc(intelTier(r.score))}</div></div><div class="intel-big-score">${r.score}</div></div><div class="intel-bar"><span style="width:${Math.max(0,Math.min(100,r.score))}%"></span></div><div class="intel-meaning">${esc(intelMeaning(r.targetId,r.score))}<div class="intel-next">${esc(intelNextText(r.score))}</div></div>${r.noise?`<div class="intel-source-chip neg"><span class="delta">-${r.noise}</span><span><span class="src-title">Disinformation / uncertainty</span><span class="src-reason">${esc(r.noiseReason)}</span></span></div>`:''}<div class="intel-source-list">${src}</div></div>`}).join('')}</div>`})()}</div>`;
   window.scrollTo(0,0);
 }
 function view_dynasty(id){
@@ -1809,20 +1361,20 @@ function inventoryPanel(articleId,item){
       const meta=currencyMeta(k); const gv=currencyGold(k,v); totalGold+=gv;
       if(meta.tier===1) core+=gv; else if(meta.tier===2) reg+=gv; else if(meta.tier===3) spec+=gv; else blk+=gv;
       const col=meta.tier===1?'var(--green)':meta.tier===2?'var(--accent2)':meta.tier===3?'var(--accent)':'var(--danger)';
-      return `<span class="coin-chip" style="border-left:3px solid ${col}"><span style="font-size:14px">${meta.icon}</span> <b>${esc(String(v))}</b> ${esc(currencyName(k))} <span style="color:var(--muted)">· ${gv.toFixed(2)}g</span></span>`;
+      return `<span class="coin-chip" style="border-left:3px solid ${col}"><span style="font-size:14px">${meta.icon}</span> <b>${Number(v).toLocaleString()}</b> ${esc(currencyName(k))} <span class="text-muted">· ${gv.toFixed(2)}g</span></span>`;
     }).join('');
-    walletHtml=`<h3 style="margin-top:14px">💱 Wallet — ${totalGold.toFixed(2)} gold equiv (intuitive)</h3>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0"><span class="pill" style="border-color:var(--green)">Core ${core.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent2)">Regional ${reg.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent)">Special ${spec.toFixed(1)}g</span>${blk?`<span class="pill" style="border-color:var(--danger)">Black ${blk.toFixed(1)}g</span>`:''}<span class="pill">1g=10s=100c</span></div>
+    walletHtml=`<h3 class="mt-14">💱 Wallet — ${Number(totalGold).toLocaleString()} gold equiv (intuitive)</h3>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0"><span class="pill border-green">Core ${Number(core).toLocaleString()}g</span><span class="pill border-accent2">Regional ${Number(reg).toLocaleString()}g</span><span class="pill border-accent">Special ${Number(spec).toLocaleString()}g</span>${blk?`<span class="pill border-danger">Black ${Number(blk).toLocaleString()}g</span>`:''}<span class="pill">1g=10s=100c</span></div>
       <div class="wallet-grid">${chips}</div>
-      <div class="chips" style="margin-top:10px"><span class="chip" onclick="location.href='currency.html'">Open Exchange → instant convert</span><span class="chip" onclick="location.href='currency.html#gold'">Gold equiv explained</span></div>`;
+      <div class="chips mt-10"><span class="chip" onclick="location.href='currency.html'">Open Exchange → instant convert</span><span class="chip" onclick="location.href='currency.html#gold'">Gold equiv explained</span></div>`;
   }
   let bankHtml=''; let bankGold=0;
   if(bank.accounts.length||bank.loans.length||bank.debts.length){
     const rows=[];
-    bank.accounts.forEach(a=>{const meta=currencyMeta(a.currencyKey); const gv=currencyGold(a.currencyKey,a.balance); bankGold+=gv; rows.push(`<div class="bank-row" style="border-left:4px solid var(--green)"><b>🏦 ${esc(a.bankId)}</b> — ${meta.icon} ${esc(a.balance.toLocaleString())} ${esc(currencyName(a.currencyKey))} <span style="color:var(--muted)">· ${gv.toFixed(2)}g equiv</span><br><span style="color:var(--muted)">${esc((a.note||'').slice(0,110))}</span></div>`);});
-    bank.loans.forEach(l=>{rows.push(`<div class="bank-row" style="border-left:4px solid var(--danger)"><b>📉 Loan ${esc(l.bankId)}</b> — ${esc(l.principal)} ${esc(currencyName(l.currencyKey))} · ${esc(l.status)} — paid ${esc(String(l.paid||0))}/${esc(String(l.principal))}<br><span style="color:var(--muted)">${esc((l.note||'').slice(0,100))}</span></div>`);});
-    bank.debts.forEach(d=>{rows.push(`<div class="bank-row" style="border-left:4px solid var(--accent2)"><b>💸 Debt → ${esc(d.creditor)}</b> — ${esc(d.amountOwed)} ${esc(currencyName(d.currencyKey))} · ${esc(d.status)}<br><span style="color:var(--muted)">${esc((d.note||'').slice(0,100))}</span></div>`);});
-    bankHtml=`<h3 style="margin-top:14px">🏦 Banking — ${bankGold.toFixed(2)}g in accounts</h3>${rows.join('')}<a class="map-link" href="currency.html">Open full exchange → tiers, instant convert, acceptance</a>`;
+    bank.accounts.forEach(a=>{const meta=currencyMeta(a.currencyKey); const gv=currencyGold(a.currencyKey,a.balance); bankGold+=gv; rows.push(`<div class="bank-row border-left-green"><b>🏦 ${esc(a.bankId)}</b> — ${meta.icon} ${esc(a.balance.toLocaleString())} ${esc(currencyName(a.currencyKey))} <span class="text-muted">· ${gv.toFixed(2)}g equiv</span><br><span class="text-muted">${esc((a.note||'').slice(0,110))}</span></div>`);});
+    bank.loans.forEach(l=>{rows.push(`<div class="bank-row border-left-danger"><b>📉 Loan ${esc(l.bankId)}</b> — ${Number(l.principal).toLocaleString()} ${esc(currencyName(l.currencyKey))} · ${esc(l.status)} — paid ${Number(l.paid||0).toLocaleString()}/${Number(l.principal).toLocaleString()}<br><span class="text-muted">${esc((l.note||'').slice(0,100))}</span></div>`);});
+    bank.debts.forEach(d=>{rows.push(`<div class="bank-row border-left-accent2"><b>💸 Debt → ${esc(d.creditor)}</b> — ${Number(d.amountOwed).toLocaleString()} ${esc(currencyName(d.currencyKey))} · ${esc(d.status)}<br><span class="text-muted">${esc((d.note||'').slice(0,100))}</span></div>`);});
+    bankHtml=`<h3 class="mt-14">🏦 Banking — ${Number(bankGold).toLocaleString()}g in accounts</h3>${rows.join('')}<a class="map-link" href="currency.html">Open full exchange → tiers, instant convert, acceptance</a>`;
   }
   const rumorNote=rumorCount?`<p style="color:var(--muted);font-size:12px;margin-top:8px">${rumorCount} spoiler-safe hidden inventory slot${rumorCount===1?'':'s'} withheld.</p>`:'';
   return `<div class="inventory-panel"><h3>🎒 Public Inventory & Wallet</h3><p style="color:var(--muted);font-size:12.5px;margin:0 0 10px">Public-known items only. Wallet now shows gold equiv so you don't do math — player intuitive. Click Exchange for 1-click instant convert.</p>${cards?`<div class="inventory-grid">${cards}</div>`:''}${rumorNote}${walletHtml}${bankHtml}</div>`;
@@ -1921,7 +1473,7 @@ async function view_items(arg) {
           <div class="tt">${esc(it.name)}</div>
           <div class="tsub">◆ Held Equipment · ${esc(it.category)} · ${esc(it.rarity)}</div>
           <div class="tsum">${esc(it.summary)}</div>
-          <div class="tmeta"><span class="pill" style="border-color:var(--accent)">Known Held Item</span></div>
+          <div class="tmeta"><span class="pill border-accent">Known Held Item</span></div>
         </div>
       `;
     } else {
@@ -1929,9 +1481,9 @@ async function view_items(arg) {
       const vName = vendorsObj[it.vendor]?.name || it.vendor;
       return `
         <div class="arttile" onclick="Router.go('#/item/${encodeURIComponent(it.id)}')" style="border-left-color:${esc(it.color)}">
-          <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="flex-between">
             <span style="font-size:32px">${esc(it.icon)}</span>
-            <span class="pill" style="border-color:#4ade80;color:#4ade80;font-weight:900">💰 ${priceInGold.toFixed(1)}g</span>
+            <span class="pill" style="border-color:#4ade80;color:#4ade80;font-weight:900">💰 ${priceInGold.toLocaleString()}g</span>
           </div>
           <div class="tt">${esc(it.name)}</div>
           <div class="tsub">🛒 For Sale · ${esc(vName)} · ${esc(it.rarity)}</div>
@@ -1962,7 +1514,7 @@ async function view_items(arg) {
       </div>
       <p style="color:var(--muted);margin-top:8px">Comprehensive index merging held party relics, cursed tools, and 7,880+ marketplace goods listed for sale across 12 merchant hubs.</p>
       
-      <div class="chips" style="margin-top:12px">
+      <div class="chips mt-12">
         <button class="chip ${itemsTab==='all'?'active':''}" onclick="itemsTab='all';itemsDisplayPage=1;view_items();">All Catalog Items (${(publicItems.length+shopItems.length).toLocaleString()})</button>
         <button class="chip ${itemsTab==='held'?'active':''}" onclick="itemsTab='held';itemsDisplayPage=1;view_items();">◆ Held Artifacts (${publicItems.length})</button>
         <button class="chip ${itemsTab==='shop'?'active':''}" onclick="itemsTab='shop';itemsDisplayPage=1;view_items();">🛒 Listed for Sale (${shopItems.length.toLocaleString()})</button>
@@ -2001,7 +1553,7 @@ async function view_item(id) {
     const hold = holders.map(([cid, arr]) => {
       const rec = INDEX[cid]; const row = arr.find(x => x.itemId === id);
       return `<div class="bank-row"><b>${rec ? esc(displayName(rec.item)) : esc(prettyId(cid))}</b> — ${esc(row.status || 'held')} ${rec ? `<a class="poi-link" onclick="openId('${esc(cid)}')">Open holder →</a>` : ''}</div>`;
-    }).join('') || '<p style="color:var(--muted)">No public holder recorded.</p>';
+    }).join('') || '<p class="text-muted">No public holder recorded.</p>';
     
     const features = Array.isArray(it.features) ? `<div class="card"><h2>Special Features</h2><ul>${it.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul></div>` : '';
     const hist = Array.isArray(it.history) ? `<div class="card"><h2>Acquisition / Transfer Record</h2><ul>${it.history.map(f => `<li>${esc(f)}</li>`).join('')}</ul></div>` : '';
@@ -2014,8 +1566,8 @@ async function view_item(id) {
             <div class="item-big-icon">${esc(it.icon || '❔')}</div>
             <h1>${esc(it.name)}</h1>
             <div class="metabar"><span class="pill">◆ Party Held Relic</span><span class="pill">${esc(it.type)}</span><span class="rarity-pill">${esc(it.rarity)}</span><span class="pill">${esc(it.visibility || 'known')}</span></div>
-            <p style="color:var(--muted);line-height:1.6">${esc(it.summary)}</p>
-            ${it.description ? `<div class="prose item-copy">${mdToHtml(it.description)}</div>` : `<p style="color:var(--muted);line-height:1.6">${esc(it.summary)}</p>`}
+            <p class="text-muted">${esc(it.summary)}</p>
+            ${it.description ? `<div class="prose item-copy">${mdToHtml(it.description)}</div>` : `<p class="text-muted">${esc(it.summary)}</p>`}
             ${it.obtained ? `<p><b>Obtained:</b> ${esc(it.obtained)}</p>` : ''}
             ${it.waluigi ? `<div class="wnote"><b>Waluigi's Item Note:</b> ${esc(it.waluigi)}</div>` : ''}
           </div>
@@ -2057,9 +1609,9 @@ async function view_item(id) {
       <div class="item-detail-layout">
         <div>
           <div class="item-hero" style="border-top:4px solid var(--accent2)">
-            <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="flex-between">
               <div class="item-big-icon">${esc(it.icon || '📦')}</div>
-              <span class="chip" style="background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.4);color:#4ade80;font-size:18px;font-weight:900">🛒 💰 ${priceInGold.toFixed(1)} Gold</span>
+              <span class="chip" style="background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.4);color:#4ade80;font-size:18px;font-weight:900">🛒 💰 ${priceInGold.toLocaleString()} Gold</span>
             </div>
             <h1>${esc(it.name)}</h1>
             <div class="metabar">
@@ -2070,7 +1622,7 @@ async function view_item(id) {
             </div>
             <p style="color:var(--text);line-height:1.6;font-size:15px;margin-top:12px">${esc(it.description || '')}</p>
             
-            <div class="wnote" style="margin-top:14px">
+            <div class="wnote mt-14">
               <b>Merchant Details:</b><br>
               Vendor: <b>${esc(vendorObj.name)}</b> (${esc(vendorObj.location||'Regional Market')})<br>
               Shipped By: <b>${esc(it.shippedBy || 'Standard Courier')}</b> · Available Stock: <b>${it.stock || 1}</b>
@@ -2103,7 +1655,7 @@ async function view_item(id) {
     return;
   }
 
-  el('content').innerHTML = `<div class="card"><h2>Item not found</h2><p style="color:var(--muted)">Waluigi has no record of item "${esc(id)}".</p><p><a onclick="Router.go('#/items')">← Return to Items Catalog</a></p></div>`;
+  el('content').innerHTML = `<div class="card"><h2>Item not found</h2><p class="text-muted">Waluigi has no record of item "${esc(id)}".</p><p><a onclick="Router.go('#/items')">← Return to Items Catalog</a></p></div>`;
 }
 
 /* =============== ARTICLE VIEW =============== */
@@ -2387,7 +1939,7 @@ function view_article(id){
     const alias=Object.keys(XP_SUMMARY).find(k=>XP_SUMMARY[k]&&XP_SUMMARY[k].xpKey===id);
     if(alias&&INDEX[alias]){ Router.go('#/article/'+encodeURIComponent(alias)); return; }
   }
-  if(!rec){el('content').innerHTML=`<div class="card"><h2>Article not found</h2><p style="color:var(--muted)">Waluigi has no record of “${esc(id)}”. Perhaps it was stolen, like the name Disaster Inc.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;return;}
+  if(!rec){el('content').innerHTML=`<div class="card"><h2>Article not found</h2><p class="text-muted">Waluigi has no record of “${esc(id)}”. Perhaps it was stolen, like the name Disaster Inc.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;return;}
   const {typeKey,item}=rec;renderSidebar('list:'+typeKey);
   const t=TYPE_BY_KEY[typeKey];
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;   // year context for dateless inline dates
@@ -2498,15 +2050,15 @@ function view_battlefield(){
   const conflicts=DATA.conflicts||{};const cards=Object.keys(conflicts).map(name=>{const c=conflicts[name];
     const facs=(c.keyFactions||[]).map(combatantChip).join('');
     const phases=(c.majorPhases||[]).map(p=>`<div class="phase"><b>${esc(p.name)}</b> — ${esc(p.description)}</div>`).join('');
-    return `<div class="conflict-card animate-fade-in"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>${esc(name)}</h3><span class="status-tag ${statusClass(c.status)}">${esc(c.status||'')}</span></div>
+    return `<div class="conflict-card animate-fade-in"><div class="flex-between-start"><h3>${esc(name)}</h3><span class="status-tag ${statusClass(c.status)}">${esc(c.status||'')}</span></div>
       <p style="color:var(--muted);margin:4px 0 8px">${esc(c.summary||'')}</p>
       ${c.rootCause?`<p style="font-size:14px"><strong>Root cause:</strong> ${esc(c.rootCause)}</p>`:''}
-      ${facs?`<div style="margin:6px 0">${facs}</div>`:''}
-      ${phases?`<div style="margin-top:6px">${phases}</div>`:''}
+      ${facs?`<div class="mb-6">${facs}</div>`:''}
+      ${phases?`<div class="mt-6">${phases}</div>`:''}
       ${c.estimatedCasualties?`<p class="imgcap">Estimated casualties: ${esc(c.estimatedCasualties)}</p>`:''}</div>`;}).join('');
   const mb=DATA.majorBattles||[];
   const battleTiles=mb.map(b=>`<div class="arttile" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')" style="border-left-color:${esc(factionColor((b.belligerents&&b.belligerents[0]&&(b.belligerents[0].faction||b.belligerents[0]))||''))}">${battleThumb(b,'tile')}<div class="tt">${esc(b.name)}</div><div class="tsub">${esc(valText(b.date)||'')} · ${esc(b.location||'')}</div><div class="tsum">${esc(htmlishToMarkdown(b.description||b.summary||''))}</div><div class="tmeta"><span class="pill">${esc(b.outcome||'')}</span>${b.conflict?`<span class="pill">${esc(b.conflict)}</span>`:''}</div></div>`).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h2>💥 The Battlefield</h2><p style="color:var(--muted)">${Object.keys(conflicts).length} active theaters of conflict and ${mb.length} documented battles. Waluigi provides moral support (and loots the aftermath).</p></div>
+  el('content').innerHTML=`<div class="card animate-fade-in"><h2>💥 The Battlefield</h2><p class="text-muted">${Object.keys(conflicts).length} active theaters of conflict and ${mb.length} documented battles. Waluigi provides moral support (and loots the aftermath).</p></div>
     <div class="card"><div class="section-title">Conflicts</div>${cards}</div>
     <div class="card"><div class="section-title">Major Battles (${mb.length})</div><div class="artgrid">${battleTiles}</div></div>`;
   window.scrollTo(0,0);
@@ -2519,12 +2071,12 @@ function view_conflict(name){
   const rel=(DATA.majorBattles||[]).filter(b=>b.conflict===name);
   const relHtml=rel.map(b=>`<span class="rel-chip" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')"><span class="rt">Battle</span>${esc(b.name)}</span>`).join('');
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/battlefield')">Battlefield</a> › ${esc(name)}</div>
-    <div class="card animate-fade-in"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h1 class="art-title">${esc(name)}</h1><span class="status-tag ${statusClass(c.status)}">${esc(c.status||'')}</span></div>
+    <div class="card animate-fade-in"><div class="flex-between-start"><h1 class="art-title">${esc(name)}</h1><span class="status-tag ${statusClass(c.status)}">${esc(c.status||'')}</span></div>
     <blockquote>${esc(c.summary||'')}</blockquote>
     ${c.rootCause?`<h2>Root Cause</h2><p>${esc(c.rootCause)}</p>`:''}
     ${facs?`<h2>Key Factions</h2><div>${facs}</div>`:''}
     ${phases?`<h2>Major Phases</h2>${phases}`:''}
-    ${c.estimatedCasualties?`<p class="imgcap" style="margin-top:12px">Estimated casualties: ${esc(c.estimatedCasualties)} · Started ${esc(String(c.startYear||''))}</p>`:''}
+    ${c.estimatedCasualties?`<p class="imgcap mt-12">Estimated casualties: ${esc(c.estimatedCasualties)} · Started ${esc(String(c.startYear||''))}</p>`:''}
     ${relHtml?`<h2>Battles In This Conflict</h2><div class="related-list">${relHtml}</div>`:''}</div>`;
   window.scrollTo(0,0);
 }
@@ -2565,13 +2117,13 @@ function view_congress(tab){
   const members=C.members||[],sessions=C.sessions||[],crises=C.crises||[];
   const passed=votes.filter(v=>/pass/i.test(v.result||'')).length;
   const tabs=[['overview','Overview'],['votes','Votes ('+votes.length+')'],['members','Members ('+members.length+')'],['sessions','Sessions ('+sessions.length+')'],['crises','Crises ('+crises.length+')']];
-  const tabBar=`<div class="chips" style="margin-top:10px">${tabs.map(([k,l])=>`<span class="chip ${tab===k?'active':''}" onclick="Router.go('#/congress/${k}')">${esc(l)}</span>`).join('')}</div>`;
+  const tabBar=`<div class="chips mt-10">${tabs.map(([k,l])=>`<span class="chip ${tab===k?'active':''}" onclick="Router.go('#/congress/${k}')">${esc(l)}</span>`).join('')}</div>`;
   let body='';
   if(tab==='overview'){
     const latest=sessions.slice().sort((a,b)=>(b.year||0)-(a.year||0))[0];
     body=`<div class="card"><div class="section-title">What the Congress Is</div>
       <p>The Congress is the region's great deliberative body — founded in the shadow of the Chaos Heart Crisis on Queen Bean's argument that no single kingdom could face an existential threat alone. It runs on four informal blocs and a great deal of arguing.</p>
-      <div class="grid-cats" style="margin-top:10px">
+      <div class="grid-cats mt-10">
         <div class="catcard" onclick="Router.go('#/congress/votes')"><div class="cemoji">🗳️</div><div class="cname">Votes</div><div class="ccount">${votes.length} recorded · ${passed} passed</div></div>
         <div class="catcard" onclick="Router.go('#/congress/members')"><div class="cemoji">🏳️</div><div class="cname">Members</div><div class="ccount">${members.length} delegations</div></div>
         <div class="catcard" onclick="Router.go('#/congress/sessions')"><div class="cemoji">📋</div><div class="cname">Sessions</div><div class="ccount">${sessions.length} convened</div></div>
@@ -2584,7 +2136,7 @@ function view_congress(tab){
         <span class="rel-chip"><span class="dot" style="background:var(--accent2);width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px"></span>Sovereignty Bloc</span>
         <span class="rel-chip"><span class="dot" style="background:var(--muted);width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px"></span>Non-Aligned</span>
       </div></div>
-      ${latest?`<div class="card feat" onclick="Router.go('#/session/${encodeURIComponent(latest.id)}')"><span class="badge">Latest Session</span><h2 style="margin:6px 0">${esc(latest.name)}</h2><div class="art-subtitle" style="margin-bottom:8px">${esc(latest.date)} · ${esc(latest.status)}</div><p style="color:var(--muted)">${esc(latest.summary)}</p></div>`:''}`;
+      ${latest?`<div class="card feat" onclick="Router.go('#/session/${encodeURIComponent(latest.id)}')"><span class="badge">Latest Session</span><h2 class="mb-6">${esc(latest.name)}</h2><div class="art-subtitle mb-8">${esc(latest.date)} · ${esc(latest.status)}</div><p class="text-muted">${esc(latest.summary)}</p></div>`:''}`;
   } else if(tab==='votes'){
     const cats=[...new Set(votes.map(v=>v.category).filter(Boolean))].sort();
     let arr=votes.slice().sort((a,b)=>(a.number||0)-(b.number||0));
@@ -2592,7 +2144,7 @@ function view_congress(tab){
     const chips=['All',...cats].map(c=>`<span class="chip ${congState.filter===c?'active':''}" data-cv="${esc(c)}">${esc(c)}</span>`).join('');
     const cards=arr.map(v=>{const y=v.yea||0,n=v.nay||0,a=v.abstain||0,tot=y+n+a||1;
       return `<div class="arttile" onclick="Router.go('#/vote/${encodeURIComponent(v.id)}')"><div class="tt">#${esc(String(v.number||''))} · ${esc(v.title)}</div><div class="tsub">${esc(String(v.year||''))} BF · ${esc(v.category||'')} · ${esc(v.significance||'')}</div><div class="tsum">${esc(v.description||'')}</div><div class="bar"><span class="y" style="width:${y/tot*100}%"></span><span class="n" style="width:${n/tot*100}%"></span><span class="a" style="width:${a/tot*100}%"></span></div><div class="tmeta"><span class="pill" style="color:${/pass/i.test(v.result||'')?'var(--green)':'var(--danger)'}">${esc(v.result||'')}</span><span class="pill">${y}–${n}${a?(' · '+a+' abs'):''}</span></div></div>`;}).join('');
-    body=`<div class="card"><div class="chips" style="margin-bottom:12px">${chips}</div><div class="artgrid">${cards}</div></div>`;
+    body=`<div class="card"><div class="chips mb-12">${chips}</div><div class="artgrid">${cards}</div></div>`;
   } else if(tab==='members'){
     const cards=members.slice().sort((a,b)=>(b.influence||0)-(a.influence||0)).map(m=>`<div class="arttile" onclick="Router.go('#/member/${encodeURIComponent(m.id)}')" style="border-left-color:${m.bloc&&m.bloc.includes('Iron Pact')?'var(--danger)':m.bloc&&m.bloc.includes('Progressive')?'var(--green)':m.bloc&&m.bloc.includes('Sovereignty')?'var(--accent2)':'var(--muted)'}"><div class="tt">${esc(m.name)}</div><div class="tsub">${esc(m.bloc||'')} · ${esc(m.status||'')}</div><div class="tsum">${esc(m.summary||'')}</div><div class="tmeta"><span class="pill">Influence ${esc(String(m.influence||'?'))}</span><span class="pill">Joined ${esc(String(m.joined||'?'))} BF</span></div></div>`).join('');
     body=`<div class="card"><div class="artgrid">${cards}</div></div>`;
@@ -2600,10 +2152,10 @@ function view_congress(tab){
     const cards=sessions.slice().sort((a,b)=>(a.year||0)-(b.year||0)).map(s=>`<div class="arttile" onclick="Router.go('#/session/${encodeURIComponent(s.id)}')"><div class="tt">${s.number?('#'+esc(String(s.number))+' · '):''}${esc(s.name)}</div><div class="tsub">${esc(s.date||s.year+' BF')} · ${esc(s.host||'')}</div><div class="tsum">${esc(s.summary||'')}</div><div class="tmeta"><span class="status-tag ${/progress/i.test(s.status||'')?'status-active':'status-concluded'}">${esc(s.status||'')}</span></div></div>`).join('');
     body=`<div class="card"><div class="artgrid">${cards}</div></div>`;
   } else if(tab==='crises'){
-    const cards=crises.slice().sort((a,b)=>(a.year||0)-(b.year||0)).map(c=>`<div class="conflict-card" style="border-left-color:var(--danger);cursor:pointer" onclick="Router.go('#/crisis/${encodeURIComponent(c.id)}')"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>${esc(c.name)}</h3><span class="status-tag ${/active/i.test(c.status||'')?'status-active':'status-concluded'}">${esc(c.status||'')}</span></div><p style="color:var(--muted);margin:6px 0">${esc(c.summary||'')}</p><div><span class="pill">${esc(String(c.year||''))} BF</span> <span class="pill">Severity: ${esc(c.severity||'')}</span></div></div>`).join('');
+    const cards=crises.slice().sort((a,b)=>(a.year||0)-(b.year||0)).map(c=>`<div class="conflict-card" style="border-left-color:var(--danger);cursor:pointer" onclick="Router.go('#/crisis/${encodeURIComponent(c.id)}')"><div class="flex-between-start"><h3>${esc(c.name)}</h3><span class="status-tag ${/active/i.test(c.status||'')?'status-active':'status-concluded'}">${esc(c.status||'')}</span></div><p class="text-muted mb-6">${esc(c.summary||'')}</p><div><span class="pill">${esc(String(c.year||''))} BF</span> <span class="pill">Severity: ${esc(c.severity||'')}</span></div></div>`).join('');
     body=`<div class="card">${cards}</div>`;
   }
-  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🏛️ The Congress</h2><p style="color:var(--muted)">The international body that meets to argue about territory, membership, and who caused the last crisis. Founded after the Chaos Heart Crisis; currently facing the question of whether it still matters.</p>${tabBar}</div>${body}`;
+  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🏛️ The Congress</h2><p class="text-muted">The international body that meets to argue about territory, membership, and who caused the last crisis. Founded after the Chaos Heart Crisis; currently facing the question of whether it still matters.</p>${tabBar}</div>${body}`;
   if(tab==='votes')el('content').querySelectorAll('.chip[data-cv]').forEach(c=>c.addEventListener('click',()=>{congState.filter=c.dataset.cv;view_congress('votes');}));
   window.scrollTo(0,0);
 }
@@ -2647,7 +2199,7 @@ function view_crisis(id){
   const votesRef=(c.relatedVotes||[]).map(vid=>{const v=(DATA.congress_votes||[]).find(x=>x.id===vid);return v?`<span class="rel-chip" onclick="Router.go('#/vote/${encodeURIComponent(v.id)}')"><span class="rt">Vote</span>#${esc(String(v.number))} ${esc(v.title.slice(0,40))}</span>`:'';}).join('');
   const rel=(c.relatedArticles||[]).map(rid=>INDEX[rid]?`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(displayName(INDEX[rid].item))}</span>`:'').join('');
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/congress/crises')">Congress Crises</a> › ${esc(c.name)}</div>
-    <div class="card animate-fade-in"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h1 class="art-title">${esc(c.name)}</h1><span class="status-tag ${/active/i.test(c.status||'')?'status-active':'status-concluded'}">${esc(c.status||'')}</span></div>
+    <div class="card animate-fade-in"><div class="flex-between-start"><h1 class="art-title">${esc(c.name)}</h1><span class="status-tag ${/active/i.test(c.status||'')?'status-active':'status-concluded'}">${esc(c.status||'')}</span></div>
     <div class="metabar"><span class="pill">⚠️ Congress Crisis</span><span class="pill">${esc(String(c.year||''))} BF</span><span class="pill">Severity: ${esc(c.severity||'')}</span></div>
     ${c.summary?`<blockquote>${esc(c.summary)}</blockquote>`:''}
     ${c.description?`<div class="prose">${mdToHtml(c.description,c.id)}</div>`:''}
@@ -2760,7 +2312,7 @@ function view_timeline(){
     return `<div class="tl-year-block"><div class="tl-year-h">${y.year} BF</div><div class="tl">${monthBlocks}</div></div>`;
   }).join('');
 
-  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🕰️ Timeline</h2><p style="color:var(--muted)">${entries.length} dated events, battles, and trials — in chronological order, oldest first. In this world "BF" counts up toward the present, so 722 BF is the earliest and the current game date is ${esc((MONTHS[CUR.monthIndex]||'')+' '+CUR.day+', '+CUR.year+' BF')}.</p></div><div class="card">${body}</div>`;
+  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🕰️ Timeline</h2><p class="text-muted">${entries.length} dated events, battles, and trials — in chronological order, oldest first. In this world "BF" counts up toward the present, so 722 BF is the earliest and the current game date is ${esc((MONTHS[CUR.monthIndex]||'')+' '+CUR.day+', '+CUR.year+' BF')}.</p></div><div class="card">${body}</div>`;
   window.scrollTo(0,0);
 }
 const TL={go(kind,id){const e=window.__tlmap[kind+'|'+id];if(e)e.go();}};
@@ -2828,11 +2380,11 @@ function view_year(year,scrollMonth){
   const yrs=allYears();
   const idx=yrs.indexOf(year);
   const prev=idx>0?yrs[idx-1]:null, next=idx<yrs.length-1?yrs[idx+1]:null;
-  const nav=`<div class="chips" style="margin-bottom:14px">${prev?`<span class="chip" onclick="Router.go('#/year/${prev}')">← ${prev} BF</span>`:''}<span class="chip" onclick="Router.go('#/years')">All Years</span>${next?`<span class="chip" onclick="Router.go('#/year/${next}')">${next} BF →</span>`:''}</div>`;
+  const nav=`<div class="chips mb-14">${prev?`<span class="chip" onclick="Router.go('#/year/${prev}')">← ${prev} BF</span>`:''}<span class="chip" onclick="Router.go('#/years')">All Years</span>${next?`<span class="chip" onclick="Router.go('#/year/${next}')">${next} BF →</span>`:''}</div>`;
   const monthBlocks=order.map(mo=>{
     const label=monthName(mo);
     const cards=byMonth[mo].map(e=>`<div class="arttile" onclick="Router.go('${e.route}')" style="border-left-color:${e.kind==='battle'?'var(--danger)':e.kind==='trial'?'var(--accent2)':'var(--accent)'}"><div class="tt">${kindEmojiSimple(e.kind)} ${esc(e.name)}</div><div class="tsub">${esc(e.date)}${e.sub?(' · '+esc(e.sub)):''}</div><div class="tsum">${esc(e.summary)}</div></div>`).join('');
-    return `<div class="tl-month" id="ym-${mo}"><div class="tl-year-h" style="font-size:19px;border-bottom-width:1px">${esc(label)} <span style="color:var(--muted);font-size:13px">(${byMonth[mo].length})</span></div><div class="artgrid">${cards}</div></div>`;
+    return `<div class="tl-month" id="ym-${mo}"><div class="tl-year-h" style="font-size:19px;border-bottom-width:1px">${esc(label)} <span class="text-muted">(${byMonth[mo].length})</span></div><div class="artgrid">${cards}</div></div>`;
   }).join('');
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/years')">Chronicle</a> › ${year} BF</div>
@@ -2841,7 +2393,7 @@ function view_year(year,scrollMonth){
       <div class="prose">${mdToHtml(yearIntro(year,entries))}</div>
       ${nav}
     </div>
-    <div class="card">${monthBlocks||'<p style="color:var(--muted)">No dated entries recorded for this year yet.</p>'}</div>`;
+    <div class="card">${monthBlocks||'<p class="text-muted">No dated entries recorded for this year yet.</p>'}</div>`;
   window.scrollTo(0,0);
   if(scrollMonth){ const n=document.getElementById('ym-'+scrollMonth); if(n) setTimeout(()=>n.scrollIntoView({behavior:'smooth',block:'start'}),60); }
 }
@@ -2849,7 +2401,7 @@ function view_years(){
   renderSidebar('years');
   const yrs=allYears();
   const cards=yrs.map(y=>{const c=collectYear(y).length;return `<div class="arttile" onclick="Router.go('#/year/${y}')" style="border-left-color:${y===CUR.year?'var(--danger)':'var(--accent)'}"><div class="tt">🗓️ ${y} BF</div><div class="tsub">${c} recorded ${c===1?'entry':'entries'}${y===CUR.year?' · current year':''}</div></div>`;}).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🗓️ The Chronicle</h2><p style="color:var(--muted)">Every year with recorded history, oldest first. Each year page is generated live from its events, battles, and trials — add something dated and it appears here automatically. In this world "BF" counts up toward the present (${CUR.year} BF).</p><div class="chips" style="margin-top:10px"><span class="chip" onclick="Router.go('#/calendar')">Open Calendar →</span></div></div><div class="card"><div class="artgrid">${cards}</div></div>`;
+  el('content').innerHTML=`<div class="card animate-fade-in"><h2>🗓️ The Chronicle</h2><p class="text-muted">Every year with recorded history, oldest first. Each year page is generated live from its events, battles, and trials — add something dated and it appears here automatically. In this world "BF" counts up toward the present (${CUR.year} BF).</p><div class="chips mt-10"><span class="chip" onclick="Router.go('#/calendar')">Open Calendar →</span></div></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   window.scrollTo(0,0);
 }
 
@@ -3171,7 +2723,7 @@ function view_calendar(){
 
   const tabs=['month','year','timeline','years'];
   const tabLabels={month:'📅 Month Grid', year:'🗓️ Year View', timeline:'🕰️ Full Timeline', years:'📚 All Years'};
-  const tabBar = `<div class="chips" style="margin-bottom:12px">${tabs.map(t=>`<span class="chip ${CAL_STATE.tab===t?'active':''}" onclick="Router.go('#/calendar/${CAL_STATE.calendarId}/${t}/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${CAL_STATE.day}')">${tabLabels[t]}</span>`).join('')}</div>`;
+  const tabBar = `<div class="chips mb-12">${tabs.map(t=>`<span class="chip ${CAL_STATE.tab===t?'active':''}" onclick="Router.go('#/calendar/${CAL_STATE.calendarId}/${t}/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${CAL_STATE.day}')">${tabLabels[t]}</span>`).join('')}</div>`;
 
   // Calendar selector (modular)
   const allCals = (DATA.calendars && DATA.calendars.calendars) ? DATA.calendars.calendars : [];
@@ -3181,7 +2733,7 @@ function view_calendar(){
   const themeStyle = `<style id="cal-theme">${getCalendarThemeCSS()}</style>`;
 
   // Calendar section — renamed to just "Calendar", fixed weird clipping, holidays now modular JSON
-  const localSection = `<div class="card" style="margin-top:12px"><div class="section-title">📅 Calendar</div>
+  const localSection = `<div class="card mt-12"><div class="section-title">📅 Calendar</div>
     <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Pick a calendar. Each has different year length, weekdays, holidays, and weird intercalary days. Add new calendars via <code>data/calendars.json</code> and holidays via <code>data/calendarHolidays.json</code> + <code>data/holidays/*.json</code> — no code needed.</p>
     <div class="artgrid">${allCals.map(c=>{
       const th=c.cssTheme||{};
@@ -3196,11 +2748,11 @@ function view_calendar(){
         <div class="tt">${esc(c.name)}</div>
         <div class="tsub">${c.months.length} months · ${c.weekdays.length} weekdays · ${totalDays}d/year (${monthDays} + ${weirdDays} weird)</div>
         <div class="tsum" style="-webkit-line-clamp:unset;display:block;overflow:visible">
-          <div style="color:var(--muted);font-size:12px">Weekdays: ${c.weekdays.map(w=>esc(w.abbr)).join(', ')} · Months: ${c.months.map(m=>esc(m.abbr)).join(', ')}</div>
+          <div class="text-muted text-sm">Weekdays: ${c.weekdays.map(w=>esc(w.abbr)).join(', ')} · Months: ${c.months.map(m=>esc(m.abbr)).join(', ')}</div>
           <div class="cal-weird"><div class="cal-weird-title">✨ Weird days — intercalary outside months</div>${weirdPills||'<span class="pill">none</span>'}</div>
           <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays — from data/holidays/*.json</div><div class="cal-holidays">${holidayPills||'<span class="pill">no holidays file yet</span>'}</div></div>
         </div>
-        <div class="tmeta" style="margin-top:10px">${localTo}</div>
+        <div class="tmeta mt-10">${localTo}</div>
       </div>`;
     }).join('')}</div></div>`;
 
@@ -3222,7 +2774,7 @@ function view_calendar(){
     const fillerBefore = (firstWeekdayIdx+activeCal.weekdays.length)%activeCal.weekdays.length;
     const daysInMonth = md.days||30;
     let cells='';
-    for(let i=0;i<fillerBefore;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum" style="opacity:.3">·</div></div>`;
+    for(let i=0;i<fillerBefore;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum opacity-3">·</div></div>`;
     for(let d=1; d<=daysInMonth; d++){
       const evs=collectEventsForDay(CAL_STATE.year, CAL_STATE.monthIndex, d);
       const dots=evs.slice(0,8).map(e=>{
@@ -3232,14 +2784,14 @@ function view_calendar(){
       const more = evs.length>8?`<div class="more">+${evs.length-8} more</div>`:'';
       const wd=calWeekdayForDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, d);
       cells+=`<div class="${calendarDayClass(CAL_STATE.year, CAL_STATE.monthIndex, d,false)}" onclick="Router.go('#/calendar/${activeCal.id}/month/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${d}')">
-        <div style="display:flex;justify-content:space-between;align-items:center"><span class="dnum">${d}</span><span class="dweek">${wd.abbr}</span></div>
+        <div class="flex-between"><span class="dnum">${d}</span><span class="dweek">${wd.abbr}</span></div>
         <div class="event-dots">${dots}</div>
         ${more}
       </div>`;
     }
     const totalCells = fillerBefore+daysInMonth;
     const remainder = totalCells % activeCal.weekdays.length===0?0:activeCal.weekdays.length - (totalCells % activeCal.weekdays.length);
-    for(let i=0;i<remainder;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum" style="opacity:.3">·</div></div>`;
+    for(let i=0;i<remainder;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum opacity-3">·</div></div>`;
 
     // Intercalary weird days after this month — FIXED layout, no clip
     const weirdAfter = calIntercalaryForYear(activeCal, CAL_STATE.year).filter(w=> (w.afterMonth||0)===md.ordinal);
@@ -3249,9 +2801,9 @@ function view_calendar(){
       ? selectedDayEvents.map(e=>{
           const kindColor=e.kind==='battle'?'neg':e.kind==='majorBattle'?'neg':e.kind==='trial'?'warn':e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos';
           const icon = e.kind==='holiday'?(e.holiday?.icon||'🎉'):e.kind==='weird'?'✨':'';
-          return `<div class="ev ${kindColor}" onclick="Router.go('${e.route||'#/calendar'}')" style="cursor:pointer"><b>${esc(icon)} ${esc(e.name)}</b><div style="color:var(--muted);font-size:12px">${esc(e.date||'')} · ${esc(e.kind)}${e.holiday?` — ${esc(e.holiday.type||'')}`:''}</div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">${esc((e.summary||'').slice(0,180))}${(e.summary||'').length>180?'…':''}</div></div>`;
+          return `<div class="ev ${kindColor}" onclick="Router.go('${e.route||'#/calendar'}')" class="cursor-ptr"><b>${esc(icon)} ${esc(e.name)}</b><div class="text-muted text-sm">${esc(e.date||'')} · ${esc(e.kind)}${e.holiday?` — ${esc(e.holiday.type||'')}`:''}</div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">${esc((e.summary||'').slice(0,180))}${(e.summary||'').length>180?'…':''}</div></div>`;
         }).join('')
-      : `<p style="color:var(--muted)">No dated entries for this day in ${activeCal.name}. Try holidays: ${getHolidaysForCalendar(activeCal.id).length} total. Year length ${calDaysInYear(activeCal, CAL_STATE.year)} days.</p>`;
+      : `<p class="text-muted">No dated entries for this day in ${activeCal.name}. Try holidays: ${getHolidaysForCalendar(activeCal.id).length} total. Year length ${calDaysInYear(activeCal, CAL_STATE.year)} days.</p>`;
     mainContent = `
       <div class="calendar-grid-wrap ${activeCal.cssTheme?.className||''}">
         <div class="calendar-weekdays" style="grid-template-columns:repeat(${activeCal.weekdays.length},1fr)">${weekdaysHeader}</div>
@@ -3266,16 +2818,16 @@ function view_calendar(){
         <span class="lg"><i style="background:#ff66cc"></i>Weird</span>
         <span class="lg">🟡 Today</span>
       </div>
-      <div class="grid2" style="margin-top:14px">
-        <div class="card" style="margin:0">
+      <div class="grid2 mt-14">
+        <div class="card m-0">
           <div class="section-title">📅 ${calFormatFullDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day)} — ${selectedDayEvents.length} entries</div>
           <div class="day-events">${dayListHtml}</div>
-          <div class="section-title" style="margin-top:12px">🔀 Same absolute day in other calendars</div>
+          <div class="section-title mt-12">🔀 Same absolute day in other calendars</div>
           <div class="day-events">${conversions}</div>
         </div>
-        <div class="card" style="margin:0">
+        <div class="card m-0">
           <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} [${activeCal.name}] — ${monthEvents.length} entries · ${calDaysInYear(activeCal, CAL_STATE.year)}d year</div>
-          <div class="day-events">${monthEvents.slice(0,24).map(e=>{const kc=e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos'; return `<div class="ev ${kc}" onclick="Router.go('${e.route||'#/calendar'}')" style="cursor:pointer"><b>${esc(e.name)}</b><div style="color:var(--muted);font-size:12px">${esc(e.date)} · ${esc(e.kind)}</div></div>`}).join('')||'<p style="color:var(--muted)">No dated entries this month.</p>'}
+          <div class="day-events">${monthEvents.slice(0,24).map(e=>{const kc=e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos'; return `<div class="ev ${kc}" onclick="Router.go('${e.route||'#/calendar'}')" class="cursor-ptr"><b>${esc(e.name)}</b><div class="text-muted text-sm">${esc(e.date)} · ${esc(e.kind)}</div></div>`}).join('')||'<p class="text-muted">No dated entries this month.</p>'}
             <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this month</div><div class="cal-holidays">${getHolidayForDay(activeCal.id, md.ordinal, -1).length? '': ''}${(()=>{const list=getHolidaysForCalendar(activeCal.id).filter(h=>h.month===md.ordinal); return list.length?list.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} D${h.day} — ${esc(h.type||'')}</span>`).join(''):'<span class="pill">no holidays this month</span>'} )()}</div></div>
           </div>
         </div>
@@ -3289,7 +2841,7 @@ function view_calendar(){
       return `<div class="arttile ${activeCal.cssTheme?.className||''}" onclick="Router.go('#/calendar/${activeCal.id}/month/${year}/${mi}/1')" style="cursor:pointer;border-left-color:${evCount?activeCal.cssTheme?.accent||'var(--accent)':'var(--border)'}">
         <div class="tt">${m.icon||'🗓️'} ${m.name}</div>
         <div class="tsub">${m.days} days · ${m.season||''} · ${evCount} entries</div>
-        <div id="mini-${year}-${mi}" style="margin-top:6px"></div>
+        <div id="mini-${year}-${mi}" class="mt-6"></div>
       </div>`;
     }).join('');
     const weirdYear = calIntercalaryForYear(activeCal, year);
@@ -3298,7 +2850,7 @@ function view_calendar(){
       <div class="card"><div class="section-title">Year ${year} BF [${activeCal.name}] — ${calDaysInYear(activeCal, year)} days — ${activeCal.months.length} months — ${weirdYear.length} weird + ${holYear.length} holidays</div>
         <div class="cal-weird"><div class="cal-weird-title">✨ Weird days this year (intercalary, not clipped)</div>${weirdYear.length?weirdYear.map(w=>`<span class="weird-pill" style="border-color:${w.color}">${w.icon||'✨'} ${esc(w.name)} — ${w.days}d after ${w.afterMonth} — ${esc(w.description||'')}</span>`).join(''):'<span class="pill">none</span>'}</div>
         <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this year — from data/holidays/${activeCal.id}.json</div><div class="cal-holidays">${holYear.length?holYear.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} — M${h.month} D${h.day}</span>`).join(''):'<span class="pill">none</span>'}</div></div>
-        <div class="artgrid" style="margin-top:12px">${monthGrids}</div></div>
+        <div class="artgrid mt-12">${monthGrids}</div></div>
     `;
   } else if(CAL_STATE.tab==='timeline'){
     const entries=[];
@@ -3341,7 +2893,7 @@ function view_calendar(){
       }).join('');
       return `<div class="tl-year-block"><div class="tl-year-h">${y.year} BF</div><div class="tl">${monthBlocks}</div></div>`;
     }).join('');
-    mainContent = `<div class="card"><h2>🕰️ Timeline — ${entries.length} records — in ${activeCal.name}</h2><p style="color:var(--muted)">Timeline merged into single calendar. Using ${activeCal.name} weekdays (${activeCal.weekdays.length} days/week) for display.</p></div><div class="card">${body}</div>`;
+    mainContent = `<div class="card"><h2>🕰️ Timeline — ${entries.length} records — in ${activeCal.name}</h2><p class="text-muted">Timeline merged into single calendar. Using ${activeCal.name} weekdays (${activeCal.weekdays.length} days/week) for display.</p></div><div class="card">${body}</div>`;
   } else if(CAL_STATE.tab==='years'){
     const yrs=allYears();
     const cards=yrs.map(y=>{
@@ -3349,7 +2901,7 @@ function view_calendar(){
       const yLen = calDaysInYear(activeCal, y);
       return `<div class="arttile" onclick="Router.go('#/calendar/${activeCal.id}/year/${y}/0/1')" style="border-left-color:${y===CUR.year?'var(--danger)':'var(--accent)'}"><div class="tt">🗓️ ${y} BF — ${yLen}d year</div><div class="tsub">${c} entries${y===CUR.year?' · current year':''}</div></div>`;
     }).join('');
-    mainContent = `<div class="card"><h2>📚 All Years — ${yrs.length} years in ${activeCal.name}</h2><p style="color:var(--muted)">Year length varies per calendar (not always 365). ${activeCal.name} year length: ${calDaysInYear(activeCal, CAL_STATE.year)} days this year.</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
+    mainContent = `<div class="card"><h2>📚 All Years — ${yrs.length} years in ${activeCal.name}</h2><p class="text-muted">Year length varies per calendar (not always 365). ${activeCal.name} year length: ${calDaysInYear(activeCal, CAL_STATE.year)} days this year.</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   }
 
   // FIX: long technical header removed per user request — renamed to just Calendar, no verbose explainer
@@ -3451,11 +3003,11 @@ function view_artifacts(){
       <div class="tmeta"><span class="pill">${esc(b.species||'Unknown')}</span><span class="status-tag ${bearerStatusTag(b.status)}">${esc(b.status||'')}</span>${b.threat_level!=null?`<span class="pill">Threat ${esc(String(b.threat_level))}</span>`:''}</div></div>`).join('');
   const god=A.god_toad;
   const godCard=god?`<div class="conflict-card" style="border-left-color:var(--accent);cursor:pointer" onclick="Router.go('#/bearer/${encodeURIComponent(god.id)}')">
-      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>👑 ${esc(god.name)}</h3><span class="status-tag status-other">${esc(god.title||'')}</span></div>
-      <p style="color:var(--muted);margin:6px 0">${esc((god.powers||'').slice(0,260))}…</p>
+      <div class="flex-between-start"><h3>👑 ${esc(god.name)}</h3><span class="status-tag status-other">${esc(god.title||'')}</span></div>
+      <p class="text-muted mb-6">${esc((god.powers||'').slice(0,260))}…</p>
       <div><span class="pill">${esc(god.species||'')}</span> <span class="pill">Element: ${esc(god.element||'')}</span> <span class="pill">Threat ${esc(String(god.threat_level))}</span></div></div>`:'';
   el('content').innerHTML=`<div class="card animate-fade-in"><h2>⭐ Artifacts & the Star Bearers</h2>
-    <p style="color:var(--muted)">The great relics of the world and the ${bearers.length} bearers who carry the shattered fragments of the fallen star. Each shard grants immense, unique power — and subtly reshapes whoever holds it. Waluigi advises admiring them from a safe and legally deniable distance.</p></div>
+    <p class="text-muted">The great relics of the world and the ${bearers.length} bearers who carry the shattered fragments of the fallen star. Each shard grants immense, unique power — and subtly reshapes whoever holds it. Waluigi advises admiring them from a safe and legally deniable distance.</p></div>
     ${godCard?`<div class="card"><div class="section-title">The Original Keeper</div>${godCard}</div>`:''}
     <div class="card"><div class="section-title">Major Artifacts</div><div class="artgrid">${artCards}</div></div>
     <div class="card"><div class="section-title">The Star Bearers (${bearers.length})</div><div class="artgrid">${bearerCards}</div></div>`;
@@ -3626,7 +3178,7 @@ function getWaluigiWelcome(id){
   const rec=INDEX[id];
   const name=rec?displayName(rec.item):(xp?.name||prettyId(id));
   const lvl=xp?.level||'?';
-  const gold=((INVENTORY_SYSTEM?.wallets||{})[id])?Object.entries(INVENTORY_SYSTEM.wallets[id].currencies||{}).reduce((s,[k,v])=>{const cur=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); return s+(cur?cur.base_value||1:1)*v;},0).toFixed(1)+'g':'no wallet yet';
+    const gold=((INVENTORY_SYSTEM?.wallets||{})[id])?Number(Object.entries(INVENTORY_SYSTEM.wallets[id].currencies||{}).reduce((s,[k,v])=>{const cur=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); return s+(cur?cur.base_value||1:1)*v;},0)).toLocaleString()+'g':'no wallet yet';
   return `WAH! Welcome, ${name}! Lvl ${lvl} operator! Wallet: ${gold}! Your bio, XP, and vault are now linked. This encyclopedia is OBJECTIVE because I, Waluigi, wrote it! WAH!`;
 }
 function showWaluigiSignOn(id){
@@ -3637,7 +3189,7 @@ function showWaluigiSignOn(id){
   const goldEq=(()=>{
     const w=resolveUserWallet(id);
     if(!w) return '0g';
-    return Object.entries(w.currencies||{}).reduce((s,[k,v])=>{const cur=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); return s+(cur?cur.base_value||1:1)*v;},0).toFixed(2)+'g';
+    return Number(Object.entries(w.currencies||{}).reduce((s,[k,v])=>{const cur=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); return s+(cur?cur.base_value||1:1)*v;},0)).toLocaleString()+'g';
   })();
   const existing=document.getElementById('waluigiSignOn');
   if(existing) existing.remove();
@@ -3649,9 +3201,9 @@ function showWaluigiSignOn(id){
       <div style="display:flex;gap:14px;align-items:center;margin-bottom:12px">
         <div class="waluigi-ava-big">W</div>
         <div><div style="font-weight:900;color:var(--accent)">WALUIGI SAYS:</div><div style="color:var(--muted);font-size:11px;letter-spacing:.6px">IMMERSIVE SIGN-ON • WALUPEDIA OPERATOR CONNECT</div></div>
-        <div style="margin-left:auto" class="chips"><span class="pill">XP ${xp?xp.level+' Lvl':''}</span><span class="pill">${goldEq} equiv</span></div>
+        <div class="ml-auto chips"><span class="pill">XP ${xp?xp.level+' Lvl':''}</span><span class="pill">${goldEq} equiv</span></div>
       </div>
-      <h2 style="margin:6px 0">Welcome, ${esc(name)}!</h2>
+      <h2 class="mb-6">Welcome, ${esc(name)}!</h2>
       <div class="waluigi-typed" id="waluigiTyped"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
         <div class="profile-stat"><b>${xp?esc(String(xp.level)):'?'} </b>Level${xp?` · ${xp.currentXP} XP`:''}</div>
@@ -3659,7 +3211,7 @@ function showWaluigiSignOn(id){
         <div class="profile-stat"><b>${xp?esc(String(xp.powerLevel||'?')):'?'} </b>Power</div>
         <div class="profile-stat"><b>${xp?esc(String(xp.fameScore||'?')):'?'} </b>Fame</div>
       </div>
-      <div class="chips" style="margin-top:14px">
+      <div class="chips mt-14">
         <span class="chip active" id="continueDossier">Enter Dossier → ${esc(name)}</span>
         <span class="chip" onclick="document.getElementById('waluigiSignOn').remove()">Cancel</span>
         <span class="chip" onclick="Router.go('#/article/${esc(id)}')">Open bio →</span>
@@ -3695,34 +3247,34 @@ function view_login(){
     ? `WAH! HALT! No operator connected!\n\nThis is WALUIGI'S OBJECTIVE ENCYCLOPEDIA and you are ANONYMOUS!\nI, Waluigi, require IMMERSION! Connect your dossier to see wallet, XP, and bio!\nEach operator has a CUSTOM welcome — I have insults... er... welcomes for each! WAH!\n\nPick a character below — wallet, XP page, and bio will travel with you.`
     : `WAH! You are connected as ${cur}, but you can switch operator anytime! Wallet, XP, bio — all linked! Choose another for a new Waluigi welcome!`;
   const curCard=cur
-    ? `<div class="card" style="border-left:4px solid var(--green)"><div class="section-title">✅ Currently connected — ${esc(XP_SUMMARY[cur]?.name||cur)}</div>
-      <div style="display:flex;gap:12px;align-items:center">
+    ? `<div class="card border-left-green"><div class="section-title">✅ Currently connected — ${esc(XP_SUMMARY[cur]?.name||cur)}</div>
+      <div class="flex-gap-12-center">
         <div style="width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;font-size:24px">${esc((XP_SUMMARY[cur]?.name||cur)[0]?.toUpperCase()||'👤')}</div>
-        <div style="flex:1"><b>${esc(XP_SUMMARY[cur]?.name||INDEX[cur]?displayName(INDEX[cur].item):prettyId(cur))}</b>
-          <div style="color:var(--muted);font-size:12px">@${esc(cur)} · Lvl ${XP_SUMMARY[cur]?.level||'?'} · ${XP_SUMMARY[cur]?.currentXP||0} XP</div>
+        <div class="flex-1"><b>${esc(XP_SUMMARY[cur]?.name||INDEX[cur]?displayName(INDEX[cur].item):prettyId(cur))}</b>
+          <div class="text-muted text-sm">@${esc(cur)} · Lvl ${XP_SUMMARY[cur]?.level||'?'} · ${XP_SUMMARY[cur]?.currentXP||0} XP</div>
           <div style="font-size:11px;color:var(--accent2);margin-top:4px;max-width:520px;white-space:pre-wrap">${esc(getWaluigiWelcome(cur).slice(0,160))}…</div>
         </div>
         <div class="chips" style="flex-direction:column"><span class="chip active" onclick="Router.go('#/profile')">Dossier → wallet/XP/bio</span><span class="chip" onclick="setCurrentUserId(null);view_login();">Logout & switch</span></div>
       </div></div>`
-    : `<div class="card" style="border-left:4px solid var(--danger);background:linear-gradient(135deg,rgba(229,72,77,.08),rgba(224,180,0,.06)),var(--panel)"><div class="section-title">🔒 Not connected — immersion sign-on required</div><p style="color:var(--muted);font-size:13px">You must connect your operator to access full dossiers, wallets, and XP progression. This uses existing code (<code>waluipediaUser</code>). No password — Waluigi trusts your audacity.</p><div class="chips"><span class="chip active" onclick="document.getElementById('featSec')?.scrollIntoView({behavior:'smooth'})">Pick below ↓</span><span class="chip" onclick="Router.go('#/items')">View XP page + bios (guest)</span></div></div>`;
+    : `<div class="card" style="border-left:4px solid var(--danger);background:linear-gradient(135deg,rgba(229,72,77,.08),rgba(224,180,0,.06)),var(--panel)"><div class="section-title">🔒 Not connected — immersion sign-on required</div><p class="text-muted">You must connect your operator to access full dossiers, wallets, and XP progression. This uses existing code (<code>waluipediaUser</code>). No password — Waluigi trusts your audacity.</p><div class="chips"><span class="chip active" onclick="document.getElementById('featSec')?.scrollIntoView({behavior:'smooth'})">Pick below ↓</span><span class="chip" onclick="Router.go('#/items')">View XP page + bios (guest)</span></div></div>`;
 
   const featHtml=featured.map(c=>{
     const xp=XP_SUMMARY[c.id];
     const wallet=(INVENTORY_SYSTEM?.wallets||{})[c.id];
     const goldEq=wallet?Object.entries(wallet.currencies||{}).reduce((s,[k,v])=>{const curMeta=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]); const bv=curMeta?curMeta.base_value||1:1; return s+bv*v;},0):0;
-    return `<div class="login-card vip" onclick="showWaluigiSignOn('${esc(c.id)}')"><div class="l-ava">${c.icon||'👤'}</div><div style="flex:1;min-width:0"><div class="l-name">${esc(c.name||c.id)} — Welcome: "${esc(getWaluigiWelcome(c.id).slice(0,38))}…"</div><div class="l-meta">Lvl ${xp?.level||'?'} · ${xp?.currentXP||0} XP · ${goldEq?goldEq.toFixed(1)+'g':''} · Click for immersive Waluigi sign-on</div><div class="tmeta"><span class="pill">${esc(c.id)}</span>${xp?`<span class="pill">Pwr ${xp.powerLevel}</span><span class="pill">Fame ${xp.fameScore}</span>`:''}<span class="pill" style="border-color:var(--accent2)">Bio + XP →</span></div></div></div>`;
+    return `<div class="login-card vip" onclick="showWaluigiSignOn('${esc(c.id)}')"><div class="l-ava">${c.icon||'👤'}</div><div style="flex:1;min-width:0"><div class="l-name">${esc(c.name||c.id)} — Welcome: "${esc(getWaluigiWelcome(c.id).slice(0,38))}…"</div><div class="l-meta">Lvl ${xp?.level||'?'} · ${xp?.currentXP||0} XP · ${goldEq?Number(goldEq).toLocaleString()+'g':''} · Click for immersive Waluigi sign-on</div><div class="tmeta"><span class="pill">${esc(c.id)}</span>${xp?`<span class="pill">Pwr ${xp.powerLevel}</span><span class="pill">Fame ${xp.fameScore}</span>`:''}<span class="pill border-accent2">Bio + XP →</span></div></div></div>`;
   }).join('');
   const otherHtml=others.map(c=>{
     const xp=XP_SUMMARY[c.id];
     return `<div class="login-card" onclick="showWaluigiSignOn('${esc(c.id)}')"><div class="l-ava">${esc(c.icon||(c.name||c.id)[0]||'👤')}</div><div><div class="l-name">${esc(c.name||prettyId(c.id))}</div><div class="l-meta">${c.source} · Lvl ${xp?.level||c.level||1} ${xp?`· ${xp.currentXP} XP`:''} · ${esc(getWaluigiWelcome(c.id).slice(0,42))}…</div><div class="tmeta"><span class="pill">XP bio</span><span class="pill">Wallet</span></div></div></div>`;
   }).join('');
   el('content').innerHTML=`
-    <div class="card animate-fade-in" style="border-left:4px solid var(--accent)"><h1>🔐 Walupedia Connect — Immersive Sign-On</h1>
-      <div style="display:flex;gap:14px;align-items:start">
+    <div class="card animate-fade-in border-left-accent"><h1>🔐 Walupedia Connect — Immersive Sign-On</h1>
+      <div class="flex-gap-14-start">
         <div class="waluigi-ava-big" style="width:72px;height:72px;font-size:32px;flex:0 0 72px">W</div>
-        <div style="flex:1">
+        <div class="flex-1">
           <div style="white-space:pre-wrap;color:var(--muted);font-size:13px;line-height:1.6">${esc(waluIntro)}</div>
-          <div class="chips" style="margin-top:10px"><span class="chip" onclick="setCurrentUserId(null);view_login();">Continue as Guest (clear)</span><span class="chip" onclick="location.href='currency.html'">Bank — intuitive currency →</span><span class="chip" onclick="Router.go('#/items')">XP page → bios, wallet, items</span></div>
+          <div class="chips mt-10"><span class="chip" onclick="setCurrentUserId(null);view_login();">Continue as Guest (clear)</span><span class="chip" onclick="location.href='currency.html'">Bank — intuitive currency →</span><span class="chip" onclick="Router.go('#/items')">XP page → bios, wallet, items</span></div>
         </div>
       </div>
     </div>
@@ -3754,32 +3306,32 @@ function view_profile(){
       const meta=(INVENTORY_SYSTEM?.currencies&&INVENTORY_SYSTEM.currencies[k])||{base_value:1,iconFallback:'🪙'};
       const bv=meta.base_value||1; const gv=bv*v; totalGold+=gv;
       if(meta.tier===1) breakdown.core+=gv; else if(meta.tier===2) breakdown.reg+=gv; else if(meta.tier===3) breakdown.spec+=gv; else breakdown.blk+=gv;
-      return `<div class="wallet-line"><span>${meta.iconFallback||meta.icon||'🪙'} ${esc(currencyName(k))} × ${esc(String(v))}</span><span style="color:var(--muted)">${gv.toFixed(2)}g</span></div>`;
+      return `<div class="wallet-line"><span>${meta.iconFallback||meta.icon||'🪙'} ${esc(currencyName(k))} × ${Number(v).toLocaleString()}</span><span class="text-muted">${gv.toFixed(2)}g</span></div>`;
     }).join('');
   }
   const xpPct=xp?Math.max(5,Math.min(100, ((xp.currentXP||0)/(xp.nextXP||1))*100)):0;
   const xpPanel=xp?`
     <div class="profile-stat-grid">
       <div class="profile-stat"><b>Lvl ${esc(String(xp.level||'?'))}</b>Level</div>
-      <div class="profile-stat"><b>${esc(String(xp.currentXP||0))}</b>Current XP / ${esc(String(xp.nextXP||'—'))}</div>
-      <div class="profile-stat"><b>${esc(String(xp.powerLevel||'?'))}</b>Power</div>
-      <div class="profile-stat"><b>${esc(String(xp.fameScore||'?'))}</b>Fame</div>
-      <div class="profile-stat"><b>${esc(String(xp.entryCount||0))}</b>Entries</div>
-      <div class="profile-stat"><b>${xp.remainingXP!=null?esc(String(xp.remainingXP)):'?'}</b>To next</div>
+      <div class="profile-stat"><b>${Number(xp.currentXP||0).toLocaleString()}</b>Current XP / ${Number(xp.nextXP||0).toLocaleString()}</div>
+      <div class="profile-stat"><b>${Number(xp.powerLevel||'?')}</b>Power</div>
+      <div class="profile-stat"><b>${Number(xp.fameScore||'?')}</b>Fame</div>
+      <div class="profile-stat"><b>${Number(xp.entryCount||0).toLocaleString()}</b>Entries</div>
+      <div class="profile-stat"><b>${xp.remainingXP!=null?Number(xp.remainingXP).toLocaleString():'?'}</b>To next</div>
     </div>
     <div class="profile-xp-bar"><span style="width:${xpPct}%"></span></div>
-    <div style="color:var(--muted);font-size:12px">${xp.currentXP}/${xp.nextXP||'?'} · ${xp.remainingXP!=null?xp.remainingXP+' to next level':''}</div>
-  `:`<p style="color:var(--muted)">No XP record for ${esc(uid)}. XP is tracked in <code>XP_SUMMARY</code> — this character hasn't logged entries yet.</p>`;
-  const bioHtml=charItem?`<div class="prose">${mdToHtml(charItem.description||charItem.summary||'',uid)}</div>`:`<p style="color:var(--muted)">No Waluipedia article found for <b>${esc(uid)}</b>. Generic login — bio not available, but wallet/XP still works.</p>`;
+    <div class="text-muted text-sm">${Number(xp.currentXP||0).toLocaleString()} / ${Number(xp.nextXP||0).toLocaleString()} · ${xp.remainingXP!=null?Number(xp.remainingXP).toLocaleString()+' to next level':''}</div>
+  `:`<p class="text-muted">No XP record for ${esc(uid)}. XP is tracked in <code>XP_SUMMARY</code> — this character hasn't logged entries yet.</p>`;
+  const bioHtml=charItem?`<div class="prose">${mdToHtml(charItem.description||charItem.summary||'',uid)}</div>`:`<p class="text-muted">No Waluipedia article found for <b>${esc(uid)}</b>. Generic login — bio not available, but wallet/XP still works.</p>`;
   const avatarLetter=(xp?.name||charItem?.name||uid)[0]?.toUpperCase()||'👤';
   const waluWelcome = getWaluigiWelcome(uid);
-  const bankHtml=(()=>{ if(!bank.accounts.length&&!bank.loans.length&&!bank.debts.length) return '<p style="color:var(--muted)">No bank accounts/loans/debts linked to this name.</p>'; const rows=[...bank.accounts.map(a=>`<div class="bank-row"><b>🏦 ${esc(a.bankId)}</b> ${esc(a.balance)} ${esc(currencyName(a.currencyKey))} · ${esc(a.note||'').slice(0,80)}</div>`),...bank.loans.map(l=>`<div class="bank-row" style="border-left:4px solid var(--danger)"><b>Loan</b> ${esc(l.principal)} ${esc(l.currencyKey)} · ${esc(l.status)}</div>`),...bank.debts.map(d=>`<div class="bank-row"><b>Debt → ${esc(d.creditor)}</b> ${esc(d.amountOwed)} ${esc(d.currencyKey)}</div>`)].join(''); return rows; })();
+  const bankHtml=(()=>{ if(!bank.accounts.length&&!bank.loans.length&&!bank.debts.length) return '<p class="text-muted">No bank accounts/loans/debts linked to this name.</p>'; const rows=[...bank.accounts.map(a=>`<div class="bank-row"><b>🏦 ${esc(a.bankId)}</b> ${Number(a.balance).toLocaleString()} ${esc(currencyName(a.currencyKey))} · ${esc(a.note||'').slice(0,80)}</div>`),...bank.loans.map(l=>`<div class="bank-row border-left-danger"><b>Loan</b> ${Number(l.principal).toLocaleString()} ${esc(currencyName(l.currencyKey))} · ${esc(l.status)}</div>`),...bank.debts.map(d=>`<div class="bank-row"><b>Debt → ${esc(d.creditor)}</b> ${Number(d.amountOwed).toLocaleString()} ${esc(currencyName(d.currencyKey))}</div>`)].join(''); return rows; })();
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/login')">Login</a> › ${esc(xp?.name||charItem?.name||uid)}</div>
-    <div class="card animate-fade-in" style="border-left:4px solid var(--accent)"><div style="display:flex;gap:12px;align-items:start"><div class="waluigi-ava-big" style="width:56px;height:56px;font-size:28px;flex:0 0 56px">W</div><div><div style="font-weight:900;color:var(--accent)">WALUIGI WELCOMES YOU — WELCOME, ${esc((xp?.name||uid).toUpperCase())}!</div><div style="color:var(--text);font-size:13px;line-height:1.5;margin-top:4px;white-space:pre-wrap">${esc(waluWelcome)}</div><div style="color:var(--muted);font-size:11px;margin-top:6px">This dossier links wallet (${totalGold.toFixed(2)}g equiv), XP Lvl ${xp?.level||'?'} and bio article — immersive sign-on active.</div></div></div></div>
-    <div class="card animate-fade-in"><div class="profile-hero"><div class="ph-ava">${esc(avatarLetter)}</div><div><h1>${esc(xp?.name||charItem?.name||prettyId(uid))}</h1><div style="color:var(--accent2);font-style:italic">${esc(charItem?.title||xp?.xpKey||uid)}</div><div style="margin-top:8px;color:var(--muted);font-size:12px">@${esc(uid)} · ${charItem?.affiliation||charItem?.race||''}</div><div class="chips" style="margin-top:10px"><span class="chip" onclick="Router.go('#/article/${esc(uid)}')">Open bio article →</span><span class="chip" onclick="Router.go('#/profile')">XP page & Dossier</span><span class="chip" onclick="location.href='currency.html'">Wallet → Currency</span><span class="chip" onclick="setCurrentUserId(null);Router.go('#/login')">Logout & switch</span></div></div></div></div>
+    <div class="card animate-fade-in border-left-accent"><div style="display:flex;gap:12px;align-items:start"><div class="waluigi-ava-big" style="width:56px;height:56px;font-size:28px;flex:0 0 56px">W</div><div><div style="font-weight:900;color:var(--accent)">WALUIGI WELCOMES YOU — WELCOME, ${esc((xp?.name||uid).toUpperCase())}!</div><div style="color:var(--text);font-size:13px;line-height:1.5;margin-top:4px;white-space:pre-wrap">${esc(waluWelcome)}</div><div style="color:var(--muted);font-size:11px;margin-top:6px">This dossier links wallet (${Number(totalGold).toLocaleString()}g equiv), XP Lvl ${xp?.level||'?'} and bio article — immersive sign-on active.</div></div></div></div>
+    <div class="card animate-fade-in"><div class="profile-hero"><div class="ph-ava">${esc(avatarLetter)}</div><div><h1>${esc(xp?.name||charItem?.name||prettyId(uid))}</h1><div style="color:var(--accent2);font-style:italic">${esc(charItem?.title||xp?.xpKey||uid)}</div><div style="margin-top:8px;color:var(--muted);font-size:12px">@${esc(uid)} · ${charItem?.affiliation||charItem?.race||''}</div><div class="chips mt-10"><span class="chip" onclick="Router.go('#/article/${esc(uid)}')">Open bio article →</span><span class="chip" onclick="Router.go('#/profile')">XP page & Dossier</span><span class="chip" onclick="location.href='currency.html'">Wallet → Currency</span><span class="chip" onclick="setCurrentUserId(null);Router.go('#/login')">Logout & switch</span></div></div></div></div>
     <div class="card"><div class="section-title">✦ XP & Progression</div>${xpPanel}</div>
-    <div class="card"><div class="section-title">💰 Wallet — ${totalGold.toFixed(2)} gold equiv total</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill" style="border-color:var(--green)">Core ${breakdown.core.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent2)">Reg ${breakdown.reg.toFixed(1)}g</span><span class="pill" style="border-color:var(--accent)">Spec ${breakdown.spec.toFixed(1)}g</span>${breakdown.blk?`<span class="pill" style="border-color:var(--danger)">Black ${breakdown.blk.toFixed(1)}g</span>`:''}</div><div class="wallet-grid"><div class="wallet-card"><h4>${esc(xp?.name||uid)}'s Holdings</h4><div>${walletLines||'<p style="color:var(--muted)">No wallet — add entry to INVENTORY_SYSTEM.wallets.</p>'}</div><div class="wallet-total">Total <b>${totalGold.toFixed(2)}g equiv</b></div></div></div></div>
+    <div class="card"><div class="section-title">💰 Wallet — ${Number(totalGold).toLocaleString()} gold equiv total</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill border-green">Core ${Number(breakdown.core).toLocaleString()}g</span><span class="pill border-accent2">Reg ${Number(breakdown.reg).toLocaleString()}g</span><span class="pill border-accent">Spec ${Number(breakdown.spec).toLocaleString()}g</span>${breakdown.blk?`<span class="pill border-danger">Black ${Number(breakdown.blk).toLocaleString()}g</span>`:''}</div><div class="wallet-grid"><div class="wallet-card"><h4>${esc(xp?.name||uid)}'s Holdings</h4><div>${walletLines||'<p class="text-muted">No wallet — add entry to INVENTORY_SYSTEM.wallets.</p>'}</div><div class="wallet-total">Total <b>${Number(totalGold).toLocaleString()}g equiv</b></div></div></div></div>
     <div class="card"><div class="section-title">🏦 Banking</div>${bankHtml}</div>
     <div class="card"><div class="section-title">📖 Bio — ${esc(charItem?.name||uid)}</div>${bioHtml}</div>
   `;
@@ -3948,15 +3500,15 @@ function renderWhyModal(factionKey, opKey) {
 
   let traceContent = `
     <div id="modalTabTrace">
-      <div class="home-section-head" style="margin-bottom:12px">
+      <div class="home-section-head mb-12">
         <div>
-          <h3 style="margin:0">${esc(op.icon)} ${esc(op.name)} Standings Trace for ${esc(faction.name)}</h3>
+          <h3 class="m-0">${esc(op.icon)} ${esc(op.name)} Standings Trace for ${esc(faction.name)}</h3>
           <p style="color:var(--muted);font-size:12px;margin:2px 0 0">Region: ${esc(faction.region||'Known Realms')} · Category: ${esc(faction.category||'Faction')}</p>
         </div>
         <div class="rep-score-badge ${st.class}">${st.total >= 0 ? '+' : ''}${st.total} · ${esc(st.label)}</div>
       </div>
       
-      ${narrativeAssessment ? `<div class="wnote" style="margin-bottom:14px"><b>Intelligence Dossier Assessment:</b><br>"${esc(narrativeAssessment)}"</div>` : ''}
+      ${narrativeAssessment ? `<div class="wnote mb-14"><b>Intelligence Dossier Assessment:</b><br>"${esc(narrativeAssessment)}"</div>` : ''}
 
       <h4>Exact Score Factors:</h4>
       <div class="rep-trace-item">
@@ -3983,8 +3535,8 @@ function renderWhyModal(factionKey, opKey) {
   `;
 
   let intelContent = `
-    <div id="modalTabIntel" style="display:none">
-      <h3 style="margin-top:0">🔍 Faction Intelligence Level: ${intelPct}%</h3>
+    <div id="modalTabIntel" class="hidden">
+      <h3 class="mt-0">🔍 Faction Intelligence Level: ${intelPct}%</h3>
       <div style="background:var(--bg2);height:12px;border-radius:999px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px">
         <div style="background:linear-gradient(90deg,var(--accent2),var(--accent));height:100%;width:${intelPct}%"></div>
       </div>
@@ -3995,23 +3547,23 @@ function renderWhyModal(factionKey, opKey) {
         <li><b>Known Allies:</b> ${Array.isArray(faction.relations?.allies) ? faction.relations.allies.map(a => LORE_FACTIONS[a]?.name || a).join(', ') : 'None listed'}</li>
         <li><b>Known Hostiles:</b> ${Array.isArray(faction.relations?.enemies) ? faction.relations.enemies.map(e => LORE_FACTIONS[e]?.name || e).join(', ') : 'None listed'}</li>
       </ul>
-      ${faction.waluigi_tip ? `<div class="rep-tip-box" style="margin-top:14px"><b>Waluigi's Objective Advice:</b> ${esc(faction.waluigi_tip)}</div>` : ''}
+      ${faction.waluigi_tip ? `<div class="rep-tip-box mt-14"><b>Waluigi's Objective Advice:</b> ${esc(faction.waluigi_tip)}</div>` : ''}
     </div>
   `;
 
   let heatContent = `
-    <div id="modalTabHeat" style="display:none">
-      <h3 style="margin-top:0">🚨 Infamy & Heat File for ${esc(op.name)}</h3>
+    <div id="modalTabHeat" class="hidden">
+      <h3 class="mt-0">🚨 Infamy & Heat File for ${esc(op.name)}</h3>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
         <span style="font-size:28px">${heat.icon}</span>
         <div>
           <b style="font-size:16px">${esc(heat.label)}</b>
-          <div style="color:var(--muted);font-size:12px">Heat Level: <b>${heat.score} / 100</b></div>
+          <div class="text-muted text-sm">Heat Level: <b>${heat.score} / 100</b></div>
         </div>
       </div>
       <h4>Active Tags:</h4>
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px">
-        ${(heat.tags||[]).map(t => `<span class="chip">${esc(t)}</span>`).join('') || '<span style="color:var(--muted)">No specific heat tags.</span>'}
+        ${(heat.tags||[]).map(t => `<span class="chip">${esc(t)}</span>`).join('') || '<span class="text-muted">No specific heat tags.</span>'}
       </div>
       <h4>Active Warrants & Legal Directives:</h4>
       <ul style="color:#fca5a5;font-size:13px;line-height:1.5">
@@ -4021,11 +3573,11 @@ function renderWhyModal(factionKey, opKey) {
   `;
 
   let politicsContent = faction.internal_politics ? `
-    <div id="modalTabPolitics" style="display:none">
-      <h3 style="margin-top:0">🏛️ Internal Politics of ${esc(faction.name)}</h3>
-      <p style="color:var(--muted);font-size:13px">Ruling Faction: <b>${esc(faction.internal_politics.ruling_faction || 'Executive Council')}</b></p>
+    <div id="modalTabPolitics" class="hidden">
+      <h3 class="mt-0">🏛️ Internal Politics of ${esc(faction.name)}</h3>
+      <p class="text-muted">Ruling Faction: <b>${esc(faction.internal_politics.ruling_faction || 'Executive Council')}</b></p>
       ${Object.values(faction.internal_politics.sub_factions||{}).map(sf => `
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px">
+        <div class="modal-politics-card">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
             <b style="font-size:14px;color:var(--accent2)">${esc(sf.name)}</b>
             <span class="chip" style="font-size:11px">Influence: ${sf.influence}%</span>
@@ -4072,8 +3624,8 @@ function renderArticleOperatorReputation(opId) {
     if (!fac) return;
     const st = calculateOperatorStanding(op.id, fKey);
     rows += `
-      <div class="rep-op-row" onclick="renderWhyModal('${fKey}', '${op.id}')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;margin-bottom:6px">
-        <div><span style="font-weight:700">${esc(fac.name)}</span> <small style="color:var(--muted)">(${esc(fac.region||'Realm')})</small></div>
+      <div class="rep-op-row" onclick="renderWhyModal('${fKey}', '${op.id}')" class="rep-op-row">
+        <div><span style="font-weight:700">${esc(fac.name)}</span> <small class="text-muted">(${esc(fac.region||'Realm')})</small></div>
         <div class="rep-score-badge ${st.class}">${st.total >= 0 ? '+' : ''}${st.total} · ${esc(st.label)}</div>
       </div>
     `;
@@ -4081,14 +3633,14 @@ function renderArticleOperatorReputation(opId) {
 
   return `
     <div class="card" style="border-left:4px solid var(--accent);margin-top:18px">
-      <div class="home-section-head" style="margin-bottom:12px">
+      <div class="home-section-head mb-12">
         <div>
           <h3 style="margin:0;font-size:18px">⚖️ Faction Standings & Reputation Matrix</h3>
           <p style="color:var(--muted);font-size:12.5px;margin:2px 0 0">Live standing, political alignment, and infamy heat profile for ${esc(op.name)}.</p>
         </div>
-        <span class="chip" style="background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:#fca5a5" onclick="Router.go('#/reputation/infamy')">🚨 Heat: ${heat.score} (${esc(heat.label)})</span>
+        <span class="chip chip-negative" onclick="Router.go('#/reputation/infamy')">🚨 Heat: ${heat.score} (${esc(heat.label)})</span>
       </div>
-      <div style="margin-bottom:12px">${rows}</div>
+      <div class="mb-12">${rows}</div>
       <div style="text-align:right"><span class="chip active" onclick="Router.go('#/reputation/character/${encodeURIComponent(op.id)}')">Inspect Full 100+ Faction Standings for ${esc(op.name)} →</span></div>
     </div>
   `;
@@ -4104,12 +3656,12 @@ function renderArticleFactionReputation(factionId) {
   let opPills = '';
   REPUTATION_OPERATORS.forEach(op => {
     const st = calculateOperatorStanding(op.id, factionId);
-    opPills += `<span class="rep-op-pill ${st.total >= 0 ? 'pos' : 'neg'}" onclick="renderWhyModal('${factionId}', '${op.id}')" style="cursor:pointer">${op.icon} ${esc(op.name)}: ${st.total >= 0 ? '+' : ''}${st.total}</span>`;
+    opPills += `<span class="rep-op-pill ${st.total >= 0 ? 'pos' : 'neg'}" onclick="renderWhyModal('${factionId}', '${op.id}')" class="cursor-ptr">${op.icon} ${esc(op.name)}: ${st.total >= 0 ? '+' : ''}${st.total}</span>`;
   });
 
   return `
     <div class="card" style="border-left:4px solid var(--accent2);margin-top:18px">
-      <div class="home-section-head" style="margin-bottom:12px">
+      <div class="home-section-head mb-12">
         <div>
           <h3 style="margin:0;font-size:18px">📊 Party Standings with ${esc(fac.name)}</h3>
           <p style="color:var(--muted);font-size:12.5px;margin:2px 0 0">Political assessment, party relationship scores, and Waluigi's advice.</p>
@@ -4260,7 +3812,7 @@ function view_reputation(arg) {
 
     const itemsHtml = standingsList.map(item => {
       return `
-        <div class="rep-faction-card" style="margin-bottom:12px">
+        <div class="rep-faction-card mb-12">
           <div class="rep-fc-head">
             <div class="rep-fc-title">
               <h3>${esc(item.faction.name)}</h3>
@@ -4278,21 +3830,21 @@ function view_reputation(arg) {
     }).join('');
 
     bodyHtml = `
-      <div class="card animate-fade-in" style="border-left:4px solid var(--accent)">
+      <div class="card animate-fade-in border-left-accent">
         <div class="profile-hero" style="margin-bottom:18px">
           <div class="ph-ava">${selectedOp.icon}</div>
           <div>
             <h1>${esc(selectedOp.name)}</h1>
             <div style="color:var(--accent2);font-style:italic;margin-top:2px">${esc(selectedOp.title)}</div>
             <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-              <span class="chip" style="background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:#4ade80">Positive: ${posCount}</span>
-              <span class="chip" style="background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.3);color:#fde047">Neutral: ${neuCount}</span>
-              <span class="chip" style="background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:#fca5a5">Hostile: ${negCount}</span>
-              <span class="chip" style="background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.5);color:#ef4444">🚨 Heat: ${heat.score} (${esc(heat.label)})</span>
+              <span class="chip chip-positive">Positive: ${posCount}</span>
+              <span class="chip chip-neutral">Neutral: ${neuCount}</span>
+              <span class="chip chip-negative">Hostile: ${negCount}</span>
+              <span class="chip chip-heat">🚨 Heat: ${heat.score} (${esc(heat.label)})</span>
             </div>
           </div>
         </div>
-        <h2 style="margin-bottom:12px">All Faction Standings for ${esc(selectedOp.name)}</h2>
+        <h2 class="mb-12">All Faction Standings for ${esc(selectedOp.name)}</h2>
         <div>${itemsHtml}</div>
       </div>
     `;
@@ -4327,7 +3879,7 @@ function view_reputation(arg) {
 
     bodyHtml = `
       <div class="card">
-        <h2 style="margin-top:0">📈 Cross-Faction Heatmap Matrix Table</h2>
+        <h2 class="mt-0">📈 Cross-Faction Heatmap Matrix Table</h2>
         <p style="color:var(--muted);font-size:13px;margin-bottom:14px">Cross-referencing all 100 registered factions against active Vigilance operators. Click any cell to inspect the exact trace.</p>
         <div class="rep-table-wrap">
           <table class="rep-table">
@@ -4357,7 +3909,7 @@ function view_reputation(arg) {
             <span class="chip" style="background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.4);color:#fca5a5;font-weight:900">Heat ${heat.score} / 100</span>
           </div>
           <div style="margin:8px 0;font-size:13px;font-weight:700;color:var(--accent2)">Status: ${esc(heat.label)}</div>
-          <div style="margin-bottom:8px">
+          <div class="mb-8">
             <b>Active Heat Tags:</b>
             <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
               ${(heat.tags||[]).map(t => `<span class="chip">${esc(t)}</span>`).join('')}
@@ -4375,7 +3927,7 @@ function view_reputation(arg) {
 
     bodyHtml = `
       <div class="card">
-        <h2 style="margin-top:0">🚨 Public Menace & Infamy Heat Watch Board</h2>
+        <h2 class="mt-0">🚨 Public Menace & Infamy Heat Watch Board</h2>
         <p style="color:var(--muted);font-size:13px;margin-bottom:16px">Fame is recognition. Infamy is heat: warrants, hostile legal decrees, public panic, and guard alerts across the 100 known polities.</p>
         <div class="rep-cards-grid">${heatCards}</div>
       </div>
