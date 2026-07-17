@@ -446,8 +446,8 @@ export const ITEMS_072 = {
         levelRequirement: 8
     },
 
-    'equestria_item_wario's_glitterbomb_starter': {
-        id: 'equestria_item_wario's_glitterbomb_starter',
+    'equestria_item_wario\'s_glitterbomb_starter': {
+        id: 'equestria_item_wario\'s_glitterbomb_starter',
         name: "Wario’s Glitter Bomb Starter Kit",
         description: "A surprisingly volatile concoction of concentrated rainbow magic and… well, let's just say Wario's secret ingredient. Detonate for a dazzling blast of color that stuns opponents and leaves them covered in shimmering sparkles. Don't blame us if you accidentally turn the entire kingdom pink!",
         category: SHOP_CATEGORIES.CONSUMABLES,
@@ -546,8 +546,8 @@ export const ITEMS_072 = {
         levelRequirement: 12
     },
 
-    'connectopia_pioneer_shepherd's_boots': {
-        id: 'connectopia_pioneer_shepherd's_boots',
+    'connectopia_pioneer_shepherd\'s_boots': {
+        id: 'connectopia_pioneer_shepherd\'s_boots',
         name: "Sturdy Block Boots",
         description: "These boots were forged from the densest Connectopian blocks, reinforced with pioneer grit! They provide exceptional traction and protection against falling debris, perfect for exploring the perilous frontier.",
         category: SHOP_CATEGORIES.EQUIPMENT,

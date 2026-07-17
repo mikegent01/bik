@@ -1147,8 +1147,8 @@ export const ITEMS_062 = {
         levelRequirement: 3
     },
 
-    'midlands_item_tactician's_briefing': {
-        id: 'midlands_item_tactician's_briefing',
+    'midlands_item_tactician\'s_briefing': {
+        id: 'midlands_item_tactician\'s_briefing',
         name: "Strategic Insight Session",
         description: "Feeling lost on the battlefield? Let Master Silas, a retired general obsessed with strategy and oddly shaped hats, spend an hour analyzing your current situation. He’ll offer… *suggestions*.  Don’t expect miracles; he mostly just argues about logistics and occasionally suggests building a moat.",
         category: SHOP_CATEGORIES.SERVICES,
@@ -1669,8 +1669,8 @@ export const ITEMS_062 = {
         levelRequirement: 1
     },
 
-    'connectopia_gear_miner's_gauntlet': {
-        id: 'connectopia_gear_miner's_gauntlet',
+    'connectopia_gear_miner\'s_gauntlet': {
+        id: 'connectopia_gear_miner\'s_gauntlet',
         name: "The Grunt-inator Gauntlet",
         description: "This gauntlet was forged by the finest block smiths, and is rumored to be infused with the spirit of a particularly grumpy miner. It’ll boost your digging speed, but don’t get too attached – it might try to steal your pickaxe!",
         category: SHOP_CATEGORIES.EQUIPMENT,

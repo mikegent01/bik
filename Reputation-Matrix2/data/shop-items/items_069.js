@@ -962,8 +962,8 @@ export const ITEMS_069 = {
         levelRequirement: 10
     },
 
-    'midlands_item_warrior's_contract': {
-        id: 'midlands_item_warrior's_contract',
+    'midlands_item_warrior\'s_contract': {
+        id: 'midlands_item_warrior\'s_contract',
         name: "The Ironclad Accord",
         description: "A magically-sealed contract offering temporary protection and enhanced combat prowess. Signed by a surprisingly grumpy retired legionnaire, it demands unwavering loyalty...and frequent polishing.",
         category: SHOP_CATEGORIES.EQUIPMENT,

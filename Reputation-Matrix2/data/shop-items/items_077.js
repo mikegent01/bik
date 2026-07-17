@@ -43,7 +43,7 @@ export const ITEMS_077 = {
             "creates a small temporal distortion, reducing damage taken by 15%"
         ],
         vendor: 'fate_forge',
-        shippedBy: 'Chronomaestro's Express',
+        shippedBy: 'Chronomaestro\'s Express',
         levelRequirement: 45
     },
 
