@@ -6,6 +6,8 @@
 window.WIKI_VENDORS = {
     'toad_town_market': {
         id: 'toad_town_market',
+        currency: 'gold',
+        rarity: 'common',
         name: 'Toad Town Market',
         location: 'Toad Town Central Plaza',
         reputation: 'neutral',
@@ -18,6 +20,8 @@ window.WIKI_VENDORS = {
     },
     'rogueport_black_market': {
         id: 'rogueport_black_market',
+        currency: 'soul_coin',
+        rarity: 'rare',
         name: 'Rogueport Black Market',
         location: 'Rogueport Sewers, Third Pipe Left',
         reputation: 'underground',
@@ -31,6 +35,8 @@ window.WIKI_VENDORS = {
     },
     'gilded_gryphon': {
         id: 'gilded_gryphon',
+        currency: 'gold',
+        rarity: 'common',
         name: 'Gilded Gryphon Armory',
         location: 'Capital District, Mercenary Quarter',
         reputation: 'professional',
@@ -43,6 +49,8 @@ window.WIKI_VENDORS = {
     },
     'shamans_hut': {
         id: 'shamans_hut',
+        currency: 'gold',
+        rarity: 'common',
         name: "Shaman's Hut",
         location: 'Dry Dry Outpost',
         reputation: 'mystical',
@@ -55,6 +63,8 @@ window.WIKI_VENDORS = {
     },
     'comet_observatory': {
         id: 'comet_observatory',
+        currency: 'gold',
+        rarity: 'common',
         name: 'Comet Observatory Gift Shop',
         location: 'Orbiting the Planet',
         reputation: 'celestial',
@@ -67,6 +77,8 @@ window.WIKI_VENDORS = {
     },
     'valley_trading_post': {
         id: 'valley_trading_post',
+        currency: 'gold',
+        rarity: 'common',
         name: 'Valley of Bowser Trading Post',
         location: 'Koopa Kingdom Border',
         reputation: 'koopa',
@@ -79,6 +91,8 @@ window.WIKI_VENDORS = {
     },
     'rakasha_grounds': {
         id: 'rakasha_grounds',
+        currency: 'gold',
+        rarity: 'common',
         name: 'Rakasha Tribal Grounds',
         location: 'Deep Wilderlands',
         reputation: 'tribal',
@@ -92,6 +106,8 @@ window.WIKI_VENDORS = {
     },
     'faction_quartermaster': {
         id: 'faction_quartermaster',
+        currency: 'gold',
+        rarity: 'common',
         name: 'Liberated Toads Quartermaster',
         location: 'The Vigilance / Current Base',
         reputation: 'allied',
@@ -105,6 +121,8 @@ window.WIKI_VENDORS = {
     },
     'onyx_hand': {
         id: 'onyx_hand',
+        currency: 'gold',
+        rarity: 'common',
         name: 'Onyx Hand Broker',
         location: 'CLASSIFIED',
         reputation: 'criminal',
@@ -118,6 +136,8 @@ window.WIKI_VENDORS = {
     },
     'wario_land': {
         id: 'wario_land',
+        currency: 'wario_points',
+        rarity: 'legendary',
         name: 'Wario Land Exchange',
         location: "Wario Land — Warehouse District",
         reputation: 'chaotic',
@@ -130,6 +150,8 @@ window.WIKI_VENDORS = {
     },
     'wario_direct': {
         id: 'wario_direct',
+        currency: 'wario_points',
+        rarity: 'legendary',
         name: 'Wario Direct Sales',
         location: 'Wherever Wario Is',
         reputation: 'chaotic',
@@ -144,6 +166,8 @@ window.WIKI_VENDORS = {
     },
     'hole_hawker': {
         id: 'hole_hawker',
+        currency: 'gold',
+        rarity: 'common',
         name: 'The Hole Hawker',
         location: 'Between Dimensions',
         reputation: 'enigmatic',
@@ -156,6 +180,8 @@ window.WIKI_VENDORS = {
     },
     'garlic_guild': {
         id: 'garlic_guild',
+        currency: 'gold',
+        rarity: 'common',
         name: "Wario's Garlic Guild",
         location: "Wario's Castle, Basement Level 3",
         reputation: 'legendary',
