@@ -15,6 +15,7 @@ let renderQueued = false;
 let lastBridgeMarkup = '';
 let lastAppliedCartGold = null;
 let observer = null;
+const GOLD_FALLBACK_FEE = 0.10;
 
 function esc(value) {
   return String(value ?? '').replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
@@ -80,6 +81,66 @@ function selectedHoldingGoldValue() {
   return selectedHolding() * (Number(c.base_value) || 1);
 }
 
+
+function cartRows() {
+  const cart = window.WarioCart;
+  return cart && typeof cart.getItems === 'function' ? cart.getItems() : [];
+}
+
+function itemCurrencyKey(item) {
+  return String(item?.priceCurrency || item?.currencyKey || item?.currency || 'gold').trim().toLowerCase();
+}
+
+function itemGoldValue(item, quantity = 1) {
+  const amount = Number(item?.price || 0);
+  const c = currency(itemCurrencyKey(item));
+  const discount = typeof item?.discount === 'number' && item.discount > 0 ? (1 - item.discount / 100) : 1;
+  return Math.floor(amount * discount) * (Number(c.base_value) || 1) * quantity;
+}
+
+function checkoutQuoteCurrency() {
+  const rows = cartRows();
+  if (!rows.length) return selected;
+  const totals = new Map();
+  for (const row of rows) {
+    const key = itemCurrencyKey(row.item);
+    const value = itemGoldValue(row.item, row.quantity || 1);
+    totals.set(key, (totals.get(key) || 0) + value);
+  }
+  const ranked = [...totals.entries()].sort((a, b) => {
+    const aRare = a[0] === 'gold' ? 1 : 0;
+    const bRare = b[0] === 'gold' ? 1 : 0;
+    return aRare - bRare || b[1] - a[1];
+  });
+  return ranked[0]?.[0] || selected;
+}
+
+function checkoutTotalGold() {
+  const cart = window.WarioCart;
+  return cart && typeof cart.getGrandTotal === 'function' ? Number(cart.getGrandTotal()) || 0 : 0;
+}
+
+function walletGoldValue(id) {
+  const wallet = currentWallet();
+  const c = currency(id);
+  return Number(wallet?.currencies?.[id] || 0) * (Number(c.base_value) || 1);
+}
+
+function checkoutPaymentPlan() {
+  const quote = checkoutQuoteCurrency();
+  const totalGold = checkoutTotalGold();
+  const wallet = currentWallet();
+  const quoteGold = walletGoldValue(quote);
+  const goldGold = walletGoldValue('gold');
+  if (wallet && quoteGold >= totalGold && totalGold > 0) {
+    return { mode: 'native', quote, payment: quote, effectiveGold: quoteGold, totalGold, feeGold: 0 };
+  }
+  if (wallet && goldGold > 0) {
+    return { mode: 'gold_fallback', quote, payment: 'gold', effectiveGold: goldGold / (1 + GOLD_FALLBACK_FEE), totalGold, feeGold: totalGold * GOLD_FALLBACK_FEE };
+  }
+  return { mode: 'wallet', quote, payment: selected, effectiveGold: selectedHoldingGoldValue(), totalGold, feeGold: 0 };
+}
+
 function formatCurrency(goldAmount, id = selected) {
   const c = currency(id);
   const amount = Number(goldAmount) / (Number(c.base_value) || 1);
@@ -95,48 +156,48 @@ function parseNumber(text) {
   return Number(String(text).replace(/,/g, ''));
 }
 
-function convertCurrencyString(text) {
+function convertCurrencyString(text, displayId = selected) {
   return String(text).replace(/🪙\s*([+-]?\s*[0-9][0-9,]*(?:\.\d+)?)/g, (match, raw) => {
     const gold = parseNumber(raw.replace(/\s+/g, ''));
-    return Number.isFinite(gold) ? formatCurrency(gold) : match;
+    return Number.isFinite(gold) ? formatCurrency(gold, displayId) : match;
   });
 }
 
-function convertTextNode(node) {
-  if (!node?.nodeValue || node.parentElement?.closest('#playerWalletBridge')) return;
+function convertTextNode(node, displayId = selected) {
+  if (!node?.nodeValue || node.parentElement?.closest('#playerWalletBridge,#shopExchangeQuote')) return;
   const original = PRICE_TEXT.get(node) || node.nodeValue;
   if (!/🪙\s*[+-]?\s*[0-9]/.test(original)) return;
   PRICE_TEXT.set(node, original);
-  const converted = convertCurrencyString(original);
+  const converted = convertCurrencyString(original, displayId);
   if (converted !== node.nodeValue) node.nodeValue = converted;
 }
 
-function convertSimpleCurrencyElement(el) {
-  if (!el || el.closest('#playerWalletBridge')) return;
+function convertSimpleCurrencyElement(el, displayId = selected) {
+  if (!el || el.closest('#playerWalletBridge,#shopExchangeQuote')) return;
   if (el.children.length > 0) return;
   const text = el.textContent || '';
   const original = el.dataset.currencyOriginal || text;
   const needMatch = original.match(/^You need\s+([0-9][0-9,]*(?:\.\d+)?)\s+more\s+(?:coins|.+)!$/);
   if (needMatch) {
     el.dataset.currencyOriginal = `You need ${needMatch[1]} more coins!`;
-    const convertedNeed = `You need ${formatCurrency(parseNumber(needMatch[1]))} more!`;
+    const convertedNeed = `You need ${formatCurrency(parseNumber(needMatch[1]), displayId)} more!`;
     if (convertedNeed !== text) el.textContent = convertedNeed;
     return;
   }
   if (!/🪙\s*[+-]?\s*[0-9]/.test(original)) return;
   el.dataset.currencyOriginal = original;
-  const converted = convertCurrencyString(original);
+  const converted = convertCurrencyString(original, displayId);
   if (converted !== text) el.textContent = converted;
 }
 
-function relabelGoldTextNodes(scope) {
-  const c = currency();
+function relabelGoldTextNodes(scope, displayId = selected) {
+  const c = currency(displayId);
   const label = c.name || selected;
   const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   nodes.forEach(node => {
-    if (node.parentElement?.closest('#playerWalletBridge')) return;
+    if (node.parentElement?.closest('#playerWalletBridge,#shopExchangeQuote')) return;
     const text = node.nodeValue;
     let next = text;
     if (text === 'Your Gold') next = `Your ${label}`;
@@ -150,7 +211,7 @@ function relabelGoldTextNodes(scope) {
 
 function convertMarkedPrices(root) {
   root.querySelectorAll('[data-gold-price]').forEach(el => {
-    if (el.closest('#playerWalletBridge')) return;
+    if (el.closest('#playerWalletBridge,#shopExchangeQuote')) return;
     const gold = Number(el.getAttribute('data-gold-price'));
     if (!Number.isFinite(gold)) return;
 
@@ -172,18 +233,50 @@ function checkoutScopes(root) {
 }
 
 function convertCheckoutScope(scope) {
+  const displayId = checkoutQuoteCurrency();
   const textWalker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
   const textNodes = [];
   while (textWalker.nextNode()) textNodes.push(textWalker.currentNode);
-  textNodes.forEach(convertTextNode);
-  scope.querySelectorAll('span,div,button,pre').forEach(convertSimpleCurrencyElement);
-  relabelGoldTextNodes(scope);
+  textNodes.forEach(node => convertTextNode(node, displayId));
+  scope.querySelectorAll('span,div,button,pre').forEach(el => convertSimpleCurrencyElement(el, displayId));
+  relabelGoldTextNodes(scope, displayId);
+}
+
+
+function renderCheckoutExchangeNotice(root) {
+  const summary = root.querySelector('.wario-summary-card');
+  if (!summary) return;
+  const body = summary.querySelector('.p-4') || summary;
+  let box = summary.querySelector('#shopExchangeQuote');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'shopExchangeQuote';
+    body.prepend(box);
+  }
+  const plan = checkoutPaymentPlan();
+  const quote = currency(plan.quote);
+  const totalGold = plan.totalGold;
+  if (!totalGold) { box.innerHTML = ''; return; }
+  const quoteTotal = formatCurrency(totalGold, plan.quote);
+  const goldEq = formatCurrency(totalGold, 'gold');
+  const nativeHeld = formatCurrency(walletGoldValue(plan.quote), plan.quote);
+  let payLine;
+  if (plan.mode === 'native') {
+    payLine = `✅ Native tender available: ${esc(nativeHeld)} — no conversion fee.`;
+  } else if (plan.mode === 'gold_fallback') {
+    payLine = `⚠️ Native tender short. Gold fallback: ${esc(formatCurrency(totalGold + plan.feeGold, 'gold'))} including ${Math.round(GOLD_FALLBACK_FEE * 100)}% exchange fee.`;
+  } else {
+    payLine = `⚠️ No preferred tender detected. Wario will demand a conversion at checkout.`;
+  }
+  const markup = `<div class="shop-exchange-quote"><b>💱 Wario Exchange Quote</b><small>Checkout quoted in ${esc(quote.icon || '🪙')} ${esc(quote.name || plan.quote)}: ${esc(quoteTotal)} = ${esc(goldEq)}</small><small>${payLine}</small></div>`;
+  if (box.innerHTML !== markup) box.innerHTML = markup;
 }
 
 function convertVisiblePrices() {
   const root = document.getElementById('root');
   if (!root) return;
   convertMarkedPrices(root);
+  renderCheckoutExchangeNotice(root);
   checkoutScopes(root).forEach(convertCheckoutScope);
 }
 
@@ -210,13 +303,14 @@ function applyActualWalletToCart() {
   const wallet = currentWallet();
   if (!wallet) return;
 
-  const goldValue = selectedHoldingGoldValue();
+  const plan = checkoutPaymentPlan();
+  const goldValue = plan.effectiveGold || selectedHoldingGoldValue();
   if (goldValue === lastAppliedCartGold && Math.abs(Number(cart.playerGold) - goldValue) < 0.000001) return;
 
   lastAppliedCartGold = goldValue;
   cart.setPlayerGold(goldValue);
   window.dispatchEvent(new CustomEvent('wario-currency-wallet-applied', {
-    detail: { currency: selected, amount: selectedHolding(), goldValue }
+    detail: { currency: plan.payment || selected, amount: selectedHolding(), goldValue, plan }
   }));
 }
 
