@@ -96,7 +96,7 @@ function itemCurrencyKey(item) {
   return String(item?.priceCurrency || item?.currencyKey || item?.currency || 'gold').trim().toLowerCase();
 }
 
-function effectKeywordFee(item){let total=0;(Array.isArray(item?.effects)?item.effects:[]).forEach(effect=>{const text=String(effect||'').toLowerCase();let fee=0,match=text.match(/(?:heal|heals|restore|restores)\s*(\d+)\s*hp|(\d+)\s*hp/);if(match){const hp=Number(match[1]||match[2]||0);fee+=Math.max(2,hp*.6)}match=text.match(/luck\D*(\d+)/);if(match)fee+=Number(match[1])*4;if(/mana|mp|spell slot|spell slots|restore spell|restore mana/.test(text))fee+=18;if(/resist|resistance|reduce damage/.test(text))fee+=8;if(/immune|immunity|cannot be damaged|cannot be targeted|cannot be ignored|invulnerable/.test(text))fee+=60;if(/revive|resurrect|respawn|second life|cheats death|immortal/.test(text))fee+=500;if(/summon|create|control|time|reality|wish|teleport|portal/.test(text))fee+=25;if(/stun|paraly|charm|fear|madness|curse|poison|blind|restrain/.test(text))fee+=10;match=text.match(/(\d+)d(\d+)/);if(match)fee+=Number(match[1])*(Number(match[2])+1)/2*.5;if(/chance|may |might |10%|20%|30%/.test(text))fee*=.55;if(/mild|minor|slight|temporary/.test(text))fee*=.65;if(/permanent|indefinitely|always/.test(text))fee*=2;total+=fee});return total}
+function effectKeywordFee(item){let total=0;(Array.isArray(item?.effects)?item.effects:[]).forEach(effect=>{const text=String(effect||'').toLowerCase();let fee=0,match=text.match(/(?:heal|heals|restore|restores)\s*(\d+)\s*hp|(\d+)\s*hp/);if(match){const hp=Number(match[1]||match[2]||0);fee+=Math.max(5,hp*2)}match=text.match(/luck\D*(\d+)/);if(match)fee+=Number(match[1])*4;if(/mana|mp|spell slot|spell slots|restore spell|restore mana/.test(text))fee+=18;if(/resist|resistance|reduce damage/.test(text))fee+=8;if(/immune|immunity|cannot be damaged|cannot be targeted|cannot be ignored|invulnerable/.test(text))fee+=60;if(/revive|resurrect|respawn|second life|cheats death|immortal/.test(text))fee+=500;if(/summon|create|control|time|reality|wish|teleport|portal/.test(text))fee+=25;if(/stun|paraly|charm|fear|madness|curse|poison|blind|restrain/.test(text))fee+=10;match=text.match(/(\d+)d(\d+)/);if(match)fee+=Number(match[1])*(Number(match[2])+1)/2*.5;if(/chance|may |might |10%|20%|30%/.test(text))fee*=.55;if(/mild|minor|slight|temporary/.test(text))fee*=.65;if(/permanent|indefinitely|always/.test(text))fee*=2;total+=fee});return total}
 function itemPowerFee(item){const rarity=String(item?.rarity||'common').toLowerCase(),base={common:.5,uncommon:2,rare:5,epic:12,legendary:35,godly:100,wario_tier:150}[rarity]??1,level=Math.max(0,Number(item?.levelRequirement||1)-1),count=Array.isArray(item?.effects)?item.effects.length:0,extra=Math.max(0,count-1);return Math.round((level*base+extra*base*1.5+effectKeywordFee(item))*100)/100}
 function itemGoldValue(item, quantity = 1) {
   const amount = Number(item?.price || 0);
@@ -178,7 +178,7 @@ function initTenderDraft(plan = checkoutPaymentPlan()) {
   for (const g of plan.groups || []) {
     const base = Number(currency(g.id).base_value) || 1;
     const heldNative = Number(currentWallet()?.currencies?.[g.id] || 0);
-    const dueNative = g.totalGold / base;
+    const dueNative = wholeAmount(g.totalGold / base);
     const offer = Math.min(heldNative, dueNative);
     if (offer > 0) {
       tenderDraft[g.id] = Number(offer.toFixed(4));
@@ -187,7 +187,7 @@ function initTenderDraft(plan = checkoutPaymentPlan()) {
   }
   const remainingGold = Math.max(0, plan.totalGold - nativeCovered);
   const goldHeld = Number(currentWallet()?.currencies?.gold || 0);
-  if (remainingGold > 0 && goldHeld > 0) tenderDraft.gold = Number(Math.min(goldHeld, remainingGold * (1 + GOLD_FALLBACK_FEE)).toFixed(4));
+  if (remainingGold > 0 && goldHeld > 0) tenderDraft.gold = Math.min(goldHeld, wholeAmount(remainingGold * (1 + GOLD_FALLBACK_FEE)));
 }
 
 function tenderCurrencyIds(plan = checkoutPaymentPlan()) {
@@ -240,7 +240,7 @@ function tenderControlsHtml(plan = checkoutPaymentPlan()) {
     const due = (plan.groups || []).find(g => g.id === id)?.totalGold || 0;
     return `<label class="tender-row"><span>${esc(c.icon || '🪙')} ${esc(c.name || id)}<small>held ${esc(held.toLocaleString())}${due ? ` · due ${esc(formatCurrency(due, id))}` : ''}</small></span><input class="shopTenderInput" data-currency="${esc(id)}" type="number" min="0" step="any" value="${esc(tenderDraft[id] ?? '')}" placeholder="0"></label>`;
   }).join('');
-  return `<div class="tender-planner"><b>🧾 Split Tender Preview</b><small>Type how much of each currency you hand Wario. Nothing is saved; this is planning only.</small>${rows}<button type="button" class="tender-reset" id="shopTenderReset">Reset suggested split</button><div id="shopTenderResult">${tenderResult(plan)}</div></div>`;
+  return `<div class="tender-planner"><b>🧾 Split Tender Preview</b><small>Type how much of each currency you hand Wario. Nothing is saved; this is planning only. Green = covered/good; red = still owed.</small>${rows}<button type="button" class="tender-reset" id="shopTenderReset">Reset suggested split</button><div id="shopTenderResult">${tenderResult(plan)}</div></div>`;
 }
 
 function updateTenderResult() {
@@ -249,15 +249,22 @@ function updateTenderResult() {
   result.innerHTML = tenderResult(checkoutPaymentPlan());
 }
 
+function wholeAmount(value) {
+  const n = Number(value) || 0;
+  if (!Number.isFinite(n)) return 0;
+  return n > 0 ? Math.ceil(n) : Math.floor(n);
+}
+
 function formatCurrency(goldAmount, id = selected) {
   const c = currency(id);
-  const amount = Number(goldAmount) / (Number(c.base_value) || 1);
-  return `${c.icon || '🪙'} ${amount.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${c.name || id}`;
+  const amount = wholeAmount(Number(goldAmount) / (Number(c.base_value) || 1));
+  return `${c.icon || '🪙'} ${amount.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${c.name || id}`;
 }
 
 function formatNativeCurrency(amount, id) {
   const c = currency(id);
-  return `${c.icon || '🪙'} ${Number(amount).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${c.name || id}`;
+  const rounded = wholeAmount(amount);
+  return `${c.icon || '🪙'} ${rounded.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${c.name || id}`;
 }
 
 function parseNumber(text) {
@@ -308,11 +315,11 @@ function relabelGoldTextNodes(scope, displayId = selected) {
     if (node.parentElement?.closest('#playerWalletBridge,#shopExchangeQuote')) return;
     const text = node.nodeValue;
     let next = text;
-    if (text === 'Your Gold') next = 'Effective Buying Power';
+    if (text === 'Your Gold') next = 'Spendable wallet value (after exchange fees)';
     else if (text === 'Remaining Gold') next = 'Remaining Buying Power';
     else if (text === '❌ NOT ENOUGH GOLD!') next = `❌ NOT ENOUGH ${label.toUpperCase()}!`;
     else if (text === 'NOT ENOUGH GOLD!') next = `NOT ENOUGH ${label.toUpperCase()}!`;
-    else if (text.startsWith('Remaining after purchase:')) next = text.replace('Remaining after purchase:', 'Projected buying power after purchase:');
+    else if (text.startsWith('Remaining after purchase:')) next = text.replace('Remaining after purchase:', 'After purchase estimate (green = covered):');
     else next = next.replace(/\bcoins but only have\b/g, `${label} but only have`);
     if (next !== text) node.nodeValue = next;
   });
