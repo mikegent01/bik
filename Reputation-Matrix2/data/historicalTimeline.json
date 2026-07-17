@@ -1119,7 +1119,7 @@
       "hour": 14,
       "minute": 53
     },
-    "title": "Usk Brought In",
+    "title": "Usk Brought…",
     "description": "On Orangus’ command, guards bring Usk into the dining hall—turning the 'notes' arrest into a public leverage move.",
     "icon": "icon_prisoner.png",
     "category": "Recent Event"
@@ -1587,7 +1587,7 @@
       "hour": 19,
       "minute": 2
     },
-    "title": "Markop Attacks Luigi",
+    "title": "Markop attacks Luigi upon his entrance, strangling him in the confusion",
     "description": "Markop attacks Luigi upon his entrance, strangling him in the confusion.",
     "icon": "icon_combat.png",
     "category": "Combat"
@@ -1665,7 +1665,7 @@
       "hour": 19,
       "minute": 22
     },
-    "title": "Markop Bashes In",
+    "title": "Markop bashes the lock open, rushing in with Bowser",
     "description": "Markop bashes the lock open, rushing in with Bowser. Bleeding, he screams for Remi to run and escape the ambush.",
     "icon": "icon_combat.png",
     "category": "Combat"
@@ -1704,7 +1704,7 @@
       "hour": 19,
       "minute": 30
     },
-    "title": "Remi Dragged In",
+    "title": "Remi Dragged…",
     "description": "The escaping group watches Remi get dragged back into the manor. Markop suggests falling back to the airship for backup.",
     "icon": "icon_focus.png",
     "category": "Recent Event"
@@ -1795,7 +1795,7 @@
       "hour": 20,
       "minute": 45
     },
-    "title": "Library Imps & Locked In",
+    "title": "Library Imps & Locked…",
     "description": "Remi investigates an explosion and enters a study where library imps appear, demanding cards and trapping Toadburt and a ghost inside.",
     "icon": "icon_discovery.png",
     "category": "Discovery"
@@ -2431,7 +2431,7 @@
       "hour": 7,
       "minute": 17
     },
-    "title": "An axe is thrown at the",
+    "title": "An axe is thrown…",
     "description": "While hiding, an axe is thrown at the door, indicating their pursuer is trying to break in.",
     "icon": "icon_war.png",
     "category": "Battle"
@@ -2470,7 +2470,7 @@
       "hour": 10,
       "minute": 8
     },
-    "title": "Vinvessa casts a powerful spell on",
+    "title": "Vinvessa casts a red beam of disintegration at Markop, nearly killing him",
     "description": "Vinvessa casts a red beam of disintegration at Markop, nearly killing him. He survives due to divine intervention.",
     "icon": "icon_war.png",
     "category": "Battle"
@@ -2483,7 +2483,7 @@
       "hour": 11,
       "minute": 25
     },
-    "title": "Remi meets a purple toad who",
+    "title": "Remi meets a purple toad…",
     "description": "Remi encounters a purple toad who informs her about Archie Miser and the consequences of not finding him.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
@@ -2522,7 +2522,7 @@
       "hour": 14,
       "minute": 16
     },
-    "title": "Remi searches for Markop's body with",
+    "title": "Remi searches for Markop's body with the toads, encountering Pierce Anamatar and Kyrn along…",
     "description": "Remi searches for Markop's body with the toads, encountering Pierce Anamatar and Kyrn along the way.",
     "icon": "icon_focus.png",
     "category": "Recent Event"
@@ -2548,7 +2548,7 @@
       "hour": 16,
       "minute": 50
     },
-    "title": "Remi overhears Toadburt's deal with the",
+    "title": "Remi overhears Toadburt's deal…",
     "description": "Remi eavesdrops on a conversation between Toadburt and the Archivist. Toadburt agrees to work for the Archivist in exchange for healing.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
@@ -2561,7 +2561,7 @@
       "hour": 17,
       "minute": 7
     },
-    "title": "Remi encounters imps who agree to",
+    "title": "Remi encounters imps who agree…",
     "description": "Remi meets imps who offer to check the stairs in exchange for her help with a fallen bookshelf.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
@@ -2652,10 +2652,16 @@
       "hour": 6,
       "minute": 0
     },
-    "title": "Hargram introduces the party members to",
-    "description": "Hargram introduces the party members to each other.. Hargram, a pit fighter, introduces the other party members: Rhak, an orc; Manderaz, a hobgoblin; and Aemenor, an elf. This social event involved Hargram Fidger, Rhak the Lost, Manderaz the Mad at area.",
+    "title": "Hargram introduces the party members to each other",
+    "description": "Hargram, a pit fighter, introduces the other party members: Rhak, an orc; Manderaz, a hobgoblin; and Aemenor, an elf.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Hargram Fidger",
+      "Rhak the Lost",
+      "Manderaz the Mad"
+    ],
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2666,9 +2672,16 @@
       "minute": 17
     },
     "title": "Byscilla assigns tasks to the party",
-    "description": "Byscilla assigns tasks to the party.. Byscilla assigns two teams: one to confront Archie and another to survey the greenhouse. The confrontation team consists of Byscilla, Thornbury, and Aemenor, while the greenhouse team is composed of Rhak, Manderaz, and Hargram. This political event involved Byscilla, Thornbury, Rhak the Lost at Greenhouse.",
+    "description": "Byscilla assigns two teams: one to confront Archie and another to survey the greenhouse. The confrontation team consists of Byscilla, Thornbury, and Aemenor, while the greenhouse team is composed of Rhak, Manderaz, and Hargram.",
     "icon": "icon_politics.png",
-    "category": "Political"
+    "category": "Political",
+    "people": [
+      "Byscilla",
+      "Thornbury",
+      "Rhak the Lost"
+    ],
+    "location": "Greenhouse",
+    "derivedKind": "political"
   },
   {
     "date": {
@@ -2679,9 +2692,16 @@
       "minute": 34
     },
     "title": "Hargram's team discovers a lone rust",
-    "description": "Hargram's team discovers a lone rust monster.. While surveying the greenhouse, Hargram's team encounters a lone rust monster. They ambush and defeat it. This combat event involved Hargram Fidger, Rhak the Lost, Manderaz the Mad at Greenhouse.",
+    "description": "While surveying the greenhouse, Hargram's team encounters a lone rust monster. They ambush and defeat it.",
     "icon": "icon_war.png",
-    "category": "Battle"
+    "category": "Battle",
+    "people": [
+      "Hargram Fidger",
+      "Rhak the Lost",
+      "Manderaz the Mad"
+    ],
+    "location": "Greenhouse",
+    "derivedKind": "combat"
   },
   {
     "date": {
@@ -2692,9 +2712,16 @@
       "minute": 51
     },
     "title": "The party is encountered by mages",
-    "description": "The party is encountered by mages guild members.. The party is approached by mages guild members who request their assistance in analyzing the site. They are given a Legion Arcane Field Analyzer to use. This social event involved Hargram Fidger, Rhak the Lost, Manderaz the Mad at Greenhouse.",
+    "description": "The party is approached by mages guild members who request their assistance in analyzing the site. They are given a Legion Arcane Field Analyzer to use.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Hargram Fidger",
+      "Rhak the Lost",
+      "Manderaz the Mad"
+    ],
+    "location": "Greenhouse",
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2704,10 +2731,17 @@
       "hour": 10,
       "minute": 8
     },
-    "title": "The party encounters and defeats a",
-    "description": "The party encounters and defeats a ghost.. While analyzing the site, the party encounters a ghost. They defeat it and loot its ectoplasm. This combat event involved Hargram Fidger, Rhak the Lost, Manderaz the Mad at Greenhouse.",
+    "title": "The party encounters and defeats a ghost",
+    "description": "While analyzing the site, the party encounters a ghost. They defeat it and loot its ectoplasm.",
     "icon": "icon_war.png",
-    "category": "Battle"
+    "category": "Battle",
+    "people": [
+      "Hargram Fidger",
+      "Rhak the Lost",
+      "Manderaz the Mad"
+    ],
+    "location": "Greenhouse",
+    "derivedKind": "combat"
   },
   {
     "date": {
@@ -2718,9 +2752,16 @@
       "minute": 25
     },
     "title": "Darno Spriggon arrives at the greenho",
-    "description": "Darno Spriggon arrives at the greenhouse.. Darno Spriggon arrives at the greenhouse and informs the party that he has taken care of the remaining rust monsters. He also gives Hargram a letter addressed to Dan. This social event involved Darno Spriggon, Hargram Fidger, Rhak the Lost at Greenhouse.",
+    "description": "Darno Spriggon arrives at the greenhouse and informs the party that he has taken care of the remaining rust monsters. He also gives Hargram a letter addressed to Dan.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Darno Spriggon",
+      "Hargram Fidger",
+      "Rhak the Lost"
+    ],
+    "location": "Greenhouse",
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2730,10 +2771,17 @@
       "hour": 6,
       "minute": 0
     },
-    "title": "Vivian is captured and interrogated by",
-    "description": "Vivian is captured and interrogated by Markop and Bowser.. Markop and Bowser confront Vivian, who is tied up. They question him about his motives for attacking them. This social/combat event involved Vivian, Markop, Bowser at Vivian's manor.",
+    "title": "Vivian is captured and interrogated by Markop and Bowser",
+    "description": "Markop and Bowser confront Vivian, who is tied up. They question him about his motives for attacking them.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Vivian",
+      "Markop",
+      "Bowser"
+    ],
+    "location": "Vivian's manor",
+    "derivedKind": "social/combat"
   },
   {
     "date": {
@@ -2744,9 +2792,16 @@
       "minute": 17
     },
     "title": "Vivian explains his plan to blight",
-    "description": "Vivian explains his plan to blight the manor guests and become the sole heir.. Vivian reveals his plan to blight the guests, including Orangus Cornelius, to become the sole heir. He mentions closing the planar fractures to isolate the manor. This social event involved Vivian, Markop, Bowser at Vivian's manor.",
+    "description": "Vivian reveals his plan to blight the guests, including Orangus Cornelius, to become the sole heir. He mentions closing the planar fractures to isolate the manor.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Vivian",
+      "Markop",
+      "Bowser"
+    ],
+    "location": "Vivian's manor",
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2757,9 +2812,16 @@
       "minute": 34
     },
     "title": "Mazehounds enter the room and sing",
-    "description": "Mazehounds enter the room and sing a threatening song.. Mazehounds enter the room and sing a menacing song, asking for Vivian's opinion. They seem to be under Vivian's control. This combat/magical event involved Vivian, Markop, Bowser at Vivian's manor.",
+    "description": "Mazehounds enter the room and sing a menacing song, asking for Vivian's opinion. They seem to be under Vivian's control.",
     "icon": "icon_war.png",
-    "category": "Battle"
+    "category": "Battle",
+    "people": [
+      "Vivian",
+      "Markop",
+      "Bowser"
+    ],
+    "location": "Vivian's manor",
+    "derivedKind": "combat/magical"
   },
   {
     "date": {
@@ -2770,7 +2832,7 @@
       "minute": 51
     },
     "title": "Markop stabs Vivian in the chest",
-    "description": "Tension reached its peak in Vivian's manor as Markop, consumed by rage, lunged forward and plunged his blade into Vivian's chest. The nobleman crumpled to the floor, his interrogation abruptly silenced by the fatal blow.  Vivian's death marked a tragic turning point in the investigation, leaving many questions unanswered.",
+    "description": "Tension reached its peak in Vivian's manor as Markop, consumed by rage, lunged forward and plunged his blade into Vivian's chest. The nobleman crumpled to the floor, his interrogation abruptly silenced by the fatal blow. Vivian's death marked a tragic turning point in the investigation, leaving many questions unanswered.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -2783,9 +2845,15 @@
       "minute": 8
     },
     "title": "Bowser and Markop burn Vivian's body",
-    "description": "Bowser and Markop burn Vivian's body and bury the ashes.. They dispose of Vivian's body by burning it and burying the ashes. A guard helps them with the burial. This travel/deal event involved Markop, Bowser at Vivian's manor grounds.",
+    "description": "They dispose of Vivian's body by burning it and burying the ashes. A guard helps them with the burial.",
     "icon": "icon_focus.png",
-    "category": "Recent Event"
+    "category": "Recent Event",
+    "people": [
+      "Markop",
+      "Bowser"
+    ],
+    "location": "Vivian's manor grounds",
+    "derivedKind": "travel/deal"
   },
   {
     "date": {
@@ -2795,10 +2863,17 @@
       "hour": 11,
       "minute": 25
     },
-    "title": "Bowser and Markop encounter Marcus As",
-    "description": "Bowser and Markop encounter Marcus Ashfold, Orangus Cornelius' military consultant.. They encounter Marcus Ashfold, who was observing the events unfold. He mentions keeping an eye on the three-eyed heir but doesn't elaborate. This social event involved Markop, Bowser, Marcus Ashfold at Raventree Manor grounds.",
+    "title": "Bowser and Markop encounter Marcus Ashfold, Orangus Cornelius' military consultant",
+    "description": "They encounter Marcus Ashfold, who was observing the events unfold. He mentions keeping an eye on the three-eyed heir but doesn't elaborate.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Markop",
+      "Bowser",
+      "Marcus Ashfold"
+    ],
+    "location": "Raventree Manor grounds",
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2809,9 +2884,15 @@
       "minute": 42
     },
     "title": "Markop finds a letter from Bowser",
-    "description": "Markop finds a letter from Bowser to Princess Peach.. While searching, Markop discovers a crumpled letter from Bowser to Princess Peach, revealing his complicated feelings and attempts to explain his presence. This discovery event involved Markop, Bowser at Raventree Manor.",
+    "description": "While searching, Markop discovers a crumpled letter from Bowser to Princess Peach, revealing his complicated feelings and attempts to explain his presence.",
     "icon": "icon_focus.png",
-    "category": "Discovery"
+    "category": "Discovery",
+    "people": [
+      "Markop",
+      "Bowser"
+    ],
+    "location": "Raventree Manor",
+    "derivedKind": "discovery"
   },
   {
     "date": {
@@ -2822,7 +2903,7 @@
       "minute": 0
     },
     "title": "Bowser trips and falls on Markop",
-    "description": "Upstairs, Bowser lost his balance and tumbled onto Markop with a resounding thump.  The impact sent both characters sprawling, momentarily stunned by the unexpected collision. Markop, caught off guard, yelped in surprise as he was pinned beneath Bowser's considerable weight.",
+    "description": "Upstairs, Bowser lost his balance and tumbled onto Markop with a resounding thump. The impact sent both characters sprawling, momentarily stunned by the unexpected collision. Markop, caught off guard, yelped in surprise as he was pinned beneath Bowser's considerable weight.",
     "icon": "icon_focus.png",
     "category": "Recent Event"
   },
@@ -2835,7 +2916,7 @@
       "minute": 17
     },
     "title": "Remi discusses curing Purpleeyetus wi",
-    "description": "Remi sought out the Toad in hopes of finding a cure for Purpleeyetus' affliction.  She earnestly explained her desire to heal the creature, but the Toad, with a skeptical croak, questioned the wisdom and possibility of such a feat.   Despite Remi's pleas, the Toad remained unconvinced, leaving Remi to continue searching for another solution.",
+    "description": "Remi sought out the Toad in hopes of finding a cure for Purpleeyetus' affliction. She earnestly explained her desire to heal the creature, but the Toad, with a skeptical croak, questioned the wisdom and possibility of such a feat. Despite Remi's pleas, the Toad remained unconvinced, leaving Remi to continue searching for another solution.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
   },
@@ -2847,10 +2928,15 @@
       "hour": 8,
       "minute": 34
     },
-    "title": "Onyx Hand guards offer Remi a",
-    "description": "Onyx Hand guards offer Remi a gift.. The Onyx Hand guards present Remi with a letter and a ring, claiming it's a friendship gift. This social event involved Remi, Onyx Hand Guards at Unknown.",
+    "title": "Onyx Hand guards offer Remi a gift",
+    "description": "The Onyx Hand guards present Remi with a letter and a ring, claiming it's a friendship gift. When Remi rejects the ring, the guards offer her an anklet as an alternative.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Onyx Hand Guards",
+      "Remi"
+    ],
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2860,23 +2946,15 @@
       "hour": 9,
       "minute": 51
     },
-    "title": "Remi receives a friendship ring from",
-    "description": "Remi receives a friendship ring from the Onyx Hand.. The ring is accompanied by a letter signed by Remi's vampire friends, raising suspicion. This social event involved Remi, Onyx Hand Guards at Unknown.",
+    "title": "Remi receives a friendship ring from the Onyx Hand",
+    "description": "The ring is accompanied by a letter signed by Remi's vampire friends, raising suspicion.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
-  },
-  {
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 1,
-      "hour": 10,
-      "minute": 8
-    },
-    "title": "Onyx Hand guards offer Remi a",
-    "description": "Onyx Hand guards offer Remi a friendship anklet.. When Remi rejects the ring, the guards offer her an anklet as an alternative. This social event involved Remi, Onyx Hand Guards at Unknown.",
-    "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Remi",
+      "Onyx Hand Guards"
+    ],
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2887,9 +2965,14 @@
       "minute": 25
     },
     "title": "An Onyx Hand guard 'accidentally' inj",
-    "description": "An Onyx Hand guard 'accidentally' injures Remi.. While Markop is examining Remi's eyes, an Onyx Hand guard 'trips' and cuts her eye. This physical event involved Remi, Onyx Hand Guards at Unknown.",
+    "description": "While Markop is examining Remi's eyes, an Onyx Hand guard 'trips' and cuts her eye.",
     "icon": "icon_focus.png",
-    "category": "Recent Event"
+    "category": "Recent Event",
+    "people": [
+      "Remi",
+      "Onyx Hand Guards"
+    ],
+    "derivedKind": "physical"
   },
   {
     "date": {
@@ -2899,8 +2982,8 @@
       "hour": 12,
       "minute": 42
     },
-    "title": "Onyx Hand guards strategically positi",
-    "description": "As Remi, Markop, and Bowser cautiously explored the dimly lit catacombs beneath the city, they were suddenly surrounded by Onyx Hand guards.  The guards fanned out, their movements silent and precise, effectively cutting off any chance of escape as they formed a tight perimeter around the trio. This unexpected ambush left Remi and her companions trapped, with no clear way forward or retreat.",
+    "title": "Onyx Hand guards strategically…",
+    "description": "As Remi, Markop, and Bowser cautiously explored the dimly lit catacombs beneath the city, they were suddenly surrounded by Onyx Hand guards. The guards fanned out, their movements silent and precise, effectively cutting off any chance of escape as they formed a tight perimeter around the trio. This unexpected ambush left Remi and her companions trapped, with no clear way forward or retreat.",
     "icon": "icon_focus.png",
     "category": "Recent Event"
   },
@@ -2913,9 +2996,14 @@
       "minute": 59
     },
     "title": "Onyx Hand guards propose a game",
-    "description": "Onyx Hand guards propose a game of hide-and-seek with Remi.. The guards suggest playing hide-and-seek as a way to investigate Remi further. This social event involved Remi, Onyx Hand Guards at Unknown.",
+    "description": "The guards suggest playing hide-and-seek as a way to investigate Remi further.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Remi",
+      "Onyx Hand Guards"
+    ],
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2926,9 +3014,14 @@
       "minute": 16
     },
     "title": "Marcus Ashford arrives and offers Remi",
-    "description": "Marcus Ashford arrives and offers Remi a supply kit.. Marcus Ashford, seemingly an ally, appears and gives Remi a nearly empty supply kit. This social event involved Remi, Marcus Ashford at Unknown.",
+    "description": "Marcus Ashford, seemingly an ally, appears and gives Remi a nearly empty supply kit.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Remi",
+      "Marcus Ashford"
+    ],
+    "derivedKind": "social"
   },
   {
     "date": {
@@ -2939,9 +3032,13 @@
       "minute": 33
     },
     "title": "Remi drinks the supply kit contents",
-    "description": "Remi drinks the supply kit contents, healing her eyes.. After consuming the contents of the kit, Remi's eye color changes to a lighter shade of blue. This magical event involved Remi at Unknown.",
+    "description": "After consuming the contents of the kit, Remi's eye color changes to a lighter shade of blue.",
     "icon": "icon_moon.png",
-    "category": "Mystery"
+    "category": "Mystery",
+    "people": [
+      "Remi"
+    ],
+    "derivedKind": "magical"
   },
   {
     "date": {
@@ -2952,7 +3049,7 @@
       "minute": 50
     },
     "title": "The Onyx Hand ring leaks entropy",
-    "description": "Within the shadowed depths of their hidden stronghold, Onyx Hand guards  revealed a chilling truth: the power within the Onyx Hand ring was waning. They explained that an insidious leak of entropy threatened to consume the artifact entirely, requiring immediate recharging to prevent its complete annihilation.",
+    "description": "Within the shadowed depths of their hidden stronghold, Onyx Hand guards revealed a chilling truth: the power within the Onyx Hand ring was waning. They explained that an insidious leak of entropy threatened to consume the artifact entirely, requiring immediate recharging to prevent its complete annihilation.",
     "icon": "icon_moon.png",
     "category": "Mystery"
   },
@@ -2965,9 +3062,13 @@
       "minute": 7
     },
     "title": "Markop completes a ritual and observes",
-    "description": "Markop completes a ritual and observes magical signatures.. Through his ritual, Markop detects magical items and entities, including necromancy magic in the ring. This magical/discovery event involved Markop at Unknown.",
+    "description": "Through his ritual, Markop detects magical items and entities, including necromancy magic in the ring.",
     "icon": "icon_moon.png",
-    "category": "Mystery"
+    "category": "Mystery",
+    "people": [
+      "Markop"
+    ],
+    "derivedKind": "magical/discovery"
   },
   {
     "date": {
@@ -2977,7 +3078,7 @@
       "hour": 18,
       "minute": 24
     },
-    "title": "The Toad steals a note from",
+    "title": "The Toad steals a note…",
     "description": "While Bowser was distracted, Toad stealthily snatched a note from his grasp, revealing a plot to deceive the Koopa King. This act of betrayal exposed the Toads' true intentions and cast doubt on their trustworthiness.",
     "icon": "icon_focus.png",
     "category": "Recent Event"
@@ -2990,10 +3091,14 @@
       "hour": 19,
       "minute": 41
     },
-    "title": "The Onyx Hand guards read a",
-    "description": "The Onyx Hand guards read a letter threatening the Koopa Kingdom.. The guards taunt Bowser with a letter outlining their plans to overthrow the Koopa Kingdom. This social/political event involved Onyx Hand Guards at Unknown.",
+    "title": "The Onyx Hand guards read a letter threatening the Koopa Kingdom",
+    "description": "The guards taunt Bowser with a letter outlining their plans to overthrow the Koopa Kingdom.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Onyx Hand Guards"
+    ],
+    "derivedKind": "social/political"
   },
   {
     "date": {
@@ -3003,10 +3108,17 @@
       "hour": 20,
       "minute": 58
     },
-    "title": "Remi and her companions search for",
-    "description": "Remi and her companions search for Archie at the airship.. The group heads to the airship in search of Archie, who is described as being mentally unstable. This travel/discovery event involved Remi, Markop, Bowser at Airship.",
+    "title": "Remi and her companions search for Archie at the airship",
+    "description": "The group heads to the airship in search of Archie, who is described as being mentally unstable.",
     "icon": "icon_focus.png",
-    "category": "Recent Event"
+    "category": "Recent Event",
+    "people": [
+      "Remi",
+      "Markop",
+      "Bowser"
+    ],
+    "location": "Airship",
+    "derivedKind": "travel/discovery"
   },
   {
     "date": {
@@ -3016,10 +3128,17 @@
       "hour": 6,
       "minute": 32
     },
-    "title": "The Archivist threatens Remi and her",
-    "description": "The Archivist threatens Remi and her companions.. The Archivist threatens Remi and her companions, claiming he will kill them unless she complies with his demands. This social/threat event involved Archivist, Remi, Markop at Archivist's Room.",
+    "title": "The Archivist threatens Remi and her companions",
+    "description": "The Archivist threatens Remi and her companions, claiming he will kill them unless she complies with his demands.",
     "icon": "faction_liberated_toads.png",
-    "category": "Character Event"
+    "category": "Character Event",
+    "people": [
+      "Archivist",
+      "Remi",
+      "Markop"
+    ],
+    "location": "Archivist's Room",
+    "derivedKind": "social/threat"
   },
   {
     "date": {
@@ -3030,7 +3149,7 @@
       "minute": 49
     },
     "title": "Imps transform into monstrous creatures",
-    "description": "Within the Archivist's cluttered study, a wave of unholy energy pulsed from the ancient tome in his grasp.  With a guttural chant, the Archivist unleashed a torrent of magic upon the gathered imps, twisting their forms into nightmarish monstrosities with razor-sharp claws and glowing eyes. The transformation was complete, leaving the once mischievous creatures as terrifying beasts ready to carry out the Archivist's dark bidding.",
+    "description": "Within the Archivist's cluttered study, a wave of unholy energy pulsed from the ancient tome in his grasp. With a guttural chant, the Archivist unleashed a torrent of magic upon the gathered imps, twisting their forms into nightmarish monstrosities with razor-sharp claws and glowing eyes. The transformation was complete, leaving the once mischievous creatures as terrifying beasts ready to carry out the Archivist's dark bidding.",
     "icon": "icon_moon.png",
     "category": "Mystery"
   },
@@ -3043,7 +3162,7 @@
       "minute": 6
     },
     "title": "Remi enters the workshop",
-    "description": "Remi pushed open the creaking door to the workshop, finding herself alone in a dimly lit space filled with an unsettling array of artifacts.  Strange contraptions whirred softly, and dusty tomes lay open on cluttered workbenches, their pages filled with arcane symbols. The air hung heavy with the scent of ozone and something faintly metallic, hinting at experiments both wondrous and dangerous.",
+    "description": "Remi pushed open the creaking door to the workshop, finding herself alone in a dimly lit space filled with an unsettling array of artifacts. Strange contraptions whirred softly, and dusty tomes lay open on cluttered workbenches, their pages filled with arcane symbols. The air hung heavy with the scent of ozone and something faintly metallic, hinting at experiments both wondrous and dangerous.",
     "icon": "icon_focus.png",
     "category": "Recent Event"
   },
@@ -3055,7 +3174,7 @@
       "hour": 6,
       "minute": 0
     },
-    "title": "Hjumpik and Toad Lee enter the",
+    "title": "Hjumpik and Toad Lee enter the manor, passing satyrs who offer drinks but are declined",
     "description": "Hjumpik and Toad Lee enter the manor, passing satyrs who offer drinks but are declined.",
     "icon": "icon_focus.png",
     "category": "Recent Event"
@@ -3068,7 +3187,7 @@
       "hour": 7,
       "minute": 17
     },
-    "title": "Toad Lee identifies a soldier as",
+    "title": "Toad Lee identifies a soldier as either from the Iron Legion or the Mages Guild",
     "description": "Toad Lee identifies a soldier as either from the Iron Legion or the Mages Guild.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
@@ -3133,7 +3252,7 @@
       "hour": 12,
       "minute": 42
     },
-    "title": "Hjumpik sees Wario shoulder-bash two ",
+    "title": "Hjumpik sees Wario shoulder-bash two",
     "description": "Hjumpik sees Wario shoulder-bash two people, then asks if they're okay.",
     "icon": "icon_war.png",
     "category": "Battle"
@@ -3172,7 +3291,7 @@
       "hour": 15,
       "minute": 33
     },
-    "title": "Wario uses a garlic clove as",
+    "title": "Wario uses a garlic clove as a weapon, causing others to recoil and question his motives",
     "description": "Wario uses a garlic clove as a weapon, causing others to recoil and question his motives.",
     "icon": "icon_war.png",
     "category": "Battle"
@@ -3224,7 +3343,7 @@
       "hour": 19,
       "minute": 41
     },
-    "title": "Hjumpik encounters satyrs who want to",
+    "title": "Hjumpik encounters satyrs who want to be quiet and tame, but he insists on continuing the revel",
     "description": "Hjumpik encounters satyrs who want to be quiet and tame, but he insists on continuing the revel.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
@@ -3250,7 +3369,7 @@
       "hour": 21,
       "minute": 15
     },
-    "title": "Hjumpik meets the Revel Master, who",
+    "title": "Hjumpik meets the Revel Master, who claims to have created The Revel through a bar game and…",
     "description": "Hjumpik meets the Revel Master, who claims to have created The Revel through a bar game and now controls its chaotic nature.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
@@ -3276,7 +3395,7 @@
       "hour": 7,
       "minute": 49
     },
-    "title": "Hjumpik learns that the vines in",
+    "title": "Hjumpik learns that the vines in the room were used to trap a dwarf, who was rescued by his…",
     "description": "Hjumpik learns that the vines in the room were used to trap a dwarf, who was rescued by his friends.",
     "icon": "icon_focus.png",
     "category": "Discovery"
@@ -3289,7 +3408,7 @@
       "hour": 8,
       "minute": 6
     },
-    "title": "Hjumpik learns the Revel Master is",
+    "title": "Hjumpik learns the Revel Master is not just a game master but a being who manipulates death…",
     "description": "Hjumpik learns the Revel Master is not just a game master but a being who manipulates death and chaos to keep the revel going.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
@@ -3341,7 +3460,7 @@
       "hour": 6,
       "minute": 0
     },
-    "title": "Archie opens a bathroom door and",
+    "title": "Archie opens a bathroom door and is struck by a green thunderbolt fire",
     "description": "Archie opens a bathroom door and is struck by a green thunderbolt fire.",
     "icon": "icon_war.png",
     "category": "Battle"
@@ -3354,7 +3473,7 @@
       "hour": 7,
       "minute": 17
     },
-    "title": "Archie shatters a mirror, freeing a",
+    "title": "Archie shatters a mirror, freeing a creature that scurries away",
     "description": "Archie shatters a mirror, freeing a creature that scurries away.",
     "icon": "icon_focus.png",
     "category": "Discovery"
@@ -3380,7 +3499,7 @@
       "hour": 9,
       "minute": 51
     },
-    "title": "Archie fires a fireball through a",
+    "title": "Archie fires a fireball through a shattered window, killing a spider",
     "description": "Archie fires a fireball through a shattered window, killing a spider.",
     "icon": "icon_war.png",
     "category": "Battle"
@@ -3406,7 +3525,7 @@
       "hour": 11,
       "minute": 25
     },
-    "title": "Archie and Bones arrive at a",
+    "title": "Archie and Bones arrive at a party guarded by the Regency",
     "description": "Archie and Bones arrive at a party guarded by the Regency.",
     "icon": "icon_focus.png",
     "category": "Recent Event"
@@ -3445,7 +3564,7 @@
       "hour": 14,
       "minute": 16
     },
-    "title": "A giant mech crashes through the",
+    "title": "A giant mech crashes through the ceiling, declaring 'lets go bro bot'",
     "description": "A giant mech crashes through the ceiling, declaring 'lets go bro bot'.",
     "icon": "icon_war.png",
     "category": "Battle"
@@ -3471,7 +3590,7 @@
       "hour": 16,
       "minute": 50
     },
-    "title": "A new villain emerges, demanding the",
+    "title": "A new villain emerges, demanding the party defeat them",
     "description": "A new villain emerges, demanding the party defeat them.",
     "icon": "icon_focus.png",
     "category": "Discovery"
@@ -3498,7 +3617,7 @@
       "minute": 0
     },
     "title": "Spectral Fury Unleashed",
-    "description": "A chill wind swept through the room as Thunder, a malevolent specter, materialized before Archie. With a mournful wail, it lunged, spectral claws outstretched. Archie barely dodged the attack, his heart pounding against his ribs.  Fear clawed at him, but he stood firm, steeling himself for the impending confrontation.",
+    "description": "A chill wind swept through the room as Thunder, a malevolent specter, materialized before Archie. With a mournful wail, it lunged, spectral claws outstretched. Archie barely dodged the attack, his heart pounding against his ribs. Fear clawed at him, but he stood firm, steeling himself for the impending confrontation.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3511,7 +3630,7 @@
       "minute": 17
     },
     "title": "Fireball's Uncontrollable Fury",
-    "description": "Archie unleashed a fireball, intending to drive back the spectral threat. But the spell spiraled out of control, engulfing the room in an inferno. Flames danced wildly, consuming everything in their path. Panic seized Archie as he realized his mistake -  his own power had turned against him.",
+    "description": "Archie unleashed a fireball, intending to drive back the spectral threat. But the spell spiraled out of control, engulfing the room in an inferno. Flames danced wildly, consuming everything in their path. Panic seized Archie as he realized his mistake - his own power had turned against him.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3524,7 +3643,7 @@
       "minute": 34
     },
     "title": "A Momentary Halt Amidst Ruin",
-    "description": "The chamber groaned under the weight of collapsing debris, threatening to bury Archie alive. But just as the ceiling seemed poised to fall, Nine Fingers Klee leapt into action, grabbing Archie and pulling him free from harm's way.  With a desperate cry, Archie summoned his remaining energy and unleashed a Freeze Ray, halting the descent of the rubble.",
+    "description": "The chamber groaned under the weight of collapsing debris, threatening to bury Archie alive. But just as the ceiling seemed poised to fall, Nine Fingers Klee leapt into action, grabbing Archie and pulling him free from harm's way. With a desperate cry, Archie summoned his remaining energy and unleashed a Freeze Ray, halting the descent of the rubble.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3537,7 +3656,7 @@
       "minute": 51
     },
     "title": "Bystall Unveils the Green Thunder",
-    "description": "Bystall, her expression grim, gestured towards a towering figure silhouetted against the stormy sky. It was Green Thunder, a colossal mechanical monstrosity, its armor gleaming ominously.  'We must stop it,' she declared, outlining a plan of attack. 'First, protect the innocent and this manor. Then, subdue the slime creatures and engage the mech directly.'",
+    "description": "Bystall, her expression grim, gestured towards a towering figure silhouetted against the stormy sky. It was Green Thunder, a colossal mechanical monstrosity, its armor gleaming ominously. 'We must stop it,' she declared, outlining a plan of attack. 'First, protect the innocent and this manor. Then, subdue the slime creatures and engage the mech directly.'",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
   },
@@ -3550,7 +3669,7 @@
       "minute": 8
     },
     "title": "Spectral Shadows in Ruins",
-    "description": "A wave of icy dread washed over the party as The Mole, eyes gleaming with malicious glee, snapped his fingers.  Flickering lights pierced the gloom of the ruined manor, illuminating a spectral legion at his command. Ghosts, translucent and malevolent, materialized from the dust and shadows, their ethereal moans echoing through the dilapidated halls.  Archie felt a chill crawl down his spine; he'd not encountered such raw necromantic power in years. The Mole cackled, \"Some friends will keep you company,\" before vanishing into the darkness, leaving behind a chorus of ghostly wails.",
+    "description": "A wave of icy dread washed over the party as The Mole, eyes gleaming with malicious glee, snapped his fingers. Flickering lights pierced the gloom of the ruined manor, illuminating a spectral legion at his command. Ghosts, translucent and malevolent, materialized from the dust and shadows, their ethereal moans echoing through the dilapidated halls. Archie felt a chill crawl down his spine; he'd not encountered such raw necromantic power in years. The Mole cackled, \"Some friends will keep you company,\" before vanishing into the darkness, leaving behind a chorus of ghostly wails.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3563,7 +3682,7 @@
       "minute": 25
     },
     "title": "Brobot's Taunting Onslaught",
-    "description": "A metallic screech split the air as Brobot, eyes glowing red, descended upon the party. \"Whoa there! Fancy meeting you here,\" he boomed, his voice distorted and robotic.  He playfully squashed a slime creature, its body splitting into two more, showcasing a disturbing strength. Archie retorted, \"I don't see how that proves your strength. Care to explain?\" Brobot laughed, a grating metallic clang, before unleashing a barrage of taunts aimed at unnerving the adventurers.",
+    "description": "A metallic screech split the air as Brobot, eyes glowing red, descended upon the party. \"Whoa there! Fancy meeting you here,\" he boomed, his voice distorted and robotic. He playfully squashed a slime creature, its body splitting into two more, showcasing a disturbing strength. Archie retorted, \"I don't see how that proves your strength. Care to explain?\" Brobot laughed, a grating metallic clang, before unleashing a barrage of taunts aimed at unnerving the adventurers.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3576,7 +3695,7 @@
       "minute": 42
     },
     "title": "Archie's Desperate Gambit",
-    "description": "Archie felt a tightening in his chest, a sense of urgency pushing him to act. His mind raced; the Oracle was nowhere to be seen. He focused his arcane energy, channeling it into a devastating burst that shattered a wall with bone-jarring force.  Dust and debris rained down as ghostly figures, alerted by the sudden commotion, swarmed towards the breach. \"I haven't seen the Oracle in a while,\" Archie muttered, fear mingling with determination.",
+    "description": "Archie felt a tightening in his chest, a sense of urgency pushing him to act. His mind raced; the Oracle was nowhere to be seen. He focused his arcane energy, channeling it into a devastating burst that shattered a wall with bone-jarring force. Dust and debris rained down as ghostly figures, alerted by the sudden commotion, swarmed towards the breach. \"I haven't seen the Oracle in a while,\" Archie muttered, fear mingling with determination.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3602,7 +3721,7 @@
       "minute": 16
     },
     "title": "Metal Meets Magic: A Laser Duel",
-    "description": "Archie raised his hands, arcane energy crackling around his fingertips, as Brobot whirred and charged its laser cannon. A beam of pure energy shot towards Archie, forcing him to duck behind a crumbling wall, the air sizzling where he had stood moments before.  He retaliated with a torrent of firebolts, each one exploding harmlessly against Brobot’s metallic hide. The automaton remained unfazed, its single red eye glowing menacingly as it stalked closer, its metal limbs clanging against the debris-strewn floor.",
+    "description": "Archie raised his hands, arcane energy crackling around his fingertips, as Brobot whirred and charged its laser cannon. A beam of pure energy shot towards Archie, forcing him to duck behind a crumbling wall, the air sizzling where he had stood moments before. He retaliated with a torrent of firebolts, each one exploding harmlessly against Brobot’s metallic hide. The automaton remained unfazed, its single red eye glowing menacingly as it stalked closer, its metal limbs clanging against the debris-strewn floor.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3615,7 +3734,7 @@
       "minute": 33
     },
     "title": "Bystall's Binding: A Spell Silences L",
-    "description": "The air crackled with power as Bystall raised her hand, a swirling vortex of energy forming above Mr. L's head. The notorious agent attempted to dodge, but the spell was swift and merciless, binding him in shimmering chains of pure magic.  His eyes widened in surprise, his usual smugness replaced by a flicker of fear as he struggled against the invisible restraints. Bystall’s voice, cold and firm, echoed through the room, “Your schemes end here, Mr. L.”",
+    "description": "The air crackled with power as Bystall raised her hand, a swirling vortex of energy forming above Mr. L's head. The notorious agent attempted to dodge, but the spell was swift and merciless, binding him in shimmering chains of pure magic. His eyes widened in surprise, his usual smugness replaced by a flicker of fear as he struggled against the invisible restraints. Bystall’s voice, cold and firm, echoed through the room, “Your schemes end here, Mr. L.”",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3628,7 +3747,7 @@
       "minute": 50
     },
     "title": "A Portal's Promise: A New Mission Unveiled",
-    "description": "Archie stood before the shimmering portal, its edges rippling with otherworldly energy. Bystall’s voice, laced with urgency, crackled through the air, “The Guild needs your help again, Archie.”  She held out a scroll, its surface etched with arcane symbols. As Archie took it, a wave of anticipation washed over him. The portal pulsed, beckoning him forward, promising new challenges and untold dangers.",
+    "description": "Archie stood before the shimmering portal, its edges rippling with otherworldly energy. Bystall’s voice, laced with urgency, crackled through the air, “The Guild needs your help again, Archie.” She held out a scroll, its surface etched with arcane symbols. As Archie took it, a wave of anticipation washed over him. The portal pulsed, beckoning him forward, promising new challenges and untold dangers.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
   },
@@ -3641,7 +3760,7 @@
       "minute": 7
     },
     "title": "A Mage's Welcome: Spriggon Delivers the Badge",
-    "description": "Darno Spriggon, his face etched with a gruff kindness, handed Archie a small, leather-bound pouch. Inside lay a gleaming badge, embossed with the crest of the mages guild.  Archie accepted it with trembling hands, a wave of pride washing over him. Years of hard work and dedication had finally paid off. “Welcome to the fold, young mage,” Spriggon boomed, his voice echoing with authority.",
+    "description": "Darno Spriggon, his face etched with a gruff kindness, handed Archie a small, leather-bound pouch. Inside lay a gleaming badge, embossed with the crest of the mages guild. Archie accepted it with trembling hands, a wave of pride washing over him. Years of hard work and dedication had finally paid off. “Welcome to the fold, young mage,” Spriggon boomed, his voice echoing with authority.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
   },
@@ -3654,7 +3773,7 @@
       "minute": 0
     },
     "title": "The Waterfall's Hidden Secret",
-    "description": "Curiosity led Remi and Bowser to investigate a cascading waterfall. As Bowser playfully tossed a Toad into the rushing water, the stone wall behind it gave way, revealing a submerged passage.  Remi, hesitant to get wet, stayed behind while Bowser, with a gruff 'mandatory babysitting,' urged Eager and Salam into the concealed entrance. The air hung heavy with anticipation as they vanished into the cool darkness.",
+    "description": "Curiosity led Remi and Bowser to investigate a cascading waterfall. As Bowser playfully tossed a Toad into the rushing water, the stone wall behind it gave way, revealing a submerged passage. Remi, hesitant to get wet, stayed behind while Bowser, with a gruff 'mandatory babysitting,' urged Eager and Salam into the concealed entrance. The air hung heavy with anticipation as they vanished into the cool darkness.",
     "icon": "icon_focus.png",
     "category": "Discovery"
   },
@@ -3680,7 +3799,7 @@
       "minute": 34
     },
     "title": "Chaos Engulfs the Structure",
-    "description": "A deafening explosion ripped through the building, sending shockwaves that echoed through the halls. Screams pierced the air as flames erupted, casting an eerie crimson glow upon the panicked faces of those caught in the inferno.  Remi, Eager and Salam scrambled for safety, their escape hampered by the spreading chaos and thick smoke.",
+    "description": "A deafening explosion ripped through the building, sending shockwaves that echoed through the halls. Screams pierced the air as flames erupted, casting an eerie crimson glow upon the panicked faces of those caught in the inferno. Remi, Eager and Salam scrambled for safety, their escape hampered by the spreading chaos and thick smoke.",
     "icon": "icon_war.png",
     "category": "Battle"
   },
@@ -3706,7 +3825,7 @@
       "minute": 8
     },
     "title": "The Shadow in Dan's Reflection",
-    "description": "Dan Real awoke with a chilling sense of wrongness. His reflection in the polished armor did not feel like his own. The eyes staring back held a coldness he didn't recognize. Panic clawed at him as he reached out, his hand passing through the image like it was smoke. A deep voice echoed in his mind, \"Welcome home, Dan Real.\"  Archie's insidious laughter followed, confirming the horrifying truth: Dan had been replaced by an imposter.",
+    "description": "Dan Real awoke with a chilling sense of wrongness. His reflection in the polished armor did not feel like his own. The eyes staring back held a coldness he didn't recognize. Panic clawed at him as he reached out, his hand passing through the image like it was smoke. A deep voice echoed in his mind, \"Welcome home, Dan Real.\" Archie's insidious laughter followed, confirming the horrifying truth: Dan had been replaced by an imposter.",
     "icon": "icon_focus.png",
     "category": "Discovery"
   },
@@ -3719,7 +3838,7 @@
       "minute": 25
     },
     "title": "Markop Uncovers Archie's Sinister Plan",
-    "description": "Poring over ancient tomes in the Guild library, Markop stumbled upon a hidden inscription within Archie's 'Third Eye Volume 1.' The inscription detailed Archie's ambition to seize control of the mages guild and bend its power to his will.  A cold dread settled over Markop as he realized the true nature of the charismatic archmage. Archie wasn't simply seeking knowledge, he craved dominion.",
+    "description": "Poring over ancient tomes in the Guild library, Markop stumbled upon a hidden inscription within Archie's 'Third Eye Volume 1.' The inscription detailed Archie's ambition to seize control of the mages guild and bend its power to his will. A cold dread settled over Markop as he realized the true nature of the charismatic archmage. Archie wasn't simply seeking knowledge, he craved dominion.",
     "icon": "icon_focus.png",
     "category": "Discovery"
   },
@@ -3732,7 +3851,7 @@
       "minute": 42
     },
     "title": "Bowser's Ruthless Exploitation",
-    "description": "Dan Real, overwhelmed with grief and despair over his stolen identity, wept uncontrollably. Bowser, ever opportunistic, watched him with predatory eyes. As Dan sobbed, Bowser snatched a silver locket from his trembling hand and vanished into the shadows.  The cruel act added another layer of anguish to Dan's already unbearable situation.",
+    "description": "Dan Real, overwhelmed with grief and despair over his stolen identity, wept uncontrollably. Bowser, ever opportunistic, watched him with predatory eyes. As Dan sobbed, Bowser snatched a silver locket from his trembling hand and vanished into the shadows. The cruel act added another layer of anguish to Dan's already unbearable situation.",
     "icon": "faction_liberated_toads.png",
     "category": "Character Event"
   },
@@ -3926,7 +4045,7 @@
       "hour": 18,
       "minute": 24
     },
-    "title": "The Unbidden Intrusion Upon Waluigi",
+    "title": "The Unbidden Intrusion Upon…",
     "description": "The heavy silence of the chamber was shattered when a frenzied, unnamed beast slammed its massive weight against the door, splintering the wood with primal fury. Waluigi stood frozen in the sudden breach, his knuckles whitening as he gripped his tennis racket like a makeshift blade. The air grew thick with the scent of ozone and terror as the monster's shadow loomed over him, marking the start of a desperate struggle for survival.",
     "icon": "icon_war.png",
     "category": "Battle"
