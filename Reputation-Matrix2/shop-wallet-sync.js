@@ -1,7 +1,7 @@
 import { WALLETS, CURRENCIES } from './currency.js';
 let selected=localStorage.getItem('warehousePaymentCurrency')||'wario_points';let walletData=null,lastMarkup='',renderQueued=false;
 async function loadWallet(){try{const r=await fetch('./wallets.json',{cache:'no-cache'});walletData=await r.json()}catch{walletData={}}}
-function id(){return localStorage.getItem('waluipediaUser')||localStorage.getItem('currentUserId')||''}
+function id(){const raw=localStorage.getItem('waluipediaUser')||localStorage.getItem('currentUserId')||'';const aliases={archie_miser:'archie',markop_judi:'markop',fng_remi:'remi',waluigi_miser:'waluigi'};return aliases[raw]||raw}
 function currencyOptions(){return Object.values(CURRENCIES).map(c=>`<option value="${c.id}" ${c.id===selected?'selected':''}>${c.icon||'🪙'} ${c.name}</option>`).join('')}
 function render(){
  const root=document.getElementById('root');if(!root||!walletData)return;const uid=id(),w=walletData[uid];
