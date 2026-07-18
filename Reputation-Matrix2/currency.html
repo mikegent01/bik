@@ -366,6 +366,7 @@ function renderWallets(){
           <span class="chip" style="font-weight:900;color:var(--accent2);font-size:11px">${totalG.toFixed(1)}g total</span>
         </div>
         <div style="margin-top:8px">${curLines}</div>
+        <p class="wallet-justification">${esc(w.justification || 'Recorded holdings are based on the character’s role, documented transactions, and practical travel needs.')}</p>
         <button class="chip wallet-buy-btn" style="width:100%;margin-top:10px;text-align:center" data-cur="${firstCurrency}">Explore Wallet Purchasing Power →</button>
       </div>
     `;
