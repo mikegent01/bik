@@ -1897,5 +1897,96 @@
       "archie_miser",
       "tymnas"
     ]
+  },
+  {
+    "id": "planar_sanctum_belfry_and_atrium",
+    "name": "Planar Sanctum Belfry & Central Chamber",
+    "type": "Location / Extradimensional Sanctum",
+    "region": "Deep Mirror Layer / Corvinarus Sanctum",
+    "controllingFaction": "The Oracle (OC)",
+    "population": "The Oracle, Abomination Vat Specimens, Floating Canoloths",
+    "climate": "Centrifugal hum, open starfield sky, discharging planar electrical tendrils",
+    "status": "Active \u2014 Unstable extradimensional hub with Crystal Tethers",
+    "summary": "The Belfry Ruins and Central Chamber of the Corvinarus Planar Sanctum. Featuring a crashed belfry bell on black marble, abomination flesh vats, and twin Crystal Tethers emitting umbral violet and volatile orange lightning around a cracked central containment tank.",
+    "description": "Waluigi is documenting this sanctum because it is where the planar fracture's engine lives.\n\n## The Ruined Belfry Turret\nWhat was once a grand turret and great belfry is now scattered rubble. A massive bell lies fallen and crashed into the black marble floor. Scattered amongst the debris are ancient books, ruined furniture, and Corvinarus family research tomes like *Veins of the Tapestry*.\n\n## The Grand Central Chamber & Crystal Tethers\nAll paths converge on a solemn central hall open to the starfield above. Two circular apertures bored into the floor vanish into blackness, encased by bronze wheels supporting giant glowing Crystal Tethers:\n- **Western Crystal:** Thrums with umbral violet energy.\n- **Eastern Crystal:** Flashes erratically with volatile orange energy.\n\nBetween these tethers lies a cracked glassy metal tank and a man enveloped by tearing electrical tendrils—the energy anchor of the rift.",
+    "notableFeatures": [
+      "Fallen great belfry bell on black marble",
+      "Umbral violet & volatile orange Crystal Tethers",
+      "Shattered central flesh vat wrapped in lightning",
+      "Floating space-time debris and Canoloth guardians"
+    ],
+    "relatedArticles": [
+      "the_oracle",
+      "bones",
+      "corvinarus_family",
+      "veins_of_the_tapestry"
+    ]
+  },
+  {
+    "id": "astral_altar",
+    "name": "The Astral Altar",
+    "type": "Location / Plane of Transition / Divine Sanctuary",
+    "region": "Astral Sea / Domain of the Toad God",
+    "controllingFaction": "The Toad God (Mad Toad / Frog God)",
+    "population": "The Toad God, Astral Echoes",
+    "climate": "Weightless, radiant, quiet starry ether",
+    "status": "Active \u2014 Interdimensional staging ground used by the Toad God for rescues and warnings",
+    "summary": "The sacred, weightless Astral Altar where the Toad God intercepts souls and unconscious travelers. Used as a sanctuary to rescue Bones after his battle with the Canoloth and to deliver cosmic advice regarding the Oracle and Crystal Shards.",
+    "description": "Waluigi notes that the Astral Altar is where gods go when they want to talk to mortal party members without getting interrupted by mages or vampires.\n\nIt was here that the Toad God brought Bones after he was clawed unconscious by the Canoloth. The Toad God gave advice: keep the Oracle alive, leave the manor and crystal shard intact and divided, and watch out for star bears giving stars to hooligans.",
+    "notableFeatures": [
+      "Weightless celestial atmosphere",
+      "Interdimensional rescue point",
+      "Direct audience platform for the Toad God"
+    ],
+    "relatedArticles": [
+      "bryan",
+      "bones",
+      "archie_miser"
+    ]
+  },
+  {
+    "id": "alpine_bank",
+    "name": "Alpine Bank (Regal Capital Branch)",
+    "type": "Location / Financial Institution",
+    "region": "Midgrual Mountains, Regal Capital",
+    "controllingFaction": "Regal Empire Banking Authority / Iron Legion Connections",
+    "population": "Bankers, Guard Standby Division, Imperial Clerks",
+    "climate": "Cold mountain air, marble banking halls, copper teller cages",
+    "status": "Active \u2014 Regal Lions division on standby; enforcing Regal Currency Standard",
+    "summary": "An elite financial institution built high in the mountains near Midgrual, the Regal Capital. Strict enforcers of the Regal standard currency (Midland Ducats) who reject Mushroom Kingdom coins and manage official imperial bounty contracts for the Iron Legion.",
+    "description": "The Alpine Bank serves as a financial and intelligence hub for the Regal Empire. It was here that Thornbury brought his banking credentials, rejecting Mushroom coins and filing an official imperial bounty on Archie Miser over a broken hempen rope, while Bones eavesdropped from near the exit door.",
+    "notableFeatures": [
+      "Mountain fortress banking architecture",
+      "Strict enforcement of the Regal Standard (Midland Ducat)",
+      "Bounty registration and Legion intelligence clearinghouse"
+    ],
+    "relatedArticles": [
+      "thornbury",
+      "bones",
+      "midland_ducat",
+      "regal_empire"
+    ]
+  },
+  {
+    "id": "alpine_mountain_inn",
+    "name": "The Alpine Mountain Inn",
+    "type": "Location / Refuge / Inn",
+    "region": "Midgrual Mountains / Regal Capital Outskirts",
+    "controllingFaction": "Independent / Local Guard Escort",
+    "population": "Innkeeper, Mountain Guards, Travelers",
+    "climate": "Heavy mountain blizzard, howling wind, warm fireplace indoors",
+    "status": "Active \u2014 Providing refuge from severe mountain snowstorms",
+    "summary": "A warm mountain inn outside the Regal Capital where freezing travelers take shelter from severe blizzard storms. Charges 3 Midland Ducats for upstairs rooms.",
+    "description": "After discovering Thornbury's betrayal at Alpine Bank, Bones trudged alone through a blinding snowstorm until local guards escorted him to this inn. Bones paid 3 Midland Ducats (3 gold) to the innkeeper for an upstairs room where he rested while watching for spies.",
+    "notableFeatures": [
+      "Warm hearth amid mountain snowstorms",
+      "Standard room rate: 3 Midland Ducats",
+      "Upper floor lodging overlooking the blizzard pass"
+    ],
+    "relatedArticles": [
+      "bones",
+      "midland_ducat",
+      "alpine_bank"
+    ]
   }
 ]

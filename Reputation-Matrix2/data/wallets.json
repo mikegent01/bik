@@ -550,14 +550,15 @@
   "bones": {
     "name": "Bones",
     "title": "Liberated Toad \u2014 Master of Disguise, Infiltration Specialist",
-    "status": "Active \u2014 Liberated Toads, skilled at disguise, uncertain identity",
+    "status": "Active \u2014 resting at Alpine Mountain Inn after eavesdropping on Thornbury's betrayal",
     "wallet_type": "Infiltration operations wallet \u2014 multiple identities cash",
     "currencies": {
       "toad_bond": 90,
       "relief_stamp": 350,
       "peach_crown": 35,
       "mushroom_coin": 280,
-      "gold": 95,
+      "gold": 92,
+      "midland_ducat": 3,
       "silver": 240,
       "toad_whistle": 18,
       "decree_strip": 12,

@@ -1920,5 +1920,36 @@
       "collapse_of_blackfen_pass",
       "gamma_division"
     ]
+  },
+  {
+    "id": "battle_planar_sanctum_canoloth",
+    "name": "The Planar Sanctum Canoloth Skirmish",
+    "date": "28 Harvestide, 1040 BF",
+    "location": "Planar Sanctum Atrium / Floating Space-Time Rocks",
+    "type": "Fiendish Ambush / Planar Distortion Encounter",
+    "result": "Defender Incapacitation / Astral Rescue \u2014 Bones dragged the Canoloth to the cliff edge by its tongue but was clawed unconscious; saved to Astral Altar by Toad God; healed afterwards by the Oracle.",
+    "belligerents": {
+      "attackers": {
+        "name": "Fiendish Canoloth (Contract-Bound Yugoloth Tracker)",
+        "factionId": "yugoloths"
+      },
+      "defenders": {
+        "name": "Bones & The Oracle (OC)",
+        "factionId": "disaster_inc_allies"
+      }
+    },
+    "casualties": {
+      "attackers": "Canoloth resonated in/out of reality by Oracle's tuning fork, damaged by tongue-drag.",
+      "defenders": "Bones critically injured and rendered unconscious by claw swipes; longsword and vile mace entangled."
+    },
+    "summary": "While exploring the Planar Sanctum Atrium amidst floating rocks in space-time, Bones and the Oracle encountered a Canoloth. Bones missed his ranged attack, and the Oracle used a vibrating tuning fork to shift the beast across realities. The Canoloth's spiny tongue snared Bones, wrapping around his longsword and vile mace. In agony, Bones grabbed the creature's tongue bare-handed and dragged it toward the cliff edge, demanding to kill it 'the actual way' before being clawed into unconsciousness and rescued by the Toad God.",
+    "description": "Waluigi has read Mordenkainen's field guide on Canoloths: 'Canoloths are glorified guard dogs. If you must engage one, just find out exactly what it's been assigned to do.' Unfortunately, nobody checked the Canoloth's contract before Bones started shooting and throwing his weapons into its tongue. WAH.\n\n## The Setup: Floating Rocks & Tuning Forks\nAs Bones refused the Oracle's demand to step into a flesh vat, an unseen portal opened, dragging them near floating rocks in space-time. A fiendish Canoloth—a yugoloth tracker with sharp senses capable of pinpointing invisible creatures and emitting a distortion field that blocks teleportation—ambushed the duo.\n\nBones fired his weapon and missed. The Oracle stepped forward wielding a heavy tuning fork, striking it to vibrate the Canoloth in and out of phase with reality. The creature shrieked and leaped toward Bones.\n\n## The Tongue Grapple\nThe Canoloth trapped Bones in its long, spiny tongue, dealing critical wounds. When Bones attempted to strike back with his longsword, the tongue wrapped tightly around both his longsword and his vile mace, restraining him and causing severe agony.\n\nWith both weapons pinned, Bones grabbed the Canoloth's tongue directly with his bare hands! The creature screeched in shock as Bones freed his body—though his weapons remained bound in the flesh—and began physically dragging the multi-ton yugoloth by its tongue toward the edge of a floating cliff.\n\n## The Climax & Astral Rescue\nSeeing Bones drag the monster toward the abyss, the Oracle yelled: 'What are you doing? Throw it off!'\n\nBones refused: 'No, kill it the actual way!'\n\nBefore Bones could execute his final strike or throw, the Canoloth lashed out with its razor claws, swiping Bones across the chest and knocking him instantly unconscious. Bones's mind was immediately intercepted and transported to the Astral Altar by the Toad God, while the Oracle finished or banished the Canoloth before healing Bones an hour later.",
+    "relatedArticles": [
+      "bones",
+      "the_oracle",
+      "canoloth",
+      "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
+      "bryan"
+    ]
   }
 ]
