@@ -140,13 +140,14 @@ const INDEX={};
 let ALL_ITEMS=[];
 const SEARCH_DOCS=[];
 function buildIndexes(){
+  window.buildIndexes = buildIndexes;
   // reset (in case of reload)
   for(const k of Object.keys(INDEX)) delete INDEX[k];
   SEARCH_DOCS.length=0;
   TYPES.forEach(t=>(DATA[t.key]||[]).forEach(it=>{ if(it&&it.id) INDEX[it.id]={typeKey:t.key,item:it}; }));
   ALL_ITEMS=Object.values(INDEX);
 
-  const normStr = s => (s || '').toString().toLowerCase().replace(/[*_`"'!?:;,.-\(\)\[\]]/g, ' ').replace(/\s+/g, ' ');
+  const normStr = s => (s || '').toString().toLowerCase().replace(/[^a-z0-9]/gi, ' ').replace(/\s+/g, ' ');
 
   // search docs: articles + congress votes + conflicts + major battles
   ALL_ITEMS.forEach(({typeKey,item})=>{
@@ -970,11 +971,12 @@ function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{le
 const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:()=>'🏛️',conflict:()=>'💥',majorbattle:()=>'🗡️',artifact:()=>'⭐',invitem:()=>'🎒',bearer:()=>'✴️',member:()=>'🏳️',session:()=>'📋',crisis:()=>'⚠️',faction:()=>'⚔️',dynasty:()=>'👑',vendor:()=>'🏪',holiday:()=>'🎉'};
 function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey].singular; if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; return ''; }
 function search(q){
+  window.search = search;
   if(!q) return [];
   const rawQ = q.trim();
   if(!rawQ) return [];
 
-  const normQ = rawQ.toLowerCase().replace(/[*_`"'!?:;,.-\(\)\[\]]/g, ' ').replace(/\s+/g, ' ').trim();
+  const normQ = rawQ.toLowerCase().replace(/[^a-z0-9]/gi, ' ').replace(/\s+/g, ' ').trim();
   if(!normQ) return [];
 
   const terms = normQ.split(' ').filter(Boolean);
@@ -982,7 +984,7 @@ function search(q){
 
   for(const d of SEARCH_DOCS){
     let score = 0;
-    const normName = (d.name || '').toLowerCase().replace(/[*_`"'!?:;,.-\(\)\[\]]/g, ' ').replace(/\s+/g, ' ').trim();
+    const normName = (d.name || '').toLowerCase().replace(/[^a-z0-9]/gi, ' ').replace(/\s+/g, ' ').trim();
     const hay = d.hay || '';
 
     if (normName.includes(normQ)) {
@@ -1020,6 +1022,8 @@ function search(q){
   out.sort((a, b) => b.score - a.score);
   return out.slice(0, 40);
 }
+window.buildIndexes = buildIndexes;
+window.search = search;
 function highlight(text,q){if(!q)return esc(text);const terms=q.trim().split(/\s+/).filter(Boolean).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));let o=esc(text);terms.forEach(t=>{o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});return o;}
 function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
