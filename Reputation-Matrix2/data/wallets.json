@@ -21,7 +21,8 @@
       "gold": 349,
       "silver": 6,
       "bronze": 18
-    }
+    },
+    "justification": "Recorded holdings for Archie Miser are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "bowser": {
     "name": "Bowser",
@@ -32,7 +33,8 @@
       "electrum": 51,
       "silver": 13,
       "copper": 11
-    }
+    },
+    "justification": "Recorded holdings for Bowser are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "hjumpik": {
     "name": "hjumpik",
@@ -41,7 +43,8 @@
       "midland_ducat": 421,
       "gold": 1,
       "dwarf_oathgold": 2
-    }
+    },
+    "justification": "Recorded holdings for hjumpik are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "markop": {
     "name": "Markop Judi",
@@ -50,14 +53,16 @@
       "gold": 21,
       "silver": 13,
       "bronze": 28
-    }
+    },
+    "justification": "Recorded holdings for Markop Judi are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "remi": {
     "name": "Remi",
     "title": "FNG Smith",
     "currencies": {
       "gold": 20
-    }
+    },
+    "justification": "Recorded holdings for Remi are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "wario": {
     "name": "Wario",
@@ -76,7 +81,8 @@
       "credstick": 9000,
       "banana_medallion": 350,
       "shell_credit": 5000
-    }
+    },
+    "justification": "Recorded holdings for Wario are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "waluigi": {
     "name": "Waluigi",
@@ -93,7 +99,8 @@
       "transit_stamp": 1,
       "toad_whistle": 9,
       "court_leaf": 1
-    }
+    },
+    "justification": "Recorded holdings for Waluigi are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "toad_lee": {
     "name": "Toad Lee",
@@ -110,7 +117,8 @@
       "toad_whistle": 30,
       "decree_strip": 8,
       "midland_ducat": 40
-    }
+    },
+    "justification": "Recorded holdings for Toad Lee are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "salam": {
     "name": "Salam",
@@ -125,7 +133,8 @@
       "mushroom_coin": 22,
       "peach_crown": 3,
       "toad_whistle": 4
-    }
+    },
+    "justification": "Recorded holdings for Salam are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "captain_toadette": {
     "name": "Captain Toadette",
@@ -142,7 +151,8 @@
       "archive_writ": 12,
       "decree_strip": 120,
       "toad_whistle": 250
-    }
+    },
+    "justification": "Recorded holdings for Captain Toadette are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "speaker_l": {
     "name": "Speaker L",
@@ -158,7 +168,8 @@
       "midland_ducat": 900,
       "toad_whistle": 180,
       "gold": 250
-    }
+    },
+    "justification": "Recorded holdings for Speaker L are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "penny": {
     "name": "Penny",
@@ -174,7 +185,8 @@
       "broker_mark": 2,
       "midland_ducat": 450,
       "guild_seal": 1
-    }
+    },
+    "justification": "Recorded holdings for Penny are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "the_broker": {
     "name": "The Broker",
@@ -193,7 +205,8 @@
       "blood_vial": 60,
       "vampire_marker": 12,
       "astral_pearl": 9
-    }
+    },
+    "justification": "Recorded holdings for The Broker are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "first_mate_jones": {
     "name": "First Mate Jones",
@@ -210,7 +223,8 @@
       "banana_medallion": 90,
       "kremling_koin": 75,
       "broker_mark": 8
-    }
+    },
+    "justification": "Recorded holdings for First Mate Jones are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "mystic_morel": {
     "name": "Mystic Morel",
@@ -227,7 +241,8 @@
       "shadow_obol": 25,
       "court_leaf": 3,
       "fey_acorn": 2
-    }
+    },
+    "justification": "Recorded holdings for Mystic Morel are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "archmage_theron": {
     "name": "Archmage Theron",
@@ -243,7 +258,8 @@
       "gold": 9000,
       "astral_pearl": 18,
       "data_chit": 120
-    }
+    },
+    "justification": "Recorded holdings for Archmage Theron are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "lady_toriel": {
     "name": "Lady Toriel",
@@ -258,7 +274,8 @@
       "court_leaf": 90,
       "spirit_bead": 120,
       "silver": 5000
-    }
+    },
+    "justification": "Recorded holdings for Lady Toriel are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "emperor_elgabalus": {
     "name": "Emperor Elgabalus",
@@ -274,7 +291,8 @@
       "dwarf_oathgold": 2500,
       "astral_pearl": 40,
       "guild_seal": 150
-    }
+    },
+    "justification": "Recorded holdings for Emperor Elgabalus are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "tea_leaf_receivership": {
     "name": "Tea Leaf Syndicate Receivership",
@@ -290,7 +308,8 @@
       "doubloon": 220,
       "cargo_share": 16,
       "credstick": 1200
-    }
+    },
+    "justification": "Recorded holdings for Tea Leaf Syndicate Receivership are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "princess_daisy": {
     "name": "Princess Daisy",
@@ -306,7 +325,8 @@
       "credstick": 4500,
       "archive_writ": 65,
       "toad_whistle": 300
-    }
+    },
+    "justification": "Recorded holdings for Princess Daisy are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "donkey_kong": {
     "name": "Donkey Kong",
@@ -322,7 +342,8 @@
       "cargo_share": 35,
       "shell_credit": 900,
       "wario_coin": 700
-    }
+    },
+    "justification": "Recorded holdings for Donkey Kong are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "king_k_rool": {
     "name": "King K. Rool",
@@ -338,7 +359,8 @@
       "blood_vial": 25,
       "banana_medallion": 400,
       "credstick": 2500
-    }
+    },
+    "justification": "Recorded holdings for King K. Rool are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "fawful": {
     "name": "Fawful",
@@ -353,7 +375,8 @@
       "arcane_shard": 20,
       "broker_mark": 14,
       "midland_ducat": 3000
-    }
+    },
+    "justification": "Recorded holdings for Fawful are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "princess_celestia": {
     "name": "Princess Celestia",
@@ -369,7 +392,8 @@
       "midland_ducat": 30000,
       "mora": 8000,
       "astral_pearl": 22
-    }
+    },
+    "justification": "Recorded holdings for Princess Celestia are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "twilight_sparkle": {
     "name": "Twilight Sparkle",
@@ -385,7 +409,8 @@
       "fey_acorn": 50,
       "midland_ducat": 14000,
       "data_chit": 700
-    }
+    },
+    "justification": "Recorded holdings for Twilight Sparkle are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "chairwoman_rin": {
     "name": "Chairwoman Rin",
@@ -400,7 +425,8 @@
       "midland_ducat": 25000,
       "archive_writ": 70,
       "guild_seal": 35
-    }
+    },
+    "justification": "Recorded holdings for Chairwoman Rin are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "liyue_qixing": {
     "name": "Liyue Qixing Treasury",
@@ -416,7 +442,8 @@
       "cargo_share": 250,
       "astral_pearl": 35,
       "credstick": 40000
-    }
+    },
+    "justification": "Recorded holdings for Liyue Qixing Treasury are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "pokemon_league_chair": {
     "name": "Pokémon League Chair Office",
@@ -431,7 +458,8 @@
       "midland_ducat": 18000,
       "archive_writ": 30,
       "toad_whistle": 120
-    }
+    },
+    "justification": "Recorded holdings for Pokémon League Chair Office are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
   },
   "high_king_thorgrim": {
     "name": "High King Thorgrim",
@@ -447,6 +475,862 @@
       "guild_seal": 80,
       "archive_writ": 40,
       "warpstone": 12
-    }
+    },
+    "justification": "Recorded holdings for High King Thorgrim are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim."
+  },
+  "aemenor_evenflight": {
+    "name": "Aemenor Evenflight",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Aemenor Evenflight is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "agent_t": {
+    "name": "Agent T",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "justification": "Agent T is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "archie_miser": {
+    "name": "Archie Miser",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Archie Miser is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "baldi": {
+    "name": "Baldi",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Baldi is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "bones": {
+    "name": "Bones",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Bones is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "bryan": {
+    "name": "Bryan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Bryan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "byscilla_danos": {
+    "name": "Byscilla Danos",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Byscilla Danos is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "cackletta": {
+    "name": "Cackletta",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Cackletta is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "captain_syrup": {
+    "name": "Captain Syrup",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "Captain Syrup is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "chancellor_toadsworth": {
+    "name": "Chancellor Toadsworth",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "justification": "Chancellor Toadsworth is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "commander_g": {
+    "name": "Commander G",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "Commander G is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "corporal_ghost_reyes": {
+    "name": "Corporal 'Ghost' Reyes",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "justification": "Corporal 'Ghost' Reyes is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "cranky_kong": {
+    "name": "Cranky Kong",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Cranky Kong is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "dan": {
+    "name": "Dan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Dan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "darno_spriggon": {
+    "name": "Darno Spriggon",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Darno Spriggon is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "dyanos": {
+    "name": "Dyanos",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Dyanos is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "eager": {
+    "name": "Eager",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Eager is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "earl_grey": {
+    "name": "Earl Grey",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Earl Grey is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "elder_rowan_meadowlight": {
+    "name": "Elder Rowan Meadowlight",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Elder Rowan Meadowlight is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "embercap": {
+    "name": "Embercap",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Embercap is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "feyward_dan": {
+    "name": "Feyward Dan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Feyward Dan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "general_ironhand": {
+    "name": "General Ironhand",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "General Ironhand is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "god_toad": {
+    "name": "God Toad",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "justification": "God Toad is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "green_t": {
+    "name": "Green T",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Green T is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "hargram_fidger": {
+    "name": "Hargram Fidger",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Hargram Fidger is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "herniva": {
+    "name": "Herniva",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Herniva is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "kamek": {
+    "name": "Kamek",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Kamek is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "king_boo": {
+    "name": "King Boo",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "King Boo is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "king_dedede": {
+    "name": "King Dedede",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "King Dedede is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "kirby": {
+    "name": "Kirby",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Kirby is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "kyle_coinsoul": {
+    "name": "Kyle Coinsoul",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Kyle Coinsoul is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "lady_aurelian_corvinarus": {
+    "name": "Lady Aurelian Corvinarus",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "Lady Aurelian Corvinarus is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "lady_bloomia": {
+    "name": "Lady Bloomia",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "Lady Bloomia is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "lanky_kong": {
+    "name": "Lanky Kong",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Lanky Kong is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "leo": {
+    "name": "Leo",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Leo is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "lorehold_professor_of_chaos": {
+    "name": "Lorehold Professor of Chaos",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "Lorehold Professor of Chaos is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "luigi": {
+    "name": "Luigi",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Luigi is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "lyranth": {
+    "name": "Lyranth",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Lyranth is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "manderaz_the_mad": {
+    "name": "Manderaz the Mad",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "Manderaz the Mad is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "marcus_ashford": {
+    "name": "Marcus Ashford",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Marcus Ashford is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "mario": {
+    "name": "Mario",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Mario is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "merric": {
+    "name": "Merric",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Merric is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "meta_knight": {
+    "name": "Meta Knight",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Meta Knight is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "miles_edgeworth": {
+    "name": "Miles Edgeworth",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Miles Edgeworth is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "mimbus": {
+    "name": "Mimbus",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Mimbus is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "mistveil": {
+    "name": "Mistveil",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Mistveil is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "mossy": {
+    "name": "Mossy",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Mossy is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "mr_l": {
+    "name": "Mr. L",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Mr. L is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "mystic_morsole": {
+    "name": "Mystic Morsole",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Mystic Morsole is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "orange_t": {
+    "name": "Orange T",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Orange T is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "orangus_cornelius": {
+    "name": "Orangus Cornelius",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Orangus Cornelius is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "original_dan": {
+    "name": "Original Dan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Original Dan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "orvinder_danos": {
+    "name": "Orvinder Danos",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Orvinder Danos is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "parson_pellinost": {
+    "name": "Parson Pellinost",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Parson Pellinost is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "pauline": {
+    "name": "Pauline",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Pauline is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "pierce_anamatar": {
+    "name": "Pierce Anamatar",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Pierce Anamatar is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "princess_peach": {
+    "name": "Princess Peach",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "Princess Peach is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "prismari": {
+    "name": "Prismari",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Prismari is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "professor_elvin_gadd": {
+    "name": "Professor Elvin Gadd",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "Professor Elvin Gadd is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "rakasha_azure": {
+    "name": "Rakasha Azure",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Rakasha Azure is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "rakka": {
+    "name": "Rakka",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Rakka is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "rattles": {
+    "name": "Rattles",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Rattles is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "rhak_the_lost": {
+    "name": "Rhak the Lost",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "Rhak the Lost is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "roger": {
+    "name": "Roger",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Roger is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "ryan": {
+    "name": "Ryan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Ryan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "saedia": {
+    "name": "Saedia",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Saedia is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "sergeant_brick_stone": {
+    "name": "Sergeant 'Brick' Stone",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 43,
+      "silver": 40
+    },
+    "justification": "Sergeant 'Brick' Stone is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "sergeant_varn_coldbrook": {
+    "name": "Sergeant Varn Coldbrook",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 43,
+      "silver": 40
+    },
+    "justification": "Sergeant Varn Coldbrook is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "smoking_j": {
+    "name": "Smoking J",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "Smoking J is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "specialist_miller": {
+    "name": "Specialist Miller",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Specialist Miller is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "steely": {
+    "name": "Steely",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Steely is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "stuckina": {
+    "name": "Stuckina",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Stuckina is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "tanukiburt": {
+    "name": "Tanukiburt",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Tanukiburt is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_archivist": {
+    "name": "The Archivist",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "The Archivist is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_goblin_spy": {
+    "name": "The Goblin Spy",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "The Goblin Spy is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_kremlings": {
+    "name": "The Kremlings",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "The Kremlings is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_medusa": {
+    "name": "The Medusa",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "The Medusa is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_onyx_knight": {
+    "name": "The Onyx Knight",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "The Onyx Knight is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_oracle": {
+    "name": "The Oracle",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "justification": "The Oracle is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_rakasha": {
+    "name": "The Rakasha",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "The Rakasha is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_revelmaster": {
+    "name": "The Revelmaster",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "The Revelmaster is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_scorncrow": {
+    "name": "The Scorncrow",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "The Scorncrow is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "the_unknown_assassin": {
+    "name": "The Unknown Assassin",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "The Unknown Assassin is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "thornbury": {
+    "name": "Thornbury",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Thornbury is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "thornpaw": {
+    "name": "Thornpaw",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Thornpaw is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "toadburt": {
+    "name": "Toadburt",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "justification": "Toadburt is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "toadette_sr": {
+    "name": "Toadette Sr.",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "justification": "Toadette Sr. is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "toadsworth_the_elder": {
+    "name": "Toadsworth the Elder",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 43,
+      "silver": 40
+    },
+    "justification": "Toadsworth the Elder is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "tymnas": {
+    "name": "Tymnas",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Tymnas is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "usk": {
+    "name": "Usk",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Usk is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "valorian_stormweave": {
+    "name": "Valorian Stormweave",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Valorian Stormweave is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "vaxillus_the_beastmaster": {
+    "name": "Vaxillus the Beastmaster",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "justification": "Vaxillus the Beastmaster is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "vivian_corvinarus": {
+    "name": "Vivian Corvinarus",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Vivian Corvinarus is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "warol_creeton": {
+    "name": "Warol Creeton",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "Warol Creeton is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "x_o": {
+    "name": "X.O.",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "justification": "X.O. is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
   }
 }
