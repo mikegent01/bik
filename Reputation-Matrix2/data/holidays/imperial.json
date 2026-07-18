@@ -2,16 +2,115 @@
   "calendarId": "imperial",
   "name": "Regal Empire Standard Holidays",
   "holidays": [
-    {"name":"Founding Day","month":1,"day":1,"icon":"🏛️","color":"#8a4bff","description":"Empire Founding — oaths sworn in frost","type":"festival"},
-    {"name":"Thaw Parade","month":1,"day":20,"icon":"❄️","color":"#ADD8E6","description":"End of deepest frost, lanterns on ice","type":"festival"},
-    {"name":"Verdant Rite","month":3,"day":15,"icon":"🌱","color":"#90EE90","description":"First planting, druids bless fields","type":"seasonal"},
-    {"name":"Bloom Festival","month":4,"day":10,"icon":"🌸","color":"#7dd87d","description":"Allergy season weaponized, flower crowns mandatory","type":"festival"},
-    {"name":"Road Blessing","month":5,"day":30,"icon":"🛣️","color":"#6bc96b","description":"Trade roads blessed before summer heat","type":"civic"},
-    {"name":"Highsun Bonfire","month":7,"day":15,"icon":"🔥","color":"#FFD700","description":"Midsummer zenith — bonfires, treaties, diplomatic sunburn","type":"festival"},
-    {"name":"Harvest Feast","month":8,"day":28,"icon":"🌾","color":"#FFC200","description":"Harvest audits complete, Shadow Estate pays in grain","type":"harvest"},
-    {"name":"Starfall Night","month":9,"day":21,"icon":"⭐","color":"#FF8C69","description":"Aethel's amber meteors — wishes and litigation","type":"astral"},
-    {"name":"Warding Night","month":10,"day":31,"icon":"🌑","color":"#E07050","description":"Darkmoon warding rites against Old World","type":"warding"},
-    {"name":"Frostfall Market","month":11,"day":15,"icon":"🍂","color":"#CC6A50","description":"Last trade before Deepwinter closes roads","type":"market"},
-    {"name":"Deepwinter Vigil","month":12,"day":35,"icon":"🕯️","color":"#8ab4d0","description":"Silence night — 35th day, no travel","type":"vigil"}
+    {
+      "name": "Founding Day",
+      "month": 1,
+      "day": 1,
+      "icon": "🏛️",
+      "color": "#8a4bff",
+      "description": "Empire Founding — oaths sworn in frost",
+      "type": "festival",
+      "longDescription": "Founding Day is observed on day 1 of month 1 in the Imperial Calendar. It is classified as a festival and is associated with Empire Founding — oaths sworn in frost . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Thaw Parade",
+      "month": 1,
+      "day": 20,
+      "icon": "❄️",
+      "color": "#ADD8E6",
+      "description": "End of deepest frost, lanterns on ice",
+      "type": "festival",
+      "longDescription": "Thaw Parade is observed on day 20 of month 1 in the Imperial Calendar. It is classified as a festival and is associated with End of deepest frost, lanterns on ice . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Verdant Rite",
+      "month": 3,
+      "day": 15,
+      "icon": "🌱",
+      "color": "#90EE90",
+      "description": "First planting, druids bless fields",
+      "type": "seasonal",
+      "longDescription": "Verdant Rite is observed on day 15 of month 3 in the Imperial Calendar. It is classified as a seasonal and is associated with First planting, druids bless fields . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Bloom Festival",
+      "month": 4,
+      "day": 10,
+      "icon": "🌸",
+      "color": "#7dd87d",
+      "description": "Allergy season weaponized, flower crowns mandatory",
+      "type": "festival",
+      "longDescription": "Bloom Festival is observed on day 10 of month 4 in the Imperial Calendar. It is classified as a festival and is associated with Allergy season weaponized, flower crowns mandatory . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Road Blessing",
+      "month": 5,
+      "day": 30,
+      "icon": "🛣️",
+      "color": "#6bc96b",
+      "description": "Trade roads blessed before summer heat",
+      "type": "civic",
+      "longDescription": "Road Blessing is observed on day 30 of month 5 in the Imperial Calendar. It is classified as a civic and is associated with Trade roads blessed before summer heat . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Highsun Bonfire",
+      "month": 7,
+      "day": 15,
+      "icon": "🔥",
+      "color": "#FFD700",
+      "description": "Midsummer zenith — bonfires, treaties, diplomatic sunburn",
+      "type": "festival",
+      "longDescription": "Highsun Bonfire is observed on day 15 of month 7 in the Imperial Calendar. It is classified as a festival and is associated with Midsummer zenith — bonfires, treaties, diplomatic sunburn . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Harvest Feast",
+      "month": 8,
+      "day": 28,
+      "icon": "🌾",
+      "color": "#FFC200",
+      "description": "Harvest audits complete, Shadow Estate pays in grain",
+      "type": "harvest",
+      "longDescription": "Harvest Feast is observed on day 28 of month 8 in the Imperial Calendar. It is classified as a harvest and is associated with Harvest audits complete, Shadow Estate pays in grain . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Starfall Night",
+      "month": 9,
+      "day": 21,
+      "icon": "⭐",
+      "color": "#FF8C69",
+      "description": "Aethel's amber meteors — wishes and litigation",
+      "type": "astral",
+      "longDescription": "Starfall Night is observed on day 21 of month 9 in the Imperial Calendar. It is classified as a astral and is associated with Aethel's amber meteors — wishes and litigation . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Warding Night",
+      "month": 10,
+      "day": 31,
+      "icon": "🌑",
+      "color": "#E07050",
+      "description": "Darkmoon warding rites against Old World",
+      "type": "warding",
+      "longDescription": "Warding Night is observed on day 31 of month 10 in the Imperial Calendar. It is classified as a warding and is associated with Darkmoon warding rites against Old World . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Frostfall Market",
+      "month": 11,
+      "day": 15,
+      "icon": "🍂",
+      "color": "#CC6A50",
+      "description": "Last trade before Deepwinter closes roads",
+      "type": "market",
+      "longDescription": "Frostfall Market is observed on day 15 of month 11 in the Imperial Calendar. It is classified as a market and is associated with Last trade before Deepwinter closes roads . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Deepwinter Vigil",
+      "month": 12,
+      "day": 35,
+      "icon": "🕯️",
+      "color": "#8ab4d0",
+      "description": "Silence night — 35th day, no travel",
+      "type": "vigil",
+      "longDescription": "Deepwinter Vigil is observed on day 35 of month 12 in the Imperial Calendar. It is classified as a vigil and is associated with Silence night — 35th day, no travel . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    }
   ]
 }

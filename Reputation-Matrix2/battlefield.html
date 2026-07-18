@@ -4713,7 +4713,8 @@ function view_holiday(id){
   const sameMonth=all.filter(x=>x.calendarId===h.calendarId && Number(x.month)===Number(h.month) && x.slug!==h.slug);
   const monthLabel=calendarMonthName(h.calendarId,h.month);
   const calName=calendarLabel(h.calendarId);
-  const linkedDesc=linkify?linkify(esc(h.description||'')):esc(h.description||'');
+  const holidayDescription=h.longDescription||h.description||'This observance is recorded in the calendar archive, but no cultural description has been filed yet.';
+  const linkedDesc=linkify?linkify(esc(holidayDescription)):esc(holidayDescription);
 
   const relatedEvents=(DATA.events||[]).filter(ev=>{
     const hay=((ev.title||'')+' '+(ev.summary||'')+' '+(ev.description||'')+' '+(ev.date||'')).toLowerCase();

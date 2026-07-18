@@ -2,13 +2,85 @@
   "calendarId": "mushroom_folk",
   "name": "Mushroom Kingdom Folk Holidays",
   "holidays": [
-    {"name":"Toadling New Sprout","month":1,"day":1,"icon":"🍄","color":"#9be68c","description":"New caps sprout, Toad Town census","type":"festival"},
-    {"name":"Pipe Bloom Day","month":2,"day":18,"icon":"🟢","color":"#a8e6a0","description":"Pipes flower, warp routes unstable","type":"seasonal"},
-    {"name":"Coinshine Shower","month":3,"day":36,"icon":"🪙","color":"#ffe26a","description":"Coins rain in Coinshine month end","type":"festival"},
-    {"name":"Star Festival","month":4,"day":20,"icon":"⭐","color":"#ffdb4d","description":"Star Spirits visit, wishes granted loudly","type":"astral"},
-    {"name":"Shroomheat Siesta","month":5,"day":15,"icon":"🌞","color":"#ffb84d","description":"Too hot to work, mandatory nap","type":"rest"},
-    {"name":"Bowser's Reprieve","month":6,"day":36,"icon":"🐢","color":"#ff8a4d","description":"One day truce — Koopa Troop shares cake","type":"civic"},
-    {"name":"Leaf Crumble","month":7,"day":10,"icon":"🍂","color":"#e68a4d","description":"Fall of giant leaves, building repairs","type":"seasonal"},
-    {"name":"Frostshroom Glow","month":8,"day":1,"icon":"❄️","color":"#a0c8e6","description":"First frost shrooms glow","type":"seasonal"}
+    {
+      "name": "Toadling New Sprout",
+      "month": 1,
+      "day": 1,
+      "icon": "🍄",
+      "color": "#9be68c",
+      "description": "New caps sprout, Toad Town census",
+      "type": "festival",
+      "longDescription": "Toadling New Sprout is observed on day 1 of month 1 in the Mushroom Folk Calendar. It is classified as a festival and is associated with New caps sprout, Toad Town census . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Pipe Bloom Day",
+      "month": 2,
+      "day": 18,
+      "icon": "🟢",
+      "color": "#a8e6a0",
+      "description": "Pipes flower, warp routes unstable",
+      "type": "seasonal",
+      "longDescription": "Pipe Bloom Day is observed on day 18 of month 2 in the Mushroom Folk Calendar. It is classified as a seasonal and is associated with Pipes flower, warp routes unstable . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Coinshine Shower",
+      "month": 3,
+      "day": 36,
+      "icon": "🪙",
+      "color": "#ffe26a",
+      "description": "Coins rain in Coinshine month end",
+      "type": "festival",
+      "longDescription": "Coinshine Shower is observed on day 36 of month 3 in the Mushroom Folk Calendar. It is classified as a festival and is associated with Coins rain in Coinshine month end . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Star Festival",
+      "month": 4,
+      "day": 20,
+      "icon": "⭐",
+      "color": "#ffdb4d",
+      "description": "Star Spirits visit, wishes granted loudly",
+      "type": "astral",
+      "longDescription": "Star Festival is observed on day 20 of month 4 in the Mushroom Folk Calendar. It is classified as a astral and is associated with Star Spirits visit, wishes granted loudly . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Shroomheat Siesta",
+      "month": 5,
+      "day": 15,
+      "icon": "🌞",
+      "color": "#ffb84d",
+      "description": "Too hot to work, mandatory nap",
+      "type": "rest",
+      "longDescription": "Shroomheat Siesta is observed on day 15 of month 5 in the Mushroom Folk Calendar. It is classified as a rest and is associated with Too hot to work, mandatory nap . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Bowser's Reprieve",
+      "month": 6,
+      "day": 36,
+      "icon": "🐢",
+      "color": "#ff8a4d",
+      "description": "One day truce — Koopa Troop shares cake",
+      "type": "civic",
+      "longDescription": "Bowser's Reprieve is observed on day 36 of month 6 in the Mushroom Folk Calendar. It is classified as a civic and is associated with One day truce — Koopa Troop shares cake . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Leaf Crumble",
+      "month": 7,
+      "day": 10,
+      "icon": "🍂",
+      "color": "#e68a4d",
+      "description": "Fall of giant leaves, building repairs",
+      "type": "seasonal",
+      "longDescription": "Leaf Crumble is observed on day 10 of month 7 in the Mushroom Folk Calendar. It is classified as a seasonal and is associated with Fall of giant leaves, building repairs . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Frostshroom Glow",
+      "month": 8,
+      "day": 1,
+      "icon": "❄️",
+      "color": "#a0c8e6",
+      "description": "First frost shrooms glow",
+      "type": "seasonal",
+      "longDescription": "Frostshroom Glow is observed on day 1 of month 8 in the Mushroom Folk Calendar. It is classified as a seasonal and is associated with First frost shrooms glow . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    }
   ]
 }
