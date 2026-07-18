@@ -1656,8 +1656,15 @@ export const WALLETS = {
   "captain_syrup": {
     "name": "Captain Syrup",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "doubloon": 950,
+      "cargo_share": 55,
+      "gold": 2800,
+      "silver": 1200,
+      "wario_coin": 450,
+      "kremling_koin": 180,
+      "broker_mark": 22,
+      "coconut_bar": 90,
+      "banana_medallion": 60
     }
   },
   "chancellor_toadsworth": {
@@ -2753,6 +2760,7 @@ export const WALLETS = {
     }
   }
 };
+
 
 
 
