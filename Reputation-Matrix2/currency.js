@@ -1222,19 +1222,29 @@ export const WALLETS = {
   "bowser": {
     "name": "Bowser",
     "currencies": {
-      "platinum": 12,
-      "gold": 121,
-      "electrum": 51,
-      "silver": 13,
-      "copper": 11
+      "bowser_bux": 75000,
+      "shell_credit": 12000,
+      "gold": 8500,
+      "platinum": 240,
+      "electrum": 320,
+      "silver": 1800,
+      "copper": 4000,
+      "imperial_crown": 800,
+      "midland_ducat": 1500,
+      "doubloon": 400,
+      "cargo_share": 45,
+      "wario_coin": 600,
+      "broker_mark": 25
     }
   },
   "hjumpik": {
     "name": "Hjumpik",
     "currencies": {
       "midland_ducat": 421,
-      "gold": 1,
-      "dwarf_oathgold": 2
+      "gold": 120,
+      "dwarf_oathgold": 8,
+      "silver": 180,
+      "toad_whistle": 6
     }
   },
   "markop": {
@@ -1248,9 +1258,15 @@ export const WALLETS = {
   "remi": {
     "name": "Remi",
     "currencies": {
-      "gold": 62,
-      "toad_whistle": 65,
-      "decree_strip": 118
+      "kivotos_credit": 5500,
+      "credstick": 1200,
+      "data_chit": 85,
+      "gold": 180,
+      "silver": 220,
+      "midland_ducat": 300,
+      "toad_whistle": 12,
+      "mushroom_coin": 150,
+      "relief_stamp": 90
     }
   },
   "wario": {
@@ -1498,27 +1514,28 @@ export const WALLETS = {
   "princess_celestia": {
     "name": "Princess Celestia",
     "currencies": {
-      "gold": 80000,
-      "silver": 250000,
-      "court_leaf": 400,
-      "fey_acorn": 80,
-      "archive_writ": 90,
-      "midland_ducat": 30000,
-      "mora": 8000,
-      "astral_pearl": 22
+      "gold": 9500,
+      "silver": 4000,
+      "court_leaf": 450,
+      "fey_acorn": 280,
+      "astral_pearl": 120,
+      "guild_seal": 35,
+      "arcane_shard": 90,
+      "autumn_leaf": 150
     }
   },
   "twilight_sparkle": {
     "name": "Twilight Sparkle",
     "currencies": {
-      "gold": 32000,
-      "guild_seal": 90,
-      "arcane_shard": 160,
-      "archive_writ": 120,
-      "court_leaf": 250,
-      "fey_acorn": 50,
-      "midland_ducat": 14000,
-      "data_chit": 700
+      "gold": 3200,
+      "silver": 1500,
+      "court_leaf": 180,
+      "fey_acorn": 120,
+      "astral_pearl": 45,
+      "guild_seal": 60,
+      "arcane_shard": 110,
+      "data_chit": 80,
+      "transit_stamp": 8
     }
   },
   "chairwoman_rin": {
@@ -1528,7 +1545,7 @@ export const WALLETS = {
       "credstick": 120000,
       "data_chit": 12000,
       "gold": 20000,
-      "midland_ducat": 25000,
+      "midland_ducat": 1200,
       "archive_writ": 70,
       "guild_seal": 35
     }
@@ -1538,7 +1555,7 @@ export const WALLETS = {
     "currencies": {
       "mora": 3000000,
       "gold": 150000,
-      "midland_ducat": 55000,
+      "midland_ducat": 2500,
       "imperial_crown": 25000,
       "doubloon": 4000,
       "cargo_share": 250,
@@ -1608,11 +1625,15 @@ export const WALLETS = {
   "bones": {
     "name": "Bones",
     "currencies": {
-      "decree_strip": 44,
-      "wario_coin": 242,
-      "gold": 241,
-      "toad_whistle": 37,
-      "imperial_crown": 1031
+      "toad_bond": 90,
+      "relief_stamp": 350,
+      "peach_crown": 35,
+      "mushroom_coin": 280,
+      "gold": 95,
+      "silver": 240,
+      "toad_whistle": 18,
+      "decree_strip": 12,
+      "broker_mark": 6
     }
   },
   "bryan": {
@@ -1761,9 +1782,16 @@ export const WALLETS = {
   "green_t": {
     "name": "Green T",
     "currencies": {
-      "toad_whistle": 18,
-      "silver": 454,
-      "relief_stamp": 474
+      "gold": 220,
+      "silver": 480,
+      "mushroom_coin": 650,
+      "peach_crown": 85,
+      "toad_bond": 140,
+      "relief_stamp": 420,
+      "toad_whistle": 22,
+      "tea_chit": 60,
+      "broker_mark": 8,
+      "wario_coin": 45
     }
   },
   "hargram_fidger": {
@@ -2032,9 +2060,13 @@ export const WALLETS = {
   "roger": {
     "name": "Roger",
     "currencies": {
-      "relief_stamp": 544,
-      "imperial_crown": 198,
-      "wario_coin": 340
+      "gold": 150,
+      "silver": 320,
+      "midland_ducat": 280,
+      "toad_whistle": 20,
+      "relief_stamp": 180,
+      "mushroom_coin": 200,
+      "peach_crown": 15
     }
   },
   "ryan": {
@@ -2706,8 +2738,22 @@ export const WALLETS = {
       "bronze": 45,
       "toad_whistle": 2
     }
+  },
+  "rodger": {
+    "name": "Rodger",
+    "currencies": {
+      "toad_bond": 110,
+      "relief_stamp": 420,
+      "mushroom_coin": 340,
+      "peach_crown": 28,
+      "gold": 78,
+      "silver": 310,
+      "toad_whistle": 14,
+      "midland_ducat": 60
+    }
   }
 };
+
 
 
 

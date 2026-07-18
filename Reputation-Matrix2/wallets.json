@@ -26,23 +26,35 @@
   },
   "bowser": {
     "name": "Bowser",
-    "title": "Koopa King",
+    "title": "Koopa King \u2014 Lord of the Koopa Dominion",
+    "status": "Active \u2014 commands Koopa Troop, siege engines, Magikoopa labs",
+    "wallet_type": "Royal war chest \u2014 military treasury, not personal pocket money",
     "currencies": {
-      "platinum": 12,
-      "gold": 121,
-      "electrum": 51,
-      "silver": 13,
-      "copper": 11
+      "bowser_bux": 75000,
+      "shell_credit": 12000,
+      "gold": 8500,
+      "platinum": 240,
+      "electrum": 320,
+      "silver": 1800,
+      "copper": 4000,
+      "imperial_crown": 800,
+      "midland_ducat": 1500,
+      "doubloon": 400,
+      "cargo_share": 45,
+      "wario_coin": 600,
+      "broker_mark": 25
     },
     "category": "Main Party"
   },
   "hjumpik": {
     "name": "Hjumpik",
-    "title": "Axe Enthusiast",
+    "title": "Axe Enthusiast \u2014 Dwarven Ally, Legion Associate",
     "currencies": {
       "midland_ducat": 421,
-      "gold": 1,
-      "dwarf_oathgold": 2
+      "gold": 120,
+      "dwarf_oathgold": 8,
+      "silver": 180,
+      "toad_whistle": 6
     },
     "category": "Main Party"
   },
@@ -58,14 +70,21 @@
   },
   "remi": {
     "name": "Remi",
-    "title": "FNG Smith",
+    "title": "FNG Smith \u2014 Disaster Inc. Engineer, Kivotan Student",
+    "status": "Active \u2014 engineer, holds portal knowledge, Feather Fall",
+    "wallet_type": "Engineer field wallet \u2014 Kivotos grant + practical survivor cash",
     "currencies": {
-      "gold": 62,
-      "toad_whistle": 65,
-      "decree_strip": 118
+      "kivotos_credit": 5500,
+      "credstick": 1200,
+      "data_chit": 85,
+      "gold": 180,
+      "silver": 220,
+      "midland_ducat": 300,
+      "toad_whistle": 12,
+      "mushroom_coin": 150,
+      "relief_stamp": 90
     },
-    "category": "Main Party",
-    "wallet_type": "Main Party human operating wallet \u2014 fixed from generic spam"
+    "category": "Main Party"
   },
   "wario": {
     "name": "Wario",
@@ -383,35 +402,36 @@
   },
   "princess_celestia": {
     "name": "Princess Celestia",
-    "title": "Equestrian Sovereign Authority",
-    "status": "Active \u2014 crown reserves, court instruments, and cross-map diplomatic exchange funds",
-    "wallet_type": "NPC sovereign treasury access",
+    "title": "Princess of Equestria \u2014 Solar Diarch",
+    "status": "Active \u2014 rules Equestria, not Midlands",
+    "wallet_type": "Equestrian royal treasury \u2014 no Midlands ducats, uses harmony court favors",
     "currencies": {
-      "gold": 80000,
-      "silver": 250000,
-      "court_leaf": 400,
-      "fey_acorn": 80,
-      "archive_writ": 90,
-      "midland_ducat": 30000,
-      "mora": 8000,
-      "astral_pearl": 22
+      "gold": 9500,
+      "silver": 4000,
+      "court_leaf": 450,
+      "fey_acorn": 280,
+      "astral_pearl": 120,
+      "guild_seal": 35,
+      "arcane_shard": 90,
+      "autumn_leaf": 150
     },
     "category": "Rulers & Institutions"
   },
   "twilight_sparkle": {
     "name": "Twilight Sparkle",
-    "title": "Equestrian Princess / Arcane-State Administrator",
-    "status": "Active \u2014 scholarly state funds, magical collateral, and diplomatic coin",
-    "wallet_type": "NPC ruler/research treasury access",
+    "title": "Princess of Friendship \u2014 Equestrian Archmage",
+    "status": "Active \u2014 studies friendship, runs School of Friendship",
+    "wallet_type": "Equestrian academic treasury \u2014 no Midlands ducats",
     "currencies": {
-      "gold": 32000,
-      "guild_seal": 90,
-      "arcane_shard": 160,
-      "archive_writ": 120,
-      "court_leaf": 250,
-      "fey_acorn": 50,
-      "midland_ducat": 14000,
-      "data_chit": 700
+      "gold": 3200,
+      "silver": 1500,
+      "court_leaf": 180,
+      "fey_acorn": 120,
+      "astral_pearl": 45,
+      "guild_seal": 60,
+      "arcane_shard": 110,
+      "data_chit": 80,
+      "transit_stamp": 8
     },
     "category": "Supporting Cast"
   },
@@ -425,7 +445,7 @@
       "credstick": 120000,
       "data_chit": 12000,
       "gold": 20000,
-      "midland_ducat": 25000,
+      "midland_ducat": 1200,
       "archive_writ": 70,
       "guild_seal": 35
     },
@@ -435,11 +455,11 @@
     "name": "Liyue Qixing Treasury",
     "title": "Teyvat Mercantile Ruling Council",
     "status": "Active institution \u2014 trade reserves and mora-clearing authority",
-    "wallet_type": "institutional sovereign treasury access",
+    "wallet_type": "Teyvat Mercantile Council \u2014 mora primary, foreign ducats minimal trade",
     "currencies": {
       "mora": 3000000,
       "gold": 150000,
-      "midland_ducat": 55000,
+      "midland_ducat": 2500,
       "imperial_crown": 25000,
       "doubloon": 4000,
       "cargo_share": 250,
@@ -529,16 +549,21 @@
   },
   "bones": {
     "name": "Bones",
-    "title": "Recorded XP character",
+    "title": "Liberated Toad \u2014 Master of Disguise, Infiltration Specialist",
+    "status": "Active \u2014 Liberated Toads, skilled at disguise, uncertain identity",
+    "wallet_type": "Infiltration operations wallet \u2014 multiple identities cash",
     "currencies": {
-      "decree_strip": 44,
-      "wario_coin": 242,
-      "gold": 241,
-      "toad_whistle": 37,
-      "imperial_crown": 1031
+      "toad_bond": 90,
+      "relief_stamp": 350,
+      "peach_crown": 35,
+      "mushroom_coin": 280,
+      "gold": 95,
+      "silver": 240,
+      "toad_whistle": 18,
+      "decree_strip": 12,
+      "broker_mark": 6
     },
-    "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "category": "Supporting Cast"
   },
   "bryan": {
     "name": "Bryan",
@@ -730,14 +755,22 @@
   },
   "green_t": {
     "name": "Green T",
-    "title": "Recorded XP character",
+    "title": "Toad Scout \u2014 Transformation Capable, Tea Leaf Syndicate Defector",
+    "status": "Active \u2014 Disaster Inc. ally, holds Mirror of True Reflection",
+    "wallet_type": "Field scout wallet \u2014 former syndicate cash + Loyalist support",
     "currencies": {
-      "toad_whistle": 18,
-      "silver": 454,
-      "relief_stamp": 474
+      "gold": 220,
+      "silver": 480,
+      "mushroom_coin": 650,
+      "peach_crown": 85,
+      "toad_bond": 140,
+      "relief_stamp": 420,
+      "toad_whistle": 22,
+      "tea_chit": 60,
+      "broker_mark": 8,
+      "wario_coin": 45
     },
-    "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "category": "Main Party"
   },
   "hargram_fidger": {
     "name": "Hargram Fidger",
@@ -1085,14 +1118,19 @@
   },
   "roger": {
     "name": "Roger",
-    "title": "Recorded XP character",
+    "title": "Disaster Inc. Situational Contractor \u2014 Logistics",
+    "status": "Active \u2014 helps with rope, ladders, rooftop escape logistics",
+    "wallet_type": "Contractor logistics wallet",
     "currencies": {
-      "relief_stamp": 544,
-      "imperial_crown": 198,
-      "wario_coin": 340
+      "gold": 150,
+      "silver": 320,
+      "midland_ducat": 280,
+      "toad_whistle": 20,
+      "relief_stamp": 180,
+      "mushroom_coin": 200,
+      "peach_crown": 15
     },
-    "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "category": "Supporting Cast"
   },
   "ryan": {
     "name": "Ryan",
@@ -1993,5 +2031,22 @@
       "toad_whistle": 2
     },
     "category": "Main Party"
+  },
+  "rodger": {
+    "name": "Rodger",
+    "title": "Liberated Toad \u2014 Carpentry & Barricade Specialist",
+    "status": "Active \u2014 builds safehouses, Toad Town rebuilding",
+    "wallet_type": "Tradesman field wallet \u2014 rebuilding bonds + practical coin",
+    "currencies": {
+      "toad_bond": 110,
+      "relief_stamp": 420,
+      "mushroom_coin": 340,
+      "peach_crown": 28,
+      "gold": 78,
+      "silver": 310,
+      "toad_whistle": 14,
+      "midland_ducat": 60
+    },
+    "category": "Supporting Cast"
   }
 }
