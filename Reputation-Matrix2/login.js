@@ -9,6 +9,8 @@ import { PARTY_LOCATIONS } from './party-data.js';
 import { getActiveAge, NATIONS, getTechTree, calculateRumorMetrics } from './research-data.js';
 import { state, loadState } from './state.js'; // Import state
 
+const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? '' : 'Reputation-Matrix2/');
+
 // --- Element Cache ---
 const startupScreen = document.getElementById('startup-screen');
 const enterAppBtn = document.getElementById('enter-app-btn');
@@ -42,7 +44,7 @@ function selectProfile(profileKey) {
         loginScreen.style.opacity = '0';
     }
     setTimeout(() => {
-        window.location.href = 'directory.html';
+        window.location.href = pathPrefix + 'directory.html';
     }, 500); // Match CSS transition, gives time for fade
 }
 window.debugReset = function() {
@@ -60,7 +62,7 @@ function setupLoginScreen() {
         const card = document.createElement('div');
         card.className = 'char-card';
         card.dataset.charKey = charKey;
-        const imageName = `portraits/${charKey}.png`; 
+        const imageName = pathPrefix + `portraits/${charKey}.png`; 
         card.innerHTML = `
             <img src="${imageName}" alt="${character.name}">
             <h3>${character.name}</h3>
@@ -113,7 +115,7 @@ function playNextMonologueLine() {
 
     if (monologueIndex >= fullMonologue.length) {
         introOverlay.removeEventListener('click', playNextMonologueLine);
-        window.location.href = 'new-operator/new-operator.html';
+        window.location.href = pathPrefix + 'new-operator/new-operator.html';
         return;
     }
 
@@ -210,7 +212,7 @@ function showLoginOrApp() {
            const savedUser = localStorage.getItem('vigilanceTerminalUser');
             if (savedUser) {
                 // If already logged in, go straight to the directory.
-                window.location.href = 'directory.html';
+                window.location.href = pathPrefix + 'directory.html';
             } else {
                 // Otherwise, show the character login screen.
                 if (loginScreen) {
@@ -230,28 +232,28 @@ function formatCharacterKey(key) {
 }
 
 function getCharacterData(characterKey) {
-    if (!characterKey) return { name: 'Unknown', portrait: 'portraits/unknown.png', faction: null };
+    if (!characterKey) return { name: 'Unknown', portrait: pathPrefix + 'portraits/unknown.png', faction: null };
     const char = LORE_DATA.characters[characterKey] || LORE_DATA.auxiliary_party[characterKey];
     if (char && char.portrait) {
         let faction = null;
         for (const fKey in LORE_DATA.factions) {
             const fac = LORE_DATA.factions[fKey];
             if (fac.leader === characterKey || fac.notable_people?.some(p => p.name === char.name)) {
-                faction = { name: fac.name, logo: fac.logo };
+                faction = { name: fac.name, logo: pathPrefix + fac.logo };
                 break;
             }
         }
-        return { name: char.name, portrait: char.portrait, faction };
+        return { name: char.name, portrait: pathPrefix + char.portrait, faction };
     }
     if (LORE_DATA.factions[characterKey]) {
         const fac = LORE_DATA.factions[characterKey];
-        return { name: fac.name, portrait: fac.logo, faction: { name: fac.name, logo: fac.logo } };
+        return { name: fac.name, portrait: pathPrefix + fac.logo, faction: { name: fac.name, logo: pathPrefix + fac.logo } };
     }
     const specialCases = {
-        'wah_media_collective': { name: "WAH Media Collective", portrait: 'icon_newspaper.png', faction: { name: "The Daily Paradox", logo: 'icon_newspaper.png' } },
+        'wah_media_collective': { name: "WAH Media Collective", portrait: pathPrefix + 'icon_newspaper.png', faction: { name: "The Daily Paradox", logo: pathPrefix + 'icon_newspaper.png' } },
     };
     if (specialCases[characterKey]) return { ...specialCases[characterKey] };
-    return { name: formatCharacterKey(characterKey), portrait: 'portraits/unknown.png', faction: null };
+    return { name: formatCharacterKey(characterKey), portrait: pathPrefix + 'portraits/unknown.png', faction: null };
 }
 
 function getSeededRandom(seed) {
@@ -377,7 +379,7 @@ function renderResearchWidget() {
                 <p style="margin:5px 0;">Current Age: <strong>${age.name}</strong></p>
                 <hr style="border-color:var(--border-color); opacity:0.5;">
                 <p style="margin-top:10px; font-size:0.9rem;"><strong>Latest Priority:</strong><br>${researchingName}</p>
-                <a href="research.html" class="intel-link-btn">Open Research Lab</a>
+                <a href="${pathPrefix}research.html" class="intel-link-btn">Open Research Lab</a>
             </div>
         </div>
     `;
@@ -465,7 +467,7 @@ function renderIntelWidget() {
             <div class="widget-content">
                 <h4 class="intel-title">${topRumor.title}</h4>
                 <p class="intel-summary">${topRumor.description}</p>
-                <a href="assembly.html#intel" class="intel-link-btn">View Full Intel Dossier</a>
+                <a href="${pathPrefix}assembly.html#intel" class="intel-link-btn">View Full Intel Dossier</a>
             </div>
         </div>
     `;
@@ -481,7 +483,7 @@ function renderWaluipediaWidget() {
             <div class="widget-content">
                 <h4 class="intel-title" style="color:var(--accent-color,#ffd700);font-weight:bold;margin-bottom:4px">The Midnight Audit of Harvestide 28</h4>
                 <p class="intel-summary" style="font-size:12px;color:var(--text-color-muted,#bbb);line-height:1.4">Midnight Estate intrusions, firearm recovery by Remi Akamatsu, Black Crystal lie testing, and a closet-bound spy. 100 polities & 48 currencies tracked.</p>
-                <a href="battlefield.html#/article/the_midnight_audit_of_harvestide_28" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.4);border-radius:6px;color:#ffd700;text-decoration:none;font-size:11px">Access Waluipedia Terminal →</a>
+                <a href="${pathPrefix}battlefield.html#/article/the_midnight_audit_of_harvestide_28" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.4);border-radius:6px;color:#ffd700;text-decoration:none;font-size:11px">Access Waluipedia Terminal →</a>
             </div>
         </div>
     `;
@@ -497,7 +499,7 @@ function renderInkwellLibraryWidget() {
             <div class="widget-content">
                 <h4 class="intel-title" style="color:#a78bfa;font-weight:bold;margin-bottom:4px">Master Scribe Inkwell's Royal Archives</h4>
                 <p class="intel-summary" style="font-size:12px;color:var(--text-color-muted,#bbb);line-height:1.4">50 authenticated codices, military treatises, bloodline genealogies, and secret diaries across 14 realms. Curated by House Toadstool's Chief Genealogist.</p>
-                <a href="bookshelf.html" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);border-radius:6px;color:#c4b5fd;text-decoration:none;font-size:11px">Open Royal Scriptorium →</a>
+                <a href="${pathPrefix}bookshelf.html" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);border-radius:6px;color:#c4b5fd;text-decoration:none;font-size:11px">Open Royal Scriptorium →</a>
             </div>
         </div>
     `;
@@ -513,7 +515,7 @@ function renderCurrencyWidget() {
             <div class="widget-content">
                 <h4 class="intel-title" style="color:#4ade80;font-weight:bold;margin-bottom:4px">48 International Tenders</h4>
                 <p class="intel-summary" style="font-size:12px;color:var(--text-color-muted,#bbb);line-height:1.4">Gold, Mora, Wario Coins, Soul Coins, Bowser Bux, Ducats, and 42 other tenders. Bank vault balances, loans, and Wario checkout integration.</p>
-                <a href="currency.html" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.4);border-radius:6px;color:#86efac;text-decoration:none;font-size:11px">Open Currency Bank →</a>
+                <a href="${pathPrefix}currency.html" class="intel-link-btn" style="display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.4);border-radius:6px;color:#86efac;text-decoration:none;font-size:11px">Open Currency Bank →</a>
             </div>
         </div>
     `;
@@ -567,7 +569,7 @@ function main() {
         // Fallback if there is no startup screen for some reason.
         const savedUser = localStorage.getItem('vigilanceTerminalUser');
         if (savedUser) {
-            window.location.href = 'directory.html';
+            window.location.href = pathPrefix + 'directory.html';
         } else {
             if (loginScreen) {
                 loginScreen.style.display = 'flex';

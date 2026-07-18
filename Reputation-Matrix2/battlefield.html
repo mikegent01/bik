@@ -148,7 +148,7 @@ function buildIndexes(){
   // search docs: articles + congress votes + conflicts + major battles
   ALL_ITEMS.forEach(({typeKey,item})=>{
     if(!item) return;
-    const hay=[item.name,item.title,item.summary,item.type,item.affiliation,item.race,item.leader,item.era,item.location,item.region,item.defendant,item.prosecutor].filter(Boolean).join(' ').toLowerCase();
+    const hay=[item.name,item.title,item.summary,item.description,item.history,item.lore,item.bio,item.type,item.affiliation,item.race,item.leader,item.era,item.location,item.region,item.defendant,item.prosecutor].filter(Boolean).join(' ').toLowerCase();
     SEARCH_DOCS.push({kind:'article',id:item.id,typeKey,name:displayName(item),summary:previewText(item,160),hay});
   });
   (DATA.congress_votes||[]).forEach(v=>{ if(!v) return; SEARCH_DOCS.push({kind:'vote',id:v.id,typeKey:'congress',name:v.title,summary:v.description||'',hay:[v.title,v.description,v.category,v.proposedBy].filter(Boolean).join(' ').toLowerCase()}); });
@@ -963,15 +963,34 @@ const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:()
 function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey].singular; if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; return ''; }
 function search(q){
   q=q.trim().toLowerCase(); if(!q)return[];
-  const terms=q.split(/\s+/);const out=[];
+  const cleanQ = q.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ');
+  const terms = cleanQ.split(/\s+/).filter(Boolean);
+  if (!terms.length) return [];
+  const out=[];
   for(const d of SEARCH_DOCS){let score=0,ok=true;
-    for(const t of terms){const inName=d.name.toLowerCase().includes(t),inHay=d.hay.includes(t);
+    const normName = d.name.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ').replace(/\s+/g, ' ').trim();
+    const normHay = d.hay.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ').replace(/\s+/g, ' ').trim();
+    for(const t of terms){const inName=normName.includes(t),inHay=normHay.includes(t);
       if(!inName&&!inHay){ok=false;break;}
-      if(d.name.toLowerCase()===t)score+=120;if(d.name.toLowerCase().startsWith(t))score+=40;if(inName)score+=30;if(inHay)score+=6;}
-    if(ok){if(d.name.toLowerCase()===q)score+=200;out.push({...d,score});}}
+      if(normName===t)score+=120;if(normName.startsWith(t))score+=40;if(inName)score+=30;if(inHay)score+=6;}
+    if(ok){
+      const normCleanQ = cleanQ.replace(/\s+/g, ' ').trim();
+      if(normName===normCleanQ)score+=200;
+      if(normName.includes(normCleanQ))score+=150;
+      if(normHay.includes(normCleanQ))score+=120;
+      out.push({...d,score});
+    }
+  }
   out.sort((a,b)=>b.score-a.score);return out.slice(0,40);
 }
-function highlight(text,q){if(!q)return esc(text);const terms=q.trim().split(/\s+/).filter(Boolean).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));let o=esc(text);terms.forEach(t=>{o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});return o;}
+function highlight(text,q){
+  if(!q)return esc(text);
+  const cleanQ = q.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ');
+  const terms=cleanQ.trim().split(/\s+/).filter(Boolean).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  let o=esc(text);
+  terms.forEach(t=>{o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
+  return o;
+}
 function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
 const searchInput=el('search'),resultsBox=el('results');let activeIdx=-1,currentResults=[];
@@ -979,7 +998,8 @@ function renderResults(list,q){
   currentResults=list;activeIdx=-1;
   if(!q){resultsBox.classList.remove('show');resultsBox.innerHTML='';return;}
   if(!list.length){resultsBox.innerHTML='<div class="res-empty">No results. Waluigi finds your query disappointing.</div>';resultsBox.classList.add('show');return;}
-  resultsBox.innerHTML=list.map((r,i)=>`<div class="res-item" data-i="${i}"><span style="font-size:18px">${SEARCH_META[r.kind](r.typeKey)}</span><div style="min-width:0"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span>${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'').slice(0,140),q)}</div></div></div>`).join('');
+  const headerHtml = `<div style="padding:10px 14px 4px 14px; font-size:11px; text-transform:uppercase; letter-spacing:.8px; color:var(--accent2); border-bottom:1px solid var(--border); background:rgba(138,75,255,.05)">Waluigi begrudgingly found ${list.length} matches. You better be grateful! WAH!</div>`;
+  resultsBox.innerHTML=headerHtml + list.map((r,i)=>`<div class="res-item" data-i="${i}"><span style="font-size:18px">${SEARCH_META[r.kind](r.typeKey)}</span><div style="min-width:0"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span>${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'').slice(0,140),q)}</div></div></div>`).join('');
   resultsBox.classList.add('show');
   resultsBox.querySelectorAll('.res-item').forEach((n,i)=>n.addEventListener('click',()=>{openSearchResult(currentResults[i]);closeSearch();}));
 }
