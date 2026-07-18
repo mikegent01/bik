@@ -27,6 +27,11 @@
 .cur-meta-row { font-size: 11.5px; color: var(--muted); margin: 3px 0; }
 .cur-tip { background: rgba(138,75,255,.08); border: 1px dashed var(--border); border-radius: 8px; padding: 8px; font-size: 11.5px; color: var(--muted); margin-top: 10px; line-height: 1.4; }
 .cur-tip b { color: var(--accent2); }
+/* Wallet sorting controls — inspired by xp.html */
+.wallet-controls { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; align-items:center; }
+.wallet-controls input, .wallet-controls select { padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:var(--bg2); color:var(--text); font-size:13px; }
+.wallet-count { font-size:12px; color:var(--muted); }
+.wallet-meta { font-size:11px; color:var(--muted); margin-top:4px; line-height:1.3; }
 </style>
 </head>
 <body>
@@ -116,16 +121,39 @@
     <div id="shopItemsGrid" class="shop-item-grid"></div>
   </div>
 
-  <!-- Wallets -->
+  <!-- Wallets — Enhanced with XP-page-style sorting -->
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-      <div><div class="section-title" style="margin:0">🎒 Party & Character Wallets — Actual Recorded Holdings</div><div id="walletPartyTotal" class="wallet-party-total">Calculating recorded holdings…</div></div>
+      <div>
+        <div class="section-title" style="margin:0">🎒 Party & Character Wallets — Actual Recorded Holdings</div>
+        <div id="walletPartyTotal" class="wallet-party-total">Calculating recorded holdings…</div>
+        <div id="walletPartyMeta" class="wallet-meta"></div>
+      </div>
       <div class="chips">
-        <span class="chip" id="btnWalletAll">All Operatives</span>
+        <span class="chip active" id="btnWalletAll">All Operatives</span>
         <span class="chip" id="btnWalletPlayer">Main Party Only</span>
+        <span class="chip" id="btnWalletHideSpam" title="Hide default 15g+0.5g spam wallets">Hide Spam (15.5g)</span>
       </div>
     </div>
+
+    <!-- Controls mirroring xp.html: search + sort select + category filter -->
+    <div class="wallet-controls">
+      <input id="walletSearch" type="search" placeholder="🔍 Filter name / title / currency (e.g. wario, peach_crown, gold)…" style="flex:1 1 260px; min-width:220px">
+      <select id="walletSort" title="Sorting like XP page does — default Most Gold First">
+        <option value="value_desc">💰 Sort: Most Gold First (default, like XP sort)</option>
+        <option value="value_asc">💰 Sort: Least Gold First</option>
+        <option value="name_asc">🔤 Sort: Name A-Z (like Category A-Z)</option>
+        <option value="name_desc">🔤 Sort: Name Z-A</option>
+        <option value="count_desc">🪙 Sort: Most Currency Types First</option>
+        <option value="count_asc">🪙 Sort: Fewest Currency Types First</option>
+        <option value="title_asc">📜 Sort: Title A-Z</option>
+      </select>
+      <span class="chip" id="walletCountLabel" style="background:rgba(138,75,255,.12);color:#c4b5fd;font-weight:700">—</span>
+      <span class="chip" id="walletFilteredTotal" style="background:rgba(224,180,0,.12);color:var(--accent2);font-weight:800">—</span>
+    </div>
+    <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap" id="walletActiveFiltersRow"></div>
     <div id="walletGrid" class="wallet-grid" style="margin-top:12px"></div>
+    <div id="walletEmpty" style="display:none;padding:24px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--border);border-radius:10px;margin-top:12px">No wallets match current search / filters.</div>
   </div>
 
   <!-- Banks -->
@@ -156,12 +184,19 @@
 <script type="module">
 import { CURRENCIES, WALLETS, BANKS, SHOP_ITEMS, VENDORS, getAllShopItems, convertPriceToCurrency, getCurrency } from './currency.js';
 
-let walletFilter = 'all';
+let walletFilter = 'all'; // all | player
+let walletHideSpam = true; // hide default 15g+0.5g spam wallets
+let walletSort = 'value_desc'; // mirrors xp.html sort default: highest XP first
+let walletSearch = ''; // lowercased search
 let activeTier = 'all';
 let activeCategory = 'all';
 let marketId = 'universal';
 let currentShopSearch = '';
 let currentShopCurrency = 'gold';
+
+// merged wallets from currency.js + wallets.json (like shop-wallet-sync does)
+let MERGED_WALLETS = { ...(WALLETS||{}) };
+let EXTERNAL_WALLET_META = { loaded: false, source: 'currency.js only' };
 
 const fromAmt = document.getElementById('fromAmt');
 const fromCur = document.getElementById('fromCur');
@@ -177,7 +212,7 @@ const shopCurSelect = document.getElementById('shopCurSelect');
 const shopSearchInput = document.getElementById('shopSearchInput');
 const shopItemsGrid = document.getElementById('shopItemsGrid');
 
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;'); }
 function currencyIcon(c){
   const raw=String(c?.icon||'').trim();
   return (!raw || /\.png$|\.jpg$|\.svg$|^icon_/i.test(raw)) ? '🪙' : raw;
@@ -187,8 +222,69 @@ function factionLink(id){
   const label=String(id).replace(/[_-]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
   return `<a href="battlefield.html#/reputation/faction/${encodeURIComponent(id)}" class="currency-link">${esc(label)}</a>`;
 }
-
 function goldVal(id, amt){ const c = CURRENCIES[id]; if(!c) return 0; return c.base_value * amt; }
+
+// memos for wallet totals cache
+const walletGoldCache = new Map();
+function walletTotalGold(w){
+  if (!w) return 0;
+  const key = w.name + JSON.stringify(w.currencies||{});
+  if (walletGoldCache.has(key)) return walletGoldCache.get(key);
+  let sum=0;
+  for (const [k,v] of Object.entries(w.currencies||{})){
+    sum += goldVal(k, Number(v)||0);
+  }
+  walletGoldCache.set(key, sum);
+  return sum;
+}
+
+// spam detection: exact default 15 gold + 5 silver = 15.5g, or empty, or generic placeholder names
+const SPAM_NAME_PATTERNS = [
+  /^xp$/i, /^species$/i, /^squad$/i, /^status$/i, /^title$/i,
+  /^scarecrow$/i, /^sergeant coldbrook$/i, /^sergeant stone$/i,
+  /^skullcap murphgy$/i, /^skullcap murphy$/i, /^thejestergoomba$/i, /^theoracle$/i,
+  /^toadettesr$/i, /^toadlee$/i, /^toadsworth sr$/i, /^unknown assassin$/i,
+  /^unknown third figure$/i, /^vaxillusthebeastmaster$/i, /^xo$/i
+];
+function isSpamWallet(id, wallet, total){
+  const cur = wallet.currencies||{};
+  const keys = Object.keys(cur);
+  const gold = Number(cur.gold||0);
+  const silver = Number(cur.silver||0);
+  // pattern 1: exactly 15 gold + 5 silver = 15.5g total and nothing else
+  if (keys.length===2 && gold===15 && silver===5 && Math.abs(total-15.5)<0.01) return true;
+  // pattern 2: exactly 15 gold + 5 silver as only values, even if other empty
+  if (gold===15 && silver===5 && keys.length<=2 && Math.abs(total-15.5)<0.01) return true;
+  // pattern 3: name matches spam list and low total (spam bug report said all showing 15.5g)
+  const name = String(wallet.name||id||'').trim();
+  const isGenericName = SPAM_NAME_PATTERNS.some(re=> re.test(name) || re.test(id));
+  if (isGenericName && total<=20 && keys.length<=3) return true;
+  // pattern 4: 0g empty wallets that are not in main party and are marked Supporting Cast? We hide empties only when spam filter on and name looks autogenerated
+  if (total===0 && keys.length===0 && isGenericName) return true;
+  return false;
+}
+
+async function loadExternalWallets(){
+  try {
+    const r = await fetch('./wallets.json', { cache: 'no-cache' });
+    if (r.ok){
+      const j = await r.json();
+      let count=0;
+      for (const [k,v] of Object.entries(j)){
+        if (k.startsWith('_')) continue;
+        MERGED_WALLETS[k]=v;
+        count++;
+      }
+      EXTERNAL_WALLET_META = { loaded:true, source:`wallets.json (${count} entries) + currency.js`, count };
+      console.log('[Currency] Loaded external wallets.json', count);
+    }
+  } catch(e){
+    console.warn('[Currency] wallets.json not loaded, using currency.js only', e);
+    EXTERNAL_WALLET_META = { loaded:false, source:'currency.js only (fallback)', count:Object.keys(MERGED_WALLETS).length };
+  }
+  // clear cache
+  walletGoldCache.clear();
+}
 
 function acceptLevel(id, faction){
   if(!faction || faction==='universal') return 'high';
@@ -198,9 +294,7 @@ function acceptLevel(id, faction){
   if(c.home_faction === faction) return 'high';
   return rules.default || 'low';
 }
-
 function penalty(level){ return { high: 1.0, medium: 1.15, low: 1.6, refused: 99 }[level] || 1.2; }
-
 function convert(fromId, toId, amt, marketFaction){
   const f = CURRENCIES[fromId], t = CURRENCIES[toId];
   if(!f || !t) return 0;
@@ -211,19 +305,15 @@ function convert(fromId, toId, amt, marketFaction){
   if(pen >= 99) return 0;
   return (base * amt) / pen;
 }
-
 function updateConvert(){
   const fid = fromCur.value || 'gold';
   const tid = toCur.value || 'midland_ducat';
   const amt = parseFloat(fromAmt.value) || 0;
   const f = CURRENCIES[fid], t = CURRENCIES[tid];
-
   if(!f || !t) return;
-
   const res = convert(fid, tid, amt, marketId);
   const acc = acceptLevel(fid, marketId);
   const pen = penalty(acc);
-
   if(acc === 'refused' && marketId !== 'universal'){
     toAmt.textContent = 'REFUSED';
     toAmt.style.color = 'var(--danger)';
@@ -231,10 +321,8 @@ function updateConvert(){
     toAmt.textContent = (res < 1 ? res.toFixed(3) : res.toFixed(2)) + ' ' + (t.icon || '');
     toAmt.style.color = '#4ade80';
   }
-
   fromMeta.innerHTML = `${esc(f.name)} · 1 = <b>${f.base_value}g</b> · ${esc(f.type||'')}`;
   toMeta.innerHTML = `${esc(t.name)} · 1 = <b>${t.base_value}g</b> · ${esc(t.type||'')}`;
-
   const gTotal = goldVal(fid, amt);
   const silverVal = gTotal * 10;
   const copperVal = gTotal * 100;
@@ -246,33 +334,27 @@ function updateConvert(){
     </div>
     <div style="font-size:12px;color:var(--muted);margin-top:8px">${amt} ${esc(f.name)} equals <b>${gTotal.toFixed(2)} Gold pieces</b> in raw reserve metal value.</div>
   `;
-
   if(marketId !== 'universal'){
     acceptRow.innerHTML = `Market <b>${esc(marketId)}</b> acceptance for ${esc(f.name)}: <b class="${acc==='high'?'pos':acc==='refused'?'neg':'warn'}">${acc.toUpperCase()}</b>${pen > 1 && pen < 99 ? ` (x${pen} penalty)` : ''}`;
   } else {
     acceptRow.innerHTML = `<span style="color:var(--muted);font-size:12px">Market: Universal base rate (no location penalty applied).</span>`;
   }
 }
-
 window.quickSet = function(from, to){
   fromCur.value = from;
   toCur.value = to;
   updateConvert();
 };
-
 function populateSelects(){
   const sorted = Object.values(CURRENCIES).sort((a,b) => b.tier - a.tier || a.name.localeCompare(b.name));
   const opts = sorted.map(c => `<option value="${c.id}">${c.icon || '🪙'} ${esc(c.name)} (${c.id})</option>`).join('');
-  
   fromCur.innerHTML = opts;
   toCur.innerHTML = opts;
   shopCurSelect.innerHTML = opts;
-
   fromCur.value = 'gold';
   toCur.value = 'midland_ducat';
   shopCurSelect.value = CURRENCIES.wario_points ? 'wario_points' : 'gold';
   currentShopCurrency = shopCurSelect.value;
-
   const markets = [
     { id: 'universal', name: 'Universal Base Rates (No Penalty)' },
     { id: 'regal_empire', name: 'The Regal Empire (Midlands Capital)' },
@@ -285,14 +367,11 @@ function populateSelects(){
     { id: 'kivotos', name: 'Kivotos General Student Union' },
     { id: 'onyx_hand', name: 'Onyx Hand Black Market & Shadow Estate' }
   ];
-
   marketSel.innerHTML = markets.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
 }
-
 function renderShopIntegration(){
   const allItems = Object.values(getAllShopItems() || {});
   const targetCur = CURRENCIES[currentShopCurrency] || CURRENCIES.gold;
-  
   let filtered = allItems;
   if(currentShopSearch){
     const q = currentShopSearch.toLowerCase();
@@ -302,16 +381,12 @@ function renderShopIntegration(){
       return text.includes(q);
     });
   }
-
   const sampleItems = filtered.slice(0, 15);
-
   document.getElementById('shopCurPowerLabel').textContent = `Purchasing Power in ${targetCur.name}: 1 Gold = ${(1/targetCur.base_value).toFixed(2)} ${targetCur.name}`;
-
   const itemCards = sampleItems.map(item => {
     const priceInGold = item.price > 500 ? item.price / 100 : item.price;
     const convertedPrice = priceInGold / targetCur.base_value;
     const vendorObj = VENDORS[item.vendor] || { name: item.vendor || 'Local Merchant' };
-
     return `
       <div class="shop-item-tile">
         <div>
@@ -331,42 +406,137 @@ function renderShopIntegration(){
       </div>
     `;
   }).join('');
-
   shopItemsGrid.innerHTML = itemCards || '<div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--muted)">No items match search.</div>';
+}
+
+// === WALLET RENDERING — XP PAGE STYLE SORTING ===
+function getWalletEntriesForRender(){
+  // Build entries with computed totals
+  const rawEntries = Object.entries(MERGED_WALLETS);
+  const computed = rawEntries.map(([id,w])=>{
+    const total = walletTotalGold(w);
+    const currencies = w.currencies||{};
+    const count = Object.keys(currencies).length;
+    const title = w.title || '';
+    const searchBlob = `${id} ${w.name||''} ${title} ${w.wallet_type||''} ${Object.keys(currencies).join(' ')} ${Object.entries(currencies).map(([k,v])=>k+' '+v).join(' ')}`.toLowerCase();
+    return { id, w, total, count, title, searchBlob };
+  });
+
+  // Overall total (for top badge) — includes all, even spam, to match original 11M figure, but we compute filtered spam separately
+  const overallTotal = computed.reduce((s,e)=>s+e.total,0);
+
+  // Apply filters — mimics ENTRY_STATE filtering in xp.html
+  let filtered = computed;
+
+  // spam filter
+  if (walletHideSpam){
+    filtered = filtered.filter(e=> !isSpamWallet(e.id, e.w, e.total));
+  }
+
+  // main party filter (like faction filter)
+  if (walletFilter==='player'){
+    const mainPartySet = new Set(['waluigi','archie','bowser','markop','remi','green_t','originaldan','hjumpik','wario','toad_lee','salam']);
+    filtered = filtered.filter(e=> mainPartySet.has(e.id));
+  }
+
+  // search filter (like entry-search in xp.html)
+  if (walletSearch){
+    const q = walletSearch.toLowerCase();
+    filtered = filtered.filter(e=> e.searchBlob.includes(q));
+  }
+
+  // Sorting — like renderEntries sortMode handling in xp.html
+  // xp.html: if sortMode === 'date' sort by date, else if newest, else if cat, else sort by xp (b.xp - a.xp)
+  // Here we implement parallel: value_desc = b.total - a.total (default), etc.
+  if (walletSort==='value_desc'){
+    filtered.sort((a,b)=> b.total - a.total || a.w.name.localeCompare(b.w.name));
+  } else if (walletSort==='value_asc'){
+    filtered.sort((a,b)=> a.total - b.total || a.w.name.localeCompare(b.w.name));
+  } else if (walletSort==='name_asc'){
+    filtered.sort((a,b)=> (a.w.name||a.id).localeCompare(b.w.name||b.id) || b.total - a.total);
+  } else if (walletSort==='name_desc'){
+    filtered.sort((a,b)=> (b.w.name||b.id).localeCompare(a.w.name||a.id) || b.total - a.total);
+  } else if (walletSort==='count_desc'){
+    filtered.sort((a,b)=> b.count - a.count || b.total - a.total);
+  } else if (walletSort==='count_asc'){
+    filtered.sort((a,b)=> a.count - b.count || b.total - a.total);
+  } else if (walletSort==='title_asc'){
+    filtered.sort((a,b)=> (a.title||'').localeCompare(b.title||'') || b.total - a.total);
+  } else {
+    filtered.sort((a,b)=> b.total - a.total);
+  }
+
+  return { all: computed, filtered, overallTotal };
 }
 
 function renderWallets(){
   const grid = document.getElementById('walletGrid');
-  const entries = Object.entries(WALLETS);
-
-  const partyTotal = entries.reduce((sum,[,w])=>sum+Object.entries(w.currencies||{}).reduce((s,[k,v])=>s+goldVal(k,Number(v)||0),0),0);
+  const empty = document.getElementById('walletEmpty');
+  const countLabel = document.getElementById('walletCountLabel');
+  const filteredTotalEl = document.getElementById('walletFilteredTotal');
   const totalBadge = document.getElementById('walletPartyTotal');
-  if(totalBadge) totalBadge.textContent = `Party recorded holdings: ${partyTotal.toFixed(1)}g gold equivalent`;
+  const metaEl = document.getElementById('walletPartyMeta');
+  const activeFiltersRow = document.getElementById('walletActiveFiltersRow');
 
-  const filtered = entries.filter(([id, w]) => {
-    if(walletFilter === 'player') return ['waluigi', 'archie', 'bowser', 'markop', 'remi', 'green_t', 'originaldan', 'hjumpik'].includes(id);
-    return true;
-  });
+  const { all, filtered, overallTotal } = getWalletEntriesForRender();
 
-  grid.innerHTML = filtered.map(([id, w]) => {
-    let totalG = 0;
-    const curLines = Object.entries(w.currencies || {}).map(([cKey, val]) => {
-      const cur = CURRENCIES[cKey] || { name: cKey, icon: '🪙', base_value: 1 };
-      const gv = val * (cur.base_value || 1);
-      totalG += gv;
-      return `<div class="wallet-line"><span>${currencyIcon(cur)} ${esc(cur.name)} × ${val}</span><span style="color:var(--muted)">${gv.toFixed(1)}g</span></div>`;
-    }).join('');
+  // Update top badges — party total always overall, like original "Party recorded holdings: 11405033.9g"
+  if (totalBadge){
+    totalBadge.textContent = `Party recorded holdings: ${overallTotal.toLocaleString(undefined,{maximumFractionDigits:1})}g gold equivalent — ${all.length} wallets (${EXTERNAL_WALLET_META.source})`;
+  }
+  if (metaEl){
+    const spamHidden = all.length - (walletHideSpam ? all.filter(e=>!isSpamWallet(e.id,e.w,e.total)).length : all.length);
+    metaEl.textContent = walletHideSpam ? `Spam filter: hiding generic 15 gold + 5 silver (15.5g) wallets + placeholder names. ${spamHidden>0?`(${spamHidden} hidden)`:'No spam detected in current data.'} — Sorting like XP page: Most Gold First default = Most XP First.` : `Spam filter OFF — showing all wallets including generic 15.5g defaults`;
+  }
 
-    const firstCurrency = Object.keys(w.currencies||{})[0]||'gold';
+  const filteredTotal = filtered.reduce((s,e)=>s+e.total,0);
+  if (countLabel) countLabel.textContent = `${filtered.length} / ${all.length} shown`;
+  if (filteredTotalEl) filteredTotalEl.textContent = `Filtered total: ${filteredTotal.toLocaleString(undefined,{maximumFractionDigits:1})}g`;
+
+  // Active filter chips (similar to filter-buttons active state in xp.html)
+  if (activeFiltersRow){
+    const chips=[];
+    if (walletFilter==='player') chips.push(`<span class="chip" style="background:rgba(34,197,94,.15);color:#4ade80">Main Party Only <b style="margin-left:6px;cursor:pointer" onclick="document.getElementById('btnWalletAll').click()">✕</b></span>`);
+    if (walletSearch) chips.push(`<span class="chip" style="background:rgba(138,75,255,.18);color:#c4b5fd">Search: "${esc(walletSearch)}" <b style="margin-left:6px;cursor:pointer" onclick="document.getElementById('walletSearch').value='';document.getElementById('walletSearch').dispatchEvent(new Event('input'))">✕</b></span>`);
+    if (walletSort!=='value_desc') chips.push(`<span class="chip">Sort: ${esc(walletSort)}</span>`);
+    if (walletHideSpam) chips.push(`<span class="chip" style="background:rgba(239,68,68,.12);color:#fca5a5">Spam hidden</span>`);
+    activeFiltersRow.innerHTML = chips.join('');
+  }
+
+  if (!filtered.length){
+    grid.innerHTML='';
+    if (empty) empty.style.display='block';
+    return;
+  }
+  if (empty) empty.style.display='none';
+
+  grid.innerHTML = filtered.map(({id,w,total,count}) => {
+    // currency lines sorted by gold value desc, like XP entries sorted by XP
+    const curEntries = Object.entries(w.currencies||{}).map(([ck,val])=>{
+      const cur = CURRENCIES[ck] || { name: ck, icon:'🪙', base_value:1 };
+      const gv = Number(val)*(cur.base_value||1);
+      return { ck, val:Number(val), cur, gv };
+    }).sort((a,b)=> b.gv - a.gv || a.ck.localeCompare(b.ck));
+
+    const curLines = curEntries.map(({cur,val,gv})=> `<div class="wallet-line"><span>${currencyIcon(cur)} ${esc(cur.name)} × ${val.toLocaleString()}</span><span style="color:var(--muted)">= ${gv.toFixed(1)}g</span></div>`).join('') || `<div style="padding:8px;color:var(--muted);font-size:12px">No recorded currency holdings · 0g</div>`;
+
+    const firstCurrency = curEntries[0]?.ck || 'gold';
+    const titleBadge = w.title ? `<div style="font-size:11px;color:var(--muted);margin-top:2px">${esc(w.title)}</div>` : '';
+    const typeBadge = w.wallet_type ? `<span class="chip" style="font-size:10px;padding:1px 6px;background:rgba(255,255,255,.06)">${esc(w.wallet_type)}</span>` : '';
+    const countBadge = `<span style="font-size:11px;color:var(--muted)">${count} types</span>`;
 
     return `
-      <div class="wallet-card">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h4 style="margin:0">${esc(w.name)}</h4>
-          <span class="chip" style="font-weight:900;color:var(--accent2);font-size:11px">${totalG.toFixed(1)}g total</span>
+      <div class="wallet-card" data-id="${esc(id)}" data-search="${esc((w.name+' '+id).toLowerCase())}">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
+          <div style="min-width:0">
+            <h4 style="margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(w.name||id)}</h4>
+            ${titleBadge}
+            <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap">${typeBadge} ${countBadge}</div>
+          </div>
+          <span class="chip" style="font-weight:900;color:var(--accent2);font-size:11px;white-space:nowrap">${total.toLocaleString(undefined,{maximumFractionDigits:1})}g total</span>
         </div>
         <div style="margin-top:8px">${curLines}</div>
-        <button class="chip wallet-buy-btn" style="width:100%;margin-top:10px;text-align:center" data-cur="${firstCurrency}">Explore Wallet Purchasing Power →</button>
+        <button class="chip wallet-buy-btn" style="width:100%;margin-top:10px;text-align:center" data-cur="${esc(firstCurrency)}">Explore Wallet Purchasing Power →</button>
       </div>
     `;
   }).join('');
@@ -375,7 +545,8 @@ function renderWallets(){
     btn.addEventListener('click', (e) => {
       const cur = e.target.getAttribute('data-cur');
       if (cur) {
-        shopCurSelect.value = cur;
+        const sel = document.getElementById('shopCurSelect');
+        if (sel) sel.value = cur;
         currentShopCurrency = cur;
         renderShopIntegration();
         document.querySelector('.shop-connect-card')?.scrollIntoView({ behavior: 'smooth' });
@@ -392,24 +563,19 @@ function renderBanks(){
       <p>Owner: <b>${esc(a.owner)}</b> · ${esc(a.note)}</p>
     </div>
   `).join('');
-
   const debts = (BANKS.debts || []).map(d => `
     <div class="bank-card" style="border-left:4px solid var(--danger)">
       <div class="b-head"><span style="color:#ef4444">🚨 Debt → ${esc(d.creditor)}</span><b>${d.amountOwed} ${esc(d.currencyKey)}</b></div>
       <p>Debtor: <b>${esc(d.debtor)}</b> · Status: <b>${esc(d.status)}</b> · ${esc(d.note||'')}</p>
     </div>
   `).join('');
-
   grid.innerHTML = accounts + debts;
 }
-
 function renderCurrencies(){
   const grid = document.getElementById('currencyGrid');
   const tierChips = document.getElementById('tierChips');
   const categoryChips = document.getElementById('categoryChips');
-
   const allList = Object.values(CURRENCIES);
-
   tierChips.innerHTML = `
     <span class="chip ${activeTier==='all'?'active':''}" id="tierAll">All Tiers (${allList.length})</span>
     <span class="chip ${activeTier===1?'active':''}" id="tier1">Tier 1 Core/Imperial</span>
@@ -417,18 +583,15 @@ function renderCurrencies(){
     <span class="chip ${activeTier===3?'active':''}" id="tier3">Tier 3 Guild & Digital</span>
     <span class="chip ${activeTier===4?'active':''}" id="tier4">Tier 4 Occult & Syndicate</span>
   `;
-
   const cats = ['all', ...new Set(allList.map(c => c.category || 'other'))];
   categoryChips.innerHTML = cats.map(cat => `
     <span class="chip ${activeCategory===cat?'active':''}" data-cat="${cat}">${cat.toUpperCase()}</span>
   `).join('');
-
   const filtered = allList.filter(c => {
     if(activeTier !== 'all' && c.tier !== activeTier) return false;
     if(activeCategory !== 'all' && c.category !== activeCategory) return false;
     return true;
   }).sort((a,b) => b.base_value - a.base_value);
-
   grid.innerHTML = filtered.map(c => `
     <div class="cur-card">
       <div>
@@ -448,20 +611,17 @@ function renderCurrencies(){
       </div>
     </div>
   `).join('');
-
   document.getElementById('tierAll').onclick = () => { activeTier = 'all'; renderCurrencies(); };
   document.getElementById('tier1').onclick = () => { activeTier = 1; renderCurrencies(); };
   document.getElementById('tier2').onclick = () => { activeTier = 2; renderCurrencies(); };
   document.getElementById('tier3').onclick = () => { activeTier = 3; renderCurrencies(); };
   document.getElementById('tier4').onclick = () => { activeTier = 4; renderCurrencies(); };
-
   document.querySelectorAll('#categoryChips .chip').forEach(chip => {
     chip.addEventListener('click', (e) => {
       activeCategory = e.target.getAttribute('data-cat');
       renderCurrencies();
     });
   });
-
   document.querySelectorAll('.cur-load-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const cur = e.target.getAttribute('data-cur');
@@ -472,18 +632,15 @@ function renderCurrencies(){
     });
   });
 }
-
 function renderRates(){
   const box = document.getElementById('rates');
   const sorted = Object.values(CURRENCIES).sort((a,b) => b.base_value - a.base_value);
-
   box.innerHTML = sorted.map(c => `
     <button class="rate-row rate-item-row" data-cur="${c.id}" type="button">
       <span class="rate-name"><span class="rate-icon">${currencyIcon(c)}</span><b>${esc(c.name)}</b> <small>(${esc(c.category||'')})</small></span>
       <span class="rate-value">1 Gold = ${(1/c.base_value).toFixed(2)} ${esc(c.name)}</span>
     </button>
   `).join('');
-
   document.querySelectorAll('.rate-item-row').forEach(row => {
     row.addEventListener('click', (e) => {
       const cur = e.currentTarget.getAttribute('data-cur');
@@ -492,40 +649,67 @@ function renderRates(){
   });
 }
 
-// Event Listeners
+// Event Listeners — mirroring xp.html's entrySearch + entrySort listeners
 fromAmt.addEventListener('input', updateConvert);
 fromCur.addEventListener('change', updateConvert);
 toCur.addEventListener('change', updateConvert);
 marketSel.addEventListener('change', () => { marketId = marketSel.value; updateConvert(); });
-
 document.getElementById('swap').addEventListener('click', () => {
   const tmp = fromCur.value;
   fromCur.value = toCur.value;
   toCur.value = tmp;
   updateConvert();
 });
-
-document.getElementById('btnWalletAll').onclick = () => { walletFilter = 'all'; renderWallets(); };
-document.getElementById('btnWalletPlayer').onclick = () => { walletFilter = 'player'; renderWallets(); };
+document.getElementById('btnWalletAll').onclick = () => {
+  walletFilter = 'all';
+  document.getElementById('btnWalletAll').classList.add('active');
+  document.getElementById('btnWalletPlayer').classList.remove('active');
+  renderWallets();
+};
+document.getElementById('btnWalletPlayer').onclick = () => {
+  walletFilter = 'player';
+  document.getElementById('btnWalletPlayer').classList.add('active');
+  document.getElementById('btnWalletAll').classList.remove('active');
+  renderWallets();
+};
+document.getElementById('btnWalletHideSpam').onclick = () => {
+  walletHideSpam = !walletHideSpam;
+  const btn = document.getElementById('btnWalletHideSpam');
+  btn.classList.toggle('active', walletHideSpam);
+  btn.textContent = walletHideSpam ? 'Hide Spam (15.5g)' : 'Show Spam';
+  renderWallets();
+};
+document.getElementById('walletSearch').addEventListener('input', (e)=>{
+  walletSearch = e.target.value.trim();
+  renderWallets();
+});
+document.getElementById('walletSort').addEventListener('change', (e)=>{
+  walletSort = e.target.value;
+  // mimic ENTRY_STATE[key].sort = value; renderEntries(...)
+  renderWallets();
+});
 
 shopCurSelect.addEventListener('change', () => {
   currentShopCurrency = shopCurSelect.value;
   renderShopIntegration();
 });
-
 shopSearchInput.addEventListener('input', () => {
   currentShopSearch = shopSearchInput.value;
   renderShopIntegration();
 });
 
-// Init
+// Init — async load external wallets like shop-wallet-sync, then render
 populateSelects();
 updateConvert();
 renderShopIntegration();
-renderWallets();
 renderBanks();
 renderCurrencies();
 renderRates();
+
+// Load wallets.json and then render with sorting like xp page
+loadExternalWallets().then(()=>{
+  renderWallets();
+});
 </script>
 </body>
 </html>
