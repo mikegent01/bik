@@ -256,13 +256,56 @@ function initSearch() {
     
     if (!searchBtn || !searchOverlay) return;
     
-    // Get all nav links for searching
+    // Search both navigation labels and the small, curated Waluipedia index.
+    // The old search only inspected link text, so a perfectly valid article was
+    // invisible unless its title happened to be a navigation label. Keeping this
+    // index here avoids loading the very large lore bundles on every page.
     const navLinks = document.querySelectorAll('.tablet-nav .nav-button');
     const searchableItems = Array.from(navLinks).map(link => ({
         text: link.querySelector('span')?.textContent || '',
+        content: link.textContent || '',
         href: link.getAttribute('href'),
         icon: link.querySelector('img')?.src || ''
     }));
+
+    searchableItems.push(
+        {
+            text: 'Protocol Six: Retreat If You Must',
+            content: 'Protocol Six Retreat if you must. Your life is important too. Iron Legion field manual. Protocol One: be courteous and allow your opponent the first attack. Protocol Two: attack back! It is time to show you the true strength of an Iron Legion.',
+            href: 'assembly.html', icon: 'icons/nav_feed.png'
+        },
+        {
+            text: 'Iron Legion Field Manual',
+            content: 'Iron Legion Hammer Code siege tactics occupied territories Protocol One Protocol Two Protocol Six',
+            href: 'bookshelf.html', icon: 'faction_iron_legion.png'
+        },
+        {
+            text: "Thornbury's Journal",
+            content: "Thornbury field journal Feyward Shadeward Material Manor Iron Legion Oracle",
+            href: 'Field_Journal.html', icon: 'icons/nav_feed.png'
+        },
+        {
+            text: 'National Power Projection',
+            content: 'national power projection nations population institutions territory diplomacy cultural and legal context',
+            href: 'national-power.html', icon: 'icons/nav_dossiers.png'
+        },
+        {
+            text: 'Laws and Cultural Database',
+            content: 'laws legal traditions nations cultural database statutes customs Iron Legion',
+            href: 'laws.html', icon: 'icons/nav_culture.png'
+        }
+    );
+
+    const normaliseSearch = (value) => String(value ?? '')
+        .normalize('NFKC')
+        .toLowerCase()
+        .replace(/[’‘]/g, "'")
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim();
+
+    const escapeHtml = (value) => String(value ?? '').replace(/[&<>\"]/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;'
+    }[char]));
     
     searchBtn.addEventListener('click', () => {
         searchOverlay.classList.add('active');
@@ -276,30 +319,36 @@ function initSearch() {
     });
     
     searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
+        const rawQuery = e.target.value.trim();
+        const query = normaliseSearch(rawQuery);
+        const terms = query.split(/\s+/).filter(Boolean);
         
         if (!query) {
             searchResults.innerHTML = '';
             return;
         }
         
-        const matches = searchableItems.filter(item => 
-            item.text.toLowerCase().includes(query)
-        );
+        // Match a phrase OR all of its words. This handles punctuation,
+        // markdown asterisks, curly apostrophes, and line breaks in articles.
+        const matches = searchableItems.filter(item => {
+            const haystack = normaliseSearch(`${item.text} ${item.content}`);
+            return haystack.includes(query) || terms.every(term => haystack.includes(term) || (term === 'a' && haystack.includes('an')) || (term === 'an' && haystack.includes('a')));
+        });
         
         if (matches.length === 0) {
             searchResults.innerHTML = `
                 <div class="search-empty">
-                    <p>No results for "${query}"</p>
+                    <p>No results for &quot;${escapeHtml(rawQuery)}&quot;</p>
+                    <small>Try a faction, character, protocol, or archive title. Waluigi demands searchable filing.</small>
                 </div>
             `;
             return;
         }
         
-        searchResults.innerHTML = matches.map(item => `
-            <a href="${item.href}" class="search-result-item">
-                <img src="${item.icon}" alt="" style="width: 24px; height: 24px;">
-                <span>${item.text}</span>
+        searchResults.innerHTML = matches.slice(0, 20).map(item => `
+            <a href="${escapeHtml(item.href)}" class="search-result-item">
+                <img src="${escapeHtml(item.icon)}" alt="" style="width: 24px; height: 24px;">
+                <span>${escapeHtml(item.text)}</span>
             </a>
         `).join('');
     });

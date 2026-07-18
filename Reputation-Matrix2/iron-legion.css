@@ -1121,3 +1121,7 @@
         text-align: center;
     }
 }
+/* Waluipedia cross-reference rail: keeps the dossier in the site's article graph. */
+.legion-crosslinks { margin: .75rem 0 0; font-size: .78rem; line-height: 1.7; }
+.legion-crosslinks a { color: var(--color-wario-gold, #ffd700); text-decoration: underline; text-underline-offset: 2px; }
+.legion-crosslinks a:hover { color: #fff; }

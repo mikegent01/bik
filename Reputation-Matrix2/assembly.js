@@ -2316,7 +2316,7 @@ function getFilteredPosts() {
             ].join(' '));
             // Keep phrase search intuitive, but accept all terms when a source
             // inserted a line break or punctuation between words.
-            return haystack.includes(query) || terms.every(term => haystack.includes(term));
+            return haystack.includes(query) || terms.every(term => haystack.includes(term) || (term === 'a' && haystack.includes('an')) || (term === 'an' && haystack.includes('a')));
         });
     }
 
