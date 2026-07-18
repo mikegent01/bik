@@ -37,7 +37,7 @@
     "category": "Main Party"
   },
   "hjumpik": {
-    "name": "hjumpik",
+    "name": "Hjumpik",
     "title": "Axe Enthusiast",
     "currencies": {
       "midland_ducat": 421,
@@ -60,9 +60,12 @@
     "name": "Remi",
     "title": "FNG Smith",
     "currencies": {
-      "gold": 20
+      "gold": 62,
+      "toad_whistle": 65,
+      "decree_strip": 118
     },
-    "category": "Main Party"
+    "category": "Main Party",
+    "wallet_type": "Main Party human operating wallet \u2014 fixed from generic spam"
   },
   "wario": {
     "name": "Wario",
@@ -482,73 +485,83 @@
     "name": "Aemenor Evenflight",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 187,
+      "toad_whistle": 66,
+      "imperial_crown": 778
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "agent_t": {
     "name": "Agent T",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 20,
-      "silver": 20
+      "gold": 291,
+      "toad_whistle": 44,
+      "imperial_crown": 1641
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "archie_miser": {
     "name": "Archie Miser",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "wario_coin": 173,
+      "gold": 43,
+      "decree_strip": 70,
+      "imperial_crown": 513,
+      "toad_whistle": 25
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "baldi": {
     "name": "Baldi",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_bond": 134,
+      "silver": 556,
+      "relief_stamp": 330
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "bones": {
     "name": "Bones",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "decree_strip": 44,
+      "wario_coin": 242,
+      "gold": 241,
+      "toad_whistle": 37,
+      "imperial_crown": 1031
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "bryan": {
     "name": "Bryan",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 145,
+      "decree_strip": 205,
+      "wario_coin": 257,
+      "relief_stamp": 800
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "byscilla_danos": {
     "name": "Byscilla Danos",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 117,
+      "wario_coin": 775,
+      "relief_stamp": 175
     },
-    "category": "Supporting Cast"
-  },
-  "cackletta": {
-    "name": "Cackletta",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "captain_syrup": {
     "name": "Captain Syrup",
@@ -563,17 +576,22 @@
     "name": "Chancellor Toadsworth",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 20,
-      "silver": 20
+      "gold": 366,
+      "decree_strip": 20,
+      "relief_stamp": 251,
+      "toad_whistle": 11,
+      "toad_bond": 40
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "commander_g": {
     "name": "Commander G",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "toad_whistle": 24,
+      "mushroom_coin": 579,
+      "peach_crown": 685
     },
     "category": "Supporting Cast"
   },
@@ -581,107 +599,132 @@
     "name": "Corporal 'Ghost' Reyes",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 20,
-      "silver": 20
+      "midland_ducat": 3551,
+      "wario_coin": 95,
+      "decree_strip": 48
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "cranky_kong": {
     "name": "Cranky Kong",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_whistle": 7,
+      "wario_coin": 737,
+      "gold": 158,
+      "decree_strip": 100
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "dan": {
     "name": "Dan",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 374,
+      "relief_stamp": 595,
+      "decree_strip": 253,
+      "imperial_crown": 1846,
+      "midland_ducat": 1357
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "darno_spriggon": {
     "name": "Darno Spriggon",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 136,
+      "toad_bond": 30,
+      "decree_strip": 206,
+      "wario_coin": 967
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "dyanos": {
     "name": "Dyanos",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_whistle": 51,
+      "midland_ducat": 152,
+      "silver": 578,
+      "decree_strip": 172,
+      "gold": 347
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "eager": {
     "name": "Eager",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "imperial_crown": 841,
+      "silver": 284,
+      "midland_ducat": 963,
+      "toad_bond": 105
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "earl_grey": {
     "name": "Earl Grey",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_whistle": 77,
+      "wario_coin": 943,
+      "imperial_crown": 799,
+      "silver": 195,
+      "decree_strip": 203
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "elder_rowan_meadowlight": {
     "name": "Elder Rowan Meadowlight",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "decree_strip": 183,
+      "relief_stamp": 159,
+      "gold": 323,
+      "silver": 103
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "embercap": {
     "name": "Embercap",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 223,
+      "gold": 256,
+      "relief_stamp": 88,
+      "wario_coin": 215
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "feyward_dan": {
     "name": "Feyward Dan",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "decree_strip": 40,
+      "toad_bond": 23,
+      "midland_ducat": 3090,
+      "gold": 122,
+      "wario_coin": 613
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "general_ironhand": {
     "name": "General Ironhand",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
-    },
-    "category": "Supporting Cast"
-  },
-  "god_toad": {
-    "name": "God Toad",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 20,
-      "silver": 20
+      "gold": 831,
+      "toad_whistle": 70,
+      "midland_ducat": 2941
     },
     "category": "Supporting Cast"
   },
@@ -689,80 +732,69 @@
     "name": "Green T",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_whistle": 18,
+      "silver": 454,
+      "relief_stamp": 474
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "hargram_fidger": {
     "name": "Hargram Fidger",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 134,
+      "midland_ducat": 218,
+      "imperial_crown": 936,
+      "decree_strip": 51,
+      "toad_whistle": 68
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "herniva": {
     "name": "Herniva",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 138,
+      "relief_stamp": 48,
+      "silver": 163,
+      "decree_strip": 219
     },
-    "category": "Supporting Cast"
-  },
-  "kamek": {
-    "name": "Kamek",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
-  },
-  "king_boo": {
-    "name": "King Boo",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 350,
-      "silver": 200
-    },
-    "category": "Rulers & Institutions"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "king_dedede": {
     "name": "King Dedede",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "gold": 206,
+      "decree_strip": 190,
+      "imperial_crown": 1993,
+      "court_leaf": 2
     },
     "category": "Rulers & Institutions"
-  },
-  "kirby": {
-    "name": "Kirby",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
   },
   "kyle_coinsoul": {
     "name": "Kyle Coinsoul",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_bond": 21,
+      "silver": 185,
+      "wario_coin": 767,
+      "imperial_crown": 866,
+      "midland_ducat": 3197
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "lady_aurelian_corvinarus": {
     "name": "Lady Aurelian Corvinarus",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "midland_ducat": 706,
+      "court_leaf": 50,
+      "archive_writ": 2
     },
     "category": "Rulers & Institutions"
   },
@@ -770,8 +802,11 @@
     "name": "Lady Bloomia",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "gold": 838,
+      "imperial_crown": 217,
+      "guild_seal": 23,
+      "midland_ducat": 926,
+      "court_leaf": 3
     },
     "category": "Rulers & Institutions"
   },
@@ -779,26 +814,33 @@
     "name": "Lanky Kong",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "relief_stamp": 704,
+      "imperial_crown": 671,
+      "gold": 81,
+      "wario_coin": 87
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "leo": {
     "name": "Leo",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_bond": 136,
+      "midland_ducat": 237,
+      "imperial_crown": 1924,
+      "silver": 384
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "lorehold_professor_of_chaos": {
     "name": "Lorehold Professor of Chaos",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "gold": 964,
+      "midland_ducat": 188,
+      "data_chit": 807
     },
     "category": "Supporting Cast"
   },
@@ -806,188 +848,190 @@
     "name": "Luigi",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_whistle": 9,
+      "silver": 392,
+      "gold": 210,
+      "midland_ducat": 3174,
+      "wario_coin": 807
     },
-    "category": "Supporting Cast"
-  },
-  "lyranth": {
-    "name": "Lyranth",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
-  },
-  "manderaz_the_mad": {
-    "name": "Manderaz the Mad",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "marcus_ashford": {
     "name": "Marcus Ashford",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 265,
+      "relief_stamp": 53,
+      "wario_coin": 560
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "mario": {
     "name": "Mario",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 427,
+      "relief_stamp": 690,
+      "wario_coin": 714,
+      "imperial_crown": 1539,
+      "gold": 370
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "merric": {
     "name": "Merric",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_bond": 261,
+      "decree_strip": 264,
+      "midland_ducat": 1399,
+      "gold": 384
     },
-    "category": "Supporting Cast"
-  },
-  "meta_knight": {
-    "name": "Meta Knight",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Faction Personnel"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "miles_edgeworth": {
     "name": "Miles Edgeworth",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "imperial_crown": 888,
+      "relief_stamp": 578,
+      "silver": 588,
+      "toad_whistle": 16
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "mimbus": {
     "name": "Mimbus",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "relief_stamp": 652,
+      "gold": 390,
+      "midland_ducat": 3683,
+      "imperial_crown": 418,
+      "decree_strip": 54
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "mistveil": {
     "name": "Mistveil",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 155,
+      "toad_whistle": 39,
+      "silver": 206
     },
-    "category": "Supporting Cast"
-  },
-  "mossy": {
-    "name": "Mossy",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "mr_l": {
     "name": "Mr. L",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 225,
+      "wario_coin": 317,
+      "relief_stamp": 604,
+      "decree_strip": 288
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "mystic_morsole": {
     "name": "Mystic Morsole",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "decree_strip": 133,
+      "silver": 395,
+      "gold": 364
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "orange_t": {
     "name": "Orange T",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "decree_strip": 167,
+      "toad_bond": 167,
+      "wario_coin": 273,
+      "midland_ducat": 2216,
+      "silver": 579
     },
-    "category": "Supporting Cast"
-  },
-  "orangus_cornelius": {
-    "name": "Orangus Cornelius",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "original_dan": {
     "name": "Original Dan",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 365,
+      "decree_strip": 187,
+      "relief_stamp": 324
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "orvinder_danos": {
     "name": "Orvinder Danos",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_bond": 158,
+      "decree_strip": 52,
+      "gold": 170,
+      "relief_stamp": 126
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "parson_pellinost": {
     "name": "Parson Pellinost",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "imperial_crown": 1013,
+      "toad_whistle": 22,
+      "decree_strip": 96,
+      "midland_ducat": 315,
+      "silver": 82
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "pauline": {
     "name": "Pauline",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "imperial_crown": 269,
+      "relief_stamp": 714,
+      "silver": 365
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "pierce_anamatar": {
     "name": "Pierce Anamatar",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_whistle": 43,
+      "decree_strip": 112,
+      "wario_coin": 985,
+      "relief_stamp": 719
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "princess_peach": {
     "name": "Princess Peach",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "peach_crown": 174,
+      "toad_whistle": 28,
+      "gold": 342,
+      "midland_ducat": 2946
     },
     "category": "Rulers & Institutions"
   },
@@ -995,17 +1039,21 @@
     "name": "Prismari",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "wario_coin": 887,
+      "silver": 297,
+      "toad_whistle": 55,
+      "imperial_crown": 820
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "professor_elvin_gadd": {
     "name": "Professor Elvin Gadd",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "credstick": 3125,
+      "archive_writ": 15,
+      "arcane_shard": 69
     },
     "category": "Supporting Cast"
   },
@@ -1013,64 +1061,63 @@
     "name": "Rakasha Azure",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "relief_stamp": 360,
+      "decree_strip": 112,
+      "imperial_crown": 1790,
+      "midland_ducat": 3564,
+      "silver": 568
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "rakka": {
     "name": "Rakka",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 598,
+      "relief_stamp": 799,
+      "toad_bond": 257,
+      "imperial_crown": 722,
+      "gold": 334
     },
-    "category": "Supporting Cast"
-  },
-  "rattles": {
-    "name": "Rattles",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
-  },
-  "rhak_the_lost": {
-    "name": "Rhak the Lost",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "roger": {
     "name": "Roger",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "relief_stamp": 544,
+      "imperial_crown": 198,
+      "wario_coin": 340
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "ryan": {
     "name": "Ryan",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 390,
+      "imperial_crown": 1552,
+      "toad_bond": 179,
+      "midland_ducat": 951
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "saedia": {
     "name": "Saedia",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "midland_ducat": 3492,
+      "toad_bond": 85,
+      "decree_strip": 195,
+      "relief_stamp": 759,
+      "gold": 177
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "sergeant_brick_stone": {
     "name": "Sergeant Brick Stone",
@@ -1104,8 +1151,11 @@
     "name": "Smoking J",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "midland_ducat": 1218,
+      "decree_strip": 174,
+      "gold": 64,
+      "archive_writ": 16,
+      "imperial_crown": 931
     },
     "category": "Rulers & Institutions"
   },
@@ -1113,116 +1163,59 @@
     "name": "Specialist Miller",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "toad_whistle": 24,
+      "midland_ducat": 2549,
+      "silver": 363,
+      "toad_bond": 185
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "steely": {
     "name": "Steely",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "relief_stamp": 726,
+      "wario_coin": 658,
+      "imperial_crown": 1833,
+      "silver": 554
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "stuckina": {
     "name": "Stuckina",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "imperial_crown": 219,
+      "gold": 57,
+      "decree_strip": 110,
+      "toad_whistle": 14,
+      "relief_stamp": 644
     },
-    "category": "Supporting Cast"
-  },
-  "tanukiburt": {
-    "name": "Tanukiburt",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "the_archivist": {
     "name": "The Archivist",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
+      "relief_stamp": 565,
+      "toad_bond": 309,
+      "decree_strip": 319,
+      "silver": 744
     },
     "category": "Supporting Cast"
-  },
-  "the_goblin_spy": {
-    "name": "The Goblin Spy",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "category": "Supporting Cast"
-  },
-  "the_kremlings": {
-    "name": "The Kremlings",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "category": "Supporting Cast"
-  },
-  "the_medusa": {
-    "name": "The Medusa",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "category": "Supporting Cast"
-  },
-  "the_onyx_knight": {
-    "name": "The Onyx Knight",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "category": "Faction Personnel"
   },
   "the_oracle": {
     "name": "The Oracle",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 350,
-      "silver": 200
-    },
-    "category": "Supporting Cast"
-  },
-  "the_rakasha": {
-    "name": "The Rakasha",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "category": "Supporting Cast"
-  },
-  "the_revelmaster": {
-    "name": "The Revelmaster",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "category": "Supporting Cast"
-  },
-  "the_scorncrow": {
-    "name": "The Scorncrow",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
+      "midland_ducat": 2673,
+      "toad_bond": 241,
+      "silver": 75,
+      "relief_stamp": 441,
+      "toad_whistle": 28
     },
     "category": "Supporting Cast"
   },
@@ -1230,116 +1223,130 @@
     "name": "The Unknown Assassin",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 35,
-      "silver": 40
+      "imperial_crown": 1273,
+      "wario_coin": 543,
+      "midland_ducat": 3867,
+      "gold": 25
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "thornbury": {
     "name": "Thornbury",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 119,
+      "toad_bond": 240,
+      "midland_ducat": 1461
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "thornpaw": {
     "name": "Thornpaw",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "decree_strip": 10,
+      "toad_whistle": 72,
+      "silver": 502
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "toadburt": {
     "name": "Toadburt",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 20,
-      "silver": 20
+      "toad_bond": 155,
+      "toad_whistle": 68,
+      "decree_strip": 56
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "toadette_sr": {
     "name": "Toadette Sr.",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 20,
-      "silver": 20
+      "silver": 190,
+      "relief_stamp": 263,
+      "toad_bond": 62
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "toadsworth_the_elder": {
     "name": "Toadsworth the Elder",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 43,
-      "silver": 40
+      "imperial_crown": 1714,
+      "decree_strip": 87,
+      "relief_stamp": 754
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "tymnas": {
     "name": "Tymnas",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "gold": 203,
+      "imperial_crown": 1427,
+      "relief_stamp": 685
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "usk": {
     "name": "Usk",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 444,
+      "gold": 383,
+      "toad_whistle": 56,
+      "relief_stamp": 306,
+      "wario_coin": 135
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "valorian_stormweave": {
     "name": "Valorian Stormweave",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "decree_strip": 51,
+      "wario_coin": 382,
+      "imperial_crown": 287,
+      "toad_bond": 294,
+      "toad_whistle": 29
     },
-    "category": "Supporting Cast"
-  },
-  "vaxillus_the_beastmaster": {
-    "name": "Vaxillus the Beastmaster",
-    "title": "Recorded XP character",
-    "currencies": {},
     "category": "Supporting Cast",
-    "walletStatus": "No recorded holdings \u2014 bio does not establish a currency balance."
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "vivian_corvinarus": {
     "name": "Vivian Corvinarus",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "silver": 486,
+      "relief_stamp": 676,
+      "toad_bond": 279,
+      "gold": 306,
+      "wario_coin": 456
     },
-    "category": "Supporting Cast"
-  },
-  "warol_creeton": {
-    "name": "Warol Creeton",
-    "title": "Recorded XP character",
-    "currencies": {
-      "gold": 12,
-      "silver": 20
-    },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "x_o": {
     "name": "X.O.",
     "title": "Recorded XP character",
     "currencies": {
-      "gold": 12,
-      "silver": 20
+      "midland_ducat": 2565,
+      "toad_bond": 90,
+      "gold": 283,
+      "toad_whistle": 62
     },
-    "category": "Supporting Cast"
+    "category": "Supporting Cast",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "battle_mage_kovar": {
     "name": "Battle Mage Kovar",
@@ -1365,9 +1372,9 @@
     "name": "Lord Crimson",
     "title": "XP roster character",
     "currencies": {
-      "gold": 250,
-      "silver": 40,
-      "imperial_crown": 5
+      "decree_strip": 197,
+      "gold": 598,
+      "peach_crown": 952
     },
     "category": "Rulers & Institutions"
   },
@@ -1384,9 +1391,15 @@
   "unknown_third_figure": {
     "name": "Unknown Third Figure",
     "title": "XP roster character",
-    "currencies": {},
+    "currencies": {
+      "silver": 221,
+      "wario_coin": 815,
+      "gold": 303,
+      "imperial_crown": 1861
+    },
     "category": "Supporting Cast",
-    "walletStatus": "No recorded holdings \u2014 bio does not establish a currency balance."
+    "walletStatus": "No recorded holdings \u2014 bio does not establish a currency balance.",
+    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
   },
   "dracule_mihawk": {
     "name": "Dracule Mihawk",
@@ -1964,5 +1977,21 @@
       "relief_stamp": 150
     },
     "category": "Supporting Cast"
+  },
+  "originaldan": {
+    "name": "Original Dan",
+    "title": "Second-Class Fire Mage \u2014 Guild-Trained but Unstable",
+    "status": "Active \u2014 Mages Guild contractor, Toad crisis survivor",
+    "wallet_type": "Mage contractor field wallet \u2014 fixed from spam",
+    "currencies": {
+      "gold": 85,
+      "silver": 180,
+      "midland_ducat": 420,
+      "guild_seal": 3,
+      "arcane_shard": 18,
+      "bronze": 45,
+      "toad_whistle": 2
+    },
+    "category": "Main Party"
   }
 }
