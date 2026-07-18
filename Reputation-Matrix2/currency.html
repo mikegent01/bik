@@ -125,6 +125,8 @@
         <span class="chip" id="btnWalletPlayer">Character Roster</span>
       </div>
     </div>
+    <input id="walletSearch" class="chip" placeholder="Search every recorded wallet…" style="width:100%;margin-top:10px;background:var(--bg2);color:var(--text);border:1px solid var(--border);padding:8px">
+    </div>
     <div id="walletGrid" class="wallet-grid" style="margin-top:12px"></div>
   </div>
 
@@ -157,6 +159,7 @@
 import { CURRENCIES, WALLETS, BANKS, SHOP_ITEMS, VENDORS, getAllShopItems, convertPriceToCurrency, getCurrency } from './currency.js';
 
 let walletFilter = 'all';
+let walletSearch = '';
 let activeTier = 'all';
 let activeCategory = 'all';
 let marketId = 'universal';
@@ -344,7 +347,8 @@ function renderWallets(){
   if(totalBadge) totalBadge.textContent = `Party recorded holdings: ${partyTotal.toFixed(1)}g gold equivalent`;
 
   const filtered = entries.filter(([id, w]) => {
-    if(walletFilter === 'player') return !['tea_leaf_receivership', 'liyue_qixing', 'pokemon_league_chair', 'chairwoman_rin'].includes(id);
+    if(walletFilter === 'player' && ['tea_leaf_receivership', 'liyue_qixing', 'pokemon_league_chair', 'chairwoman_rin'].includes(id)) return false;
+    if(walletSearch && !(id+' '+(w.name||'')+' '+(w.title||'')).toLowerCase().includes(walletSearch)) return false;
     return true;
   });
 
@@ -367,7 +371,6 @@ function renderWallets(){
           <span class="chip" style="font-weight:900;color:var(--accent2);font-size:11px">${totalG.toFixed(1)}g total</span>
         </div>
         <div style="margin-top:8px">${curLines}</div>
-        <p class="wallet-justification">${esc(w.justification || 'Recorded holdings are based on the character’s role, documented transactions, and practical travel needs.')}</p>
         <button class="chip wallet-buy-btn" style="width:100%;margin-top:10px;text-align:center" data-cur="${firstCurrency}">Explore Wallet Purchasing Power →</button>
       </div>
     `;
@@ -395,6 +398,13 @@ function renderBanks(){
     </div>
   `).join('');
 
+  const loans = (BANKS.loans || []).map(l => `
+    <div class="bank-card" style="border-left:4px solid var(--accent2)">
+      <div class="b-head"><span>💳 Loan → ${esc(l.borrower)}</span><b>${l.principal} ${esc(l.currencyKey)}</b></div>
+      <p>Creditor: <b>${esc(l.creditor)}</b> · Status: <b>${esc(l.status)}</b> · Interest: ${Number(l.interestRate||0)*100}%</p>
+    </div>
+  `).join('');
+
   const debts = (BANKS.debts || []).map(d => `
     <div class="bank-card" style="border-left:4px solid var(--danger)">
       <div class="b-head"><span style="color:#ef4444">🚨 Debt → ${esc(d.creditor)}</span><b>${d.amountOwed} ${esc(d.currencyKey)}</b></div>
@@ -402,7 +412,7 @@ function renderBanks(){
     </div>
   `).join('');
 
-  grid.innerHTML = accounts + debts;
+  grid.innerHTML = accounts + loans + debts;
 }
 
 function renderCurrencies(){
@@ -509,6 +519,15 @@ document.getElementById('swap').addEventListener('click', () => {
 
 document.getElementById('btnWalletAll').onclick = () => { walletFilter = 'all'; renderWallets(); };
 document.getElementById('btnWalletPlayer').onclick = () => { walletFilter = 'player'; renderWallets(); };
+document.getElementById('walletSearch').addEventListener('input', (e) => { walletSearch = e.target.value.toLowerCase().trim(); renderWallets(); });
+
+// The canonical wallet ledger contains the full cast. Merge it into the compact
+// currency UI so every recorded character is discoverable without duplicating data.
+fetch('./wallets.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(ledger => {
+  if (!ledger) return;
+  Object.entries(ledger).forEach(([id, value]) => { if (value && value.currencies) WALLETS[id] = value; });
+  renderWallets();
+}).catch(() => {});
 
 shopCurSelect.addEventListener('change', () => {
   currentShopCurrency = shopCurSelect.value;
