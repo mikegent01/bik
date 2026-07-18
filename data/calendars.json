@@ -1,0 +1,295 @@
+{
+  "meta": {
+    "description": "Modular calendar definitions — add new calendars by adding JSON entry, no code needed. Each calendar has months, weekdays, seasons, weird intercalary days, year length, leap rules, CSS theme, and local usage.",
+    "version": "3.0.0",
+    "note": "Year doesn't have to be 365. Weird days and cycles supported via intercalaryDays. Lore calendar is 'imperial'."
+  },
+  "calendars": [
+    {
+      "id": "imperial",
+      "name": "Regal Empire Standard",
+      "description": "Lore calendar: 12 months, 365 days, 7 weekdays. BF counts UP toward present. Deepwinter has 35 days. Rest days Venerias & Saturias.",
+      "isDefault": true,
+      "isLore": true,
+      "localTo": ["regal_empire", "the_midlands", "iron_legion", "aegis", "mages_guild"],
+      "yearLength": 365,
+      "months": [
+        {"name":"Firstlight","abbr":"Fst","ordinal":1,"days":30,"season":"Hoarfrost Winter","color":"#ADD8E6","icon":"❄️","description":"Empire Founding"},
+        {"name":"Chillwind","abbr":"Chl","ordinal":2,"days":30,"season":"Hoarfrost Winter","color":"#9cc9e0","icon":"🥶","description":"Deep winter"},
+        {"name":"Veridia","abbr":"Ver","ordinal":3,"days":30,"season":"Verdant Spring","color":"#90EE90","icon":"🌱","description":"First green"},
+        {"name":"Bloom","abbr":"Blo","ordinal":4,"days":30,"season":"Verdant Spring","color":"#7dd87d","icon":"🌸","description":"Blooms"},
+        {"name":"Floria","abbr":"Flo","ordinal":5,"days":30,"season":"Verdant Spring","color":"#6bc96b","icon":"🌼","description":"Trade roads"},
+        {"name":"Efferd","abbr":"Eff","ordinal":6,"days":30,"season":"Golden Summer","color":"#FFE55C","icon":"☀️","description":"Early summer"},
+        {"name":"Highsun","abbr":"Hsn","ordinal":7,"days":30,"season":"Golden Summer","color":"#FFD700","icon":"🔆","description":"Midsummer zenith"},
+        {"name":"Harvestide","abbr":"Hrv","ordinal":8,"days":30,"season":"Golden Summer","color":"#FFC200","icon":"🌾","description":"Harvest & audits"},
+        {"name":"Aethel","abbr":"Aet","ordinal":9,"days":30,"season":"Crimson Fall","color":"#FF8C69","icon":"🍂","description":"Amber lore"},
+        {"name":"Darkmoon","abbr":"Drk","ordinal":10,"days":30,"season":"Crimson Fall","color":"#E07050","icon":"🌑","description":"Warding"},
+        {"name":"Frostfall","abbr":"Frs","ordinal":11,"days":30,"season":"Crimson Fall","color":"#CC6A50","icon":"🍁","description":"Last trade"},
+        {"name":"Deepwinter","abbr":"Dpw","ordinal":12,"days":35,"season":"Hoarfrost Winter","color":"#8ab4d0","icon":"❄️","description":"35 days, silence"}
+      ],
+      "weekdays": [
+        {"name":"Soldas","abbr":"Sol","ordinal":1,"isRestDay":false,"element":"Sun"},
+        {"name":"Lunadas","abbr":"Lun","ordinal":2,"isRestDay":false,"element":"Moon"},
+        {"name":"Terras","abbr":"Ter","ordinal":3,"isRestDay":false,"element":"Earth"},
+        {"name":"Mercurias","abbr":"Mer","ordinal":4,"isRestDay":false,"element":"Mercury"},
+        {"name":"Jovias","abbr":"Jov","ordinal":5,"isRestDay":false,"element":"Jupiter"},
+        {"name":"Venerias","abbr":"Ven","ordinal":6,"isRestDay":true,"element":"Venus"},
+        {"name":"Saturias","abbr":"Sat","ordinal":7,"isRestDay":true,"element":"Saturn"}
+      ],
+      "seasons": [
+        {"name":"Verdant Spring","abbr":"Spr","monthStart":3,"monthEnd":5,"color":"#90EE90","icon":"🌱"},
+        {"name":"Golden Summer","abbr":"Sum","monthStart":6,"monthEnd":8,"color":"#FFD700","icon":"☀️"},
+        {"name":"Crimson Fall","abbr":"Fal","monthStart":9,"monthEnd":11,"color":"#FFA07A","icon":"🍂"},
+        {"name":"Hoarfrost Winter","abbr":"Win","monthStart":12,"monthEnd":2,"color":"#ADD8E6","icon":"❄️"}
+      ],
+      "intercalaryDays": [],
+      "leapRule": null,
+      "cssTheme": {
+        "accent": "#8a4bff",
+        "accent2": "#e0b400",
+        "bg": "#0d0a15",
+        "panel": "#1b1430",
+        "text": "#ece7f5",
+        "className": "cal-imperial"
+      }
+    },
+    {
+      "id": "mushroom_folk",
+      "name": "Mushroom Kingdom Folk",
+      "description": "10 months ×36 days =360 +5 festival void days outside months (Starfall, Pipe Day, etc). 5-day week: Market is work, Spore is rest. Year 365 but weird festival days.",
+      "isDefault": false,
+      "isLore": false,
+      "localTo": ["mushroom_kingdom", "peach_loyalists", "toad_town", "koopa_troop"],
+      "months": [
+        {"name":"Toadling","abbr":"Toa","ordinal":1,"days":36,"season":"Spring","color":"#9be68c","icon":"🍄"},
+        {"name":"Pipebloom","abbr":"Pip","ordinal":2,"days":36,"season":"Spring","color":"#a8e6a0","icon":"🟢"},
+        {"name":"Coinshine","abbr":"Coi","ordinal":3,"days":36,"season":"Summer","color":"#ffe26a","icon":"🪙"},
+        {"name":"Starfall","abbr":"Sta","ordinal":4,"days":36,"season":"Summer","color":"#ffdb4d","icon":"⭐"},
+        {"name":"Shroomheat","abbr":"Shr","ordinal":5,"days":36,"season":"Summer","color":"#ffb84d","icon":"🌞"},
+        {"name":"Bowsersbeth","abbr":"Bow","ordinal":6,"days":36,"season":"Fall","color":"#ff8a4d","icon":"🔥"},
+        {"name":"Leafcrumble","abbr":"Lea","ordinal":7,"days":36,"season":"Fall","color":"#e68a4d","icon":"🍂"},
+        {"name":"Frostshroom","abbr":"Fro","ordinal":8,"days":36,"season":"Winter","color":"#a0c8e6","icon":"❄️"},
+        {"name":"Crystalcap","abbr":"Cry","ordinal":9,"days":36,"season":"Winter","color":"#c0a0e6","icon":"💎"},
+        {"name":"Deepcap","abbr":"Dee","ordinal":10,"days":36,"season":"Winter","color":"#8ab0d0","icon":"🌑"}
+      ],
+      "weekdays": [
+        {"name":"Market","abbr":"Mar","ordinal":1,"isRestDay":false},
+        {"name":"Growth","abbr":"Gro","ordinal":2,"isRestDay":false},
+        {"name":"Spore","abbr":"Spo","ordinal":3,"isRestDay":false},
+        {"name":"Pipe","abbr":"Pip","ordinal":4,"isRestDay":true},
+        {"name":"Star","abbr":"Sta","ordinal":5,"isRestDay":true}
+      ],
+      "seasons": [
+        {"name":"Sprout Season","abbr":"Spr","monthStart":1,"monthEnd":3,"color":"#9be68c","icon":"🌱"},
+        {"name":"Coin Season","abbr":"Coi","monthStart":4,"monthEnd":6,"color":"#ffe26a","icon":"🪙"},
+        {"name":"Fall Season","abbr":"Fal","monthStart":7,"monthEnd":8,"color":"#e68a4d","icon":"🍂"},
+        {"name":"Frost Season","abbr":"Fro","monthStart":9,"monthEnd":10,"color":"#8ab0d0","icon":"❄️"}
+      ],
+      "intercalaryDays": [
+        {"name":"Starshine Festival","abbr":"StF","days":1,"afterMonth":2,"description":"Wishing on stars outside months","color":"#ffd700","icon":"✨","occurs":"annual","isWeird":true},
+        {"name":"Pipe Day","abbr":"PiD","days":1,"afterMonth":4,"description":"Warp pipes hum","color":"#00ff88","icon":"🟩","occurs":"annual","isWeird":true},
+        {"name":"Coin Rain","abbr":"CoR","days":1,"afterMonth":6,"description":"Coins fall","color":"#ffcc00","icon":"🪙","occurs":"annual","isWeird":true},
+        {"name":"Shroomnight","abbr":"ShN","days":1,"afterMonth":8,"description":"Mushrooms glow","color":"#aa88ff","icon":"🍄","occurs":"annual","isWeird":true},
+        {"name":"Deep Slumber","abbr":"DeS","days":1,"afterMonth":10,"description":"Toads hibernate","color":"#8888ff","icon":"💤","occurs":"annual","isWeird":true}
+      ],
+      "leapRule": null,
+      "cssTheme": {"accent":"#ff6b9d","accent2":"#ffd93d","bg":"#1a0f14","panel":"#2a1a24","className":"cal-mushroom"}
+    },
+    {
+      "id": "kivotos_academic",
+      "name": "Kivotos Academy Terms",
+      "description": "4 terms ×90 days =360 +5 exam void days +1 Founder Day leap every 4 years. 6-day week (no true rest, only study). Year 365/366 with leap weird day.",
+      "localTo": ["kivotos","trinity","millennium","shanhaijing"],
+      "months": [
+        {"name":"Spring Term","abbr":"SprT","ordinal":1,"days":90,"season":"Spring","color":"#ffb6d9","icon":"🌸"},
+        {"name":"Summer Term","abbr":"SumT","ordinal":2,"days":90,"season":"Summer","color":"#88e0ff","icon":"☀️"},
+        {"name":"Fall Term","abbr":"FalT","ordinal":3,"days":90,"season":"Fall","color":"#ffb86a","icon":"🍂"},
+        {"name":"Winter Term","abbr":"WinT","ordinal":4,"days":90,"season":"Winter","color":"#a0d0ff","icon":"❄️"}
+      ],
+      "weekdays": [
+        {"name":"Study","abbr":"Stu","ordinal":1,"isRestDay":false},
+        {"name":"Lecture","abbr":"Lec","ordinal":2,"isRestDay":false},
+        {"name":"Club","abbr":"Clb","ordinal":3,"isRestDay":false},
+        {"name":"Field","abbr":"Fld","ordinal":4,"isRestDay":false},
+        {"name":"Exam","abbr":"Exa","ordinal":5,"isRestDay":false},
+        {"name":"Rest","abbr":"Res","ordinal":6,"isRestDay":true}
+      ],
+      "seasons": [
+        {"name":"Admissions","abbr":"Adm","monthStart":1,"monthEnd":1,"color":"#ffb6d9","icon":"🎓"},
+        {"name":"Festivals","abbr":"Fes","monthStart":2,"monthEnd":3,"color":"#88e0ff","icon":"🎆"},
+        {"name":"Exams","abbr":"Exa","monthStart":4,"monthEnd":4,"color":"#a0d0ff","icon":"📚"}
+      ],
+      "intercalaryDays": [
+        {"name":"Founder's Break","abbr":"FoB","days":5,"afterMonth":4,"description":"Exam void days","color":"#ff88cc","icon":"🏫","occurs":"annual","isWeird":false},
+        {"name":"Kaiser Day","abbr":"Kai","days":1,"afterMonth":4,"description":"Leap Founder Day every 4 years","color":"#ff0000","icon":"⚠️","occurs":"leap:4","isWeird":true}
+      ],
+      "leapRule": {"type":"divisibleBy","divisor":4,"description":"Founder's Leap every 4 years"},
+      "cssTheme": {"accent":"#ff8fab","accent2":"#00d4ff","bg":"#120a1a","panel":"#1e1430","className":"cal-kivotos"}
+    },
+    {
+      "id": "equestrian_lunar",
+      "name": "Equestrian Lunar",
+      "description": "13 moons ×28 days =364 +1 Night Court +1 leap Harmony Day every 4 years. 7 weekdays named for Elements. Year 365/366 with weird night.",
+      "localTo": ["equestria","canterlot","ponyville"],
+      "months": [
+        {"name":"Moon 1 - Hearth","abbr":"Hrt","ordinal":1,"days":28,"season":"Winter","color":"#b0c4de","icon":"🌙"},
+        {"name":"Moon 2 - Thaw","abbr":"Tha","ordinal":2,"days":28,"season":"Spring","color":"#98fb98","icon":"🌱"},
+        {"name":"Moon 3 - Bloom","abbr":"Blo","ordinal":3,"days":28,"season":"Spring","color":"#ffb6c1","icon":"🌸"},
+        {"name":"Moon 4 - Sun","abbr":"Sun","ordinal":4,"days":28,"season":"Summer","color":"#ffd700","icon":"☀️"},
+        {"name":"Moon 5 - Heat","abbr":"Hea","ordinal":5,"days":28,"season":"Summer","color":"#ffa500","icon":"🔥"},
+        {"name":"Moon 6 - Harvest","abbr":"Har","ordinal":6,"days":28,"season":"Fall","color":"#daa520","icon":"🌾"},
+        {"name":"Moon 7 - Falling","abbr":"Fal","ordinal":7,"days":28,"season":"Fall","color":"#cd853f","icon":"🍂"},
+        {"name":"Moon 8 - Frost","abbr":"Fro","ordinal":8,"days":28,"season":"Winter","color":"#afeeee","icon":"❄️"},
+        {"name":"Moon 9 - Long Night","abbr":"LNi","ordinal":9,"days":28,"season":"Winter","color":"#191970","icon":"🌌"},
+        {"name":"Moon 10 - Renewal","abbr":"Ren","ordinal":10,"days":28,"season":"Spring","color":"#e0ffff","icon":"✨"},
+        {"name":"Moon 11 - Harmony","abbr":"Hrm","ordinal":11,"days":28,"season":"Spring","color":"#dda0dd","icon":"💜"},
+        {"name":"Moon 12 - Friendship","abbr":"Fri","ordinal":12,"days":28,"season":"Summer","color":"#ff69b4","icon":"💖"},
+        {"name":"Moon 13 - Twilight","abbr":"Twi","ordinal":13,"days":28,"season":"Fall","color":"#9370db","icon":"🦄"}
+      ],
+      "weekdays": [
+        {"name":"Honesty","abbr":"Hon","ordinal":1,"isRestDay":false},
+        {"name":"Kindness","abbr":"Kin","ordinal":2,"isRestDay":false},
+        {"name":"Laughter","abbr":"Lau","ordinal":3,"isRestDay":false},
+        {"name":"Generosity","abbr":"Gen","ordinal":4,"isRestDay":false},
+        {"name":"Loyalty","abbr":"Loy","ordinal":5,"isRestDay":false},
+        {"name":"Magic","abbr":"Mag","ordinal":6,"isRestDay":true},
+        {"name":"Friendship","abbr":"Fri","ordinal":7,"isRestDay":true}
+      ],
+      "seasons": [
+        {"name":"Winter Wrap","abbr":"Win","monthStart":1,"monthEnd":3,"color":"#b0c4de","icon":"❄️"},
+        {"name":"Spring Bloom","abbr":"Spr","monthStart":4,"monthEnd":7,"color":"#98fb98","icon":"🌸"},
+        {"name":"Summer Sun","abbr":"Sum","monthStart":8,"monthEnd":10,"color":"#ffd700","icon":"☀️"},
+        {"name":"Fall Running","abbr":"Fal","monthStart":11,"monthEnd":13,"color":"#daa520","icon":"🍂"}
+      ],
+      "intercalaryDays": [
+        {"name":"Night Court","abbr":"NCo","days":1,"afterMonth":13,"description":"Princess night judgment outside months","color":"#191970","icon":"🌙","occurs":"annual","isWeird":true},
+        {"name":"Harmony Day","abbr":"HaD","days":1,"afterMonth":13,"description":"Leap day every 4 years","color":"#ff69b4","icon":"💖","occurs":"leap:4","isWeird":true}
+      ],
+      "leapRule": {"type":"divisibleBy","divisor":4,"description":"Harmony leap"},
+      "cssTheme": {"accent":"#ff69b4","accent2":"#9370db","bg":"#120a1a","panel":"#1e142a","className":"cal-equestrian"}
+    },
+    {
+      "id": "old_world",
+      "name": "Old World Imperial (Warhammer)",
+      "description": "12 months ×30 =360 +6 intercalary weird days (Hexenstag etc) =366, 8-day week (Mandevent etc). Year not 365, includes witching hour days outside.",
+      "localTo": ["old_world","karaz_ankor","under_empire","middenheim"],
+      "months": [
+        {"name":"Nachexen","abbr":"Nac","ordinal":1,"days":32,"season":"Winter","color":"#8a9aaf","icon":"❄️"},
+        {"name":"Jahrdrung","abbr":"Jah","ordinal":2,"days":33,"season":"Winter","color":"#7a8a9f","icon":"🌨️"},
+        {"name":"Pflugzeit","abbr":"Pfl","ordinal":3,"days":33,"season":"Spring","color":"#88aa88","icon":"🌱"},
+        {"name":"Sigmarzeit","abbr":"Sig","ordinal":4,"days":33,"season":"Spring","color":"#aaccaa","icon":"⚔️"},
+        {"name":"Sommerzeit","abbr":"Som","ordinal":5,"days":33,"season":"Summer","color":"#ffcc66","icon":"☀️"},
+        {"name":"Vorgeheim","abbr":"Vor","ordinal":6,"days":33,"season":"Summer","color":"#ffaa44","icon":"🌾"},
+        {"name":"Nachgeheim","abbr":"Nac","ordinal":7,"days":32,"season":"Fall","color":"#cc9977","icon":"🍂"},
+        {"name":"Erntezeit","abbr":"Ern","ordinal":8,"days":33,"season":"Fall","color":"#bb8866","icon":"🌾"},
+        {"name":"Brauzeit","abbr":"Bra","ordinal":9,"days":33,"season":"Fall","color":"#aa7755","icon":"🍺"},
+        {"name":"Kaldezeit","abbr":"Kal","ordinal":10,"days":32,"season":"Winter","color":"#99aabb","icon":"❄️"},
+        {"name":"Ulriczeit","abbr":"Ulr","ordinal":11,"days":32,"season":"Winter","color":"#8899aa","icon":"🐺"},
+        {"name":"Vorhexen","abbr":"Vor","ordinal":12,"days":32,"season":"Winter","color":"#667788","icon":"🌑"}
+      ],
+      "weekdays": [
+        {"name":"Mandevent","abbr":"Man","ordinal":1,"isRestDay":false},
+        {"name":"Tuellevent","abbr":"Tue","ordinal":2,"isRestDay":false},
+        {"name":"Mittagvent","abbr":"Mit","ordinal":3,"isRestDay":false},
+        {"name":"Aubentag","abbr":"Aub","ordinal":4,"isRestDay":false},
+        {"name":"Markttag","abbr":"Mar","ordinal":5,"isRestDay":false},
+        {"name":"Backertag","abbr":"Bac","ordinal":6,"isRestDay":false},
+        {"name":"Bezahltag","abbr":"Bez","ordinal":7,"isRestDay":true},
+        {"name":"Konigstag","abbr":"Kon","ordinal":8,"isRestDay":true}
+      ],
+      "seasons": [
+        {"name":"Winter","abbr":"Win","monthStart":10,"monthEnd":2,"color":"#8a9aaf","icon":"❄️"},
+        {"name":"Spring","abbr":"Spr","monthStart":3,"monthEnd":4,"color":"#88aa88","icon":"🌱"},
+        {"name":"Summer","abbr":"Sum","monthStart":5,"monthEnd":7,"color":"#ffcc66","icon":"☀️"},
+        {"name":"Fall","abbr":"Fal","monthStart":8,"monthEnd":9,"color":"#cc9977","icon":"🍂"}
+      ],
+      "intercalaryDays": [
+        {"name":"Hexenstag","abbr":"Hex","days":1,"afterMonth":12,"description":"Witching day outside year, chaos","color":"#000000","icon":"🕯️","occurs":"annual","isWeird":true},
+        {"name":"Mitterfruhl","abbr":"Mit","days":1,"afterMonth":3,"description":"Spring equinox void","color":"#88ff88","icon":"🌱","occurs":"annual","isWeird":true},
+        {"name":"Sonnenstill","abbr":"Son","days":1,"afterMonth":6,"description":"Summer solstice","color":"#ffff00","icon":"☀️","occurs":"annual","isWeird":true},
+        {"name":"Geheimnistag","abbr":"Geh","days":1,"afterMonth":9,"description":"Mystery day","color":"#aa88ff","icon":"🔮","occurs":"annual","isWeird":true},
+        {"name":"Weltensprung","abbr":"Wel","days":2,"afterMonth":12,"description":"World jump 2 days","color":"#ff00ff","icon":"🌀","occurs":"annual","isWeird":true}
+      ],
+      "leapRule": null,
+      "cssTheme": {"accent":"#8a9aaf","accent2":"#ffaa44","bg":"#0f0a0a","panel":"#1e1410","className":"cal-oldworld"}
+    },
+    {
+      "id": "void_drifters",
+      "name": "Void Drifters Stellar (400-day)",
+      "description": "13 months ×30 =390 +10 void drift days =400 day year. Long year for space travel. 10-day week (different work cycles).",
+      "localTo": ["void_drifters","drifters_debris_field","the_network"],
+      "months": [
+        {"name":"Ignition","abbr":"Ign","ordinal":1,"days":30,"color":"#ff4444","icon":"🚀"},
+        {"name":"Drift","abbr":"Dri","ordinal":2,"days":30,"color":"#4444ff","icon":"🌌"},
+        {"name":"Signal","abbr":"Sig","ordinal":3,"days":30,"color":"#44ff44","icon":"📡"},
+        {"name":"Hollow","abbr":"Hol","ordinal":4,"days":30,"color":"#888888","icon":"🕳️"},
+        {"name":"Starfall","abbr":"Sta","ordinal":5,"days":30,"color":"#ffff44","icon":"⭐"},
+        {"name":"Echo","abbr":"Ech","ordinal":6,"days":30,"color":"#ff44ff","icon":"🔊"},
+        {"name":"Fracture","abbr":"Fra","ordinal":7,"days":30,"color":"#ff8844","icon":"💥"},
+        {"name":"Still","abbr":"Sti","ordinal":8,"days":30,"color":"#aaaaaa","icon":"🫥"},
+        {"name":"Bloom","abbr":"Blo","ordinal":9,"days":30,"color":"#44ffaa","icon":"🌸"},
+        {"name":"Rust","abbr":"Rus","ordinal":10,"days":30,"color":"#aa6644","icon":"🔧"},
+        {"name":"Veil","abbr":"Vei","ordinal":11,"days":30,"color":"#6644aa","icon":"🌫️"},
+        {"name":"Return","abbr":"Ret","ordinal":12,"days":30,"color":"#44aaff","icon":"↩️"},
+        {"name":"Beyond","abbr":"Bey","ordinal":13,"days":30,"color":"#000000","icon":"♾️"}
+      ],
+      "weekdays": [
+        {"name":"Burn","abbr":"Bur","ordinal":1,"isRestDay":false},
+        {"name":"Coast","abbr":"Coa","ordinal":2,"isRestDay":false},
+        {"name":"Listen","abbr":"Lis","ordinal":3,"isRestDay":false},
+        {"name":"Mend","abbr":"Men","ordinal":4,"isRestDay":false},
+        {"name":"Watch","abbr":"Wat","ordinal":5,"isRestDay":false},
+        {"name":"Log","abbr":"Log","ordinal":6,"isRestDay":false},
+        {"name":"Dream","abbr":"Dre","ordinal":7,"isRestDay":false},
+        {"name":"Drift","abbr":"Dri","ordinal":8,"isRestDay":true},
+        {"name":"Void","abbr":"Voi","ordinal":9,"isRestDay":true},
+        {"name":"Wake","abbr":"Wak","ordinal":10,"isRestDay":true}
+      ],
+      "seasons": [
+        {"name":"Burn Phase","abbr":"Bur","monthStart":1,"monthEnd":4,"color":"#ff4444","icon":"🔥"},
+        {"name":"Drift Phase","abbr":"Dri","monthStart":5,"monthEnd":9,"color":"#4444ff","icon":"🌌"},
+        {"name":"Return Phase","abbr":"Ret","monthStart":10,"monthEnd":13,"color":"#44aaff","icon":"↩️"}
+      ],
+      "intercalaryDays": [
+        {"name":"Void Drift","abbr":"VoD","days":10,"afterMonth":13,"description":"Ship drifts outside time, 10 days not counted in months","color":"#000000","icon":"♾️","occurs":"annual","isWeird":true}
+      ],
+      "leapRule": null,
+      "cssTheme": {"accent":"#00ffaa","accent2":"#ff00ff","bg":"#050a0f","panel":"#0a141e","className":"cal-void"}
+    },
+    {
+      "id": "snowdin",
+      "name": "Snowdin Deep Calendar (360-day)",
+      "description": "8 months ×40 =320 +5 glow days +35 Deep Freeze =360? Actually 8×40=320 +40 freeze =360. 6-day week, long winter. Year shorter than imperial.",
+      "localTo": ["snowdin","mount_ebott","waterfall","hotland"],
+      "months": [
+        {"name":"Chill","abbr":"Chi","ordinal":1,"days":40,"season":"Winter","color":"#a0d0ff","icon":"❄️"},
+        {"name":"Glow","abbr":"Glo","ordinal":2,"days":40,"season":"Winter","color":"#ffffa0","icon":"💡"},
+        {"name":"Thaw","abbr":"Tha","ordinal":3,"days":40,"season":"Spring","color":"#a0ffa0","icon":"💧"},
+        {"name":"Bloomdeep","abbr":"Blo","ordinal":4,"days":40,"season":"Spring","color":"#ffa0ff","icon":"🌸"},
+        {"name":"Heatvent","abbr":"Hea","ordinal":5,"days":40,"season":"Summer","color":"#ffaa88","icon":"♨️"},
+        {"name":"Core","abbr":"Cor","ordinal":6,"days":40,"season":"Summer","color":"#ff4444","icon":"🔥"},
+        {"name":"Shade","abbr":"Sha","ordinal":7,"days":40,"season":"Fall","color":"#aa88cc","icon":"🌑"},
+        {"name":"Freeze","abbr":"Fre","ordinal":8,"days":40,"season":"Winter","color":"#88aacc","icon":"🧊"}
+      ],
+      "weekdays": [
+        {"name":"Cold","abbr":"Col","ordinal":1,"isRestDay":false},
+        {"name":"Warm","abbr":"War","ordinal":2,"isRestDay":false},
+        {"name":"Puzzle","abbr":"Puz","ordinal":3,"isRestDay":false},
+        {"name":"Nap","abbr":"Nap","ordinal":4,"isRestDay":true},
+        {"name":"Spaghet","abbr":"Spa","ordinal":5,"isRestDay":true},
+        {"name":"MTT","abbr":"MTT","ordinal":6,"isRestDay":true}
+      ],
+      "seasons": [
+        {"name":"Cold Season","abbr":"Col","monthStart":1,"monthEnd":3,"color":"#a0d0ff","icon":"❄️"},
+        {"name":"Hot Season","abbr":"Hot","monthStart":5,"monthEnd":6,"color":"#ff4444","icon":"🔥"},
+        {"name":"Deep Season","abbr":"Dee","monthStart":7,"monthEnd":8,"color":"#88aacc","icon":"🧊"}
+      ],
+      "intercalaryDays": [
+        {"name":"Glow Days","abbr":"Glo","days":5,"afterMonth":2,"description":"Underground crystals brighten","color":"#ffff88","icon":"✨","occurs":"annual","isWeird":true},
+        {"name":"Deep Freeze","abbr":"DeF","days":35,"afterMonth":8,"description":"Entire underground freezes, 35 weird days outside months","color":"#88ccff","icon":"🧊","occurs":"annual","isWeird":true}
+      ],
+      "leapRule": null,
+      "cssTheme": {"accent":"#88ccff","accent2":"#ffdd88","bg":"#0a0a14","panel":"#141428","className":"cal-snowdin"}
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+/* --- Oathbound Judges: Tribunal System --- */
+.judges-tribunal-system {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+    min-height: 400px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    border-radius: 8px;
+}
+
+.tribunal-chamber {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+}
+
+.scales-of-justice {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+}
+.scales-base {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.scales-beam {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    transition: transform 0.5s ease-in-out;
+    transform-origin: center 45%; /* Adjust pivot point */
+}
+
+.tribunal-members-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.judge-seat {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: var(--sidebar-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.judge-seat:hover {
+    border-color: var(--neutral-color);
+    transform: scale(1.1);
+    z-index: 5;
+    box-shadow: 0 0 15px var(--neutral-color);
+}
+
+.judge-icon {
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+.judge-seat:hover .judge-icon {
+    opacity: 1;
+}
+
+
+.judge-info-panel {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.judge-info-content, .judge-info-default {
+    animation: fadeIn 0.5s;
+}
+
+.judge-info-default h6 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.judge-info-default p {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.judge-name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 4px;
+}
+.judge-title {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    font-style: italic;
+    margin-bottom: 12px;
+}
+.judge-philosophy {
+    font-weight: bold;
+    margin-bottom: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.judge-philosophy.truthbearer {
+    color: var(--major-powers-color);
+    background-color: rgba(201, 176, 55, 0.1);
+}
+.judge-philosophy.arbiter-of-intent {
+    color: var(--mystical-ancient-color);
+    background-color: rgba(138, 43, 226, 0.1);
+}
+.judge-philosophy.neutral-archivist {
+    color: var(--text-secondary);
+    background-color: var(--main-bg);
+}
+
+.judge-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 900px) {
+    .judges-tribunal-system {
+        grid-template-columns: 1fr;
+    }
+}

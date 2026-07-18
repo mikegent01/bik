@@ -1,0 +1,494 @@
+/* species.css - Species Page Styles */
+
+/* ============================================
+   DASHBOARD GRID
+   ============================================ */
+#dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.chart-container {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container h3 {
+    margin: 0 0 16px 0;
+    color: var(--text-color);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.chart-container.full-width {
+    width: 100%;
+}
+
+.chart-container.half-width {
+    width: 100%;
+}
+
+@media (min-width: 900px) {
+    #dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+    
+    .chart-container.full-width {
+        grid-column: 1 / -1;
+    }
+}
+
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    min-height: 250px;
+}
+
+/* ============================================
+   VITAL STATS CONTAINER
+   ============================================ */
+#vital-stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+#vital-stats-container > div {
+    text-align: center;
+    padding: 10px;
+}
+
+#vital-stats-container > div:last-child {
+    border-left: 1px solid var(--border-color);
+    padding-left: 20px;
+}
+
+@media (max-width: 600px) {
+    #vital-stats-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    #vital-stats-container > div:last-child {
+        grid-column: 1 / -1;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+        padding-left: 10px;
+        padding-top: 15px;
+    }
+}
+
+/* ============================================
+   SPECIES GRID
+   ============================================ */
+#species-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+    #species-grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   SPECIES CARD
+   ============================================ */
+.species-card {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.species-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.species-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.species-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.species-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-family: var(--font-display);
+}
+
+.species-status-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.species-status-badge.status-under,
+.species-status-badge.status-enslaved {
+    background: rgba(248, 81, 73, 0.2);
+    color: #f85149;
+}
+
+.species-status-badge.status-pest,
+.species-status-badge.status-disposable {
+    background: rgba(227, 179, 65, 0.2);
+    color: #e3b341;
+}
+
+.species-status-badge.status-mistrusted {
+    background: rgba(163, 113, 247, 0.2);
+    color: #a371f7;
+}
+
+.species-status-badge.status-cursed {
+    background: rgba(139, 69, 139, 0.2);
+    color: #b366b3;
+}
+
+.species-status-badge.status-unique,
+.species-status-badge.status-legendary {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+}
+
+.species-status-badge.status-endangered {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+}
+
+.species-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+/* ============================================
+   SPECIES POPULATION STATS
+   ============================================ */
+.species-pop-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.species-pop-stat > span:first-child {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.species-pop-stat > strong {
+    font-family: var(--font-mono);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.species-pop-stat > div {
+    width: 100%;
+    margin-top: 4px;
+}
+
+/* ============================================
+   SPECIES INFO SECTIONS
+   ============================================ */
+.species-religion-mini,
+.species-workforce-mini {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.species-religion-mini strong,
+.species-workforce-mini strong {
+    margin-right: 8px;
+}
+
+/* ============================================
+   SPECIES FACTIONS
+   ============================================ */
+.species-factions {
+    margin: 12px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+}
+
+.species-factions h6 {
+    margin: 0 0 8px 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.species-factions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.species-factions li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.species-factions li img {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.species-factions .faction-percentage {
+    margin-left: auto;
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+.species-factions p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   SPECIES RELATIONS
+   ============================================ */
+.species-relations {
+    margin-top: 12px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+}
+
+.species-relations h6 {
+    margin: 0 0 8px 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.species-relations ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.species-relations li {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.species-relations li strong {
+    color: var(--text-color);
+}
+
+.species-relations p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   WORKFORCE SECTION
+   ============================================ */
+#workforce-section {
+    margin-top: 24px;
+}
+
+#workforce-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.workforce-species-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.workforce-species-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.workforce-species-header .species-icon {
+    font-size: 1.2rem;
+}
+
+.workforce-bars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.workforce-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    min-width: 120px;
+}
+
+.workforce-bar-item .bar-container {
+    flex: 1;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 60px;
+}
+
+.workforce-bar-item .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* ============================================
+   TECH ACCESS CHART
+   ============================================ */
+#tech-access-filter {
+    background: var(--main-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#tech-access-filter:hover {
+    border-color: var(--accent-color);
+}
+
+#tech-access-filter:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
+#tech-access-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   POPULATION DISPLAY
+   ============================================ */
+#total-population-display {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--positive-color);
+    margin: 0;
+    text-shadow: 0 0 10px var(--positive-color);
+    line-height: 1.2;
+}
+
+#total-population-display span {
+    text-shadow: none;
+}
+
+/* ============================================
+   TREND INDICATORS
+   ============================================ */
+.trend-positive {
+    color: var(--positive-color);
+}
+
+.trend-negative {
+    color: var(--negative-color);
+}
+
+.trend-stable {
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 480px) {
+    .species-card {
+        padding: 12px;
+    }
+    
+    .species-header {
+        flex-wrap: wrap;
+    }
+    
+    .species-icon {
+        font-size: 1.5rem;
+    }
+    
+    .species-header h3 {
+        font-size: 1rem;
+    }
+    
+    .species-pop-stat {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    #total-population-display {
+        font-size: 2rem;
+    }
+    
+    .canvas-wrapper {
+        height: 250px;
+    }
+}

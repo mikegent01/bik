@@ -1,0 +1,87 @@
+// map-data/warhammer/grand_cathay.js
+export const grandCathayPois = [
+    {
+        id: 'poi_wh_wei_jin', x: 83.0, y: 25.0, type: 'capital_city', subRegion: 'grand_cathay',
+        name: "Wei-Jin, The Forbidden City",
+        description: "The celestial capital of Grand Cathay, home to the Dragon Emperor and the Moon Empress. A city of perfect harmony, incredible wealth, and hidden intrigue.",
+        factionId: 'grand_cathay', intelReq: 20, political_influence: 10, economic_value: 10, military_strength: 9,
+        age_of_antiquity: 10, magical_resonance: 10, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_shang_yang', x: 83.5, y: 30.0, type: 'port', subRegion: 'grand_cathay',
+        name: "Shang-Yang, The Jade Port",
+        description: "The largest port in Cathay, a bustling hub of trade with the High Elves and other distant nations. Its massive Jade-junk fleets patrol the eastern seas.",
+        factionId: 'grand_cathay', intelReq: 15, political_influence: 7, economic_value: 9, military_strength: 7,
+        age_of_antiquity: 9, magical_resonance: 6, crime_rate: 4,
+    },
+    {
+        id: 'poi_wh_celestial_river', x: 82.5, y: 28.0, type: 'river', subRegion: 'grand_cathay',
+        name: "The Great Celestial River",
+        description: "The largest river in Cathay, a vital artery for trade and agriculture that flows from the mountains to the sea.",
+        factionId: 'unaligned', intelReq: 5, political_influence: 3, economic_value: 8, military_strength: 2,
+        age_of_antiquity: 10, magical_resonance: 5, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_jade_dragon_temple', x: 83.0, y: 23.0, type: 'temple', subRegion: 'grand_cathay',
+        name: "Temple of the Jade Dragon",
+        description: "A magnificent temple dedicated to the Dragon Emperor. A place of pilgrimage, martial arts training, and Imperial authority.",
+        factionId: 'grand_cathay', intelReq: 10, political_influence: 8, economic_value: 4, military_strength: 6,
+        age_of_antiquity: 9, magical_resonance: 8, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_rice_paddies', x: 82.5, y: 31.0, type: 'farm', subRegion: 'grand_cathay',
+        name: "The Endless Rice Paddies",
+        description: "Vast, irrigated fields that feed the immense population of Cathay. A testament to the empire's organization and harmony with the land.",
+        factionId: 'unaligned', intelReq: 5, political_influence: 2, economic_value: 9, military_strength: 2,
+        age_of_antiquity: 10, magical_resonance: 3, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_wu_xing_compass', x: 84.0, y: 26.5, type: 'ley_line', subRegion: 'grand_cathay',
+        name: "The Wu-Xing War Compass",
+        description: "A colossal, magical compass that harnesses the winds of magic. It is used by Cathayan Astromancers to alter the weather and empower their armies.",
+        factionId: 'grand_cathay', intelReq: 40, political_influence: 6, economic_value: 3, military_strength: 8,
+        age_of_antiquity: 8, magical_resonance: 10, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_city_of_lanterns', x: 82.5, y: 26.0, type: 'major_city', subRegion: 'grand_cathay',
+        name: "The City of Lanterns",
+        description: "A beautiful city on the Celestial River, famous for its thousands of floating lanterns and its skilled artisans.",
+        factionId: 'grand_cathay', intelReq: 10, political_influence: 6, economic_value: 8, military_strength: 5,
+        age_of_antiquity: 7, magical_resonance: 6, crime_rate: 3,
+    },
+    {
+        id: 'poi_wh_imperial_road', x: 83.5, y: 24.0, type: 'trade_post', subRegion: 'grand_cathay',
+        name: "The Imperial Road",
+        description: "The main highway connecting Wei-Jin to the Great Bastion. A marvel of engineering, it allows Cathay's armies to move swiftly to the northern border.",
+        factionId: 'unaligned', intelReq: 5, political_influence: 4, economic_value: 7, military_strength: 4,
+        age_of_antiquity: 9, magical_resonance: 2, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_terracotta_tombs', x: 82.5, y: 29.0, type: 'dungeon_entrance', subRegion: 'grand_cathay',
+        name: "The Terracotta Army Tombs",
+        description: "The vast, subterranean tombs of ancient emperors, guarded by legions of enchanted terracotta soldiers. A place of great treasure and great danger.",
+        factionId: 'unaligned', intelReq: 35, political_influence: 3, economic_value: 7, military_strength: 7,
+        age_of_antiquity: 10, magical_resonance: 8, crime_rate: 5,
+    },
+    {
+        id: 'poi_wh_monastery_four_winds', x: 84.0, y: 24.5, type: 'monastery', subRegion: 'grand_cathay',
+        name: "Monastery of the Four Winds",
+        description: "A secluded mountain monastery where warrior monks practice a mystical form of martial arts, said to grant them control over the winds.",
+        factionId: 'grand_cathay', intelReq: 30, political_influence: 4, economic_value: 2, military_strength: 7,
+        age_of_antiquity: 8, magical_resonance: 7, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_jade_mines', x: 82.0, y: 27.0, type: 'mine', subRegion: 'grand_cathay',
+        name: "The Jade Mines",
+        description: "The source of the empire's immense wealth of jade, a stone with both material and magical value. The mines are heavily guarded by Imperial troops.",
+        factionId: 'grand_cathay', intelReq: 15, political_influence: 3, economic_value: 10, military_strength: 6,
+        age_of_antiquity: 10, magical_resonance: 6, crime_rate: 3,
+    },
+    {
+        id: 'poi_wh_celestial_observatory', x: 84.5, y: 27.5, type: 'observatory', subRegion: 'grand_cathay',
+        name: "The Celestial Observatory",
+        description: "A high-altitude observatory where Cathayan Astromancers chart the stars and interpret celestial omens to guide the empire's destiny.",
+        factionId: 'grand_cathay', intelReq: 25, political_influence: 7, economic_value: 3, military_strength: 5,
+        age_of_antiquity: 9, magical_resonance: 9, crime_rate: 1,
+    }
+];

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wario Quest Board | Mission Control</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="quests-arcs.css">
+</head>
+<body>
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#00d4ff" />
+                <stop offset="50%" style="stop-color:#7c5bf5" />
+                <stop offset="100%" style="stop-color:#00ffc8" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        
+        <div id="app">
+            <!-- ==================== ARC SELECTION SCREEN ==================== -->
+            <section class="arc-selection-screen" id="arc-selection-screen">
+                <header class="arc-selection-header">
+                    <div class="header-content">
+                        <h1 class="arc-selection-title">THE FRACTURED MANOR</h1>
+                        <p class="arc-selection-subtitle">Choose jobs. Earn Wario Points. Spend them at the shop.</p>
+                        <div class="header-divider">
+                            <span class="divider-glyph">◆</span>
+                            <span class="divider-line"></span>
+                            <span class="divider-glyph">◆</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="arc-panels-container" id="arc-panels-container">
+                    <!-- Shadowfell Panel -->
+                    <article class="arc-panel shadowfell" data-arc="shadowfell_estate" tabindex="0">
+                        <div class="arc-panel-bg"></div>
+                        <div class="arc-panel-overlay"></div>
+                        <div class="arc-panel-content">
+                            <div class="arc-icon-container">
+                                <span class="arc-icon">🍷</span>
+                            </div>
+                            <h2 class="arc-name">SHADOWFELL ESTATE</h2>
+                            <p class="arc-tagline">The Vampire's Banquet</p>
+                            <div class="arc-divider"></div>
+                            <div class="arc-characters">
+                                <span class="arc-character">Bowser</span>
+                                <span class="arc-separator">•</span>
+                                <span class="arc-character">Markop</span>
+                                <span class="arc-separator">•</span>
+                                <span class="arc-character">FNG</span>                                
+                            </div>
+                            <p class="arc-description">Navigate a deadly dinner party where etiquette is the weapon.</p>
+                            <div class="arc-stats">
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="shadowfell-quest-count">0</span>
+                                    <span class="stat-label">Missions</span>
+                                </div>
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="shadowfell-phase">1/4</span>
+                                    <span class="stat-label">Phase</span>
+                                </div>
+                            </div>
+                            <div class="arc-themes">
+                                <span class="theme-tag">Social Combat</span>
+                                <span class="theme-tag">Horror</span>
+                            </div>
+                            <button class="arc-enter-btn">
+                                <span>ENTER THE SHADOW</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Feywild Panel -->
+                    <article class="arc-panel feywild" data-arc="feywild_attic" tabindex="0">
+                        <div class="arc-panel-bg"></div>
+                        <div class="arc-panel-overlay"></div>
+                        <div class="arc-panel-content">
+                            <div class="arc-icon-container">
+                                <span class="arc-icon">🦋</span>
+                            </div>
+                            <h2 class="arc-name">The Feywild</h2>
+                            <p class="arc-tagline">The Chaos Garden</p>
+                            <div class="arc-divider"></div>
+                            <div class="arc-characters">
+                                <span class="arc-character">Hjumpik</span>
+                                <span class="arc-separator">•</span>
+                                <span class="arc-character">Waluigi</span>
+                                <span class="arc-separator">•</span>
+                                <span class="arc-character">Toad Lee</span>
+                            </div>
+                            <p class="arc-description">Navigate wild magic and fey trickery in the overgrown manor.</p>
+                            <div class="arc-stats">
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="feywild-quest-count">0</span>
+                                    <span class="stat-label">Missions</span>
+                                </div>
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="feywild-phase">1/4</span>
+                                    <span class="stat-label">Phase</span>
+                                </div>
+                            </div>
+                            <div class="arc-themes">
+                                <span class="theme-tag">Chaos</span>
+                                <span class="theme-tag">Wild Magic</span>
+                            </div>
+                            <button class="arc-enter-btn">
+                                <span>EMBRACE THE WILD</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Raventree Panel -->
+                    <article class="arc-panel raventree" data-arc="raventree_manor" tabindex="0">
+                        <div class="arc-panel-bg"></div>
+                        <div class="arc-panel-overlay"></div>
+                        <div class="arc-panel-content">
+                            <div class="arc-icon-container">
+                                <span class="arc-icon">🏚️</span>
+                            </div>
+                            <h2 class="arc-name">RAVENTREE MANOR</h2>
+                            <p class="arc-tagline">The Nexus of Ruin</p>
+                            <div class="arc-divider"></div>
+                            <div class="arc-characters">
+                                <span class="arc-character">Mages Guild</span>
+                                <span class="arc-separator">•</span>
+                                <span class="arc-character">Archie</span>
+                            </div>
+                            <p class="arc-description">The central conflict binding the fractured realities.</p>
+                            <div class="arc-stats">
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="raventree-quest-count">0</span>
+                                    <span class="stat-label">Missions</span>
+                                </div>
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="raventree-phase">4/5</span>
+                                    <span class="stat-label">Phase</span>
+                                </div>
+                            </div>
+                            <div class="arc-themes">
+                                <span class="theme-tag">Cosmic Horror</span>
+                                <span class="theme-tag">Mystery</span>
+                            </div>
+                            <button class="arc-enter-btn">
+                                <span>FACE THE NEXUS</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+
+                <footer class="arc-selection-footer">
+                    <button class="footer-nav-btn" id="view-all-quests">
+                        <span class="btn-icon">☰</span>
+                        <span class="btn-label">View All Jobs</span>
+                    </button>
+                </footer>
+            </section>
+
+            <!-- ==================== ARC DETAIL VIEW ==================== -->
+            <section class="arc-detail-view" id="arc-detail-view" hidden>
+                <header class="arc-detail-header" id="arc-detail-header">
+                    <button class="back-btn" id="back-to-selection">
+                        <span class="back-arrow">←</span>
+                        <span class="back-text">Back</span>
+                    </button>
+                    <div class="arc-detail-title-group">
+                        <span class="arc-detail-icon" id="arc-detail-icon">🍷</span>
+                        <div class="arc-detail-titles">
+                            <h1 class="arc-detail-name" id="arc-detail-name">SHADOWFELL ESTATE</h1>
+                            <p class="arc-detail-tagline" id="arc-detail-tagline">The Vampire's Banquet</p>
+                        </div>
+                    </div>
+                    <div class="arc-detail-stats">
+                        <div class="detail-stat">
+                            <span class="stat-icon">📋</span>
+                            <span class="stat-value" id="detail-quest-count">0</span>
+                            <span class="stat-label">Missions</span>
+                        </div>
+                        <div class="detail-stat">
+                            <span class="stat-icon">📊</span>
+                            <span class="stat-value" id="detail-progress">0%</span>
+                            <span class="stat-label">Progress</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="arc-info-panel" id="arc-info-panel">
+                    <div class="arc-description-full" id="arc-description-full"></div>
+                    <div class="phase-timeline" id="phase-timeline"></div>
+                    <div class="consequences-preview" id="consequences-preview">
+                        <div class="consequence-group positive">
+                            <h4>✓ Positive Outcomes</h4>
+                            <ul id="positive-consequences"></ul>
+                        </div>
+                        <div class="consequence-group negative">
+                            <h4>✗ Negative Outcomes</h4>
+                            <ul id="negative-consequences"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arc-quest-filters" id="arc-quest-filters">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="active">Active</button>
+                        <button class="filter-tab" data-filter="available">Available</button>
+                        <button class="filter-tab" data-filter="completed">Completed</button>
+                        <button class="filter-tab" data-filter="all">All</button>
+                    </div>
+                    <div class="filter-search">
+                        <span class="search-icon">🔍</span>
+                        <input type="search" id="arc-quest-search" placeholder="Search missions...">
+                    </div>
+                </div>
+
+                <div class="arc-quest-list" id="arc-quest-list"></div>
+            </section>
+
+            <!-- ==================== ALL QUESTS VIEW ==================== -->
+            <section class="all-quests-view" id="all-quests-view" hidden>
+                <header class="all-quests-header">
+                    <button class="back-btn" id="back-to-selection-from-all">
+                        <span class="back-arrow">←</span>
+                        <span class="back-text">Back</span>
+                    </button>
+                    <div class="header-title-group">
+                        <h1 class="page-title">ALL MISSIONS</h1>
+                        <p class="page-subtitle">Complete Mission Database</p>
+                    </div>
+                    <div class="header-stats">
+                        <div class="mini-stat urgent" id="all-stat-urgent">
+                            <span class="mini-stat-icon">⚠</span>
+                            <span class="mini-stat-value">0</span>
+                            <span class="mini-stat-label">Urgent</span>
+                        </div>
+                        <div class="mini-stat active" id="all-stat-active">
+                            <span class="mini-stat-icon">◉</span>
+                            <span class="mini-stat-value">0</span>
+                            <span class="mini-stat-label">Active</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="dashboard-grid" id="all-dashboard">
+                    <article class="dashboard-card progress-card">
+                        <div class="progress-ring-container">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="progress-ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="progress-ring-fill" cx="60" cy="60" r="52" id="overall-progress-ring" stroke="url(#progressGradient)"/>
+                            </svg>
+                            <div class="progress-ring-center">
+                                <span class="progress-value" id="overall-progress-value">0%</span>
+                                <span class="progress-label">Overall</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="dashboard-card workload-card">
+                        <h2 class="card-title">
+<!-- Continuing from workload-card -->
+                        <h2 class="card-title">👥 Party Assignments</h2>
+                        <div class="party-workload-grid" id="party-workload"></div>
+                    </article>
+                </div>
+
+                <nav class="quest-tabs" id="all-quest-tabs">
+                    <button class="quest-tab active" data-tab="active">
+                        <span class="tab-icon">◉</span>
+                        <span class="tab-label">Active</span>
+                        <span class="tab-count">0</span>
+                    </button>
+                    <button class="quest-tab" data-tab="available">
+                        <span class="tab-icon">📋</span>
+                        <span class="tab-label">Available</span>
+                        <span class="tab-count">0</span>
+                    </button>
+                    <button class="quest-tab" data-tab="completed">
+                        <span class="tab-icon">✓</span>
+                        <span class="tab-label">Completed</span>
+                        <span class="tab-count">0</span>
+                    </button>
+                    <button class="quest-tab" data-tab="all">
+                        <span class="tab-icon">☰</span>
+                        <span class="tab-label">All</span>
+                        <span class="tab-count">0</span>
+                    </button>
+                </nav>
+
+                <div class="filter-bar" id="all-filter-bar">
+                    <select id="all-sort-select" class="filter-select">
+                        <option value="priority">Sort: Priority</option>
+                        <option value="progress">Sort: Progress</option>
+                        <option value="deadline">Sort: Deadline</option>
+                    </select>
+                    <select id="all-arc-filter" class="filter-select">
+                        <option value="all">All Arcs</option>
+                        <option value="shadowfell_estate">Shadowfell</option>
+                        <option value="feywild_attic">Feywild</option>
+                        <option value="raventree_manor">Raventree</option>
+                    </select>
+                    <div class="filter-search">
+                        <span class="search-icon">🔍</span>
+                        <input type="search" id="all-quest-search" placeholder="Search...">
+                    </div>
+                </div>
+
+                <div class="quest-grid" id="all-quest-container"></div>
+                
+                <div class="empty-state" id="all-empty-state" hidden>
+                    <div class="empty-icon">📭</div>
+                    <h3>No Jobs Found</h3>
+                    <p>Adjust your filters or check back later.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- ==================== QUEST DETAIL MODAL ==================== -->
+    <div class="modal-overlay" id="quest-modal" hidden>
+        <div class="modal-container">
+            <!-- Content injected by JS -->
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+
+
+    <!-- ==================== WARIO POINTS QUEST ECONOMY PATCH ==================== -->
+    <style>
+        .wario-wallet-panel {
+            margin: 1rem auto 0;
+            max-width: 980px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: .8rem;
+        }
+        .wario-wallet-card {
+            border: 1px solid rgba(255,210,63,.28);
+            background: linear-gradient(135deg, rgba(255,210,63,.11), rgba(124,91,245,.08));
+            border-radius: 16px;
+            padding: .9rem 1rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,.22);
+        }
+        .wario-wallet-card b {
+            display:block;
+            color:#ffd23f;
+            font-family:'JetBrains Mono', monospace;
+            font-size:1.4rem;
+            line-height:1;
+        }
+        .wario-wallet-card span {
+            display:block;
+            color:#f7eab0;
+            font-family:'JetBrains Mono', monospace;
+            font-size:.68rem;
+            text-transform:uppercase;
+            letter-spacing:.08em;
+            margin-top:.35rem;
+        }
+        .wario-wallet-card p {
+            margin:.45rem 0 0;
+            color:#aeb8c7;
+            font-size:.78rem;
+            line-height:1.35;
+        }
+        .wario-points-note {
+            margin: .85rem auto 0;
+            max-width: 980px;
+            color:#ffd23f;
+            font-family:'JetBrains Mono', monospace;
+            font-size:.74rem;
+            text-align:center;
+            opacity:.92;
+        }
+        .reward-badge.xp, .reward.xp, .modal-reward-item.xp, .reward-card.xp {
+            border-color: rgba(255,210,63,.45) !important;
+            background: rgba(255,210,63,.12) !important;
+            color: #ffd23f !important;
+        }
+        .reward-badge.xp::before, .reward.xp::before, .modal-reward-item.xp::before {
+            content: 'W ';
+            font-weight: 900;
+            color:#ffd23f;
+        }
+        .shop-forward-link {
+            display:inline-flex;
+            align-items:center;
+            gap:.4rem;
+            margin-left:.5rem;
+            color:#ffd23f;
+            text-decoration:none;
+            border-bottom:1px dashed rgba(255,210,63,.45);
+        }
+        @media (max-width: 780px) { .wario-wallet-panel { grid-template-columns: 1fr; } }
+    </style>
+    <script type="module">
+        // Quest rewards are shop currency now: Wario Points (WP), not XP.
+        // This runs before the quest renderer when possible, and also watches the DOM in case data arrives later.
+        const QUEST_MODULE_CANDIDATES = ['./quests-data.js', '/quests-data.js', '.quests-data.js', 'quests-data.js'];
+        const COMPLETED_STATUS = new Set(['completed', 'npccompleted', 'npc_completed']);
+        let questDataModule = null;
+
+        function formatNumber(n) { return Number(n || 0).toLocaleString(); }
+        function rewardValue(val) {
+            if (!val) return 0;
+            if (typeof val === 'number') return val;
+            if (typeof val === 'object') {
+                if (typeof val.amount === 'number') return val.amount;
+                if (typeof val.min === 'number' && typeof val.max === 'number') return Math.round((val.min + val.max) / 2);
+            }
+            const parsed = Number(String(val).replace(/[^0-9.-]/g, ''));
+            return Number.isFinite(parsed) ? parsed : 0;
+        }
+        function getQuestWP(q) {
+            const rewards = q?.rewards || {};
+            let total = rewardValue(rewards.warioPoints ?? rewards.wp ?? rewards.xp);
+            for (const r of rewards.guaranteed || []) {
+                if (r?.type === 'wario_points' || r?.type === 'wp') total += rewardValue(r.amount ?? r.value);
+            }
+            for (const c of rewards.conditional || []) {
+                const r = c?.reward || c;
+                if ((r?.type === 'wario_points' || r?.type === 'wp') && (c.status === 'earned' || c.earned)) total += rewardValue(r.amount ?? r.value);
+            }
+            return total;
+        }
+        const SHADOW_ESTATE_QUEST_OVERLAY = {
+            shadow_estate_mirror_rooftop_escape: {
+                id: 'shadow_estate_mirror_rooftop_escape',
+                title: 'The Mirror, the Roof, and the Fall',
+                category: 'Shadow Estate',
+                arc: 'shadowfell_estate',
+                type: 'artifact_recovery',
+                status: 'completed',
+                priority: 'critical',
+                difficulty: 'hard',
+                date: '~15th-16th Harvestide, 1040 BF (Shadowfell Time)',
+                summary: 'Recover and mend the Mirror of True Reflection, identify who has occupied the portal circle, and get off the roof before the Estate turns the party into decorations.',
+                description: 'The Mirror of True Reflection was found broken in Usk\'s chambers, repaired by Remi\'s Mending, almost stolen by Wario, placed under Green T custody by bargain, and carried into a rooftop escape after Tanukiburt, the injured real Toadburt, and Mystic Morel were spotted at the master-bedroom portal circle.',
+                objectives: [
+                    { text: 'Enter Usk\'s private chambers and confirm the mirror was broken', completed: true },
+                    { text: 'Find the mirror fragment in the roof/garbage search', completed: true },
+                    { text: 'Repair the Mirror of True Reflection with Mending', completed: true },
+                    { text: 'Prevent Wario from permanently swiping the mirror before the job is done', completed: true },
+                    { text: 'Scout the master bedroom and identify Tanukiburt, Toadburt, and Mystic Morel at the portal circle', completed: true },
+                    { text: 'Escape the rooftop pursuit using Feather Fall / improvised jumping', completed: true },
+                    { text: 'Recruit Merric, the axe-wielding sheep who thought Markop was Centerus', completed: true }
+                ],
+                participants: ['Remi', 'Markop', 'Green T', 'Wario', 'Rattles', 'Eager', 'Salam', 'Dan', 'Merric'],
+                rewards: {
+                    warioPoints: 900,
+                    rewardCurrency: 'wario_points',
+                    shopSpendable: true,
+                    guaranteed: [
+                        { type: 'wario_points', name: '900 WP', icon: '🟡', amount: 900, description: 'Artifact recovery and rooftop escape payout' },
+                        { type: 'artifact_progress', name: 'Mirror of True Reflection recovered and mended', icon: '🪞' },
+                        { type: 'ally', name: 'Merric recruited', icon: '🐑' }
+                    ]
+                },
+                relatedQuests: ['activate_midnight_fountain', 'rescue_toadburt_shadow_estate', 'defeat_scarecrow_shadow_estate', 'wario_mirror_deal'],
+                updatedAt: new Date().toISOString()
+            },
+            activate_midnight_fountain: {
+                id: 'activate_midnight_fountain',
+                title: 'Activate the Midnight Fountain',
+                category: 'Shadow Estate',
+                arc: 'shadowfell_estate',
+                type: 'main',
+                status: 'active',
+                priority: 'critical',
+                difficulty: 'deadly',
+                summary: 'All four portal artifacts are now secured. The door can open. Unfortunately, the door is occupied.',
+                objectives: [
+                    { text: 'Secure the Black Crystal', completed: true },
+                    { text: 'Secure the Orb of Shadow Domination', completed: true },
+                    { text: 'Secure the Umbral Signet', completed: true },
+                    { text: 'Recover and mend the Mirror of True Reflection', completed: true },
+                    { text: 'Reach or clear the master-bedroom portal circle', completed: false },
+                    { text: 'Reactivate the Midnight Fountain and open the way home', completed: false }
+                ],
+                rewards: { warioPoints: 1500, rewardCurrency: 'wario_points', shopSpendable: true }
+            },
+            rescue_toadburt_shadow_estate: {
+                id: 'rescue_toadburt_shadow_estate',
+                title: 'Rescue the Real Toadburt',
+                category: 'Shadow Estate',
+                arc: 'shadowfell_estate',
+                type: 'rescue',
+                status: 'active',
+                priority: 'high',
+                difficulty: 'hard',
+                summary: 'The real Toadburt has been confirmed alive, injured, and at the portal circle beside Tanukiburt and Mystic Morel.',
+                objectives: [
+                    { text: 'Confirm the real Toadburt\'s location', completed: true },
+                    { text: 'Separate Toadburt from Tanukiburt / Mystic Morel control', completed: false },
+                    { text: 'Extract Toadburt from the master bedroom', completed: false }
+                ],
+                rewards: { warioPoints: 700, rewardCurrency: 'wario_points', shopSpendable: true }
+            },
+            defeat_scarecrow_shadow_estate: {
+                id: 'defeat_scarecrow_shadow_estate',
+                title: 'Kill Scarecrow, Then Argue With Wario About Loot',
+                category: 'Shadow Estate',
+                arc: 'shadowfell_estate',
+                type: 'boss',
+                status: 'active',
+                priority: 'high',
+                difficulty: 'deadly',
+                summary: 'Wario agreed to help secure the remaining work and kill Scarecrow. His price is the mirror afterward and the right to loot Scarecrow\'s body.',
+                objectives: [
+                    { text: 'Keep Wario cooperating until Scarecrow is dead', completed: false },
+                    { text: 'Defeat Scarecrow', completed: false },
+                    { text: 'Resolve Wario\'s mirror bargain without losing the party\'s exit route', completed: false }
+                ],
+                rewards: { warioPoints: 1200, rewardCurrency: 'wario_points', shopSpendable: true }
+            },
+            wario_mirror_deal: {
+                id: 'wario_mirror_deal',
+                title: 'Wario\'s Mirror Deal',
+                category: 'Wario Contracts',
+                arc: 'shadowfell_estate',
+                type: 'contract',
+                status: 'active',
+                priority: 'medium',
+                difficulty: 'volatile',
+                summary: 'Wario claims he never said the party could keep the mirror. Green T is holding it for now. Waluigi recommends writing this down before Wario eats the paperwork.',
+                objectives: [
+                    { text: 'Stop the immediate mirror theft', completed: true },
+                    { text: 'Maintain temporary party custody through Green T', completed: true },
+                    { text: 'Settle ownership after Scarecrow is defeated', completed: false }
+                ],
+                rewards: { warioPoints: 350, rewardCurrency: 'wario_points', shopSpendable: true }
+            }
+        };
+        function mergeShadowEstateQuestOverlay(quests) {
+            if (!quests) return;
+            for (const [id, patch] of Object.entries(SHADOW_ESTATE_QUEST_OVERLAY)) {
+                const existing = quests[id] || {};
+                quests[id] = {
+                    ...existing,
+                    ...patch,
+                    rewards: { ...(existing.rewards || {}), ...(patch.rewards || {}), rewardCurrency: 'wario_points', shopSpendable: true },
+                    objectives: patch.objectives || existing.objectives || [],
+                    participants: patch.participants || existing.participants || [],
+                    relatedQuests: patch.relatedQuests || existing.relatedQuests || []
+                };
+            }
+            // If older quest IDs exist, mark their new state without erasing local detail.
+            const legacyUpdates = {
+                timeline_convergence: 'All four portal artifacts are secured; portal circle is occupied by Tanukiburt, Toadburt, and Mystic Morel.',
+                dinner_party_aftermath: 'Mirror recovered after the estate search; the escape has moved from investigation to portal-circle breach.',
+                rescue_toadburt: 'Real Toadburt confirmed alive and injured at the portal circle.',
+                vigilance_investigation: 'Mirror of True Reflection mended; evidence now points to an occupied exit route.'
+            };
+            for (const [id, note] of Object.entries(legacyUpdates)) {
+                if (quests[id]) {
+                    quests[id].shadowEstateUpdate = note;
+                    quests[id].lastKnownUpdate = 'shadow_estate_mirror_rooftop_escape';
+                    quests[id].rewards = { ...(quests[id].rewards || {}), rewardCurrency: 'wario_points', shopSpendable: true };
+                }
+            }
+        }
+        function retrofitQuestRewards(quests) {
+            mergeShadowEstateQuestOverlay(quests);
+            for (const q of Object.values(quests || {})) {
+                if (!q?.rewards) continue;
+                if (q.rewards.xp && !q.rewards.warioPoints) q.rewards.warioPoints = q.rewards.xp;
+                q.rewards.rewardCurrency = 'wario_points';
+                q.rewards.shopSpendable = true;
+            }
+        }
+        function calculateWallet(quests) {
+            let earned = 0, potential = 0, activePotential = 0;
+            for (const q of Object.values(quests || {})) {
+                const wp = getQuestWP(q);
+                potential += wp;
+                const status = String(q.status || '').toLowerCase();
+                if (COMPLETED_STATUS.has(status)) earned += wp;
+                else if (['active','ongoing','available','pending','paused'].includes(status)) activePotential += wp;
+            }
+            return { earned, potential, activePotential };
+        }
+        async function loadQuestModule() {
+            for (const url of QUEST_MODULE_CANDIDATES) {
+                try { return await import(url); } catch (err) {}
+            }
+            return null;
+        }
+        function ensureWalletPanel(stats = { earned: 0, potential: 0, activePotential: 0 }) {
+            const host = document.querySelector('.arc-selection-footer') || document.querySelector('.arc-selection-header') || document.body;
+            let panel = document.getElementById('wario-wallet-panel');
+            if (!panel) {
+                panel = document.createElement('div');
+                panel.id = 'wario-wallet-panel';
+                panel.className = 'wario-wallet-panel';
+                host.insertAdjacentElement(host.classList.contains('arc-selection-footer') ? 'beforebegin' : 'afterend', panel);
+            }
+            panel.innerHTML = `
+                <div class="wario-wallet-card"><b>${formatNumber(stats.earned)}</b><span>Earned Wario Points</span><p>Spendable at the Wario shop once rewards are claimed.</p></div>
+                <div class="wario-wallet-card"><b>${formatNumber(stats.activePotential)}</b><span>On The Board</span><p>Available from active/available jobs if completed.</p></div>
+                <div class="wario-wallet-card"><b>${formatNumber(stats.potential)}</b><span>Total Listed Value</span><p>All visible job currency, including unfinished work.</p></div>
+            `;
+            let note = document.getElementById('wario-points-note');
+            if (!note) {
+                note = document.createElement('div');
+                note.id = 'wario-points-note';
+                note.className = 'wario-points-note';
+                panel.after(note);
+            }
+            note.innerHTML = `Quest rewards pay <strong>Wario Points</strong>, not character XP. XP stays in the Waluigi ledger; Wario Points buy shop upgrades. <a class="shop-forward-link" href="shop.html">Open Shop →</a>`;
+        }
+        function relabelRenderedRewards(root = document) {
+            const selectors = ['.reward-badge.xp', '.reward.xp', '.modal-reward-item.xp', '.reward-card.xp', '.reward-label'];
+            root.querySelectorAll(selectors.join(',')).forEach(el => {
+                el.innerHTML = el.innerHTML
+                    .replace(/Experience Points/gi, 'Wario Points')
+                    .replace(/Experience/gi, 'Wario Points')
+                    .replace(/\bXP\b/g, 'WP')
+                    .replace(/⭐/g, '🟡')
+                    .replace(/⚡/g, '🟡');
+            });
+            root.querySelectorAll('.card-rewards, .rewards-base, .base-rewards, .modal-rewards-grid').forEach(group => {
+                group.innerHTML = group.innerHTML.replace(/\bXP\b/g, 'WP').replace(/Experience/gi, 'Wario Points');
+            });
+        }
+        questDataModule = await loadQuestModule();
+        if (questDataModule?.QUEST_DATA) {
+            retrofitQuestRewards(questDataModule.QUEST_DATA);
+            ensureWalletPanel(calculateWallet(questDataModule.QUEST_DATA));
+        } else {
+            ensureWalletPanel();
+        }
+        relabelRenderedRewards();
+        const observer = new MutationObserver(() => relabelRenderedRewards());
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        window.WARIO_QUEST_ECONOMY = {
+            overlay: SHADOW_ESTATE_QUEST_OVERLAY,
+            get quests() { return questDataModule?.QUEST_DATA || {}; },
+            calculateWallet: () => calculateWallet(questDataModule?.QUEST_DATA || {}),
+            refresh: () => { if (questDataModule?.QUEST_DATA) { mergeShadowEstateQuestOverlay(questDataModule.QUEST_DATA); ensureWalletPanel(calculateWallet(questDataModule.QUEST_DATA)); } relabelRenderedRewards(); }
+        };
+    </script>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="quests-arcs.js"></script>
+</body>
+</html>                            

@@ -1,0 +1,261 @@
+
+#app {
+    display: flex;
+    min-height: 100vh;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* --- Sidebar --- */
+#sidebar {
+    width: 280px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto; /* Allow scrolling if nav gets too long */
+}
+
+/* Hide scrollbar for sidebar */
+#sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+#sidebar::-webkit-scrollbar-track {
+    background: var(--sidebar-bg);
+}
+#sidebar::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+#sidebar header {
+    text-align: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+}
+
+.logo-link {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+    transition: transform 0.2s ease-in-out;
+}
+
+.logo-link:hover {
+    transform: scale(1.03);
+}
+
+.logo-link:hover .flicker {
+    color: var(--accent-hover);
+}
+
+
+#sidebar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+#waluigi-logo {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+#waluigi-logo:hover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+#sidebar header h1 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+#sidebar header .subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-style: italic;
+    font-family: var(--font-display);
+}
+
+/* --- New Navigation Categories --- */
+#main-nav-bar {
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-group-title {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    padding-left: 8px;
+    opacity: 0.8;
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background-color: rgba(255,255,255,0.03);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+    background-color: var(--main-bg);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateX(4px);
+}
+
+.nav-button img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+}
+.nav-button:hover img {
+    opacity: 1;
+}
+
+/* Special handling for the Mission Button */
+.nav-button.special-mission {
+    border-color: var(--negative-color);
+    background: linear-gradient(45deg, rgba(218, 54, 51, 0.1), transparent);
+}
+.nav-button.special-mission:hover {
+    background-color: rgba(218, 54, 51, 0.2);
+    box-shadow: 0 0 10px rgba(218, 54, 51, 0.2);
+}
+
+/* --- Improved Notification Badges --- */
+.nav-badge {
+    background-color: var(--negative-color);
+    color: white;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-left: auto;
+    box-shadow: 0 0 5px rgba(248, 81, 73, 0.5);
+    letter-spacing: 0.5px;
+}
+
+.nav-badge.pulse {
+    animation: pulse-badge-red 2s infinite;
+}
+
+/* Legacy dot support just in case */
+.nav-button .notification-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--negative-color);
+    border-radius: 50%;
+    margin-left: auto;
+    animation: pulse-badge-red 1.5s infinite;
+    box-shadow: 0 0 5px var(--negative-color);
+}
+
+@keyframes pulse-badge-red {
+    0% { box-shadow: 0 0 0 0 rgba(248, 81, 73, 0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(248, 81, 73, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(248, 81, 73, 0); }
+}
+
+
+#sidebar footer {
+    margin-top: 24px;
+    text-align: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+#sidebar footer p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+#switch-operator-btn {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+}
+
+#switch-operator-btn:hover {
+    border-color: var(--negative-color);
+    color: var(--negative-color);
+    background-color: rgba(218, 54, 51, 0.05);
+}
+
+#main-content {
+    width: 100%;
+    margin-left: 0;
+    padding: 20px;
+}
+
+#view-container {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* --- Mobile --- */
+@media (max-width: 900px) {
+    .tablet-frame {
+        margin: 1rem;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #app {
+        flex-direction: column;
+    }
+    #sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        position: static; /* Change from relative for better flow */
+        padding: 16px;
+    }
+    #main-content {
+        margin-left: 0;
+        padding: 16px;
+    }
+    /* In mobile, grid might be better horizontal scroll or stacked */
+    #main-nav-bar {
+        gap: 12px;
+    }
+}

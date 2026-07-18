@@ -1,0 +1,277 @@
+// map-data/lockerwood-pois.js
+
+export const lockerwoodData = {
+    pointsOfInterest: [
+        // #38
+        {
+            id: 'poi_lw_oakhaven',
+            x: 35.0,
+            y: 40.0,
+            type: 'town',
+            name: "Oakhaven",
+            description: "The largest market town in Lockerwood, operating under the pragmatic 'Lockerwood Commons Law' which prioritizes trade and property rights. It is the home of the representative, Martha Oakhaven.",
+            factionId: 'unaligned',
+            intelReq: 10,
+            political_influence: 7,
+            economic_value: 9,
+            military_strength: 4,
+            population: 12000,
+            age_of_antiquity: 6,
+            crime_rate: 3
+        },
+        // #39
+        {
+            id: 'poi_lw_whisperwood',
+            x: 32.0,
+            y: 48.0,
+            type: 'forest',
+            name: "The Whisperwood",
+            description: "A dark and ancient forest that is the primary territory of the Moonfang Pack. Imperial law holds no sway here; the only authority is the 'Primal Law' of the hunt and the will of the Alpha.",
+            factionId: 'moonfang_pack',
+            intelReq: 20,
+            political_influence: 4,
+            economic_value: 3,
+            military_strength: 7,
+            population: 500,
+            age_of_antiquity: 10,
+            crime_rate: 8
+        },
+        // #40
+        {
+            id: 'poi_lw_bloodmoon_manor',
+            x: 38.0,
+            y: 45.0,
+            type: 'haunted_place',
+            name: "Bloodmoon Manor",
+            description: "An opulent, gothic manor that serves as a secret stronghold for the Onyx Hand. It is a sovereign enclave where the only law is 'The Eternal Grasp' of the vampire elders, a place of shadow politics and deadly etiquette.",
+            factionId: 'onyx_hand',
+            intelReq: 50,
+            political_influence: 6,
+            economic_value: 5,
+            military_strength: 6,
+            population: 150,
+            age_of_antiquity: 7,
+            crime_rate: 6
+        },
+        // #41
+        {
+            id: 'poi_lw_great_granary',
+            x: 37.0,
+            y: 36.0,
+            type: 'farm',
+            name: "The Great Granary",
+            description: "A massive complex of silos that holds the grain reserves for the province. Due to its strategic importance, it is under direct Imperial control and follows the strict Imperial Statutes.",
+            factionId: 'regal_empire',
+            intelReq: 15,
+            political_influence: 4,
+            economic_value: 10,
+            military_strength: 5,
+            population: 300,
+            age_of_antiquity: 5,
+            crime_rate: 2
+        },
+        // #42
+        {
+            id: 'poi_lw_battle_of_ravencreek',
+            x: 34.0,
+            y: 44.0,
+            type: 'battlefield',
+            name: "Fields of Ravencreek",
+            description: "The site of a bloody battle between the Moonfang Pack and the Onyx Hand. It is a lawless no-man's-land, where the only rule is survival.",
+            factionId: 'unaligned',
+            intelReq: 25,
+            political_influence: 1,
+            economic_value: 1,
+            military_strength: 3,
+            population: 0,
+            age_of_antiquity: 1,
+            crime_rate: 10
+        },
+        // #43
+        {
+            id: 'poi_lw_silver_flame_chapel',
+            x: 40.0,
+            y: 38.0,
+            type: 'temple',
+            name: "Chapel of the Silver Flame",
+            description: "A fortified chapel of the Order of the Silver Flame. They operate under their own divine edicts, ignoring both Imperial and local law in their crusade to purge the nearby supernatural threats.",
+            factionId: 'silver_flame',
+            intelReq: 35,
+            political_influence: 4,
+            economic_value: 2,
+            military_strength: 6,
+            population: 80,
+            age_of_antiquity: 4,
+            crime_rate: 1
+        },
+        // #44
+        {
+            id: 'poi_lw_crossroads_inn',
+            x: 38.0,
+            y: 41.0,
+            type: 'inn',
+            name: "The Crossroads Inn",
+            description: "A popular inn that serves as a neutral ground for all factions. While technically under the Commons Law of Oakhaven, in practice, disputes are handled by the innkeeper's 'house rules'.",
+            factionId: 'freelancer_underworld',
+            intelReq: 20,
+            political_influence: 3,
+            economic_value: 5,
+            military_strength: 2,
+            population: 100,
+            age_of_antiquity: 5,
+            crime_rate: 5
+        },
+        // #45
+        {
+            id: 'poi_lw_howling_den',
+            x: 31.0,
+            y: 50.0,
+            type: 'cave_entrance',
+            name: "The Howling Den",
+            description: "The primary lair of a powerful Moonfang Pack warband. It is a place of primal law, where the pack's internal hierarchy dictates all.",
+            factionId: 'moonfang_pack',
+            intelReq: 40,
+            political_influence: 3,
+            economic_value: 1,
+            military_strength: 8,
+            population: 200,
+            age_of_antiquity: 9,
+            crime_rate: 7
+        },
+        // #46
+        {
+            id: 'poi_lw_imperial_garrison',
+            x: 39.0,
+            y: 34.0,
+            type: 'barracks',
+            name: "Lockerwood Garrison",
+            description: "An Iron Legion garrison tasked with protecting the Great Granary. It is a pocket of strict Imperial military law in an otherwise pragmatic province.",
+            factionId: 'iron_legion',
+            intelReq: 25,
+            political_influence: 5,
+            economic_value: 2,
+            military_strength: 7,
+            population: 500,
+            age_of_antiquity: 3,
+            crime_rate: 1
+        },
+        // #47
+        {
+            id: 'poi_lw_forgotten_shrine',
+            x: 35.0,
+            y: 52.0,
+            type: 'shrine',
+            name: "Forgotten Shrine",
+            description: "An ancient shrine deep within the Whisperwood. It is a place of primal, natural law, predating even the werewolves who now watch over it.",
+            factionId: 'unaligned',
+            intelReq: 45,
+            political_influence: 1,
+            economic_value: 1,
+            military_strength: 1,
+            population: 0,
+            age_of_antiquity: 10,
+            crime_rate: 2
+        },
+        // #48
+        {
+            id: 'poi_lw_millers_creek',
+            x: 36.5,
+            y: 38.5,
+            type: 'village',
+            name: "Miller's Creek",
+            description: "A hardworking village known for its water-powered mills. The village is governed by its own council and the practical Commons Law, prioritizing economic stability.",
+            factionId: 'unaligned',
+            intelReq: 10,
+            political_influence: 2,
+            economic_value: 8,
+            military_strength: 2,
+            population: 600,
+            age_of_antiquity: 5,
+            crime_rate: 2
+        },
+        // #49
+        {
+            id: 'poi_lw_blood_farm',
+            x: 39.5,
+            y: 47.0,
+            type: 'farm',
+            name: "The Crimson Orchard (Blood Farm)",
+            description: "A seemingly normal orchard that is secretly a 'blood farm' for the Onyx Hand. It is a place outside of any mortal law, governed only by the cold, predatory needs of its masters.",
+            factionId: 'onyx_hand',
+            intelReq: 65,
+            political_influence: 2,
+            economic_value: 4,
+            military_strength: 4,
+            population: 40,
+            age_of_antiquity: 4,
+            crime_rate: 10
+        },
+        // #50
+        {
+            id: 'poi_lw_moonfang_totem',
+            x: 33.0,
+            y: 46.5,
+            type: 'landmark',
+            name: "Moonfang Clan Totem",
+            description: "A massive totem pole marking the edge of Moonfang territory. It serves as a stark warning that beyond this point, Imperial and Commons law no longer apply.",
+            factionId: 'moonfang_pack',
+            intelReq: 30,
+            political_influence: 3,
+            economic_value: 0,
+            military_strength: 3,
+            population: 0,
+            age_of_antiquity: 7,
+            crime_rate: 7
+        },
+        // #51
+        {
+            id: 'poi_lw_abandoned_farmstead',
+            x: 33.5,
+            y: 37.0,
+            type: 'ruins',
+            name: "Abandoned Farmstead",
+            description: "A farmstead abandoned due to the supernatural conflict. It is a lawless place, a frequent ambush spot where the only rule is survival.",
+            factionId: 'unaligned',
+            intelReq: 15,
+            political_influence: 0,
+            economic_value: 1,
+            military_strength: 2,
+            population: 0,
+            age_of_antiquity: 2,
+            crime_rate: 8
+        },
+        // #159
+        {
+            id: 'poi_lw_brewery',
+            x: 36.0,
+            y: 42.5,
+            type: 'inn',
+            name: "The Half-Moon Brewery",
+            description: "A fiercely neutral brewery caught in the crossfire. The owner enforces a strict 'leave your feuds at the door' policy, a truce respected by all sides who value its legendary Grave-Stout.",
+            factionId: 'unaligned',
+            intelReq: 20,
+            political_influence: 3,
+            economic_value: 6,
+            military_strength: 2,
+            population: 30,
+            age_of_antiquity: 5,
+            crime_rate: 4
+        },
+        {
+            id: 'poi_lw_crimson_wing_aerie',
+            x: 41.0,
+            y: 46.0,
+            type: 'port',
+            name: "Aerie of the Crimson Wing",
+            description: "A high-security Imperial airship dock built to service the southern provinces. It operates under the strictest Imperial military and customs laws, a bastion of Imperial order overlooking a chaotic region.",
+            factionId: 'regal_empire',
+            intelReq: 45,
+            political_influence: 6,
+            economic_value: 5,
+            military_strength: 8,
+            population: 700,
+            age_of_antiquity: 3,
+            crime_rate: 2
+        }
+    ]
+};

@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Battle Simulator - The Highsun Chronicles</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="maps2.js"></script>
+    <script src="data.js"></script>
+    <script src="engine.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * { image-rendering: pixelated; }
+        
+        .pixel-font { font-family: 'Press Start 2P', cursive; }
+        
+        .pixel-border {
+            border: 4px solid #000;
+            box-shadow: inset -4px -4px 0px 0px #555, inset 4px 4px 0px 0px #fff;
+        }
+        
+        .pixel-btn {
+            border: 4px solid #000;
+            box-shadow: inset -4px -4px 0px 0px #555, inset 4px 4px 0px 0px #fff;
+            transition: all 0.1s;
+        }
+        
+        .pixel-btn:hover { transform: scale(1.05); }
+        .pixel-btn:active { box-shadow: inset 4px 4px 0px 0px #555, inset -4px -4px 0px 0px #fff; }
+        
+        .unit-sprite {
+            width: 24px; height: 24px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; border: 2px solid #000; border-radius: 2px;
+            position: relative; transition: transform 0.1s;
+        }
+        
+        .unit-sprite.hero {
+            width: 28px; height: 28px; font-size: 16px;
+            border-width: 3px; box-shadow: 0 0 5px gold;
+        }
+        
+        .unit-sprite:hover { transform: scale(1.3); z-index: 100; }
+        .unit-sprite.stealthed { opacity: 0.4; }
+        
+        @keyframes attack { 0% { transform: translateX(0); } 25% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
+        @keyframes damage { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(3) hue-rotate(180deg); } }
+        @keyframes death { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0) rotate(360deg); opacity: 0; } }
+        @keyframes ability { 0% { box-shadow: 0 0 20px 10px rgba(255,255,0,0.8); } 100% { box-shadow: 0 0 0 0 rgba(255,255,0,0); } }
+        @keyframes heal { 0% { box-shadow: 0 0 10px 5px rgba(0,255,0,0.8); } 100% { box-shadow: 0 0 0 0 rgba(0,255,0,0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        @keyframes float-up { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-20px) scale(0.5); } }
+        
+        .attacking { animation: attack 0.2s ease-in-out; }
+        .damaged { animation: damage 0.2s ease-in-out; }
+        .dying { animation: death 0.4s forwards; }
+        .using-ability { animation: ability 0.4s ease-out; }
+        .healing { animation: heal 0.4s ease-out; }
+        .floating { animation: float 2s ease-in-out infinite; }
+        .pulsing { animation: pulse 1s ease-in-out infinite; }
+        
+        .particle { position: absolute; pointer-events: none; z-index: 1000; font-size: 10px; }
+        .particle-damage { color: #ff4444; font-weight: bold; animation: float-up 1s ease-out forwards; }
+        .particle-heal { color: #44ff44; font-weight: bold; animation: float-up 1s ease-out forwards; }
+        .particle-crit { color: #ffff00; font-weight: bold; font-size: 14px; animation: float-up 1.2s ease-out forwards; }
+        
+        .disabled-unit { opacity: 0.4; pointer-events: none; filter: grayscale(80%); }
+        
+        .health-bar { height: 3px; background: #333; border: 1px solid #000; position: absolute; bottom: -5px; left: 0; right: 0; }
+        .health-fill { height: 100%; transition: width 0.2s; }
+        
+        .map-cell {
+            width: 28px; height: 28px;
+            border: 1px solid rgba(0,0,0,0.15);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; font-size: 10px;
+            cursor: pointer;
+        }
+        
+        .terrain-grass { background: linear-gradient(135deg, #4a7c23 25%, #5a8c33 75%); }
+        .terrain-water { background: linear-gradient(135deg, #2266aa 25%, #3388cc 75%); }
+        .terrain-mountain { background: linear-gradient(135deg, #666 25%, #888 75%); }
+        .terrain-forest { background: linear-gradient(135deg, #2d5016 25%, #3d6026 75%); }
+        .terrain-sand { background: linear-gradient(135deg, #d4a84b 25%, #e4b85b 75%); }
+        .terrain-lava { background: linear-gradient(135deg, #cc2200 25%, #ff4400 75%); }
+        .terrain-castle { background: linear-gradient(135deg, #555 25%, #777 75%); }
+        .terrain-manor { background: linear-gradient(135deg, #3a2a4a 25%, #4a3a5a 75%); }
+        .terrain-void { background: linear-gradient(135deg, #111 25%, #222 75%); }
+        .terrain-road { background: linear-gradient(135deg, #8b7355 25%, #9b8365 75%); }
+        .terrain-bridge { background: linear-gradient(135deg, #6b5344 25%, #7b6354 75%); }
+        .terrain-swamp { background: linear-gradient(135deg, #3d4a2a 25%, #4d5a3a 75%); }
+        
+        .zone-a { 
+            position: relative;
+        }
+        .zone-a::after {
+            content: '';
+            position: absolute;
+            top: 1px; left: 1px; right: 1px; bottom: 1px;
+            border: 2px solid rgba(59, 130, 246, 0.7);
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .zone-a:hover::after {
+            border-color: rgba(59, 130, 246, 1);
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
+        }
+        .zone-b { 
+            position: relative;
+        }
+        .zone-b::after {
+            content: '';
+            position: absolute;
+            top: 1px; left: 1px; right: 1px; bottom: 1px;
+            border: 2px solid rgba(239, 68, 68, 0.7);
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .zone-b:hover::after {
+            border-color: rgba(239, 68, 68, 1);
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+        }
+        
+        /* Corner markers for zones */
+        .zone-corner-a, .zone-corner-b {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .zone-corner-a { background: rgba(59, 130, 246, 0.9); }
+        .zone-corner-b { background: rgba(239, 68, 68, 0.9); }
+        
+        .map-cell:not(.zone-a):not(.zone-b) {
+            opacity: 0.7;
+        }
+        .map-cell:not(.zone-a):not(.zone-b):hover {
+            opacity: 0.85;
+            cursor: not-allowed;
+        }
+        
+        .log-entry { padding: 2px 6px; border-bottom: 1px solid #333; font-size: 9px; }
+        .log-attack { color: #f55; }
+        .log-ability { color: #55f; }
+        .log-heal { color: #5f5; }
+        .log-death { color: #f5f; }
+        .log-info { color: #ff5; }
+        
+        .unit-panel { max-height: 400px; overflow-y: auto; }
+        .spawn-btn { transition: all 0.1s; }
+        .spawn-btn:hover { transform: scale(1.1); }
+        
+        .unit-tooltip {
+            position: fixed; background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #ffd700; border-radius: 6px; padding: 10px;
+            z-index: 10000; pointer-events: none;
+            min-width: 240px; max-width: 320px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            font-size: 10px;
+        }
+        .unit-tooltip.hidden { display: none; }
+        
+        .tooltip-header { display: flex; gap: 10px; align-items: center; padding-bottom: 8px; border-bottom: 1px solid #444; margin-bottom: 8px; }
+        .tooltip-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 8px; }
+        .stat-row { display: flex; justify-content: space-between; background: rgba(255,255,255,0.1); padding: 2px 4px; border-radius: 2px; font-size: 9px; }
+        .stat-row span:first-child { color: #888; }
+        .tooltip-section { margin-top: 6px; padding-top: 6px; border-top: 1px solid #333; }
+        .buff-tag { display: inline-block; background: rgba(100, 200, 100, 0.3); padding: 1px 4px; border-radius: 3px; margin: 1px; font-size: 9px; }
+        
+        .fortified { box-shadow: 0 0 8px 3px rgba(100, 200, 255, 0.6) !important; }
+        .fortified::after { content: '🛡️'; position: absolute; top: -8px; left: -8px; font-size: 10px; }
+        
+        .veteran-badge { position: absolute; top: -6px; right: -6px; font-size: 8px; z-index: 101; }
+        .blocked-icon { position: absolute; top: -10px; right: -10px; font-size: 10px; z-index: 102; animation: pulse 1s ease-in-out infinite; }
+        
+        .retreating { animation: retreat-shake 0.3s ease-in-out infinite; }
+        @keyframes retreat-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-2px) rotate(-5deg); } 75% { transform: translateX(2px) rotate(5deg); } }
+        
+        .structure-marker { position: absolute; font-size: 12px; z-index: 40; pointer-events: auto; cursor: help; }
+        .camp-struct { top: -2px; left: -2px; }
+        .tent-struct { top: 0; left: 0; opacity: 0.8; font-size: 10px; }
+        .bridge-struct { top: 2px; left: 2px; font-size: 14px; }
+        
+        .supply-morale-container { display: flex; gap: 8px; margin-top: 4px; }
+        .supply-bar, .morale-bar { flex: 1; height: 8px; background: #333; border-radius: 2px; overflow: hidden; }
+        .supply-fill { height: 100%; background: linear-gradient(90deg, #f00, #ff0, #0f0); transition: width 0.3s; }
+        .morale-fill { height: 100%; background: linear-gradient(90deg, #800, #880, #080); transition: width 0.3s; }
+        
+        .weather-indicator { padding: 4px 8px; border-radius: 4px; background: rgba(0,0,0,0.5); margin-left: 8px; }
+        
+        .flanking-indicator { color: #ff8800; font-weight: bold; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #333; }
+        ::-webkit-scrollbar-thumb { background: #666; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen pixel-font text-xs">
+    <div id="app" class="container mx-auto p-2">
+        <!-- Title Screen -->
+        <div id="title-screen" class="text-center py-6">
+            <h1 class="text-xl md:text-3xl mb-3 text-yellow-400">⚔️ PIXEL BATTLE SIMULATOR ⚔️</h1>
+            <h2 class="text-xs md:text-sm mb-6 text-gray-400">The Highsun Chronicles - 1040</h2>
+            
+            <div class="max-w-4xl mx-auto mb-6 p-4 pixel-border bg-gray-800 text-left text-xs leading-relaxed">
+                <p class="text-yellow-300 mb-2">📜 THE LORE:</p>
+                <p class="text-gray-300 mb-2">In the year 1040, the realm is torn by conflict. The Iron Legion expands its grip across the Midlands, 
+                while the Liberated Toads fight for freedom. At Raventree Manor, supernatural horrors awaken...</p>
+                <p class="text-green-300 mb-2">✨ NEW FEATURES: Weather System, Flanking Bonus, Shield Wall, Commander Auras, Bridge Costs Supply!</p>
+            </div>
+            
+            <button onclick="showMapSelect()" class="pixel-btn bg-green-600 text-white px-8 py-4 text-sm">
+                🎮 START BATTLE
+            </button>
+        </div>
+        
+        <!-- Map Selection -->
+        <div id="map-select" class="hidden">
+            <h2 class="text-lg text-center mb-4 text-yellow-400">SELECT BATTLEFIELD</h2>
+            <div id="map-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 max-w-6xl mx-auto"></div>
+            <div class="text-center mt-4">
+                <button onclick="showTitleScreen()" class="pixel-btn bg-gray-600 text-white px-4 py-2">← BACK</button>
+            </div>
+        </div>
+        
+        <!-- Faction Selection -->
+        <div id="faction-select" class="hidden">
+            <h2 class="text-lg text-center mb-4 text-yellow-400">SELECT FACTIONS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                <div class="pixel-border bg-blue-900 p-3">
+                    <h3 class="text-center text-blue-300 mb-3">🔵 SIDE A</h3>
+                    <div id="faction-a-list" class="grid grid-cols-2 gap-1"></div>
+                </div>
+                <div class="pixel-border bg-red-900 p-3">
+                    <h3 class="text-center text-red-300 mb-3">🔴 SIDE B</h3>
+                    <div id="faction-b-list" class="grid grid-cols-2 gap-1"></div>
+                </div>
+            </div>
+            <div class="text-center mt-4 space-x-2">
+                <button onclick="showMapSelect()" class="pixel-btn bg-gray-600 text-white px-4 py-2">← BACK</button>
+                <button onclick="startPlacement()" class="pixel-btn bg-green-600 text-white px-4 py-2">BUILD ARMIES →</button>
+            </div>
+        </div>
+        
+        <!-- Army Builder -->
+        <div id="placement-screen" class="hidden">
+            <div class="flex flex-col lg:flex-row gap-2">
+                <div class="lg:w-56 pixel-border bg-blue-900 p-2">
+                    <h3 class="text-center text-blue-300 mb-2 text-xs">🔵 SIDE A ARMY</h3>
+                    <div class="text-center text-xs mb-2">Units: <span id="side-a-count">0</span></div>
+                    <div id="side-a-builder" class="unit-panel space-y-1"></div>
+                    <div class="mt-2 space-y-1">
+                        <button onclick="clearSide('A')" class="pixel-btn bg-red-600 text-white px-2 py-1 w-full text-xs">Clear</button>
+                        <button onclick="autoFillSide('A', 15)" class="pixel-btn bg-purple-600 text-white px-2 py-1 w-full text-xs">+15 Random</button>
+                    </div>
+                </div>
+                
+                <div class="flex-1">
+                    <div class="text-center mb-2 text-xs">
+                        <span id="placement-info" class="text-yellow-400">Click units to add, then click zone to place</span>
+                    </div>
+                    <div id="placement-map" class="flex flex-col items-center overflow-auto"></div>
+                    <div id="terrain-legend" class="mt-2 p-2 bg-gray-800 rounded text-xs">
+                        <div class="text-yellow-400 mb-1 text-center">📜 TERRAIN LEGEND</div>
+                        <div class="flex flex-wrap justify-center gap-2 mb-2">
+                            <span class="px-1 rounded" style="background:#4a7c23;">🌿 Grass</span>
+                            <span class="px-1 rounded" style="background:#2d5016;">🌲 Forest +10 DEF</span>
+                            <span class="px-1 rounded" style="background:#666;">⛰️ Mountain +20 DEF</span>
+                            <span class="px-1 rounded" style="background:#555;">🏰 Castle +25 DEF</span>
+                            <span class="px-1 rounded" style="background:#2266aa;">🌊 Water</span>
+                            <span class="px-1 rounded" style="background:#cc2200;">🔥 Lava 15dmg</span>
+                            <span class="px-1 rounded" style="background:#d4a84b;">🏖️ Sand</span>
+                            <span class="px-1 rounded" style="background:#3d4a2a;">🐸 Swamp 3dmg</span>
+                            <span class="px-1 rounded" style="background:#8b7355;">🛤️ Road -5 DEF</span>
+                            <span class="px-1 rounded" style="background:#111;">🕳️ Void 8dmg</span>
+                        </div>
+                        <div class="flex justify-center gap-4">
+                            <span class="px-2 py-1 rounded" style="box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.8);">🔵 Side A Zone</span>
+                            <span class="px-2 py-1 rounded" style="box-shadow: inset 0 0 0 2px rgba(239, 68, 68, 0.8);">🔴 Side B Zone</span>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3 flex flex-wrap justify-center gap-1">
+                        <button onclick="showFactionSelect()" class="pixel-btn bg-gray-600 text-white px-3 py-2">← BACK</button>
+                        <button onclick="clearAllPlacements()" class="pixel-btn bg-yellow-600 text-white px-3 py-2">CLEAR ALL</button>
+                        <button onclick="autoPlaceAll()" class="pixel-btn bg-purple-600 text-white px-3 py-2">AUTO PLACE</button>
+                        <button onclick="startBattle()" class="pixel-btn bg-green-600 text-white px-3 py-2">START BATTLE ⚔️</button>
+                    </div>
+                </div>
+                
+                <div class="lg:w-56 pixel-border bg-red-900 p-2">
+                    <h3 class="text-center text-red-300 mb-2 text-xs">🔴 SIDE B ARMY</h3>
+                    <div class="text-center text-xs mb-2">Units: <span id="side-b-count">0</span></div>
+                    <div id="side-b-builder" class="unit-panel space-y-1"></div>
+                    <div class="mt-2 space-y-1">
+                        <button onclick="clearSide('B')" class="pixel-btn bg-red-600 text-white px-2 py-1 w-full text-xs">Clear</button>
+                        <button onclick="autoFillSide('B', 15)" class="pixel-btn bg-purple-600 text-white px-2 py-1 w-full text-xs">+15 Random</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Battle Screen -->
+        <div id="battle-screen" class="hidden">
+            <div class="flex flex-col lg:flex-row gap-2">
+                <div class="lg:w-52 pixel-border bg-blue-900 p-2">
+                    <h3 class="text-center text-blue-300 mb-1 text-xs">🔵 SIDE A</h3>
+                    <div class="text-center text-xs mb-2">
+                        <span id="side-a-alive">0</span>/<span id="side-a-total">0</span> alive
+                        <div class="w-full h-2 bg-gray-700 mt-1 rounded">
+                            <div id="side-a-hp-bar" class="h-full bg-blue-500 rounded transition-all"></div>
+                        </div>
+                        <div class="supply-morale-container mt-2">
+                            <div class="flex-1">
+                                <div class="text-xs text-yellow-400">📦 Supply</div>
+                                <div class="supply-bar"><div id="side-a-supply-bar" class="supply-fill" style="width:100%"></div></div>
+                                <div id="side-a-supply-text" class="text-xs">100%</div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-xs text-purple-400">💪 Morale</div>
+                                <div class="morale-bar"><div id="side-a-morale-bar" class="morale-fill" style="width:100%"></div></div>
+                                <div id="side-a-morale-text" class="text-xs">100%</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-green-400 mt-1">💰 Resources: <span id="side-a-resources">50</span></div>
+                    </div>
+                    <div id="side-a-status" class="space-y-1 max-h-48 overflow-y-auto"></div>
+                </div>
+                
+                <div class="flex-1">
+                    <div class="flex justify-between items-center mb-2 text-xs px-2 flex-wrap gap-2">
+                        <span id="turn-counter" class="text-yellow-400">Turn 1</span>
+                        <span id="weather-display" class="weather-indicator">☀️ Clear</span>
+                        <span id="battle-status" class="text-green-400">Battle in Progress</span>
+                    </div>
+                    <div id="battle-map" class="flex justify-center mb-3 overflow-auto relative"></div>
+                    <div class="text-center space-x-1 flex flex-wrap justify-center gap-1">
+                        <button id="pause-btn" onclick="togglePause()" class="pixel-btn bg-yellow-600 text-white px-3 py-2">⏸️ PAUSE</button>
+                        <button onclick="setSpeed(0.5)" class="pixel-btn bg-gray-600 text-white px-2 py-2">🐢 0.5x</button>
+                        <button onclick="setSpeed(1)" class="pixel-btn bg-gray-600 text-white px-2 py-2">▶️ 1x</button>
+                        <button onclick="setSpeed(2)" class="pixel-btn bg-gray-600 text-white px-2 py-2">⏩ 2x</button>
+                        <button onclick="setSpeed(5)" class="pixel-btn bg-gray-600 text-white px-2 py-2">⏭️ 5x</button>
+                    </div>
+                    <div class="text-center mt-2 flex flex-wrap justify-center gap-1">
+                        <button id="turn-mode-btn" onclick="toggleTurnMode()" class="pixel-btn bg-purple-600 text-white px-3 py-2">🎯 TURN-BY-TURN</button>
+                        <button id="next-turn-btn" onclick="processNextTurn()" class="pixel-btn bg-green-600 text-white px-3 py-2 hidden">➡️ NEXT TURN</button>
+                    </div>
+                </div>
+                
+                <div class="lg:w-52 pixel-border bg-red-900 p-2">
+                    <h3 class="text-center text-red-300 mb-1 text-xs">🔴 SIDE B</h3>
+                    <div class="text-center text-xs mb-2">
+                        <span id="side-b-alive">0</span>/<span id="side-b-total">0</span> alive
+                        <div class="w-full h-2 bg-gray-700 mt-1 rounded">
+                            <div id="side-b-hp-bar" class="h-full bg-red-500 rounded transition-all"></div>
+                        </div>
+                        <div class="supply-morale-container mt-2">
+                            <div class="flex-1">
+                                <div class="text-xs text-yellow-400">📦 Supply</div>
+                                <div class="supply-bar"><div id="side-b-supply-bar" class="supply-fill" style="width:100%"></div></div>
+                                <div id="side-b-supply-text" class="text-xs">100%</div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-xs text-purple-400">💪 Morale</div>
+                                <div class="morale-bar"><div id="side-b-morale-bar" class="morale-fill" style="width:100%"></div></div>
+                                <div id="side-b-morale-text" class="text-xs">100%</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-green-400 mt-1">💰 Resources: <span id="side-b-resources">50</span></div>
+                    </div>
+                    <div id="side-b-status" class="space-y-1 max-h-48 overflow-y-auto"></div>
+                </div>
+            </div>
+            
+            <div class="mt-3 pixel-border bg-gray-800 p-2">
+                <h3 class="text-yellow-400 mb-1 text-xs">📜 BATTLE LOG</h3>
+                <div id="battle-log" class="h-24 overflow-y-auto"></div>
+            </div>
+        </div>
+        
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="hidden text-center py-8">
+            <h1 id="victory-title" class="text-2xl mb-4"></h1>
+            <div id="victory-stats" class="max-w-2xl mx-auto pixel-border bg-gray-800 p-4 mb-4"></div>
+            <div class="space-x-2">
+                <button onclick="restartBattle()" class="pixel-btn bg-yellow-600 text-white px-4 py-2">🔄 REMATCH</button>
+                <button onclick="showPlacementScreen()" class="pixel-btn bg-blue-600 text-white px-4 py-2">🔧 EDIT ARMIES</button>
+                <button onclick="showTitleScreen()" class="pixel-btn bg-green-600 text-white px-4 py-2">🏠 MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gameState = {
+            phase: 'title',
+            selectedMap: null,
+            sideA: { faction: null, units: [] },
+            sideB: { faction: null, units: [] },
+            placedUnits: [],
+            battleUnits: [],
+            turn: 0,
+            paused: true,
+            speed: 1,
+            battleInterval: null,
+            engine: null
+        };
+        
+        let turnByTurnMode = false;
+        let tooltipEl = null;
+        let particles = [];
+        
+        // UI Functions
+        function hideAllScreens() {
+            ['title-screen', 'map-select', 'faction-select', 'placement-screen', 'battle-screen', 'victory-screen']
+                .forEach(id => document.getElementById(id).classList.add('hidden'));
+            if (gameState.battleInterval) {
+                clearInterval(gameState.battleInterval);
+                gameState.battleInterval = null;
+            }
+        }
+        
+        function showTitleScreen() {
+            hideAllScreens();
+            document.getElementById('title-screen').classList.remove('hidden');
+            resetGame();
+        }
+        
+        function showMapSelect() {
+            hideAllScreens();
+            document.getElementById('map-select').classList.remove('hidden');
+            renderMapOptions();
+        }
+        
+        function showFactionSelect() {
+            hideAllScreens();
+            document.getElementById('faction-select').classList.remove('hidden');
+            renderFactionOptions();
+        }
+        
+        function showPlacementScreen() {
+            hideAllScreens();
+            document.getElementById('placement-screen').classList.remove('hidden');
+            renderPlacementScreen();
+        }
+        
+        function showBattleScreen() {
+            hideAllScreens();
+            document.getElementById('battle-screen').classList.remove('hidden');
+        }
+        
+        function showVictoryScreen(winner, reason) {
+            hideAllScreens();
+            document.getElementById('victory-screen').classList.remove('hidden');
+            renderVictoryScreen(winner, reason);
+        }
+        
+        function resetGame() {
+            gameState = {
+                phase: 'title', selectedMap: null,
+                sideA: { faction: null, units: [] },
+                sideB: { faction: null, units: [] },
+                placedUnits: [], battleUnits: [],
+                turn: 0, paused: true, speed: 1,
+                battleInterval: null, engine: null
+            };
+        }
+        
+        // Map Rendering
+        function renderMapOptions() {
+            const container = document.getElementById('map-grid');
+            container.innerHTML = MAPS.map(map => `
+                <div class="pixel-border bg-gray-800 p-2 cursor-pointer hover:bg-gray-700" onclick="selectMap('${map.id}')">
+                    <h3 class="text-yellow-400 text-xs mb-1 truncate">${map.name}</h3>
+                    <p class="text-gray-400 text-xs mb-2 h-8 overflow-hidden">${map.description}</p>
+                    <div class="flex justify-center">${renderMiniMap(map)}</div>
+                </div>
+            `).join('');
+        }
+        
+        function renderMiniMap(map) {
+            const cellSize = Math.max(3, Math.floor(70 / map.width));
+            let html = `<div class="grid gap-0" style="grid-template-columns:repeat(${map.width},${cellSize}px);">`;
+            for (let y = 0; y < map.height; y++) {
+                for (let x = 0; x < map.width; x++) {
+                    const terrain = map.terrain[y]?.[x] || 'g';
+                    const color = TERRAIN_TYPES[terrain]?.color || '#4a7c23';
+                    html += `<div style="width:${cellSize}px;height:${cellSize}px;background:${color};"></div>`;
+                }
+            }
+            return html + '</div>';
+        }
+        
+        function selectMap(mapId) {
+            gameState.selectedMap = MAPS.find(m => m.id === mapId);
+            showFactionSelect();
+        }
+        
+        // Faction Selection
+        function renderFactionOptions() {
+            const factionHTML = (factionId, faction, side) => `
+                <label class="flex items-center gap-1 p-1 cursor-pointer hover:bg-white/10 rounded text-xs">
+                    <input type="radio" name="faction-${side}" value="${factionId}" 
+                           onchange="selectFaction('${side}', '${factionId}')"
+                           ${gameState['side' + side].faction === factionId ? 'checked' : ''}>
+                    <span style="color:${faction.color}" class="truncate">${faction.icon} ${faction.name}</span>
+                </label>
+            `;
+            
+            document.getElementById('faction-a-list').innerHTML = Object.entries(FACTIONS).map(([id, f]) => factionHTML(id, f, 'A')).join('');
+            document.getElementById('faction-b-list').innerHTML = Object.entries(FACTIONS).map(([id, f]) => factionHTML(id, f, 'B')).join('');
+        }
+        
+        function selectFaction(side, factionId) {
+            gameState['side' + side].faction = factionId;
+            gameState['side' + side].units = [];
+        }
+        
+        function startPlacement() {
+            if (!gameState.sideA.faction || !gameState.sideB.faction) {
+                alert('Please select factions for both sides!');
+                return;
+            }
+            gameState.placedUnits = [];
+            showPlacementScreen();
+        }
+        
+        // Army Builder
+        function renderPlacementScreen() {
+            renderArmyBuilder('A');
+            renderArmyBuilder('B');
+            renderPlacementMap();
+            updateUnitCounts();
+        }
+        
+        function isNavalMap() {
+            if (!gameState.selectedMap) return false;
+            const terrain = gameState.selectedMap.terrain.join('');
+            const waterCount = (terrain.match(/w/g) || []).length;
+            const totalCells = gameState.selectedMap.width * gameState.selectedMap.height;
+            return waterCount / totalCells > 0.25;
+        }
+        
+        function isNavalUnit(role) {
+            return ['warship', 'transport', 'submarine', 'carrier', 'destroyer'].includes(role);
+        }
+        
+        function renderArmyBuilder(side) {
+            const faction = FACTIONS[gameState['side' + side].faction];
+            const container = document.getElementById(`side-${side.toLowerCase()}-builder`);
+            const navalMap = isNavalMap();
+            
+            let html = '<div class="text-xs text-yellow-300 mb-1">HEROES:</div>';
+            
+            faction.heroes.forEach(heroId => {
+                const hero = HEROES[heroId];
+                if (hero) {
+                    const count = gameState['side' + side].units.filter(u => u.heroId === heroId).length;
+                    const disabled = hero.movement === 'naval' && !navalMap;
+                    
+                    html += `
+                        <div class="flex items-center justify-between p-1 bg-black/30 rounded mb-1 ${disabled ? 'disabled-unit' : ''}">
+                            <div class="flex items-center gap-1">
+                                <span class="text-lg">${hero.sprite}</span>
+                                <span class="truncate" style="max-width:80px;">${hero.name}</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                ${disabled ? '<span class="text-red-400 text-xs">⚓</span>' : `
+                                <button onclick="removeUnit('${side}','${heroId}',true)" class="spawn-btn px-1 bg-red-600 rounded">-</button>
+                                <span class="w-4 text-center">${count}</span>
+                                <button onclick="addUnit('${side}','${heroId}',true)" class="spawn-btn px-1 bg-green-600 rounded">+</button>
+                                `}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += '<div class="text-xs text-yellow-300 mt-2 mb-1">TROOPS:</div>';
+            
+            Object.entries(faction.generics || {}).forEach(([role, unitData]) => {
+                const roleData = UNIT_ROLES[role];
+                if (!roleData) return;
+                const count = gameState['side' + side].units.filter(u => u.genericRole === role).length;
+                const isNaval = isNavalUnit(role);
+                const disabled = isNaval && !navalMap;
+                
+                html += `
+                    <div class="flex items-center justify-between p-1 bg-black/30 rounded mb-1 ${disabled ? 'disabled-unit' : ''}">
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm">${unitData.sprite}</span>
+                            <span class="truncate" style="max-width:70px;">${unitData.name}</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            ${disabled ? '<span class="text-red-400 text-xs">⚓</span>' : `
+                            <button onclick="removeUnit('${side}','${role}',false)" class="spawn-btn px-1 bg-red-600 rounded">-</button>
+                            <span class="w-4 text-center">${count}</span>
+                            <button onclick="addUnit('${side}','${role}',false)" class="spawn-btn px-1 bg-green-600 rounded">+</button>
+                            <button onclick="addMultipleUnits('${side}','${role}',5)" class="spawn-btn px-1 bg-blue-600 rounded text-xs">+5</button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function addUnit(side, id, isHero) {
+            const faction = FACTIONS[gameState['side' + side].faction];
+            
+            if (isHero) {
+                const hero = HEROES[id];
+                if (hero) {
+                    gameState['side' + side].units.push({
+                        id: `${id}_${Date.now()}_${Math.random()}`,
+                        heroId: id, isHero: true, ...hero
+                    });
+                }
+            } else {
+                const genericData = faction.generics[id];
+                const roleData = UNIT_ROLES[id];
+                if (genericData && roleData) {
+                    const movement = id === 'flying' ? 'flying' : 
+                                   id === 'cavalry' ? 'mounted' :
+                                   id === 'heavy' || id === 'siege' ? 'heavy' :
+                                   id === 'swimming' ? 'swimming' :
+                                   isNavalUnit(id) ? 'naval' :
+                                   id === 'amphibious' || id === 'marine' ? 'amphibious' : 'foot';
+                    
+                    gameState['side' + side].units.push({
+                        id: `${id}_${Date.now()}_${Math.random()}`,
+                        genericRole: id, isHero: false,
+                        name: genericData.name, sprite: genericData.sprite, role: id,
+                        hp: roleData.baseHp + (genericData.bonus?.hp || 0),
+                        attack: roleData.baseAtk + (genericData.bonus?.atk || 0),
+                        defense: roleData.baseDef + (genericData.bonus?.def || 0),
+                        speed: roleData.baseSpd + (genericData.bonus?.spd || 0),
+                        range: roleData.baseRange + (genericData.bonus?.range || 0),
+                        movement: movement,
+                        healPower: genericData.bonus?.healPower || 0,
+                        abilities: []
+                    });
+                }
+            }
+            renderPlacementScreen();
+        }
+        
+        function addMultipleUnits(side, id, count) {
+            for (let i = 0; i < count; i++) addUnit(side, id, false);
+        }
+        
+        function removeUnit(side, id, isHero) {
+            const units = gameState['side' + side].units;
+            const index = units.findIndex(u => isHero ? u.heroId === id : u.genericRole === id);
+            if (index >= 0) {
+                const removed = units[index];
+                gameState.placedUnits = gameState.placedUnits.filter(p => p.unitId !== removed.id);
+                units.splice(index, 1);
+            }
+            renderPlacementScreen();
+        }
+        
+        function clearSide(side) {
+            gameState['side' + side].units = [];
+            gameState.placedUnits = gameState.placedUnits.filter(u => u.side !== side);
+            renderPlacementScreen();
+        }
+        
+        function autoFillSide(side, count) {
+            const faction = FACTIONS[gameState['side' + side].faction];
+            const navalMap = isNavalMap();
+            const roles = Object.keys(faction.generics || {}).filter(r => !(!navalMap && isNavalUnit(r)));
+            if (roles.length === 0) return;
+            
+            for (let i = 0; i < count; i++) {
+                const role = roles[Math.floor(Math.random() * roles.length)];
+                addUnit(side, role, false);
+            }
+            
+            const validHeroes = faction.heroes.filter(hId => {
+                const hero = HEROES[hId];
+                return !(!navalMap && hero?.movement === 'naval');
+            });
+            
+            const heroCount = Math.floor(count / 8) + 1;
+            for (let i = 0; i < heroCount && i < validHeroes.length; i++) {
+                addUnit(side, validHeroes[i], true);
+            }
+        }
+        
+        function updateUnitCounts() {
+            document.getElementById('side-a-count').textContent = gameState.sideA.units.length;
+            document.getElementById('side-b-count').textContent = gameState.sideB.units.length;
+            
+            // Update placement info
+            const aPlaced = gameState.placedUnits.filter(p => p.side === 'A').length;
+            const bPlaced = gameState.placedUnits.filter(p => p.side === 'B').length;
+            const aTotal = gameState.sideA.units.length;
+            const bTotal = gameState.sideB.units.length;
+            const aRemaining = aTotal - aPlaced;
+            const bRemaining = bTotal - bPlaced;
+            
+            let infoText = '';
+            if (aRemaining > 0 || bRemaining > 0) {
+                infoText = `Click in <span class="text-blue-400">blue zone</span> to place Side A (${aRemaining} left) | `;
+                infoText += `Click in <span class="text-red-400">red zone</span> to place Side B (${bRemaining} left)`;
+            } else if (aTotal > 0 && bTotal > 0) {
+                infoText = '<span class="text-green-400">✓ All units placed! Click START BATTLE</span>';
+            } else {
+                infoText = 'Add units using the panels on left/right, then click in zones to place them';
+            }
+            
+            document.getElementById('placement-info').innerHTML = infoText;
+        }
+        
+        // Placement Map
+        function renderPlacementMap() {
+            const map = gameState.selectedMap;
+            const container = document.getElementById('placement-map');
+            
+            let html = `<div class="grid gap-0" style="grid-template-columns:repeat(${map.width},28px);">`;
+            
+            for (let y = 0; y < map.height; y++) {
+                for (let x = 0; x < map.width; x++) {
+                    const terrain = map.terrain[y]?.[x] || 'g';
+                    const terrainData = TERRAIN_TYPES[terrain];
+                    
+                    const inZoneA = x >= map.sideAZone.x1 && x <= map.sideAZone.x2 && y >= map.sideAZone.y1 && y <= map.sideAZone.y2;
+                    const inZoneB = x >= map.sideBZone.x1 && x <= map.sideBZone.x2 && y >= map.sideBZone.y1 && y <= map.sideBZone.y2;
+                    
+                    const placedUnit = gameState.placedUnits.find(u => u.x === x && u.y === y);
+                    const zoneClass = inZoneA ? 'zone-a' : inZoneB ? 'zone-b' : '';
+                    
+                    const zoneLabel = inZoneA ? ' [🔵 Side A Zone]' : inZoneB ? ' [🔴 Side B Zone]' : '';
+                    const terrainTitle = `${terrainData.name}${terrainData.defenseBonus ? ' +' + terrainData.defenseBonus + ' DEF' : ''}${terrainData.damage ? ' ' + terrainData.damage + ' DMG/turn' : ''}${zoneLabel}`;
+                    
+                    html += `<div class="map-cell ${terrainData.class} ${zoneClass}" onclick="handlePlacementClick(${x},${y})" 
+                                  title="${terrainTitle}" style="cursor: ${inZoneA || inZoneB ? 'pointer' : 'not-allowed'};">`;
+                    
+                    if (placedUnit) {
+                        const unit = [...gameState.sideA.units, ...gameState.sideB.units].find(u => u.id === placedUnit.unitId);
+                        if (unit) {
+                            const faction = FACTIONS[placedUnit.side === 'A' ? gameState.sideA.faction : gameState.sideB.faction];
+                            html += `<div class="unit-sprite ${unit.isHero ? 'hero' : ''}" style="background:${faction.color};">${unit.sprite}</div>`;
+                        }
+                    }
+                    
+                    html += '</div>';
+                }
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        }
+        
+        function handlePlacementClick(x, y) {
+            const map = gameState.selectedMap;
+            
+            const existingIndex = gameState.placedUnits.findIndex(u => u.x === x && u.y === y);
+            if (existingIndex >= 0) {
+                gameState.placedUnits.splice(existingIndex, 1);
+                renderPlacementMap();
+                updateUnitCounts();
+                return;
+            }
+            
+            const inZoneA = x >= map.sideAZone.x1 && x <= map.sideAZone.x2 && y >= map.sideAZone.y1 && y <= map.sideAZone.y2;
+            const inZoneB = x >= map.sideBZone.x1 && x <= map.sideBZone.x2 && y >= map.sideBZone.y1 && y <= map.sideBZone.y2;
+            
+            if (!inZoneA && !inZoneB) return;
+            
+            const side = inZoneA ? 'A' : 'B';
+            const units = gameState['side' + side].units;
+            const placedIds = gameState.placedUnits.filter(p => p.side === side).map(p => p.unitId);
+            const unplacedUnit = units.find(u => !placedIds.includes(u.id));
+            
+            if (unplacedUnit) {
+                gameState.placedUnits.push({ unitId: unplacedUnit.id, side, x, y });
+            }
+            
+            renderPlacementMap();
+            updateUnitCounts();
+        }
+        
+        function clearAllPlacements() {
+            gameState.placedUnits = [];
+            renderPlacementMap();
+        }
+        
+        function autoPlaceAll() {
+            gameState.placedUnits = [];
+            const map = gameState.selectedMap;
+            
+            function getPositions(zone) {
+                let land = [], water = [], sand = [];
+                for (let x = zone.x1; x <= zone.x2; x++) {
+                    for (let y = zone.y1; y <= zone.y2; y++) {
+                        const t = map.terrain[y]?.[x] || 'g';
+                        const name = TERRAIN_TYPES[t]?.name;
+                        if (name === 'Water') water.push({x,y});
+                        else if (name === 'Sand') sand.push({x,y});
+                        else if (name !== 'Lava' && name !== 'Void') land.push({x,y});
+                    }
+                }
+                [land, water, sand].forEach(arr => arr.sort(() => Math.random() - 0.5));
+                return { land, water, sand };
+            }
+            
+            function placeUnits(side, zone) {
+                const pos = getPositions(zone);
+                let li = 0, wi = 0, si = 0;
+                
+                gameState['side' + side].units.forEach(unit => {
+                    const mov = unit.movement || 'foot';
+                    let p = null;
+                    
+                    if (mov === 'naval') p = pos.water[wi++];
+                    else if (mov === 'amphibious' || mov === 'swimming') p = pos.sand[si++] || pos.water[wi++] || pos.land[li++];
+                    else p = pos.land[li++] || pos.sand[si++];
+                    
+                    if (p) gameState.placedUnits.push({ unitId: unit.id, side, x: p.x, y: p.y });
+                });
+            }
+            
+            placeUnits('A', map.sideAZone);
+            placeUnits('B', map.sideBZone);
+            renderPlacementMap();
+            updateUnitCounts();
+        }
+        
+        // Battle System
+        function startBattle() {
+            if (gameState.placedUnits.length === 0) {
+                alert('Please place some units first!');
+                return;
+            }
+            
+            const sideAPlaced = gameState.placedUnits.filter(p => p.side === 'A').length;
+            const sideBPlaced = gameState.placedUnits.filter(p => p.side === 'B').length;
+            
+            if (sideAPlaced === 0 || sideBPlaced === 0) {
+                alert('Both sides need at least one unit!');
+                return;
+            }
+            
+            turnByTurnMode = false;
+            document.getElementById('turn-mode-btn').textContent = '🎯 TURN-BY-TURN';
+            document.getElementById('next-turn-btn').classList.add('hidden');
+            
+            gameState.battleUnits = gameState.placedUnits.map(placed => {
+                const allUnits = [...gameState.sideA.units, ...gameState.sideB.units];
+                const unitData = allUnits.find(u => u.id === placed.unitId);
+                if (!unitData) return null;
+                
+                return {
+                    id: placed.unitId,
+                    name: unitData.name, sprite: unitData.sprite,
+                    side: placed.side, x: placed.x, y: placed.y,
+                    hp: unitData.hp, maxHp: unitData.hp,
+                    attack: unitData.attack, defense: unitData.defense,
+                    speed: unitData.speed, range: unitData.range,
+                    movement: unitData.movement || 'foot',
+                    role: unitData.role, isHero: unitData.isHero,
+                    abilities: (unitData.abilities || []).map(a => ({ ...a, currentCooldown: 0 })),
+                    weakness: unitData.weakness,
+                    healPower: unitData.healPower || 0,
+                    buffs: [], debuffs: [], alive: true, stealthed: false,
+                    positionHistory: [{x: placed.x, y: placed.y, turn: 0}]
+                };
+            }).filter(u => u !== null);
+            
+            gameState.turn = 0;
+            gameState.paused = false;
+            gameState.engine = new BattleEngine(gameState);
+            gameState.engine.state = gameState;
+            
+            showBattleScreen();
+            gameState.engine.addLog('⚔️ BATTLE BEGINS!', 'info');
+            
+            const aPhase = gameState.engine.armyStats.A.phase;
+            const bPhase = gameState.engine.armyStats.B.phase;
+            gameState.engine.addLog(`🔵 Side A: ${aPhase === 'attack' ? 'ATTACKING' : 'DEFENDING'}`, 'info');
+            gameState.engine.addLog(`🔴 Side B: ${bPhase === 'attack' ? 'ATTACKING' : 'DEFENDING'}`, 'info');
+            
+            const weather = gameState.engine.getWeatherEffects();
+            gameState.engine.addLog(`🌤️ Weather: ${weather.description}`, 'info');
+            
+            renderBattle();
+            renderBattleLog();
+            startAutoBattle();
+        }
+        
+        function renderBattle() {
+            const currentTurn = gameState.engine?.state?.turn || gameState.turn;
+            document.getElementById('turn-counter').textContent = `Turn ${currentTurn}`;
+            
+            const stats = gameState.engine.getStats();
+            
+            document.getElementById('side-a-alive').textContent = stats.sideA.alive;
+            document.getElementById('side-a-total').textContent = stats.sideA.total;
+            document.getElementById('side-b-alive').textContent = stats.sideB.alive;
+            document.getElementById('side-b-total').textContent = stats.sideB.total;
+            
+            const aHpPct = stats.sideA.maxHp > 0 ? (stats.sideA.totalHp / stats.sideA.maxHp) * 100 : 0;
+            const bHpPct = stats.sideB.maxHp > 0 ? (stats.sideB.totalHp / stats.sideB.maxHp) * 100 : 0;
+            
+            document.getElementById('side-a-hp-bar').style.width = `${aHpPct}%`;
+            document.getElementById('side-b-hp-bar').style.width = `${bHpPct}%`;
+            
+            document.getElementById('side-a-supply-bar').style.width = `${stats.sideA.supply}%`;
+            document.getElementById('side-a-supply-text').textContent = `${stats.sideA.supply}%`;
+            document.getElementById('side-a-morale-bar').style.width = `${stats.sideA.morale}%`;
+            document.getElementById('side-a-morale-text').textContent = `${stats.sideA.morale}%`;
+            document.getElementById('side-a-resources').textContent = stats.sideA.resources;
+            
+            document.getElementById('side-b-supply-bar').style.width = `${stats.sideB.supply}%`;
+            document.getElementById('side-b-supply-text').textContent = `${stats.sideB.supply}%`;
+            document.getElementById('side-b-morale-bar').style.width = `${stats.sideB.morale}%`;
+            document.getElementById('side-b-morale-text').textContent = `${stats.sideB.morale}%`;
+            document.getElementById('side-b-resources').textContent = stats.sideB.resources;
+            
+            // Weather display
+            document.getElementById('weather-display').textContent = stats.weather.description;
+            
+            // Siege phase
+            const siegePhase = gameState.engine?.siegeState?.phase || 'combat';
+            const phaseText = {
+                'initial': '🏁 Initial', 'combat': '⚔️ Combat',
+                'stalemate': '🏕️ Stalemate', 'assault': '🔥 Assault'
+            };
+            
+            const aPhase = gameState.engine?.armyStats?.A?.phase === 'attack' ? '⚔️' : '🛡️';
+            const bPhase = gameState.engine?.armyStats?.B?.phase === 'attack' ? '⚔️' : '🛡️';
+            
+            document.getElementById('battle-status').innerHTML = `${aPhase} | ${phaseText[siegePhase] || siegePhase} | ${bPhase}`;
+            
+            renderBattleMap();
+            renderBattleStatus();
+        }
+        
+        function createParticle(x, y, type, text) {
+            const particle = { id: Date.now() + Math.random(), x: x * 28 + 14, y: y * 28 + 14, type, text };
+            particles.push(particle);
+            setTimeout(() => { particles = particles.filter(p => p.id !== particle.id); }, 1000);
+        }
+        
+        function renderBattleMap() {
+            const map = gameState.selectedMap;
+            const container = document.getElementById('battle-map');
+            
+            let html = `<div class="grid gap-0 relative" style="grid-template-columns:repeat(${map.width},28px);">`;
+            
+            for (let y = 0; y < map.height; y++) {
+                for (let x = 0; x < map.width; x++) {
+                    const terrain = map.terrain[y]?.[x] || 'g';
+                    const terrainData = TERRAIN_TYPES[terrain];
+                    const unitHere = gameState.battleUnits.find(u => u.x === x && u.y === y && u.alive);
+                    
+                    const campHere = gameState.engine?.camps?.find(c => c.x === x && c.y === y);
+                    const bridgeHere = gameState.engine?.bridges?.find(b => b.x === x && b.y === y);
+                    const tentHere = gameState.engine?.tents?.find(t => t.x === x && t.y === y);
+                    
+                    html += `<div class="map-cell ${terrainData.class}" data-x="${x}" data-y="${y}">`;
+                    
+                    // Structures with tooltips
+                    if (bridgeHere) {
+                        html += `<div class="structure-marker bridge-struct" title="🌉 Bridge\nBuilt by: Side ${bridgeHere.side}\nTurn: ${bridgeHere.turn}">${bridgeHere.side === 'A' ? '🔵' : '🔴'}🌉</div>`;
+                    }
+                    if (tentHere && !campHere) {
+                        html += `<div class="structure-marker tent-struct" title="⛺ Tent\nOwner: Side ${tentHere.side}\n+5% Supply">${tentHere.side === 'A' ? '🔵' : '🔴'}⛺</div>`;
+                    }
+                    if (campHere) {
+                        html += `<div class="structure-marker camp-struct" title="🏕️ Supply Camp\nOwner: Side ${campHere.side}\n+25% Supply\n+5 HP/turn to nearby\n+3 Resources/turn">${campHere.side === 'A' ? '🔵' : '🔴'}🏕️</div>`;
+                    }
+                    
+                    if (unitHere) {
+                        const faction = FACTIONS[unitHere.side === 'A' ? gameState.sideA.faction : gameState.sideB.faction];
+                        const hpPct = Math.max(0, (unitHere.hp / unitHere.maxHp) * 100);
+                        const hpColor = hpPct > 50 ? '#0f0' : hpPct > 25 ? '#ff0' : '#f00';
+                        
+                        const effect = gameState.engine?.effects?.find(e => e.unitId === unitHere.id);
+                        let effectClass = '';
+                        if (effect) {
+                            effectClass = effect.type === 'attack' ? 'attacking' :
+                                         effect.type === 'damage' ? 'damaged' :
+                                         effect.type === 'death' ? 'dying' :
+                                         effect.type === 'ability' ? 'using-ability' :
+                                         effect.type === 'heal' ? 'healing' : '';
+                            
+                            if (effect.fresh) {
+                                if (effect.type === 'damage') createParticle(x, y, 'damage', `-${effect.amount}`);
+                                else if (effect.type === 'heal') createParticle(x, y, 'heal', `+${effect.amount}`);
+                                else if (effect.isCrit) createParticle(x, y, 'crit', '💥CRIT!');
+                                effect.fresh = false;
+                            }
+                        }
+                        
+                        const stealthClass = unitHere.stealthed ? 'stealthed' : '';
+                        const floatClass = ['flying', 'ethereal'].includes(unitHere.movement) ? 'floating' : '';
+                        const retreatClass = unitHere.isRetreating ? 'retreating' : '';
+                        const fortifiedClass = unitHere.isFortified ? 'fortified' : '';
+                        const veteranBadge = unitHere.veteranLevel > 0 ? `<div class="veteran-badge">${'⭐'.repeat(unitHere.veteranLevel)}</div>` : '';
+                        const blockedIcon = unitHere.blockedTurns >= 2 ? '<div class="blocked-icon">🚧</div>' : '';
+                        
+                        html += `
+                            <div class="unit-sprite ${unitHere.isHero ? 'hero' : ''} ${effectClass} ${stealthClass} ${floatClass} ${retreatClass} ${fortifiedClass}" 
+                                 data-unit-id="${unitHere.id}" style="background:${faction.color};"
+                                 onmouseenter="showUnitTooltip(event,'${unitHere.id}')"
+                                 onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()">
+                                ${unitHere.sprite}${veteranBadge}${blockedIcon}
+                                <div class="health-bar"><div class="health-fill" style="width:${hpPct}%;background:${hpColor};"></div></div>
+                            </div>
+                        `;
+                    }
+                    
+                    html += '</div>';
+                }
+            }
+            html += '</div>';
+            container.innerHTML = html;
+            
+            renderMovementTrails();
+            renderProjectiles();
+            renderParticles();
+        }
+        
+        function renderMovementTrails() {
+            const grid = document.querySelector('#battle-map .grid');
+            if (!grid) return;
+            
+            grid.querySelectorAll('.movement-trail, .movement-line').forEach(el => el.remove());
+            
+            gameState.battleUnits.filter(u => u.alive && u.positionHistory?.length > 1).forEach(unit => {
+                const history = unit.positionHistory.slice(-6);
+                const color = unit.side === 'A' ? 'rgba(59,130,246,0.5)' : 'rgba(239,68,68,0.5)';
+                
+                for (let i = 0; i < history.length - 1; i++) {
+                    const pos = history[i];
+                    const opacity = 0.2 + (i / history.length) * 0.5;
+                    
+                    const trail = document.createElement('div');
+                    trail.className = 'movement-trail';
+                    trail.style.cssText = `left:${pos.x*28+12}px;top:${pos.y*28+12}px;width:6px;height:6px;background:${color};opacity:${opacity};border-radius:50%;position:absolute;pointer-events:none;z-index:30;`;
+                    grid.appendChild(trail);
+                }
+            });
+        }
+        
+        function renderProjectiles() {
+            const grid = document.querySelector('#battle-map .grid');
+            if (!grid || !gameState.engine) return;
+            
+            grid.querySelectorAll('.projectile').forEach(el => el.remove());
+            
+            if (!gameState.engine.projectiles) gameState.engine.projectiles = [];
+            
+            gameState.engine.projectiles = gameState.engine.projectiles.filter(proj => {
+                proj.progress = (proj.progress || 0) + 0.2;
+                return proj.progress < 1;
+            });
+            
+            gameState.engine.projectiles.forEach(proj => {
+                const eased = 1 - Math.pow(1 - proj.progress, 2);
+                const currentX = proj.fromX + (proj.toX - proj.fromX) * eased;
+                const currentY = proj.fromY + (proj.toY - proj.fromY) * eased;
+                
+                const projectile = document.createElement('div');
+                projectile.className = 'projectile';
+                projectile.textContent = proj.sprite;
+                projectile.style.cssText = `left:${currentX*28+6}px;top:${currentY*28+6}px;position:absolute;font-size:16px;filter:drop-shadow(0 0 4px #fff);z-index:1000;`;
+                grid.appendChild(projectile);
+            });
+        }
+        
+        function renderParticles() {
+            const grid = document.querySelector('#battle-map .grid');
+            if (!grid) return;
+            
+            grid.querySelectorAll('.particle').forEach(p => p.remove());
+            
+            particles.forEach(p => {
+                const div = document.createElement('div');
+                div.className = `particle particle-${p.type}`;
+                div.style.left = `${p.x}px`;
+                div.style.top = `${p.y}px`;
+                div.textContent = p.text;
+                grid.appendChild(div);
+            });
+        }
+        
+        function renderBattleStatus() {
+            const renderUnitStatus = (unit) => {
+                if (!unit.isHero || !unit.alive) return '';
+                const hpPct = Math.max(0, (unit.hp / unit.maxHp) * 100);
+                const hpColor = hpPct > 50 ? 'bg-green-500' : hpPct > 25 ? 'bg-yellow-500' : 'bg-red-500';
+                return `
+                    <div class="p-1 bg-black/30 rounded">
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm">${unit.sprite}</span>
+                            <span class="truncate text-xs" style="max-width:60px;">${unit.name}</span>
+                            ${unit.veteranLevel > 0 ? '<span class="text-yellow-400">⭐</span>' : ''}
+                        </div>
+                        <div class="h-1 bg-gray-700 mt-1 rounded"><div class="${hpColor} h-full rounded" style="width:${hpPct}%;"></div></div>
+                        <div class="text-gray-400" style="font-size:8px;">${Math.max(0,unit.hp)}/${unit.maxHp}</div>
+                    </div>
+                `;
+            };
+            
+            document.getElementById('side-a-status').innerHTML = gameState.battleUnits.filter(u => u.side === 'A' && u.isHero).map(renderUnitStatus).join('');
+            document.getElementById('side-b-status').innerHTML = gameState.battleUnits.filter(u => u.side === 'B' && u.isHero).map(renderUnitStatus).join('');
+        }
+        
+        function renderBattleLog() {
+            const logContainer = document.getElementById('battle-log');
+            logContainer.innerHTML = gameState.engine.logs.slice(-50).map(log => 
+                `<div class="log-entry log-${log.type}">[T${log.turn}] ${log.message}</div>`
+            ).join('');
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        function togglePause() {
+            gameState.paused = !gameState.paused;
+            document.getElementById('pause-btn').textContent = gameState.paused ? '▶️ RESUME' : '⏸️ PAUSE';
+        }
+        
+        function setSpeed(speed) {
+            gameState.speed = speed;
+            if (gameState.battleInterval && !turnByTurnMode) {
+                clearInterval(gameState.battleInterval);
+                startAutoBattle();
+            }
+        }
+        
+        function toggleTurnMode() {
+            turnByTurnMode = !turnByTurnMode;
+            const btn = document.getElementById('turn-mode-btn');
+            const nextBtn = document.getElementById('next-turn-btn');
+            
+            if (turnByTurnMode) {
+                btn.textContent = '🔄 AUTO MODE';
+                nextBtn.classList.remove('hidden');
+                if (gameState.battleInterval) {
+                    clearInterval(gameState.battleInterval);
+                    gameState.battleInterval = null;
+                }
+                gameState.paused = true;
+                document.getElementById('pause-btn').textContent = '▶️ RESUME';
+            } else {
+                btn.textContent = '🎯 TURN-BY-TURN';
+                nextBtn.classList.add('hidden');
+                gameState.paused = false;
+                document.getElementById('pause-btn').textContent = '⏸️ PAUSE';
+                startAutoBattle();
+            }
+        }
+        
+        function processNextTurn() {
+            if (!gameState.engine) return;
+            const result = gameState.engine.processTurn();
+            gameState.turn = gameState.engine.state.turn;
+            renderBattle();
+            renderBattleLog();
+            if (result) setTimeout(() => showVictoryScreen(result.winner, result.reason), 500);
+        }
+        
+        function startAutoBattle() {
+            if (gameState.battleInterval) clearInterval(gameState.battleInterval);
+            
+            gameState.battleInterval = setInterval(() => {
+                if (!gameState.paused && !turnByTurnMode && gameState.engine) {
+                    const result = gameState.engine.processTurn();
+                    gameState.turn = gameState.engine.state.turn;
+                    renderBattle();
+                    renderBattleLog();
+                    
+                    if (result) {
+                        clearInterval(gameState.battleInterval);
+                        gameState.battleInterval = null;
+                        setTimeout(() => showVictoryScreen(result.winner, result.reason), 500);
+                    }
+                }
+            }, 500 / gameState.speed);
+        }
+        
+        function renderVictoryScreen(winner, reason) {
+            const winnerFaction = FACTIONS[gameState['side' + winner].faction];
+            const loserSide = winner === 'A' ? 'B' : 'A';
+            const loserFaction = FACTIONS[gameState['side' + loserSide].faction];
+            
+            document.getElementById('victory-title').innerHTML = `<span style="color:${winnerFaction.color}">${winnerFaction.icon} ${winnerFaction.name} VICTORIOUS! ${winnerFaction.icon}</span>`;
+            
+            const stats = gameState.engine.getStats();
+            document.getElementById('victory-stats').innerHTML = `
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h3 class="text-green-400 mb-2">${winnerFaction.icon} Winners</h3>
+                        <p>Survivors: ${stats['side' + winner].alive}/${stats['side' + winner].total}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-red-400 mb-2">${loserFaction.icon} Defeated</h3>
+                        <p>Survivors: ${stats['side' + loserSide].alive}/${stats['side' + loserSide].total}</p>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-600 text-xs">
+                    <p>Battle Duration: ${gameState.turn} turns</p>
+                    <p>Map: ${gameState.selectedMap.name}</p>
+                    <p>Reason: ${reason}</p>
+                </div>
+            `;
+        }
+        
+        function restartBattle() { startBattle(); }
+        
+        // Tooltip System
+        function showUnitTooltip(event, unitId) {
+            const unit = gameState.battleUnits.find(u => u.id === unitId);
+            if (!unit) return;
+            
+            if (!tooltipEl) {
+                tooltipEl = document.createElement('div');
+                tooltipEl.className = 'unit-tooltip';
+                document.body.appendChild(tooltipEl);
+            }
+            
+            const faction = FACTIONS[unit.side === 'A' ? gameState.sideA.faction : gameState.sideB.faction];
+            const armyStats = gameState.engine?.armyStats?.[unit.side] || { supply: 100, morale: 100, phase: 'attack', resources: 50 };
+            
+            const history = unit.positionHistory || [];
+            const historyStr = history.slice(-5).map(p => `(${p.x},${p.y})`).join(' → ');
+            
+            const abilitiesHtml = (unit.abilities || []).map(a => {
+                const cd = a.currentCooldown || 0;
+                return `<div class="text-xs">• ${a.name} ${cd > 0 ? `<span class="text-red-400">(CD:${cd})</span>` : '<span class="text-green-400">(Ready)</span>'}</div>`;
+            }).join('');
+            
+            const statusList = [];
+            if (unit.isRetreating) statusList.push('🏃 Retreating');
+            if (unit.isFortified) statusList.push('🛡️ Fortified');
+            if (unit.stealthed) statusList.push('👤 Stealthed');
+            if (unit.isBlocked) statusList.push(`🚧 Blocked (${unit.blockedTurns}t)`);
+            if (unit.veteranLevel > 0) statusList.push(`${'⭐'.repeat(unit.veteranLevel)} Veteran`);
+            
+            const terrain = gameState.selectedMap?.terrain[unit.y]?.[unit.x] || 'g';
+            const terrainData = TERRAIN_TYPES[terrain];
+            const terrainInfo = terrainData ? `${terrainData.name}${terrainData.defenseBonus ? ' +' + terrainData.defenseBonus + ' DEF' : ''}` : 'Unknown';
+            
+            const nearCamp = gameState.engine?.camps?.find(c => c.side === unit.side && 
+                Math.abs(c.x - unit.x) + Math.abs(c.y - unit.y) <= 3);
+            
+            // Shield wall bonus
+            const shieldWallBonus = gameState.engine?.getShieldWallBonus?.(unit) || 0;
+            
+            // Commander aura
+            const cmdAura = gameState.engine?.getCommanderAura?.(unit) || { attack: 0, defense: 0 };
+            
+            tooltipEl.innerHTML = `
+                <div class="tooltip-header">
+                    <span class="text-2xl">${unit.sprite}</span>
+                    <div>
+                        <div class="text-yellow-400 font-bold">${unit.name}</div>
+                        <div class="text-gray-400 text-xs">${unit.isHero ? '⭐ HERO' : unit.role || 'Unit'} • ${unit.movement || 'foot'}</div>
+                        <div style="color:${faction.color}">${faction.icon} ${faction.name}</div>
+                    </div>
+                </div>
+                
+                <div class="tooltip-stats">
+                    <div class="stat-row"><span>❤️ HP:</span> <span>${Math.max(0,unit.hp)}/${unit.maxHp}</span></div>
+                    <div class="stat-row"><span>⚔️ ATK:</span> <span>${unit.attack}${cmdAura.attack > 0 ? ` <span class="text-green-400">+${cmdAura.attack}</span>` : ''}</span></div>
+                    <div class="stat-row"><span>🛡️ DEF:</span> <span>${unit.defense}${unit.isFortified ? ' +20' : ''}${shieldWallBonus > 0 ? ` <span class="text-blue-400">+${shieldWallBonus}</span>` : ''}</span></div>
+                    <div class="stat-row"><span>💨 SPD:</span> <span>${unit.speed}</span></div>
+                    <div class="stat-row"><span>🎯 RNG:</span> <span>${unit.range}</span></div>
+                    <div class="stat-row"><span>👟 MOV:</span> <span>${unit.movementRemaining || 0}/${unit.maxMovement || 3}</span></div>
+                </div>
+                
+                <div class="tooltip-section">
+                    <div class="text-yellow-400 text-xs">📍 (${unit.x}, ${unit.y}) - ${terrainInfo}</div>
+                    <div class="text-gray-400 text-xs">Path: ${historyStr || 'Starting'}</div>
+                    ${nearCamp ? '<div class="text-green-400 text-xs">🏕️ Near camp (+5 HP/turn)</div>' : ''}
+                    ${shieldWallBonus > 0 ? '<div class="text-blue-400 text-xs">🛡️ Shield Wall active</div>' : ''}
+                    ${cmdAura.attack > 0 ? '<div class="text-purple-400 text-xs">👑 Commander Aura</div>' : ''}
+                </div>
+                
+                ${statusList.length > 0 ? `<div class="tooltip-section text-xs">${statusList.join(' • ')}</div>` : ''}
+                ${abilitiesHtml ? `<div class="tooltip-section"><div class="text-purple-400 text-xs mb-1">✨ Abilities:</div>${abilitiesHtml}</div>` : ''}
+                
+                <div class="tooltip-section text-xs">
+                    <span class="text-yellow-400">📦 ${armyStats.supply}%</span> • 
+                    <span class="text-purple-400">💪 ${armyStats.morale}%</span> •
+                    <span class="text-green-400">💰 ${armyStats.resources}</span>
+                </div>
+                <div class="text-xs text-gray-400">Kills: ${unit.kills || 0} • Turns: ${unit.turnsAlive || 0}</div>
+                ${unit.weakness ? `<div class="text-red-400 text-xs mt-1">⚠️ Weak to: ${unit.weakness}</div>` : ''}
+            `;
+            
+            tooltipEl.classList.remove('hidden');
+            moveTooltip(event);
+        }
+        
+        function moveTooltip(event) {
+            if (!tooltipEl) return;
+            const rect = tooltipEl.getBoundingClientRect();
+            let x = event.clientX + 15;
+            let y = event.clientY + 15;
+            if (x + rect.width > window.innerWidth) x = event.clientX - rect.width - 15;
+            if (y + rect.height > window.innerHeight) y = event.clientY - rect.height - 15;
+            tooltipEl.style.left = `${Math.max(5, x)}px`;
+            tooltipEl.style.top = `${Math.max(5, y)}px`;
+        }
+        
+        function hideTooltip() {
+            if (tooltipEl) tooltipEl.classList.add('hidden');
+        }
+        
+        // Initialize
+        showTitleScreen();
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+:root {
+    --bg-color: #0d1117;
+    --sidebar-bg: #161b22;
+    --main-bg: #010409;
+    --border-color: #21262d;
+    --text-color: #e6edf3;
+    --text-secondary: #7d8590;
+
+    /* Primary Accent */
+    --accent-color: #58a6ff;
+    --accent-hover: #79c0ff;
+
+    /* Status Colors */
+    --positive-color: #3fb950;
+    --negative-color: #f85149;
+    --neutral-color: #e3b341;
+
+    /* Faction Category Colors - Thematic & Cohesive Palette */
+    --major-powers-color: #e3b341;          /* Gold for powerful, established factions */
+    --regional-powers-color: #fd7e14;      /* Orange for distinct regional entities */
+    --mystical-ancient-color: #a371f7;      /* Purple for magic, mystery, ancient powers */
+    --underworld-fringe-color: #6a737d;    /* Slate Grey for criminal, fringe groups */
+    --interdimensional-threat-color: #e94a89; /* Vibrant Pink for chaotic, dangerous threats */
+    
+    /* -- Faction Specific Colors -- */
+    --faction-regal_empire: #FFD700;
+    --faction-iron_legion: #ADB5BD;
+    --faction-onyx_hand: #8B0000;
+    --faction-mages_guild: #8A2BE2;
+    --faction-silver_flame: #C0C0C0;
+    --faction-oathbound_judges: #007BFF;
+    --faction-moonfang_pack: #556B2F;
+    --faction-toad_gang: #A0522D;
+    --faction-toad_cult: #9932CC;
+    --faction-mushroom_regency: #4169E1;
+    --faction-peach_loyalists: #FFDAB9;
+    --faction-fawfuls_furious_freaks: #32CD32;
+    --faction-liberated_toads: #87CEEB;
+    --faction-freelancer_underworld: #2F4F4F;
+    --faction-cosmic_jesters: #FF69B4;
+    --faction-the_unchained: #FF4500;
+    --faction-ratchet_raiders: #D2691E;
+    --faction-crimson_fleet: #DC143C;
+    --faction-wario_land: #FFAC1C;
+    --faction-iron_fists: #495057;
+    --faction-diamond_city_investigators: #8B4513;
+    --faction-goodstyle_artisans: #20B2AA;
+    --faction-unaligned: #6c757d;
+    --faction-tea_leaf_syndicate: #6B8E23;
+    --faction-beanbean_kingdom: #90EE90;
+    --faction-flower_kingdom: #FFB6C1;
+    --faction-dk_crew: #FFE135;
+    --faction-yoshi_clans: #7FFF00;
+    --faction-kremling_krew: #808000;
+    --faction-knights_of_the_gilded_lily: #FAFAD2;
+    --faction-rakasha_clans: #D2B48C;
+    --faction-koopa_troop: #006400;
+    --faction-rebel_clans: #800000;
+    --faction-middle_earth_kingdoms: #228B22;
+    --faction-internet_federation: #00FFFF;
+    --faction-hacktivist_collectives: #00FF00;
+    --faction-data_merchant_guilds: #F5DEB3;
+    --faction-cybernetic_collectives: #E0E0E0;
+
+    /* -- Warhammer Faction Colors -- */
+    --faction-wh-the_empire: #c81d25; /* Imperial Red */
+    --faction-wh-dwarfs: #0077b6; /* Dwarf Blue */
+    --faction-wh-greenskins: #2d6a4f; /* Orc Green */
+    --faction-wh-vampire_counts: #800f2f; /* Vampire Crimson */
+    --faction-wh-chaos: #a47c48; /* Chaos Brass */
+    --faction-wh-skaven: #70e000; /* Warpstone Green */
+    --faction-wh-high_elves: #ade8f4; /* High Elf Sky Blue */
+    --faction-wh-dark_elves: #5a189a; /* Dark Elf Purple */
+    --faction-wh-lizardmen: #48bfe3; /* Lizardmen Turquoise */
+    --faction-wh-tomb_kings: #f0ead2; /* Tomb King Bone */
+    --faction-wh-araby: #ffd60a; /* Araby Gold */
+    --faction-wh-bretonnia: #00509d; /* Bretonnian Blue */
+    --faction-wh-chaos_dwarfs: #b21e35; /* Chaos Dwarf Red */
+    --faction-wh-grand_cathay: #52b788; /* Cathay Jade */
+    --faction-wh-hobgoblins: #8d6e63; /* Hobgoblin Brown */
+    
+    /* -- Kivotos Faction Colors -- */
+    --faction-kivotos_gsu: #4a86e8; /* GSU Blue */
+    --faction-kivotos_millennium: #674ea7; /* Millennium Purple */
+    --faction-kivotos_trinity: #f1c232; /* Trinity Gold */
+    --faction-kivotos_gehenna: #cc0000; /* Gehenna Red */
+    --faction-kivotos_shanhaijing: #93c47d; /* Shanhaijing Jade */
+    --faction-kivotos_abydos: #e69138; /* Abydos Sand */
+    --faction-kivotos_red_winter: #a61c00; /* Red Winter Crimson */
+
+    /* -- The Doughnut Hole Faction Colors -- */
+    --faction-custodians_of_causality: #00BFFF; /* Deep Sky Blue */
+    --faction-void_drifters: #483D8B; /* Dark Slate Blue */
+    --faction-starlight_weavers: #FFD700; /* Gold */
+
+    /* -- Pokémon Faction Colors -- */
+    --faction-pokemon-league: #3b4cca; /* Classic Pokémon Blue */
+    --faction-pokemon-plasma: #7b8b8c; /* Team Plasma Grey/Light Blue */
+    --faction-pokemon-trainer: #ff0000; /* Classic Trainer Red */
+    --faction-pokemon-aqua: #0077b6; /* Team Aqua Blue */
+    --faction-pokemon-magma: #b21e35; /* Team Magma Red */
+    --faction-pokemon-flare: #fd7e14; /* Team Flare Orange */
+    --faction-pokemon-rocket: #212529; /* Team Rocket Black */
+    --faction-pokemon-star: #e94a89; /* Team Star Pink */
+    --faction-pokemon-ranger: #4CAF50; /* Ranger Green */
+    --faction-pokemon-gorock: #795548; /* Go-Rock Brown */
+
+
+    --font-primary: 'Roboto Mono', monospace;
+    --font-display: 'Orbitron', sans-serif;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 0 0 2px var(--accent-color), 0 0 5px var(--accent-color);
+    opacity: 0.8;
+  }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 1.6;
+    background-image: linear-gradient(rgba(13, 17, 23, 0.95), rgba(13, 17, 23, 0.95)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23161b22' fill-opacity='0.4'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}

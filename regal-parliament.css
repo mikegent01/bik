@@ -1,0 +1,4341 @@
+/* ============================================
+   HOLY MIDLANDS DIET - POLITICAL SYSTEM CSS
+   ============================================ */
+/* ============================================
+   IRON LEGION INTEGRATION STYLES
+   ============================================ */
+
+/* Legion Integration Banner */
+.legion-integration-banner {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+    border: 1px solid #c9a227;
+    border-left: 4px solid #c9a227;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(201, 162, 39, 0.15);
+}
+
+.legion-integration-banner .integration-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.legion-integration-banner .legion-icon {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 0 4px rgba(201, 162, 39, 0.5));
+}
+
+.legion-integration-banner .integration-header h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #e8d5a3;
+    font-weight: 600;
+    flex: 1;
+}
+
+.legion-integration-banner .integration-status {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.legion-integration-banner .integration-status.status-active {
+    background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+    color: #7fff7f;
+    border: 1px solid #3d7a35;
+    box-shadow: 0 0 8px rgba(45, 90, 39, 0.4);
+}
+
+.legion-integration-banner .integration-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.legion-integration-banner .integration-stat {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid rgba(201, 162, 39, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.legion-integration-banner .integration-stat .stat-label {
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.legion-integration-banner .integration-stat .stat-value {
+    font-size: 1rem;
+    color: #e8d5a3;
+    font-weight: 600;
+}
+
+.legion-integration-banner .integration-stat .stat-value.security-elevated {
+    color: #ffa500;
+}
+
+.legion-integration-banner .integration-stat .stat-value.security-high {
+    color: #ff6b6b;
+}
+
+.legion-integration-banner .integration-stat .stat-value.security-maximum {
+    color: #ff3333;
+    text-shadow: 0 0 8px rgba(255, 51, 51, 0.5);
+}
+
+/* ============================================
+   LEGION OPERATION LINK
+   ============================================ */
+
+.legion-operation-link {
+    background: linear-gradient(135deg, #2a1f1f 0%, #1f1a2e 100%);
+    border: 1px solid #8b4513;
+    border-left: 4px solid #c9a227;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.legion-operation-link .operation-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.legion-operation-link .operation-icon {
+    font-size: 1.2rem;
+}
+
+.legion-operation-link .operation-label {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.legion-operation-link .operation-codename {
+    background: linear-gradient(135deg, #8b4513 0%, #5c2e0a 100%);
+    color: #ffd700;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid #c9a227;
+    box-shadow: 0 0 8px rgba(201, 162, 39, 0.3);
+}
+
+.legion-operation-link .operation-response {
+    color: #b8b8b8;
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+}
+
+.legion-operation-link .operation-deployment {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 14px;
+    border-radius: 4px;
+    border: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.legion-operation-link .deployment-label {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.legion-operation-link .deployment-troops {
+    color: #7fff7f;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.legion-operation-link .deployment-status {
+    background: #2d5a27;
+    color: #7fff7f;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   LEGION INFLUENCE SUMMARY
+   ============================================ */
+
+.legion-influence-summary {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0d1520 100%);
+    border: 1px solid #c9a227;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.legion-influence-summary h4 {
+    margin: 0 0 16px 0;
+    color: #e8d5a3;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legion-influence-summary .influence-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.legion-influence-summary .influence-stat {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(201, 162, 39, 0.3);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.legion-influence-summary .influence-stat:hover {
+    border-color: #c9a227;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(201, 162, 39, 0.2);
+}
+
+.legion-influence-summary .influence-stat .stat-value {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #c9a227;
+    line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(201, 162, 39, 0.4);
+}
+
+.legion-influence-summary .influence-stat .stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   COORDINATED TIMELINE
+   ============================================ */
+
+.coordinated-timeline-section {
+    background: linear-gradient(135deg, #1a1a2e 0%, #12121f 100%);
+    border: 1px solid rgba(201, 162, 39, 0.3);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 24px 0;
+}
+
+.coordinated-timeline-section h4 {
+    margin: 0 0 20px 0;
+    color: #e8d5a3;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.coordinated-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.coordinated-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #c9a227, #8b4513, #c9a227);
+}
+
+.coordinated-timeline .timeline-event {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(201, 162, 39, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.coordinated-timeline .timeline-event:hover {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(201, 162, 39, 0.4);
+    transform: translateX(4px);
+}
+
+.coordinated-timeline .timeline-event::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    background: #1a1a2e;
+    border: 3px solid #c9a227;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.coordinated-timeline .timeline-event.today::before {
+    background: #c9a227;
+    box-shadow: 0 0 12px rgba(201, 162, 39, 0.8);
+    animation: pulse-gold 2s infinite;
+}
+
+.coordinated-timeline .timeline-event.past {
+    opacity: 0.7;
+}
+
+.coordinated-timeline .timeline-event.past::before {
+    background: #555;
+    border-color: #777;
+}
+
+.coordinated-timeline .timeline-event.future::before {
+    background: transparent;
+    border-style: dashed;
+}
+
+@keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 8px rgba(201, 162, 39, 0.6); }
+    50% { box-shadow: 0 0 16px rgba(201, 162, 39, 1); }
+}
+
+.coordinated-timeline .timeline-date {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #c9a227;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.coordinated-timeline .timeline-date .today-badge {
+    background: linear-gradient(135deg, #c9a227 0%, #8b4513 100%);
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pulse-gold 2s infinite;
+}
+
+.coordinated-timeline .timeline-dual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .coordinated-timeline .timeline-dual {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+.coordinated-timeline .timeline-diet,
+.coordinated-timeline .timeline-legion {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.coordinated-timeline .timeline-label {
+    font-size: 0.7rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.coordinated-timeline .timeline-diet .timeline-value {
+    color: #7fb3d3;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.coordinated-timeline .timeline-legion .timeline-value {
+    color: #d4a574;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.coordinated-timeline .timeline-goal {
+    background: rgba(201, 162, 39, 0.1);
+    padding: 10px 14px;
+    border-radius: 4px;
+    border-left: 3px solid #c9a227;
+}
+
+.coordinated-timeline .goal-label {
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.coordinated-timeline .goal-value {
+    color: #e8d5a3;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* ============================================
+   POLITICAL-MILITARY LIAISONS
+   ============================================ */
+
+.dual-role-personnel-section {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0d1520 100%);
+    border: 1px solid rgba(201, 162, 39, 0.3);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 24px 0;
+}
+
+.dual-role-personnel-section h4 {
+    margin: 0 0 20px 0;
+    color: #e8d5a3;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dual-role-personnel-section .personnel-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.dual-role-personnel-section .liaison-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(201, 162, 39, 0.25);
+    border-radius: 8px;
+    padding: 18px;
+    transition: all 0.3s ease;
+}
+
+.dual-role-personnel-section .liaison-card:hover {
+    border-color: #c9a227;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(201, 162, 39, 0.15);
+}
+
+.dual-role-personnel-section .liaison-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    gap: 10px;
+}
+
+.dual-role-personnel-section .liaison-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #e8d5a3;
+    line-height: 1.3;
+}
+
+.dual-role-personnel-section .loyalty-badge {
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.dual-role-personnel-section .loyalty-badge.loyalty-absolute {
+    background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+    color: #7fff7f;
+    border: 1px solid #3d7a35;
+}
+
+.dual-role-personnel-section .loyalty-badge.loyalty-high {
+    background: linear-gradient(135deg, #2d4a5a 0%, #1a3040 100%);
+    color: #7fc9ff;
+    border: 1px solid #3d6a8a;
+}
+
+.dual-role-personnel-section .loyalty-badge.loyalty-medium {
+    background: linear-gradient(135deg, #5a4a2d 0%, #403520 100%);
+    color: #ffd97f;
+    border: 1px solid #8a7a4d;
+}
+
+.dual-role-personnel-section .loyalty-badge.loyalty-questionable {
+    background: linear-gradient(135deg, #5a2d2d 0%, #401a1a 100%);
+    color: #ff7f7f;
+    border: 1px solid #8a3d3d;
+}
+
+.dual-role-personnel-section .liaison-roles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.dual-role-personnel-section .role-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.dual-role-personnel-section .role-icon {
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.dual-role-personnel-section .role-text {
+    color: #aaa;
+}
+
+.dual-role-personnel-section .liaison-focus {
+    background: rgba(201, 162, 39, 0.1);
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    border-left: 3px solid #c9a227;
+}
+
+.dual-role-personnel-section .liaison-focus strong {
+    color: #888;
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* ============================================
+   THREAT ASSESSMENT SUMMARY
+   ============================================ */
+
+.threat-assessment-summary {
+    background: linear-gradient(135deg, #2a1a1a 0%, #1a0d0d 100%);
+    border: 2px solid #8b0000;
+    border-radius: 8px;
+    padding: 24px;
+    margin: 24px 0;
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.2);
+}
+
+.threat-assessment-summary h4 {
+    margin: 0 0 20px 0;
+    color: #ff6b6b;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.threat-assessment-summary .threat-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.threat-assessment-summary .threat-metric {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(139, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.threat-assessment-summary .threat-metric:hover {
+    border-color: #8b0000;
+    transform: translateY(-2px);
+}
+
+.threat-assessment-summary .threat-metric.overall {
+    border-color: #ff3333;
+    background: rgba(139, 0, 0, 0.2);
+}
+
+.threat-assessment-summary .threat-metric .metric-label {
+    display: block;
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.threat-assessment-summary .threat-metric .metric-value {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.threat-assessment-summary .threat-metric .metric-value.threat-critical {
+    color: #ff3333;
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+    animation: threat-pulse 2s infinite;
+}
+
+.threat-assessment-summary .threat-metric .metric-value.threat-extreme {
+    color: #ff6347;
+    text-shadow: 0 0 8px rgba(255, 99, 71, 0.4);
+}
+
+.threat-assessment-summary .threat-metric .metric-value.threat-high {
+    color: #ffa500;
+}
+
+.threat-assessment-summary .threat-metric .metric-value.threat-medium {
+    color: #ffd700;
+}
+
+.threat-assessment-summary .threat-metric .metric-value.threat-low {
+    color: #7fff7f;
+}
+
+@keyframes threat-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.threat-assessment-summary .threat-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .threat-assessment-summary .threat-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+.threat-assessment-summary .threat-column {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.threat-assessment-summary .threat-column h5 {
+    margin: 0 0 14px 0;
+    color: #ff6b6b;
+    font-size: 0.95rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.threat-assessment-summary .threat-column ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.threat-assessment-summary .threat-column li {
+    position: relative;
+    padding: 8px 0 8px 20px;
+    font-size: 0.85rem;
+    color: #bbb;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.threat-assessment-summary .threat-column li:last-child {
+    border-bottom: none;
+}
+
+.threat-assessment-summary .threat-column li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+/* Immediate Threats - red bullets */
+.threat-assessment-summary .threat-column:first-child li::before {
+    background: #ff4444;
+    box-shadow: 0 0 6px rgba(255, 68, 68, 0.5);
+}
+
+/* Recommended Actions - green bullets */
+.threat-assessment-summary .threat-column:last-child li::before {
+    background: #44ff44;
+    box-shadow: 0 0 6px rgba(68, 255, 68, 0.5);
+}
+
+/* ============================================
+   ADDITIONAL UTILITY STYLES
+   ============================================ */
+
+/* Legion presence badges used in various sections */
+.presence-badge {
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.presence-badge.presence-high,
+.presence-badge.presence-deploying {
+    background: rgba(255, 100, 100, 0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 100, 100, 0.4);
+}
+
+.presence-badge.presence-medium {
+    background: rgba(255, 165, 0, 0.2);
+    color: #ffa500;
+    border: 1px solid rgba(255, 165, 0, 0.4);
+}
+
+.presence-badge.presence-low {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+.presence-badge.presence-none {
+    background: rgba(100, 100, 100, 0.2);
+    color: #888;
+    border: 1px solid rgba(100, 100, 100, 0.4);
+}
+
+/* Legion contact indicator */
+.legion-contact-tag,
+.legion-contact-indicator {
+    color: #c9a227;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Legion influence tag */
+.legion-influence-tag,
+.legion-influence-indicator {
+    color: #d4a574;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Calendar legion operation tags */
+.cal-legion-op {
+    background: linear-gradient(135deg, #8b4513 0%, #5c2e0a 100%);
+    color: #ffd700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: auto;
+}
+
+/* Next vote legion section */
+.next-vote-legion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 10px 14px;
+    background: rgba(139, 69, 19, 0.2);
+    border-radius: 4px;
+    border-left: 3px solid #c9a227;
+}
+
+.next-vote-legion .legion-op-label {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.next-vote-legion .legion-op-name {
+    color: #ffd700;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Coalition legion badges in seating chart */
+.coalition-block.legion-ally {
+    border-left: 3px solid #c9a227;
+}
+
+.coalition-block.legion-target {
+    border-left: 3px solid #ff4444;
+}
+
+.legion-ally-badge,
+.legion-target-badge {
+    margin-left: 8px;
+    font-size: 0.9rem;
+}
+
+.coalition-stance .legion-alignment {
+    color: #c9a227;
+    font-weight: 600;
+}
+
+/* Parliament seat legion modifiers */
+.parliament-seat.legion-influenced {
+    box-shadow: 0 0 8px rgba(201, 162, 39, 0.6);
+}
+
+.parliament-seat.legion-contact {
+    border: 2px solid #c9a227;
+}
+
+/* Legend items for legion */
+.vote-legend .legend-dot.legion-influenced {
+    background: linear-gradient(135deg, #c9a227 0%, #8b4513 100%);
+    box-shadow: 0 0 6px rgba(201, 162, 39, 0.5);
+}
+
+.vote-legend .legend-dot.legion-contact {
+    background: transparent;
+    border: 2px solid #c9a227;
+}
+
+/* Briefing section styling */
+.legion-briefing-section {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0d1520 100%);
+    border: 1px solid #c9a227;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.legion-briefing-section h4 {
+    margin: 0 0 14px 0;
+    color: #e8d5a3;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legion-briefing-section .briefing-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.legion-briefing-section .classification-badge {
+    background: linear-gradient(135deg, #5a2d2d 0%, #401a1a 100%);
+    color: #ff7f7f;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid #8a3d3d;
+}
+
+.legion-briefing-section .briefing-author {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+.legion-briefing-section .briefing-points {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.legion-briefing-section .briefing-points li {
+    position: relative;
+    padding: 8px 0 8px 24px;
+    color: #bbb;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.1);
+}
+
+.legion-briefing-section .briefing-points li:last-child {
+    border-bottom: none;
+}
+
+.legion-briefing-section .briefing-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #c9a227;
+    font-size: 0.8rem;
+}
+
+/* ============================================
+   CSS VARIABLES - DIET SPECIFIC
+   ============================================ */
+:root {
+    /* Vote Colors */
+    --vote-yes: #2ed573;
+    --vote-yes-bg: rgba(46, 213, 115, 0.15);
+    --vote-no: #ff4757;
+    --vote-no-bg: rgba(255, 71, 87, 0.15);
+    --vote-abstain: #ffa502;
+    --vote-abstain-bg: rgba(255, 165, 2, 0.15);
+    --vote-expelled: #57606f;
+    --vote-expelled-bg: rgba(87, 96, 111, 0.2);
+
+    /* Urgency Levels */
+    --urgency-critical: #ff4757;
+    --urgency-high: #ffa502;
+    --urgency-medium: #70a1ff;
+    --urgency-low: #7bed9f;
+
+    /* Status Colors */
+    --status-passed: #2ed573;
+    --status-failed: #ff4757;
+    --status-tabled: #a4b0be;
+    --status-scheduled: #70a1ff;
+    --status-voting: #ffa502;
+
+    /* Coalition Colors */
+    --coalition-imperial: #c9a227;
+    --coalition-sanguine: #8b0000;
+    --coalition-territorial: #228b22;
+    --coalition-arcane: #9b59b6;
+    --coalition-heartland: #3498db;
+    --coalition-chaos: #e91e63;
+
+    /* Diet Theme */
+    --diet-gold: #c9a227;
+    --diet-parchment: #f5e6c8;
+    --diet-ink: #2c1810;
+    --diet-seal: #8b0000;
+}
+
+/* ============================================
+   DIET HEADER
+   ============================================ */
+.diet-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--diet-gold);
+    flex-wrap: wrap;
+}
+
+.diet-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--diet-gold);
+    margin: 0;
+    text-shadow: 0 0 20px rgba(201, 162, 39, 0.3);
+    letter-spacing: 2px;
+}
+
+.diet-status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.diet-status.status-crisis-session {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.2), rgba(255, 165, 2, 0.2));
+    color: var(--urgency-critical);
+    border: 1px solid var(--urgency-critical);
+}
+
+.diet-status.status-in-session {
+    background: rgba(46, 213, 115, 0.15);
+    color: var(--status-passed);
+    border: 1px solid var(--status-passed);
+}
+
+.diet-status.status-recess {
+    background: rgba(164, 176, 190, 0.15);
+    color: var(--status-tabled);
+    border: 1px solid var(--status-tabled);
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.session-info {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.system-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(201, 162, 39, 0.05), transparent);
+    border-left: 3px solid var(--diet-gold);
+    border-radius: 0 8px 8px 0;
+}
+
+/* ============================================
+   VOTE DISPLAY CARD
+   ============================================ */
+.vote-display-card {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.vote-display-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--diet-gold), transparent);
+}
+
+/* Urgency Border Variants */
+.vote-display-card.urgency-critical {
+    border-color: var(--urgency-critical);
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.2);
+}
+
+.vote-display-card.urgency-critical::before {
+    background: linear-gradient(90deg, var(--urgency-critical), var(--urgency-high), transparent);
+    animation: urgencyGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes urgencyGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.vote-display-card.urgency-high {
+    border-color: var(--urgency-high);
+}
+
+.vote-display-card.urgency-high::before {
+    background: linear-gradient(90deg, var(--urgency-high), transparent);
+}
+
+.vote-display-card.urgency-medium::before {
+    background: linear-gradient(90deg, var(--urgency-medium), transparent);
+}
+
+/* Vote Header */
+.vote-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.vote-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+}
+
+.vote-title-block {
+    flex: 1;
+    min-width: 200px;
+}
+
+.vote-title-block .section-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.vote-proposer {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.vote-proposer strong {
+    color: var(--diet-gold);
+}
+
+.vote-status-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.vote-status-badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vote-status-badge.status-urgent {
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+    border: 1px solid var(--vote-no);
+    animation: urgentBadge 1s ease-in-out infinite;
+}
+
+@keyframes urgentBadge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.vote-status-badge.status-warning {
+    background: var(--vote-abstain-bg);
+    color: var(--vote-abstain);
+    border: 1px solid var(--vote-abstain);
+}
+
+.vote-status-badge.status-info {
+    background: rgba(112, 161, 255, 0.15);
+    color: var(--status-scheduled);
+    border: 1px solid var(--status-scheduled);
+}
+
+.vote-status-badge.status-success {
+    background: var(--vote-yes-bg);
+    color: var(--vote-yes);
+    border: 1px solid var(--vote-yes);
+}
+
+.vote-status-badge.status-danger {
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+    border: 1px solid var(--vote-no);
+}
+
+.vote-status-badge.status-muted {
+    background: var(--vote-expelled-bg);
+    color: var(--vote-expelled);
+    border: 1px solid var(--vote-expelled);
+}
+
+.vote-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.days-until {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.vote-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+/* ============================================
+   VOTE ARGUMENTS
+   ============================================ */
+.vote-arguments {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.argument {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.argument h5 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.argument p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.argument-for {
+    background: linear-gradient(135deg, var(--vote-yes-bg), transparent);
+    border-color: rgba(46, 213, 115, 0.3);
+}
+
+.argument-for h5 {
+    color: var(--vote-yes);
+}
+
+.argument-against {
+    background: linear-gradient(135deg, var(--vote-no-bg), transparent);
+    border-color: rgba(255, 71, 87, 0.3);
+}
+
+.argument-against h5 {
+    color: var(--vote-no);
+}
+
+/* ============================================
+   RELATED EVENTS
+   ============================================ */
+.related-events {
+    margin-bottom: 20px;
+    padding: 12px;
+    background: rgba(201, 162, 39, 0.05);
+    border-radius: 6px;
+    border-left: 3px solid var(--diet-gold);
+}
+
+.related-events h5 {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--diet-gold);
+    margin: 0 0 10px 0;
+}
+
+.related-events ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.related-events li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+}
+
+.related-events li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+}
+
+
+
+.expelled-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+    font-style: italic;
+    text-align: center;
+}
+
+/* ============================================
+   LEGISLATIVE CALENDAR
+   ============================================ */
+.legislative-calendar {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.legislative-calendar h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--diet-gold);
+    margin: 0 0 16px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calendar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border-left: 3px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.calendar-item:hover {
+    background: rgba(0, 0, 0, 0.3);
+    transform: translateX(4px);
+}
+
+.calendar-item.historical {
+    opacity: 0.7;
+    border-left-color: var(--text-muted);
+}
+
+.calendar-item.upcoming {
+    border-left-color: var(--status-scheduled);
+}
+
+.calendar-item.imminent {
+    border-left-color: var(--urgency-critical);
+    background: rgba(255, 71, 87, 0.1);
+    animation: imminentPulse 2s ease-in-out infinite;
+}
+
+@keyframes imminentPulse {
+    0%, 100% { box-shadow: none; }
+    50% { box-shadow: 0 0 10px rgba(255, 71, 87, 0.3); }
+}
+
+.cal-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    min-width: 120px;
+}
+
+.cal-title {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.cal-status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.cal-status.status-passed {
+    background: var(--vote-yes-bg);
+    color: var(--vote-yes);
+}
+
+.cal-status.status-failed {
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+}
+
+.cal-status.status-tabled {
+    background: var(--vote-expelled-bg);
+    color: var(--vote-expelled);
+}
+
+.cal-days {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 80px;
+    text-align: right;
+}
+
+.calendar-item.imminent .cal-days {
+    color: var(--urgency-critical);
+    font-weight: 700;
+}
+
+.calendar-divider {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 12px 0;
+    border-top: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
+    margin: 8px 0;
+}
+
+/* ============================================
+   PARLIAMENT SEATING
+   ============================================ */
+.parliament-container {
+    background: linear-gradient(180deg, var(--main-bg), rgba(0, 0, 0, 0.3));
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+}
+
+.seating-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: -8px 0 16px 0;
+    font-style: italic;
+}
+
+/* Speaker Section */
+.speaker-section {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--diet-gold);
+    position: relative;
+}
+
+.speaker-section::after {
+    content: '⚜';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: var(--diet-gold);
+    background: var(--main-bg);
+    padding: 0 16px;
+}
+
+.speaker-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--diet-gold);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.speaker-seat {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--diet-gold);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+    box-shadow: 0 0 20px rgba(201, 162, 39, 0.3);
+}
+
+.speaker-seat::before {
+    content: '👑';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+}
+
+.speaker-seat:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(201, 162, 39, 0.5);
+}
+
+.speaker-name {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+/* Coalition Grid */
+.coalition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.coalition-block {
+    background: var(--sidebar-bg);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.coalition-block:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.coalition-block.expelled-coalition {
+    opacity: 0.6;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--sidebar-bg),
+        var(--sidebar-bg) 10px,
+        rgba(0, 0, 0, 0.1) 10px,
+        rgba(0, 0, 0, 0.1) 20px
+    );
+    border-style: dashed;
+}
+
+.coalition-header {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+    border-left: 4px solid;
+    padding-left: 12px;
+    margin-left: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.seat-count {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.coalition-stance {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0 0 16px 0;
+}
+
+.coalition-stance strong {
+    color: var(--text-color);
+    text-transform: capitalize;
+}
+
+/* Seat Container */
+.seat-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.parliament-seat {
+    width: 22px;
+    height: 22px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.parliament-seat:hover {
+    transform: scale(1.4);
+    z-index: 10;
+    box-shadow: 0 0 12px currentColor;
+}
+
+.parliament-seat.selected {
+    transform: scale(1.5);
+    border-color: white !important;
+    box-shadow: 0 0 16px white;
+    z-index: 11;
+}
+
+/* Faction Colors */
+.seat-regal_empire { background: var(--coalition-imperial); }
+.seat-iron_legion { background: #6c757d; }
+.seat-moonfang_pack { background: var(--coalition-territorial); }
+.seat-onyx_hand { background: var(--coalition-sanguine); }
+.seat-mages_guild { background: var(--coalition-arcane); }
+.seat-cosmic_jesters { background: var(--coalition-chaos); }
+.seat-freelancer_underworld { background: #4a4a4a; }
+.seat-unaligned { background: var(--coalition-heartland); }
+
+/* Vote State Colors (overlay) */
+.parliament-seat.vote-yes {
+    border-color: var(--vote-yes);
+    box-shadow: inset 0 0 6px var(--vote-yes);
+}
+
+.parliament-seat.vote-no {
+    border-color: var(--vote-no);
+    box-shadow: inset 0 0 6px var(--vote-no);
+}
+
+.parliament-seat.vote-abstain {
+    border-color: var(--vote-abstain);
+    box-shadow: inset 0 0 6px var(--vote-abstain);
+}
+
+.parliament-seat.expelled {
+    opacity: 0.4;
+    background: var(--vote-expelled) !important;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+}
+
+.parliament-seat.expelled::after {
+    content: '✕';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.parliament-seat.expelled:hover {
+    transform: scale(1.2);
+    box-shadow: none;
+}
+
+/* ============================================
+   VOTE LEGEND
+   ============================================ */
+.legend-section {
+    margin-top: 24px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.legend-section h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+}
+
+.vote-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 2px solid;
+}
+
+.legend-dot.vote-yes {
+    background: rgba(46, 213, 115, 0.3);
+    border-color: var(--vote-yes);
+}
+
+.legend-dot.vote-no {
+    background: rgba(255, 71, 87, 0.3);
+    border-color: var(--vote-no);
+}
+
+.legend-dot.vote-abstain {
+    background: rgba(255, 165, 2, 0.3);
+    border-color: var(--vote-abstain);
+}
+
+.legend-dot.expelled {
+    background: var(--vote-expelled);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+.legend-dot.expelled::after {
+    content: '✕';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ============================================
+   PARLIAMENT TOOLTIP
+   ============================================ */
+#parliament-tooltip {
+    position: absolute;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-width: 200px;
+    max-width: 280px;
+    z-index: 1000;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+#parliament-tooltip h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0 0 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#parliament-tooltip p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 4px 0;
+}
+
+#parliament-tooltip .vote-yes {
+    color: var(--vote-yes);
+}
+
+#parliament-tooltip .vote-no {
+    color: var(--vote-no);
+}
+
+#parliament-tooltip .vote-abstain {
+    color: var(--vote-abstain);
+}
+
+#parliament-tooltip .vote-expelled {
+    color: var(--vote-expelled);
+}
+
+#parliament-tooltip .tooltip-reason {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color);
+}
+
+/* ============================================
+   DETAIL PANEL - REPRESENTATIVE
+   ============================================ */
+#detail-panel .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#detail-panel .expelled-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+    border: 1px solid var(--vote-no);
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.corruptible-tag {
+    font-size: 0.85rem;
+    color: var(--vote-abstain);
+    padding: 6px 10px;
+    background: var(--vote-abstain-bg);
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.vote-prediction {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.vote-prediction h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+}
+
+.vote-stance {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.vote-stance.vote-yes { color: var(--vote-yes); }
+.vote-stance.vote-no { color: var(--vote-no); }
+.vote-stance.vote-abstain { color: var(--vote-abstain); }
+
+.vote-reason {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.vote-confidence {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.expelled-notice {
+    background: var(--vote-no-bg);
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.expelled-notice h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--vote-no);
+    margin: 0 0 8px 0;
+}
+
+.expelled-notice p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ============================================
+   CALENDAR DOT FOR LEGISLATION
+   ============================================ */
+.event-dot.legislation {
+    background: linear-gradient(135deg, var(--diet-gold), #8b6914);
+    border: 1px solid white;
+    box-shadow: 0 0 4px var(--diet-gold);
+}
+
+.detail-item.legislation {
+    border-color: var(--diet-gold);
+    background: rgba(201, 162, 39, 0.1);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+    .coalition-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .vote-arguments {
+        grid-template-columns: 1fr;
+    }
+    
+    .vote-header {
+        flex-direction: column;
+    }
+    
+    .vote-status-block {
+        align-items: flex-start;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .diet-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .calendar-item {
+        flex-wrap: wrap;
+    }
+    
+    .cal-date {
+        min-width: 100%;
+        margin-bottom: 4px;
+    }
+    
+    .vote-tally-bar {
+        height: 60px;
+    }
+    
+    .tally-segment {
+        min-width: 30px;
+    }
+    
+    .tally-label {
+        font-size: 0.55rem;
+    }
+    
+    .tally-count {
+        font-size: 1rem;
+    }
+    
+    .parliament-seat {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .speaker-seat {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vote-display-card {
+        padding: 16px;
+    }
+    
+    .vote-icon {
+        font-size: 2rem;
+    }
+    
+    .vote-title-block .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .vote-legend {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .coalition-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+/* ============================================
+   ANIMATIONS & EFFECTS
+   ============================================ */
+@keyframes seatAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.parliament-seat {
+    animation: seatAppear 0.3s ease forwards;
+}
+
+.seat-container .parliament-seat:nth-child(1) { animation-delay: 0.01s; }
+.seat-container .parliament-seat:nth-child(2) { animation-delay: 0.02s; }
+.seat-container .parliament-seat:nth-child(3) { animation-delay: 0.03s; }
+.seat-container .parliament-seat:nth-child(4) { animation-delay: 0.04s; }
+.seat-container .parliament-seat:nth-child(5) { animation-delay: 0.05s; }
+.seat-container .parliament-seat:nth-child(6) { animation-delay: 0.06s; }
+.seat-container .parliament-seat:nth-child(7) { animation-delay: 0.07s; }
+.seat-container .parliament-seat:nth-child(8) { animation-delay: 0.08s; }
+.seat-container .parliament-seat:nth-child(9) { animation-delay: 0.09s; }
+.seat-container .parliament-seat:nth-child(10) { animation-delay: 0.1s; }
+.seat-container .parliament-seat:nth-child(n+11) { animation-delay: 0.11s; }
+
+/* Vote result animation */
+@keyframes tallyGrow {
+    from {
+        width: 0;
+    }
+}
+
+.tally-segment {
+    animation: tallyGrow 0.8s ease-out forwards;
+}
+
+/* Hover effects for coalition blocks */
+.coalition-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.02));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+.coalition-block {
+    position: relative;
+}
+
+.coalition-block:hover::before {
+    opacity: 1;
+}
+
+/* Scan line effect for urgency */
+.vote-display-card.urgency-critical::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 71, 87, 0.03) 2px,
+        rgba(255, 71, 87, 0.03) 4px
+    );
+    pointer-events: none;
+    animation: scanLines 8s linear infinite;
+}
+
+@keyframes scanLines {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100px);
+    }
+}
+/* ============================================
+   DETAIL PANEL - CENTERED MODAL
+   ============================================ */
+#detail-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 450px;
+    max-width: 90vw;
+    max-height: 80vh;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    z-index: 1001;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+#detail-panel.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#detail-panel-content {
+    padding: 24px;
+    max-height: calc(80vh - 60px);
+    overflow-y: auto;
+}
+
+/* Modal header with close button */
+.panel-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#detail-panel-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+#detail-panel-close:hover {
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+}
+
+/* Backdrop overlay */
+.detail-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* ============================================
+   VOTE RESULTS / TALLY BAR - FIXED
+   ============================================ */
+.vote-results {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.vote-results.projected {
+    border-style: dashed;
+}
+
+.vote-results h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.projection-warning {
+    font-size: 0.8rem;
+    color: var(--vote-abstain);
+    margin: 0 0 16px 0;
+    padding: 8px 12px;
+    background: var(--vote-abstain-bg);
+    border-radius: 4px;
+    border-left: 3px solid var(--vote-abstain);
+}
+
+/* Main Tally Bar Container */
+.vote-tally-bar {
+    display: flex;
+    min-height: 56px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    overflow: visible; /* Changed from hidden */
+    margin-bottom: 12px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Individual Tally Segments */
+.tally-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: visible;
+}
+
+.tally-segment:hover {
+    filter: brightness(1.2);
+    z-index: 5;
+}
+
+/* Ensure minimum width for readability */
+.tally-segment.vote-yes {
+    background: linear-gradient(180deg, var(--vote-yes), #1e8449);
+    min-width: 60px;
+    border-radius: 6px 0 0 6px;
+}
+
+.tally-segment.vote-no {
+    background: linear-gradient(180deg, var(--vote-no), #c0392b);
+    min-width: 60px;
+}
+
+.tally-segment.vote-abstain {
+    background: linear-gradient(180deg, var(--vote-abstain), #d68910);
+    min-width: 70px;
+    border-radius: 0 6px 6px 0;
+}
+
+/* Label styling */
+.tally-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Count styling */
+.tally-count {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+}
+
+.expelled-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+    font-style: italic;
+    text-align: center;
+}
+
+/* ============================================
+   ALTERNATIVE: STACKED LAYOUT FOR SMALL SEGMENTS
+   ============================================ */
+
+/* If segment is too small, show tooltip instead */
+.tally-segment[style*="width: 0"],
+.tally-segment[style*="width: 1"],
+.tally-segment[style*="width: 2"],
+.tally-segment[style*="width: 3"],
+.tally-segment[style*="width: 4"],
+.tally-segment[style*="width: 5%"] {
+    min-width: 40px;
+}
+
+/* Hover tooltip for small segments */
+.tally-segment::after {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--text-color);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tally-segment:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   RESPONSIVE TALLY BAR
+   ============================================ */
+@media (max-width: 600px) {
+    .vote-tally-bar {
+        flex-direction: column;
+        min-height: auto;
+    }
+    
+    .tally-segment {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px 16px;
+        min-width: 100% !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+    }
+    
+    .tally-segment.vote-yes {
+        border-radius: 6px 6px 0 0 !important;
+    }
+    
+    .tally-segment.vote-abstain {
+        border-radius: 0 0 6px 6px !important;
+    }
+    
+    .tally-label {
+        font-size: 0.75rem;
+        order: 1;
+    }
+    
+    .tally-count {
+        font-size: 1.5rem;
+        order: 2;
+    }
+    
+    .tally-segment::after {
+        display: none;
+    }
+}
+
+/* ============================================
+   LEGEND BELOW BAR (OPTIONAL ADDITION)
+   ============================================ */
+.tally-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.tally-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.tally-legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.tally-legend-dot.yes { background: var(--vote-yes); }
+.tally-legend-dot.no { background: var(--vote-no); }
+.tally-legend-dot.abstain { background: var(--vote-abstain); }
+
+.tally-legend-value {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--text-color);
+}
+.vote-display-card.just-passed {
+    border-color: var(--vote-yes);
+    box-shadow: 0 0 30px rgba(46, 213, 115, 0.3);
+}
+.vote-display-card.just-passed::before {
+    background: linear-gradient(90deg, var(--vote-yes), var(--diet-gold), transparent);
+    animation: breakingGlow 1s ease-in-out infinite;
+}
+
+@keyframes breakingGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.vote-status-badge.status-breaking {
+    background: linear-gradient(135deg, var(--vote-yes), #27ae60);
+    color: white;
+    border: none;
+    animation: breakingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes breakingPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--vote-yes); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px var(--vote-yes); }
+}
+
+.result-declaration {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--vote-yes);
+    text-align: center;
+    margin-top: 16px;
+    padding: 12px;
+    background: var(--vote-yes-bg);
+    border-radius: 6px;
+    border: 2px solid var(--vote-yes);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: declarationPulse 2s ease-in-out infinite;
+}
+
+@keyframes declarationPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(46, 213, 115, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(46, 213, 115, 0.6); }
+}
+
+/* ============================================
+   TODAY'S AFTERMATH CONTAINER
+   ============================================ */
+
+.todays-aftermath-container {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.todays-aftermath-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--urgency-critical), var(--vote-abstain), var(--diet-gold));
+}
+
+.aftermath-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.breaking-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    background: var(--urgency-critical);
+    color: white;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    animation: breakingBadge 1s ease-in-out infinite;
+}
+
+@keyframes breakingBadge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.aftermath-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin: 8px 0;
+}
+
+.aftermath-summary {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================
+   NOTABLE VOTES
+   ============================================ */
+
+.notable-votes-section {
+    margin-bottom: 24px;
+}
+
+.notable-votes-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--diet-gold);
+    margin: 0 0 16px 0;
+}
+
+.notable-votes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.notable-vote-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 14px;
+    border-left: 4px solid var(--border-color);
+}
+
+.notable-vote-card.vote-yes { border-left-color: var(--vote-yes); }
+.notable-vote-card.vote-no { border-left-color: var(--vote-no); }
+.notable-vote-card.vote-abstain { border-left-color: var(--vote-abstain); }
+
+.nv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.nv-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.nv-vote-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.vote-yes .nv-vote-badge { background: var(--vote-yes-bg); color: var(--vote-yes); }
+.vote-no .nv-vote-badge { background: var(--vote-no-bg); color: var(--vote-no); }
+.vote-abstain .nv-vote-badge { background: var(--vote-abstain-bg); color: var(--vote-abstain); }
+
+.nv-province {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.nv-reason {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 8px 0 0 0;
+}
+
+/* ============================================
+   CONSEQUENCES
+   ============================================ */
+
+.consequences-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: rgba(255, 71, 87, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid var(--urgency-critical);
+}
+
+.consequences-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--urgency-critical);
+    margin: 0 0 12px 0;
+}
+
+.consequences-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.consequences-list li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    border-bottom: 1px dashed rgba(255, 71, 87, 0.2);
+}
+
+.consequences-list li:last-child {
+    border-bottom: none;
+}
+
+.consequences-list li::before {
+    content: '⚡';
+    position: absolute;
+    left: 0;
+}
+
+/* ============================================
+   TODAY'S TIMELINE
+   ============================================ */
+
+.todays-timeline {
+    margin-bottom: 24px;
+}
+
+.todays-timeline h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--diet-gold);
+    margin: 0 0 16px 0;
+}
+
+.timeline-items {
+    position: relative;
+    padding-left: 24px;
+}
+
+.timeline-items::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--diet-gold), var(--urgency-critical));
+}
+
+.timeline-item {
+    position: relative;
+    padding: 12px 0 12px 20px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 16px;
+    width: 12px;
+    height: 12px;
+    background: var(--main-bg);
+    border: 2px solid var(--diet-gold);
+    border-radius: 50%;
+}
+
+.timeline-time {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.timeline-content strong {
+    display: block;
+    color: var(--text-color);
+    margin: 4px 0;
+}
+
+.timeline-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ============================================
+   REACTIONS
+   ============================================ */
+
+.reactions-section {
+    margin-bottom: 24px;
+}
+
+.reactions-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--diet-gold);
+    margin: 0 0 16px 0;
+}
+
+.reactions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.reaction-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 14px;
+    border-left: 4px solid;
+}
+
+.reaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reaction-faction {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.reaction-mood {
+    font-size: 1.2rem;
+}
+
+.reaction-quote {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0 0 8px 0;
+    padding-left: 12px;
+    border-left: 2px solid var(--text-muted);
+}
+
+.reaction-speaker {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Mood-based styling */
+.reaction-card.mood-triumphant { background: rgba(46, 213, 115, 0.1); }
+.reaction-card.mood-defiant { background: rgba(139, 0, 0, 0.1); }
+.reaction-card.mood-enraged { background: rgba(255, 71, 87, 0.1); }
+.reaction-card.mood-calculating { background: rgba(155, 89, 182, 0.1); }
+.reaction-card.mood-despairing { background: rgba(52, 152, 219, 0.1); }
+.reaction-card.mood-gleeful { background: rgba(233, 30, 99, 0.1); }
+
+/* ============================================
+   AFTERMATH
+   ============================================ */
+
+.aftermath-section {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(139, 0, 0, 0.1));
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.aftermath-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0 0 16px 0;
+}
+
+.aftermath-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.aftermath-item {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.aftermath-item strong {
+    color: var(--text-color);
+}
+
+.aftermath-rumor {
+    padding: 12px;
+    background: rgba(255, 165, 2, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid var(--vote-abstain);
+}
+
+/* ============================================
+   NEXT VOTE PREVIEW
+   ============================================ */
+
+.next-vote-preview {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.next-vote-preview h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin: 0 0 8px 0;
+}
+
+.next-vote-date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--urgency-high);
+    margin: 0 0 12px 0;
+}
+
+.next-vote-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+.next-vote-projection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.projection-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    width: 100%;
+}
+
+.projection-yes {
+    font-family: var(--font-mono);
+    color: var(--vote-yes);
+    font-weight: 600;
+}
+
+.projection-no {
+    font-family: var(--font-mono);
+    color: var(--vote-no);
+    font-weight: 600;
+}
+
+.projection-abstain {
+    font-family: var(--font-mono);
+    color: var(--vote-abstain);
+    font-weight: 600;
+}
+
+/* ============================================
+   CALENDAR - TODAY HIGHLIGHT
+   ============================================ */
+
+.calendar-item.today-vote {
+    background: rgba(46, 213, 115, 0.15);
+    border-left-color: var(--vote-yes);
+    animation: todayHighlight 2s ease-in-out infinite;
+}
+
+@keyframes todayHighlight {
+    0%, 100% { box-shadow: 0 0 5px rgba(46, 213, 115, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(46, 213, 115, 0.5); }
+}
+/* ============================================
+   PLANAR CRISIS STYLES
+   ============================================ */
+
+/* Planar Status Section */
+.planar-status-section {
+    background: linear-gradient(135deg, rgba(88, 28, 135, 0.15), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.planar-status-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        #8b5cf6 0%, 
+        #06b6d4 25%, 
+        #10b981 50%, 
+        #f59e0b 75%, 
+        #8b5cf6 100%);
+    background-size: 200% 100%;
+    animation: planarShimmer 3s linear infinite;
+}
+
+@keyframes planarShimmer {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+.planar-status-section h4 {
+    color: #c4b5fd;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.planar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.planar-card {
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid rgba(100, 116, 139, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.planar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
+
+/* Plane-specific styling */
+.planar-card.plane-physicalplane::before {
+    background: linear-gradient(180deg, #64748b, #475569);
+}
+
+.planar-card.plane-physicalplane {
+    border-color: rgba(100, 116, 139, 0.5);
+}
+
+.planar-card.plane-shadowfell::before {
+    background: linear-gradient(180deg, #7c3aed, #4c1d95);
+}
+
+.planar-card.plane-shadowfell {
+    border-color: rgba(124, 58, 237, 0.5);
+    background: linear-gradient(135deg, rgba(76, 29, 149, 0.3), rgba(15, 23, 42, 0.9));
+}
+
+.planar-card.plane-feywild::before {
+    background: linear-gradient(180deg, #10b981, #059669);
+}
+
+.planar-card.plane-feywild {
+    border-color: rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.2), rgba(15, 23, 42, 0.9));
+}
+
+.planar-card.plane-deepmirror::before {
+    background: linear-gradient(180deg, #06b6d4, #0891b2);
+}
+
+.planar-card.plane-deepmirror {
+    border-color: rgba(6, 182, 212, 0.5);
+    background: linear-gradient(135deg, rgba(8, 145, 178, 0.2), rgba(15, 23, 42, 0.9));
+}
+
+.planar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.plane-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #e2e8f0;
+    text-transform: capitalize;
+}
+
+.plane-status {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.plane-status.status-legion-controlled,
+.plane-status.status-secured {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.plane-status.status-onyx-hand-territory,
+.plane-status.status-hostile {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.plane-status.status-archfey-domain,
+.plane-status.status-contested {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.plane-status.status-unknown,
+.plane-status.status-inaccessible {
+    background: rgba(100, 116, 139, 0.2);
+    color: #94a3b8;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+}
+
+.plane-status.status-active---dimensional-hazard {
+    background: rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    animation: hazardPulse 2s ease-in-out infinite;
+}
+
+@keyframes hazardPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    50% { box-shadow: 0 0 10px 2px rgba(239, 68, 68, 0.6); }
+}
+
+.plane-description {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.plane-hostiles,
+.plane-legion,
+.plane-asset,
+.plane-contact {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+    margin-top: 8px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.plane-hostiles {
+    border-left: 3px solid #ef4444;
+    color: #fca5a5;
+}
+
+.plane-hostiles strong {
+    color: #f87171;
+}
+
+.plane-legion {
+    border-left: 3px solid #3b82f6;
+    color: #93c5fd;
+}
+
+.plane-legion strong {
+    color: #60a5fa;
+}
+
+.plane-asset {
+    border-left: 3px solid #f59e0b;
+    color: #fcd34d;
+}
+
+.plane-asset strong {
+    color: #fbbf24;
+}
+
+.plane-contact {
+    border-left: 3px solid #8b5cf6;
+    color: #c4b5fd;
+}
+
+.plane-contact strong {
+    color: #a78bfa;
+}
+
+/* ============================================
+   ENHANCED BRIEFING STYLES
+   ============================================ */
+
+.legion-briefing-section {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    position: relative;
+}
+
+.legion-briefing-section::before {
+    content: '⚔️';
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: #1e293b;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+}
+
+.briefing-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.classification-badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.classification-badge.classification-top-secret,
+.classification-badge.classification-eyes-only---hammer-lord-level {
+    background: linear-gradient(135deg, #7f1d1d, #991b1b);
+    color: #fecaca;
+    border: 2px solid #dc2626;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+    animation: classifiedPulse 3s ease-in-out infinite;
+}
+
+@keyframes classifiedPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(220, 38, 38, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.7); }
+}
+
+.briefing-author {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.briefing-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.briefing-points li {
+    padding: 10px 12px 10px 36px;
+    margin: 8px 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border-left: 3px solid #eab308;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: relative;
+}
+
+.briefing-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 12px;
+    color: #eab308;
+    font-weight: bold;
+}
+
+.operational-recommendations {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(100, 116, 139, 0.3);
+}
+
+.operational-recommendations h5 {
+    color: #60a5fa;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+}
+
+.operational-recommendations ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.operational-recommendations li {
+    padding: 8px 12px 8px 30px;
+    margin: 6px 0;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid #3b82f6;
+    color: #bfdbfe;
+    font-size: 0.85rem;
+    position: relative;
+}
+
+.operational-recommendations li::before {
+    content: '→';
+    position: absolute;
+    left: 10px;
+    color: #3b82f6;
+}
+
+/* ============================================
+   BREAKING NEWS / CRISIS HEADER
+   ============================================ */
+
+.aftermath-header {
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(127, 29, 29, 0.3), rgba(15, 23, 42, 0.95));
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.aftermath-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(239, 68, 68, 0.1), 
+        transparent);
+    animation: crisisSweep 3s ease-in-out infinite;
+}
+
+@keyframes crisisSweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.breaking-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    animation: breakingPulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+}
+
+@keyframes breakingPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+    }
+    50% { 
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(220, 38, 38, 0.8);
+    }
+}
+
+.aftermath-header h3 {
+    color: #fecaca;
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.aftermath-summary {
+    color: #e2e8f0;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   ENHANCED TIMELINE STYLES
+   ============================================ */
+
+.todays-timeline {
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.todays-timeline h4 {
+    color: #e2e8f0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.timeline-items {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-items::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, 
+        #3b82f6 0%, 
+        #eab308 30%, 
+        #ef4444 60%, 
+        #8b5cf6 100%);
+}
+
+.timeline-item {
+    position: relative;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+    transform: translateX(5px);
+    border-color: rgba(100, 116, 139, 0.4);
+    background: rgba(30, 41, 59, 0.8);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    background: #3b82f6;
+    border-radius: 50%;
+    border: 3px solid #1e293b;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+/* Night events styling */
+.timeline-item:nth-child(n+5)::before {
+    background: #8b5cf6;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+}
+
+.timeline-time {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #60a5fa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.timeline-content strong {
+    display: block;
+    color: #e2e8f0;
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.timeline-content p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ============================================
+   FACTION REACTIONS ENHANCED
+   ============================================ */
+
+.reactions-section {
+    margin: 24px 0;
+}
+
+.reactions-section h4 {
+    color: #e2e8f0;
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+}
+
+.reactions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.reaction-card {
+    background: rgba(30, 41, 59, 0.7);
+    border-radius: 10px;
+    padding: 18px;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    border-left-width: 4px;
+    transition: all 0.3s ease;
+}
+
+.reaction-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.reaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.reaction-faction {
+    font-weight: 700;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+}
+
+.reaction-mood {
+    font-size: 1.3rem;
+}
+
+.reaction-quote {
+    color: #cbd5e1;
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border-left: 3px solid rgba(100, 116, 139, 0.4);
+}
+
+.reaction-speaker {
+    color: #64748b;
+    font-size: 0.8rem;
+    font-style: normal;
+}
+
+/* Mood-specific styling */
+.reaction-card.mood-vindicated {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+.reaction-card.mood-horrified {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+.reaction-card.mood-ecstatic,
+.reaction-card.mood-excited {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+.reaction-card.mood-alarmed,
+.reaction-card.mood-concerned {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+.reaction-card.mood-opportunistic {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+/* ============================================
+   LEGION PRESENCE INDICATORS
+   ============================================ */
+
+.presence-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.presence-badge.presence-high,
+.presence-high {
+    background: rgba(220, 38, 38, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(220, 38, 38, 0.4);
+}
+
+.presence-badge.presence-deploying,
+.presence-deploying {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fcd34d;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    animation: deployingPulse 2s ease-in-out infinite;
+}
+
+@keyframes deployingPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.presence-badge.presence-medium,
+.presence-medium {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.presence-badge.presence-low,
+.presence-low {
+    background: rgba(100, 116, 139, 0.2);
+    color: #cbd5e1;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+}
+
+.presence-badge.presence-none,
+.presence-none {
+    background: rgba(30, 41, 59, 0.5);
+    color: #64748b;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+/* ============================================
+   LEGION INFLUENCE INDICATORS ON SEATS
+   ============================================ */
+
+.parliament-seat.legion-influenced {
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+    animation: legionGlow 2s ease-in-out infinite;
+}
+
+@keyframes legionGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(234, 179, 8, 0.6); }
+    50% { box-shadow: 0 0 15px rgba(234, 179, 8, 0.9); }
+}
+
+.parliament-seat.legion-contact {
+    position: relative;
+}
+
+.parliament-seat.legion-contact::after {
+    content: '⚔';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 8px;
+    background: #eab308;
+    color: #1e293b;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.legion-contact-indicator,
+.legion-contact-tag {
+    color: #eab308;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.legion-influence-indicator,
+.legion-influence-tag {
+    color: #fbbf24;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(234, 179, 8, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* ============================================
+   COORDINATED TIMELINE SECTION
+   ============================================ */
+
+.coordinated-timeline-section {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(100, 116, 139, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+}
+
+.coordinated-timeline-section h4 {
+    color: #e2e8f0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.coordinated-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.timeline-event {
+    background: rgba(15, 23, 42, 0.7);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    transition: all 0.3s ease;
+}
+
+.timeline-event:hover {
+    border-color: rgba(100, 116, 139, 0.4);
+    transform: translateX(5px);
+}
+
+.timeline-event.today {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(15, 23, 42, 0.9));
+    border-color: rgba(234, 179, 8, 0.4);
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+}
+
+.timeline-event.past {
+    opacity: 0.7;
+}
+
+.timeline-event.future {
+    border-left: 3px solid #3b82f6;
+}
+
+.timeline-date {
+    font-weight: 700;
+    color: #60a5fa;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.today-badge {
+    background: #eab308;
+    color: #1e293b;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    animation: todayPulse 2s ease-in-out infinite;
+}
+
+@keyframes todayPulse {
+    0%, 100% { box-shadow: 0 0 5px rgba(234, 179, 8, 0.5); }
+    50% { box-shadow: 0 0 15px rgba(234, 179, 8, 0.8); }
+}
+
+.timeline-dual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .timeline-dual {
+        grid-template-columns: 1fr;
+    }
+}
+
+.timeline-diet,
+.timeline-legion {
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.timeline-diet {
+    border-left: 3px solid #8b5cf6;
+}
+
+.timeline-legion {
+    border-left: 3px solid #eab308;
+}
+
+.timeline-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.timeline-diet .timeline-label {
+    color: #a78bfa;
+}
+
+.timeline-legion .timeline-label {
+    color: #fbbf24;
+}
+
+.timeline-value {
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.timeline-goal {
+    background: rgba(59, 130, 246, 0.1);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.goal-label {
+    color: #60a5fa;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-right: 8px;
+}
+
+.goal-value {
+    color: #bfdbfe;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   THREAT ASSESSMENT SUMMARY
+   ============================================ */
+
+.threat-assessment-summary {
+    background: linear-gradient(135deg, rgba(127, 29, 29, 0.2), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+}
+
+.threat-assessment-summary h4 {
+    color: #fca5a5;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.threat-metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.threat-metric {
+    background: rgba(15, 23, 42, 0.7);
+    padding: 16px 24px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 120px;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.threat-metric.overall {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(127, 29, 29, 0.3);
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.metric-value.threat-critical {
+    color: #ef4444;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.metric-value.threat-extreme {
+    color: #f97316;
+    text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+}
+
+.metric-value.threat-high {
+    color: #eab308;
+}
+
+.metric-value.threat-compromised {
+    color: #a855f7;
+}
+
+.metric-value.threat-unprecedented {
+    color: #06b6d4;
+    animation: unprecedentedGlow 2s ease-in-out infinite;
+}
+
+@keyframes unprecedentedGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+    50% { text-shadow: 0 0 20px rgba(6, 182, 212, 0.9); }
+}
+
+.threat-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .threat-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+.threat-column h5 {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.threat-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.threat-column li {
+    padding: 8px 12px 8px 28px;
+    margin: 6px 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    position: relative;
+}
+
+.threat-column:first-child li {
+    border-left: 3px solid #ef4444;
+}
+
+.threat-column:first-child li::before {
+    content: '⚠';
+    position: absolute;
+    left: 8px;
+    color: #ef4444;
+}
+
+.threat-column:last-child li {
+    border-left: 3px solid #22c55e;
+}
+
+.threat-column:last-child li::before {
+    content: '→';
+    position: absolute;
+    left: 8px;
+    color: #22c55e;
+}
+
+/* ============================================
+   DUAL ROLE PERSONNEL CARDS
+   ============================================ */
+
+.dual-role-personnel-section {
+    margin: 32px 0;
+}
+
+.dual-role-personnel-section h4 {
+    color: #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.personnel-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.liaison-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(100, 116, 139, 0.3);
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.3s ease;
+}
+
+.liaison-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(100, 116, 139, 0.5);
+}
+
+.liaison-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.liaison-name {
+    font-weight: 700;
+    color: #e2e8f0;
+    font-size: 1rem;
+}
+
+.loyalty-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.loyalty-badge.loyalty-absolute {
+    background: linear-gradient(135deg, #065f46, #047857);
+    color: #a7f3d0;
+    border: 1px solid #10b981;
+}
+
+.loyalty-badge.loyalty-high {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.liaison-roles {
+    margin-bottom: 14px;
+}
+
+.role-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+}
+
+.role-icon {
+    font-size: 1rem;
+    width: 24px;
+    text-align: center;
+}
+
+.role-text {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.liaison-focus {
+    background: rgba(234, 179, 8, 0.1);
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-left: 3px solid #eab308;
+    font-size: 0.85rem;
+    color: #fcd34d;
+}
+
+.liaison-focus strong {
+    color: #fbbf24;
+}
+
+/* ============================================
+   LEGION INFLUENCE SUMMARY
+   ============================================ */
+
+.legion-influence-summary {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+}
+
+.legion-influence-summary h4 {
+    color: #fbbf24;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.influence-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.influence-stat {
+    background: rgba(15, 23, 42, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.influence-stat .stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #eab308;
+    margin-bottom: 6px;
+}
+
+.influence-stat .stat-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   LEGION INTEGRATION BANNER
+   ============================================ */
+
+.legion-integration-banner {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(234, 179, 8, 0.4);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.legion-integration-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #eab308, #f59e0b, #eab308);
+}
+
+.integration-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.legion-icon {
+    font-size: 1.5rem;
+}
+
+.integration-header h4 {
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    flex-grow: 1;
+}
+
+.integration-status {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.integration-status.status-active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.integration-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.integration-stat {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.integration-stat .stat-label {
+    font-size: 0.7rem;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.integration-stat .stat-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.integration-stat .stat-value.security-elevated {
+    color: #fbbf24;
+}
+
+/* ============================================
+   VOTE DISPLAY ENHANCEMENTS
+   ============================================ */
+
+.vote-display-card.urgency-breaking {
+    border-color: rgba(239, 68, 68, 0.5);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+.vote-display-card.just-passed {
+    animation: justPassedGlow 3s ease-in-out infinite;
+}
+
+@keyframes justPassedGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+    50% { box-shadow: 0 0 35px rgba(239, 68, 68, 0.4); }
+}
+
+.result-declaration {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #4ade80;
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 8px;
+    border: 2px solid rgba(34, 197, 94, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ============================================
+   LEGION OPERATION LINK STYLING
+   ============================================ */
+
+.legion-operation-link {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(15, 23, 42, 0.8));
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.operation-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.operation-icon {
+    font-size: 1.2rem;
+}
+
+.operation-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.operation-codename {
+    font-weight: 800;
+    color: #eab308;
+    font-size: 1rem;
+    margin-left: auto;
+    padding: 4px 12px;
+    background: rgba(234, 179, 8, 0.2);
+    border-radius: 4px;
+}
+
+.operation-response {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+}
+
+.operation-deployment {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+}
+
+.deployment-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.deployment-troops {
+    font-weight: 700;
+    color: #60a5fa;
+}
+
+.deployment-status {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+/* ============================================
+   CALENDAR LEGION OPERATION TAGS
+   ============================================ */
+
+.calendar-item.has-legion-op {
+    border-left-width: 4px;
+    border-left-color: #eab308;
+}
+
+.cal-legion-op {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fbbf24;
+    background: rgba(234, 179, 8, 0.15);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+/* ============================================
+   EXPELLED COALITION STYLING
+   ============================================ */
+
+.coalition-block.expelled-coalition {
+    opacity: 0.6;
+    position: relative;
+}
+
+.coalition-block.expelled-coalition::after {
+    content: 'EXPELLED FROM DIET';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: rgba(239, 68, 68, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.coalition-block.legion-target {
+    border: 2px dashed rgba(239, 68, 68, 0.4);
+}
+
+.coalition-block.legion-ally {
+    border: 2px solid rgba(234, 179, 8, 0.4);
+}
+
+.legion-ally-badge,
+.legion-target-badge {
+    font-size: 1rem;
+    margin-left: 8px;
+}
+
+/* ============================================
+   ALIGNMENT BADGES
+   ============================================ */
+
+.alignment-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.alignment-badge.ally {
+    background: rgba(234, 179, 8, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(234, 179, 8, 0.4);
+}
+
+.alignment-badge.target {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.alignment-badge.neutral {
+    background: rgba(100, 116, 139, 0.2);
+    color: #94a3b8;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 640px) {
+    .planar-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .reactions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .personnel-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .threat-metrics-row {
+        justify-content: center;
+    }
+    
+    .threat-metric {
+        min-width: 100px;
+    }
+    
+    .integration-details {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .aftermath-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .breaking-badge {
+        font-size: 0.7rem;
+        padding: 6px 14px;
+    }
+}

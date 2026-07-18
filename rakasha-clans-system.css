@@ -1,0 +1,1129 @@
+/* =============================================
+   RAKASHA CLANS SYSTEM - COMPLETE STYLES
+   ============================================= */
+
+:root {
+    --rakasha-primary: #8B4513;
+    --rakasha-secondary: #CD853F;
+    --rakasha-accent: #DAA520;
+    --rakasha-spirit: #9370DB;
+    --rakasha-beast: #DC143C;
+    --rakasha-hunt: #228B22;
+    --rakasha-dark: #2d1810;
+    --rakasha-wood: #4a3728;
+    --rakasha-bone: #f5f5dc;
+    --rakasha-shadow: rgba(0, 0, 0, 0.6);
+    --classification-ts: #ff4444;
+    --classification-s: #ff8800;
+    --classification-c: #ffcc00;
+    --classification-u: #ff0066;
+}
+
+/* === HEADER === */
+.rakasha-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--rakasha-wood);
+}
+
+.rakasha-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rakasha-subtitle {
+    font-size: 0.9rem;
+    color: var(--rakasha-secondary);
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.rakasha-controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.view-btn {
+    background: linear-gradient(180deg, var(--rakasha-wood) 0%, var(--rakasha-dark) 100%);
+    border: 1px solid var(--rakasha-secondary);
+    color: var(--rakasha-bone);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+    background: linear-gradient(180deg, var(--rakasha-secondary) 0%, var(--rakasha-wood) 100%);
+    border-color: var(--rakasha-accent);
+}
+
+.view-btn.active {
+    background: linear-gradient(180deg, var(--rakasha-accent) 0%, var(--rakasha-secondary) 100%);
+    border-color: var(--rakasha-accent);
+    color: var(--rakasha-dark);
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--rakasha-accent);
+}
+
+/* === INTEL WARNING BANNER === */
+.intel-warning-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(90deg, rgba(139, 69, 19, 0.3) 0%, rgba(45, 24, 16, 0.5) 100%);
+    border: 1px solid var(--rakasha-secondary);
+    border-left: 4px solid var(--rakasha-accent);
+    padding: 10px 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.warning-icon {
+    font-size: 1.2rem;
+    animation: pulse-warning 2s infinite;
+}
+
+@keyframes pulse-warning {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.warning-text {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--rakasha-bone);
+}
+
+#intel-level {
+    color: var(--rakasha-accent);
+    font-weight: bold;
+}
+
+.debug-btn {
+    background: transparent;
+    border: 1px solid var(--rakasha-secondary);
+    color: var(--rakasha-secondary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.debug-btn:hover {
+    background: var(--rakasha-secondary);
+    color: var(--rakasha-dark);
+}
+
+.debug-btn.active {
+    background: var(--classification-ts);
+    border-color: var(--classification-ts);
+    color: white;
+}
+
+/* === VIEWS CONTAINER === */
+#rakasha-dashboard {
+    min-height: 500px;
+}
+
+.rakasha-view {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.rakasha-view.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === CLANS VIEW === */
+.clans-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    min-height: 450px;
+}
+
+/* Totem Pole */
+.totem-pole-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.totem-pole-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--rakasha-accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.rakasha-totem-pole {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(180deg, var(--rakasha-wood) 0%, var(--rakasha-dark) 100%);
+    padding: 20px 16px;
+    border-radius: 12px;
+    border: 3px solid var(--rakasha-dark);
+    box-shadow: 
+        inset 0 2px 10px rgba(0, 0, 0, 0.5),
+        0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.rakasha-totem-pole::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--rakasha-accent), transparent);
+    border-radius: 2px;
+}
+
+.rakasha-totem-pole::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 20px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.3));
+    border-radius: 0 0 10px 10px;
+}
+
+.rakasha-clan-sigil {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--sidebar-bg) 0%, var(--main-bg) 100%);
+    border: 3px solid var(--border-color);
+    border-radius: 50%;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rakasha-clan-sigil::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.rakasha-clan-sigil:hover {
+    transform: scale(1.15) rotate(5deg);
+    z-index: 10;
+}
+
+.rakasha-clan-sigil.spirit-walkers {
+    border-color: var(--rakasha-spirit);
+}
+.rakasha-clan-sigil.spirit-walkers:hover {
+    box-shadow: 0 0 25px var(--rakasha-spirit), inset 0 0 15px rgba(147, 112, 219, 0.3);
+}
+.rakasha-clan-sigil.spirit-walkers.active {
+    border-color: var(--rakasha-spirit);
+    box-shadow: 0 0 30px var(--rakasha-spirit);
+}
+
+.rakasha-clan-sigil.beast-riders {
+    border-color: var(--rakasha-beast);
+}
+.rakasha-clan-sigil.beast-riders:hover {
+    box-shadow: 0 0 25px var(--rakasha-beast), inset 0 0 15px rgba(220, 20, 60, 0.3);
+}
+.rakasha-clan-sigil.beast-riders.active {
+    border-color: var(--rakasha-beast);
+    box-shadow: 0 0 30px var(--rakasha-beast);
+}
+
+.rakasha-clan-sigil.huntmasters {
+    border-color: var(--rakasha-hunt);
+}
+.rakasha-clan-sigil.huntmasters:hover {
+    box-shadow: 0 0 25px var(--rakasha-hunt), inset 0 0 15px rgba(34, 139, 34, 0.3);
+}
+.rakasha-clan-sigil.huntmasters.active {
+    border-color: var(--rakasha-hunt);
+    box-shadow: 0 0 30px var(--rakasha-hunt);
+}
+
+.sigil-icon {
+    font-size: 2.5rem;
+    transition: transform 0.3s ease;
+}
+
+.rakasha-clan-sigil:hover .sigil-icon {
+    transform: scale(1.1);
+}
+
+.totem-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-dot.spirit { background: var(--rakasha-spirit); }
+.legend-dot.beast { background: var(--rakasha-beast); }
+.legend-dot.hunt { background: var(--rakasha-hunt); }
+
+/* Clan Detail Panel */
+.clan-detail-panel {
+    background: linear-gradient(135deg, var(--sidebar-bg) 0%, var(--main-bg) 100%);
+    border: 2px solid var(--rakasha-wood);
+    border-radius: 12px;
+    padding: 24px;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.clan-detail-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(218, 165, 32, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.clan-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 350px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    opacity: 0.5;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.placeholder-hint {
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-top: 8px;
+    opacity: 0.7;
+}
+
+/* Clan Detail Content */
+.clan-detail-content {
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.clan-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--rakasha-wood);
+}
+
+.clan-header-icon {
+    font-size: 3rem;
+    padding: 12px;
+    border-radius: 50%;
+    background: var(--main-bg);
+}
+
+.clan-header-icon.spirit { 
+    border: 2px solid var(--rakasha-spirit);
+    box-shadow: 0 0 15px rgba(147, 112, 219, 0.3);
+}
+.clan-header-icon.beast { 
+    border: 2px solid var(--rakasha-beast);
+    box-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
+}
+.clan-header-icon.hunt { 
+    border: 2px solid var(--rakasha-hunt);
+    box-shadow: 0 0 15px rgba(34, 139, 34, 0.3);
+}
+
+.clan-header-text h3 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--rakasha-accent);
+    margin-bottom: 4px;
+}
+
+.clan-college {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.clan-philosophy {
+    background: rgba(74, 55, 40, 0.3);
+    border-left: 3px solid var(--rakasha-accent);
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.clan-philosophy p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--rakasha-bone);
+}
+
+.clan-members-section h4 {
+    font-family: var(--font-display);
+    color: var(--rakasha-secondary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.members-locked {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.members-locked .lock-icon {
+    font-size: 1.2rem;
+}
+
+.members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.member-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px 14px;
+    transition: all 0.2s ease;
+}
+
+.member-card:hover {
+    border-color: var(--rakasha-secondary);
+    transform: translateX(4px);
+}
+
+.member-card.highlight {
+    border-color: var(--rakasha-accent);
+    background: linear-gradient(90deg, rgba(218, 165, 32, 0.1) 0%, transparent 100%);
+}
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.member-public-name {
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.member-true-name {
+    font-size: 0.85rem;
+    color: var(--rakasha-accent);
+}
+
+.member-true-name .redacted {
+    color: var(--classification-ts);
+    text-decoration: line-through;
+    filter: blur(2px);
+    user-select: none;
+}
+
+.member-role {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    background: var(--sidebar-bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.member-reveal-btn {
+    background: transparent;
+    border: 1px solid var(--rakasha-secondary);
+    color: var(--rakasha-secondary);
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.member-reveal-btn:hover {
+    background: var(--rakasha-secondary);
+    color: var(--rakasha-dark);
+}
+
+.member-reveal-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* === TRADITIONS VIEW === */
+.traditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.tradition-card {
+    background: linear-gradient(135deg, var(--rakasha-wood) 0%, var(--rakasha-dark) 100%);
+    border: 2px solid var(--rakasha-secondary);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.tradition-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: var(--rakasha-accent);
+}
+
+.tradition-header {
+    background: linear-gradient(90deg, rgba(218, 165, 32, 0.2) 0%, transparent 100%);
+    padding: 16px;
+    border-bottom: 1px solid var(--rakasha-secondary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tradition-icon {
+    font-size: 2rem;
+}
+
+.tradition-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--rakasha-accent);
+}
+
+.tradition-date {
+    font-size: 0.8rem;
+    color: var(--rakasha-bone);
+    opacity: 0.8;
+}
+
+.tradition-body {
+    padding: 16px;
+}
+
+.tradition-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--rakasha-bone);
+    margin-bottom: 12px;
+}
+
+.tradition-significance {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-top: 12px;
+    border-top: 1px dashed var(--rakasha-wood);
+}
+
+.tradition-significance .sig-icon {
+    color: var(--rakasha-spirit);
+}
+
+/* === INTELLIGENCE VIEW === */
+.intelligence-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    min-height: 450px;
+}
+
+.intel-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.intel-category {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.intel-category:hover {
+    border-color: var(--rakasha-secondary);
+    background: linear-gradient(90deg, rgba(139, 69, 19, 0.2) 0%, transparent 100%);
+}
+
+.intel-category.active {
+    border-color: var(--rakasha-accent);
+    background: linear-gradient(90deg, rgba(218, 165, 32, 0.2) 0%, transparent 100%);
+    border-left: 3px solid var(--rakasha-accent);
+}
+
+.intel-icon {
+    font-size: 1.3rem;
+}
+
+.intel-category span:nth-child(2) {
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+.intel-classification {
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+}
+
+.intel-classification.top-secret {
+    background: var(--classification-ts);
+    color: white;
+}
+
+.intel-classification.secret {
+    background: var(--classification-s);
+    color: white;
+}
+
+.intel-classification.classified {
+    background: var(--classification-c);
+    color: black;
+}
+
+.intel-classification.urgent {
+    background: var(--classification-u);
+    color: white;
+    animation: pulse-urgent 1s infinite;
+}
+
+@keyframes pulse-urgent {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.intel-content {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.intel-file {
+    animation: fadeIn 0.3s ease;
+}
+
+.intel-file-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--rakasha-wood);
+}
+
+.intel-file-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--rakasha-accent);
+}
+
+.intel-file-class {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+}
+
+.intel-section {
+    margin-bottom: 20px;
+}
+
+.intel-section h4 {
+    font-family: var(--font-display);
+    color: var(--rakasha-secondary);
+    margin-bottom: 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.intel-section p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+
+.intel-redacted {
+    background: var(--classification-ts);
+    color: var(--classification-ts);
+    padding: 0 4px;
+    border-radius: 2px;
+    cursor: not-allowed;
+    user-select: none;
+}
+
+.intel-redacted.revealed {
+    background: transparent;
+    color: var(--rakasha-accent);
+}
+
+.intel-quote {
+    background: rgba(74, 55, 40, 0.3);
+    border-left: 3px solid var(--rakasha-spirit);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-style: italic;
+    color: var(--rakasha-bone);
+}
+
+.intel-quote-source {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-style: normal;
+}
+
+.intel-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(180deg, var(--rakasha-secondary) 0%, var(--rakasha-wood) 100%);
+    border: 1px solid var(--rakasha-accent);
+    color: var(--rakasha-bone);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    margin-top: 16px;
+    transition: all 0.3s ease;
+}
+
+.intel-action-btn:hover {
+    background: linear-gradient(180deg, var(--rakasha-accent) 0%, var(--rakasha-secondary) 100%);
+    box-shadow: 0 0 15px rgba(218, 165, 32, 0.3);
+}
+
+.intel-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* === TIMELINE VIEW === */
+.rakasha-timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.rakasha-timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--rakasha-spirit) 0%, var(--rakasha-accent) 50%, var(--rakasha-hunt) 100%);
+    border-radius: 3px;
+}
+
+.timeline-event {
+    position: relative;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.timeline-event:hover {
+    border-color: var(--rakasha-secondary);
+    transform: translateX(4px);
+}
+
+.timeline-event::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    background: var(--rakasha-accent);
+    border: 3px solid var(--main-bg);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-event.major::before {
+    width: 18px;
+    height: 18px;
+    left: -35px;
+    background: var(--rakasha-spirit);
+    box-shadow: 0 0 10px var(--rakasha-spirit);
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    color: var(--rakasha-secondary);
+    font-family: var(--font-mono);
+    margin-bottom: 6px;
+}
+
+.timeline-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--rakasha-accent);
+    margin-bottom: 8px;
+}
+
+.timeline-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.timeline-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-top: 10px;
+    background: var(--rakasha-wood);
+    color: var(--rakasha-bone);
+}
+
+/* === MODALS === */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, var(--sidebar-bg) 0%, var(--main-bg) 100%);
+    border: 2px solid var(--rakasha-secondary);
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    color: var(--classification-ts);
+}
+
+/* Identity Modal */
+.identity-modal-content {
+    padding: 24px;
+}
+
+.identity-modal-header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--rakasha-wood);
+}
+
+.identity-modal-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--rakasha-accent);
+    margin-bottom: 8px;
+}
+
+.identity-warning {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+#identity-modal-body {
+    padding: 20px;
+}
+
+.identity-reveal {
+    text-align: center;
+}
+
+.identity-reveal-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+}
+
+.identity-true-name {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--rakasha-accent);
+    margin-bottom: 8px;
+    animation: glowPulse 2s infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { text-shadow: 0 0 10px var(--rakasha-accent); }
+    50% { text-shadow: 0 0 20px var(--rakasha-accent), 0 0 30px var(--rakasha-secondary); }
+}
+
+.identity-public-alias {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.identity-details {
+    text-align: left;
+    background: var(--main-bg);
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.identity-details p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+/* Hatch Modal */
+.hatch-modal-content {
+    padding: 0;
+    overflow: hidden;
+}
+
+.hatch-modal-header {
+    background: linear-gradient(135deg, var(--classification-ts) 0%, #8b0000 100%);
+    padding: 24px;
+    text-align: center;
+}
+
+.hatch-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.hatch-modal-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.hatch-classification {
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 1px;
+}
+
+#hatch-modal-body {
+    padding: 24px;
+}
+
+.hatch-intel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hatch-section {
+    background: var(--main-bg);
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 3px solid var(--rakasha-accent);
+}
+
+.hatch-section h4 {
+    font-family: var(--font-display);
+    color: var(--rakasha-secondary);
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.hatch-section p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.hatch-diagram {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+    .clans-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .totem-pole-wrapper {
+        order: -1;
+    }
+    
+    .rakasha-totem-pole {
+        flex-direction: row;
+        justify-content: center;
+        padding: 16px 24px;
+    }
+    
+    .intelligence-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .intel-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+    
+    .intel-category {
+        flex-shrink: 0;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+    }
+    
+    .intel-category span:nth-child(2) {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .rakasha-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .rakasha-controls {
+        justify-content: center;
+    }
+    
+    .view-btn {
+        flex: 1;
+        text-align: center;
+        padding: 10px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .rakasha-clan-sigil {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .sigil-icon {
+        font-size: 2rem;
+    }
+    
+    .traditions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline-event {
+        padding: 12px 16px;
+    }
+}

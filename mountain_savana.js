@@ -1,0 +1,10 @@
+// map-data/pokemon/mountain_savana.js
+export const mountainSavanaPois = [
+    { id: 'poi_ms_mt_grandeur', x: 44.00, y: 32.00, type: 'mountain_pass', name: "Mt. Grandeur", description: "The central, towering mountain of the region, its peaks often shrouded in clouds. It is said a legendary Pokémon rests at its summit.", factionId: 'unaligned', intelReq: 40 },
+    { id: 'poi_ms_research_camp', x: 48.00, y: 34.00, type: 'outpost', name: "Savanna Research Camp", description: "A Pokémon League-funded research camp dedicated to studying the unique ecosystem of the savanna and the behavior of its Pokémon.", factionId: 'pokemon_league', intelReq: 20 },
+    { id: 'poi_ms_watering_hole', x: 45.00, y: 39.00, type: 'oasis', name: "The Great Watering Hole", description: "The largest source of fresh water in the savanna, attracting a wide variety of Pokémon. It is considered neutral ground by ancient tradition.", factionId: 'unaligned', intelReq: 10 },
+    { id: 'poi_ms_sky_pillar_ruins', x: 50.00, y: 41.00, type: 'ruins', name: "Sky Pillar Ruins", description: "The crumbling remains of a structure similar to Hoenn's Sky Pillar. Its purpose is unknown, but it radiates a powerful energy, attracting Dragon-type Pokémon.", factionId: 'unaligned', intelReq: 50 },
+    { id: 'poi_ms_baobab_village', x: 43.00, y: 42.00, type: 'village', name: "Baobab Village", description: "A small, independent village built among a grove of massive baobab trees. The villagers live in harmony with nature and are wary of outsiders.", factionId: 'unaligned', intelReq: 15 },
+    { id: 'poi_ms_rock_tribe_lair', x: 49.00, y: 31.00, type: 'lair', name: "Rock Tribe Lair", description: "A series of interconnected caves that are home to a tribe of powerful, territorial rock-type Pokémon who challenge any trainer that enters their domain.", factionId: 'unaligned', intelReq: 30 },
+    { id: 'poi_ms_dusty_pass', x: 46.50, y: 37.00, type: 'trade_post', name: "Dusty Pass", description: "A small, fortified trading post that serves as a stopover for trainers and merchants crossing the savanna. A good place to gather rumors.", factionId: 'trainer_guild', intelReq: 10 },
+];

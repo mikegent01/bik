@@ -1,0 +1,56 @@
+{
+  "calendarId": "equestrian",
+  "name": "Equestrian Lunar Holidays",
+  "holidays": [
+    {
+      "name": "Sun Celebration",
+      "month": 1,
+      "day": 1,
+      "icon": "☀️",
+      "color": "#ffd700",
+      "description": "Celestia raises sun with ceremony",
+      "type": "festival",
+      "longDescription": "Sun Celebration is observed on day 1 of month 1 in the Equestrian Calendar. It is classified as a festival and is associated with Celestia raises sun with ceremony . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Night Court",
+      "month": 3,
+      "day": 15,
+      "icon": "🌙",
+      "color": "#191970",
+      "description": "Luna judges dreams",
+      "type": "civic",
+      "longDescription": "Night Court is observed on day 15 of month 3 in the Equestrian Calendar. It is classified as a civic and is associated with Luna judges dreams . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Running of Leaves",
+      "month": 11,
+      "day": 5,
+      "icon": "🍂",
+      "color": "#daa520",
+      "description": "Ponyville leaf running",
+      "type": "seasonal",
+      "longDescription": "Running of Leaves is observed on day 5 of month 11 in the Equestrian Calendar. It is classified as a seasonal and is associated with Ponyville leaf running . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Hearth's Warming Eve",
+      "month": 13,
+      "day": 30,
+      "icon": "❄️",
+      "color": "#87ceeb",
+      "description": "Founding of Equestria remembered",
+      "type": "festival",
+      "longDescription": "Hearth's Warming Eve is observed on day 30 of month 13 in the Equestrian Calendar. It is classified as a festival and is associated with Founding of Equestria remembered . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Harmony Day",
+      "month": 13,
+      "day": 31,
+      "icon": "💖",
+      "color": "#ff69b4",
+      "description": "Leap harmony day every 4 years",
+      "type": "leap",
+      "longDescription": "Harmony Day is observed on day 31 of month 13 in the Equestrian Calendar. It is classified as a leap and is associated with Leap harmony day every 4 years . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    }
+  ]
+}

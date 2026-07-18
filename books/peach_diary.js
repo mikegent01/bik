@@ -1,0 +1,9 @@
+export const BOOK_DATA = {
+    title: "Princess Peach's Diary",
+    pages: [
+        `...from an early entry...\n\nOctober 5th, Year 42\n\nA new advisor arrived today, a courtier from a minor southern province. He speaks in winding, cloying sentences, and there is a strange, feverish intensity in his eyes. He presents himself as a man of science and progress, but there is a cold, mechanical precision to his smile that I find deeply unsettling. Chancellor Toadsworth finds him merely eccentric. I am not so certain.`,
+        `...several days later...\n\nOctober 16th, Year 42\n\nThe advisor is gone. I had him dismissed after he was found in the lower archives with blueprints of the castle's structural supports. He left behind a 'parting gift'—a small, dull green bean that hums with a low, constant energy. It makes my teeth ache. I've had it locked in the deepest vault, but I cannot shake the feeling that it is watching. Listening.`,
+        `...from a later entry...\n\nOctober 20th, Year 42\n\nThe feeling of being watched has grown unbearable. I spend my nights in the royal library, searching for... I'm not sure what. A ward? A weapon? I've found fragmented texts about three ancient artifacts of power. It feels like a fool's hope, a fairy tale for a frightened queen, but it is the only hope I have left. The darkness I feel is not the familiar shadow of Bowser's aggression; this is something new. A wrongness in the very stones of this castle.`,
+        `...the final entry...\n\nOctober 22nd, Year 42\n\nI hear a strange, grating laughter echoing from empty halls. The guards are terrified, speaking of shadows that move on their own and a madness that seeps through the walls. It is inside the castle. It has been inside for weeks. This is not a siege from without, but a sickness from within. If I am to fall, let the record show: it was not the beast I knew, but a betrayal that wore a familiar smile.`
+    ]
+};

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | User Profile</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="assembly.css">
+    <link rel="stylesheet" href="profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+            
+            <main id="main-content">
+                <a href="assembly.html" class="terminal-back-button">&laquo; Back to WAHbook Feed</a>
+                
+                <div id="profile-page-container">
+                    <!-- Loading State -->
+                    <div id="profile-loading" class="profile-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Accessing personnel file...</p>
+                        <div class="loading-bar">
+                            <div class="loading-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Error State (hidden by default) -->
+                    <div id="profile-error" class="profile-error" style="display: none;">
+                        <div class="error-icon">⚠️</div>
+                        <h2>Profile Not Found</h2>
+                        <p>The requested personnel file could not be accessed.</p>
+                        <a href="assembly.html" class="btn-primary">Return to WAHbook</a>
+                    </div>
+
+                    <!-- Profile Content (hidden until loaded) -->
+                    <div id="profile-content" style="display: none;">
+                        <!-- Banner & Header -->
+                        <div id="profile-header-container">
+                            <div class="profile-banner">
+                                <div class="banner-overlay"></div>
+                                <div class="banner-pattern"></div>
+                            </div>
+                            <div class="profile-header-content">
+                                <div class="profile-picture-wrapper">
+                                    <img id="profile-picture" class="profile-picture-large" src="" alt="Profile Picture">
+                                    <div class="profile-status-indicator online"></div>
+                                    <div class="profile-picture-ring"></div>
+                                </div>
+                                <div class="profile-info">
+                                    <div class="profile-identity">
+                                        <h1 id="profile-name" class="profile-name">Loading...</h1>
+                                        <span id="profile-handle" class="profile-handle">@loading</span>
+                                        <div id="profile-badges" class="profile-badges"></div>
+                                    </div>
+                                    <p id="profile-role" class="profile-role"></p>
+                                    <div id="profile-faction-badge" class="profile-faction-badge"></div>
+                                </div>
+                                <div class="profile-actions">
+                                    <button id="follow-btn" class="follow-btn">
+                                        <span class="follow-icon">+</span>
+                                        <span class="follow-text">Follow</span>
+                                    </button>
+                                    <button class="profile-action-btn" title="Send Message">
+                                        <span>✉️</span>
+                                    </button>
+                                    <button class="profile-action-btn" title="More Options">
+                                        <span>⋯</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats Bar -->
+                        <div id="profile-stats-bar" class="profile-stats-bar">
+                            <div class="stat-item">
+                                <span id="stat-posts" class="stat-value">0</span>
+                                <span class="stat-label">Posts</span>
+                            </div>
+                            <div class="stat-divider"></div>
+                            <div class="stat-item">
+                                <span id="stat-comments" class="stat-value">0</span>
+                                <span class="stat-label">Comments</span>
+                            </div>
+                            <div class="stat-divider"></div>
+                            <div class="stat-item">
+                                <span id="stat-likes" class="stat-value">0</span>
+                                <span class="stat-label">Likes</span>
+                            </div>
+                            <div class="stat-divider"></div>
+                            <div class="stat-item">
+                                <span id="stat-mentions" class="stat-value">0</span>
+                                <span class="stat-label">Mentions</span>
+                            </div>
+                        </div>
+
+                        <!-- Main Profile Body -->
+                        <div id="profile-body">
+                            <!-- Sidebar -->
+                            <aside id="profile-sidebar">
+                                <!-- About Widget -->
+                                <div id="profile-about-widget" class="profile-sidebar-widget">
+                                    <h4><span class="widget-icon">📋</span> Dossier</h4>
+                                    <p id="profile-bio" class="profile-bio">No information available.</p>
+                                    <div id="profile-details" class="profile-details"></div>
+                                </div>
+
+                                <!-- Affiliations Widget -->
+                                <div id="profile-affiliations-widget" class="profile-sidebar-widget">
+                                    <h4><span class="widget-icon">🏛️</span> Affiliations</h4>
+                                    <ul id="profile-affiliations" class="affiliations-list"></ul>
+                                </div>
+
+                                <!-- Activity Widget -->
+                                <div class="profile-sidebar-widget activity-widget">
+                                    <h4><span class="widget-icon">📊</span> Activity</h4>
+                                    <div class="activity-chart" id="activity-chart">
+                                        <div class="activity-bars">
+                                            <div class="activity-bar" style="--height: 20%"></div>
+                                            <div class="activity-bar" style="--height: 45%"></div>
+                                            <div class="activity-bar" style="--height: 80%"></div>
+                                            <div class="activity-bar" style="--height: 65%"></div>
+                                            <div class="activity-bar" style="--height: 90%"></div>
+                                            <div class="activity-bar" style="--height: 50%"></div>
+                                            <div class="activity-bar active" style="--height: 70%"></div>
+                                        </div>
+                                        <div class="activity-labels">
+                                            <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                                        </div>
+                                    </div>
+                                    <p class="activity-summary" id="activity-summary">Active today</p>
+                                </div>
+
+                                <!-- Special Mechanic Widget (if applicable) -->
+                                <div id="special-mechanic-widget" class="profile-sidebar-widget special-mechanic-widget" style="display: none;">
+                                    <h4><span class="widget-icon">⚡</span> <span id="mechanic-title">Special</span></h4>
+                                    <div id="mechanic-content"></div>
+                                </div>
+
+                                <!-- Connections Widget -->
+                                <div class="profile-sidebar-widget">
+                                    <h4><span class="widget-icon">🔗</span> Connections</h4>
+                                    <div id="profile-connections" class="connections-grid"></div>
+                                    <p class="widget-empty" id="no-connections">No known connections.</p>
+                                </div>
+                            </aside>
+
+                            <!-- Main Content Area -->
+                            <div id="profile-main">
+                                <!-- Tabs -->
+                                <div class="profile-tabs">
+                                    <button class="profile-tab active" data-tab="posts">
+                                        <span class="tab-icon">📝</span>
+                                        <span class="tab-text">Posts</span>
+                                        <span class="tab-count" id="tab-count-posts">0</span>
+                                    </button>
+                                    <button class="profile-tab" data-tab="comments">
+                                        <span class="tab-icon">💬</span>
+                                        <span class="tab-text">Comments</span>
+                                        <span class="tab-count" id="tab-count-comments">0</span>
+                                    </button>
+                                    <button class="profile-tab" data-tab="media">
+                                        <span class="tab-icon">🖼️</span>
+                                        <span class="tab-text">Media</span>
+                                        <span class="tab-count" id="tab-count-media">0</span>
+                                    </button>
+                                    <button class="profile-tab" data-tab="intel">
+                                        <span class="tab-icon">🔍</span>
+                                        <span class="tab-text">Intel</span>
+                                    </button>
+                                </div>
+
+                                <!-- Tab Content -->
+                                <div id="profile-feed-container" class="profile-tab-content active" data-content="posts">
+                                    <!-- Posts injected by JS -->
+                                </div>
+                                <div id="profile-comments-container" class="profile-tab-content" data-content="comments">
+                                    <!-- Comments injected by JS -->
+                                </div>
+                                <div id="profile-media-container" class="profile-tab-content" data-content="media">
+                                    <!-- Media injected by JS -->
+                                </div>
+                                <div id="profile-intel-container" class="profile-tab-content" data-content="intel">
+                                    <!-- Intel/Rumors injected by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="profile.js"></script>
+</body>
+</html>

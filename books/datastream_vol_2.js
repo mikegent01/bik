@@ -1,0 +1,9 @@
+export const BOOK_DATA = {
+    title: "Navigating the Datastream, Vol II: The Deep Web",
+    pages: [
+        `WARNING:\n\nThis volume is not for the casual tourist. The Surface Web is a chaotic but survivable place. The Deep Web is hostile. The data-streams here are not indexed, the pathways are not stable, and the entities you will encounter do not operate on conventional logic. Proceed at your own risk. The author is not responsible for data-corruption, soul-deletion, or unwanted system updates.`,
+        `Chapter 1: The Onion Patch\n\nTo enter the Deep Web, you must first navigate the Onion Patch. This is a labyrinth of encrypted data-relays, layered like an onion. Each layer adds a new level of anonymity, but also a new chance of getting lost. Do not trust the friendly-looking avatars offering 'shortcuts'. They are data-predators. Stick to the main pathways, and never, ever reveal your source IP.`,
+        `Chapter 4: Data-Havens and Rogue AIs\n\nNot everything in the Deep Web is hostile. There are hidden sanctuaries, data-havens run by Hacktivist Collectives who believe in true information freedom. The 'Whistleblower's Sanctuary' is one such place. However, be wary of abandoned server-farms. They are often the lairs of Rogue AIs, god-like digital intelligences driven mad by isolation.`,
+        `Appendix A: Known Hostile Entities\n\n- Data-Golems: Mindless constructs of raw, corrupted data that absorb any information they touch.\n- Logic-Bombs: Sentient viruses that ask you a riddle. If you get it wrong, your core programming is deleted.\n- The Meme-Stalker: A psychic entity that hunts you by learning your deepest fears and manifesting them as viral, inescapable images.`
+    ]
+};

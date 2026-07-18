@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Scribe Inkwell's Grand Scriptorium & Royal Archives</title>
+<script type="module" src="common.js"></script>
+<script type="module" src="navigation.js"></script>
+<link rel="stylesheet" href="shop-wallet-sync.css">
+<script type="module" src="shop-wallet-sync.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=MedievalSharp&family=Special+Elite&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --library-bg: #1a0f0a;
+    --shelf-color: #3e2415;
+    --shelf-dark: #2a1810;
+    --shelf-light: #5a3a25;
+    --gold: #d4a843;
+    --gold-light: #f0d68a;
+    --parchment: #fdf6e3;
+    --ink: #3e2723;
+    --accent-red: #8B0000;
+    --accent-blue: #1565c0;
+    --accent-purple: #4a148c;
+    --glow: rgba(212,168,67,0.15);
+  }
+
+  body {
+    background: var(--library-bg);
+    color: #d4c5a9;
+    font-family: 'Crimson Text', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== AMBIENT PARTICLES ===== */
+  #dust-particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .dust {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: rgba(212,168,67,0.3);
+    border-radius: 50%;
+    animation: float-dust linear infinite;
+  }
+  @keyframes float-dust {
+    0% { transform: translateY(100vh) translateX(0); opacity:0; }
+    10% { opacity:1; }
+    90% { opacity:1; }
+    100% { transform: translateY(-10vh) translateX(50px); opacity:0; }
+  }
+
+  /* ===== LIBRARY VIEW ===== */
+  #library-view {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  .library-header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    position: relative;
+  }
+  .library-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.8em;
+    font-weight: 900;
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(212,168,67,0.3), 0 2px 4px rgba(0,0,0,0.8);
+    letter-spacing: 6px;
+    margin-bottom: 8px;
+  }
+  .library-header .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95em;
+    color: #8a7a60;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .header-ornament {
+    margin: 20px auto;
+    width: 300px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    position: relative;
+  }
+  .header-ornament::after {
+    content: '◆';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--gold);
+    font-size: 12px;
+    background: var(--library-bg);
+    padding: 0 10px;
+  }
+
+  /* Search & Filter */
+  .library-controls {
+    display: flex;
+    gap: 12px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .search-box {
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
+    padding: 10px 16px;
+    background: rgba(62,36,21,0.6);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 4px;
+    color: var(--gold-light);
+    font-family: 'Crimson Text', serif;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .search-box::placeholder { color: #6a5a40; }
+  .search-box:focus { border-color: var(--gold); }
+
+  .filter-btn {
+    padding: 8px 16px;
+    background: rgba(62,36,21,0.6);
+    border: 1px solid rgba(212,168,67,0.15);
+    border-radius: 4px;
+    color: #8a7a60;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(212,168,67,0.1);
+  }
+
+  /* Book Shelf */
+  .bookshelf {
+    background: linear-gradient(180deg, var(--shelf-dark) 0%, var(--shelf-color) 5%, var(--shelf-color) 95%, var(--shelf-dark) 100%);
+    border-radius: 6px;
+    padding: 30px 25px 20px;
+    margin: 20px 0;
+    position: relative;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.4);
+  }
+  .bookshelf::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 12px;
+    background: linear-gradient(180deg, var(--shelf-color), var(--shelf-light));
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+  }
+  .shelf-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75em;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    padding-left: 5px;
+    opacity: 0.7;
+  }
+
+  .books-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    min-height: 220px;
+    padding-bottom: 10px;
+  }
+
+  /* Book Spine */
+  .book-spine {
+    width: 55px;
+    height: 200px;
+    border-radius: 3px 6px 6px 3px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.4), inset -2px 0 4px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .book-spine::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px 0 0 3px;
+  }
+  .book-spine:hover {
+    transform: translateY(-15px) rotate(-2deg);
+    box-shadow: 4px 8px 20px rgba(0,0,0,0.6);
+    z-index: 2;
+  }
+  .book-spine .spine-title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+    padding: 10px 0;
+    max-height: 180px;
+    overflow: hidden;
+  }
+  .book-spine .spine-icon {
+    position: absolute;
+    bottom: 8px;
+    font-size: 16px;
+  }
+  .book-spine.locked { opacity: 0.6; }
+  .book-spine.locked::after {
+    content: '🔒';
+    position: absolute;
+    top: 8px;
+    font-size: 12px;
+  }
+
+  /* Book Tooltip */
+  .book-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20,12,8,0.95);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 6px;
+    padding: 14px 18px;
+    min-width: 260px;
+    max-width: 320px;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .book-spine:hover .book-tooltip { display: block; }
+  .book-tooltip .tt-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1em;
+    margin-bottom: 4px;
+  }
+  .book-tooltip .tt-author {
+    font-style: italic;
+    font-size: 0.85em;
+    color: #8a7a60;
+    margin-bottom: 8px;
+  }
+  .book-tooltip .tt-desc {
+    font-size: 0.85em;
+    line-height: 1.4;
+    color: #b0a080;
+    margin-bottom: 8px;
+  }
+  .tt-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tt-badge {
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.7em;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+  }
+  .tt-badge.rarity-Legendary { background: rgba(255,215,0,0.15); color: #ffd700; border: 1px solid rgba(255,215,0,0.3); }
+  .tt-badge.rarity-Rare { background: rgba(156,39,176,0.15); color: #ce93d8; border: 1px solid rgba(156,39,176,0.3); }
+  .tt-badge.rarity-Uncommon { background: rgba(76,175,80,0.15); color: #81c784; border: 1px solid rgba(76,175,80,0.3); }
+  .tt-badge.rarity-Common { background: rgba(255,255,255,0.08); color: #999; border: 1px solid rgba(255,255,255,0.15); }
+  .tt-badge.category { background: rgba(212,168,67,0.1); color: var(--gold); border: 1px solid rgba(212,168,67,0.2); }
+
+  /* ===== BOOK READER VIEW ===== */
+  #reader-view {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1000;
+    background: rgba(10,6,4,0.95);
+    backdrop-filter: blur(8px);
+  }
+
+  .reader-container {
+    max-width: 780px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Reader Toolbar */
+  .reader-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: rgba(30,18,12,0.9);
+    border-bottom: 1px solid rgba(212,168,67,0.15);
+    flex-shrink: 0;
+  }
+  .toolbar-left, .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .toolbar-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9em;
+    color: var(--gold);
+    letter-spacing: 1px;
+    flex: 1;
+    text-align: center;
+    padding: 0 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tool-btn {
+    width: 36px; height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(62,36,21,0.5);
+    border: 1px solid rgba(212,168,67,0.15);
+    border-radius: 4px;
+    color: #8a7a60;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .tool-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,168,67,0.1); }
+  .tool-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(212,168,67,0.15); }
+  .tool-btn .tool-tip {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background: #1a0f0a;
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: 'Cinzel', serif;
+    white-space: nowrap;
+    color: var(--gold-light);
+    z-index: 5;
+  }
+  .tool-btn:hover .tool-tip { display: block; }
+
+  /* Bookmark Panel */
+  .bookmarks-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 280px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(20,12,8,0.98);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 6px;
+    padding: 12px;
+    z-index: 10;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .bookmarks-panel.show { display: block; }
+  .bookmarks-panel h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .bookmark-item {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bookmark-item:hover { background: rgba(212,168,67,0.08); }
+  .bookmark-item .bm-page { color: var(--gold); font-size: 0.85em; }
+  .bookmark-item .bm-text { color: #b0a080; font-size: 0.8em; flex: 1; margin: 0 8px; }
+  .bookmark-item .bm-remove {
+    color: #8B0000;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .bookmark-item .bm-remove:hover { opacity: 1; }
+  .no-bookmarks { color: #6a5a40; font-size: 0.85em; font-style: italic; text-align: center; padding: 15px; }
+
+  /* TOC Panel */
+  .toc-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: rgba(20,12,8,0.98);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 6px;
+    padding: 12px;
+    z-index: 10;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .toc-panel.show { display: block; }
+  .toc-panel h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .toc-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    color: #b0a080;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+    margin-bottom: 2px;
+  }
+  .toc-item:hover { color: var(--gold); background: rgba(212,168,67,0.05); border-left-color: var(--gold); }
+  .toc-item.active { color: var(--gold); border-left-color: var(--gold); }
+  .toc-page { float: right; color: #6a5a40; font-size: 0.85em; }
+
+  /* Page Content */
+  .page-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px 20px;
+    scroll-behavior: smooth;
+  }
+  .page-content {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 40px 50px;
+    border-radius: 4px;
+    min-height: 500px;
+    position: relative;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+    line-height: 1.8;
+    font-size: 1.05em;
+  }
+  .page-content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: 4px;
+  }
+
+  .page-number {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85em;
+    color: #999;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* Page Navigation */
+  .page-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px 20px;
+    background: rgba(30,18,12,0.9);
+    border-top: 1px solid rgba(212,168,67,0.1);
+    flex-shrink: 0;
+  }
+  .nav-btn {
+    padding: 8px 20px;
+    background: rgba(62,36,21,0.5);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 4px;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+  .nav-btn:hover { background: rgba(212,168,67,0.15); border-color: var(--gold); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .page-indicator {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85em;
+    color: #8a7a60;
+    letter-spacing: 1px;
+    min-width: 100px;
+    text-align: center;
+  }
+
+  /* Secrets Progress */
+  .secrets-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 20px;
+    background: rgba(30,18,12,0.7);
+    font-size: 0.75em;
+    font-family: 'Cinzel', serif;
+    color: #6a5a40;
+    letter-spacing: 1px;
+  }
+  .secrets-bar .progress-track {
+    flex: 1;
+    max-width: 200px;
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .secrets-bar .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  /* ===== CONTENT TYPES ===== */
+  .content-block { margin-bottom: 18px; }
+
+  .content-centered {
+    text-align: center;
+    padding: 4px 0;
+  }
+  .content-centered.size-large { font-size: 1.6em; }
+
+  .content-spacer { height: 20px; }
+
+  .content-divider {
+    text-align: center;
+    margin: 25px 0;
+    color: rgba(0,0,0,0.3);
+    font-size: 0.9em;
+    letter-spacing: 8px;
+  }
+  .content-divider.ornate::before { content: '— ✦ —'; }
+  .content-divider.simple::before { content: '———'; }
+
+  .content-paragraph {
+    text-indent: 2em;
+    text-align: justify;
+    margin-bottom: 12px;
+  }
+
+  .content-quote {
+    margin: 20px 30px;
+    padding: 15px 20px;
+    border-left: 3px solid;
+    font-style: italic;
+    background: rgba(0,0,0,0.03);
+    border-radius: 0 4px 4px 0;
+  }
+  .content-quote .attribution {
+    display: block;
+    text-align: right;
+    margin-top: 8px;
+    font-size: 0.85em;
+    font-style: normal;
+  }
+
+  .content-chapter-header {
+    text-align: center;
+    margin: 10px 0 30px;
+  }
+  .content-chapter-header .ch-label {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .content-chapter-header .ch-subtitle {
+    font-style: italic;
+    margin-top: 6px;
+    font-size: 1em;
+    opacity: 0.8;
+  }
+
+  .content-drop-cap::first-letter {
+    float: left;
+    font-family: 'Cinzel', serif;
+    font-size: 3.5em;
+    font-weight: 900;
+    line-height: 0.8;
+    padding-right: 8px;
+    padding-top: 4px;
+  }
+  .content-drop-cap { text-align: justify; }
+
+  /* Interactive Reveal */
+  .content-reveal {
+    margin: 15px 0;
+  }
+  .reveal-trigger {
+    padding: 10px 16px;
+    background: rgba(0,0,0,0.04);
+    border: 1px dashed rgba(0,0,0,0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    font-style: italic;
+    color: var(--accent-red);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+  }
+  .reveal-trigger:hover {
+    background: rgba(139,0,0,0.06);
+    border-color: var(--accent-red);
+  }
+  .reveal-trigger.revealed {
+    border-style: solid;
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .reveal-trigger::before {
+    content: '🔍';
+    font-size: 14px;
+  }
+  .reveal-trigger.revealed::before {
+    content: '✦';
+  }
+  .reveal-hidden {
+    display: none;
+    margin-top: 10px;
+    animation: revealFade 0.6s ease;
+  }
+  .reveal-hidden.show { display: block; }
+  @keyframes revealFade {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .content-handwritten {
+    font-family: 'Special Elite', cursive;
+    padding: 15px 18px;
+    border-radius: 4px;
+    border-left: 3px solid;
+    font-size: 0.95em;
+    line-height: 1.6;
+    transform: rotate(-0.5deg);
+    position: relative;
+  }
+  .content-handwritten::before {
+    content: '📝';
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    font-size: 18px;
+  }
+
+  /* Lore Box */
+  .content-lore-box {
+    border: 2px solid;
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .lore-box-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .lore-box-entries li {
+    padding: 4px 0;
+    font-size: 0.9em;
+    list-style: none;
+    position: relative;
+    padding-left: 18px;
+  }
+  .lore-box-entries li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    font-size: 0.6em;
+    top: 8px;
+  }
+
+  /* Timeline */
+  .content-timeline {
+    border: 2px solid;
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .timeline-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .timeline-event {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 0.9em;
+  }
+  .timeline-event:last-child { border-bottom: none; }
+  .timeline-year {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    min-width: 70px;
+    font-size: 0.85em;
+  }
+
+  /* Faction Box */
+  .content-factions { margin: 20px 0; }
+  .faction-card {
+    border: 1px solid;
+    border-radius: 6px;
+    padding: 15px 18px;
+    margin-bottom: 12px;
+    transition: transform 0.2s;
+  }
+  .faction-card:hover { transform: translateX(4px); }
+  .faction-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .faction-icon { font-size: 1.3em; }
+  .faction-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1em;
+    letter-spacing: 1px;
+  }
+  .faction-desc { font-size: 0.9em; line-height: 1.6; }
+
+  /* Dramatic List */
+  .content-list-dramatic {
+    margin: 15px 0;
+    padding-left: 0;
+  }
+  .content-list-dramatic li {
+    list-style: none;
+    padding: 8px 0 8px 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 0.95em;
+  }
+  .content-list-dramatic li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+  }
+
+  /* Clickable Annotation */
+  .content-annotation-trigger {
+    border-bottom: 1px dotted;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .content-annotation-trigger:hover { opacity: 0.8; }
+  .annotation-popup {
+    display: none;
+    position: relative;
+    margin: 10px 0;
+    padding: 14px 16px;
+    background: rgba(0,0,0,0.05);
+    border-left: 3px solid;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9em;
+    line-height: 1.6;
+    animation: revealFade 0.4s ease;
+  }
+  .annotation-popup.show { display: block; }
+  .annotation-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    cursor: pointer;
+    opacity: 0.5;
+    font-size: 14px;
+  }
+  .annotation-close:hover { opacity: 1; }
+
+  /* Puzzle Cipher */
+  .content-cipher {
+    border: 2px solid var(--accent-red);
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin: 20px 0;
+    background: rgba(139,0,0,0.03);
+  }
+  .cipher-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-red);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .cipher-desc {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .cipher-encoded {
+    font-family: 'Special Elite', cursive;
+    padding: 12px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    word-break: break-all;
+    text-align: center;
+    font-size: 0.9em;
+  }
+  .cipher-input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .cipher-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.9em;
+    background: rgba(255,255,255,0.5);
+    outline: none;
+  }
+  .cipher-input:focus { border-color: var(--accent-red); }
+  .cipher-submit {
+    padding: 8px 16px;
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75em;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+  .cipher-submit:hover { background: #a00; }
+  .cipher-hint {
+    font-size: 0.8em;
+    color: #888;
+    cursor: pointer;
+    text-align: center;
+  }
+  .cipher-hint:hover { color: var(--accent-red); }
+  .cipher-result {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 4px;
+    font-family: 'Special Elite', cursive;
+    text-align: center;
+  }
+  .cipher-result.correct {
+    display: block;
+    background: rgba(46,125,50,0.1);
+    border: 1px solid rgba(46,125,50,0.3);
+    color: #2e7d32;
+  }
+  .cipher-result.wrong {
+    display: block;
+    background: rgba(139,0,0,0.1);
+    border: 1px solid rgba(139,0,0,0.3);
+    color: #8B0000;
+  }
+
+  /* Highlight Mode */
+  .highlight-mode .page-content ::selection {
+    background: rgba(255,235,59,0.4);
+  }
+  .highlighted-text {
+    background: rgba(255,235,59,0.25);
+    border-bottom: 2px solid rgba(255,235,59,0.5);
+    cursor: pointer;
+    position: relative;
+  }
+  .highlighted-text:hover::after {
+    content: '✕';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    background: #8B0000;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  /* Font Size */
+  .font-small .page-content { font-size: 0.9em; }
+  .font-medium .page-content { font-size: 1.05em; }
+  .font-large .page-content { font-size: 1.2em; }
+
+  /* TTS Speaking Indicator */
+  .tts-speaking {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+    border-radius: 2px;
+    animation: tts-pulse 1.5s ease infinite;
+  }
+  @keyframes tts-pulse {
+    0%, 100% { outline-color: var(--gold); }
+    50% { outline-color: transparent; }
+  }
+
+  /* Locked Book Modal */
+  .lock-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 2000;
+    background: rgba(10,6,4,0.9);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+  }
+  .lock-modal.show { display: flex; }
+  .lock-box {
+    background: linear-gradient(135deg, #1a0f0a, #2a1810);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 8px;
+    padding: 40px;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .lock-icon { font-size: 3em; margin-bottom: 15px; }
+  .lock-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .lock-message {
+    color: #8a7a60;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .lock-close {
+    padding: 10px 30px;
+    background: rgba(62,36,21,0.6);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 4px;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lock-close:hover { background: rgba(212,168,67,0.15); }
+
+  /* Notification Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    padding: 12px 24px;
+    background: rgba(20,12,8,0.95);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 6px;
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+    z-index: 3000;
+    transition: transform 0.4s ease;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Settings Panel */
+  .settings-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 250px;
+    background: rgba(20,12,8,0.98);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 6px;
+    padding: 15px;
+    z-index: 10;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .settings-panel.show { display: block; }
+  .settings-panel h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .setting-label { color: #b0a080; font-size: 0.85em; }
+  .setting-control { display: flex; gap: 4px; }
+  .size-btn {
+    width: 28px; height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(62,36,21,0.5);
+    border: 1px solid rgba(212,168,67,0.15);
+    border-radius: 3px;
+    color: #8a7a60;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+  }
+  .size-btn:hover, .size-btn.active { border-color: var(--gold); color: var(--gold); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .library-header h1 { font-size: 1.8em; letter-spacing: 3px; }
+    .page-content { padding: 25px 20px; }
+    .books-row { gap: 10px; }
+    .book-spine { width: 45px; height: 170px; }
+    .book-spine .spine-title { font-size: 0.55em; }
+    .toolbar-title { font-size: 0.75em; }
+    .bookmarks-panel, .toc-panel, .settings-panel { width: calc(100vw - 40px); left: 50%; transform: translateX(-50%); right: auto; }
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+  ::-webkit-scrollbar-thumb { background: rgba(212,168,67,0.3); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(212,168,67,0.5); }
+</style>
+</head>
+<body>
+
+<div id="dust-particles"></div>
+
+<!-- LIBRARY VIEW -->
+<div id="library-view">
+  <div class="library-header">
+    <h1>📜 Master Scribe Inkwell's Royal Archives</h1>
+    <div class="subtitle">Chief Genealogist to House Toadstool · Master Scriptorium of the Midlands</div>
+    <div class="header-ornament"></div>
+    <div style="background: rgba(62,36,21,0.85); border: 2px solid var(--gold); border-radius: 12px; padding: 18px 22px; max-width: 820px; margin: 16px auto 0; text-align: left; display: flex; gap: 18px; align-items: flex-start; box-shadow: 0 8px 28px rgba(0,0,0,0.6); position: relative; overflow: hidden">
+      <div style="font-size: 42px; line-height: 1">📜</div>
+      <div>
+        <div style="font-family: 'Cinzel', serif; font-weight: 700; color: var(--gold); font-size: 14px; letter-spacing: 1.5px">ROYAL CURATOR DIRECTIVE & SCRIPTORIUM WELCOME</div>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #fdf6e3; margin-top: 4px; font-style: italic">"I am Master Scribe Inkwell, Chief Genealogist to House Toadstool and Master Archivist of the Midlands Scriptorium. Within these vaults lie 50 authenticated codices, military treatises, bloodline genealogies, and arcane texts gathered across the 14 known realms. Do not crease the parchment, and do not smudge royal ink!"</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px">
+          <a href="battlefield.html#/books" style="color: var(--gold-light); border: 1px solid rgba(212,168,67,0.4); padding: 5px 12px; border-radius: 999px; text-decoration: none; font-size: 12px; background: rgba(212,168,67,0.12); font-family: 'Cinzel', serif; font-weight: 600">📚 Read Natively in Waluipedia</a>
+          <a href="battlefield.html#/dynasties" style="color: var(--gold-light); border: 1px solid rgba(212,168,67,0.4); padding: 5px 12px; border-radius: 999px; text-decoration: none; font-size: 12px; background: rgba(212,168,67,0.12); font-family: 'Cinzel', serif; font-weight: 600">👑 House Toadstool Genealogies</a>
+          <a href="currency.html" style="color: var(--gold-light); border: 1px solid rgba(212,168,67,0.4); padding: 5px 12px; border-radius: 999px; text-decoration: none; font-size: 12px; background: rgba(212,168,67,0.12); font-family: 'Cinzel', serif; font-weight: 600">💱 Currency Bank</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="library-controls">
+    <input type="text" class="search-box" id="searchBox" placeholder="Search by title, author, or category...">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="History">History</button>
+    <button class="filter-btn" data-filter="Military">Military</button>
+    <button class="filter-btn" data-filter="Culture">Culture</button>
+    <button class="filter-btn" data-filter="Arcana">Arcana</button>
+  </div>
+
+  <div id="bookshelves"></div>
+</div>
+
+<!-- READER VIEW -->
+<div id="reader-view">
+  <div class="reader-container" id="readerContainer">
+    <div class="reader-toolbar">
+      <div class="toolbar-left" style="position:relative;">
+        <button class="tool-btn" id="btnBack" title="Return to Library">
+          ←
+          <span class="tool-tip">Back to Library</span>
+        </button>
+        <button class="tool-btn" id="btnToc" title="Table of Contents">
+          ☰
+          <span class="tool-tip">Contents</span>
+        </button>
+        <div class="toc-panel" id="tocPanel"></div>
+      </div>
+      <div class="toolbar-title" id="readerTitle"></div>
+      <div class="toolbar-right" style="position:relative;">
+        <button class="tool-btn" id="btnBookmark" title="Bookmark Page">
+          🔖
+          <span class="tool-tip">Bookmark</span>
+        </button>
+        <div class="bookmarks-panel" id="bookmarksPanel"></div>
+        <button class="tool-btn" id="btnHighlight" title="Highlight Mode">
+          🖍️
+          <span class="tool-tip">Highlight</span>
+        </button>
+        <button class="tool-btn" id="btnTts" title="Read Aloud">
+          🔊
+          <span class="tool-tip">Read Aloud</span>
+        </button>
+        <button class="tool-btn" id="btnSettings" title="Settings">
+          ⚙️
+          <span class="tool-tip">Settings</span>
+        </button>
+        <div class="settings-panel" id="settingsPanel">
+          <h4>Reading Settings</h4>
+          <div class="setting-row">
+            <span class="setting-label">Font Size</span>
+            <div class="setting-control">
+              <button class="size-btn" data-size="font-small">A</button>
+              <button class="size-btn active" data-size="font-medium" style="font-size:14px;">A</button>
+              <button class="size-btn" data-size="font-large" style="font-size:16px;">A</button>
+            </div>
+          </div>
+          <div class="setting-row">
+            <span class="setting-label">TTS Speed</span>
+            <div class="setting-control">
+              <button class="size-btn" data-speed="0.7">½</button>
+              <button class="size-btn active" data-speed="1">1×</button>
+              <button class="size-btn" data-speed="1.5">1½</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="secrets-bar" id="secretsBar">
+      <span>🔍 Secrets Found: <span id="secretsCount">0</span>/<span id="secretsTotal">0</span></span>
+      <div class="progress-track">
+        <div class="progress-fill" id="secretsFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="page-wrapper" id="pageWrapper">
+      <div class="page-content" id="pageContent"></div>
+    </div>
+
+    <div class="page-nav">
+      <button class="nav-btn" id="btnPrev">◄ Previous</button>
+      <span class="page-indicator" id="pageIndicator">Page 1 of 1</span>
+      <button class="nav-btn" id="btnNext">Next ►</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOCK MODAL -->
+<div class="lock-modal" id="lockModal">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title" id="lockTitle">Book Locked</div>
+    <div class="lock-message" id="lockMessage"></div>
+    <button class="lock-close" id="lockClose">Understood</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== LIBRARY ENGINE =====
+const Library = (() => {
+  let booksData = [];
+  let currentBook = null;
+  let currentPage = 0;
+  let allPages = [];
+  let bookmarks = {};
+  let highlights = {};
+  let secretsFound = {};
+  let highlightMode = false;
+  let ttsRate = 1;
+  let fontSize = 'font-medium';
+  let isSpeaking = false;
+
+  // Load saved state
+  function loadState() {
+    try {
+      bookmarks = JSON.parse(localStorage.getItem('library_bookmarks') || '{}');
+      highlights = JSON.parse(localStorage.getItem('library_highlights') || '{}');
+      secretsFound = JSON.parse(localStorage.getItem('library_secrets') || '{}');
+    } catch(e) { console.error('State load error', e); }
+  }
+
+  function saveState() {
+    localStorage.setItem('library_bookmarks', JSON.stringify(bookmarks));
+    localStorage.setItem('library_highlights', JSON.stringify(highlights));
+    localStorage.setItem('library_secrets', JSON.stringify(secretsFound));
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // Dust particles
+  function createDust() {
+    const container = document.getElementById('dust-particles');
+    for (let i = 0; i < 30; i++) {
+      const d = document.createElement('div');
+      d.className = 'dust';
+      d.style.left = Math.random() * 100 + '%';
+      d.style.animationDuration = (8 + Math.random() * 15) + 's';
+      d.style.animationDelay = Math.random() * 10 + 's';
+      d.style.width = (2 + Math.random() * 2) + 'px';
+      d.style.height = d.style.width;
+      container.appendChild(d);
+    }
+  }
+
+  // ===== LIBRARY RENDERING =====
+  function loadBooks(data) {
+    booksData = data.books;
+    renderShelves(booksData);
+  }
+
+  function renderShelves(books) {
+    const container = document.getElementById('bookshelves');
+    container.innerHTML = '';
+
+    const categories = {};
+    books.forEach(b => {
+      if (!categories[b.category]) categories[b.category] = [];
+      categories[b.category].push(b);
+    });
+
+    for (const [cat, catBooks] of Object.entries(categories)) {
+      const shelf = document.createElement('div');
+      shelf.className = 'bookshelf';
+      shelf.innerHTML = `<div class="shelf-label">${cat}</div><div class="books-row"></div>`;
+      const row = shelf.querySelector('.books-row');
+
+      catBooks.forEach(book => {
+        const spine = document.createElement('div');
+        spine.className = 'book-spine' + (book.locked ? ' locked' : '');
+        spine.style.background = `linear-gradient(135deg, ${book.cover_color}, ${adjustColor(book.cover_color, -30)})`;
+        spine.style.color = book.cover_accent;
+
+        const rarityColors = { Legendary: '#ffd700', Rare: '#ce93d8', Uncommon: '#81c784', Common: '#999' };
+
+        spine.innerHTML = `
+          <span class="spine-title">${book.title}</span>
+          <span class="spine-icon">${book.icon}</span>
+          <div class="book-tooltip">
+            <div class="tt-title" style="color:${book.cover_accent}">${book.title}</div>
+            <div class="tt-author">by ${book.author}</div>
+            <div class="tt-desc">${book.description}</div>
+            <div class="tt-badges">
+              <span class="tt-badge rarity-${book.rarity}">${book.rarity}</span>
+              <span class="tt-badge category">${book.category}</span>
+              ${book.locked ? '<span class="tt-badge" style="background:rgba(139,0,0,0.15);color:#ff6b6b;border:1px solid rgba(139,0,0,0.3);">🔒 Locked</span>' : ''}
+              ${book.total_pages > 0 ? `<span class="tt-badge" style="background:rgba(255,255,255,0.05);color:#888;border:1px solid rgba(255,255,255,0.1);">${book.total_pages} pages</span>` : ''}
+            </div>
+          </div>
+        `;
+
+        spine.addEventListener('click', () => openBook(book));
+        row.appendChild(spine);
+      });
+
+      container.appendChild(shelf);
+    }
+  }
+
+  function adjustColor(hex, amount) {
+    const num = parseInt(hex.replace('#',''), 16);
+    const r = Math.min(255, Math.max(0, (num >> 16) + amount));
+    const g = Math.min(255, Math.max(0, ((num >> 8) & 0xff) + amount));
+    const b = Math.min(255, Math.max(0, (num & 0xff) + amount));
+    return `#${(r << 16 | g << 8 | b).toString(16).padStart(6,'0')}`;
+  }
+
+  // ===== BOOK OPENING =====
+  function openBook(book) {
+    if (book.locked) {
+      document.getElementById('lockTitle').textContent = book.title;
+      document.getElementById('lockMessage').textContent = book.lock_message;
+      document.getElementById('lockModal').classList.add('show');
+      return;
+    }
+    if (!book.chapters || book.chapters.length === 0) {
+      showToast('This book has no readable content yet.');
+      return;
+    }
+
+    currentBook = book;
+    currentPage = 0;
+    allPages = [];
+    book.chapters.forEach(ch => {
+      ch.pages.forEach(p => allPages.push({ ...p, chapter: ch.title }));
+    });
+
+    document.getElementById('readerTitle').textContent = book.title;
+    document.getElementById('secretsTotal').textContent = book.secrets_total;
+    updateSecretsCount();
+
+    const pc = document.getElementById('pageContent');
+    pc.style.background = book.page_color;
+    pc.style.color = book.text_color;
+
+    document.getElementById('library-view').style.display = 'none';
+    document.getElementById('reader-view').style.display = 'block';
+
+    renderToc();
+    renderPage();
+  }
+
+  function closeBook() {
+    stopTts();
+    document.getElementById('reader-view').style.display = 'none';
+    document.getElementById('library-view').style.display = 'block';
+    currentBook = null;
+    closePanels();
+  }
+
+  // ===== PAGE RENDERING =====
+  function renderPage() {
+    if (!currentBook || !allPages.length) return;
+    const page = allPages[currentPage];
+    const pc = document.getElementById('pageContent');
+    pc.innerHTML = '';
+
+    page.content.forEach((block, idx) => {
+      const el = renderBlock(block, idx);
+      if (el) pc.appendChild(el);
+    });
+
+    // Page number
+    const pn = document.createElement('div');
+    pn.className = 'page-number';
+    pn.textContent = `— ${page.page_number} —`;
+    pc.appendChild(pn);
+
+    // Nav update
+    document.getElementById('pageIndicator').textContent = `Page ${currentPage + 1} of ${allPages.length}`;
+    document.getElementById('btnPrev').disabled = currentPage === 0;
+    document.getElementById('btnNext').disabled = currentPage === allPages.length - 1;
+
+    // TOC active
+    document.querySelectorAll('.toc-item').forEach(ti => {
+      ti.classList.toggle('active', parseInt(ti.dataset.page) === currentPage);
+    });
+
+    // Scroll to top
+    document.getElementById('pageWrapper').scrollTop = 0;
+  }
+
+  function renderBlock(block, idx) {
+    const div = document.createElement('div');
+    div.className = 'content-block';
+
+    switch (block.type) {
+      case 'centered':
+        div.className += ' content-centered';
+        if (block.size) div.classList.add('size-' + block.size);
+        div.textContent = block.text;
+        if (block.color) div.style.color = block.color;
+        if (block.style === 'bold') div.style.fontWeight = '700';
+        if (block.style === 'italic') div.style.fontStyle = 'italic';
+        if (block.size === 'large') div.style.fontFamily = "'Cinzel', serif";
+        return div;
+
+      case 'spacer':
+        div.className = 'content-spacer';
+        return div;
+
+      case 'divider':
+        div.className = 'content-divider ' + (block.style || 'ornate');
+        return div;
+
+      case 'paragraph':
+        div.className = 'content-paragraph';
+        div.textContent = block.text;
+        if (block.color) div.style.color = block.color;
+        if (block.style === 'italic') div.style.fontStyle = 'italic';
+        return div;
+
+      case 'quote':
+        div.className = 'content-quote';
+        div.style.borderColor = block.color || '#888';
+        div.innerHTML = `<span>${block.text}</span><span class="attribution">${block.attribution}</span>`;
+        return div;
+
+      case 'chapter_header':
+        div.className = 'content-chapter-header';
+        div.innerHTML = `<div class="ch-label" style="color:${block.color}">${block.text}</div>
+          <div class="ch-subtitle">${block.subtitle}</div>`;
+        return div;
+
+      case 'drop_cap':
+        div.className = 'content-paragraph content-drop-cap';
+        div.textContent = block.letter + block.text.substring(0);
+        if (block.color) div.style.color = block.color;
+        return div;
+
+      case 'interactive_reveal':
+        return renderReveal(block);
+
+      case 'handwritten':
+        div.className = 'content-handwritten';
+        div.textContent = block.text;
+        if (block.color) { div.style.color = block.color; div.style.borderColor = block.color; }
+        if (block.background) div.style.background = block.background;
+        return div;
+
+      case 'lore_box':
+        return renderLoreBox(block);
+
+      case 'timeline':
+        return renderTimeline(block);
+
+      case 'faction_box':
+        return renderFactions(block);
+
+      case 'list_dramatic':
+        return renderDramaticList(block);
+
+      case 'clickable_annotation':
+        return renderAnnotation(block);
+
+      case 'puzzle_cipher':
+        return renderCipher(block);
+
+      default:
+        return null;
+    }
+  }
+
+  function renderReveal(block) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'content-block content-reveal';
+    const isFound = secretsFound[currentBook.id]?.includes(block.secret_id);
+
+    const trigger = document.createElement('div');
+    trigger.className = 'reveal-trigger' + (isFound ? ' revealed' : '');
+    trigger.textContent = isFound ? '✦ Secret Discovered' : block.label;
+
+    const hidden = document.createElement('div');
+    hidden.className = 'reveal-hidden' + (isFound ? ' show' : '');
+
+    block.hidden_content.forEach(hc => {
+      const el = renderBlock(hc);
+      if (el) hidden.appendChild(el);
+    });
+
+    trigger.addEventListener('click', () => {
+      if (!hidden.classList.contains('show')) {
+        hidden.classList.add('show');
+        trigger.classList.add('revealed');
+        trigger.textContent = '✦ Secret Discovered';
+        discoverSecret(block.secret_id);
+      }
+    });
+
+    wrapper.appendChild(trigger);
+    wrapper.appendChild(hidden);
+    return wrapper;
+  }
+
+  function renderLoreBox(block) {
+    const div = document.createElement('div');
+    div.className = 'content-block content-lore-box';
+    div.style.borderColor = block.border_color;
+    div.style.background = block.background;
+    let html = `<div class="lore-box-title" style="color:${block.border_color}">${block.title}</div><ul class="lore-box-entries">`;
+    block.entries.forEach(e => { html += `<li style="color:${currentBook.text_color}">${e}</li>`; });
+    html += '</ul>';
+    div.innerHTML = html;
+    return div;
+  }
+
+  function renderTimeline(block) {
+    const div = document.createElement('div');
+    div.className = 'content-block content-timeline';
+    div.style.borderColor = block.border_color;
+    let html = `<div class="timeline-title" style="color:${block.border_color}">${block.title}</div>`;
+    block.events.forEach(ev => {
+      html += `<div class="timeline-event"><span class="timeline-year" style="color:${ev.color}">${ev.year}</span><span>${ev.event}</span></div>`;
+    });
+    div.innerHTML = html;
+    return div;
+  }
+
+  function renderFactions(block) {
+    const div = document.createElement('div');
+    div.className = 'content-block content-factions';
+    block.factions.forEach(f => {
+      const card = document.createElement('div');
+      card.className = 'faction-card';
+      card.style.borderColor = f.color;
+      card.style.background = f.color + '08';
+      card.innerHTML = `<div class="faction-header"><span class="faction-icon">${f.icon}</span><span class="faction-name" style="color:${f.color}">${f.name}</span></div><div class="faction-desc">${f.description}</div>`;
+      div.appendChild(card);
+    });
+    return div;
+  }
+
+  function renderDramaticList(block) {
+    const ul = document.createElement('ul');
+    ul.className = 'content-block content-list-dramatic';
+    block.items.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.text;
+      li.style.color = item.color || 'inherit';
+      li.querySelector && li.style;
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+
+  function renderAnnotation(block) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'content-block';
+
+    const trigger = document.createElement('span');
+    trigger.className = 'content-annotation-trigger';
+    trigger.textContent = block.text;
+    trigger.style.color = block.color;
+    trigger.style.borderColor = block.color;
+
+    const popup = document.createElement('div');
+    popup.className = 'annotation-popup';
+    popup.style.borderColor = block.color;
+    popup.innerHTML = `${block.annotation}<span class="annotation-close" onclick="this.parentElement.classList.remove('show')">✕</span>`;
+
+    trigger.addEventListener('click', () => popup.classList.toggle('show'));
+
+    const p = document.createElement('p');
+    p.className = 'content-paragraph';
+    p.appendChild(trigger);
+    wrapper.appendChild(p);
+    wrapper.appendChild(popup);
+    return wrapper;
+  }
+
+  function renderCipher(block) {
+    const div = document.createElement('div');
+    div.className = 'content-block content-cipher';
+    const isFound = secretsFound[currentBook.id]?.includes(block.secret_id);
+
+    let html = `
+      <div class="cipher-title">${block.title}</div>
+      <div class="cipher-desc">${block.description}</div>
+      <div class="cipher-encoded">${block.encoded_text}</div>`;
+
+    if (isFound) {
+      html += `<div class="cipher-result correct" style="display:block;">✦ DECODED: ${block.solution}</div>`;
+    } else {
+      const uid = 'cipher_' + Math.random().toString(36).substr(2, 9);
+      html += `
+        <div class="cipher-input-row">
+          <input type="text" class="cipher-input" id="${uid}" placeholder="Enter decoded message...">
+          <button class="cipher-submit" onclick="Library.checkCipher('${uid}', '${block.solution.replace(/'/g, "\\'")}', '${block.secret_id}')">Decode</button>
+        </div>
+        <div class="cipher-hint" onclick="this.textContent = '${block.hint}'">💡 Click for hint</div>
+        <div class="cipher-result" id="${uid}_result"></div>`;
+    }
+
+    div.innerHTML = html;
+    return div;
+  }
+
+  // ===== SECRETS =====
+  function discoverSecret(secretId) {
+    if (!currentBook) return;
+    if (!secretsFound[currentBook.id]) secretsFound[currentBook.id] = [];
+    if (!secretsFound[currentBook.id].includes(secretId)) {
+      secretsFound[currentBook.id].push(secretId);
+      saveState();
+      showToast('✦ Secret Discovered!');
+      updateSecretsCount();
+    }
+  }
+
+  function updateSecretsCount() {
+    if (!currentBook) return;
+    const found = (secretsFound[currentBook.id] || []).length;
+    document.getElementById('secretsCount').textContent = found;
+    const total = currentBook.secrets_total || 1;
+    document.getElementById('secretsFill').style.width = ((found / total) * 100) + '%';
+  }
+
+  function checkCipher(inputId, solution, secretId) {
+    const input = document.getElementById(inputId);
+    const result = document.getElementById(inputId + '_result');
+    if (!input || !result) return;
+
+    const guess = input.value.trim().toUpperCase();
+    const answer = solution.toUpperCase();
+
+    if (guess === answer) {
+      result.className = 'cipher-result correct';
+      result.textContent = '✦ DECODED: ' + solution;
+      discoverSecret(secretId);
+    } else {
+      result.className = 'cipher-result wrong';
+      result.textContent = '✗ Incorrect. The cipher resists your attempt.';
+      setTimeout(() => { result.style.display = 'none'; result.className = 'cipher-result'; }, 2000);
+    }
+  }
+
+  // ===== TOC =====
+  function renderToc() {
+    const panel = document.getElementById('tocPanel');
+    panel.innerHTML = '<h4>Table of Contents</h4>';
+    let pageIdx = 0;
+    currentBook.chapters.forEach(ch => {
+      const item = document.createElement('div');
+      item.className = 'toc-item';
+      item.dataset.page = pageIdx;
+      item.innerHTML = `${ch.title}<span class="toc-page">${pageIdx + 1}</span>`;
+      item.addEventListener('click', () => { currentPage = parseInt(item.dataset.page); renderPage(); closePanels(); });
+      panel.appendChild(item);
+      pageIdx += ch.pages.length;
+    });
+  }
+
+  // ===== BOOKMARKS =====
+  function toggleBookmark() {
+    if (!currentBook) return;
+    if (!bookmarks[currentBook.id]) bookmarks[currentBook.id] = [];
+    const idx = bookmarks[currentBook.id].indexOf(currentPage);
+    if (idx >= 0) {
+      bookmarks[currentBook.id].splice(idx, 1);
+      showToast('Bookmark removed');
+    } else {
+      bookmarks[currentBook.id].push(currentPage);
+      showToast('Page bookmarked');
+    }
+    saveState();
+    renderBookmarks();
+  }
+
+  function renderBookmarks() {
+    const panel = document.getElementById('bookmarksPanel');
+    panel.innerHTML = '<h4>Bookmarks</h4>';
+    const bms = bookmarks[currentBook?.id] || [];
+    if (bms.length === 0) {
+      panel.innerHTML += '<div class="no-bookmarks">No bookmarks yet. Click 🔖 to bookmark this page.</div>';
+      return;
+    }
+    bms.sort((a,b) => a - b).forEach(pg => {
+      const item = document.createElement('div');
+      item.className = 'bookmark-item';
+      const chapter = allPages[pg]?.chapter || 'Unknown';
+      item.innerHTML = `<span class="bm-page">p.${pg + 1}</span><span class="bm-text">${chapter}</span><span class="bm-remove" data-pg="${pg}">✕</span>`;
+      item.addEventListener('click', (e) => {
+        if (e.target.classList.contains('bm-remove')) {
+          const pi = bookmarks[currentBook.id].indexOf(parseInt(e.target.dataset.pg));
+          if (pi >= 0) bookmarks[currentBook.id].splice(pi, 1);
+          saveState();
+          renderBookmarks();
+          return;
+        }
+        currentPage = pg;
+        renderPage();
+        closePanels();
+      });
+      panel.appendChild(item);
+    });
+  }
+
+  // ===== HIGHLIGHTING =====
+  function toggleHighlightMode() {
+    highlightMode = !highlightMode;
+    document.getElementById('btnHighlight').classList.toggle('active', highlightMode);
+    document.getElementById('readerContainer').classList.toggle('highlight-mode', highlightMode);
+    if (highlightMode) {
+      showToast('Highlight mode: Select text to highlight');
+    }
+  }
+
+  function handleHighlight() {
+    if (!highlightMode || !currentBook) return;
+    const selection = window.getSelection();
+    if (selection.rangeCount === 0 || selection.isCollapsed) return;
+
+    const range = selection.getRangeAt(0);
+    const pageContent = document.getElementById('pageContent');
+    if (!pageContent.contains(range.commonAncestorContainer)) return;
+
+    const span = document.createElement('span');
+    span.className = 'highlighted-text';
+    span.addEventListener('click', function() {
+      const parent = this.parentNode;
+      while (this.firstChild) parent.insertBefore(this.firstChild, this);
+      parent.removeChild(this);
+    });
+
+    try {
+      range.surroundContents(span);
+    } catch(e) { /* cross-element selection */ }
+
+    selection.removeAllRanges();
+  }
+
+  // ===== TTS =====
+  function toggleTts() {
+    if (isSpeaking) {
+      stopTts();
+      return;
+    }
+
+    if (!('speechSynthesis' in window)) {
+      showToast('Text-to-speech not supported in this browser');
+      return;
+    }
+
+    const pc = document.getElementById('pageContent');
+    const text = pc.innerText;
+    if (!text.trim()) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = ttsRate;
+    utterance.pitch = 0.9;
+
+    utterance.onstart = () => {
+      isSpeaking = true;
+      document.getElementById('btnTts').classList.add('active');
+      pc.classList.add('tts-speaking');
+    };
+    utterance.onend = () => {
+      isSpeaking = false;
+      document.getElementById('btnTts').classList.remove('active');
+      pc.classList.remove('tts-speaking');
+    };
+    utterance.onerror = () => {
+      isSpeaking = false;
+      document.getElementById('btnTts').classList.remove('active');
+      pc.classList.remove('tts-speaking');
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function stopTts() {
+    window.speechSynthesis.cancel();
+    isSpeaking = false;
+    document.getElementById('btnTts')?.classList.remove('active');
+    document.getElementById('pageContent')?.classList.remove('tts-speaking');
+  }
+
+  // ===== PANELS =====
+  function closePanels() {
+    document.querySelectorAll('.toc-panel, .bookmarks-panel, .settings-panel').forEach(p => p.classList.remove('show'));
+  }
+
+  // ===== SEARCH & FILTER =====
+  function filterBooks(filter) {
+    if (filter === 'all') {
+      renderShelves(booksData);
+    } else {
+      renderShelves(booksData.filter(b => b.category === filter));
+    }
+  }
+
+  function searchBooks(query) {
+    if (!query.trim()) {
+      renderShelves(booksData);
+      return;
+    }
+    const q = query.toLowerCase();
+    renderShelves(booksData.filter(b =>
+      b.title.toLowerCase().includes(q) ||
+      b.author.toLowerCase().includes(q) ||
+      b.category.toLowerCase().includes(q) ||
+      b.description.toLowerCase().includes(q)
+    ));
+  }
+
+  // ===== INIT =====
+  function init() {
+    loadState();
+    createDust();
+
+    // Navigation
+    document.getElementById('btnBack').addEventListener('click', closeBook);
+    document.getElementById('btnPrev').addEventListener('click', () => { if (currentPage > 0) { currentPage--; renderPage(); } });
+    document.getElementById('btnNext').addEventListener('click', () => { if (currentPage < allPages.length - 1) { currentPage++; renderPage(); } });
+
+    // Keyboard nav
+    document.addEventListener('keydown', (e) => {
+      if (!currentBook) return;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); if (currentPage > 0) { currentPage--; renderPage(); } }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); if (currentPage < allPages.length - 1) { currentPage++; renderPage(); } }
+      if (e.key === 'Escape') closeBook();
+    });
+
+    // Tools
+    document.getElementById('btnToc').addEventListener('click', (e) => {
+      e.stopPropagation();
+      closePanels();
+      document.getElementById('tocPanel').classList.toggle('show');
+    });
+    document.getElementById('btnBookmark').addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleBookmark();
+      closePanels();
+      document.getElementById('bookmarksPanel').classList.add('show');
+      renderBookmarks();
+    });
+    document.getElementById('btnHighlight').addEventListener('click', toggleHighlightMode);
+    document.getElementById('btnTts').addEventListener('click', toggleTts);
+    document.getElementById('btnSettings').addEventListener('click', (e) => {
+      e.stopPropagation();
+      closePanels();
+      document.getElementById('settingsPanel').classList.toggle('show');
+    });
+
+    // Close panels on outside click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.toolbar-left') && !e.target.closest('.toolbar-right')) closePanels();
+    });
+
+    // Highlight on selection
+    document.addEventListener('mouseup', handleHighlight);
+
+    // Font size
+    document.querySelectorAll('.size-btn[data-size]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.size-btn[data-size]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        fontSize = btn.dataset.size;
+        const rc = document.getElementById('readerContainer');
+        rc.classList.remove('font-small','font-medium','font-large');
+        rc.classList.add(fontSize);
+      });
+    });
+
+    // TTS speed
+    document.querySelectorAll('.size-btn[data-speed]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.size-btn[data-speed]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        ttsRate = parseFloat(btn.dataset.speed);
+      });
+    });
+
+    // Lock modal
+    document.getElementById('lockClose').addEventListener('click', () => {
+      document.getElementById('lockModal').classList.remove('show');
+    });
+    document.getElementById('lockModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('lockModal')) document.getElementById('lockModal').classList.remove('show');
+    });
+
+    // Search
+    document.getElementById('searchBox').addEventListener('input', (e) => searchBooks(e.target.value));
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterBooks(btn.dataset.filter);
+      });
+    });
+
+    // Load book data
+    fetch('books.json')
+      .then(r => r.json())
+      .then(data => loadBooks(data))
+      .catch(() => {
+        // Fallback: load inline
+        loadBooks(INLINE_BOOKS);
+      });
+  }
+
+  return { init, checkCipher, loadBooks };
+})();
+
+// ===== INLINE FALLBACK DATA =====
+const INLINE_BOOKS = {"books":[{"id":"chronicles-of-the-mushroom-throne","title":"Chronicles of the Mushroom Throne","subtitle":"A Complete History of the Kingdom's Fall","author":"Scribe Toadsworth the Elder","cover_color":"#8B0000","cover_accent":"#FFD700","icon":"👑","category":"History","rarity":"Legendary","locked":false,"lock_message":"","condition":"Worn","description":"A thick, leather-bound tome detailing the assassination of Princess Peach and the century of civil war that followed. Marginalia in several hands suggests it has passed through many owners.","page_color":"#fdf6e3","text_color":"#3e2723","total_pages":12,"secrets_total":5,"chapters":[{"title":"Foreword","pages":[{"page_number":1,"content":[{"type":"centered","text":"~CHRONICLES OF THE MUSHROOM THRONE~","color":"#8B0000","style":"bold","size":"large"},{"type":"centered","text":"A Complete History of the Kingdom's Fall","color":"#666","style":"italic"},{"type":"spacer"},{"type":"centered","text":"Compiled by Scribe Toadsworth the Elder","color":"#8B4513"},{"type":"centered","text":"Year 1040 BF, Harvestide","color":"#8B4513"},{"type":"spacer"},{"type":"divider","style":"ornate"},{"type":"spacer"},{"type":"paragraph","text":"To whomever finds this volume: know that what follows is not mere academic record. It is a wound given words. Every name herein belonged to a soul who breathed the mushroom-scented air of our kingdom, who walked beneath the same sun that now shines upon ruins."},{"type":"paragraph","text":"I began this work in the year 1020 BF as a young scribe in the Royal Archives. Now, twenty years later, I complete it as a fugitive, writing by candlelight in rooms I dare not name. The Archives are ash. The palace is occupied. But memory endures where stone does not."},{"type":"spacer"},{"type":"quote","text":"\"Let the ink remember what the kingdom chooses to forget.\"","attribution":"— Inscription on the Royal Scribe's Seal","color":"#8B0000"}]}]},{"title":"Chapter I: The Golden Age","pages":[{"page_number":2,"content":[{"type":"chapter_header","text":"Chapter I","subtitle":"The Golden Age Before the Fall","color":"#8B0000"},{"type":"drop_cap","letter":"I","text":"n the years before Highsun 1, 955 BF, the Mushroom Kingdom existed in a state that later generations would regard with equal parts reverence and disbelief. The Princess ruled not through force of arms, but through an intricate web of alliances, trade agreements, and — if the more controversial historians are to be believed — genuine goodwill.","color":"#3e2723"},{"type":"paragraph","text":"The kingdom's borders stretched from the Pipe Labyrinths in the south to the Star Road waypoints in the north. Trade caravans moved freely, protected by the Toad Guard — a civil militia more accustomed to settling disputes over market stalls than wielding weapons in anger."},{"type":"paragraph","text":"Princess Peach herself was, by all surviving accounts, a ruler of remarkable complexity. The popular image — the gentle monarch in pink, eternally gracious — obscures a political mind of considerable sharpness. Palace correspondence recovered from the ruins of Toad Town reveals a leader who personally negotiated trade tariffs, who maintained a spy network that predated the Onyx Hand by decades, and who kept detailed dossiers on every noble family in the realm."},{"type":"interactive_reveal","label":"[ Examine the marginalia scrawled in the margin → ]","hidden_content":[{"type":"handwritten","text":"She also kept secrets. I found letters in the sealed vault — letters to someone she addressed only as 'T.' The handwriting trembles in places. These were not political correspondences. Chief Thornpaw of the Rakasha... he confirmed what I suspected. They were lovers. This changes EVERYTHING about the motive for her assassination. — T.E.","color":"#5C3317","background":"#f5e6c8"}],"secret_id":"peach_thornpaw_secret"},{"type":"spacer"},{"type":"paragraph","text":"The economy flourished under a coin standard backed by Star Bits — crystallized fragments of celestial energy harvested from the Star Road. A single Star Bit could power a household's heating crystal for a season, making them simultaneously currency and commodity. This dual nature would later prove catastrophic when the Star Road was severed during the wars."}]},{"page_number":3,"content":[{"type":"paragraph","text":"The Toad populace — who comprised roughly sixty percent of the kingdom's citizens — lived in relative comfort. Mushroom houses, grown rather than built, dotted the landscape in cheerful clusters. Each settlement maintained a communal garden, a message relay station connected to the capital via warp pipe, and at least one shrine to the Star Spirits."},{"type":"paragraph","text":"Yet even in this golden age, shadows gathered at the margins. The Koopa Clans to the east had unified under a warlord known only as 'the Bowser' — a title, not a name, though the distinction has been lost to common usage. The Boo Aristocracy grew increasingly isolationist, sealing their mansions behind spectral barriers. And in the deep places beneath the kingdom, in caverns lit by bioluminescent fungi, something ancient stirred."},{"type":"lore_box","title":"THE STAR ROAD NETWORK","border_color":"#FFD700","background":"#fffde7","entries":["Seven Star Road waypoints connected major population centers","Travel between waypoints was instantaneous but required a Star Visa","The network was maintained by the Star Spirit Council","Annual Star Bit harvest provided 73% of the kingdom's energy needs","The network's destruction in 962 BF caused the 'Long Dark' — three years without reliable power"]},{"type":"spacer"},{"type":"paragraph","text":"The final census before the assassination, conducted in 953 BF, recorded a kingdom of approximately 2.3 million souls. By the time the civil war ground to its exhausted conclusion eighty years later, that number had fallen below 800,000. Nearly two-thirds of a civilization, erased."},{"type":"paragraph","style":"italic","text":"But I am getting ahead of myself. Before the blood, there was the betrayal. And before the betrayal, there was one final, perfect day.","color":"#8B0000"}]}]},{"title":"Chapter II: The Assassination","pages":[{"page_number":4,"content":[{"type":"chapter_header","text":"Chapter II","subtitle":"Highsun 1, 955 BF — The Day the Kingdom Died","color":"#8B0000"},{"type":"drop_cap","letter":"T","text":"he morning of Highsun 1, 955 BF began with celebrations. The Summer Solstice Festival — the kingdom's largest annual gathering — drew citizens from every province to the capital. Banners of pink and white hung from every lamppost. The smell of fire-roasted mushroom caps and Star Candy filled the streets.","color":"#3e2723"},{"type":"paragraph","text":"Princess Peach was scheduled to address the kingdom from the balcony of the Royal Palace at the fourteenth hour. She had done so every Highsun for the previous thirty-two years of her reign. The speech was traditionally brief — a blessing, a few words of gratitude, the ceremonial lighting of the Solstice Flame."},{"type":"paragraph","text":"She never reached the balcony."},{"type":"spacer"},{"type":"paragraph","text":"At approximately the thirteenth hour and forty minutes, while the Princess was in her private chambers completing her preparations, an unknown assailant or assailants breached the Royal Suite. The method of entry remains one of the great unsolved mysteries of our age. The suite was protected by seventeen distinct magical wards, guarded by four elite Toad Guards, and accessible only through a single reinforced door."},{"type":"interactive_reveal","label":"[ A passage has been hastily glued over the original text. Carefully peel it back → ]","hidden_content":[{"type":"handwritten","text":"Seventeen wards. Four guards. One door. But Thornpaw told Mistveil about a SECRET HATCH in her room. A hatch that doesn't appear on ANY official blueprint. Someone who knew about that hatch killed her. Someone she trusted enough to show it to. The list of suspects just became very, very short. — T.E., added Highsun 10, 1040 BF","color":"#8B0000","background":"#ffe0e0"}],"secret_id":"secret_hatch_revelation"},{"type":"spacer"},{"type":"paragraph","text":"The guards were found dead at their posts, unmarked. No wounds, no poison residue, no signs of struggle. Court mages later determined they had been killed by a simultaneous cessation of all biological function — a spell so advanced that fewer than five living practitioners were believed capable of casting it."}]},{"page_number":5,"content":[{"type":"paragraph","text":"The Princess herself was found seated at her vanity, still holding a hairbrush. A single wound — a thin blade through the base of the skull — had killed her instantly. The precision suggested either medical knowledge or supernatural guidance. No blood had been spilled on her white dress."},{"type":"paragraph","text":"The body was discovered by her handmaiden, a young toad named Toadette, who had come to deliver the Solstice Crown. Toadette's scream was heard three floors below. Within minutes, the palace was in lockdown. Within hours, the kingdom was in chaos."},{"type":"divider","style":"ornate"},{"type":"paragraph","text":"What followed was not grief. Grief implies a wound that can heal. What followed was an unraveling — slow at first, then catastrophic. The Princess had no heir. No designated successor. The Council of Toads, designed to advise rather than rule, found itself thrust into a role it was neither equipped nor authorized to fill."},{"type":"paragraph","text":"Within a week, three separate factions had declared themselves the legitimate governing authority. Within a month, the first skirmishes broke out along provincial borders. Within a year, the Mushroom Kingdom — that gentle, golden realm of mushroom houses and Star Candy — was at war with itself."},{"type":"puzzle_cipher","title":"ENCODED PASSAGE","description":"The following passage has been encoded by the author. Each letter is shifted by 3 positions in the alphabet.","encoded_text":"WKH DVVDVVLQ ZDV QRW DORQH. L IRXQG D VHFRQG VHW RI IRRWSULQWV LQ WKH GXVW EHQHDWK WKH KDWFK. VPDOOHU. D WRDG.","solution":"THE ASSASSIN WAS NOT ALONE. I FOUND A SECOND SET OF FOOTPRINTS IN THE DUST BENEATH THE HATCH. SMALLER. A TOAD.","hint":"Caesar cipher, shift of 3. A=D, B=E, C=F...","secret_id":"cipher_assassin_accomplice"}]}]},{"title":"Chapter III: The Century of Blood","pages":[{"page_number":6,"content":[{"type":"chapter_header","text":"Chapter III","subtitle":"The Century of Blood (955–1035 BF)","color":"#8B0000"},{"type":"drop_cap","letter":"W","text":"ar, when it comes to the Mushroom Kingdom, does not arrive as a thunderclap. It seeps in like water through cracked stone — slowly, silently, and by the time you notice, the foundations have already given way.","color":"#3e2723"},{"type":"paragraph","text":"The first decade of conflict (955–965 BF) is remembered as the 'War of Banners,' named for the dozens of minor lords and self-proclaimed heirs who raised their own standards and declared sovereignty over patches of territory no larger than a few villages. It was almost farcical in its pettiness — mushroom farmers taking up pitchforks against mushroom farmers, each claiming their particular strain of leadership was the one the Princess would have wanted."},{"type":"paragraph","text":"The second decade brought the Koopa Incursions. Warlord Bowser — or rather, the second to bear that title, the first having died of a wasting illness in 960 BF — saw opportunity in the kingdom's fracture. His armies swept through the eastern provinces with a discipline and ferocity that the squabbling toad militias could not match."},{"type":"timeline","title":"KEY EVENTS OF THE CENTURY WAR","border_color":"#8B0000","events":[{"year":"955 BF","event":"Assassination of Princess Peach. War of Banners begins.","color":"#8B0000"},{"year":"962 BF","event":"Star Road network destroyed. The Long Dark begins.","color":"#4a148c"},{"year":"970 BF","event":"First Koopa Incursion. Eastern provinces fall within months.","color":"#e65100"},{"year":"988 BF","event":"The Boo Aristocracy seals all mansions. Thousands of refugees turned away.","color":"#1a237e"},{"year":"1001 BF","event":"Battle of Pipe Junction. Largest single engagement of the war. 40,000 casualties.","color":"#8B0000"},{"year":"1015 BF","event":"The Onyx Hand emerges as a major power broker in the underworld.","color":"#212121"},{"year":"1035 BF","event":"Rise of the Iron Legion. A mercenary company becomes a state.","color":"#37474f"}]}]},{"page_number":7,"content":[{"type":"paragraph","text":"By the midpoint of the century, the war had evolved from territorial disputes into something more ideological. Three great power blocs had crystallized from the chaos:"},{"type":"faction_box","factions":[{"name":"The Peach Loyalists","color":"#e91e63","icon":"🍑","description":"Those who believed the kingdom should be restored to its pre-assassination state, complete with a new monarch selected through the ancient Star Rite. They were romantics, idealists, and increasingly desperate. Their scouts — agents like Embercap and Mistveil — operated deep behind enemy lines, gathering intelligence and keeping the flame of the old kingdom alive."},{"name":"The Iron Legion","color":"#607d8b","icon":"⚔️","description":"What began as the 'Midlands Mercenary Company' in 1020 BF had, by 1035 BF, transformed into a military-industrial state. They controlled the Midlands with ruthless efficiency, taxed trade routes, and maintained the largest standing army in the region. Their motto — 'Order Through Strength' — adorned every checkpoint and garrison."},{"name":"The Onyx Hand","color":"#212121","icon":"🖐️","description":"Neither loyalist nor legionnaire, the Onyx Hand operated in the spaces between. Part criminal syndicate, part shadow government, they controlled the flow of information, contraband, and — it was whispered — souls. Their tribunals dispensed a rough justice that many preferred to the chaos of the surface world."}]},{"type":"spacer"},{"type":"paragraph","text":"The Iron Legion's rise deserves particular attention, for it represents something unprecedented in the kingdom's history: the transformation of violence from a means into an end. The Legion did not fight for territory, ideology, or vengeance. They fought because fighting was their industry, and peace was bad for business."},{"type":"interactive_reveal","label":"[ A dried flower presses flat between these pages. Lift it to read what's beneath → ]","hidden_content":[{"type":"handwritten","text":"I write this knowing I may not survive the week. The Iron Legion has discovered that I possess copies of their internal communications — letters proving they deliberately prolonged the war by funding BOTH sides of the Battle of Pipe Junction. Forty thousand dead, and they profited from every single one. If this book survives and I do not, let these words serve as my testimony. — Toadsworth the Elder, 1038 BF","color":"#5C3317","background":"#f5e6c8"}],"secret_id":"iron_legion_war_profiteering"}]}]},{"title":"Chapter IV: The Modern Crisis","pages":[{"page_number":8,"content":[{"type":"chapter_header","text":"Chapter IV","subtitle":"The Year 1040 BF — Everything Burns","color":"#8B0000"},{"type":"drop_cap","letter":"A","text":"s I write these final chapters, the ink still wet on some entries, I am acutely aware that I am no longer recording history. I am living it. The events of 1040 BF have unfolded with a speed and ferocity that defies the careful, measured analysis a historian owes their reader. I will do my best. Forgive the occasional trembling of the hand.","color":"#3e2723"},{"type":"paragraph","text":"The year began with a death — as so many consequential years do. The dragon Ignis, an ancient wyrm who had laired in the northern mountains since before the founding of the kingdom, was slain by a band of adventurers. The act was celebrated by the militarists, who saw dragons as threats to be eliminated. The Mages' Guild, however, was furious."},{"type":"paragraph","text":"Ignis, they argued, was not merely a dragon. She was a living repository of magical knowledge, a creature whose scales resonated with frequencies of arcane energy that modern mages could barely comprehend. Her death was not a victory — it was the burning of a library. This philosophical divide — the sword versus the staff, pragmatism versus knowledge — would come to define the conflicts of 1040 BF."},{"type":"divider","style":"simple"},{"type":"paragraph","text":"Then came the matter of Archie Miser."},{"type":"paragraph","text":"Archie Miser is, depending on whom you ask, either a folk hero or a war criminal. A mage of considerable power and questionable judgment, Archie killed a fellow practitioner and was brought before an Onyx Hand tribunal — the only judicial body willing to hear the case, as the Mages' Guild demanded internal arbitration and the Loyalists had no functioning courts."},{"type":"clickable_annotation","text":"The tribunal acquitted him.","annotation":"The acquittal of Archie Miser on Highsun 2, 1040 BF remains one of the most controversial judicial decisions in recent memory. The Onyx Hand tribunal, presided over by Judge Obsidian (a pseudonym), ruled that the killing constituted 'justifiable magical defense.' The Mages' Guild formally protested, calling the tribunal 'a puppet court run by criminals playing at justice.' Three Guild observers walked out during the verdict. One was later found dead under circumstances the Onyx Hand described as 'unrelated.'","color":"#4a148c"},{"type":"paragraph","text":"This single decision — rendered in a basement courtroom by hooded judges whose real names may never be known — set in motion a chain of events that would see airships seized, alliances shattered, and the very fabric of reality threatened."}]},{"page_number":9,"content":[{"type":"paragraph","text":"The airship Vigilance became the unlikely stage upon which these grand conflicts played out. Originally a cargo vessel, the Vigilance had been converted into a mobile command post by a coalition of adventurers, opportunists, and idealists who found themselves bound together by circumstance rather than choice."},{"type":"paragraph","text":"The events aboard the Vigilance between Highsun 3 and Highsun 13 constitute what I have come to call the 'Thirteen Days of Chaos.' During this period, the following occurred in rapid, overlapping succession:"},{"type":"list_dramatic","items":[{"text":"A smuggling ring operated by the Iron Fists was dismantled, earning the party a bounty on their heads.","color":"#e65100"},{"text":"An officer known only as X.O. betrayed the crew and seized control of the ship, taking Warlord Bowser himself as a captive.","color":"#8B0000"},{"text":"The pirate Captain Syrup was freed, immediately turned hostile, and triggered a cascading series of confrontations that revealed a traitor among the toad crew.","color":"#1565c0"},{"text":"A toad named hjumpik disabled the ship's power core with an axe — an act of either brilliant desperation or suicidal madness — sending the Vigilance into a terminal nosedive.","color":"#2e7d32"},{"text":"Over 150 trafficked toads were discovered hidden in barrels throughout the ship, each accessible only via a secret compartment opened by a Mini-Mushroom.","color":"#4a148c"},{"text":"Archie Miser unleashed a fireball during a negotiation gone wrong, killing numerous combatants including most of the Tea Leaf Syndicate's muscle.","color":"#ff6f00"}]},{"type":"spacer"},{"type":"paragraph","text":"Each of these events, taken alone, would constitute a significant historical incident. Together, compressed into less than a fortnight, they represent a concentration of chaos that I struggle to find parallel for in the historical record."},{"type":"interactive_reveal","label":"[ The bottom of this page is stained with what appears to be tea. Tilt the page to read the watermarked text → ]","hidden_content":[{"type":"handwritten","text":"Fawful has allied with DRAGONS. After we killed Ignis, he somehow brokered a deal with the remaining wyrms. Embercap's infiltration of Fawful's gala confirmed it before everything went wrong and Jade Grit died. If Fawful can command dragonfire, no faction can stand against him. We are running out of time. — T.E.","color":"#006064","background":"#e0f2f1"}],"secret_id":"fawful_dragon_alliance"}]},{"page_number":10,"content":[{"type":"chapter_header","text":"Chapter V","subtitle":"The Raventree Affair & The Fracturing of Reality","color":"#8B0000"},{"type":"drop_cap","letter":"R","text":"aventree Manor. Even the name carries weight — the kind of weight that presses down on the chest and makes breathing difficult. I visited the manor once, in my youth, before it became what it is now. It was beautiful then. A sprawling estate of dark wood and climbing roses, home to a minor noble family whose name has been deliberately struck from every record I can find.","color":"#3e2723"},{"type":"paragraph","text":"Now Raventree is something else entirely. The manor sits at a nexus of planar fractures — tears in the fabric of reality itself — that have transformed it from a mere building into a wound in the world. Ghosts walk its halls not as metaphor but as literal fact. Rooms shift and rearrange themselves according to logics that defy cartography. The maze in the gardens is said to exist in multiple dimensions simultaneously."},{"type":"paragraph","text":"It was to Raventree that the events of 1040 BF inevitably led. The Mages' Guild, the Onyx Hand, the Iron Legion, the remnants of the Tea Leaf Syndicate, independent agents, vampires, parallel-dimension duplicates, and at least one very confused plumber all converged on the manor within the span of a single week."},{"type":"paragraph","text":"The reasons for this convergence are as numerous as the factions involved. The Mages' Guild sought to study — and exploit — the planar fractures. The Onyx Hand's vampire knights had established a nest within the manor, using dark crystals to sustain their undeath. The Iron Legion wanted the strategic position. And the adventurers of the Vigilance? They were simply trying to survive."},{"type":"lore_box","title":"THE PARALLEL DAN PARADOX","border_color":"#4a148c","background":"#f3e5f5","entries":["Dan the Toad exists in at least two simultaneous versions","The 'original' Dan is believed held by the Mages' Guild in a null cage","The 'parallel' Dan confessed his nature to Markop on Highsun 26","Dan's existence disrupts the Oracle's ability to function","The implications for reality stability are described as 'catastrophic'","The Mages' Guild considers Dan's elimination an acceptable cost"]}]},{"page_number":11,"content":[{"type":"paragraph","text":"The events within Raventree during Highsun 26–29 deserve a volume of their own, and I suspect some future historian will provide one. For now, I will record what I can verify:"},{"type":"paragraph","text":"Luigi — the brother of the legendary plumber Mario, long thought to be a figure of myth — appeared at the manor on the evening of Highsun 26. His arrival coincided with an assault by Onyx knights and a series of spectral manifestations that forced several members of the party to flee through windows, off verandas, and into the nightmare maze."},{"type":"paragraph","text":"Remi, the newest member of the Vigilance's crew — recruited, incredibly, after Wario handed her a box that turned out to be a bomb — found herself captured by the manor's Onyx knight garrison. During her captivity, she discovered Green T's battle plan: a frantic strategy scrawled on a linen napkin, detailing an assault to kill the vampires and destroy their sustaining crystals."},{"type":"paragraph","text":"Meanwhile, Archie Miser encountered Perrius Anamatar — a being of uncertain nature and considerable power — having tea in a sitting room as though the manor were not collapsing into dimensional chaos around him. When Archie accused him of orchestrating the chaos, Perrius responded by siccing spectral coats on Luigi. Archie's counter — a massive fireball in an enclosed room — was characteristically disproportionate."},{"type":"divider","style":"ornate"},{"type":"paragraph","text":"And then there was Bryan."},{"type":"paragraph","text":"Bryan. A toad who arrived through a Mages' Guild portal with a single, burning purpose: to find and punish Archie Miser. Bryan called himself a servant of the toad god. He recruited Purple T for his theft skills and coerced Dan and another mage into joining his hunt. He carried divination incense that could knock a target unconscious and a faith that burned hotter than any of Archie's fireballs."},{"type":"paragraph","style":"italic","text":"The vendetta between Bryan and Archie is personal in a way that transcends faction politics. It is, at its core, about what happens when power meets conviction — and neither is willing to yield.","color":"#8B0000"}]}]},{"title":"Afterword","pages":[{"page_number":12,"content":[{"type":"chapter_header","text":"Afterword","subtitle":"Written in Haste, Harvestide 30, 1040 BF","color":"#8B0000"},{"type":"paragraph","text":"I set down my quill knowing this chronicle is incomplete. The events at Raventree continue to unfold even as I write. Lady Aurelian Corvinarus has made her requests. The twilight grove has revealed its horrors. The Mages' Guild plots to extract the ghosts regardless of the cost to the living."},{"type":"paragraph","text":"Archie was ambushed in a library — there is a bitter irony in that — and nearly killed by something the Guild has not deigned to name. He survived, though the circumstances of his rescue remain murky. A Purple Toad appeared as if from nowhere, sang a cryptic fortune-telling song, picked Archie's pockets with the casual ease of a master thief, and vanished through a portal of Archie's own making."},{"type":"paragraph","text":"Reality is fracturing. The Oracle is dead. A parallel Dan walks the world while the original rots in a null cage. Vampires feast in manor halls while bureaucrats charge two thousand gold for a broken rope. And somewhere, in a sealed room that appears on no blueprint, a secret hatch holds the answer to who killed Princess Peach eighty-five years ago."},{"type":"spacer"},{"type":"paragraph","text":"I do not know if the kingdom can be saved. I do not know if it deserves to be. What I know is that there are those who are trying — imperfect, chaotic, frequently at each other's throats — but trying nonetheless."},{"type":"spacer"},{"type":"quote","text":"\"The kingdom is not its borders or its crown. The kingdom is its people — stubborn, foolish, magnificent people who refuse to let the darkness have the final word.\"","attribution":"— Toadsworth the Elder, final entry","color":"#8B0000"},{"type":"spacer"},{"type":"centered","text":"— END OF VOLUME ONE —","color":"#8B0000","style":"bold","size":"large"},{"type":"spacer"},{"type":"centered","text":"[ This volume was recovered from a hollowed-out mushroom stump near the ruins of Toad Town. The author's fate is unknown. ]","color":"#999","style":"italic"}]}]}]},{"id":"iron-legion-field-manual","title":"Iron Legion Field Manual","subtitle":"Standard Operating Procedures, 12th Edition","author":"Legion Command","cover_color":"#37474f","cover_accent":"#90a4ae","icon":"⚔️","category":"Military","rarity":"Uncommon","locked":true,"lock_message":"This manual is sealed with an Iron Legion cipher lock. You need the Legion's trust — or their carelessness — to open it.","condition":"Pristine","description":"A rigid, metal-bound manual stamped with the Iron Legion's crest.","page_color":"#eceff1","text_color":"#263238","total_pages":0,"secrets_total":0,"chapters":[]},{"id":"boo-aristocracy-etiquette","title":"Etiquette Among the Ethereal","subtitle":"A Guide to Boo Society & Protocol","author":"Duchess Booella von Shriek","cover_color":"#4a148c","cover_accent":"#ce93d8","icon":"👻","category":"Culture","rarity":"Rare","locked":true,"lock_message":"The spectral binding on this book requires you to answer a riddle posed by the Boo Aristocracy. Perhaps one of their mansions holds the answer.","condition":"Ghostly","description":"A translucent tome that phases in and out of visibility.","page_color":"#f3e5f5","text_color":"#4a148c","total_pages":0,"secrets_total":0,"chapters":[]},{"id":"mages-guild-primer","title":"Foundations of the Arcane","subtitle":"An Introductory Primer for Guild Initiates","author":"Archmagister Eldwin","cover_color":"#1565c0","cover_accent":"#64b5f6","icon":"🔮","category":"Arcana","rarity":"Common","locked":true,"lock_message":"This book is property of the Mages' Guild. Unauthorized access will result in a fine of no less than 500 gold pieces and/or partial disintegration.","condition":"Good","description":"A standard-issue blue tome given to all Guild initiates.","page_color":"#e3f2fd","text_color":"#0d47a1","total_pages":0,"secrets_total":0,"chapters":[]}]};
+document.addEventListener('DOMContentLoaded', () => Library.init());
+</script>
+
+</body>
+</html>

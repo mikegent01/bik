@@ -1,0 +1,888 @@
+/* ============================================
+   RELATIONS PAGE - Complete Styles
+   ============================================ */
+
+/* --- CSS Variables for Relations --- */
+:root {
+    --positive-color: #4CAF50;
+    --negative-color: #f44336;
+    --complicated-color: #FF9800;
+    --neutral-color: #9E9E9E;
+    --tether-color: #607D8B;
+}
+
+/* --- Page Layout --- */
+.relations-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.page-header {
+    text-align: center;
+    padding: 16px 20px;
+    flex-shrink: 0;
+}
+
+.page-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.page-subtitle {
+    margin: 4px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* --- View Tabs --- */
+.view-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 16px;
+    flex-shrink: 0;
+}
+
+.view-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-tab:hover {
+    background: var(--sidebar-bg);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+.view-tab.active {
+    background: var(--accent-color);
+    color: var(--main-bg);
+    border-color: var(--accent-color);
+}
+
+.view-tab svg {
+    flex-shrink: 0;
+}
+
+/* --- View Panels --- */
+.view-panel {
+    display: none;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.view-panel.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================
+   GRAPH VIEW
+   ============================================ */
+
+#graph-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--main-bg);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+.controls-label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.control-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background: var(--sidebar-bg);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.control-btn.active {
+    background: var(--accent-color);
+    color: var(--main-bg);
+    border-color: var(--accent-color);
+}
+
+/* Graph Container */
+#graph-container {
+    flex: 1;
+    min-height: 400px;
+    background: 
+        radial-gradient(circle at center, var(--main-bg) 0%, var(--sidebar-bg) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(var(--accent-rgb), 0.03) 50px, rgba(var(--accent-rgb), 0.03) 51px),
+        repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(var(--accent-rgb), 0.03) 50px, rgba(var(--accent-rgb), 0.03) 51px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Graph Legend */
+.graph-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 12px 20px;
+    background: var(--main-bg);
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.legend-line {
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.legend-line.ally { background: var(--positive-color); }
+.legend-line.enemy { 
+    background: var(--negative-color);
+    background-image: repeating-linear-gradient(90deg, var(--negative-color), var(--negative-color) 4px, transparent 4px, transparent 8px);
+}
+.legend-line.complicated { background: var(--complicated-color); }
+.legend-line.tether { 
+    background: var(--tether-color);
+    opacity: 0.5;
+}
+
+/* --- D3 Graph Elements --- */
+.graph-tooltip {
+    position: absolute;
+    padding: 10px 14px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 100;
+    max-width: 200px;
+}
+
+.graph-tooltip.visible {
+    opacity: 1;
+}
+
+.graph-tooltip strong {
+    display: block;
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 4px;
+}
+
+.graph-tooltip .tooltip-type {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+/* Links */
+.link {
+    stroke-width: 2px;
+    stroke-opacity: 0.6;
+    transition: stroke-opacity 0.2s ease;
+}
+
+.link.positive, .link.ally { stroke: var(--positive-color); }
+.link.negative, .link.enemy { 
+    stroke: var(--negative-color);
+    stroke-dasharray: 6 3;
+}
+.link.complicated, .link.rivalry, .link.volatile, .link.distrust { 
+    stroke: var(--complicated-color);
+    stroke-dasharray: 4 4;
+}
+.link.neutral, .link.transactional { 
+    stroke: var(--neutral-color);
+    stroke-dasharray: 2 4;
+}
+.link.tether, .link.member { 
+    stroke: var(--tether-color);
+    stroke-opacity: 0.3;
+    stroke-dasharray: none;
+}
+
+.link.dimmed {
+    stroke-opacity: 0.1;
+}
+
+/* Nodes */
+.node circle {
+    stroke: var(--border-color);
+    stroke-width: 2px;
+    cursor: pointer;
+    transition: transform 0.2s ease, stroke 0.2s ease;
+}
+
+.node.type-faction circle {
+    stroke-width: 1.5px;
+}
+
+.node.is-party circle {
+    stroke: var(--accent-color);
+    stroke-width: 2.5px;
+}
+
+.node circle.logged-in-user {
+    stroke: #fff;
+    stroke-width: 3px;
+    stroke-dasharray: 5 3;
+    animation: dash-spin 8s linear infinite;
+}
+
+@keyframes dash-spin {
+    to { stroke-dashoffset: -16; }
+}
+
+.node:hover circle {
+    transform: scale(1.15);
+}
+
+.node.selected circle {
+    stroke: var(--accent-hover);
+    stroke-width: 3px;
+    filter: drop-shadow(0 0 6px var(--accent-color));
+}
+
+.node.dimmed {
+    opacity: 0.15;
+}
+
+.node text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    fill: var(--text-secondary);
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.node image {
+    pointer-events: none;
+}
+
+/* ============================================
+   DOSSIER VIEW
+   ============================================ */
+
+.dossier-layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* --- Dossier Sidebar (Entity List) --- */
+.dossier-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--main-bg);
+    border-right: 1px solid var(--border-color);
+}
+
+.search-box {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+.search-box input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.dossier-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* --- Dossier Button (Entity Selector) --- */
+.dossier-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.dossier-btn:hover {
+    background: var(--sidebar-bg);
+    border-color: var(--border-color);
+}
+
+.dossier-btn.active {
+    background: var(--sidebar-bg);
+    border-color: var(--accent-color);
+}
+
+.dossier-btn img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--border-color);
+}
+
+.dossier-btn.active img {
+    border-color: var(--accent-color);
+}
+
+.dossier-btn-name {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dossier-btn-type {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    padding: 2px 6px;
+    background: var(--main-bg);
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/* --- Dossier Content Panel --- */
+.dossier-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--sidebar-bg);
+}
+
+/* Placeholder State */
+.dossier-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.placeholder-icon {
+    margin-bottom: 16px;
+    opacity: 0.3;
+}
+
+.dossier-placeholder h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.dossier-placeholder > p {
+    margin: 0 0 32px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    max-width: 300px;
+}
+
+/* Legend Box */
+.legend-box {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 380px;
+    text-align: left;
+}
+
+.legend-box h4 {
+    margin: 0 0 14px;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.legend-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.legend-entry {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.legend-entry.category-positive .legend-dot { background: var(--positive-color); }
+.legend-entry.category-negative .legend-dot { background: var(--negative-color); }
+.legend-entry.category-complicated .legend-dot { background: var(--complicated-color); }
+.legend-entry.category-neutral .legend-dot { background: var(--neutral-color); }
+
+.direction-legend {
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.direction-legend p {
+    margin: 4px 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.direction-legend strong {
+    color: var(--accent-color);
+}
+
+/* --- Active Dossier Display --- */
+.dossier-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dossier-portrait {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid var(--accent-color);
+}
+
+.dossier-info h3 {
+    margin: 0 0 4px;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--accent-color);
+}
+
+.dossier-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.dossier-body {
+    /* Container for relation sections */
+}
+
+.dossier-section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    margin: 0 0 10px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.section-title.category-positive { 
+    background: rgba(76, 175, 80, 0.15);
+    color: var(--positive-color);
+}
+.section-title.category-negative { 
+    background: rgba(244, 67, 54, 0.15);
+    color: var(--negative-color);
+}
+.section-title.category-complicated { 
+    background: rgba(255, 152, 0, 0.15);
+    color: var(--complicated-color);
+}
+.section-title.category-neutral { 
+    background: rgba(158, 158, 158, 0.15);
+    color: var(--neutral-color);
+}
+
+/* --- Relation Cards --- */
+.relation-card {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: var(--main-bg);
+    border-radius: 6px;
+    border-left: 3px solid var(--neutral-color);
+}
+
+.relation-card.category-positive { border-left-color: var(--positive-color); }
+.relation-card.category-negative { border-left-color: var(--negative-color); }
+.relation-card.category-complicated { border-left-color: var(--complicated-color); }
+
+.relation-card-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--border-color);
+}
+
+.relation-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.relation-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.relation-card-name {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+.relation-card-type {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: var(--sidebar-bg);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.category-positive .relation-card-type { color: var(--positive-color); }
+.category-negative .relation-card-type { color: var(--negative-color); }
+.category-complicated .relation-card-type { color: var(--complicated-color); }
+
+.relation-card-quote {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.dossier-empty {
+    padding: 40px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   DETAIL PANEL (Slide-out for Graph)
+   ============================================ */
+
+.detail-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 340px;
+    height: 100%;
+    background: var(--sidebar-bg);
+    border-left: 1px solid var(--border-color);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.detail-panel.visible {
+    transform: translateX(0);
+}
+
+#app.panel-open #main-content {
+    margin-right: 340px;
+}
+
+#node-detail-content {
+    padding: 24px 20px;
+    flex: 1;
+}
+
+.panel-entity-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.panel-entity-header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--accent-color);
+}
+
+.panel-entity-header h3 {
+    margin: 0 0 2px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--accent-color);
+}
+
+.panel-entity-header span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.panel-description {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.panel-relation-group {
+    margin-bottom: 14px;
+}
+
+.panel-relation-group h5 {
+    margin: 0 0 6px;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.panel-relation-group h5.category-positive { color: var(--positive-color); }
+.panel-relation-group h5.category-negative { color: var(--negative-color); }
+.panel-relation-group h5.category-complicated { color: var(--complicated-color); }
+.panel-relation-group h5.category-neutral { color: var(--neutral-color); }
+
+.panel-relation-group ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.panel-relation-group li {
+    padding: 5px 8px;
+    margin-bottom: 3px;
+    background: var(--main-bg);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-primary);
+}
+
+.panel-relation-group li.category-positive { border-left: 2px solid var(--positive-color); }
+.panel-relation-group li.category-negative { border-left: 2px solid var(--negative-color); }
+.panel-relation-group li.category-complicated { border-left: 2px solid var(--complicated-color); }
+.panel-relation-group li.category-neutral { border-left: 2px solid var(--neutral-color); }
+
+.panel-empty {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 900px) {
+    .dossier-layout {
+        flex-direction: column;
+    }
+    
+    .dossier-sidebar {
+        width: 100%;
+        max-height: 35vh;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .dossier-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .dossier-btn {
+        flex: 0 0 auto;
+        width: calc(50% - 6px);
+    }
+    
+    .detail-panel {
+        width: 100%;
+    }
+    
+    #app.panel-open #main-content {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .view-tabs {
+        padding: 0 12px 12px;
+    }
+    
+    .view-tab {
+        flex: 1;
+        justify-content: center;
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+    
+    #graph-controls {
+        padding: 8px 12px;
+    }
+    
+    .control-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .graph-legend {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .dossier-btn {
+        width: 100%;
+    }
+    
+    .legend-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dossier-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .dossier-portrait {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .dossier-content {
+        padding: 16px;
+    }
+    
+    .relation-card {
+        padding: 10px;
+    }
+    
+    .relation-card-img {
+        width: 32px;
+        height: 32px;
+    }
+}

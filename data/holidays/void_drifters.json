@@ -1,0 +1,47 @@
+{
+  "calendarId": "void_drifters",
+  "name": "Void Drifters Stellar Holidays",
+  "holidays": [
+    {
+      "name": "Ignition Day",
+      "month": 1,
+      "day": 1,
+      "icon": "🚀",
+      "color": "#ff4444",
+      "description": "Year burn starts, engines lit",
+      "type": "civic",
+      "longDescription": "Ignition Day is observed on day 1 of month 1 in the Void Drifters Calendar. It is classified as a civic and is associated with Year burn starts, engines lit . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Signal Lost",
+      "month": 3,
+      "day": 15,
+      "icon": "📡",
+      "color": "#44ff44",
+      "description": "Annual comms blackout — listen instead",
+      "type": "weird",
+      "longDescription": "Signal Lost is observed on day 15 of month 3 in the Void Drifters Calendar. It is classified as a weird and is associated with Annual comms blackout — listen instead . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Starfall Drift",
+      "month": 5,
+      "day": 30,
+      "icon": "⭐",
+      "color": "#ffff44",
+      "description": "Stars fall sideways in void",
+      "type": "astral",
+      "longDescription": "Starfall Drift is observed on day 30 of month 5 in the Void Drifters Calendar. It is classified as a astral and is associated with Stars fall sideways in void . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Void Drift Start",
+      "month": 13,
+      "day": 30,
+      "icon": "♾️",
+      "color": "#000000",
+      "description": "10-day void outside time begins",
+      "type": "weird",
+      "isWeird": true,
+      "longDescription": "Void Drift Start is observed on day 30 of month 13 in the Void Drifters Calendar. It is classified as a weird and is associated with 10-day void outside time begins . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    }
+  ]
+}

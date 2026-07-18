@@ -1,0 +1,1718 @@
+/* ============================================================================
+   POLITICS PAGE - COMPLETE STYLES
+   Focus: Laws, Legislation, Governance, Diplomacy
+   ============================================================================ */
+
+/* ============================================================================
+   MAIN CONTAINER
+   ============================================================================ */
+
+#politics-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    background: var(--sidebar-bg);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* ============================================================================
+   STATS OVERVIEW
+   ============================================================================ */
+
+.politics-stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--sidebar-bg) 0%, rgba(0,0,0,0.3) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.politics-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.politics-stat-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-2px);
+}
+
+.politics-stat-card.highlight {
+    background: rgba(220, 38, 38, 0.1);
+    border-color: rgba(220, 38, 38, 0.3);
+}
+
+.politics-stat-card .stat-icon {
+    font-size: 1.6rem;
+}
+
+.politics-stat-card .stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.politics-stat-card .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.politics-stat-card .stat-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================================================
+   MAIN GRID LAYOUT
+   ============================================================================ */
+
+.politics-main-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+}
+
+.politics-column-left,
+.politics-column-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ============================================================================
+   PANEL TITLES
+   ============================================================================ */
+
+.panel-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin: 0 0 16px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.title-icon {
+    font-size: 1.2rem;
+}
+
+/* ============================================================================
+   LEGISLATION PANEL
+   ============================================================================ */
+
+.legislation-panel {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.legislation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.legislation-card {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 4px solid var(--accent-color);
+}
+
+.legislation-card:hover {
+    border-color: var(--accent-color);
+    transform: translateX(4px);
+}
+
+.legislation-card.passed {
+    border-left-color: #22c55e;
+}
+
+.legislation-card.enforced {
+    border-left-color: #dc2626;
+}
+
+.legislation-card.pending {
+    border-left-color: #eab308;
+}
+
+.law-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.law-category-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.law-title-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.law-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0 0 4px 0;
+}
+
+.law-meta {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.law-status {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.law-status.passed {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.law-status.enforced {
+    background: rgba(220, 38, 38, 0.2);
+    color: #dc2626;
+}
+
+.law-status.pending {
+    background: rgba(234, 179, 8, 0.2);
+    color: #eab308;
+}
+
+.law-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+}
+
+.law-vote {
+    margin-bottom: 12px;
+}
+
+.vote-bar {
+    display: flex;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+}
+
+.vote-for {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    min-width: 40px;
+}
+
+.vote-against {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    min-width: 40px;
+}
+
+.vote-abstain {
+    background: #6b7280;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+
+.vote-decree {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(124, 58, 237, 0.2);
+    color: #a78bfa;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.law-effects {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.effects-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.effects-list {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.effect-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.effect-chip:hover {
+    transform: scale(1.1);
+}
+
+.effect-chip.positive {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.effect-chip.negative {
+    background: rgba(220, 38, 38, 0.2);
+    color: #dc2626;
+}
+
+.more-effects {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.law-controversy {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: rgba(220, 38, 38, 0.1);
+    border-left: 3px solid #dc2626;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.8rem;
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.law-controversy.moderate {
+    background: rgba(234, 179, 8, 0.1);
+    border-left-color: #eab308;
+    color: #eab308;
+}
+
+/* ============================================================================
+   GOVERNMENT TYPES PANEL
+   ============================================================================ */
+
+.government-types-panel {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.gov-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.gov-type-card {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-top: 3px solid var(--gov-color, var(--accent-color));
+}
+
+.gov-type-card:hover {
+    border-color: var(--gov-color, var(--accent-color));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.gov-type-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.gov-type-icon {
+    font-size: 1.8rem;
+}
+
+.gov-type-info {
+    flex: 1;
+}
+
+.gov-type-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.gov-type-count {
+    font-size: 0.75rem;
+    color: var(--gov-color, var(--accent-color));
+    font-weight: bold;
+}
+
+.gov-type-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+}
+
+.gov-type-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.trait-chip {
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.gov-type-factions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.mini-faction {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 2px solid var(--main-bg);
+}
+
+.mini-faction:hover {
+    transform: scale(1.2);
+    z-index: 1;
+}
+
+.more-factions {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-left: 4px;
+}
+
+/* ============================================================================
+   IDEOLOGICAL BLOCS PANEL
+   ============================================================================ */
+
+.ideological-blocs-panel {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.blocs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.bloc-card {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px;
+    border-left: 4px solid var(--bloc-color, var(--accent-color));
+    transition: all 0.2s ease;
+}
+
+.bloc-card:hover {
+    border-color: var(--bloc-color, var(--accent-color));
+    transform: translateX(4px);
+}
+
+.bloc-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.bloc-icon {
+    font-size: 1.4rem;
+}
+
+.bloc-name {
+    flex: 1;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.bloc-count {
+    background: var(--bloc-color, var(--accent-color));
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.bloc-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+}
+
+.bloc-members {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.bloc-member {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 2px solid var(--sidebar-bg);
+}
+
+.bloc-member:hover {
+    transform: scale(1.15);
+    z-index: 1;
+}
+
+.more-members {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+}
+
+.bloc-values {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.values-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.value-chip {
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.value-chip.left {
+    background: rgba(220, 38, 38, 0.15);
+    color: #f87171;
+}
+
+.value-chip.right {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+}
+
+/* ============================================================================
+   DIPLOMATIC TENSIONS PANEL
+   ============================================================================ */
+
+.tensions-panel {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.tensions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tension-card {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px;
+    transition: all 0.2s ease;
+}
+
+.tension-card:hover {
+    border-color: var(--tension-color, var(--accent-color));
+}
+
+.tension-factions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.tension-faction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.tension-faction:last-child {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.tension-faction .faction-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.tension-faction .faction-name {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.tension-vs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.tension-vs .stance-icon {
+    font-size: 1.3rem;
+}
+
+.tension-vs .stance-name {
+    font-size: 0.65rem;
+    color: var(--tension-color, var(--text-secondary));
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.tension-details {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.compatibility-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--sidebar-bg);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.compat-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #dc2626, #f97316, #eab308);
+    border-radius: 4px;
+}
+
+.compat-value {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.65rem;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.tension-causes {
+    display: flex;
+    gap: 6px;
+}
+
+.cause-chip {
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    cursor: help;
+}
+
+/* ============================================================================
+   FACTION POLITICS MODAL
+   ============================================================================ */
+
+.faction-politics-modal-overlay,
+.legislation-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.faction-politics-modal,
+.legislation-modal {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--text-color);
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 1;
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    background: rgba(220, 38, 38, 0.5);
+    transform: scale(1.1);
+}
+
+.modal-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header.passed {
+    border-left: 4px solid #22c55e;
+}
+
+.modal-header.enforced {
+    border-left: 4px solid #dc2626;
+}
+
+.modal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.modal-title h2 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin: 0 0 4px 0;
+}
+
+.modal-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.law-status-badge {
+    position: absolute;
+    top: 16px;
+    right: 50px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.law-status-badge.passed {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.law-status-badge.enforced {
+    background: rgba(220, 38, 38, 0.2);
+    color: #dc2626;
+}
+
+.modal-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-section {
+    margin-bottom: 24px;
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.modal-section h5 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Government Details in Modal */
+.gov-details p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+}
+
+.gov-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.gov-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.meta-item {
+    background: var(--main-bg);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.meta-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.meta-value {
+    font-size: 0.85rem;
+    color: var(--text-color);
+}
+
+/* Laws Grid in Modal */
+.laws-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.law-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.law-item .law-icon {
+    font-size: 1.2rem;
+}
+
+.law-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.law-info .law-category {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.law-info .law-name {
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+.no-laws {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Values Grid in Modal */
+.values-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.value-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.value-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.value-icons {
+    font-size: 0.9rem;
+}
+
+.value-name {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.value-track {
+    position: relative;
+    height: 8px;
+    background: var(--main-bg);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.value-fill {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-radius: 4px;
+    opacity: 0.7;
+}
+
+.value-marker {
+    position: absolute;
+    top: -2px;
+    width: 4px;
+    height: 12px;
+    background: var(--text-color);
+    border-radius: 2px;
+    transform: translateX(-50%);
+}
+
+.value-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Faction Laws List in Modal */
+.faction-laws-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.faction-law-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--main-bg);
+    border-radius: 6px;
+    border-left: 3px solid var(--border-color);
+}
+
+.faction-law-item.passed {
+    border-left-color: #22c55e;
+}
+
+.faction-law-item.enforced {
+    border-left-color: #dc2626;
+}
+
+.faction-law-item .law-name {
+    font-size: 0.85rem;
+    color: var(--text-color);
+}
+
+.faction-law-item .law-status {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* ============================================================================
+   LEGISLATION DETAIL MODAL
+   ============================================================================ */
+
+.law-full-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.vote-details {
+    margin-bottom: 12px;
+}
+
+.vote-bar.large {
+    height: 36px;
+}
+
+.vote-bar.large .vote-for,
+.vote-bar.large .vote-against,
+.vote-bar.large .vote-abstain {
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 8px;
+}
+
+.vote-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.vote-count {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.vote-meta {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.vote-decree-details {
+    text-align: center;
+    padding: 16px;
+}
+
+.decree-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(124, 58, 237, 0.2);
+    color: #a78bfa;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.vote-decree-details p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Effects Grid in Legislation Modal */
+.effects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.effect-card {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.effect-card:hover {
+    transform: translateY(-2px);
+}
+
+.effect-card.positive {
+    border-left: 3px solid #22c55e;
+}
+
+.effect-card.negative {
+    border-left: 3px solid #dc2626;
+}
+
+.effect-faction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.effect-faction .faction-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.effect-faction .faction-name {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.effect-impact {
+    margin-bottom: 6px;
+}
+
+.impact-value {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.effect-card.positive .impact-value {
+    color: #22c55e;
+}
+
+.effect-card.negative .impact-value {
+    color: #dc2626;
+}
+
+.effect-note {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Law Details Grid */
+.law-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.detail-item {
+    background: var(--main-bg);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.detail-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.detail-value.controversy-extreme {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.detail-value.controversy-high {
+    color: #f97316;
+    font-weight: bold;
+}
+
+.detail-value.controversy-low {
+    color: #22c55e;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 1200px) {
+    .politics-main-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gov-types-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .politics-stats-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gov-types-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .laws-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .effects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .law-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gov-meta {
+        grid-template-columns: 1fr;
+    }
+    
+    .tension-factions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .tension-faction:last-child {
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .faction-politics-modal,
+    .legislation-modal {
+        max-height: 90vh;
+        border-radius: 12px 12px 0 0;
+        margin-top: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .politics-stats-overview {
+        grid-template-columns: 1fr;
+    }
+    
+    .legislation-panel,
+    .government-types-panel,
+    .ideological-blocs-panel,
+    .tensions-panel {
+        padding: 14px;
+    }
+    
+    .modal-header {
+        padding: 16px;
+    }
+    
+    .modal-body {
+        padding: 16px;
+    }
+    
+    .modal-title h2 {
+        font-size: 1.1rem;
+    }
+}
+
+/* ============================================================================
+   SCROLLBAR STYLING
+   ============================================================================ */
+
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: var(--main-bg);
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .faction-politics-modal-overlay,
+    .legislation-modal-overlay,
+    .faction-politics-modal,
+    .legislation-modal {
+        animation: none;
+    }
+    
+    .legislation-card,
+    .gov-type-card,
+    .bloc-card,
+    .tension-card,
+    .effect-card {
+        transition: none;
+    }
+}
+
+/* Focus states for keyboard navigation */
+.legislation-card:focus-visible,
+.gov-type-card:focus-visible,
+.bloc-member:focus-visible,
+.mini-faction:focus-visible,
+.effect-card:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+.active-wars-panel {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 4px solid #dc2626;
+}
+
+.active-wars-panel.empty {
+    border-left-color: #22c55e;
+}
+
+.no-wars {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.peace-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    opacity: 0.7;
+}
+
+.no-wars p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.wars-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.war-card {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 16px;
+    border-left: 4px solid #dc2626;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.war-card:hover {
+    border-color: #dc2626;
+    transform: translateX(4px);
+}
+
+.war-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.war-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.war-status {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.war-status.ongoing {
+    background: rgba(220, 38, 38, 0.2);
+    color: #dc2626;
+    animation: pulse-war 2s infinite;
+}
+
+@keyframes pulse-war {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.war-summary {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+}
+
+.war-belligerents {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 12px;
+    background: rgba(220, 38, 38, 0.05);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.war-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.side-label {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.side-factions {
+    display: flex;
+    gap: 6px;
+}
+
+.war-faction {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 2px solid var(--main-bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.war-faction:hover {
+    transform: scale(1.15);
+    z-index: 1;
+}
+
+.vs-divider {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: bold;
+    color: #dc2626;
+    padding: 0 8px;
+}
+
+.war-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* War indicators on factions */
+.mini-faction {
+    position: relative;
+}
+
+.mini-faction .war-indicator {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    font-size: 0.5rem;
+}
+
+.bloc-member.at-war {
+    box-shadow: 0 0 0 2px #dc2626;
+}
+
+.bloc-member .war-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 0.5rem;
+}
+
+.bloc-war-count {
+    font-size: 0.7rem;
+    color: #dc2626;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+.at-war-badge {
+    font-size: 0.7rem;
+    margin-left: 4px;
+}
+
+/* War status in modal */
+.war-status-section {
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.war-status-section h5 {
+    color: #dc2626 !important;
+}
+
+.at-war-notice {
+    font-size: 0.9rem;
+    color: #dc2626;
+    font-weight: bold;
+    margin: 0 0 12px 0;
+}
+
+.enemies-list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.enemies-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.enemy-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: var(--main-bg);
+    border: 1px solid;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.enemy-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.enemy-name {
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+/* Alliance status in modal */
+.alliance-status-section {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.alliance-status-section h5 {
+    color: #22c55e !important;
+}
+
+.alliance-info-card {
+    background: var(--main-bg);
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.alliance-header-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.alliance-header-mini .alliance-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.alliance-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.alliance-details .alliance-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.alliance-details .alliance-type {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.alliance-allies {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.allies-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.ally-chip {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 2px solid var(--sidebar-bg);
+}
+
+.ally-chip:hover {
+    transform: scale(1.15);
+}

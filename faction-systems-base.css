@@ -1,0 +1,412 @@
+/* --- Generic System Styles --- */
+.unique-system-container {
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+    margin-top: 16px;
+}
+
+.unique-system-container h5 {
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-family: var(--font-display);
+}
+
+.system-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border-color);
+}
+
+.system-content {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+/* --- Detailed Faction Systems (Iron Legion, Onyx Hand, etc.) --- */
+.faction-detailed-system {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.system-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+
+.system-tab-btn {
+    padding: 10px 16px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.system-tab-btn:hover {
+    color: var(--text-color);
+}
+
+.system-tab-btn.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+.system-tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+}
+.system-tab-content.active {
+    display: block;
+}
+
+/* Hierarchy Org Chart */
+.system-org-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.org-chart-level {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+}
+.org-chart-level:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 16px;
+    background-color: var(--border-color);
+}
+.org-rank {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    margin-bottom: 4px;
+}
+.org-leader {
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+.org-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Info Cards for other tabs */
+.info-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+.info-card {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--neutral-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+.info-card h6 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+.info-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+.info-card p strong {
+    color: var(--text-secondary);
+}
+
+/* Specific Mechanic Styles */
+.mechanic-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+.mechanic-card {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+.mechanic-card.onyx-hand-mechanic { border-left: 4px solid var(--negative-color); }
+.mechanic-card.moonfang-pack-mechanic { border-left: 4px solid var(--regional-powers-color); }
+.mechanic-card.mages-guild-mechanic { border-left: 4px solid var(--mystical-ancient-color); }
+
+.mechanic-card h6 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+.mechanic-card.onyx-hand-mechanic h6 { color: var(--negative-color); }
+.mechanic-card.moonfang-pack-mechanic h6 { color: var(--regional-powers-color); }
+.mechanic-card.mages-guild-mechanic h6 { color: var(--mystical-ancient-color); }
+
+.mechanic-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* --- Toad Gang: Turf War Bars --- */
+.turf-war-bars .bar-item {
+    margin-bottom: 8px;
+}
+.turf-war-bars .bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+.turf-war-bars .bar-container {
+    height: 15px;
+    background-color: var(--sidebar-bg);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.turf-war-bars .bar-fill {
+    height: 100%;
+    background-color: var(--accent-color);
+    transition: width 0.5s ease;
+}
+
+/* --- Da Krumperz: WAAAGH! Meter --- */
+.waaagh-meter { text-align: center; }
+.waaagh-bar-container {
+    width: 100%;
+    height: 40px;
+    border: 2px solid var(--positive-color);
+    border-radius: 5px;
+    padding: 4px;
+    background: repeating-linear-gradient(45deg, var(--main-bg), var(--main-bg) 10px, #2a2a2a 10px, #2a2a2a 20px);
+}
+.waaagh-bar-fill {
+    height: 100%;
+    background-color: var(--positive-color);
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--main-bg);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    animation: pulse-green 1s infinite;
+}
+@keyframes pulse-green {
+    50% { filter: brightness(1.2); }
+}
+
+/* --- Diamond City Investigators: Case Board --- */
+.case-board {
+    height: 350px;
+    position: relative;
+    background-color: #4a4137;
+    border: 5px solid #2d2620;
+    overflow: hidden;
+}
+.case-item {
+    position: absolute;
+    background: #fdf5e6;
+    color: #333;
+    padding: 5px 8px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+}
+.case-item.person { top: 20px; left: 150px; transform: rotate(-3deg); }
+.case-item.evidence1 { top: 120px; left: 40px; transform: rotate(5deg); }
+.case-item.evidence2 { top: 200px; left: 250px; transform: rotate(-2deg); }
+.case-item.lead { top: 280px; left: 80px; transform: rotate(1deg); }
+.case-board-line {
+    position: absolute;
+    width: 2px;
+    background: #ff4136;
+    transform-origin: 0 0;
+    opacity: 0.7;
+}
+
+/* --- Liberated Toads: Opinion List --- */
+.subfaction-opinions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+}
+.subfaction-opinion {
+    font-size: 0.85rem;
+}
+.subfaction-opinion .char-name {
+    color: var(--text-color);
+    font-weight: bold;
+}
+.subfaction-opinion p {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0 0 0 12px;
+    padding-left: 8px;
+    border-left: 2px solid var(--border-color);
+}
+
+
+/* --- Silver Flame: Edicts System --- */
+.silver-flame-edicts-system {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+.edicts-section h6 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+.tenet-card, .edict-card {
+    background-color: var(--sidebar-bg);
+    border-left: 3px solid var(--silver-flame-color, #C0C0C0); /* Fallback color */
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+.tenet-card h6, .edict-card h6 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-size: 1rem;
+    margin: 0 0 4px 0;
+}
+.tenet-card p, .edict-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+.edict-card .edict-status {
+    font-style: italic;
+    color: var(--neutral-color);
+    font-size: 0.8rem;
+    margin-top: 8px;
+    display: block;
+}
+
+/* --- Oathbound Judges: Verdict System --- */
+.oathbound-verdicts-system {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+.verdict-log {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.verdict-card {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+.verdict-header {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+.verdict-details p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+.verdict-details strong {
+    color: var(--text-color);
+    min-width: 90px;
+    display: inline-block;
+}
+.verdict-result {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 12px;
+}
+.verdict-guilty {
+    color: var(--negative-color);
+    background-color: rgba(218, 54, 51, 0.1);
+}
+.verdict-deferred {
+    color: var(--neutral-color);
+    background-color: rgba(240, 185, 11, 0.1);
+}
+
+/* --- Koopa Troop: Expanded Hierarchy --- */
+.koopa-troop-system {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 24px;
+}
+.koopa-hierarchy, .koopa-war-status {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+.koopa-hierarchy h6, .koopa-war-status h6 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+.hierarchy-level {
+    margin-bottom: 12px;
+}
+.hierarchy-level strong {
+    color: var(--text-color);
+    font-size: 1rem;
+    display: block;
+}
+.hierarchy-level span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-left: 10px;
+}
+.koopa-war-status p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.koopa-war-status p strong {
+    color: var(--text-color);
+}

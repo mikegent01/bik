@@ -1,0 +1,18 @@
+
+export const zebrabwePois = [
+    { id: 'poi_eq_zb_capital', x: 20.0, y: 65.0, type: 'major_city', subRegion: 'Zebrabwe', name: "Great Zecora", description: "The capital of Zebrabwe, a city of intricate wooden structures and alchemical workshops. The air smells of exotic herbs.", factionId: 'zebrabwe', intelReq: 10, political_influence: 7, economic_value: 6, military_strength: 6, population: 3000 },
+    { id: 'poi_eq_zb_shaman_hut', x: 18.0, y: 68.0, type: 'shrine', subRegion: 'Zebrabwe', name: "Circle of Elders", description: "A sacred grove where the Zebra shamans meet to discuss the future and brew powerful potions.", factionId: 'zebrabwe', intelReq: 30, political_influence: 8, economic_value: 4, military_strength: 5, population: 20 },
+    { id: 'poi_eq_zb_alchemist_market', x: 22.0, y: 63.0, type: 'market', subRegion: 'Zebrabwe', name: "Potion Market", description: "A market famous for its potions, remedies, and strange ingredients. Traders from all over come here for cures.", factionId: 'zebrabwe', intelReq: 15, political_influence: 5, economic_value: 9, military_strength: 2, population: 500 },
+    { id: 'poi_eq_zb_warrior_training', x: 16.0, y: 70.0, type: 'barracks', subRegion: 'Zebrabwe', name: "Striped Lance Grounds", description: "Training grounds for the Zebra warriors, known for their spear-work and agility.", factionId: 'zebrabwe', intelReq: 20, political_influence: 4, economic_value: 2, military_strength: 8, population: 200 },
+    { id: 'poi_eq_zb_forbidden_jungle', x: 25.0, y: 68.0, type: 'forest', subRegion: 'Zebrabwe', name: "The Whispering Jungle", description: "A dense, dangerous jungle filled with magical beasts. Only the bravest hunters enter.", factionId: 'unaligned', intelReq: 25, political_influence: 0, economic_value: 3, military_strength: 7, population: 0 },
+    { id: 'poi_eq_zb_river_crossing', x: 19.0, y: 60.0, type: 'bridge', subRegion: 'Zebrabwe', name: "Zebra's Crossing", description: "A vital bridge over a river teeming with crocodiles. It marks the border with the badlands.", factionId: 'zebrabwe', intelReq: 10, political_influence: 3, economic_value: 5, military_strength: 4, population: 10 },
+    { id: 'poi_eq_zb_diamond_mine', x: 23.0, y: 72.0, type: 'mine', subRegion: 'Zebrabwe', name: "Ancestral Gem Mine", description: "An ancient mine where Zebras extract gems for their jewelry and rituals.", factionId: 'zebrabwe', intelReq: 35, political_influence: 2, economic_value: 8, military_strength: 3, population: 100 },
+    { id: 'poi_eq_zb_ruins', x: 14.0, y: 75.0, type: 'ruins', subRegion: 'Zebrabwe', name: "Ruins of the First Tribe", description: "Ancient stone ruins covered in moss and glyphs. Said to be the birthplace of zebra magic.", factionId: 'unaligned', intelReq: 50, political_influence: 2, economic_value: 1, military_strength: 2, population: 0 },
+    { id: 'poi_eq_zb_outpost', x: 12.0, y: 65.0, type: 'outpost', subRegion: 'Zebrabwe', name: "Savanna Watch", description: "An outpost overlooking the savanna, watching for predators and intruders.", factionId: 'zebrabwe', intelReq: 15, political_influence: 2, economic_value: 1, military_strength: 5, population: 15 },
+    { id: 'poi_eq_zb_hidden_cache', x: 26.0, y: 62.0, type: 'dungeon_entrance', subRegion: 'Zebrabwe', name: "Smuggler's Root Cellar", description: "A hidden storage area used by smugglers moving forbidden potions out of the country.", factionId: 'freelancer_underworld', intelReq: 40, political_influence: 1, economic_value: 6, military_strength: 2, population: 5 }
+];
+
+export const zebrabweData = {
+    pointsOfInterest: zebrabwePois,
+
+};

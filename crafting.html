@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcane Workshop | Crafting System</title>
+    
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="crafting.css">
+    
+    <!-- Fonts -->
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/crafting-icon.png">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        
+        <div id="app">
+            <!-- Sidebar Navigation -->
+            
+            
+            <!-- Main Content -->
+            <main id="main-content">
+                <div class="crafting-page">
+                    
+                    <!-- ==================== -->
+                    <!-- HEADER SECTION -->
+                    <!-- ==================== -->
+                    <header id="crafting-header" class="crafting-header">
+                        <div class="loading-state">
+                            <div class="loading-anvil">⚗️</div>
+                            <p class="loading-text">Firing up the forge...</p>
+                        </div>
+                    </header>
+                    
+                    <!-- ==================== -->
+                    <!-- CATEGORY TABS -->
+                    <!-- ==================== -->
+                    <nav id="category-tabs" class="category-tabs"></nav>
+                    
+                    <!-- ==================== -->
+                    <!-- MAIN LAYOUT -->
+                    <!-- ==================== -->
+                    <div class="crafting-layout">
+                        
+                        <!-- LEFT COLUMN: Recipe List -->
+                        <section class="recipes-section">
+                            <!-- Search & Filters -->
+                            <div class="recipes-controls">
+                                <div class="recipes-search">
+                                    <div class="search-wrapper">
+                                        <span class="search-icon"></span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Level Filter (for scrolls) -->
+                                <div id="level-filter" class="level-filter"></div>
+                                
+                                <!-- School Filter (for scrolls) -->
+                                <div id="school-filter" class="school-filter"></div>
+                            </div>
+                            
+                            <!-- Pinned/Favorite Recipes -->
+                            <div id="pinned-recipes" class="pinned-recipes" style="display: none;"></div>
+                            
+                            <!-- Recipe List -->
+                            <div id="recipes-list" class="recipes-list">
+                                <div class="crafting-loading">
+                                    <div class="loading-anvil">📜</div>
+                                    <p class="loading-text">Loading recipes...</p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- CENTER COLUMN: Recipe Detail -->
+                        <section class="detail-section">
+                            <div id="recipe-detail" class="recipe-detail">
+                                <div class="no-selection">
+                                    <span class="no-selection-icon">👆</span>
+                                    <p class="no-selection-title">Select a Recipe</p>
+                                    <p class="no-selection-text">
+                                        Choose a recipe from the list to view details and start crafting.
+                                    </p>
+                                    
+                                    <!-- Quick Tips -->
+                                    <div class="tips-panel" style="margin-top: 24px; text-align: left;">
+                                        <h4 class="tips-title">💡 Crafting Tips</h4>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🌙</span>
+                                            <span>Scroll scribing has +5% success at night</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">📊</span>
+                                            <span>Higher skill levels increase success chance</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">💎</span>
+                                            <span>Some scrolls require expensive material components</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">⚗️</span>
+                                            <span>Failed crafting consumes materials</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- RIGHT COLUMN: Sidebar -->
+                        <aside class="crafting-sidebar">
+                            <!-- Crafting Queue -->
+                            <div id="crafting-queue" class="sidebar-section">
+                                <div class="crafting-loading">
+                                    <div class="loading-anvil">⏳</div>
+                                    <p class="loading-text">Loading queue...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Materials Inventory -->
+                            <div id="materials-inventory" class="sidebar-section">
+                                <div class="crafting-loading">
+                                    <div class="loading-anvil">🎒</div>
+                                    <p class="loading-text">Loading materials...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Crafting Skills -->
+                            <div id="skills-panel" class="sidebar-section">
+                                <div class="crafting-loading">
+                                    <div class="loading-anvil">📊</div>
+                                    <p class="loading-text">Loading skills...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Crafting History -->
+                            <div id="history-panel" class="sidebar-section" style="display: none;">
+                                <div class="history-panel">
+                                    <h3 class="history-title">📜 Recent Crafting</h3>
+                                    <div id="history-list"></div>
+                                </div>
+                            </div>
+                        </aside>
+                        
+                    </div>
+                    <!-- End Crafting Layout -->
+                    
+                </div>
+                <!-- End Crafting Page -->
+            </main>
+        </div>
+    </div>
+    
+    <!-- ==================== -->
+    <!-- MODALS -->
+    <!-- ==================== -->
+    
+    <!-- Success/Failure Overlay (injected by JS) -->
+    <div id="craft-result-overlay"></div>
+    
+    <!-- Confirm Modal -->
+    <div id="confirm-modal" class="confirm-modal" style="display: none;">
+        <div class="confirm-content">
+            <div class="confirm-icon" id="confirm-icon">⚗️</div>
+            <h3 class="confirm-title" id="confirm-title">Confirm Action</h3>
+            <p class="confirm-message" id="confirm-message">Are you sure?</p>
+            <div class="confirm-buttons">
+                <button class="confirm-btn secondary" id="confirm-cancel">Cancel</button>
+                <button class="confirm-btn primary" id="confirm-ok">Confirm</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Material Detail Modal -->
+    <div id="material-modal" class="confirm-modal" style="display: none;">
+        <div class="confirm-content" style="max-width: 350px;">
+            <div class="confirm-icon" id="material-icon">📦</div>
+            <h3 class="confirm-title" id="material-name">Material Name</h3>
+            <p class="confirm-message" id="material-description">Description</p>
+            <div style="margin: 16px 0; text-align: left;">
+                <div class="detail-stat">
+                    <span class="detail-stat-label">Rarity</span>
+                    <span class="detail-stat-value" id="material-rarity">Common</span>
+                </div>
+                <div class="detail-stat" style="margin-top: 8px;">
+                    <span class="detail-stat-label">Value</span>
+                    <span class="detail-stat-value" id="material-value">10 gp</span>
+                </div>
+                <div class="detail-stat" style="margin-top: 8px;">
+                    <span class="detail-stat-label">Source</span>
+                    <span class="detail-stat-value" id="material-source">Unknown</span>
+                </div>
+            </div>
+            <div class="confirm-buttons">
+                <button class="confirm-btn secondary" id="material-close">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ==================== -->
+    <!-- KEYBOARD SHORTCUTS HINT -->
+    <!-- ==================== -->
+    <div id="keyboard-hints" class="keyboard-hints" style="display: none;">
+        <span><kbd>Esc</kbd> Close</span>
+        <span><kbd>↑↓</kbd> Navigate</span>
+        <span><kbd>Enter</kbd> Select</span>
+        <span><kbd>C</kbd> Craft</span>
+    </div>
+    
+    <!-- ==================== -->
+    <!-- SCRIPTS -->
+    <!-- ==================== -->
+    
+    <!-- Core Scripts -->
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    
+    <!-- Crafting System -->
+    <script type="module" src="crafting-data.js"></script>
+    <script type="module" src="crafting.js"></script>
+    
+    <!-- Optional: Sound Effects -->
+    <script>
+        // Preload crafting sounds
+        const craftingSounds = {
+            click: new Audio('assets/sounds/click.mp3'),
+            success: new Audio('assets/sounds/success.mp3'),
+            fail: new Audio('assets/sounds/fail.mp3'),
+            confirm: new Audio('assets/sounds/confirm.mp3')
+        };
+        
+        // Set volume
+        Object.values(craftingSounds).forEach(sound => {
+            sound.volume = 0.3;
+        });
+    </script>
+</body>
+</html>

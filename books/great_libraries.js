@@ -1,0 +1,9 @@
+export const BOOK_DATA = {
+    title: "A Guide to the Great Libraries",
+    pages: [
+        `Foreword, by Archivist Kain of the Mages' Guild:\n\nKnowledge is the true currency of the realms. While kings hoard gold and generals count swords, the wise seek out the written word. This guide provides a brief overview of the most significant public and private libraries known to the Cartographers' Society. Access to some is... more restricted than others.`,
+        `The Royal Archives (Mushroom City):\n\nA comprehensive collection focused on the history and lineage of the Mushroom Kingdom. Excellent for genealogical research and understanding the long history of the Koopa Wars. Access is granted to citizens and allied scholars.\n\nGrand Library of Mighdural (Midlands):\n\nThe largest repository in the Empire. Contains state-sanctioned history, Imperial law, and a vast collection of literature. Be warned, many texts are heavily redacted by the Silent Service.`,
+        `The Conservator's Archive (Autumnwood):\n\nA private, magically-sealed library of the Mages' Guild. Contains dangerous and forbidden texts on subjects such as demonology, soul-trapping, and catastrophic-class evocation spells. Access is forbidden to all but the highest-ranking Conservators.\n\nProvincial Archives (Yal Belanor):\n\nFocuses on the military history of the Empire, with detailed accounts of the Iron Legion's campaigns and tactical manuals. A valuable resource for any military historian or strategist.`,
+        `The Unseen Library (The Deep Web):\n\nA myth, a legend. Said to contain all information ever deleted or censored from The Internet. Its location is unknown, and its existence is a matter of fierce debate among digital explorers. If it exists, it is undoubtedly the most dangerous library in any realm.`,
+    ]
+};

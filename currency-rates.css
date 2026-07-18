@@ -1,0 +1,1 @@
+.wallet-party-total{margin-top:4px;color:var(--accent2);font-size:12px;line-height:1.4}.wallet-line{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 10px;border-bottom:1px dashed var(--border);line-height:1.4}.wallet-line>span:first-child{min-width:0;overflow-wrap:anywhere}.wallet-line>span:last-child{white-space:nowrap;flex:0 0 auto}

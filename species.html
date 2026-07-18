@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Demographics</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="species.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             
+            <main id="main-content">
+                 <h2 class="page-title">Demographics & Population Analysis</h2>
+                 <p class="page-subtitle">A comprehensive breakdown of population distribution, species density, and regional demographics based on the latest Vigilance reconnaissance data.</p>
+                 
+                 <div id="dashboard-grid">
+                    <!-- Total Population Card -->
+                    <div class="chart-container full-width" style="flex-direction: row; justify-content: space-between; align-items: center; padding: 30px;">
+                        <div>
+                            <h3>Total Known Population</h3>
+                            <p style="color: var(--text-secondary); margin: 0;">Census data aggregated from all tactical regions.</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <h2 id="total-population-display" style="font-family: var(--font-display); font-size: 3rem; color: var(--positive-color); margin: 0; text-shadow: 0 0 10px var(--positive-color);">0</h2>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Vital Stats Container -->
+                    <div id="vital-stats-container" class="chart-container full-width" style="flex-direction: row; justify-content: space-around; padding: 20px; margin-bottom: 24px;">
+                        <!-- Injected by JS -->
+                    </div>
+
+                    <div class="chart-container full-width">
+                        <h3>Global Species Distribution</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="global-species-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container half-width">
+                        <h3>Population by Region</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="regional-population-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container half-width">
+                        <h3>Key Faction Manpower Estimates</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="faction-strength-chart"></canvas>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Tech Access Chart -->
+                 <div class="chart-container full-width" style="margin-bottom: 40px;">
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 16px;">
+                        <h3 style="border-bottom: none; margin: 0; padding: 0;">Technology Diffusion by Social Class</h3>
+                        <select id="tech-access-filter" style="background: var(--main-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 6px; border-radius: 4px; font-family: var(--font-primary);">
+                            <option value="aggregate">Aggregate (All Tech)</option>
+                            <!-- Options injected by JS -->
+                        </select>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 10px; text-align: center;" id="tech-access-desc">Analysis of how advanced technology permeates different strata of society.</p>
+                    <div class="canvas-wrapper" style="height: 400px;">
+                        <canvas id="tech-access-chart"></canvas>
+                    </div>
+                 </div>
+
+                 <!-- Workforce Analysis Section -->
+                 <div id="workforce-section" class="chart-container full-width" style="margin-bottom: 40px;">
+                    <h3>Economic & Workforce Analysis</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px; text-align: center;">Estimated labor distribution across major species based on cultural and biological traits.</p>
+                    <div id="workforce-container" style="width: 100%;">
+                        <!-- Workforce bars injected by species-workforce.js -->
+                    </div>
+                 </div>
+
+                 <div class="chart-container full-width" style="margin-bottom:24px;border-left:4px solid var(--accent-color);">
+                    <h3>People, Power & History</h3>
+                    <p style="color:var(--text-secondary);line-height:1.6;margin-bottom:14px;">Species are not isolated census categories. Population movement, labor, legal status, and faction policy shape the conflicts documented across the Vigilance archive.</p>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <a class="startup-btn" href="battlefield.html#/timeline">🕰️ Explore demographic events</a>
+                        <a class="startup-btn" href="battlefield.html#/home">🔎 Search the Waluipedia archive</a>
+                        <a class="startup-btn" href="battlefield.html#/calendar/imperial/timeline">📅 View historical change</a>
+                    </div>
+                 </div>
+
+                 <div id="species-grid-container">
+                    <!-- Detailed species cards will be injected here by JS -->
+                 </div>
+            </main>
+        </div>
+    </div>
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="species-workforce.js"></script>
+    <script type="module" src="species.js"></script>
+</body>
+</html>

@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Midlands Peace Accord</title>
+<style>
+  :root{
+    --bg:#0e1318;
+    --panel:#161e25;
+    --card:#1f2a33;
+    --card-2:#22303b;
+    --accent:#e7c66f; /* Gold for Regal Empire */
+    --vampire-red: #c73d3d;
+    --werewolf-blue: #6c98d9;
+    --muted:#96a3ad;
+    --danger:#ff6b6b;
+    --success: #6ccf93;
+    --gold:#e7c66f;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --radius:14px;
+    --ultimatum: #5a1e1e;
+  }
+  html,body{height:100%; overflow: hidden;}
+  body{
+    margin:0;
+    background: radial-gradient(1200px 800px at 60% -10%, #1b242c 0%, var(--bg) 60%);
+    color:#e8f0f6;
+    font: 15px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  }
+  *{box-sizing:border-box}
+  a{color:var(--accent)}
+  header{
+    position:sticky; top:0; z-index:3;
+    display:grid; gap:16px; align-items:center;
+    grid-template-columns: auto 1fr auto;
+    padding:14px 20px;
+    background: linear-gradient(180deg, rgba(15,20,26,.95), rgba(15,20,26,.75));
+    border-bottom:1px solid #2c3a45;
+    backdrop-filter: blur(8px);
+  }
+  header .title{
+    font-size:20px; font-weight:700; letter-spacing:.3px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#1b242c; border:1px solid #2b3b47; color:#d9e4ea;
+    padding:6px 12px; border-radius:999px; font-size:14px;
+  }
+  .header-stats{
+    display:flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end;
+  }
+  select, input[type="text"], input[type="number"]{
+    background:#11181f; color:#e8f0f6; border:1px solid #2b3b47; border-radius:10px; padding:7px 10px; width: 100%;
+  }
+  select:disabled, input:disabled { background: #0c1014; color: var(--muted); cursor: not-allowed; }
+  input[type="range"]{ accent-color:var(--accent); }
+  .faction-bar{
+    display:flex; align-items:center; justify-content:center; gap:24px;
+  }
+  .faction-bar .faction{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    cursor: help;
+  }
+  .faction-bar .icon{ font-size:24px; }
+  .faction-bar .name{ font-weight:600; font-size:14px; }
+  .name.vampire{ color: var(--vampire-red); }
+  .name.werewolf{ color: var(--werewolf-blue); }
+  .name.regal{ color: var(--gold); }
+  
+  .wrap{
+    display:grid; gap:16px; padding:16px; margin:0 auto; max-width:1600px;
+    grid-template-columns: 320px minmax(380px, 1fr) 320px;
+    height: calc(100vh - 80px); /* Full height minus header */
+  }
+  .panel{
+    background:linear-gradient(180deg, var(--panel), #131a20);
+    border:1px solid #2a3a45; border-radius:var(--radius); box-shadow:var(--shadow);
+    overflow:hidden; display:flex; flex-direction:column;
+  }
+  .panel h3{
+    margin:0; padding:12px 14px; font-size:15px; letter-spacing:.3px;
+    background:linear-gradient(180deg, #1a232b, #121a20);
+    border-bottom:1px solid #24323c; flex-shrink: 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .list{ padding:8px; overflow-y:auto; }
+  .panel > .list {
+    height: 100%;
+  }
+
+  .type{
+    display:flex; flex-direction:column; align-items:flex-start; gap:8px;
+    padding:10px; margin:6px 4px; border-radius:10px;
+    background:linear-gradient(180deg, #1c2630, #162029);
+    border:1px solid #283845;
+  }
+  .type .meta{ display:flex; gap:10px; align-items:center; }
+  .type .icon{ width:28px; height:28px; display:grid; place-items:center; border-radius:8px;
+    background:#1a232b; border:1px solid #2d3a45; font-size:16px;
+  }
+  .type .name{ font-weight:600 }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer;
+    background: linear-gradient(180deg, #1a2630, #12202a);
+    color:#eaf4fa; padding:8px 12px; border-radius:10px; border:1px solid #2b3b47;
+    font-size:14px;
+  }
+  .btn:hover{ filter:brightness(1.06) }
+  .btn:disabled { filter: grayscale(0.8) brightness(0.7); cursor: not-allowed; }
+  .btn.primary{ background: linear-gradient(180deg, #b39244, #8a6d2b); border-color:#d4b35e; color:white; }
+  .btn.vampire{ background: linear-gradient(180deg, #8c3232, #682323); border-color:#a54747; color:white; font-size:12px; padding:6px 10px; }
+  .btn.werewolf{ background: linear-gradient(180deg, #506f9c, #395277); border-color:#6588b8; color:white; font-size:12px; padding:6px 10px; }
+  .btn.regal{ background: linear-gradient(180deg, #b39244, #8a6d2b); border-color:#d4b35e; color:white; font-size:12px; padding:6px 10px; }
+  .btn.danger{ background: linear-gradient(180deg, #b84a4a, #8c3232); border-color:#c73d3d; color:white; }
+  .btn.success{ background: linear-gradient(180deg, #579e73, #3e7a57); border-color:#6ccf93; color:white; }
+  
+  .badges{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+  .badge{
+    background:#19222a; padding:4px 8px; border:1px solid #2c3a45; border-radius:999px; color:#c7d5df;
+    display:inline-flex; gap:6px; align-items:center;
+  }
+  .draft-container{
+      flex-grow: 1; min-height: 0; overflow-y: auto;
+  }
+  .draft{
+    display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; padding:10px;
+  }
+  .draft .side{
+    display:flex; flex-direction:column; gap:10px; min-height:120px;
+  }
+  .empty{
+    color:#8ea0ac; font-style:italic; background:#141b21; padding:18px; border-radius:12px; border:1px dashed #2c3a45;
+    text-align:center;
+  }
+  .card{
+    background:linear-gradient(180deg, var(--card), var(--card-2));
+    border:1px solid #2c3a45; border-radius:12px; overflow:hidden;
+  }
+  .card.onyx_hand{ border-left: 4px solid var(--vampire-red); }
+  .card.moonfang_pack{ border-left: 4px solid var(--werewolf-blue); }
+  .card.regal_empire{ border-left: 4px solid var(--gold); }
+  .card.demand-counter footer { background: #2b1d2e; }
+  .card.demand-forced footer { background: #2b2b1d; }
+  .card.demand-ultimatum { background: var(--ultimatum); border-color: var(--danger); }
+  .card.demand-ultimatum footer { background: #401818; }
+  .card.demand-veto { background: #1f2b3e; border-color: var(--werewolf-blue); }
+
+  .card header{
+    position:relative; display:flex; gap:10px; align-items:center; background:linear-gradient(180deg, #22303b, #1a252e);
+    padding:8px 10px; border-bottom:1px solid #2c3a45; box-shadow:none;
+    grid-template-columns:none;
+  }
+  .card header .title{ font-weight:700 }
+  .card .body{
+    display:grid; gap:10px; padding:10px;
+  }
+  .card .body > div{ display:flex; flex-direction:column; gap:4px }
+  .card footer{
+    display:flex; justify-content:space-between; align-items:center; padding:8px 10px; border-top:1px solid #2c3a45;
+    background:#172129;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .impact-display { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+  .impact-display .pos { color: var(--success); }
+  .impact-display .neg { color: var(--danger); }
+
+  .small{ font-size:12px; color:#a8b6c0 }
+  .cost{
+    font-weight:700; color:var(--gold); letter-spacing:.3px;
+  }
+  .actions{
+    display:flex; gap:10px; align-items:center; justify-content:flex-end; padding:12px; border-top:1px solid #2c3a45;
+    background:linear-gradient(180deg, #151d23, #0f161c); flex-shrink: 0;
+  }
+  .foot-stats{
+    display:flex; gap:12px; align-items:center; flex-wrap:wrap
+  }
+  .progress{
+    width:120px; height:8px; background:#1b242c; border:1px solid #2b3b47; border-radius:999px; overflow:hidden;
+  }
+  .progress > span{ display:block; height:100%; transition: width .3s; }
+  #vampireBar > span { background:var(--vampire-red); }
+  #werewolfBar > span { background:var(--werewolf-blue); }
+  #regalBar > span { background:var(--gold); }
+  .progress.accepted > span { background: var(--success) !important; }
+  
+  .muted{ color:#9eb0bd }
+  .sep{ opacity:.4 }
+  .footer-note{ padding:10px 16px; text-align:center; color:#90a0aa; font-size:12px }
+  .province-list-item {
+    padding:8px 10px; margin: 4px; border-radius:8px; border:1px solid #283845;
+    background: #1c2630;
+  }
+  .province-list-item .name{ font-weight:600; }
+  .province-list-item .details{ font-size:13px; color:var(--muted); }
+  .province-control {
+      display: flex; flex-direction: column;
+      gap: 6px; margin-top: 6px;
+      font-size: 13px;
+  }
+  .province-control > div {
+      display: flex; align-items: center; gap: 6px;
+  }
+  .province-control .label {
+      font-weight: 600; color: var(--muted); min-width: 60px;
+  }
+  .province-list-item .name .muted {
+      font-size: 13px;
+  }
+  .province-stats { display: flex; gap: 12px; align-items: center; }
+  .loyalty-bar { width: 50px; height: 6px; background: #111; border-radius: 3px; overflow:hidden; border: 1px solid #333; }
+  .loyalty-bar > span { display: block; height: 100%; background: var(--success); }
+
+  .sort-controls button {
+      background: none; border: 1px solid transparent; color: var(--muted); cursor: pointer; padding: 2px 4px; border-radius: 4px;
+  }
+  .sort-controls button.active { background: #22303b; color: var(--accent); border-color: #334250; }
+
+  #ceasefire-screen{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    height: calc(100vh - 80px); text-align:center; padding: 20px;
+  }
+  #ceasefire-screen h1{ font-size:32px; color:var(--gold); }
+  #ceasefire-screen p{ max-width:500px; color:var(--muted); }
+
+  #treaty-modal {
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(10,15,20, .8); backdrop-filter:blur(5px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  #treaty-modal.visible { display:flex; }
+  .treaty-paper {
+    background: #fdf6e7; color:#4a3f32;
+    border: 10px solid #c7b299;
+    border-image: linear-gradient(45deg, #a28a6f, #d4b35e) 1;
+    border-radius:5px;
+    padding:40px; max-width:800px; width:100%; max-height:90vh; overflow-y:auto;
+    box-shadow: 0 20px 50px rgba(0,0,0,.5);
+    font-family: Georgia, serif;
+  }
+  .treaty-paper h1{ font-family: "Brush Script MT", cursive; font-size:48px; text-align:center; color:#8a6d2b; margin-top:0; }
+  .treaty-paper h2{ border-bottom: 2px solid #c7b299; padding-bottom: 8px; margin-top:30px; }
+  .treaty-paper ul { list-style: none; padding-left: 10px; }
+  .treaty-paper li { padding: 5px 0; border-bottom: 1px dotted #d4c9b8; }
+  .treaty-paper li strong { color: #8a6d2b; }
+  .signatures { display:flex; justify-content:space-around; text-align:center; margin-top:50px; }
+  .sig { font-family: "Brush Script MT", cursive; font-size: 28px; }
+  #close-treaty { margin-top: 40px; display:block; margin-left:auto; margin-right:auto; }
+
+  #intrigue-modal {
+    position:fixed; inset:0; z-index:1001;
+    background:rgba(10,15,20, .8); backdrop-filter:blur(5px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  #intrigue-modal.visible { display:flex; }
+  .intrigue-paper {
+    background: var(--panel);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px 30px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .intrigue-paper h2 {
+      color: var(--gold);
+      margin-top: 0;
+  }
+  #close-intrigue { margin-top: 20px; }
+
+  #preview-modal {
+    position:fixed; inset:0; z-index:1002;
+    background:rgba(10,15,20, .8); backdrop-filter:blur(5px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  #preview-modal.visible { display:flex; }
+
+  #rider-modal {
+    position:fixed; inset:0; z-index:1003; /* higher than preview */
+    background:rgba(10,15,20, .8); backdrop-filter:blur(5px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  #rider-modal.visible { display:flex; }
+
+  #final-demands-modal {
+    position:fixed; inset:0; z-index:1004;
+    background:rgba(10,15,20, .8); backdrop-filter:blur(5px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  #final-demands-modal.visible { display:flex; }
+
+  @media (max-width: 1200px){
+    .wrap{ grid-template-columns: 1fr; height: auto;}
+    .draft{ grid-template-columns: 1fr 1fr 1fr; }
+    .panel > .list { max-height: 300px; }
+  }
+  @media (max-width: 980px){
+    .draft{ grid-template-columns: 1fr; }
+    header{ grid-template-columns: 1fr; justify-items: center; }
+    .header-stats{ justify-content: center; grid-row: 2; }
+  }
+</style>
+</head>
+<body>
+
+<div id="ceasefire-screen">
+  <h1>The Brink of War</h1>
+  <p>The Midlands teeter on the edge of chaos. The ancient enmity between the Onyx Hand and the Moonfang Pack threatens to consume the land in a tide of blood and silver. As the neutral power, only the Regal Empire can broker a peace.</p>
+  <button id="propose-ceasefire" class="btn primary" style="padding: 14px 22px; font-size: 18px;">Propose a Ceasefire</button>
+</div>
+
+<div id="treaty-screen" style="display:none;">
+  <header>
+    <div class="title">
+      <span style="font-size:24px;">👑</span>
+      <span>Midlands Peace Accord</span>
+    </div>
+    
+    <div class="faction-bar">
+      <div id="onyx-header" class="faction" title="Their envoys are guarded and cautious.">
+        <div class="icon">🦇</div>
+        <div class="name vampire">Onyx Hand</div>
+      </div>
+      <div class="faction" title="The Regal Empire remains the steady center of power.">
+        <div class="icon">👑</div>
+        <div class="name regal">Regal Empire</div>
+      </div>
+      <div id="moonfang-header" class="faction" title="Their envoys are guarded and cautious.">
+        <div class="icon">🐺</div>
+        <div class="name werewolf">Moonfang Pack</div>
+      </div>
+    </div>
+
+    <div class="header-stats">
+      <div class="pill">🦇 Prisoners Held: <span id="moonfang_prisoners" class="cost">0</span></div>
+      <div class="pill">🐺 Prisoners Held: <span id="onyx_prisoners" class="cost">0</span></div>
+      <div class="pill">
+        <span>Influence:</span>
+        <span id="influence" class="cost" style="font-size:16px; margin-left:6px;">50</span>
+      </div>
+      <div class="pill">
+        <span>Capital:</span>
+        <span id="capital" class="cost" style="font-size:16px; margin-left:6px;">100</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <!-- Left -->
+    <section class="panel">
+      <h3>Clause Catalog</h3>
+      <div class="list" id="clause-catalog">
+        <!-- filled by JS -->
+      </div>
+    </section>
+
+    <!-- Center -->
+    <main class="panel" style="padding-bottom:0;">
+      <h3 style="display:flex; align-items:center; justify-content:space-between;">
+        <span>Treaty Draft</span>
+        <div class="pill" style="padding: 4px 10px;" title="Longer treaties are harder for factions to accept but yield greater influence for the Empire upon success.">
+          <span class="small">Duration:</span>
+          <input id="years" type="range" min="1" max="50" value="10" />
+          <span id="yearsLabel" class="small">10 years</span>
+        </div>
+      </h3>
+
+      <div class="draft-container">
+          <div class="draft" id="draft">
+            <div class="side" id="onyxOffer"></div>
+            <div class="side" id="regalOffer"></div>
+            <div class="side" id="moonfangOffer"></div>
+          </div>
+      </div>
+
+      <div class="actions">
+        <div class="foot-stats" style="margin-right:auto">
+          <span class="badge">🦇 Acceptance: <div id="vampireBar" class="progress" title="0%"><span style="width:0%"></span></div> <span id="vampireAcceptCheck"></span></span>
+          <span class="sep">|</span>
+          <span class="badge">🐺 Acceptance: <div id="werewolfBar" class="progress" title="0%"><span style="width:0%"></span></div> <span id="werewolfAcceptCheck"></span></span>
+          <span class="sep">|</span>
+          <span class="badge">👑 Court Acceptance: <div id="regalBar" class="progress" title="0%"><span style="width:0%"></span></div> <span id="regalAcceptCheck"></span></span>
+        </div>
+
+        <button id="reset" class="btn">Reset</button>
+        <button id="send" class="btn primary">Send Proposal</button>
+      </div>
+    </main>
+
+    <!-- Right -->
+    <section class="panel">
+      <h3>
+        <span>State of the Midlands</span>
+        <div class="sort-controls small">
+          Sort:
+          <button data-sort="name" class="active">Name</button>
+          <button data-sort="loyalty">Loyalty</button>
+          <button data-sort="votes">Votes</button>
+        </div>
+      </h3>
+      <div class="list" id="provinces-list">
+        <!-- filled by JS -->
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="footer-note">
+  A Ceasefire is required. A counter-demand may be triggered by unbalanced proposals. Your goal: a peace that elevates the Empire's influence.
+</div>
+
+<div id="treaty-modal">
+    <div class="treaty-paper">
+        <h1>The Midlands Peace Accord</h1>
+        <p>This accord, by the grace of the Regal Empire, shall establish peace for a term of <strong id="treaty-duration">10</strong> years. The undersigned parties agree to the following terms:</p>
+        
+        <div id="treaty-content"></div>
+
+        <div class="signatures">
+          <div><span class="sig">King Theron IV</span><br>For the Regal Empire 👑</div>
+          <div><span class="sig">Count Strahd</span><br>For the Onyx Hand 🦇</div>
+          <div><span class="sig">Alpha Fenris</span><br>For the Moonfang Pack 🐺</div>
+        </div>
+        <button id="close-treaty" class="btn primary">Begin Anew</button>
+    </div>
+</div>
+
+<div id="intrigue-modal" style="display:none;">
+  <div class="intrigue-paper">
+    <h2>Political Intrigue</h2>
+    <p id="intrigue-text"></p>
+    <button id="close-intrigue" class="btn primary">Understood</button>
+  </div>
+</div>
+
+<div id="preview-modal">
+  <div class="intrigue-paper" style="text-align:left; max-width: 600px;">
+    <h2>Proposal Preview</h2>
+    <p class="muted" style="margin-bottom: 20px;">Your envoys present the terms. This is the calculated chance of success. Proceeding is a political gamble and failure will cost you influence.</p>
+    <div id="preview-chances" style="font-size: 16px; display: flex; flex-direction: column; gap: 10px;">
+        <!-- JS will populate this -->
+    </div>
+    
+    <h3 style="margin-top: 20px; margin-bottom: 10px; color: var(--accent); border-bottom: 1px solid #2c3a45; padding-bottom: 5px;">Summary of Terms</h3>
+    <div id="preview-terms" style="max-height: 200px; overflow-y: auto; font-size: 14px; background: #141b21; padding: 10px; border-radius: 8px;">
+        <!-- JS will populate this -->
+    </div>
+
+    <div class="actions" style="justify-content:flex-end; padding: 20px 0 0; background:none; border:none; margin-top: 10px;">
+        <button id="cancel-proposal" class="btn">Reconsider</button>
+        <button id="finalize-proposal" class="btn primary">Finalize Treaty</button>
+    </div>
+  </div>
+</div>
+
+<div id="rider-modal">
+  <div class="intrigue-paper">
+    <h2>A Rider Proposal</h2>
+    <p id="rider-text"></p>
+    <div id="rider-clause-preview" style="background: #141b21; padding: 10px; border-radius: 8px; margin: 15px 0; text-align: left;">
+        <!-- JS will populate this -->
+    </div>
+    <div class="actions" style="justify-content:center; padding: 10px 0 0; background:none; border:none; margin-top: 10px; gap: 15px;">
+        <button id="reject-rider" class="btn danger">Force The Issue</button>
+        <button id="accept-rider" class="btn success">Accept Compromise</button>
+    </div>
+  </div>
+</div>
+
+<div id="final-demands-modal">
+  <div class="intrigue-paper" style="text-align:left; max-width: 600px;">
+    <h2>A Last-Minute Hitch</h2>
+    <p class="muted" style="margin-bottom: 20px;">Both the Onyx Hand and Moonfang Pack have agreed to the terms in principle. However, seeing an opportunity, both have presented a final, non-negotiable demand before they will sign. You can accept their demands and finalize the treaty now, or reject them and return to the negotiating table.</p>
+    <div id="final-demands-list" style="display: flex; flex-direction: column; gap: 15px; margin: 20px 0;">
+        <!-- JS will populate this -->
+    </div>
+    <div class="actions" style="justify-content:flex-end; padding: 20px 0 0; background:none; border:none; margin-top: 10px; gap: 15px;">
+        <button id="reject-final-demands" class="btn danger">Reject & Return</button>
+        <button id="accept-final-demands" class="btn success">Accept & Sign</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'midlands_accord_v16';
+
+  // --- DATA ---
+  const FACTIONS = {
+    regal_empire: { name: 'Regal Empire', icon: '👑' },
+    onyx_hand: { name: 'Onyx Hand', icon: '🦇' },
+    moonfang_pack: { name: 'Moonfang Pack', icon: '🐺' },
+    unaligned: { name: 'Unaligned', icon: '🏳️'}
+  };
+  const PROVINCES = [
+      { name: 'Capital Province', duke: 'King Theron IV', votes: 15, bias: 'human', loyalty: 70, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'regal_empire' },
+      { name: 'Yal Belanor', duke: 'Duchess Eleonora', votes: 4, bias: 'human', loyalty: 60, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'regal_empire' },
+      { name: 'Vemilia', duke: 'Baron Valerius', votes: 3, bias: 'human', loyalty: 55, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'regal_empire' },
+      { name: 'Ironwood', duke: 'Lord Tiber', votes: 4, bias: 'human', loyalty: 50, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'regal_empire' },
+      { name: 'Lockerwood', duke: 'Lady Isolde', votes: 3, bias: 'human', loyalty: 60, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'regal_empire' },
+      { name: 'Yal Central', duke: 'Marquis Frederik', votes: 3, bias: 'human', loyalty: 65, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'regal_empire' },
+      { name: 'Dark Shores', duke: 'The Chain Lord', votes: 2, bias: 'mixed', loyalty: 45, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'unaligned' },
+      { name: 'Autumnwood', duke: 'Count Strahd', votes: 5, bias: 'vampire', loyalty: 40, faction: 'onyx_hand', de_facto: 'onyx_hand', de_jure: 'onyx_hand' },
+      { name: 'Dry County', duke: 'Sheriff Jebediah', votes: 1, bias: 'mixed', loyalty: 50, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'unaligned' },
+      { name: 'Dulgra', duke: 'Alpha Fenris', votes: 3, bias: 'werewolf', loyalty: 45, faction: 'moonfang_pack', de_facto: 'moonfang_pack', de_jure: 'moonfang_pack' },
+      { name: 'Dark Valley', duke: 'Chieftain Skoll', votes: 3, bias: 'werewolf', loyalty: 35, faction: 'moonfang_pack', de_facto: 'moonfang_pack', de_jure: 'moonfang_pack' },
+      { name: 'Gehnsha Glade', duke: 'Matriarch Carmilla', votes: 3, bias: 'vampire', loyalty: 50, faction: 'onyx_hand', de_facto: 'onyx_hand', de_jure: 'onyx_hand' },
+      { name: 'Jungle de Thorn', duke: 'Governor Cortez', votes: 2, bias: 'human', loyalty: 60, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'regal_empire' },
+      { name: 'Yale Shores', duke: 'The Tide Master', votes: 2, bias: 'mixed', loyalty: 55, faction: 'regal_empire', de_facto: 'regal_empire', de_jure: 'regal_empire' }
+  ];
+  const REGAL_NOBLES = PROVINCES.filter(p => p.faction === 'regal_empire').map(p => ({name: p.duke, province: p.name}));
+
+  const RESOURCES = ['Bloodwood', 'Moonstone', 'Heart Iron', 'Ghost Blossom'];
+  const GRIEVANCES = ['The Battle of Ash Fields', 'The Night of Red Fangs', 'The Silver Purge'];
+  const MILITIA_UNITS = { onyx_hand: ['The Bloodsworn Guard', 'The Duskfang Coven'], moonfang_pack: ['The Direfang Raiders', 'The Moonhowler Pack']};
+  const ALLIANCE_TYPES = ['Defensive Pact', 'Military Alliance', 'Trade Bloc'];
+  const HOLY_SITES = { onyx_hand: ['The Crimson Spire', 'The Sanguine Pools'], moonfang_pack: ['The Moonfang Cairns', 'The Ancestor Stones']};
+  const SACRED_TEXTS = { onyx_hand: ['The Sanguine Scrolls'], moonfang_pack: ['The Codex of the Wild'] };
+  const ADVISOR_TYPES = ['Military Advisor', 'Economic Advisor', 'Diplomatic Advisor'];
+  const INTELLIGENCE_SCOPES = ['On External Threats', 'On Internal Dissidents', 'On Rival Faction Activity'];
+  const TRADE_ROUTE_LOCATIONS = ['The Western Ports', 'The Northern Passes', 'The Sunken Roads'];
+  const WAR_MACHINES = ['Siege Ballistae', 'Plague Catapults', 'Blood Cauldrons'];
+  
+  const FACTION_MOODS = {
+    Aggressive: { base_modifier: -10, hint: 'Their envoys seem particularly belligerent.' },
+    Defensive: { base_modifier: 5, hint: 'Their envoys are guarded and cautious.' },
+    Pragmatic: { base_modifier: 0, hint: 'Their envoys are direct and business-like.' },
+    Suspicious: { base_modifier: -5, hint: 'Their envoys watch your every move with distrust.'}
+  };
+  const MOOD_LIST = Object.keys(FACTION_MOODS);
+
+  const COUNTER_CLAUSES = ['financial_stipend', 'resource_rights', 'release_prisoners', 'cede_mines', 'veto'];
+  
+  const STARTING_DEMANDS_BY_MOOD = {
+    Aggressive: { onyx_hand: ['disband_militia', 'cede_war_machines'], moonfang_pack: ['disband_militia', 'cede_war_machines'] },
+    Defensive: { onyx_hand: ['protect_holy_sites', 'demilitarize_border'], moonfang_pack: ['hunting_rights', 'demilitarize_border'] },
+    Pragmatic: { onyx_hand: ['resource_rights', 'financial_stipend'], moonfang_pack: ['resource_rights', 'cede_mines'] },
+    Suspicious: { onyx_hand: ['public_apology', 'non_aggression_pact'], moonfang_pack: ['public_apology', 'non_aggression_pact'] }
+  };
+
+  const ULTIMATUM_DEMANDS = { 
+    onyx_hand: ['pledge_fealty', 'cede_sacred_text', 'imperial_inquisition', 'sanction_trade', 'seize_assets'], 
+    moonfang_pack: ['pledge_fealty', 'disband_militia', 'cede_war_machines', 'cede_mines', 'sanction_trade'] 
+  };
+  const CONTENTIOUS_THRESHOLD = -15;
+  const ULTIMATUM_THRESHOLD = 15;
+  
+  const FINAL_DEMANDS = {
+    onyx_hand: ['financial_stipend', 'resource_rights', 'cede_mines'],
+    moonfang_pack: ['financial_stipend', 'resource_rights', 'hunting_rights']
+  };
+
+  const TYPES = {
+    // DIPLOMATIC
+    ceasefire: {
+      label: 'Ceasefire', icon: '🕊️', category: 'diplomatic', hint: 'A mandatory cessation of all hostilities.', balanced: true, unique: true,
+      defaults: { note: 'Immediate and binding.' }, cost: p => 1,
+      impact: p => ({onyx_hand: 10, moonfang_pack: 10, loyaltyImpacts: {human: 1, mixed: 1, vampire: 1, werewolf: 1}})
+    },
+    non_aggression_pact: {
+      label: 'Non-Aggression Pact', icon: '☮️', category: 'diplomatic', hint: 'Pledge to not attack one another.', balanced: true, unique: true,
+      defaults: { note: 'Mutual non-aggression.' }, cost: p => 3,
+      impact: p => ({onyx_hand: 12, moonfang_pack: 12, loyaltyImpacts: {human: 2, mixed: 1, vampire: 2, werewolf: 2}})
+    },
+    territory: {
+      label: 'Territory Transfer', icon: '🗺️', category: 'diplomatic', hint: 'Cede control of a province.',
+      defaults: { province: 'Lockerwood', type: 'De Facto Control' },
+      cost: p => 10 + PROVINCES.find(pr => pr.name === p.province)?.votes || 5,
+      impact: (p, side) => {
+        const prov = PROVINCES.find(pr => pr.name === p.province);
+        if (!prov) return { onyx_hand: 0, moonfang_pack: 0 };
+        const value = prov.votes * 2; let o = 0, m = 0;
+        const targetSide = side === 'onyx_hand' ? 'vampire' : 'werewolf';
+        const otherSide = side === 'onyx_hand' ? 'werewolf' : 'vampire';
+        if (prov.bias.includes(targetSide)) o = value * 1.5; else if (prov.bias.includes('human')) o = value * 0.8; else o = value;
+        if (prov.bias.includes(otherSide)) m = -value * 1.5; else m = -value * 0.5;
+        const sideImpact = side === 'onyx_hand' ? { onyx_hand: o, moonfang_pack: m } : { onyx_hand: m, moonfang_pack: o };
+        return { ...sideImpact, loyaltyImpacts: {human: -prov.votes, [targetSide]: prov.votes} };
+      }
+    },
+    royal_marriage: {
+      label: 'Royal Marriage', icon: '💍', category: 'diplomatic', hint: 'Forge a bond with a Regal house.',
+      defaults: { noble: REGAL_NOBLES[1].name }, cost: p => 20,
+      impact: (p, side) => {
+        const sideImpact = side === 'onyx_hand' ? {onyx_hand: 15, moonfang_pack: -5} : {onyx_hand: -5, moonfang_pack: 15};
+        const noble = REGAL_NOBLES.find(n => n.name === p.noble);
+        const specificLoyaltyPenalty = noble ? {[noble.province]: -25} : {};
+        return { ...sideImpact, loyaltyImpacts: {human: -5}, specificLoyaltyPenalty };
+      }
+    },
+    release_prisoners: {
+        label: 'Release Prisoners', icon: '⛓️', category: 'diplomatic', hint: 'Release captives held by the other side.', unique: true,
+        defaults: { amount: 50 }, cost: p => Math.ceil(p.amount / 10),
+        impact: (p, side) => { // side is the one releasing
+            const impactVal = Math.ceil(p.amount / 5);
+            // Releasing prisoners is a concession, viewed negatively by hawks in the releasing faction.
+            // It's a huge positive for the other faction.
+            return {
+                onyx_hand: side === 'onyx_hand' ? -2 : impactVal,
+                moonfang_pack: side === 'moonfang_pack' ? -2 : impactVal,
+                loyaltyImpacts: {human: 1}
+            };
+        }
+    },
+    public_apology: {
+        label: 'Public Apology', icon: '📜', category: 'diplomatic', hint: 'Formally apologize for past grievances.',
+        defaults: { grievance: GRIEVANCES[0] }, cost: p => 5,
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? -5 : 15,
+            moonfang_pack: side === 'moonfang_pack' ? -5 : 15,
+            loyaltyImpacts: {human: p.grievance.includes('Silver') ? 5 : -2, werewolf: p.grievance.includes('Silver') ? -10 : 5, vampire: p.grievance.includes('Red Fangs') ? -10 : 5}
+        })
+    },
+    form_alliance: {
+        label: 'Form Alliance', icon: '🤝', category: 'diplomatic', hint: 'A pact of mutual defense.',
+        defaults: { type: ALLIANCE_TYPES[0] }, cost: p => 15,
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? 20 : -20,
+            moonfang_pack: side === 'moonfang_pack' ? 20 : -20,
+            loyaltyImpacts: {human: -10, mixed: -5}
+        })
+    },
+    protect_holy_sites: {
+        label: 'Protect Holy Sites', icon: '🕍', category: 'diplomatic', hint: 'Guarantee access to sacred grounds.',
+        defaults: { site: HOLY_SITES.moonfang_pack[0] }, cost: p => 4,
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? 10 : 0,
+            moonfang_pack: side === 'moonfang_pack' ? 10 : 0,
+            loyaltyImpacts: {human: -2}
+        })
+    },
+    cede_sacred_text: {
+        label: 'Cede Sacred Text', icon: '📖', category: 'diplomatic', hint: 'Give a sacred artifact to the other faction.',
+        defaults: { text: SACRED_TEXTS.moonfang_pack[0] }, cost: p => 15,
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? -25 : 25,
+            moonfang_pack: side === 'moonfang_pack' ? -25 : 25,
+            loyaltyImpacts: {human: 2}
+        })
+    },
+    host_peace_summit: {
+        label: 'Host Peace Summit', icon: '🏛️', category: 'diplomatic', hint: 'A costly summit to foster goodwill.', balanced: true, unique: true,
+        defaults: { note: 'In the Capital.' }, cost: p => 10,
+        impact: p => ({onyx_hand: 5, moonfang_pack: 5, loyaltyImpacts: {human: 1, mixed: 1}, regal_influence: -5})
+    },
+    cultural_exchange: {
+        label: 'Cultural Exchange', icon: '🎭', category: 'diplomatic', hint: 'Promote understanding between cultures.', balanced: true, unique: true,
+        defaults: { note: 'Student and artist exchange.' }, cost: p => 2,
+        impact: p => ({onyx_hand: 3, moonfang_pack: 3, loyaltyImpacts: {human: 1}})
+    },
+    // ECONOMIC
+    financial_stipend: {
+      label: 'Financial Stipend', icon: '💰', category: 'economic', hint: 'A weekly payment in gold.',
+      defaults: { amount: 500 }, cost: p => Math.ceil(p.amount / 250),
+      impact: (p, side) => ({
+        onyx_hand: side === 'onyx_hand' ? Math.ceil(p.amount / 100) : 0,
+        moonfang_pack: side === 'moonfang_pack' ? Math.ceil(p.amount / 100) : 0,
+        loyaltyImpacts: {human: -Math.ceil(p.amount/500), mixed: -Math.ceil(p.amount/1000)}
+      })
+    },
+    resource_rights: {
+      label: 'Resource Rights', icon: '💎', category: 'economic', hint: 'Grant rights to a valuable resource.',
+      defaults: { resource: 'Bloodwood' }, cost: p => 5,
+      impact: (p, side) => ({
+        onyx_hand: side === 'onyx_hand' ? 8 : -2,
+        moonfang_pack: side === 'moonfang_pack' ? 8 : -2,
+        loyaltyImpacts: {human: -2, vampire: p.resource === 'Bloodwood' ? 5 : 0, werewolf: p.resource === 'Moonstone' ? 5 : 0}
+      })
+    },
+    hunting_rights: {
+        label: 'Hunting Rights', icon: '🏹', category: 'economic', hint: 'Grant hunting rights in a territory.',
+        defaults: { province: 'Ironwood' }, cost: p => 3,
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? 6 : -1,
+            moonfang_pack: side === 'moonfang_pack' ? 6 : -1,
+            loyaltyImpacts: {human: -1}
+        })
+    },
+    cede_mines: {
+      label: 'Cede Mines', icon: '⛏️', category: 'economic', hint: 'Transfer ownership of mines.',
+      defaults: { location: 'Ironwood Heart Iron mines' }, cost: p => 12,
+      impact: (p, side) => ({
+        onyx_hand: side === 'onyx_hand' ? 15 : -10,
+        moonfang_pack: side === 'moonfang_pack' ? 15 : -10,
+        loyaltyImpacts: {human: -5}
+      })
+    },
+    sanction_trade: {
+      label: 'Sanction Trade', icon: '🚫', category: 'economic', hint: 'Block a faction from trading a resource.',
+      defaults: { resource: 'Heart Iron' }, cost: p => 8,
+      impact: (p, side) => ({
+        onyx_hand: side === 'onyx_hand' ? -12 : 5,
+        moonfang_pack: side === 'moonfang_pack' ? -12 : 5,
+        loyaltyImpacts: {human: 3, mixed: 1}
+      })
+    },
+    seize_assets: {
+        label: 'Seize Assets', icon: '🏦', category: 'economic', hint: 'Seize financial assets held in Imperial banks.',
+        defaults: { amount: 5000 }, cost: p => -Math.ceil(p.amount/1000),
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? -20 : 5,
+            moonfang_pack: side === 'moonfang_pack' ? -20 : 5,
+            loyaltyImpacts: {human: 5, mixed: -5},
+            regal_influence: 15
+        })
+    },
+    // MILITARY / COVERT
+    disband_militia: {
+      label: 'Disband Militia', icon: '🛡️', category: 'military', hint: 'Force a faction to disband irregulars.',
+      defaults: { unit: MILITIA_UNITS.moonfang_pack[0] }, cost: p => 10,
+      impact: (p, side) => ({
+        onyx_hand: side === 'onyx_hand' ? -15 : 15,
+        moonfang_pack: side === 'moonfang_pack' ? -15 : 15,
+        loyaltyImpacts: {human: 5}
+      })
+    },
+    demilitarize_border: {
+        label: 'Demilitarize Border', icon: '🚷', category: 'military', hint: 'Pull back forces from a shared border.', balanced: true, unique: true,
+        defaults: { note: 'The Dark Shores border.' }, cost: p => 2,
+        impact: p => ({onyx_hand: 8, moonfang_pack: 8, loyaltyImpacts: {human: 3, mixed: 2}})
+    },
+    enforce_curfew: {
+        label: 'Enforce Curfew', icon: '🌙', category: 'military', hint: 'Enforce a strict night-time curfew.',
+        defaults: { province: 'Dark Valley' }, cost: p => 6,
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? -8 : 3,
+            moonfang_pack: side === 'moonfang_pack' ? -8 : 3,
+            loyaltyImpacts: {human: 4}
+        })
+    },
+    cede_war_machines: {
+        label: 'Cede War Machines', icon: '💥', category: 'military', hint: 'Turn over powerful siege weapons.',
+        defaults: { machine: WAR_MACHINES[0] }, cost: p => 12,
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? -18 : 10,
+            moonfang_pack: side === 'moonfang_pack' ? -18 : 10,
+            loyaltyImpacts: {human: 6}
+        })
+    },
+    fund_partisans: {
+      label: 'Fund Partisans', icon: '🤫', category: 'regal', hint: 'Covertly fund rebels in a province.',
+      defaults: { province: 'Autumnwood' }, cost: p => 10,
+      impact: (p, side) => {
+          const prov = PROVINCES.find(pr => pr.name === p.province);
+          const specificLoyaltyPenalty = prov ? {[prov.name]: -30} : {};
+          return {
+              onyx_hand: side === 'onyx_hand' ? -10 : 3,
+              moonfang_pack: side === 'moonfang_pack' ? -10 : 3,
+              loyaltyImpacts: {human: 1},
+              specificLoyaltyPenalty,
+              regal_influence: 5
+          };
+      }
+    },
+    // REGAL EMPIRE SELF-INTEREST
+    annex_territory: {
+      label: 'Annex Territory', icon: '🚩', category: 'regal', hint: 'Claim a province for the Regal Empire.',
+      defaults: { province: 'Autumnwood' }, cost: p => 30,
+      impact: (p, side) => {
+        const prov = PROVINCES.find(pr => pr.name === p.province);
+        const value = (prov?.votes || 3) * 5;
+        const regal_influence = value;
+        return {
+            onyx_hand: side === 'onyx_hand' ? -value : Math.round(value/4),
+            moonfang_pack: side === 'moonfang_pack' ? -value : Math.round(value/4),
+            loyaltyImpacts: {human: 15, mixed: 5, [side === 'onyx_hand' ? 'vampire' : 'werewolf']: -20},
+            regal_influence
+        }
+      }
+    },
+    imperial_tithe: {
+      label: 'Imperial Tithe', icon: '🪙', category: 'regal', hint: 'A faction pays tribute to the Empire.',
+      defaults: { amount: 1000 }, cost: p => -10,
+      impact: (p, side) => {
+        const val = Math.ceil(p.amount / 100);
+        const regal_influence = val + 5;
+        return {
+            onyx_hand: side === 'onyx_hand' ? -val : 0,
+            moonfang_pack: side === 'moonfang_pack' ? -val : 0,
+            loyaltyImpacts: {human: 5},
+            regal_influence
+        }
+      }
+    },
+    pledge_fealty: {
+      label: 'Pledge Fealty', icon: '🙇', category: 'regal', hint: 'A faction becomes a vassal of the Empire.', unique: true,
+      defaults: { note: 'Swear an oath of loyalty.' }, cost: p => 25,
+      impact: (p, side) => ({
+        onyx_hand: side === 'onyx_hand' ? -30 : 10,
+        moonfang_pack: side === 'moonfang_pack' ? -30 : 10,
+        loyaltyImpacts: {human: 20, mixed: 10},
+        regal_influence: 35
+      })
+    },
+    establish_trade_route: {
+      label: 'Establish Trade Route', icon: '🚚', category: 'regal', hint: 'Open a protected trade route with the Empire.',
+      defaults: { location: TRADE_ROUTE_LOCATIONS[0] }, cost: p => 4,
+      impact: (p, side) => {
+        let baseAccept = 8, regal = 6;
+        if (p.location === 'The Northern Passes') { baseAccept = 10; regal = 8; }
+        return {
+            onyx_hand: side === 'onyx_hand' ? baseAccept : 0,
+            moonfang_pack: side === 'moonfang_pack' ? baseAccept : 0,
+            loyaltyImpacts: {human: 2, mixed: 1},
+            regal_influence: regal
+        }
+      }
+    },
+    imperial_advisor: {
+      label: 'Appoint Imperial Advisor', icon: '🎓', category: 'regal', hint: 'An Imperial voice in a faction\'s court.',
+      defaults: { advisorType: ADVISOR_TYPES[0] }, cost: p => 8,
+      impact: (p, side) => {
+        let negImpact = -8, regal = 10;
+        const mood = state.faction_moods[side];
+        if (p.advisorType === 'Military Advisor') { negImpact = -12; regal = 14; }
+        if (p.advisorType === 'Diplomatic Advisor') { negImpact = -6; regal = 8; }
+        if (mood === 'Suspicious') negImpact *= 1.5;
+        if (mood === 'Aggressive') negImpact *= 1.2;
+        return {
+            onyx_hand: side === 'onyx_hand' ? negImpact : 2,
+            moonfang_pack: side === 'moonfang_pack' ? negImpact : 2,
+            loyaltyImpacts: {human: 4},
+            regal_influence: regal
+        }
+      }
+    },
+    establish_garrison: {
+      label: 'Establish Garrison', icon: '🏰', category: 'regal', hint: 'Allow Imperial troops on your soil.',
+      defaults: { province: 'Autumnwood' }, cost: p => 8,
+      impact: (p, side) => {
+        const prov = PROVINCES.find(pr => pr.name === p.province);
+        const mood = state.faction_moods[side];
+        const isHostileGarrison = prov?.de_facto === side;
+        let baseNegativeImpact = isHostileGarrison ? -15 : -8;
+        if (mood === 'Aggressive' && isHostileGarrison) baseNegativeImpact *= 2;
+        if (mood === 'Defensive') baseNegativeImpact *= 1.5;
+        const humanLoyaltyBonus = isHostileGarrison ? 8 : 4;
+        const specificLoyaltyPenalty = prov ? {[prov.name]: -10} : {};
+        return {
+            onyx_hand: side === 'onyx_hand' ? baseNegativeImpact : 5,
+            moonfang_pack: side === 'moonfang_pack' ? baseNegativeImpact : 5,
+            loyaltyImpacts: {human: humanLoyaltyBonus},
+            specificLoyaltyPenalty,
+            regal_influence: 12
+        }
+      }
+    },
+    joint_drills: {
+      label: 'Joint Military Drills', icon: '⚔️', category: 'regal', hint: 'Conduct war games with the Empire.',
+      defaults: { province: 'Ironwood' }, cost: p => 6,
+      impact: (p, side) => {
+        const prov = PROVINCES.find(pr => pr.name === p.province);
+        const friction = prov?.bias === 'mixed' ? -10 : (prov?.bias === 'human' ? -2 : -5);
+        return {
+            onyx_hand: side === 'onyx_hand' ? 8 : friction,
+            moonfang_pack: side === 'moonfang_pack' ? 8 : friction,
+            loyaltyImpacts: {human: 2},
+            regal_influence: 4
+        }
+      }
+    },
+    intelligence_sharing: {
+      label: 'Intelligence Sharing', icon: '👁️', category: 'regal', hint: 'Share intel with the Imperial network.',
+      defaults: { scope: INTELLIGENCE_SCOPES[0] }, cost: p => 5,
+      impact: (p, side) => {
+        let o = 7, m = -4, regal = 6, human = 2;
+        const mood = state.faction_moods[side === 'onyx_hand' ? 'moonfang_pack' : 'onyx_hand'];
+        if (p.scope === 'On Internal Dissidents') { o = 5; m = -2; regal = 8; human = 3; }
+        if (p.scope === 'On Rival Faction Activity') { o = 10; m = -10; regal = 10; human = 4; }
+        if (mood === 'Suspicious') m *= 2; // Suspicious factions hate being spied on more
+        const sideImpact = side === 'onyx_hand' ? { onyx_hand: o, moonfang_pack: m } : { onyx_hand: m, moonfang_pack: o };
+        return { ...sideImpact, loyaltyImpacts: { human }, regal_influence: regal };
+      }
+    },
+    claim_de_jure: {
+        label: 'Claim De Jure Rights', icon: '📜', category: 'regal', hint: 'Formally claim rightful ownership of a province.',
+        defaults: { province: 'Dark Shores' }, cost: p => 15,
+        impact: (p, side) => {
+            const prov = PROVINCES.find(pr => pr.name === p.province);
+            return {
+                onyx_hand: prov?.de_facto === 'onyx_hand' ? -20 : 0,
+                moonfang_pack: prov?.de_facto === 'moonfang_pack' ? -20 : 0,
+                loyaltyImpacts: {human: 10, mixed: 5},
+                regal_influence: 20
+            }
+        }
+    },
+    imperial_inquisition: {
+        label: 'Imperial Inquisition', icon: '🔥', category: 'regal', hint: 'Root out spies and sedition.', unique: true,
+        defaults: { note: 'Faction-wide investigation.' }, cost: p => 12,
+        impact: (p, side) => ({
+            onyx_hand: side === 'onyx_hand' ? -15 : 5,
+            moonfang_pack: side === 'moonfang_pack' ? -15 : 5,
+            loyaltyImpacts: {human: 8, mixed: -2},
+            regal_influence: 10
+        })
+    },
+    appoint_justicar: {
+        label: 'Appoint Imperial Justicar', icon: '⚖️', category: 'regal', hint: 'Place an Imperial judge to oversee a province.',
+        defaults: { province: 'Autumnwood' }, cost: p => 9,
+        impact: (p, side) => {
+            const prov = PROVINCES.find(pr => pr.name === p.province);
+            return {
+                onyx_hand: prov?.de_facto === 'onyx_hand' ? -12 : 0,
+                moonfang_pack: prov?.de_facto === 'moonfang_pack' ? -12 : 0,
+                loyaltyImpacts: {human: 5},
+                regal_influence: 8
+            }
+        }
+    },
+     // AI DEMANDS
+    veto: {
+        label: 'Veto Power', icon: '✋', category: 'veto', hint: 'Block a category of negotiation.',
+        defaults: { category: 'territory' }, cost: p => 0,
+        impact: p => ({ onyx_hand: 0, moonfang_pack: 0 })
+    },
+  };
+
+  // --- STATE ---
+  let state = {};
+  // For event modals
+  let pendingRiderProposal = null;
+  let pendingFinalDemands = null;
+
+  function resetState() {
+      state = {
+        negotiationStage: 'ceasefire', // 'ceasefire' or 'treaty'
+        politicalCapital: 100,
+        regalInfluence: 50,
+        years: 10,
+        playerActions: 0,
+        provinceSort: { key: 'name', dir: 'asc' },
+        triggerLinks: {}, // { [playerClauseId]: counterClauseId }
+        prisoner_counts: { onyx_hand: 50, moonfang_pack: 35 },
+        ultimatums_issued: { onyx_hand: false, moonfang_pack: false },
+        vetos: {}, // { category: {side, turns_left} }
+        faction_moods: {
+          onyx_hand: MOOD_LIST[Math.floor(Math.random() * MOOD_LIST.length)],
+          moonfang_pack: MOOD_LIST[Math.floor(Math.random() * MOOD_LIST.length)]
+        },
+        acceptance_modifiers: { onyx_hand: 0, moonfang_pack: 0 },
+        onyx_hand_terms: [],
+        moonfang_pack_terms: [],
+        regal_empire_terms: [],
+        province_loyalties: {}
+      };
+      PROVINCES.forEach(p => { state.province_loyalties[p.name] = p.loyalty; });
+  }
+  
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    if (saved && typeof saved === 'object' && saved.negotiationStage) {
+      resetState();
+      state = Object.assign(state, saved);
+    } else {
+        resetState();
+    }
+  } catch(e){ resetState(); }
+
+  // --- HELPERS ---
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => document.querySelectorAll(sel);
+  const el = (html) => {
+    const t = document.createElement('template');
+    t.innerHTML = html.trim();
+    return t.content.firstElementChild;
+  };
+  const uid = () => 'id_' + Math.random().toString(36).slice(2,9);
+
+  // --- DOM REFS ---
+  const ceasefireScreen = $('#ceasefire-screen');
+  const treatyScreen = $('#treaty-screen');
+  const capitalEl = $('#capital');
+  const influenceEl = $('#influence');
+  const yearsEl = $('#years');
+  const yearsLabel = $('#yearsLabel');
+  const catalogEl = $('#clause-catalog');
+  const onyxOfferEl = $('#onyxOffer');
+  const moonfangOfferEl = $('#moonfangOffer');
+  const regalOfferEl = $('#regalOffer');
+  const provincesEl = $('#provinces-list');
+  const vampireBar = $('#vampireBar');
+  const werewolfBar = $('#werewolfBar');
+  const regalBar = $('#regalBar');
+  const vampireAcceptCheck = $('#vampireAcceptCheck');
+  const werewolfAcceptCheck = $('#werewolfAcceptCheck');
+  const regalAcceptCheck = $('#regalAcceptCheck');
+  const onyxPrisonersEl = $('#onyx_prisoners');
+  const moonfangPrisonersEl = $('#moonfang_prisoners');
+  const treatyModal = $('#treaty-modal');
+  const intrigueModal = $('#intrigue-modal');
+  const intrigueTextEl = $('#intrigue-text');
+  const onyxHeader = $('#onyx-header');
+  const moonfangHeader = $('#moonfang-header');
+  const previewModal = $('#preview-modal');
+  const riderModal = $('#rider-modal');
+  const finalDemandsModal = $('#final-demands-modal');
+
+  // --- RENDER FUNCTIONS ---
+  function renderAll(){
+    renderHeader();
+    renderCatalog();
+    renderOffers();
+    updateCalculations();
+  }
+  
+  function renderHeader() {
+    onyxHeader.title = FACTION_MOODS[state.faction_moods.onyx_hand].hint;
+    moonfangHeader.title = FACTION_MOODS[state.faction_moods.moonfang_pack].hint;
+  }
+
+  function renderCatalog(){
+    catalogEl.innerHTML = '';
+    const allTerms = [...state.onyx_hand_terms, ...state.moonfang_pack_terms, ...state.regal_empire_terms];
+    
+    const usedUniqueClausesPerSide = { onyx_hand: new Set(), moonfang_pack: new Set() };
+    allTerms.forEach(item => {
+        if (TYPES[item.type].unique) {
+            const sideKey = item.side.replace('_terms','');
+            if (sideKey === 'regal_empire') {
+                usedUniqueClausesPerSide.onyx_hand.add(item.type);
+                usedUniqueClausesPerSide.moonfang_pack.add(item.type);
+            } else if (usedUniqueClausesPerSide[sideKey]) {
+                usedUniqueClausesPerSide[sideKey].add(item.type);
+            }
+        }
+    });
+
+    Object.entries(TYPES).forEach(([key, t]) => {
+      if (t.category === 'veto') return;
+      
+      const isVetoed = Object.values(state.vetos).some(v => v.category === t.category);
+      const disabled = isVetoed ? 'disabled' : '';
+      const title = isVetoed ? `This clause category has been vetoed.` : '';
+
+      let buttonsHtml = '';
+      if(t.category === 'regal') {
+         const onyxDisabled = disabled || usedUniqueClausesPerSide.onyx_hand.has(key);
+         const moonfangDisabled = disabled || usedUniqueClausesPerSide.moonfang_pack.has(key);
+         buttonsHtml = `
+          <button class="btn regal" data-add="${key}" data-side="regal_empire" data-target="onyx_hand" ${onyxDisabled ? 'disabled' : ''} title="${title}">+ Apply to Onyx</button>
+          <button class="btn regal" data-add="${key}" data-side="regal_empire" data-target="moonfang_pack" ${moonfangDisabled ? 'disabled' : ''} title="${title}">+ Apply to Moonfang</button>
+        `;
+      } else {
+        const onyxDisabled = disabled || usedUniqueClausesPerSide.onyx_hand.has(key);
+        const moonfangDisabled = disabled || usedUniqueClausesPerSide.moonfang_pack.has(key);
+        buttonsHtml = `
+          <button class="btn vampire" data-add="${key}" data-side="onyx_hand" ${onyxDisabled ? 'disabled' : ''} title="${title}">+ To Onyx Hand</button>
+          <button class="btn werewolf" data-add="${key}" data-side="moonfang_pack" ${moonfangDisabled ? 'disabled' : ''} title="${title}">+ To Moonfang Pack</button>
+        `;
+      }
+
+      const row = el(`
+        <div class="type" style="${isVetoed ? 'opacity:0.5;':''}">
+          <div class="meta">
+            <div class="icon">${t.icon}</div>
+            <div>
+              <div class="name">${t.label}</div>
+              <div class="small muted">${t.hint}</div>
+            </div>
+          </div>
+          <div class="badges" style="margin-top:8px;">${buttonsHtml}</div>
+        </div>
+      `);
+      catalogEl.appendChild(row);
+    });
+  }
+
+  function renderProvinces(){
+    provincesEl.innerHTML = '';
+    const sortedProvinces = [...PROVINCES].sort((a,b) => {
+        const { key, dir } = state.provinceSort;
+        let valA, valB;
+        if(key === 'loyalty') {
+            valA = state.province_loyalties[a.name];
+            valB = state.province_loyalties[b.name];
+        } else {
+            valA = a[key];
+            valB = b[key];
+        }
+        if (valA < valB) return dir === 'asc' ? -1 : 1;
+        if (valA > valB) return dir === 'asc' ? 1 : -1;
+        return 0;
+    });
+
+    sortedProvinces.forEach(p => {
+      const deFactoFaction = FACTIONS[p.de_facto] || FACTIONS.unaligned;
+      const deJureFaction = FACTIONS[p.de_jure] || FACTIONS.unaligned;
+      const deFactoHtml = `${deFactoFaction.icon} ${deFactoFaction.name}`;
+      const deJureHtml = `${deJureFaction.icon} ${deJureFaction.name}`;
+      const currentLoyalty = state.province_loyalties[p.name] || p.loyalty;
+      
+      const row = el(`
+        <div class="province-list-item">
+          <div class="name">${p.name} <span class="muted" style="font-weight:normal;">- ${p.duke}</span></div>
+          <div class="details province-control">
+            <div><span class="label">De Facto:</span> ${deFactoHtml}</div>
+            <div><span class="label">De Jure:</span> ${deJureHtml}</div>
+            <div style="margin-top:4px;" class="province-stats">
+                <span class="label">Loyalty:</span>
+                <div class="loyalty-bar"><span style="width:${currentLoyalty}%;"></span></div>
+                <span style="min-width: 25px; text-align: right;">${currentLoyalty}%</span>
+            </div>
+             <div class="province-stats">
+                <span class="label">Votes:</span>
+                <span>${p.votes}</span>
+            </div>
+          </div>
+        </div>
+      `);
+      provincesEl.appendChild(row);
+    });
+  }
+
+  function renderOffers(){
+    const renderList = (sideEl, sideName, title) => {
+      const list = state[sideName];
+      sideEl.innerHTML = `<h4 style="text-align:center; margin:0 0 10px;" class="${sideName.replace('_terms','')}">${title}</h4>`;
+      if (!list.length){
+        sideEl.appendChild(el(`<div class="empty">No terms added.</div>`));
+        return;
+      }
+      list.forEach(item => sideEl.appendChild(renderCard(item, sideName)));
+    };
+    renderList(onyxOfferEl, 'onyx_hand_terms', 'Onyx Hand Terms');
+    renderList(regalOfferEl, 'regal_empire_terms', 'Regal Empire Terms');
+    renderList(moonfangOfferEl, 'moonfang_pack_terms', 'Moonfang Pack Terms');
+  }
+  
+  function renderCard(item, side) {
+    const t = TYPES[item.type];
+    const sideName = item.params.target || side.replace('_terms', '');
+    
+    const impact = t.impact(item.params, sideName);
+    const onyxImpact = impact.onyx_hand || 0;
+    const moonfangImpact = impact.moonfang_pack || 0;
+    const impactDisplay = `
+      <div class="impact-display">
+        <span class="${onyxImpact > 0 ? 'pos' : 'neg'}">🦇 ${onyxImpact > 0 ? '+' : ''}${Math.round(onyxImpact)}</span>
+        <span class="${moonfangImpact > 0 ? 'pos' : 'neg'}">🐺 ${moonfangImpact > 0 ? '+' : ''}${Math.round(moonfangImpact)}</span>
+      </div>
+    `;
+
+    const getTriggerClause = () => {
+        for (const triggerId in state.triggerLinks) {
+            if (state.triggerLinks[triggerId] === item.id) {
+                const allTerms = [...state.onyx_hand_terms, ...state.moonfang_pack_terms, ...state.regal_empire_terms];
+                const trigger = allTerms.find(term => term.id === triggerId);
+                return trigger ? TYPES[trigger.type].label : null;
+            }
+        }
+        return null;
+    };
+
+    let footerNote = '';
+    if (item.demandType === 'counter') {
+        const triggerLabel = getTriggerClause();
+        footerNote = `<div class="small muted" style="width:100%; text-align:right;">Counter to: <strong>${triggerLabel || 'a proposal'}</strong></div>`;
+    } else if (item.demandType === 'forced') {
+        footerNote = `<div class="small muted" style="width:100%; text-align:right;">Forced Demand</div>`;
+    } else if (item.demandType === 'ultimatum') {
+        footerNote = `<div class="small muted" style="width:100%; text-align:right; color: var(--danger);"><strong>ULTIMATUM</strong></div>`;
+    }
+
+    let appliesToText;
+    if (t.balanced) {
+        appliesToText = 'Both Factions';
+    } else {
+        appliesToText = FACTIONS[sideName].name;
+    }
+
+    const card = el(`
+      <div class="card ${side.replace('_terms','')} demand-${item.demandType}" data-id="${item.id}" data-side="${side}">
+        <header>
+          <div class="icon" style="margin-right:6px">${t.icon}</div>
+          <div class="title">${t.label} ${item.params.target ? `(${FACTIONS[item.params.target].name})` : ''}</div>
+          ${item.demandType !== 'binding' ? '<div style="margin-left:auto; font-size:16px;">🔒</div>' : ''}
+        </header>
+        <div class="body">${renderBodyControls(item, sideName, side)}</div>
+        <footer>
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <div class="small">Cost: <span class="cost">${t.cost(item.params)}</span></div>
+            <div class="small">Applies to: <span style="font-weight: 600; color: #c7d5df;">${appliesToText}</span></div>
+          </div>
+          ${impactDisplay}
+          ${item.demandType === 'binding' 
+            ? `<button class="btn" data-action="remove" title="Remove">✕</button>`
+            : ''
+          }
+          ${footerNote}
+        </footer>
+      </div>
+    `);
+    return card;
+  }
+
+  function renderBodyControls(item, benefitingSide, columnSide) {
+    const p = item.params || {};
+    const disabled = item.demandType !== 'binding' ? 'disabled' : '';
+    let optionsHtml;
+    switch(item.type) {
+      case 'territory':
+        const availableProvinces = PROVINCES.filter(pr => pr.de_facto !== benefitingSide);
+        return `<div><label class="small">Province</label><select data-param="province" ${disabled}>
+              ${availableProvinces.map(pr => `<option ${pr.name===p.province?'selected':''}>${pr.name}</option>`).join('')}
+            </select></div>`;
+      case 'annex_territory':
+      case 'appoint_justicar':
+      case 'fund_partisans':
+        const targetFaction = item.params.target;
+        const annexableProvinces = PROVINCES.filter(pr => pr.de_facto === targetFaction);
+        return `<div><label class="small">Target Province</label><select data-param="province" ${disabled}>
+            ${annexableProvinces.map(pr => `<option ${pr.name===p.province?'selected':''}>${pr.name}</option>`).join('')}
+            </select></div>`;
+      case 'claim_de_jure':
+        const claimableProvinces = PROVINCES.filter(pr => pr.de_facto === 'regal_empire' && pr.de_jure === 'unaligned');
+        return `<div><label class="small">Province to Claim</label><select data-param="province" ${disabled}>
+            ${claimableProvinces.map(pr => `<option ${pr.name===p.province?'selected':''}>${pr.name}</option>`).join('')}
+            </select></div>`;
+      case 'financial_stipend':
+      case 'imperial_tithe':
+      case 'seize_assets':
+        return `<div><label class="small">Amount</label><input data-param="amount" type="number" min="0" step="50" value="${p.amount}" ${disabled}></div>`;
+      case 'resource_rights':
+      case 'sanction_trade':
+        optionsHtml = RESOURCES.map(r => `<option ${r===p.resource?'selected':''}>${r}</option>`).join('');
+        return `<div><label class="small">Resource</label><select data-param="resource" ${disabled}>${optionsHtml}</select></div>`;
+      case 'release_prisoners':
+          const releasingFaction = columnSide === 'onyx_hand_terms' ? 'Onyx Hand' : 'Moonfang Pack';
+          const prisonersHeldByReleasingFaction = columnSide === 'onyx_hand_terms' ? state.prisoner_counts.onyx_hand : state.prisoner_counts.moonfang_pack;
+          return `<div><label class="small">${releasingFaction} releases <span class="cost">${p.amount}</span> / ${prisonersHeldByReleasingFaction} prisoners</label>
+            <input data-param="amount" type="range" min="0" max="${prisonersHeldByReleasingFaction}" value="${p.amount}" ${disabled}></div>`;
+      case 'public_apology':
+          optionsHtml = GRIEVANCES.map(g => `<option ${g===p.grievance?'selected':''}>${g}</option>`).join('');
+          return `<div><label class="small">Apologize for</label><select data-param="grievance" ${disabled}>${optionsHtml}</select></div>`;
+      case 'form_alliance':
+          optionsHtml = ALLIANCE_TYPES.map(a => `<option ${a===p.type?'selected':''}>${a}</option>`).join('');
+          return `<div><label class="small">Alliance Type</label><select data-param="type" ${disabled}>${optionsHtml}</select></div>`;
+      case 'disband_militia':
+          const units = MILITIA_UNITS[benefitingSide] || [];
+          optionsHtml = units.map(u => `<option ${u===p.unit?'selected':''}>${u}</option>`).join('');
+          return `<div><label class="small">Militia Unit</label><select data-param="unit" ${disabled}>${optionsHtml}</select></div>`;
+      case 'protect_holy_sites':
+          const sites = HOLY_SITES[benefitingSide] || [];
+          optionsHtml = sites.map(s => `<option ${s===p.site?'selected':''}>${s}</option>`).join('');
+          return `<div><label class="small">Holy Site</label><select data-param="site" ${disabled}>${optionsHtml}</select></div>`;
+      case 'cede_sacred_text':
+          const factionKey = columnSide.replace('_terms', '');
+          const texts = SACRED_TEXTS[factionKey] || [];
+          optionsHtml = texts.map(s => `<option ${s===p.text?'selected':''}>${s}</option>`).join('');
+          return `<div><label class="small">Sacred Text</label><select data-param="text" ${disabled}>${optionsHtml}</select></div>`;
+       case 'hunting_rights':
+       case 'enforce_curfew':
+       case 'establish_garrison':
+       case 'joint_drills':
+          optionsHtml = PROVINCES.map(pr => `<option ${pr.name===p.province?'selected':''}>${pr.name}</option>`).join('');
+          return `<div><label class="small">Province</label><select data-param="province" ${disabled}>${optionsHtml}</select></div>`;
+       case 'cede_war_machines':
+          optionsHtml = WAR_MACHINES.map(wm => `<option ${wm===p.machine?'selected':''}>${wm}</option>`).join('');
+          return `<div><label class="small">War Machine</label><select data-param="machine" ${disabled}>${optionsHtml}</select></div>`;
+      case 'imperial_advisor':
+          optionsHtml = ADVISOR_TYPES.map(a => `<option ${a === p.advisorType ? 'selected' : ''}>${a}</option>`).join('');
+          return `<div><label class="small">Advisor Type</label><select data-param="advisorType" ${disabled}>${optionsHtml}</select></div>`;
+      case 'intelligence_sharing':
+          optionsHtml = INTELLIGENCE_SCOPES.map(s => `<option ${s === p.scope ? 'selected' : ''}>${s}</option>`).join('');
+          return `<div><label class="small">Scope of Intel</label><select data-param="scope" ${disabled}>${optionsHtml}</select></div>`;
+      case 'establish_trade_route':
+          optionsHtml = TRADE_ROUTE_LOCATIONS.map(l => `<option ${l === p.location ? 'selected' : ''}>${l}</option>`).join('');
+          return `<div><label class="small">Route Location</label><select data-param="location" ${disabled}>${optionsHtml}</select></div>`;
+      case 'royal_marriage':
+          optionsHtml = REGAL_NOBLES.map(n => `<option ${n.name === p.noble ? 'selected' : ''}>${n.name} (of ${n.province})</option>`).join('');
+          return `<div><label class="small">Regal Noble</label><select data-param="noble" ${disabled}>${optionsHtml}</select></div>`;
+      case 'veto':
+          return `<div class="small" style="text-align:center;">Veto on <strong>${p.category.replace('_',' ')}</strong> proposals for 3 actions.</div>`;
+      default:
+        const key = Object.keys(p)[0] || 'note';
+        return `<div><label class="small">${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</label>
+            <input data-param="${key}" type="text" placeholder="Detail..." value="${escapeHtml(p[key] || '')}" ${disabled} style="background:#0c1014;pointer-events:none;"></div>`;
+    }
+  }
+
+  // --- CALCULATIONS ---
+  function calculateScores(currentState) {
+    const all_terms = [
+        ...currentState.onyx_hand_terms, ...currentState.moonfang_pack_terms, ...currentState.regal_empire_terms
+    ];
+    
+    // 1. Capital Cost
+    let capitalCost = 0;
+    const countedCeasefire = new Set();
+    all_terms.forEach(item => {
+        if(item.type === 'ceasefire') {
+            if(!countedCeasefire.has('cost')) {
+                capitalCost += TYPES.ceasefire.cost(item.params);
+                countedCeasefire.add('cost');
+            }
+        } else {
+            capitalCost += TYPES[item.type].cost(item.params);
+        }
+    });
+    const remainingCapital = 100 - capitalCost;
+
+    // 2. Faction & Court Acceptance
+    let onyx_acceptance = 20 + FACTION_MOODS[currentState.faction_moods.onyx_hand].base_modifier + (currentState.acceptance_modifiers?.onyx_hand || 0);
+    let moonfang_acceptance = 20 + FACTION_MOODS[currentState.faction_moods.moonfang_pack].base_modifier + (currentState.acceptance_modifiers?.moonfang_pack || 0);
+    let regal_influence = 50;
+    
+    const durationPenalty = Math.floor(currentState.years / 4); // -1 per 4 years
+    onyx_acceptance -= durationPenalty;
+    moonfang_acceptance -= durationPenalty;
+
+    const current_loyalties = {};
+    PROVINCES.forEach(p => { current_loyalties[p.name] = p.loyalty; });
+
+    all_terms.forEach(item => {
+        const t = TYPES[item.type];
+        const impactSide = item.params.target || item.side.replace('_terms', '');
+        const impact = t.impact(item.params, impactSide);
+
+        if(item.type === 'ceasefire') {
+            if(!countedCeasefire.has('impact')) {
+                onyx_acceptance += impact.onyx_hand || 0;
+                moonfang_acceptance += impact.moonfang_pack || 0;
+                countedCeasefire.add('impact');
+            }
+        } else {
+            onyx_acceptance += impact.onyx_hand || 0;
+            moonfang_acceptance += impact.moonfang_pack || 0;
+        }
+        regal_influence += impact.regal_influence || 0;
+
+        if (impact.loyaltyImpacts) {
+            PROVINCES.forEach(p => {
+                const modifier = impact.loyaltyImpacts[p.bias] || impact.loyaltyImpacts[p.de_facto] || 0;
+                current_loyalties[p.name] += modifier;
+            });
+        }
+        if (impact.specificLoyaltyPenalty) {
+            for (const provinceName in impact.specificLoyaltyPenalty) {
+                current_loyalties[provinceName] += impact.specificLoyaltyPenalty[provinceName];
+            }
+        }
+    });
+
+    let totalWeightedLoyalty = 0;
+    let totalMaxVotes = 0;
+    PROVINCES.forEach(p => {
+        const finalLoyalty = Math.max(0, Math.min(100, Math.round(current_loyalties[p.name])));
+        totalWeightedLoyalty += finalLoyalty * p.votes;
+        totalMaxVotes += 100 * p.votes;
+    });
+    const court_acceptance = totalMaxVotes > 0 ? (totalWeightedLoyalty / totalMaxVotes) * 100 : 0;
+    
+    return {
+        remainingCapital,
+        regal_influence,
+        final_loyalties: current_loyalties,
+        onyx_acceptance: Math.max(0, Math.min(100, Math.round(onyx_acceptance))),
+        moonfang_acceptance: Math.max(0, Math.min(100, Math.round(moonfang_acceptance))),
+        court_acceptance: Math.max(0, Math.min(100, Math.round(court_acceptance))),
+    };
+  }
+
+  function updateCalculations(){
+    const scores = calculateScores(state);
+    
+    // Update state
+    state.regalInfluence = scores.regal_influence;
+    PROVINCES.forEach(p => {
+      state.province_loyalties[p.name] = Math.max(0, Math.min(100, Math.round(scores.final_loyalties[p.name])));
+    });
+    
+    // Update DOM
+    capitalEl.textContent = scores.remainingCapital;
+    capitalEl.style.color = scores.remainingCapital < 0 ? 'var(--danger)' : 'var(--gold)';
+    
+    onyxPrisonersEl.textContent = state.prisoner_counts.onyx_hand;
+    moonfangPrisonersEl.textContent = state.prisoner_counts.moonfang_pack;
+
+    influenceEl.textContent = Math.round(scores.regal_influence);
+    influenceEl.style.color = scores.regal_influence < 50 ? 'var(--muted)' : 'var(--gold)';
+
+    vampireBar.title = `${scores.onyx_acceptance}%`;
+    vampireBar.querySelector('span').style.width = `${scores.onyx_acceptance}%`;
+    vampireBar.classList.toggle('accepted', scores.onyx_acceptance >= 50);
+    vampireAcceptCheck.textContent = scores.onyx_acceptance >= 50 ? '✔️' : '';
+    
+    werewolfBar.title = `${scores.moonfang_acceptance}%`;
+    werewolfBar.querySelector('span').style.width = `${scores.moonfang_acceptance}%`;
+    werewolfBar.classList.toggle('accepted', scores.moonfang_acceptance >= 50);
+    werewolfAcceptCheck.textContent = scores.moonfang_acceptance >= 50 ? '✔️' : '';
+
+    regalBar.title = `${scores.court_acceptance}%`;
+    regalBar.querySelector('span').style.width = `${scores.court_acceptance}%`;
+    regalBar.classList.toggle('accepted', scores.court_acceptance >= 50);
+    regalAcceptCheck.textContent = scores.court_acceptance >= 50 ? '✔️' : '';
+    
+    // Render provinces with new loyalties
+    renderProvinces();
+    
+    // Check for Ultimatums
+    if (state.playerActions > 0) {
+      if (scores.onyx_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.onyx_hand) issueUltimatum('onyx_hand');
+      if (scores.moonfang_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.moonfang_pack) issueUltimatum('moonfang_pack');
+    }
+  }
+
+  // --- ACTIONS & AI ---
+
+  function proposeClause(side, type, extraParams = {}) {
+    // Create a temporary clause to calculate its impact
+    const t = TYPES[type];
+    const tempClause = {
+        id: 'temp', type, demandType: 'binding', side,
+        params: { ...JSON.parse(JSON.stringify(t.defaults)), ...extraParams }
+    };
+    
+    // Create a deep copy of the state to simulate the change
+    const tempState = JSON.parse(JSON.stringify(state));
+    tempState[side].push(tempClause);
+    
+    const potentialScores = calculateScores(tempState);
+    let proceed = true;
+
+    // Check for Ultimatum risk
+    if (potentialScores.onyx_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.onyx_hand) {
+      proceed = confirm(`Warning: This clause is highly contentious and may provoke an ultimatum from the Onyx Hand. Are you sure you wish to proceed?`);
+    }
+    if (proceed && potentialScores.moonfang_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.moonfang_pack) {
+      proceed = confirm(`Warning: This clause is highly contentious and may provoke an ultimatum from the Moonfang Pack. Are you sure you wish to proceed?`);
+    }
+
+    if (!proceed) return;
+    
+    // Check for Rider Proposal event
+    if (Math.random() < 0.25) {
+        const originalScores = calculateScores(state);
+        const onyxImpact = potentialScores.onyx_acceptance - originalScores.onyx_acceptance;
+        const moonfangImpact = potentialScores.moonfang_acceptance - originalScores.moonfang_acceptance;
+
+        if (onyxImpact < -5 || moonfangImpact < -5) {
+            const aggrievedFaction = onyxImpact < moonfangImpact ? 'onyx_hand' : 'moonfang_pack';
+            showRiderModal(aggrievedFaction, { side, type, extraParams });
+            return; // Stop here, modal will handle adding the clause
+        }
+    }
+    
+    // If no events, add the article normally
+    addArticle(side, type, extraParams, 'binding');
+  }
+
+  function addArticle(side, type, extraParams={}, demandType='binding'){
+    if (demandType === 'binding') {
+        state.playerActions++;
+        handleIntrigueEvent();
+        decrementVetos();
+    }
+
+    const t = TYPES[type];
+    const params = { ...JSON.parse(JSON.stringify(t.defaults)), ...extraParams };
+    const benefitingSide = extraParams.target || side.replace('_terms', '');
+
+    if (type === 'territory') {
+        const firstAvailable = PROVINCES.find(pr => pr.de_facto !== benefitingSide);
+        if (!firstAvailable) { toast('No available territory to transfer!'); return; }
+        params.province = firstAvailable.name;
+    }
+     if (type === 'annex_territory') {
+        const firstAvailable = PROVINCES.find(pr => pr.de_facto === extraParams.target);
+        if (!firstAvailable) { toast('Target faction has no territory to annex!'); return; }
+        params.province = firstAvailable.name;
+    }
+    if (type === 'disband_militia') params.unit = MILITIA_UNITS[benefitingSide]?.[0];
+    if (type === 'protect_holy_sites') params.site = HOLY_SITES[benefitingSide]?.[0];
+    if (type === 'cede_sacred_text') {
+        const factionKey = side.replace('_terms','');
+        params.text = SACRED_TEXTS[factionKey]?.[0];
+    }
+    
+    const item = { id: uid(), type, params, demandType, side };
+    state[side].push(item);
+    
+    if(demandType === 'binding') updateCounterProposals(item);
+    save(); renderAll();
+    return item;
+  }
+
+  function removeArticle(side, id){
+    const item = state[side].find(x => x.id === id);
+    if (!item || item.demandType !== 'binding') return;
+
+    state.playerActions++;
+    handleIntrigueEvent();
+    decrementVetos();
+
+    state[side] = state[side].filter(x => x.id !== id);
+    
+    const linkedCounterId = state.triggerLinks[id];
+    if (linkedCounterId) {
+        let found = false;
+        ['onyx_hand_terms', 'moonfang_pack_terms'].forEach(termSide => {
+            const initialLength = state[termSide].length;
+            state[termSide] = state[termSide].filter(c => c.id !== linkedCounterId);
+            if (state[termSide].length < initialLength) found = true;
+        });
+        if (found) toast('A counter-demand was withdrawn.', 'success');
+        delete state.triggerLinks[id];
+    }
+
+    updateCounterProposals();
+    save(); renderAll();
+  }
+
+  function updateCounterProposals(newlyAddedPlayerClause = null) {
+      const playerClauses = [
+          ...state.onyx_hand_terms, ...state.moonfang_pack_terms, ...state.regal_empire_terms
+      ].filter(c => c.demandType === 'binding' && !TYPES[c.type].balanced);
+
+      const clausesByType = playerClauses.reduce((acc, clause) => {
+          acc[clause.type] = acc[clause.type] || [];
+          acc[clause.type].push(clause);
+          return acc;
+      }, {});
+
+      let unbalancedPoints = 0;
+      for (const type in clausesByType) {
+          const clauses = clausesByType[type];
+          const onyxTargets = clauses.filter(c => (c.side === 'onyx_hand_terms' || c.params.target === 'onyx_hand')).length;
+          const moonfangTargets = clauses.filter(c => (c.side === 'moonfang_pack_terms' || c.params.target === 'moonfang_pack')).length;
+          unbalancedPoints += Math.abs(onyxTargets - moonfangTargets);
+      }
+      
+      const neededCounters = Math.floor(unbalancedPoints / 2);
+      const currentCounters = [...state.onyx_hand_terms, ...state.moonfang_pack_terms].filter(c => c.demandType === 'counter').length;
+
+      if (neededCounters > currentCounters && newlyAddedPlayerClause) {
+        addCounterProposal(newlyAddedPlayerClause);
+      }
+  }
+
+  function addCounterProposal(triggerClause) {
+    const scores = calculateScores(state);
+    const aggrievedSideKey = scores.onyx_acceptance <= scores.moonfang_acceptance ? 'onyx_hand' : 'moonfang_pack';
+    const aggrievedSide = aggrievedSideKey + '_terms';
+
+    const existingTypes = new Set([...state.onyx_hand_terms, ...state.moonfang_pack_terms].map(c => c.type));
+    const availableCounterTypes = COUNTER_CLAUSES.filter(type => !existingTypes.has(type));
+    if (availableCounterTypes.length === 0) return;
+
+    const randomType = availableCounterTypes[Math.floor(Math.random() * availableCounterTypes.length)];
+    const extraParams = {};
+
+    if (randomType === 'release_prisoners') {
+      const releasingFaction = aggrievedSideKey === 'onyx_hand' ? 'moonfang_pack' : 'onyx_hand';
+      const maxPrisoners = state.prisoner_counts[releasingFaction];
+      if (maxPrisoners <= 0) return; // Can't demand release if none are held
+      const min = Math.floor(maxPrisoners * 0.25);
+      const max = Math.floor(maxPrisoners * 0.75);
+      extraParams.amount = Math.round((Math.random() * (max - min) + min) / 5) * 5;
+      // This demand is on the OTHER faction
+      const counterItem = addArticle(`${releasingFaction}_terms`, randomType, extraParams, 'counter');
+      state.triggerLinks[triggerClause.id] = counterItem.id;
+      toast(`The ${FACTIONS[aggrievedSideKey].name} makes a counter-demand!`);
+      return;
+    } else if (randomType === 'veto') {
+        const vetoableCategories = ['territory', 'economic', 'military'];
+        const randomCat = vetoableCategories[Math.floor(Math.random()*vetoableCategories.length)];
+        extraParams.category = randomCat;
+        state.vetos[randomCat] = { side: aggrievedSideKey, turns_left: 4 };
+        toast(`The ${FACTIONS[aggrievedSideKey].name} issues a VETO on ${randomCat} proposals!`);
+    }
+    
+    const counterItem = addArticle(aggrievedSide, randomType, extraParams, 'counter');
+    state.triggerLinks[triggerClause.id] = counterItem.id;
+    const factionName = FACTIONS[aggrievedSideKey].name;
+    if(randomType !== 'veto') toast(`The ${factionName} makes a counter-demand!`);
+  }
+  
+  function issueUltimatum(side) {
+    state.ultimatums_issued[side] = true;
+    const sideName = FACTIONS[side].name;
+
+    const allPossibleDemands = ULTIMATUM_DEMANDS[side];
+
+    // Filter out demands with a negative cost
+    const validDemands = allPossibleDemands.filter(type => {
+        const t = TYPES[type];
+        if (!t) return false;
+        // Calculate cost using default parameters
+        const cost = t.cost(t.defaults);
+        return cost >= 0;
+    });
+
+    if (validDemands.length === 0) {
+        console.warn(`No valid (non-negative cost) ultimatum demands found for ${side}. Ultimatum aborted.`);
+        state.ultimatums_issued[side] = false; // Allow re-triggering if conditions change
+        return;
+    }
+
+    toast(`The ${sideName}'s patience has snapped! They issue an ULTIMATUM!`, 'danger');
+    const randomType = validDemands[Math.floor(Math.random() * validDemands.length)];
+    addArticle(`${side}_terms`, randomType, {}, 'ultimatum');
+  }
+
+  function handleIntrigueEvent() {
+    if (state.playerActions > 0 && state.playerActions % 4 === 0) {
+        const rand = Math.random();
+        let eventMsg = '';
+        let targetProvince = PROVINCES[Math.floor(Math.random() * PROVINCES.length)];
+        
+        if (rand < 0.33) {
+            const loyaltyChange = -15;
+            state.province_loyalties[targetProvince.name] = Math.max(0, state.province_loyalties[targetProvince.name] + loyaltyChange);
+            eventMsg += `A scandal erupts in ${targetProvince.name}! ${targetProvince.duke}'s loyalty falters. (-15)`;
+        } else if (rand < 0.66) {
+            const loyaltyChange = 10;
+            targetProvince = PROVINCES.find(p => p.bias === 'human');
+            state.province_loyalties[targetProvince.name] = Math.min(100, state.province_loyalties[targetProvince.name] + loyaltyChange);
+            eventMsg += `Imperial spies uncover a plot in ${targetProvince.name}! ${targetProvince.duke}'s loyalty surges. (+10)`;
+        } else {
+            const loyaltyChange = -10;
+            const otherFaction = Math.random() < 0.5 ? 'Onyx Hand' : 'Moonfang Pack';
+            state.province_loyalties[targetProvince.name] = Math.max(0, state.province_loyalties[targetProvince.name] + loyaltyChange);
+            eventMsg += `${targetProvince.duke} is rumored to be conspiring with the ${otherFaction}! Loyalty drops. (-10)`;
+        }
+        
+        intrigueTextEl.textContent = eventMsg;
+        intrigueModal.classList.add('visible');
+        save();
+        updateCalculations();
+    }
+  }
+
+  function decrementVetos() {
+    let changed = false;
+    for (const cat in state.vetos) {
+        state.vetos[cat].turns_left--;
+        if (state.vetos[cat].turns_left <= 0) {
+            toast(`The ${FACTIONS[state.vetos[cat].side].name} has lifted their veto on ${cat} proposals.`, 'success');
+            delete state.vetos[cat];
+        }
+        changed = true;
+    }
+    if (changed) renderCatalog();
+  }
+
+  function showRiderModal(aggrievedFaction, originalClauseData) {
+      const riderType = 'financial_stipend'; // Keep it simple for the event
+      const riderSide = aggrievedFaction + '_terms';
+      const riderParams = { amount: Math.round(Math.random() * 5 + 5) * 100 }; // 500-1000 gold
+      
+      pendingRiderProposal = {
+          originalClauseData,
+          riderClauseData: { side: riderSide, type: riderType, extraParams: riderParams }
+      };
+
+      $('#rider-text').textContent = `An envoy from the ${FACTIONS[aggrievedFaction].name} intercepts your courier. They are displeased with the '${TYPES[originalClauseData.type].label}' proposal. They offer a compromise: they will accept it, but only if you also agree to their enclosed rider proposal. Refusing will anger them.`;
+      
+      const riderClauseText = formatClauseForTreaty({type: riderType, params: riderParams}, riderSide);
+      $('#rider-clause-preview').innerHTML = `<strong style="color:var(--accent)">Rider:</strong> ${riderClauseText}`;
+
+      riderModal.classList.add('visible');
+  }
+
+  function showFinalDemandsModal() {
+    const allExistingTypes = new Set([
+        ...state.onyx_hand_terms, ...state.moonfang_pack_terms, ...state.regal_empire_terms
+    ].map(t => t.type));
+
+    // Select demand for Onyx Hand
+    let availableOnyxDemands = FINAL_DEMANDS.onyx_hand.filter(d => !allExistingTypes.has(d));
+    if (availableOnyxDemands.length === 0) availableOnyxDemands = FINAL_DEMANDS.onyx_hand;
+    const onyxDemandType = availableOnyxDemands[Math.floor(Math.random() * availableOnyxDemands.length)];
+    const onyxDemandParams = { ...JSON.parse(JSON.stringify(TYPES[onyxDemandType].defaults)) };
+    if (onyxDemandType === 'resource_rights') onyxDemandParams.resource = 'Bloodwood';
+    const onyxDemand = { side: 'onyx_hand_terms', type: onyxDemandType, params: onyxDemandParams };
+    
+    // Select demand for Moonfang Pack
+    let availableMoonfangDemands = FINAL_DEMANDS.moonfang_pack.filter(d => !allExistingTypes.has(d));
+    if (availableMoonfangDemands.length === 0) availableMoonfangDemands = FINAL_DEMANDS.moonfang_pack;
+    const moonfangDemandType = availableMoonfangDemands[Math.floor(Math.random() * availableMoonfangDemands.length)];
+    const moonfangDemandParams = { ...JSON.parse(JSON.stringify(TYPES[moonfangDemandType].defaults)) };
+    if (moonfangDemandType === 'resource_rights') moonfangDemandParams.resource = 'Moonstone';
+    const moonfangDemand = { side: 'moonfang_pack_terms', type: moonfangDemandType, params: moonfangDemandParams };
+    
+    pendingFinalDemands = { onyxDemand, moonfangDemand };
+    
+    const listEl = $('#final-demands-list');
+    listEl.innerHTML = `
+        <div style="background: #141b21; padding: 10px 15px; border-radius: 8px; border-left: 3px solid var(--vampire-red);">
+            <strong style="color:var(--vampire-red)">Onyx Hand Demands:</strong>
+            <span style="margin-left: 8px;">${formatClauseForTreaty(onyxDemand, onyxDemand.side)}</span>
+        </div>
+        <div style="background: #141b21; padding: 10px 15px; border-radius: 8px; border-left: 3px solid var(--werewolf-blue);">
+            <strong style="color:var(--werewolf-blue)">Moonfang Pack Demands:</strong>
+            <span style="margin-left: 8px;">${formatClauseForTreaty(moonfangDemand, moonfangDemand.side)}</span>
+        </div>
+    `;
+    finalDemandsModal.classList.add('visible');
+  }
+
+  // --- EVENT HANDLERS ---
+  document.addEventListener('click', (e) => {
+    const addBtn = e.target.closest('[data-add]');
+    if (addBtn && !addBtn.disabled) {
+      const side = addBtn.dataset.side + '_terms';
+      const type = addBtn.dataset.add;
+      const target = addBtn.dataset.target;
+      proposeClause(side, type, target ? { target } : {});
+      return;
+    }
+    const card = e.target.closest('.card');
+    if (card) {
+        const actionBtn = e.target.closest('[data-action]');
+        if (actionBtn?.dataset.action === 'remove') {
+          removeArticle(card.dataset.side, card.dataset.id);
+        }
+    }
+    const sortBtn = e.target.closest('[data-sort]');
+    if (sortBtn) {
+        const key = sortBtn.dataset.sort;
+        if (state.provinceSort.key === key) {
+            state.provinceSort.dir = state.provinceSort.dir === 'asc' ? 'desc' : 'asc';
+        } else {
+            state.provinceSort.key = key;
+            state.provinceSort.dir = 'asc';
+        }
+        $$('.sort-controls button').forEach(b => b.classList.remove('active'));
+        sortBtn.classList.add('active');
+        renderProvinces();
+        save();
+    }
+  });
+
+  document.addEventListener('input', (e) => {
+    const input = e.target;
+    if (input.disabled) return;
+    
+    if (input === yearsEl) {
+      state.years = Number(input.value);
+      yearsLabel.textContent = `${state.years} years`;
+      save(); updateCalculations();
+      return;
+    }
+    const card = input.closest('.card');
+    if (!card) return;
+    const item = state[card.dataset.side].find(x => x.id === card.dataset.id);
+    if (!item) return;
+    const param = input.dataset.param;
+    if (param) {
+      item.params[param] = input.type === 'number' || input.type === 'range' ? Number(input.value) : input.value;
+      save(); 
+      renderOffers(); // Re-render to update cost/impact display
+      updateCalculations();
+    }
+  });
+  
+  $('#propose-ceasefire').addEventListener('click', () => {
+    state.negotiationStage = 'treaty';
+    // Add ceasefire
+    addArticle('regal_empire_terms', 'ceasefire', {}, 'forced');
+    addArticle('onyx_hand_terms', 'ceasefire', {}, 'forced');
+    addArticle('moonfang_pack_terms', 'ceasefire', {}, 'forced');
+    
+    // Add random initial demands based on mood
+    const onyxMood = state.faction_moods.onyx_hand;
+    const moonfangMood = state.faction_moods.moonfang_pack;
+    const onyxDemands = STARTING_DEMANDS_BY_MOOD[onyxMood].onyx_hand;
+    const moonfangDemands = STARTING_DEMANDS_BY_MOOD[moonfangMood].moonfang_pack;
+    const onyxDemand = onyxDemands[Math.floor(Math.random() * onyxDemands.length)];
+    const moonfangDemand = moonfangDemands[Math.floor(Math.random() * moonfangDemands.length)];
+
+    addArticle('onyx_hand_terms', onyxDemand, {}, 'forced');
+    addArticle('moonfang_pack_terms', moonfangDemand, {}, 'forced');
+    save();
+    boot();
+  });
+
+  $('#reset').addEventListener('click', ()=>{
+    if (!confirm('Clear the current draft? This will reset your influence and capital.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    resetState();
+    window.location.reload();
+  });
+
+  $('#send').addEventListener('click', ()=>{
+    const all_terms = [...state.onyx_hand_terms, ...state.moonfang_pack_terms, ...state.regal_empire_terms];
+    if (!all_terms.some(c => c.type === 'ceasefire')) {
+        toast('A Ceasefire clause is mandatory for any valid treaty!');
+        return;
+    }
+    const scores = calculateScores(state);
+    if (scores.remainingCapital < 0) {
+      toast('You cannot afford this treaty! Reduce your political spending.');
+      return;
+    }
+    
+    const previewChancesEl = $('#preview-chances');
+    previewChancesEl.innerHTML = `
+        <div style="display:flex; justify-content:space-between; padding: 8px 4px; border-bottom: 1px solid #2c3a45;">
+            <span class="badge" style="border:none; background: #1f2a33;">🦇 Onyx Hand Acceptance</span>
+            <span style="font-weight:700;">${scores.onyx_acceptance}%</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding: 8px 4px; border-bottom: 1px solid #2c3a45;">
+            <span class="badge" style="border:none; background: #1f2a33;">🐺 Moonfang Pack Acceptance</span>
+            <span style="font-weight:700;">${scores.moonfang_acceptance}%</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding: 8px 4px;">
+            <span class="badge" style="border:none; background: #1f2a33;">👑 Regal Court Ratification</span>
+            <span style="font-weight:700;">${scores.court_acceptance}%</span>
+        </div>
+    `;
+    
+    const previewTermsEl = $('#preview-terms');
+    previewTermsEl.innerHTML = '';
+
+    const termsToRender = [];
+    const processedCeasefire = new Set();
+    all_terms.forEach(item => {
+        if (item.type === 'ceasefire') {
+            if (processedCeasefire.has(item.type)) return;
+            processedCeasefire.add(item.type);
+        }
+        termsToRender.push(item);
+    });
+
+    if (termsToRender.length === 0) {
+        previewTermsEl.innerHTML = '<p class="muted" style="text-align:center;">No terms in proposal.</p>';
+    } else {
+        const ul = el('<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;"></ul>');
+        termsToRender.forEach(item => {
+            const side = item.side;
+            const formatted = formatClauseForTreaty(item, side);
+            const li = el(`<li style="padding-bottom: 8px; border-bottom: 1px solid #2c3a45;">${formatted}</li>`);
+            ul.appendChild(li);
+        });
+        if (ul.lastChild) {
+            ul.lastChild.style.borderBottom = 'none';
+        }
+        previewTermsEl.appendChild(ul);
+    }
+
+    previewModal.classList.add('visible');
+  });
+  
+  $('#cancel-proposal').addEventListener('click', () => {
+    previewModal.classList.remove('visible');
+  });
+
+  $('#finalize-proposal').addEventListener('click', () => {
+    previewModal.classList.remove('visible');
+    const scores = calculateScores(state);
+
+    const allAccepted = scores.onyx_acceptance >= 50 && scores.moonfang_acceptance >= 50 && scores.court_acceptance >= 50;
+    
+    if (allAccepted) {
+      showFinalDemandsModal();
+      return;
+    }
+    
+    const vampRoll = Math.random() * 100;
+    const wolfRoll = Math.random() * 100;
+    const courtRoll = Math.random() * 100;
+
+    const vampSuccess = vampRoll <= scores.onyx_acceptance;
+    const wolfSuccess = wolfRoll <= scores.moonfang_acceptance;
+    const courtSuccess = courtRoll <= scores.court_acceptance;
+
+    if (vampSuccess && wolfSuccess && courtSuccess) {
+        showTreatyModal();
+    } else {
+        let failureMsg = 'The treaty has failed! ';
+        if (!courtSuccess) failureMsg += 'Your own court rejects the terms. ';
+        if (!vampSuccess) failureMsg += 'The Onyx Hand refuses to sign. ';
+        if (!wolfSuccess) failureMsg += 'The Moonfang Pack howls in defiance. ';
+        
+        const influencePenalty = 10;
+        state.regalInfluence -= influencePenalty;
+        
+        failureMsg += ` Your influence suffers. (-${influencePenalty} Influence)`;
+        toast(failureMsg, 'danger');
+        save();
+        renderAll();
+    }
+  });
+
+  $('#close-treaty').addEventListener('click', ()=>{
+      localStorage.removeItem(STORAGE_KEY);
+      window.location.reload();
+  });
+  
+  $('#close-intrigue').addEventListener('click', () => {
+    intrigueModal.classList.remove('visible');
+  });
+
+  $('#accept-rider').addEventListener('click', () => {
+    if (!pendingRiderProposal) return;
+    const { originalClauseData, riderClauseData } = pendingRiderProposal;
+    addArticle(originalClauseData.side, originalClauseData.type, originalClauseData.extraParams, 'binding');
+    addArticle(riderClauseData.side, riderClauseData.type, riderClauseData.extraParams, 'counter');
+    toast('A compromise is reached.', 'success');
+    riderModal.classList.remove('visible');
+    pendingRiderProposal = null;
+  });
+
+  $('#reject-rider').addEventListener('click', () => {
+    if (!pendingRiderProposal) return;
+    const { originalClauseData, riderClauseData } = pendingRiderProposal;
+    addArticle(originalClauseData.side, originalClauseData.type, originalClauseData.extraParams, 'binding');
+    
+    const aggrievedFaction = riderClauseData.side.replace('_terms', '');
+    state.acceptance_modifiers[aggrievedFaction] -= 10;
+    toast(`The ${FACTIONS[aggrievedFaction].name} is angered by your refusal. (-10 Acceptance)`, 'danger');
+    
+    riderModal.classList.remove('visible');
+    pendingRiderProposal = null;
+    updateCalculations();
+    save();
+  });
+
+  $('#accept-final-demands').addEventListener('click', () => {
+    if (!pendingFinalDemands) return;
+    const { onyxDemand, moonfangDemand } = pendingFinalDemands;
+    
+    // Using addArticle with 'forced' demandType bypasses player action counts and counter-proposals
+    addArticle(onyxDemand.side, onyxDemand.type, onyxDemand.params, 'forced');
+    addArticle(moonfangDemand.side, moonfangDemand.type, moonfangDemand.params, 'forced');
+    
+    finalDemandsModal.classList.remove('visible');
+    pendingFinalDemands = null;
+    
+    toast('The final demands are met. The treaty is signed!', 'success');
+    showTreatyModal(); // This is now a guaranteed success
+  });
+
+  $('#reject-final-demands').addEventListener('click', () => {
+    if (!pendingFinalDemands) return;
+    
+    finalDemandsModal.classList.remove('visible');
+    pendingFinalDemands = null;
+    
+    state.acceptance_modifiers.onyx_hand -= 15;
+    state.acceptance_modifiers.moonfang_pack -= 15;
+    state.regalInfluence -= 5;
+    
+    toast('Demands rejected, the factions return to the table, displeased.', 'danger');
+    save();
+    updateCalculations();
+  });
+
+
+  // --- UTILS ---
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+
+  function escapeHtml(s){
+    return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+  
+  function toast(msg, color=''){
+    const t = el(`<div style="
+      position:fixed; bottom:18px; left:50%; transform:translateX(-50%);
+      background:linear-gradient(180deg, #1d2730, #121a20);
+      border:1px solid ${color === 'danger' ? 'var(--danger)' : '#2c3a45'}; padding:10px 14px; border-radius:10px;
+      box-shadow: var(--shadow); z-index:9999; font-weight:600;
+      color: ${color === 'gold' ? 'var(--gold)' : (color === 'success' ? 'var(--success)' : (color === 'danger' ? 'var(--danger)' : '#e8f0f6'))};
+    ">${msg}</div>`);
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(), 4000);
+  }
+  
+  function formatClauseForTreaty(item, side) {
+      const t = TYPES[item.type];
+      const p = item.params;
+      const targetFactionName = p.target ? FACTIONS[p.target].name : FACTIONS[side.replace('_terms', '')].name;
+
+      switch(item.type) {
+        case 'ceasefire': return `An immediate and binding <strong>Ceasefire</strong> is declared between all parties.`;
+        case 'territory': return `Control of <strong>${p.province}</strong> is to be transferred to the ${targetFactionName}.`;
+        case 'annex_territory': return `The ${targetFactionName} shall cede de facto control of <strong>${p.province}</strong> to the Regal Empire.`;
+        case 'financial_stipend': return `The Regal Empire shall grant a weekly stipend of <strong>${p.amount} gold</strong> to the ${targetFactionName}.`;
+        case 'imperial_tithe': return `The ${targetFactionName} shall pay a weekly tithe of <strong>${p.amount} gold</strong> to the Regal Empire.`;
+        case 'release_prisoners': return `The ${targetFactionName} shall release <strong>${p.amount}</strong> prisoners.`;
+        case 'public_apology': return `The ${targetFactionName} shall issue a public apology for <strong>${p.grievance}</strong>.`;
+        case 'pledge_fealty': return `The ${targetFactionName} shall pledge fealty to the Regal Empire.`;
+        case 'imperial_advisor': return `An Imperial <strong>${p.advisorType}</strong> shall be appointed to the court of the ${targetFactionName}.`;
+        case 'royal_marriage': return `A political marriage shall be arranged between the house of <strong>${p.noble}</strong> and the ${targetFactionName}.`;
+        case 'establish_garrison': return `An Imperial garrison shall be established in <strong>${p.province}</strong>.`;
+        case 'intelligence_sharing': return `The ${targetFactionName} agrees to share intelligence <strong>${p.scope}</strong> with the Empire.`;
+        default: return `<strong>${t.label}:</strong> ${p[Object.keys(p)[0]] || 'Agreed'}.`;
+      }
+  }
+
+  function showTreatyModal() {
+      const durationBonus = Math.floor(state.years / 5);
+      const finalInfluence = Math.round(state.regalInfluence + durationBonus);
+
+      if (finalInfluence >= 80) {
+        toast(`Triumph! A glorious ${state.years}-year peace is signed, securing the Empire's dominance! (Influence: ${finalInfluence})`, 'gold');
+      } else if (finalInfluence >= 55) {
+        toast(`Success. A ${state.years}-year peace is signed, a victory for the Empire. (Influence: ${finalInfluence})`, 'gold');
+      } else {
+        toast(`A costly peace. The ${state.years}-year treaty is signed, but the Empire is weakened. (Influence: ${finalInfluence})`);
+      }
+
+      $('#treaty-duration').textContent = state.years;
+      const contentEl = $('#treaty-content');
+      contentEl.innerHTML = '';
+
+      const createSection = (title, terms, side) => {
+          if (terms.length === 0) return;
+          const section = el(`
+              <div>
+                  <h2>Terms for the ${title}</h2>
+                  <ul></ul>
+              </div>`);
+          const ul = section.querySelector('ul');
+          const processedCeasefire = new Set();
+          terms.forEach(item => {
+              if (item.type === 'ceasefire') {
+                  if(processedCeasefire.has(item.type)) return;
+                  processedCeasefire.add(item.type);
+              }
+              const li = el(`<li>${formatClauseForTreaty(item, side)}</li>`);
+              ul.appendChild(li);
+          });
+          contentEl.appendChild(section);
+      }
+
+      createSection('Onyx Hand', state.onyx_hand_terms, 'onyx_hand_terms');
+      createSection('Moonfang Pack', state.moonfang_pack_terms, 'moonfang_pack_terms');
+      createSection('Regal Empire', state.regal_empire_terms, 'regal_empire_terms');
+
+      treatyModal.classList.add('visible');
+  }
+
+  // --- INITIALIZE ---
+  function boot() {
+    if(state.negotiationStage === 'ceasefire') {
+      ceasefireScreen.style.display = 'flex';
+      treatyScreen.style.display = 'none';
+      document.body.style.overflow = 'hidden';
+    } else {
+      ceasefireScreen.style.display = 'none';
+      treatyScreen.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      yearsEl.value = state.years;
+      yearsLabel.textContent = `${state.years} years`;
+      renderAll();
+    }
+  }
+
+  boot();
+
+})();
+</script>
+</body>
+</html>

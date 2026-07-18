@@ -1,0 +1,5651 @@
+/* ================================================
+   ARCANE WORKSHOP - CRAFTING SYSTEM
+   Complete Stylesheet
+   ================================================ */
+
+/* ================================================
+   SECTION 1: CSS VARIABLES & PAGE SETUP
+   ================================================ */
+/* ============================================
+   MATERIAL SHOP MODAL
+   ============================================ */
+
+.shop-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.shop-modal-content {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Shop Header */
+.shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shop-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.shop-icon {
+    font-size: 2rem;
+}
+
+.shop-title-row h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #f1f5f9;
+}
+
+.shop-close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #94a3b8;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.shop-close-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+/* XP Bar */
+.shop-xp-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(99, 102, 241, 0.1);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.xp-label {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.xp-value {
+    color: #a78bfa;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.xp-after {
+    color: #10b981;
+    font-size: 0.9rem;
+}
+
+/* Shipping Notice */
+.shop-shipping-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    color: #fbbf24;
+    font-size: 0.85rem;
+}
+
+/* Shop Controls */
+.shop-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.shop-categories {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.shop-cat-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+}
+
+.shop-cat-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+    color: #e2e8f0;
+}
+
+.shop-cat-btn.active {
+    background: #6366f1;
+    color: white;
+    border-color: #6366f1;
+}
+
+.shop-search input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    padding: 10px 14px;
+    border-radius: 6px;
+    width: 200px;
+    font-size: 0.9rem;
+}
+
+.shop-search input::placeholder {
+    color: #64748b;
+}
+
+.shop-search input:focus {
+    outline: none;
+    border-color: #6366f1;
+}
+
+/* Shop Body - Two Column Layout */
+.shop-body {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+    .shop-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Materials Grid */
+.shop-materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.shop-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #64748b;
+}
+
+.shop-empty span {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Material Card */
+.shop-material-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 14px;
+    transition: all 0.2s ease;
+}
+
+.shop-material-card:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
+}
+
+.shop-material-card.out-of-stock {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Rarity borders */
+.shop-material-card.common { border-left: 3px solid #9ca3af; }
+.shop-material-card.uncommon { border-left: 3px solid #22c55e; }
+.shop-material-card.rare { border-left: 3px solid #3b82f6; }
+.shop-material-card.exotic { border-left: 3px solid #a855f7; }
+
+.shop-mat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.shop-mat-icon {
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.shop-mat-info {
+    flex: 1;
+}
+
+.shop-mat-name {
+    display: block;
+    font-weight: 600;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+}
+
+.shop-mat-rarity {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.shop-mat-rarity.common { color: #9ca3af; }
+.shop-mat-rarity.uncommon { color: #22c55e; }
+.shop-mat-rarity.rare { color: #3b82f6; }
+.shop-mat-rarity.exotic { color: #a855f7; }
+
+.shop-mat-desc {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+.shop-mat-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.shop-mat-price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.price-xp {
+    color: #a78bfa;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.price-stock {
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+    background: #4f46e5;
+}
+
+.add-to-cart-btn:disabled {
+    background: #374151;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+/* Quantity Controls */
+.cart-qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(99, 102, 241, 0.2);
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.qty-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: #6366f1;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:disabled {
+    background: #374151;
+    cursor: not-allowed;
+}
+
+.qty-display {
+    color: #e2e8f0;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Cart Panel */
+.shop-cart-panel {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    height: fit-content;
+    position: sticky;
+    top: 0;
+}
+
+.cart-title {
+    margin: 0 0 16px 0;
+    color: #e2e8f0;
+    font-size: 1rem;
+}
+
+.cart-empty {
+    text-align: center;
+    padding: 30px 10px;
+    color: #64748b;
+}
+
+.cart-empty span {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.cart-item-icon {
+    font-size: 1.1rem;
+}
+
+.cart-item-name {
+    flex: 1;
+    color: #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-qty {
+    color: #94a3b8;
+}
+
+.cart-item-price {
+    color: #a78bfa;
+    font-weight: 500;
+}
+
+.cart-remove-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 0.9rem;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    font-weight: bold;
+}
+
+.cart-total-value {
+    color: #a78bfa;
+}
+
+.cart-shipping-estimate {
+    font-size: 0.8rem;
+    color: #fbbf24;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.cart-purchase-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cart-purchase-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.cart-purchase-btn:disabled {
+    background: #374151;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+/* Bundles Section */
+.shop-bundles {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+.shop-bundles h3 {
+    margin: 0 0 16px 0;
+    color: #e2e8f0;
+}
+
+.bundles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.bundle-card {
+    background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.05));
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.bundle-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.bundle-icon {
+    font-size: 1.5rem;
+}
+
+.bundle-name {
+    font-weight: bold;
+    color: #e2e8f0;
+}
+
+.bundle-desc {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin: 0 0 12px 0;
+}
+
+.bundle-contents {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.bundle-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #cbd5e1;
+}
+
+.bundle-more {
+    color: #64748b;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.bundle-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.bundle-original {
+    color: #64748b;
+    text-decoration: line-through;
+    font-size: 0.85rem;
+}
+
+.bundle-sale {
+    color: #a78bfa;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.bundle-savings {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.bundle-buy-btn {
+    width: 100%;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.bundle-buy-btn:hover:not(:disabled) {
+    background: #7c3aed;
+}
+
+.bundle-buy-btn:disabled {
+    background: #374151;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   RECEIPT MODAL
+   ============================================ */
+
+.receipt-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    padding: 20px;
+}
+
+.receipt-modal.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
+}
+
+.receipt-content {
+    background: #fef3c7;
+    color: #1f2937;
+    border-radius: 4px;
+    padding: 24px;
+    max-width: 360px;
+    width: 100%;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.receipt-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.receipt-logo {
+    font-size: 2.5rem;
+}
+
+.receipt-header h2 {
+    margin: 8px 0 4px;
+    font-size: 1.1rem;
+}
+
+.receipt-subtitle {
+    color: #6b7280;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.receipt-divider {
+    color: #9ca3af;
+    text-align: center;
+    margin: 12px 0;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+
+.receipt-order-info {
+    margin-bottom: 8px;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.receipt-row.total {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.status-transit {
+    color: #6366f1;
+}
+
+.receipt-items h3 {
+    font-size: 0.9rem;
+    margin: 0 0 8px;
+}
+
+.receipt-item-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.receipt-item-icon {
+    font-size: 1rem;
+}
+
+.receipt-item-name {
+    flex: 1;
+}
+
+.receipt-item-qty {
+    color: #6b7280;
+}
+
+.receipt-totals {
+    margin: 8px 0;
+}
+
+.receipt-shipping {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fde68a;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.shipping-icon {
+    font-size: 2rem;
+}
+
+.shipping-info {
+    flex: 1;
+}
+
+.shipping-title {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.shipping-time {
+    margin: 4px 0 0;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.shipping-eta {
+    margin: 2px 0 0;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.receipt-footer {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.receipt-footer p {
+    margin: 4px 0;
+    font-size: 0.85rem;
+}
+
+.receipt-note {
+    color: #6b7280;
+    font-size: 0.75rem !important;
+}
+/* Dynamic Bundle Styles */
+.bundle-auto-tag {
+    font-size: 0.7rem;
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.bundles-subtitle {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin: -8px 0 16px 0;
+}
+
+.auto-badge {
+    font-size: 0.6rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: auto;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.bundle-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.bundle-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+/* School-specific bundle colors */
+.bundle-card.school-evocation::before { background: linear-gradient(90deg, #ef4444, #f97316); }
+.bundle-card.school-abjuration::before { background: linear-gradient(90deg, #3b82f6, #06b6d4); }
+.bundle-card.school-conjuration::before { background: linear-gradient(90deg, #f59e0b, #eab308); }
+.bundle-card.school-divination::before { background: linear-gradient(90deg, #8b5cf6, #a855f7); }
+.bundle-card.school-enchantment::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
+.bundle-card.school-illusion::before { background: linear-gradient(90deg, #6366f1, #818cf8); }
+.bundle-card.school-necromancy::before { background: linear-gradient(90deg, #10b981, #065f46); }
+.bundle-card.school-transmutation::before { background: linear-gradient(90deg, #14b8a6, #2dd4bf); }
+/* User Side - Pending State */
+.shipment-card.pending-gm {
+    border-left: 4px solid #fbbf24; /* Amber/Yellow for waiting */
+    background: rgba(30, 41, 59, 0.95);
+}
+
+.shipment-status.waiting {
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.1);
+}
+
+.shipment-note {
+    margin-top: 10px;
+    color: #94a3b8;
+    font-style: italic;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 5px;
+}
+
+/* GM Interface Styles */
+.gm-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 20000;
+    justify-content: center;
+    align-items: center;
+}
+
+.gm-modal-content {
+    background: #1e1e1e;
+    border: 2px solid #ef4444; /* Red for Admin */
+    width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: 20px;
+    color: white;
+}
+
+.gm-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.gm-order-card {
+    background: #2d2d2d;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 100px;
+    gap: 10px;
+    align-items: center;
+}
+
+.gm-order-items {
+    font-size: 0.85rem;
+    color: #ccc;
+}
+/* Type Badge Styles */
+.detail-type-info {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.type-badge {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.craft-button.ready {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+/* Type Badge Styles */
+.detail-type-info {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.type-badge {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.catalyst-selector {
+    width: 100%;
+    margin-top: 10px;
+    background: rgba(0,0,0,0.1);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.selector-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.sub-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #444;
+    background: #2a2a2a;
+    color: #eee;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.sub-btn:hover { background: #3a3a3a; }
+.sub-btn.active { border-color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+
+.sub-penalty { color: #ef4444; font-size: 0.75rem; font-weight: bold; }
+.sub-owned { color: #10b981; font-size: 0.7rem; }
+.penalty-text { display: block; color: #ef4444; font-size: 0.8rem; }
+
+.swap-catalyst-btn {
+    margin-top: 5px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    background: #3b82f6;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.craft-button.ready {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+.wildcard-req {
+    border: 1px dashed #a855f7; /* Purple border */
+    background: rgba(168, 85, 247, 0.05);
+}
+
+.wildcard-tag {
+    color: #a855f7;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-right: 5px;
+}
+.craft-button.disabled {
+    background: #374151;
+    color: #6b7280;
+}
+
+.no-materials {
+    color: #64748b;
+    font-style: italic;
+    padding: 10px 0;
+}
+.craft-button.disabled {
+    background: #374151;
+    color: #6b7280;
+}
+
+.no-materials {
+    color: #64748b;
+    font-style: italic;
+    padding: 10px 0;
+}
+.gm-btn {
+    width: 100%;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.gm-btn.approve { background: #10b981; color: white; }
+.gm-btn.reject { background: #ef4444; color: white; }
+.bundle-savings {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+.receipt-close-btn {
+    width: 100%;
+    background: #1f2937;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+.receipt-close-btn:hover {
+    background: #374151;
+}
+.crafting-page {
+    --craft-primary: #8b5cf6;
+    --craft-primary-dark: #6d28d9;
+    --craft-primary-light: #a78bfa;
+    --craft-accent: #c4b5fd;
+    
+    --craft-surface: #1e1e2e;
+    --craft-surface-light: #2a2a3e;
+    --craft-border: #3d3d5c;
+    
+    --craft-gold: #fbbf24;
+    --craft-gold-dark: #d97706;
+    --craft-gold-light: #fcd34d;
+    
+    --craft-text: #e8e8e8;
+    --craft-text-dim: #9ca3af;
+    
+    --craft-success: #22c55e;
+    --craft-danger: #ef4444;
+    --craft-warning: #f59e0b;
+    --craft-info: #3b82f6;
+    
+    --craft-shadow: rgba(0, 0, 0, 0.5);
+    
+    background: linear-gradient(180deg, #1a0f2e 0%, #0d0d15 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--craft-text);
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* ================================================
+   SECTION 2: MAIN LAYOUT GRID
+   ================================================ */
+
+.crafting-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr 340px;
+    gap: 20px;
+    margin-top: 20px;
+    min-height: calc(100vh - 220px);
+}
+
+.recipes-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: calc(100vh - 240px);
+}
+
+.detail-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: calc(100vh - 240px);
+    overflow-y: auto;
+}
+
+.crafting-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: calc(100vh - 240px);
+    overflow-y: auto;
+}
+
+.sidebar-section {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+/* ================================================
+   SECTION 3: HEADER
+   ================================================ */
+
+.crafting-header {
+    background: linear-gradient(135deg, #2d1b4e 0%, #1a0f2e 100%);
+    border: 2px solid var(--craft-primary);
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 
+        0 4px 20px var(--craft-shadow),
+        inset 0 1px 0 rgba(139, 92, 246, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.crafting-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--craft-primary), transparent);
+}
+
+.crafting-header .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.crafting-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.crafting-logo {
+    font-size: 2.8em;
+    filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.6));
+    animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+    0%, 100% { filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.4)); }
+    50% { filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.8)); }
+}
+
+.crafting-title h1 {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8em;
+    color: var(--craft-gold);
+    text-shadow: 0 2px 4px var(--craft-shadow);
+    letter-spacing: 3px;
+}
+
+.crafting-subtitle {
+    margin: 4px 0 0 0;
+    color: var(--craft-text-dim);
+    font-size: 0.85em;
+    letter-spacing: 1px;
+}
+
+/* ================================================
+   SECTION 4: TIME DISPLAY
+   ================================================ */
+
+.time-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 8px;
+}
+
+.time-icon {
+    font-size: 1.5em;
+}
+
+.time-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-current {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1em;
+    color: var(--craft-gold);
+}
+
+.time-date {
+    font-size: 0.8em;
+    color: var(--craft-text-dim);
+}
+
+.time-period {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.time-period.day {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.time-period.night {
+    background: rgba(99, 102, 241, 0.2);
+    color: #818cf8;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.time-period.dawn {
+    background: rgba(251, 146, 60, 0.2);
+    color: #fb923c;
+    border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.time-period.dusk {
+    background: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+/* ================================================
+   SECTION 5: CRAFTING STATS
+   ================================================ */
+
+.crafting-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 18px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 8px;
+    min-width: 90px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--craft-primary);
+}
+
+.stat-item.gold::after {
+    background: #ffd700;
+}
+
+.stat-item.queue::after {
+    background: var(--craft-info);
+}
+
+.stat-item.level::after {
+    background: var(--craft-success);
+}
+
+.stat-item .stat-icon {
+    font-size: 1.3em;
+    margin-bottom: 4px;
+}
+
+.stat-item .stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--craft-gold);
+}
+
+.stat-item.gold .stat-value {
+    color: #ffd700;
+}
+
+.stat-item .stat-label {
+    font-size: 0.7em;
+    color: var(--craft-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ================================================
+   SECTION 6: CATEGORY TABS
+   ================================================ */
+
+.category-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--craft-border);
+    overflow-x: auto;
+}
+
+.category-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.category-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--craft-surface);
+    border: 2px solid var(--craft-border);
+    border-radius: 10px;
+    color: var(--craft-text-dim);
+    font-family: inherit;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.category-tab:hover:not(:disabled) {
+    background: var(--craft-surface-light);
+    border-color: var(--craft-primary-light);
+    color: var(--craft-text);
+    transform: translateY(-2px);
+}
+
+.category-tab.active {
+    background: linear-gradient(135deg, var(--craft-primary), var(--craft-primary-dark));
+    border-color: var(--craft-primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.category-tab:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.category-tab.locked {
+    border-style: dashed;
+    opacity: 0.6;
+}
+
+.tab-icon {
+    font-size: 1.2em;
+}
+
+.tab-name {
+    font-weight: 500;
+}
+
+.tab-count {
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin-left: 4px;
+}
+
+/* ================================================
+   SECTION 7: SEARCH & FILTERS
+   ================================================ */
+
+.recipes-controls {
+    margin-bottom: 16px;
+}
+
+.recipes-search {
+    margin-bottom: 12px;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 8px;
+    color: var(--craft-text);
+    font-family: inherit;
+    font-size: 0.95em;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--craft-primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.search-input::placeholder {
+    color: var(--craft-text-dim);
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1em;
+    color: var(--craft-text-dim);
+    pointer-events: none;
+}
+
+/* Level Filter */
+.level-filter {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.level-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    color: var(--craft-text-dim);
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.level-btn.cantrip {
+    width: auto;
+    padding: 0 14px;
+    border-radius: 18px;
+    font-size: 0.8em;
+}
+
+.level-btn:hover {
+    border-color: var(--craft-primary-light);
+    color: var(--craft-text);
+    transform: scale(1.05);
+}
+
+.level-btn.active {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+/* School Filter */
+.school-filter {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.school-btn {
+    padding: 6px 12px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 6px;
+    color: var(--craft-text-dim);
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.school-btn:hover {
+    border-color: var(--craft-primary-light);
+    color: var(--craft-text);
+    transform: translateY(-2px);
+}
+
+.school-btn.active {
+    color: white;
+    border-width: 2px;
+}
+
+/* Filter Row */
+.filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 6px 14px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 20px;
+    color: var(--craft-text-dim);
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-btn:hover {
+    border-color: var(--craft-primary);
+    color: var(--craft-text);
+}
+
+.filter-btn.active {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+    color: white;
+}
+
+.filter-icon {
+    font-size: 1em;
+}
+
+/* ================================================
+   SECTION 8: PINNED RECIPES
+   ================================================ */
+
+.pinned-recipes {
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.pinned-title {
+    font-size: 0.9em;
+    color: #fbbf24;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pinned-list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pinned-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 20px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pinned-item:hover {
+    border-color: var(--craft-primary);
+    transform: translateY(-2px);
+}
+
+.pinned-item-icon {
+    font-size: 1.1em;
+}
+
+/* ================================================
+   SECTION 9: RECIPES LIST
+   ================================================ */
+
+.recipes-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.recipes-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Recipe Card */
+.recipe-card {
+    background: var(--craft-surface);
+    border: 2px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.recipe-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--craft-border);
+    transition: background 0.2s ease;
+}
+
+.recipe-card:hover {
+    border-color: var(--craft-primary-light);
+    transform: translateX(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.recipe-card:hover::before {
+    background: var(--craft-primary);
+}
+
+.recipe-card.selected {
+    border-color: var(--craft-gold);
+    background: rgba(251, 191, 36, 0.05);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+}
+
+.recipe-card.selected::before {
+    background: var(--craft-gold);
+}
+
+.recipe-card.unavailable {
+    opacity: 0.5;
+}
+
+.recipe-card.unavailable:hover {
+    transform: none;
+    border-color: var(--craft-border);
+}
+
+.recipe-card.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.recipe-card.locked:hover {
+    transform: none;
+    border-color: var(--craft-border);
+}
+
+/* Recipe Card Header */
+.recipe-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.recipe-icon {
+    font-size: 2.2em;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    flex-shrink: 0;
+}
+
+.recipe-title-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.recipe-name {
+    display: block;
+    font-weight: bold;
+    font-size: 1em;
+    color: var(--craft-text);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recipe-level {
+    display: inline-block;
+    font-size: 0.7em;
+    padding: 2px 8px;
+    background: var(--craft-surface-light);
+    border: 1px solid var(--craft-border);
+    border-radius: 10px;
+    color: var(--craft-text-dim);
+}
+
+.recipe-school {
+    font-size: 1.3em;
+    flex-shrink: 0;
+}
+
+/* Recipe Card Body */
+.recipe-card-body {
+    margin-bottom: 10px;
+}
+
+.recipe-description {
+    font-size: 0.85em;
+    color: var(--craft-text-dim);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Recipe Card Footer */
+.recipe-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px dashed var(--craft-border);
+    font-size: 0.8em;
+}
+
+.recipe-cost {
+    display: flex;
+    gap: 12px;
+    color: var(--craft-text-dim);
+}
+
+.cost-gold {
+    color: #ffd700;
+}
+
+.cost-time {
+    color: var(--craft-info);
+}
+
+.recipe-success {
+    color: var(--craft-success);
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Recipe Locked Overlay */
+.recipe-locked-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    gap: 8px;
+    backdrop-filter: blur(2px);
+}
+
+.locked-icon {
+    font-size: 2em;
+}
+
+.locked-text {
+    font-size: 0.85em;
+    color: var(--craft-text-dim);
+    font-weight: bold;
+}
+
+/* Recipe Ritual Tag */
+.recipe-ritual {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(96, 165, 250, 0.2);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    border-radius: 4px;
+    font-size: 0.7em;
+    color: #60a5fa;
+    margin-left: 6px;
+}
+
+/* Favorite Button */
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    color: var(--craft-text-dim);
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.favorite-btn:hover {
+    border-color: #fbbf24;
+    color: #fbbf24;
+}
+
+.favorite-btn.active {
+    background: rgba(251, 191, 36, 0.2);
+    border-color: #fbbf24;
+    color: #fbbf24;
+}
+
+/* ================================================
+   SECTION 10: RECIPE DETAIL PANEL
+   ================================================ */
+
+.recipe-detail {
+    height: 100%;
+}
+
+.recipe-detail-panel {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 24px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* No Selection State */
+.no-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: var(--craft-text-dim);
+    padding: 40px;
+}
+
+.no-selection-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    opacity: 0.4;
+}
+
+.no-selection-title {
+    font-size: 1.4em;
+    color: var(--craft-text);
+    margin-bottom: 8px;
+}
+
+.no-selection-text {
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* Detail Header */
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--craft-border);
+}
+
+.detail-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    flex: 1;
+}
+
+.detail-icon {
+    font-size: 3.5em;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+    flex-shrink: 0;
+}
+
+.detail-title-group {
+    flex: 1;
+}
+
+.detail-name {
+    margin: 0 0 8px 0;
+    font-size: 1.5em;
+    color: var(--craft-gold);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.detail-spell-info {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.spell-level-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--craft-primary);
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+}
+
+.spell-school-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+/* Detail Close Button */
+.detail-close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--craft-border);
+    background: var(--craft-surface);
+    color: var(--craft-text-dim);
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.detail-close-btn:hover {
+    background: var(--craft-danger);
+    border-color: var(--craft-danger);
+    color: white;
+}
+
+/* Detail Stats Grid */
+.detail-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.detail-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: var(--craft-surface-light);
+    border-radius: 8px;
+    border-left: 3px solid var(--craft-primary);
+}
+
+.detail-stat-label {
+    font-size: 0.85em;
+    color: var(--craft-text-dim);
+}
+
+.detail-stat-value {
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--craft-accent);
+}
+
+.detail-stat-value.unmet {
+    color: var(--craft-danger);
+}
+
+/* ================================================
+   SECTION 11: SCROLL PREVIEW
+   ================================================ */
+
+.scroll-preview {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 3px double #d97706;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 20px 0;
+    position: relative;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 6px 16px rgba(217, 119, 6, 0.25);
+}
+
+.scroll-preview::before,
+.scroll-preview::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 10px;
+    background: linear-gradient(90deg, transparent, #d97706, transparent);
+    border-radius: 5px;
+}
+
+.scroll-preview::before {
+    top: -5px;
+}
+
+.scroll-preview::after {
+    bottom: -5px;
+}
+
+.scroll-content {
+    color: #451a03;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+.scroll-spell-name {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.scroll-spell-level {
+    text-align: center;
+    font-size: 0.95em;
+    color: #78350f;
+    margin-bottom: 14px;
+    font-style: italic;
+}
+
+.scroll-description {
+    font-size: 0.95em;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.scroll-seal {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    background: radial-gradient(circle, #dc2626, #991b1b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* ================================================
+   SECTION 12: POTION PREVIEW
+   ================================================ */
+
+.potion-preview {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: var(--craft-surface-light);
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid var(--craft-border);
+}
+
+.potion-bottle {
+    width: 60px;
+    height: 85px;
+    position: relative;
+}
+
+.potion-bottle-shape {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0 0 30px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.potion-liquid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70%;
+    border-radius: 0 0 28px 28px;
+    animation: potionBubble 3s ease-in-out infinite;
+}
+
+.potion-liquid.healing {
+    background: linear-gradient(180deg, #ef4444, #dc2626);
+}
+
+.potion-liquid.mana {
+    background: linear-gradient(180deg, #3b82f6, #1d4ed8);
+}
+
+.potion-liquid.buff {
+    background: linear-gradient(180deg, #a855f7, #7c3aed);
+}
+
+.potion-liquid.poison {
+    background: linear-gradient(180deg, #22c55e, #15803d);
+}
+
+.potion-liquid.utility {
+    background: linear-gradient(180deg, #06b6d4, #0891b2);
+}
+
+@keyframes potionBubble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.potion-cork {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 16px;
+    background: linear-gradient(180deg, #92400e, #78350f);
+    border-radius: 4px 4px 0 0;
+}
+
+.potion-info {
+    flex: 1;
+}
+
+.potion-name {
+    font-weight: bold;
+    font-size: 1.15em;
+    margin-bottom: 6px;
+    color: var(--craft-text);
+}
+
+.potion-effect {
+    font-size: 0.9em;
+    color: var(--craft-text-dim);
+    line-height: 1.4;
+}
+
+/* ================================================
+   SECTION 13: ENCHANTING PREVIEW
+   ================================================ */
+
+.enchant-preview {
+    text-align: center;
+    padding: 24px;
+    background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.2), transparent);
+    border-radius: 12px;
+    margin: 20px 0;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.enchant-item {
+    font-size: 4.5em;
+    margin-bottom: 16px;
+    animation: enchantGlow 2s ease-in-out infinite;
+}
+
+@keyframes enchantGlow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5)); 
+    }
+    50% { 
+        filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.9)); 
+    }
+}
+
+.enchant-runes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.enchant-rune {
+    width: 34px;
+    height: 34px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-primary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    animation: runeFloat 3s ease-in-out infinite;
+}
+
+.enchant-rune:nth-child(2) { animation-delay: 0.5s; }
+.enchant-rune:nth-child(3) { animation-delay: 1s; }
+.enchant-rune:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes runeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.enchant-name {
+    font-weight: bold;
+    font-size: 1.25em;
+    color: var(--craft-accent);
+}
+
+.enchant-bonus {
+    font-size: 0.95em;
+    color: var(--craft-success);
+    margin-top: 6px;
+}
+
+/* ================================================
+   SECTION 14: SMITHING PREVIEW
+   ================================================ */
+
+.smithing-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.1), rgba(234, 88, 12, 0.1));
+    border-radius: 12px;
+    margin: 20px 0;
+    border: 1px solid rgba(251, 146, 60, 0.3);
+    position: relative;
+}
+
+.anvil-icon {
+    font-size: 3.5em;
+    animation: anvilHit 1s infinite;
+}
+
+@keyframes anvilHit {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    95% { transform: rotate(-5deg); }
+}
+
+.hammer-icon {
+    font-size: 2.8em;
+    animation: hammerSwing 1s infinite;
+}
+
+@keyframes hammerSwing {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(-35deg) translateY(-12px); }
+}
+
+.smithing-sparks {
+    position: absolute;
+    font-size: 1.5em;
+    animation: sparkFly 0.5s infinite;
+}
+
+@keyframes sparkFly {
+    0% { opacity: 1; transform: translate(0, 0); }
+    100% { opacity: 0; transform: translate(25px, -25px); }
+}
+
+/* ================================================
+   SECTION 15: REQUIREMENTS SECTION
+   ================================================ */
+
+.recipe-requirements {
+    margin-top: 20px;
+}
+
+.requirements-title {
+    font-size: 1em;
+    color: var(--craft-gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.requirement-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+}
+
+.requirement-item.met {
+    border-color: var(--craft-success);
+    background: rgba(34, 197, 94, 0.08);
+}
+
+.requirement-item.unmet {
+    border-color: var(--craft-danger);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.requirement-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.requirement-icon {
+    font-size: 1.4em;
+}
+
+.requirement-name {
+    font-size: 0.9em;
+}
+
+.requirement-count {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9em;
+}
+
+.count-ok {
+    color: var(--craft-success);
+}
+
+.count-missing {
+    color: var(--craft-danger);
+}
+
+.requirement-status {
+    font-size: 1.3em;
+}
+
+/* ================================================
+   SECTION 16: COST BREAKDOWN
+   ================================================ */
+
+.cost-breakdown {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 20px;
+}
+
+.cost-title {
+    font-size: 0.95em;
+    color: var(--craft-gold);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--craft-border);
+}
+
+.cost-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.9em;
+}
+
+.cost-row.total {
+    border-top: 1px solid var(--craft-border);
+    margin-top: 10px;
+    padding-top: 14px;
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+.cost-label {
+    color: var(--craft-text-dim);
+}
+
+.cost-value {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--craft-gold);
+}
+
+.cost-value.gold {
+    color: #ffd700;
+}
+
+.cost-value.time {
+    color: #60a5fa;
+}
+
+.cost-value.xp {
+    color: #c084fc;
+}
+
+/* ================================================
+   SECTION 17: NOTICES & BONUSES
+   ================================================ */
+
+.time-bonus-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.time-bonus-notice .bonus-icon {
+    font-size: 1.6em;
+}
+
+.time-bonus-notice .bonus-text {
+    font-size: 0.9em;
+    color: #a5b4fc;
+}
+
+.additional-cost-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(251, 191, 36, 0.15);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.additional-cost-notice .notice-icon {
+    font-size: 1.4em;
+}
+
+.additional-cost-notice .notice-text {
+    font-size: 0.85em;
+    color: #fcd34d;
+}
+
+.queue-full-notice {
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--craft-warning);
+    margin-top: 14px;
+    padding: 10px;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 6px;
+}
+
+/* ================================================
+   SECTION 18: CRAFT BUTTON
+   ================================================ */
+
+.craft-button {
+    width: 100%;
+    padding: 18px 24px;
+    margin-top: 24px;
+    background: linear-gradient(135deg, var(--craft-primary), var(--craft-primary-dark));
+    border: 2px solid var(--craft-primary);
+    border-radius: 12px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.15em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+}
+
+.craft-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.craft-button:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.craft-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+}
+
+.craft-button:disabled {
+    background: var(--craft-surface-light);
+    border-color: var(--craft-border);
+    color: var(--craft-text-dim);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.craft-button .button-icon {
+    margin-right: 10px;
+}
+
+/* ================================================
+   SECTION 19: CRAFTING QUEUE
+   ================================================ */
+
+.crafting-queue {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.queue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--craft-border);
+}
+
+.queue-title {
+    font-size: 1em;
+    color: var(--craft-gold);
+    font-weight: bold;
+}
+
+.queue-slots {
+    display: flex;
+    gap: 6px;
+}
+
+.queue-slot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--craft-surface-light);
+    border: 1px solid var(--craft-border);
+    transition: all 0.3s ease;
+}
+
+.queue-slot.filled {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+}
+
+.queue-slot.active {
+    background: var(--craft-gold);
+    border-color: var(--craft-gold);
+    animation: activePulse 1s infinite;
+}
+
+@keyframes activePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+    50% { transform: scale(1.2); box-shadow: 0 0 0 4px rgba(251, 191, 36, 0); }
+}
+
+.queue-empty {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--craft-text-dim);
+}
+
+.queue-empty .empty-icon {
+    font-size: 2.5em;
+    display: block;
+    margin-bottom: 10px;
+    opacity: 0.4;
+}
+
+.queue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Queue Item */
+.queue-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--craft-surface-light);
+    border-radius: 8px;
+    border: 1px solid var(--craft-border);
+}
+
+.queue-item.current {
+    border-color: var(--craft-primary);
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.queue-item-icon {
+    font-size: 1.6em;
+}
+
+.queue-item-info {
+    flex: 1;
+}
+
+.queue-item-name {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.queue-item-time {
+    font-size: 0.75em;
+    color: var(--craft-text-dim);
+}
+
+.queue-position {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8em;
+    color: var(--craft-text-dim);
+}
+
+/* ================================================
+   SECTION 20: PROJECT CARDS
+   ================================================ */
+
+.project-card {
+    background: var(--craft-surface);
+    border: 2px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: var(--craft-primary);
+    transform: translateX(4px);
+}
+
+.project-card.completed {
+    border-color: var(--craft-success);
+}
+
+.project-card.failed {
+    border-color: var(--craft-danger);
+}
+
+.project-card.ready {
+    border-color: var(--craft-success);
+    animation: readyGlow 2s infinite;
+}
+
+@keyframes readyGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.project-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.project-icon {
+    font-size: 2.2em;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.project-title {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.project-type {
+    font-size: 0.8em;
+    color: var(--craft-text-dim);
+}
+
+.project-status {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.project-status.in-progress {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.project-status.completed {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.project-status.failed {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.project-status.ready {
+    background: rgba(96, 165, 250, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    animation: readyPulse 2s infinite;
+}
+
+@keyframes readyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(96, 165, 250, 0); }
+}
+
+/* ================================================
+   SECTION 21: PROGRESS BAR
+   ================================================ */
+
+.project-progress {
+    margin: 14px 0;
+}
+
+.progress-bar-container {
+    position: relative;
+    height: 26px;
+    background: var(--craft-surface-light);
+    border-radius: 13px;
+    overflow: hidden;
+    border: 1px solid var(--craft-border);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 13px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.progress-bar-fill.crafting {
+    background: linear-gradient(90deg, var(--craft-primary), var(--craft-accent));
+}
+
+.progress-bar-fill.success {
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.progress-bar-fill.danger {
+    background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    font-family: 'Orbitron', sans-serif;
+    z-index: 1;
+}
+
+.progress-time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    color: var(--craft-text-dim);
+    margin-top: 8px;
+}
+
+/* ================================================
+   SECTION 22: PROJECT ACTIONS
+   ================================================ */
+
+.project-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.project-action-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--craft-border);
+    background: var(--craft-surface-light);
+    color: var(--craft-text);
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.project-action-btn:hover {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+}
+
+.project-action-btn.collect {
+    background: linear-gradient(135deg, var(--craft-success), #22c55e);
+    border-color: var(--craft-success);
+    color: white;
+}
+
+.project-action-btn.collect:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+}
+
+.project-action-btn.cancel {
+    background: transparent;
+    border-color: var(--craft-danger);
+    color: var(--craft-danger);
+}
+
+.project-action-btn.cancel:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.project-action-btn.simulate {
+    background: linear-gradient(135deg, var(--craft-info), #2563eb);
+    border-color: var(--craft-info);
+    color: white;
+}
+
+.project-action-btn.simulate:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* ================================================
+   SECTION 23: MATERIALS INVENTORY
+   ================================================ */
+
+.materials-panel {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.materials-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.materials-title {
+    font-size: 1.1em;
+    color: var(--craft-gold);
+    font-weight: bold;
+}
+
+.materials-search {
+    padding: 8px 12px;
+    background: var(--craft-surface-light);
+    border: 1px solid var(--craft-border);
+    border-radius: 6px;
+    color: var(--craft-text);
+    font-size: 0.85em;
+    width: 160px;
+}
+
+.materials-search:focus {
+    outline: none;
+    border-color: var(--craft-primary);
+}
+
+.add-materials-btn {
+    padding: 8px 14px;
+    background: var(--craft-primary);
+    border: 1px solid var(--craft-primary);
+    border-radius: 6px;
+    color: white;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-materials-btn:hover {
+    background: var(--craft-primary-light);
+    transform: scale(1.02);
+}
+
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.material-item {
+    background: var(--craft-surface-light);
+    border: 1px solid var(--craft-border);
+    border-radius: 10px;
+    padding: 12px 8px;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.material-item:hover {
+    border-color: var(--craft-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.material-item.insufficient {
+    opacity: 0.4;
+}
+
+.material-item.common { border-left: 3px solid #9ca3af; }
+.material-item.uncommon { border-left: 3px solid #22c55e; }
+.material-item.rare { border-left: 3px solid #3b82f6; }
+.material-item.legendary { border-left: 3px solid #f59e0b; }
+.material-item.godly { border-left: 3px solid #0bf5bb; }
+
+.material-icon {
+    font-size: 2em;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.material-name {
+    font-size: 0.7em;
+    color: var(--craft-text);
+    margin-bottom: 4px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.material-count {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95em;
+    color: var(--craft-gold);
+    font-weight: bold;
+}
+
+.material-count.low {
+    color: var(--craft-warning);
+}
+
+.material-count.zero {
+    color: var(--craft-danger);
+}
+
+/* ================================================
+   SECTION 24: SKILLS PANEL
+   ================================================ */
+
+.skills-panel {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.skills-title {
+    font-size: 1.1em;
+    color: var(--craft-gold);
+    margin: 0 0 16px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--craft-border);
+    font-weight: bold;
+}
+
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.skill-item {
+    background: var(--craft-surface-light);
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.skill-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.skill-icon {
+    font-size: 1.3em;
+}
+
+.skill-name {
+    flex: 1;
+    font-size: 0.95em;
+}
+
+.skill-level {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9em;
+    color: var(--craft-accent);
+    font-weight: bold;
+}
+
+.skill-bar {
+    height: 8px;
+    background: var(--craft-surface);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--craft-primary), var(--craft-accent));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.skill-bonus {
+    font-size: 0.75em;
+    color: var(--craft-success);
+    text-align: right;
+}
+
+/* ================================================
+   SECTION 25: HISTORY PANEL
+   ================================================ */
+
+.history-panel {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 16px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-title {
+    font-size: 1em;
+    color: var(--craft-gold);
+    margin: 0 0 14px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--craft-border);
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 0.85em;
+}
+
+.history-item.success {
+    background: rgba(34, 197, 94, 0.1);
+    border-left: 3px solid var(--craft-success);
+}
+
+.history-item.failure {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid var(--craft-danger);
+}
+
+.history-icon {
+    font-size: 1.3em;
+}
+
+.history-info {
+    flex: 1;
+}
+
+.history-name {
+    font-weight: bold;
+}
+
+.history-time {
+    font-size: 0.8em;
+    color: var(--craft-text-dim);
+}
+
+.history-result {
+    font-size: 0.8em;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.history-result.success {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.history-result.failure {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* ================================================
+   SECTION 26: CRAFTED ITEMS LIST
+   ================================================ */
+
+.crafted-items-panel {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.crafted-items-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--craft-border);
+}
+
+.crafted-items-title {
+    font-size: 1em;
+    color: var(--craft-gold);
+    font-weight: bold;
+}
+
+.crafted-count {
+    background: var(--craft-success);
+    color: white;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.crafted-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--craft-surface-light);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+}
+
+.crafted-item:hover {
+    background: var(--craft-surface);
+    transform: translateX(4px);
+}
+
+.crafted-item-icon {
+    font-size: 1.6em;
+}
+
+.crafted-item-info {
+    flex: 1;
+}
+
+.crafted-item-name {
+    font-weight: bold;
+    font-size: 0.9em;
+    display: block;
+}
+
+.crafted-item-date {
+    font-size: 0.75em;
+    color: var(--craft-text-dim);
+}
+
+.crafted-item-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.crafted-action-btn {
+    padding: 6px 12px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 6px;
+    color: var(--craft-text-dim);
+    font-size: 0.75em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.crafted-action-btn:hover {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+    color: white;
+}
+
+/* ================================================
+   SECTION 27: TIPS PANEL
+   ================================================ */
+
+.tips-panel {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.tips-title {
+    font-size: 1em;
+    color: var(--craft-accent);
+    margin: 0 0 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(139, 92, 246, 0.2);
+    font-size: 0.9em;
+    color: var(--craft-text-dim);
+    line-height: 1.4;
+}
+
+.tip-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.tip-icon {
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+/* ================================================
+   SECTION 28: RARITY BADGES
+   ================================================ */
+
+.rarity-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.7em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.rarity-badge.common {
+    background: rgba(156, 163, 175, 0.2);
+    color: #9ca3af;
+    border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.rarity-badge.uncommon {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.rarity-badge.rare {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.rarity-badge.veryRare {
+    background: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.rarity-badge.legendary {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* ================================================
+   SECTION 29: SPELL COMPONENTS
+   ================================================ */
+
+.spell-components {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.component-badge {
+    padding: 4px 12px;
+    background: var(--craft-surface-light);
+    border: 1px solid var(--craft-border);
+    border-radius: 8px;
+    font-size: 0.8em;
+    color: var(--craft-text-dim);
+}
+
+.component-badge.verbal {
+    border-color: rgba(96, 165, 250, 0.4);
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.1);
+}
+
+.component-badge.somatic {
+    border-color: rgba(168, 85, 247, 0.4);
+    color: #a855f7;
+    background: rgba(168, 85, 247, 0.1);
+}
+
+.component-badge.material {
+    border-color: rgba(251, 191, 36, 0.4);
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.1);
+}
+
+/* Casting Info */
+.casting-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 14px 0;
+    padding: 14px;
+    background: var(--craft-surface-light);
+    border-radius: 10px;
+    font-size: 0.85em;
+}
+
+.casting-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.casting-label {
+    font-size: 0.75em;
+    color: var(--craft-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.casting-value {
+    color: var(--craft-text);
+    font-weight: 500;
+}
+
+/* ================================================
+   SECTION 30: BATCH CRAFTING
+   ================================================ */
+
+.batch-controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: var(--craft-surface-light);
+    border-radius: 10px;
+    margin-top: 18px;
+}
+
+.batch-label {
+    font-size: 0.9em;
+    color: var(--craft-text-dim);
+}
+
+.batch-qty {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.batch-qty button {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--craft-border);
+    background: var(--craft-surface);
+    color: var(--craft-text);
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.batch-qty button:hover:not(:disabled) {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+}
+
+.batch-qty button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.batch-qty .qty-value {
+    min-width: 36px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--craft-gold);
+}
+
+.batch-total {
+    margin-left: auto;
+    font-size: 0.9em;
+}
+
+.batch-total-label {
+    color: var(--craft-text-dim);
+}
+
+.batch-total-value {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--craft-gold);
+    font-weight: bold;
+}
+
+/* ================================================
+   SECTION 31: CRAFTING XP DISPLAY
+   ================================================ */
+
+.crafting-xp {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(192, 132, 252, 0.1);
+    border: 1px solid rgba(192, 132, 252, 0.3);
+    border-radius: 10px;
+    margin-top: 14px;
+}
+
+.xp-icon {
+    font-size: 1.3em;
+}
+
+.xp-label {
+    font-size: 0.85em;
+    color: var(--craft-text-dim);
+}
+
+.xp-value {
+    font-family: 'Orbitron', sans-serif;
+    color: #c084fc;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+/* ================================================
+   SECTION 32: MODALS & OVERLAYS
+   ================================================ */
+
+.confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.confirm-content {
+    background: var(--craft-surface);
+    border: 2px solid var(--craft-border);
+    border-radius: 16px;
+    padding: 28px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: modalPop 0.3s ease;
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.confirm-icon {
+    font-size: 3.5em;
+    margin-bottom: 18px;
+}
+
+.confirm-title {
+    font-size: 1.4em;
+    color: var(--craft-gold);
+    margin-bottom: 10px;
+}
+
+.confirm-message {
+    color: var(--craft-text-dim);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.confirm-btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95em;
+}
+
+.confirm-btn.primary {
+    background: var(--craft-success);
+    color: white;
+}
+
+.confirm-btn.primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+}
+
+.confirm-btn.secondary {
+    background: transparent;
+    border: 1px solid var(--craft-border);
+    color: var(--craft-text-dim);
+}
+
+.confirm-btn.secondary:hover {
+    background: var(--craft-surface-light);
+    color: var(--craft-text);
+}
+
+/* ================================================
+   SECTION 33: SUCCESS/FAILURE OVERLAYS
+   ================================================ */
+
+.craft-success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.craft-success-content {
+    text-align: center;
+    animation: successPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes successPop {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.success-icon {
+    font-size: 6em;
+    margin-bottom: 24px;
+    animation: successBounce 0.6s ease 0.3s;
+}
+
+@keyframes successBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+}
+/* ================================================
+   SECTION 34: MATERIAL SHOP MODAL
+   ================================================ */
+
+.material-shop-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.material-shop-modal.closing {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.material-shop-container {
+    background: var(--craft-surface);
+    border: 2px solid var(--craft-primary);
+    border-radius: 16px;
+    width: 95%;
+    max-width: 1400px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    animation: shopSlideIn 0.3s ease;
+}
+
+@keyframes shopSlideIn {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Shop Header */
+.shop-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
+    border-bottom: 1px solid var(--craft-border);
+}
+
+.shop-title-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.shop-logo {
+    font-size: 2.5em;
+}
+
+.shop-title {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5em;
+    color: var(--craft-gold);
+}
+
+.shop-subtitle {
+    margin: 4px 0 0 0;
+    font-size: 0.85em;
+    color: var(--craft-text-dim);
+}
+
+.shop-player-gold {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+}
+
+.gold-icon {
+    font-size: 1.4em;
+}
+
+.gold-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.gold-label {
+    font-size: 0.8em;
+    color: var(--craft-text-dim);
+}
+
+.shop-close-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--craft-border);
+    background: var(--craft-surface);
+    color: var(--craft-text-dim);
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.shop-close-btn:hover {
+    background: var(--craft-danger);
+    border-color: var(--craft-danger);
+    color: white;
+}
+
+/* Shop Layout */
+.shop-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr 320px;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Shop Sidebar */
+.shop-sidebar {
+    background: var(--craft-surface-light);
+    border-right: 1px solid var(--craft-border);
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-title {
+    font-size: 0.9em;
+    color: var(--craft-gold);
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--craft-border);
+}
+
+.shop-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.shop-category-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 8px;
+    color: var(--craft-text-dim);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.shop-category-btn:hover {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+    color: white;
+    transform: translateX(4px);
+}
+
+.shop-category-btn.active {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+    color: white;
+}
+
+.cat-icon {
+    font-size: 1.2em;
+}
+
+/* Bundles */
+.shop-bundles {
+    flex: 1;
+}
+
+.bundles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bundle-card {
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 10px;
+    padding: 12px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.bundle-card:hover {
+    border-color: var(--craft-gold);
+    transform: translateY(-2px);
+}
+
+.bundle-card.unaffordable {
+    opacity: 0.5;
+}
+
+.bundle-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.bundle-icon {
+    font-size: 1.5em;
+}
+
+.bundle-info {
+    flex: 1;
+}
+
+.bundle-name {
+    display: block;
+    font-weight: bold;
+    font-size: 0.85em;
+}
+
+.bundle-savings {
+    font-size: 0.75em;
+    color: var(--craft-success);
+}
+
+.bundle-price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.bundle-old-price {
+    text-decoration: line-through;
+    color: var(--craft-text-dim);
+    font-size: 0.85em;
+}
+
+.bundle-new-price {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--craft-gold);
+    font-weight: bold;
+}
+
+.bundle-buy-btn {
+    width: 100%;
+    padding: 8px;
+    background: var(--craft-success);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bundle-buy-btn:hover:not(:disabled) {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+.bundle-buy-btn:disabled {
+    background: var(--craft-surface-light);
+    color: var(--craft-text-dim);
+    cursor: not-allowed;
+}
+
+/* Shop Main */
+.shop-main {
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.shop-search {
+    flex: 1;
+    position: relative;
+}
+
+.shop-search .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.shop-search-input {
+    width: 100%;
+    padding: 10px 14px 10px 40px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 8px;
+    color: var(--craft-text);
+    font-size: 0.95em;
+}
+
+.shop-search-input:focus {
+    outline: none;
+    border-color: var(--craft-primary);
+}
+
+.shop-sort-select {
+    padding: 10px 14px;
+    background: var(--craft-surface);
+    border: 1px solid var(--craft-border);
+    border-radius: 8px;
+    color: var(--craft-text);
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+/* Shop Items Grid */
+.shop-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.shop-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px;
+    color: var(--craft-text-dim);
+}
+
+.shop-empty .empty-icon {
+    font-size: 3em;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.4;
+}
+
+/* Shop Item Card */
+.shop-item-card {
+    background: var(--craft-surface);
+    border: 2px solid var(--craft-border);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.shop-item-card:hover {
+    border-color: var(--craft-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.shop-item-card.in-cart {
+    border-color: var(--craft-success);
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.shop-item-card.out-of-stock {
+    opacity: 0.5;
+}
+
+.shop-item-card.unaffordable:not(.in-cart) {
+    border-color: var(--craft-danger);
+}
+
+/* Rarity borders */
+.shop-item-card.common { border-left: 4px solid #9ca3af; }
+.shop-item-card.uncommon { border-left: 4px solid #22c55e; }
+.shop-item-card.rare { border-left: 4px solid #3b82f6; }
+.shop-item-card.legendary { border-left: 4px solid #f59e0b; }
+
+.quest-only-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 2px 8px;
+    background: rgba(168, 85, 247, 0.2);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    border-radius: 4px;
+    font-size: 0.65em;
+    color: #a855f7;
+}
+
+.item-icon-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.item-icon-wrapper .item-icon {
+    font-size: 2.5em;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background: var(--craft-success);
+    color: white;
+    font-size: 0.75em;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 10px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.item-details {
+    margin-bottom: 8px;
+}
+
+.item-details .item-name {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+
+.item-details .item-rarity {
+    font-size: 0.7em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.item-rarity.common { background: rgba(156, 163, 175, 0.2); color: #9ca3af; }
+.item-rarity.uncommon { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+.item-rarity.rare { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+.item-rarity.legendary { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+
+.item-stock {
+    font-size: 0.75em;
+    color: var(--craft-text-dim);
+    margin-bottom: 8px;
+}
+
+.item-stock.low {
+    color: var(--craft-warning);
+}
+
+.item-price {
+    margin-bottom: 10px;
+}
+
+.item-price .price-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.item-price .price-label {
+    display: block;
+    font-size: 0.7em;
+    color: var(--craft-text-dim);
+}
+
+.item-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.item-quantity-controls .qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--craft-border);
+    background: var(--craft-surface-light);
+    color: var(--craft-text);
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.item-quantity-controls .qty-btn:hover {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+}
+
+.item-quantity-controls .qty-input {
+    width: 50px;
+    padding: 4px;
+    text-align: center;
+    background: var(--craft-surface-light);
+    border: 1px solid var(--craft-border);
+    border-radius: 4px;
+    color: var(--craft-text);
+    font-size: 0.9em;
+}
+
+.quick-add-btn {
+    width: 100%;
+    padding: 8px;
+    background: var(--craft-primary);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.85em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-add-btn:hover:not(:disabled) {
+    background: var(--craft-primary-light);
+    transform: scale(1.02);
+}
+
+.quick-add-btn:disabled {
+    background: var(--craft-surface-light);
+    color: var(--craft-text-dim);
+    cursor: not-allowed;
+}
+
+.unavailable-notice {
+    font-size: 0.8em;
+    color: var(--craft-text-dim);
+    padding: 8px;
+    background: var(--craft-surface-light);
+    border-radius: 6px;
+    width: 100%;
+}
+
+/* Shop Cart Panel */
+.shop-cart-panel {
+    background: var(--craft-surface-light);
+    border-left: 1px solid var(--craft-border);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.cart-title {
+    font-size: 1.1em;
+    color: var(--craft-gold);
+    margin: 0 0 16px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--craft-border);
+}
+
+.cart-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--craft-text-dim);
+    text-align: center;
+}
+
+.cart-empty .empty-icon {
+    font-size: 3em;
+    margin-bottom: 12px;
+    opacity: 0.4;
+}
+
+.empty-hint {
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: var(--craft-surface);
+    border-radius: 8px;
+    border: 1px solid var(--craft-border);
+}
+
+.cart-item-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item-icon {
+    font-size: 1.4em;
+}
+
+.cart-item-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item-name {
+    display: block;
+    font-weight: bold;
+    font-size: 0.85em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-unit {
+    font-size: 0.7em;
+    color: var(--craft-text-dim);
+}
+
+.cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cart-qty-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid var(--craft-border);
+    background: var(--craft-surface-light);
+    color: var(--craft-text);
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.cart-qty-btn:hover {
+    background: var(--craft-primary);
+    border-color: var(--craft-primary);
+}
+
+.cart-qty-value {
+    min-width: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cart-item-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.discount-badge {
+    font-size: 0.65em;
+    padding: 1px 4px;
+    background: var(--craft-success);
+    color: white;
+    border-radius: 3px;
+}
+
+.price-total {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9em;
+    color: #ffd700;
+}
+
+.cart-remove-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid var(--craft-danger);
+    background: transparent;
+    color: var(--craft-danger);
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.cart-remove-btn:hover {
+    background: var(--craft-danger);
+    color: white;
+}
+
+/* Cart Summary */
+.cart-summary {
+    padding: 12px;
+    background: var(--craft-surface);
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    margin-bottom: 6px;
+}
+
+.summary-row.total {
+    font-weight: bold;
+    font-size: 1em;
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: 1px solid var(--craft-border);
+}
+
+.total-price {
+    color: #ffd700;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.summary-row.remaining.negative span:last-child {
+    color: var(--craft-danger);
+}
+
+.discount-text {
+    color: var(--craft-success);
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--craft-success), #16a34a);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 8px;
+}
+
+.checkout-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+.checkout-btn:disabled {
+    background: var(--craft-surface);
+    color: var(--craft-danger);
+    cursor: not-allowed;
+}
+
+.clear-cart-btn {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--craft-border);
+    border-radius: 6px;
+    color: var(--craft-text-dim);
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.clear-cart-btn:hover {
+    border-color: var(--craft-danger);
+    color: var(--craft-danger);
+}
+
+/* Quick Buy Section */
+.quick-buy-section {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--craft-border);
+}
+
+.quick-buy-title {
+    font-size: 0.95em;
+    color: var(--craft-gold);
+    margin: 0 0 8px 0;
+}
+
+.quick-buy-recipe {
+    font-size: 0.85em;
+    color: var(--craft-accent);
+    margin: 0 0 12px 0;
+}
+
+.quick-buy-complete {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 8px;
+    color: var(--craft-success);
+}
+
+.quick-buy-missing {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.missing-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: var(--craft-surface);
+    border-radius: 6px;
+    font-size: 0.85em;
+}
+
+.missing-icon {
+    font-size: 1.1em;
+}
+
+.missing-name {
+    flex: 1;
+}
+
+.missing-qty {
+    color: var(--craft-text-dim);
+}
+
+.missing-cost {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.quick-buy-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-top: 1px solid var(--craft-border);
+}
+
+.quick-buy-total .unaffordable {
+    color: var(--craft-danger);
+}
+
+.quick-buy-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--craft-info), #1d4ed8);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-buy-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.quick-buy-btn:disabled {
+    background: var(--craft-surface);
+    color: var(--craft-text-dim);
+    cursor: not-allowed;
+}
+
+/* Bulk Discount Bar */
+.bulk-discount-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
+    border-top: 1px solid var(--craft-border);
+}
+
+.discount-info-icon {
+    font-size: 1.2em;
+}
+
+.discount-info-text {
+    font-size: 0.85em;
+    color: var(--craft-text-dim);
+}
+
+/* Open Shop Button */
+.open-shop-btn {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #ffd700, #d97706);
+    border: none;
+    border-radius: 6px;
+    color: #1a1a1a;
+    font-weight: bold;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.open-shop-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.shop-link-btn {
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: var(--craft-primary);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.shop-link-btn:hover {
+    background: var(--craft-primary-light);
+}
+
+/* Buy Missing Button */
+.buy-missing-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    background: linear-gradient(135deg, #ffd700, #d97706);
+    border: none;
+    border-radius: 8px;
+    color: #1a1a1a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.buy-missing-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .shop-layout {
+        grid-template-columns: 220px 1fr 280px;
+    }
+}
+
+@media (max-width: 900px) {
+    .shop-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+    }
+    
+    .shop-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--craft-border);
+    }
+    
+    .shop-categories {
+        flex-direction: row;
+    }
+    
+    .shop-bundles {
+        display: none;
+    }
+    
+    .shop-cart-panel {
+        border-left: none;
+        border-top: 1px solid var(--craft-border);
+        max-height: 300px;
+    }
+}
+/* ================================================
+   XP DISPLAY STYLES (instead of gold)
+   ================================================ */
+
+.shop-player-xp {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.1));
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 10px;
+}
+
+.shop-player-xp .xp-icon {
+    font-size: 1.5em;
+}
+
+.shop-player-xp .xp-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-player-xp .xp-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #c4b5fd;
+}
+
+.shop-player-xp .xp-label {
+    font-size: 0.75em;
+    color: var(--craft-text-dim);
+}
+
+/* Header XP Stats */
+.stat-item.xp-total .stat-value {
+    color: #a78bfa;
+}
+
+.stat-item.xp-spent .stat-value {
+    color: #f87171;
+}
+
+.stat-item.xp-available .stat-value {
+    color: #4ade80;
+}
+
+.stat-item.xp-total::after {
+    background: #a78bfa;
+}
+
+.stat-item.xp-spent::after {
+    background: #f87171;
+}
+
+.stat-item.xp-available::after {
+    background: #4ade80;
+}
+
+/* Price displays */
+.item-price .price-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    color: #c4b5fd;
+    font-weight: bold;
+}
+
+.cart-item-unit {
+    color: #a78bfa;
+}
+
+.price-total {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9em;
+    color: #c4b5fd;
+}
+
+.total-price {
+    color: #c4b5fd;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.bundle-new-price {
+    font-family: 'Orbitron', sans-serif;
+    color: #c4b5fd;
+    font-weight: bold;
+}
+
+.missing-cost {
+    color: #c4b5fd;
+    font-weight: bold;
+}
+.clear-inventory-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--craft-danger);
+    border-radius: 6px;
+    color: var(--craft-danger);
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-inventory-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+/* Checkout button XP theme */
+.checkout-btn {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+}
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--craft-bg, #1a1a2e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+.loading-content {
+    text-align: center;
+    color: var(--craft-text, #fff);
+}
+
+.loading-icon {
+    font-size: 4rem;
+    display: block;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+}
+
+/* Error State */
+.init-error {
+    text-align: center;
+    padding: 3rem;
+    color: #ff6b6b;
+}
+
+.init-error button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--craft-primary, #6366f1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Pending XP indicator */
+.stat-item.xp-pending {
+    background: rgba(255, 193, 7, 0.1);
+    border-color: rgba(255, 193, 7, 0.3);
+}
+
+.stat-item.xp-pending .stat-value {
+    color: #ffc107;
+}
+
+/* Shipment cost display */
+.shipment-cost {
+    font-size: 0.85rem;
+    color: #ffc107;
+    padding: 0.25rem 0;
+}
+
+/* Cancel button */
+.cancel-shipment-btn {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+/* =========================================
+   SHIPMENT CARD STYLES
+   ========================================= */
+
+/* The main container for the card */
+.shipment-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shipment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Status Specific Borders */
+.shipment-card.in-transit {
+    border-left: 4px solid #6366f1; /* Indigo for transit */
+}
+
+.shipment-card.arrived {
+    border-left: 4px solid #10b981; /* Green for arrived */
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(15, 23, 42, 0.8));
+}
+
+/* Header Layout (Icon, Order ID, Status) */
+.shipment-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.shipment-icon {
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.shipment-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.shipment-id {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.shipment-items {
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+/* The Timer / Ready Status */
+.shipment-status {
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.shipment-status.pending {
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.shipment-status.ready {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    animation: pulse-green 2s infinite;
+}
+
+/* Pending Cost Badge */
+.shipment-cost {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #fbbf24; /* Amber/Gold */
+    background: rgba(245, 158, 11, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Item Previews */
+.shipment-preview {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.preview-item {
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.preview-more {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    padding-left: 4px;
+}
+
+/* Progress Bar Track */
+.shipment-progress {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 100%;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #6366f1;
+    transition: width 1s linear;
+}
+
+/* Action Area */
+.shipment-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Animation */
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+.cancel-shipment-btn:hover {
+    background: rgba(255, 107, 107, 0.3);
+}
+
+.shipment-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+.checkout-btn:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+}
+.success-title { font-family: 'Orbitron', sans-serif; font-size: 2.5em; color: var(--craft-success); text-shadow: 0 0 10px rgba(34,197,94,0.5); }
+.success-item-name { font-size: 1.5em; color: white; margin: 10px 0 30px 0; }
+.success-close-btn {
+    padding: 12px 32px;
+    background: var(--craft-success);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(34,197,94,0.4);
+    transition: transform 0.2s;
+}
+.success-close-btn:hover { transform: scale(1.1); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ================================================
+   RESPONSIVE DESIGN
+   ================================================ */
+
+@media (max-width: 1200px) {
+    .crafting-layout {
+        grid-template-columns: 1fr 300px;
+        grid-template-rows: auto 1fr;
+    }
+    
+    .recipes-section {
+        grid-column: 1;
+        grid-row: 1;
+        max-height: 400px;
+    }
+    
+    .detail-section {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .crafting-sidebar {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+    }
+}
+
+@media (max-width: 900px) {
+    .crafting-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        height: auto;
+    }
+    
+    .recipes-section, .detail-section, .crafting-sidebar {
+        grid-column: 1;
+        grid-row: auto;
+    }
+    
+    .recipes-section { max-height: 300px; }
+    .crafting-sidebar { flex-direction: row; flex-wrap: wrap; }
+    .sidebar-section { flex: 1; min-width: 280px; }
+}
+
+/* ================================================
+   SCROLLBAR
+   ================================================ */
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--craft-surface); }
+::-webkit-scrollbar-thumb { background: var(--craft-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--craft-primary); }
+
+/* ================================================
+   TIPS PANEL
+   ================================================ */
+.tips-panel {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px dashed var(--craft-primary);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 20px;
+}
+
+.tips-title { font-size: 1em; color: var(--craft-accent); margin-bottom: 12px; }
+.tip-item { display: flex; gap: 10px; font-size: 0.85em; color: var(--craft-text-dim); margin-bottom: 8px; }
+.tip-icon { font-size: 1.2em; }
+
+/* ================================================
+   LOADING & NOTIFICATIONS
+   ================================================ */
+.crafting-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: var(--craft-text-dim);
+}
+.loading-anvil { font-size: 3em; margin-bottom: 10px; animation: bounce 1s infinite; }
+
+.craft-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background: var(--craft-surface);
+    border-left: 4px solid var(--craft-primary);
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 3000;
+    animation: slideIn 0.3s ease;
+}
+
+.craft-notification.success { border-color: var(--craft-success); }
+.craft-notification.error { border-color: var(--craft-danger); }
+
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* ================================================
+   KEYBOARD HINTS
+   ================================================ */
+.keyboard-hints {
+    position: fixed;
+    bottom: 10px; left: 10px;
+    background: rgba(0,0,0,0.6);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: flex;
+    gap: 16px;
+    font-size: 0.75em;
+    color: #ccc;
+    z-index: 100;
+}
+.keyboard-hints kbd {
+    background: #333;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    border: 1px solid #555;
+}
+/* Cancel Button Styling */
+.cancel-sub-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    background-color: #4b5563; /* Dark Grey */
+    color: #f3f4f6; /* White-ish text */
+    border: 1px solid #374151;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.cancel-sub-btn:hover {
+    background-color: #6b7280; /* Lighter Grey on hover */
+    border-color: #4b5563;
+}
+
+/* Optional: Make the selector container look cleaner */
+.catalyst-selector {
+    background: #1f2937; /* Dark background */
+    border: 1px solid #374151;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.selector-title {
+    margin: 0 0 10px 0;
+    font-size: 0.85rem;
+    color: #9ca3af;
+    font-weight: bold;
+}
+/* Substitute option price display */
+.sub-price {
+    font-size: 0.75rem;
+    color: #60a5fa;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.sub-owned {
+    font-size: 0.7rem;
+    color: #10b981;
+    font-weight: bold;
+}
+
+.sub-penalty-ok {
+    font-size: 0.75rem;
+    color: #10b981;
+    font-weight: bold;
+}
+
+.sub-penalty {
+    font-size: 0.75rem;
+    color: #ef4444;
+    font-weight: bold;
+}
+
+/* Penalized success chance display */
+.detail-stat-value.penalized {
+    color: #f59e0b;
+}
+
+.detail-stat-value.penalized::after {
+    content: ' ⚠️';
+}
+
+/* Cancel button */
+.cancel-sub-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4b5563;
+    color: #f3f4f6;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.cancel-sub-btn:hover {
+    background-color: #ef4444;
+    border-color: #dc2626;
+}
+
+/* Catalyst selector container */
+.catalyst-selector {
+    background: #1f2937;
+    border: 1px solid #374151;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.selector-title {
+    margin: 0 0 12px 0;
+    font-size: 0.85rem;
+    color: #9ca3af;
+    font-weight: bold;
+    text-align: center;
+}
+
+.selector-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.sub-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 8px;
+    border: 2px solid #374151;
+    background: #111827;
+    color: #e5e7eb;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.sub-btn:hover {
+    background: #1f2937;
+    border-color: #6b7280;
+}
+
+.sub-btn.active {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+}
+
+.sub-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.sub-name {
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2px;
+} 
+/* Season display */
+.time-season {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Holiday banner */
+.header-holiday {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #f59e0b20, #f59e0b10);
+    border: 1px solid #f59e0b40;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #f59e0b;
+}
+
+.header-birthday {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #ec489920, #ec489910);
+    border: 1px solid #ec489940;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #ec4899;
+}
+
+/* Receipt improvements */
+.receipt-note-small {
+    font-size: 0.7rem;
+    color: #6b7280;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.status-transit {
+    color: #f59e0b;
+    font-weight: bold;
+}
+/* ============================================
+   ENVIRONMENT EFFECTS
+   ============================================ */
+
+/* Active Effects Container */
+.active-effects-container {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 8px;
+    padding: 10px;
+    margin: 12px 0;
+}
+
+.effects-header {
+    margin-bottom: 8px;
+}
+
+.effects-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #10b981;
+}
+
+.effects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.effect-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #e5e7eb;
+}
+
+.effect-badge.effect-season {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.effect-badge.effect-time {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.effect-badge.effect-holiday {
+    background: rgba(236, 72, 153, 0.15);
+    border: 1px solid rgba(236, 72, 153, 0.4);
+}
+
+.effect-icon {
+    font-size: 1rem;
+}
+
+.effect-source {
+    font-weight: bold;
+    color: #10b981;
+}
+
+.effect-text {
+    color: #d1fae5;
+}
+
+/* Stat Modifiers */
+.detail-stat-value.boosted {
+    color: #10b981;
+}
+
+.detail-stat-value.penalized {
+    color: #f59e0b;
+}
+
+.stat-bonus {
+    font-size: 0.65em;
+    opacity: 0.85;
+    margin-left: 3px;
+    display: block;
+}
+
+/* Header Season Buff */
+.header-season-buff {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #fbbf24;
+    max-width: 300px;
+}
+
+.buff-icon {
+    font-size: 1.2rem;
+}
+
+.buff-text {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+/* Header Holiday */
+.header-holiday {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #f59e0b;
+}
+
+/* Header Birthday */
+.header-birthday {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(236, 72, 153, 0.05));
+    border: 1px solid rgba(236, 72, 153, 0.4);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #ec4899;
+}
+
+/* Season display in header */
+.time-season {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+/* Auto-Generated Material Indicator */
+.shop-mat-generated {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 3px;
+    color: #a78bfa;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.shop-mat-tags {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.shop-material-card.generated {
+    border-left: 3px solid #8b5cf6;
+}
+
+/* Material list in recipe detail - generated items */
+.requirement-item .generated-tag {
+    font-size: 0.6rem;
+    color: #a78bfa;
+    margin-left: 4px;
+}
+/* ============================================
+   RECIPE SEARCH
+   ============================================ */
+
+.recipe-search-container {
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.recipe-search-box {
+    display: flex;
+    align-items: center;
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 8px 12px;
+    gap: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.recipe-search-box:focus-within {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.search-icon {
+    font-size: 1rem;
+    opacity: 0.6;
+}
+
+.recipe-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e5e7eb;
+    font-size: 0.9rem;
+    min-width: 0;
+}
+
+.recipe-search-input::placeholder {
+    color: #6b7280;
+}
+
+.search-clear-btn {
+    background: rgba(239, 68, 68, 0.2);
+    border: none;
+    color: #ef4444;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    transition: background 0.2s;
+}
+
+.search-clear-btn:hover {
+    background: rgba(239, 68, 68, 0.4);
+}
+
+.search-results-count {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-align: center;
+}
+
+/* No Results State */
+.no-recipes-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    color: #6b7280;
+}
+
+.no-recipes-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.no-recipes-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #9ca3af;
+    margin: 0 0 8px 0;
+}
+
+.no-recipes-text {
+    font-size: 0.85rem;
+    margin: 0 0 16px 0;
+    max-width: 300px;
+}
+
+.clear-search-btn {
+    background: #374151;
+    border: 1px solid #4b5563;
+    color: #e5e7eb;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.clear-search-btn:hover {
+    background: #4b5563;
+}
+
+/* Buffed Recipe Indicator */
+.recipe-buff-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 0.9rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.recipe-card.buffed {
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.recipe-success.boosted {
+    color: #10b981;
+    font-weight: bold;
+}
+
+/* Recipe Card position relative for buff indicator */
+.recipe-card {
+    position: relative;
+}

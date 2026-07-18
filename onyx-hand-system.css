@@ -1,0 +1,1550 @@
+/* ============================================================================
+   ONYX HAND COVEN SYSTEM - COMPLETE STYLES
+   ============================================================================ */
+
+/* ============================================================================
+   CSS VARIABLES FOR ONYX HAND
+   ============================================================================ */
+
+:root {
+    --blood-color: #8b0000;
+    --blood-glow: rgba(139, 0, 0, 0.4);
+    --shadow-color: #1a1a2e;
+    --shadow-glow: rgba(26, 26, 46, 0.6);
+    --iron-color: #4a5568;
+    --iron-glow: rgba(74, 85, 104, 0.4);
+    --silk-color: #9f7aea;
+    --silk-glow: rgba(159, 122, 234, 0.4);
+    --vampire-red: #dc2626;
+    --vampire-dark: #1a0a0a;
+}
+
+/* ============================================================================
+   MAIN CONTAINER
+   ============================================================================ */
+
+.onyx-hand-system {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 20px 0;
+}
+
+/* ============================================================================
+   SECTION TITLES (SHARED)
+   ============================================================================ */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 1.2rem;
+    color: var(--text-color, #ffffff);
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color, #333);
+}
+
+.section-icon {
+    font-size: 1.3rem;
+}
+
+/* ============================================================================
+   MOON PHASE PANEL
+   ============================================================================ */
+
+.moon-phase-panel {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    gap: 24px;
+    padding: 24px;
+    background: linear-gradient(135deg, #1a0a0a 0%, var(--sidebar-bg, #1a1a2e) 100%);
+    border: 1px solid #8b0000;
+    border-radius: 12px;
+    align-items: center;
+}
+
+.moon-visual {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moon-icon {
+    font-size: 4rem;
+    z-index: 2;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+}
+
+.moon-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    animation: moon-pulse 4s ease-in-out infinite;
+}
+
+.moon-glow.phase-0 {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, transparent 70%);
+}
+
+.moon-glow.phase-1 {
+    background: radial-gradient(circle, rgba(200, 200, 200, 0.2) 0%, transparent 70%);
+}
+
+.moon-glow.phase-2 {
+    background: radial-gradient(circle, rgba(255, 255, 200, 0.4) 0%, transparent 70%);
+}
+
+.moon-glow.phase-3 {
+    background: radial-gradient(circle, rgba(150, 150, 150, 0.2) 0%, transparent 70%);
+}
+
+.moon-glow.phase-4 {
+    background: radial-gradient(circle, rgba(50, 50, 80, 0.3) 0%, transparent 70%);
+}
+
+@keyframes moon-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+.moon-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.moon-name {
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 1.4rem;
+    color: var(--text-color, #ffffff);
+    margin: 0;
+}
+
+.moon-lore {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #a0a0a0);
+    font-style: italic;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.moon-countdown {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.countdown-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.countdown-value {
+    font-family: var(--font-mono, 'Roboto Mono', monospace);
+    font-size: 0.9rem;
+    color: var(--accent-color, #8a2be2);
+    font-weight: bold;
+}
+
+/* Vampire Effects Box */
+.vampire-effects {
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border-left: 3px solid #8b0000;
+}
+
+.vampire-effects h5 {
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 0.9rem;
+    color: #dc2626;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.effect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.effect-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.effect-item.special {
+    grid-column: 1 / -1;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color, #333);
+    margin-top: 4px;
+}
+
+.effect-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary, #a0a0a0);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.effect-value {
+    font-size: 0.85rem;
+    color: var(--text-color, #ffffff);
+}
+
+.effect-value.power-maximum {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.effect-value.power-high {
+    color: #f97316;
+}
+
+.effect-value.power-moderate {
+    color: var(--neutral-color, #fbbf24);
+}
+
+.effect-value.power-reduced {
+    color: var(--text-secondary, #a0a0a0);
+}
+
+/* ============================================================================
+   PATRIARCH SECTION
+   ============================================================================ */
+
+.patriarch-section {
+    transition: all 0.3s ease;
+}
+
+.patriarch-section.highlighted {
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+}
+
+.patriarch-panel {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    padding: 24px;
+    background: var(--sidebar-bg, #1a1a2e);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 12px;
+}
+
+.patriarch-panel.redacted {
+    opacity: 0.7;
+    filter: grayscale(50%);
+}
+
+.patriarch-portrait {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portrait-frame {
+    width: 150px;
+    height: 150px;
+    border: 3px solid #8b0000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a0a0a 0%, #2a0a0a 100%);
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+}
+
+.portrait-frame .patriarch-icon {
+    font-size: 4rem;
+}
+
+.blood-drip {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    height: 30px;
+    background: linear-gradient(to bottom, #8b0000, transparent);
+    transform: translateX(-50%);
+    animation: drip 3s ease-in-out infinite;
+}
+
+@keyframes drip {
+    0%, 100% {
+        height: 30px;
+        opacity: 1;
+    }
+    50% {
+        height: 50px;
+        opacity: 0.5;
+    }
+}
+
+.patriarch-silhouette {
+    width: 150px;
+    height: 150px;
+    border: 2px dashed var(--border-color, #333);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--main-bg, #0d0d0d);
+}
+
+.silhouette-icon {
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+.patriarch-info h4 {
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 1.6rem;
+    color: #dc2626;
+    margin: 0 0 4px 0;
+}
+
+.patriarch-title {
+    font-size: 1rem;
+    color: var(--accent-color, #8a2be2);
+    font-style: italic;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.patriarch-age {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #a0a0a0);
+    margin: 0 0 12px 0;
+}
+
+.patriarch-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #a0a0a0);
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.patriarch-abilities h6 {
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 0.9rem;
+    color: var(--text-color, #ffffff);
+    margin: 0 0 8px 0;
+}
+
+.patriarch-abilities ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.patriarch-abilities li {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+    margin-bottom: 4px;
+}
+
+.intel-requirement {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+    margin-top: 16px;
+}
+
+/* ============================================================================
+   COVENS SECTION
+   ============================================================================ */
+
+.covens-section {
+    background: var(--sidebar-bg, #1a1a2e);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.covens-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+/* --- Coven Circle Selector --- */
+.coven-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coven-circle-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.circle-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.circle-background svg {
+    width: 100%;
+    height: 100%;
+}
+
+.connection-lines circle {
+    stroke: var(--border-color, #333);
+}
+
+/* Patriarch Center Node */
+.patriarch-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #1a0a0a 0%, #2a0a0a 100%);
+    border: 2px solid #8b0000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.patriarch-center:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+}
+
+.patriarch-center .patriarch-icon {
+    font-size: 2rem;
+}
+
+.patriarch-pulse {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 2px solid #8b0000;
+    border-radius: 50%;
+    animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Coven Nodes */
+.coven-node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    margin-left: -35px;
+    margin-top: -35px;
+    background: var(--sidebar-bg, #1a1a2e);
+    border: 2px solid var(--border-color, #333);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 5;
+}
+
+.coven-node .coven-icon {
+    font-size: 1.8rem;
+    transition: transform 0.3s ease;
+}
+
+.coven-node:hover {
+    border-color: var(--accent-color, #8a2be2);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    transform: scale(1.15);
+}
+
+.coven-node:hover .coven-icon {
+    transform: scale(1.1);
+}
+
+.coven-node.active {
+    border-color: #dc2626;
+    box-shadow: 0 0 25px rgba(139, 0, 0, 0.4);
+    background: linear-gradient(135deg, #1a0a0a 0%, var(--sidebar-bg, #1a1a2e) 100%);
+}
+
+.coven-node.ascendant {
+    border-color: gold;
+    animation: ascendant-glow 2s ease-in-out infinite;
+}
+
+@keyframes ascendant-glow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+    }
+}
+
+.ascendant-glow {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid gold;
+    border-radius: 50%;
+    animation: pulse-ring 2s ease-out infinite;
+}
+
+/* --- Coven Details Panel --- */
+.coven-info-panel {
+    background: var(--main-bg, #0d0d0d);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 8px;
+    padding: 24px;
+    min-height: 400px;
+    transition: all 0.3s ease;
+}
+
+.coven-info-panel.updating {
+    opacity: 0.7;
+}
+
+.coven-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.coven-details.redacted {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.redacted-overlay {
+    text-align: center;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.lock-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* Coven Header */
+.coven-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.coven-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.coven-icon-large {
+    font-size: 2.5rem;
+}
+
+.coven-title h4 {
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 1.4rem;
+    margin: 0;
+    color: var(--text-color, #ffffff);
+}
+
+.coven-leader-name {
+    display: block;
+    font-size: 1rem;
+    color: var(--accent-color, #8a2be2);
+}
+
+.coven-leader-title {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+    font-style: italic;
+}
+
+.ascendant-badge {
+    padding: 6px 12px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+    border: 1px solid gold;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: gold;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Coven Specialty */
+.coven-specialty {
+    font-size: 1rem;
+    color: var(--accent-color, #8a2be2);
+    font-style: italic;
+    margin: 0;
+    padding: 12px;
+    background: rgba(138, 43, 226, 0.1);
+    border-left: 3px solid var(--accent-color, #8a2be2);
+    border-radius: 0 6px 6px 0;
+}
+
+.coven-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #a0a0a0);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Coven Stats Bars */
+.coven-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-bar {
+    display: grid;
+    grid-template-columns: 140px 1fr 50px;
+    align-items: center;
+    gap: 12px;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.stat-track {
+    height: 8px;
+    background: var(--main-bg, #0d0d0d);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border-color, #333);
+}
+
+.stat-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.stat-fill.strength {
+    background: linear-gradient(90deg, #8b0000, #dc2626);
+}
+
+.stat-fill.influence {
+    background: linear-gradient(90deg, #8a2be2, #9f7aea);
+}
+
+.stat-value {
+    font-family: var(--font-mono, 'Roboto Mono', monospace);
+    font-size: 0.85rem;
+    color: var(--text-color, #ffffff);
+    text-align: right;
+}
+
+/* Coven Territory */
+.coven-territory {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 6px;
+    border-left: 3px solid var(--border-color, #333);
+}
+
+.coven-territory h6,
+.coven-relations h6,
+.coven-rituals h6,
+.coven-members h6 {
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 0.85rem;
+    color: var(--text-color, #ffffff);
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.coven-territory p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+/* Coven Relations */
+.coven-relations {
+    margin-top: 8px;
+}
+
+.relations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+}
+
+.relation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--main-bg, #0d0d0d);
+    border-radius: 4px;
+    border-left: 3px solid var(--border-color, #333);
+}
+
+.relation-item.positive {
+    border-left-color: var(--positive-color, #4ade80);
+}
+
+.relation-item.negative {
+    border-left-color: var(--negative-color, #f87171);
+}
+
+.relation-item.neutral {
+    border-left-color: var(--neutral-color, #fbbf24);
+}
+
+.relation-target {
+    font-size: 0.85rem;
+    color: var(--text-color, #ffffff);
+}
+
+.relation-value {
+    font-family: var(--font-mono, 'Roboto Mono', monospace);
+    font-size: 0.8rem;
+}
+
+.relation-item.positive .relation-value {
+    color: var(--positive-color, #4ade80);
+}
+
+.relation-item.negative .relation-value {
+    color: var(--negative-color, #f87171);
+}
+
+/* Coven Rituals */
+.coven-rituals {
+    margin-top: 8px;
+}
+
+.rituals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ritual-item {
+    padding: 12px;
+    background: var(--main-bg, #0d0d0d);
+    border-radius: 6px;
+    border: 1px solid var(--border-color, #333);
+}
+
+.ritual-item .ritual-name {
+    font-weight: bold;
+    color: #dc2626;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.ritual-item .ritual-freq {
+    font-size: 0.75rem;
+    color: var(--accent-color, #8a2be2);
+    float: right;
+}
+
+.ritual-item .ritual-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+    margin: 8px 0 0 0;
+    clear: both;
+}
+
+/* Coven Members */
+.coven-members {
+    margin-top: 8px;
+}
+
+.members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.member-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    padding: 8px 12px;
+    background: var(--main-bg, #0d0d0d);
+    border-radius: 4px;
+    align-items: center;
+}
+
+.member-name {
+    font-weight: bold;
+    color: var(--text-color, #ffffff);
+    font-size: 0.9rem;
+}
+
+.member-role {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.member-status {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.member-status.status-active {
+    background: rgba(74, 222, 128, 0.2);
+    color: var(--positive-color, #4ade80);
+}
+
+.member-status.status-missing {
+    background: rgba(251, 191, 36, 0.2);
+    color: var(--neutral-color, #fbbf24);
+}
+
+.member-status.status-unknown {
+    background: rgba(156, 163, 175, 0.2);
+    color: var(--text-secondary, #a0a0a0);
+}
+
+/* ============================================================================
+   COVEN-SPECIFIC COLOR THEMING
+   ============================================================================ */
+
+.coven-details.type-blood .coven-title h4 {
+    color: #8b0000;
+}
+
+.coven-details.type-shadow .coven-title h4 {
+    color: #6366f1;
+}
+
+.coven-details.type-iron .coven-title h4 {
+    color: #4a5568;
+}
+
+.coven-details.type-silk .coven-title h4 {
+    color: #9f7aea;
+}
+
+.coven-details.type-blood .coven-specialty {
+    background: rgba(139, 0, 0, 0.1);
+    border-left-color: #8b0000;
+}
+
+.coven-details.type-shadow .coven-specialty {
+    background: rgba(26, 26, 46, 0.3);
+    border-left-color: #6366f1;
+}
+
+.coven-details.type-iron .coven-specialty {
+    background: rgba(74, 85, 104, 0.2);
+    border-left-color: #4a5568;
+}
+
+.coven-details.type-silk .coven-specialty {
+    background: rgba(159, 122, 234, 0.1);
+    border-left-color: #9f7aea;
+}
+
+/* ============================================================================
+   BLOOD HUNTS SECTION
+   ============================================================================ */
+
+.blood-hunts-section {
+    background: var(--sidebar-bg, #1a1a2e);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.blood-hunts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.blood-hunt-card {
+    padding: 16px;
+    background: var(--main-bg, #0d0d0d);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 8px;
+    border-left: 4px solid #dc2626;
+    transition: all 0.2s ease;
+}
+
+.blood-hunt-card:hover {
+    border-color: #dc2626;
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+}
+
+.blood-hunt-card.redacted {
+    opacity: 0.6;
+    border-left-color: var(--border-color, #333);
+}
+
+.blood-hunt-card.ongoing .hunt-status {
+    background: var(--neutral-color, #fbbf24);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.hunt-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.hunt-icon {
+    font-size: 1.5rem;
+}
+
+.hunt-target {
+    flex: 1;
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 1.1rem;
+    color: var(--text-color, #ffffff);
+}
+
+.hunt-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    background: #dc2626;
+    color: white;
+}
+
+.hunt-details p {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+    margin: 4px 0;
+}
+
+.hunt-details strong {
+    color: var(--text-color, #ffffff);
+}
+
+/* ============================================================================
+   TRADITIONS SECTION
+   ============================================================================ */
+
+.traditions-section {
+    background: var(--sidebar-bg, #1a1a2e);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.traditions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tradition-item {
+    padding: 16px;
+    background: var(--main-bg, #0d0d0d);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 8px;
+    border-left: 4px solid #8b0000;
+}
+
+.tradition-item.redacted {
+    opacity: 0.5;
+    border-left-color: var(--border-color, #333);
+}
+
+.tradition-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tradition-header h6 {
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 1rem;
+    color: #dc2626;
+    margin: 0;
+}
+
+.tradition-penalty {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid #dc2626;
+    border-radius: 4px;
+    color: #dc2626;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.tradition-item p {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #a0a0a0);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ============================================================================
+   CURRENT EVENTS SECTION
+   ============================================================================ */
+
+.events-section {
+    background: var(--sidebar-bg, #1a1a2e);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-card {
+    padding: 20px;
+    background: var(--main-bg, #0d0d0d);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color, #8a2be2);
+}
+
+.event-card.crisis {
+    border-left-color: #dc2626;
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, var(--main-bg, #0d0d0d) 100%);
+}
+
+.event-card.ongoing {
+    border-left-color: var(--neutral-color, #fbbf24);
+}
+
+.event-card.mystery {
+    border-left-color: var(--accent-color, #8a2be2);
+}
+
+.event-card.redacted {
+    opacity: 0.5;
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.event-header h6 {
+    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-size: 1.1rem;
+    color: var(--text-color, #ffffff);
+    margin: 0;
+}
+
+.event-status {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.event-card.crisis .event-status {
+    background: #dc2626;
+    color: white;
+}
+
+.event-card.ongoing .event-status {
+    background: var(--neutral-color, #fbbf24);
+    color: black;
+}
+
+.event-card.mystery .event-status {
+    background: var(--accent-color, #8a2be2);
+    color: white;
+}
+
+.event-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #a0a0a0);
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.event-responses {
+    border-top: 1px dashed var(--border-color, #333);
+    padding-top: 16px;
+}
+
+.event-responses h6 {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.response-item {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+    border-left: 3px solid var(--border-color, #333);
+}
+
+.response-item:last-child {
+    margin-bottom: 0;
+}
+
+.response-item.type-blood {
+    border-left-color: #8b0000;
+}
+
+.response-item.type-shadow {
+    border-left-color: #1a1a2e;
+}
+
+.response-item.type-iron {
+    border-left-color: #4a5568;
+}
+
+.response-item.type-silk {
+    border-left-color: #9f7aea;
+}
+
+.response-coven {
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: var(--accent-color, #8a2be2);
+}
+
+.response-item p {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #a0a0a0);
+    margin: 4px 0 0 0;
+    font-style: italic;
+}
+
+/* ============================================================================
+   FEEDING GROUNDS SECTION
+   ============================================================================ */
+
+.feeding-grounds-section {
+    background: var(--sidebar-bg, #1a1a2e);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.feeding-grounds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.feeding-ground {
+    padding: 16px;
+    background: var(--main-bg, #0d0d0d);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 8px;
+    border-left: 4px solid var(--border-color, #333);
+    transition: all 0.2s ease;
+}
+
+.feeding-ground:hover {
+    border-color: var(--accent-color, #8a2be2);
+}
+
+.feeding-ground.type-blood {
+    border-left-color: #8b0000;
+}
+
+.feeding-ground.type-shadow {
+    border-left-color: #1a1a2e;
+}
+
+.feeding-ground.type-iron {
+    border-left-color: #4a5568;
+}
+
+.feeding-ground.type-silk {
+    border-left-color: #9f7aea;
+}
+
+.ground-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.ground-name {
+    font-weight: bold;
+    color: var(--text-color, #ffffff);
+}
+
+.ground-controller {
+    font-size: 0.75rem;
+    color: var(--accent-color, #8a2be2);
+}
+
+.ground-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.ground-quality,
+.ground-risk {
+    font-size: 0.8rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.ground-risk.risk-low {
+    color: var(--positive-color, #4ade80);
+}
+
+.ground-risk.risk-medium {
+    color: var(--neutral-color, #fbbf24);
+}
+
+.ground-risk.risk-high {
+    color: #f97316;
+}
+
+.ground-risk.risk-very-high {
+    color: var(--negative-color, #f87171);
+}
+
+.ground-risk.risk-extreme {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.ground-notes {
+    font-size: 0.8rem;
+    color: var(--text-secondary, #a0a0a0);
+    font-style: italic;
+    margin: 0;
+}
+
+/* ============================================================================
+   REDACTED / CLASSIFIED CONTENT
+   ============================================================================ */
+
+.redacted-text {
+    color: var(--text-secondary, #a0a0a0);
+    font-style: italic;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 1100px) {
+    .covens-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .coven-selector {
+        order: 1;
+    }
+
+    .coven-info-panel {
+        order: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .moon-phase-panel {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .moon-visual {
+        margin: 0 auto;
+    }
+
+    .vampire-effects {
+        border-left: none;
+        border-top: 3px solid #8b0000;
+    }
+
+    .patriarch-panel {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .patriarch-portrait {
+        justify-content: center;
+    }
+
+    .coven-circle-container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .coven-node {
+        width: 55px;
+        height: 55px;
+        margin-left: -27.5px;
+        margin-top: -27.5px;
+    }
+
+    .patriarch-center {
+        width: 60px;
+        height: 60px;
+    }
+
+    .coven-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stat-bar {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .stat-value {
+        text-align: left;
+    }
+
+    .member-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .blood-hunts-grid,
+    .feeding-grounds-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tradition-header {
+        flex-direction: column;
+    }
+
+    .event-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hunt-header {
+        flex-wrap: wrap;
+    }
+
+    .hunt-target {
+        flex-basis: 100%;
+        order: -1;
+    }
+}
+
+@media (max-width: 480px) {
+    .onyx-hand-system {
+        gap: 20px;
+    }
+
+    .moon-phase-panel,
+    .patriarch-panel,
+    .covens-section,
+    .blood-hunts-section,
+    .traditions-section,
+    .events-section,
+    .feeding-grounds-section {
+        padding: 16px;
+    }
+
+    .section-title {
+        font-size: 1rem;
+    }
+
+    .coven-circle-container {
+        width: 220px;
+        height: 220px;
+    }
+
+    .coven-node {
+        width: 50px;
+        height: 50px;
+        margin-left: -25px;
+        margin-top: -25px;
+    }
+
+    .coven-node .coven-icon {
+        font-size: 1.5rem;
+    }
+
+    .patriarch-center {
+        width: 50px;
+        height: 50px;
+    }
+
+    .patriarch-center .patriarch-icon {
+        font-size: 1.5rem;
+    }
+
+    .coven-info-panel {
+        padding: 16px;
+        min-height: auto;
+    }
+
+    .coven-title {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .relations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ground-stats {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================ */
+
+@media print {
+    .onyx-hand-system {
+        background: white;
+        color: black;
+    }
+
+    .moon-phase-panel,
+    .patriarch-panel,
+    .covens-section,
+    .blood-hunts-section,
+    .traditions-section,
+    .events-section,
+    .feeding-grounds-section {
+        border: 1px solid #ccc;
+        background: white;
+    }
+
+    .coven-node,
+    .patriarch-center {
+        border: 1px solid #333;
+    }
+
+    .section-title,
+    .coven-title h4,
+    .patriarch-info h4,
+    .tradition-header h6,
+    .event-header h6 {
+        color: black;
+    }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .moon-glow,
+    .patriarch-pulse,
+    .ascendant-glow,
+    .blood-drip,
+    .coven-node,
+    .patriarch-center,
+    .coven-details {
+        animation: none;
+    }
+
+    .coven-node:hover {
+        transform: none;
+    }
+
+    .patriarch-center:hover {
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Focus states for keyboard navigation */
+.coven-node:focus-visible,
+.patriarch-center:focus-visible {
+    outline: 2px solid var(--accent-color, #8a2be2);
+    outline-offset: 4px;
+}

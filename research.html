@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | National Research</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="research.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             
+            <main id="main-content">
+                 <div class="header-row">
+                    <h2 class="page-title">National Research & Development</h2>
+                    <div id="debug-research-controls"></div>
+                 </div>
+                 <p class="page-subtitle">Track technological, magical, and societal advancements across the known nations.</p>
+                 
+                 <div id="research-layout">
+                    <aside id="nation-selector-sidebar">
+                        <h4>Select Nation</h4>
+                        <ul id="nation-list">
+                            <!-- Injected by JS -->
+                        </ul>
+                    </aside>
+                    
+                    <div id="research-main-view">
+                        <!-- NEW: Era Progress Bar -->
+                        <div id="era-progress-bar-container">
+                            <!-- Injected by JS -->
+                        </div>
+
+                        <div id="research-controls">
+                             <div class="view-toggle">
+                                <button class="control-btn active" data-view="tree">Tech Grid</button>
+                                <button class="control-btn" data-view="ages">7-Stage Cycle</button>
+                            </div>
+                        </div>
+
+                        <!-- TREE VIEW -->
+                        <div id="view-tree" class="research-view-panel active">
+                            <div id="category-tabs">
+                                <!-- Injected by JS -->
+                            </div>
+                            
+                            <div id="rumor-impact-banner" style="display:none;">
+                                <!-- Warnings about rumors slowing tech -->
+                            </div>
+
+                            <div id="active-project-banner" style="display:none;">
+                                <!-- Status of current project -->
+                            </div>
+
+                            <div id="tree-container">
+                                <div id="tech-tree-canvas">
+                                    <!-- Nodes injected here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AGES VIEW (GLOBAL CYCLE) -->
+                        <div id="view-ages" class="research-view-panel" style="display:none;">
+                             <div id="dynastic-cycle-container">
+                                <div class="cycle-info-sidebar">
+                                    <h3 id="cycle-current-age">Current Age</h3>
+                                    <p id="cycle-age-desc"></p>
+                                    <div id="cycle-stats"></div>
+                                </div>
+                                <div class="cycle-visual">
+                                    <canvas id="dynastic-wheel" width="500" height="500"></canvas>
+                                </div>
+                             </div>
+                             <div id="age-history-log">
+                                 <!-- Completed Age Choices -->
+                             </div>
+                        </div>
+                    </div>
+                 </div>
+            </main>
+            
+            <aside id="detail-panel">
+                <button id="detail-panel-close">&times;</button>
+                <div id="detail-panel-content">
+                    <!-- Node Details -->
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Age Up Modal -->
+    <div id="age-up-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3>Age Complete!</h3>
+            <p>The current era has ended. Choose the path for the next age.</p>
+            <div id="age-choices-container">
+                <!-- Choices injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="research.js"></script>
+</body>
+</html>

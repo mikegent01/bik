@@ -1,0 +1,47 @@
+/* Basic layout for the mission page */
+.metrics-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 16px 0 24px;
+}
+.metric { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; }
+.metric-header { display: flex; justify-content: space-between; font-family: "Roboto Mono", monospace; font-size: 0.9rem; color: #a9ffea; }
+.metric-bar { height: 8px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin-top: 8px; }
+.metric-fill { height: 100%; width: 0%; background: linear-gradient(90deg,#2bd1ff,#4eff9e); transition: width 300ms ease; }
+
+.dialogue-panel { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.12); padding: 16px; border-radius: 8px; margin: 12px 0 20px; }
+.dialogue-line { display: grid; grid-template-columns: 80px 1fr; gap: 12px; align-items: start; }
+.dialogue-line + .dialogue-line { margin-top: 12px; }
+.dialogue-line .speaker { font-family: "Orbitron", sans-serif; color: #ffd54e; font-weight: bold; }
+.dialogue-line .content { font-family: "Roboto Mono", monospace; color: #cbe6ff; }
+
+.stage-container { margin: 24px 0; padding: 16px; border-left: 3px solid #4eff9e; background: rgba(78, 255, 158, 0.05); border-radius: 0 8px 8px 0; }
+.stage-title { font-family: "Orbitron", sans-serif; font-size: 1.4rem; margin-bottom: 8px; color: #4eff9e; }
+.stage-narrative { font-family: "Roboto Mono", monospace; color: #cbe6ff; }
+
+.choices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
+.decision-card { border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 16px; background: rgba(255,255,255,0.04); display: flex; flex-direction: column; transition: all 0.2s ease-in-out; }
+.decision-card:hover { border-color: var(--accent-hover); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.decision-title { font-family: 'Orbitron', sans-serif; font-weight: 700; margin-bottom: 8px; color: #a9ffea; font-size: 1.1rem; }
+.decision-desc { flex: 1; font-size: 0.95rem; color: #e8f5ff; line-height: 1.5; }
+.decision-outlook { font-size: 0.85rem; color: #9fd6ff; margin: 12px 0; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.2); font-style: italic; }
+.decision-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+
+.btn { cursor: pointer; border: none; border-radius: 6px; padding: 10px 16px; font-family: "Roboto Mono", monospace; font-weight: bold; }
+.btn-primary { background: #2bd1ff; color: #0a0f14; transition: background-color 0.2s; }
+.btn-primary:hover { background-color: #5ce1ff; }
+.btn-secondary { background: #444c56; color: #e8f5ff; }
+.btn-link { background: transparent; color: #9fd6ff; text-decoration: underline; }
+
+.mission-footer { display: flex; justify-content: space-between; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+.modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 1000; }
+.modal.open { display: flex; animation: fadeIn 0.3s ease-out; }
+.modal-content { background: #0a0f14; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 24px; width: min(500px, 92vw); position: relative; }
+.modal-close { position: absolute; top: 10px; right: 10px; font-size: 1.5rem; background: transparent; color: #e8f5ff; border: none; cursor: pointer; transition: transform 0.2s; }
+.modal-close:hover { transform: scale(1.2); }
+.modal-content h3 { font-family: 'Orbitron', sans-serif; color: var(--neutral-color); margin-bottom: 16px; }
+.modal-content ul { list-style: none; padding-left: 0; }
+.modal-content li { margin-bottom: 8px; font-family: 'Roboto Mono', monospace; }
+.modal-actions { display: flex; justify-content: flex-end; margin-top: 24px; }

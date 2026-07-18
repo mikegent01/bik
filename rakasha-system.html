@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Rakasha Clans Archive</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css"> 
+    <link rel="stylesheet" href="rakasha-clans-system.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+            
+            <main id="main-content">
+                <div class="rakasha-header">
+                    <div class="rakasha-title-block">
+                        <h2 class="page-title">Rakasha Clans Archive</h2>
+                        <p class="rakasha-subtitle">Spirit-Bound Peoples of the Untamed Wilds</p>
+                    </div>
+                    <div class="rakasha-controls">
+                        <button class="view-btn active" data-view="clans">Clan Totems</button>
+                        <button class="view-btn" data-view="traditions">Sacred Traditions</button>
+                        <button class="view-btn" data-view="intelligence">Intelligence Files</button>
+                        <button class="view-btn" data-view="timeline">Involvement Log</button>
+                    </div>
+                </div>
+
+                <!-- Intel Warning Banner -->
+                <div id="intel-warning" class="intel-warning-banner">
+                    <span class="warning-icon">⚠</span>
+                    <span class="warning-text">CLASSIFIED: Intel Level <span id="intel-level">0</span>% — Some information is redacted or unverified.</span>
+                   <!-- <button id="debug-toggle" class="debug-btn" title="Toggle Debug Mode">🔓</button> -->
+                </div>
+
+                <!-- Main Content Views -->
+                <div id="rakasha-dashboard">
+                    
+                    <!-- CLANS VIEW -->
+                    <div id="view-clans" class="rakasha-view active">
+                        <div class="clans-container">
+                            <div class="totem-pole-wrapper">
+                                <div class="totem-pole-title">The Three Colleges</div>
+                                <div class="rakasha-totem-pole" id="totem-pole">
+                                    <!-- Injected by JS -->
+                                </div>
+                                <div class="totem-legend">
+                                    <span class="legend-item"><span class="legend-dot spirit"></span> Spirit-Walkers</span>
+                                    <span class="legend-item"><span class="legend-dot beast"></span> Beast-Riders</span>
+                                    <span class="legend-item"><span class="legend-dot hunt"></span> Huntmasters</span>
+                                </div>
+                            </div>
+                            <div class="clan-detail-panel" id="clan-detail-panel">
+                                <div class="clan-placeholder">
+                                    <div class="placeholder-icon">🐾</div>
+                                    <p>Select a clan sigil to reveal what is known.</p>
+                                    <p class="placeholder-hint">True names are sacred. Only allies may know them.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TRADITIONS VIEW -->
+                    <div id="view-traditions" class="rakasha-view">
+                        <div class="traditions-grid" id="traditions-grid">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- INTELLIGENCE VIEW -->
+                    <div id="view-intelligence" class="rakasha-view">
+                        <div class="intelligence-container">
+                            <div class="intel-sidebar">
+                                <div class="intel-category active" data-category="thornpaw-secret">
+                                    <span class="intel-icon">👑</span>
+                                    <span>The Thornpaw Secret</span>
+                                    <span class="intel-classification top-secret">TS</span>
+                                </div>
+                                <div class="intel-category" data-category="dan-connection">
+                                    <span class="intel-icon">🍄</span>
+                                    <span>Dan's Training</span>
+                                    <span class="intel-classification secret">S</span>
+                                </div>
+                                <div class="intel-category" data-category="iron-mandate">
+                                    <span class="intel-icon">⚔️</span>
+                                    <span>Iron Mandate Threat</span>
+                                    <span class="intel-classification urgent">U</span>
+                                </div>
+                                <div class="intel-category" data-category="supernatural-act">
+                                    <span class="intel-icon">📜</span>
+                                    <span>Sovereignty Act Impact</span>
+                                    <span class="intel-classification classified">C</span>
+                                </div>
+                                <div class="intel-category" data-category="spirit-rites">
+                                    <span class="intel-icon">👁️</span>
+                                    <span>Spirit-Walker Rites</span>
+                                    <span class="intel-classification secret">S</span>
+                                </div>
+                            </div>
+                            <div class="intel-content" id="intel-content">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TIMELINE VIEW -->
+                    <div id="view-timeline" class="rakasha-view">
+                        <div class="rakasha-timeline" id="rakasha-timeline">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Identity Reveal Modal -->
+    <div id="identity-modal" class="modal" style="display: none;">
+        <div class="modal-content identity-modal-content">
+            <button class="modal-close identity-modal-close">&times;</button>
+            <div class="identity-modal-header">
+                <h3>True Name Revelation</h3>
+                <p class="identity-warning">This information is sacred to the Rakasha. Handle with discretion.</p>
+            </div>
+            <div id="identity-modal-body">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Secret Hatch Intel Modal -->
+    <div id="hatch-modal" class="modal" style="display: none;">
+        <div class="modal-content hatch-modal-content">
+            <button class="modal-close hatch-modal-close">&times;</button>
+            <div class="hatch-modal-header">
+                <div class="hatch-icon">🚪</div>
+                <h3>The Secret Hatch</h3>
+                <p class="hatch-classification">CLASSIFICATION: TOP SECRET - PEACH LOYALIST EYES ONLY</p>
+            </div>
+            <div id="hatch-modal-body">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="rakasha-clans-system.js"></script>
+</body>
+</html>

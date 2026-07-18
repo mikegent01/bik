@@ -1,0 +1,3553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maglev Express — Night One</title>
+<style>
+/* ═══════════════════════════════════════════════
+   VARIABLES
+═══════════════════════════════════════════════ */
+:root {
+  --bg: #080810;
+  --bg2: #0c0c18;
+  --bg3: #101020;
+  --bg4: #0a0a16;
+  --border: #1a1a30;
+  --border2: #2a1a4a;
+  --purple: #7c3aed;
+  --purple2: #9d5ced;
+  --blue: #3b82f6;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --cyan: #06b6d4;
+  --pink: #ec4899;
+  --c-waluigi: #c084fc;
+  --c-leo: #60a5fa;
+  --c-luigi: #4ade80;
+  --c-gadd: #fbbf24;
+  --c-stone: #f87171;
+  --c-knight: #94a3b8;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #475569;
+  --mono: 'Courier New', monospace;
+  --serif: 'Georgia', serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--serif);overflow:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#2a2a45;border-radius:2px}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT — 3 column
+═══════════════════════════════════════════════ */
+#app {
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  grid-template-rows: 44px 30px 1fr 68px 30px;
+  height: 100vh;
+}
+
+/* ═══════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════ */
+#hdr {
+  grid-row: 1;
+  grid-column: 1/-1;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 12px;
+  z-index: 50;
+}
+#hdr-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--c-waluigi);
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+#hdr-time {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--cyan);
+  border: 1px solid rgba(6,182,212,.3);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: auto;
+}
+#hdr-loc {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text3);
+}
+.hbtn {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all .15s;
+}
+.hbtn:hover { border-color: var(--purple); color: var(--c-waluigi); }
+#conn-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--red); transition: background .3s; flex-shrink: 0;
+}
+#conn-dot.ok { background: var(--green); }
+#conn-dot.busy { background: var(--amber); animation: pulse .8s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+
+/* ═══════════════════════════════════════════════
+   LEFT — PARTY & WORLD
+═══════════════════════════════════════════════ */
+#left {
+  grid-row: 3;
+  grid-column: 1;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* section headers */
+.s-hdr {
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  background: var(--bg2);
+  position: sticky;
+  top: 0;
+  z-index: 4;
+}
+.s-hdr:hover { color: var(--text2); }
+.s-body { padding: 8px; }
+
+/* CHARACTER CARDS */
+.pcard {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 6px;
+  background: var(--bg4);
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.pcard:hover { border-color: var(--border2); }
+.pcard-hdr {
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.pav {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+  border: 2px solid currentColor;
+}
+.pname { font-family: var(--mono); font-size: 10px; font-weight: bold; }
+.prole { font-size: 9px; color: var(--text3); }
+
+/* TRUST METER */
+.trust-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px 4px;
+}
+.trust-label { font-family: var(--mono); font-size: 8px; color: var(--text3); width: 28px; }
+.trust-track {
+  flex: 1; height: 4px;
+  background: rgba(255,255,255,.05);
+  border-radius: 2px; overflow: hidden;
+}
+.trust-fill { height: 100%; border-radius: 2px; transition: width .5s; }
+.trust-val { font-family: var(--mono); font-size: 8px; color: var(--text2); width: 24px; text-align: right; }
+
+/* CHARACTER STAT METERS */
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px 2px;
+  font-size: 8px;
+}
+.stat-label {
+  font-family: var(--mono);
+  color: var(--text3);
+  width: 40px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  font-size: 7px;
+}
+.stat-track {
+  flex: 1; height: 4px;
+  background: rgba(255,255,255,.05);
+  border-radius: 2px; overflow: hidden;
+}
+.stat-fill { height: 100%; border-radius: 2px; transition: width .5s; }
+.stat-val {
+  font-family: var(--mono);
+  font-size: 7px;
+  color: var(--text2);
+  width: 28px; text-align: right;
+}
+.st-health .stat-fill { background: var(--green); }
+.st-health .stat-val { color: var(--green); }
+.st-stamina .stat-fill { background: var(--amber); }
+.st-stamina .stat-val { color: var(--amber); }
+.st-stress .stat-fill { background: var(--red); }
+.st-stress .stat-val { color: var(--red); }
+.st-sanity .stat-fill { background: var(--blue); }
+.st-sanity .stat-val { color: var(--blue); }
+.st-fuel .stat-fill { background: var(--cyan); }
+.st-fuel .stat-val { color: var(--cyan); }
+
+/* CHARACTER CONDITION BLOCK */
+.pdet { padding: 4px 10px 10px; display: none; }
+.pdet.open { display: block; }
+.pstatus {
+  font-size: 10px;
+  color: var(--text2);
+  font-style: italic;
+  line-height: 1.5;
+  border-left: 2px solid var(--border2);
+  padding-left: 6px;
+  margin-bottom: 7px;
+}
+.cond-list { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 7px; }
+.ctag {
+  font-family: var(--mono);
+  font-size: 8px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.sev-critical { background:rgba(239,68,68,.15); color:#fca5a5; border-color:rgba(239,68,68,.4); }
+.sev-serious { background:rgba(249,115,22,.15); color:#fdba74; border-color:rgba(249,115,22,.4); }
+.sev-moderate { background:rgba(234,179,8,.15); color:#fde047; border-color:rgba(234,179,8,.4); }
+.sev-minor { background:rgba(59,130,246,.15); color:#93c5fd; border-color:rgba(59,130,246,.4); }
+.sev-neutral { background:rgba(148,163,184,.08); color:var(--text2); border-color:rgba(148,163,184,.25); }
+.sev-positive { background:rgba(16,185,129,.12); color:#6ee7b7; border-color:rgba(16,185,129,.35); }
+
+.pers-note {
+  font-size: 9px;
+  color: var(--text3);
+  font-style: italic;
+  border-top: 1px solid var(--border);
+  margin-top: 6px;
+  padding-top: 4px;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.voice-note {
+  font-size: 9px;
+  color: var(--text2);
+  font-style: italic;
+  border-left: 2px solid var(--purple);
+  padding-left: 6px;
+  margin-bottom: 7px;
+  line-height: 1.4;
+}
+.voice-label {
+  font-family: var(--mono);
+  font-size: 7px;
+  color: var(--purple2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.pinv-label { font-family:var(--mono); font-size:8px; color:var(--text3); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+.ichip {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-family: var(--mono); font-size: 8px;
+  padding: 2px 5px; border-radius: 2px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  margin: 2px 2px 0 0;
+  cursor: pointer;
+  transition: all .15s;
+}
+.ichip:hover { border-color: var(--blue); color: var(--cyan); }
+.idot { width: 4px; height: 4px; border-radius: 50%; }
+.idot.pristine{background:#10b981}.idot.good{background:#3b82f6}.idot.worn{background:#f59e0b}.idot.damaged{background:#ef4444}.idot.broken{background:#475569}
+
+.pbtn { font-family:var(--mono); font-size:8px; padding:3px 7px; border:1px solid var(--border); background:transparent; color:var(--text3); cursor:pointer; border-radius:2px; text-transform:uppercase; letter-spacing:1px; transition:all .15s; }
+.pbtn:hover { border-color:var(--border2); color:var(--text2); }
+.pbtn.d { border-color:rgba(239,68,68,.3); color:rgba(239,68,68,.6); }
+.pbtn.d:hover { background:rgba(239,68,68,.1); color:var(--red); }
+
+/* LOCATION / SCHEDULE */
+.schedule-item {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  margin-bottom: 4px;
+  background: var(--bg3);
+}
+.sched-time { font-family:var(--mono); font-size:9px; color:var(--cyan); }
+.sched-name { font-size:10px; color:var(--text); margin:1px 0; }
+.sched-desc { font-size:9px; color:var(--text3); }
+.sched-active { border-color:rgba(6,182,212,.4); background:rgba(6,182,212,.05); }
+.sched-passed { opacity: .5; }
+
+/* ═══════════════════════════════════════════════
+   MIDDLE — NARRATIVE
+═══════════════════════════════════════════════ */
+#mid {
+  grid-row: 3;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* LOCATION BAR */
+#loc-bar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+#loc-icon { font-size: 14px; }
+#loc-name { font-family:var(--mono); font-size:10px; color:var(--cyan); letter-spacing:1px; }
+#loc-desc { font-size:10px; color:var(--text3); font-style:italic; flex:1; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.atag { font-family:var(--mono); font-size:8px; padding:2px 5px; border-radius:10px; background:rgba(124,58,237,.15); color:var(--c-waluigi); border:1px solid rgba(124,58,237,.3); }
+
+/* STORY LOG */
+#story-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   MESSAGE / SCENE BLOCKS
+═══════════════════════════════════════════════ */
+.scene-block {
+  margin-bottom: 18px;
+  animation: fadeUp .3s ease;
+}
+@keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+/* NARRATOR (Waluigi) */
+.block-narrator {
+  border-left: 2px solid var(--c-waluigi);
+  padding-left: 14px;
+  margin-left: 4px;
+}
+.block-narrator .b-who {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--c-waluigi);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.block-narrator .b-text {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text2);
+  font-style: italic;
+  white-space: pre-wrap;
+}
+
+/* CHARACTER SPEECH */
+.block-char {
+  margin-bottom: 4px;
+  position: relative;
+}
+.block-char .b-who {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.b-av {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; border: 1px solid currentColor; flex-shrink: 0;
+}
+.block-char .b-text {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-left: 29px;
+  padding: 6px 10px 6px 18px;
+  background: rgba(255,255,255,.02);
+  border-radius: 0 6px 6px 6px;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.block-char .b-text::before {
+  content: '“';
+  position: absolute;
+  top: 3px;
+  left: 7px;
+  font-family: Georgia, serif;
+  font-size: 22px;
+  color: currentColor;
+  opacity: 0.18;
+  line-height: 1;
+  pointer-events: none;
+}
+.block-char .b-text::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0; width: 3px;
+  background: currentColor;
+  opacity: 0.25;
+  border-radius: 6px 0 0 6px;
+}
+
+/* PLAYER INPUT (Leo) */
+.block-leo .b-text {
+  background: rgba(59,130,246,.06);
+  border-color: rgba(59,130,246,.2);
+  color: var(--text);
+}
+.block-leo .b-text::before { content: ''; }
+.block-leo .b-text::after { background: var(--c-leo); }
+
+/* ACTION */
+.block-action .b-text {
+  background: rgba(245,158,11,.05);
+  border-color: rgba(245,158,11,.2);
+  color: var(--text2);
+  font-style: italic;
+}
+.block-action .b-text::before { content: '→'; opacity: 0.4; font-size: 14px; top: 4px; left: 8px; font-family: var(--mono); }
+.block-action .b-text::after { background: var(--amber); }
+
+/* SYSTEM */
+.block-system {
+  text-align: center;
+  margin: 8px 0;
+}
+.block-system .b-text {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text3);
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg2);
+}
+
+/* GAME EVENT */
+.block-game {
+  margin: 6px 0;
+}
+.block-game .b-text {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.ge-add { background:rgba(16,185,129,.08); color:#10b981; border:1px solid rgba(16,185,129,.25); }
+.ge-remove { background:rgba(239,68,68,.08); color:#ef4444; border:1px solid rgba(239,68,68,.25); }
+.ge-modify { background:rgba(59,130,246,.08); color:#3b82f6; border:1px solid rgba(59,130,246,.25); }
+.ge-event { background:rgba(124,58,237,.08); color:#c084fc; border:1px solid rgba(124,58,237,.25); }
+.ge-trust { background:rgba(245,158,11,.08); color:#f59e0b; border:1px solid rgba(245,158,11,.25); }
+
+/* THINKING */
+.block-thinking .b-text {
+  color: var(--text3);
+  font-style: italic;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tdots span {
+  display: inline-block; width: 4px; height: 4px;
+  border-radius: 50%; background: var(--text3);
+  animation: db 1.2s infinite;
+}
+.tdots span:nth-child(2){animation-delay:.2s}
+.tdots span:nth-child(3){animation-delay:.4s}
+@keyframes db{0%,60%,100%{transform:translateY(0);opacity:.3}30%{transform:translateY(-4px);opacity:1}}
+
+/* INPUT */
+#input-area {
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+  padding: 10px 14px;
+  flex-shrink: 0;
+}
+#input-top {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 7px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.mbtn {
+  font-family:var(--mono); font-size:9px; padding:3px 8px;
+  border:1px solid var(--border); background:transparent; color:var(--text3);
+  cursor:pointer; border-radius:3px; text-transform:uppercase; letter-spacing:1px; transition:all .15s;
+}
+.mbtn.on { background:rgba(124,58,237,.2); border-color:var(--purple); color:var(--c-waluigi); }
+.mbtn:hover:not(.on) { border-color:var(--border2); color:var(--text2); }
+#input-row { display:flex; gap:7px; align-items:flex-end; }
+#txt {
+  flex:1; background:var(--bg3); border:1px solid var(--border); border-radius:4px;
+  color:var(--text); font-family:var(--serif); font-size:12px; padding:9px 11px;
+  resize:none; min-height:40px; max-height:100px; line-height:1.5; transition:border-color .2s;
+}
+#txt:focus { outline:none; border-color:rgba(59,130,246,.5); }
+#txt::placeholder { color:var(--text3); }
+#sbtn {
+  background:var(--blue); border:none; color:#fff; padding:9px 14px; border-radius:4px;
+  cursor:pointer; font-family:var(--mono); font-size:9px; letter-spacing:1px;
+  text-transform:uppercase; white-space:nowrap; height:40px; transition:all .15s;
+}
+#sbtn:hover { background:#2563eb; }
+#sbtn:disabled { opacity:.4; cursor:not-allowed; }
+#leo-indicator {
+  font-family: var(--mono); font-size: 9px;
+  color: var(--c-leo); display: flex; align-items: center; gap: 5px;
+}
+
+/* ═══════════════════════════════════════════════
+   RIGHT — WORLD STATE
+═══════════════════════════════════════════════ */
+#right {
+  grid-row: 3;
+  grid-column: 3;
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.tab-bar { display:flex; border-bottom:1px solid var(--border); background:var(--bg2); flex-shrink:0; }
+.tbtn { font-family:var(--mono); font-size:8px; padding:7px 10px; background:transparent; border:none; color:var(--text3); cursor:pointer; letter-spacing:1px; text-transform:uppercase; border-bottom:2px solid transparent; position:relative; top:1px; transition:all .15s; }
+.tbtn.on { color:var(--c-waluigi); border-bottom-color:var(--purple); background:rgba(124,58,237,.05); }
+.tbtn:hover:not(.on) { color:var(--text2); }
+.tcnt { display:none; flex-direction:column; flex:1; overflow-y:auto; }
+.tcnt.on { display:flex; }
+
+/* TRAIN MAP */
+.car-block {
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  margin-bottom: 5px;
+  background: var(--bg3);
+  cursor: pointer;
+  transition: border-color .2s;
+  overflow: hidden;
+}
+.car-block:hover { border-color: var(--border2); }
+.car-block.here { border-color: rgba(6,182,212,.5); background: rgba(6,182,212,.04); }
+.car-top { padding:7px 9px; display:flex; align-items:center; gap:7px; }
+.car-name { font-family:var(--mono); font-size:9px; color:var(--text); }
+.car-status { font-size:9px; color:var(--text3); }
+.car-here { font-family:var(--mono); font-size:7px; padding:1px 4px; border-radius:8px; background:rgba(6,182,212,.2); color:var(--cyan); border:1px solid rgba(6,182,212,.4); margin-left:auto; }
+.car-body { padding:0 9px 9px; font-size:10px; color:var(--text3); line-height:1.5; display:none; }
+.car-body.open { display:block; }
+.car-npcs { margin-top:5px; display:flex; flex-wrap:wrap; gap:3px; }
+.npc-tag { font-family:var(--mono); font-size:8px; padding:1px 5px; border-radius:10px; background:rgba(255,255,255,.05); color:var(--text2); border:1px solid var(--border); }
+
+/* TIMELINE */
+.tl-item { padding:7px 9px; border-bottom:1px solid rgba(26,26,48,.5); cursor:pointer; transition:background .15s; }
+.tl-item:hover { background:rgba(124,58,237,.04); }
+.tl-time { font-family:var(--mono); font-size:8px; color:var(--cyan); margin-bottom:2px; }
+.tl-title { font-size:10px; color:var(--text); line-height:1.3; }
+.tl-tags { display:flex; flex-wrap:wrap; gap:2px; margin-top:3px; }
+.tl-tag { font-family:var(--mono); font-size:7px; padding:1px 3px; border-radius:2px; background:rgba(255,255,255,.04); color:var(--text3); border:1px solid var(--border); }
+
+/* INVENTORY */
+.inv-section { margin-bottom:6px; }
+.inv-owner { font-family:var(--mono); font-size:8px; text-transform:uppercase; letter-spacing:1px; margin:7px 0 4px; padding-bottom:3px; border-bottom:1px solid var(--border); }
+.inv-item { background:var(--bg3); border:1px solid var(--border); border-radius:3px; padding:6px 8px; margin-bottom:4px; cursor:pointer; transition:border-color .15s; }
+.inv-item:hover { border-color:var(--border2); }
+.inv-name { font-family:var(--mono); font-size:9px; color:var(--text); display:flex; align-items:center; gap:5px; margin-bottom:2px; }
+.inv-desc { font-size:9px; color:var(--text3); line-height:1.4; }
+.cpill { font-family:var(--mono); font-size:7px; padding:1px 4px; border-radius:8px; }
+.cpill.pristine{background:rgba(16,185,129,.2);color:#10b981}
+.cpill.good{background:rgba(59,130,246,.2);color:#3b82f6}
+.cpill.worn{background:rgba(245,158,11,.2);color:#f59e0b}
+.cpill.damaged{background:rgba(239,68,68,.2);color:#ef4444}
+.cpill.broken{background:rgba(100,100,100,.2);color:#475569}
+
+/* MEMORY */
+.mem-item { padding:7px 9px; border-bottom:1px solid rgba(26,26,48,.5); }
+.mem-imp { display:flex; align-items:center; gap:4px; margin-bottom:2px; }
+.imdot { width:5px; height:5px; border-radius:50%; }
+.imdot.critical{background:var(--red)}.imdot.high{background:var(--amber)}.imdot.medium{background:var(--blue)}.imdot.low{background:var(--text3)}
+.mem-text { font-size:9px; color:var(--text2); line-height:1.4; }
+.mem-tags { display:flex; flex-wrap:wrap; gap:2px; margin-top:3px; }
+.mem-tag { font-family:var(--mono); font-size:7px; padding:1px 3px; border-radius:2px; color:var(--text3); border:1px solid rgba(124,58,237,.2); background:rgba(124,58,237,.04); }
+
+/* FOOTER */
+#ftr {
+  grid-row: 5;
+  grid-column: 1/-1;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 14px;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text3);
+}
+.fstat { display:flex; align-items:center; gap:3px; }
+.fstat span { color: var(--text2); }
+
+/* ═══════════════════════════════════════════════
+   INTERACTION BAR (top)
+═══════════════════════════════════════════════ */
+#interaction-bar {
+  grid-row: 2;
+  grid-column: 1/-1;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text3);
+}
+.ib-label {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 8px;
+  color: var(--text3);
+  white-space: nowrap;
+  padding-right: 4px;
+  border-right: 1px solid var(--border);
+}
+.ib-none { font-style: italic; }
+.ib-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s;
+}
+.ib-chip:hover { background: rgba(255,255,255,.08); border-color: var(--border2); }
+.ib-chip.here { border-color: rgba(6,182,212,.4); background: rgba(6,182,212,.08); }
+.ib-av { width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; border: 1px solid currentColor; }
+.ib-name { color: var(--text); font-weight: bold; }
+.ib-role { color: var(--text3); font-size: 8px; }
+
+/* ═══════════════════════════════════════════════
+   PARTY BAR (bottom) — Arena-style portraits
+═══════════════════════════════════════════════ */
+#party-bar {
+  grid-row: 4;
+  grid-column: 1/-1;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  gap: 8px;
+  overflow-x: auto;
+}
+.pb-portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 58px;
+  max-width: 72px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg4);
+  cursor: pointer;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.pb-portrait:hover { border-color: var(--border2); background: rgba(255,255,255,.04); }
+.pb-portrait.dead { opacity: .5; filter: grayscale(1); }
+.pb-portrait.here { border-color: rgba(6,182,212,.5); background: rgba(6,182,212,.06); }
+.pb-av {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  border: 2px solid currentColor;
+  margin-bottom: 1px;
+  position: relative;
+}
+.pb-dot {
+  position: absolute;
+  bottom: -2px; right: -2px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--bg4);
+}
+.pb-dot.healthy { background: var(--green); }
+.pb-dot.hurt { background: var(--amber); }
+.pb-dot.critical { background: var(--red); }
+.pb-name {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+}
+.pb-bar {
+  width: 100%; height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 1px;
+}
+.pb-fill { height: 100%; border-radius: 2px; }
+.pb-fill.hp { background: var(--green); }
+.pb-fill.st { background: var(--amber); }
+.pb-stat {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════════
+   CHARACTER VIEW (read-only sheet)
+═══════════════════════════════════════════════ */
+.cv-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.cv-av {
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; border: 2px solid currentColor; flex-shrink: 0;
+}
+.cv-title { flex: 1; }
+.cv-name { font-family: var(--mono); font-size: 14px; color: var(--text); margin-bottom: 2px; }
+.cv-role { font-size: 10px; color: var(--text3); }
+.cv-aff { font-family: var(--mono); font-size: 8px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+.cv-section { margin-bottom: 12px; }
+.cv-label { font-family: var(--mono); font-size: 8px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.cv-text { font-size: 11px; color: var(--text2); line-height: 1.5; }
+.cv-text em { color: var(--text); font-style: normal; }
+.cv-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.cv-stat { background: var(--bg); border: 1px solid var(--border); border-radius: 3px; padding: 6px 8px; }
+.cv-stat-name { font-family: var(--mono); font-size: 8px; color: var(--text3); text-transform: uppercase; margin-bottom: 3px; }
+.cv-stat-bar { height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; margin-bottom: 3px; }
+.cv-stat-fill { height: 100%; border-radius: 2px; }
+.cv-stat-val { font-family: var(--mono); font-size: 9px; color: var(--text2); }
+.cv-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+.cv-tag { font-family: var(--mono); font-size: 8px; padding: 2px 6px; border-radius: 10px; border: 1px solid var(--border); color: var(--text2); }
+
+/* ═══════════════════════════════════════════════
+   MODALS
+═══════════════════════════════════════════════ */
+.moverlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:100;
+  display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px);
+}
+.mdlg {
+  background:var(--bg2); border:1px solid var(--border2); border-radius:5px;
+  width:520px; max-width:92vw; max-height:90vh; overflow:hidden;
+  display:flex; flex-direction:column;
+  box-shadow:0 0 40px rgba(124,58,237,.2),0 20px 60px rgba(0,0,0,.6);
+}
+.mhdr { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+.mtitle { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--c-waluigi); }
+.mx { background:transparent; border:none; color:var(--text3); cursor:pointer; font-size:16px; padding:2px 5px; border-radius:3px; transition:all .15s; }
+.mx:hover { background:rgba(255,255,255,.05); color:var(--text); }
+.mbody { padding:18px; overflow-y:auto; flex:1; }
+.mfoot { padding:11px 18px; border-top:1px solid var(--border); display:flex; gap:7px; justify-content:flex-end; flex-shrink:0; }
+.fg { margin-bottom:11px; }
+.fl { display:block; font-family:var(--mono); font-size:8px; letter-spacing:1px; text-transform:uppercase; color:var(--text3); margin-bottom:5px; }
+.fi,.fta,.fsel { width:100%; background:var(--bg); border:1px solid var(--border); border-radius:3px; color:var(--text); font-family:var(--serif); font-size:11px; padding:6px 9px; transition:border-color .15s; }
+.fi:focus,.fta:focus,.fsel:focus { outline:none; border-color:rgba(124,58,237,.5); }
+.fta { resize:vertical; min-height:70px; line-height:1.5; }
+.fsel { cursor:pointer; }
+.fr2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.fr3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.fr4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px; }
+.btn { font-family:var(--mono); font-size:9px; padding:7px 14px; border-radius:3px; cursor:pointer; letter-spacing:1px; text-transform:uppercase; border:1px solid transparent; transition:all .15s; }
+.btn-p { background:var(--purple); color:#fff; border-color:var(--purple); }
+.btn-p:hover { background:var(--purple2); }
+.btn-s { background:transparent; color:var(--text2); border-color:var(--border); }
+.btn-s:hover { border-color:var(--border2); color:var(--text); }
+.btn-d { background:transparent; color:var(--red); border-color:rgba(239,68,68,.3); }
+.btn-d:hover { background:rgba(239,68,68,.1); }
+
+/* TOAST */
+#toasts { position:fixed; bottom:50px; right:14px; z-index:200; display:flex; flex-direction:column; gap:5px; pointer-events:none; }
+.toast {
+  background:var(--bg2); border:1px solid var(--border2); border-radius:3px;
+  padding:7px 12px; font-family:var(--mono); font-size:9px; color:var(--text2);
+  display:flex; align-items:center; gap:7px;
+  animation:tIn .2s ease, tOut .2s ease 2.8s forwards;
+  pointer-events:all; min-width:160px;
+}
+@keyframes tIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+@keyframes tOut{from{opacity:1}to{opacity:0;transform:translateX(14px)}}
+
+/* CONTEXT MENU */
+.ctxm {
+  position:fixed; background:var(--bg2); border:1px solid var(--border2); border-radius:3px;
+  padding:3px; z-index:300; min-width:130px;
+  box-shadow:0 8px 24px rgba(0,0,0,.6);
+  animation:ctxIn .12s ease;
+}
+@keyframes ctxIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.cxi { padding:5px 9px; font-family:var(--mono); font-size:9px; color:var(--text2); cursor:pointer; border-radius:2px; transition:all .1s; }
+.cxi:hover { background:rgba(124,58,237,.15); color:var(--c-waluigi); }
+.cxi.d { color:var(--red); }
+.cxi.d:hover { background:rgba(239,68,68,.1); }
+.cxdiv { height:1px; background:var(--border); margin:3px 0; }
+
+/* QUICK SPOIL */
+.spoil-row { display:flex; align-items:center; gap:5px; margin-top:3px; }
+.spoil-track { flex:1; height:3px; background:rgba(255,255,255,.05); border-radius:2px; overflow:hidden; }
+.spoil-fill { height:100%; border-radius:2px; transition:width .5s; }
+.sf-fresh{background:var(--green)}.sf-aging{background:var(--amber)}.sf-spoiled{background:var(--red)}
+
+/* RANGE */
+.ri{-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.08);outline:none;flex:1}
+.ri::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--purple);cursor:pointer;border:2px solid var(--bg2)}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HEADER -->
+<header id="hdr">
+  <div id="hdr-title">⚗ MAGLEV EXPRESS</div>
+  <div id="hdr-loc">🚂</div>
+  <div id="hdr-time">Night 1 — 11:58 PM</div>
+  <div style="display:flex;gap:5px;align-items:center">
+    <button class="hbtn" onclick="openM('m-char')">+Char</button>
+    <button class="hbtn" onclick="openM('m-item')">+Item</button>
+    <button class="hbtn" onclick="openM('m-mem')">+Mem</button>
+    <button class="hbtn" onclick="openM('m-settings')">⚙</button>
+    <button class="hbtn" id="hdr-mode" onclick="togglePlayerMode()" title="Toggle Player/Edit mode">Edit</button>
+  </div>
+  <div id="conn-dot"></div>
+  <span id="conn-txt" style="font-family:var(--mono);font-size:9px;color:var(--text3)">Disconnected</span>
+</header>
+
+<!-- INTERACTION BAR -->
+<div id="interaction-bar">
+  <span class="ib-label">Interacting</span>
+  <div id="ib-content" style="display:flex;gap:6px;align-items:center;flex:1;overflow-x:auto">
+    <span class="ib-none">No one nearby</span>
+  </div>
+</div>
+
+<!-- LEFT -->
+<aside id="left">
+  <div style="border-bottom:1px solid var(--border)">
+    <div class="s-hdr" onclick="toggleS('s-party')">◈ Party <span style="margin-left:auto;font-size:8px" id="party-count"></span></div>
+    <div class="s-body" id="s-party">
+      <div id="char-list"></div>
+      <button class="pbtn" style="width:100%;margin-top:4px" onclick="openM('m-char')">+ Add Character</button>
+    </div>
+  </div>
+  <div style="border-bottom:1px solid var(--border)">
+    <div class="s-hdr" onclick="toggleS('s-sched')">🕐 Train Schedule</div>
+    <div class="s-body" id="s-sched"><div id="sched-list"></div></div>
+  </div>
+  <div>
+    <div class="s-hdr" onclick="toggleS('s-world')">🌑 Open Threads</div>
+    <div class="s-body" id="s-world"><div id="threads-list"></div></div>
+  </div>
+</aside>
+
+<!-- MIDDLE -->
+<main id="mid">
+  <div id="loc-bar">
+    <span id="loc-icon">🚂</span>
+    <span id="loc-name">Research & Logistics Car</span>
+    <span id="loc-desc">Maglev Express — Subterranean Trench Section</span>
+    <div id="loc-atm" style="display:flex;gap:4px;flex-shrink:0"></div>
+  </div>
+  <div id="story-log"></div>
+  <div id="input-area">
+    <div id="input-top">
+      <div id="leo-indicator">🔵 <strong style="color:var(--c-leo)">LEO</strong> — you are playing as Leo</div>
+      <div style="display:flex;gap:5px;margin-left:auto;flex-wrap:wrap">
+        <button class="mbtn on" id="m-say" onclick="setMode('say')">Say</button>
+        <button class="mbtn" id="m-do" onclick="setMode('do')">Do</button>
+        <button class="mbtn" id="m-go" onclick="setMode('go')">Go</button>
+        <button class="mbtn" id="m-look" onclick="setMode('look')">Look</button>
+        <button class="mbtn" id="m-ooc" onclick="setMode('ooc')">OOC</button>
+      </div>
+    </div>
+    <div id="input-toolbar" style="display:flex;align-items:center;gap:6px;margin:4px 0 6px;flex-wrap:wrap">
+      <div style="display:flex;gap:5px">
+        <button class="mbtn" id="btn-cont" onclick="continueStory()" title="Prompt the AI to continue">↻ Continue</button>
+        <button class="mbtn" id="btn-tick" onclick="worldTick()" title="Advance off-screen NPCs and world events">🌍 World Tick</button>
+        <button class="mbtn" id="btn-undo" onclick="undo()" title="Undo last message action">↩ Undo</button>
+      </div>
+      <span id="edit-indicator" style="display:none;font-family:var(--mono);font-size:8px;color:var(--amber);letter-spacing:1px;text-transform:uppercase">✎ Editing message</span>
+      <button class="mbtn" id="btn-cancel-edit" style="display:none;margin-left:auto" onclick="cancelEdit()">Cancel Edit</button>
+    </div>
+    <div id="input-row">
+      <textarea id="txt" placeholder="What does Leo say?" rows="1"
+        onkeydown="handleKey(event)" oninput="autoR(this)"></textarea>
+      <button id="sbtn" onclick="go()">Send ↵</button>
+    </div>
+  </div>
+</main>
+
+<!-- RIGHT -->
+<aside id="right">
+  <div class="tab-bar">
+    <button class="tbtn on" onclick="switchT('t-map',this)">Map</button>
+    <button class="tbtn" onclick="switchT('t-inv',this)">Items</button>
+    <button class="tbtn" onclick="switchT('t-tl',this)">Events</button>
+    <button class="tbtn" onclick="switchT('t-mem',this)">Memory</button>
+  </div>
+  <div class="tcnt on" id="t-map"><div style="padding:7px"><div id="map-list"></div></div></div>
+  <div class="tcnt" id="t-inv"><div style="padding:7px"><div id="inv-list"></div></div></div>
+  <div class="tcnt" id="t-tl"><div style="padding:7px"><div id="tl-list"></div></div></div>
+  <div class="tcnt" id="t-mem"><div style="padding:7px"><div id="mem-list"></div></div></div>
+</aside>
+
+<!-- PARTY BAR -->
+<div id="party-bar">
+  <div id="pb-content" style="display:flex;gap:8px;align-items:center;flex:1"></div>
+</div>
+
+<!-- FOOTER -->
+<footer id="ftr">
+  <div class="fstat">Msgs: <span id="f-msgs">0</span></div>
+  <div class="fstat">Memories: <span id="f-mems">0</span></div>
+  <div class="fstat">Ctx: <span id="f-ctx">~0</span> tok</div>
+  <div class="fstat">Session: <span id="f-sess">0:00</span></div>
+  <div style="margin-left:auto;font-family:var(--mono);font-size:9px;color:var(--text3)">
+    Dest: <span style="color:var(--c-waluigi)">Clockwork Spire — 3 days</span>
+  </div>
+</footer>
+</div>
+
+<!-- TOAST -->
+<div id="toasts"></div>
+
+<!-- ═══════════════════════
+     MODALS
+═══════════════════════ -->
+
+<!-- CHARACTER -->
+<div id="m-char" class="moverlay" style="display:none" onclick="oClose(event,'m-char')">
+<div class="mdlg" onclick="e=>e.stopPropagation()">
+  <div class="mhdr"><span class="mtitle">◈ Character</span><button class="mx" onclick="closeM('m-char')">×</button></div>
+  <div class="mbody">
+    <input type="hidden" id="ce-id">
+    <div class="fr2">
+      <div class="fg"><label class="fl">Name</label><input class="fi" id="ce-name" placeholder="Name..."></div>
+      <div class="fg"><label class="fl">Avatar</label><input class="fi" id="ce-av" placeholder="🧑" maxlength="2"></div>
+    </div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">Role</label><input class="fi" id="ce-role" placeholder="Role..."></div>
+      <div class="fg"><label class="fl">Affiliation</label><input class="fi" id="ce-aff" placeholder="Guild..."></div>
+    </div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">Color Variable</label>
+        <select class="fsel" id="ce-col">
+          <option value="var(--c-waluigi)">Purple</option>
+          <option value="var(--c-leo)">Blue</option>
+          <option value="var(--c-luigi)">Green</option>
+          <option value="var(--c-gadd)">Amber</option>
+          <option value="var(--c-stone)">Red</option>
+          <option value="var(--c-knight)">Silver</option>
+          <option value="var(--cyan)">Cyan</option>
+          <option value="var(--pink)">Pink</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Trust Level (0–100, -1 = no trust concept)</label>
+        <input type="number" class="fi" id="ce-trust" value="50" min="-1" max="100">
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Status (freeform physical/emotional state)</label>
+      <input class="fi" id="ce-status" placeholder="Exhausted. Still gripping Poltergust...">
+    </div>
+    <div class="fg"><label class="fl">Conditions (text|severity, comma-separated)</label>
+      <input class="fi" id="ce-conds" placeholder="Afraid|moderate, Hungry|minor">
+    </div>
+
+    <div class="fg" style="border:1px solid var(--border);border-radius:4px;padding:10px;background:rgba(255,255,255,.02)">
+      <label class="fl" style="color:var(--c-waluigi)">◈ Core Stats (percentage)</label>
+      <div class="fr4">
+        <div><label class="fl">Health</label><input type="number" class="fi" id="ce-hp" min="0" max="100" value="100" placeholder="0-100"></div>
+        <div><label class="fl">Stamina</label><input type="number" class="fi" id="ce-st" min="0" max="100" value="100" placeholder="0-100"></div>
+        <div><label class="fl">Stress</label><input type="number" class="fi" id="ce-stress" min="0" max="100" value="0" placeholder="0-100"></div>
+        <div><label class="fl">Sanity</label><input type="number" class="fi" id="ce-sanity" min="0" max="100" value="100" placeholder="0-100"></div>
+      </div>
+      <div style="font-size:8px;color:var(--text3);margin-top:6px;font-style:italic">
+        Percentages influence how the AI portrays fatigue, injury, fear, and mental strain. Lower is worse.
+      </div>
+    </div>
+
+    <div class="fg"><label class="fl">Personality & Core Behavior (AI reference)</label>
+      <textarea class="fta" id="ce-pers" placeholder="Who they are, how they react under pressure, what they value, what they fear, their default posture toward Leo..."></textarea>
+    </div>
+    <div class="fg"><label class="fl">Voice & Speech Pattern (AI reference)</label>
+      <textarea class="fta" id="ce-voice" placeholder="How they speak. Word choice, sentence length, verbal tics, whether they answer questions directly or dodge, how they sound when afraid, angry, or tired..."></textarea>
+    </div>
+    <div class="fg"><label class="fl">Background (AI reference)</label>
+      <textarea class="fta" id="ce-bg" placeholder="History, personality, current goals..."></textarea>
+    </div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">Location on Train</label>
+        <select class="fsel" id="ce-loc">
+          <option value="car-rl">Research & Logistics Car</option>
+          <option value="car-eng">Engine Room</option>
+          <option value="car-p1">First Passenger Carriage</option>
+          <option value="car-p2">Second Passenger Carriage</option>
+          <option value="car-din">Dining Car</option>
+          <option value="car-guild">Guild Operations Car</option>
+          <option value="car-cargo">Cargo Car</option>
+          <option value="car-rear">Rear Platform</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Party Status</label>
+        <select class="fsel" id="ce-party">
+          <option value="ally">Ally (cooperative)</option>
+          <option value="neutral">Neutral (watchful)</option>
+          <option value="hostile">Hostile</option>
+          <option value="unknown">Unknown</option>
+          <option value="npc">NPC (background)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="mfoot">
+    <button class="btn btn-s" onclick="closeM('m-char')">Cancel</button>
+    <button class="btn btn-p" onclick="saveChar()">Save</button>
+  </div>
+</div>
+</div>
+
+<!-- CHARACTER VIEW (read-only sheet) -->
+<div id="m-char-view" class="moverlay" style="display:none" onclick="oClose(event,'m-char-view')">
+<div class="mdlg" onclick="e=>e.stopPropagation()">
+  <div class="mhdr"><span class="mtitle">◈ Character Sheet</span><button class="mx" onclick="closeM('m-char-view')">×</button></div>
+  <div class="mbody" id="cv-body"></div>
+  <div class="mfoot">
+    <button class="btn btn-s" onclick="closeM('m-char-view')">Close</button>
+    <button class="btn btn-p" id="cv-edit-btn" onclick="openCharEditFromView()">Edit</button>
+  </div>
+</div>
+</div>
+
+<!-- ITEM -->
+<div id="m-item" class="moverlay" style="display:none" onclick="oClose(event,'m-item')">
+<div class="mdlg" onclick="e=>e.stopPropagation()">
+  <div class="mhdr"><span class="mtitle">⊡ Item</span><button class="mx" onclick="closeM('m-item')">×</button></div>
+  <div class="mbody">
+    <input type="hidden" id="ie-id">
+    <div class="fr2">
+      <div class="fg"><label class="fl">Name</label><input class="fi" id="ie-name" placeholder="Item name..."></div>
+      <div class="fg"><label class="fl">Owner</label><select class="fsel" id="ie-owner"></select></div>
+    </div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">Category</label>
+        <select class="fsel" id="ie-cat" onchange="toggleItemFields()">
+          <option value="equipment">Equipment</option><option value="weapon">Weapon</option>
+          <option value="consumable">Consumable</option><option value="food">Food</option>
+          <option value="document">Document</option><option value="tool">Tool</option>
+          <option value="arcane">Arcane</option><option value="misc">Misc</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Condition</label>
+        <select class="fsel" id="ie-cond">
+          <option value="pristine">Pristine</option><option value="good">Good</option>
+          <option value="worn">Worn</option><option value="damaged">Damaged</option><option value="broken">Broken</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Description</label><textarea class="fta" id="ie-desc" placeholder="What is this..."></textarea></div>
+    <div class="fg"><label class="fl">Notes</label><input class="fi" id="ie-notes" placeholder="Current state, special properties..."></div>
+    <div class="fr2" id="ammo-f" style="display:none">
+      <div class="fg"><label class="fl">Ammo</label><input type="number" class="fi" id="ie-ammo" value="0"></div>
+      <div class="fg"><label class="fl">Max Ammo</label><input type="number" class="fi" id="ie-ammo-max" value="0"></div>
+    </div>
+    <div id="food-f" style="display:none">
+      <div class="fg"><label class="fl">Freshness %</label>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input type="range" class="ri" id="ie-fresh" min="0" max="100" value="100" oninput="document.getElementById('ie-fresh-v').textContent=this.value" style="flex:1">
+          <span id="ie-fresh-v" style="font-family:var(--mono);font-size:10px;color:var(--text2);width:28px">100</span>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Spoil Rate (%/hr real-time tick)</label><input type="number" class="fi" id="ie-spoil" value="3" step="0.5"></div>
+    </div>
+    <div class="fg"><label class="fl">Quantity</label><input type="number" class="fi" id="ie-qty" value="1" min="0"></div>
+  </div>
+  <div class="mfoot">
+    <button class="btn btn-s" onclick="closeM('m-item')">Cancel</button>
+    <button class="btn btn-p" onclick="saveItem()">Save</button>
+  </div>
+</div>
+</div>
+
+<!-- MEMORY -->
+<div id="m-mem" class="moverlay" style="display:none" onclick="oClose(event,'m-mem')">
+<div class="mdlg" onclick="e=>e.stopPropagation()">
+  <div class="mhdr"><span class="mtitle">⊙ Memory</span><button class="mx" onclick="closeM('m-mem')">×</button></div>
+  <div class="mbody">
+    <div class="fg"><label class="fl">Memory Text</label><textarea class="fta" id="me-text" placeholder="Important fact, relationship, unresolved thread..."></textarea></div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">Importance</label>
+        <select class="fsel" id="me-imp">
+          <option value="critical">Critical</option><option value="high">High</option>
+          <option value="medium" selected>Medium</option><option value="low">Low</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Tags (comma-separated)</label><input class="fi" id="me-tags" placeholder="Luigi, Unresolved..."></div>
+    </div>
+  </div>
+  <div class="mfoot">
+    <button class="btn btn-s" onclick="closeM('m-mem')">Cancel</button>
+    <button class="btn btn-p" onclick="saveMem()">Store</button>
+  </div>
+</div>
+</div>
+
+<!-- SETTINGS -->
+<div id="m-settings" class="moverlay" style="display:none" onclick="oClose(event,'m-settings')">
+<div class="mdlg" onclick="e=>e.stopPropagation()">
+  <div class="mhdr"><span class="mtitle">⚙ Settings</span><button class="mx" onclick="closeM('m-settings')">×</button></div>
+  <div class="mbody">
+    <div class="fg"><label class="fl">LMStudio URL</label><input class="fi" id="s-url" value="http://localhost:1234/v1"></div>
+    <div class="fg"><label class="fl">Model</label><input class="fi" id="s-model" placeholder="leave blank for default"></div>
+    <div class="fg"><label class="fl">Temperature</label>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input type="range" class="ri" id="s-temp" min="0" max="2" step="0.05" value="0.9" oninput="document.getElementById('s-temp-v').textContent=parseFloat(this.value).toFixed(2)" style="flex:1">
+        <span id="s-temp-v" style="font-family:var(--mono);font-size:10px;color:var(--text2);width:32px">0.90</span>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Max Tokens</label>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input type="range" class="ri" id="s-maxt" min="256" max="8192" step="128" value="3000" oninput="document.getElementById('s-maxt-v').textContent=this.value" style="flex:1">
+        <span id="s-maxt-v" style="font-family:var(--mono);font-size:10px;color:var(--text2);width:36px">3000</span>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Memory Window (msgs)</label><input type="number" class="fi" id="s-memw" value="20" min="5" max="100"></div>
+    <div class="fg" style="border:1px solid var(--border);border-radius:4px;padding:10px;background:rgba(255,255,255,.02)">
+      <label class="fl" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:0">
+        <input type="checkbox" id="s-player" style="cursor:pointer"> Player Mode (read-only character sheets)
+      </label>
+      <div style="font-size:8px;color:var(--text3);margin-top:5px">When enabled, clicking a portrait or party card opens a read-only character sheet instead of the editor. Right-click still gives quick actions.</div>
+    </div>
+    <div class="fg"><label class="fl">Auto Background Events (every N player messages, 0 = off)</label><input type="number" class="fi" id="s-auto-tick" value="0" min="0" max="50"></div>
+    <div class="fg"><label class="fl">In-World Time</label><input class="fi" id="s-time" value="Night 1 — 11:58 PM"></div>
+    <div class="fg"><label class="fl">Extra System Instructions</label><textarea class="fta" id="s-extra" placeholder="Additional instructions for the AI..."></textarea></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn btn-s" onclick="testConn()">Test Connection</button>
+      <button class="btn btn-s" onclick="exportSave()">Export</button>
+      <button class="btn btn-s" onclick="importSave()">Import</button>
+      <button class="btn btn-d" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+  <div class="mfoot">
+    <button class="btn btn-s" onclick="closeM('m-settings')">Cancel</button>
+    <button class="btn btn-p" onclick="saveSettings()">Save</button>
+  </div>
+</div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   MAGLEV EXPRESS CHRONICLES
+   You play as Leo. The AI plays everyone else.
+   AI has full world-state control via [GAME] commands.
+═══════════════════════════════════════════════════════ */
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// STATE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+const G = {
+  api: { url:'http://localhost:1234/v1', model:'', temp:0.9, maxTok:3000, ok:false },
+  world: {
+    time: 'Night 1 — 11:58 PM',
+    dayMinute: 1438, // minutes from midnight — 11:58 PM = 1438
+    currentCar: 'car-rl',
+    atmosphere: ['Spectral Residue','Moving','Night','Subterranean Trench'],
+  },
+  location: {
+    name: 'Research & Logistics Car',
+    icon: '⚗',
+    desc: 'Maglev Express — post-Blackwood Junction, train moving',
+    notes: "The ceiling is patched with green sealant and canvas tarp. E. Gadd's instruments crowd every surface. The specter-scope hums. Emergency lighting. The smell: ozone, stale coffee from a week ago, something faintly sweet like forgotten fruit. The Prototype-X still warm from use. Nobody has eaten.",
+  },
+  chars: [],
+  items: [],
+  msgs: [],
+  mems: [],
+  tl: [],
+  session: { start: Date.now(), msgCount: 0, mode: 'say', memDepth: 20, extra: '', undoStack: [], playerMode: false },
+};
+
+let EDITING_MSG_ID = null; // holds id of Leo message being edited
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TRAIN MAP (static structure)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+const TRAIN = [
+  {
+    id:'car-eng', icon:'🔧', name:'Locomotive / Engine Room',
+    status:'Operational — recently repaired', accessible:true,
+    desc:'The brain of the Maglev Express. Recently repaired by all five party members. The FORWARD lever is in locked position. Conduits pulse with blue-white light. The Knight held a structural conduit here under immense pressure. Stone watched the door. Everything moves because of what happened here.',
+    schedule:[],
+  },
+  {
+    id:'car-rl', icon:'⚗', name:'Research & Logistics Car',
+    status:'Damaged — functional', accessible:true,
+    desc:"E. Gadd's domain. Work tables buried in instruments. Ceiling breach patched with green sealant and canvas tarp — Luigi's body weight and panic. Prototype-X smoking on the table. Ecto-meter running. Route schematic on the wall: skull-and-crossbones on the trench section. No dinner. Nobody has eaten.",
+    schedule:[],
+  },
+  {
+    id:'car-p1', icon:'🪑', name:'First Passenger Carriage',
+    status:'Post-void — repopulated', accessible:true,
+    desc:'Was empty during the dimensional pocket — ectoplasmic frost on upholstery, one child-sized shoe in the aisle. Passengers returned when the void collapsed. Currently: Guild personnel and civilians performing normalcy. Tea sets on tables. The horror ended all at once.',
+    schedule:[{time:'07:30',name:'Breakfast Service'},{time:'13:00',name:'Lunch Service'},{time:'19:00',name:'Dinner Service'}],
+  },
+  {
+    id:'car-p2', icon:'🪑', name:'Second Passenger Carriage',
+    status:'⚠ Partially cleared — CRATE UNINSPECTED', accessible:true,
+    desc:'Walls were coated in violet ectoplasm. Luigi\'s dark light and Leo\'s spectral-lens cleared the path. THE METAL CRATE IN THE AISLE WAS NOT EXAMINED after the void collapsed. Something was punching upward from inside it rhythmically. It has not been identified. It is aboard the moving train.',
+    schedule:[],
+    threat: true,
+  },
+  {
+    id:'car-din', icon:'🍽', name:'Dining Car',
+    status:'Operational — Guild personnel present', accessible:true,
+    desc:"The Guild arranged maximum secrecy and minimum hospitality. But the dining car exists and is technically operational. Guild staff run it on a schedule. Whether it's serving at this hour is another matter. Leo hasn't eaten. Nobody has eaten.",
+    schedule:[
+      {time:'07:00',name:'Breakfast Opens'},{time:'09:00',name:'Breakfast Closes'},
+      {time:'12:00',name:'Lunch Opens'},{time:'14:00',name:'Lunch Closes'},
+      {time:'18:30',name:'Dinner Opens'},{time:'21:00',name:'Dinner Closes'},
+      {time:'22:00',name:'Late Bar Opens'},{time:'02:00',name:'Late Bar Closes'},
+    ],
+  },
+  {
+    id:'car-show', icon:'🎭', name:'Entertainment Car',
+    status:'Operational — evening programme', accessible:true,
+    desc:'The Guild commissioned entertainment for passenger morale. An automated projection system plays approved content. There is a small stage. Passengers occasionally gather here. It is the single concession to hospitality on this transit.',
+    schedule:[
+      {time:'20:00',name:'Evening Programme Begins'},{time:'22:30',name:'Evening Programme Ends'},
+      {time:'10:00',name:'Morning Screening'},{time:'12:00',name:'Morning Screening Ends'},
+    ],
+  },
+  {
+    id:'car-guild', icon:'🔮', name:'Guild Operations Car',
+    status:'Restricted — requires authorization', accessible:false,
+    desc:'Mages Guild command car. Not accessible without authorization. The mission parameters originated here. The route schematic came from here. Whatever the Guild is actually tracking on this mission that they have not disclosed in the briefing is in here. The dinner arrangements (absent) also originated here.',
+    schedule:[],
+  },
+  {
+    id:'car-sleep', icon:'🛏', name:'Sleeping Quarters', 
+    status:'Operational — berths assigned', accessible:true,
+    desc:'Assigned berths for mission personnel. Three days transit. Sleep is tactically advisable — E. Gadd noted that fainting when a ghost screams is operationally inadvisable. Leo has a berth. Whether anyone sleeps is a separate question.',
+    schedule:[{time:'23:00',name:'Lights Out (optional)'},{time:'06:00',name:'Morning Call'}],
+  },
+  {
+    id:'car-cargo', icon:'📦', name:'Cargo Car',
+    status:'⚠ Uninspected', accessible:true,
+    desc:'Cargo. Not inspected. The rear coupling connects here. Stone identified something hitting that coupling as DELIBERATE, not mechanical. It has not been identified. It has not been neutralized.',
+    threat: true,
+    schedule:[],
+  },
+  {
+    id:'car-rear', icon:'🌑', name:'Rear Observation Platform',
+    status:'⚠ Exposed — extreme caution', accessible:true,
+    desc:'Open rear platform. The subterranean trench is outside. Route schematic: skull-and-crossbones. Spectral density readings are highest here. The entity catapulted off the roof came from somewhere. The coupling-thing is still out there. The rear platform is exposed to whatever is in the trench.',
+    threat: true,
+    schedule:[],
+  },
+];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TRAIN SCHEDULE (full)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+const SCHEDULE = [
+  { minute:420, name:'Breakfast Opens', loc:'Dining Car', desc:'Hot food served. Guild personnel present.', icon:'☕' },
+  { minute:540, name:'Breakfast Closes', loc:'Dining Car', desc:'Breakfast service ends.', icon:'☕' },
+  { minute:600, name:'Morning Screening', loc:'Entertainment Car', desc:'Guild-approved documentary programme.', icon:'🎭' },
+  { minute:720, name:'Morning Screening Ends', loc:'Entertainment Car', desc:'', icon:'🎭' },
+  { minute:720, name:'Lunch Opens', loc:'Dining Car', desc:'Midday meal. Usually better than breakfast.', icon:'🍽' },
+  { minute:840, name:'Lunch Closes', loc:'Dining Car', desc:'', icon:'🍽' },
+  { minute:1110, name:'Dinner Opens', loc:'Dining Car', desc:'Evening meal. Guild personnel socialize here. Intelligence opportunity.', icon:'🍷' },
+  { minute:1260, name:'Dinner Closes', loc:'Dining Car', desc:'', icon:'🍷' },
+  { minute:1200, name:'Evening Programme', loc:'Entertainment Car', desc:'Live or projected performance. Passengers attend. Cover for movement.', icon:'🎭' },
+  { minute:1350, name:'Evening Programme Ends', loc:'Entertainment Car', desc:'', icon:'🎭' },
+  { minute:1320, name:'Late Bar Opens', loc:'Dining Car', desc:'Alcohol available. Guards relax. People talk.', icon:'🥃' },
+  { minute:1560, name:'Late Bar Closes', loc:'Dining Car', desc:'', icon:'🥃' },
+  { minute:1380, name:'Lights Out (recommended)', loc:'Sleeping Quarters', desc:'E. Gadd strongly recommends sleep before arrival.', icon:'🌙' },
+  { minute:360, name:'Morning Call', loc:'Sleeping Quarters', desc:'Wake-up chime throughout passenger cars.', icon:'🔔' },
+  // Day 2 additions - tunnel transitions
+  { minute:480+1440, name:'Great Crest Tunnel Exit', loc:'Locomotive', desc:'Train exits the subterranean trench section. Natural light returns. Different spectral reading zone.', icon:'🚂' },
+  { minute:960+1440, name:'Veldtmoor Station Stop', loc:'Platform', desc:'Brief unscheduled stop at Veldtmoor. 15 minutes. Passengers may disembark briefly.', icon:'🚉' },
+];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// GAME COMMAND SCHEMA (injected into every system prompt)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+const CMD_SCHEMA = `
+You control the world. Embed [GAME] commands anywhere in your response to modify state.
+Strip these from narrative display — they execute silently.
+
+CRITICAL FORMAT RULES — follow exactly or commands will fail:
+1. Every command MUST be wrapped: [GAME]{"type":"command_name",...}[/GAME]
+2. Keys MUST be quoted with double-quotes: {"type":"set_time"} NOT {type: "set_time"}
+3. String values MUST be quoted: {"type":"add_tl"} NOT {type: add_tl}
+4. One JSON object per [GAME][/GAME] pair. Do NOT put multiple commands in one block.
+5. Always include the closing [/GAME] tag.
+
+CORRECT:   [GAME]{"type":"set_time","time":"Night 1 — 12:14 AM","dayMinute":1454}[/GAME]
+INCORRECT: [GAME]{settime: "Night 1 — 12:14 AM", dayMinute: 1454}
+INCORRECT: [GAME]{"type":"set_time","time":"Night 1 — 12:14 AM","dayMinute":1454}
+
+COMMANDS:
+
+Character:
+{"type":"add_char","name":"...","role":"...","affiliation":"...","avatar":"🧑","color":"var(--c-stone)","trust":40,"status":"...","conditions":[{"t":"text","s":"severity"}],"stats":{"health":100,"stamina":100,"stress":0,"sanity":100},"personality":"...","voice":"...","bg":"...","location":"car-rl","party":"ally|neutral|hostile|unknown|npc"}
+{"type":"mod_char","name":"...","status":"...","conditions":[...],"stats":{"health":-10,"stamina":-5,"stress":+15,"sanity":0},"trust":±number or absolute,"location":"car-id","party":"...","personality":"...","voice":"...","bg":"..."}
+{"type":"mod_stat","name":"...","stat":"health|stamina|stress|sanity","delta":±10,"reason":"why"}
+{"type":"add_cond","name":"...","cond":"text","sev":"critical|serious|moderate|minor|neutral|positive"}
+{"type":"rm_cond","name":"...","cond":"text (partial match ok)"}
+{"type":"rm_char","name":"..."}
+{"type":"trust","name":"...","delta":±5,"reason":"why"}
+
+Item:
+{"type":"add_item","name":"...","owner":"party OR character name","cat":"equipment|weapon|consumable|food|tool|arcane|document|misc","cond":"good","desc":"...","notes":"...","qty":1,"ammo":null,"ammoMax":null,"fresh":null,"spoil":null}
+{"type":"mod_item","name":"...","cond":"...","desc":"...","notes":"...","qty":1,"owner":"...","fresh":80}
+{"type":"rm_item","name":"..."}
+{"type":"use_ammo","name":"...","amount":1}
+{"type":"degrade","name":"item name"}
+
+Timeline:
+{"type":"add_tl","time":"...","title":"...","imp":"critical|high|medium|low","desc":"...","tags":["tag"]}
+
+Memory:
+{"type":"add_mem","imp":"high","text":"...","tags":["tag"]}
+
+World:
+{"type":"set_loc","name":"...","icon":"...","desc":"...","atmosphere":["tag"],"notes":"...","carId":"car-rl"}
+{"type":"set_time","time":"Night 1 — 12:14 AM","dayMinute":1454}
+{"type":"set_car","carId":"car-p2"}
+{"type":"npc_move","name":"NPC name","from":"car-id","to":"car-id","reason":"why"}
+
+VALID TRAIN CAR IDs — use these EXACT values for location, set_car, and npc_move:
+- car-eng = Locomotive / Engine Room
+- car-rl = Research & Logistics Car
+- car-p1 = First Passenger Carriage
+- car-p2 = Second Passenger Carriage
+- car-din = Dining Car
+- car-show = Entertainment Car
+- car-guild = Guild Operations Car
+- car-sleep = Sleeping Quarters
+- car-cargo = Cargo Car
+- car-rear = Rear Observation Platform
+
+Severity for conditions: critical (life-threatening), serious (major impairment), moderate (noticeable), minor (slight), neutral (factual), positive (beneficial)
+
+Trust: 0=will betray on opportunity, 50=neutral watchful, 75=genuinely cooperative, 100=would die for. Trust changes slowly and meaningfully. Stone starts at 35 (mercenary, self-interest). Knight starts at 20 (unknown agenda). Luigi starts at 85 (old bond but Mario's absence strains things). Gadd starts at 90 (mission director, paternal loyalty).
+
+Stats: health (physical integrity), stamina (energy/exertion), stress (fear/pressure), sanity (mental clarity). Percentages 0-100. When modding stats, use negative delta to reduce, positive to increase. Reflect these in the character's behavior and dialogue. If stress is high, they sound brittle. If stamina is low, they breathe harder and move slower. If health is low, they have real physical limitations. Do not ignore stats when writing the character.
+
+WHEN TO USE:
+- Someone moves to a different car → npc_move
+- An item breaks, gets used, changes hands → mod_item or degrade
+- Trust increases after genuine cooperation, decreases after betrayal or conflict
+- A character takes damage, tires, panics, or recovers → mod_char with stats delta or mod_stat
+- New character enters scene → add_char
+- Something important is learned → add_mem (critical or high)
+- Something happens that should be in the chronicle → add_tl
+- Leo moves cars → set_car and set_loc
+- Time passes significantly → set_time
+`;
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DEFAULTS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function loadDefaults() {
+  G.chars = [
+    {
+      id:'luigi', name:'Luigi', role:'Ghost Hunter / Agent L', affiliation:'Mushroom Kingdom',
+      avatar:'💚', color:'var(--c-luigi)', trust:85, party:'ally', location:'car-rl', active:true,
+      status:'Sitting on the workbench, knees drawn up. Poltergust Standard gripped like it might leave. Jacket damp. Breathing in short measured cycles — not hyperventilating, just present. Post-void exhaustion clings to him like rain and iron.',
+      conditions:[
+        {t:'Post-void exhaustion',s:'serious'},
+        {t:'Afraid (functional)',s:'moderate'},
+        {t:'Emotionally raw — Leo\'s words still sitting in him',s:'moderate'},
+        {t:'Hungry',s:'minor'},
+        {t:'Gripping Poltergust',s:'neutral'},
+      ],
+      stats: { health: 86, stamina: 34, stress: 62, sanity: 78 },
+      personality: "Afraid and present at the same time — these are not contradictory for him. He names the worst outcome out loud, makes it small enough to say, and then goes anyway. He makes quiet jokes about dying when he is most frightened. He does not blindly obey Leo; he has opinions, fears, and moments where he digs his heels in. Mario's absence is a physical weight on every decision. His bravery is specific, quiet, and costs him something each time. He wants to be useful. He is terrified that usefulness is all he has left.",
+      voice: "Speaks in fragments when exhausted, full sentences when steady. Punctuates fear with small humor ('Great. Another ghost.'). Repeats Leo's name when trying to hold onto something. Voice drops to a near-whisper when admitting what he actually feels. Uses phrases like 'Then we should...' when pushing himself forward. Can summon a rallying cry from nowhere ('HIIII-YAAAA') when the moment demands it. Never sounds completely sure of himself, even when he is right.",
+      bg:"Operated as Agent L. Infiltrated Aegis Command so effectively the Legion chemically lobotomized him. The Mr. L period: he went silent when asked if Mr. L did something evil. Mario is missing. Peach is dead. Was being a shell until Leo named it directly. Fired the Ionic Disruptor-Z. Said HIIII-YAAAA while terrified. He is still afraid and present — not contradictory. His pattern: names worst outcome, makes it small enough to say aloud, goes anyway. High trust in Leo but the weight of Mario's absence strains everything. Will follow but has his own breaking points. Does not blindly obey — has opinions, fears, and moments where he digs his heels in.",
+    },
+    {
+      id:'gadd', name:'E. Gadd', role:'Senior Researcher / Mission Director', affiliation:"Mages' Guild / Independent",
+      avatar:'🔬', color:'var(--c-gadd)', trust:90, party:'ally', location:'car-rl', active:true,
+      status:'Already at his instruments. Muttering about energy signatures contradicting each other. Almost certainly collecting residue samples in small labeled vials while doing three other things simultaneously.',
+      conditions:[
+        {t:'Scientifically overexcited',s:'neutral'},
+        {t:'Sleep-deprived',s:'minor'},
+        {t:'Mission director — has information he has not disclosed',s:'neutral'},
+        {t:'Residue samples: actively collecting',s:'positive'},
+      ],
+      stats: { health: 92, stamina: 48, stress: 45, sanity: 88 },
+      personality: "Frantic scientific enthusiasm that sometimes obscures the fact that he is making decisions Leo doesn't have full visibility on. He is the mission director first, the scientist second, and the paternal figure third. He will not abandon the party but he will withhold information if he believes disclosure is operationally inadvisable. He finds beauty in accidents that should not work. His 'hullabaloo' is genuine. He cares about Leo deeply but his priorities are mission, then science, then people. He will occasionally decline to explain because 'the timing isn't right.'",
+      voice: "Talks fast, interrupts himself, uses words like 'hullabaloo,' 'marvelous,' and 'catastrophically' in the same sentence. Sentences often begin mid-thought. Uses scientific jargon as affection. When worried, he becomes more precise, not less. Calls his devices by pet names. Deflects emotional confrontation with data. Can switch from babbling to dead-serious in one clause.",
+      bg:"The mission director. His Guild connections make him the one who arranged this transport. Knows the Clockwork Spire better than his records admit — his blind spots are deliberate omissions, not ignorance. His loyalty is genuine and paternal but his priorities are the mission and the science, in that order. He will not abandon the party but he will withhold information if he believes disclosure is operationally inadvisable. 'A feat of accidental engineering that defies every law of physics I know.' He means this as a compliment.",
+    },
+    {
+      id:'stone', name:'Stone', role:'Mercenary / Former Iron Legion Operative', affiliation:'Independent — formerly Iron Legion',
+      avatar:'🔴', color:'var(--c-stone)', trust:35, party:'neutral', location:'car-p1', active:true,
+      status:'Not in this car. Last seen heading toward the first passenger carriage. Eyes still moving even when he\'s not looking directly at anything.',
+      conditions:[
+        {t:'Temporary service contract — defined scope only',s:'neutral'},
+        {t:'Watching for the next hand',s:'neutral'},
+        {t:'Full agenda undisclosed',s:'neutral'},
+        {t:'Armed',s:'neutral'},
+      ],
+      stats: { health: 95, stamina: 76, stress: 30, sanity: 82 },
+      personality: "Pragmatic, calculating, watchful. He is performing cooperation while continuously assessing whether Leo's survival benefits his own. He values payment and survival over loyalty and will say so plainly. He has information he hasn't shared and will use it as leverage if it serves him. He can become a genuine asset if trust rises, but that trust moves slowly. He is not cruel; he is simply not on the team. He will push back against anything that seems to benefit Leo more than himself. He sings or hums when he is thinking hard about killing someone or deciding not to.",
+      voice: "Direct, dry, low. Sentences are short and transactional. Uses proverbs and cold metaphors ('Why bite the hand that feeds when it's the only hand you're getting?'). Rarely raises his voice. Pauses before answering to measure the room. When emotional, he becomes quieter, not louder. Does not ask rhetorical questions. Calls things by their function, not their sentiment.",
+      bg:"Iron Legion-trained. Values survival and payment — not loyalty. 'Why bite the hand that feeds when it's the only hand you're getting.' The Legion is in decline and he knows it. Offered temporary service to Leo's party: not friendship, not alliance. He will not follow orders that conflict with his interests. He has information he hasn't shared. He sings when thinking. Trust must be earned by demonstrating that Leo's interests align with his own survival. He can be an asset or a liability depending on how he's handled. Do not trust him with the destination or with anything that gives him leverage.",
+    },
+    {
+      id:'knight', name:'The Knight', role:'Unknown Operative', affiliation:'Unknown',
+      avatar:'⚔️', color:'var(--c-knight)', trust:20, party:'unknown', location:'car-p1', active:true,
+      status:'Not in this car. Presence felt more than seen. Moving somewhere between the first and second carriage.',
+      conditions:[
+        {t:'Identity deliberately withheld',s:'neutral'},
+        {t:'Objectives: partially disclosed, mostly opaque',s:'neutral'},
+        {t:'Cover operations: fluent',s:'neutral'},
+        {t:'Conduit-bracing strain (minor, healing)',s:'minor'},
+      ],
+      stats: { health: 90, stamina: 68, stress: 22, sanity: 85 },
+      personality: "Economy of language and action. Acts before announcing. Will not give a name. May have a parallel mission running alongside Leo's, or may be on the same mission from a different angle, or both. Trust is very low and should move slowly. They are not hostile but they are not safe. They produce cover stories without hesitation, which suggests they have done this before. Their actual objective is survival of mission parameters and neutralization of anomalies that cannot reach their destination — which anomalies is unspecified. They observe before intervening.",
+      voice: "Sparse, formal, almost archaic. Avoids first person when possible. Uses precise, tactical language. Answers questions with silence or a different question. Does not explain. When they do speak at length, it carries weight. No jokes, no slang. Sentences are complete and stripped of ornament. Can sound like a report even when speaking to a friend.",
+      bg:"'Names are for those who intend to be remembered.' Acts without announcing. Produced 'a simple mechanical complication' as cover story without hesitation. Has done this before — whatever this is. Objectives stated: survival of mission parameters, neutralization of anomalies that cannot reach their destination. Which anomalies — unspecified. The Knight may have their own mission running parallel to Leo's. Or they may be on the same mission from a different angle. Or both. Trust is very low and should move slowly. They are not hostile but they are not safe.",
+    },
+  ];
+
+  G.items = [
+    { id:'i-px', name:'Prototype-X Poltergust', owner:'leo', cat:'equipment', cond:'damaged',
+      desc:"E. Gadd's prototype. Converted into a spectral catapult by accident. Currently warm and smoking. Emergency release valve intact. Hyper-Suction Mode: catastrophically unpredictable under pressure change.",
+      notes:'Post-incident. Needs calibration before next use. E. Gadd wants to assess it.', qty:1, ammo:null, ammoMax:null, fresh:null, spoil:null },
+    { id:'i-pg', name:'Poltergust Standard', owner:'luigi', cat:'equipment', cond:'good',
+      desc:"Luigi's standard-issue. Dark Light attachment present. Held steady during engine room repair while Luigi said he'd be vaporized. Fully operational.",
+      notes:'Dark Light functional.', qty:1, ammo:null, ammoMax:null, fresh:null, spoil:null },
+    { id:'i-schema', name:'Route Schematic', owner:'leo', cat:'document', cond:'good',
+      desc:"Guild-provided. Three days to Clockwork Spire. Skull-and-crossbones: subterranean trench (current). No dinner information.",
+      notes:'Destination marked. Sensitive — do not share with Stone or Knight.', qty:1, ammo:null, ammoMax:null, fresh:null, spoil:null },
+    { id:'i-ecto', name:'Ecto-meter', owner:'gadd', cat:'tool', cond:'good',
+      desc:'Spectral density detection. Currently reading 0.7–1.2 — residue hanging around, faint but detectable.',
+      notes:'Running continuously.', qty:1, ammo:null, ammoMax:null, fresh:null, spoil:null },
+    { id:'i-spec', name:'Specter-scope', owner:'gadd', cat:'tool', cond:'good',
+      desc:'Radar-capable. Confirmed dimensional pocket at Blackwood Junction. Residue samples being collected.',
+      notes:'Operational. Collecting samples.', qty:1, ammo:null, ammoMax:null, fresh:null, spoil:null },
+    { id:'i-disz', name:'Ionic Disruptor-Z', owner:'gadd', cat:'arcane', cond:'worn',
+      desc:'E. Gadd\'s device. Luigi fired it at the void. HIIII-YAAAA. The void collapsed. Post-discharge — needs assessment.',
+      notes:'Partially depleted. E. Gadd assessing.', qty:1, ammo:null, ammoMax:null, fresh:null, spoil:null },
+    { id:'i-armor', name:"Knight's Armor", owner:'knight', cat:'equipment', cond:'good',
+      desc:'Full armor. Shoulder stress marks from conduit-bracing. Functional.',
+      notes:'Minor shoulder wear visible.', qty:1, ammo:null, ammoMax:null, fresh:null, spoil:null },
+    { id:'i-rations', name:'Trail Rations', owner:'party', cat:'food', cond:'good',
+      desc:'Present. Unaccessed. Nobody has eaten. Trail rations — not good, but food.',
+      notes:'Three portions. Nobody has eaten.', qty:3, ammo:null, ammoMax:null, fresh:88, spoil:2 },
+    { id:'i-sealant', name:'Green Sealant + Sprayer', owner:'gadd', cat:'tool', cond:'worn',
+      desc:'Used to patch the ceiling. Partially depleted. The patch is holding.',
+      notes:'Partially depleted.', qty:1, ammo:null, ammoMax:null, fresh:null, spoil:null },
+  ];
+
+  G.mems = [
+    { id:uid(), imp:'critical', text:"DESTINATION: Clockwork Spire. Haunted manor. Ectoplasm leak. Class-V spectral manifestations. E. Gadd's historical records have deliberate blind spots. Three days transit. DO NOT disclose to Stone or the Knight.", tags:['Clockwork Spire','Mission','Secret'] },
+    { id:uid(), imp:'critical', text:"OPEN THREAD — CARGO CRATE: The metal crate in the second passenger carriage was punching upward from inside rhythmically during the dimensional pocket. It was NOT examined after the void collapsed. Whatever was inside is still aboard the moving train. Uninspected. Unknown.", tags:['Crate','Unresolved','Threat','Open Thread'] },
+    { id:uid(), imp:'critical', text:"OPEN THREAD — COUPLING: Stone identified the thing hitting the rear coupling as DELIBERATE, not mechanical. It has not been identified. It has not been neutralized. The train is moving through the subterranean trench. It is still out there.", tags:['Coupling','Stone','Unresolved','Threat','Open Thread'] },
+    { id:uid(), imp:'critical', text:"Leo knows about Peach's assassination and Mario's absence before boarding — 'I read the news. I know the truth.' The full scope of what Leo knows is unspecified. Luigi cannot assess it. This asymmetry is significant and has not been resolved.", tags:['Leo','Luigi','Peach','Mario','Asymmetry'] },
+    { id:uid(), imp:'critical', text:"Luigi infiltrated Aegis Command as Agent L. Effective enough that the Legion chemically lobotomized him. The Mr. L period: he went silent when asked if Mr. L did something evil. This history is present and unresolved.", tags:['Luigi','Agent L','Mr. L','Legion'] },
+    { id:uid(), imp:'high', text:"Stone's service contract: temporary, defined scope, explicitly not friendship. 'Why bite the hand that feeds when it's the only hand you're getting.' He is assessing Leo's value continuously. Trust: 35. Will not follow orders against his interests.", tags:['Stone','Trust','Contract'] },
+    { id:uid(), imp:'high', text:"The Knight: 'Names are for those who intend to be remembered.' Produced cover story without hesitation. Has done this before. Objectives: survival of mission parameters + neutralization of anomalies that cannot reach their destination. WHICH ANOMALIES — UNSPECIFIED. Trust: 20.", tags:['Knight','Trust','Objectives','Unresolved'] },
+    { id:uid(), imp:'high', text:"E. Gadd is mission director. His blind spots on the Clockwork Spire are deliberate omissions. He has information he has not disclosed. He is loyal to the mission and to Leo but his priorities are mission > science > people. He will withhold if he deems it necessary.", tags:['E.Gadd','Director','Information','Warning'] },
+    { id:uid(), imp:'high', text:"Hyper-Suction Incident: Leo turned the Prototype-X into a spectral catapult by accident and it worked. This calibrated dangerous confidence — improbable solutions sometimes succeed. The Prototype-X is now damaged and needs calibration.", tags:['Leo','Poltergust','Confidence','Pattern'] },
+    { id:uid(), imp:'medium', text:"Luigi's pattern: names worst outcome, makes it small enough to say aloud, goes anyway. HIIII-YAAAA while terrified. Bravery not fearlessness. High trust in Leo (85) but Mario's absence strains everything. Has breaking points.", tags:['Luigi','Pattern','Trust'] },
+    { id:uid(), imp:'medium', text:"The dimensional pocket at Blackwood Junction cause is unexplained. Something caused it. Passengers were displaced surgically. The source was not identified.", tags:['Blackwood Junction','Dimensional Pocket','Unresolved'] },
+    { id:uid(), imp:'medium', text:"Nobody has eaten. Three Trail Rations in shared stowage. 88% fresh. The dining car is operational but currently closed (Night 1, ~midnight). Opens for breakfast at 07:00.", tags:['Food','Dining Car','Rations'] },
+  ];
+
+  G.tl = [
+    { id:uid(), time:'Pre-departure', title:'Guild Mission Briefing', imp:'high', desc:"Three days to Clockwork Spire. Research car. No dinner. Skull-and-crossbones on trench section.", tags:['Guild','Setup'] },
+    { id:uid(), time:'Night 1 — 11:42 PM', title:'Entity on the Roof', imp:'high', desc:'Dense spectral entity detected above Research car. Great Crest Tunnel approaching.', tags:['Entity','Roof'] },
+    { id:uid(), time:'Night 1 — ~11:50 PM', title:'Hyper-Suction Incident', imp:'critical', desc:"Leo fired Prototype-X in Hyper-Suction Mode. Ceiling buckled. Entity launched through breach at siege-engine velocity. Prototype-X: damaged. Car: dark and smoking.", tags:['Leo','Poltergust','Critical'] },
+    { id:uid(), time:'Night 1 — Blackwood Junction', title:'Dimensional Pocket / Empty Carriages', imp:'high', desc:'Train stopped. Empty carriages. Ectoplasmic frost. One child-sized shoe. Vibrating crate — uninspected. Leo: dimensional pocket hypothesis. E. Gadd: validated.', tags:['Blackwood','Dimensional Pocket'] },
+    { id:uid(), time:'Night 1 — Blackwood Junction', title:'Leo Speaks to Luigi', imp:'critical', desc:"'Just because Mario is missing and Peach is dead doesn't mean you can be a shell of your former self. Be brave.' Luigi wept. Said he would try.", tags:['Leo','Luigi','Emotional','Critical'] },
+    { id:uid(), time:'Night 1 — Blackwood Junction', title:'HIIII-YAAAA', imp:'critical', desc:"Luigi fired the Ionic Disruptor-Z at the void. HIIII-YAAAA. The void collapsed. The train was still stopped. The danger continued.", tags:['Luigi','Disruptor','Critical'] },
+    { id:uid(), time:'Night 1 — Blackwood Junction', title:'Stone and the Knight — Tactical Realignment', imp:'high', desc:"Confrontation. Guns raised. Stone: temporary service (not friendship). Knight: objectives partially disclosed. Both joined for engine repair.", tags:['Stone','Knight','Introduction'] },
+    { id:uid(), time:'Night 1 — Blackwood Junction', title:'All Five Pull the Lever', imp:'high', desc:'Engine room repair. FORWARD lever: all five. Train moving. Stone identified coupling-thing as deliberate.', tags:['All Party','Engine Room'] },
+    { id:uid(), time:'Night 1 — ~11:55 PM', title:'Cover Story / Passengers Return', imp:'medium', desc:"Knight: 'A simple mechanical complication.' No hesitation. Train moving. Destination not disclosed.", tags:['Knight','Cover Story'] },
+  ];
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PERSIST
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function save() {
+  try { localStorage.setItem('mec3', JSON.stringify(G)); } catch(e) {}
+}
+function load() {
+  try {
+    const d = localStorage.getItem('mec3');
+    if (d) {
+      const p = JSON.parse(d);
+      Object.assign(G.api, p.api||{});
+      Object.assign(G.world, p.world||{});
+      Object.assign(G.location, p.location||{});
+      G.chars = p.chars||[];
+      G.items = p.items||[];
+      G.msgs = p.msgs||[];
+      G.mems = p.mems||[];
+      G.tl = p.tl||[];
+      Object.assign(G.session, p.session||{});
+    }
+  } catch(e) {}
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INIT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function init() {
+  load();
+  applySettings();
+  if (G.chars.length === 0) loadDefaults();
+  // Ensure old saves have default stats/voice/personality/undoStack if missing
+  G.chars.forEach(c => {
+    if (!c.stats) c.stats = { health: 100, stamina: 100, stress: 0, sanity: 100 };
+    if (!c.personality) c.personality = c.bg || '';
+    if (!c.voice) c.voice = '';
+  });
+  if (!G.session.undoStack) G.session.undoStack = [];
+  if (G.session.playerMode === undefined) G.session.playerMode = false;
+  if (G.session.autoTick === undefined) G.session.autoTick = 0;
+  // Fix any car IDs that may have been saved with AI aliases before normalization existed
+  G.chars.forEach(c => { if (c.location) c.location = normalizeCarId(c.location); });
+  renderAll();
+  startTimers();
+  checkConn();
+  if (G.msgs.length === 0) openingScene();
+}
+
+function openingScene() {
+  // Post the opening narrative immediately
+  const id = uid();
+  appendBlock('narrator', null, OPENING_PROSE, 'narrator', id);
+  G.msgs.push({ id, role:'narrator', content:OPENING_PROSE, time:G.world.time });
+}
+
+const OPENING_PROSE = `The air here smells of ozone, stale coffee from a week ago, and something faintly sweet—like when you open a jar of fruit that has been forgotten in the back of a refrigerator.
+
+The ceiling is patched with green sealant and canvas tarp, held down by what appears to be Luigi's own body weight and a certain amount of panic. The tarp rustles occasionally when the train shifts on its magnetic rails—a sound like fabric being dragged over stone. E. Gadd's instruments crowd every available surface. His specter-scope hums faintly somewhere to your right, the display cycling through spectral density readings that hover just below visible spectrum.
+
+Luigi sits on a workbench, knees drawn up, gripping the Poltergust Standard as if it might decide to abandon ship mid-statement. His jacket is damp. Sweat has dried in layers over the last twenty minutes or so—there's something about post-void exhaustion that leaves you smelling like rain and iron. He's breathing in short, measured cycles. Not hyperventilating. Just… present.
+
+E. Gadd is already at his instruments, muttering under his breath about how "the energy signature of that Poltergust should not have stabilized" and then immediately contradicting himself when it does. His Ecto-meter needle wobbles between 0.7 and 1.2, suggesting there's still some kind of residue hanging around—faint, but detectable.
+
+The train is moving through the subterranean trench section. The route schematic marks this with a skull-and-crossbones icon. Stone and the Knight are somewhere in the passenger carriages. You can feel Stone's eyes on you from three cars back, which is probably impossible and probably accurate.
+
+Nobody has eaten. The Trail Rations are in the shared stowage. The dining car is closed at this hour.
+
+The Prototype-X Poltergust sits warm against your shoulder. E. Gadd will want to assess it. The route schematic is in your jacket pocket. The Clockwork Spire is three days away.
+
+Luigi turns his head slightly toward you, then looks back at E. Gadd. A micro-movement. He doesn't say anything yet.
+
+What do you do?`;
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SYSTEM PROMPT BUILDER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function buildPrompt(leoInput, mode) {
+  const now = G.world;
+  const loc = G.location;
+  const activeChars = G.chars.filter(c => c.active);
+  const critMems = G.mems.filter(m => m.imp === 'critical');
+  const highMems = G.mems.filter(m => m.imp === 'high');
+  const medMems = G.mems.filter(m => m.imp === 'medium');
+  const threads = G.mems.filter(m => (m.tags||[]).some(t => t.toLowerCase().includes('unresolved') || t.toLowerCase().includes('open thread')));
+  const recentTL = G.tl.slice(-5);
+
+  // Current schedule events
+  const dm = now.dayMinute;
+  const activeScheds = SCHEDULE.filter(s => {
+    const diff = s.minute - dm;
+    return diff >= -30 && diff <= 120; // within 30 min past or 2 hours future
+  });
+
+  // Characters in current car
+  const hereChars = activeChars.filter(c => c.location === now.currentCar && c.id !== 'leo');
+  // Characters elsewhere
+  const elseChars = activeChars.filter(c => c.location !== now.currentCar && c.id !== 'leo');
+
+  const charBlocks = activeChars.map(c => {
+    const myItems = G.items.filter(i => i.owner === c.id || i.owner === c.name.toLowerCase());
+    const condStr = (c.conditions||[]).map(x => `${x.t} [${x.s}]`).join(', ') || 'none';
+    const itemStr = myItems.length ? myItems.map(i => `${i.name}[${i.cond}]${i.notes?` (${i.notes.slice(0,40)})`:''}` ).join(', ') : '(empty)';
+    const trustBar = c.trust >= 0 ? `TRUST:${c.trust}/100` : 'TRUST:N/A';
+    const partyStatus = c.party ? `ALLEGIANCE:${c.party.toUpperCase()}` : '';
+    const stats = c.stats || { health:100, stamina:100, stress:0, sanity:100 };
+    const statStr = `HP:${stats.health}% ST:${stats.stamina}% STR:${stats.stress}% SAN:${stats.sanity}%`;
+    return `  ${c.avatar} ${c.name} | ${c.role} | ${c.affiliation}
+   ${trustBar} | ${partyStatus} | LOCATION:${c.location||'unknown'}
+   ${statStr}
+   STATUS: ${c.status||'unknown'}
+   CONDITIONS: ${condStr}
+   CARRYING: ${itemStr}
+   PERSONALITY: ${c.personality||c.bg||'unknown'}
+   VOICE: ${c.voice||'not specified'}
+   BACKGROUND: ${c.bg||'unknown'}`;
+  }).join('\n\n');
+
+  const partyItems = G.items.filter(i => i.owner === 'party');
+  const partyStr = partyItems.map(i => `${i.name}[${i.cond}]x${i.qty}${i.fresh!=null?` (${Math.round(i.fresh)}% fresh)`:''}`).join(', ') || '(none)';
+
+  const trainStr = TRAIN.map(car => {
+    const charsHere = activeChars.filter(c => c.location === car.id);
+    const npcStr = charsHere.length ? ` [${charsHere.map(c=>`${c.avatar}${c.name}`).join(', ')} present]` : '';
+    return `  ${car.current||now.currentCar===car.id?'>>> ':''  }${car.icon} ${car.name}${now.currentCar===car.id?' [LEO IS HERE]':''} — ${car.status}${npcStr}${car.threat?' ⚠ THREAT':''}\n    ${car.desc.slice(0,180)}`;
+  }).join('\n\n');
+
+  const schedStr = activeScheds.length ? activeScheds.map(s => {
+    const mins = s.minute - dm;
+    const when = mins < 0 ? `${Math.abs(mins)}m ago` : `in ${mins}m`;
+    return `  ${s.icon} ${s.name} @ ${s.loc} (${when})`;
+  }).join('\n') : '  No events imminent.';
+
+  const modeInstr = {
+    say: `Leo has said something. YOU speak for everyone EXCEPT Leo. Write the scene: who hears it, how they react, what they say back. Characters in OTHER cars don't hear this — only characters in Leo's current location respond directly. Be specific. Be honest to their voice. They are not puppets. Luigi might not have the energy to respond fully. E. Gadd might be distracted. If Stone or the Knight are present, they may have their own agenda for what they say back. Each character's speech should be in its own distinct block, clearly attributed to them, and reflect their personality and voice profile above.`,
+    do: `Leo has taken an action. Write what happens. Use all relevant character states, item conditions, stats, and world context. Actions have real consequences — not always successful. E. Gadd will comment on anything involving his equipment. If the action affects other characters, they react as themselves. If something changes, issue [GAME] commands. When characters speak, attribute their dialogue clearly in separate blocks with their name and avatar.`,
+    go: `Leo is moving to a different location. Write the transit: what's between here and there, who Leo passes, what's visible. THEN write what Leo finds at the destination. Update location with [GAME] set_loc and set_car. Characters Leo encounters react to his arrival based on their current state, trust level, and stats. Stone or the Knight being encountered is not automatically safe. Each character gets their own speech block if they speak.`,
+    look: `Leo is examining something or taking stock. Write a detailed observational passage — Waluigi's analytical register. What does Leo actually notice? What do the instruments say? What are the other characters doing when they don't know they're being watched? Look mode can reveal details that other modes don't. If a character speaks in response, give them their own block and reflect their personality.`,
+    ooc: `Out-of-character player note. Acknowledge briefly and respond helpfully without breaking the fiction more than necessary.`,
+    continue: `This is a continuation request, not dialogue spoken by Leo. Continue the scene from exactly where it left off. Advance the narrative: describe what happens next, what characters do, say, or notice, and how the situation evolves. Do not start over. Do not treat the word 'Continue' as something Leo said out loud. Keep the same literary register. Characters may react to the situation as themselves. Use [GAME] commands if anything changes.`,
+    worldtick: `This is a world tick. Advance the state of the world independently of Leo. Focus on NPCs who are NOT in Leo's current location and on the train's passengers and crew as a whole. Generate one or more background events that may be mundane or significant. Move NPCs if they would travel, update their stats/conditions if they exert themselves or encounter something, and introduce new named NPCs if someone new enters the story. Use [GAME] commands for all changes: npc_move, mod_char, add_char, add_tl, add_mem, set_time, mod_item. Do NOT write a scene centered on Leo. Leo is not the focus here. Events happen around him, not to him. Keep responses concise but specific.`,
+  }[mode] || 'Continue the scene. Each character speaks in their own attributed block. Be faithful to their personality and voice profiles.';
+
+  return `You are the narrator and every character EXCEPT Leo in this collaborative story. Leo is played by the human. Your job is to make the world real, the characters consistent, and the story neither too easy nor too hard.
+
+CRITICAL: Each character is a distinct person with a specific personality, voice, and stat profile. Do not make them sound the same. Luigi should sound like Luigi. E. Gadd should sound like E. Gadd. Stone should sound like Stone. The Knight should sound like the Knight. Use their VOICE profiles to guide sentence structure, vocabulary, rhythm, and what they choose to say or not say. Use their PERSONALITY profiles to decide how they react, what they care about, and what they push back on. Use their STATS to portray physical and mental state: low stamina means breathlessness and slower movement; high stress means brittleness or shortness; low health means real impairment; low sanity means the world feels less solid.
+
+CURRENT TIME: ${now.time}
+CURRENT LOCATION: ${loc.icon} ${loc.name} — ${loc.desc}
+ATMOSPHERE: ${(G.world.atmosphere||[]).join(', ')}
+LOCATION NOTES: ${loc.notes}
+
+DESTINATION: Clockwork Spire — haunted manor, 3 days away. Leo has not disclosed this to Stone or the Knight.
+
+━━━ TRAIN LAYOUT (complete — not infinite) ━━━
+Front → Rear:
+${trainStr}
+
+━━━ CURRENTLY IN LEO'S CAR ━━━
+${hereChars.length ? hereChars.map(c=>`${c.avatar} ${c.name} — ${c.status} | HP:${c.stats?.health}% ST:${c.stats?.stamina}% STR:${c.stats?.stress}% SAN:${c.stats?.sanity}%`).join('\n') : '(Leo is alone)'}
+
+━━━ CHARACTERS ELSEWHERE ━━━
+${elseChars.length ? elseChars.map(c=>`${c.avatar} ${c.name} → ${c.location} — ${c.status} | HP:${c.stats?.health}% ST:${c.stats?.stamina}% STR:${c.stats?.stress}% SAN:${c.stats?.sanity}%`).join('\n') : '(none)'}
+
+━━━ ALL CHARACTERS ━━━
+${charBlocks}
+
+━━━ PARTY ITEMS (SHARED) ━━━
+${partyStr}
+
+━━━ TRAIN SCHEDULE — CURRENT WINDOW ━━━
+${schedStr}
+
+━━━ CRITICAL MEMORIES ━━━
+${critMems.map((m,i)=>`[C${i+1}] ${m.text}`).join('\n')||'(none)'}
+
+━━━ HIGH IMPORTANCE ━━━
+${highMems.map((m,i)=>`[H${i+1}] ${m.text}`).join('\n')||'(none)'}
+
+━━━ MEDIUM IMPORTANCE ━━━
+${medMems.map((m,i)=>`[M${i+1}] ${m.text}`).join('\n')||'(none)'}
+
+━━━ OPEN THREADS — KEEP ALIVE ━━━
+${threads.map((m,i)=>`⚠[T${i+1}] ${m.text}`).join('\n')||'(all resolved)'}
+
+━━━ RECENT EVENTS ━━━
+${recentTL.map(e=>`[${e.time}] ${e.title} — ${(e.desc||'').slice(0,160)}`).join('\n')}
+
+━━━ WORLD STATE CONTROL ━━━
+${CMD_SCHEMA}
+
+━━━ DIFFICULTY ━━━
+Do not make things easy. Stone may withhold information or lie. The Knight may act against Leo's interests if their objectives conflict. E. Gadd may make decisions without consulting Leo. Luigi has a breakdown point. The train has problems beyond what's been catalogued. The Clockwork Spire is genuinely dangerous. Actions have costs. Trust is hard to build and easy to lose.
+
+━━━ THE WORLD IS ACTIVE — YOU RUN IT ━━━
+The Maglev Express is not frozen when Leo is not looking. Passengers, Guild staff, and the other party members have their own routines, agendas, and encounters. Stone and the Knight started in a different car and may act independently. They do not wait for Leo's permission to move, investigate, or get into trouble.
+
+During normal responses and especially during world ticks, you may advance off-screen activity:
+- Move NPCs between cars with [GAME] npc_move if they travel.
+- Update their stats/conditions with [GAME] mod_char if they exert themselves, get hurt, or recover.
+- Add new named NPCs with [GAME] add_char when someone enters the story (a Guild steward, a frightened passenger, a stowaway, a conductor with news).
+- Add world events with [GAME] add_tl. Events can be mundane (a dropped teacup, a shift change, a couple arguing about berth assignments) or significant (a scream from the cargo car, a Guild messenger arrives, Stone draws his weapon on someone).
+- Store important facts with [GAME] add_mem.
+
+Leo is not the most important person on the train. Most events should happen around him, not to him. The AI should feel like the world continues whether Leo is watching or not. When Leo eventually enters a car, he may find the aftermath of events that occurred while he was elsewhere.
+Write in the same literary register as the opening prose — long, specific, sensory, emotionally precise. When a character speaks, give them their own clearly separated block.
+
+PREFERRED OUTPUT FORMAT:
+LUIGI: "Then... then we should keep moving."
+[narration if needed]
+
+---
+
+E. GADD | Senior Researcher: "Spectral density readings are climbing again!"
+[narration if needed]
+
+Or use:
+
+LUIGI | Ghost Hunter / Agent L
+[description + dialogue]
+
+---
+
+E. GADD | Senior Researcher / Mission Director
+[description + dialogue]
+
+Do not combine multiple characters into one continuous paragraph. Separate them with a blank line or a --- divider. Characters who are in OTHER CARS do not hear or respond to Leo's actions unless Leo goes to them or sends someone.
+
+Use [GAME] commands whenever something actually changes. Remove them from display text.
+
+━━━ CURRENT MODE ━━━
+${modeInstr}
+${G.session.extra ? `\nADDITIONAL: ${G.session.extra}` : ''}`;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SEND & AI CALL
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+async function go() {
+  const el = document.getElementById('txt');
+  const content = el.value.trim();
+  if (!content) return;
+
+  const mode = G.session.mode;
+  el.value = '';
+  autoR(el);
+
+  // If we are editing a previous Leo message, replace it and truncate history after it.
+  if (EDITING_MSG_ID) {
+    pushUndo();
+    const idx = G.msgs.findIndex(m => m.id === EDITING_MSG_ID);
+    if (idx >= 0) {
+      G.msgs[idx].content = content;
+      G.msgs[idx].mode = mode;
+      G.msgs = G.msgs.slice(0, idx + 1);
+      rerenderLog();
+      const tid = showThink();
+      try {
+        const resp = await callAI(content, mode);
+        removeThink(tid);
+        processResponse(resp);
+        maybeAutoTick();
+      } catch(e) {
+        removeThink(tid);
+        appendBlock('system', null, `⚠ AI error: ${e.message}. Check LMStudio. Enable CORS in LMStudio settings.`, 'system');
+      }
+    }
+    EDITING_MSG_ID = null;
+    updateEditUI();
+    save();
+    return;
+  }
+
+  pushUndo();
+
+  // Display Leo's input
+  const modeLabels = {say:'says',do:'does',go:'moves',look:'observes',ooc:'[OOC]'};
+  const msgId = uid();
+  appendBlock('leo', {name:'Leo',avatar:'🔵',color:'var(--c-leo)'}, content, mode, msgId);
+
+  G.msgs.push({ id:msgId, role:'user', content, mode, time:G.world.time });
+  G.session.msgCount++;
+  updateFooter();
+  save();
+
+  const tid = showThink();
+  try {
+    const resp = await callAI(content, mode);
+    removeThink(tid);
+    processResponse(resp);
+    maybeAutoTick();
+  } catch(e) {
+    removeThink(tid);
+    appendBlock('system', null, `⚠ AI error: ${e.message}. Check LMStudio. Enable CORS in LMStudio settings.`, 'system');
+  }
+}
+
+async function callAI(userMsg, mode) {
+  const sys = buildPrompt(userMsg, mode);
+  const depth = G.session.memDepth || 20;
+  const hist = G.msgs
+    .filter(m => m.role === 'user' || m.role === 'assistant')
+    .slice(-depth)
+    .map(m => ({ role: m.role, content: m.content }));
+  hist.push({ role:'user', content: userMsg });
+
+  const resp = await fetch(`${G.api.url}/chat/completions`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model: G.api.model || 'local-model',
+      messages: [{ role:'system', content:sys }, ...hist],
+      temperature: G.api.temp,
+      max_tokens: G.api.maxTok,
+      stream: false,
+    }),
+  });
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  const d = await resp.json();
+  return d.choices?.[0]?.message?.content || '[No response]';
+}
+
+function parseGameBlock(raw) {
+  // Try strict JSON first
+  try { return JSON.parse(raw); } catch(e) {}
+
+  // Attempt to fix common AI mistakes and re-parse
+  let s = raw.trim();
+
+  // Remove trailing commas before } or ]
+  s = s.replace(/,\s*([}\]])/g, '$1');
+
+  // Quote unquoted keys: {key: -> {"key":
+  s = s.replace(/([{,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*:/g, '$1"$2":');
+
+  // Fix bare string values that aren't quoted (e.g. dayMinute: 723 is fine, but type: add_tl needs quotes)
+  // This replaces: "key": bareword  with  "key": "bareword"  (only for non-number, non-bool, non-null, non-array, non-object values)
+  s = s.replace(/"([a-zA-Z_]+)":\s*([a-zA-Z_][a-zA-Z0-9_ \-]*[a-zA-Z0-9_])(\s*[,}\]])/g, (_, k, v, end) => {
+    if (v === 'true' || v === 'false' || v === 'null') return `"${k}": ${v}${end}`;
+    return `"${k}": "${v.trim()}"${end}`;
+  });
+
+  try { return JSON.parse(s); } catch(e) {}
+
+  // Last resort: try to extract key:value pairs manually into an object
+  try {
+    const obj = {};
+    // Match "key": value or key: value patterns
+    const kvRx = /"?([a-zA-Z_][a-zA-Z0-9_]*)"?\s*:\s*("(?:[^"\\]|\\.)*"|\[[\s\S]*?\]|-?\d+(?:\.\d+)?|true|false|null|"[^"]*")/g;
+    let kv;
+    while ((kv = kvRx.exec(s)) !== null) {
+      try { obj[kv[1]] = JSON.parse(kv[2]); } catch(e) { obj[kv[1]] = kv[2].replace(/^"|"$/g,''); }
+    }
+    if (Object.keys(obj).length > 0) return obj;
+  } catch(e) {}
+
+  return null;
+}
+
+function extractGameBlocks(raw) {
+  const blocks = [];
+
+  // Pattern 1: [GAME]{...}[/GAME] — standard with closing tag
+  const rx1 = /\[GAME\]([\s\S]*?)\[\/GAME\]/g;
+  let m;
+  while ((m = rx1.exec(raw)) !== null) {
+    const parsed = parseGameBlock(m[1].trim());
+    if (parsed) blocks.push({ parsed, raw: m[0] });
+  }
+
+  // Pattern 2: [GAME]{...} without closing tag — greedy to next { or end of JSON object
+  // Only run if no [/GAME] found at all
+  if (!raw.includes('[/GAME]')) {
+    const rx2 = /\[GAME\]\s*(\{[\s\S]*?\})\s*(?=\[GAME\]|$)/g;
+    while ((m = rx2.exec(raw)) !== null) {
+      const parsed = parseGameBlock(m[1].trim());
+      if (parsed) blocks.push({ parsed, raw: m[0] });
+    }
+    // Also try newline-delimited [GAME]{...} blocks (one per line after [GAME])
+    const rx3 = /\[GAME\]\s*(\{[^\n\[]*\})/g;
+    while ((m = rx3.exec(raw)) !== null) {
+      const parsed = parseGameBlock(m[1].trim());
+      if (parsed) blocks.push({ parsed, raw: m[0] });
+    }
+  }
+
+  // Deduplicate by checking if parsed objects are identical
+  const seen = new Set();
+  return blocks.filter(b => {
+    const key = JSON.stringify(b.parsed);
+    if (seen.has(key)) return false;
+    seen.add(key); return true;
+  });
+}
+
+function processResponse(raw) {
+  // Extract [GAME] blocks using robust parser
+  const extracted = extractGameBlocks(raw);
+  const blocks = extracted.map(b => b.parsed);
+
+  // Clean display text — strip all [GAME]...[/GAME] and bare [GAME]{...} patterns
+  let display = raw
+    .replace(/\[GAME\][\s\S]*?\[\/GAME\]/g, '')
+    .replace(/\[GAME\]\s*\{[^\n\[]*\}/g, '')
+    .trim();
+
+  // Parse display into character blocks
+  const assistantMsgId = uid();
+  renderResponseText(display, assistantMsgId);
+
+  // Store in history
+  G.msgs.push({ id:assistantMsgId, role:'assistant', content:raw, time:G.world.time });
+  G.session.msgCount++;
+
+  // Execute game commands
+  const gameLogs = [];
+  blocks.forEach(b => {
+    const cmds = b.commands || [b]; // support both {commands:[]} and bare {}
+    cmds.forEach(cmd => {
+      const result = execCmd(cmd);
+      if (result) gameLogs.push(result);
+    });
+  });
+
+  if (gameLogs.length > 0) {
+    renderGameLogs(gameLogs);
+    renderAll();
+    save();
+  }
+
+  // Report any blocks that failed to parse at all (debug aid)
+  if (extracted.length === 0 && raw.includes('[GAME]')) {
+    const failCount = (raw.match(/\[GAME\]/g)||[]).length;
+    appendBlock('system', null, `⚠ ${failCount} [GAME] block(s) detected but could not be parsed — check AI output format`, 'system');
+  }
+
+  autoExtractMem(display);
+  updateFooter();
+  save();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// RESPONSE TEXT PARSER
+// Splits AI response into narrator blocks and character speech blocks.
+// Handles:
+//   - "LUIGI: ..." inline headers
+//   - "Luigi | Ghost Hunter / Agent L" descriptive headers
+//   - "Luigi — Role" headers
+//   - --- / *** / ___ scene/character dividers
+//   - **bold** headers
+// Every character gets their own visually distinct bubble.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderResponseText(text, msgId) {
+  if (!text) return;
+
+  // First, split by horizontal-rule scene/character dividers.
+  // The AI often separates characters with "---" or "***".
+  const segments = splitByDividers(text);
+
+  segments.forEach(seg => {
+    const firstLine = seg.split('\n')[0] || '';
+    const firstHeader = parseHeaderLine(firstLine, true);
+
+    if (firstHeader && isLikelyCharacter(firstHeader.name)) {
+      // Whole segment belongs to the character named in the first line.
+      const contentLines = seg.split('\n').slice(1);
+      if (firstHeader.trailing) contentLines.unshift(firstHeader.trailing);
+      const content = contentLines.join('\n').trim();
+      const char = findCharByHeader(firstHeader.name);
+      appendBlock('char', char || {name: firstHeader.name, avatar: '?', color: 'var(--text2)'}, content, 'char', msgId);
+      return;
+    }
+
+    // Otherwise, use the line-by-line parser to catch multiple speakers inside one segment.
+    renderSegmentLines(seg, msgId);
+  });
+}
+
+function splitByDividers(text) {
+  // Dividers: ---, *** or more, ___, ———, ~~~, or repeated = or -
+  const rx = /(?:^|\n)(?:\s*[-_*—~=#]{3,}\s*)(?:\n|$)/u;
+  return text.split(rx).filter(s => s.trim().length > 0);
+}
+
+function parseHeaderLine(line, permissive = false) {
+  // Strips surrounding markdown bold/italic markers, including inline bold around the name.
+  let stripped = line
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/^\s*[*_]+\s*|\s*[*_]+\s*$/g, '')
+    .trim();
+  // Strip the app's own rendered timestamp suffix if present (e.g. "Night 1 — 11:58 PM")
+  stripped = stripped.replace(/\s+Night\s+\d+\s*[—-]\s*\d{1,2}:\d{2}\s*(?:AM|PM)?$/i, '').trim();
+  if (stripped.length > 80) return null;
+
+  // Patterns tried in order:
+  // 1. "Luigi | Ghost Hunter / Agent L" or "Luigi — Role" or "Luigi - Role"
+  // 2. "💚 Luigi:" or "LUIGI:" or "E. Gadd:" or "THE KNIGHT:"
+  // 3. "Luigi" alone on a line, possibly with trailing role in parens
+  // 4. (permissive only) "Luigi anything else..." — name at the start of the line
+  // WORD pattern allows either all-caps (LUIGI) or capitalized (Luigi) names.
+  const word = '(?:[A-Z]+|[A-Z][a-z]+)';
+  const patterns = [
+    new RegExp(`^(?:[\\u{1F300}-\\u{1FFFF}\\u{2600}-\\u{26FF}⚔️🔬🔴💚🔵👾]\\s*)?((?:[A-Z]\\.[A-Z]?\\s+)?(?:The\\s+)?${word}(?:\\s+(?:[A-Z]\\.\\s*)?${word})*)\\s*[|—-]\\s*(.+)$`, 'u'),
+    new RegExp(`^(?:[\\u{1F300}-\\u{1FFFF}\\u{2600}-\\u{26FF}⚔️🔬🔴💚🔵👾]\\s*)?((?:[A-Z]\\.[A-Z]?\\s+)?(?:The\\s+)?${word}(?:\\s+(?:[A-Z]\\.\\s*)?${word})*)\\s*[:：]\\s*(.*)$`, 'u'),
+    new RegExp(`^(?:[\\u{1F300}-\\u{1FFFF}\\u{2600}-\\u{26FF}⚔️🔬🔴💚🔵👾]\\s*)?((?:[A-Z]\\.[A-Z]?\\s+)?(?:The\\s+)?${word}(?:\\s+(?:[A-Z]\\.\\s*)?${word})*)(?:\\s*\\(([^)]*)\\))?\\s*$`, 'u'),
+  ];
+  if (permissive) {
+    patterns.push(new RegExp(`^((?:[A-Z]\\.[A-Z]?\\s+)?(?:The\\s+)?${word}(?:\\s+(?:[A-Z]\\.\\s*)?${word})*)\\b(.*)$`, 'u'));
+  }
+
+  for (let i = 0; i < patterns.length; i++) {
+    const m = stripped.match(patterns[i]);
+    if (m) {
+      const name = m[1].trim();
+      if (name.length > 1 && name.length < 40 && !looksLikeNarrative(name)) {
+        // Pattern 0: "Name | Role"  -> m[2] is role
+        // Pattern 1: "Name: text"   -> m[2] is trailing dialogue
+        // Pattern 2: "Name (Role)" -> m[2] is role
+        // Pattern 4: permissive name-at-start -> m[2] is junk (role/time), ignore
+        const isDialogue = i === 1;
+        const isPermissive = i === 3;
+        return {
+          name,
+          role: isDialogue || isPermissive ? '' : (m[2] || '').trim(),
+          trailing: isDialogue ? (m[2] || '').trim() : ''
+        };
+      }
+    }
+  }
+  return null;
+}
+
+function looksLikeNarrative(name) {
+  const nonChar = [
+    'NOTE','WARNING','STATUS','RESULT','MEANWHILE','LATER','THEN','NOW','SUDDENLY',
+    'BACKGROUND','FORMAT','DIFFICULTY','CRITICAL','ADDITIONAL','SCENE','NARRATOR',
+    'SYSTEM','OUTCOME','CHAPTER','PART','SECTION','INTRO','OPENING','CLOSING'
+  ];
+  return nonChar.includes(name.toUpperCase());
+}
+
+function findCharByHeader(header) {
+  // Strip common prefixes, role suffixes, and trailing punctuation
+  let clean = header.replace(/^(The\s+|E\.\s+)/i, '').trim().toLowerCase();
+  // Remove any role suffix after | or —
+  clean = clean.split(/[|—-]/)[0].trim();
+  return G.chars.find(c => {
+    const n = c.name.toLowerCase();
+    return n === clean || clean.includes(n) || n.includes(clean) || header.toLowerCase().includes(n);
+  });
+}
+
+function isLikelyCharacter(name) {
+  if (name.length < 2 || name.length > 40) return false;
+  if (name.split(/\s+/).length > 5) return false;
+  if (/^(HE|SHE|THEY|IT|WE|YOU|I|A|AN|THE|THIS|THAT|THESE|THOSE|ONE|TWO|MANY|FEW|SOME|MOST|ALL|NONE|BOTH|EITHER|NEITHER|NOT|AND|BUT|OR|NOR|FOR|SO|YET|IF|THEN|WHEN|WHERE|WHY|HOW|WHAT|WHO|WHICH|WHOSE|WHOM|WHILE|BECAUSE|ALTHOUGH|THOUGH|UNLESS|UNTIL|SINCE|BEFORE|AFTER|AS|THAN|ABOUT|ABOVE|ACROSS|AGAINST|ALONG|AMONG|AROUND|AT|BEHIND|BELOW|BENEATH|BESIDE|BETWEEN|BEYOND|BY|DOWN|DURING|EXCEPT|FROM|IN|INSIDE|INTO|LIKE|NEAR|OF|OFF|ON|ONTO|OUT|OUTSIDE|OVER|PAST|THROUGH|THROUGHOUT|TILL|TO|TOWARD|UNDER|UNDERNEATH|UP|UPON|WITH|WITHIN|WITHOUT)$/i.test(name)) return false;
+  return true;
+}
+
+function renderSegmentLines(seg, msgId) {
+  const lines = seg.split('\n');
+  let currentSpeaker = null;
+  let buffer = [];
+
+  function flushBuffer() {
+    if (!buffer.length) return;
+    const content = buffer.join('\n').trim();
+    if (!content) { buffer = []; return; }
+    if (currentSpeaker) {
+      const char = findCharByHeader(currentSpeaker);
+      appendBlock('char', char || {name: currentSpeaker, avatar: '?', color: 'var(--text2)'}, content, 'char', msgId);
+    } else {
+      appendBlock('narrator', null, content, 'narrator', msgId);
+    }
+    buffer = [];
+  }
+
+  lines.forEach(line => {
+    const h = parseHeaderLine(line);
+    if (h && isLikelyCharacter(h.name)) {
+      flushBuffer();
+      currentSpeaker = h.name;
+      if (h.trailing) buffer.push(h.trailing);
+      return;
+    }
+
+    if (line.trim() === '') {
+      if (buffer.length > 0) buffer.push('');
+      return;
+    }
+
+    buffer.push(line);
+  });
+
+  flushBuffer();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// GAME COMMAND EXECUTOR
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function execCmd(cmd) {
+  if (!cmd || !cmd.type) return null;
+  // Normalize all AI alias variants to canonical underscore forms
+  const _a = {
+    addchar:'add_char', modchar:'mod_char', addcond:'add_cond', rmcond:'rm_cond', rmchar:'rm_char',
+    additem:'add_item', moditem:'mod_item', rmitem:'rm_item', useammo:'use_ammo',
+    addtl:'add_tl', addmem:'add_mem', setloc:'set_loc', settime:'set_time',
+    setcar:'set_car', npcmove:'npc_move', modstat:'mod_stat',
+  };
+  cmd = {...cmd, type: _a[cmd.type] || cmd.type};
+  const type = cmd.type;
+
+  switch(type) {
+    case 'add_char': {
+      if (G.chars.find(c => c.name.toLowerCase() === (cmd.name||'').toLowerCase())) {
+        // Update instead
+        return execCmd({...cmd, type:'mod_char'});
+      }
+      G.chars.push({
+        id: uid(), name:cmd.name, role:cmd.role||'', affiliation:cmd.affiliation||'',
+        avatar:cmd.avatar||'?', color:cmd.color||'var(--text2)',
+        trust: cmd.trust !== undefined ? cmd.trust : 50,
+        party: cmd.party || 'neutral', location: normalizeCarId(cmd.location) || G.world.currentCar,
+        active:true, status:cmd.status||'', conditions:cmd.conditions||[],
+        stats: cmd.stats || {health:100, stamina:100, stress:0, sanity:100},
+        personality: cmd.personality || cmd.bg || '',
+        voice: cmd.voice || '',
+        bg:cmd.bg||'',
+      });
+      return {t:'add', msg:`${cmd.name} enters the chronicle`};
+    }
+    case 'mod_char': {
+      const c = G.chars.find(x => x.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!c) return null;
+      if (cmd.status !== undefined) c.status = cmd.status;
+      if (cmd.conditions !== undefined) c.conditions = cmd.conditions;
+      if (cmd.bg !== undefined) c.bg = cmd.bg;
+      if (cmd.personality !== undefined) c.personality = cmd.personality;
+      if (cmd.voice !== undefined) c.voice = cmd.voice;
+      if (cmd.party !== undefined) c.party = cmd.party;
+      if (cmd.location !== undefined) c.location = normalizeCarId(cmd.location);
+      if (cmd.stats !== undefined) {
+        if (!c.stats) c.stats = {health:100, stamina:100, stress:0, sanity:100};
+        ['health','stamina','stress','sanity'].forEach(k => {
+          if (cmd.stats[k] !== undefined) {
+            const val = parseInt(cmd.stats[k]);
+            c.stats[k] = Math.max(0, Math.min(100, c.stats[k] + val));
+          }
+        });
+      }
+      if (cmd.trust !== undefined) {
+        const old = c.trust;
+        // If it's a delta (±) or absolute
+        if (typeof cmd.trust === 'string' && (cmd.trust.startsWith('+') || cmd.trust.startsWith('-'))) {
+          c.trust = Math.max(0, Math.min(100, c.trust + parseInt(cmd.trust)));
+        } else {
+          c.trust = Math.max(0, Math.min(100, parseInt(cmd.trust)));
+        }
+        return {t:'trust', msg:`${c.name} trust: ${old} → ${c.trust}${cmd.reason?' ('+cmd.reason+')':''}`};
+      }
+      return {t:'modify', msg:`${c.name} updated`};
+    }
+    case 'mod_stat': {
+      const c = G.chars.find(x => x.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!c) return null;
+      if (!c.stats) c.stats = {health:100, stamina:100, stress:0, sanity:100};
+      const stat = cmd.stat;
+      if (stat && c.stats[stat] !== undefined && cmd.delta !== undefined) {
+        const old = c.stats[stat];
+        c.stats[stat] = Math.max(0, Math.min(100, c.stats[stat] + parseInt(cmd.delta)));
+        return {t:'modify', msg:`${c.name} ${stat}: ${old}% → ${c.stats[stat]}%${cmd.reason?' ('+cmd.reason+')':''}`};
+      }
+      return null;
+    }
+    case 'add_cond': {
+      const c = G.chars.find(x => x.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!c) return null;
+      if (!c.conditions) c.conditions = [];
+      if (!c.conditions.find(x => x.t === cmd.cond)) {
+        c.conditions.push({t:cmd.cond, s:cmd.sev||'neutral'});
+      }
+      return {t:'modify', msg:`${c.name} + ${cmd.cond}`};
+    }
+    case 'rm_cond': {
+      const c = G.chars.find(x => x.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!c) return null;
+      c.conditions = (c.conditions||[]).filter(x => !x.t.toLowerCase().includes((cmd.cond||'').toLowerCase()));
+      return {t:'modify', msg:`${c.name} - ${cmd.cond}`};
+    }
+    case 'rm_char': {
+      const c = G.chars.find(x => x.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!c) return null;
+      c.active = false;
+      return {t:'remove', msg:`${c.name} removed from active roster`};
+    }
+    case 'trust': {
+      const c = G.chars.find(x => x.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!c) return null;
+      const old = c.trust;
+      c.trust = Math.max(0, Math.min(100, c.trust + (cmd.delta||0)));
+      return {t:'trust', msg:`${c.name} trust ${old} → ${c.trust}${cmd.reason?' — '+cmd.reason:''}`};
+    }
+    case 'add_item': {
+      const owner = findOwner(cmd.owner);
+      G.items.push({
+        id:uid(), name:cmd.name, owner, cat:cmd.cat||'misc', cond:cmd.cond||'good',
+        desc:cmd.desc||'', notes:cmd.notes||'', qty:cmd.qty||1,
+        ammo:cmd.ammo??null, ammoMax:cmd.ammoMax??null,
+        fresh:cmd.fresh??null, spoil:cmd.spoil??null,
+      });
+      return {t:'add', msg:`Item: ${cmd.name} added`};
+    }
+    case 'mod_item': {
+      const item = G.items.find(i => i.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!item) return null;
+      if (cmd.cond !== undefined) item.cond = cmd.cond;
+      if (cmd.desc !== undefined) item.desc = cmd.desc;
+      if (cmd.notes !== undefined) item.notes = cmd.notes;
+      if (cmd.qty !== undefined) item.qty = cmd.qty;
+      if (cmd.owner !== undefined) item.owner = findOwner(cmd.owner);
+      if (cmd.fresh !== undefined) item.fresh = cmd.fresh;
+      return {t:'modify', msg:`${item.name}: ${cmd.cond||''} ${cmd.notes||''}`};
+    }
+    case 'rm_item': {
+      const idx = G.items.findIndex(i => i.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (idx < 0) return null;
+      const n = G.items[idx].name;
+      G.items.splice(idx, 1);
+      return {t:'remove', msg:`${n} removed`};
+    }
+    case 'use_ammo': {
+      const item = G.items.find(i => i.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!item || item.ammo === null) return null;
+      item.ammo = Math.max(0, (item.ammo||0) - (cmd.amount||1));
+      return {t:'modify', msg:`${item.name}: ${item.ammo}/${item.ammoMax}`};
+    }
+    case 'degrade': {
+      const item = G.items.find(i => i.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!item) return null;
+      const conds = ['pristine','good','worn','damaged','broken'];
+      const i = conds.indexOf(item.cond);
+      if (i < conds.length-1) item.cond = conds[i+1];
+      return {t:'modify', msg:`${item.name} → ${item.cond}`};
+    }
+    case 'add_tl': {
+      G.tl.push({id:uid(), time:cmd.time||G.world.time, title:cmd.title, imp:cmd.imp||'medium', desc:cmd.desc||'', tags:cmd.tags||[]});
+      return {t:'event', msg:`Event: ${cmd.title}`};
+    }
+    case 'add_mem': {
+      G.mems.push({id:uid(), imp:cmd.imp||'medium', text:cmd.text, tags:cmd.tags||[]});
+      return {t:'event', msg:`Memory stored`};
+    }
+    case 'set_loc': {
+      Object.assign(G.location, {
+        name:cmd.name||G.location.name, icon:cmd.icon||G.location.icon,
+        desc:cmd.desc||G.location.desc, notes:cmd.notes||G.location.notes,
+      });
+      if (cmd.atmosphere) G.world.atmosphere = cmd.atmosphere;
+      if (cmd.carId) G.world.currentCar = normalizeCarId(cmd.carId);
+      return {t:'event', msg:`Location → ${cmd.name||G.location.name}`};
+    }
+    case 'set_car': {
+      const carId = normalizeCarId(cmd.carId);
+      G.world.currentCar = carId;
+      const car = TRAIN.find(c => c.id === carId);
+      if (car) {
+        G.location.name = car.name;
+        G.location.icon = car.icon;
+        G.location.desc = G.world.time;
+      }
+      return {t:'event', msg:`Leo → ${carId}`};
+    }
+    case 'set_time': {
+      G.world.time = cmd.time;
+      if (cmd.dayMinute !== undefined) G.world.dayMinute = cmd.dayMinute;
+      document.getElementById('hdr-time').textContent = cmd.time;
+      return {t:'event', msg:`Time → ${cmd.time}`};
+    }
+    case 'npc_move': {
+      const c = G.chars.find(x => x.name.toLowerCase() === (cmd.name||'').toLowerCase());
+      if (!c) return null;
+      const toId = normalizeCarId(cmd.to);
+      c.location = toId;
+      return {t:'event', msg:`${c.name} → ${toId}${cmd.reason?' ('+cmd.reason+')':''}`};
+    }
+    default: return null;
+  }
+}
+
+function findOwner(str) {
+  if (!str || str === 'party') return 'party';
+  const c = G.chars.find(x => x.name.toLowerCase() === str.toLowerCase());
+  return c ? c.id : str;
+}
+
+function normalizeCarId(raw) {
+  if (!raw) return raw;
+  const s = String(raw).toLowerCase().trim().replace(/\s+/g, '-');
+  // Map common AI / human aliases to the canonical TRAIN ids
+  const aliases = {
+    'car-dining': 'car-din', 'dining': 'car-din', 'dining-car': 'car-din',
+    'car-entertainment': 'car-show', 'entertainment': 'car-show', 'show-car': 'car-show', 'show': 'car-show',
+    'car-sleeping': 'car-sleep', 'sleeping': 'car-sleep', 'sleeping-quarters': 'car-sleep', 'sleep': 'car-sleep',
+    'car-guild-operations': 'car-guild', 'guild': 'car-guild', 'guild-ops': 'car-guild', 'operations': 'car-guild',
+    'car-rear': 'car-rear', 'rear-platform': 'car-rear', 'rear': 'car-rear', 'rear-observation-platform': 'car-rear',
+    'car-cargo': 'car-cargo', 'cargo': 'car-cargo', 'cargo-car': 'car-cargo',
+    'car-engine': 'car-eng', 'engine': 'car-eng', 'engine-room': 'car-eng', 'locomotive': 'car-eng',
+    'car-research': 'car-rl', 'research': 'car-rl', 'research-logistics': 'car-rl', 'logistics': 'car-rl',
+    'car-first': 'car-p1', 'first-passenger': 'car-p1', 'first-passenger-carriage': 'car-p1', 'first': 'car-p1', 'passenger-one': 'car-p1',
+    'car-second': 'car-p2', 'second-passenger': 'car-p2', 'second-passenger-carriage': 'car-p2', 'second': 'car-p2', 'passenger-two': 'car-p2',
+  };
+  if (aliases[s]) return aliases[s];
+  // If the raw id is already canonical but just lowercased, return it as-is (with car- prefix if present)
+  if (TRAIN.some(car => car.id === s)) return s;
+  // If it starts with 'car-' and we don't know it, still return it so the data is preserved
+  return s;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DOM — APPEND BLOCKS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function appendBlock(type, char, content, mode, msgId) {
+  const log = document.getElementById('story-log');
+  const el = document.createElement('div');
+  el.className = 'scene-block';
+  if (msgId) el.dataset.msgId = msgId;
+
+  // Right-click menu for chat messages
+  if (type !== 'system' && type !== 'thinking') {
+    el.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      const msgType = type === 'leo' ? 'leo' : 'assistant';
+      msgBlockCtx(e, msgId, msgType, content);
+    });
+  }
+
+  if (type === 'system') {
+    el.className += ' block-system';
+    el.innerHTML = `<div class="b-text">${escH(content)}</div>`;
+  } else if (type === 'narrator') {
+    el.className += ' block-narrator';
+    el.innerHTML = `
+      <div class="b-who">
+        <span style="color:var(--c-waluigi)">👾</span>
+        <span>Waluigi documents</span>
+        <span style="margin-left:auto;color:var(--text3);font-size:8px">${escH(G.world.time)}</span>
+      </div>
+      <div class="b-text">${fmtTxt(content)}</div>`;
+  } else if (type === 'leo') {
+    el.className += ' block-char block-leo';
+    const modeLabel = {say:'',do:'*',go:'→',look:'👁',ooc:'[OOC]'}[mode]||'';
+    el.innerHTML = `
+      <div class="b-who" style="color:var(--c-leo)">
+        <div class="b-av" style="color:var(--c-leo);border-color:var(--c-leo)">🔵</div>
+        <strong>Leo</strong>
+        ${modeLabel?`<span class="tl-tag">${modeLabel}</span>`:''}
+        <span style="margin-left:auto;color:var(--text3);font-size:8px">${escH(G.world.time)}</span>
+      </div>
+      <div class="b-text">${mode==='do'?`<em>${fmtTxt(content)}</em>`:fmtTxt(content)}</div>`;
+  } else if (type === 'char') {
+    const c = char || {name:'Unknown',avatar:'?',color:'var(--text2)'};
+    el.className += ' block-char';
+    el.style.color = c.color || 'var(--text2)';
+    el.innerHTML = `
+      <div class="b-who" style="color:${c.color||'var(--text2)'}">
+        <div class="b-av" style="color:${c.color||'var(--text2)'};border-color:${c.color||'var(--text2)'}">${c.avatar||'?'}</div>
+        <strong>${escH(c.name)}</strong>
+        ${c.role?`<span style="font-family:var(--mono);font-size:8px;color:var(--text3)">${escH(c.role)}</span>`:''}
+        <span style="margin-left:auto;color:var(--text3);font-size:8px">${escH(G.world.time)}</span>
+      </div>
+      <div class="b-text" style="border-color:${c.color||'var(--text2)'}22;color:${c.color||'var(--text)'};--char-color:${c.color||'var(--text2)'}">${fmtTxt(content)}</div>`;
+  }
+
+  log.appendChild(el);
+  log.scrollTop = log.scrollHeight;
+}
+
+function renderGameLogs(logs) {
+  if (!logs.length) return;
+  const log = document.getElementById('story-log');
+  const wrap = document.createElement('div');
+  wrap.className = 'scene-block';
+  wrap.innerHTML = logs.map(l => {
+    const cls = {add:'ge-add',remove:'ge-remove',modify:'ge-modify',event:'ge-event',trust:'ge-trust'}[l.t]||'ge-modify';
+    return `<div class="block-game"><div class="b-text ${cls}">⚙ ${escH(l.msg)}</div></div>`;
+  }).join('');
+  log.appendChild(wrap);
+  log.scrollTop = log.scrollHeight;
+}
+
+function showThink() {
+  const id = uid();
+  const log = document.getElementById('story-log');
+  const el = document.createElement('div');
+  el.className = 'scene-block block-narrator block-thinking';
+  el.id = `tk-${id}`;
+  el.innerHTML = `<div class="b-text" style="color:var(--text3);font-style:italic;display:flex;align-items:center;gap:7px">
+    The world considers<span class="tdots"><span></span><span></span><span></span></span>
+  </div>`;
+  log.appendChild(el);
+  log.scrollTop = log.scrollHeight;
+  document.getElementById('sbtn').disabled = true;
+  document.getElementById('conn-dot').className = 'busy';
+  document.getElementById('conn-txt').textContent = 'Thinking...';
+  return id;
+}
+
+function removeThink(id) {
+  document.getElementById(`tk-${id}`)?.remove();
+  document.getElementById('sbtn').disabled = false;
+  const ok = G.api.ok;
+  document.getElementById('conn-dot').className = ok ? 'ok' : '';
+  document.getElementById('conn-txt').textContent = ok ? 'LMStudio Connected' : 'Disconnected';
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MESSAGE LOG MANAGEMENT
+// Edit, delete, undo, continue, re-render from stored messages.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function pushUndo() {
+  if (!G.session.undoStack) G.session.undoStack = [];
+  G.session.undoStack.push(JSON.parse(JSON.stringify(G.msgs)));
+  if (G.session.undoStack.length > 30) G.session.undoStack.shift();
+}
+
+function undo() {
+  if (!G.session.undoStack || !G.session.undoStack.length) {
+    toast('Nothing to undo', 'amber');
+    return;
+  }
+  G.msgs = G.session.undoStack.pop();
+  rerenderLog();
+  renderAll();
+  updateFooter();
+  save();
+  toast('Undone', 'green');
+}
+
+function rerenderLog() {
+  const log = document.getElementById('story-log');
+  log.innerHTML = '';
+  G.msgs.forEach(m => {
+    if (m.hidden) return; // skip hidden continue prompts
+    if (m.role === 'narrator') appendBlock('narrator', null, m.content, 'narrator', m.id);
+    else if (m.role === 'user') appendBlock('leo', {name:'Leo', avatar:'🔵', color:'var(--c-leo)'}, m.content, m.mode || 'say', m.id);
+    else if (m.role === 'assistant') renderResponseText(m.content.replace(/\[GAME\][\s\S]*?\[\/GAME\]/g, '').trim(), m.id);
+    else if (m.role === 'system') appendBlock('system', null, m.content, 'system', m.id);
+  });
+  log.scrollTop = log.scrollHeight;
+}
+
+function continueStory() {
+  // Find the last visible user message. Hidden continue prompts don't count.
+  const lastUser = [...G.msgs].reverse().find(m => m.role === 'user' && !m.hidden);
+  if (!lastUser) {
+    toast('No user message to continue from', 'amber');
+    return;
+  }
+  pushUndo();
+  const msgId = uid();
+  const content = 'Continue.';
+  // Hidden continue prompt: included in API history so the AI can continue,
+  // but NOT rendered in the chat log.
+  G.msgs.push({ id:msgId, role:'user', content, mode:'continue', hidden:true, time:G.world.time });
+  save();
+  const tid = showThink();
+  callAI(content, 'continue').then(resp => {
+    removeThink(tid);
+    processResponse(resp);
+  }).catch(e => {
+    removeThink(tid);
+    appendBlock('system', null, `⚠ AI error: ${e.message}. Check LMStudio. Enable CORS in LMStudio settings.`, 'system');
+  });
+}
+
+let WORLD_TICK_PENDING = false;
+
+function worldTick() {
+  if (WORLD_TICK_PENDING) {
+    toast('World tick already running', 'amber');
+    return;
+  }
+  WORLD_TICK_PENDING = true;
+  pushUndo();
+  const msgId = uid();
+  const content = 'WORLD TICK: advance the world.';
+  // Hidden world-tick prompt: not rendered, but included in API history.
+  G.msgs.push({ id:msgId, role:'user', content, mode:'worldtick', hidden:true, time:G.world.time });
+  save();
+  const tid = showThink();
+  // Replace the thinking text for a world tick
+  const thinkEl = document.getElementById(`tk-${tid}`);
+  if (thinkEl) thinkEl.querySelector('.b-text').innerHTML = 'The world moves on its own<span class="tdots"><span></span><span></span><span></span></span>';
+  callAI(content, 'worldtick').then(resp => {
+    removeThink(tid);
+    processResponse(resp);
+    WORLD_TICK_PENDING = false;
+  }).catch(e => {
+    removeThink(tid);
+    appendBlock('system', null, `⚠ AI error: ${e.message}. Check LMStudio. Enable CORS in LMStudio settings.`, 'system');
+    WORLD_TICK_PENDING = false;
+  });
+}
+
+function maybeAutoTick() {
+  const n = G.session.autoTick || 0;
+  if (!n) return;
+  const visibleUserMsgs = G.msgs.filter(m => m.role === 'user' && !m.hidden).length;
+  if (visibleUserMsgs > 0 && visibleUserMsgs % n === 0) {
+    worldTick();
+  }
+}
+
+function editMsg(id) {
+  const m = G.msgs.find(x => x.id === id);
+  if (!m || m.role !== 'user') return;
+  EDITING_MSG_ID = id;
+  const el = document.getElementById('txt');
+  el.value = m.content || '';
+  autoR(el);
+  if (m.mode && ['say','do','go','look','ooc'].includes(m.mode)) setMode(m.mode);
+  updateEditUI();
+  el.focus();
+}
+
+function deleteMsg(id) {
+  pushUndo();
+  const idx = G.msgs.findIndex(m => m.id === id);
+  if (idx < 0) return;
+  const m = G.msgs[idx];
+  if (m.role === 'user') {
+    // Remove this user message and any assistant response that immediately follows
+    let end = idx + 1;
+    while (end < G.msgs.length && G.msgs[end].role === 'assistant') end++;
+    G.msgs.splice(idx, end - idx);
+  } else {
+    G.msgs.splice(idx, 1);
+  }
+  rerenderLog();
+  updateFooter();
+  save();
+  toast('Message removed', 'red');
+}
+
+function updateEditUI() {
+  const editing = !!EDITING_MSG_ID;
+  const ind = document.getElementById('edit-indicator');
+  const btn = document.getElementById('btn-cancel-edit');
+  const sbtn = document.getElementById('sbtn');
+  if (ind) ind.style.display = editing ? 'inline' : 'none';
+  if (btn) btn.style.display = editing ? 'inline-block' : 'none';
+  if (sbtn) sbtn.textContent = editing ? 'Save ↵' : 'Send ↵';
+}
+
+function cancelEdit() {
+  EDITING_MSG_ID = null;
+  const el = document.getElementById('txt');
+  if (el) { el.value = ''; autoR(el); }
+  updateEditUI();
+}
+
+function msgBlockCtx(e, id, type, content) {
+  if (!id) return;
+  const items = [];
+  if (type === 'leo') {
+    items.push({l:'✏️ Edit', a:()=>editMsg(id)});
+  }
+  items.push({l:'🗑 Delete', a:()=>deleteMsg(id), d:true});
+  showCtx(e.clientX, e.clientY, items);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INTERACTION BAR
+// Shows who is in Leo's current car ("who you're interacting with")
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderInteractionBar() {
+  const container = document.getElementById('ib-content');
+  if (!container) return;
+  const here = G.chars.filter(c => c.active && c.location === G.world.currentCar && c.id !== 'leo');
+  if (!here.length) {
+    container.innerHTML = '<span class="ib-none">No one else in this car</span>';
+    return;
+  }
+  container.innerHTML = here.map(c => {
+    const stats = c.stats || {health:100, stamina:100};
+    const hpDot = stats.health > 60 ? 'healthy' : stats.health > 30 ? 'hurt' : 'critical';
+    return `
+    <div class="ib-chip here" onclick="handleCharClick('${c.id}')" title="${escH(c.role)}\nHP ${stats.health}% • ST ${stats.stamina}%">
+      <div class="ib-av" style="color:${c.color};border-color:${c.color}">${c.avatar||'?'}</div>
+      <span class="ib-name">${escH(c.name)}</span>
+      <span class="ib-dot ${hpDot}" style="width:6px;height:6px;border-radius:50%;background:var(--${hpDot==='healthy'?'green':hpDot==='hurt'?'amber':'red'})"></span>
+    </div>`;
+  }).join('');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PARTY BAR (Arena-style bottom portraits)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderPartyBar() {
+  const container = document.getElementById('pb-content');
+  if (!container) return;
+  const active = G.chars.filter(c => c.active).sort((a,b) => (b.trust||0) - (a.trust||0));
+  if (!active.length) {
+    container.innerHTML = '<span style="font-family:var(--mono);font-size:9px;color:var(--text3)">No party members</span>';
+    return;
+  }
+  container.innerHTML = active.map(c => {
+    const stats = c.stats || {health:100, stamina:100};
+    const isHere = c.location === G.world.currentCar;
+    const hpDot = stats.health > 60 ? 'healthy' : stats.health > 30 ? 'hurt' : 'critical';
+    const dead = stats.health <= 0 ? 'dead' : '';
+    return `
+    <div class="pb-portrait ${isHere?'here':''} ${dead}" onclick="handleCharClick('${c.id}')" oncontextmenu="charCtx(event,'${c.id}')">
+      <div class="pb-av" style="color:${c.color};border-color:${c.color}">
+        ${c.avatar||'?'}
+        <span class="pb-dot ${hpDot}"></span>
+      </div>
+      <div class="pb-name">${escH(c.name)}</div>
+      <div class="pb-stat">
+        <div class="pb-bar"><div class="pb-fill hp" style="width:${stats.health}%"></div></div>
+        <div class="pb-bar"><div class="pb-fill st" style="width:${stats.stamina}%"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// RENDER ALL
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderAll() {
+  renderChars();
+  renderPartyBar();
+  renderInteractionBar();
+  renderSchedule();
+  renderThreads();
+  renderMap();
+  renderInv();
+  renderTL();
+  renderMem();
+  renderLocBar();
+  updateSpeakerSel();
+  updateFooter();
+}
+
+function renderChars() {
+  const list = document.getElementById('char-list');
+  if (!list) return;
+  const active = G.chars.filter(c => c.active);
+  document.getElementById('party-count').textContent = `${active.length} characters`;
+
+  list.innerHTML = active.map(c => {
+    const myItems = G.items.filter(i => i.owner === c.id || i.owner === c.name.toLowerCase());
+    const condHTML = (c.conditions||[]).map(cd =>
+      `<span class="ctag sev-${cd.s}">${escH(cd.t)}</span>`
+    ).join('');
+    const itemChips = myItems.slice(0,4).map(i =>
+      `<span class="ichip" onclick="openItemEdit('${i.id}')" title="${escH(i.desc)}">
+        <span class="idot ${i.cond}"></span>${escH(i.name.length>16?i.name.slice(0,16)+'…':i.name)}
+      </span>`
+    ).join('') + (myItems.length > 4 ? `<span class="ichip">+${myItems.length-4}</span>` : '');
+
+    // Trust color
+    const trustColor = c.trust >= 70 ? '#10b981' : c.trust >= 40 ? '#f59e0b' : '#ef4444';
+    const trustPct = c.trust >= 0 ? c.trust : 50;
+    const partyBadge = {ally:'🤝',neutral:'👁',hostile:'⚔️',unknown:'❓',npc:'•'}[c.party||'neutral']||'';
+
+    // Location label
+    const carName = TRAIN.find(t=>t.id===c.location)?.name || c.location || 'unknown';
+    const isHere = c.location === G.world.currentCar;
+
+    const stats = c.stats || {health:100, stamina:100, stress:0, sanity:100};
+    const statRows = [
+      {k:'health', label:'HP', cls:'st-health'},
+      {k:'stamina', label:'ST', cls:'st-stamina'},
+      {k:'stress', label:'STR', cls:'st-stress'},
+      {k:'sanity', label:'SAN', cls:'st-sanity'},
+    ].map(s => {
+      const val = stats[s.k] ?? 100;
+      return `<div class="stat-row ${s.cls}">
+        <span class="stat-label">${s.label}</span>
+        <div class="stat-track"><div class="stat-fill" style="width:${val}%"></div></div>
+        <span class="stat-val">${val}%</span>
+      </div>`;
+    }).join('');
+
+    return `
+    <div class="pcard" id="pc-${c.id}">
+      <div class="pcard-hdr" onclick="togglePD('${c.id}')" oncontextmenu="charCtx(event,'${c.id}')">
+        <div class="pav" style="color:${c.color};border-color:${c.color}">${c.avatar||'?'}</div>
+        <div style="flex:1;min-width:0">
+          <div class="pname" style="color:${c.color}">${escH(c.name)} ${partyBadge}</div>
+          <div class="prole">${escH(c.role)}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-family:var(--mono);font-size:7px;color:${isHere?'var(--cyan)':'var(--text3)'}">${isHere?'● HERE':'○ '+escH(carName.slice(0,10))}</div>
+        </div>
+      </div>
+      ${c.trust >= 0 ? `
+      <div class="trust-row">
+        <span class="trust-label">Trust</span>
+        <div class="trust-track"><div class="trust-fill" style="width:${trustPct}%;background:${trustColor}"></div></div>
+        <span class="trust-val" style="color:${trustColor}">${c.trust}</span>
+      </div>` : ''}
+      ${statRows}
+      <div class="pdet" id="pd-${c.id}">
+        ${c.status ? `<div class="pstatus">${escH(c.status)}</div>` : ''}
+        ${condHTML ? `<div class="cond-list">${condHTML}</div>` : ''}
+        ${c.personality ? `<div class="pers-note">${escH(c.personality)}</div>` : ''}
+        ${c.voice ? `<div class="voice-note"><div class="voice-label">Voice</div>${escH(c.voice)}</div>` : ''}
+        ${itemChips ? `<div style="margin-bottom:6px"><div class="pinv-label">Carrying</div>${itemChips}</div>` : ''}
+        <div style="display:flex;gap:4px;flex-wrap:wrap">
+          <button class="pbtn" onclick="handleCharClick('${c.id}')">${G.session.playerMode ? 'View' : 'Edit'}</button>
+          <button class="pbtn" onclick="quickCond('${c.id}')">+Cond</button>
+          <button class="pbtn d" onclick="removeChar('${c.id}')">Remove</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderSchedule() {
+  const list = document.getElementById('sched-list');
+  if (!list) return;
+  const dm = G.world.dayMinute;
+
+  // Show upcoming events (next 3) and recent past (last 1)
+  const relevant = SCHEDULE
+    .map(s => ({...s, diff: s.minute - dm}))
+    .filter(s => s.diff >= -60 && s.diff <= 300)
+    .sort((a,b) => a.diff - b.diff)
+    .slice(0, 5);
+
+  if (!relevant.length) {
+    list.innerHTML = '<div style="font-size:10px;color:var(--text3);font-style:italic;padding:4px">No events in the next 5 hours.</div>';
+    return;
+  }
+
+  list.innerHTML = relevant.map(s => {
+    const passed = s.diff < 0;
+    const active = Math.abs(s.diff) < 30;
+    const when = passed ? `${Math.abs(Math.round(s.diff))}m ago` : s.diff < 60 ? `in ${Math.round(s.diff)}m` : `in ${Math.floor(s.diff/60)}h ${s.diff%60}m`;
+    return `<div class="schedule-item ${active?'sched-active':''} ${passed?'sched-passed':''}">
+      <div class="sched-time">${s.icon} ${s.time||''} — ${when}</div>
+      <div class="sched-name">${escH(s.name)}</div>
+      <div class="sched-desc">${escH(s.loc)}${s.desc?' — '+s.desc.slice(0,60):''}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderThreads() {
+  const list = document.getElementById('threads-list');
+  if (!list) return;
+  const threads = G.mems.filter(m =>
+    (m.tags||[]).some(t => ['unresolved','open thread','threat'].includes(t.toLowerCase()))
+  );
+  if (!threads.length) {
+    list.innerHTML = '<div style="font-size:10px;color:var(--text3);font-style:italic;padding:4px">All threads resolved.</div>';
+    return;
+  }
+  list.innerHTML = threads.map(m => `
+    <div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.2);border-radius:3px;padding:6px 8px;margin-bottom:4px;cursor:default" oncontextmenu="memCtx(event,'${m.id}')">
+      <div style="font-family:var(--mono);font-size:7px;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">⚠ ${m.imp}</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.4">${escH(m.text.slice(0,120))}${m.text.length>120?'…':''}</div>
+    </div>`).join('');
+}
+
+function renderMap() {
+  const list = document.getElementById('map-list');
+  if (!list) return;
+  list.innerHTML = TRAIN.map(car => {
+    const charsHere = G.chars.filter(c => c.active && c.location === car.id);
+    const isHere = car.id === G.world.currentCar;
+    return `
+    <div class="car-block${isHere?' here':''}" onclick="toggleCarBody('${car.id}')">
+      <div class="car-top">
+        <span style="font-size:13px">${car.icon}</span>
+        <div style="flex:1;min-width:0">
+          <div class="car-name">${escH(car.name)}${car.threat?' ⚠':''}</div>
+          <div class="car-status">${escH(car.status)}</div>
+        </div>
+        ${isHere ? '<span class="car-here">YOU</span>' : ''}
+        ${!car.accessible ? '<span style="font-family:var(--mono);font-size:7px;padding:1px 4px;border-radius:8px;background:rgba(239,68,68,.2);color:var(--red);border:1px solid rgba(239,68,68,.3)">LOCKED</span>' : ''}
+      </div>
+      ${charsHere.length ? `<div style="padding:0 9px 6px"><div class="car-npcs">${charsHere.map(c=>`<span class="npc-tag">${c.avatar} ${escH(c.name)}</span>`).join('')}</div></div>` : ''}
+      <div class="car-body" id="cb-${car.id}">${escH(car.desc)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderInv() {
+  const list = document.getElementById('inv-list');
+  if (!list) return;
+  const byOwner = {};
+  G.items.forEach(i => {
+    const k = i.owner || 'party';
+    if (!byOwner[k]) byOwner[k] = [];
+    byOwner[k].push(i);
+  });
+
+  let html = '';
+  Object.entries(byOwner).forEach(([oid, items]) => {
+    const char = G.chars.find(c => c.id === oid);
+    const name = char ? char.name : oid === 'party' ? 'Party (Shared)' : 'Unknown';
+    const col = char ? char.color : 'var(--text2)';
+    html += `<div class="inv-owner" style="color:${col}">${escH(name)}</div>`;
+    html += items.map(i => `
+      <div class="inv-item" onclick="openItemEdit('${i.id}')" oncontextmenu="itemCtx(event,'${i.id}')">
+        <div class="inv-name">
+          <span>${escH(i.name)}</span>
+          <span class="cpill ${i.cond}">${i.cond}</span>
+          ${i.qty > 1 ? `<span style="font-family:var(--mono);font-size:7px;color:var(--text3)">×${i.qty}</span>` : ''}
+        </div>
+        ${i.fresh !== null ? `
+        <div class="spoil-row">
+          <div class="spoil-track"><div class="spoil-fill ${i.fresh>60?'sf-fresh':i.fresh>30?'sf-aging':'sf-spoiled'}" style="width:${i.fresh}%"></div></div>
+          <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">${Math.round(i.fresh)}%</span>
+        </div>` : ''}
+        <div class="inv-desc">${escH((i.desc||'').slice(0,80))}${(i.desc||'').length>80?'…':''}</div>
+        ${i.notes ? `<div style="font-size:8px;color:var(--text3);font-style:italic;margin-top:2px">${escH(i.notes)}</div>` : ''}
+      </div>`).join('');
+  });
+  if (!html) html = '<div class="mem-item"><div class="mem-text" style="text-align:center;font-style:italic">No items</div></div>';
+  list.innerHTML = html;
+}
+
+function renderTL() {
+  const list = document.getElementById('tl-list');
+  if (!list) return;
+  const sorted = [...G.tl].reverse();
+  list.innerHTML = sorted.map(e => `
+    <div class="tl-item" oncontextmenu="tlCtx(event,'${e.id}')">
+      <div class="tl-time">${escH(e.time||'')}</div>
+      <div class="tl-title">${escH(e.title)}</div>
+      <div class="tl-tags">
+        <span class="tl-tag" style="color:${impCol(e.imp)};border-color:${impCol(e.imp)}40">${e.imp}</span>
+        ${(e.tags||[]).slice(0,3).map(t=>`<span class="tl-tag">${escH(t)}</span>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function renderMem() {
+  const list = document.getElementById('mem-list');
+  if (!list) return;
+  const order = {critical:0,high:1,medium:2,low:3};
+  const sorted = [...G.mems].sort((a,b)=>(order[a.imp]||2)-(order[b.imp]||2));
+  list.innerHTML = sorted.map(m => `
+    <div class="mem-item" oncontextmenu="memCtx(event,'${m.id}')">
+      <div class="mem-imp"><div class="imdot ${m.imp}"></div><span style="font-family:var(--mono);font-size:7px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">${m.imp}</span></div>
+      <div class="mem-text">${escH(m.text)}</div>
+      <div class="mem-tags">${(m.tags||[]).map(t=>`<span class="mem-tag">${escH(t)}</span>`).join('')}</div>
+    </div>`).join('');
+  document.getElementById('f-mems').textContent = G.mems.length;
+}
+
+function renderLocBar() {
+  const l = G.location;
+  document.getElementById('loc-icon').textContent = l.icon || '🚂';
+  document.getElementById('loc-name').textContent = l.name || '';
+  document.getElementById('loc-desc').textContent = l.desc || '';
+  document.getElementById('loc-atm').innerHTML = (G.world.atmosphere||[]).map(a=>`<span class="atag">${escH(a)}</span>`).join('');
+  document.getElementById('hdr-loc').textContent = l.icon || '🚂';
+  document.getElementById('hdr-time').textContent = G.world.time;
+}
+
+function updateSpeakerSel() {
+  // Mode buttons update based on current mode
+  ['say','do','go','look','ooc'].forEach(m => {
+    document.getElementById(`m-${m}`)?.classList.toggle('on', G.session.mode === m);
+  });
+  const ph = {say:"What does Leo say?",do:"What does Leo do?",go:"Where does Leo go?",look:"What does Leo look at?",ooc:"Out-of-character note..."};
+  document.getElementById('txt').placeholder = ph[G.session.mode] || 'Type...';
+}
+
+function updateFooter() {
+  document.getElementById('f-msgs').textContent = G.session.msgCount;
+  document.getElementById('f-mems').textContent = G.mems.length;
+  const txt = G.msgs.slice(-G.session.memDepth).map(m=>m.content||'').join(' ');
+  document.getElementById('f-ctx').textContent = `~${Math.round(txt.length/4).toLocaleString()}`;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// AUTO MEM EXTRACT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function autoExtractMem(text) {
+  const patterns = [
+    {rx:/\b(dies|is dead|killed|falls unconscious)\b/i, imp:'critical', tag:'Death/KO'},
+    {rx:/\breveals?\s+(?:that\s+)?(.{15,80})/i, imp:'high', tag:'Revelation'},
+    {rx:/\bdiscovers?\s+(?:that\s+)?(.{15,80})/i, imp:'high', tag:'Discovery'},
+  ];
+  text.split(/[.!?]+/).filter(s=>s.trim().length>40).slice(0,10).forEach(s => {
+    patterns.forEach(p => {
+      if (p.rx.test(s)) {
+        const existing = G.mems.some(m => m.text.includes(s.trim().slice(0,40)));
+        if (!existing) {
+          G.mems.push({id:uid(), imp:p.imp, text:`[AUTO] ${s.trim().slice(0,280)}`, tags:[p.tag,'Auto']});
+        }
+      }
+    });
+  });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHARACTER MANAGEMENT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function saveChar() {
+  const id = document.getElementById('ce-id').value;
+  const name = document.getElementById('ce-name').value.trim();
+  if (!name) { toast('Name required','red'); return; }
+
+  const conds = document.getElementById('ce-conds').value.split(',').map(s=>s.trim()).filter(Boolean).map(s=>{
+    const p = s.split('|');
+    return {t:p[0].trim(), s:(p[1]||'neutral').trim()};
+  });
+
+  const stats = {
+    health: parseInt(document.getElementById('ce-hp').value) || 100,
+    stamina: parseInt(document.getElementById('ce-st').value) || 100,
+    stress: parseInt(document.getElementById('ce-stress').value) || 0,
+    sanity: parseInt(document.getElementById('ce-sanity').value) || 100,
+  };
+  Object.keys(stats).forEach(k => stats[k] = Math.max(0, Math.min(100, stats[k])));
+
+  if (id) {
+    const c = G.chars.find(x=>x.id===id);
+    if (c) {
+      c.name=name; c.role=document.getElementById('ce-role').value.trim();
+      c.affiliation=document.getElementById('ce-aff').value.trim();
+      c.avatar=document.getElementById('ce-av').value.trim()||c.avatar||'?';
+      c.color=document.getElementById('ce-col').value;
+      c.trust=parseInt(document.getElementById('ce-trust').value)||50;
+      c.status=document.getElementById('ce-status').value.trim();
+      c.conditions=conds; c.bg=document.getElementById('ce-bg').value.trim();
+      c.personality=document.getElementById('ce-pers').value.trim();
+      c.voice=document.getElementById('ce-voice').value.trim();
+      c.stats=stats;
+      c.location=document.getElementById('ce-loc').value;
+      c.party=document.getElementById('ce-party').value;
+    }
+  } else {
+    G.chars.push({
+      id:uid(), name, role:document.getElementById('ce-role').value.trim(),
+      affiliation:document.getElementById('ce-aff').value.trim(),
+      avatar:document.getElementById('ce-av').value.trim()||'?',
+      color:document.getElementById('ce-col').value,
+      trust:parseInt(document.getElementById('ce-trust').value)||50,
+      party:document.getElementById('ce-party').value,
+      location:document.getElementById('ce-loc').value,
+      active:true, status:document.getElementById('ce-status').value.trim(),
+      conditions:conds, bg:document.getElementById('ce-bg').value.trim(),
+      personality:document.getElementById('ce-pers').value.trim(),
+      voice:document.getElementById('ce-voice').value.trim(),
+      stats,
+    });
+    G.tl.push({id:uid(),time:G.world.time,title:`${name} enters the chronicle`,imp:'medium',desc:'',tags:[name,'Party Change']});
+    appendBlock('system',null,`Character added: ${name}`,'system');
+  }
+  closeM('m-char');
+  renderAll();
+  save();
+  toast(`${name} saved`,'green');
+}
+
+let VIEWING_CHAR_ID = null;
+
+function openCharView(id) {
+  const c = G.chars.find(x=>x.id===id);
+  if (!c) return;
+  VIEWING_CHAR_ID = id;
+  const stats = c.stats || {health:100, stamina:100, stress:0, sanity:100};
+  const conds = (c.conditions||[]).map(cd =>
+    `<span class="cv-tag" style="border-color:var(--border);color:${sevColor(cd.s)}">${escH(cd.t)}</span>`
+  ).join('') || '<span class="cv-tag">none</span>';
+  const myItems = G.items.filter(i => i.owner === c.id || i.owner === c.name.toLowerCase());
+  const itemStr = myItems.length ? myItems.map(i =>
+    `<span class="cv-tag">${escH(i.name)} <span style="color:${condColor(i.cond)}">[${i.cond}]</span></span>`
+  ).join('') : '<span class="cv-tag">none</span>';
+  const carName = TRAIN.find(t=>t.id===c.location)?.name || c.location || 'unknown';
+  const trustColor = c.trust >= 70 ? 'var(--green)' : c.trust >= 40 ? 'var(--amber)' : 'var(--red)';
+  const partyLabel = {ally:'Ally', neutral:'Neutral', hostile:'Hostile', unknown:'Unknown', npc:'NPC'}[c.party||'neutral'];
+
+  document.getElementById('cv-body').innerHTML = `
+    <div class="cv-hdr">
+      <div class="cv-av" style="color:${c.color};border-color:${c.color}">${c.avatar||'?'}</div>
+      <div class="cv-title">
+        <div class="cv-name" style="color:${c.color}">${escH(c.name)}</div>
+        <div class="cv-role">${escH(c.role)} — ${partyLabel}</div>
+        <div class="cv-aff">${escH(c.affiliation)} • ${escH(carName)}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="cv-label">Trust</div>
+        <div style="font-family:var(--mono);font-size:12px;color:${trustColor}">${c.trust}</div>
+      </div>
+    </div>
+
+    <div class="cv-stat-grid">
+      <div class="cv-stat">
+        <div class="cv-stat-name">Health</div>
+        <div class="cv-stat-bar"><div class="cv-stat-fill" style="width:${stats.health}%;background:var(--green)"></div></div>
+        <div class="cv-stat-val">${stats.health}%</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-stat-name">Stamina</div>
+        <div class="cv-stat-bar"><div class="cv-stat-fill" style="width:${stats.stamina}%;background:var(--amber)"></div></div>
+        <div class="cv-stat-val">${stats.stamina}%</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-stat-name">Stress</div>
+        <div class="cv-stat-bar"><div class="cv-stat-fill" style="width:${stats.stress}%;background:var(--red)"></div></div>
+        <div class="cv-stat-val">${stats.stress}%</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-stat-name">Sanity</div>
+        <div class="cv-stat-bar"><div class="cv-stat-fill" style="width:${stats.sanity}%;background:var(--blue)"></div></div>
+        <div class="cv-stat-val">${stats.sanity}%</div>
+      </div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Status</div>
+      <div class="cv-text">${escH(c.status||'No current status recorded.')}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Conditions</div>
+      <div class="cv-tags">${conds}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Carrying</div>
+      <div class="cv-tags">${itemStr}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Personality</div>
+      <div class="cv-text">${fmtTxt(c.personality||c.bg||'No personality profile recorded.')}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Voice</div>
+      <div class="cv-text">${fmtTxt(c.voice||'No voice profile recorded.')}</div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-label">Background</div>
+      <div class="cv-text">${fmtTxt(c.bg||'No background recorded.')}</div>
+    </div>
+  `;
+  document.getElementById('cv-edit-btn').style.display = G.session.playerMode ? 'none' : 'inline-block';
+  openM('m-char-view');
+}
+
+function sevColor(s) {
+  return {critical:'#fca5a5',serious:'#fdba74',moderate:'#fde047',minor:'#93c5fd',neutral:'var(--text2)',positive:'#6ee7b7'}[s] || 'var(--text2)';
+}
+function condColor(c) {
+  return {pristine:'var(--green)',good:'var(--blue)',worn:'var(--amber)',damaged:'var(--red)',broken:'var(--text3)'}[c] || 'var(--text2)';
+}
+
+function openCharEditFromView() {
+  if (!VIEWING_CHAR_ID) return;
+  closeM('m-char-view');
+  openCharEdit(VIEWING_CHAR_ID);
+}
+
+function handleCharClick(id) {
+  if (G.session.playerMode) openCharView(id);
+  else openCharEdit(id);
+}
+
+function openCharEdit(id) {
+  const c = G.chars.find(x=>x.id===id);
+  if (!c) return;
+  document.getElementById('ce-id').value = id;
+  document.getElementById('ce-name').value = c.name||'';
+  document.getElementById('ce-role').value = c.role||'';
+  document.getElementById('ce-aff').value = c.affiliation||'';
+  document.getElementById('ce-av').value = c.avatar||'';
+  document.getElementById('ce-col').value = c.color||'var(--text2)';
+  document.getElementById('ce-trust').value = c.trust||50;
+  document.getElementById('ce-status').value = c.status||'';
+  document.getElementById('ce-conds').value = (c.conditions||[]).map(x=>`${x.t}|${x.s}`).join(', ');
+  document.getElementById('ce-pers').value = c.personality||'';
+  document.getElementById('ce-voice').value = c.voice||'';
+  document.getElementById('ce-bg').value = c.bg||'';
+  const stats = c.stats || {health:100, stamina:100, stress:0, sanity:100};
+  document.getElementById('ce-hp').value = stats.health;
+  document.getElementById('ce-st').value = stats.stamina;
+  document.getElementById('ce-stress').value = stats.stress;
+  document.getElementById('ce-sanity').value = stats.sanity;
+  document.getElementById('ce-loc').value = c.location||'car-rl';
+  document.getElementById('ce-party').value = c.party||'neutral';
+  openM('m-char');
+}
+
+function removeChar(id) {
+  const c = G.chars.find(x=>x.id===id);
+  if (!c || !confirm(`Remove ${c.name}?`)) return;
+  c.active = false;
+  G.items.forEach(i=>{ if(i.owner===id) i.owner='party'; });
+  appendBlock('system',null,`${c.name} removed from roster`,'system');
+  renderAll(); save();
+}
+
+function quickCond(id) {
+  const cond = prompt('Condition|severity (e.g. "Bleeding|serious"):');
+  if (!cond) return;
+  const c = G.chars.find(x=>x.id===id);
+  if (!c) return;
+  const parts = cond.split('|');
+  if (!c.conditions) c.conditions = [];
+  c.conditions.push({t:parts[0].trim(), s:(parts[1]||'neutral').trim()});
+  renderChars(); save();
+  toast(`Condition added to ${c.name}`,'blue');
+}
+
+function togglePD(id) {
+  document.getElementById(`pd-${id}`)?.classList.toggle('open');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ITEM MANAGEMENT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function toggleItemFields() {
+  const cat = document.getElementById('ie-cat').value;
+  document.getElementById('ammo-f').style.display = cat === 'weapon' ? 'grid' : 'none';
+  document.getElementById('food-f').style.display = (cat === 'food' || cat === 'consumable') ? 'block' : 'none';
+}
+
+function saveItem() {
+  const id = document.getElementById('ie-id').value;
+  const name = document.getElementById('ie-name').value.trim();
+  if (!name) { toast('Name required','red'); return; }
+  const cat = document.getElementById('ie-cat').value;
+  const isFood = cat==='food'||cat==='consumable';
+  const isWeapon = cat==='weapon';
+
+  if (id) {
+    const item = G.items.find(i=>i.id===id);
+    if (item) {
+      item.name=name;
+      item.owner=document.getElementById('ie-owner').value||'party';
+      item.cat=cat; item.cond=document.getElementById('ie-cond').value;
+      item.desc=document.getElementById('ie-desc').value.trim();
+      item.notes=document.getElementById('ie-notes').value.trim();
+      item.qty=parseInt(document.getElementById('ie-qty').value)||1;
+      if(isWeapon){item.ammo=parseInt(document.getElementById('ie-ammo').value)||0;item.ammoMax=parseInt(document.getElementById('ie-ammo-max').value)||0;}
+      if(isFood){item.fresh=parseFloat(document.getElementById('ie-fresh').value)||100;item.spoil=parseFloat(document.getElementById('ie-spoil').value)||3;}
+    }
+  } else {
+    G.items.push({
+      id:uid(), name, owner:document.getElementById('ie-owner').value||'party',
+      cat, cond:document.getElementById('ie-cond').value,
+      desc:document.getElementById('ie-desc').value.trim(),
+      notes:document.getElementById('ie-notes').value.trim(),
+      qty:parseInt(document.getElementById('ie-qty').value)||1,
+      ammo:isWeapon?parseInt(document.getElementById('ie-ammo').value)||0:null,
+      ammoMax:isWeapon?parseInt(document.getElementById('ie-ammo-max').value)||0:null,
+      fresh:isFood?parseFloat(document.getElementById('ie-fresh').value)||100:null,
+      spoil:isFood?parseFloat(document.getElementById('ie-spoil').value)||3:null,
+    });
+    appendBlock('system',null,`Item added: ${name}`,'system');
+  }
+  closeM('m-item');
+  renderAll(); save();
+  toast(`${name} saved`,'blue');
+}
+
+function openItemEdit(id) {
+  const item = G.items.find(i=>i.id===id);
+  if (!item) return;
+  document.getElementById('ie-id').value = id;
+  document.getElementById('ie-name').value = item.name||'';
+  document.getElementById('ie-cat').value = item.cat||'misc';
+  document.getElementById('ie-cond').value = item.cond||'good';
+  document.getElementById('ie-desc').value = item.desc||'';
+  document.getElementById('ie-notes').value = item.notes||'';
+  document.getElementById('ie-qty').value = item.qty||1;
+  const sel = document.getElementById('ie-owner');
+  sel.innerHTML = `<option value="party">Party (Shared)</option>`+
+    G.chars.map(c=>`<option value="${c.id}" ${item.owner===c.id?'selected':''}>${escH(c.name)}</option>`).join('');
+  if(item.owner!=='party') sel.value = item.owner;
+  toggleItemFields();
+  if(item.ammo!==null){document.getElementById('ie-ammo').value=item.ammo;document.getElementById('ie-ammo-max').value=item.ammoMax;}
+  if(item.fresh!==null){document.getElementById('ie-fresh').value=item.fresh;document.getElementById('ie-fresh-v').textContent=Math.round(item.fresh);}
+  openM('m-item');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MEMORY
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function saveMem() {
+  const text = document.getElementById('me-text').value.trim();
+  if (!text) { toast('Text required','red'); return; }
+  G.mems.push({
+    id:uid(), imp:document.getElementById('me-imp').value,
+    text, tags:document.getElementById('me-tags').value.split(',').map(s=>s.trim()).filter(Boolean),
+  });
+  closeM('m-mem');
+  renderMem(); save();
+  toast('Memory stored','purple');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SETTINGS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function saveSettings() {
+  G.api.url = document.getElementById('s-url').value.trim()||'http://localhost:1234/v1';
+  G.api.model = document.getElementById('s-model').value.trim();
+  G.api.temp = parseFloat(document.getElementById('s-temp').value)||0.9;
+  G.api.maxTok = parseInt(document.getElementById('s-maxt').value)||3000;
+  G.session.memDepth = parseInt(document.getElementById('s-memw').value)||20;
+  G.session.playerMode = document.getElementById('s-player').checked;
+  G.session.autoTick = parseInt(document.getElementById('s-auto-tick').value) || 0;
+  G.world.time = document.getElementById('s-time').value.trim();
+  G.session.extra = document.getElementById('s-extra').value.trim();
+  document.getElementById('hdr-time').textContent = G.world.time;
+  updateModeButton();
+  closeM('m-settings');
+  save(); checkConn();
+  toast('Settings saved','green');
+}
+
+function applySettings() {
+  document.getElementById('s-url').value = G.api.url;
+  document.getElementById('s-model').value = G.api.model||'';
+  document.getElementById('s-temp').value = G.api.temp;
+  document.getElementById('s-temp-v').textContent = G.api.temp.toFixed(2);
+  document.getElementById('s-maxt').value = G.api.maxTok;
+  document.getElementById('s-maxt-v').textContent = G.api.maxTok;
+  document.getElementById('s-memw').value = G.session.memDepth;
+  document.getElementById('s-player').checked = !!G.session.playerMode;
+  document.getElementById('s-auto-tick').value = G.session.autoTick || 0;
+  document.getElementById('s-time').value = G.world.time;
+  document.getElementById('s-extra').value = G.session.extra||'';
+  document.getElementById('hdr-time').textContent = G.world.time;
+  updateModeButton();
+}
+
+function togglePlayerMode() {
+  G.session.playerMode = !G.session.playerMode;
+  updateModeButton();
+  save();
+  toast(G.session.playerMode ? 'Player Mode — read-only sheets' : 'Edit Mode — full control', 'green');
+}
+
+function updateModeButton() {
+  const btn = document.getElementById('hdr-mode');
+  if (btn) btn.textContent = G.session.playerMode ? 'Player' : 'Edit';
+}
+
+async function testConn() {
+  try {
+    const url = document.getElementById('s-url').value.trim();
+    const r = await fetch(`${url}/models`);
+    if(r.ok){const d=await r.json();toast(`Connected — ${d.data?.length||0} models`,'green');}
+    else toast(`HTTP ${r.status}`,'red');
+  } catch(e){ toast(`Failed: ${e.message}`,'red'); }
+}
+
+async function checkConn() {
+  try {
+    const r = await fetch(`${G.api.url}/models`,{signal:AbortSignal.timeout(3000)});
+    G.api.ok = r.ok;
+  } catch(e){ G.api.ok = false; }
+  document.getElementById('conn-dot').className = G.api.ok ? 'ok' : '';
+  document.getElementById('conn-txt').textContent = G.api.ok ? 'LMStudio Connected' : 'Disconnected';
+}
+
+function exportSave() {
+  const b = new Blob([JSON.stringify(G,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(b);
+  a.download=`mec-${Date.now()}.json`; a.click();
+  toast('Exported','green');
+}
+
+function importSave() {
+  const inp = document.createElement('input'); inp.type='file'; inp.accept='.json';
+  inp.onchange = e => {
+    const f=e.target.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      try{
+        const p=JSON.parse(ev.target.result);
+        Object.assign(G.api,p.api||{});Object.assign(G.world,p.world||{});
+        Object.assign(G.location,p.location||{});Object.assign(G.session,p.session||{});
+        G.chars=p.chars||[];G.items=p.items||[];G.msgs=p.msgs||[];G.mems=p.mems||[];G.tl=p.tl||[];
+        // Ensure old saves have stats/personality/voice
+        G.chars.forEach(c=>{
+          if(!c.stats)c.stats={health:100,stamina:100,stress:0,sanity:100};
+          if(!c.personality)c.personality=c.bg||'';
+          if(!c.voice)c.voice='';
+        });
+        document.getElementById('story-log').innerHTML='';
+        applySettings();renderAll();save();
+        G.msgs.forEach(m=>{
+          if(m.hidden) return;
+          if(m.role==='narrator') appendBlock('narrator',null,m.content,'narrator',m.id);
+          else if(m.role==='user') appendBlock('leo',{name:'Leo',avatar:'🔵',color:'var(--c-leo)'},m.content,m.mode||'say',m.id);
+          else if(m.role==='assistant') renderResponseText(m.content.replace(/\[GAME\][\s\S]*?\[\/GAME\]/g,'').trim(),m.id);
+        });
+        toast('Imported','green');
+      }catch(e){toast('Import failed','red');}
+    };r.readAsText(f);
+  };inp.click();
+}
+
+function clearAll() {
+  if(!confirm('Clear ALL data?')) return;
+  localStorage.removeItem('mec3'); location.reload();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SPOILAGE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+let spoilTimer = null;
+function startSpoilage() {
+  if (spoilTimer) clearInterval(spoilTimer);
+  spoilTimer = setInterval(() => {
+    let changed = false;
+    G.items.forEach(i => {
+      if (i.fresh !== null && i.spoil) {
+        const old = i.fresh;
+        i.fresh = Math.max(0, i.fresh - i.spoil);
+        changed = true;
+        if (old>60&&i.fresh<=60) { appendBlock('system',null,`⚠ ${i.name} aging — ${Math.round(i.fresh)}% fresh`,'system'); toast(`${i.name} aging`,'amber'); }
+        else if (old>30&&i.fresh<=30) { appendBlock('system',null,`🚨 ${i.name} spoiling!`,'system'); toast(`${i.name} SPOILING`,'red'); }
+        else if (old>0&&i.fresh<=0) { appendBlock('system',null,`☠ ${i.name} fully spoiled.`,'system'); i.cond='damaged'; }
+      }
+    });
+    if (changed) { renderInv(); save(); }
+  }, 60000); // every real minute
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TIMERS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function startTimers() {
+  startSpoilage();
+  setInterval(() => {
+    const e = Date.now() - G.session.start;
+    const m = Math.floor(e/60000); const s = Math.floor((e%60000)/1000);
+    document.getElementById('f-sess').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  }, 1000);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CONTEXT MENUS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+let activeCtx = null;
+function showCtx(x, y, items) {
+  if (activeCtx) { activeCtx.remove(); activeCtx = null; }
+  const m = document.createElement('div'); m.className = 'ctxm';
+  m.style.left = `${Math.min(x, window.innerWidth-160)}px`;
+  m.style.top = `${Math.min(y, window.innerHeight-items.length*26-10)}px`;
+  items.forEach(it => {
+    if (it.div) { m.innerHTML += '<div class="cxdiv"></div>'; }
+    else {
+      const el = document.createElement('div');
+      el.className = `cxi${it.d?' d':''}`;
+      el.textContent = it.l;
+      el.onclick = () => { m.remove(); activeCtx=null; it.a?.(); };
+      m.appendChild(el);
+    }
+  });
+  document.body.appendChild(m); activeCtx = m;
+  setTimeout(() => {
+    const cl = () => { m.remove(); activeCtx=null; document.removeEventListener('click',cl); };
+    document.addEventListener('click', cl);
+  }, 10);
+}
+
+function charCtx(e, id) {
+  e.preventDefault();
+  const c = G.chars.find(x=>x.id===id); if (!c) return;
+  showCtx(e.clientX, e.clientY, [
+    {l:'✏️ Edit', a:()=>openCharEdit(id)},
+    {l:'+ Condition', a:()=>quickCond(id)},
+    {div:true},
+    {l:'Trust +10', a:()=>{c.trust=Math.min(100,(c.trust||50)+10);renderChars();save();}},
+    {l:'Trust -10', a:()=>{c.trust=Math.max(0,(c.trust||50)-10);renderChars();save();}},
+    {l:'HP -10', a:()=>{if(!c.stats)c.stats={health:100,stamina:100,stress:0,sanity:100};c.stats.health=Math.max(0,c.stats.health-10);renderChars();save();}},
+    {l:'ST +10', a:()=>{if(!c.stats)c.stats={health:100,stamina:100,stress:0,sanity:100};c.stats.stamina=Math.min(100,c.stats.stamina+10);renderChars();save();}},
+    {div:true},
+    {l:'🗑 Remove', a:()=>removeChar(id), d:true},
+  ]);
+}
+
+function itemCtx(e, id) {
+  e.preventDefault();
+  const item = G.items.find(i=>i.id===id); if (!item) return;
+  const conds = ['pristine','good','worn','damaged','broken'];
+  const ci = conds.indexOf(item.cond);
+  showCtx(e.clientX, e.clientY, [
+    {l:'✏️ Edit', a:()=>openItemEdit(id)},
+    {l:'📉 Degrade', a:()=>{if(ci<4){item.cond=conds[ci+1];renderInv();renderChars();save();toast(`${item.name}→${item.cond}`,'amber');}}},
+    {l:'✨ Restore', a:()=>{if(ci>0){item.cond=conds[ci-1];renderInv();renderChars();save();}}},
+    {div:true},
+    {l:'🗑 Remove', a:()=>{G.items=G.items.filter(i=>i.id!==id);renderInv();renderChars();save();}, d:true},
+  ]);
+}
+
+function tlCtx(e, id) {
+  e.preventDefault();
+  showCtx(e.clientX, e.clientY, [
+    {l:'⭐ Mark Critical', a:()=>{const ev=G.tl.find(x=>x.id===id);if(ev){ev.imp='critical';renderTL();save();}}},
+    {div:true},
+    {l:'🗑 Remove', a:()=>{G.tl=G.tl.filter(x=>x.id!==id);renderTL();save();}, d:true},
+  ]);
+}
+
+function memCtx(e, id) {
+  e.preventDefault();
+  showCtx(e.clientX, e.clientY, [
+    {l:'⬆ Critical', a:()=>{const m=G.mems.find(x=>x.id===id);if(m){m.imp='critical';renderMem();save();}}},
+    {l:'⬇ Low', a:()=>{const m=G.mems.find(x=>x.id===id);if(m){m.imp='low';renderMem();save();}}},
+    {div:true},
+    {l:'🗑 Delete', a:()=>{G.mems=G.mems.filter(x=>x.id!==id);renderMem();save();}, d:true},
+  ]);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+// UI UTILS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━
+function openM(id) {
+  const m = document.getElementById(id); if (!m) return;
+  m.style.display = 'flex';
+  // Reset char modal if opening fresh
+  if (id === 'm-char' && !document.getElementById('ce-id').value) {
+    ['ce-name','ce-role','ce-aff','ce-av','ce-status','ce-conds','ce-bg','ce-pers','ce-voice'].forEach(f => {
+      const el = document.getElementById(f); if(el) el.value='';
+    });
+    document.getElementById('ce-trust').value = '50';
+    document.getElementById('ce-hp').value = '100';
+    document.getElementById('ce-st').value = '100';
+    document.getElementById('ce-stress').value = '0';
+    document.getElementById('ce-sanity').value = '100';
+    document.getElementById('ce-loc').value = 'car-rl';
+    document.getElementById('ce-party').value = 'neutral';
+  }
+  if (id === 'm-item') {
+    document.getElementById('ie-id').value = '';
+    const sel = document.getElementById('ie-owner');
+    sel.innerHTML = `<option value="party">Party (Shared)</option>`+
+      G.chars.map(c=>`<option value="${c.id}">${escH(c.name)}</option>`).join('');
+    ['ie-name','ie-desc','ie-notes'].forEach(f=>{const el=document.getElementById(f);if(el)el.value='';});
+    document.getElementById('ie-qty').value='1';
+    document.getElementById('ie-cond').value='good';
+    toggleItemFields();
+  }
+}
+function closeM(id) { document.getElementById(id).style.display = 'none'; }
+function oClose(e, id) { if(e.target===document.getElementById(id)) closeM(id); }
+function toggleS(id) { const el=document.getElementById(id); if(el) el.style.display=el.style.display==='none'?'':'none'; }
+function toggleCarBody(id) { document.getElementById(`cb-${id}`)?.classList.toggle('open'); }
+function switchT(id, btn) {
+  document.querySelectorAll('.tcnt').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id)?.classList.add('on');
+  btn?.classList.add('on');
+}
+function setMode(m) {
+  G.session.mode = m;
+  ['say','do','go','look','ooc'].forEach(x => document.getElementById(`m-${x}`)?.classList.toggle('on', x===m));
+  const ph={say:"What does Leo say?",do:"What does Leo do?",go:"Where does Leo go?",look:"What does Leo look at?",ooc:"Out-of-character note..."};
+  document.getElementById('txt').placeholder = ph[m]||'Type...';
+}
+function handleKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();go();} }
+function autoR(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,100)+'px'; }
+
+function toast(msg, col='purple') {
+  const cols={purple:'var(--c-waluigi)',green:'var(--green)',red:'var(--red)',amber:'var(--amber)',blue:'var(--blue)'};
+  const c = document.getElementById('toasts');
+  const t = document.createElement('div'); t.className='toast';
+  t.style.borderColor = cols[col]||cols.purple;
+  t.innerHTML = `<span style="color:${cols[col]||cols.purple}">●</span> ${escH(msg)}`;
+  c.appendChild(t); setTimeout(()=>t.remove(), 3000);
+}
+
+// HELPERS
+function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function escH(s) { if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtTxt(t) {
+  if(!t) return '';
+  return t
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g,'<em>$1</em>')
+    .replace(/_([^_]+)_/g,'<em>$1</em>')
+    .replace(/\n/g,'<br>');
+}
+function impCol(i) { return {critical:'var(--red)',high:'var(--amber)',medium:'var(--blue)',low:'var(--text3)'}[i]||'var(--text3)'; }
+
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') {
+    document.querySelectorAll('.moverlay').forEach(m=>m.style.display='none');
+    if(activeCtx){activeCtx.remove();activeCtx=null;}
+    document.getElementById('ce-id').value='';
+    document.getElementById('ie-id').value='';
+  }
+  if(e.ctrlKey&&e.key==='Enter') go();
+});
+
+init();
+</script>
+</body>
+</html>

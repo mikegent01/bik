@@ -1,0 +1,9 @@
+export const BOOK_DATA = {
+    title: "Waluigi's Guide to Graceful Cheating",
+    pages: [
+        `Foreword by Waluigi:\n\nWAH! So you want to be a winner? Good! Winning is the best! But sometimes, the other guy is... 'better'. Or 'stronger'. Or 'not cheating'. This is where style comes in! This book is not about winning. It is about CHEATING! But with grace! With panache! With a WAH! Anyone can trip an opponent. But can you do it while distracting the referee with a beautiful pirouette? I think not! Read on, and you too can become a master of magnificent mischief!`,
+        `Chapter 2: The Art of the Distracting Dance\n\nThe key to a good cheat is misdirection. While your opponent is focused on your incredible dance moves, you are free to... adjust the score. Or their shoelaces. A good distracting dance has three components:\n1. Flailing Limbs: Unpredictable! Chaotic!\n2. A Loud 'WAH!': This startles the opponent, creating an opening.\n3. A Confident Smirk: This makes them think you're just better than them, even when you are not.`,
+        `Chapter 5: Card Games - It's All in the Sleeves\n\nHaving an ace up your sleeve is for amateurs. A true professional has an entire deck up their sleeve. And a second deck in their hat. And a third, smaller deck hidden in their magnificent mustache. The key is to have so many hidden cards that even you are surprised when you draw a winning hand. It adds to the authenticity of your victory cry!`,
+        `Chapter 8: Sportsmanship is for Losers\n\nThey say, 'It's not whether you win or lose, it's how you play the game.' WRONG! It is ALWAYS whether you win or lose. How you play the game is simple: you play to win. If that means putting a Bob-omb in the tennis ball machine, so be it. A victory is a victory, and it looks much better on ME, Waluigi!`
+    ]
+};

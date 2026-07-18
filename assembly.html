@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAHbook | Vigilance Terminal</title>
+    <meta name="description" content="WAHbook social feed inside the Vigilance Terminal.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="assembly.css">
+    <link rel="stylesheet" href="shop-wallet-sync.css">
+    <script type="module" src="shop-wallet-sync.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+            
+            
+            <main id="main-content" class="wahbook-main">
+                <!-- Top Header Bar -->
+                <header class="wahbook-header">
+                    <div class="wahbook-logo">
+                        <span class="logo-icon">📱</span>
+                        <span class="logo-text">WAHbook</span>
+                    </div>
+                    <div class="wahbook-search">
+                        <input type="text" id="global-search" placeholder="Search posts, people, topics..." autocomplete="off" spellcheck="false">
+                        <button class="search-btn" type="button">🔍</button>
+                    </div>
+                    <div class="wahbook-header-actions">
+                        <button class="header-action-btn" id="notifications-btn" title="Notifications">
+                            🔔
+                            <span class="notification-badge" id="notif-count">3</span>
+                        </button>
+                        <button class="header-action-btn" id="bookmarks-btn" title="Bookmarks">🔖</button>
+                        <button class="header-action-btn" id="messages-btn" title="Messages">✉️</button>
+                    </div>
+                </header>
+
+                <!-- Main Navigation Tabs -->
+                <nav class="wahbook-nav">
+                    <button class="nav-tab active" data-tab="foryou">
+                        <span class="tab-icon">✨</span>
+                        <span class="tab-label">For You</span>
+                    </button>
+                    <button class="nav-tab" data-tab="following">
+                        <span class="tab-icon">👥</span>
+                        <span class="tab-label">Following</span>
+                    </button>
+                    <button class="nav-tab" data-tab="latest">
+                        <span class="tab-icon">🕐</span>
+                        <span class="tab-label">Latest</span>
+                    </button>
+                    <button class="nav-tab" data-tab="events">
+                        <span class="tab-icon">📅</span>
+                        <span class="tab-label">Events</span>
+                    </button>
+                    <button class="nav-tab" data-tab="intel">
+                        <span class="tab-icon">🔍</span>
+                        <span class="tab-label">Intel</span>
+                    </button>
+                    <button class="nav-tab" data-tab="infamy">
+                        <span class="tab-icon">🚨</span>
+                        <span class="tab-label">Infamy</span>
+                    </button>
+                    <button class="nav-tab" data-tab="explore">
+                        <span class="tab-icon">🌐</span>
+                        <span class="tab-label">Explore</span>
+                    </button>
+                    <button class="nav-tab" data-tab="news">📰 News</button>
+                </nav>
+
+                <!-- Content Area -->
+                <div class="wahbook-content-wrapper">
+                    <!-- Left Sidebar (on larger screens) -->
+                    <aside class="wahbook-left-sidebar">
+                        <div class="user-profile-card" id="user-profile-card">
+                            <!-- Populated by JS -->
+                        </div>
+                        
+                        <div class="quick-links-card">
+                            <h4>Quick Links</h4>
+                            <a href="#" class="quick-link" data-action="my-posts">📝 My Posts</a>
+                            <a href="#" class="quick-link" data-action="bookmarks">🔖 Bookmarks</a>
+                            <a href="#" class="quick-link" data-action="mentions">@ Mentions</a>
+                            <a href="#" class="quick-link" data-action="liked">❤️ Liked Posts</a>
+                             <button id="read-full-page-btn" class="control-btn"><span>🔊</span> Read Full Page</button>
+                        </div>
+
+                        <div class="faction-filter-card">
+                            <h4>Filter by Faction</h4>
+                            <div id="faction-filters">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Feed Area -->
+                    <div class="wahbook-feed-area">
+                        <!-- Stories/Highlights Bar -->
+                        <div class="stories-bar" id="stories-bar">
+                            <!-- Populated by JS -->
+                        </div>
+<div id="feed-news" class="feed-content hidden">
+    <div id="news-container"></div>
+</div>
+                        <!-- Create Post Box -->
+                        <div class="create-post-box" id="create-post-box">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <!-- Feed Tabs Content -->
+                        <div class="feed-content" id="feed-foryou">
+                            <div class="feed-header">
+                                <h3>For You</h3>
+                                <div class="feed-controls">
+                                    <select id="foryou-sort">
+                                        <option value="recommended">Recommended</option>
+                                        <option value="trending">Trending</option>
+                                        <option value="controversial">Controversial</option>
+                                        <option value="unseen">Unseen</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="posts-container" id="foryou-posts">
+                                <div class="empty-state">
+                                    <span class="empty-state-icon">⏳</span>
+                                    <h3>Loading your feed</h3>
+                                    <p>Booting the first post batch now. Additional posts will stream in after launch.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feed-content hidden" id="feed-following">
+                            <div class="feed-header">
+                                <h3>Following</h3>
+                                <p class="feed-subtitle">Posts from accounts you follow</p>
+                            </div>
+                            <div class="posts-container" id="following-posts">
+                                <!-- Posts loaded by JS -->
+                            </div>
+                        </div>
+
+                        <div class="feed-content hidden" id="feed-latest">
+                            <div class="feed-header">
+                                <h3>Latest</h3>
+                                <p class="feed-subtitle">Most recent posts</p>
+                            </div>
+                            <div class="posts-container" id="latest-posts">
+                                <!-- Posts loaded by JS -->
+                            </div>
+                        </div>
+
+                        <div class="feed-content hidden" id="feed-events">
+                            <div class="feed-header">
+                                <h3>Events & Happenings</h3>
+                                <div class="feed-controls">
+                                    <button class="control-btn active" data-sort="newest">Newest</button>
+                                    <button class="control-btn" data-sort="oldest">Oldest</button>
+                                    <button class="control-btn" data-sort="impact">Impact</button>
+                                </div>
+                            </div>
+                            <div class="events-container" id="events-container">
+                                <!-- Events loaded by JS -->
+                            </div>
+                        </div>
+
+                        <div class="feed-content hidden" id="feed-intel">
+                            <div class="feed-header">
+                                <h3>Intelligence Hub</h3>
+                                <p class="feed-subtitle">Rumors, intel, and faction analysis</p>
+                            </div>
+                            <div class="intel-container" id="intel-container">
+                                <!-- Intel loaded by JS -->
+                            </div>
+                        </div>
+
+                        <div class="feed-content hidden" id="feed-infamy">
+                            <div class="feed-header">
+                                <h3>Infamy Matrix</h3>
+                                <p class="feed-subtitle">Heat, warrants, fear, scandal, and hostile attention — separate from Fame.</p>
+                            </div>
+                            <div class="infamy-container" id="infamy-container">
+                                <!-- Infamy matrix loaded by JS -->
+                            </div>
+                        </div>
+
+                        <div class="feed-content hidden" id="feed-explore">
+                            <div class="feed-header">
+                                <h3>Explore</h3>
+                                <p class="feed-subtitle">Discover new content and people</p>
+                            </div>
+                            <div class="explore-container" id="explore-container">
+                                <!-- Explore content loaded by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="feed-pagination" id="feed-pagination">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Right Sidebar -->
+                    <aside class="wahbook-right-sidebar">
+                        <!-- Trending Topics -->
+                        <div class="sidebar-card trending-card">
+                            <h4>🔥 Trending Now</h4>
+                            <div id="trending-topics">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Infamy Watch -->
+                        <div class="sidebar-card infamy-card">
+                            <h4>🚨 Infamy Watch</h4>
+                            <div id="infamy-watch">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Who to Follow -->
+                        <div class="sidebar-card suggestions-card">
+                            <h4>👥 Who to Follow</h4>
+                            <div id="follow-suggestions">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Active Arcs -->
+                        <div class="sidebar-card arcs-card">
+                            <h4>📖 Active Story Arcs</h4>
+                            <div id="active-arcs">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Cycle Status -->
+                        <div class="sidebar-card cycle-card">
+                            <h4>🌀 World Cycle</h4>
+                            <div id="cycle-status">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="create-post-modal" class="modal">
+        <div class="modal-content large">
+            <button class="modal-close">&times;</button>
+            <h2>Create Post</h2>
+            <div class="modal-body">
+                <div class="post-composer">
+                    <div class="composer-header">
+                        <img id="composer-avatar" class="composer-avatar" src="" alt="Your avatar">
+                        <span id="composer-name" class="composer-name">Loading...</span>
+                    </div>
+                    <textarea id="new-post-textarea" placeholder="What's happening in the realm?"></textarea>
+                    <div class="composer-tools">
+                        <button class="tool-btn" title="Add Image">🖼️</button>
+                        <button class="tool-btn" title="Add Poll">📊</button>
+                        <button class="tool-btn" title="Tag Location">📍</button>
+                        <button class="tool-btn" title="Tag People">@</button>
+                    </div>
+                    <div class="composer-footer">
+                        <span class="char-count"><span id="char-count">0</span>/500</span>
+                        <button id="submit-post-btn" class="btn-primary">Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="share-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>Share Post</h2>
+            <div class="modal-body">
+                <div class="share-tabs">
+                    <button class="share-tab-btn active" data-format="link">Link</button>
+                    <button class="share-tab-btn" data-format="iframe">Embed</button>
+                </div>
+                <textarea id="share-code-textarea" readonly></textarea>
+                <button id="copy-share-btn" class="btn-primary">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dossier-modal" class="modal">
+        <div class="modal-content large">
+            <button class="dossier-modal-close modal-close">&times;</button>
+            <div id="dossier-modal-body">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <div id="notifications-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>Notifications</h2>
+            <div class="modal-body" id="notifications-list">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <div id="bookmarks-modal" class="modal">
+        <div class="modal-content large">
+            <button class="modal-close">&times;</button>
+            <h2>Bookmarked Posts</h2>
+            <div class="modal-body" id="bookmarks-list">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="common.js" defer></script>
+    <script type="module" src="navigation.js" defer></script>
+    <script type="module" src="assembly.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,2370 @@
+/* =============================================
+   MUSHROOM REGENCY - FACTION STYLESHEET
+   Theme: Bureaucratic gold, aged parchment, institutional authority
+   ============================================= */
+
+/* =============================================
+   CSS VARIABLES - REGENCY THEME
+   ============================================= */
+
+:root {
+    /* Primary Regency Colors - Institutional Gold & Cream */
+    --regency-gold: #d4a847;
+    --regency-gold-light: #e8c86e;
+    --regency-gold-dark: #a67c32;
+    --regency-cream: #f5f0e1;
+    --regency-parchment: #ebe3d0;
+    --regency-sepia: #8b7355;
+    
+    /* Secondary Colors */
+    --regency-burgundy: #722f37;
+    --regency-forest: #2d4a3e;
+    --regency-navy: #1e3a5f;
+    --regency-bronze: #cd7f32;
+    
+    /* Status Colors */
+    --status-active: #4a7c59;
+    --status-detained: #b8860b;
+    --status-missing: #8b4513;
+    --status-deceased: #4a4a4a;
+    --status-compromised: #a0522d;
+    --status-seized: #8b0000;
+    --status-collapsed: #2f1810;
+    --status-operational: #3d6b4f;
+    --status-defunct: #696969;
+    --status-unknown: #4b0082;
+    
+    /* Diplomatic Status */
+    --diplo-allied: #4a7c59;
+    --diplo-neutral: #b8860b;
+    --diplo-complicated: #cd853f;
+    --diplo-hostile: #a0522d;
+    --diplo-at-war: #8b0000;
+    
+    /* Background Layers */
+    --bg-primary: #1a1612;
+    --bg-secondary: #252017;
+    --bg-tertiary: #302a20;
+    --bg-card: #2a241c;
+    --bg-card-hover: #352e24;
+    
+    /* Text Colors */
+    --text-primary: #e8dcc8;
+    --text-secondary: #b8a88a;
+    --text-muted: #8a7a62;
+    --text-gold: #d4a847;
+    
+    /* Borders & Accents */
+    --border-gold: rgba(212, 168, 71, 0.4);
+    --border-subtle: rgba(139, 115, 85, 0.3);
+    --glow-gold: rgba(212, 168, 71, 0.3);
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-gold: 0 0 20px rgba(212, 168, 71, 0.2);
+}
+
+/* =============================================
+   REGENCY HEADER
+   ============================================= */
+
+.regency-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    border-bottom: 3px solid var(--regency-gold);
+    position: relative;
+    overflow: hidden;
+}
+
+.regency-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            rgba(212, 168, 71, 0.03) 50px,
+            rgba(212, 168, 71, 0.03) 51px
+        );
+    pointer-events: none;
+}
+
+.regency-header .header-emblem {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 10px var(--glow-gold));
+    animation: emblem-pulse 4s ease-in-out infinite;
+}
+
+@keyframes emblem-pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--glow-gold)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 20px var(--glow-gold)); }
+}
+
+.regency-header .header-title-block {
+    flex: 1;
+}
+
+.regency-header .page-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--regency-gold);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px var(--glow-gold);
+}
+
+.regency-header .page-subtitle {
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0 0 0;
+    font-style: italic;
+}
+
+.regency-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(139, 0, 0, 0.3);
+    border: 1px solid var(--status-seized);
+    border-radius: 4px;
+}
+
+.regency-status-indicator .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: critical-blink 1s ease-in-out infinite;
+}
+
+.regency-status-indicator .status-dot.critical {
+    background: #ff4444;
+    box-shadow: 0 0 10px #ff4444;
+}
+
+@keyframes critical-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.regency-status-indicator .status-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: #ff6b6b;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* =============================================
+   VIEW CONTROLS
+   ============================================= */
+
+.regency-controls {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+}
+
+.regency-controls .view-btn {
+    padding: 0.6rem 1.2rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.regency-controls .view-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 168, 71, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.regency-controls .view-btn:hover::before {
+    left: 100%;
+}
+
+.regency-controls .view-btn:hover {
+    border-color: var(--regency-gold);
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
+}
+
+.regency-controls .view-btn.active {
+    background: linear-gradient(135deg, var(--regency-gold-dark) 0%, var(--regency-gold) 100%);
+    border-color: var(--regency-gold-light);
+    color: var(--bg-primary);
+    font-weight: 700;
+    box-shadow: var(--shadow-gold);
+}
+
+/* =============================================
+   INTEL WARNING BANNER
+   ============================================= */
+
+.intel-warning-banner.regency-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(90deg, rgba(212, 168, 71, 0.15) 0%, rgba(212, 168, 71, 0.05) 100%);
+    border-bottom: 1px solid var(--border-gold);
+}
+
+.intel-warning-banner .warning-icon {
+    font-size: 1.25rem;
+}
+
+.intel-warning-banner .warning-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.intel-warning-banner #intel-level {
+    color: var(--regency-gold);
+    font-weight: 700;
+}
+
+.intel-warning-banner.full-access {
+    background: linear-gradient(90deg, rgba(74, 124, 89, 0.2) 0%, rgba(74, 124, 89, 0.05) 100%);
+    border-color: var(--status-active);
+}
+
+.intel-warning-banner .full-access-text {
+    color: var(--status-active);
+}
+
+/* =============================================
+   VIEW CONTAINERS
+   ============================================= */
+
+#regency-dashboard {
+    padding: 1.5rem;
+    min-height: calc(100vh - 250px);
+}
+
+.regency-view {
+    display: none;
+}
+
+.regency-view.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.view-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.view-header h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.view-header p {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* =============================================
+   GOVERNMENT STRUCTURE
+   ============================================= */
+
+.gov-section {
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-gold);
+}
+
+.section-header .section-icon {
+    font-size: 1.5rem;
+}
+
+.section-header h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    color: var(--regency-gold-light);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+/* Official Cards */
+.officials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.official-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.official-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--regency-gold);
+    transition: width 0.2s ease;
+}
+
+.official-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--regency-gold);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-medium);
+}
+
+.official-card:hover::before {
+    width: 6px;
+}
+
+.official-card.status-detained::before { background: var(--status-detained); }
+.official-card.status-missing::before { background: var(--status-missing); }
+.official-card.status-active::before { background: var(--status-active); }
+.official-card.status-deceased::before { background: var(--status-deceased); }
+
+.official-portrait {
+    font-size: 2.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-tertiary);
+    border-radius: 50%;
+    border: 2px solid var(--border-gold);
+}
+
+.official-info {
+    flex: 1;
+}
+
+.official-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.official-title {
+    font-size: 0.85rem;
+    color: var(--regency-gold);
+    margin-top: 0.25rem;
+}
+
+.official-tenure {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.official-status {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.detained {
+    background: rgba(184, 134, 11, 0.3);
+    color: #daa520;
+    border: 1px solid rgba(184, 134, 11, 0.5);
+}
+
+.status-badge.missing {
+    background: rgba(139, 69, 19, 0.3);
+    color: #cd853f;
+    border: 1px solid rgba(139, 69, 19, 0.5);
+}
+
+.status-badge.active {
+    background: rgba(74, 124, 89, 0.3);
+    color: #6b8e6b;
+    border: 1px solid rgba(74, 124, 89, 0.5);
+}
+
+.status-badge.deceased {
+    background: rgba(74, 74, 74, 0.3);
+    color: #888;
+    border: 1px solid rgba(74, 74, 74, 0.5);
+}
+
+.status-badge.large {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+}
+
+/* Department Cards */
+.departments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.department-card {
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.department-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--regency-gold);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.department-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--regency-gold);
+    box-shadow: var(--shadow-medium);
+}
+
+.department-card:hover::after {
+    opacity: 1;
+}
+
+.department-card.status-operational::after { background: var(--status-operational); }
+.department-card.status-compromised::after { background: var(--status-compromised); }
+.department-card.status-seized::after { background: var(--status-seized); }
+.department-card.status-collapsed::after { background: var(--status-collapsed); }
+.department-card.status-defunct::after { background: var(--status-defunct); }
+.department-card.status-unknown::after { background: var(--status-unknown); }
+
+.dept-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.dept-icon {
+    font-size: 1.75rem;
+}
+
+.dept-title-block {
+    flex: 1;
+}
+
+.dept-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.dept-head {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+.dept-status {
+    margin-bottom: 0.75rem;
+}
+
+.dept-status .status-label {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.dept-status .status-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+}
+
+.dept-status .status-value.operational { color: var(--status-operational); }
+.dept-status .status-value.compromised { color: var(--status-compromised); }
+.dept-status .status-value.seized { color: var(--status-seized); }
+.dept-status .status-value.collapsed { color: var(--status-collapsed); }
+.dept-status .status-value.defunct { color: var(--status-defunct); }
+.dept-status .status-value.unknown { color: var(--status-unknown); }
+
+.dept-description {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Council Cards */
+.councils-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.council-card {
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.council-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--regency-gold);
+}
+
+.council-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.council-icon {
+    font-size: 1.25rem;
+}
+
+.council-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--regency-gold-light);
+}
+
+.council-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.council-members {
+    color: var(--text-secondary);
+}
+
+.council-status {
+    font-weight: 600;
+}
+
+.council-status.disbanded { color: var(--status-seized); }
+.council-status.fractured { color: var(--status-compromised); }
+.council-status.fragmented { color: var(--status-missing); }
+
+.council-description {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* =============================================
+   HISTORY TIMELINE
+   ============================================= */
+
+.history-eras {
+    margin-bottom: 2rem;
+}
+
+.history-eras h4 {
+    font-family: 'Orbitron', monospace;
+    color: var(--regency-gold);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.eras-list {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.era-card {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.era-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--regency-gold);
+}
+
+.era-icon {
+    font-size: 1.1rem;
+}
+
+.era-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.era-name {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.era-years {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+/* Events Timeline */
+.history-events h4 {
+    font-family: 'Orbitron', monospace;
+    color: var(--regency-gold);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.events-timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.events-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--regency-gold), var(--regency-gold-dark), transparent);
+}
+
+.event-card {
+    position: relative;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.event-card::before {
+    content: '';
+    position: absolute;
+    left: -2.35rem;
+    top: 1.25rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--regency-gold);
+    border: 2px solid var(--bg-primary);
+}
+
+.event-card.critical::before { background: #ff4444; box-shadow: 0 0 10px #ff4444; }
+.event-card.major::before { background: var(--regency-gold); }
+.event-card.minor::before { background: var(--text-muted); }
+
+.event-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--regency-gold);
+    transform: translateX(4px);
+}
+
+.event-date {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--regency-gold);
+    margin-bottom: 0.5rem;
+}
+
+.event-content {
+    flex: 1;
+}
+
+.event-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.event-summary {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.event-importance {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: rgba(212, 168, 71, 0.2);
+    color: var(--regency-gold);
+}
+
+.event-card.critical .event-importance {
+    background: rgba(255, 68, 68, 0.2);
+    color: #ff6b6b;
+}
+
+/* Succession Section */
+.succession-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 8px;
+}
+
+.succession-section h4 {
+    font-family: 'Orbitron', monospace;
+    color: var(--regency-gold);
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.succession-summary {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.heirs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.heir-card {
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+}
+
+.heir-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--regency-gold-light);
+    margin-bottom: 0.25rem;
+}
+
+.heir-relation {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.heir-status {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+    padding: 0.25rem 0.5rem;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.heir-claim {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0.75rem 0;
+}
+
+.heir-regency-position {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.succession-current {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-gold);
+}
+
+.succession-current h5 {
+    color: var(--regency-gold);
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.succession-current p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.succession-section.locked {
+    background: rgba(0, 0, 0, 0.3);
+    border-style: dashed;
+}
+
+.locked-message {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* =============================================
+   MILITARY OVERVIEW
+   ============================================= */
+
+.military-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-tertiary) 100%);
+    border: 1px solid var(--border-gold);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.military-emblem {
+    font-size: 3rem;
+}
+
+.military-title-block {
+    flex: 1;
+}
+
+.military-title-block h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    color: var(--regency-gold);
+    margin: 0;
+}
+
+.military-motto {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin: 0.25rem 0 0 0;
+    font-size: 0.9rem;
+}
+
+.military-status-block .threat-level {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8rem;
+    color: #ff6b6b;
+    background: rgba(255, 68, 68, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 68, 68, 0.4);
+}
+
+.military-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.military-stats .stat-box {
+    flex: 1;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.military-stats .stat-box.critical {
+    border-color: rgba(255, 68, 68, 0.4);
+    background: rgba(255, 68, 68, 0.1);
+}
+
+.military-stats .stat-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    color: var(--regency-gold);
+    display: block;
+}
+
+.military-stats .stat-box.critical .stat-value {
+    color: #ff6b6b;
+}
+
+.military-stats .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.military-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+}
+
+/* Branches Section */
+.branches-section h4,
+.fortifications-section h4,
+.lost-assets-section h4 {
+    font-family: 'Orbitron', monospace;
+    color: var(--regency-gold);
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-gold);
+}
+
+.branches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.branch-card {
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.branch-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+}
+
+.branch-card.destroyed::before { background: var(--status-seized); }
+.branch-card.fragmented::before { background: var(--status-missing); }
+.branch-card.operational::before { background: var(--status-operational); }
+.branch-card.unknown::before { background: var(--status-unknown); }
+
+.branch-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--regency-gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.branch-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.branch-icon {
+    font-size: 1.75rem;
+}
+
+.branch-title-block {
+    flex: 1;
+}
+
+.branch-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.branch-specialty {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.branch-strength {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.strength-item {
+    font-size: 0.75rem;
+}
+
+.strength-label {
+    color: var(--text-muted);
+}
+
+.strength-value {
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+.strength-item.current .strength-value {
+    color: #ff6b6b;
+}
+
+.branch-status {
+    text-align: right;
+}
+
+/* Fortifications */
+.fortifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.fortification-card {
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-left: 4px solid var(--text-muted);
+    border-radius: 0 6px 6px 0;
+}
+
+.fortification-card.hostile { border-left-color: var(--status-seized); }
+.fortification-card.contested { border-left-color: var(--status-detained); }
+.fortification-card.friendly { border-left-color: var(--status-operational); }
+.fortification-card.neutral { border-left-color: var(--text-muted); }
+
+.fort-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.fort-status {
+    font-size: 0.75rem;
+    color: var(--regency-gold);
+    margin-bottom: 0.5rem;
+}
+
+.fort-garrison {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.fort-notes {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Lost Assets */
+.assets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.lost-asset {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+}
+
+.asset-name {
+    flex: 1;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.asset-type {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 0.2rem 0.5rem;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+}
+
+.asset-status {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #ff6b6b;
+}
+
+/* =============================================
+   DIPLOMACY MAP
+   ============================================= */
+
+.diplomacy-legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-item.allied .legend-dot { background: var(--diplo-allied); }
+.legend-item.neutral .legend-dot { background: var(--diplo-neutral); }
+.legend-item.complicated .legend-dot { background: var(--diplo-complicated); }
+.legend-item.hostile .legend-dot { background: var(--diplo-hostile); }
+.legend-item.at-war .legend-dot { background: var(--diplo-at-war); }
+
+.factions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.faction-card {
+    padding: 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.faction-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.faction-card.allied::before { background: var(--diplo-allied); }
+.faction-card.neutral::before { background: var(--diplo-neutral); }
+.faction-card.complicated::before { background: var(--diplo-complicated); }
+.faction-card.hostile::before { background: var(--diplo-hostile); }
+.faction-card.at-war::before { background: var(--diplo-at-war); }
+
+.faction-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.faction-icon {
+    font-size: 2rem;
+}
+
+.faction-title-block {
+    flex: 1;
+}
+
+.faction-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.faction-leader {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.faction-status-badge {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.faction-status-badge.allied { background: rgba(74, 124, 89, 0.3); color: var(--diplo-allied); }
+.faction-status-badge.neutral { background: rgba(184, 134, 11, 0.3); color: var(--diplo-neutral); }
+.faction-status-badge.complicated { background: rgba(205, 133, 63, 0.3); color: var(--diplo-complicated); }
+.faction-status-badge.hostile { background: rgba(160, 82, 45, 0.3); color: var(--diplo-hostile); }
+.faction-status-badge.at-war { background: rgba(139, 0, 0, 0.3); color: #ff6b6b; }
+
+.relationship-meter {
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.meter-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.meter-bar.good { background: linear-gradient(90deg, var(--diplo-allied), #6b8e6b); }
+.meter-bar.neutral { background: linear-gradient(90deg, var(--diplo-neutral), #daa520); }
+.meter-bar.poor { background: linear-gradient(90deg, var(--diplo-hostile), #cd853f); }
+.meter-bar.hostile { background: linear-gradient(90deg, var(--diplo-at-war), #a52a2a); }
+
+.meter-value {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-primary);
+    text-shadow: 0 0 4px var(--bg-primary);
+}
+
+.faction-description {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.faction-history,
+.faction-current,
+.faction-concerns {
+    margin-bottom: 1rem;
+}
+
+.faction-history h5,
+.faction-current h5,
+.faction-concerns h5 {
+    font-size: 0.8rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.faction-history p,
+.faction-current p {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.faction-concerns ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.faction-concerns li {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding: 0.25rem 0;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.faction-concerns li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--regency-gold);
+}
+
+/* =============================================
+   CRISIS REPORT
+   ============================================= */
+
+.crisis-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.2) 0%, var(--bg-card) 100%);
+    border: 1px solid rgba(255, 68, 68, 0.4);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.crisis-alert-icon {
+    font-size: 2.5rem;
+    animation: alert-pulse 1s ease-in-out infinite;
+}
+
+@keyframes alert-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.crisis-title-block h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    color: #ff6b6b;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.crisis-day {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.threat-level-badge {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 68, 68, 0.4);
+    animation: threat-blink 2s ease-in-out infinite;
+}
+
+@keyframes threat-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.crisis-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    border-radius: 6px;
+    border-left: 4px solid #ff6b6b;
+}
+
+/* Threats Section */
+.threats-section h4,
+.exile-section h4,
+.rescue-section h4,
+.civilian-section h4 {
+    font-family: 'Orbitron', monospace;
+    color: var(--regency-gold);
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-gold);
+}
+
+.threats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.threat-card {
+    padding: 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    position: relative;
+}
+
+.threat-card.critical {
+    border-color: rgba(255, 68, 68, 0.4);
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, var(--bg-card) 100%);
+}
+
+.threat-card.severe {
+    border-color: rgba(255, 165, 0, 0.4);
+    background: linear-gradient(135deg, rgba(184, 134, 11, 0.1) 0%, var(--bg-card) 100%);
+}
+
+.threat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.threat-icon {
+    font-size: 1.75rem;
+}
+
+.threat-title {
+    flex: 1;
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.severity-badge {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+}
+
+.severity-badge.critical {
+    background: rgba(255, 68, 68, 0.3);
+    color: #ff6b6b;
+}
+
+.severity-badge.severe {
+    background: rgba(255, 165, 0, 0.3);
+    color: #ffa500;
+}
+
+.threat-territories {
+    margin-bottom: 0.75rem;
+}
+
+.threat-territories strong {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.territory-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.territory-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    color: var(--text-secondary);
+}
+
+.threat-forces {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.threat-forces strong {
+    color: var(--text-muted);
+}
+
+.threat-description {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.threat-objectives,
+.threat-response {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.threat-objectives strong,
+.threat-response strong {
+    color: var(--regency-gold);
+}
+
+/* Exile Section */
+.exile-card {
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.exile-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.exile-icon {
+    font-size: 1.5rem;
+}
+
+.exile-location {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.95rem;
+    color: var(--regency-gold);
+}
+
+.exile-leader,
+.exile-personnel {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.exile-leader strong,
+.exile-personnel strong {
+    color: var(--text-muted);
+}
+
+.exile-capabilities,
+.exile-limitations,
+.exile-priorities {
+    margin-top: 1rem;
+}
+
+.exile-capabilities h5,
+.exile-limitations h5,
+.exile-priorities h5 {
+    font-size: 0.85rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.5rem 0;
+}
+
+.exile-capabilities ul,
+.exile-limitations ul,
+.exile-priorities ol {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.exile-capabilities li,
+.exile-limitations li,
+.exile-priorities li {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    padding: 0.2rem 0;
+}
+
+.exile-capabilities .capability {
+    color: var(--status-operational);
+}
+
+.exile-limitations .limitation {
+    color: var(--status-compromised);
+}
+
+/* Rescue Section */
+.rescue-card {
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.rescue-card.classified {
+    border-color: rgba(139, 0, 0, 0.4);
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.05) 0%, var(--bg-card) 100%);
+}
+
+.rescue-target,
+.rescue-location,
+.rescue-status {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.rescue-target strong,
+.rescue-location strong,
+.rescue-status strong {
+    color: var(--regency-gold);
+}
+
+.rescue-assets,
+.rescue-challenges {
+    margin-top: 1rem;
+}
+
+.rescue-assets h5,
+.rescue-challenges h5 {
+    font-size: 0.85rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.5rem 0;
+}
+
+.rescue-assets ul,
+.rescue-challenges ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.rescue-assets li,
+.rescue-challenges li {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    padding: 0.2rem 0;
+}
+
+.rescue-notes {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.rescue-notes p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.rescue-section.locked {
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed var(--border-subtle);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+/* Civilian Section */
+.civilian-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.civilian-stat {
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.civilian-stat .stat-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.civilian-stat .stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.civilian-stat .stat-value {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.morale-report {
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.morale-report strong {
+    color: var(--regency-gold);
+}
+
+/* =============================================
+   MODALS
+   ============================================= */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 2rem;
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-gold);
+    border-radius: 8px;
+    max-width: 700px;
+    max-height: 85vh;
+    width: 100%;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: var(--shadow-strong), var(--shadow-gold);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+    transition: color 0.2s ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    color: var(--regency-gold);
+}
+
+/* Official Modal */
+.official-detail {
+    padding: 1.5rem;
+}
+
+.official-header {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.official-large-portrait {
+    font-size: 4rem;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-tertiary);
+    border-radius: 50%;
+    border: 3px solid var(--regency-gold);
+}
+
+.official-header-info h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.25rem 0;
+}
+
+.official-subtitle {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.official-tenure-detail {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.status-detail {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.official-bio,
+.official-record {
+    margin-bottom: 1.5rem;
+}
+
+.official-bio h4,
+.record-section h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.95rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.official-bio p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.official-bio .personality {
+    margin-top: 0.75rem;
+    font-style: italic;
+}
+
+.record-section {
+    margin-bottom: 1rem;
+}
+
+.record-section ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.record-section li {
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.record-section.achievements li {
+    color: var(--status-operational);
+}
+
+.record-section.controversies li {
+    color: var(--status-compromised);
+}
+
+.official-quote {
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-left: 3px solid var(--regency-gold);
+    border-radius: 0 6px 6px 0;
+}
+
+.official-quote blockquote {
+    margin: 0;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* Department Modal */
+.department-detail {
+    padding: 1.5rem;
+}
+
+.dept-detail-header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dept-large-icon {
+    font-size: 3rem;
+}
+
+.dept-header-info h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.25rem 0;
+}
+
+.dept-head-detail {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.dept-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.dept-meta .meta-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.dept-meta .meta-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.dept-meta .meta-value {
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.dept-description-full,
+.dept-functions,
+.dept-situation,
+.dept-secrets {
+    margin-bottom: 1.5rem;
+}
+
+.dept-description-full h4,
+.dept-functions h4,
+.dept-situation h4,
+.dept-secrets h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dept-description-full p,
+.dept-situation p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.dept-functions ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.dept-functions li {
+    color: var(--text-secondary);
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.dept-secrets {
+    padding: 1rem;
+    background: rgba(139, 0, 0, 0.1);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    border-radius: 6px;
+}
+
+.dept-secrets h4 {
+    color: #ff6b6b;
+}
+
+.secrets-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.secret-item {
+    color: var(--text-secondary);
+    padding: 0.25rem 0;
+    font-size: 0.85rem;
+}
+
+.dept-secrets.locked {
+    background: rgba(0, 0, 0, 0.3);
+    border-style: dashed;
+}
+
+/* Event Modal */
+.event-detail {
+    padding: 1.5rem;
+}
+
+.event-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.event-date-large {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--regency-gold);
+    margin-bottom: 0.5rem;
+}
+
+.event-header h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.importance-badge {
+    display: inline-block;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.3rem 0.75rem;
+    border-radius: 3px;
+}
+
+.importance-badge.critical {
+    background: rgba(255, 68, 68, 0.3);
+    color: #ff6b6b;
+}
+
+.importance-badge.major {
+    background: rgba(212, 168, 71, 0.3);
+    color: var(--regency-gold);
+}
+
+.event-section {
+    margin-bottom: 1.5rem;
+}
+
+.event-section h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.event-section p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.official-narrative {
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-left: 3px solid var(--regency-gold);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+}
+
+.controversies-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.controversies-list li {
+    color: var(--status-compromised);
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+/* Unit Modal */
+.unit-detail {
+    padding: 1.5rem;
+}
+
+.unit-header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.unit-large-icon {
+    font-size: 3rem;
+}
+
+.unit-header-info h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.25rem 0;
+}
+
+.unit-specialty {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.unit-commander {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.unit-commander .commander-label {
+    color: var(--text-muted);
+}
+
+.unit-commander .commander-name {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.unit-strength-detail {
+    margin-bottom: 1.5rem;
+}
+
+.unit-strength-detail h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.75rem 0;
+}
+
+.strength-comparison {
+    display: flex;
+    gap: 1rem;
+}
+
+.strength-bar {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.strength-bar.pre-crisis {
+    border: 1px solid var(--border-subtle);
+}
+
+.strength-bar.current {
+    border: 1px solid rgba(255, 68, 68, 0.4);
+    background: rgba(255, 68, 68, 0.1);
+}
+
+.strength-bar .bar-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.strength-bar .bar-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.strength-bar.current .bar-value {
+    color: #ff6b6b;
+}
+
+.unit-description,
+.unit-equipment,
+.unit-situation,
+.unit-notable {
+    margin-bottom: 1.5rem;
+}
+
+.unit-description h4,
+.unit-equipment h4,
+.unit-situation h4,
+.unit-notable h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--regency-gold);
+    margin: 0 0 0.75rem 0;
+    text-transform: uppercase;
+}
+
+.unit-description p,
+.unit-situation p,
+.unit-notable p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.unit-equipment ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.unit-equipment li {
+    color: var(--text-secondary);
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+/* =============================================
+   SCROLLBAR STYLING
+   ============================================= */
+
+.modal-content::-webkit-scrollbar,
+#regency-dashboard::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track,
+#regency-dashboard::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+#regency-dashboard::-webkit-scrollbar-thumb {
+    background: var(--regency-gold-dark);
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover,
+#regency-dashboard::-webkit-scrollbar-thumb:hover {
+    background: var(--regency-gold);
+}
+
+/* =============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================= */
+
+@media (max-width: 768px) {
+    .regency-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .regency-controls {
+        justify-content: center;
+    }
+    
+    .officials-grid,
+    .departments-grid,
+    .councils-grid,
+    .branches-grid,
+    .fortifications-grid,
+    .factions-grid,
+    .threats-grid,
+    .heirs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .military-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .military-stats {
+        flex-direction: column;
+    }
+    
+    .official-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .civilian-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .diplomacy-legend {
+        justify-content: center;
+    }
+    
+    .modal-content {
+        max-height: 90vh;
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .regency-controls .view-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    .civilian-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .strength-comparison {
+        flex-direction: column;
+    }
+    
+    .eras-list {
+        flex-direction: column;
+    }
+    
+    .era-card {
+        width: 100%;
+    }
+}

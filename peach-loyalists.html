@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Peach Loyalists Dossier</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="peach-loyalists.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+            
+            <main id="main-content">
+                <div class="loyalist-header">
+                    <div class="header-emblem">🌸</div>
+                    <div class="header-title-block">
+                        <h2 class="page-title">Peach Loyalists</h2>
+                        <p class="page-subtitle">"The Crown Endures"</p>
+                    </div>
+                    <div class="loyalist-controls">
+                        <button class="view-btn active" data-view="investigation">Investigation</button>
+                        <button class="view-btn" data-view="cells">Cell Network</button>
+                        <button class="view-btn" data-view="operations">Operations</button>
+                        <button class="view-btn" data-view="martyrs">Martyrs</button>
+                        <button class="view-btn" data-view="tenets">Tenets</button>
+                    </div>
+                </div>
+
+                <!-- Intel Warning Banner -->
+                <div class="intel-warning-banner">
+                    <span class="warning-icon">🌹</span>
+                    <span class="warning-text">LOYALIST INTEL LEVEL: <span id="intel-level">35</span>% — Some files remain classified.</span>
+                </div>
+
+                <!-- Main Content Views -->
+                <div id="loyalist-dashboard">
+                    
+                    <!-- INVESTIGATION VIEW -->
+                    <div id="view-investigation" class="loyalist-view active">
+                        <div class="view-header">
+                            <h3>The Assassination Investigation</h3>
+                            <p>85 years of evidence. Countless leads. The truth is within reach.</p>
+                        </div>
+                        <div id="investigation-board" class="investigation-board">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+
+                    <!-- CELLS VIEW -->
+                    <div id="view-cells" class="loyalist-view">
+                        <div class="view-header">
+                            <h3>Cell Network Structure</h3>
+                            <p>The organization operates through compartmentalized cells for security.</p>
+                        </div>
+                        <div id="cell-network" class="cell-network">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+
+                    <!-- OPERATIONS VIEW -->
+                    <div id="view-operations" class="loyalist-view">
+                        <div class="view-header">
+                            <h3>Operations Database</h3>
+                            <p>Active, completed, and archived operations.</p>
+                        </div>
+                        <div id="operations-list" class="operations-list">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+
+                    <!-- MARTYRS VIEW -->
+                    <div id="view-martyrs" class="loyalist-view">
+                        <div class="view-header">
+                            <h3>Memorial of the Fallen</h3>
+                            <p>Those who gave everything for the truth.</p>
+                        </div>
+                        <div id="martyrs-memorial" class="martyrs-memorial">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+
+                    <!-- TENETS VIEW -->
+                    <div id="view-tenets" class="loyalist-view">
+                        <div class="view-header">
+                            <h3>The Sacred Tenets</h3>
+                            <p>The principles that bind every Loyalist.</p>
+                        </div>
+                        <div id="tenets-display" class="tenets-display">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Evidence Modal -->
+    <div id="evidence-modal" class="modal" style="display: none;">
+        <div class="modal-content evidence-modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="evidence-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Agent Modal -->
+    <div id="agent-modal" class="modal" style="display: none;">
+        <div class="modal-content agent-modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="agent-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Operation Modal -->
+    <div id="operation-modal" class="modal" style="display: none;">
+        <div class="modal-content operation-modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="operation-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Martyr Modal -->
+    <div id="martyr-modal" class="modal" style="display: none;">
+        <div class="modal-content martyr-modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="martyr-modal-body"></div>
+        </div>
+    </div>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="peach-loyalists.js"></script>
+</body>
+</html>

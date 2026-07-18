@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Liberated Toads Command</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="liberated-toads-system.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+            
+            <main id="main-content">
+                
+                <!-- Page Header -->
+                <header class="page-header">
+                    <h1 class="page-title">🐸 Liberated Toads: Faction Command</h1>
+                    <div class="header-meta">
+                        <span class="meta-item"><strong>Day:</strong> <span id="current-day">21</span></span>
+                        <span class="meta-item"><strong>Date:</strong> <span id="current-date">Highsun 21, 1040 BF</span></span>
+                        <span class="meta-item"><strong>Status:</strong> <span id="squad-status" class="status-compromised">COMPROMISED</span></span>
+                    </div>
+                </header>
+
+                <!-- Main Navigation Tabs -->
+                <div class="main-tabs">
+                    <button class="main-tab active" data-tab="overview">
+                        <span class="main-tab-icon">📊</span> Overview
+                    </button>
+                    <button class="main-tab" data-tab="governance">
+                        <span class="main-tab-icon">👑</span> Governance
+                    </button>
+                    <button class="main-tab" data-tab="voting">
+                        <span class="main-tab-icon">🗳️</span> Voting
+                    </button>
+                    <button class="main-tab" data-tab="docket">
+                        <span class="main-tab-icon">⚖️</span> Docket
+                    </button>
+                    <button class="main-tab" data-tab="roster">
+                        <span class="main-tab-icon">🐸</span> Roster
+                    </button>
+                    <button class="main-tab" data-tab="timeline">
+                        <span class="main-tab-icon">📅</span> Timeline
+                    </button>
+                </div>
+
+                <!-- Tab Content: Overview -->
+                <div class="tab-content active" id="tab-overview">
+                    <section id="faction-stats" class="collapsible-section">
+                        <div class="section-header" data-toggle="stats-content">
+                            <h2><span>📊</span> Faction Statistics</h2>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div id="stats-content" class="section-content">
+                            <!-- Stats rendered by JS -->
+                        </div>
+                    </section>
+
+                    <!-- Quick Governance Summary -->
+                    <section class="collapsible-section">
+                        <div class="section-header" data-toggle="gov-summary">
+                            <h2><span>👑</span> Governance At A Glance</h2>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div id="gov-summary" class="section-content">
+                            <div class="speaker-quote">
+                                <p>"This is not retribution's art, but the mending of the fractured heart. By pond and law, by vow and steel, the wound must close for peace to heal."</p>
+                                <cite>— Speaker L, Voice of the Pond</cite>
+                            </div>
+                            <div class="governance-tabs">
+                            </div>
+                            <div id="governance-content" class="governance-content-area">
+                                <!-- Rendered by JS -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Active Vote Preview -->
+                    <section class="collapsible-section">
+                        <div class="section-header" data-toggle="vote-preview">
+                            <h2><span>🗳️</span> Active Vote: Iron Mandate Response</h2>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div id="vote-preview" class="section-content">
+                            <div class="vote-card active">
+                                <div class="vote-header">
+                                    <div class="vote-id">V-2021-001</div>
+                                    <div class="vote-meta">
+                                        <span class="vote-type-badge">EMERGENCY</span>
+                                        <span class="vote-status-badge active">ACTIVE</span>
+                                    </div>
+                                </div>
+                                <h4 class="vote-title">Response to the Iron Mandate</h4>
+                                <p class="vote-description">The faction must decide how to respond to the Midlands' Iron Mandate, which has classified us as an organized supernatural entity subject to purge.</p>
+                                <div class="vote-options">
+                                    <div class="vote-option">
+                                        <div class="option-header">
+                                            <span class="option-id">D</span>
+                                            <span class="option-text">Strategic Withdrawal - Leading with 3 votes</span>
+                                            <span class="speaker-rec">👑 Recommended</span>
+                                        </div>
+                                        <div class="option-progress">
+                                            <div class="option-bar"><div class="option-fill" style="width: 50%"></div></div>
+                                            <span class="option-count">3 votes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="vote-footer">
+                                    <div class="quorum-status met">Quorum: 6/4 ✓ Met</div>
+                                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">View full details in the Voting tab.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Tab Content: Governance -->
+                <div class="tab-content" id="tab-governance">
+                    <section class="collapsible-section">
+                        <div class="section-header">
+                            <h2><span>👑</span> Faction Governance</h2>
+                        </div>
+<div id="governance-full-content" class="section-content">                            <!-- Rendered by JS -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Tab Content: Voting -->
+                <div class="tab-content" id="tab-voting">
+                    <section class="collapsible-section">
+                        <div class="section-header">
+                            <h2><span>🗳️</span> Council Voting System</h2>
+                        </div>
+                        <div id="voting-content" class="section-content">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Tab Content: Docket -->
+                <div class="tab-content" id="tab-docket">
+                    <section class="collapsible-section">
+                        <div class="section-header">
+                            <h2><span>⚖️</span> Emergency Resolution 17-A: The Accountability Docket</h2>
+                        </div>
+                        <div id="docket-content" class="section-content">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Tab Content: Roster -->
+                <div class="tab-content" id="tab-roster">
+                    <section id="crew-roster">
+                        <div class="roster-header">
+                            <h2><span>🐸</span> Crew Roster</h2>
+                            <div class="roster-controls">
+                                <div class="roster-search">
+                                    <input type="text" id="roster-search" placeholder="Search toads...">
+                                </div>
+                                <div class="roster-filters">
+                                    <button class="filter-btn active" data-filter="all">All</button>
+                                    <button class="filter-btn" data-filter="core">⭐ Core</button>
+                                    <button class="filter-btn" data-filter="active">Active</button>
+                                    <button class="filter-btn" data-filter="injured">Injured</button>
+                                    <button class="filter-btn" data-filter="special">Special</button>
+                                </div>
+                                <div class="cohort-filter">
+                                    <select id="cohort-filter">
+                                        <option value="all">All Cohorts</option>
+                                        <option value="Pond Patrol">Pond Patrol</option>
+                                        <option value="Barrel Survivors">Barrel Survivors</option>
+                                        <option value="The Chroniclers">The Chroniclers</option>
+                                        <option value="The Crafters">The Crafters</option>
+                                        <option value="The Wardens">The Wardens</option>
+                                        <option value="The Menders">The Menders</option>
+                                        <option value="The Scouts">The Scouts</option>
+                                    </select>
+                                </div>
+                                <div class="roster-sort">
+                                    <select id="sort-select">
+                                        <option value="name">Sort: Name</option>
+                                        <option value="level">Sort: Level</option>
+                                        <option value="xp">Sort: XP</option>
+                                        <option value="status">Sort: Status</option>
+                                        <option value="cohort">Sort: Cohort</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="crew-grid" class="crew-grid">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Tab Content: Timeline -->
+                <div class="tab-content" id="tab-timeline">
+                    <section class="collapsible-section">
+                        <div class="section-header">
+                            <h2><span>📅</span> Faction Timeline</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="timeline-filters">
+                                <button class="timeline-filter-btn" data-days="3">Last 3 Days</button>
+                                <button class="timeline-filter-btn active" data-days="7">Last Week</button>
+                                <button class="timeline-filter-btn" data-days="0">All Time</button>
+                            </div>
+                            <div id="timeline-container">
+                                <!-- Rendered by JS -->
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Detail Panel (Slides in from right) -->
+                <section id="member-detail-panel" class="detail-panel hidden">
+                    <div class="detail-header">
+                        <button class="close-detail-btn" aria-label="Close">✕</button>
+                        <div class="detail-identity">
+                            <div id="detail-portrait"></div>
+                            <div class="detail-info">
+                                <h3 id="detail-name">Name</h3>
+                                <div id="detail-title"></div>
+                                <div class="detail-meta">
+                                    <span id="detail-level">Level 1</span>
+                                    <span id="detail-weapon">Weapon</span>
+                                </div>
+                                <div id="detail-status-badge" class="detail-status-badge">Active</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-tabs">
+                        <button class="detail-tab active" data-tab="stats">Stats</button>
+                        <button class="detail-tab" data-tab="skills">Skills</button>
+                        <button class="detail-tab" data-tab="log">Log</button>
+                    </div>
+                    
+                    <div class="detail-tab-content active" id="tab-stats">
+                        <!-- Rendered by JS -->
+                    </div>
+                    
+                    <div class="detail-tab-content" id="tab-skills">
+                        <!-- Rendered by JS -->
+                    </div>
+                    
+                    <div class="detail-tab-content" id="tab-log">
+                        <!-- Rendered by JS -->
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="liberated-toads-system.js"></script>
+    
+    <!-- Main Tab Switching Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main tab switching
+            const mainTabs = document.querySelectorAll('.main-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            mainTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.dataset.tab;
+                    
+                    // Update active tab
+                    mainTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `tab-${targetTab}`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Collapsible sections
+            document.querySelectorAll('.section-header[data-toggle]').forEach(header => {
+                header.addEventListener('click', () => {
+                    const targetId = header.dataset.toggle;
+                    const content = document.getElementById(targetId);
+                    if (content) {
+                        content.classList.toggle('collapsed');
+                        header.classList.toggle('collapsed');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

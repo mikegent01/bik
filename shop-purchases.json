@@ -1,0 +1,152 @@
+[
+    {
+        "orderId": "FT-UPGRADE-001",
+        "itemId": "faction_uno_deck",
+        "itemName": "Tournament Card Deck",
+        "price": 1500,
+        "isFaction": true,
+        "approvedAt": "2025-12-15T12:00:00.000Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "FT-UPGRADE-002",
+        "itemId": "faction_banners",
+        "itemName": "Faction Banners",
+        "price": 4000,
+        "isFaction": true,
+        "approvedAt": "2025-12-15T12:00:00.000Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "FT-UPGRADE-003",
+        "itemId": "faction_memorial",
+        "itemName": "Wall of the Fallen",
+        "price": 5000,
+        "isFaction": true,
+        "approvedAt": "2025-12-15T12:00:00.000Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "FT-UPGRADE-004",
+        "itemId": "faction_ink_supplies",
+        "itemName": "Premium Ink Supplies",
+        "price": 8000,
+        "isFaction": true,
+        "approvedAt": "2025-12-15T12:00:00.000Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "FT-UPGRADE-005",
+        "itemId": "faction_training_dummies",
+        "itemName": "Training Dummies",
+        "price": 12000,
+        "isFaction": true,
+        "approvedAt": "2025-12-15T12:00:00.000Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-01",
+        "itemId": "health_potion",
+        "itemName": "Health Potion",
+        "price": 600,
+        "isFaction": false,
+        "approvedAt": "2026-01-03T03:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-02",
+        "itemId": "warios_garlic_grenade",
+        "itemName": "Wario's Garlic Grenade",
+        "price": 800,
+        "isFaction": false,
+        "approvedAt": "2026-01-03T03:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-03",
+        "itemId": "kremling_krew_kannonball",
+        "itemName": "Kremling Krew Kannonball",
+        "price": 800,
+        "isFaction": false,
+        "approvedAt": "2026-01-03T03:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-04",
+        "itemId": "pokemon_center_healing_machine",
+        "itemName": "Pokémon Center Healing Machine (Rental)",
+        "price": 1500,
+        "isFaction": false,
+        "approvedAt": "2026-01-03T03:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-05",
+        "itemId": "sarasaland_desert_soul_torch",
+        "itemName": "Desert Soul Torch",
+        "price": 392,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+        {
+        "orderId": "WW-1D1U1GWJ-06",
+        "itemId": "a_token_of_bureaucratic_chaos",
+        "itemName": "Gehenna Academy Keychain",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+            {
+        "orderId": "WW-1D1U1GWJ-07",
+        "itemId": "leclaire_isle_bakery_blessing",
+        "itemName": "Doughbound Blessing",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+            {
+        "orderId": "WW-1D1U1GWJ-08",
+        "itemId": "isle_delfino_tropical_tonic",
+        "itemName": "Tropical Tonic of the Shine Sprite",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },    
+            {
+        "orderId": "WW-1D1U1GWJ-09",
+        "itemId": "rogueport_black_market_tape",
+        "itemName": "Black Market Tape",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },    
+            {
+        "orderId": "WW-1D1U1GWJ-10",
+        "itemId": "dk_isles_fungal_essence",
+        "itemName": "Fungal Essence",
+        "price": 294,
+        "isFaction": false,
+        "approvedAt": "2026-03-021:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    }   
+]

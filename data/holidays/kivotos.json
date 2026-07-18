@@ -1,0 +1,46 @@
+{
+  "calendarId": "kivotos",
+  "name": "Kivotos Academy Holidays",
+  "holidays": [
+    {
+      "name": "Entrance Ceremony",
+      "month": 1,
+      "day": 1,
+      "icon": "🎓",
+      "color": "#7aa8ff",
+      "description": "Kivotos Academy terms begin",
+      "type": "civic",
+      "longDescription": "Entrance Ceremony is observed on day 1 of month 1 in the Kivotos Academic Calendar. It is classified as a civic and is associated with Kivotos Academy terms begin . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Midterm Exams",
+      "month": 2,
+      "day": 25,
+      "icon": "📚",
+      "color": "#ffaa44",
+      "description": "Exams, chaos, club raids",
+      "type": "civic",
+      "longDescription": "Midterm Exams is observed on day 25 of month 2 in the Kivotos Academic Calendar. It is classified as a civic and is associated with Exams, chaos, club raids . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Festival Week",
+      "month": 4,
+      "day": 10,
+      "icon": "🎉",
+      "color": "#ff6b9a",
+      "description": "School festival, cross-academy invites",
+      "type": "festival",
+      "longDescription": "Festival Week is observed on day 10 of month 4 in the Kivotos Academic Calendar. It is classified as a festival and is associated with School festival, cross-academy invites . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Summer Break",
+      "month": 6,
+      "day": 1,
+      "icon": "🏖️",
+      "color": "#ffd166",
+      "description": "Beach episode canon",
+      "type": "rest",
+      "longDescription": "Summer Break is observed on day 1 of month 6 in the Kivotos Academic Calendar. It is classified as a rest and is associated with Beach episode canon . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    }
+  ]
+}

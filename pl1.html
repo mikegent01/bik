@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM Screen: The Fractured Timeline</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Cinzel:wght@700&display=swap');
+
+        :root {
+            --bg-color: #080808;
+            --panel-bg: #121212;
+            --text-color: #a0a0a0;
+            --archie-accent: #6a0dad; /* Purple for Shadow/Archie */
+            --markop-accent: #8b0000; /* Red for Blood/Manor */
+            --highlight: #ffd700;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- TOP BAR --- */
+        .mode-switcher {
+            display: flex;
+            height: 60px;
+            border-bottom: 2px solid #333;
+        }
+
+        .mode-btn {
+            flex: 1;
+            background: #1a1a1a;
+            border: none;
+            color: #555;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .mode-btn:hover { background: #222; }
+
+        .mode-btn.active-archie {
+            background: #1a0520;
+            color: var(--archie-accent);
+            border-bottom: 4px solid var(--archie-accent);
+        }
+
+        .mode-btn.active-markop {
+            background: #200505;
+            color: var(--markop-accent);
+            border-bottom: 4px solid var(--markop-accent);
+        }
+
+        /* --- MAIN CONTENT --- */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 20px;
+            padding: 20px;
+            height: calc(100vh - 60px);
+        }
+
+        /* PANELS */
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid #333;
+            padding: 15px;
+            overflow-y: auto;
+            border-radius: 4px;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            margin-top: 0;
+            color: #eee;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px;
+            background: #1a1a1a;
+            border-left: 3px solid #555;
+        }
+        
+        .timeline-clock {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            background: #000;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+        }
+
+        .event-log {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .log-entry {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #333;
+        }
+        
+        .log-entry span { color: var(--highlight); font-weight: bold; }
+
+        .npc-card {
+            background: #181818;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 2px solid #555;
+        }
+        .npc-status-dead { color: #555; text-decoration: line-through; }
+        .npc-status-active { color: #4f4; }
+        .npc-status-missing { color: var(--highlight); }
+
+        /* --- ACTION BUTTONS --- */
+        .action-btn {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #222;
+            color: #ddd;
+            border: 1px solid #444;
+            cursor: pointer;
+            font-family: 'Roboto Mono', monospace;
+            text-align: left;
+        }
+        .action-btn:hover { background: #333; border-color: #666; }
+
+        /* VISIBILITY TOGGLES */
+        .archie-view { display: none; }
+        .markop-view { display: none; }
+        
+        body.mode-archie .archie-view { display: block; }
+        body.mode-markop .markop-view { display: block; }
+
+        /* COLOR THEMES */
+        body.mode-archie .timeline-clock { color: var(--archie-accent); border-color: var(--archie-accent); }
+        body.mode-markop .timeline-clock { color: var(--markop-accent); border-color: var(--markop-accent); }
+
+    </style>
+</head>
+<body class="mode-archie">
+
+    <!-- MODE SWITCHER -->
+    <nav class="mode-switcher">
+        <button class="mode-btn active-archie" onclick="setMode('archie')">
+            Archie Mode (The Fugitives)
+        </button>
+        <button class="mode-btn" onclick="setMode('markop')">
+            Markop Mode (The Prisoners)
+        </button>
+    </nav>
+
+    <div class="dashboard">
+        
+        <!-- LEFT COLUMN: STATUS & INVENTORY -->
+        <div class="panel">
+            <h2>Current Status</h2>
+            
+            <!-- ARCHIE STATUS -->
+            <div class="archie-view">
+                <div class="timeline-clock">
+                    DATE: 29th Higsun<br>
+                    <span style="font-size:0.8rem">Time Elapsed: 5 Days</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--archie-accent);">
+                    <span>Location:</span> <span>Abandoned Infirmary</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--archie-accent);">
+                    <span>Weather:</span> <span>Endless Rain</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--archie-accent);">
+                    <span>Green T Ammo:</span> <span>Unknown (Low)</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--archie-accent);">
+                    <span>Archie HP:</span> <span>Fatigued</span>
+                </div>
+                <br>
+                <h2>Key Items</h2>
+                <div class="npc-card">
+                    <strong>Stolen War Pick</strong><br>
+                    Green T took it. It feels heavier than it should.
+                </div>
+                <div class="npc-card">
+                    <strong>Weird Fish</strong><br>
+                    Eaten by Archie. Effects pending.
+                </div>
+                <div class="npc-card">
+                    <strong>The 3 Gold Coins</strong><br>
+                    Left at Vivian's statue. (Offering made).
+                </div>
+            </div>
+
+            <!-- MARKOP STATUS -->
+            <div class="markop-view">
+                <div class="timeline-clock">
+                    DATE: 24th Higsun<br>
+                    <span style="font-size:0.8rem">Time Elapsed: 2 Minutes</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--markop-accent);">
+                    <span>Location:</span> <span>Dining Hall / Hallway</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--markop-accent);">
+                    <span>Alert Level:</span> <span style="color:red">MAXIMUM</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--markop-accent);">
+                    <span>Orangus Status:</span> <span>Injured / Enraged</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--markop-accent);">
+                    <span>Chaos Factor:</span> <span>High</span>
+                </div>
+                <br>
+                <h2>Objectives</h2>
+                <div class="npc-card">
+                    <strong>Escape the Room</strong><br>
+                    Guards are breaching. Franklin is casting.
+                </div>
+                <div class="npc-card">
+                    <strong>Find Toadburt</strong><br>
+                    He is still at the table with the Entropy Ring.
+                </div>
+            </div>
+        </div>
+
+        <!-- CENTER COLUMN: EVENTS & GENERATORS -->
+        <div class="panel">
+            <h2>Scenario Events</h2>
+
+            <!-- ARCHIE ACTIONS -->
+            <div class="archie-view">
+                <p style="color:#777; font-style:italic;">Archie and Green T are lost in the Shadowfell echo of the town. They think they traveled far, but space is warped here.</p>
+                <button class="action-btn" onclick="generateArchieEvent()">> GENERATE: Shadow Road Encounter</button>
+                <button class="action-btn" onclick="generateArchieEvent('dream')">> GENERATE: Rest/Dream Sequence</button>
+                <button class="action-btn" onclick="generateArchieEvent('shop')">> GENERATE: Strange Shop Item</button>
+                <hr>
+                <div id="archie-log" class="event-log">
+                    <div class="log-entry">
+                        <span>Initial State:</span> Rested in Infirmary. Door closed. Something is outside.
+                    </div>
+                </div>
+            </div>
+
+            <!-- MARKOP ACTIONS -->
+            <div class="markop-view">
+                <p style="color:#777; font-style:italic;">Total Chaos. Green T shot the host and fled. Markop is left holding the bag with Bowser, FNG, and the Toads.</p>
+                <button class="action-btn" onclick="generateMarkopEvent()">> GENERATE: Room Hazard</button>
+                <button class="action-btn" onclick="generateMarkopEvent('npc')">> GENERATE: NPC Reaction</button>
+                <button class="action-btn" onclick="generateMarkopEvent('magic')">> GENERATE: Wild Magic Surge</button>
+                <hr>
+                <div id="markop-log" class="event-log">
+                    <div class="log-entry">
+                        <span>Current State:</span> Vivian (Crossdresser) claiming to be Heir. Franklin (Mage) hunting for the ring.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: NPC TRACKER -->
+        <div class="panel">
+            <h2>NPC Tracker</h2>
+
+            <!-- ARCHIE NPCS -->
+            <div class="archie-view">
+                <div class="npc-card">
+                    <strong>Green T</strong> (Ally)<br>
+                    Mood: Regretful? Quiet.<br>
+                    Note: Has the gun. Noticed the Magpie.
+                </div>
+                <div class="npc-card">
+                    <strong>The Magpie</strong> (Stalker)<br>
+                    Status: Following them since the restaurant.<br>
+                    Note: Likely a familiar of Vostolas or Orangus.
+                </div>
+                <div class="npc-card">
+                    <strong>Vivian (Statue)</strong><br>
+                    Status: Offering Accepted?<br>
+                    Note: The statue cried water/blood when coin was left.
+                </div>
+            </div>
+
+            <!-- MARKOP NPCS -->
+            <div class="markop-view">
+                <div class="npc-card">
+                    <strong>Orangus Cornelious</strong><br>
+                    Status: <span style="color:red">SHOT (Silver)</span><br>
+                    Action: Regenerating. Screaming orders.
+                </div>
+                <div class="npc-card">
+                    <strong>Vivian (The Heir)</strong><br>
+                    Status: <span style="color:pink">GLOATING</span><br>
+                    Reveal: Actually a male thrall/shadow siren. Using confusion to seize power.
+                </div>
+                <div class="npc-card">
+                    <strong>Usk (Prisoner)</strong><br>
+                    Status: <span style="color:orange">MAIMED</span><br>
+                    Note: Missing finger. Bleeding out.
+                </div>
+                <div class="npc-card">
+                    <strong>Bowser</strong><br>
+                    Status: <span style="color:orange">RAMPAGE</span><br>
+                    Action: Breathing fire on the curtains.
+                </div>
+                <div class="npc-card">
+                    <strong>Toadburt</strong><br>
+                    Status: <span style="color:yellow">PANICKED</span><br>
+                    Note: Has the Entropy Ring. Iron Legion sleeper agent.
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function setMode(mode) {
+        // Switch CSS Classes
+        document.body.className = 'mode-' + mode;
+        
+        // Update Buttons
+        document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active-archie', 'active-markop'));
+        const activeBtn = document.querySelector(`.mode-btn[onclick="setMode('${mode}')"]`);
+        if (mode === 'archie') activeBtn.classList.add('active-archie');
+        if (mode === 'markop') activeBtn.classList.add('active-markop');
+    }
+
+    // --- ARCHIE EVENTS (Shadow World / The Long Walk) ---
+    const archieEvents = [
+        "The Magpie lands on the windowsill. It speaks in Vostolas's voice: 'The book is not closed yet, Darman.'",
+        "Archie coughs up a small fish bone. It glows blue. He gains Darkvision for 1 hour but feels cold.",
+        "Green T checks his gun. 'One bullet left,' he lies. (He actually has 3).",
+        "The rain outside stops, but the sound of rain continues. It's an illusion.",
+        "They find a poster on the wall: 'WANTED: The Shadow Thieves'. It depicts Archie and Green T, but they look older and undead.",
+        "The door handle rattles. Someone is trying to get in. It's just a lost, faceless shadow construct.",
+        "The coins Archie left at the fountain appear in his pocket again. They are cold."
+    ];
+
+    function generateArchieEvent(type) {
+        const log = document.getElementById('archie-log');
+        let msg = "";
+        
+        if (type === 'dream') {
+            msg = "<span>Dream:</span> Archie dreams of Usk's severed finger pointing the way back to the manor.";
+        } else if (type === 'shop') {
+            msg = "<span>Loot:</span> Found a bottle of 'Liquid Night'. Drinking it turns you invisible but blinds you.";
+        } else {
+            msg = `<span>Event:</span> ${archieEvents[Math.floor(Math.random() * archieEvents.length)]}`;
+        }
+
+        log.innerHTML = `<div class="log-entry">${msg}</div>` + log.innerHTML;
+    }
+
+    // --- MARKOP EVENTS (The Manor / Immediate Chaos) ---
+    const markopEvents = [
+        "Bowser's fire catches the drapes. The room begins to fill with smoke (Heavily Obscured).",
+        "Vivian casts 'Shadow Hold' on the guards, freezing them. 'I am the Captain now!' she shrieks.",
+        "Franklin (Mage) ignores the fight and lunges for Toadburt's wrist to get the Ring.",
+        "Orangus stands up. The bullet hole in his chest closes, but leaves a silver scar. He screams.",
+        "The floor tilts 30 degrees. The Manor is destabilizing into the Void.",
+        "Usk tries to crawl away in the confusion. A guard steps on him.",
+        "Toadburt's ring pulses. Gravity reverses for 6 seconds."
+    ];
+
+    function generateMarkopEvent(type) {
+        const log = document.getElementById('markop-log');
+        let msg = "";
+
+        if (type === 'npc') {
+            msg = "<span>NPC:</span> Vaxillus (Three Eyes) draws his blade and challenges Bowser to a duel amidst the fire.";
+        } else if (type === 'magic') {
+            msg = "<span>Magic:</span> The Entropy Ring flares. All magic cast this round triggers a Wild Magic Surge.";
+        } else {
+            msg = `<span>Chaos:</span> ${markopEvents[Math.floor(Math.random() * markopEvents.length)]}`;
+        }
+
+        log.innerHTML = `<div class="log-entry">${msg}</div>` + log.innerHTML;
+    }
+
+</script>
+</body>
+</html>

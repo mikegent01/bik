@@ -1,0 +1,4637 @@
+/* =============================================
+   DYNASTY TREE - INTERACTIVE FAMILY TREE STYLES
+   Bloodlines of the Mushroom Kingdom
+   ============================================= */
+/* =============================================
+   FAMILY TREE VISUAL STYLES
+   ============================================= */
+/* =============================================
+   VISUAL FAMILY TREE STYLES
+   ============================================= */
+
+/* View Controls */
+.tree-view-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+}
+
+.tree-view-btn {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    background: transparent;
+    border: 1px solid var(--dynasty-border);
+    border-radius: 6px;
+    color: var(--dynasty-text-dim);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.tree-view-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--dynasty-text);
+}
+
+.tree-view-btn.active {
+    background: var(--dynasty-gold);
+    border-color: var(--dynasty-gold);
+    color: #000;
+}
+
+.tree-view-panel {
+    display: none;
+}
+
+.tree-view-panel.active {
+    display: block;
+    animation: fadeIn var(--transition-med);
+}
+
+/* Visual Tree Viewport */
+.visual-tree-viewport {
+    background: var(--dynasty-bg);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 8px;
+    overflow: auto;
+    max-height: 500px;
+    position: relative;
+}
+
+.visual-tree-canvas {
+    position: relative;
+    min-width: max-content;
+    padding: 2rem;
+}
+
+.tree-connections-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Generation Rows */
+.tree-generation {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.gen-label-vertical {
+    width: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    position: relative;
+}
+
+.gen-label-vertical::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -20px;
+    bottom: -20px;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--dynasty-border), transparent);
+}
+
+.gen-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 0.7rem;
+    color: var(--dynasty-gold);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.gen-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* Family Units */
+.family-unit {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.family-unit.married {
+    background: rgba(255, 215, 0, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 215, 0, 0.2);
+}
+
+.family-unit.polygamous {
+    background: rgba(155, 89, 182, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px dashed rgba(155, 89, 182, 0.2);
+}
+
+/* Marriage Connector */
+.marriage-connector {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    align-self: center;
+}
+
+.connector-line {
+    width: 20px;
+    height: 2px;
+    background: var(--dynasty-gold);
+}
+
+.connector-symbol {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dynasty-surface);
+    border: 2px solid var(--dynasty-gold);
+    border-radius: 50%;
+    font-size: 0.9rem;
+}
+
+/* Children Indicator */
+.children-indicator {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.children-line {
+    width: 2px;
+    height: 15px;
+    background: var(--dynasty-border);
+}
+
+.children-count {
+    font-size: 0.65rem;
+    color: var(--dynasty-text-dim);
+    background: var(--dynasty-surface);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid var(--dynasty-border);
+}
+
+/* Primary with Consorts */
+.primary-with-consorts {
+    display: flex;
+    gap: 1rem;
+}
+
+.consorts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.consort-connection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.consort-line {
+    width: 30px;
+    height: 2px;
+    position: relative;
+}
+
+.consort-line.marriage { background: var(--dynasty-gold); }
+.consort-line.affair { background: #e74c3c; }
+.consort-line.political { background: #3498db; }
+.consort-line.warrior { background: #e67e22; }
+.consort-line.true-love { background: #e91e63; }
+.consort-line.annulled { background: #666; }
+
+.consort-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    font-size: 0.6rem;
+    max-width: 80px;
+}
+
+.consort-type {
+    color: var(--dynasty-gold);
+    font-weight: 500;
+}
+
+.consort-date {
+    color: var(--dynasty-text-dim);
+}
+
+.consort-status {
+    padding: 0.1rem 0.25rem;
+    border-radius: 2px;
+    background: var(--dynasty-surface-alt);
+}
+
+.consort-status.ended { color: var(--dynasty-danger); }
+.consort-status.active { color: var(--dynasty-success); }
+
+/* Tree Person Card */
+.tree-person {
+    width: 160px;
+    background: var(--dynasty-surface);
+    border: 2px solid var(--dynasty-border);
+    border-radius: 10px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.tree-person:hover {
+    transform: translateY(-3px);
+    border-color: var(--dynasty-gold);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.tree-person.primary {
+    border-width: 3px;
+}
+
+.tree-person.spouse {
+    opacity: 0.95;
+}
+
+.tree-person.consort {
+    width: 140px;
+    opacity: 0.9;
+}
+
+.tree-person.external {
+    border-style: dashed;
+    opacity: 0.85;
+}
+
+/* Status-based styling */
+.tree-person.deceased {
+    border-color: var(--dynasty-deceased);
+}
+
+.tree-person.active {
+    border-color: var(--dynasty-success);
+}
+
+.tree-person.murdered,
+.tree-person.assassinated {
+    border-color: var(--dynasty-danger);
+    background: linear-gradient(135deg, var(--dynasty-surface) 0%, rgba(231, 76, 60, 0.1) 100%);
+}
+
+.tree-person.incapacitated {
+    border-color: var(--dynasty-royal);
+    background: linear-gradient(135deg, var(--dynasty-surface) 0%, rgba(155, 89, 182, 0.1) 100%);
+}
+
+.tree-person.legendary,
+.tree-person.transcended {
+    border-color: var(--dynasty-gold);
+    background: linear-gradient(135deg, var(--dynasty-surface) 0%, rgba(255, 215, 0, 0.1) 100%);
+}
+
+.tree-person.unknown,
+.tree-person.banished {
+    border-style: dashed;
+    border-color: var(--dynasty-warning);
+}
+
+/* Person Portrait */
+.person-portrait {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.portrait-emoji {
+    font-size: 2rem;
+    display: block;
+}
+
+.birth-order {
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    font-size: 0.6rem;
+    background: var(--dynasty-gold);
+    color: #000;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+/* Person Details */
+.person-details {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.person-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+    line-height: 1.2;
+}
+
+.person-epithet {
+    font-size: 0.65rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+}
+
+.person-dates {
+    font-size: 0.6rem;
+    color: var(--dynasty-text-dim);
+}
+
+.person-reign {
+    font-size: 0.55rem;
+    color: var(--dynasty-royal);
+}
+
+/* Person Badges */
+.person-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.status-badge {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    background: var(--dynasty-surface-alt);
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.status-badge.deceased { color: var(--dynasty-text-dim); }
+.status-badge.active { color: var(--dynasty-success); }
+.status-badge.murdered { color: var(--dynasty-danger); }
+.status-badge.incapacitated { color: var(--dynasty-royal); }
+.status-badge.legendary { color: var(--dynasty-gold); }
+
+.secrets-badge {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    background: rgba(243, 156, 18, 0.2);
+    color: var(--dynasty-warning);
+}
+
+.external-badge {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    background: rgba(52, 152, 219, 0.2);
+    color: var(--dynasty-info);
+}
+
+/* Marriage Badge on Person */
+.marriage-badge {
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.marriage-badge.marriage { background: rgba(255, 215, 0, 0.2); color: var(--dynasty-gold); }
+.marriage-badge.affair { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+.marriage-badge.political { background: rgba(52, 152, 219, 0.2); color: #3498db; }
+.marriage-badge.warrior { background: rgba(230, 126, 34, 0.2); color: #e67e22; }
+.marriage-badge.true-love { background: rgba(233, 30, 99, 0.2); color: #e91e63; }
+.marriage-badge.annulled { background: rgba(100, 100, 100, 0.2); color: #888; text-decoration: line-through; }
+
+/* =============================================
+   MARRIAGES VIEW
+   ============================================= */
+
+.marriages-visual-container {
+    padding: 0.5rem 0;
+}
+
+.marriages-summary {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+}
+
+.summary-stat {
+    text-align: center;
+}
+
+.summary-stat .stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dynasty-gold);
+}
+
+.summary-stat .stat-label {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+}
+
+.marriages-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Marriage Visual Card */
+.marriage-visual-card {
+    background: var(--dynasty-surface);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all var(--transition-fast);
+}
+
+.marriage-visual-card:hover {
+    transform: translateX(5px);
+    border-color: var(--dynasty-gold);
+}
+
+.marriage-visual-card.affair { border-left: 4px solid #e74c3c; }
+.marriage-visual-card.political { border-left: 4px solid #3498db; }
+.marriage-visual-card.warrior { border-left: 4px solid #e67e22; }
+.marriage-visual-card.true-love { border-left: 4px solid #e91e63; }
+.marriage-visual-card.annulled { border-left: 4px solid #666; opacity: 0.8; }
+.marriage-visual-card.marriage { border-left: 4px solid var(--dynasty-gold); }
+
+.marriage-visual-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.marriage-symbol {
+    font-size: 1.25rem;
+}
+
+.marriage-type-label {
+    flex: 1;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--dynasty-text);
+}
+
+.marriage-date-range {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+    background: var(--dynasty-surface);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.marriage-parties {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.25rem;
+}
+
+.party {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 100px;
+}
+
+.party-icon {
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dynasty-surface-alt);
+    border-radius: 50%;
+    border: 2px solid var(--dynasty-border);
+}
+
+.party-name {
+    font-size: 0.8rem;
+    color: var(--dynasty-text);
+    text-align: center;
+    max-width: 120px;
+}
+
+.marriage-bond {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.bond-line {
+    width: 30px;
+    height: 2px;
+}
+
+.bond-line.marriage { background: var(--dynasty-gold); }
+.bond-line.affair { background: #e74c3c; }
+.bond-line.political { background: #3498db; }
+.bond-line.warrior { background: #e67e22; }
+.bond-line.true-love { background: #e91e63; }
+.bond-line.annulled { background: #666; }
+
+.bond-heart {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dynasty-surface);
+    border: 2px solid var(--dynasty-border);
+    border-radius: 50%;
+    font-size: 1rem;
+}
+
+.marriage-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(39, 174, 96, 0.1);
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.result-icon {
+    font-size: 1rem;
+}
+
+.result-text {
+    font-size: 0.85rem;
+    color: var(--dynasty-success);
+}
+
+.marriage-footer {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.marriage-status {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: var(--dynasty-surface-alt);
+    margin-bottom: 0.5rem;
+}
+
+.marriage-status.ended { color: var(--dynasty-danger); }
+.marriage-status.active { color: var(--dynasty-success); }
+.marriage-status.annulled { color: #888; }
+
+.marriage-significance {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+    font-style: italic;
+}
+
+/* =============================================
+   FAMILY TIMELINE VIEW
+   ============================================= */
+
+.family-timeline-container {
+    padding: 0.5rem 0;
+}
+
+.timeline-eras {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.timeline-era {
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--dynasty-border);
+}
+
+.era-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.era-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dynasty-gold);
+}
+
+.era-count {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+}
+
+.era-events {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.timeline-event-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 6px;
+    border-left: 3px solid var(--dynasty-border);
+    transition: all var(--transition-fast);
+}
+
+.timeline-event-card:hover {
+    transform: translateX(3px);
+    border-left-color: var(--dynasty-gold);
+}
+
+.timeline-event-card.birth { border-left-color: var(--dynasty-success); }
+.timeline-event-card.death { border-left-color: var(--dynasty-danger); }
+.timeline-event-card.coronation { border-left-color: var(--dynasty-gold); }
+.timeline-event-card.marriage { border-left-color: #e91e63; }
+
+.timeline-event-card .event-year {
+    min-width: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--dynasty-gold);
+}
+
+.timeline-event-card .event-icon {
+    font-size: 1rem;
+}
+
+.timeline-event-card .event-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-event-card .event-title {
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.timeline-event-card .event-subtitle {
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+    font-style: italic;
+}
+
+/* =============================================
+   LEGEND ENHANCEMENTS
+   ============================================= */
+
+.tree-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    justify-content: center;
+}
+
+.legend-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.legend-title {
+    font-size: 0.75rem;
+    color: var(--dynasty-gold);
+    font-weight: 600;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid;
+}
+
+.legend-dot.deceased { border-color: var(--dynasty-deceased); }
+.legend-dot.active { border-color: var(--dynasty-success); }
+.legend-dot.murdered { border-color: var(--dynasty-danger); }
+.legend-dot.hidden { border-color: var(--dynasty-warning); border-style: dashed; }
+
+.legend-line {
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.legend-line.marriage { background: var(--dynasty-gold); }
+.legend-line.child { background: #4a90a4; }
+.legend-line.affair { background: #e74c3c; }
+
+/* Connection Lines */
+.connection-line {
+    stroke-linecap: round;
+}
+
+.connection-line.child-line {
+    stroke: #4a90a4;
+    stroke-dasharray: 5, 3;
+}
+
+.connection-line.marriage-line {
+    stroke: var(--dynasty-gold);
+}
+
+.connection-line.affair-line {
+    stroke: #e74c3c;
+    stroke-dasharray: 3, 3;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 768px) {
+    .tree-view-controls {
+        flex-wrap: wrap;
+    }
+    
+    .tree-view-btn {
+        flex: 1 1 30%;
+        font-size: 0.7rem;
+        padding: 0.5rem;
+    }
+    
+    .tree-person {
+        width: 130px;
+        padding: 0.5rem;
+    }
+    
+    .tree-person.consort {
+        width: 110px;
+    }
+    
+    .portrait-emoji {
+        font-size: 1.5rem;
+    }
+    
+    .person-name {
+        font-size: 0.7rem;
+    }
+    
+    .marriage-parties {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .marriage-bond {
+        transform: rotate(90deg);
+    }
+    
+    .marriages-summary {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .legend-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+/* =============================================
+   CSS VARIABLES
+   ============================================= */
+/* =============================================
+   EXPANDED CADET BRANCH STYLES
+   ============================================= */
+
+/* Sidebar cadet items enhanced */
+.cadet-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: var(--dynasty-surface);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.cadet-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--dynasty-gold);
+    transform: translateX(3px);
+}
+
+.cadet-item.destroyed {
+    opacity: 0.7;
+    border-left: 3px solid var(--dynasty-danger);
+}
+
+.cadet-item.active {
+    border-left: 3px solid var(--dynasty-success);
+}
+
+.cadet-item .cadet-head {
+    font-size: 0.7rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+}
+
+.cadet-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.25rem;
+}
+
+.cadet-count {
+    font-size: 0.65rem;
+    color: var(--dynasty-text-dim);
+    background: var(--dynasty-surface-alt);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+}
+
+/* Branch Modal Enhancements */
+.branch-dossier {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.dossier-alt-motto {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+    font-style: italic;
+    margin-top: 0.25rem;
+}
+
+.dossier-house {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-text-dim);
+}
+
+.claim-stars {
+    color: var(--dynasty-gold);
+    letter-spacing: 2px;
+}
+
+/* Current Head Section */
+.current-head-section .head-card {
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    padding: 1rem;
+    border-left: 3px solid var(--dynasty-gold);
+}
+
+.head-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.head-header strong {
+    font-size: 1.1rem;
+    color: var(--dynasty-text-bright);
+}
+
+.head-age {
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+    background: var(--dynasty-surface-alt);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+}
+
+.head-summary {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+}
+
+.head-secrets h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    color: var(--dynasty-warning);
+}
+
+/* Branch Members Tree */
+.members-section {
+    background: var(--dynasty-bg) !important;
+}
+
+.branch-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.branch-generation {
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.generation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.gen-label {
+    font-size: 0.85rem;
+    color: var(--dynasty-gold);
+    font-weight: 600;
+}
+
+.gen-count {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+}
+
+.generation-members {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+    padding: 1rem;
+}
+
+.branch-member-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 8px;
+    border: 2px solid var(--dynasty-border);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.branch-member-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--dynasty-gold);
+    box-shadow: var(--shadow-medium);
+}
+
+.branch-member-card.deceased {
+    border-color: var(--dynasty-deceased);
+    opacity: 0.85;
+}
+
+.branch-member-card.active {
+    border-color: var(--dynasty-success);
+}
+
+.branch-member-card.murdered,
+.branch-member-card.assassinated {
+    border-color: var(--dynasty-danger);
+    background: linear-gradient(135deg, var(--dynasty-surface-alt) 0%, rgba(231, 76, 60, 0.1) 100%);
+}
+
+.branch-member-card.alive,
+.branch-member-card.alivehidden {
+    border-color: var(--dynasty-success);
+    background: linear-gradient(135deg, var(--dynasty-surface-alt) 0%, rgba(39, 174, 96, 0.1) 100%);
+}
+
+.branch-member-card.hidden,
+.branch-member-card.abroad {
+    border-style: dashed;
+    border-color: var(--dynasty-warning);
+}
+
+.branch-member-card.erased {
+    border-color: #000;
+    background: linear-gradient(135deg, var(--dynasty-surface-alt) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.branch-member-card.merged {
+    border-color: var(--dynasty-success);
+    background: linear-gradient(135deg, var(--dynasty-surface-alt) 0%, rgba(34, 139, 34, 0.2) 100%);
+}
+
+.branch-member-card .member-portrait {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.branch-member-card .member-info {
+    text-align: center;
+}
+
+.branch-member-card .member-name {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+}
+
+.branch-member-card .member-epithet {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+    margin: 0.2rem 0;
+}
+
+.branch-member-card .member-dates {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+}
+
+.branch-member-card .member-status-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+    background: var(--dynasty-deceased);
+    color: #fff;
+}
+
+.branch-member-card.active .member-status-badge { background: var(--dynasty-success); }
+.branch-member-card.murdered .member-status-badge,
+.branch-member-card.assassinated .member-status-badge { background: var(--dynasty-danger); }
+.branch-member-card.hidden .member-status-badge { background: var(--dynasty-warning); color: #000; }
+.branch-member-card.erased .member-status-badge { background: #000; }
+.branch-member-card.merged .member-status-badge { background: var(--dynasty-success); }
+.branch-member-card.abroad .member-status-badge { background: var(--dynasty-info); }
+
+.branch-member-card .member-secrets-indicator {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.75rem;
+    background: var(--dynasty-surface);
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+    border: 1px solid var(--dynasty-border);
+}
+
+.member-secrets-indicator .secrets-count {
+    font-size: 0.65rem;
+    color: var(--dynasty-text-dim);
+}
+
+/* Assets Section */
+.assets-section .assets-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.asset {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.asset-icon {
+    font-size: 1.1rem;
+}
+
+.asset-label {
+    color: var(--dynasty-text-dim);
+    min-width: 80px;
+}
+
+.asset-value {
+    color: var(--dynasty-text);
+    flex: 1;
+}
+
+.asset-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--dynasty-surface);
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 150px;
+}
+
+.asset-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--dynasty-gold-dim), var(--dynasty-gold));
+    border-radius: 4px;
+    transition: width var(--transition-med);
+}
+
+.asset.territory,
+.asset.special,
+.asset.legacy {
+    flex-wrap: wrap;
+}
+
+.asset.territory .asset-value,
+.asset.special .asset-value,
+.asset.legacy .asset-value {
+    width: 100%;
+    margin-top: 0.25rem;
+    padding-left: 1.6rem;
+    font-size: 0.85rem;
+}
+
+/* Destruction Section */
+.destruction-section {
+    background: rgba(231, 76, 60, 0.1) !important;
+    border: 1px solid var(--dynasty-danger) !important;
+}
+
+.destruction-section h3 {
+    color: var(--dynasty-danger) !important;
+}
+
+.destruction-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.destruction-row {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+}
+
+.destruction-row.survivor {
+    color: var(--dynasty-success);
+    font-weight: 600;
+}
+
+/* Mysteries Section */
+.mysteries-section {
+    background: rgba(155, 89, 182, 0.1) !important;
+    border: 1px solid var(--dynasty-royal) !important;
+}
+
+.mysteries-section h3 {
+    color: var(--dynasty-royal) !important;
+}
+
+.mysteries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mystery-card {
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    padding: 1rem;
+    border-left: 3px solid var(--dynasty-royal);
+}
+
+.mystery-card.locked {
+    opacity: 0.7;
+    border-left-color: var(--dynasty-danger);
+}
+
+.mystery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.mystery-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+}
+
+.mystery-status {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 3px;
+    color: var(--dynasty-text-dim);
+}
+
+.mystery-summary {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+}
+
+.mystery-theories,
+.mystery-copies,
+.mystery-suspects {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.mystery-theories strong,
+.mystery-copies strong,
+.mystery-suspects strong {
+    color: var(--dynasty-gold);
+}
+
+.mystery-theories ul,
+.mystery-copies ul,
+.mystery-suspects ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+}
+
+.mystery-theories li,
+.mystery-copies li,
+.mystery-suspects li {
+    margin-bottom: 0.25rem;
+    color: var(--dynasty-text);
+}
+
+.mystery-location,
+.mystery-notes {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.mystery-locked {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--dynasty-danger);
+    font-style: italic;
+}
+
+/* Special Note Section */
+.special-note-section {
+    background: rgba(255, 215, 0, 0.1) !important;
+    border: 1px solid var(--dynasty-gold) !important;
+}
+
+.special-note-section h3 {
+    color: var(--dynasty-gold) !important;
+}
+
+.special-note-text {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* Back Button */
+.back-to-branch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 6px;
+    color: var(--dynasty-text);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-bottom: 1rem;
+}
+
+.back-to-branch:hover {
+    background: var(--dynasty-surface);
+    border-color: var(--dynasty-gold);
+    color: var(--dynasty-gold);
+}
+
+/* Prophecies */
+.dossier-prophecies {
+    padding-top: 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.dossier-prophecies h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-royal);
+}
+
+.prophecies-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.prophecy-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 6px;
+    border-left: 3px solid var(--dynasty-border);
+}
+
+.prophecy-item.fulfilled {
+    border-left-color: var(--dynasty-success);
+}
+
+.prophecy-item.pending {
+    border-left-color: var(--dynasty-warning);
+}
+
+.prophecy-year {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--dynasty-gold);
+}
+
+.prophecy-text {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    font-style: italic;
+}
+
+.prophecy-status {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: var(--dynasty-surface);
+}
+
+.prophecy-item.fulfilled .prophecy-status {
+    color: var(--dynasty-success);
+}
+
+.prophecy-item.pending .prophecy-status {
+    color: var(--dynasty-warning);
+}
+
+/* Current Status */
+.dossier-current-status {
+    padding-top: 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.dossier-current-status h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-info);
+}
+
+.current-status-grid {
+    background: var(--dynasty-surface-alt);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.status-row {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+}
+
+.status-row strong {
+    color: var(--dynasty-text-dim);
+    margin-right: 0.5rem;
+}
+
+/* True Identity */
+.dossier-true-identity {
+    padding-top: 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.dossier-true-identity h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-danger);
+}
+
+.identity-reveal {
+    margin: 0;
+    padding: 1rem;
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid var(--dynasty-danger);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+    text-align: center;
+}
+
+/* Clients List */
+.dossier-clients {
+    padding-top: 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.dossier-clients h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-warning);
+}
+
+.dossier-clients ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.dossier-clients li {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    margin-bottom: 0.3rem;
+}
+
+/* No Members */
+.no-members {
+    text-align: center;
+    color: var(--dynasty-text-dim);
+    font-style: italic;
+    padding: 2rem;
+}
+
+/* Responsive for branch modal */
+@media (max-width: 768px) {
+    .generation-members {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .branch-member-card {
+        padding: 0.75rem;
+    }
+    
+    .branch-member-card .member-portrait {
+        font-size: 1.5rem;
+    }
+    
+    .prophecy-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+.dynasty-interface {
+    --dynasty-bg: #0a0a12;
+    --dynasty-surface: #12121a;
+    --dynasty-surface-alt: #1a1a24;
+    --dynasty-border: #2a2a3a;
+    --dynasty-border-light: #3a3a4a;
+    
+    --dynasty-text: #c0c0d0;
+    --dynasty-text-dim: #808090;
+    --dynasty-text-bright: #ffffff;
+    
+    --dynasty-gold: #ffd700;
+    --dynasty-gold-dim: #b8860b;
+    --dynasty-royal: #9b59b6;
+    --dynasty-royal-dim: #6a3a7d;
+    
+    --dynasty-success: #27ae60;
+    --dynasty-warning: #f39c12;
+    --dynasty-danger: #e74c3c;
+    --dynasty-info: #3498db;
+    
+    --dynasty-deceased: #555;
+    --dynasty-active: #27ae60;
+    --dynasty-missing: #f39c12;
+    --dynasty-assassinated: #e74c3c;
+    
+    --tree-line-color: #4a4a5a;
+    --tree-node-bg: #1e1e28;
+    --tree-node-border: #3a3a4a;
+    
+    --transition-fast: 0.15s ease;
+    --transition-med: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+/* =============================================
+   BASE LAYOUT
+   ============================================= */
+
+.dynasty-interface {
+    min-height: 100vh;
+    background: var(--dynasty-bg);
+    color: var(--dynasty-text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =============================================
+   HEADER
+   ============================================= */
+
+.dynasty-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: linear-gradient(180deg, var(--dynasty-surface) 0%, var(--dynasty-bg) 100%);
+    border-bottom: 1px solid var(--dynasty-border);
+    gap: 2rem;
+}
+
+.header-emblem {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-emblem .emblem-icon {
+    font-size: 2.5rem;
+    z-index: 1;
+}
+
+.header-emblem .emblem-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+    animation: emblemPulse 3s ease-in-out infinite;
+}
+
+@keyframes emblemPulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+.header-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.header-title .classification {
+    font-size: 0.7rem;
+    color: var(--dynasty-gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--dynasty-text-bright);
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.header-title .subtitle {
+    font-size: 0.85rem;
+    color: var(--dynasty-text-dim);
+}
+
+.header-intel {
+    display: flex;
+    align-items: center;
+}
+
+.intel-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.intel-label {
+    font-size: 0.65rem;
+    color: var(--dynasty-text-dim);
+    letter-spacing: 1px;
+}
+
+.intel-bar {
+    width: 120px;
+    height: 8px;
+    background: var(--dynasty-surface-alt);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.intel-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--dynasty-gold-dim), var(--dynasty-gold));
+    border-radius: 4px;
+    transition: width var(--transition-med);
+}
+
+.intel-value {
+    font-size: 0.9rem;
+    color: var(--dynasty-gold);
+    font-weight: 600;
+}
+
+/* =============================================
+   NAVIGATION
+   ============================================= */
+
+.dynasty-nav {
+    display: flex;
+    flex-direction: column;
+    background: var(--dynasty-surface);
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.house-tabs {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding: 0 1rem;
+}
+
+.house-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--dynasty-text-dim);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.house-tab:hover {
+    color: var(--dynasty-text);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.house-tab.active {
+    color: var(--house-color, var(--dynasty-gold));
+    border-bottom-color: var(--house-color, var(--dynasty-gold));
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.house-tab .tab-icon {
+    font-size: 1.2rem;
+}
+
+.house-tab .tab-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.view-tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--dynasty-surface-alt);
+}
+
+.view-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: var(--dynasty-text-dim);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.8rem;
+}
+
+.view-tab:hover {
+    color: var(--dynasty-text);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.view-tab.active {
+    color: var(--dynasty-text-bright);
+    background: var(--dynasty-surface);
+    border-color: var(--dynasty-border);
+}
+
+/* =============================================
+   BODY LAYOUT
+   ============================================= */
+
+.dynasty-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* =============================================
+   SIDEBAR
+   ============================================= */
+
+.dynasty-sidebar {
+    width: 280px;
+    background: var(--dynasty-surface);
+    border-right: 1px solid var(--dynasty-border);
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.house-card {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 8px;
+    border: 1px solid var(--dynasty-border);
+}
+
+.house-sigil {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+}
+
+.house-name {
+    margin: 0 0 0.25rem;
+    font-size: 1.1rem;
+    color: var(--dynasty-text-bright);
+}
+
+.house-motto {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+}
+
+.house-alt-motto {
+    margin: 0.25rem 0 0;
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+    font-style: italic;
+}
+
+.house-details {
+    background: var(--dynasty-surface-alt);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--dynasty-border);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--dynasty-border);
+    font-size: 0.85rem;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: var(--dynasty-text-dim);
+}
+
+.detail-value {
+    color: var(--dynasty-text);
+    text-align: right;
+}
+
+.detail-value.status-active { color: var(--dynasty-success); }
+.detail-value.status-extinct { color: var(--dynasty-danger); }
+.detail-value.status-destroyed { color: var(--dynasty-danger); }
+
+.cadet-branches,
+.clan-list {
+    background: var(--dynasty-surface-alt);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--dynasty-border);
+}
+
+.cadet-branches h3,
+.clan-list h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cadet-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem;
+    margin-bottom: 0.5rem;
+    background: var(--dynasty-surface);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.cadet-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--dynasty-border);
+}
+
+.cadet-item:last-child {
+    margin-bottom: 0;
+}
+
+.cadet-sigil {
+    font-size: 1.3rem;
+}
+
+.cadet-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.cadet-name {
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.cadet-status {
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+}
+
+.cadet-claim {
+    color: var(--dynasty-gold);
+    font-size: 0.75rem;
+}
+
+.clan-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.4rem;
+    background: var(--dynasty-surface);
+    border-radius: 4px;
+}
+
+.clan-name {
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.clan-leader {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+}
+
+/* Succession & Marriage Legend Sidebars */
+.succession-legend,
+.alliance-legend {
+    margin-top: 1rem;
+}
+
+.succession-legend h3,
+.alliance-legend h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-text-dim);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.strength-badge,
+.alliance-badge {
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+.strength-badge.absolute { background: var(--dynasty-gold); color: #000; }
+.strength-badge.strong { background: var(--dynasty-success); color: #fff; }
+.strength-badge.moderate { background: var(--dynasty-info); color: #fff; }
+.strength-badge.weak { background: var(--dynasty-warning); color: #000; }
+.strength-badge.treaty { background: var(--dynasty-royal); color: #fff; }
+
+.alliance-badge.active { background: var(--dynasty-success); color: #fff; }
+.alliance-badge.dissolved { background: var(--dynasty-deceased); color: #fff; }
+.alliance-badge.secret { background: var(--dynasty-royal); color: #fff; }
+.alliance-badge.disputed { background: var(--dynasty-warning); color: #000; }
+
+/* =============================================
+   MAIN CONTENT AREA
+   ============================================= */
+
+.dynasty-main {
+    flex: 1;
+    overflow: auto;
+    padding: 1.5rem;
+    background: var(--dynasty-bg);
+}
+
+.no-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: var(--dynasty-text-dim);
+    font-size: 1.1rem;
+}
+
+/* =============================================
+   FAMILY TREE VIEW
+   ============================================= */
+
+.family-tree-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tree-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    width: fit-content;
+}
+
+.tree-control {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dynasty-surface-alt);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 6px;
+    color: var(--dynasty-text);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 1rem;
+}
+
+.tree-control:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--dynasty-gold);
+    color: var(--dynasty-gold);
+}
+
+.zoom-level {
+    padding: 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-text-dim);
+}
+
+.tree-viewport {
+    flex: 1;
+    overflow: auto;
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    border: 1px solid var(--dynasty-border);
+    cursor: grab;
+    position: relative;
+}
+
+.tree-canvas {
+    min-width: 100%;
+    min-height: 100%;
+    padding: 2rem;
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
+    position: relative;
+}
+
+.generation-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.generation-label {
+    width: 120px;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-right: 2px solid var(--tree-line-color);
+    margin-right: 2rem;
+    flex-shrink: 0;
+}
+
+.generation-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.tree-node {
+    width: 180px;
+    background: var(--tree-node-bg);
+    border: 2px solid var(--tree-node-border);
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.tree-node:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--dynasty-gold);
+}
+
+.tree-node.deceased {
+    border-color: var(--dynasty-deceased);
+    opacity: 0.85;
+}
+
+.tree-node.active {
+    border-color: var(--dynasty-active);
+}
+
+.tree-node.assassinated {
+    border-color: var(--dynasty-assassinated);
+    background: linear-gradient(135deg, var(--tree-node-bg) 0%, rgba(231, 76, 60, 0.1) 100%);
+}
+
+.tree-node.unknown,
+.tree-node.missing {
+    border-color: var(--dynasty-warning);
+    border-style: dashed;
+}
+
+.tree-node.legendary {
+    border-color: var(--dynasty-gold);
+    background: linear-gradient(135deg, var(--tree-node-bg) 0%, rgba(255, 215, 0, 0.1) 100%);
+}
+
+.tree-node.incapacitated {
+    border-color: var(--dynasty-royal);
+}
+
+.node-portrait {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.node-info {
+    text-align: center;
+}
+
+.node-name {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+    margin-bottom: 0.2rem;
+}
+
+.node-epithet {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+    margin-bottom: 0.3rem;
+}
+
+.node-dates {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+}
+
+.node-status {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.55rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+    background: var(--dynasty-deceased);
+    color: #fff;
+}
+
+.tree-node.active .node-status { background: var(--dynasty-active); }
+.tree-node.assassinated .node-status { background: var(--dynasty-assassinated); }
+.tree-node.missing .node-status,
+.tree-node.unknown .node-status { background: var(--dynasty-warning); color: #000; }
+.tree-node.legendary .node-status { background: var(--dynasty-gold); color: #000; }
+.tree-node.incapacitated .node-status { background: var(--dynasty-royal); }
+
+.node-secrets-indicator {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    background: var(--tree-node-bg);
+    padding: 0 0.3rem;
+    border-radius: 50%;
+}
+
+.connection-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.connection-lines path,
+.connection-lines line {
+    stroke: var(--tree-line-color);
+    stroke-width: 2;
+    fill: none;
+}
+
+/* =============================================
+   MEMBER LIST VIEW
+   ============================================= */
+
+.member-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.list-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--dynasty-text-bright);
+}
+
+.list-filters {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.list-filters select {
+    padding: 0.5rem 1rem;
+    background: var(--dynasty-surface);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 6px;
+    color: var(--dynasty-text);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.list-filters select:hover {
+    border-color: var(--dynasty-gold);
+}
+
+.member-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+}
+
+.member-card {
+    background: var(--dynasty-surface);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all var(--transition-fast);
+}
+
+.member-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--dynasty-gold);
+}
+
+.member-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--dynasty-surface-alt);
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.member-portrait {
+    font-size: 2rem;
+}
+
+.member-titles {
+    flex: 1;
+}
+
+.member-titles h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--dynasty-text-bright);
+}
+
+.member-titles .epithet {
+    font-size: 0.75rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+}
+
+.member-status {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background: var(--dynasty-deceased);
+    color: #fff;
+}
+
+.member-status.active { background: var(--dynasty-active); }
+.member-status.assassinated { background: var(--dynasty-assassinated); }
+.member-status.missing,
+.member-status.unknown { background: var(--dynasty-warning); color: #000; }
+.member-status.incapacitated { background: var(--dynasty-royal); }
+
+.member-card .card-body {
+    padding: 1rem;
+}
+
+.member-summary {
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+}
+
+.member-dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+    margin-bottom: 1rem;
+}
+
+.member-achievements {
+    margin-top: 0.75rem;
+}
+
+.member-achievements h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    color: var(--dynasty-gold);
+    text-transform: uppercase;
+}
+
+.member-achievements ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+}
+
+.member-achievements li {
+    margin-bottom: 0.25rem;
+}
+
+.member-card .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.view-details-btn {
+    padding: 0.4rem 0.8rem;
+    background: transparent;
+    border: 1px solid var(--dynasty-gold);
+    border-radius: 4px;
+    color: var(--dynasty-gold);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.view-details-btn:hover {
+    background: var(--dynasty-gold);
+    color: #000;
+}
+
+.secrets-count {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+}
+
+/* =============================================
+   TIMELINE VIEW
+   ============================================= */
+
+.dynasty-timeline-container {
+    padding: 1rem;
+}
+
+.dynasty-timeline-container h2 {
+    margin: 0 0 1.5rem;
+    font-size: 1.3rem;
+    color: var(--dynasty-text-bright);
+}
+
+.timeline-scroll {
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.timeline-track {
+    display: flex;
+    gap: 0;
+    min-width: max-content;
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--tree-line-color);
+    transform: translateY(-50%);
+}
+
+.timeline-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-event:nth-child(odd) .event-content {
+    order: -1;
+    margin-bottom: 1rem;
+}
+
+.timeline-event:nth-child(even) .event-content {
+    margin-top: 1rem;
+}
+
+.event-marker {
+    width: 40px;
+    height: 40px;
+    background: var(--dynasty-surface);
+    border: 3px solid var(--tree-line-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+.timeline-event.birth .event-marker { border-color: var(--dynasty-success); }
+.timeline-event.death .event-marker { border-color: var(--dynasty-danger); }
+.timeline-event.coronation .event-marker { border-color: var(--dynasty-gold); }
+
+.event-content {
+    text-align: center;
+    max-width: 150px;
+}
+
+.event-year {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dynasty-gold);
+}
+
+.event-title {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--dynasty-text);
+    margin-top: 0.25rem;
+}
+
+/* =============================================
+   SECRETS VIEW
+   ============================================= */
+
+.secrets-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.secrets-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.secrets-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--dynasty-text-bright);
+}
+
+.secrets-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.secrets-stats .stat {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.secrets-stats .stat.unlocked {
+    background: rgba(39, 174, 96, 0.2);
+    color: var(--dynasty-success);
+}
+
+.secrets-stats .stat.locked {
+    background: rgba(231, 76, 60, 0.2);
+    color: var(--dynasty-danger);
+}
+
+.secrets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.secret-card {
+    background: var(--dynasty-surface);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.secret-card.unlocked {
+    border-left: 3px solid var(--dynasty-success);
+}
+
+.secret-card.locked {
+    border-left: 3px solid var(--dynasty-danger);
+    opacity: 0.7;
+}
+
+.secret-card .secret-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.secret-source {
+    font-size: 0.85rem;
+    color: var(--dynasty-gold);
+    font-weight: 500;
+}
+
+.secret-intel {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 3px;
+    color: var(--dynasty-text-dim);
+}
+
+.secret-text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--dynasty-text);
+}
+
+.secret-card.locked .secret-text {
+    font-family: monospace;
+    color: var(--dynasty-text-dim);
+    letter-spacing: 2px;
+}
+
+/* =============================================
+   SUCCESSION CHART
+   ============================================= */
+
+.succession-container {
+    padding: 1rem;
+}
+
+.succession-container h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.3rem;
+    color: var(--dynasty-text-bright);
+}
+
+.succession-note {
+    margin: 0 0 1.5rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-warning);
+    font-style: italic;
+}
+
+.succession-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.succession-card {
+    display: grid;
+    grid-template-columns: 60px 1fr auto auto;
+    gap: 1rem;
+    align-items: center;
+    background: var(--dynasty-surface);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    transition: all var(--transition-fast);
+}
+
+.succession-card:hover {
+    transform: translateX(5px);
+    border-color: var(--dynasty-gold);
+}
+
+.succession-card.rank-1 {
+    border-color: var(--dynasty-gold);
+    background: linear-gradient(135deg, var(--dynasty-surface) 0%, rgba(255, 215, 0, 0.1) 100%);
+}
+
+.rank-badge {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dynasty-surface-alt);
+    border: 2px solid var(--dynasty-border);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dynasty-gold);
+}
+
+.succession-card.rank-1 .rank-badge {
+    background: var(--dynasty-gold);
+    color: #000;
+    border-color: var(--dynasty-gold);
+}
+
+.claimant-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--dynasty-text-bright);
+}
+
+.claimant-info .house-name {
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+}
+
+.claim-strength {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.claim-strength.absoluteifproven { background: var(--dynasty-gold); color: #000; }
+.claim-strength.verystrong { background: var(--dynasty-success); color: #fff; }
+.claim-strength.moderate { background: var(--dynasty-info); color: #fff; }
+.claim-strength.weakdisputed { background: var(--dynasty-warning); color: #000; }
+.claim-strength.veryweak { background: #666; color: #fff; }
+.claim-strength.ancienttreaty { background: var(--dynasty-royal); color: #fff; }
+.claim-strength.negligible { background: #444; color: #aaa; }
+
+.claim-status {
+    padding: 0.3rem 0.6rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+}
+
+.claim-notes {
+    grid-column: 2 / -1;
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+/* =============================================
+   MARRIAGE WEB
+   ============================================= */
+
+.marriages-container {
+    padding: 1rem;
+}
+
+.marriages-container h2 {
+    margin: 0 0 1.5rem;
+    font-size: 1.3rem;
+    color: var(--dynasty-text-bright);
+}
+
+.marriages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.25rem;
+}
+
+.marriage-card {
+    background: var(--dynasty-surface);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition: all var(--transition-fast);
+}
+
+.marriage-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.marriage-card.dissolved { border-top: 3px solid var(--dynasty-deceased); }
+.marriage-card.secret { border-top: 3px solid var(--dynasty-royal); }
+.marriage-card.disputed { border-top: 3px solid var(--dynasty-warning); }
+.marriage-card.ended { border-top: 3px solid var(--dynasty-danger); }
+
+.marriage-houses {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.marriage-houses .house-a,
+.marriage-houses .house-b {
+    font-size: 0.9rem;
+    color: var(--dynasty-text-bright);
+    font-weight: 500;
+}
+
+.marriage-link {
+    font-size: 1.5rem;
+}
+
+.marriage-union {
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+
+.marriage-union strong {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--dynasty-text);
+}
+
+.marriage-date {
+    font-size: 0.8rem;
+    color: var(--dynasty-gold);
+}
+
+.marriage-result {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.result-label {
+    color: var(--dynasty-text-dim);
+}
+
+.result-value {
+    color: var(--dynasty-text-bright);
+    font-weight: 500;
+}
+
+.marriage-status {
+    text-align: center;
+    padding: 0.3rem 0.6rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    width: 100%;
+}
+
+.marriage-significance {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+    text-align: center;
+    line-height: 1.5;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+/* =============================================
+   MODAL
+   ============================================= */
+
+.dynasty-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 2rem;
+    opacity: 1;
+    transition: opacity var(--transition-med);
+}
+
+.dynasty-modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dynasty-modal-content {
+    background: var(--dynasty-surface);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 12px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: var(--shadow-medium), var(--shadow-glow);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    background: var(--dynasty-surface-alt);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 50%;
+    color: var(--dynasty-text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: var(--dynasty-danger);
+    border-color: var(--dynasty-danger);
+    color: #fff;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Member Dossier in Modal */
+.member-dossier,
+.branch-dossier {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.dossier-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.dossier-portrait,
+.dossier-sigil {
+    font-size: 3rem;
+}
+
+.dossier-titles {
+    flex: 1;
+}
+
+.dossier-titles h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--dynasty-text-bright);
+}
+
+.dossier-epithet,
+.dossier-motto {
+    font-size: 0.9rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+}
+
+.dossier-status {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background: var(--dynasty-deceased);
+    color: #fff;
+}
+
+.dossier-vitals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    background: var(--dynasty-surface-alt);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.dossier-vitals .vital {
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.dossier-vitals .vital strong {
+    color: var(--dynasty-text-dim);
+    margin-right: 0.5rem;
+}
+
+.dossier-summary,
+.dossier-achievements,
+.dossier-controversies,
+.dossier-relationships,
+.dossier-secrets {
+    padding-top: 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.dossier-summary h3,
+.dossier-achievements h3,
+.dossier-controversies h3,
+.dossier-relationships h3,
+.dossier-secrets h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dossier-summary p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--dynasty-text);
+}
+
+.dossier-achievements ul,
+.dossier-controversies ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.dossier-achievements li,
+.dossier-controversies li {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    margin-bottom: 0.4rem;
+}
+
+.dossier-controversies li {
+    color: var(--dynasty-warning);
+}
+
+.relationship-item {
+    background: var(--dynasty-surface-alt);
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.relationship-item strong {
+    color: var(--dynasty-text-bright);
+}
+
+.relationship-item p {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: var(--dynasty-text-dim);
+}
+
+.secret-item {
+    background: var(--dynasty-surface-alt);
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid var(--dynasty-border);
+}
+
+.secret-item.unlocked {
+    border-left-color: var(--dynasty-success);
+}
+
+.secret-item.locked {
+    border-left-color: var(--dynasty-danger);
+    opacity: 0.7;
+}
+
+.secret-item .secret-intel {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.secret-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+}
+
+.secret-item.locked p {
+    font-family: monospace;
+    letter-spacing: 2px;
+    color: var(--dynasty-text-dim);
+}
+
+.dossier-quote {
+    padding-top: 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.dossier-quote blockquote {
+    margin: 0;
+    padding: 1rem;
+    background: var(--dynasty-surface-alt);
+    border-left: 3px solid var(--dynasty-gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--dynasty-text);
+    font-size: 0.95rem;
+}
+
+/* Branch Dossier specific */
+.branch-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.info-section {
+    background: var(--dynasty-surface-alt);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.info-section h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-gold);
+    text-transform: uppercase;
+}
+
+.info-row {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    margin-bottom: 0.4rem;
+}
+
+.info-row strong {
+    color: var(--dynasty-text-dim);
+}
+
+.head-card {
+    padding: 0.75rem;
+    background: var(--dynasty-surface);
+    border-radius: 6px;
+}
+
+.head-card strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--dynasty-text-bright);
+}
+
+.head-card span {
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+}
+
+.head-card p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+}
+
+.members-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.mini-member {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: var(--dynasty-surface);
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.mini-member strong {
+    color: var(--dynasty-text);
+}
+
+.mini-member span {
+    color: var(--dynasty-text-dim);
+}
+
+.assets-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.asset {
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.asset .asset-label {
+    color: var(--dynasty-text-dim);
+}
+
+.info-section.destruction {
+    border: 1px solid var(--dynasty-danger);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.info-section.destruction h3 {
+    color: var(--dynasty-danger);
+}
+
+.destruction-info div {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    margin-bottom: 0.3rem;
+}
+
+.info-section.survivors {
+    border: 1px solid var(--dynasty-warning);
+}
+
+.survivor-card {
+    padding: 0.75rem;
+    background: var(--dynasty-surface);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.survivor-card strong {
+    color: var(--dynasty-text-bright);
+}
+
+.survivor-status {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.65rem;
+    background: var(--dynasty-warning);
+    color: #000;
+    border-radius: 3px;
+}
+
+.survivor-card p {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-text-dim);
+}
+
+.info-section.special-note {
+    border: 1px solid var(--dynasty-gold);
+    background: rgba(255, 215, 0, 0.05);
+}
+
+.info-section.special-note h3 {
+    color: var(--dynasty-gold);
+}
+
+.info-section.special-note p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+}
+
+/* =============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================= */
+
+@media (max-width: 1024px) {
+    .dynasty-body {
+        flex-direction: column;
+    }
+    
+    .dynasty-sidebar {
+        width: 100%;
+        max-height: 300px;
+        border-right: none;
+        border-bottom: 1px solid var(--dynasty-border);
+    }
+    
+    .succession-card {
+        grid-template-columns: 50px 1fr;
+    }
+    
+    .claim-strength,
+    .claim-status {
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .dynasty-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .house-tabs {
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .house-tab .tab-label {
+        display: none;
+    }
+    
+    .house-tab .tab-icon {
+        font-size: 1.4rem;
+    }
+    
+    .member-grid,
+    .secrets-grid,
+    .marriages-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dynasty-modal-content {
+        max-height: 90vh;
+        margin: 1rem;
+    }
+    
+    .dossier-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .dynasty-main {
+        padding: 1rem;
+    }
+    
+    .tree-viewport {
+        min-height: 400px;
+    }
+    
+    .generation-label {
+        width: 80px;
+        font-size: 0.65rem;
+    }
+    
+    .tree-node {
+        width: 140px;
+        padding: 0.75rem;
+    }
+    
+    .node-name {
+        font-size: 0.8rem;
+    }
+    
+    .node-portrait {
+        font-size: 1.5rem;
+    }
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dynasty-modal-content {
+    animation: fadeIn var(--transition-med) ease-out;
+}
+
+.tree-node,
+.member-card,
+.succession-card,
+.marriage-card,
+.secret-card {
+    animation: fadeIn var(--transition-med) ease-out;
+    animation-fill-mode: both;
+}
+
+.member-card:nth-child(1) { animation-delay: 0.05s; }
+.member-card:nth-child(2) { animation-delay: 0.1s; }
+.member-card:nth-child(3) { animation-delay: 0.15s; }
+.member-card:nth-child(4) { animation-delay: 0.2s; }
+.member-card:nth-child(5) { animation-delay: 0.25s; }
+.member-card:nth-child(6) { animation-delay: 0.3s; }
+
+/* =============================================
+   SCROLLBAR STYLING
+   ============================================= */
+
+.dynasty-interface ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.dynasty-interface ::-webkit-scrollbar-track {
+    background: var(--dynasty-bg);
+}
+
+.dynasty-interface ::-webkit-scrollbar-thumb {
+    background: var(--dynasty-border);
+    border-radius: 4px;
+}
+
+.dynasty-interface ::-webkit-scrollbar-thumb:hover {
+    background: var(--dynasty-gold-dim);
+}
+
+/* Firefox */
+.dynasty-interface * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--dynasty-border) var(--dynasty-bg);
+}
+/* =============================================
+   BRANCH MODAL TABS
+   ============================================= */
+
+.branch-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--dynasty-border);
+    margin: 1rem 0;
+}
+
+.branch-tab {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    color: var(--dynasty-text-dim);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.branch-tab:hover {
+    color: var(--dynasty-text);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.branch-tab.active {
+    color: var(--dynasty-gold);
+    border-bottom-color: var(--dynasty-gold);
+}
+
+.branch-tab-content {
+    position: relative;
+}
+
+.tab-panel {
+    display: none;
+    animation: fadeIn var(--transition-med);
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+/* =============================================
+   BRANCH OVERVIEW TAB
+   ============================================= */
+
+.branch-overview {
+    padding: 0.5rem 0;
+}
+
+.overview-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.overview-section {
+    background: var(--dynasty-surface-alt);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--dynasty-border);
+}
+
+.overview-section h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-gold);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+}
+
+.claim-stars {
+    color: var(--dynasty-gold);
+    letter-spacing: 1px;
+}
+
+/* Current Head Card */
+.current-head-card {
+    background: var(--dynasty-surface);
+    border-radius: 6px;
+    padding: 1rem;
+    border-left: 3px solid var(--dynasty-gold);
+}
+
+.head-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.head-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+}
+
+.head-age {
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+    background: var(--dynasty-surface-alt);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+}
+
+.head-summary {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+}
+
+.head-secrets {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.mini-secret {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 4px;
+}
+
+.mini-secret.locked {
+    opacity: 0.6;
+}
+
+.mini-secret .secret-intel {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.35rem;
+    background: var(--dynasty-surface);
+    border-radius: 3px;
+    color: var(--dynasty-text-dim);
+}
+
+.mini-secret .secret-text {
+    color: var(--dynasty-text);
+    line-height: 1.4;
+}
+
+/* Destruction Card */
+.destruction-section {
+    background: rgba(231, 76, 60, 0.1) !important;
+    border-color: var(--dynasty-danger) !important;
+}
+
+.destruction-section h3 {
+    color: var(--dynasty-danger) !important;
+}
+
+.destruction-card {
+    text-align: center;
+}
+
+.destruction-event {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dynasty-danger);
+    margin-bottom: 0.25rem;
+}
+
+.destruction-date {
+    font-size: 0.85rem;
+    color: var(--dynasty-text-dim);
+    margin-bottom: 0.75rem;
+}
+
+.destruction-cause {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+}
+
+.destruction-perps {
+    font-size: 0.85rem;
+    color: var(--dynasty-warning);
+    margin-bottom: 0.75rem;
+}
+
+.destruction-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.destruction-stats .stat {
+    font-size: 0.9rem;
+}
+
+.destruction-stats .casualties {
+    color: var(--dynasty-danger);
+}
+
+.destruction-stats .survivors {
+    color: var(--dynasty-success);
+}
+
+/* Special Note */
+.note-section {
+    background: rgba(255, 215, 0, 0.1) !important;
+    border-color: var(--dynasty-gold) !important;
+}
+
+.note-section h3 {
+    color: var(--dynasty-gold) !important;
+}
+
+.special-note {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--dynasty-text);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* =============================================
+   MINI TREE TAB
+   ============================================= */
+
+.mini-tree-container {
+    padding: 0.5rem 0;
+}
+
+.mini-tree-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.mini-tree-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--dynasty-gold);
+}
+
+.tree-count {
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+}
+
+.mini-tree-viewport {
+    background: var(--dynasty-bg);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 1rem;
+}
+
+.mini-tree-canvas {
+    position: relative;
+    min-width: max-content;
+    padding-bottom: 1rem;
+}
+
+.mini-generation {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.mini-gen-label {
+    width: 70px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 1rem;
+    border-right: 2px solid var(--dynasty-border);
+    margin-right: 1rem;
+}
+
+.gen-number {
+    font-size: 0.75rem;
+    color: var(--dynasty-gold);
+    font-weight: 600;
+}
+
+.gen-count {
+    font-size: 0.65rem;
+    color: var(--dynasty-text-dim);
+}
+
+.mini-gen-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.mini-tree-node {
+    width: 120px;
+    background: var(--dynasty-surface);
+    border: 2px solid var(--dynasty-border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.mini-tree-node:hover {
+    transform: translateY(-3px);
+    border-color: var(--dynasty-gold);
+    box-shadow: var(--shadow-medium);
+    z-index: 10;
+}
+
+.mini-tree-node.deceased {
+    border-color: var(--dynasty-deceased);
+    opacity: 0.85;
+}
+
+.mini-tree-node.active {
+    border-color: var(--dynasty-success);
+}
+
+.mini-tree-node.murdered,
+.mini-tree-node.assassinated {
+    border-color: var(--dynasty-danger);
+}
+
+.mini-tree-node.hidden,
+.mini-tree-node.alivehidden {
+    border-style: dashed;
+    border-color: var(--dynasty-warning);
+}
+
+.mini-tree-node.abroad {
+    border-style: dashed;
+    border-color: var(--dynasty-info);
+}
+
+.mini-tree-node.erased {
+    border-color: #333;
+    opacity: 0.6;
+}
+
+.mini-tree-node.merged {
+    border-color: var(--dynasty-success);
+    background: linear-gradient(135deg, var(--dynasty-surface) 0%, rgba(34, 139, 34, 0.1) 100%);
+}
+
+.mini-node-portrait {
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.mini-node-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.mini-node-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+    line-height: 1.2;
+}
+
+.mini-node-dates {
+    font-size: 0.6rem;
+    color: var(--dynasty-text-dim);
+}
+
+.mini-node-status {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    background: var(--dynasty-surface-alt);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 50%;
+}
+
+.mini-node-secrets {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-size: 0.6rem;
+    background: var(--dynasty-surface);
+    padding: 0.1rem 0.3rem;
+    border-radius: 8px;
+    border: 1px solid var(--dynasty-border);
+}
+
+.mini-node-secrets .secrets-icon {
+    font-size: 0.65rem;
+}
+
+.mini-node-secrets .secrets-num {
+    font-size: 0.55rem;
+    color: var(--dynasty-text-dim);
+}
+
+/* Tree connection lines */
+.mini-tree-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.tree-connection-line {
+    stroke: var(--dynasty-border);
+    stroke-width: 2;
+    fill: none;
+    opacity: 0.6;
+}
+
+/* Tree Legend */
+.tree-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--dynasty-border);
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid;
+}
+
+.legend-dot.deceased {
+    border-color: var(--dynasty-deceased);
+    background: transparent;
+}
+
+.legend-dot.active {
+    border-color: var(--dynasty-success);
+    background: transparent;
+}
+
+.legend-dot.murdered {
+    border-color: var(--dynasty-danger);
+    background: transparent;
+}
+
+.legend-dot.hidden {
+    border-color: var(--dynasty-warning);
+    border-style: dashed;
+    background: transparent;
+}
+
+/* =============================================
+   MYSTERIES TAB
+   ============================================= */
+
+.mysteries-container {
+    padding: 0.5rem 0;
+}
+
+.mysteries-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.mysteries-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--dynasty-royal);
+}
+
+.mysteries-count {
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+}
+
+.mysteries-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mystery-card {
+    background: var(--dynasty-surface-alt);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.mystery-card.unlocked {
+    border-left: 3px solid var(--dynasty-royal);
+}
+
+.mystery-card.locked {
+    border-left: 3px solid var(--dynasty-danger);
+    opacity: 0.7;
+}
+
+.mystery-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--dynasty-surface);
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.mystery-icon {
+    font-size: 1.25rem;
+}
+
+.mystery-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mystery-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+}
+
+.mystery-status {
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+}
+
+.mystery-intel {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 3px;
+    color: var(--dynasty-text-dim);
+}
+
+.mystery-body {
+    padding: 1rem;
+}
+
+.mystery-summary {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+}
+
+.mystery-detail {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.mystery-detail .detail-label {
+    color: var(--dynasty-text-dim);
+    flex-shrink: 0;
+}
+
+.mystery-detail .detail-value {
+    color: var(--dynasty-text);
+}
+
+.mystery-detail.danger .detail-value {
+    color: var(--dynasty-danger);
+}
+
+.mystery-theories,
+.mystery-suspects,
+.mystery-copies,
+.mystery-names {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.theories-label,
+.suspects-label,
+.copies-label,
+.names-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--dynasty-gold);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.theories-list,
+.names-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.theories-list li,
+.names-list li {
+    margin-bottom: 0.25rem;
+}
+
+.suspects-list,
+.copies-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.suspect-item {
+    display: grid;
+    grid-template-columns: 1fr auto 2fr;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.5rem;
+    background: var(--dynasty-surface);
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.suspect-name {
+    color: var(--dynasty-text-bright);
+    font-weight: 500;
+}
+
+.suspect-prob {
+    color: var(--dynasty-warning);
+    font-size: 0.8rem;
+}
+
+.suspect-motive {
+    color: var(--dynasty-text-dim);
+    font-size: 0.8rem;
+}
+
+.copy-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: var(--dynasty-surface);
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.copy-item.missing {
+    border-left: 2px solid var(--dynasty-danger);
+}
+
+.copy-holder {
+    color: var(--dynasty-text);
+}
+
+.copy-status {
+    color: var(--dynasty-text-dim);
+}
+
+.mystery-locked-body {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.mystery-locked-body p {
+    margin: 0;
+    color: var(--dynasty-danger);
+    font-style: italic;
+}
+
+/* =============================================
+   ASSETS TAB
+   ============================================= */
+
+.assets-container {
+    padding: 0.5rem 0;
+}
+
+.assets-header {
+    margin-bottom: 1rem;
+}
+
+.assets-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--dynasty-gold);
+}
+
+.assets-grid-large {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.asset-card {
+    background: var(--dynasty-surface-alt);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.asset-card .asset-icon {
+    font-size: 1.5rem;
+    align-self: center;
+}
+
+.asset-card .asset-info {
+    text-align: center;
+}
+
+.asset-card .asset-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+    margin-bottom: 0.25rem;
+}
+
+.asset-card .asset-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dynasty-text-bright);
+}
+
+.asset-card .asset-unit {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+    margin-left: 0.25rem;
+}
+
+.asset-card .asset-value-text {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    line-height: 1.4;
+}
+
+.asset-bar-large {
+    height: 8px;
+    background: var(--dynasty-surface);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.asset-bar-large .asset-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--dynasty-gold-dim), var(--dynasty-gold));
+    border-radius: 4px;
+    transition: width var(--transition-med);
+}
+
+.asset-card.military {
+    border-top: 3px solid #e74c3c;
+}
+
+.asset-card.economic {
+    border-top: 3px solid var(--dynasty-gold);
+}
+
+.asset-card.political {
+    border-top: 3px solid var(--dynasty-royal);
+}
+
+.asset-card.territory {
+    border-top: 3px solid var(--dynasty-success);
+}
+
+.asset-card.special {
+    border-top: 3px solid var(--dynasty-info);
+}
+
+.asset-card.legacy {
+    border-top: 3px solid var(--dynasty-text-dim);
+}
+
+.assets-destroyed-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid var(--dynasty-danger);
+    border-radius: 8px;
+}
+
+.destroyed-icon {
+    font-size: 1.25rem;
+}
+
+.destroyed-text {
+    font-size: 0.9rem;
+    color: var(--dynasty-danger);
+}
+
+/* =============================================
+   MEMBER DETAIL VIEW
+   ============================================= */
+
+.member-detail-view {
+    padding: 0.5rem 0;
+}
+
+.back-to-branch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 6px;
+    color: var(--dynasty-text);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-bottom: 1rem;
+}
+
+.back-to-branch:hover {
+    background: var(--dynasty-surface);
+    border-color: var(--dynasty-gold);
+    color: var(--dynasty-gold);
+}
+
+.member-detail-header {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.member-portrait-large {
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.member-header-info {
+    flex: 1;
+}
+
+.member-full-name {
+    margin: 0 0 0.25rem;
+    font-size: 1.4rem;
+    color: var(--dynasty-text-bright);
+}
+
+.member-epithet {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+    margin-bottom: 0.75rem;
+}
+
+.member-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.meta-item {
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.meta-item strong {
+    color: var(--dynasty-text-dim);
+}
+
+.member-house-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background: var(--dynasty-surface);
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.house-sigil {
+    font-size: 1rem;
+}
+
+.house-name {
+    color: var(--dynasty-text-dim);
+}
+
+.member-detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.detail-section {
+    background: var(--dynasty-surface-alt);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.detail-section h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--dynasty-gold);
+}
+
+.detail-section p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+}
+
+.detail-section ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.detail-section li {
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    margin-bottom: 0.3rem;
+}
+
+.controversies-section {
+    border-left: 3px solid var(--dynasty-warning);
+}
+
+.controversies-section h3 {
+    color: var(--dynasty-warning) !important;
+}
+
+.controversies-list li {
+    color: var(--dynasty-warning);
+}
+
+.relationships-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.relationship-card {
+    background: var(--dynasty-surface);
+    padding: 0.75rem;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.rel-person {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+}
+
+.rel-type {
+    font-size: 0.8rem;
+    color: var(--dynasty-gold);
+}
+
+.rel-notes {
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+}
+
+.prophecies-section {
+    border-left: 3px solid var(--dynasty-royal);
+}
+
+.prophecies-section h3 {
+    color: var(--dynasty-royal) !important;
+}
+
+.prophecy-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--dynasty-surface);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.prophecy-card.fulfilled {
+    border-left: 3px solid var(--dynasty-success);
+}
+
+.prophecy-card.pending {
+    border-left: 3px solid var(--dynasty-warning);
+}
+
+.prophecy-year {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--dynasty-gold);
+    min-width: 50px;
+}
+
+.prophecy-text {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+    font-style: italic;
+}
+
+.prophecy-status {
+    font-size: 0.9rem;
+}
+
+.current-status-section {
+    border-left: 3px solid var(--dynasty-info);
+}
+
+.current-status-section h3 {
+    color: var(--dynasty-info) !important;
+}
+
+.current-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.5rem;
+}
+
+.status-item {
+    font-size: 0.9rem;
+}
+
+.status-label {
+    color: var(--dynasty-text-dim);
+}
+
+.status-value {
+    color: var(--dynasty-text);
+    margin-left: 0.25rem;
+}
+
+.identity-section {
+    border-left: 3px solid var(--dynasty-danger);
+}
+
+.identity-section h3 {
+    color: var(--dynasty-danger) !important;
+}
+
+.identity-reveal {
+    padding: 1rem;
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px dashed var(--dynasty-danger);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.identity-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+}
+
+.secrets-section {
+    border-left: 3px solid var(--dynasty-warning);
+}
+
+.secrets-section h3 {
+    color: var(--dynasty-warning) !important;
+}
+
+.secrets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.secret-card {
+    padding: 0.75rem;
+    background: var(--dynasty-surface);
+    border-radius: 6px;
+    border-left: 2px solid var(--dynasty-border);
+}
+
+.secret-card.unlocked {
+    border-left-color: var(--dynasty-success);
+}
+
+.secret-card.locked {
+    border-left-color: var(--dynasty-danger);
+    opacity: 0.7;
+}
+
+.secret-card .secret-intel {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.35rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 3px;
+    color: var(--dynasty-text-dim);
+    margin-bottom: 0.5rem;
+}
+
+.secret-card .secret-text {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+}
+
+.secret-card.locked .secret-text {
+    font-family: monospace;
+    letter-spacing: 1px;
+    color: var(--dynasty-text-dim);
+}
+
+.quote-section {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.member-quote {
+    margin: 0;
+    padding: 1rem 1.5rem;
+    background: var(--dynasty-surface-alt);
+    border-left: 3px solid var(--dynasty-gold);
+    border-radius: 0 8px 8px 0;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--dynasty-text);
+    line-height: 1.5;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 768px) {
+    .branch-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .branch-tab {
+        flex: 1 1 45%;
+        font-size: 0.75rem;
+        padding: 0.6rem;
+    }
+    
+    .member-detail-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .member-portrait-large {
+        align-self: center;
+    }
+    
+    .mini-tree-node {
+        width: 100px;
+        padding: 0.5rem;
+    }
+    
+    .mini-node-portrait {
+        font-size: 1.25rem;
+    }
+    
+    .mini-node-name {
+        font-size: 0.65rem;
+    }
+    
+    .suspect-item {
+        grid-template-columns: 1fr;
+    }
+    
+    .assets-grid-large {
+        grid-template-columns: 1fr;
+    }
+}

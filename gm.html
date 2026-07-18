@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ritual GM Sheet</title>
+    <link rel="stylesheet" href="ritual-styles.css">
+</head>
+<body>
+    <div class="gm-container">
+        <aside class="sidebar"></aside>
+        <main class="main-content"></main>
+        <aside class="status-panel"></aside>
+    </div>
+    <script src="ritual-logic.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.gm = new GMSheet();
+        });
+    </script>
+</body>
+</html>
