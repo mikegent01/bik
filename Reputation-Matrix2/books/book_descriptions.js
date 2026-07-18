@@ -151,10 +151,16 @@ export const BOOK_DESCRIPTIONS = {
         effect: "Provides a bonus to social checks when interacting with members of the Onyx Hand."
     },
     "Fundamentals of Abjuration": {
-        summary: "A textbook from the Mages' Guild's 'Conservator' faction. It details the theory of magical wards, shields, and counter-spells. It is dry, but highly informative.",
+        summary: "A textbook from the Mages' Guild's 'Conservator' faction detailing wards, shields, and denial spells. Stolen directly from the Oracle's collection in the Planar Sanctum by Bones.",
         reading_time: "Approx. 2 hours",
         pages: 310,
         effect: "Grants knowledge of how to identify and potentially bypass common magical wards."
+    },
+    "Veins of the Tapestry: A Record of Threads Severed and Mended": {
+        summary: "An arrogant and precise masterwork written by Corvinarus. Discovered on the library floor of the Planar Sanctum by Bones near the fallen belfry bell. It records 10 pages of critical planar history, the 988 BF Grafting ritual, warnings about the Oracle (OC), list of tested threads, teleportation circle repair specs, and a prophecy of the one-armed shadow and the fire that bleeds.",
+        reading_time: "Approx. 45 minutes",
+        pages: 10,
+        effect: "Provides profound insight into the Corvinarus bloodline, pre-Fracture Raventree structural weak points, and ritual circle repair techniques."
     },
     "The Kirby Incident: A Conservator's Report": {
         summary: "A terrified and bewildered report by a Mages' Guild archivist detailing the appearance of a small, pink, spherical entity that consumed their entire library and gained its powers. The report concludes with 'do not engage'.",
