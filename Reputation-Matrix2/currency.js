@@ -1211,19 +1211,1560 @@ export const CURRENCIES = {
 };
 
 export const WALLETS = {
-  waluigi: { name: "Waluigi", currencies: { gold: 83, guild_seal: 2, archive_writ: 1, wario_coin: 120, toad_whistle: 6 } },
-  archie: { name: "Archie Miser", currencies: { gold: 349, silver: 6, bronze: 18 } },
-  bowser: { name: "Bowser", currencies: { platinum: 12, gold: 121, electrum: 51, silver: 13, copper: 11 } },
-  wario: { name: "Wario", currencies: { gold: 25, wario_coin: 10000, wario_points: 5000, broker_mark: 15 } },
-  toad_lee: { name: "Toad Lee", currencies: { toad_bond: 20, relief_stamp: 120, peach_crown: 5, silver: 40, toad_whistle: 6 } },
-  salam: { name: "Salam", currencies: { toad_bond: 8, relief_stamp: 25, silver: 30 } },
-  markop: { name: "Markop Judi", currencies: { gold: 21, silver: 13, bronze: 28 } },
-  remi: { name: "Remi", currencies: { gold: 20 } },
-  green_t: { name: "Green T", currencies: { gold: 45, silver: 80, doubloon: 12, broker_mark: 4 } },
-  originaldan: { name: "Original Dan", currencies: { gold: 60, arcane_shard: 15, guild_seal: 3, silver: 120 } },
-  speaker_l: { name: "Speaker L", currencies: { gold: 110, decree_strip: 300, midland_ducat: 85 } },
-  eager: { name: "Eager", currencies: { gold: 22, copper: 180, silver: 45, toad_bond: 15 } }
+  "archie": {
+    "name": "Archie Miser",
+    "currencies": {
+      "gold": 349,
+      "silver": 6,
+      "bronze": 18
+    }
+  },
+  "bowser": {
+    "name": "Bowser",
+    "currencies": {
+      "bowser_bux": 75000,
+      "shell_credit": 12000,
+      "gold": 8500,
+      "platinum": 240,
+      "electrum": 320,
+      "silver": 1800,
+      "copper": 4000,
+      "imperial_crown": 800,
+      "midland_ducat": 1500,
+      "doubloon": 400,
+      "cargo_share": 45,
+      "wario_coin": 600,
+      "broker_mark": 25
+    }
+  },
+  "hjumpik": {
+    "name": "Hjumpik",
+    "currencies": {
+      "midland_ducat": 421,
+      "gold": 120,
+      "dwarf_oathgold": 8,
+      "silver": 180,
+      "toad_whistle": 6
+    }
+  },
+  "markop": {
+    "name": "Markop Judi",
+    "currencies": {
+      "gold": 21,
+      "silver": 13,
+      "bronze": 28
+    }
+  },
+  "remi": {
+    "name": "Remi",
+    "currencies": {
+      "kivotos_credit": 5500,
+      "credstick": 1200,
+      "data_chit": 85,
+      "gold": 180,
+      "silver": 220,
+      "midland_ducat": 300,
+      "toad_whistle": 12,
+      "mushroom_coin": 150,
+      "relief_stamp": 90
+    }
+  },
+  "wario": {
+    "name": "Wario",
+    "currencies": {
+      "gold": 125000,
+      "wario_coin": 250000,
+      "wario_points": 75000,
+      "midland_ducat": 18000,
+      "imperial_crown": 12000,
+      "doubloon": 2200,
+      "cargo_share": 45,
+      "broker_mark": 18,
+      "credstick": 9000,
+      "banana_medallion": 350,
+      "shell_credit": 5000
+    }
+  },
+  "waluigi": {
+    "name": "Waluigi",
+    "currencies": {
+      "gold": 83,
+      "silver": 140,
+      "midland_ducat": 260,
+      "guild_seal": 7,
+      "archive_writ": 4,
+      "arcane_shard": 3,
+      "transit_stamp": 1,
+      "toad_whistle": 9,
+      "court_leaf": 1
+    }
+  },
+  "toad_lee": {
+    "name": "Toad Lee",
+    "currencies": {
+      "toad_bond": 75,
+      "relief_stamp": 400,
+      "peach_crown": 25,
+      "mushroom_coin": 90,
+      "silver": 120,
+      "gold": 18,
+      "toad_whistle": 30,
+      "decree_strip": 8,
+      "midland_ducat": 40
+    }
+  },
+  "salam": {
+    "name": "Salam",
+    "currencies": {
+      "toad_bond": 18,
+      "relief_stamp": 60,
+      "silver": 55,
+      "gold": 9,
+      "mushroom_coin": 22,
+      "peach_crown": 3,
+      "toad_whistle": 4
+    }
+  },
+  "captain_toadette": {
+    "name": "Captain Toadette",
+    "currencies": {
+      "peach_crown": 15000,
+      "gold": 3500,
+      "midland_ducat": 8000,
+      "mushroom_coin": 12000,
+      "toad_bond": 900,
+      "relief_stamp": 6000,
+      "archive_writ": 12,
+      "decree_strip": 120,
+      "toad_whistle": 250
+    }
+  },
+  "speaker_l": {
+    "name": "Speaker L",
+    "currencies": {
+      "decree_strip": 500,
+      "toad_bond": 1200,
+      "relief_stamp": 2500,
+      "archive_writ": 20,
+      "peach_crown": 300,
+      "midland_ducat": 900,
+      "toad_whistle": 180,
+      "gold": 250
+    }
+  },
+  "penny": {
+    "name": "Penny",
+    "currencies": {
+      "wario_coin": 600,
+      "gold": 140,
+      "silver": 300,
+      "credstick": 1200,
+      "archive_writ": 3,
+      "broker_mark": 2,
+      "midland_ducat": 450,
+      "guild_seal": 1
+    }
+  },
+  "the_broker": {
+    "name": "The Broker",
+    "currencies": {
+      "broker_mark": 2000,
+      "gold": 50000,
+      "midland_ducat": 22000,
+      "tea_chit": 900,
+      "doubloon": 700,
+      "cargo_share": 80,
+      "credstick": 40000,
+      "archive_writ": 25,
+      "blood_vial": 60,
+      "vampire_marker": 12,
+      "astral_pearl": 9
+    }
+  },
+  "first_mate_jones": {
+    "name": "First Mate Jones",
+    "currencies": {
+      "doubloon": 2500,
+      "cargo_share": 65,
+      "gold": 1800,
+      "silver": 600,
+      "wario_coin": 400,
+      "coconut_bar": 300,
+      "banana_medallion": 90,
+      "kremling_koin": 75,
+      "broker_mark": 8
+    }
+  },
+  "mystic_morel": {
+    "name": "Mystic Morel",
+    "currencies": {
+      "gold": 1200,
+      "silver": 900,
+      "mushroom_coin": 300,
+      "peach_crown": 40,
+      "arcane_shard": 8,
+      "astral_pearl": 2,
+      "shadow_obol": 25,
+      "court_leaf": 3,
+      "fey_acorn": 2
+    }
+  },
+  "archmage_theron": {
+    "name": "Archmage Theron",
+    "currencies": {
+      "guild_seal": 300,
+      "arcane_shard": 450,
+      "transit_stamp": 60,
+      "archive_writ": 35,
+      "midland_ducat": 20000,
+      "gold": 9000,
+      "astral_pearl": 18,
+      "data_chit": 120
+    }
+  },
+  "lady_toriel": {
+    "name": "Lady Toriel",
+    "currencies": {
+      "autumn_leaf": 30000,
+      "midland_ducat": 18000,
+      "gold": 6000,
+      "archive_writ": 40,
+      "court_leaf": 90,
+      "spirit_bead": 120,
+      "silver": 5000
+    }
+  },
+  "emperor_elgabalus": {
+    "name": "Emperor Elgabalus",
+    "currencies": {
+      "midland_ducat": 500000,
+      "gold": 250000,
+      "imperial_crown": 80000,
+      "archive_writ": 500,
+      "silver": 1000000,
+      "dwarf_oathgold": 2500,
+      "astral_pearl": 40,
+      "guild_seal": 150
+    }
+  },
+  "tea_leaf_receivership": {
+    "name": "Tea Leaf Syndicate Receivership",
+    "currencies": {
+      "tea_chit": 2200,
+      "gold": 5200,
+      "silver": 3100,
+      "midland_ducat": 4200,
+      "broker_mark": 30,
+      "doubloon": 220,
+      "cargo_share": 16,
+      "credstick": 1200
+    }
+  },
+  "princess_daisy": {
+    "name": "Princess Daisy",
+    "currencies": {
+      "gold": 45000,
+      "midland_ducat": 22000,
+      "imperial_crown": 9000,
+      "mushroom_coin": 14000,
+      "peach_crown": 5000,
+      "credstick": 4500,
+      "archive_writ": 65,
+      "toad_whistle": 300
+    }
+  },
+  "donkey_kong": {
+    "name": "Donkey Kong",
+    "currencies": {
+      "banana_medallion": 6500,
+      "coconut_bar": 12000,
+      "gold": 18000,
+      "silver": 7000,
+      "doubloon": 900,
+      "cargo_share": 35,
+      "shell_credit": 900,
+      "wario_coin": 700
+    }
+  },
+  "king_k_rool": {
+    "name": "King K. Rool",
+    "currencies": {
+      "kremling_koin": 9000,
+      "doubloon": 6000,
+      "gold": 35000,
+      "cargo_share": 120,
+      "broker_mark": 40,
+      "blood_vial": 25,
+      "banana_medallion": 400,
+      "credstick": 2500
+    }
+  },
+  "fawful": {
+    "name": "Fawful",
+    "currencies": {
+      "gold": 12000,
+      "mushroom_coin": 8000,
+      "beanbean_bean": 9000,
+      "credstick": 2500,
+      "arcane_shard": 20,
+      "broker_mark": 14,
+      "midland_ducat": 3000
+    }
+  },
+  "princess_celestia": {
+    "name": "Princess Celestia",
+    "currencies": {
+      "gold": 9500,
+      "silver": 4000,
+      "court_leaf": 450,
+      "fey_acorn": 280,
+      "astral_pearl": 120,
+      "guild_seal": 35,
+      "arcane_shard": 90,
+      "autumn_leaf": 150
+    }
+  },
+  "twilight_sparkle": {
+    "name": "Twilight Sparkle",
+    "currencies": {
+      "gold": 3200,
+      "silver": 1500,
+      "court_leaf": 180,
+      "fey_acorn": 120,
+      "astral_pearl": 45,
+      "guild_seal": 60,
+      "arcane_shard": 110,
+      "data_chit": 80,
+      "transit_stamp": 8
+    }
+  },
+  "chairwoman_rin": {
+    "name": "Chairwoman Rin",
+    "currencies": {
+      "kivotos_credit": 2500000,
+      "credstick": 120000,
+      "data_chit": 12000,
+      "gold": 20000,
+      "midland_ducat": 1200,
+      "archive_writ": 70,
+      "guild_seal": 35
+    }
+  },
+  "liyue_qixing": {
+    "name": "Liyue Qixing Treasury",
+    "currencies": {
+      "mora": 3000000,
+      "gold": 150000,
+      "midland_ducat": 2500,
+      "imperial_crown": 25000,
+      "doubloon": 4000,
+      "cargo_share": 250,
+      "astral_pearl": 35,
+      "credstick": 40000
+    }
+  },
+  "pokemon_league_chair": {
+    "name": "Pok\u00e9mon League Chair Office",
+    "currencies": {
+      "poke_dollar": 1800000,
+      "gold": 40000,
+      "credstick": 90000,
+      "data_chit": 6000,
+      "midland_ducat": 18000,
+      "archive_writ": 30,
+      "toad_whistle": 120
+    }
+  },
+  "high_king_thorgrim": {
+    "name": "High King Thorgrim",
+    "currencies": {
+      "dwarf_oathgold": 25000,
+      "gold": 300000,
+      "silver": 900000,
+      "midland_ducat": 50000,
+      "imperial_crown": 60000,
+      "guild_seal": 80,
+      "archive_writ": 40,
+      "warpstone": 12
+    }
+  },
+  "aemenor_evenflight": {
+    "name": "Aemenor Evenflight",
+    "currencies": {
+      "silver": 187,
+      "toad_whistle": 66,
+      "imperial_crown": 778
+    }
+  },
+  "agent_t": {
+    "name": "Agent T",
+    "currencies": {
+      "gold": 291,
+      "toad_whistle": 44,
+      "imperial_crown": 1641
+    }
+  },
+  "archie_miser": {
+    "name": "Archie Miser",
+    "currencies": {
+      "wario_coin": 173,
+      "gold": 43,
+      "decree_strip": 70,
+      "imperial_crown": 513,
+      "toad_whistle": 25
+    }
+  },
+  "baldi": {
+    "name": "Baldi",
+    "currencies": {
+      "toad_bond": 134,
+      "silver": 556,
+      "relief_stamp": 330
+    }
+  },
+  "bones": {
+    "name": "Bones",
+    "currencies": {
+      "toad_bond": 90,
+      "relief_stamp": 350,
+      "peach_crown": 35,
+      "mushroom_coin": 280,
+      "gold": 95,
+      "silver": 240,
+      "toad_whistle": 18,
+      "decree_strip": 12,
+      "broker_mark": 6
+    }
+  },
+  "bryan": {
+    "name": "Bryan",
+    "currencies": {
+      "silver": 145,
+      "decree_strip": 205,
+      "wario_coin": 257,
+      "relief_stamp": 800
+    }
+  },
+  "byscilla_danos": {
+    "name": "Byscilla Danos",
+    "currencies": {
+      "silver": 117,
+      "wario_coin": 775,
+      "relief_stamp": 175
+    }
+  },
+  "captain_syrup": {
+    "name": "Captain Syrup",
+    "currencies": {
+      "doubloon": 950,
+      "cargo_share": 55,
+      "gold": 2800,
+      "silver": 1200,
+      "wario_coin": 450,
+      "kremling_koin": 180,
+      "broker_mark": 22,
+      "coconut_bar": 90,
+      "banana_medallion": 60
+    }
+  },
+  "chancellor_toadsworth": {
+    "name": "Chancellor Toadsworth",
+    "currencies": {
+      "gold": 366,
+      "decree_strip": 20,
+      "relief_stamp": 251,
+      "toad_whistle": 11,
+      "toad_bond": 40
+    }
+  },
+  "commander_g": {
+    "name": "Commander G",
+    "currencies": {
+      "toad_whistle": 24,
+      "mushroom_coin": 579,
+      "peach_crown": 685
+    }
+  },
+  "corporal_ghost_reyes": {
+    "name": "Corporal 'Ghost' Reyes",
+    "currencies": {
+      "midland_ducat": 3551,
+      "wario_coin": 95,
+      "decree_strip": 48
+    }
+  },
+  "cranky_kong": {
+    "name": "Cranky Kong",
+    "currencies": {
+      "toad_whistle": 7,
+      "wario_coin": 737,
+      "gold": 158,
+      "decree_strip": 100
+    }
+  },
+  "dan": {
+    "name": "Dan",
+    "currencies": {
+      "silver": 374,
+      "relief_stamp": 595,
+      "decree_strip": 253,
+      "imperial_crown": 1846,
+      "midland_ducat": 1357
+    }
+  },
+  "darno_spriggon": {
+    "name": "Darno Spriggon",
+    "currencies": {
+      "gold": 136,
+      "toad_bond": 30,
+      "decree_strip": 206,
+      "wario_coin": 967
+    }
+  },
+  "dyanos": {
+    "name": "Dyanos",
+    "currencies": {
+      "toad_whistle": 51,
+      "midland_ducat": 152,
+      "silver": 578,
+      "decree_strip": 172,
+      "gold": 347
+    }
+  },
+  "eager": {
+    "name": "Eager",
+    "currencies": {
+      "imperial_crown": 841,
+      "silver": 284,
+      "midland_ducat": 963,
+      "toad_bond": 105
+    }
+  },
+  "earl_grey": {
+    "name": "Earl Grey",
+    "currencies": {
+      "toad_whistle": 77,
+      "wario_coin": 943,
+      "imperial_crown": 799,
+      "silver": 195,
+      "decree_strip": 203
+    }
+  },
+  "elder_rowan_meadowlight": {
+    "name": "Elder Rowan Meadowlight",
+    "currencies": {
+      "decree_strip": 183,
+      "relief_stamp": 159,
+      "gold": 323,
+      "silver": 103
+    }
+  },
+  "embercap": {
+    "name": "Embercap",
+    "currencies": {
+      "silver": 223,
+      "gold": 256,
+      "relief_stamp": 88,
+      "wario_coin": 215
+    }
+  },
+  "feyward_dan": {
+    "name": "Feyward Dan",
+    "currencies": {
+      "decree_strip": 40,
+      "toad_bond": 23,
+      "midland_ducat": 3090,
+      "gold": 122,
+      "wario_coin": 613
+    }
+  },
+  "general_ironhand": {
+    "name": "General Ironhand",
+    "currencies": {
+      "gold": 831,
+      "toad_whistle": 70,
+      "midland_ducat": 2941
+    }
+  },
+  "green_t": {
+    "name": "Green T",
+    "currencies": {
+      "gold": 220,
+      "silver": 480,
+      "mushroom_coin": 650,
+      "peach_crown": 85,
+      "toad_bond": 140,
+      "relief_stamp": 420,
+      "toad_whistle": 22,
+      "tea_chit": 60,
+      "broker_mark": 8,
+      "wario_coin": 45
+    }
+  },
+  "hargram_fidger": {
+    "name": "Hargram Fidger",
+    "currencies": {
+      "gold": 134,
+      "midland_ducat": 218,
+      "imperial_crown": 936,
+      "decree_strip": 51,
+      "toad_whistle": 68
+    }
+  },
+  "herniva": {
+    "name": "Herniva",
+    "currencies": {
+      "gold": 138,
+      "relief_stamp": 48,
+      "silver": 163,
+      "decree_strip": 219
+    }
+  },
+  "king_dedede": {
+    "name": "King Dedede",
+    "currencies": {
+      "gold": 206,
+      "decree_strip": 190,
+      "imperial_crown": 1993,
+      "court_leaf": 2
+    }
+  },
+  "kyle_coinsoul": {
+    "name": "Kyle Coinsoul",
+    "currencies": {
+      "toad_bond": 21,
+      "silver": 185,
+      "wario_coin": 767,
+      "imperial_crown": 866,
+      "midland_ducat": 3197
+    }
+  },
+  "lady_aurelian_corvinarus": {
+    "name": "Lady Aurelian Corvinarus",
+    "currencies": {
+      "midland_ducat": 706,
+      "court_leaf": 50,
+      "archive_writ": 2
+    }
+  },
+  "lady_bloomia": {
+    "name": "Lady Bloomia",
+    "currencies": {
+      "gold": 838,
+      "imperial_crown": 217,
+      "guild_seal": 23,
+      "midland_ducat": 926,
+      "court_leaf": 3
+    }
+  },
+  "lanky_kong": {
+    "name": "Lanky Kong",
+    "currencies": {
+      "relief_stamp": 704,
+      "imperial_crown": 671,
+      "gold": 81,
+      "wario_coin": 87
+    }
+  },
+  "leo": {
+    "name": "Leo",
+    "currencies": {
+      "toad_bond": 136,
+      "midland_ducat": 237,
+      "imperial_crown": 1924,
+      "silver": 384
+    }
+  },
+  "lorehold_professor_of_chaos": {
+    "name": "Lorehold Professor of Chaos",
+    "currencies": {
+      "gold": 964,
+      "midland_ducat": 188,
+      "data_chit": 807
+    }
+  },
+  "luigi": {
+    "name": "Luigi",
+    "currencies": {
+      "toad_whistle": 9,
+      "silver": 392,
+      "gold": 210,
+      "midland_ducat": 3174,
+      "wario_coin": 807
+    }
+  },
+  "marcus_ashford": {
+    "name": "Marcus Ashford",
+    "currencies": {
+      "gold": 265,
+      "relief_stamp": 53,
+      "wario_coin": 560
+    }
+  },
+  "mario": {
+    "name": "Mario",
+    "currencies": {
+      "silver": 427,
+      "relief_stamp": 690,
+      "wario_coin": 714,
+      "imperial_crown": 1539,
+      "gold": 370
+    }
+  },
+  "merric": {
+    "name": "Merric",
+    "currencies": {
+      "toad_bond": 261,
+      "decree_strip": 264,
+      "midland_ducat": 1399,
+      "gold": 384
+    }
+  },
+  "miles_edgeworth": {
+    "name": "Miles Edgeworth",
+    "currencies": {
+      "imperial_crown": 888,
+      "relief_stamp": 578,
+      "silver": 588,
+      "toad_whistle": 16
+    }
+  },
+  "mimbus": {
+    "name": "Mimbus",
+    "currencies": {
+      "relief_stamp": 652,
+      "gold": 390,
+      "midland_ducat": 3683,
+      "imperial_crown": 418,
+      "decree_strip": 54
+    }
+  },
+  "mistveil": {
+    "name": "Mistveil",
+    "currencies": {
+      "gold": 155,
+      "toad_whistle": 39,
+      "silver": 206
+    }
+  },
+  "mr_l": {
+    "name": "Mr. L",
+    "currencies": {
+      "gold": 225,
+      "wario_coin": 317,
+      "relief_stamp": 604,
+      "decree_strip": 288
+    }
+  },
+  "mystic_morsole": {
+    "name": "Mystic Morsole",
+    "currencies": {
+      "decree_strip": 133,
+      "silver": 395,
+      "gold": 364
+    }
+  },
+  "orange_t": {
+    "name": "Orange T",
+    "currencies": {
+      "decree_strip": 167,
+      "toad_bond": 167,
+      "wario_coin": 273,
+      "midland_ducat": 2216,
+      "silver": 579
+    }
+  },
+  "original_dan": {
+    "name": "Original Dan",
+    "currencies": {
+      "silver": 365,
+      "decree_strip": 187,
+      "relief_stamp": 324
+    }
+  },
+  "orvinder_danos": {
+    "name": "Orvinder Danos",
+    "currencies": {
+      "toad_bond": 158,
+      "decree_strip": 52,
+      "gold": 170,
+      "relief_stamp": 126
+    }
+  },
+  "parson_pellinost": {
+    "name": "Parson Pellinost",
+    "currencies": {
+      "imperial_crown": 1013,
+      "toad_whistle": 22,
+      "decree_strip": 96,
+      "midland_ducat": 315,
+      "silver": 82
+    }
+  },
+  "pauline": {
+    "name": "Pauline",
+    "currencies": {
+      "imperial_crown": 269,
+      "relief_stamp": 714,
+      "silver": 365
+    }
+  },
+  "pierce_anamatar": {
+    "name": "Pierce Anamatar",
+    "currencies": {
+      "toad_whistle": 43,
+      "decree_strip": 112,
+      "wario_coin": 985,
+      "relief_stamp": 719
+    }
+  },
+  "princess_peach": {
+    "name": "Princess Peach",
+    "currencies": {
+      "peach_crown": 174,
+      "toad_whistle": 28,
+      "gold": 342,
+      "midland_ducat": 2946
+    }
+  },
+  "prismari": {
+    "name": "Prismari",
+    "currencies": {
+      "wario_coin": 887,
+      "silver": 297,
+      "toad_whistle": 55,
+      "imperial_crown": 820
+    }
+  },
+  "professor_elvin_gadd": {
+    "name": "Professor Elvin Gadd",
+    "currencies": {
+      "credstick": 3125,
+      "archive_writ": 15,
+      "arcane_shard": 69
+    }
+  },
+  "rakasha_azure": {
+    "name": "Rakasha Azure",
+    "currencies": {
+      "relief_stamp": 360,
+      "decree_strip": 112,
+      "imperial_crown": 1790,
+      "midland_ducat": 3564,
+      "silver": 568
+    }
+  },
+  "rakka": {
+    "name": "Rakka",
+    "currencies": {
+      "silver": 598,
+      "relief_stamp": 799,
+      "toad_bond": 257,
+      "imperial_crown": 722,
+      "gold": 334
+    }
+  },
+  "roger": {
+    "name": "Roger",
+    "currencies": {
+      "gold": 150,
+      "silver": 320,
+      "midland_ducat": 280,
+      "toad_whistle": 20,
+      "relief_stamp": 180,
+      "mushroom_coin": 200,
+      "peach_crown": 15
+    }
+  },
+  "ryan": {
+    "name": "Ryan",
+    "currencies": {
+      "gold": 390,
+      "imperial_crown": 1552,
+      "toad_bond": 179,
+      "midland_ducat": 951
+    }
+  },
+  "saedia": {
+    "name": "Saedia",
+    "currencies": {
+      "midland_ducat": 3492,
+      "toad_bond": 85,
+      "decree_strip": 195,
+      "relief_stamp": 759,
+      "gold": 177
+    }
+  },
+  "sergeant_brick_stone": {
+    "name": "Sergeant Brick Stone",
+    "currencies": {
+      "gold": 68,
+      "silver": 200,
+      "midland_ducat": 150,
+      "toad_bond": 30,
+      "relief_stamp": 80
+    }
+  },
+  "sergeant_varn_coldbrook": {
+    "name": "Sergeant Varn Coldbrook",
+    "currencies": {
+      "midland_ducat": 320,
+      "gold": 45,
+      "silver": 120,
+      "toad_whistle": 4,
+      "decree_strip": 5
+    }
+  },
+  "smoking_j": {
+    "name": "Smoking J",
+    "currencies": {
+      "midland_ducat": 1218,
+      "decree_strip": 174,
+      "gold": 64,
+      "archive_writ": 16,
+      "imperial_crown": 931
+    }
+  },
+  "specialist_miller": {
+    "name": "Specialist Miller",
+    "currencies": {
+      "toad_whistle": 24,
+      "midland_ducat": 2549,
+      "silver": 363,
+      "toad_bond": 185
+    }
+  },
+  "steely": {
+    "name": "Steely",
+    "currencies": {
+      "relief_stamp": 726,
+      "wario_coin": 658,
+      "imperial_crown": 1833,
+      "silver": 554
+    }
+  },
+  "stuckina": {
+    "name": "Stuckina",
+    "currencies": {
+      "imperial_crown": 219,
+      "gold": 57,
+      "decree_strip": 110,
+      "toad_whistle": 14,
+      "relief_stamp": 644
+    }
+  },
+  "the_archivist": {
+    "name": "The Archivist",
+    "currencies": {
+      "relief_stamp": 565,
+      "toad_bond": 309,
+      "decree_strip": 319,
+      "silver": 744
+    }
+  },
+  "the_oracle": {
+    "name": "The Oracle",
+    "currencies": {
+      "midland_ducat": 2673,
+      "toad_bond": 241,
+      "silver": 75,
+      "relief_stamp": 441,
+      "toad_whistle": 28
+    }
+  },
+  "the_unknown_assassin": {
+    "name": "The Unknown Assassin",
+    "currencies": {
+      "imperial_crown": 1273,
+      "wario_coin": 543,
+      "midland_ducat": 3867,
+      "gold": 25
+    }
+  },
+  "thornbury": {
+    "name": "Thornbury",
+    "currencies": {
+      "gold": 119,
+      "toad_bond": 240,
+      "midland_ducat": 1461
+    }
+  },
+  "thornpaw": {
+    "name": "Thornpaw",
+    "currencies": {
+      "decree_strip": 10,
+      "toad_whistle": 72,
+      "silver": 502
+    }
+  },
+  "toadburt": {
+    "name": "Toadburt",
+    "currencies": {
+      "toad_bond": 155,
+      "toad_whistle": 68,
+      "decree_strip": 56
+    }
+  },
+  "toadette_sr": {
+    "name": "Toadette Sr.",
+    "currencies": {
+      "silver": 190,
+      "relief_stamp": 263,
+      "toad_bond": 62
+    }
+  },
+  "toadsworth_the_elder": {
+    "name": "Toadsworth the Elder",
+    "currencies": {
+      "imperial_crown": 1714,
+      "decree_strip": 87,
+      "relief_stamp": 754
+    }
+  },
+  "tymnas": {
+    "name": "Tymnas",
+    "currencies": {
+      "gold": 203,
+      "imperial_crown": 1427,
+      "relief_stamp": 685
+    }
+  },
+  "usk": {
+    "name": "Usk",
+    "currencies": {
+      "silver": 444,
+      "gold": 383,
+      "toad_whistle": 56,
+      "relief_stamp": 306,
+      "wario_coin": 135
+    }
+  },
+  "valorian_stormweave": {
+    "name": "Valorian Stormweave",
+    "currencies": {
+      "decree_strip": 51,
+      "wario_coin": 382,
+      "imperial_crown": 287,
+      "toad_bond": 294,
+      "toad_whistle": 29
+    }
+  },
+  "vivian_corvinarus": {
+    "name": "Vivian Corvinarus",
+    "currencies": {
+      "silver": 486,
+      "relief_stamp": 676,
+      "toad_bond": 279,
+      "gold": 306,
+      "wario_coin": 456
+    }
+  },
+  "x_o": {
+    "name": "X.O.",
+    "currencies": {
+      "midland_ducat": 2565,
+      "toad_bond": 90,
+      "gold": 283,
+      "toad_whistle": 62
+    }
+  },
+  "battle_mage_kovar": {
+    "name": "Battle Mage Kovar",
+    "currencies": {
+      "gold": 35,
+      "arcane_shard": 2,
+      "guild_seal": 1
+    }
+  },
+  "lady_aurelian": {
+    "name": "Lady Aurelian",
+    "currencies": {
+      "gold": 250,
+      "silver": 40,
+      "imperial_crown": 5
+    }
+  },
+  "lord_crimson": {
+    "name": "Lord Crimson",
+    "currencies": {
+      "decree_strip": 197,
+      "gold": 598,
+      "peach_crown": 952
+    }
+  },
+  "toadsworth_sr": {
+    "name": "Toadsworth Sr",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    }
+  },
+  "unknown_third_figure": {
+    "name": "Unknown Third Figure",
+    "currencies": {
+      "silver": 221,
+      "wario_coin": 815,
+      "gold": 303,
+      "imperial_crown": 1861
+    }
+  },
+  "dracule_mihawk": {
+    "name": "Dracule Mihawk",
+    "currencies": {
+      "gold": 340,
+      "midland_ducat": 120,
+      "imperial_crown": 25,
+      "dwarf_oathgold": 6,
+      "archive_writ": 2,
+      "toad_whistle": 1
+    }
+  },
+  "gamma_agent": {
+    "name": "Gamma Agent",
+    "currencies": {
+      "midland_ducat": 500,
+      "gold": 85,
+      "archive_writ": 8,
+      "imperial_crown": 30,
+      "data_chit": 12,
+      "toad_whistle": 3
+    }
+  },
+  "professor_e_gadd": {
+    "name": "Professor Elvin Gadd",
+    "currencies": {
+      "gold": 1250,
+      "silver": 400,
+      "credstick": 2800,
+      "data_chit": 150,
+      "midland_ducat": 600,
+      "guild_seal": 4,
+      "arcane_shard": 22
+    }
+  },
+  "colonel_vera_steelstorm": {
+    "name": "Colonel Vera Steelstorm",
+    "currencies": {
+      "midland_ducat": 12000,
+      "imperial_crown": 8000,
+      "gold": 2500,
+      "archive_writ": 15,
+      "decree_strip": 200,
+      "toad_whistle": 80,
+      "guild_seal": 6
+    }
+  },
+  "general_vale": {
+    "name": "General Vale",
+    "currencies": {
+      "midland_ducat": 8000,
+      "imperial_crown": 5000,
+      "gold": 1800,
+      "decree_strip": 150,
+      "archive_writ": 10
+    }
+  },
+  "admiral_wave": {
+    "name": "Admiral Wave Harlan",
+    "currencies": {
+      "midland_ducat": 15000,
+      "imperial_crown": 9000,
+      "gold": 4200,
+      "doubloon": 800,
+      "cargo_share": 35,
+      "toad_whistle": 120,
+      "archive_writ": 18
+    }
+  },
+  "champion_carter": {
+    "name": "Champion Carter Vale",
+    "currencies": {
+      "gold": 2800,
+      "midland_ducat": 3500,
+      "imperial_crown": 1200,
+      "silver": 600,
+      "wario_coin": 400,
+      "toad_whistle": 6
+    }
+  },
+  "archon_lumine": {
+    "name": "Archon Lumine Starr",
+    "currencies": {
+      "guild_seal": 120,
+      "arcane_shard": 85,
+      "transit_stamp": 12,
+      "astral_pearl": 15,
+      "gold": 6000,
+      "midland_ducat": 8000,
+      "archive_writ": 30
+    }
+  },
+  "chief_redwood": {
+    "name": "Chief Redwood Harlan",
+    "currencies": {
+      "autumn_leaf": 2500,
+      "gold": 800,
+      "midland_ducat": 1200,
+      "silver": 400,
+      "toad_whistle": 20,
+      "court_leaf": 15
+    }
+  },
+  "explorer_drake": {
+    "name": "Explorer Drake Hawthorne",
+    "currencies": {
+      "gold": 520,
+      "midland_ducat": 400,
+      "toad_whistle": 25,
+      "data_chit": 40,
+      "credstick": 600,
+      "kivotos_credit": 800
+    }
+  },
+  "admin_zero": {
+    "name": "Admin Zero",
+    "currencies": {
+      "credstick": 15000,
+      "kivotos_credit": 8000,
+      "data_chit": 500,
+      "gold": 3000,
+      "midland_ducat": 2000
+    }
+  },
+  "high_magus_elion": {
+    "name": "High Magus Elion Thorne",
+    "currencies": {
+      "guild_seal": 200,
+      "arcane_shard": 150,
+      "transit_stamp": 25,
+      "astral_pearl": 30,
+      "gold": 10000,
+      "archive_writ": 50,
+      "midland_ducat": 12000
+    }
+  },
+  "high_overseer_aurelia": {
+    "name": "High Overseer Aurelia Vance",
+    "currencies": {
+      "imperial_crown": 15000,
+      "midland_ducat": 20000,
+      "gold": 5000,
+      "archive_writ": 80,
+      "decree_strip": 500,
+      "dwarf_oathgold": 100
+    }
+  },
+  "warlord_luna": {
+    "name": "Warlord Luna Cross",
+    "currencies": {
+      "gold": 3500,
+      "midland_ducat": 2800,
+      "imperial_crown": 1200,
+      "doubloon": 300,
+      "cargo_share": 20,
+      "broker_mark": 40,
+      "toad_whistle": 15
+    }
+  },
+  "king_alaric": {
+    "name": "King Alaric Thorne",
+    "currencies": {
+      "imperial_crown": 12000,
+      "midland_ducat": 18000,
+      "gold": 4000,
+      "archive_writ": 40,
+      "guild_seal": 20,
+      "court_leaf": 30,
+      "decree_strip": 300
+    }
+  },
+  "lord_sigmar": {
+    "name": "Lord Sigmar Helden",
+    "currencies": {
+      "gold": 6000,
+      "imperial_crown": 4000,
+      "midland_ducat": 5000,
+      "dwarf_oathgold": 80,
+      "archive_writ": 25,
+      "decree_strip": 200
+    }
+  },
+  "imperator_maximus": {
+    "name": "Imperator Maximus Decker",
+    "currencies": {
+      "imperial_crown": 18000,
+      "midland_ducat": 25000,
+      "gold": 7000,
+      "archive_writ": 60,
+      "decree_strip": 400,
+      "dwarf_oathgold": 150
+    }
+  },
+  "president_varis": {
+    "name": "President Varis Cole",
+    "currencies": {
+      "credstick": 12000,
+      "gold": 5000,
+      "midland_ducat": 4000,
+      "kivotos_credit": 3000,
+      "data_chit": 200,
+      "archive_writ": 20
+    }
+  },
+  "ruler_doug": {
+    "name": "Ruler Doug Harrow",
+    "currencies": {
+      "midland_ducat": 3000,
+      "gold": 800,
+      "silver": 600,
+      "decree_strip": 80,
+      "toad_bond": 100,
+      "relief_stamp": 300
+    }
+  },
+  "silas_thornfield": {
+    "name": "Silas Thornfield",
+    "currencies": {
+      "gold": 2200,
+      "midland_ducat": 4000,
+      "imperial_crown": 1200,
+      "doubloon": 250,
+      "cargo_share": 30,
+      "credstick": 1800,
+      "toad_whistle": 40
+    }
+  },
+  "mira_halbrecht": {
+    "name": "Mira Halbrecht",
+    "currencies": {
+      "midland_ducat": 5000,
+      "imperial_crown": 2500,
+      "gold": 1500,
+      "archive_writ": 25,
+      "decree_strip": 180,
+      "silver": 800
+    }
+  },
+  "edric_bramble": {
+    "name": "Edric Bramble",
+    "currencies": {
+      "peach_crown": 800,
+      "mushroom_coin": 1200,
+      "gold": 300,
+      "midland_ducat": 500,
+      "toad_bond": 200,
+      "relief_stamp": 600,
+      "toad_whistle": 50
+    }
+  },
+  "lord_corvin_ashford": {
+    "name": "Lord Corvin Ashford",
+    "currencies": {
+      "imperial_crown": 6000,
+      "midland_ducat": 4000,
+      "gold": 2000,
+      "blood_vial": 25,
+      "vampire_marker": 4,
+      "archive_writ": 15,
+      "broker_mark": 20
+    }
+  },
+  "lady_isolde_vance": {
+    "name": "Lady Isolde Vance",
+    "currencies": {
+      "guild_seal": 45,
+      "arcane_shard": 70,
+      "gold": 1800,
+      "midland_ducat": 2200,
+      "astral_pearl": 8,
+      "transit_stamp": 4,
+      "silver": 500
+    }
+  },
+  "captain_helena_frost": {
+    "name": "Captain Helena Frost",
+    "currencies": {
+      "midland_ducat": 2500,
+      "imperial_crown": 1800,
+      "gold": 600,
+      "toad_whistle": 30,
+      "data_chit": 25,
+      "archive_writ": 8
+    }
+  },
+  "commander_elias_ward": {
+    "name": "Commander Elias Ward",
+    "currencies": {
+      "broker_mark": 150,
+      "gold": 3200,
+      "midland_ducat": 2800,
+      "credstick": 3500,
+      "tea_chit": 80,
+      "doubloon": 120
+    }
+  },
+  "magus_selene_voss": {
+    "name": "Magus Selene Voss",
+    "currencies": {
+      "transit_stamp": 40,
+      "guild_seal": 60,
+      "arcane_shard": 50,
+      "gold": 900,
+      "midland_ducat": 1100,
+      "astral_pearl": 5
+    }
+  },
+  "quartermaster_hargrove": {
+    "name": "Quartermaster Hargrove",
+    "currencies": {
+      "midland_ducat": 3500,
+      "gold": 400,
+      "silver": 800,
+      "imperial_crown": 600,
+      "toad_whistle": 60,
+      "decree_strip": 100
+    }
+  },
+  "barrister_quintin_dell": {
+    "name": "Barrister Quintin Dell",
+    "currencies": {
+      "decree_strip": 300,
+      "midland_ducat": 1200,
+      "gold": 500,
+      "archive_writ": 20,
+      "toad_whistle": 25,
+      "toad_bond": 80
+    }
+  },
+  "merchant_prince_alric": {
+    "name": "Merchant Prince Alric Dane",
+    "currencies": {
+      "doubloon": 1200,
+      "cargo_share": 60,
+      "gold": 4500,
+      "midland_ducat": 6000,
+      "wario_coin": 800,
+      "credstick": 2000,
+      "coconut_bar": 150
+    }
+  },
+  "doctor_livia_crane": {
+    "name": "Doctor Livia Crane",
+    "currencies": {
+      "kivotos_credit": 4000,
+      "credstick": 2500,
+      "gold": 600,
+      "midland_ducat": 400,
+      "data_chit": 60
+    }
+  },
+  "sergeant_coldbrook_fixed": {
+    "name": "Sergeant Varn Coldbrook",
+    "currencies": {
+      "midland_ducat": 450,
+      "gold": 95,
+      "silver": 240,
+      "decree_strip": 12,
+      "toad_whistle": 8,
+      "relief_stamp": 50
+    }
+  },
+  "professor_mira_torres": {
+    "name": "Professor Mira Torres",
+    "currencies": {
+      "kivotos_credit": 3500,
+      "data_chit": 200,
+      "credstick": 1800,
+      "gold": 400,
+      "arcane_shard": 15
+    }
+  },
+  "captain_julia_syrup": {
+    "name": "Captain Julia Syrup",
+    "currencies": {
+      "doubloon": 600,
+      "cargo_share": 40,
+      "gold": 1200,
+      "wario_coin": 300,
+      "silver": 500,
+      "broker_mark": 15
+    }
+  },
+  "guild_clerk_amelia": {
+    "name": "Guild Clerk Amelia Brint",
+    "currencies": {
+      "archive_writ": 12,
+      "guild_seal": 20,
+      "gold": 300,
+      "midland_ducat": 500,
+      "silver": 300,
+      "transit_stamp": 2
+    }
+  },
+  "blacksmith_holt": {
+    "name": "Blacksmith Holt Mason",
+    "currencies": {
+      "gold": 900,
+      "midland_ducat": 800,
+      "dwarf_oathgold": 20,
+      "silver": 600,
+      "bronze": 200,
+      "toad_whistle": 5
+    }
+  },
+  "innkeep_marta": {
+    "name": "Innkeep Marta Gable",
+    "currencies": {
+      "gold": 350,
+      "silver": 800,
+      "midland_ducat": 600,
+      "mushroom_coin": 400,
+      "toad_whistle": 15,
+      "relief_stamp": 100
+    }
+  },
+  "courier_jace": {
+    "name": "Courier Jace Rook",
+    "currencies": {
+      "toad_whistle": 80,
+      "gold": 120,
+      "silver": 300,
+      "midland_ducat": 200,
+      "relief_stamp": 150
+    }
+  },
+  "originaldan": {
+    "name": "Original Dan",
+    "currencies": {
+      "gold": 85,
+      "silver": 180,
+      "midland_ducat": 420,
+      "guild_seal": 3,
+      "arcane_shard": 18,
+      "bronze": 45,
+      "toad_whistle": 2
+    }
+  },
+  "rodger": {
+    "name": "Rodger",
+    "currencies": {
+      "toad_bond": 110,
+      "relief_stamp": 420,
+      "mushroom_coin": 340,
+      "peach_crown": 28,
+      "gold": 78,
+      "silver": 310,
+      "toad_whistle": 14,
+      "midland_ducat": 60
+    }
+  }
 };
+
+
+
+
+
 
 export const BANKS = {
   bank_accounts: [

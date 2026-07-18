@@ -3667,7 +3667,7 @@ function view_profile(){
       const bv=meta.base_value||1; const gv=bv*v; totalGold+=gv;
       if(meta.tier===1) breakdown.core+=gv; else if(meta.tier===2) breakdown.reg+=gv; else if(meta.tier===3) breakdown.spec+=gv; else breakdown.blk+=gv;
       const currencyEmoji={gold:'💰',silver:'🪙',copper:'🟠',soul_coin:'🔮',wario_coin:'🟡',wario_points:'🎟️',midland_ducat:'🪙'};
-      return `<div class="wallet-line"><span>${currencyEmoji[k]||'🪙'} ${esc(currencyName(k))} × ${Number(v).toLocaleString()}</span><span class="text-muted">${gv.toFixed(2)}g equiv</span></div>`;
+      return `<div class="wallet-line"><span>${currencyEmoji[k]||'🪙'} ${esc(currencyName(k))} × ${Number(v).toLocaleString()}</span><span class="text-muted">= ${gv.toFixed(2)}g equiv</span></div>`;
     }).join('');
   }
   const xpPct=xp?Math.max(5,Math.min(100, ((xp.currentXP||0)/(xp.nextXP||1))*100)):0;
