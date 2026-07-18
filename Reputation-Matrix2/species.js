@@ -614,6 +614,10 @@ function renderSpeciesList(data) {
                     </div>
                 </div>
                 <p class="species-description">${species.description}</p>
+                <div class="species-context-links" style="display:flex;gap:6px;flex-wrap:wrap;margin:10px 0;">
+                    <a class="chip" href="battlefield.html#/home">📚 Archive records</a>
+                    <a class="chip" href="battlefield.html#/timeline">🕰️ Historical impact</a>
+                </div>
                 <div class="species-pop-stat">
                     <span>Est. Population:</span>
                     <strong>${countString} <span style="font-weight:normal; font-size:0.8em; color:var(--text-secondary);">${percentageString}</span></strong>

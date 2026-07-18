@@ -13,11 +13,8 @@ import { state, loadState } from './state.js'; // Import state
 const startupScreen = document.getElementById('startup-screen');
 const enterAppBtn = document.getElementById('enter-app-btn');
 const newOperatorBtn = document.getElementById('new-operator-btn');
-const soundtrackBtn = document.getElementById('soundtrack-btn');
-const soundtrackModal = document.getElementById('soundtrack-modal');
 const playGameBtn = document.getElementById('play-game-btn');
 const playGameTimer = document.getElementById('play-game-timer');
-const closeModalBtn = soundtrackModal ? soundtrackModal.querySelector('.modal-close') : null;
 
 const loginScreen = document.getElementById('character-login-screen');
 const grid = document.getElementById('character-select-grid');
