@@ -1,0 +1,1913 @@
+{
+  "_README": "Edit this file to update player wallets WITHOUT rebuilding. Core player wallet amounts are preserved as in-game values; NPC wallets below are world/economy estimates and can be adjusted separately.",
+  "_NOTES": {
+    "player_wallets_locked": [
+      "archie",
+      "bowser",
+      "hjumpik",
+      "markop",
+      "remi"
+    ],
+    "npc_wallet_policy": "NPC wallets are not exact player inventory. They represent accessible banked funds, trade instruments, treasury access, and faction operating money.",
+    "big_t_note": "Big T is dead, so he is not listed as an active wallet. Tea Leaf money is tracked under Chai and the Syndicate instead.",
+    "dead_wallet_policy": "Do not list deceased people as active wallets. Use estates, receiverships, treasuries, or successor institutions instead.",
+    "chai_t_note": "Chai T is treated as dead/inactive for wallet purposes; Tea Leaf money is tracked under the Tea Leaf Syndicate Receivership instead.",
+    "ruler_wallet_policy": "Ruler wallets represent accessible treasury authority and diplomatic exchange instruments, not every coin in a nation."
+  },
+  "archie": {
+    "name": "Archie Miser",
+    "title": "Pyromaniac Merchant",
+    "currencies": {
+      "gold": 349,
+      "silver": 6,
+      "bronze": 18
+    },
+    "category": "Main Party"
+  },
+  "bowser": {
+    "name": "Bowser",
+    "title": "Koopa King",
+    "currencies": {
+      "platinum": 12,
+      "gold": 121,
+      "electrum": 51,
+      "silver": 13,
+      "copper": 11
+    },
+    "category": "Main Party"
+  },
+  "hjumpik": {
+    "name": "hjumpik",
+    "title": "Axe Enthusiast",
+    "currencies": {
+      "midland_ducat": 421,
+      "gold": 1,
+      "dwarf_oathgold": 2
+    },
+    "category": "Main Party"
+  },
+  "markop": {
+    "name": "Markop Judi",
+    "title": "Legion Associate",
+    "currencies": {
+      "gold": 21,
+      "silver": 13,
+      "bronze": 28
+    },
+    "category": "Main Party"
+  },
+  "remi": {
+    "name": "Remi",
+    "title": "FNG Smith",
+    "currencies": {
+      "gold": 20
+    },
+    "category": "Main Party"
+  },
+  "wario": {
+    "name": "Wario",
+    "title": "Explosive Accountant / Hoard Lord / Shop-Credit Tyrant",
+    "status": "Active — extremely liquid, extremely greedy, and absolutely not as broke as his gold-on-hand suggests",
+    "wallet_type": "NPC operating + vault estimate",
+    "currencies": {
+      "gold": 125000,
+      "wario_coin": 250000,
+      "wario_points": 75000,
+      "midland_ducat": 18000,
+      "imperial_crown": 12000,
+      "doubloon": 2200,
+      "cargo_share": 45,
+      "broker_mark": 18,
+      "credstick": 9000,
+      "banana_medallion": 350,
+      "shell_credit": 5000
+    },
+    "category": "Allies & Operators"
+  },
+  "waluigi": {
+    "name": "Waluigi",
+    "title": "Historian / Mages Guild Associate / Correct Name Inventor",
+    "status": "Active — funds split between travel cash, research access, and document power",
+    "wallet_type": "NPC personal + research-access wallet",
+    "currencies": {
+      "gold": 83,
+      "silver": 140,
+      "midland_ducat": 260,
+      "guild_seal": 7,
+      "archive_writ": 4,
+      "arcane_shard": 3,
+      "transit_stamp": 1,
+      "toad_whistle": 9,
+      "court_leaf": 1
+    },
+    "category": "Supporting Cast"
+  },
+  "toad_lee": {
+    "name": "Toad Lee",
+    "title": "Defenestrated Diplomat / Liberated Toad Organizer",
+    "status": "Active — keeps practical survivor funds, courier access, and Loyalist-friendly paper",
+    "wallet_type": "NPC civic/diplomatic wallet",
+    "currencies": {
+      "toad_bond": 75,
+      "relief_stamp": 400,
+      "peach_crown": 25,
+      "mushroom_coin": 90,
+      "silver": 120,
+      "gold": 18,
+      "toad_whistle": 30,
+      "decree_strip": 8,
+      "midland_ducat": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "salam": {
+    "name": "Salam",
+    "title": "Liberated Toad Sharpshooter",
+    "status": "Active — light field wallet, mostly survivor bonds and practical coin",
+    "wallet_type": "NPC field wallet",
+    "currencies": {
+      "toad_bond": 18,
+      "relief_stamp": 60,
+      "silver": 55,
+      "gold": 9,
+      "mushroom_coin": 22,
+      "peach_crown": 3,
+      "toad_whistle": 4
+    },
+    "category": "Supporting Cast"
+  },
+  "captain_toadette": {
+    "name": "Captain Toadette",
+    "title": "Peach Loyalist Commander",
+    "status": "Active — not personal wealth so much as campaign authority and war chest access",
+    "wallet_type": "NPC command treasury access",
+    "currencies": {
+      "peach_crown": 15000,
+      "gold": 3500,
+      "midland_ducat": 8000,
+      "mushroom_coin": 12000,
+      "toad_bond": 900,
+      "relief_stamp": 6000,
+      "archive_writ": 12,
+      "decree_strip": 120,
+      "toad_whistle": 250
+    },
+    "category": "Allies & Operators"
+  },
+  "speaker_l": {
+    "name": "Speaker L",
+    "title": "Liberated Toad Legal Organizer",
+    "status": "Active — money is mostly legal paper, courier credit, and resistance administration",
+    "wallet_type": "NPC legal/resistance operating wallet",
+    "currencies": {
+      "decree_strip": 500,
+      "toad_bond": 1200,
+      "relief_stamp": 2500,
+      "archive_writ": 20,
+      "peach_crown": 300,
+      "midland_ducat": 900,
+      "toad_whistle": 180,
+      "gold": 250
+    },
+    "category": "Allies & Operators"
+  },
+  "penny": {
+    "name": "Penny",
+    "title": "Detective / Wario-Side Investigator",
+    "status": "Active — professional wallet with cash, digital funds, and investigation-friendly paper",
+    "wallet_type": "NPC investigator wallet",
+    "currencies": {
+      "wario_coin": 600,
+      "gold": 140,
+      "silver": 300,
+      "credstick": 1200,
+      "archive_writ": 3,
+      "broker_mark": 2,
+      "midland_ducat": 450,
+      "guild_seal": 1
+    },
+    "category": "Supporting Cast"
+  },
+  "the_broker": {
+    "name": "The Broker",
+    "title": "Freelancer Underworld Information Dealer",
+    "status": "Active — wealth is information, liquid coin, coded credit, and quiet leverage",
+    "wallet_type": "NPC underworld bank wallet",
+    "currencies": {
+      "broker_mark": 2000,
+      "gold": 50000,
+      "midland_ducat": 22000,
+      "tea_chit": 900,
+      "doubloon": 700,
+      "cargo_share": 80,
+      "credstick": 40000,
+      "archive_writ": 25,
+      "blood_vial": 60,
+      "vampire_marker": 12,
+      "astral_pearl": 9
+    },
+    "category": "Allies & Operators"
+  },
+  "first_mate_jones": {
+    "name": "First Mate Jones",
+    "title": "Syrup Pirate Officer",
+    "status": "Active — shipboard cash, prize shares, port credit, and smuggling liquidity",
+    "wallet_type": "NPC pirate officer wallet",
+    "currencies": {
+      "doubloon": 2500,
+      "cargo_share": 65,
+      "gold": 1800,
+      "silver": 600,
+      "wario_coin": 400,
+      "coconut_bar": 300,
+      "banana_medallion": 90,
+      "kremling_koin": 75,
+      "broker_mark": 8
+    },
+    "category": "Supporting Cast"
+  },
+  "mystic_morel": {
+    "name": "Mystic Morel",
+    "title": "Fortune Teller / Purple T / Future Thief",
+    "status": "Active problem — keeps odd currencies that are easy to hide, sing about, or pretend were destiny",
+    "wallet_type": "NPC occult/traveler wallet",
+    "currencies": {
+      "gold": 1200,
+      "silver": 900,
+      "mushroom_coin": 300,
+      "peach_crown": 40,
+      "arcane_shard": 8,
+      "astral_pearl": 2,
+      "shadow_obol": 25,
+      "court_leaf": 3,
+      "fey_acorn": 2
+    },
+    "category": "Supporting Cast"
+  },
+  "archmage_theron": {
+    "name": "Archmage Theron",
+    "title": "Mages Guild Authority",
+    "status": "Active — guild access, formal seals, and enough arcane collateral to make normal banks nervous",
+    "wallet_type": "NPC institutional/guild wallet",
+    "currencies": {
+      "guild_seal": 300,
+      "arcane_shard": 450,
+      "transit_stamp": 60,
+      "archive_writ": 35,
+      "midland_ducat": 20000,
+      "gold": 9000,
+      "astral_pearl": 18,
+      "data_chit": 120
+    },
+    "category": "Faction Personnel"
+  },
+  "lady_toriel": {
+    "name": "Lady Toriel",
+    "title": "Leader of Autumnwood Province",
+    "status": "Active — provincial treasury access, harvest marks, court money, and diplomatic coin",
+    "wallet_type": "NPC provincial treasury access",
+    "currencies": {
+      "autumn_leaf": 30000,
+      "midland_ducat": 18000,
+      "gold": 6000,
+      "archive_writ": 40,
+      "court_leaf": 90,
+      "spirit_bead": 120,
+      "silver": 5000
+    },
+    "category": "Rulers & Institutions"
+  },
+  "emperor_elgabalus": {
+    "name": "Emperor Elgabalus",
+    "title": "Emperor of the Regal Empire",
+    "status": "Active — sovereign treasury access; numbers represent accessible exchange instruments, not the entire imperial treasury",
+    "wallet_type": "NPC sovereign treasury access",
+    "currencies": {
+      "midland_ducat": 500000,
+      "gold": 250000,
+      "imperial_crown": 80000,
+      "archive_writ": 500,
+      "silver": 1000000,
+      "dwarf_oathgold": 2500,
+      "astral_pearl": 40,
+      "guild_seal": 150
+    },
+    "category": "Rulers & Institutions"
+  },
+  "tea_leaf_receivership": {
+    "name": "Tea Leaf Syndicate Receivership",
+    "title": "Post-Big-T / Post-Chai-T Syndicate Ledger",
+    "status": "Active institution — dead operators removed; surviving money is controlled through receivers, safehouse ledgers, and collection agents",
+    "wallet_type": "institutional receivership wallet",
+    "currencies": {
+      "tea_chit": 2200,
+      "gold": 5200,
+      "silver": 3100,
+      "midland_ducat": 4200,
+      "broker_mark": 30,
+      "doubloon": 220,
+      "cargo_share": 16,
+      "credstick": 1200
+    },
+    "category": "Supporting Cast"
+  },
+  "princess_daisy": {
+    "name": "Princess Daisy",
+    "title": "Sarasaland Sovereign",
+    "status": "Active — royal treasury access, diplomatic coin, and hard cash for fast military decisions",
+    "wallet_type": "NPC sovereign treasury access",
+    "currencies": {
+      "gold": 45000,
+      "midland_ducat": 22000,
+      "imperial_crown": 9000,
+      "mushroom_coin": 14000,
+      "peach_crown": 5000,
+      "credstick": 4500,
+      "archive_writ": 65,
+      "toad_whistle": 300
+    },
+    "category": "Rulers & Institutions"
+  },
+  "donkey_kong": {
+    "name": "Donkey Kong",
+    "title": "Kongo Bongo / DK Isles Leader",
+    "status": "Active — island stores, banana-backed value, medals, port coin, and practical trade goods",
+    "wallet_type": "NPC island treasury access",
+    "currencies": {
+      "banana_medallion": 6500,
+      "coconut_bar": 12000,
+      "gold": 18000,
+      "silver": 7000,
+      "doubloon": 900,
+      "cargo_share": 35,
+      "shell_credit": 900,
+      "wario_coin": 700
+    },
+    "category": "Supporting Cast"
+  },
+  "king_k_rool": {
+    "name": "King K. Rool",
+    "title": "Kremling King",
+    "status": "Active — raider hoard, port liquidity, and black-market exchange instruments",
+    "wallet_type": "NPC pirate/raider treasury access",
+    "currencies": {
+      "kremling_koin": 9000,
+      "doubloon": 6000,
+      "gold": 35000,
+      "cargo_share": 120,
+      "broker_mark": 40,
+      "blood_vial": 25,
+      "banana_medallion": 400,
+      "credstick": 2500
+    },
+    "category": "Rulers & Institutions"
+  },
+  "fawful": {
+    "name": "Fawful",
+    "title": "Cackling Remnant Commander",
+    "status": "Active but weakened — weird reserves, stolen paper, and emergency villain liquidity",
+    "wallet_type": "NPC faction remnant wallet",
+    "currencies": {
+      "gold": 12000,
+      "mushroom_coin": 8000,
+      "beanbean_bean": 9000,
+      "credstick": 2500,
+      "arcane_shard": 20,
+      "broker_mark": 14,
+      "midland_ducat": 3000
+    },
+    "category": "Allies & Operators"
+  },
+  "princess_celestia": {
+    "name": "Princess Celestia",
+    "title": "Equestrian Sovereign Authority",
+    "status": "Active — crown reserves, court instruments, and cross-map diplomatic exchange funds",
+    "wallet_type": "NPC sovereign treasury access",
+    "currencies": {
+      "gold": 80000,
+      "silver": 250000,
+      "court_leaf": 400,
+      "fey_acorn": 80,
+      "archive_writ": 90,
+      "midland_ducat": 30000,
+      "mora": 8000,
+      "astral_pearl": 22
+    },
+    "category": "Rulers & Institutions"
+  },
+  "twilight_sparkle": {
+    "name": "Twilight Sparkle",
+    "title": "Equestrian Princess / Arcane-State Administrator",
+    "status": "Active — scholarly state funds, magical collateral, and diplomatic coin",
+    "wallet_type": "NPC ruler/research treasury access",
+    "currencies": {
+      "gold": 32000,
+      "guild_seal": 90,
+      "arcane_shard": 160,
+      "archive_writ": 120,
+      "court_leaf": 250,
+      "fey_acorn": 50,
+      "midland_ducat": 14000,
+      "data_chit": 700
+    },
+    "category": "Supporting Cast"
+  },
+  "chairwoman_rin": {
+    "name": "Chairwoman Rin",
+    "title": "Kivotos General Student Council Administrator",
+    "status": "Active — city-scale school-state operating funds and authenticated digital credit",
+    "wallet_type": "NPC civic treasury access",
+    "currencies": {
+      "kivotos_credit": 2500000,
+      "credstick": 120000,
+      "data_chit": 12000,
+      "gold": 20000,
+      "midland_ducat": 25000,
+      "archive_writ": 70,
+      "guild_seal": 35
+    },
+    "category": "Rulers & Institutions"
+  },
+  "liyue_qixing": {
+    "name": "Liyue Qixing Treasury",
+    "title": "Teyvat Mercantile Ruling Council",
+    "status": "Active institution — trade reserves and mora-clearing authority",
+    "wallet_type": "institutional sovereign treasury access",
+    "currencies": {
+      "mora": 3000000,
+      "gold": 150000,
+      "midland_ducat": 55000,
+      "imperial_crown": 25000,
+      "doubloon": 4000,
+      "cargo_share": 250,
+      "astral_pearl": 35,
+      "credstick": 40000
+    },
+    "category": "Supporting Cast"
+  },
+  "pokemon_league_chair": {
+    "name": "Pokémon League Chair Office",
+    "title": "League Prize and Clinic Reserve Authority",
+    "status": "Active institution — trainer payouts, clinic reserves, and cross-region clearing funds",
+    "wallet_type": "institutional league treasury access",
+    "currencies": {
+      "poke_dollar": 1800000,
+      "gold": 40000,
+      "credstick": 90000,
+      "data_chit": 6000,
+      "midland_ducat": 18000,
+      "archive_writ": 30,
+      "toad_whistle": 120
+    },
+    "category": "Rulers & Institutions"
+  },
+  "high_king_thorgrim": {
+    "name": "High King Thorgrim",
+    "title": "Dwarven High King / Karaz-a-Karak Treasury Authority",
+    "status": "Active — oathgold, vault metals, grudges, and meticulously audited foreign exchange",
+    "wallet_type": "NPC sovereign vault access",
+    "currencies": {
+      "dwarf_oathgold": 25000,
+      "gold": 300000,
+      "silver": 900000,
+      "midland_ducat": 50000,
+      "imperial_crown": 60000,
+      "guild_seal": 80,
+      "archive_writ": 40,
+      "warpstone": 12
+    },
+    "category": "Rulers & Institutions"
+  },
+  "aemenor_evenflight": {
+    "name": "Aemenor Evenflight",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "agent_t": {
+    "name": "Agent T",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "archie_miser": {
+    "name": "Archie Miser",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "baldi": {
+    "name": "Baldi",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "bones": {
+    "name": "Bones",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "bryan": {
+    "name": "Bryan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "byscilla_danos": {
+    "name": "Byscilla Danos",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "cackletta": {
+    "name": "Cackletta",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "captain_syrup": {
+    "name": "Captain Syrup",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Allies & Operators"
+  },
+  "chancellor_toadsworth": {
+    "name": "Chancellor Toadsworth",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "commander_g": {
+    "name": "Commander G",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Supporting Cast"
+  },
+  "corporal_ghost_reyes": {
+    "name": "Corporal 'Ghost' Reyes",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "cranky_kong": {
+    "name": "Cranky Kong",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "dan": {
+    "name": "Dan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "darno_spriggon": {
+    "name": "Darno Spriggon",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "dyanos": {
+    "name": "Dyanos",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "eager": {
+    "name": "Eager",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "earl_grey": {
+    "name": "Earl Grey",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "elder_rowan_meadowlight": {
+    "name": "Elder Rowan Meadowlight",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "embercap": {
+    "name": "Embercap",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "feyward_dan": {
+    "name": "Feyward Dan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "general_ironhand": {
+    "name": "General Ironhand",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Supporting Cast"
+  },
+  "god_toad": {
+    "name": "God Toad",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "green_t": {
+    "name": "Green T",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "hargram_fidger": {
+    "name": "Hargram Fidger",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "herniva": {
+    "name": "Herniva",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "kamek": {
+    "name": "Kamek",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "king_boo": {
+    "name": "King Boo",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Rulers & Institutions"
+  },
+  "king_dedede": {
+    "name": "King Dedede",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Rulers & Institutions"
+  },
+  "kirby": {
+    "name": "Kirby",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "kyle_coinsoul": {
+    "name": "Kyle Coinsoul",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "lady_aurelian_corvinarus": {
+    "name": "Lady Aurelian Corvinarus",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Rulers & Institutions"
+  },
+  "lady_bloomia": {
+    "name": "Lady Bloomia",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Rulers & Institutions"
+  },
+  "lanky_kong": {
+    "name": "Lanky Kong",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "leo": {
+    "name": "Leo",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "lorehold_professor_of_chaos": {
+    "name": "Lorehold Professor of Chaos",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Supporting Cast"
+  },
+  "luigi": {
+    "name": "Luigi",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "lyranth": {
+    "name": "Lyranth",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "manderaz_the_mad": {
+    "name": "Manderaz the Mad",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "marcus_ashford": {
+    "name": "Marcus Ashford",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "mario": {
+    "name": "Mario",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "merric": {
+    "name": "Merric",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "meta_knight": {
+    "name": "Meta Knight",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Faction Personnel"
+  },
+  "miles_edgeworth": {
+    "name": "Miles Edgeworth",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "mimbus": {
+    "name": "Mimbus",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "mistveil": {
+    "name": "Mistveil",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "mossy": {
+    "name": "Mossy",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "mr_l": {
+    "name": "Mr. L",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "mystic_morsole": {
+    "name": "Mystic Morsole",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "orange_t": {
+    "name": "Orange T",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "orangus_cornelius": {
+    "name": "Orangus Cornelius",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "original_dan": {
+    "name": "Original Dan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "orvinder_danos": {
+    "name": "Orvinder Danos",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "parson_pellinost": {
+    "name": "Parson Pellinost",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "pauline": {
+    "name": "Pauline",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "pierce_anamatar": {
+    "name": "Pierce Anamatar",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "princess_peach": {
+    "name": "Princess Peach",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Rulers & Institutions"
+  },
+  "prismari": {
+    "name": "Prismari",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "professor_elvin_gadd": {
+    "name": "Professor Elvin Gadd",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Supporting Cast"
+  },
+  "rakasha_azure": {
+    "name": "Rakasha Azure",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "rakka": {
+    "name": "Rakka",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "rattles": {
+    "name": "Rattles",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "rhak_the_lost": {
+    "name": "Rhak the Lost",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "roger": {
+    "name": "Roger",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "ryan": {
+    "name": "Ryan",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "saedia": {
+    "name": "Saedia",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "sergeant_brick_stone": {
+    "name": "Sergeant 'Brick' Stone",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 43,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "sergeant_varn_coldbrook": {
+    "name": "Sergeant Varn Coldbrook",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 43,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "smoking_j": {
+    "name": "Smoking J",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Rulers & Institutions"
+  },
+  "specialist_miller": {
+    "name": "Specialist Miller",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "steely": {
+    "name": "Steely",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "stuckina": {
+    "name": "Stuckina",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "tanukiburt": {
+    "name": "Tanukiburt",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "the_archivist": {
+    "name": "The Archivist",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Supporting Cast"
+  },
+  "the_goblin_spy": {
+    "name": "The Goblin Spy",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "the_kremlings": {
+    "name": "The Kremlings",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "the_medusa": {
+    "name": "The Medusa",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "the_onyx_knight": {
+    "name": "The Onyx Knight",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Faction Personnel"
+  },
+  "the_oracle": {
+    "name": "The Oracle",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 350,
+      "silver": 200
+    },
+    "category": "Supporting Cast"
+  },
+  "the_rakasha": {
+    "name": "The Rakasha",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "the_revelmaster": {
+    "name": "The Revelmaster",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "the_scorncrow": {
+    "name": "The Scorncrow",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "the_unknown_assassin": {
+    "name": "The Unknown Assassin",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 35,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "thornbury": {
+    "name": "Thornbury",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "thornpaw": {
+    "name": "Thornpaw",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "toadburt": {
+    "name": "Toadburt",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "toadette_sr": {
+    "name": "Toadette Sr.",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 20,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "toadsworth_the_elder": {
+    "name": "Toadsworth the Elder",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 43,
+      "silver": 40
+    },
+    "category": "Supporting Cast"
+  },
+  "tymnas": {
+    "name": "Tymnas",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "usk": {
+    "name": "Usk",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "valorian_stormweave": {
+    "name": "Valorian Stormweave",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "vaxillus_the_beastmaster": {
+    "name": "Vaxillus the Beastmaster",
+    "title": "Recorded XP character",
+    "currencies": {},
+    "category": "Supporting Cast",
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance."
+  },
+  "vivian_corvinarus": {
+    "name": "Vivian Corvinarus",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "warol_creeton": {
+    "name": "Warol Creeton",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "x_o": {
+    "name": "X.O.",
+    "title": "Recorded XP character",
+    "currencies": {
+      "gold": 12,
+      "silver": 20
+    },
+    "category": "Supporting Cast"
+  },
+  "aliases": {
+    "name": "Aliases",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "battle_mage_kovar": {
+    "name": "Battle Mage Kovar",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 35,
+      "arcane_shard": 2,
+      "guild_seal": 1
+    },
+    "category": "Faction Personnel"
+  },
+  "big_t": {
+    "name": "Big T",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "candy_kong": {
+    "name": "Candy Kong",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "cat": {
+    "name": "Cat",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "chai": {
+    "name": "Chai",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "chunky_kong": {
+    "name": "Chunky Kong",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "class": {
+    "name": "Class",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "colonel_vera_steelstorm": {
+    "name": "Colonel Vera Steelstorm",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "corporal_reyes": {
+    "name": "Corporal Reyes",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "date": {
+    "name": "Date",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "desc": {
+    "name": "Desc",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "dewdrop": {
+    "name": "Dewdrop",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "diddy_kong": {
+    "name": "Diddy Kong",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "elder_meadowlight": {
+    "name": "Elder Meadowlight",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "entries": {
+    "name": "Entries",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "epithet": {
+    "name": "Epithet",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "feywarddan": {
+    "name": "Feywarddan",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "general_vale": {
+    "name": "General Vale",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "godtoad": {
+    "name": "Godtoad",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "category": "Supporting Cast"
+  },
+  "goodstyle": {
+    "name": "Goodstyle",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "greent": {
+    "name": "Greent",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "icon": {
+    "name": "Icon",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "iggy_koopa": {
+    "name": "Iggy Koopa",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "janna_brightspark": {
+    "name": "Janna Brightspark",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "kremlings": {
+    "name": "Kremlings",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "kryn": {
+    "name": "Kryn",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "lady_aurelian": {
+    "name": "Lady Aurelian",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 250,
+      "silver": 40,
+      "imperial_crown": 5
+    },
+    "category": "Rulers & Institutions"
+  },
+  "lario": {
+    "name": "Lario",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "lord_crimson": {
+    "name": "Lord Crimson",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 250,
+      "silver": 40,
+      "imperial_crown": 5
+    },
+    "category": "Rulers & Institutions"
+  },
+  "loreholdprofessorofchaos": {
+    "name": "Loreholdprofessorofchaos",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "marcus_ironhand": {
+    "name": "Marcus Ironhand",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "membership": {
+    "name": "Membership",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "mysticmorel": {
+    "name": "Mysticmorel",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "oranguscornelius": {
+    "name": "Oranguscornelius",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "originaldan": {
+    "name": "Originaldan",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "pierceanamatar": {
+    "name": "Pierceanamatar",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "professor_e_gadd": {
+    "name": "Professor E Gadd",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "race": {
+    "name": "Race",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "rakasha": {
+    "name": "Rakasha",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "rakashaazure": {
+    "name": "Rakashaazure",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "relationship": {
+    "name": "Relationship",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "revelmaster": {
+    "name": "Revelmaster",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "salem": {
+    "name": "Salem",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "sans": {
+    "name": "Sans",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "scorncrow": {
+    "name": "Scorncrow",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "sergeant_coldbrook": {
+    "name": "Sergeant Coldbrook",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "sergeant_stone": {
+    "name": "Sergeant Stone",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "skullcap_murphgy": {
+    "name": "Skullcap Murphgy",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "skullcap_murphy": {
+    "name": "Skullcap Murphy",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "species": {
+    "name": "Species",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "squad": {
+    "name": "Squad",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "status": {
+    "name": "Status",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "thejestergoomba": {
+    "name": "Thejestergoomba",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "category": "Supporting Cast"
+  },
+  "theoracle": {
+    "name": "Theoracle",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 35,
+      "arcane_shard": 2,
+      "guild_seal": 1
+    },
+    "category": "Supporting Cast"
+  },
+  "title": {
+    "name": "Title",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "toadettesr": {
+    "name": "Toadettesr",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "category": "Supporting Cast"
+  },
+  "toadlee": {
+    "name": "Toadlee",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "category": "Supporting Cast"
+  },
+  "toadsworth_sr": {
+    "name": "Toadsworth Sr",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "category": "Supporting Cast"
+  },
+  "unknown_assassin": {
+    "name": "Unknown Assassin",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "unknown_third_figure": {
+    "name": "Unknown Third Figure",
+    "title": "XP roster character",
+    "currencies": {},
+    "category": "Supporting Cast",
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance."
+  },
+  "vaxillusthebeastmaster": {
+    "name": "Vaxillusthebeastmaster",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "category": "Supporting Cast"
+  },
+  "xo": {
+    "name": "Xo",
+    "title": "XP roster character",
+    "currencies": {},
+    "category": "Supporting Cast",
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance."
+  },
+  "xp": {
+    "name": "Xp",
+    "title": "XP roster character",
+    "currencies": {},
+    "category": "Supporting Cast",
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance."
+  }
+}

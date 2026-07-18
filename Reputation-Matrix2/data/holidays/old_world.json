@@ -2,10 +2,56 @@
   "calendarId": "old_world",
   "name": "Old World Imperial Holidays",
   "holidays": [
-    {"name":"Hexenstag","month":12,"day":32,"icon":"🕯️","color":"#000000","description":"Witching day outside year — chaos risk","type":"weird","isWeird":true},
-    {"name":"Mitterfruhl Feast","month":3,"day":33,"icon":"🌱","color":"#88ff88","description":"Spring equinox void feast","type":"seasonal"},
-    {"name":"Sonnenstill Fire","month":6,"day":33,"icon":"☀️","color":"#ffff00","description":"Summer solstice bonfire — witch hunters busy","type":"festival"},
-    {"name":"Brauzeit Oktober","month":9,"day":15,"icon":"🍺","color":"#aa7755","description":"Beer festival, dwarf holds open gates","type":"festival"},
-    {"name":"Geheimnistag Veil","month":9,"day":33,"icon":"🔮","color":"#aa88ff","description":"Mystery day — prophecies discounted","type":"astral"}
+    {
+      "name": "Hexenstag",
+      "month": 12,
+      "day": 32,
+      "icon": "🕯️",
+      "color": "#000000",
+      "description": "Witching day outside year — chaos risk",
+      "type": "weird",
+      "isWeird": true,
+      "longDescription": "Hexenstag is observed on day 32 of month 12 in the Old World Calendar. It is classified as a weird and is associated with Witching day outside year — chaos risk . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Mitterfruhl Feast",
+      "month": 3,
+      "day": 33,
+      "icon": "🌱",
+      "color": "#88ff88",
+      "description": "Spring equinox void feast",
+      "type": "seasonal",
+      "longDescription": "Mitterfruhl Feast is observed on day 33 of month 3 in the Old World Calendar. It is classified as a seasonal and is associated with Spring equinox void feast . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Sonnenstill Fire",
+      "month": 6,
+      "day": 33,
+      "icon": "☀️",
+      "color": "#ffff00",
+      "description": "Summer solstice bonfire — witch hunters busy",
+      "type": "festival",
+      "longDescription": "Sonnenstill Fire is observed on day 33 of month 6 in the Old World Calendar. It is classified as a festival and is associated with Summer solstice bonfire — witch hunters busy . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Brauzeit Oktober",
+      "month": 9,
+      "day": 15,
+      "icon": "🍺",
+      "color": "#aa7755",
+      "description": "Beer festival, dwarf holds open gates",
+      "type": "festival",
+      "longDescription": "Brauzeit Oktober is observed on day 15 of month 9 in the Old World Calendar. It is classified as a festival and is associated with Beer festival, dwarf holds open gates . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Geheimnistag Veil",
+      "month": 9,
+      "day": 33,
+      "icon": "🔮",
+      "color": "#aa88ff",
+      "description": "Mystery day — prophecies discounted",
+      "type": "astral",
+      "longDescription": "Geheimnistag Veil is observed on day 33 of month 9 in the Old World Calendar. It is classified as a astral and is associated with Mystery day — prophecies discounted . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    }
   ]
 }

@@ -2,13 +2,87 @@
   "calendarId": "snowdin",
   "name": "Snowdin Deep Calendar Holidays",
   "holidays": [
-    {"name":"First Chill","month":1,"day":1,"icon":"❄️","color":"#a0d0ff","description":"Underground chill sets — puzzles freeze","type":"seasonal"},
-    {"name":"Glow Days Start","month":2,"day":40,"icon":"✨","color":"#ffff88","description":"Crystals brighten — 5-day glow outside months","type":"weird","isWeird":true},
-    {"name":"Spaghetti Friday","month":3,"day":20,"icon":"🍝","color":"#ffcc88","description":"Papyrus cooks, all invited","type":"festival"},
-    {"name":"Thaw Leak","month":3,"day":40,"icon":"💧","color":"#a0ffa0","description":"First drips from above","type":"seasonal"},
-    {"name":"CORE Overheat","month":6,"day":25,"icon":"🔥","color":"#ff4444","description":"CORE vents heat — Hotland fans on","type":"civic"},
-    {"name":"MTT Show","month":6,"day":40,"icon":"📺","color":"#ff44ff","description":"Mettaton showtime — ratings spike","type":"festival"},
-    {"name":"Deep Freeze Start","month":8,"day":40,"icon":"🧊","color":"#88ccff","description":"35-day freeze outside months — town hunkers","type":"weird","isWeird":true},
-    {"name":"Nap Day","month":2,"day":15,"icon":"💤","color":"#a0d0ff","description":"Everyone naps, puzzles wait","type":"rest"}
+    {
+      "name": "First Chill",
+      "month": 1,
+      "day": 1,
+      "icon": "❄️",
+      "color": "#a0d0ff",
+      "description": "Underground chill sets — puzzles freeze",
+      "type": "seasonal",
+      "longDescription": "First Chill is observed on day 1 of month 1 in the Snowdin Calendar. It is classified as a seasonal and is associated with Underground chill sets — puzzles freeze . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Glow Days Start",
+      "month": 2,
+      "day": 40,
+      "icon": "✨",
+      "color": "#ffff88",
+      "description": "Crystals brighten — 5-day glow outside months",
+      "type": "weird",
+      "isWeird": true,
+      "longDescription": "Glow Days Start is observed on day 40 of month 2 in the Snowdin Calendar. It is classified as a weird and is associated with Crystals brighten — 5-day glow outside months . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Spaghetti Friday",
+      "month": 3,
+      "day": 20,
+      "icon": "🍝",
+      "color": "#ffcc88",
+      "description": "Papyrus cooks, all invited",
+      "type": "festival",
+      "longDescription": "Spaghetti Friday is observed on day 20 of month 3 in the Snowdin Calendar. It is classified as a festival and is associated with Papyrus cooks, all invited . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Thaw Leak",
+      "month": 3,
+      "day": 40,
+      "icon": "💧",
+      "color": "#a0ffa0",
+      "description": "First drips from above",
+      "type": "seasonal",
+      "longDescription": "Thaw Leak is observed on day 40 of month 3 in the Snowdin Calendar. It is classified as a seasonal and is associated with First drips from above . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "CORE Overheat",
+      "month": 6,
+      "day": 25,
+      "icon": "🔥",
+      "color": "#ff4444",
+      "description": "CORE vents heat — Hotland fans on",
+      "type": "civic",
+      "longDescription": "CORE Overheat is observed on day 25 of month 6 in the Snowdin Calendar. It is classified as a civic and is associated with CORE vents heat — Hotland fans on . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "MTT Show",
+      "month": 6,
+      "day": 40,
+      "icon": "📺",
+      "color": "#ff44ff",
+      "description": "Mettaton showtime — ratings spike",
+      "type": "festival",
+      "longDescription": "MTT Show is observed on day 40 of month 6 in the Snowdin Calendar. It is classified as a festival and is associated with Mettaton showtime — ratings spike . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Deep Freeze Start",
+      "month": 8,
+      "day": 40,
+      "icon": "🧊",
+      "color": "#88ccff",
+      "description": "35-day freeze outside months — town hunkers",
+      "type": "weird",
+      "isWeird": true,
+      "longDescription": "Deep Freeze Start is observed on day 40 of month 8 in the Snowdin Calendar. It is classified as a weird and is associated with 35-day freeze outside months — town hunkers . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    },
+    {
+      "name": "Nap Day",
+      "month": 2,
+      "day": 15,
+      "icon": "💤",
+      "color": "#a0d0ff",
+      "description": "Everyone naps, puzzles wait",
+      "type": "rest",
+      "longDescription": "Nap Day is observed on day 15 of month 2 in the Snowdin Calendar. It is classified as a rest and is associated with Everyone naps, puzzles wait . Communities use the occasion to preserve local memory, reinforce shared identity, and mark the passage of the calendar year. Practices vary by region and faction, so this observance may carry different political or religious meaning across the wider world."
+    }
   ]
 }

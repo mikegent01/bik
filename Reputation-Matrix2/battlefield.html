@@ -3178,6 +3178,23 @@ function view_calendar(){
       });
     });
 
+    // A record can be present in more than one feed (for example, a chronicle entry
+    // and the matching case-timeline row). Keep the richest canonical record instead
+    // of rendering the same historical event twice. The date is part of the key so
+    // recurring events in different years remain separate.
+    const duplicatePriority = { chronicle: 4, mbattle: 3, battle: 2, trial: 2, event: 1, case: 0 };
+    const canonical = new Map();
+    entries.forEach(entry => {
+      const title = String(entry.name || '').trim().toLowerCase().replace(/\\s+/g, ' ');
+      const key = `${entry.y}|${entry.mo}|${entry.d}|${title}`;
+      const previous = canonical.get(key);
+      if (!previous || (duplicatePriority[entry.kind] || 0) > (duplicatePriority[previous.kind] || 0)) {
+        canonical.set(key, entry);
+      }
+    });
+    entries.length = 0;
+    entries.push(...canonical.values());
+
     // Filter
     const applyFilter = e => filter==='all' ? true
       : filter==='session' ? (e.kind==='event' || e.kind==='chronicle')
@@ -4696,7 +4713,8 @@ function view_holiday(id){
   const sameMonth=all.filter(x=>x.calendarId===h.calendarId && Number(x.month)===Number(h.month) && x.slug!==h.slug);
   const monthLabel=calendarMonthName(h.calendarId,h.month);
   const calName=calendarLabel(h.calendarId);
-  const linkedDesc=linkify?linkify(esc(h.description||'')):esc(h.description||'');
+  const holidayDescription=h.longDescription||h.description||'This observance is recorded in the calendar archive, but no cultural description has been filed yet.';
+  const linkedDesc=linkify?linkify(esc(holidayDescription)):esc(holidayDescription);
 
   const relatedEvents=(DATA.events||[]).filter(ev=>{
     const hay=((ev.title||'')+' '+(ev.summary||'')+' '+(ev.description||'')+' '+(ev.date||'')).toLowerCase();
