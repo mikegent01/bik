@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Waluipedia | National Power Projection</title>
+  <link rel="stylesheet" href="global.css"><link rel="stylesheet" href="layout.css"><link rel="stylesheet" href="components.css">
+  <style>
+    .projection-intro,.projection-card{background:rgba(138,75,255,.1);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px}
+    .projection-intro a,.projection-card a{color:var(--accent2)} .projection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .projection-card h3{margin:0 0 6px;color:var(--accent2)} .projection-card p{color:var(--muted);font-size:13px;line-height:1.5}
+    .power-meter{height:8px;background:var(--bg2);border-radius:8px;overflow:hidden;margin:12px 0}.power-meter span{display:block;height:100%;background:linear-gradient(90deg,#7a4bff,#ffd166);border-radius:8px}
+    .projection-meta{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+  </style>
+</head>
+<body><div class="tablet-frame"><div class="scanline-overlay"></div><div id="app"><main id="main-content">
+  <section class="projection-intro"><h2 class="page-title">National Power Projection</h2><p class="page-subtitle">A Waluipedia atlas of what a nation can actually project: people, territory, institutions, and the ability to make other powers care. This is an estimate, not a leaderboard. Waluigi refuses to let a spreadsheet declare victory.</p><p><a href="laws.html">Compare legal traditions</a> · <a href="iron-legion.html">Inspect the Iron Legion threat dossier</a> · <a href="Field_Journal.html">Read Thornbury's field journal</a></p></section>
+  <div id="projection-grid" class="projection-grid"><p class="page-subtitle">Loading projection records...</p></div>
+</main></div></div>
+<script type="module" src="common.js"></script><script type="module" src="navigation.js"></script><script type="module" src="national-power.js"></script>
+</body></html>

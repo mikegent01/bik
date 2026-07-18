@@ -42,6 +42,7 @@ import { BOOK_DATA as rootkitGrimoire } from './books/rootkit_grimoire.js';
 import { BOOK_DATA as navigatingDatastream } from './books/navigating_datastream.js';
 import { BOOK_DATA as studyInMemetics } from './books/study_in_memetics.js';
 import { BOOK_DATA as ironLegionManual } from './books/iron_legion_manual.js';
+import { BOOK_DATA as protocolSix } from './books/protocol_six.js';
 import { BOOK_DATA as greatLibraries } from './books/great_libraries.js';
 import { BOOK_DATA as warhammerHistories } from './books/warhammer_histories.js';
 import { BOOK_DATA as codexPunchline } from './books/codex_punchline.js';
@@ -111,6 +112,7 @@ const bookDataMap = {
     "Navigating the Datastream": navigatingDatastream,
     "A Study in Memetics": studyInMemetics,
     "Iron Legion Field Manual": ironLegionManual,
+    "Protocol Six: Retreat If You Must": protocolSix,
     "A Guide to the Great Libraries": greatLibraries,
     "The Liber Maleficus: A Study of the Ruinous Powers": warhammerHistories,
     "Codex: The Punchline": codexPunchline,
@@ -169,6 +171,7 @@ const COVERS = {
     "Navigating the Datastream": 'book_cover_datastream.png',
     "A Study in Memetics": 'book_cover_memetics.png',
     "Iron Legion Field Manual": 'book_cover_iron_legion.png',
+    "Protocol Six: Retreat If You Must": 'book_cover_iron_legion.png',
     "A Guide to the Great Libraries": 'book_cover_library.png',
     "The Liber Maleficus: A Study of the Ruinous Powers": 'book_cover_chaos.png',
     "Codex: The Punchline": 'book_cover_jester.png',

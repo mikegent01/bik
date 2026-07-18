@@ -2294,16 +2294,29 @@ function getFilteredPosts() {
         });
     }
 
-    // Apply search
+    // Apply search. WAHbook is an archive, so index the complete record rather
+    // than only the visible post body. Normalising punctuation also lets a query
+    // find transcriptions such as “Protocol Six” despite curly quotes, dashes,
+    // or broken line endings in the source article.
     if (searchQuery) {
-        const query = searchQuery.toLowerCase();
+        const normalise = (value) => String(value ?? '')
+            .normalize('NFKC')
+            .toLowerCase()
+            .replace(/[’‘]/g, "'")
+            .replace(/[^a-z0-9]+/g, ' ')
+            .trim();
+        const query = normalise(searchQuery);
+        const terms = query.split(/\s+/).filter(Boolean);
         posts = posts.filter(post => {
-            const author = getCharacterData(post.characterKey);
-            return (
-                (post.content || '').toLowerCase().includes(query) ||
-                author.name.toLowerCase().includes(query) ||
-                (post.characterKey || '').toLowerCase().includes(query)
-            );
+            const author = getCharacterData(post.characterKey) || {};
+            const haystack = normalise([
+                post.title, post.headline, post.content, post.excerpt,
+                post.characterKey, author.name, author.summary, author.description,
+                ...(post.tags || []), ...(post.topics || [])
+            ].join(' '));
+            // Keep phrase search intuitive, but accept all terms when a source
+            // inserted a line break or punctuation between words.
+            return haystack.includes(query) || terms.every(term => haystack.includes(term));
         });
     }
 
