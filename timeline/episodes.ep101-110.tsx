@@ -8,4 +8,11 @@ export const EPISODES_DATA_EP101_110: EpisodeSummary[] = [
         plotImpact: PlotImpact.MAJOR,
         tags: ['Season Premiere', 'Time Skip', 'New Mystery', 'New Enemy', 'Portals', 'Clones']
     },
+    {
+        episode: 102,
+        title: "Veins of the Tapestry",
+        summary: "Bones awakens alone in the Planar Sanctum, steals Fundamentals of Abjuration, and discovers Corvinarus's 10-page masterwork Veins of the Tapestry. Refusing the Oracle's flesh vat, Bones battles a Canoloth and is rescued to the Astral Altar by the Toad God. Teleported to Alpine Bank, Bones overhears Thornbury placing a bounty on Archie before escaping into a snowstorm.",
+        plotImpact: PlotImpact.MAJOR,
+        tags: ['Planar Sanctum', 'Corvinarus Lore', 'Toad God', 'Combat', 'Betrayal', 'Bounty']
+    },
 ];

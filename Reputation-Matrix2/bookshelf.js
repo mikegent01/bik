@@ -22,6 +22,7 @@ import { BOOK_DATA as culinaryConquest } from './books/culinary_conquest.js';
 import { BOOK_DATA as edictsEbonVeil } from './books/edicts_ebon_veil.js';
 import { BOOK_DATA as vampireEtiquette } from './books/vampire_etiquette.js';
 import { BOOK_DATA as fundamentalsAbjuration } from './books/fundamentals_abjuration.js';
+import { BOOK_DATA as veinsOfTheTapestry } from './books/veins_of_the_tapestry.js';
 import { BOOK_DATA as kirbyIncident } from './books/kirby_incident.js';
 import { BOOK_DATA as monetizeDatastream } from './books/monetize_datastream.js';
 import { BOOK_DATA as guideDigitalSea } from './books/guide_digital_sea.js';
@@ -90,6 +91,7 @@ const bookDataMap = {
     "Edicts of the Ebon Veil": edictsEbonVeil,
     "A Mortal's Guide to Vampire Etiquette": vampireEtiquette,
     "Fundamentals of Abjuration": fundamentalsAbjuration,
+    "Veins of the Tapestry: A Record of Threads Severed and Mended": veinsOfTheTapestry,
     "The Kirby Incident: A Conservator's Report": kirbyIncident,
     "How to Monetize Your Data-Stream": monetizeDatastream,
     "A Tourist's Guide to the Digital Sea": guideDigitalSea,
@@ -119,7 +121,9 @@ const bookDataMap = {
 const READ_BOOKS = new Set([
     "Magitek Theory Vol. IV: Arcane Capacitors", // Read by Dan
     "The Hammer Code: An Iron Legion Treatise", // Read by Markop
-    "The Silent Service: A Primer" // Read by Remi
+    "The Silent Service: A Primer", // Read by Remi
+    "Fundamentals of Abjuration", // Stolen and read by Bones
+    "Veins of the Tapestry: A Record of Threads Severed and Mended" // Found and read by Bones in Planar Sanctum
 ]);
 
 
@@ -145,6 +149,7 @@ const COVERS = {
     "Edicts of the Ebon Veil": 'book_cover_ebon_veil.png',
     "A Mortal's Guide to Vampire Etiquette": 'book_cover_vampire_etiquette.png',
     "Fundamentals of Abjuration": 'book_cover_abjuration.png',
+    "Veins of the Tapestry: A Record of Threads Severed and Mended": 'book_cover_ebon_veil.png',
     "The Kirby Incident: A Conservator's Report": 'book_cover_kirby.png',
     "How to Monetize Your Data-Stream": 'book_cover_monetize_datastream.png',
     "A Tourist's Guide to the Digital Sea": 'book_cover_guide_digital_sea.png',

@@ -6881,5 +6881,60 @@
       "the_midnight_audit_of_harvestide_28",
       "remi_akamatsu_full_backstory"
     ]
+  },
+  {
+    "id": "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
+    "name": "Awakening in the Planar Sanctum & The Veins of the Tapestry",
+    "title": "The Belfry Floor, Corvinarus's Codex, and the Canoloth Trial",
+    "type": "Lore / Exploration / Battle / Revelation",
+    "date": "28-29 Harvestide, 1040 BF",
+    "location": "Planar Sanctum (Deep Mirror / Belfry Ruins / Atrium)",
+    "summary": "Bones wakes up alone in the Fractured Planar Sanctum after the failed teleportation attempt with Archie. Stealing Fundamentals of Abjuration from the Oracle's collection, he discovers Corvinarus's ancient tome, Veins of the Tapestry, detailing 10 pages of critical planar history, the 988 BF Grafting ritual, warnings about the Oracle (OC), circle restoration instructions, and a dire prophecy. Confronted by the Oracle, Bones refuses to enter a flesh vat, engages a fiendish Canoloth in combat, and is saved by the Toad God at the Astral Altar after being swiped unconscious.",
+    "description": "Waluigi is documenting this incident with deep concern because Bones was left alone in the most unstable, vat-filled, reality-bending room in the entire Corvinarus Sanctum, and instead of taking a nap like a reasonable person, he started looting books and getting eaten by planar guard dogs. WAH.\n\n## The Awakening & Book Theft\nFollowing the shattered synchronization attempt with Archie Miser, Bones woke up on the black marble floor of the Planar Sanctum. Alone and wondering where Orange T had vanished, Bones remembered Thornbury Bones and began searching for Archie. Browsing the crumbling library, Bones spotted *Fundamentals of Abjuration*—the exact Mages' Guild Conservator volume recorded in the archives. Knowing it belonged to the Oracle, Bones stole the book anyway, muttering that he'd keep it when he got free time.\n\n## The Discovery: Veins of the Tapestry\nNear the scattered debris of a grand turret belfry—where a massive fallen bell crashed into the black marble floor—Bones discovered a second book on the library floor: *Veins of the Tapestry: A Record of Threads Severed and Mended*. Written in the arrogant, precise hand of Corvinarus, the pages whispered directly into the back of Bones's skull under the rippling light of nearby abomination vats:\n\n- **Page 1 (Dedication):** 'To the three who will break what we bound—may your hands finish what our blood began.' Signed with three interlocking threads, one frayed.\n- **Page 2 (Architecture):** Architectural diagram of pre-Fracture Raventree Manor, marking mirrors and shadows as weak points. 'The house remembers its purpose even when the lords forget theirs.'\n- **Page 3 (Grafting Ritual 988 BF):** Account of the 988 BF Grafting ritual, describing the egg's scream as 'the sound of a future being forced into existence.' Ink smeared with blood or tears.\n- **Page 4 (Oracle Warning):** 'She who calls herself OC pulls levers she does not fully understand. The vats were never meant to birth keepers—only to hold them until the threads could be tested.'\n- **Page 5 (List of Names):** Names from Orangus Cornelius to Vivian. Fresh ink note beside Vivian: 'He laughs when cut. This was not planned.'\n- **Page 6 (Circle Restoration):** Formula for repairing fractured teleportation circles using bone ash, live wood, iron dust, and chalk. Margin doodle of a three-eyed figure holding a staff: 'Do not trust the fire that cannot burn.'\n- **Page 7 (Shadowfell Lament):** 'Orangus believed order could contain the bleed. He was wrong. The Hand feeds what it claims to control.'\n- **Page 8 (Feywild Memory):** Pressed glowing Feywild flower with Lady Aurelian's recorded voice: 'the present must be severed from the others or all will unravel like cheap silk.'\n- **Page 9 (Sanctum Map):** Map of Deep Mirror sanctum with abomination vats circled and labeled 'Failed attempts at continuity.' Underlined note: 'Wrong lever' three times.\n- **Page 10 (Prophecy Fragment):** 'When the one-armed shadow walks with the fire that bleeds, and the green one takes the children's table, the threads will knot or snap. Choose the knot.' Rest blank.\n\n## Confrontation with the Oracle (OC)\nHiding in turret rubble after hearing footsteps, Bones was surprised from behind by the Oracle. When asked why he hadn't killed the rival Oracles over the past two months, Bones explained his memory blur and Archie's role. The Oracle warned Bones never to touch his books, stating the sanctum was already unstable. In the central chamber—flanked by Crystal Tethers (umbral violet energy in the West, volatile orange in the East) and a shattered glass tank wrapped in lightning—the Oracle urged Bones into a flesh vat to reveal his 'true self-reflection.' Recognizing the red flag, Bones refused. When Bones tried to run from an invisible portal opening, the Oracle force-dragged him back.\n\n## Combat with the Canoloth & The Astral Intervention\nA fiendish Canoloth (yugoloth tracker) manifested amidst floating space-time rocks. The Oracle attempted to vibrate the beast out of reality using a tuning fork. The Canoloth attacked Bones, snaring him in its spiny tongue and entangling both his longsword and vile mace. Crying in agony and severely injured, Bones grabbed the Canoloth's tongue with his bare hands, dragging the creature toward a cliff edge, demanding to kill it 'the actual way.' The Canoloth clawed Bones into unconsciousness.\n\nBones awoke in the Astral Altar before the Toad God (Mad Toad). The Toad God claimed to be Archie's friend and advised Bones: 'Don't kill the Oracle, keep him alive. Leave the manor and crystal shard intact and leave it divided.' He mentioned being busy keeping 'pesky star bears' from giving away stars to 'hooligans (the Oracle).' Before explaining how he met Archie, light enveloped Bones and returned him to the sanctum floor.\n\nBack in the sanctum, the Oracle healed Bones's wounds, lecturing him that true strength is mental fortitude and fighting rather than fleeing. When Bones asked to be sent to a friend or Archie, the Oracle placed him in a red teleportation circle pointed toward Alpine Bank in the Regal Capital.",
+    "keyBattles": [
+      {
+        "name": "The Planar Sanctum Canoloth Skirmish",
+        "date": "28 Harvestide, 1040 BF",
+        "result": "Bones dragged the Canoloth by its tongue but was clawed unconscious; rescued to the Astral Altar by the Toad God; healed afterwards by the Oracle.",
+        "participants": [
+          "Bones",
+          "The Oracle (OC)",
+          "Canoloth"
+        ],
+        "significance": "Proves the lethality of the Deep Mirror sanctum, reveals the Toad God's direct intervention to protect Bones, and forces the Oracle to teleport Bones to the Regal Capital."
+      }
+    ],
+    "relatedArticles": [
+      "bones",
+      "the_oracle",
+      "veins_of_the_tapestry",
+      "corvinarus_family",
+      "bryan",
+      "archie_miser",
+      "planar_sanctum",
+      "raventree_manor",
+      "vivian_corvinarus",
+      "lady_aurelian_corvinarus",
+      "orangus_cornelius"
+    ]
+  },
+  {
+    "id": "bones_alpine_bank_eavesdropping_and_inn_refuge",
+    "name": "Eavesdropping at Alpine Bank & The Mountain Snowstorm",
+    "title": "Thornbury's Betrayal, The Legion Credentials, and The 3-Ducat Room",
+    "type": "Espionage / Travel / Revelation",
+    "date": "29 Harvestide, 1040 BF",
+    "location": "Alpine Bank & Alpine Mountain Inn, Midgrual Mountains, Regal Capital",
+    "summary": "Teleported to the Alpine Bank in the Midgrual mountains near the Regal Capital, Bones encounters Thornbury. Lingering to eavesdrop on a conversation between Thornbury and an Alpine banker, Bones learns that Thornbury possesses Iron Legion credentials, views Bones as a wanted criminal for allegedly strangling a toad on the Vigilance, and is placing an official bounty on Archie Miser to recover 2,062 gold owed for a broken hempen rope. Realizing Thornbury's betrayal, Bones slips away into a mountain snowstorm, gets escorted by guards to an Alpine inn, and pays 3 Midland Ducats for a room upstairs.",
+    "description": "Waluigi respects good espionage and hates bad financial extortion. Thornbury charging two thousand gold for a broken rope was already hilarious, but Thornbury turning it into an official imperial bounty while using Legion credentials to sell out his allies is where paperwork becomes high treason. WAH.\n\n## Arrival at Alpine Bank\nStepping out of the Oracle's red teleportation circle, Bones materialized directly inside the Alpine Bank, situated on a cold mountain slope near Midgrual, the Regal Capital. Overhearing the banker lecture Thornbury ('Stick to the Regal standard, those mushroom coins won't work'), Bones was initially confused, asking if the bank was a prison. The banker noted that the Regal Lions division had ended their stay at Raventree Manor after elite units were bought and were currently on standby.\n\nWhen Thornbury offered to help Bones find Archie and other mages after finishing his banking session, Bones stepped away but remained close enough to eavesdrop.\n\n## The Overheard Betrayal\nFrom his position near the exit, Bones listened as the banker questioned Thornbury about helping a known criminal. The conversation revealed devastating intelligence:\n\n- **Legion Affiliation:** Thornbury confirmed he operates with Iron Legion credentials ('I'm Legion, I got credentials') and is serving higher Legion authority ('as long as I get what the boss needs').\n- **Wanted Status on Bones:** The banker noted Bones is on the Iron Legion's most wanted list, alleging Bones 'strangled a toad to death on the Vigilance.' Thornbury dismissed the murder charge as long as Bones served his operational purpose.\n- **Security at Raventree:** The banker warned that Raventree Manor is weeks away and surrounded by elite guards, helicopters, and 24/7 surveillance.\n- **The Archie Bounty:** Thornbury requested an official bounty placed on Archie Miser to enforce repayment for the broken hempen rope debt (itemized at 2,062 gold pieces). Thornbury demanded Archie either pay the rope debt in full or face imperial justice.\n\nRecognizing that Thornbury was an unrepentant traitor, Bones quietly exited the bank before Thornbury completed his transaction.\n\n## The Snowstorm & The Alpine Inn\nSlipping outdoors alone into the bitter mountain cold, Bones walked into a severe brewing snowstorm. Freezing and slowing down under the blizzard conditions, Bones was intercepted by local guards who escorted him through the gale to a nearby Alpine inn.\n\nInside, the innkeeper commented on Bones's battered appearance and quoted a room rate of 3 Midland Ducats. Bones paid the 3 gold/ducats and retreated upstairs to bed, looking back carefully to ensure no Legion or Guild spies had followed him.",
+    "relatedArticles": [
+      "bones",
+      "thornbury",
+      "archie_miser",
+      "iron_legion",
+      "regal_empire",
+      "alpine_bank",
+      "midland_ducat"
+    ]
   }
 ]
