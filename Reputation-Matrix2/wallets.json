@@ -1332,5 +1332,590 @@
       "silver": 20
     },
     "justification": "X.O. is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries."
+  },
+  "aliases": {
+    "name": "Aliases",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Aliases is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "battle_mage_kovar": {
+    "name": "Battle Mage Kovar",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 35,
+      "arcane_shard": 2,
+      "guild_seal": 1
+    },
+    "justification": "Battle Mage Kovar is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "big_t": {
+    "name": "Big T",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Big T is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "candy_kong": {
+    "name": "Candy Kong",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Candy Kong is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "cat": {
+    "name": "Cat",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Cat is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "chai": {
+    "name": "Chai",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Chai is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "chunky_kong": {
+    "name": "Chunky Kong",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Chunky Kong is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "class": {
+    "name": "Class",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Class is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "colonel_vera_steelstorm": {
+    "name": "Colonel Vera Steelstorm",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Colonel Vera Steelstorm is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "corporal_reyes": {
+    "name": "Corporal Reyes",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Corporal Reyes is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "date": {
+    "name": "Date",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Date is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "desc": {
+    "name": "Desc",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Desc is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "dewdrop": {
+    "name": "Dewdrop",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Dewdrop is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "diddy_kong": {
+    "name": "Diddy Kong",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Diddy Kong is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "elder_meadowlight": {
+    "name": "Elder Meadowlight",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Elder Meadowlight is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "entries": {
+    "name": "Entries",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Entries is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "epithet": {
+    "name": "Epithet",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Epithet is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "feywarddan": {
+    "name": "Feywarddan",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Feywarddan is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "general_vale": {
+    "name": "General Vale",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "General Vale is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "godtoad": {
+    "name": "Godtoad",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "justification": "Godtoad is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "goodstyle": {
+    "name": "Goodstyle",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Goodstyle is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "greent": {
+    "name": "Greent",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Greent is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "icon": {
+    "name": "Icon",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Icon is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "iggy_koopa": {
+    "name": "Iggy Koopa",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Iggy Koopa is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "janna_brightspark": {
+    "name": "Janna Brightspark",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Janna Brightspark is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "kremlings": {
+    "name": "Kremlings",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Kremlings is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "kryn": {
+    "name": "Kryn",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Kryn is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "lady_aurelian": {
+    "name": "Lady Aurelian",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 250,
+      "silver": 40,
+      "imperial_crown": 5
+    },
+    "justification": "Lady Aurelian is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "lario": {
+    "name": "Lario",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Lario is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "lord_crimson": {
+    "name": "Lord Crimson",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 250,
+      "silver": 40,
+      "imperial_crown": 5
+    },
+    "justification": "Lord Crimson is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "loreholdprofessorofchaos": {
+    "name": "Loreholdprofessorofchaos",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Loreholdprofessorofchaos is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "marcus_ironhand": {
+    "name": "Marcus Ironhand",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Marcus Ironhand is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "membership": {
+    "name": "Membership",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Membership is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "mysticmorel": {
+    "name": "Mysticmorel",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Mysticmorel is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "oranguscornelius": {
+    "name": "Oranguscornelius",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Oranguscornelius is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "originaldan": {
+    "name": "Originaldan",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Originaldan is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "pierceanamatar": {
+    "name": "Pierceanamatar",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Pierceanamatar is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "professor_e_gadd": {
+    "name": "Professor E Gadd",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Professor E Gadd is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "race": {
+    "name": "Race",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Race is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "rakasha": {
+    "name": "Rakasha",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Rakasha is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "rakashaazure": {
+    "name": "Rakashaazure",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Rakashaazure is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "relationship": {
+    "name": "Relationship",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Relationship is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "revelmaster": {
+    "name": "Revelmaster",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Revelmaster is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "salem": {
+    "name": "Salem",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Salem is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "sans": {
+    "name": "Sans",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Sans is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "scorncrow": {
+    "name": "Scorncrow",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Scorncrow is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "sergeant_coldbrook": {
+    "name": "Sergeant Coldbrook",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Sergeant Coldbrook is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "sergeant_stone": {
+    "name": "Sergeant Stone",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Sergeant Stone is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "skullcap_murphgy": {
+    "name": "Skullcap Murphgy",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Skullcap Murphgy is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "skullcap_murphy": {
+    "name": "Skullcap Murphy",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Skullcap Murphy is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "species": {
+    "name": "Species",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Species is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "squad": {
+    "name": "Squad",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Squad is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "status": {
+    "name": "Status",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Status is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "thejestergoomba": {
+    "name": "Thejestergoomba",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "justification": "Thejestergoomba is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "theoracle": {
+    "name": "Theoracle",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 35,
+      "arcane_shard": 2,
+      "guild_seal": 1
+    },
+    "justification": "Theoracle is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "title": {
+    "name": "Title",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Title is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "toadettesr": {
+    "name": "Toadettesr",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "justification": "Toadettesr is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "toadlee": {
+    "name": "Toadlee",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "justification": "Toadlee is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "toadsworth_sr": {
+    "name": "Toadsworth Sr",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 8,
+      "mushroom_coin": 12,
+      "relief_stamp": 4
+    },
+    "justification": "Toadsworth Sr is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "unknown_assassin": {
+    "name": "Unknown Assassin",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Unknown Assassin is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "unknown_third_figure": {
+    "name": "Unknown Third Figure",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Unknown Third Figure is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "vaxillusthebeastmaster": {
+    "name": "Vaxillusthebeastmaster",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Vaxillusthebeastmaster is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "xo": {
+    "name": "Xo",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Xo is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
+  },
+  "xp": {
+    "name": "Xp",
+    "title": "XP roster character",
+    "currencies": {
+      "gold": 15,
+      "silver": 5
+    },
+    "justification": "Xp is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth."
   }
 }
