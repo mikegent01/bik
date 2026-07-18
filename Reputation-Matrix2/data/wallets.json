@@ -22,7 +22,6 @@
       "silver": 6,
       "bronze": 18
     },
-    "justification": "Recorded holdings for Archie Miser are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Main Party"
   },
   "bowser": {
@@ -35,7 +34,6 @@
       "silver": 13,
       "copper": 11
     },
-    "justification": "Recorded holdings for Bowser are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Main Party"
   },
   "hjumpik": {
@@ -46,7 +44,6 @@
       "gold": 1,
       "dwarf_oathgold": 2
     },
-    "justification": "Recorded holdings for hjumpik are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Main Party"
   },
   "markop": {
@@ -57,7 +54,6 @@
       "silver": 13,
       "bronze": 28
     },
-    "justification": "Recorded holdings for Markop Judi are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Main Party"
   },
   "remi": {
@@ -66,7 +62,6 @@
     "currencies": {
       "gold": 20
     },
-    "justification": "Recorded holdings for Remi are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Main Party"
   },
   "wario": {
@@ -87,7 +82,6 @@
       "banana_medallion": 350,
       "shell_credit": 5000
     },
-    "justification": "Recorded holdings for Wario are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Allies & Operators"
   },
   "waluigi": {
@@ -106,7 +100,6 @@
       "toad_whistle": 9,
       "court_leaf": 1
     },
-    "justification": "Recorded holdings for Waluigi are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "toad_lee": {
@@ -125,7 +118,6 @@
       "decree_strip": 8,
       "midland_ducat": 40
     },
-    "justification": "Recorded holdings for Toad Lee are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "salam": {
@@ -142,7 +134,6 @@
       "peach_crown": 3,
       "toad_whistle": 4
     },
-    "justification": "Recorded holdings for Salam are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "captain_toadette": {
@@ -161,7 +152,6 @@
       "decree_strip": 120,
       "toad_whistle": 250
     },
-    "justification": "Recorded holdings for Captain Toadette are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Allies & Operators"
   },
   "speaker_l": {
@@ -179,7 +169,6 @@
       "toad_whistle": 180,
       "gold": 250
     },
-    "justification": "Recorded holdings for Speaker L are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Allies & Operators"
   },
   "penny": {
@@ -197,7 +186,6 @@
       "midland_ducat": 450,
       "guild_seal": 1
     },
-    "justification": "Recorded holdings for Penny are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "the_broker": {
@@ -218,7 +206,6 @@
       "vampire_marker": 12,
       "astral_pearl": 9
     },
-    "justification": "Recorded holdings for The Broker are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Allies & Operators"
   },
   "first_mate_jones": {
@@ -237,7 +224,6 @@
       "kremling_koin": 75,
       "broker_mark": 8
     },
-    "justification": "Recorded holdings for First Mate Jones are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "mystic_morel": {
@@ -256,7 +242,6 @@
       "court_leaf": 3,
       "fey_acorn": 2
     },
-    "justification": "Recorded holdings for Mystic Morel are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "archmage_theron": {
@@ -274,7 +259,6 @@
       "astral_pearl": 18,
       "data_chit": 120
     },
-    "justification": "Recorded holdings for Archmage Theron are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Faction Personnel"
   },
   "lady_toriel": {
@@ -291,7 +275,6 @@
       "spirit_bead": 120,
       "silver": 5000
     },
-    "justification": "Recorded holdings for Lady Toriel are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Rulers & Institutions"
   },
   "emperor_elgabalus": {
@@ -309,7 +292,6 @@
       "astral_pearl": 40,
       "guild_seal": 150
     },
-    "justification": "Recorded holdings for Emperor Elgabalus are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Rulers & Institutions"
   },
   "tea_leaf_receivership": {
@@ -327,7 +309,6 @@
       "cargo_share": 16,
       "credstick": 1200
     },
-    "justification": "Recorded holdings for Tea Leaf Syndicate Receivership are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "princess_daisy": {
@@ -345,7 +326,6 @@
       "archive_writ": 65,
       "toad_whistle": 300
     },
-    "justification": "Recorded holdings for Princess Daisy are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Rulers & Institutions"
   },
   "donkey_kong": {
@@ -363,7 +343,6 @@
       "shell_credit": 900,
       "wario_coin": 700
     },
-    "justification": "Recorded holdings for Donkey Kong are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "king_k_rool": {
@@ -381,7 +360,6 @@
       "banana_medallion": 400,
       "credstick": 2500
     },
-    "justification": "Recorded holdings for King K. Rool are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Rulers & Institutions"
   },
   "fawful": {
@@ -398,7 +376,6 @@
       "broker_mark": 14,
       "midland_ducat": 3000
     },
-    "justification": "Recorded holdings for Fawful are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Allies & Operators"
   },
   "princess_celestia": {
@@ -416,7 +393,6 @@
       "mora": 8000,
       "astral_pearl": 22
     },
-    "justification": "Recorded holdings for Princess Celestia are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Rulers & Institutions"
   },
   "twilight_sparkle": {
@@ -434,7 +410,6 @@
       "midland_ducat": 14000,
       "data_chit": 700
     },
-    "justification": "Recorded holdings for Twilight Sparkle are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "chairwoman_rin": {
@@ -451,7 +426,6 @@
       "archive_writ": 70,
       "guild_seal": 35
     },
-    "justification": "Recorded holdings for Chairwoman Rin are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Rulers & Institutions"
   },
   "liyue_qixing": {
@@ -469,7 +443,6 @@
       "astral_pearl": 35,
       "credstick": 40000
     },
-    "justification": "Recorded holdings for Liyue Qixing Treasury are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Supporting Cast"
   },
   "pokemon_league_chair": {
@@ -486,7 +459,6 @@
       "archive_writ": 30,
       "toad_whistle": 120
     },
-    "justification": "Recorded holdings for Pokémon League Chair Office are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Rulers & Institutions"
   },
   "high_king_thorgrim": {
@@ -504,7 +476,6 @@
       "archive_writ": 40,
       "warpstone": 12
     },
-    "justification": "Recorded holdings for High King Thorgrim are estimated from their documented role, travel needs, transactions, and access to faction resources. This is an operational wallet estimate, not a total wealth claim.",
     "category": "Rulers & Institutions"
   },
   "aemenor_evenflight": {
@@ -514,7 +485,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Aemenor Evenflight is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "agent_t": {
@@ -524,7 +494,6 @@
       "gold": 20,
       "silver": 20
     },
-    "justification": "Agent T is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "archie_miser": {
@@ -534,7 +503,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Archie Miser is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "baldi": {
@@ -544,7 +512,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Baldi is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "bones": {
@@ -554,7 +521,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Bones is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "bryan": {
@@ -564,7 +530,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Bryan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "byscilla_danos": {
@@ -574,7 +539,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Byscilla Danos is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "cackletta": {
@@ -584,7 +548,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Cackletta is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "captain_syrup": {
@@ -594,7 +557,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "Captain Syrup is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Allies & Operators"
   },
   "chancellor_toadsworth": {
@@ -604,7 +566,6 @@
       "gold": 20,
       "silver": 20
     },
-    "justification": "Chancellor Toadsworth is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "commander_g": {
@@ -614,7 +575,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "Commander G is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "corporal_ghost_reyes": {
@@ -624,7 +584,6 @@
       "gold": 20,
       "silver": 20
     },
-    "justification": "Corporal 'Ghost' Reyes is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "cranky_kong": {
@@ -634,7 +593,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Cranky Kong is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "dan": {
@@ -644,7 +602,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Dan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "darno_spriggon": {
@@ -654,7 +611,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Darno Spriggon is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "dyanos": {
@@ -664,7 +620,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Dyanos is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "eager": {
@@ -674,7 +629,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Eager is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "earl_grey": {
@@ -684,7 +638,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Earl Grey is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "elder_rowan_meadowlight": {
@@ -694,7 +647,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Elder Rowan Meadowlight is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "embercap": {
@@ -704,7 +656,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Embercap is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "feyward_dan": {
@@ -714,7 +665,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Feyward Dan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "general_ironhand": {
@@ -724,7 +674,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "General Ironhand is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "god_toad": {
@@ -734,7 +683,6 @@
       "gold": 20,
       "silver": 20
     },
-    "justification": "God Toad is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "green_t": {
@@ -744,7 +692,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Green T is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "hargram_fidger": {
@@ -754,7 +701,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Hargram Fidger is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "herniva": {
@@ -764,7 +710,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Herniva is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "kamek": {
@@ -774,7 +719,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Kamek is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "king_boo": {
@@ -784,7 +728,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "King Boo is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Rulers & Institutions"
   },
   "king_dedede": {
@@ -794,7 +737,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "King Dedede is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Rulers & Institutions"
   },
   "kirby": {
@@ -804,7 +746,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Kirby is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "kyle_coinsoul": {
@@ -814,7 +755,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Kyle Coinsoul is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "lady_aurelian_corvinarus": {
@@ -824,7 +764,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "Lady Aurelian Corvinarus is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Rulers & Institutions"
   },
   "lady_bloomia": {
@@ -834,7 +773,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "Lady Bloomia is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Rulers & Institutions"
   },
   "lanky_kong": {
@@ -844,7 +782,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Lanky Kong is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "leo": {
@@ -854,7 +791,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Leo is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "lorehold_professor_of_chaos": {
@@ -864,7 +800,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "Lorehold Professor of Chaos is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "luigi": {
@@ -874,7 +809,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Luigi is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "lyranth": {
@@ -884,7 +818,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Lyranth is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "manderaz_the_mad": {
@@ -894,7 +827,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "Manderaz the Mad is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "marcus_ashford": {
@@ -904,7 +836,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Marcus Ashford is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "mario": {
@@ -914,7 +845,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Mario is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "merric": {
@@ -924,7 +854,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Merric is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "meta_knight": {
@@ -934,7 +863,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Meta Knight is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Faction Personnel"
   },
   "miles_edgeworth": {
@@ -944,7 +872,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Miles Edgeworth is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "mimbus": {
@@ -954,7 +881,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Mimbus is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "mistveil": {
@@ -964,7 +890,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Mistveil is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "mossy": {
@@ -974,7 +899,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Mossy is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "mr_l": {
@@ -984,7 +908,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Mr. L is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "mystic_morsole": {
@@ -994,7 +917,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Mystic Morsole is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "orange_t": {
@@ -1004,7 +926,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Orange T is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "orangus_cornelius": {
@@ -1014,7 +935,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Orangus Cornelius is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "original_dan": {
@@ -1024,7 +944,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Original Dan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "orvinder_danos": {
@@ -1034,7 +953,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Orvinder Danos is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "parson_pellinost": {
@@ -1044,7 +962,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Parson Pellinost is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "pauline": {
@@ -1054,7 +971,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Pauline is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "pierce_anamatar": {
@@ -1064,7 +980,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Pierce Anamatar is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "princess_peach": {
@@ -1074,7 +989,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "Princess Peach is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Rulers & Institutions"
   },
   "prismari": {
@@ -1084,7 +998,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Prismari is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "professor_elvin_gadd": {
@@ -1094,7 +1007,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "Professor Elvin Gadd is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "rakasha_azure": {
@@ -1104,7 +1016,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Rakasha Azure is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "rakka": {
@@ -1114,7 +1025,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Rakka is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "rattles": {
@@ -1124,7 +1034,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Rattles is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "rhak_the_lost": {
@@ -1134,7 +1043,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "Rhak the Lost is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "roger": {
@@ -1144,7 +1052,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Roger is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "ryan": {
@@ -1154,7 +1061,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Ryan is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "saedia": {
@@ -1164,7 +1070,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Saedia is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "sergeant_brick_stone": {
@@ -1174,7 +1079,6 @@
       "gold": 43,
       "silver": 40
     },
-    "justification": "Sergeant 'Brick' Stone is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "sergeant_varn_coldbrook": {
@@ -1184,7 +1088,6 @@
       "gold": 43,
       "silver": 40
     },
-    "justification": "Sergeant Varn Coldbrook is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "smoking_j": {
@@ -1194,7 +1097,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "Smoking J is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Rulers & Institutions"
   },
   "specialist_miller": {
@@ -1204,7 +1106,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Specialist Miller is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "steely": {
@@ -1214,7 +1115,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Steely is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "stuckina": {
@@ -1224,7 +1124,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Stuckina is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "tanukiburt": {
@@ -1234,7 +1133,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Tanukiburt is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_archivist": {
@@ -1244,7 +1142,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "The Archivist is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_goblin_spy": {
@@ -1254,7 +1151,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "The Goblin Spy is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_kremlings": {
@@ -1264,7 +1160,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "The Kremlings is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_medusa": {
@@ -1274,7 +1169,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "The Medusa is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_onyx_knight": {
@@ -1284,7 +1178,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "The Onyx Knight is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Faction Personnel"
   },
   "the_oracle": {
@@ -1294,7 +1187,6 @@
       "gold": 350,
       "silver": 200
     },
-    "justification": "The Oracle is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_rakasha": {
@@ -1304,7 +1196,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "The Rakasha is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_revelmaster": {
@@ -1314,7 +1205,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "The Revelmaster is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_scorncrow": {
@@ -1324,7 +1214,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "The Scorncrow is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "the_unknown_assassin": {
@@ -1334,7 +1223,6 @@
       "gold": 35,
       "silver": 40
     },
-    "justification": "The Unknown Assassin is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "thornbury": {
@@ -1344,7 +1232,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Thornbury is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "thornpaw": {
@@ -1354,7 +1241,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Thornpaw is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "toadburt": {
@@ -1364,7 +1250,6 @@
       "gold": 20,
       "silver": 20
     },
-    "justification": "Toadburt is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "toadette_sr": {
@@ -1374,7 +1259,6 @@
       "gold": 20,
       "silver": 20
     },
-    "justification": "Toadette Sr. is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "toadsworth_the_elder": {
@@ -1384,7 +1268,6 @@
       "gold": 43,
       "silver": 40
     },
-    "justification": "Toadsworth the Elder is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "tymnas": {
@@ -1394,7 +1277,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Tymnas is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "usk": {
@@ -1404,7 +1286,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Usk is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "valorian_stormweave": {
@@ -1414,18 +1295,14 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Valorian Stormweave is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "vaxillus_the_beastmaster": {
     "name": "Vaxillus the Beastmaster",
     "title": "Recorded XP character",
-    "currencies": {
-      "gold": 35,
-      "silver": 40
-    },
-    "justification": "Vaxillus the Beastmaster is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
-    "category": "Supporting Cast"
+    "currencies": {},
+    "category": "Supporting Cast",
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance."
   },
   "vivian_corvinarus": {
     "name": "Vivian Corvinarus",
@@ -1434,7 +1311,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Vivian Corvinarus is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "warol_creeton": {
@@ -1444,7 +1320,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "Warol Creeton is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "x_o": {
@@ -1454,7 +1329,6 @@
       "gold": 12,
       "silver": 20
     },
-    "justification": "X.O. is included because the XP ledger records this character or entity as an active participant. The modest cash reserve reflects documented field access and operating needs; silver is practical travel and emergency currency. This is an estimate, not a claim of total wealth, and does not overwrite story-specific property or faction treasuries.",
     "category": "Supporting Cast"
   },
   "aliases": {
@@ -1464,7 +1338,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Aliases is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "battle_mage_kovar": {
@@ -1475,7 +1348,6 @@
       "arcane_shard": 2,
       "guild_seal": 1
     },
-    "justification": "Battle Mage Kovar is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Faction Personnel"
   },
   "big_t": {
@@ -1485,7 +1357,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Big T is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "candy_kong": {
@@ -1495,7 +1366,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Candy Kong is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "cat": {
@@ -1505,7 +1375,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Cat is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "chai": {
@@ -1515,7 +1384,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Chai is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "chunky_kong": {
@@ -1525,7 +1393,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Chunky Kong is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "class": {
@@ -1535,7 +1402,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Class is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "colonel_vera_steelstorm": {
@@ -1545,7 +1411,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Colonel Vera Steelstorm is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "corporal_reyes": {
@@ -1555,7 +1420,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Corporal Reyes is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "date": {
@@ -1565,7 +1429,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Date is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "desc": {
@@ -1575,7 +1438,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Desc is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "dewdrop": {
@@ -1585,7 +1447,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Dewdrop is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "diddy_kong": {
@@ -1595,7 +1456,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Diddy Kong is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "elder_meadowlight": {
@@ -1605,7 +1465,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Elder Meadowlight is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "entries": {
@@ -1615,7 +1474,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Entries is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "epithet": {
@@ -1625,7 +1483,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Epithet is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "feywarddan": {
@@ -1635,7 +1492,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Feywarddan is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "general_vale": {
@@ -1645,7 +1501,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "General Vale is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "godtoad": {
@@ -1656,7 +1511,6 @@
       "mushroom_coin": 12,
       "relief_stamp": 4
     },
-    "justification": "Godtoad is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "goodstyle": {
@@ -1666,7 +1520,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Goodstyle is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "greent": {
@@ -1676,7 +1529,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Greent is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "icon": {
@@ -1686,7 +1538,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Icon is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "iggy_koopa": {
@@ -1696,7 +1547,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Iggy Koopa is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "janna_brightspark": {
@@ -1706,7 +1556,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Janna Brightspark is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "kremlings": {
@@ -1716,7 +1565,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Kremlings is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "kryn": {
@@ -1726,7 +1574,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Kryn is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "lady_aurelian": {
@@ -1737,7 +1584,6 @@
       "silver": 40,
       "imperial_crown": 5
     },
-    "justification": "Lady Aurelian is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Rulers & Institutions"
   },
   "lario": {
@@ -1747,7 +1593,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Lario is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "lord_crimson": {
@@ -1758,7 +1603,6 @@
       "silver": 40,
       "imperial_crown": 5
     },
-    "justification": "Lord Crimson is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Rulers & Institutions"
   },
   "loreholdprofessorofchaos": {
@@ -1768,7 +1612,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Loreholdprofessorofchaos is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "marcus_ironhand": {
@@ -1778,7 +1621,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Marcus Ironhand is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "membership": {
@@ -1788,7 +1630,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Membership is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "mysticmorel": {
@@ -1798,7 +1639,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Mysticmorel is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "oranguscornelius": {
@@ -1808,7 +1648,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Oranguscornelius is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "originaldan": {
@@ -1818,7 +1657,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Originaldan is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "pierceanamatar": {
@@ -1828,7 +1666,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Pierceanamatar is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "professor_e_gadd": {
@@ -1838,7 +1675,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Professor E Gadd is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "race": {
@@ -1848,7 +1684,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Race is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "rakasha": {
@@ -1858,7 +1693,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Rakasha is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "rakashaazure": {
@@ -1868,7 +1702,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Rakashaazure is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "relationship": {
@@ -1878,7 +1711,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Relationship is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "revelmaster": {
@@ -1888,7 +1720,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Revelmaster is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "salem": {
@@ -1898,7 +1729,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Salem is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "sans": {
@@ -1908,7 +1738,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Sans is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "scorncrow": {
@@ -1918,7 +1747,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Scorncrow is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "sergeant_coldbrook": {
@@ -1928,7 +1756,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Sergeant Coldbrook is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "sergeant_stone": {
@@ -1938,7 +1765,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Sergeant Stone is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "skullcap_murphgy": {
@@ -1948,7 +1774,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Skullcap Murphgy is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "skullcap_murphy": {
@@ -1958,7 +1783,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Skullcap Murphy is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "species": {
@@ -1968,7 +1792,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Species is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "squad": {
@@ -1978,7 +1801,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Squad is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "status": {
@@ -1988,7 +1810,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Status is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "thejestergoomba": {
@@ -1999,7 +1820,6 @@
       "mushroom_coin": 12,
       "relief_stamp": 4
     },
-    "justification": "Thejestergoomba is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "theoracle": {
@@ -2010,7 +1830,6 @@
       "arcane_shard": 2,
       "guild_seal": 1
     },
-    "justification": "Theoracle is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "title": {
@@ -2020,7 +1839,6 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Title is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "toadettesr": {
@@ -2031,7 +1849,6 @@
       "mushroom_coin": 12,
       "relief_stamp": 4
     },
-    "justification": "Toadettesr is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "toadlee": {
@@ -2042,7 +1859,6 @@
       "mushroom_coin": 12,
       "relief_stamp": 4
     },
-    "justification": "Toadlee is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "toadsworth_sr": {
@@ -2053,7 +1869,6 @@
       "mushroom_coin": 12,
       "relief_stamp": 4
     },
-    "justification": "Toadsworth Sr is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "unknown_assassin": {
@@ -2063,18 +1878,14 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Unknown Assassin is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "unknown_third_figure": {
     "name": "Unknown Third Figure",
     "title": "XP roster character",
-    "currencies": {
-      "gold": 15,
-      "silver": 5
-    },
-    "justification": "Unknown Third Figure is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
-    "category": "Supporting Cast"
+    "currencies": {},
+    "category": "Supporting Cast",
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance."
   },
   "vaxillusthebeastmaster": {
     "name": "Vaxillusthebeastmaster",
@@ -2083,27 +1894,20 @@
       "gold": 15,
       "silver": 5
     },
-    "justification": "Vaxillusthebeastmaster is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
     "category": "Supporting Cast"
   },
   "xo": {
     "name": "Xo",
     "title": "XP roster character",
-    "currencies": {
-      "gold": 15,
-      "silver": 5
-    },
-    "justification": "Xo is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
-    "category": "Supporting Cast"
+    "currencies": {},
+    "category": "Supporting Cast",
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance."
   },
   "xp": {
     "name": "Xp",
     "title": "XP roster character",
-    "currencies": {
-      "gold": 15,
-      "silver": 5
-    },
-    "justification": "Xp is included from the XP roster. The recorded estimate is intentionally modest and role-neutral until documented transactions, faction access, and travel history justify a more specific balance; listed currencies reflect practical day-to-day holdings rather than treasury wealth.",
-    "category": "Supporting Cast"
+    "currencies": {},
+    "category": "Supporting Cast",
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance."
   }
 }

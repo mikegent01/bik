@@ -370,7 +370,8 @@ function renderWallets(){
           <span class="wallet-category">${esc(w.category || 'Supporting Cast')}</span>
           <span class="chip" style="font-weight:900;color:var(--accent2);font-size:11px">${totalG.toFixed(1)}g total</span>
         </div>
-        <div style="margin-top:8px">${curLines}</div>
+        <div style="margin-top:8px">${curLines || '<div class="wallet-line" style="color:var(--muted)">No recorded currency holdings · 0g</div>'}</div>
+        ${w.walletStatus ? `<div style="color:var(--muted);font-size:11px;margin-top:7px">${esc(w.walletStatus)}</div>` : ''}
         <button class="chip wallet-buy-btn" style="width:100%;margin-top:10px;text-align:center" data-cur="${firstCurrency}">Explore Wallet Purchasing Power →</button>
       </div>
     `;
