@@ -1028,6 +1028,8 @@ function renderSidebar(active){
   h+=`<div class="navlink ${active==='list:cultures'?'active':''}" onclick="Router.go('#/cultures')"><span><span class="emoji">⚖️</span> Cultures & Laws</span><span class="cnt">${(DATA.cultures||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='power'?'active':''}" onclick="Router.go('#/power')"><span><span class="emoji">⚡</span> Power Projection</span></div>`;
   h+=`<div class="navlink ${active==='legion'?'active':''}" onclick="Router.go('#/legion')"><span><span class="emoji">⚙️</span> Iron Legion Dossier</span></div>`;
+  const isJournalActive = (active==='journal' || h1.includes('thornburys_field_journal'));
+  h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/article/thornburys_field_journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
   h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
   h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}+shop</span></div>`;
   h+=`<div class="navlink ${active==='books'?'active':''}" onclick="Router.go('#/books')"><span><span class="emoji">📚</span> Library & Books</span><span class="cnt">${((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}</span></div>`;
