@@ -15,6 +15,7 @@
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
   <link rel="preload" href="battlefield.css" as="style">
   <link rel="stylesheet" href="battlefield.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="data/vendors-directory.js"></script>
   <script src="data/books-data.js"></script>
 </head>
@@ -62,6 +63,7 @@ const TYPES=[
  {key:'locations',label:'Locations',emoji:'🏰',singular:'Location'},
  {key:'races',label:'Species & Peoples',emoji:'🧬',singular:'Species'},
  {key:'nations',label:'Nations & Realms',emoji:'🌍',singular:'Nation'},
+ {key:'cultures',label:'Cultures & Laws',emoji:'⚖️',singular:'Culture'},
  {key:'collections',label:'Collections',emoji:'🗂️',singular:'Collection'},
  {key:'trials',label:'Trials',emoji:'⚖️',singular:'Trial'},
 ];
@@ -1020,6 +1022,7 @@ function renderSidebar(active){
   let h=`<div class="navsec"><div class="navlink ${(!h1||h1.startsWith('#/home'))?'active':''}" onclick="Router.go('#/home')"><span><span class="emoji">🏠</span> Home</span></div></div>`;
   h+=`<div class="navsec"><div class="navhead">World</div>`;
   h+=`<div class="navlink ${active==='atlas'?'active':''}" onclick="Router.go('#/atlas')"><span><span class="emoji">🍩</span> World Atlas</span><span class="cnt">${(DATA.nations||[]).length}</span></div>`;
+  h+=`<div class="navlink ${active==='list:cultures'?'active':''}" onclick="Router.go('#/cultures')"><span><span class="emoji">⚖️</span> Cultures & Laws</span><span class="cnt">${(DATA.cultures||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
   h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}+shop</span></div>`;
   h+=`<div class="navlink ${active==='books'?'active':''}" onclick="Router.go('#/books')"><span><span class="emoji">📚</span> Library & Books</span><span class="cnt">${((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}</span></div>`;
@@ -1550,6 +1553,187 @@ function view_dynasties(){
   el('content').innerHTML=`<div class="card animate-fade-in"><h1>👑 Dynasties & Bloodlines</h1><p class="text-muted">Major family lines only. Dynasty intel is folded into this page because bloodlines, claims, secrets, and disinformation are the same battlefield wearing different hats.</p></div><div class="card"><div class="dynasty-grid">${cards}</div></div><div class="card"><h2>🕵️ Waluigi's Party Intel Board</h2><p class="text-muted">Scores are confidence, not omniscience. Explicit clues count most, inferred references count lightly, and known disinformation campaigns reduce certainty.</p>${(()=>{const vals=Object.values(partyIntel()).sort((a,b)=>b.score-a.score).slice(0,14);return `<div class="intel-board">${vals.map(r=>{const href=intelTargetHref(r.targetId);const src=r.sources.slice().sort((a,b)=>Math.abs(b.amount)-Math.abs(a.amount)).slice(0,3).map(sourceButton).join('');return `<div class="intel-card ${r.score<0?'neg':''}" data-type="${esc(r.type)}" ${href?`onclick="Router.go('${href}')"`:''}><div class="intel-card-head"><div><div class="intel-card-title"><span class="intel-card-icon">${esc(r.icon)}</span><span>${esc(r.label)}</span></div><div class="intel-type">${esc(r.type)} · ${esc(intelTier(r.score))}</div></div><div class="intel-big-score">${r.score}</div></div><div class="intel-bar"><span style="width:${Math.max(0,Math.min(100,r.score))}%"></span></div><div class="intel-meaning">${esc(intelMeaning(r.targetId,r.score))}<div class="intel-next">${esc(intelNextText(r.score))}</div></div>${r.noise?`<div class="intel-source-chip neg"><span class="delta">-${r.noise}</span><span><span class="src-title">Disinformation / uncertainty</span><span class="src-reason">${esc(r.noiseReason)}</span></span></div>`:''}<div class="intel-source-list">${src}</div></div>`}).join('')}</div>`})()}</div>`;
   window.scrollTo(0,0);
 }
+
+async function view_cultures() {
+  renderSidebar('list:cultures');
+  const { CULTURE_DATA } = await import('./culture-data.js');
+  const { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } = await import('./species-data.js');
+  const { MAP_DATA } = await import('./map-data.js');
+  const { LEGAL_DATA } = await import('./legal_data.js');
+  
+  el('content').innerHTML = `
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Cultures & Laws</div>
+    <div class="card animate-fade-in">
+      <h1>⚖️ Cultural Spheres & Legal Traditions</h1>
+      <p class="text-muted">An objective (Waluigi-approved) analysis of the dominant cultural blocs across the known worlds, linking demographic populations to the laws and traditions they uphold.</p>
+      
+      <div class="culture-dashboard" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+        <div class="chart-panel" style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column;">
+          <h3 style="margin-top: 0; font-family: var(--font-display);">Global Cultural Influence</h3>
+          <div class="canvas-wrapper" style="position: relative; height: 260px; width: 100%;">
+            <canvas id="culture-chart"></canvas>
+          </div>
+        </div>
+        <div class="stats-panel" style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+          <h3 style="margin-top: 0; font-family: var(--font-display);">Dominant Values</h3>
+          <div id="cultural-stats-container" style="display: flex; flex-direction: column; gap: 15px;">
+            <!-- Stats injected here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="codex-container" class="grid-layout" style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px;">
+      <!-- Culture cards injected here -->
+    </div>
+  `;
+  
+  const cultureCounts = {};
+  let grandTotalPop = 0;
+  Object.keys(CULTURE_DATA).forEach(key => cultureCounts[key] = 0);
+  cultureCounts['unaligned'] = 0;
+
+  for (const mapKey in MAP_DATA) {
+    const map = MAP_DATA[mapKey];
+    const group = map.group || 'Other';
+    const regionalSpecies = REGIONAL_DEMOGRAPHICS[group] || { other: 1.0 };
+    if (map.pointsOfInterest) {
+      map.pointsOfInterest.forEach(poi => {
+        const poiPop = poi.population || 0;
+        if (poiPop > 0) {
+          grandTotalPop += poiPop;
+          for (const [speciesKey, speciesPct] of Object.entries(regionalSpecies)) {
+            const speciesPop = poiPop * speciesPct;
+            let assignedCulture = 'unaligned';
+            for (const [cultKey, cultData] of Object.entries(CULTURE_DATA)) {
+              if (cultData.primary_species.includes(speciesKey)) {
+                assignedCulture = cultKey;
+                break;
+              }
+            }
+            cultureCounts[assignedCulture] += speciesPop;
+          }
+        }
+      });
+    }
+  }
+
+  const chartCanvas = document.getElementById('culture-chart');
+  if (chartCanvas) {
+    const labels = [];
+    const values = [];
+    const colors = [];
+    Object.entries(cultureCounts).sort((a,b) => b[1] - a[1]).forEach(([key, count]) => {
+      if (count > 0 && key !== 'unaligned') {
+        const culture = CULTURE_DATA[key];
+        labels.push(culture.name);
+        values.push(count);
+        colors.push(culture.color);
+      }
+    });
+
+    new Chart(chartCanvas, {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: colors,
+          borderWidth: 1,
+          borderColor: '#161b22'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: { color: '#e6edf3', font: { family: "'Roboto Mono', monospace", size: 10 } }
+          }
+        }
+      }
+    });
+  }
+
+  document.getElementById('cultural-stats-container').innerHTML = `
+    <div class="stat-item" style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--border);">
+      <span class="label" style="color: var(--muted);">Dominant Culture</span>
+      <span class="value" style="color:#FFD700; font-weight: bold;">Imperial Heartland</span>
+    </div>
+    <div class="stat-item" style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--border);">
+      <span class="label" style="color: var(--muted);">Most Diverse</span>
+      <span class="value" style="color:#8A2BE2; font-weight: bold;">Mystic Conclave</span>
+    </div>
+    <div class="stat-item" style="display: flex; justify-content: space-between; padding: 10px;">
+      <span class="label" style="color: var(--muted);">Total Pop Tracked</span>
+      <span class="value" style="color: var(--accent2); font-weight: bold;">${grandTotalPop.toLocaleString()} Pops</span>
+    </div>
+  `;
+
+  const codexContainer = document.getElementById('codex-container');
+  let html = '';
+  const sortedCultures = Object.entries(CULTURE_DATA).sort((a, b) => {
+    return (cultureCounts[b[0]] || 0) - (cultureCounts[a[0]] || 0);
+  });
+
+  sortedCultures.forEach(([key, culture]) => {
+    const population = cultureCounts[key] || 0;
+    const popPercentage = ((population / grandTotalPop) * 100).toFixed(1);
+    
+    const traditionsHTML = culture.traditions.map(tradId => {
+      let tradition = null;
+      for(const cat in LEGAL_DATA.traditions) {
+        const found = LEGAL_DATA.traditions[cat].find(t => t.id === tradId);
+        if(found) { tradition = found; break; }
+      }
+      if(!tradition) return '';
+      return `<li class="tradition-tag" style="display: inline-block; background: rgba(138,75,255,0.1); border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; margin: 4px; font-size: 11px; cursor: help;" title="${esc(tradition.description)}">${esc(tradition.icon)} ${esc(tradition.name)}</li>`;
+    }).join('');
+
+    const topSpecies = culture.primary_species.slice(0, 4).map(sKey => {
+      const specRec = INDEX[sKey];
+      const specLabel = specRec ? displayName(specRec.item) : prettyId(sKey);
+      return `<span class="species-pill" onclick="${specRec ? `openId('${sKey}')` : ''}" style="display: inline-block; background: rgba(255,215,0,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 2px 8px; margin: 4px; font-size: 11px; cursor: ${specRec ? 'pointer' : 'default'}; color: var(--text);">${specLabel}</span>`;
+    }).join('');
+
+    html += `
+      <div class="card animate-fade-in culture-card" style="border-left: 4px solid ${culture.color}; margin-top: 15px;">
+        <div class="culture-header" style="display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px;">
+          <div class="culture-icon" style="font-size: 28px;">${culture.icon}</div>
+          <div class="culture-title-block">
+            <h3 style="margin: 0; font-family: var(--font-display); color: ${culture.color};">${culture.name}</h3>
+            <span class="culture-pop" style="font-size: 11px; color: var(--muted);">Pop: ${population.toLocaleString()} (${popPercentage}%)</span>
+          </div>
+        </div>
+        <div class="culture-body" style="font-size: 13px; line-height: 1.6;">
+          <p class="culture-desc" style="margin: 0 0 10px 0;">${culture.description}</p>
+          <div class="culture-adjectives" style="font-style: italic; color: var(--accent2); margin-bottom: 12px;">
+            ${culture.adjectives.map(adj => `<span>${adj}</span>`).join(' • ')}
+          </div>
+          <div class="culture-section" style="margin-bottom: 12px;">
+            <h5 style="margin: 0 0 6px 0; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; color: var(--muted);">Primary Species</h5>
+            <div class="species-list" style="margin-left: -4px;">${topSpecies}</div>
+          </div>
+          <div class="culture-section" style="margin-bottom: 12px;">
+            <h5 style="margin: 0 0 6px 0; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; color: var(--muted);">Legal & Social Traditions</h5>
+            <ul class="traditions-list" style="margin: 0; padding: 0; list-style: none; margin-left: -4px;">${traditionsHTML || '<li class="tradition-tag" style="display: inline-block; padding: 4px 8px; color: var(--muted);">None/Unknown</li>'}</ul>
+          </div>
+          <div class="culture-section">
+            <h5 style="margin: 0 0 6px 0; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; color: var(--muted);">Art & Architecture</h5>
+            <p class="art-style" style="margin: 0; font-family: var(--font-mono); font-size: 11px; color: var(--text-color-muted);">${culture.art_style}</p>
+          </div>
+          
+          <div style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--border); text-align: right;">
+            <a onclick="openId('${key}')" class="poi-link" style="font-size: 11px; cursor: pointer; color: var(--accent2);">Open full wiki article →</a>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  codexContainer.innerHTML = html;
+  window.scrollTo(0,0);
+}
 function view_dynasty(id){
   renderSidebar('dynasties'); const h=(DYNASTY_SYSTEM.houses||{})[id]; if(!h){view_dynasties();return;}
   const c=h.colors||['#8a4bff','#e0b400'];
@@ -1764,6 +1948,7 @@ const INFOBOX={
   locations:[['type','Type'],['region','Region'],['controllingFaction','Controlled by'],['population','Population'],['climate','Climate'],['status','Status']],
   races:[['type','Type'],['origin','Origin'],['avgLifespan','Avg. Lifespan'],['status','Status']],
   nations:[['type','Type'],['origin','Origin'],['region','Region'],['status','Status']],
+  cultures:[['type','Type'],['art_style','Art Style'],['primary_species','Primary Species'],['traditions','Traditions']],
   collections:[['title','Title'],['type','Type'],['scope','Scope'],['criteria','Criteria']],
   trials:[['docket','Docket'],['date','Filed'],['era','Era'],['jurisdiction','Jurisdiction'],['prosecutor','Prosecutor'],['defendant','Defendant'],['presiding','Presiding'],['status','Status'],['outcome','Outcome']],
 };
@@ -5428,6 +5613,7 @@ const Router={
     if(route==='home')view_home();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
     else if(route==='article')view_article(arg);
+    else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='battlefield')view_list('battles');
     else if(route==='conflict')view_conflict(arg);
     else if(route==='mbattle')view_mbattle(arg);
@@ -5484,7 +5670,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','cultures'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
