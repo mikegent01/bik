@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="battlefield.css">
   <link rel="stylesheet" href="mushroom-kingdom-civil-war.css">
   <link rel="stylesheet" href="faction-modal.css">
+  <link rel="stylesheet" href="iron-legion.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="data/vendors-directory.js"></script>
   <script src="data/books-data.js"></script>
@@ -1026,6 +1027,7 @@ function renderSidebar(active){
   h+=`<div class="navlink ${active==='atlas'?'active':''}" onclick="Router.go('#/atlas')"><span><span class="emoji">🍩</span> World Atlas</span><span class="cnt">${(DATA.nations||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='list:cultures'?'active':''}" onclick="Router.go('#/cultures')"><span><span class="emoji">⚖️</span> Cultures & Laws</span><span class="cnt">${(DATA.cultures||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='power'?'active':''}" onclick="Router.go('#/power')"><span><span class="emoji">⚡</span> Power Projection</span></div>`;
+  h+=`<div class="navlink ${active==='legion'?'active':''}" onclick="Router.go('#/legion')"><span><span class="emoji">⚙️</span> Iron Legion Dossier</span></div>`;
   h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
   h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}+shop</span></div>`;
   h+=`<div class="navlink ${active==='books'?'active':''}" onclick="Router.go('#/books')"><span><span class="emoji">📚</span> Library & Books</span><span class="cnt">${((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}</span></div>`;
@@ -1752,6 +1754,25 @@ async function view_power() {
     </div>
   `;
   initGlobalWarListeners();
+  window.scrollTo(0,0);
+}
+
+async function view_legion() {
+  renderSidebar('legion');
+  el('content').innerHTML = `
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Iron Legion Dossier</div>
+    <div class="card animate-fade-in" style="border-left: 4px solid #c81d25; background: linear-gradient(135deg, rgba(200, 29, 37, 0.1), rgba(0,0,0,0)), var(--panel);">
+      <div style="display:flex; gap: 15px; align-items:center;">
+        <img src="Reputation-Matrix2/faction_iron_legion.png" style="width:50px; height:50px;">
+        <div>
+          <h1 class="art-title" style="margin:0; font-family: var(--font-display);">Iron Legion Intelligence Dossier</h1>
+          <div class="art-subtitle" style="color:var(--danger); font-size:12px; font-weight:bold; letter-spacing:0.5px;">Classification: PRIORITY THREAT | Day 21, 1040 BF</div>
+        </div>
+      </div>
+    </div>
+    <div id="legion-container" class="animate-fade-in" style="margin-top:20px;"></div>
+  `;
+  await import('./iron-legion.js');
   window.scrollTo(0,0);
 }
 
@@ -5636,6 +5657,7 @@ const Router={
     else if(route==='article')view_article(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
+    else if(route==='legion'||route==='iron-legion')view_legion();
     else if(route==='battlefield')view_list('battles');
     else if(route==='conflict')view_conflict(arg);
     else if(route==='mbattle')view_mbattle(arg);

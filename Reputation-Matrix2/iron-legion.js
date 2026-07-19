@@ -508,8 +508,13 @@ class IronLegionDossier {
     }
 }
 
-// Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize on DOM ready or immediately if already loaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
     const dossier = new IronLegionDossier();
     dossier.init();
-});
+} else {
+    document.addEventListener('DOMContentLoaded', () => {
+        const dossier = new IronLegionDossier();
+        dossier.init();
+    });
+}
