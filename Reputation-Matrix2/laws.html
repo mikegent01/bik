@@ -1,17 +1,68 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=battlefield.html#/cultures">
-    <title>Redirecting...</title>
-    <script>
-        window.location.href = "battlefield.html#/cultures";
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Cultural Database</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="laws.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 </head>
-<body style="background:#0a0518;color:#8a4bff;font-family:sans-serif;display:grid;place-items:center;height:100vh;margin:0;">
-    <div style="text-align:center;">
-        <h2>Redirecting to Walupedia Cultures & Laws...</h2>
-        <p>If you are not redirected, <a href="battlefield.html#/cultures" style="color:#ffd700;text-decoration:underline;">click here</a>.</p>
+<body>
+    <!-- Native Walupedia Ecosystem Header -->
+    <div style="background: linear-gradient(90deg, #1f1245, #0f0a21); border-bottom: 2px solid #8a4bff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Roboto Mono', monospace; z-index: 9999; position: relative;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 20px;">⚖️</span>
+            <div>
+                <b style="color: #ffd700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; font-family: 'Orbitron', sans-serif;">Walupedia Cultural Codex</b>
+                <div style="color: #a78bfa; font-size: 11px;">Part of the Unified Waluigi Terminal Ecosystem</div>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button onclick="location.href='battlefield.html#/cultures'" style="background: #8a4bff; border: 1px solid #c084fc; color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.15s; outline: none; font-family: 'Roboto Mono', monospace;">
+                📖 View in Wiki App
+            </button>
+            <button onclick="location.href='battlefield.html'" style="background: transparent; border: 1px solid #4b5563; color: #9ca3af; padding: 6px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: 0.15s; outline: none; font-family: 'Roboto Mono', monospace;">
+                🏠 Walupedia Home
+            </button>
+        </div>
     </div>
+
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             
+            <main id="main-content">
+                 <h2 class="page-title">Cultural Spheres & Traditions</h2>
+                 <p class="page-subtitle">An analysis of the dominant cultural blocs across the known worlds, linking population demographics (Pops) to the legal and social traditions they uphold.</p>
+                 
+                 <div class="culture-dashboard">
+                    <div class="chart-panel">
+                        <h3>Global Cultural Influence</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="culture-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="stats-panel">
+                        <h3>Dominant Values</h3>
+                        <div id="cultural-stats-container">
+                            <!-- Stats injected by JS -->
+                        </div>
+                    </div>
+                 </div>
+
+                 <div id="codex-container">
+                    <!-- Culture cards will be injected here by JS -->
+                 </div>
+            </main>
+        </div>
+    </div>
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="laws.js"></script>
 </body>
 </html>
