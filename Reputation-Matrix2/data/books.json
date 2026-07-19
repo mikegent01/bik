@@ -5019,6 +5019,29 @@
           ]
         }
       ]
+    },
+    {
+      "id": "thornbury_field_journal",
+      "title": "Thornbury's Field Journal",
+      "subtitle": "Classified Spy Log",
+      "author": "Thornbury",
+      "category": "Iron Legion & Mages Guild",
+      "rarity": "rare",
+      "description": "The classified notebook belonging to the double-agent Thornbury, recovered from the floor of Raventree Manor. It records his two-week spy mission on Disaster Inc., including detailed character profiles and the bubble bath incident.",
+      "pages": [
+        "Log Entry 001 — Asset Valuation\n\nI have been in this house for two weeks. The party has arrived, and they are as chaotic as the reports suggested. I observed Archie Miser and Bones at the pool. Archie snapped a 50-foot hempen rope—and I have noted this as a 2,062-gold liability in my ledgers. He will never pay, but the paper trail is what matters. Bones suplexed a creature into the sand. Correct tactical choice, but brute force remains his default solution.",
+        "Log Entry 004 — The Planar Shards\n\nI understand the fracture now. The synchronization rite with the Oracle failed, tearing reality into three distinct planar shards: the FEYWARD Manor (ruled by Lady Aurelian Corvinarus), the SHADEWARD Manor (ruled by Orangus Cornelius), and the MATERIAL Manor (secured by the Iron Legion). The party was scattered across all three. The Legion is fitting captured Toads with Entropy Rings to coerce them into capturing the Oracle.",
+        "Log Entry 005 — The Bubble Bath Incident\n\nI fetched water, bubble bath, and rubber duckies for the party. Morale is operational effectiveness by another name. Archie showered first, looking surprisingly handsome in his clean blue robe. Bones told him so, which made him flustered. But as I was cleaning up, Byscilla Danos recognized me, grabbed me by my helmet, and dragged me out. My cover is burned, and my notebook has fallen on the floor. Miser actually thanked me as I was dragged away. I do not have a category for that.",
+        "Archie Miser Profile\n\nSTRENGTHS: Environmental observation, de-escalation under social pressure, exceptional resilience. Extends trust early.\nWEAKNESSES: Spell accuracy collapses under fear (0-for-3 on ghosts). Agreed to a 2,062-gold rope debt.\nASSESSMENT: Manageable through info-warfare, but has now demonstrated he reads secret notebooks.",
+        "Luigi Profile\n\nSTRENGTHS: The Poltergust is the most reliable anti-ghost hardware in the party. Complete composure. The flash clears entire rooms.\nWEAKNESSES: None identified. This is the concern. Quietness is not passivity.",
+        "Bones Profile\n\nSTRENGTHS: Suplex, tackle, and stealth. Makes correct tactical decisions.\nWEAKNESSES: Relies too heavily on physical violence. Refuses all magical healing (unexplained)."
+      ],
+      "cover_image": "book_cover_diary.png",
+      "cover_color": "#1e293b",
+      "cover_accent": "#e2e8f0",
+      "icon": "📓",
+      "reading_time": "Approx. 20 minutes",
+      "effect": "Unlocks high-level intelligence on Thornbury's espionage protocols and detailed profiles of Archie Miser, Luigi, and Bones."
     }
   ]
 }

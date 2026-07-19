@@ -6954,5 +6954,24 @@
       "blackfen_pass_massacre",
       "mount_ebott_survey_mission"
     ]
+  },
+  {
+    "id": "thornburys_field_journal",
+    "name": "Thornbury's Field Journal",
+    "title": "Thornbury's Field Journal: Espionage, Bubble Baths, and High Treason",
+    "type": "Classified Military Intelligence / Spy Log",
+    "date": "Harvestide 1040 BF",
+    "location": "Raventree Manor / The Planar Sanctum",
+    "summary": "A classified notebook belonging to the double-agent Thornbury, detailing his two-week infiltration of Disaster Inc., detailed character psychological assessments, and how his cover was completely blown because of a bubble bath. WAH!",
+    "description": "This article contains the full-text transcription of **[Thornbury's Field Journal](thornburys_field_journal)**, recovered by **[Archie Miser](archie_miser)** from the floor of Raventree Manor after Thornbury's cover was spectacularly blown.\n\n## Summary of the Infiltration\n\nThornbury, operating under dual-hatted orders from both the **[Mages' Guild](mages_guild)** and the **[Iron Legion](iron_legion)**, spent fourteen days spying on Disaster Inc. inside the fractured dimensions of Raventree Manor. His journal records every action, every spell cast, every item pocketed, and is filled with tactical assessments of the party's capabilities.\n\nHis cover was blown on 29 Harvestide when **[Byscilla Danos](byscilla_danos)** recognized him, grabbed him by his helmet, and dragged him out of the room. The journal fell from his kit, and the party subsequently pulled up chairs to review his secret notes.\n\n---\n\n## Transcribed Journal Entries\n\n### 📓 Log Entry 001: Highsun 25 — Asset Valuation\n\n> *\"I have been in this house for two weeks. The party has arrived, and they are as chaotic as the reports suggested. I observed Archie Miser and Bones at the pool. Archie snapped a 50-foot hempen rope—and I have noted this as a 2,062-gold liability in my ledgers. He will never pay, but the paper trail is what matters. Bones suplexed a creature into the sand. Correct tactical choice, but brute force remains his default solution. WAH.\"*\n\n### 📓 Log Entry 004: Highsun 27 — The Planar Shards\n\n> *\"I understand the fracture now. The synchronization rite with the **[Oracle](the_oracle)** failed, tearing reality into three distinct planar shards: the FEYWARD Manor (ruled by **[Lady Aurelian Corvinarus](lady_aurelian_corvinarus)**), the SHADEWARD Manor (ruled by **[Orangus Cornelius](orangus_cornelius)**), and the MATERIAL Manor (secured by the **[Iron Legion](iron_legion)**). The party was scattered across all three. The Legion is fitting captured Toads with Entropy Rings to coerce them into capturing the Oracle.\"*\n\n### 📓 Log Entry 005: 29 Harvestide — The Bubble Bath Incident\n\n> *\"I fetched water, bubble bath, and rubber duckies for the party. Morale is operational effectiveness by another name. Archie showered first, looking surprisingly handsome in his clean blue robe. Bones told him so, which made him flustered. But as I was cleaning up, Byscilla Danos recognized me, grabbed me by my helmet, and dragged me out. My cover is burned, and my notebook has fallen on the floor. Miser actually thanked me as I was dragged away. I do not have a category for that.\"*\n\n---\n\n## 👤 Subject Clinical Profiles\n\n### Archie Miser (Arcane Caster / Party Lead)\n\n* **Strengths**: Environmental observation, de-escalation under social pressure, exceptional resilience. Extends trust early.\n* **Weaknesses**: Spell accuracy collapses under fear (0-for-3 on ghosts). Agreed to a 2,062-gold rope debt.\n* **Assessment**: Manageable through info-warfare, but has now demonstrated he reads secret notebooks.\n\n### Luigi (Support / Poltergust Handler)\n\n* **Strengths**: The Poltergust is the most reliable anti-ghost hardware in the party. Complete composure. The flash clears entire rooms.\n* **Weaknesses**: None identified. *This is the concern. Quietness is not passivity.*\n\n### Bones (Melee / Pond Patrol)\n\n* **Strengths**: Suplex, tackle, and stealth. Makes correct tactical decisions.\n* **Weaknesses**: Relies too heavily on physical violence. Refuses all magical healing (unexplained).\n\n<div class=\"waluigi-comment\">Waluigi's Espionage Review: Thornbury is a terrible spy! WAH! You don't spend two weeks hiding in the shadows just to get dragged out by your ear like a naughty child. And leaving your notebook on the floor? Magnificent incompetence! But the notes are extremely accurate—Waluigi will be using these psychological profiles to blackmail everyone later!</div>",
+    "relatedArticles": [
+      "archie_miser",
+      "bones",
+      "thornbury",
+      "iron_legion",
+      "mages_guild",
+      "byscilla_danos",
+      "the_oracle"
+    ]
   }
 ]
