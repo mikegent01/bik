@@ -2,48 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waluigi Terminal | Multiverse Conflict</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="components.css">
-    <link rel="stylesheet" href="mushroom-kingdom-civil-war.css">
-    <link rel="stylesheet" href="faction-modal.css">  <!-- ADD THIS -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <meta http-equiv="refresh" content="0; url=battlefield.html#/power">
+    <title>Redirecting...</title>
+    <script>
+        window.location.href = "battlefield.html#/power";
+    </script>
 </head>
-<body>
-    <div class="tablet-frame">
-        <div class="scanline-overlay"></div>
-        <div id="app">
-            
-            <main id="main-content">
-                <header class="page-header">
-                    <h1 class="page-title">Global War Monitor</h1>
-                </header>
-                
-                <!-- The Global War System Container -->
-                <div id="global-war-container">
-                    <!-- Javascript will render content here -->
-                    <div class="loading-state">Initializing Global Satellites...</div>
-                </div>
-
-            </main>
-        </div>
+<body style="background:#0a0518;color:#8a4bff;font-family:sans-serif;display:grid;place-items:center;height:100vh;margin:0;">
+    <div style="text-align:center;">
+        <h2>Redirecting to Walupedia Power Projection Monitor...</h2>
+        <p>If you are not redirected, <a href="battlefield.html#/power" style="color:#ffd700;text-decoration:underline;">click here</a>.</p>
     </div>
-    
-<script type="module" src="common.js"></script>
-<script type="module" src="navigation.js"></script>
-<script type="module" src="faction-modal.js"></script>  <!-- ADD THIS -->
-<script type="module">
-    import { renderGlobalWar, initGlobalWarListeners } from './GlobeHead/global-war.js';
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        const container = document.getElementById('global-war-container');
-        if (container) {
-            container.innerHTML = renderGlobalWar();
-            initGlobalWarListeners();
-        }
-    });
-</script>
 </body>
-</html> 
+</html>
