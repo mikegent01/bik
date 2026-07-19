@@ -6936,5 +6936,23 @@
       "alpine_bank",
       "midland_ducat"
     ]
+  },
+  {
+    "id": "national_power_projection",
+    "name": "National Power Projection & Multiverse Balance",
+    "title": "Waluigi's Intelligence Dossier on Global Power Projections",
+    "type": "Strategic Assessment / Tactical Audit",
+    "date": "Harvestide 1040 BF",
+    "location": "Global / Multiverse Scope",
+    "summary": "Waluigi's highly confidential, unauthorized audit of which multiverse factions are actually strong, and which ones are just paper tigers with good marketing. WAH!",
+    "description": "This dossier represents a full, cross-dimensional audit of **[Power Projection](national_power_projection)** across all known realms, conducted by Waluigi, Auditor-General of Things Nobody Invited Him to Intervene In.\n\n## The Concept of Power Projection\n\nIn the grand game of multiverse dominance, having an army is only half the battle. The real test is whether you can actually transport those troops, project your influence, and enforce your taxes across dimensional boundaries without your supply lines collapsing into a chaotic heap. WAH!\n\nPower projection is calculated by a combination of three main pillars:\n1. **Military Might** — Iron boots, landships, and magic cannons. Highly valued by the **[Iron Legion](iron_legion)**.\n2. **Economic Influence** — Currencies, bank reserves, and monopolizing trade routes. Wario is highly active here.\n3. **Political Stability** — The ability to write endless laws and pretend people are listening. The **[Mushroom Regency](mushroom_regency)** specializes in this kind of theatre.\n\n## The Major Power Blocs\n\n### 1. The Regal Empire & Iron Legion\n\nThe absolute heavyweight of military projection. Operating out of the **[Regal Empire](regal_empire)**, the Legion uses standardized siege tactics and administrative necromancy to establish presence in forbidden zones like **[Mount Ebott](mount_ebott_survey_mission)**. They don't win hearts; they win land.\n\n### 2. The Mushroom Regency\n\nA paper tiger with excellent botanical aesthetic. Following the tragic loss of Princess Peach, the Regency has spent more time holding **[Communal Festivals](communal_festivals)** and debating succession claims than securing their borders. They have high population metrics but extremely fragile operational capability.\n\n### 3. The Koopa Dominion\n\nPure brute force. When **[Bowser](bowser)** isn't falling into lava or getting beaten up by plumbers, his army of trolls and airships projects massive physical terror across the plains. However, their logistical infrastructure is notoriously terrible, relying heavily on Bowser vaulting over railings in a rage.\n\n## Waluigi's Strategic Conclusions\n\nLogistics is the ultimate weapon. An empire with ten thousand landships is useless if they all freeze in **[Blackfen Pass](blackfen_pass_massacre)** because someone forgot to pack anti-freeze. WAH!\n\n<div class=\"waluigi-comment\">Waluigi's Final Verdict: Most of these factions spend millions on glorious flags and shiny armor, but their supply chains are a joke. Waluigi has built a live monitor to track their real-time power shifts so you can watch their empires crumble in high definition!</div>\n\n## Live Monitor\n\nWant to see the actual live, real-time calculations? Access the live tactical control panel below:\n\n<div class=\"chips\" style=\"margin-top: 15px;\">\n  <span class=\"chip active\" onclick=\"Router.go('#/power')\">⚡ Open Live Power Projection Monitor</span>\n</div>",
+    "relatedArticles": [
+      "regal_empire",
+      "iron_legion",
+      "mushroom_regency",
+      "bowser",
+      "blackfen_pass_massacre",
+      "mount_ebott_survey_mission"
+    ]
   }
 ]
