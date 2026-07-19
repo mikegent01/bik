@@ -1759,11 +1759,12 @@ async function view_power() {
 
 async function view_legion() {
   renderSidebar('legion');
+  const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? '' : 'Reputation-Matrix2/');
   el('content').innerHTML = `
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Iron Legion Dossier</div>
     <div class="card animate-fade-in" style="border-left: 4px solid #c81d25; background: linear-gradient(135deg, rgba(200, 29, 37, 0.1), rgba(0,0,0,0)), var(--panel);">
       <div style="display:flex; gap: 15px; align-items:center;">
-        <img src="Reputation-Matrix2/faction_iron_legion.png" style="width:50px; height:50px;">
+        <img src="${pathPrefix}faction_iron_legion.png" style="width:50px; height:50px;">
         <div>
           <h1 class="art-title" style="margin:0; font-family: var(--font-display);">Iron Legion Intelligence Dossier</h1>
           <div class="art-subtitle" style="color:var(--danger); font-size:12px; font-weight:bold; letter-spacing:0.5px;">Classification: PRIORITY THREAT | Day 21, 1040 BF</div>

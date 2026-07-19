@@ -1,4 +1,145 @@
-[
+// battlefield.js - ES Module with CONFLICT_DETAILS and MAJOR_BATTLES exports
+
+export const CONFLICT_DETAILS = {
+
+    
+"Isle Delfino Conflict": {
+    summary: "A rapid destabilization of the tropical resort island resulting in the expulsion of the Mushroom Regency.",
+    startYear: 1040,
+    status: "active",
+    rootCause: "Regency tax collection attempts on Noki shellfish triggering a cascade of independence movements and Koopa intervention.",
+    majorPhases: [
+        { name: "The Tribute Refusal (Day 12-14)", description: "Noki Bay refuses Regency tax collectors. Skirmishes begin." },
+        { name: "The Three-Front War (Day 15-18)", description: "Pianta Village secedes. Koopa Troop enters the theater." },
+        { name: "The Alliance (Day 20+)", description: "Noki and Koopa forces ally to expel Regency naval presence." }
+    ],
+    keyFactions: ['mushroom_regency', 'koopa_troop', 'noki_shellfish', 'pianta_syndicate'],
+    estimatedCasualties: "Low mortality, high property damage to resorts"
+},    
+    "Mushroom Kingdom Civil War": {
+        summary: "A 45-year conflict sparked by the assassination of Princess Peach, with no end in sight.",
+        startYear: 955,
+        status: "active",
+        rootCause: "The assassination of Princess Peach in 955 created a power vacuum that shattered the kingdom into warring factions.",
+        majorPhases: [
+            { name: "Initial Chaos (955-960)", description: "Immediate aftermath of assassination. Multiple claimants to power." },
+            { name: "Koopa Intervention (960-1000)", description: "Bowser's forces exploit the chaos, launching two major invasions." },
+            { name: "Stalemate Era (1000-1035)", description: "Grinding attrition as factions entrench and borders solidify." },
+            { name: "Fawful's Rise (1035-Present)", description: "New technological faction disrupts the balance of power." }
+        ],
+        keyFactions: ['mushroom_regency', 'peach_loyalists', 'koopa_troop', 'fawfuls_furious_freaks'],
+        estimatedCasualties: "400,000+ military and civilian deaths over 45 years"
+    },
+    "Kong-Kremling Cold War": {
+        summary: "Decades of espionage and proxy conflicts between DK Island's two dominant powers, now erupting into open hostility.",
+        startYear: 1010,
+        status: "active",
+        rootCause: "Competition for DK Island's resources and historical enmity between the Kong and Kremling species.",
+        majorPhases: [
+            { name: "Hot War Period (1010-1025)", description: "Open conflict including the famous banana hoard raids." },
+            { name: "Armistice (1025-1040)", description: "Uneasy peace maintained through mutual exhaustion." },
+            { name: "Cold War Heating (1040)", description: "Espionage, assassination plots, and the bug discovery." }
+        ],
+        keyFactions: ['dk_crew', 'kremling_krew'],
+        estimatedCasualties: "Unknown - both sides suppress casualty figures"
+    },
+    "Raventree Manor Crisis": {
+        summary: "A supernatural containment crisis at a haunted mansion that has drawn in multiple factions.",
+        startYear: 1040,
+        status: "active",
+        rootCause: "The awakening of dormant supernatural entities within Raventree Manor, possibly triggered by the party's arrival.",
+        majorPhases: [
+            { name: "Discovery (Day 15-16)", description: "Party enters manor, encounters Oracle and initial manifestations." },
+            { name: "Escalation (Day 17-19)", description: "Mirror monsters, wraiths, and temporal anomalies multiply." },
+            { name: "Convergence (Day 20-21)", description: "Full supernatural breach. Legion and Mages Guild intervene physically. Timelines destabilize." }
+        ],
+        keyFactions: ['liberated_toads', 'iron_legion', 'mages_guild', 'raventree_curse'],
+        estimatedCasualties: "Dozens of toads, multiple Legion agents, unknown supernatural entities"
+    },
+    "Vigilance Crew Incidents": {
+        summary: "The ongoing adventures and conflicts surrounding the airship Vigilance and its liberator crew.",
+        startYear: 1040,
+        status: "active",
+        rootCause: "The party's seizure of the toad-trafficking airship created instant enemies and responsibilities.",
+        majorPhases: [
+            { name: "Liberation (Day 4-5)", description: "Seizure of the Vigilance from X.O." },
+            { name: "Hunted (Day 11-20)", description: "Pursued by Crimson Fleet and Iron Legion. Ship captured." },
+            { name: "The Purge (Day 21-Present)", description: "Order 120 issued. Total war between Legion and Liberated Toads." }
+        ],
+        keyFactions: ['liberated_toads', 'crimson_fleet', 'iron_legion'],
+        estimatedCasualties: "Estimated 70+ across all incidents"
+    },
+    "The Dragon Conspiracy": {
+        summary: "A covert operation revealing that the Dragon-Empire war is fabricated.",
+        startYear: 1040,
+        status: "active",
+        rootCause: "The discovery that Dragons are being controlled by sonic frequencies to stage false conflicts.",
+        majorPhases: [
+            { name: "Revelation (Day 21)", description: "Robinson discovers the truth at Dragon Mountain." },
+            { name: "Capture (Day 21)", description: "Robinson and the Dragon taken to Aegis Command." }
+        ],
+        keyFactions: ['iron_legion', 'dragons', 'regal_empire'],
+        estimatedCasualties: "Unknown"
+    },
+// Add to CONFLICT_DETAILS
+"The Aegis Uprising": {
+    summary: "A massive, coordinated prison break within the Regal Empire's primary processing facility.",
+    startYear: 1040,
+    status: "active",
+    rootCause: "The enactment of Order 120 (execution of toads) and the discovery of 'Bio-Fuel' experimentation.",
+    majorPhases: [
+        { name: "The Trojan Speaker (Day 18-21)", description: "Speaker Rivers allows himself to be captured to plant a digital virus." },
+        { name: "The Great Riot (Day 21)", description: "150 prisoners use Mini-Mushrooms and internal sabotage to breach the fortress." },
+        { name: "The Midlands Trek (Day 22-Present)", description: "Escaped toads navigate the hostile Regal Empire to reach the border." }
+    ],
+    keyFactions: ['iron_legion', 'liberated_toads', 'noki_shellfish'],
+    estimatedCasualties: "40+ Legionnaires, 34 Toads missing/displaced"
+},    
+
+"The Primordial Wyrm Crisis": {
+    summary: "An existential threat to all kingdoms triggered by Kamek's betrayal and awakening of an ancient entity imprisoned beneath the Valley of Bowser.",
+    startYear: 1040,
+    endYear: 1040,
+    status: "resolved",
+    rootCause: "Kamek's ambition to seize power during Bowser's absence led him to excavate and breach the ancient prison of the Primordial Wyrm—an entity that predates the Stars themselves.",
+    majorPhases: [
+        { name: "The Excavation (Day 18-21)", description: "Kamek initiates 'reconstruction project' as cover for excavation of ancient prison. Workers report unexplained energy drain." },
+        { name: "The Awakening (Day 22)", description: "Kamek's ritual circle breaches the first seal. The Wyrm begins awakening. 377 workers killed or corrupted. 23 escape through old Krew tunnels." },
+        { name: "The Resistance Forms (Day 23)", description: "Survivors rally at ancient safehouse. Hammer Bro Sergeant assumes field command per Bowser's orders. Coalition talks begin." },
+        { name: "The Rescue (Day 24)", description: "47 additional survivors extracted from bunkers. Total Resistance strength reaches 68. Anchor crystal locations discovered." },
+        { name: "The Seven Seals Campaign (Day 25-27)", description: "Coordinated assaults on seven anchor crystals. Iron Legion and Mushroom Regency join coalition. Multiple heroic sacrifices." },
+        { name: "The Fall of Kamek (Day 27)", description: "Final anchor destroyed. Wyrm re-imprisoned. Kamek captured and sentenced to eternal imprisonment." },
+        { name: "The King Returns (Day 28-29)", description: "Bowser arrives to find kingdom saved by his own workers and soldiers. Reconstruction begins under new leadership." }
+    ],
+    keyFactions: ['koopa_troop', 'koopa_resistance', 'magikoopa_council', 'iron_legion', 'mushroom_regency', 'primordial_wyrm'],
+    estimatedCasualties: "348 Koopa forces KIA (including corrupted), ~50 corrupted troops destroyed, 4 Iron Legion KIA. Significant property damage throughout the Valley.",
+    historicalSignificance: "The crisis revealed the true purpose of the Koopa Dynasty—guardians of the Wyrm's prison, not mere conquerors. It also demonstrated that former enemies could unite against existential threats, potentially reshaping political alignments across the Mushroom Kingdom region."
+},
+
+
+// ========================================================================
+// ADDITIONAL FACTION ENTRY
+// ========================================================================
+
+koopa_resistance: {
+    id: 'koopa_resistance',
+    name: "The Koopa Resistance",
+    type: "military_remnant",
+    motto: "For the Kingdom. For the King.",
+    description: "Formed from survivors of Kamek's betrayal—workers, soldiers, and refugees who escaped the Wyrm's corruption. Operating from an ancient Krew safehouse, they mounted a desperate campaign to restore the seven seals and re-imprison the Primordial Wyrm. Though many perished, their sacrifice saved the Koopa Kingdom and earned them legendary status.",
+    leadership: ["General Hammer Bro (formerly Sergeant)", "Chief Architect Koopa Foreman"],
+    territory: "Valley of Bowser (Liberated)",
+    alignment: "lawful_neutral",
+    allies: ['koopa_troop', 'iron_legion', 'mushroom_regency'],
+    enemies: ['primordial_wyrm'],
+    resources: "Moderate (coalition support, reconstruction materials)",
+    keyCharacters: ['hammer_bro_sergeant', 'koopa_foreman', 'bob_omb_demolitions', 'shy_guy_laborer', 'magikoopa_apprentice', 'dry_bones_scout', 'goomba_messenger'],
+    status: "Integrated into reformed Koopa Troop",
+    historicalNote: "The Resistance's motto became the rallying cry for Koopa loyalists: 'For the Kingdom. For the King.' A memorial carved with 348 names stands at the crater rim."
+},
+};
+
+export const MAJOR_BATTLES = [
   {
     "id": "the_lounge_brawl",
     "name": "The Lounge Brawl",
@@ -1616,4 +1757,4 @@
       "lyranth"
     ]
   }
-]
+];
