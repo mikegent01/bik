@@ -7072,6 +7072,25 @@
           }
         ]
       }
+    ],
+    "reputationChanges": {
+      "archie": {
+        "iron_legion": -3
+      }
+    },
+    "intelGains": [
+      {
+        "targetType": "faction",
+        "targetId": "onyx_hand",
+        "amount": 2,
+        "reason": "Thornbury's notes confirm Onyx Hand activities in Shadeward Manor."
+      },
+      {
+        "targetType": "faction",
+        "targetId": "mages_guild",
+        "amount": 2,
+        "reason": "Thornbury's notes detail Mages' Guild operations and backup plans."
+      }
     ]
   },
   {
@@ -7079,7 +7098,7 @@
     "name": "The Mount Ebott Survey: Part II",
     "title": "The Mount Ebott Survey: Part II — Flowey's Trap, Sans's Bone Blast, and the Temporal Barrier",
     "type": "Combat / First Contact / Relic Retrieval / Magical Crisis",
-    "date": "29 Harvestide, 1040 BF",
+    "date": "Mid-10XX BF — Day 2",
     "location": "Snowdin Village / The Ruins, Mount Ebott",
     "summary": "The continuation of the Mount Ebott Survey Expedition. The Legionary Agent recalibrates his machine, uncovers a censored history of 'The Great Void' in his manual, survives an ambush by Flowey the Flower with Mihawk, and is rescued by Sans, who reveals the magical barrier sealing the Underground.",
     "description": "This dossier represents the highly confidential, second-stage intelligence audit of **[The Mount Ebott Survey Mission](mount_ebott_survey_mission)**, compiled from active field logs on 29 Harvestide, 1040 BF.\n\nFollowing their first night at the Bunny Inn, the **[Legionary Agent](gamma_agent)** and **[Dracule Mihawk](dracule_mihawk)** discover a massive temporal discrepancy in the local biological readings, survive a direct ambush by the predatory plant Flowey, and escape into the ancient Ruins with the assistance of **[Sans](sans)**.\n\nUse the index table of contents below to explore the detailed logs of the encounter, the censored Legion history of 'The Great Void', and the ancient magical barrier.\n\n<div class=\"waluigi-comment\">Waluigi's Executive Inquest: I have reviewed the logs of Day Two, and my mustache is practically twitching with fury! WAH! You send a trained, unarmored teenager with a book into an underground cave, and his primary achievements are: falling over on a flower vine, breaking a multi-thousand coin sensor with a swift kick, and getting carried hand-in-hand into a pile of dusty rocks by a lazy skeleton! This isn't a military survey; it's a field trip gone catastrophically wrong! I am documenting every single detail of this embarrassment because incompetence this thorough deserves a thorough record!</div>",
@@ -7168,6 +7187,22 @@
             "description": "The skeleton outlines the only three known methods to breach the barrier and return to the surface:\n1. **The CORE**: The industrial heart of the kingdom, but extremely dangerous.\n2. **Hotland Portals**: Unstable, unpredictable, and highly volatile temporal gateways.\n3. **Royal Approval**: Getting personal approval from the Dreemurr monarchy. **[Sans](sans)** notes that **Queen Toriel** is much kinder than Asgore, but warns that they do not hand out exit permissions easily.\n\nLeft with no other options, **[Mihawk](dracule_mihawk)** is forced to admit they must play by the rules of this world to find an exit.\n\n<div class=\"waluigi-rant\">Waluigi's Final Rant: They have a massive, ancient, dimensional barrier... but they don't have a single tennis court down here? WAH! What is wrong with these monsters' priorities? If they spent less time maintaining their artificial day-and-night cycles and more time developing doubles-tennis tournaments, maybe they wouldn't be stuck underground! I'm going back to my racket. This much subterranean politics makes my mustache droop! WAAAAAAAH!</div>"
           }
         ]
+      }
+    ],
+    "reputationChanges": {
+      "gamma_agent": {
+        "iron_legion": 10
+      },
+      "dracule_mihawk": {
+        "iron_legion": 5
+      }
+    },
+    "intelGains": [
+      {
+        "targetType": "faction",
+        "targetId": "iron_legion",
+        "amount": 5,
+        "reason": "Observations of censored calendars and the Great Void."
       }
     ]
   }
