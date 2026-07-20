@@ -5203,14 +5203,44 @@ function allIntelRecords(){
 function partyIntel(){
   if(PARTY_INTEL_CACHE)return PARTY_INTEL_CACHE;
   const raw={};
-  allIntelRecords().forEach(g=>{const r=raw[g.targetId]||(raw[g.targetId]={targetId:g.targetId,explicit:0,inferred:0,sources:[]}); if(g.inferred)r.inferred+=g.amount; else r.explicit+=g.amount; r.sources.push(g);});
+  allIntelRecords().forEach(g=>{
+    const r=raw[g.targetId]||(raw[g.targetId]={targetId:g.targetId,explicitGains:[],inferredGains:[],sources:[]});
+    // Calculate temporal decay based on the source record's year
+    const rec = INDEX[g.source.id] || (DATA.majorBattles && DATA.majorBattles.find(b => b.id === g.source.id));
+    const year = rec ? _recordYear(rec.item || rec) : 1040;
+    const decay = _decayFactor(year, false);
+    const decayedAmount = g.amount * decay;
+    if(g.inferred) r.inferredGains.push(decayedAmount);
+    else r.explicitGains.push(decayedAmount);
+    r.sources.push(g);
+  });
   // Intel is not certainty. Explicit clues are weighted heavily, inferred references lightly, and known disinformation/noise reduces confidence.
   Object.values(raw).forEach(r=>{
     const noise=(INTEL_DISINFO[r.targetId]&&INTEL_DISINFO[r.targetId].noise)||0;
     r.noise=noise; r.noiseReason=(INTEL_DISINFO[r.targetId]&&INTEL_DISINFO[r.targetId].reason)||'';
-    const weighted = r.explicit>=0
-      ? (r.explicit*0.65 + Math.max(-40,Math.min(40,r.inferred))*0.20 - noise*0.45)
-      : (r.explicit*0.85 + Math.max(-25,Math.min(25,r.inferred))*0.10 - noise*0.20);
+    
+    // Sort gains in descending order to apply diminishing returns (over-saturation prevention)
+    const sortDesc = (a, b) => b - a;
+    r.explicitGains.sort(sortDesc);
+    r.inferredGains.sort(sortDesc);
+    
+    // Multipliers for top 5 contributing sources: 100%, 75%, 50%, 25%, 10%, others 0%
+    const scaleMultipliers = [1.0, 0.75, 0.5, 0.25, 0.1];
+    
+    let explicitSum = 0;
+    r.explicitGains.forEach((amt, idx) => {
+      explicitSum += amt * (scaleMultipliers[idx] || 0);
+    });
+    
+    let inferredSum = 0;
+    r.inferredGains.forEach((amt, idx) => {
+      inferredSum += amt * (scaleMultipliers[idx] || 0);
+    });
+    
+    const weighted = explicitSum>=0
+      ? (explicitSum*0.85 + Math.max(-30,Math.min(30,inferredSum))*0.25 - noise*0.45)
+      : (explicitSum*0.95 + Math.max(-20,Math.min(20,inferredSum))*0.15 - noise*0.20);
+      
     r.score=Math.max(-100,Math.min(95,Math.round(weighted)));
     r.label=(INTEL_TARGETS[r.targetId]||{}).label||prettyId(r.targetId); r.type=(INTEL_TARGETS[r.targetId]||{}).type||'intel'; r.icon=(INTEL_TARGETS[r.targetId]||{}).icon||'◈';
   });
