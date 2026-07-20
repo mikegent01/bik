@@ -6037,6 +6037,60 @@ function openAnnotation(ai){
 }
 function closeAnnotation(){ const dr=el('annotDrawer'); if(dr){dr.classList.remove('open');} document.body.classList.remove('annot-open'); }
 
+async function renderFactionPowerProjection(factionId) {
+  const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? '' : 'Reputation-Matrix2/');
+  const { getDetailedFactionStats } = await import(pathPrefix + 'global-map-analysis.js');
+  
+  const container = document.getElementById('faction-power-projection-container');
+  if (!container) return;
+  
+  const stats = getDetailedFactionStats(factionId);
+  if (!stats || stats.poiCount === 0) {
+    container.innerHTML = `<div class="tactical-note" style="margin-top: 15px;"><b>Tactical Note:</b> This faction currently has no registered territorial bases or active power projection in the World Atlas.</div>`;
+    return;
+  }
+  
+  // Calculate total power
+  const powerScore = stats.military + stats.economic + (stats.activeRegions * 10);
+  
+  container.innerHTML = `
+    <div class="intel-ledger-card" style="margin-top: 20px; border-left: 4px solid var(--accent); background: rgba(138, 75, 255, 0.02); padding: 15px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; color: var(--accent2); font-family: var(--font-display); display: flex; align-items: center; gap: 8px;">⚡ National Power Projection</h3>
+      <p class="text-muted" style="font-size: 12px; margin: 0 0 15px 0;">Calculated live from active points of interest and territory bases controlled by this faction across the multiverse.</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 15px;">
+        <div style="background: rgba(138, 75, 255, 0.05); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px;">Power Rank</div>
+          <b style="font-size: 22px; color: var(--accent2); font-family: var(--font-display);">${powerScore}</b>
+        </div>
+        <div style="background: rgba(229, 72, 77, 0.05); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px;">🛡️ Military</div>
+          <b style="font-size: 18px; color: var(--danger);">${stats.military}</b>
+        </div>
+        <div style="background: rgba(74, 222, 128, 0.05); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px;">🪙 Economic</div>
+          <b style="font-size: 18px; color: #86efac;">${stats.economic}</b>
+        </div>
+        <div style="background: rgba(139, 92, 246, 0.05); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px;">👑 Political</div>
+          <b style="font-size: 18px; color: #c4b5fd;">${stats.political}</b>
+        </div>
+      </div>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 13px; border-top: 1px dashed var(--border); padding-top: 12px; margin-top: 12px;">
+        <div>
+          <div style="margin-bottom: 6px;"><b>Bases Controlled:</b> ${stats.poiCount} point${stats.poiCount === 1 ? '' : 's'} of interest</div>
+          <div><b>Active Regions:</b> ${stats.activeRegions} realm${stats.activeRegions === 1 ? '' : 's'}</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="margin-bottom: 6px;"><b>Total Population:</b> ${stats.population.toLocaleString()} Pops</div>
+          <a onclick="Router.go('#/power')" style="font-size: 11px; cursor: pointer; color: var(--accent2); text-decoration: underline;">Open full Power Monitor →</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
   let rec=INDEX[id];
@@ -6139,6 +6193,7 @@ function view_article(id){
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='battles'?battleVsInfographic(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
+     ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
 ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
@@ -6148,6 +6203,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
    </div></div><div>${crossPagePanel(item.id,typeKey,item)}${typeKey==='characters'?inventoryPanel(item.id,item):''}${articleControlPanel(item.id)}${infoRows?`<div class="infobox"><h4>${esc(displayName(item))}</h4>${infoRows}</div>`:''}${toc}</div></div>`;
   window.scrollTo(0,0);setupScrollSpy();applyCustomCss(item.customCss);
+  if(typeKey==='factions'){ renderFactionPowerProjection(item.id); }
 }
 
 /* ---- Trials get their own rich renderer (sections + timeline) ---- */
