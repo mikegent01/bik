@@ -7073,5 +7073,102 @@
         ]
       }
     ]
+  },
+  {
+    "id": "mount_ebott_survey_part_2",
+    "name": "The Mount Ebott Survey: Part II",
+    "title": "The Mount Ebott Survey: Part II — Flowey's Trap, Sans's Bone Blast, and the Temporal Barrier",
+    "type": "Combat / First Contact / Relic Retrieval / Magical Crisis",
+    "date": "29 Harvestide, 1040 BF",
+    "location": "Snowdin Village / The Ruins, Mount Ebott",
+    "summary": "The continuation of the Mount Ebott Survey Expedition. The Legionary Agent recalibrates his machine, uncovers a censored history of 'The Great Void' in his manual, survives an ambush by Flowey the Flower with Mihawk, and is rescued by Sans, who reveals the magical barrier sealing the Underground.",
+    "description": "This dossier represents the highly confidential, second-stage intelligence audit of **[The Mount Ebott Survey Mission](mount_ebott_survey_mission)**, compiled from active field logs on 29 Harvestide, 1040 BF.\n\nFollowing their first night at the Bunny Inn, the **[Legionary Agent](gamma_agent)** and **[Dracule Mihawk](dracule_mihawk)** discover a massive temporal discrepancy in the local biological readings, survive a direct ambush by the predatory plant Flowey, and escape into the ancient Ruins with the assistance of **[Sans](sans)**.\n\nUse the index table of contents below to explore the detailed logs of the encounter, the censored Legion history of 'The Great Void', and the ancient magical barrier.",
+    "relatedArticles": [
+      "mount_ebott_survey_mission",
+      "dracule_mihawk",
+      "sans",
+      "gamma_agent",
+      "iron_legion",
+      "national_power_projection",
+      "thornburys_field_journal"
+    ],
+    "sections": [
+      {
+        "name": "Section 1: Midnight Recalibration & Sans's Dawn Chat",
+        "subtitle": "Flickering Sensors, Kicking Machines, and Fungal Monarchy",
+        "icon": "📅",
+        "overview": "During the night of 28 Harvestide, the **[Legionary Agent](gamma_agent)** wakes up in the Bunny Inn to inspect his data pad, only to find the biological sensors showing suspiciously low activity. He heads into the freezing night to investigate.",
+        "subsections": [
+          {
+            "title": "The Faded Blue Notepad & Empty Drawer",
+            "description": "Waking up in Room 203 of the Bunny Inn, the **[Legionary Agent](gamma_agent)** explores his quarters. On the desk, he finds a plain, faded blue notepad. While the pages are crisp and unused, slight indents in the paper reveal someone had written in it previously. Inside the desk drawer, he uncovers a small candle, a matchbox, and an old-looking key that does not match the room's lock."
+          },
+          {
+            "title": "Recalibration, Kicking, and System Failure",
+            "description": "Checking his data pad, the agent is alarmed to find the survey progress is at 48%, but the **Biological Activity** scans read 'Low' despite having met multiple local citizens. Suspecting magical interference from Snowdin's enchanted ceiling, he heads outside into the freezing night. After adjusting the machine's sensitivity parameters, the screen glitches and displays 'ERROR - DATA CORRUPTED'.\n\nAdhering to *Survey Equipment Maintenance and Troubleshooting* and acting as 'commander' of his one-man expedition, the agent decides to kick the machine. The screen glitches violently, a puff of smoke escapes, and the system fails completely. However, he successfully prints a manual report first, showing 'EXTREMELY LOW' biological signatures, thereby 'clearing' the magical anomalies in his records by breaking the machine entirely! WAH."
+          },
+          {
+            "title": "General Caine's Signature & Probation Stress",
+            "description": "At 7 AM, **[Sans](sans)** discovers the agent sleeping in the snow next to the broken machine. They have a candid conversation on the trail. The agent reveals he only signed up for the **[Iron Legion](iron_legion)** for the 'promise of easy high pay work,' is currently on a multi-year probation, and is terrified of messing up. He shows **[Sans](sans)** his copy of the *Protocols of the Iron Legion Volume 1*, which bears a rare, personal signature from **General Caine** (his commander)."
+          },
+          {
+            "title": "The Dreemurr Monarchy (Asgore and Toriel)",
+            "description": "Looking over the snow-capped mountains, the agent asks **[Sans](sans)** about the imposing castle in the distance. **[Sans](sans)** explains it is the home of the royal family, **King Asgore** and **Queen Toriel Dreemurr**, describing them as the 'parents of everyone in the Underground.' He notes that Asgore is goofy and relaxed, while Toriel is incredibly smart, caring, and strict about doing the right thing."
+          }
+        ]
+      },
+      {
+        "name": "Section 2: The Redacted Calendar & The Great Void",
+        "subtitle": "Information Warfare, Censored Dates, and Forbidden Lore",
+        "icon": "📜",
+        "overview": "A comparison of the World Government Standard Calendar (WGS) and the Regal Empire standard reveals a massive, deliberate blackout of temporal information inside the Legion manual.",
+        "subsections": [
+          {
+            "title": "Censored Calendars (WGS vs REIC)",
+            "description": "Comparing **[Dracule Mihawk](dracule_mihawk)**'s newspaper (dating a major clash near Mary Geoise and an energy surge near Laugh Tale to WGS year 2384) with his own manual, the agent consults the *Calendar & Date Conversions* table in the back of his manual. To his horror, every single equivalent year in the Regal Empire Imperial Calendar (REIC) has been completely blacked out with ink splotches or marked as `[REDACTED]`, spanning all the way back to WGS 2350."
+          },
+          {
+            "title": "Marginal Notes of the Great Void",
+            "description": "At the bottom of the censored page, the agent spots a single uncensored penciled margin note that escaped the Legion censors: `\"...The Great Void. REIC [REDACTED]. Do Not Mention. Not For General Knowledge.\"` **[Dracule Mihawk](dracule_mihawk)** reveals that the Great Void was a catastrophic event that occurred centuries ago. He notes that the Legion actively suppresses any mention of it, relying on the fact that most people have forgotten it ever happened."
+          }
+        ]
+      },
+      {
+        "name": "Section 3: Flowey's Ambush & The Gaster Rescue",
+        "subtitle": "Predatory Plants, Regenerating Vines, and Tactical Teleportation",
+        "icon": "⚔️",
+        "overview": "While heading back toward the exit route, the survey team is ambushed by a deceptive, predatory entity known as Flowey the Flower.",
+        "subsections": [
+          {
+            "title": "Flowey the Flower's Threat",
+            "description": "The agent trips on a flower vine, encountering a cheerful yellow flower with a face who introduces itself as 'Flowey the Flower.' However, the innocent facade quickly drops. Its face twists into a dark, predatory smile as its voice drops an octave: *'You humans... you always come down here thinking you own the place. But this world? It belongs to ME.'*"
+          },
+          {
+            "title": "Stomping and the Regenerating Vines",
+            "description": "**[Mihawk](dracule_mihawk)** immediately stomps on the weed with his boot, crushing it. However, the crushed petals dissolve into dust, and thick, powerful vines instantly erupt from the ground, coiling around **[Mihawk](dracule_mihawk)**'s ankles and pinning him down. Slicing through them with Yoru proves useless, as the vines regenerate instantly and adapt to their attacks."
+          },
+          {
+            "title": "Sans's Bone Blast & The Hand-in-Hand Sprint",
+            "description": "The agent yells out **[Sans](sans)**'s name. The skeleton instantly teleports onto the battlefield, casually sipping a ketchup bottle before raising his hand. A glowing bone erupts violently beneath **[Mihawk](dracule_mihawk)**, blasting the vines apart like shrapnel. Before the vines can reform, the agent grabs **[Sans](sans)** in one hand and **[Mihawk](dracule_mihawk)** in the other, executing a wild 'improvisation' sprint that drags them both head-first through the heavy stone double-doors into the Ruins."
+          }
+        ]
+      },
+      {
+        "name": "Section 4: The Ancient Barrier & The Three Escape Paths",
+        "subtitle": "Magical Seals, The CORE, and Monarchy Approvals",
+        "icon": "🛡️",
+        "overview": "Safe inside the ancient, torch-lit chambers of the Ruins, the team learns the true nature of their imprisonment.",
+        "subsections": [
+          {
+            "title": "Ancient Seals & Human Ignorance",
+            "description": "**[Sans](sans)** explains that the Underground is completely sealed off from the surface world by an ancient magical barrier. It is a powerful, absolute seal—not a standard Marine patrol or a military checkpoint where the agent can simply flash his **[Iron Legion](iron_legion)** ID. He notes with bitterness that most surface humans have completely forgotten that the monsters exist down here, as if history erased itself."
+          },
+          {
+            "title": "The CORE, Hotland Portals, and Royal Approvals",
+            "description": "The skeleton outlines the only three known methods to breach the barrier and return to the surface:\n1. **The CORE**: The industrial heart of the kingdom, but extremely dangerous.\n2. **Hotland Portals**: Unstable, unpredictable, and highly volatile temporal gateways.\n3. **Royal Approval**: Getting personal approval from the Dreemurr monarchy. **[Sans](sans)** notes that **Queen Toriel** is much kinder than Asgore, but warns that they do not hand out exit permissions easily.\n\nLeft with no other options, **[Mihawk](dracule_mihawk)** is forced to admit they must play by the rules of this world to find an exit."
+          }
+        ]
+      }
+    ]
   }
 ]
