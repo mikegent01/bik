@@ -40,6 +40,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # root-level shop-items copy is legacy source data and is not the player-facing catalog.
 ITEMS_DIR = ROOT / "data" / "shop-items"
 WORK_DIR = ROOT / "tools" / ".shop-enrichment"
+RESUME_PATH = WORK_DIR / "resume-state.json"
 TEMPLATE_PATH = ROOT / "tools" / "shop-item-response-template.json"
 DEFAULT_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
 
@@ -83,6 +84,7 @@ class Settings:
     review_only: bool = False
     review_mode: str = "unchecked"  # all, unchecked, or stale
     stale_days: int = 30
+    restart_review: bool = False  # ignore saved AI timestamps and truly re-check all
     chunk: str | None = None
 
 
@@ -140,6 +142,23 @@ def save_shard(path: Path, shard: dict[str, Any]) -> None:
     temporary = path.with_suffix(".tmp")
     temporary.write_text(json.dumps(shard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)  # atomic checkpoint on the local filesystem
+
+
+def load_resume_state() -> dict[str, Any]:
+    try:
+        return json.loads(RESUME_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def save_resume_state(source: Path, item: dict[str, Any], completed: int) -> None:
+    WORK_DIR.mkdir(parents=True, exist_ok=True)
+    state = {"catalog": str(ITEMS_DIR.relative_to(ROOT)), "lastSource": str(source.relative_to(ROOT)),
+             "lastItemId": item["id"], "lastItemName": item["name"], "completedThisRun": completed,
+             "savedAt": datetime.now(timezone.utc).isoformat()}
+    temporary = RESUME_PATH.with_suffix(".tmp")
+    temporary.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(RESUME_PATH)
 
 
 def context_for_item(context_path: Path, item: dict[str, Any]) -> str:
@@ -255,9 +274,12 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
 
 def needs_review(item: dict[str, Any], settings: Settings) -> bool:
     """Decide whether this item is eligible without deleting its review history."""
-    if settings.review_mode == "all":
-        return True
     reviewed = item.get("aiReviewedAt")
+    # "all" means cover the whole catalog once. A successful item records its
+    # timestamp immediately, so stopping tonight resumes tomorrow at the next
+    # unchecked record instead of beginning from items_001 again.
+    if settings.review_mode == "all":
+        return settings.restart_review or not reviewed
     if settings.review_mode == "unchecked":
         return not reviewed
     if not reviewed:
@@ -305,6 +327,9 @@ def write_chunk(source: Path, items: list[dict[str, Any]]) -> None:
 
 def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], None], stop: threading.Event | None = None) -> int:
     sources = [ITEMS_DIR / settings.chunk] if settings.chunk else sorted(ITEMS_DIR.glob("items_[0-9][0-9][0-9].js"))
+    resume = load_resume_state()
+    if resume.get("catalog") == str(ITEMS_DIR.relative_to(ROOT)) and not settings.restart_review:
+        notify(f"Resuming after {resume.get('lastSource', 'the last saved chunk')}: {resume.get('lastItemName', 'last saved item')}. Reviewed items are skipped.", None)
     if not sources:
         raise FileNotFoundError("No split items_###.js files found")
     # Clean exact-name/ID/near-description duplicates before the AI spends a
@@ -363,6 +388,7 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
             if not settings.review_only:
                 update_live_details_catalog(enriched)
             completed += 1
+            save_resume_state(source, enriched, completed)
             changed_in_chunk = True
             notify("Saved checkpoint" + (" and source data." if not settings.review_only else " (review-only; source unchanged)."),
                    {"item": current_item, "updated": enriched})
@@ -394,6 +420,7 @@ def cli() -> int:
     parser.add_argument("--review-only", action="store_true", help="Save JSON checkpoints but do not overwrite source modules")
     parser.add_argument("--review-mode", choices=("all", "unchecked", "stale"), default="unchecked", help="all items, never-reviewed items, or reviews older than --stale-days")
     parser.add_argument("--stale-days", type=int, default=30, help="Age threshold used by --review-mode stale")
+    parser.add_argument("--restart-review", action="store_true", help="Ignore saved timestamps and deliberately review everything again")
     parser.add_argument("--chunk", help="One chunk, such as items_052.js")
     args = parser.parse_args()
     if args.gui:
