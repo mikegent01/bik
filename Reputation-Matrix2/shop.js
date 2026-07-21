@@ -1,5 +1,6 @@
 
 // Update imports
+import './shop-effect-details.css';
 import { WALLETS, CURRENCIES } from './currency.js';
 
 function getConnectedWallet(){
@@ -1462,8 +1463,61 @@ function renderCart() {
         btn.addEventListener('click', () => cancelOrder(btn.dataset.orderId));
     });
 }
+function escapeShopHtml(value = '') {
+    return String(value).replace(/[&<>'"]/g, character => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[character]));
+}
+
+function getShopItemById(itemId) {
+    return SHOP_ITEMS[itemId] || Object.values(getAllShopItems()).find(item => item.id === itemId);
+}
+
+function getEffectDetail(item, index) {
+    const effect = item.effects?.[index] || 'No effect details available.';
+    const supplied = item.effectDetails?.[index];
+    if (supplied?.rules) return { title: supplied.title || effect, rules: supplied.rules };
+    // Older records remain useful while the local enrichment pass is still running.
+    return {
+        title: effect,
+        rules: `5e-inspired shop rule: ${effect}. Unless this item says otherwise, using a consumable requires an action, and a listed duration ends early if the DM determines its source is removed. Ask the DM how this homebrew effect interacts with a specific spell, feature, or creature.`
+    };
+}
+
+function openEffectDetails(itemId, index) {
+    const item = getShopItemById(itemId);
+    if (!item) return;
+    const detail = getEffectDetail(item, Number(index));
+    document.querySelector('.effect-details-modal')?.remove();
+    const modal = document.createElement('div');
+    modal.className = 'effect-details-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.innerHTML = `
+        <div class="effect-details-panel">
+            <button class="effect-details-close" type="button" aria-label="Close effect details">×</button>
+            <div class="effect-details-kicker">⚡ EFFECT DETAILS · 5E-INSPIRED HOMEBREW</div>
+            <h3>${escapeShopHtml(detail.title)}</h3>
+            <p class="effect-details-item">${escapeShopHtml(item.icon)} ${escapeShopHtml(item.name)}</p>
+            <p>${escapeShopHtml(detail.rules)}</p>
+            <p class="effect-details-note">Rules text is a table-ready interpretation, not official D&D 5e material. Your DM has final say.</p>
+        </div>`;
+    modal.addEventListener('click', event => {
+        if (event.target === modal || event.target.closest('.effect-details-close')) modal.remove();
+    });
+    document.body.appendChild(modal);
+    modal.querySelector('.effect-details-close').focus();
+}
+
 // Attach event listeners to item elements
 function attachItemEventListeners(container, startIndex = 0) {
+    container.querySelectorAll('.effect-detail-trigger').forEach(button => {
+        button.addEventListener('click', event => {
+            event.stopPropagation();
+            openEffectDetails(button.dataset.itemId, button.dataset.effectIndex);
+        });
+    });
+
     container.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1881,6 +1935,11 @@ ${isWarioScam(item) ? (() => {
                     `}
                 </div>
             </div>
+            ${item.priceOriginal && item.priceOriginal !== item.price ? `
+                <div class="price-review ${item.price > item.priceOriginal ? 'price-raised' : 'price-lowered'}" title="${item.priceReason || 'Price reviewed for rarity and mechanical impact.'}">
+                    ⚖️ Price reviewed: ${item.price > item.priceOriginal ? 'raised' : 'lowered'} from ${item.priceOriginal.toLocaleString()} XP
+                </div>
+            ` : ''}
             
             <!-- Membership requirement badge (subtle, in badges area) -->
             ${isMembershipLocked ? `
@@ -1914,8 +1973,12 @@ ${isWarioScam(item) ? (() => {
             
             <p class="item-description">${item.description}</p>
             
-            <div class="item-effects">
-                ${(item.effects || []).map(e => `<span class="effect-tag">✦ ${e}</span>`).join('')}
+            <div class="item-effects" aria-label="Item effects">
+                ${(item.effects || []).map((effect, index) => `
+                    <button class="effect-tag effect-detail-trigger" type="button" data-item-id="${item.id}" data-effect-index="${index}" aria-label="Read rules for ${effect}">
+                        ⚡ ${effect}<span class="effect-more">Details</span>
+                    </button>
+                `).join('')}
             </div>
             
             ${item.warning ? `<div class="item-warning">⚠️ ${item.warning}</div>` : ''}

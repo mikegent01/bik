@@ -1,3 +1,6 @@
+# Local LM Studio shop-enrichment checkpoints (one JSON shard per item chunk)
+tools/.shop-enrichment/
+
 # Logs
 logs
 *.log
