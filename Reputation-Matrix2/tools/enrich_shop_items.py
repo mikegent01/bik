@@ -43,9 +43,12 @@ DEFAULT_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
 
 SYSTEM_PROMPT = """You are the meticulous rules editor for a whimsical D&D 5e-inspired item shop.
 Return ONLY a JSON object. Do not add game-breaking power. Keep the item's existing theme, category,
-rarity, vendor, and intended mechanics. Write clear, original, concise player-facing text. 5e-style
-rules must use plain language and specify action, duration, range/area, save DC when relevant, and
-limits/rests when relevant. Never claim this is official D&D content.
+rarity, vendor, and intended mechanics. Write clear, original, concise player-facing text that uses
+concrete details from THIS item's name, material, lore, vendor, and effects. Never use filler such as
+"use the item exactly as its card states", "ask the DM", or generic consumable boilerplate. 5e-style
+rules must use plain language and specify a concrete activation, target/range, duration, what ends it,
+save DC when relevant, and limits/rests when relevant. Each rules entry must explain the particular
+effect rather than merely repeat its effect tag. Never claim this is official D&D content.
 
 Your JSON must have exactly:
 - description: string, 1-3 flavorful sentences
@@ -97,11 +100,20 @@ def load_shard(source: Path) -> tuple[Path, dict[str, Any]]:
         try:
             shard = json.loads(path.read_text(encoding="utf-8"))
             if isinstance(shard.get("items"), list) and isinstance(shard.get("results"), dict):
+                # Source may have been cleaned by the duplicate checker since the
+                # checkpoint was made. Reload it so removed items cannot return.
+                current_items = run_node_export(source)
+                valid_keys = {item["_sourceKey"] for item in current_items}
+                shard["items"] = current_items
+                shard["results"] = {key: value for key, value in shard["results"].items() if key in valid_keys}
+                shard.setdefault("failures", {})
+                shard["failures"] = {key: value for key, value in shard["failures"].items() if key in valid_keys}
+                save_shard(path, shard)
                 return path, shard
         except (OSError, json.JSONDecodeError):
             # Preserve bad evidence rather than silently discarding a night's work.
             path.replace(path.with_suffix(f".corrupt-{int(time.time())}.json"))
-    shard = {"source": str(source.relative_to(ROOT)), "items": run_node_export(source), "results": {}}
+    shard = {"source": str(source.relative_to(ROOT)), "items": run_node_export(source), "results": {}, "failures": {}}
     save_shard(path, shard)
     return path, shard
 
@@ -131,20 +143,30 @@ def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
     # versions reject it with HTTP 400 even when the loaded model can output JSON.
     if settings.model:
         payload["model"] = settings.model
-    request = urllib.request.Request(settings.endpoint, data=json.dumps(payload).encode("utf-8"),
-                                     headers={"Content-Type": "application/json; charset=utf-8"}, method="POST")
-    try:
-        with urllib.request.urlopen(request, timeout=settings.timeout) as response:
-            response_data = json.loads(response.read())
-    except urllib.error.HTTPError as error:
-        detail = error.read().decode("utf-8", errors="replace").strip()
-        raise RuntimeError(f"LM Studio HTTP {error.code}: {detail or error.reason}") from error
-    content = response_data["choices"][0]["message"]["content"]
-    if not isinstance(content, str):
-        raise ValueError("LM Studio returned a non-text response")
-    # Some models still wrap JSON in a markdown fence despite response_format.
-    content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content.strip(), flags=re.IGNORECASE)
-    return json.loads(content)
+    last_error: Exception | None = None
+    # Local models occasionally omit a comma or fail to escape a quote. Ask for a
+    # correction before giving up on the item, rather than stopping an overnight run.
+    for attempt in range(3):
+        if attempt:
+            payload["messages"].append({"role": "user", "content": f"Your previous response was invalid JSON ({last_error}). Return the same answer again as strictly valid JSON only, with every string properly escaped."})
+        request = urllib.request.Request(settings.endpoint, data=json.dumps(payload).encode("utf-8"),
+                                         headers={"Content-Type": "application/json; charset=utf-8"}, method="POST")
+        try:
+            with urllib.request.urlopen(request, timeout=settings.timeout) as response:
+                response_data = json.loads(response.read())
+        except urllib.error.HTTPError as error:
+            detail = error.read().decode("utf-8", errors="replace").strip()
+            raise RuntimeError(f"LM Studio HTTP {error.code}: {detail or error.reason}") from error
+        content = response_data["choices"][0]["message"]["content"]
+        if not isinstance(content, str):
+            last_error = ValueError("LM Studio returned a non-text response")
+            continue
+        content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content.strip(), flags=re.IGNORECASE)
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError as error:
+            last_error = error
+    raise ValueError(f"LM Studio returned invalid JSON after 3 attempts: {last_error}")
 
 
 def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]:
@@ -175,6 +197,9 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
     for detail in answer["effectDetails"]:
         if not isinstance(detail, dict) or set(detail) != {"title", "rules"} or not all(isinstance(value, str) and value.strip() for value in detail.values()):
             raise ValueError("each effect detail needs non-empty title and rules")
+        rules = detail["rules"].lower()
+        if len(detail["rules"]) < 90 or any(phrase in rules for phrase in ("use the item exactly", "ask the dm", "as the card states")):
+            raise ValueError("effect rules are too generic; require item-specific table-ready details")
     reviewed_at = datetime.now(timezone.utc).isoformat()
     return {**original, **answer, "priceOriginal": original.get("priceOriginal", original.get("price")),
             "priceReviewedAt": reviewed_at, "aiReviewedAt": reviewed_at, "aiReviewVersion": 1}
@@ -219,6 +244,13 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
     sources = [ITEMS_DIR / settings.chunk] if settings.chunk else sorted(ITEMS_DIR.glob("items_[0-9][0-9][0-9].js"))
     if not sources:
         raise FileNotFoundError("No split items_###.js files found")
+    # Clean exact-name/ID/near-description duplicates before the AI spends a
+    # request on them. load_shard() reloads source afterwards, preventing stale
+    # checkpoint records from reintroducing a removed item.
+    validator = ROOT / "tools" / "validate_shop_data.py"
+    if validator.exists() and not settings.review_only:
+        precheck = subprocess.run([sys.executable, str(validator), "--remove-worse"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        notify("Pre-review duplicate check: " + (precheck.stdout.strip() or "completed"), None)
     notify(f"Scanning {len(sources)} split item files ({sources[0].name} through {sources[-1].name}); review mode: {settings.review_mode}.", None)
     completed = 0
     for source_number, source in enumerate(sources, start=1):
@@ -245,8 +277,14 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
             try:
                 enriched = validate(current_item, call_lm_studio(settings, current_item))
             except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError, RuntimeError) as error:
-                notify(f"ERROR on {current_item['name']}: {error}. Nothing was written for this item.", None)
-                return completed
+                # Keep a visible checkpointed failure, then continue the batch.
+                # A later run retries this item; one malformed model reply cannot
+                # strand the remaining 7,000+ records in the first chunk.
+                shard["failures"][result_key] = {"at": datetime.now(timezone.utc).isoformat(), "error": str(error)}
+                save_shard(shard_path, shard)
+                notify(f"ERROR on {current_item['name']}: {error}. Logged for retry; continuing to the next item.", None)
+                continue
+            shard["failures"].pop(result_key, None)
             shard["results"][result_key] = enriched
             save_shard(shard_path, shard)
             completed += 1
@@ -263,8 +301,8 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
     # Always leave a machine-readable integrity/duplicate report after a completed pass.
     validator = ROOT / "tools" / "validate_shop_data.py"
     if validator.exists():
-        validation = subprocess.run([sys.executable, str(validator)], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
-        notify(validation.stdout.strip() or "Shop JSON validation completed.", None)
+        validation = subprocess.run([sys.executable, str(validator), "--remove-worse"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        notify("Post-review duplicate check: " + (validation.stdout.strip() or "completed"), None)
         if validation.stderr.strip(): notify("Validator: " + validation.stderr.strip(), None)
     notify("Done. All requested items were checkpointed." + (" Source files were updated." if not settings.review_only else " Review JSON shards before writing."), None)
     return completed

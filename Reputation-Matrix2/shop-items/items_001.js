@@ -76,26 +76,6 @@ export const ITEMS_001 = {
     "shippedBy": "Armored Escort",
     "levelRequirement": 1
   },
-  "a_bag_that_defies_the": {
-    "id": "a_bag_that_defies_the",
-    "name": "Gravity Satchel",
-    "description": "A bag that defies the laws of verticality",
-    "category": "equipment",
-    "price": 1200,
-    "icon": "🌍",
-    "stock": 5,
-    "rarity": "uncommon",
-    "effects": [
-      "Allows wearer to walk up walls or ceilings",
-      "5% chance per step to trigger a gravity glitch",
-      "Can carry up to 500 pounds of gear",
-      "Unlocks secret shortcuts in the Doughnut’s interior",
-      "Designed for vertical explorers"
-    ],
-    "vendor": "grand_country",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 3
-  },
   "a_bag_that_defies_vertical_1": {
     "id": "a_bag_that_defies_vertical_1",
     "name": "Gravity Satchel",
@@ -115,24 +95,6 @@ export const ITEMS_001 = {
     "vendor": "inkopolis",
     "shippedBy": "Paratroopa Air",
     "levelRequirement": 7
-  },
-  "a_blade_forged_in_the": {
-    "id": "a_blade_forged_in_the",
-    "name": "Ironclad Blade of the Forge",
-    "description": "A blade forged in the heart of the Midlands’ smelting pits, its edge hums with the pulse of molten steel. It cleaves through armor with brutal efficiency and drips molten slag upon impact.",
-    "category": "equipment",
-    "price": 2500,
-    "icon": "🔮",
-    "stock": 3,
-    "rarity": "rare",
-    "effects": [
-      "+20% damage to metal targets",
-      "-10% stamina cost when wielding",
-      "Inflicts “Slag Burn” debuff on foes for 3s (burns 1 HP per tick)"
-    ],
-    "vendor": "midlands",
-    "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
   },
   "a_bottle_of_whiskey_garlic": {
     "id": "a_bottle_of_whiskey_garlic",
@@ -191,24 +153,6 @@ export const ITEMS_001 = {
     "vendor": "mushroom_kingdom",
     "shippedBy": "Pianta Chuck Express",
     "levelRequirement": 3
-  },
-  "a_brutal_tool_forged_from": {
-    "id": "a_brutal_tool_forged_from",
-    "name": "Ironclad Hammer of the Forge",
-    "description": "A brutal tool forged from the last breath of a steam-powered colossus. Strikes with crushing force, shattering stone and steel alike. Perfect for miners and siege engineers alike.",
-    "category": "equipment",
-    "price": 2500,
-    "icon": "🔮",
-    "stock": 3,
-    "rarity": "rare",
-    "effects": [
-      "Deals 150% damage to enemy armor",
-      "Grants 20% chance to break enemy equipment on hit",
-      "Restores 10% stamina on each successful strike"
-    ],
-    "vendor": "midlands",
-    "shippedBy": "Pipe Express",
-    "levelRequirement": 5
   },
   "a_buoyant_satchel_woven_from": {
     "id": "a_buoyant_satchel_woven_from",
@@ -343,26 +287,6 @@ export const ITEMS_001 = {
     "shippedBy": "Game Over Delivery",
     "levelRequirement": 4
   },
-  "a_corroded_brass_key_rumored": {
-    "id": "a_corroded_brass_key_rumored",
-    "name": "Pipe Network Key",
-    "description": "A corroded brass key rumored to unlock the final conduit of the Pipe Network, once used to transport enchanted goods between LEclaire Isle and Mordor. It glows faintly when near the Pipe Network, though its true power is only revealed when used by a smuggler with a secret past.",
-    "price": 50000,
-    "icon": "🧭",
-    "stock": 1,
-    "rarity": "legendary",
-    "effects": [
-      "Grants access to hidden smuggling routes",
-      "Increases stealth by 20% for 3 rounds",
-      "May cause minor magical backlash if used improperly",
-      "Can be used to activate a hidden safe in the Pipe Network",
-      "Triggers a 1d6 sugar surge if used near a bakery",
-      "Crafted by: Blooper Wetworks"
-    ],
-    "vendor": "leclaire_isle",
-    "shippedBy": "Blooper Wetworks",
-    "levelRequirement": 12
-  },
   "a_cowboy_hat_with_wario": {
     "id": "a_cowboy_hat_with_wario",
     "name": "Wario's Wild West Hat",
@@ -381,149 +305,6 @@ export const ITEMS_001 = {
     "vendor": "wario_land",
     "shippedBy": "Yeehaw Yonder",
     "levelRequirement": 4
-  },
-  "a_crystalline_core_that_amplifies": {
-    "id": "a_crystalline_core_that_amplifies",
-    "name": "Forgeheart Core",
-    "description": "A crystalline core that amplifies the power of any metal tool or weapon. Embedded with the memory of a legendary smith’s final hammer strike, this core lets you bend steel to your will.",
-    "price": 2500,
-    "icon": "🔮",
-    "stock": 3,
-    "rarity": "rare",
-    "effects": [
-      "Increases tool efficiency by 25%",
-      "Grants +5% chance to break through enemy armor on hit",
-      "Grants +10% bonus to metal crafting speed"
-    ],
-    "vendor": "midlands",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
-  },
-  "a_cursed_accessory_worn_by": {
-    "id": "a_cursed_accessory_worn_by",
-    "name": "Onyx Hand Ring",
-    "description": "A cursed accessory worn by the night’s enforcers",
-    "category": "equipment",
-    "price": 12000,
-    "icon": "👁",
-    "stock": 2,
-    "rarity": "epic",
-    "effects": [
-      "Grants immunity to fear effects during nighttime",
-      "Grants +2 to stealth checks",
-      "Increases chance of spotting hidden vampires by 30%",
-      "Causes visible tremors when worn during full moon",
-      "Requires attunement with the Onyx Hand",
-      "May cause temporary blindness to daylight"
-    ],
-    "vendor": "animatopia",
-    "shippedBy": "Hammer Bros Handling",
-    "levelRequirement": 7
-  },
-  "a_cursed_amulet_that_resonates": {
-    "id": "a_cursed_amulet_that_resonates",
-    "name": "Void Touched Amulet",
-    "description": "A cursed amulet that resonates with the cosmic abyss",
-    "price": 50000,
-    "icon": "🌌",
-    "stock": 0,
-    "rarity": "legendary",
-    "effects": [
-      "Grants immunity to all non-magical damage",
-      "Draws Void energy for 3 turns, increasing damage by 30%",
-      "Causes the wearer to see glimpses of the Doughnut Hole",
-      "May trigger a reality collapse if worn for too long",
-      "Requires attunement by a divine spellcaster",
-      "Shipped by: Goomba Ground Delivery",
-      "Faction influence: King of Tombs",
-      "Connected to: The Doughnut Hole - Cosmic abyss, central void, existential dread, unknown entities"
-    ],
-    "vendor": "mushroom_kingdom",
-    "shippedBy": "Goomba Ground Delivery",
-    "levelRequirement": 15
-  },
-  "a_cursed_artifact_forged_by": {
-    "id": "a_cursed_artifact_forged_by",
-    "name": "Entropy Ring",
-    "description": "A cursed artifact forged by the Iron Legion",
-    "category": "equipment",
-    "price": 8000,
-    "icon": "⚔",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Grants +3 to all melee attacks",
-      "Causes targets to lose 1 HP per turn when hit",
-      "Activates after 3 consecutive successful attacks",
-      "Grants a 10% chance to trigger a random combat ability",
-      "Requires attunement by a member of the Iron Legion"
-    ],
-    "vendor": "hyrule",
-    "shippedBy": "Piranha Plant Post",
-    "levelRequirement": 8
-  },
-  "a_cursed_artifact_from_toadburt": {
-    "id": "a_cursed_artifact_from_toadburt",
-    "name": "Entropy Ring",
-    "description": "A cursed artifact from Toadburt’s covert operations",
-    "category": "equipment",
-    "price": 8500,
-    "icon": "🌀",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Grants 50% chance to negate enemy ability activation",
-      "Suffers 1d6 damage when used near Beanbean Kingdom",
-      "Increases spell casting cost by 25% for all users",
-      "Requires attunement by a member of the Iron Legion",
-      "Crafted by: Toadburt’s Shadow Syndicate",
-      "Can only be used once per campaign"
-    ],
-    "vendor": "grand_country",
-    "shippedBy": "Lakitu Drones",
-    "levelRequirement": 7
-  },
-  "a_cursed_artifact_that_erodes_1": {
-    "id": "a_cursed_artifact_that_erodes_1",
-    "name": "Entropy Ring",
-    "description": "A cursed artifact that erodes time and logic",
-    "category": "equipment",
-    "price": 7500,
-    "icon": "⚡",
-    "stock": 1,
-    "rarity": "legendary",
-    "effects": [
-      "Grants 3d6 damage against time-based enemies",
-      "Randomly alters the target’s perception of time",
-      "Triggers entropy surge after 3 uses",
-      "Reduces spellcasting efficiency by 20%",
-      "Cannot be used in the same realm as Earth Land",
-      "Created by: Toadburt’s Secret Workshop",
-      "Requires attunement by a scholar or warlock"
-    ],
-    "vendor": "midlands",
-    "shippedBy": "Goomba Ground Delivery",
-    "levelRequirement": 8
-  },
-  "a_cursed_artifact_that_feeds": {
-    "id": "a_cursed_artifact_that_feeds",
-    "name": "Entropy Ring",
-    "description": "A cursed artifact that feeds on time and entropy, this ring grants the wearer the ability to rewind moments… or cause irreversible decay. It was once worn by Toadburt, the Iron Legion sleeper agent who now haunts the Digital Realm.",
-    "price": 75000,
-    "icon": "⚡",
-    "stock": 0,
-    "rarity": "legendary",
-    "effects": [
-      "Rewinds 1d4 seconds of time once per day",
-      "20% chance to cause entropy decay on nearby objects",
-      "Requires attunement by a member of the Shy Guys union",
-      "Wears off if worn outside Dream Land",
-      "Shipped by: Cheep Cheep Shipping",
-      "Faction influence: Gehenna Academy"
-    ],
-    "vendor": "dreamland",
-    "shippedBy": "Cheep Cheep Shipping",
-    "levelRequirement": 10
   },
   "a_cursed_explosive_infused_with": {
     "id": "a_cursed_explosive_infused_with",
@@ -565,49 +346,6 @@ export const ITEMS_001 = {
     "shippedBy": "Chain Chomp Courier",
     "levelRequirement": 8
   },
-  "a_cursed_relic_that_draws": {
-    "id": "a_cursed_relic_that_draws",
-    "name": "Void Touched Amulet",
-    "description": "A cursed relic that draws from the void to empower the wearer",
-    "category": "equipment",
-    "price": 50000,
-    "icon": "🌌",
-    "stock": 1,
-    "rarity": "legendary",
-    "effects": [
-      "Grants +2 to all spellcasting rolls",
-      "Grants 1d6 damage bonus to all attacks",
-      "Causes 1d6 negative effect to user after 10 seconds of casting",
-      "Can only be used in the presence of a Mages Guild agent (triggers trap)",
-      "Wears a dark aura if not attuned",
-      "Crafted by: Mages Guild black market agents",
-      "Unlocks the Void Gate in the dock ward"
-    ],
-    "vendor": "animatopia",
-    "shippedBy": "Chain Chomp Courier",
-    "levelRequirement": 12
-  },
-  "a_cursed_ring_of_the": {
-    "id": "a_cursed_ring_of_the",
-    "name": "Onyx Hand Ring",
-    "description": "A cursed ring of the vampire lords",
-    "category": "equipment",
-    "price": 6000,
-    "icon": "🩸",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Grants +2 to all damage rolls against undead",
-      "Consumes 1 soul per use to activate",
-      "Causes 1d4 temporary blindness to enemies",
-      "Increases vampiric regeneration by 10%",
-      "If worn too long causes mental corruption",
-      "Crafted by: Iron Legion"
-    ],
-    "vendor": "warhammer",
-    "shippedBy": "Mages Guild Portal",
-    "levelRequirement": 7
-  },
   "a_cursed_tool_forged_from_1": {
     "id": "a_cursed_tool_forged_from_1",
     "name": "Ironclad Hammer of the Forge",
@@ -626,43 +364,6 @@ export const ITEMS_001 = {
     "shippedBy": "Koopa Postal",
     "levelRequirement": 5
   },
-  "a_cursed_trinket_that_speaks": {
-    "id": "a_cursed_trinket_that_speaks",
-    "name": "Tongue of the Tide",
-    "description": "A cursed trinket that speaks in the language of the drowned. Wears it to survive undersea or subterranean criminal dens. May speak truth or lie depending on the wearer’s emotional state.",
-    "price": 2000,
-    "icon": "🌊",
-    "stock": 5,
-    "rarity": "uncommon",
-    "effects": [
-      "+10% chance to avoid ambushes in aquatic or subterranean zones",
-      "Temporary speech immunity in underwater or submerged combat",
-      "Reveals hidden treasure locations if the wearer is under stress or fear"
-    ],
-    "vendor": "rogueport",
-    "shippedBy": "Lakitu Drones",
-    "levelRequirement": 4
-  },
-  "a_cursed_trinket_worn_by_1": {
-    "id": "a_cursed_trinket_worn_by_1",
-    "name": "Onyx Hand Ring",
-    "description": "A cursed trinket worn by those who seek forbidden knowledge",
-    "category": "equipment",
-    "price": 7500,
-    "icon": "🖤",
-    "stock": 1,
-    "rarity": "legendary",
-    "effects": [
-      "Grants access to the Shadowfells hidden archives",
-      "Deals 1d8 damage to enemies with corrupted data",
-      "20% chance to trigger a data leak upon enemy defeat",
-      "Wears off after 3 uses unless recharged",
-      "Connected to: Orangus Cornelius and the Onyx Hand"
-    ],
-    "vendor": "internet",
-    "shippedBy": "Kremling Smuggle Run",
-    "levelRequirement": 7
-  },
   "a_custom_motorcycle_loud_fast": {
     "id": "a_custom_motorcycle_loud_fast",
     "name": "Wario's Chopper",
@@ -680,24 +381,6 @@ export const ITEMS_001 = {
     ],
     "vendor": "wario_direct",
     "shippedBy": "Driven through your wall",
-    "levelRequirement": 5
-  },
-  "a_dampened_jungle_satchel_infused_1": {
-    "id": "a_dampened_jungle_satchel_infused_1",
-    "name": "Tropical Tide Satchel",
-    "description": "A dampened jungle satchel infused with swamp mist, perfect for carrying secrets or loot without leaving a trace. When opened, it emits a faint hum that distracts nearby Kremling patrols.",
-    "category": "equipment",
-    "price": 2500,
-    "icon": "🔮",
-    "stock": 3,
-    "rarity": "rare",
-    "effects": [
-      "+10% stealth in jungle biomes",
-      "Reduces enemy detection radius by 15% while carrying",
-      "Triggers “Swamp Whisper” passive: chance to detect hidden traps or loot"
-    ],
-    "vendor": "dk_isles",
-    "shippedBy": "Shy Guy Smugglers",
     "levelRequirement": 5
   },
   "a_darkly_polished_ring_forged": {
@@ -740,25 +423,6 @@ export const ITEMS_001 = {
     "shippedBy": "Pirate Post",
     "levelRequirement": 5
   },
-  "a_digital_key_to_the": {
-    "id": "a_digital_key_to_the",
-    "name": "Diamond City Key",
-    "description": "A digital key to the treasure vault beneath the Wario Land servers",
-    "price": 4000,
-    "icon": "💎",
-    "stock": 4,
-    "rarity": "epic",
-    "effects": [
-      "Opens the Diamond City vault (contains 5000 gold and garlic scrolls)",
-      "Grants 10% increased loot drop rate from treasure chests",
-      "Causes minor data corruption to nearby items when used",
-      "Shipped by: Kremling Smuggle Run",
-      "Only usable in Wario Land zones with Diamond City maps"
-    ],
-    "vendor": "internet",
-    "shippedBy": "Kremling Smuggle Run",
-    "levelRequirement": 6
-  },
   "a_flickering_lantern_from_luigi": {
     "id": "a_flickering_lantern_from_luigi",
     "name": "Luigi's Ghost-Hunting Lantern",
@@ -794,23 +458,6 @@ export const ITEMS_001 = {
     ],
     "vendor": "rogueport",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 4
-  },
-  "a_flickering_torch_that_emits_1": {
-    "id": "a_flickering_torch_that_emits_1",
-    "name": "Feywhisper Torch",
-    "description": "A flickering torch that emits soft, enchanted light and whispers secrets of the Feywild. When lit, it reveals hidden paths and temporary buffs for allies.",
-    "price": 1200,
-    "icon": "🔮",
-    "stock": 4,
-    "rarity": "uncommon",
-    "effects": [
-      "+15% damage to magical attacks",
-      "Grants temporary invisibility for 5 seconds on cast",
-      "Reveals hidden traps or secret paths for 30 seconds"
-    ],
-    "vendor": "isle_delfino",
-    "shippedBy": "Void Drifter Relay",
     "levelRequirement": 4
   },
   "a_flying_broom_for_quick": {
@@ -849,41 +496,6 @@ export const ITEMS_001 = {
     "shippedBy": "Lakitu Drones",
     "levelRequirement": 5
   },
-  "a_fractured_mirror_shard_that": {
-    "id": "a_fractured_mirror_shard_that",
-    "name": "Echo of the Void",
-    "description": "A fractured mirror shard that whispers secrets of the lost. When wielded, it reveals hidden truths in shadowed areas and temporarily blinds foes to light-based attacks.",
-    "category": "equipment",
-    "price": 2500,
-    "icon": "🔮",
-    "stock": 3,
-    "rarity": "rare",
-    "effects": [
-      "Reveals hidden paths or enemy weaknesses in shadow zones",
-      "Temporarily blinds foes to light attacks (10s duration)",
-      "Slight aura of disorientation to nearby enemies (1d4 movement penalty)"
-    ],
-    "vendor": "shadowfell",
-    "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
-  },
-  "a_fractured_piece_of_the_1": {
-    "id": "a_fractured_piece_of_the_1",
-    "name": "Mirrored Soul Shard",
-    "description": "A fractured piece of the Shadowfell’s fractured mirror dimension. When held, it distorts time briefly, allowing the wielder to teleport up to 30 feet. Slightly unstable and dangerous to use.",
-    "price": 1200,
-    "icon": "🌀",
-    "stock": 2,
-    "rarity": "uncommon",
-    "effects": [
-      "Temporary teleportation (30 ft) once per use",
-      "Causes 10% chance to create a shadow duplicate for 3 seconds",
-      "May cause short-term disorientation (1s) on use"
-    ],
-    "vendor": "shadowfell",
-    "shippedBy": "Lakitu Drones",
-    "levelRequirement": 4
-  },
   "a_fractured_relic_from_the": {
     "id": "a_fractured_relic_from_the",
     "name": "Ancient Temple Shard",
@@ -900,24 +512,6 @@ export const ITEMS_001 = {
     ],
     "vendor": "hyrule",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
-  },
-  "a_fragment_of_a_forgotten_1": {
-    "id": "a_fragment_of_a_forgotten_1",
-    "name": "Ancient Temple Shard",
-    "description": "A fragment of a forgotten temple’s foundation, humming with forgotten magic. When worn, it reveals hidden paths and ancient secrets.",
-    "category": "equipment",
-    "price": 2500,
-    "icon": "🔮",
-    "stock": 3,
-    "rarity": "rare",
-    "effects": [
-      "Reveals one hidden temple entrance per encounter",
-      "Increases chance of encountering ancient guardians by 20%",
-      "Grants temporary immunity to environmental damage (e.g. lava, poison) for 3 turns"
-    ],
-    "vendor": "hyrule",
-    "shippedBy": "Pipe Express",
     "levelRequirement": 5
   },
   "a_geometric_wand_brimming_with_1": {
@@ -1114,86 +708,6 @@ export const ITEMS_001 = {
     "shippedBy": "Rakasha Spirit Walk",
     "levelRequirement": 2
   },
-  "a_key_that_unlocks_the": {
-    "id": "a_key_that_unlocks_the",
-    "name": "Shadowfell Keychain",
-    "description": "A key that unlocks the Shadowfell realm’s hidden paths",
-    "category": "equipment",
-    "price": 3000,
-    "icon": "🔑",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Opens secret passages in Shadowfell dimensions",
-      "Grants 50% chance to bypass magical barriers",
-      "Causes 1d2 fatigue when used in high-stress situations",
-      "Requires attunement with a Shadowfell artifact",
-      "Crafted by: Iron Legion in collaboration with Shadowfell outcasts",
-      "Thematic link: Connectopia’s frontier expansion meets Shadowfell’s mystery"
-    ],
-    "vendor": "connectopia",
-    "shippedBy": "Dry Bones Dead Drop",
-    "levelRequirement": 7
-  },
-  "a_key_to_the_ink_1": {
-    "id": "a_key_to_the_ink_1",
-    "name": "Ricco Harbor Key",
-    "description": "A key to the ink-locked harbor",
-    "price": 5000,
-    "icon": "🔑",
-    "stock": 2,
-    "rarity": "legendary",
-    "effects": [
-      "Opens Ricco Harbor for 30 minutes",
-      "Grants 50% XP bonus from battles inside",
-      "Triggers ink jamming on enemies within range",
-      "Made by: Koopa Navy",
-      "Connects Isle Delfino and Inkopolis"
-    ],
-    "vendor": "isle_delfino",
-    "shippedBy": "Piranha Plant Post",
-    "levelRequirement": 8
-  },
-  "a_keychain_forged_from_the": {
-    "id": "a_keychain_forged_from_the",
-    "name": "Shadowfell Keychain",
-    "description": "A keychain forged from the essence of the Raventree Manor’s Shadowfell dimension, this item is said to grant the wearer a glimpse into the realm of lost dreams. It glows faintly when approached by a shadowed entity, and can be used to unlock hidden doors or traps. However, prolonged use may cause the user to forget their own name.",
-    "price": 6000,
-    "icon": "🕳",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Grants temporary invisibility when carrying item",
-      "Allows unlocking of Shadowfell doors and traps",
-      "May cause memory fragmentation after 30 minutes of use",
-      "Grants 1d6 bonus to stealth checks",
-      "Causes minor hallucinations of lost memories",
-      "Can be used to temporarily summon a shadow creature"
-    ],
-    "vendor": "dk_isles",
-    "shippedBy": "Lakitu Drones",
-    "levelRequirement": 7
-  },
-  "a_keychain_that_unlocks_hidden": {
-    "id": "a_keychain_that_unlocks_hidden",
-    "name": "Shadowfell Keychain",
-    "description": "A keychain that unlocks hidden pathways in the shadow realm",
-    "price": 600,
-    "icon": "🔑",
-    "stock": 10,
-    "rarity": "common",
-    "effects": [
-      "Grants 5% chance to unlock hidden elemental nodes",
-      "Can be used to activate secret gacha triggers",
-      "Only works in shadowed areas or during moon phase",
-      "May cause temporary disorientation if used too often",
-      "Crafted by: Iron Legion",
-      "Contains a piece of inkopolis’ forgotten art"
-    ],
-    "vendor": "teyvat",
-    "shippedBy": "Bullet Bill Express",
-    "levelRequirement": 2
-  },
   "a_lightweight_cape_woven_from": {
     "id": "a_lightweight_cape_woven_from",
     "name": "Tropical Breeze Cape",
@@ -1210,24 +724,6 @@ export const ITEMS_001 = {
     ],
     "vendor": "isle_delfino",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
-  },
-  "a_lightweight_shimmering_cape_that_1": {
-    "id": "a_lightweight_shimmering_cape_that_1",
-    "name": "Tropical Breeze Cape",
-    "description": "A lightweight, shimmering cape that dances with the wind and radiates cool energy. Perfect for dodging tropical storms or soaking up the sun’s warmth.",
-    "category": "equipment",
-    "price": 2500,
-    "icon": "🔮",
-    "stock": 3,
-    "rarity": "rare",
-    "effects": [
-      "Boosts movement speed by 15%",
-      "Reduces damage from heat-based attacks by 20%",
-      "Increases stamina regeneration by 10% per second"
-    ],
-    "vendor": "isle_delfino",
-    "shippedBy": "Void Drifter Relay",
     "levelRequirement": 5
   },
   "a_long_fork_for_roasting": {
@@ -1268,27 +764,6 @@ export const ITEMS_001 = {
     "shippedBy": "Bone Break",
     "levelRequirement": 4
   },
-  "a_metallic_key_shaped_like": {
-    "id": "a_metallic_key_shaped_like",
-    "name": "Diamond City Key",
-    "description": "A metallic key shaped like a cracked diamond",
-    "category": "equipment",
-    "price": 4000,
-    "icon": "💎",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Opens the vault of the collapsed Koopa Bank",
-      "Grants access to 1000 gold coins when used",
-      "Causes minor tremors if used near the edge of the world",
-      "Requires 10 minutes to activate",
-      "Crafted by: The Mages Guild and Wario’s own garage",
-      "Unlocks: The Forgotten Vault of Diamond City"
-    ],
-    "vendor": "wario_land",
-    "shippedBy": "Piranha Plant Post",
-    "levelRequirement": 7
-  },
   "a_meter_that_measures_your": {
     "id": "a_meter_that_measures_your",
     "name": "Wario's Luck-o-Meter",
@@ -1307,24 +782,6 @@ export const ITEMS_001 = {
     "vendor": "wario_land",
     "shippedBy": "Lucky Lotto Load",
     "levelRequirement": 5
-  },
-  "a_mushroom_made_of_solid": {
-    "id": "a_mushroom_made_of_solid",
-    "name": "Golden Mushroom",
-    "description": "A mushroom made of solid gold. Mystical properties unknown. Definitely valuable.",
-    "category": "premium",
-    "price": 150000,
-    "icon": "🌟",
-    "stock": 2,
-    "rarity": "rare",
-    "effects": [
-      "Worth 5,000 gold to any merchant",
-      "Consume: Restore all HP and remove all conditions",
-      "Trade at Shooting Star Summit for rare artifact"
-    ],
-    "vendor": "comet_observatory",
-    "shippedBy": "Warp Pipe Direct",
-    "levelRequirement": 1
   },
   "a_mutated_core_from_the": {
     "id": "a_mutated_core_from_the",
@@ -1403,48 +860,6 @@ export const ITEMS_001 = {
     "shippedBy": "Arcane Archives",
     "levelRequirement": 9
   },
-  "a_pendant_shaped_like_a": {
-    "id": "a_pendant_shaped_like_a",
-    "name": "Void Touched Amulet",
-    "description": "A pendant shaped like a fractured star, this amulet was once part of the ancient Voidborn who sought to unravel the fabric of reality. Its surface glows with shifting colors and whispers fragments of forgotten truths. When worn, it allows the user to temporarily see through the eyes of the Void, but at the cost of their own perception. It is said to have been stolen from a hidden vault beneath the ruins of the Crimson Fleet.",
-    "category": "equipment",
-    "price": 8000,
-    "icon": "🌌",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Grants temporary vision through the Void for 30 seconds",
-      "Reduces damage taken by 20% during Void vision",
-      "Causes wearer to lose 1 perception point per use",
-      "May trigger a hallucination if wearer has seen the Void before",
-      "Crafted by: Peach Loyalists",
-      "Must be worn with a vision holder to activate full effect"
-    ],
-    "vendor": "teyvat",
-    "shippedBy": "Hammer Bros Handling",
-    "levelRequirement": 7
-  },
-  "a_pendant_that_glows_when": {
-    "id": "a_pendant_that_glows_when",
-    "name": "Void Touched Amulet",
-    "description": "A pendant that glows when the wearer is near a dimensional rift, this amulet was found by a Ranger Union scout who stumbled into the Feywild during a raid on Raventree Manor. The DK Crew claims it was imbued with the essence of a void-walker who fell during the split. When activated, it allows the wearer to briefly pass through barriers and see through illusions.",
-    "category": "equipment",
-    "price": 12000,
-    "icon": "🌀",
-    "stock": 2,
-    "rarity": "epic",
-    "effects": [
-      "Allows passage through illusions for 1 round",
-      "Grants 10% chance to see hidden paths in the Feywild",
-      "20% chance to cause a dimensional ripple when used in combat",
-      "Requires attunement by a spellcaster or ranger",
-      "Can only be used once per day",
-      "Crafted by: DK Crew with Voidwalker’s blood"
-    ],
-    "vendor": "sarasaland",
-    "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 10
-  },
   "a_pendant_that_pulses_with": {
     "id": "a_pendant_that_pulses_with",
     "name": "Necrotic Heart Pendant",
@@ -1521,23 +936,6 @@ export const ITEMS_001 = {
     "vendor": "wario_land",
     "shippedBy": "Garlic Grenade Delivery",
     "levelRequirement": 5
-  },
-  "a_plush_doll_that_looks": {
-    "id": "a_plush_doll_that_looks",
-    "name": "Bootleg Waluigi Doll",
-    "description": "A plush doll that looks vaguely like Waluigi, but the nose is wrong. Squeaks when hugged.",
-    "category": "curiosities",
-    "price": 5000,
-    "icon": "💜",
-    "stock": 15,
-    "rarity": "common",
-    "effects": [
-      "Squeaks loudly",
-      "May annoy Wario"
-    ],
-    "vendor": "wario_direct",
-    "shippedBy": "Purple Box",
-    "levelRequirement": 1
   },
   "a_poorly_stitched_doll_that_1": {
     "id": "a_poorly_stitched_doll_that_1",
@@ -1654,64 +1052,6 @@ export const ITEMS_001 = {
       "diplomacy": 5
     }
   },
-  "a_pulsating_amulet_that_channels": {
-    "id": "a_pulsating_amulet_that_channels",
-    "name": "Void Touched Amulet",
-    "description": "A pulsating amulet that channels the essence of forgotten dimensions",
-    "price": 15000,
-    "icon": "🌀",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Grants +3 to perception checks against eldritch horrors",
-      "Allows the wearer to see through the veil between dimensions",
-      "Causes 1d6 temporary blindness after 10 minutes of use",
-      "Can teleport wearer to any known location within 1000 feet",
-      "Requires attunement by a scholar or void-wanderer",
-      "Crafted by: Remi Coil’s Dimensional Workshop"
-    ],
-    "vendor": "shadowfell",
-    "shippedBy": "Cheep Cheep Shipping",
-    "levelRequirement": 7
-  },
-  "a_pulsating_obsidian_pendant_that": {
-    "id": "a_pulsating_obsidian_pendant_that",
-    "name": "Void Touched Amulet",
-    "description": "A pulsating obsidian pendant that pulses with the heartbeat of the Liminal void. Worn near the edge of reality, it grants glimpses of alternate dimensions—though each glimpse risks collapsing the wearer’s perception. The amulet is said to have been stolen from the ruins of an ancient Onyx Hand stronghold, and now it hums with suppressed power.",
-    "category": "equipment",
-    "price": 6000,
-    "icon": "🌀",
-    "stock": 2,
-    "rarity": "epic",
-    "effects": [
-      "1d6 chance to see a hidden passage or secret door",
-      "Each use risks temporary disorientation for 1d4 rounds",
-      "Reduces fall damage by 50% when worn in the void",
-      "Crafted by: Changeling Hive",
-      "Only usable near the Doughnut Edge"
-    ],
-    "vendor": "almost_edge",
-    "shippedBy": "Goomba Ground Delivery",
-    "levelRequirement": 7
-  },
-  "a_pulsating_seed_pod_with_1": {
-    "id": "a_pulsating_seed_pod_with_1",
-    "name": "Fire Flower Core",
-    "description": "A pulsating seed pod with explosive mutations",
-    "price": 3000,
-    "icon": "🌱",
-    "stock": 2,
-    "rarity": "rare",
-    "effects": [
-      "Triggers explosive mutations on nearby enemies",
-      "Grants temporary fire resistance for 3 turns",
-      "Causes uncontrollable giggling in users",
-      "Made by: Peach Loyalists"
-    ],
-    "vendor": "dreamland",
-    "shippedBy": "Hammer Bros Handling",
-    "levelRequirement": 7
-  },
   "a_pulsing_molten_core_encased_1": {
     "id": "a_pulsing_molten_core_encased_1",
     "name": "Forgeheart Core",
@@ -1729,24 +1069,6 @@ export const ITEMS_001 = {
     "vendor": "midlands",
     "shippedBy": "Boo Spectral Mail",
     "levelRequirement": 6
-  },
-  "a_pulsing_obsidian_heart_that_1": {
-    "id": "a_pulsing_obsidian_heart_that_1",
-    "name": "Necrotic Heart Pendant",
-    "description": "A pulsing, obsidian heart that pulses with the life force of the dead. When worn, it grants the wearer a steady stream of necrotic energy to fuel powerful rituals or summoning spells.",
-    "category": "equipment",
-    "price": 2500,
-    "icon": "🔮",
-    "stock": 3,
-    "rarity": "rare",
-    "effects": [
-      "Regenerates 1 necrotic charge per 20 seconds",
-      "Increases necromancy casting speed by 15%",
-      "Grants 5% damage reduction against undead foes"
-    ],
-    "vendor": "fractured_atrium",
-    "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
   },
   "a_rare_fungus_radiating_powerful_1": {
     "id": "a_rare_fungus_radiating_powerful_1",
@@ -1785,27 +1107,6 @@ export const ITEMS_001 = {
     "shippedBy": "Lakitu Drones",
     "levelRequirement": 5
   },
-  "a_relic_from_the_abyssal": {
-    "id": "a_relic_from_the_abyssal",
-    "name": "Void Touched Amulet",
-    "description": "A relic from the abyssal void that whispers forgotten truths",
-    "category": "equipment",
-    "price": 6000,
-    "icon": "🌑",
-    "stock": 1,
-    "rarity": "epic",
-    "effects": [
-      "Grants 1d6 extra damage to psychic attacks",
-      "Reveals hidden paths in the void for 1 round",
-      "Suffers 1d6 psychic damage when used in daylight",
-      "Increases void proximity bonus by 50%",
-      "Requires attunement by a psychic mage",
-      "Crafted by: Gehenna Academy"
-    ],
-    "vendor": "doughnut_hole",
-    "shippedBy": "Pipe Express",
-    "levelRequirement": 8
-  },
   "a_relic_from_the_blocked": {
     "id": "a_relic_from_the_blocked",
     "name": "Star Road Key",
@@ -1825,25 +1126,6 @@ export const ITEMS_001 = {
     "vendor": "internet",
     "shippedBy": "Kremling Smuggle Run",
     "levelRequirement": 10
-  },
-  "a_relic_from_the_collapsing": {
-    "id": "a_relic_from_the_collapsing",
-    "name": "Pipe Network Key",
-    "description": "A relic from the collapsing Pipe Network, this key unlocks hidden tunnels beneath the Beanbean Kingdom’s underbelly. Once used by smugglers to bypass Kivotos’s bureaucracy, it now glows when proximity to illegal trade routes is detected. Handle with care—its vibrations may cause nearby pipes to collapse.",
-    "price": 1200,
-    "icon": "🚧",
-    "stock": 1,
-    "rarity": "uncommon",
-    "effects": [
-      "Opens secret tunnels within 500 meters",
-      "Causes minor structural tremors on use",
-      "Detects smuggler routes via vibration resonance",
-      "Worn by: Bob-omb Rush Delivery",
-      "Requires 20 seconds cooldown after use"
-    ],
-    "vendor": "beanbean",
-    "shippedBy": "Bob-omb Rush Delivery",
-    "levelRequirement": 3
   },
   "a_relic_from_the_depths_1": {
     "id": "a_relic_from_the_depths_1",
@@ -1866,26 +1148,6 @@ export const ITEMS_001 = {
     "vendor": "kivotos",
     "shippedBy": "Shy Guy Smugglers",
     "levelRequirement": 8
-  },
-  "a_relic_from_the_drowned": {
-    "id": "a_relic_from_the_drowned",
-    "name": "Void Touched Amulet",
-    "description": "A relic from the drowned city of Eternia, this amulet pulses with the remnants of forgotten gods and the echoes of lost wars. It was stolen from a Skaven temple during the ink-jamming siege, and now it whispers secrets to those who dare wear it — or suffer its curse.",
-    "price": 15000,
-    "icon": "🌑",
-    "stock": 1,
-    "rarity": "legendary",
-    "effects": [
-      "Grants +3 to all rolls involving fate or prophecy",
-      "May summon a vision of a past battle or future war",
-      "50% chance to trigger a temporal distortion — user is temporarily confused or transported",
-      "Cannot be worn by non-magic users",
-      "Draws attention from all nearby creatures — both allies and enemies",
-      "Wears the mark of the Void — if worn for more than 3 days, the user becomes cursed to speak in riddles or dream in blood"
-    ],
-    "vendor": "warhammer",
-    "shippedBy": "Koopa Postal",
-    "levelRequirement": 7
   },
   "a_relic_from_the_time": {
     "id": "a_relic_from_the_time",

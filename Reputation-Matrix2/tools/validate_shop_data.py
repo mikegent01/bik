@@ -49,11 +49,19 @@ def main() -> int:
     invalid = [{"source": str(source), "id": item.get("id"), "errors": validate(item)} for source, item in records if validate(item)]
     groups: list[list[tuple[Path, dict[str, Any]]]] = []
     by_id: dict[str, list[tuple[Path, dict[str, Any]]]] = defaultdict(list)
-    for record in records: by_id[norm(record[1].get("id"))].append(record)
+    by_name: dict[str, list[tuple[Path, dict[str, Any]]]] = defaultdict(list)
+    for record in records:
+        by_id[norm(record[1].get("id"))].append(record)
+        by_name[norm(record[1].get("name"))].append(record)
     groups.extend(group for key, group in by_id.items() if key and len(group) > 1)
+    # Same display name is a duplicate even when an old generator gave it another ID.
+    seen = {tuple(sorted(item["_sourceKey"] for _, item in group)) for group in groups}
+    for key, group in by_name.items():
+        group_key = tuple(sorted(item["_sourceKey"] for _, item in group))
+        if key and len(group) > 1 and group_key not in seen:
+            groups.append(group); seen.add(group_key)
     # Avoid an O(n²) pass across thousands of records. Near-duplicates normally
     # share their opening prose, so compare only records in a normalized prefix bucket.
-    seen = {tuple(sorted(item["id"] for _, item in group)) for group in groups}
     description_buckets: dict[str, list[tuple[Path, dict[str, Any], str]]] = defaultdict(list)
     for source, item in records:
         description = norm(item.get("description"))
@@ -63,7 +71,7 @@ def main() -> int:
         for index, (left_source, left_item, left_description) in enumerate(bucket):
             for right_source, right_item, right_description in bucket[index + 1:]:
                 if SequenceMatcher(None, left_description, right_description).ratio() >= args.similarity:
-                    key = tuple(sorted((left_item["id"], right_item["id"])))
+                    key = tuple(sorted((left_item["_sourceKey"], right_item["_sourceKey"])))
                     if key not in seen:
                         groups.append([(left_source, left_item), (right_source, right_item)]); seen.add(key)
     duplicates = []
