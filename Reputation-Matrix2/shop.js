@@ -1484,6 +1484,24 @@ function getEffectDetail(item, index) {
     };
 }
 
+function renderInlineEffectRules(item) {
+    const effects = item.effects || [];
+    if (!effects.length) return '';
+    const usage = item.usage;
+    return `
+        <section class="inline-effect-rules" aria-label="Full effect rules">
+            <div class="inline-effect-rules-heading">📖 WHAT THESE EFFECTS DO</div>
+            ${effects.map((_, index) => {
+                const detail = getEffectDetail(item, index);
+                return `<article class="inline-effect-rule">
+                    <strong>${escapeShopHtml(detail.title)}</strong>
+                    <p>${escapeShopHtml(detail.rules)}</p>
+                </article>`;
+            }).join('')}
+            ${usage ? `<div class="inline-effect-usage"><strong>Use:</strong> ${escapeShopHtml(usage.activation)} · <strong>Duration:</strong> ${escapeShopHtml(usage.duration)} · <strong>Ends:</strong> ${escapeShopHtml(usage.endsWhen)} · <strong>Charges:</strong> ${escapeShopHtml(usage.charges)}</div>` : ''}
+        </section>`;
+}
+
 function openEffectDetails(itemId, index) {
     const item = getShopItemById(itemId);
     if (!item) return;
@@ -1987,6 +2005,7 @@ ${isWarioScam(item) ? (() => {
                     </button>
                 `).join('')}
             </div>
+            ${renderInlineEffectRules(item)}
             
             ${item.warning ? `<div class="item-warning">⚠️ ${item.warning}</div>` : ''}
             

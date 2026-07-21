@@ -23,10 +23,28 @@
     panel.append(close, heading); if (itemName) panel.append(item); panel.append(rules, usage); overlay.append(panel); document.body.append(overlay);
     close.focus(); overlay.addEventListener('click', e => { if (e.target === overlay || e.target === close) overlay.remove(); });
   };
-  const decorate = () => document.querySelectorAll('.effect-tag:not([data-live-effect])').forEach(tag => {
-    tag.dataset.liveEffect = 'true'; tag.tabIndex = 0; tag.setAttribute('role', 'button'); tag.setAttribute('title', 'Click for rule details');
-    const show = () => open(tag.textContent.trim(), tag.closest('[role="dialog"]')?.querySelector('h2')?.textContent);
-    tag.addEventListener('click', show); tag.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); } });
-  });
+  const decorate = () => {
+    document.querySelectorAll('.effect-tag:not([data-live-effect])').forEach(tag => {
+      tag.dataset.liveEffect = 'true'; tag.tabIndex = 0; tag.setAttribute('role', 'button'); tag.setAttribute('title', 'Click for a focused rules view');
+      const show = () => open(tag.textContent.trim(), tag.closest('[role="dialog"]')?.querySelector('h2')?.textContent);
+      tag.addEventListener('click', show); tag.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); } });
+    });
+    // The bundled page originally hid all rules behind chips. Show a readable
+    // explanation directly beneath every current item’s effects as well.
+    document.querySelectorAll('.effect-tag[data-live-effect]').forEach(tag => {
+      const group = tag.parentElement;
+      if (!group || group.dataset.inlineRules) return;
+      group.dataset.inlineRules = 'true';
+      const rules = document.createElement('div'); rules.className = 'live-inline-rules';
+      const title = document.createElement('div'); title.className = 'live-inline-heading'; title.textContent = '📖 WHAT THESE EFFECTS DO'; rules.append(title);
+      [...group.querySelectorAll('.effect-tag')].forEach(chip => {
+        const row = document.createElement('div'); row.className = 'live-inline-rule';
+        const label = document.createElement('strong'); label.textContent = chip.textContent.trim();
+        const explanation = document.createElement('span'); explanation.textContent = rulesFor(chip.textContent.trim());
+        row.append(label, explanation); rules.append(row);
+      });
+      group.insertAdjacentElement('afterend', rules);
+    });
+  };
   new MutationObserver(decorate).observe(document.documentElement, { childList: true, subtree: true }); decorate();
 })();
