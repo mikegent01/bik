@@ -1,36 +1,42 @@
 # Wario Shop enrichment pass
 
-`enrich_shop_items.py` is a resumable, local-first pipeline for giving every shop item an original description, short effects, clickable 5e-inspired rules text, and a reviewed XP price.
+`enrich_shop_items.py` uses a local LM Studio model to give every shop item an original description, balanced XP price, concise visible effects, and clickable 5e-inspired homebrew rules text.
 
-## Before starting
+## Desktop GUI (recommended)
 
-1. In **LM Studio**, load an instruction model and start the **OpenAI-compatible local server**.
-2. From `Reputation-Matrix2`, run a small test first:
+Start LM Studio's **OpenAI-compatible local server**, then double-click the Python file or run:
 
 ```bash
-python tools/enrich_shop_items.py --dry-run --limit 3
+python tools/enrich_shop_items.py --gui
+```
+
+The GUI lets you set the endpoint/model, limit an initial test, or target one `items_###.js` chunk. It shows a live summary of every changed item: old → new XP price, new description, pricing reason, and all generated effect rules. Select a row to inspect the full before/after description and rules.
+
+**Default behavior writes data.** After every valid model reply, the tool atomically saves a JSON checkpoint and overwrites only that source item chunk. It is designed for an overnight job: if the server or computer stops, start it again and completed items are skipped. Use **Review-only** only when you want JSON previews first; restart normally to write those saved results into source files.
+
+## Command line
+
+```bash
+# Normal, resumable in-place run (all unfinished items)
+python tools/enrich_shop_items.py
+
+# Safe small test that writes only three successful items
 python tools/enrich_shop_items.py --limit 3
+
+# Preview/checkpoint results without changing source modules
+python tools/enrich_shop_items.py --review-only --limit 5
+
+# Resume one chunk, e.g. the Doughnut Hole data
+python tools/enrich_shop_items.py --chunk items_052.js
 ```
 
-The default endpoint is `http://127.0.0.1:1234/v1/chat/completions`. Override it with `--endpoint` or `LM_STUDIO_URL`; use `--model` / `LM_STUDIO_MODEL` if your server requires a model name.
+Default endpoint: `http://127.0.0.1:1234/v1/chat/completions`. Override it with `--endpoint` or `LM_STUDIO_URL`; set `--model` / `LM_STUDIO_MODEL` if the server needs a model name.
 
-## Overnight workflow
+## Data and safeguards
 
-```bash
-# One request per item. Results are checkpointed after every successful request.
-python tools/enrich_shop_items.py --delay 0.25
-
-# Inspect the JSON work shards, then make the accepted edits live.
-python tools/enrich_shop_items.py --apply
-npm run build
-```
-
-Work lives in `tools/.shop-enrichment/items_###.json` and is gitignored. If the server or computer stops, run the same command again: processed item IDs are skipped. To work on one source shard, use `--chunk items_052.js`.
-
-## Guardrails
-
-- The source stays split in the existing `shop-items/items_###.js` modules; no giant shop file is created.
-- Each work shard is JSON, so it is easy to inspect, edit, archive, or hand off.
-- The script only applies generated records when explicitly given `--apply`.
-- It preserves each item's ID, category, vendor, stock, level requirement, and other non-editorial fields. It validates the response shape and sensible XP bounds before checkpointing it.
-- The rules language is **5e-inspired homebrew**, not a claim of official D&D 5e rules.
+- The source remains split into `shop-items/items_###.js`; no huge shop-data file is created.
+- Each source chunk has its own gitignored JSON checkpoint in `tools/.shop-enrichment/`, allowing inspection and recovery.
+- Checkpoint and source writes use temporary files plus atomic replacement to avoid corrupting an item chunk on interruption.
+- Duplicate IDs are handled using each module's original source key, so one record cannot overwrite another by accident.
+- The tool validates the model response before saving: exact response fields, 2–4 short effects, matching rule-detail entries, non-empty text, and a sane whole-XP range.
+- Rules are **5e-inspired homebrew**, not official D&D 5e material.

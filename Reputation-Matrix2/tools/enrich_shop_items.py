@@ -1,35 +1,32 @@
 #!/usr/bin/env python3
-"""Enrich Wario's shop with a local LM Studio model, safely and resumably.
+"""Enrich and rebalance Wario's split shop data with a local LM Studio model.
 
-The shop source is deliberately split into items_###.js modules.  This tool uses
-Node to read those ES modules, saves one JSON work shard per source module, and
-asks an OpenAI-compatible LM Studio server to improve one item at a time.  Each
-accepted response is written back to its original JS module, so shop-data.js
-continues to import the exact same files.
+Double-click this file for a Tk GUI, or run it from Reputation-Matrix2:
+  python tools/enrich_shop_items.py --gui
+  python tools/enrich_shop_items.py --limit 20              # writes as it goes
+  python tools/enrich_shop_items.py --review-only --limit 5 # JSON only; no source edits
 
-Run from Reputation-Matrix2:
-  python tools/enrich_shop_items.py --dry-run --limit 3
-  python tools/enrich_shop_items.py --limit 25
-  python tools/enrich_shop_items.py --apply
-
-Start LM Studio's local server first (default: http://127.0.0.1:1234/v1).
-Work shards/checkpoints are intentionally ignored by git and make an overnight
-run resumable. Review with --apply only after checking the generated shards.
+The default is intentionally an in-place pass: every validated result is saved
+into its JSON checkpoint AND written to its own items_###.js source chunk. This
+makes overnight work crash-safe and means a completed item is live immediately.
 """
 from __future__ import annotations
 
 import argparse
 import json
 import os
+import queue
 import re
 import subprocess
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 ROOT = Path(__file__).resolve().parents[1]
 ITEMS_DIR = ROOT / "shop-items"
@@ -51,11 +48,21 @@ Your JSON must have exactly:
 """
 
 
+@dataclass
+class Settings:
+    endpoint: str = DEFAULT_ENDPOINT
+    model: str | None = None
+    limit: int = 0
+    delay: float = 0.15
+    timeout: int = 180
+    review_only: bool = False
+    chunk: str | None = None
+
+
 def run_node_export(source: Path) -> list[dict[str, Any]]:
-    """Import a chunk as an ES module instead of trying to parse JavaScript in Python."""
-    module_url = source.resolve().as_uri()
+    """Read an ES module with Node; never try to parse JavaScript with regex."""
     code = f"""
-const mod = await import({json.dumps(module_url)});
+const mod = await import({json.dumps(source.resolve().as_uri())});
 const value = Object.values(mod).find(v => v && typeof v === 'object' && !Array.isArray(v));
 console.log(JSON.stringify(Object.entries(value || {{}}).map(([sourceKey, item]) => ({{ ...item, _sourceKey: sourceKey }}))));
 """
@@ -64,25 +71,50 @@ console.log(JSON.stringify(Object.entries(value || {{}}).map(([sourceKey, item])
     return json.loads(result.stdout)
 
 
-def call_lm_studio(endpoint: str, model: str | None, item: dict[str, Any], timeout: int) -> dict[str, Any]:
-    payload = {
+def load_shard(source: Path) -> tuple[Path, dict[str, Any]]:
+    WORK_DIR.mkdir(parents=True, exist_ok=True)
+    path = WORK_DIR / f"{source.stem}.json"
+    if path.exists():
+        try:
+            shard = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(shard.get("items"), list) and isinstance(shard.get("results"), dict):
+                return path, shard
+        except (OSError, json.JSONDecodeError):
+            # Preserve bad evidence rather than silently discarding a night's work.
+            path.replace(path.with_suffix(f".corrupt-{int(time.time())}.json"))
+    shard = {"source": str(source.relative_to(ROOT)), "items": run_node_export(source), "results": {}}
+    save_shard(path, shard)
+    return path, shard
+
+
+def save_shard(path: Path, shard: dict[str, Any]) -> None:
+    temporary = path.with_suffix(".tmp")
+    temporary.write_text(json.dumps(shard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(path)  # atomic checkpoint on the local filesystem
+
+
+def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
+    editable = {key: value for key, value in item.items() if key not in {"_sourceKey", "priceOriginal", "priceReviewedAt", "priceReason", "effectDetails"}}
+    payload: dict[str, Any] = {
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": "Improve and balance this item:\n" + json.dumps(item, ensure_ascii=False)},
+            {"role": "user", "content": "Improve and balance this item:\n" + json.dumps(editable, ensure_ascii=False)},
         ],
         "temperature": 0.55,
         "response_format": {"type": "json_object"},
     }
-    if model:
-        payload["model"] = model
-    request = urllib.request.Request(endpoint, data=json.dumps(payload).encode(),
+    if settings.model:
+        payload["model"] = settings.model
+    request = urllib.request.Request(settings.endpoint, data=json.dumps(payload).encode(),
                                      headers={"Content-Type": "application/json"}, method="POST")
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        data = json.loads(response.read())
-    content = data["choices"][0]["message"]["content"]
-    if isinstance(content, str):
-        return json.loads(content.removeprefix("```json").removesuffix("```").strip())
-    return content
+    with urllib.request.urlopen(request, timeout=settings.timeout) as response:
+        response_data = json.loads(response.read())
+    content = response_data["choices"][0]["message"]["content"]
+    if not isinstance(content, str):
+        raise ValueError("LM Studio returned a non-text response")
+    # Some models still wrap JSON in a markdown fence despite response_format.
+    content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content.strip(), flags=re.IGNORECASE)
+    return json.loads(content)
 
 
 def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]:
@@ -91,102 +123,217 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
         raise ValueError(f"Expected exactly {sorted(required)}; got {sorted(answer)}")
     if not isinstance(answer["description"], str) or not answer["description"].strip():
         raise ValueError("description must be a non-empty string")
+    if len(answer["description"]) > 900:
+        raise ValueError("description is too long")
     if not isinstance(answer["effects"], list) or not 2 <= len(answer["effects"]) <= 4:
         raise ValueError("effects must contain 2-4 entries")
     if not isinstance(answer["effectDetails"], list) or len(answer["effectDetails"]) != len(answer["effects"]):
         raise ValueError("effectDetails must match effects")
-    if not isinstance(answer["price"], int) or not 25 <= answer["price"] <= 10_000_000:
+    if not isinstance(answer["price"], int) or isinstance(answer["price"], bool) or not 25 <= answer["price"] <= 10_000_000:
         raise ValueError("price must be a reasonable whole XP amount")
-    if not all(isinstance(effect, str) and effect.strip() for effect in answer["effects"]):
-        raise ValueError("every effect must be a non-empty string")
+    if not isinstance(answer["priceReason"], str) or not answer["priceReason"].strip():
+        raise ValueError("priceReason must be non-empty")
+    if not all(isinstance(effect, str) and effect.strip() and len(effect) <= 160 for effect in answer["effects"]):
+        raise ValueError("each effect must be a short non-empty string")
     for detail in answer["effectDetails"]:
-        if not isinstance(detail, dict) or set(detail) != {"title", "rules"}:
-            raise ValueError("each effect detail needs exactly title and rules")
-    # Preserve identity and all fields the model was not invited to alter.
-    return {**original, **answer, "priceOriginal": original.get("price"), "priceReviewedAt": datetime.now(timezone.utc).isoformat()}
-
-
-def js(value: Any) -> str:
-    """JSON is valid JavaScript for this data shape; preserve readable modules."""
-    return json.dumps(value, ensure_ascii=False, indent=2) + ";\n"
+        if not isinstance(detail, dict) or set(detail) != {"title", "rules"} or not all(isinstance(value, str) and value.strip() for value in detail.values()):
+            raise ValueError("each effect detail needs non-empty title and rules")
+    return {**original, **answer, "priceOriginal": original.get("priceOriginal", original.get("price")),
+            "priceReviewedAt": datetime.now(timezone.utc).isoformat()}
 
 
 def write_chunk(source: Path, items: list[dict[str, Any]]) -> None:
     export = re.search(r"export const (ITEMS_\d+)\s*=", source.read_text(encoding="utf-8"))
     if not export:
         raise ValueError(f"Cannot find item export in {source}")
+    # _sourceKey prevents duplicate item IDs from overwriting one another.
     mapping = {
         item.get("_sourceKey", item.get("id", f"item_{index}")): {key: value for key, value in item.items() if key != "_sourceKey"}
         for index, item in enumerate(items)
     }
-    # categories.js is still the shared source of category constants.
-    source.write_text(
-        f"// Shop items enriched by tools/enrich_shop_items.py\n"
-        f"import {{ SHOP_CATEGORIES }} from './categories.js';\n\n"
-        f"export const {export.group(1)} = " + js(mapping), encoding="utf-8"
-    )
+    content = ("// Shop items enriched by tools/enrich_shop_items.py\n"
+               "import { SHOP_CATEGORIES } from './categories.js';\n\n"
+               f"export const {export.group(1)} = " + json.dumps(mapping, ensure_ascii=False, indent=2) + ";\n")
+    temporary = source.with_suffix(".tmp")
+    temporary.write_text(content, encoding="utf-8")
+    temporary.replace(source)
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--endpoint", default=os.getenv("LM_STUDIO_URL", DEFAULT_ENDPOINT))
-    parser.add_argument("--model", default=os.getenv("LM_STUDIO_MODEL"))
-    parser.add_argument("--limit", type=int, default=0, help="Maximum unfinished items (0 = all)")
-    parser.add_argument("--delay", type=float, default=0.15, help="Seconds between requests")
-    parser.add_argument("--timeout", type=int, default=180)
-    parser.add_argument("--dry-run", action="store_true", help="Create/review JSON shards without changing JS")
-    parser.add_argument("--apply", action="store_true", help="Apply already-generated JSON shard results to JS")
-    parser.add_argument("--chunk", help="Only process a chunk, e.g. items_052.js")
-    args = parser.parse_args()
-    if args.dry_run and args.apply:
-        parser.error("--dry-run and --apply cannot be used together")
-
-    WORK_DIR.mkdir(parents=True, exist_ok=True)
-    sources = [ITEMS_DIR / args.chunk] if args.chunk else sorted(ITEMS_DIR.glob("items_[0-9][0-9][0-9].js"))
+def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], None], stop: threading.Event | None = None) -> int:
+    sources = [ITEMS_DIR / settings.chunk] if settings.chunk else sorted(ITEMS_DIR.glob("items_[0-9][0-9][0-9].js"))
+    if not sources:
+        raise FileNotFoundError("No split items_###.js files found")
     completed = 0
     for source in sources:
         if not source.exists():
-            parser.error(f"No such shop chunk: {source}")
-        shard_path = WORK_DIR / f"{source.stem}.json"
-        shard: dict[str, Any]
-        if shard_path.exists():
-            shard = json.loads(shard_path.read_text(encoding="utf-8"))
-        else:
-            shard = {"source": str(source.relative_to(ROOT)), "items": run_node_export(source), "results": {}}
-            shard_path.write_text(json.dumps(shard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
-        if args.apply:
-            updated = [shard["results"].get(item.get("_sourceKey", item["id"]), item) for item in shard["items"]]
-            if not shard["results"]:
-                print(f"skip {source.name}: no generated results")
-            else:
-                write_chunk(source, updated)
-                print(f"applied {len(shard['results'])} items to {source.name}")
-            continue
-
+            raise FileNotFoundError(f"No such shop chunk: {source}")
+        shard_path, shard = load_shard(source)
+        # A prior review-only run can be made live simply by resuming normally.
+        if not settings.review_only and shard["results"]:
+            write_chunk(source, [shard["results"].get(record.get("_sourceKey", record["id"]), record) for record in shard["items"]])
+        changed_in_chunk = False
         for item in shard["items"]:
+            if stop and stop.is_set():
+                notify("Stopped. Checkpoints and any completed source edits were retained.", None)
+                return completed
             result_key = item.get("_sourceKey", item["id"])
             if result_key in shard["results"]:
                 continue
-            if args.limit and completed >= args.limit:
-                print(f"limit reached; resume with the same command")
-                return 0
-            print(f"[{completed + 1}] {source.name}: {item['name']}", flush=True)
-            if args.dry_run:
-                completed += 1
-                continue
+            if settings.limit and completed >= settings.limit:
+                notify("Limit reached; run again to resume.", None)
+                return completed
+            notify(f"[{completed + 1}] {source.name}: {item['name']}", None)
             try:
-                enriched = validate(item, call_lm_studio(args.endpoint, args.model, item, args.timeout))
-            except (ValueError, KeyError, urllib.error.URLError, TimeoutError) as error:
-                print(f"  ERROR: {error}", file=sys.stderr)
-                return 2
+                enriched = validate(item, call_lm_studio(settings, item))
+            except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError) as error:
+                notify(f"ERROR on {item['name']}: {error}. Nothing was written for this item.", None)
+                return completed
             shard["results"][result_key] = enriched
-            shard_path.write_text(json.dumps(shard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            save_shard(shard_path, shard)
             completed += 1
-            time.sleep(args.delay)
-    print("Done. Inspect tools/.shop-enrichment JSON shards, then run with --apply.")
-    return 0
+            changed_in_chunk = True
+            notify("Saved checkpoint" + (" and source data." if not settings.review_only else " (review-only; source unchanged)."),
+                   {"item": item, "updated": enriched})
+            if not settings.review_only:
+                updated_items = [shard["results"].get(record.get("_sourceKey", record["id"]), record) for record in shard["items"]]
+                write_chunk(source, updated_items)
+            if settings.delay:
+                time.sleep(settings.delay)
+        if changed_in_chunk and not settings.review_only:
+            notify(f"Finished and wrote {source.name}", None)
+    notify("Done. All requested items were checkpointed." + (" Source files were updated." if not settings.review_only else " Review JSON shards before writing."), None)
+    return completed
+
+
+def cli() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--gui", action="store_true", help="Open the desktop control panel")
+    parser.add_argument("--endpoint", default=os.getenv("LM_STUDIO_URL", DEFAULT_ENDPOINT))
+    parser.add_argument("--model", default=os.getenv("LM_STUDIO_MODEL"))
+    parser.add_argument("--limit", type=int, default=0, help="Maximum unfinished items (0 = all)")
+    parser.add_argument("--delay", type=float, default=.15)
+    parser.add_argument("--timeout", type=int, default=180)
+    parser.add_argument("--review-only", action="store_true", help="Save JSON checkpoints but do not overwrite source modules")
+    parser.add_argument("--chunk", help="One chunk, such as items_052.js")
+    args = parser.parse_args()
+    if args.gui:
+        launch_gui()
+        return 0
+    settings = Settings(**{key: value for key, value in vars(args).items() if key != "gui"})
+    return 0 if process(settings, lambda text, _: print(text, flush=True)) >= 0 else 1
+
+
+class ShopEnrichmentApp:
+    def __init__(self) -> None:
+        import tkinter as tk
+        from tkinter import ttk
+        self.tk, self.ttk = tk, ttk
+        self.root = tk.Tk()
+        self.root.title("Wario Shop — LM Studio Enrichment")
+        self.root.minsize(900, 650)
+        self.events: queue.Queue[tuple[str, dict[str, Any] | None]] = queue.Queue()
+        self.worker: threading.Thread | None = None
+        self.stop = threading.Event()
+        self.records: dict[str, dict[str, Any]] = {}
+        self.endpoint = tk.StringVar(value=os.getenv("LM_STUDIO_URL", DEFAULT_ENDPOINT))
+        self.model = tk.StringVar(value=os.getenv("LM_STUDIO_MODEL", ""))
+        self.limit = tk.StringVar(value="0")
+        self.delay = tk.StringVar(value="0.15")
+        self.chunk = tk.StringVar(value="")
+        self.review_only = tk.BooleanVar(value=False)
+        self.status = tk.StringVar(value="Ready. Default mode writes each validated item directly to its source chunk.")
+        self.build()
+        self.root.after(100, self.poll)
+
+    def build(self) -> None:
+        ttk, tk = self.ttk, self.tk
+        form = ttk.LabelFrame(self.root, text="LM Studio connection and run settings", padding=10)
+        form.pack(fill="x", padx=12, pady=10)
+        fields = [("Endpoint", self.endpoint), ("Model (optional)", self.model), ("Limit (0 = all)", self.limit), ("Delay seconds", self.delay), ("Only chunk (optional)", self.chunk)]
+        for row, (label, variable) in enumerate(fields):
+            ttk.Label(form, text=label).grid(row=row // 2, column=(row % 2) * 2, sticky="w", padx=(0, 6), pady=3)
+            ttk.Entry(form, textvariable=variable, width=48 if row < 2 else 20).grid(row=row // 2, column=(row % 2) * 2 + 1, sticky="ew", padx=(0, 14), pady=3)
+        ttk.Checkbutton(form, text="Review-only (keep results in JSON; do not overwrite item modules)", variable=self.review_only).grid(row=3, column=0, columnspan=4, sticky="w", pady=(7, 0))
+        actions = ttk.Frame(self.root)
+        actions.pack(fill="x", padx=12)
+        self.start_button = ttk.Button(actions, text="Start / Resume Enrichment", command=self.start)
+        self.start_button.pack(side="left")
+        ttk.Button(actions, text="Stop after current request", command=self.stop.set).pack(side="left", padx=8)
+        ttk.Label(actions, textvariable=self.status, wraplength=650).pack(side="left", padx=10)
+        summary = ttk.LabelFrame(self.root, text="Modified price and description summary (this session)", padding=8)
+        summary.pack(fill="both", expand=True, padx=12, pady=10)
+        self.tree = ttk.Treeview(summary, columns=("name", "price", "description"), show="headings", height=12)
+        for column, heading, width in (("name", "Item", 210), ("price", "XP price change", 145), ("description", "New description", 480)):
+            self.tree.heading(column, text=heading); self.tree.column(column, width=width, anchor="w")
+        self.tree.pack(fill="both", expand=True)
+        self.tree.bind("<<TreeviewSelect>>", self.show_selected)
+        self.details = tk.Text(self.root, height=10, wrap="word", state="disabled")
+        self.details.pack(fill="x", padx=12, pady=(0, 12))
+
+    def start(self) -> None:
+        try:
+            settings = Settings(endpoint=self.endpoint.get().strip(), model=self.model.get().strip() or None,
+                                limit=int(self.limit.get() or 0), delay=float(self.delay.get() or 0),
+                                review_only=self.review_only.get(), chunk=self.chunk.get().strip() or None)
+            if settings.limit < 0 or settings.delay < 0: raise ValueError
+        except ValueError:
+            self.status.set("Limit and delay must be zero or positive numbers.")
+            return
+        if self.worker and self.worker.is_alive():
+            self.status.set("A run is already active.")
+            return
+        self.stop.clear(); self.start_button.configure(state="disabled")
+        self.worker = threading.Thread(target=lambda: self.run_worker(settings), daemon=True)
+        self.worker.start()
+
+    def run_worker(self, settings: Settings) -> None:
+        try:
+            process(settings, lambda text, change: self.events.put((text, change)), self.stop)
+        except Exception as error:  # GUI must surface unexpected filesystem/Node errors too.
+            self.events.put((f"FATAL ERROR: {error}", None))
+        finally:
+            self.events.put(("__FINISHED__", None))
+
+    def poll(self) -> None:
+        try:
+            while True:
+                text, change = self.events.get_nowait()
+                if text == "__FINISHED__":
+                    self.start_button.configure(state="normal")
+                    continue
+                self.status.set(text)
+                if change: self.add_change(change)
+        except queue.Empty:
+            pass
+        self.root.after(100, self.poll)
+
+    def add_change(self, change: dict[str, Any]) -> None:
+        old, new = change["item"], change["updated"]
+        key = f"{new.get('_sourceKey', new['id'])}-{len(self.records)}"
+        self.records[key] = change
+        price = f"{old.get('price', 0):,} → {new['price']:,} XP"
+        description = new["description"].replace("\n", " ")[:180]
+        self.tree.insert("", "end", iid=key, values=(new["name"], price, description))
+
+    def show_selected(self, _: Any) -> None:
+        selected = self.tree.selection()
+        if not selected: return
+        old, new = self.records[selected[0]]["item"], self.records[selected[0]]["updated"]
+        text = (f"{new['name']}\n\nPRICE: {old.get('price', 0):,} XP → {new['price']:,} XP\n"
+                f"WHY: {new['priceReason']}\n\nOLD DESCRIPTION:\n{old.get('description', '')}\n\nNEW DESCRIPTION:\n{new['description']}\n\n"
+                + "\n\n".join(f"⚡ {detail['title']}\n{detail['rules']}" for detail in new["effectDetails"]))
+        self.details.configure(state="normal"); self.details.delete("1.0", "end"); self.details.insert("1.0", text); self.details.configure(state="disabled")
+
+    def run(self) -> None:
+        self.root.mainloop()
+
+
+def launch_gui() -> None:
+    try:
+        ShopEnrichmentApp().run()
+    except ImportError as error:
+        raise SystemExit(f"Tkinter is required for --gui: {error}")
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(cli())
