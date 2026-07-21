@@ -28,6 +28,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
+# Avoid Windows' cp1252 console default breaking when an item name has emoji.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="backslashreplace")
+    except (AttributeError, OSError):
+        pass
+
 ROOT = Path(__file__).resolve().parents[1]
 ITEMS_DIR = ROOT / "shop-items"
 WORK_DIR = ROOT / "tools" / ".shop-enrichment"
@@ -66,9 +73,14 @@ const mod = await import({json.dumps(source.resolve().as_uri())});
 const value = Object.values(mod).find(v => v && typeof v === 'object' && !Array.isArray(v));
 console.log(JSON.stringify(Object.entries(value || {{}}).map(([sourceKey, item]) => ({{ ...item, _sourceKey: sourceKey }}))));
 """
+    # Do not use text=True here. Windows defaults it to cp1252, but the shop data
+    # and Node's JSON output are UTF-8 (emoji and some lore punctuation are common).
     result = subprocess.run(["node", "--input-type=module", "-e", code], cwd=ROOT,
-                            capture_output=True, text=True, check=True)
-    return json.loads(result.stdout)
+                            capture_output=True, text=False)
+    if result.returncode:
+        message = result.stderr.decode("utf-8", errors="replace").strip()
+        raise RuntimeError(f"Node could not read {source.name}: {message}")
+    return json.loads(result.stdout.decode("utf-8"))
 
 
 def load_shard(source: Path) -> tuple[Path, dict[str, Any]]:
