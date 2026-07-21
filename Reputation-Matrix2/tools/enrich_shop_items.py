@@ -219,10 +219,12 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
     sources = [ITEMS_DIR / settings.chunk] if settings.chunk else sorted(ITEMS_DIR.glob("items_[0-9][0-9][0-9].js"))
     if not sources:
         raise FileNotFoundError("No split items_###.js files found")
+    notify(f"Scanning {len(sources)} split item files ({sources[0].name} through {sources[-1].name}); review mode: {settings.review_mode}.", None)
     completed = 0
-    for source in sources:
+    for source_number, source in enumerate(sources, start=1):
         if not source.exists():
             raise FileNotFoundError(f"No such shop chunk: {source}")
+        notify(f"Opening chunk {source_number}/{len(sources)}: {source.name}", None)
         shard_path, shard = load_shard(source)
         # A prior review-only run can be made live simply by resuming normally.
         if not settings.review_only and shard["results"]:
