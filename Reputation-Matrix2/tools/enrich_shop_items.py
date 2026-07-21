@@ -161,7 +161,7 @@ def context_for_item(context_path: Path, item: dict[str, Any]) -> str:
     return "\n\nRelevant world JSON context (use only when it fits this item):\n" + json.dumps(selected, ensure_ascii=False)[:7500]
 
 
-def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
+def call_lm_studio(settings: Settings, item: dict[str, Any], feedback: str = "") -> dict[str, Any]:
     editable = {key: value for key, value in item.items() if key not in {"_sourceKey", "priceOriginal", "priceReviewedAt", "priceReason", "effectDetails"}}
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     context_path = WORK_DIR / "context" / "shop-world-context.json"
@@ -170,7 +170,8 @@ def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": "Improve and balance this item:\n" + json.dumps(editable, ensure_ascii=False)
-             + "\n\nFill in this exact JSON template; return JSON only:\n" + template + world_context}, 
+             + "\n\nFill in this exact JSON template; return JSON only:\n" + template + world_context
+             + ("\n\nRETRY FEEDBACK: The prior draft was rejected because " + feedback + ". Replace the failing section with concrete item-specific rules; return the complete corrected JSON object." if feedback else "")},
         ],
         "temperature": 0.55,
     }
@@ -246,7 +247,7 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
             raise ValueError("each effect detail needs non-empty title and rules")
         rules = detail["rules"].lower()
         if len(detail["rules"]) < 90 or any(phrase in rules for phrase in ("use the item exactly", "ask the dm", "as the card states")):
-            raise ValueError("effect rules are too generic; require item-specific table-ready details")
+            raise ValueError(f"effect rules for '{detail['title']}' are too generic; replace that section with item-specific table-ready details")
     reviewed_at = datetime.now(timezone.utc).isoformat()
     return {**original, **answer, "priceOriginal": original.get("priceOriginal", original.get("price")),
             "priceReviewedAt": reviewed_at, "aiReviewedAt": reviewed_at, "aiReviewVersion": 1}
@@ -321,15 +322,25 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
                 notify("Limit reached; run again to resume.", None)
                 return completed
             notify(f"[{completed + 1}] {source.name}: {current_item['name']}", None)
-            try:
-                enriched = validate(current_item, call_lm_studio(settings, current_item))
-            except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError, RuntimeError) as error:
-                # Keep a visible checkpointed failure, then continue the batch.
-                # A later run retries this item; one malformed model reply cannot
-                # strand the remaining 7,000+ records in the first chunk.
-                shard["failures"][result_key] = {"at": datetime.now(timezone.utc).isoformat(), "error": str(error)}
+            enriched = None
+            last_error: Exception | None = None
+            # Validation feedback is sent back to the model five times before an
+            # item is deferred. This makes it repair a weak effect section now,
+            # not merely leave it for a future batch.
+            for retry in range(1, 6):
+                try:
+                    candidate = call_lm_studio(settings, current_item, str(last_error or ""))
+                    enriched = validate(current_item, candidate)
+                    break
+                except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError, RuntimeError) as error:
+                    last_error = error
+                    if retry < 5:
+                        notify(f"  Retry {retry}/5 for {current_item['name']}: {error}", None)
+                        continue
+            if enriched is None:
+                shard["failures"][result_key] = {"at": datetime.now(timezone.utc).isoformat(), "error": str(last_error), "attempts": 5}
                 save_shard(shard_path, shard)
-                notify(f"ERROR on {current_item['name']}: {error}. Logged for retry; continuing to the next item.", None)
+                notify(f"ERROR on {current_item['name']}: failed after 5 targeted retries; continuing to the next item.", None)
                 continue
             shard["failures"].pop(result_key, None)
             shard["results"][result_key] = enriched
