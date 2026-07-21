@@ -17,21 +17,40 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "tools" / ".shop-enrichment" / "context" / "shop-world-context.json"
-CANDIDATES = (ROOT / "data" / "events.json", ROOT / "data" / "battles.json", ROOT / "data" / "currentDate.json")
+# These are the world-state JSON sources most useful for contextual shop stock.
+# Add a file with --include when a campaign introduces another relevant feed.
+CANDIDATES = (
+    ROOT / "data" / "events.json", ROOT / "data" / "battles.json",
+    ROOT / "data" / "currentDate.json", ROOT / "data" / "calendarHolidays.json",
+    ROOT / "data" / "calendarSeasons.json", ROOT / "data" / "calendarMonths.json",
+    ROOT / "data" / "locations.json", ROOT / "data" / "factions.json",
+    ROOT / "data" / "currencies.json", ROOT / "data" / "artifacts.json",
+)
 
 
 def compact(value: Any, limit: int = 40) -> list[dict[str, Any]]:
-    records = value if isinstance(value, list) else value.get("events", value.get("battles", [])) if isinstance(value, dict) else []
+    """Keep useful world facts while preventing a huge prompt for every item."""
+    if isinstance(value, list):
+        records = value
+    elif isinstance(value, dict):
+        # Calendar files use holidays/seasons/months; other datasets commonly use
+        # events/battles. A single object such as currentDate is useful as-is.
+        records = next((value[key] for key in ("events", "battles", "holidays", "seasons", "months", "locations", "factions", "artifacts") if isinstance(value.get(key), list)), [value])
+    else:
+        records = []
+    allowed = {"id", "name", "title", "description", "date", "day", "month", "year", "season", "status", "location", "factions", "outcome", "type", "icon", "currency", "value"}
     result = []
     for record in records[-limit:]:
         if isinstance(record, dict):
-            result.append({key: item for key, item in record.items() if key.lower() in {"id", "name", "title", "description", "date", "status", "location", "factions", "outcome"}})
+            result.append({key: item for key, item in record.items() if key.lower() in allowed})
+        elif isinstance(record, str):
+            result.append({"name": record})
     return result
 
 
-def generate() -> None:
-    data: dict[str, Any] = {"generatedAt": datetime.now(timezone.utc).isoformat(), "sources": {}}
-    for path in CANDIDATES:
+def generate(extra_files: list[Path] | None = None) -> None:
+    data: dict[str, Any] = {"generatedAt": datetime.now(timezone.utc).isoformat(), "sources": {}, "availableDataFiles": sorted(path.name for path in (ROOT / "data").glob("*.json"))}
+    for path in (*CANDIDATES, *(extra_files or [])):
         if not path.exists(): continue
         try:
             data["sources"][path.name] = compact(json.loads(path.read_text(encoding="utf-8")))
@@ -70,9 +89,11 @@ def main() -> None:
     parser.add_argument("--generate-items", action="store_true", help="Use LM Studio context to generate three live shop items each cycle")
     parser.add_argument("--endpoint", default="http://127.0.0.1:1234/v1/chat/completions")
     parser.add_argument("--model")
+    parser.add_argument("--include", action="append", default=[], metavar="JSON_FILE", help="Additional JSON file to summarize; can be used more than once")
     args = parser.parse_args()
+    extra_files = [Path(path).resolve() for path in args.include]
     while True:
-        generate()
+        generate(extra_files)
         if args.generate_items:
             try: generate_items(args.endpoint, args.model)
             except Exception as error: print(f"World-item generation failed: {error}")

@@ -132,13 +132,30 @@ def save_shard(path: Path, shard: dict[str, Any]) -> None:
     temporary.replace(path)  # atomic checkpoint on the local filesystem
 
 
+def context_for_item(context_path: Path, item: dict[str, Any]) -> str:
+    """Give the model the relevant event/holiday/location excerpts, not a blind data dump."""
+    if not context_path.exists():
+        return ""
+    try:
+        context = json.loads(context_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return ""
+    keywords = set(re.findall(r"[a-z]{4,}", f"{item.get('name', '')} {item.get('description', '')} {item.get('vendor', '')}".lower()))
+    selected: dict[str, Any] = {"generatedAt": context.get("generatedAt"), "current": {}}
+    for source_name, records in context.get("sources", {}).items():
+        serialized = json.dumps(records, ensure_ascii=False).lower()
+        # Date/holiday context is always useful; other data is included only when
+        # it mentions the item, vendor, region, or faction vocabulary.
+        if "calendar" in source_name.lower() or "currentdate" in source_name.lower() or any(word in serialized for word in keywords):
+            selected["current"][source_name] = records
+    return "\n\nRelevant world JSON context (use only when it fits this item):\n" + json.dumps(selected, ensure_ascii=False)[:7500]
+
+
 def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
     editable = {key: value for key, value in item.items() if key not in {"_sourceKey", "priceOriginal", "priceReviewedAt", "priceReason", "effectDetails"}}
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     context_path = WORK_DIR / "context" / "shop-world-context.json"
-    world_context = ""
-    if context_path.exists():
-        world_context = "\n\nOptional current world context; use only if clearly relevant:\n" + context_path.read_text(encoding="utf-8")[:6000]
+    world_context = context_for_item(context_path, item)
     payload: dict[str, Any] = {
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
