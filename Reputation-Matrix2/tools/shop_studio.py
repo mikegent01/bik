@@ -19,9 +19,8 @@ frame = ttk.Frame(root, padding=22); frame.pack(fill="both", expand=True)
 ttk.Label(frame, text="WARIO SHOP STUDIO", font=("Arial", 20, "bold")).pack(pady=(0, 8))
 ttk.Label(frame, text="Run a review, keep world context current, clean data, or inspect shop integrity.", wraplength=540).pack(pady=(0, 18))
 buttons = [
-    ("Review shop items", "AI descriptions, effects, rule details, prices, requirements, and timestamps.", lambda: launch("enrich_shop_items.py", "--gui")),
-    ("Build vendor database", "Review vendor descriptions, Wario comments, shipping, markup, and trust data.", lambda: launch("enrich_vendors.py")),
-    ("Start world-context watcher", "Continuously rebuild event/battle context for AI reviews.", lambda: launch("generate_shop_context.py", "--watch")),
+    ("Review shop data (items + vendors)", "Review item rules, prices, requirements, shipping, and the vendor database together.", lambda: launch("review_shop_data.py")),
+    ("Start world-item generator", "Watch events/battles and use LM Studio to create three current, live shop items each cycle.", lambda: launch("generate_shop_context.py", "--watch", "--generate-items")),
     ("Validate and report", "Check item JSON and write duplicate/integrity report.", lambda: launch("validate_shop_data.py")),
     ("Remove weaker duplicates", "Keep the more complete duplicate record (writes shop chunks).", lambda: launch("validate_shop_data.py", "--remove-worse")),
     ("Fix spaced object keys", "Remove leading spaces such as ' Pauline_mic' from source keys.", lambda: launch("normalize_shop_keys.py")),

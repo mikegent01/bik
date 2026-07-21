@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -43,13 +44,38 @@ def generate() -> None:
     print(f"Wrote {OUTPUT} ({len(data['sources'])} sources)")
 
 
+def generate_items(endpoint: str, model: str | None) -> None:
+    """Ask LM Studio for a small, current-event item drop and make it shop-live."""
+    context = OUTPUT.read_text(encoding="utf-8")
+    prompt = '''Return JSON only: {"items":[...]}. Create exactly 3 original, modest D&D-inspired shop items inspired by the supplied world events/battles. Each item needs id, name, description, category (one of consumables/equipment/curiosities/services/faction/forbidden/premium), price (integer), icon, stock (integer 1-10), rarity (common/uncommon/rare/epic), effects (2-3 short strings), vendor (existing plausible id), shippedBy, levelRequirement (integer), effectDetails (matching effects: title/rules), and usage (activation/duration/endsWhen/charges). Do not repeat a prior item or make plot-breaking rewards.'''
+    payload = {"messages": [{"role": "system", "content": prompt}, {"role": "user", "content": context[:8000]}], "temperature": .7}
+    if model: payload["model"] = model
+    request = urllib.request.Request(endpoint, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
+    with urllib.request.urlopen(request, timeout=180) as response:
+        content = json.loads(response.read())["choices"][0]["message"]["content"]
+    content = content.strip().removeprefix("```json").removesuffix("```").strip()
+    items = json.loads(content)["items"]
+    if not isinstance(items, list) or len(items) != 3: raise ValueError("LM Studio did not return exactly three items")
+    mapping = {f"world_{item['id']}": item for item in items}
+    target = ROOT / "shop-items" / "items_world_generated.js"
+    body = "// Generated from current world context; do not hand-edit.\nimport { SHOP_CATEGORIES } from './categories.js';\n\nexport const ITEMS_WORLD_GENERATED = " + json.dumps(mapping, ensure_ascii=False, indent=2) + ";\n"
+    temporary = target.with_suffix(".tmp"); temporary.write_text(body, encoding="utf-8"); temporary.replace(target)
+    print(f"Generated {len(items)} new world-context shop items in {target}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--watch", action="store_true", help="Regenerate forever")
     parser.add_argument("--interval", type=int, default=600, help="Seconds between watch updates")
+    parser.add_argument("--generate-items", action="store_true", help="Use LM Studio context to generate three live shop items each cycle")
+    parser.add_argument("--endpoint", default="http://127.0.0.1:1234/v1/chat/completions")
+    parser.add_argument("--model")
     args = parser.parse_args()
     while True:
         generate()
+        if args.generate_items:
+            try: generate_items(args.endpoint, args.model)
+            except Exception as error: print(f"World-item generation failed: {error}")
         if not args.watch: return
         time.sleep(max(args.interval, 10))
 

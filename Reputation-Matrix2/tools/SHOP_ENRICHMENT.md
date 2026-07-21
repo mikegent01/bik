@@ -10,7 +10,7 @@ For one starting window for all maintenance tasks, run:
 python tools/shop_studio.py
 ```
 
-It launches item review, vendor-database generation, event/battle context watching, validation, duplicate cleanup, and object-key normalization. Start LM Studio's **OpenAI-compatible local server** before launching either AI task.
+It launches a combined item-and-vendor review, a live event/battle world-item generator, validation, duplicate cleanup, and object-key normalization. Start LM Studio's **OpenAI-compatible local server** before launching either AI task.
 
 ## Item review GUI
 
