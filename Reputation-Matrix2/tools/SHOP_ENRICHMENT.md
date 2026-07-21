@@ -34,6 +34,22 @@ Default endpoint: `http://127.0.0.1:1234/v1/chat/completions`. Override it with 
 
 The request uses `tools/shop-item-response-template.json` as an explicit fill-in template. It intentionally does **not** send OpenAI's `response_format` option because some LM Studio server versions reject that option with HTTP 400. Any future server error now includes LM Studio's actual response body, so it is actionable rather than just saying "Bad Request".
 
+## Review schedule, context, and validation
+
+Every generated record gets an `aiReviewedAt` timestamp. Choose **unchecked** (default), **stale** (older than the configured 30-day threshold), or **all** in the GUI; the command line equivalents are `--review-mode unchecked|stale|all --stale-days 30`. This prevents an overnight pass from spending requests on recently reviewed items.
+
+Build current event/battle context before or during a run:
+
+```bash
+python tools/generate_shop_context.py --watch --interval 600
+```
+
+It reads the world event and battle JSON when present and keeps a compact context file updated for the item writer. At the end of every completed enrichment pass, `validate_shop_data.py` writes a JSON integrity and duplicate report. To remove duplicate records manually, retaining the more complete/reviewed record:
+
+```bash
+python tools/validate_shop_data.py --remove-worse
+```
+
 ## Data and safeguards
 
 - The source remains split into `shop-items/items_###.js`; no huge shop-data file is created.

@@ -24,7 +24,7 @@ import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -64,6 +64,8 @@ class Settings:
     delay: float = 0.15
     timeout: int = 180
     review_only: bool = False
+    review_mode: str = "unchecked"  # all, unchecked, or stale
+    stale_days: int = 30
     chunk: str | None = None
 
 
@@ -109,11 +111,15 @@ def save_shard(path: Path, shard: dict[str, Any]) -> None:
 def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
     editable = {key: value for key, value in item.items() if key not in {"_sourceKey", "priceOriginal", "priceReviewedAt", "priceReason", "effectDetails"}}
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
+    context_path = WORK_DIR / "context" / "shop-world-context.json"
+    world_context = ""
+    if context_path.exists():
+        world_context = "\n\nOptional current world context; use only if clearly relevant:\n" + context_path.read_text(encoding="utf-8")[:6000]
     payload: dict[str, Any] = {
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": "Improve and balance this item:\n" + json.dumps(editable, ensure_ascii=False)
-             + "\n\nFill in this exact JSON template; return JSON only:\n" + template},
+             + "\n\nFill in this exact JSON template; return JSON only:\n" + template + world_context}, 
         ],
         "temperature": 0.55,
     }
@@ -158,8 +164,27 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
     for detail in answer["effectDetails"]:
         if not isinstance(detail, dict) or set(detail) != {"title", "rules"} or not all(isinstance(value, str) and value.strip() for value in detail.values()):
             raise ValueError("each effect detail needs non-empty title and rules")
+    reviewed_at = datetime.now(timezone.utc).isoformat()
     return {**original, **answer, "priceOriginal": original.get("priceOriginal", original.get("price")),
-            "priceReviewedAt": datetime.now(timezone.utc).isoformat()}
+            "priceReviewedAt": reviewed_at, "aiReviewedAt": reviewed_at, "aiReviewVersion": 1}
+
+
+def needs_review(item: dict[str, Any], settings: Settings) -> bool:
+    """Decide whether this item is eligible without deleting its review history."""
+    if settings.review_mode == "all":
+        return True
+    reviewed = item.get("aiReviewedAt")
+    if settings.review_mode == "unchecked":
+        return not reviewed
+    if not reviewed:
+        return True
+    try:
+        reviewed_date = datetime.fromisoformat(str(reviewed).replace("Z", "+00:00"))
+        if reviewed_date.tzinfo is None:
+            reviewed_date = reviewed_date.replace(tzinfo=timezone.utc)
+        return datetime.now(timezone.utc) - reviewed_date >= timedelta(days=settings.stale_days)
+    except ValueError:
+        return True  # an invalid legacy timestamp should be reviewed rather than trusted
 
 
 def write_chunk(source: Path, items: list[dict[str, Any]]) -> None:
@@ -197,23 +222,24 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
                 notify("Stopped. Checkpoints and any completed source edits were retained.", None)
                 return completed
             result_key = item.get("_sourceKey", item["id"])
-            if result_key in shard["results"]:
+            current_item = shard["results"].get(result_key, item)
+            if not needs_review(current_item, settings):
                 continue
             if settings.limit and completed >= settings.limit:
                 notify("Limit reached; run again to resume.", None)
                 return completed
-            notify(f"[{completed + 1}] {source.name}: {item['name']}", None)
+            notify(f"[{completed + 1}] {source.name}: {current_item['name']}", None)
             try:
-                enriched = validate(item, call_lm_studio(settings, item))
+                enriched = validate(current_item, call_lm_studio(settings, current_item))
             except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError, RuntimeError) as error:
-                notify(f"ERROR on {item['name']}: {error}. Nothing was written for this item.", None)
+                notify(f"ERROR on {current_item['name']}: {error}. Nothing was written for this item.", None)
                 return completed
             shard["results"][result_key] = enriched
             save_shard(shard_path, shard)
             completed += 1
             changed_in_chunk = True
             notify("Saved checkpoint" + (" and source data." if not settings.review_only else " (review-only; source unchanged)."),
-                   {"item": item, "updated": enriched})
+                   {"item": current_item, "updated": enriched})
             if not settings.review_only:
                 updated_items = [shard["results"].get(record.get("_sourceKey", record["id"]), record) for record in shard["items"]]
                 write_chunk(source, updated_items)
@@ -221,6 +247,12 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
                 time.sleep(settings.delay)
         if changed_in_chunk and not settings.review_only:
             notify(f"Finished and wrote {source.name}", None)
+    # Always leave a machine-readable integrity/duplicate report after a completed pass.
+    validator = ROOT / "tools" / "validate_shop_data.py"
+    if validator.exists():
+        validation = subprocess.run([sys.executable, str(validator)], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        notify(validation.stdout.strip() or "Shop JSON validation completed.", None)
+        if validation.stderr.strip(): notify("Validator: " + validation.stderr.strip(), None)
     notify("Done. All requested items were checkpointed." + (" Source files were updated." if not settings.review_only else " Review JSON shards before writing."), None)
     return completed
 
@@ -234,6 +266,8 @@ def cli() -> int:
     parser.add_argument("--delay", type=float, default=.15)
     parser.add_argument("--timeout", type=int, default=180)
     parser.add_argument("--review-only", action="store_true", help="Save JSON checkpoints but do not overwrite source modules")
+    parser.add_argument("--review-mode", choices=("all", "unchecked", "stale"), default="unchecked", help="all items, never-reviewed items, or reviews older than --stale-days")
+    parser.add_argument("--stale-days", type=int, default=30, help="Age threshold used by --review-mode stale")
     parser.add_argument("--chunk", help="One chunk, such as items_052.js")
     args = parser.parse_args()
     if args.gui:
@@ -260,6 +294,8 @@ class ShopEnrichmentApp:
         self.limit = tk.StringVar(value="0")
         self.delay = tk.StringVar(value="0.15")
         self.chunk = tk.StringVar(value="")
+        self.review_mode = tk.StringVar(value="unchecked")
+        self.stale_days = tk.StringVar(value="30")
         self.review_only = tk.BooleanVar(value=False)
         self.status = tk.StringVar(value="Ready. Default mode writes each validated item directly to its source chunk.")
         self.build()
@@ -273,7 +309,11 @@ class ShopEnrichmentApp:
         for row, (label, variable) in enumerate(fields):
             ttk.Label(form, text=label).grid(row=row // 2, column=(row % 2) * 2, sticky="w", padx=(0, 6), pady=3)
             ttk.Entry(form, textvariable=variable, width=48 if row < 2 else 20).grid(row=row // 2, column=(row % 2) * 2 + 1, sticky="ew", padx=(0, 14), pady=3)
-        ttk.Checkbutton(form, text="Review-only (keep results in JSON; do not overwrite item modules)", variable=self.review_only).grid(row=3, column=0, columnspan=4, sticky="w", pady=(7, 0))
+        ttk.Label(form, text="Review mode").grid(row=3, column=0, sticky="w", padx=(0, 6), pady=(7, 3))
+        ttk.Combobox(form, textvariable=self.review_mode, values=("unchecked", "stale", "all"), state="readonly", width=18).grid(row=3, column=1, sticky="w", pady=(7, 3))
+        ttk.Label(form, text="Stale after days").grid(row=3, column=2, sticky="w", padx=(0, 6), pady=(7, 3))
+        ttk.Entry(form, textvariable=self.stale_days, width=10).grid(row=3, column=3, sticky="w", pady=(7, 3))
+        ttk.Checkbutton(form, text="Review-only (keep results in JSON; do not overwrite item modules)", variable=self.review_only).grid(row=4, column=0, columnspan=4, sticky="w", pady=(7, 0))
         actions = ttk.Frame(self.root)
         actions.pack(fill="x", padx=12)
         self.start_button = ttk.Button(actions, text="Start / Resume Enrichment", command=self.start)
@@ -294,8 +334,9 @@ class ShopEnrichmentApp:
         try:
             settings = Settings(endpoint=self.endpoint.get().strip(), model=self.model.get().strip() or None,
                                 limit=int(self.limit.get() or 0), delay=float(self.delay.get() or 0),
-                                review_only=self.review_only.get(), chunk=self.chunk.get().strip() or None)
-            if settings.limit < 0 or settings.delay < 0: raise ValueError
+                                review_only=self.review_only.get(), review_mode=self.review_mode.get(),
+                                stale_days=int(self.stale_days.get() or 0), chunk=self.chunk.get().strip() or None)
+            if settings.limit < 0 or settings.delay < 0 or settings.stale_days < 0: raise ValueError
         except ValueError:
             self.status.set("Limit and delay must be zero or positive numbers.")
             return
