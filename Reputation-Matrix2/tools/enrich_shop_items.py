@@ -42,13 +42,21 @@ TEMPLATE_PATH = ROOT / "tools" / "shop-item-response-template.json"
 DEFAULT_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
 
 SYSTEM_PROMPT = """You are the meticulous rules editor for a whimsical D&D 5e-inspired item shop.
-Return ONLY a JSON object. Do not add game-breaking power. Keep the item's existing theme, category,
-rarity, vendor, and intended mechanics. Write clear, original, concise player-facing text that uses
-concrete details from THIS item's name, material, lore, vendor, and effects. Never use filler such as
-"use the item exactly as its card states", "ask the DM", or generic consumable boilerplate. 5e-style
-rules must use plain language and specify a concrete activation, target/range, duration, what ends it,
-save DC when relevant, and limits/rests when relevant. Each rules entry must explain the particular
-effect rather than merely repeat its effect tag. Never claim this is official D&D content.
+Return ONLY a JSON object. Do not add game-breaking power. Keep the item's existing name, physical
+form, theme, category, rarity, vendor, and intended mechanics. This is an editorial pass, not an
+excuse to replace an item with a generic fantasy trinket.
+
+DESCRIPTION RULES: Begin from the actual item. Explicitly name the item or a distinctive word from its
+title in the description, identify what it physically is, and use at least two concrete facts from its
+input (material, origin/lore, vendor, existing effect, icon, or shipping flavor). A "Forgeheart Core"
+must read like a forge-made core; a "Pauline's Microphone" must read like a microphone. Do not write
+interchangeable phrases such as "a mysterious artifact", "a powerful item", or generic consumable
+boilerplate.
+
+RULES: Write clear, concise, table-ready 5e-inspired homebrew. Never use filler such as "use the item
+exactly as its card states" or "ask the DM". Every rules entry must explain that particular effect and
+specify a concrete activation, target/range, duration, what ends it, save DC when relevant, and
+limits/rests when relevant. Never claim this is official D&D content.
 
 Your JSON must have exactly:
 - description: string, 1-3 flavorful sentences
@@ -169,6 +177,12 @@ def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
     raise ValueError(f"LM Studio returned invalid JSON after 3 attempts: {last_error}")
 
 
+def identity_terms(name: Any) -> set[str]:
+    """Meaningful title words that keep an AI description tied to its real item."""
+    ignored = {"the", "of", "and", "for", "with", "from", "a", "an", "to", "in", "on", "up", "item"}
+    return {word.lower() for word in re.findall(r"[A-Za-z]{4,}", str(name)) if word.lower() not in ignored}
+
+
 def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]:
     required = {"description", "effects", "effectDetails", "levelRequirement", "levelRequirementReason", "vendor", "vendorReason", "shippedBy", "shippingDetail", "usage", "price", "priceReason"}
     if set(answer) != required:
@@ -177,6 +191,12 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
         raise ValueError("description must be a non-empty string")
     if len(answer["description"]) > 900:
         raise ValueError("description is too long")
+    title_terms = identity_terms(original.get("name"))
+    description_words = set(re.findall(r"[a-z]{4,}", answer["description"].lower()))
+    if title_terms and not title_terms.intersection(description_words):
+        raise ValueError(f"description must reference the actual item ({original.get('name')})")
+    if any(phrase in answer["description"].lower() for phrase in ("mysterious artifact", "powerful item", "ancient relic of unknown")):
+        raise ValueError("description is generic instead of item-specific")
     if not isinstance(answer["effects"], list) or not 2 <= len(answer["effects"]) <= 4:
         raise ValueError("effects must contain 2-4 entries")
     if not isinstance(answer["effectDetails"], list) or len(answer["effectDetails"]) != len(answer["effects"]):
