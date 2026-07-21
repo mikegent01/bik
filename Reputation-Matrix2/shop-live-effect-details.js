@@ -1,6 +1,10 @@
 // Compatibility enhancement for the deployed bundled shop.html UI.
 // It makes existing effect chips keyboard-accessible and gives them a readable rules panel.
 (() => {
+  // AI review writes this catalog beside the live data. It lets the bundled
+  // React shop show the exact reviewed rules instead of a generic fallback.
+  let reviewedCatalog = {};
+  fetch('data/shop-effect-details.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).then(data => { reviewedCatalog = data || {}; document.querySelectorAll('.live-inline-rules').forEach(el => el.remove()); document.querySelectorAll('[data-inline-rules]').forEach(el => delete el.dataset.inlineRules); decorate(); }).catch(() => {});
   const rulesFor = effect => {
     const text = effect.replace(/_/g, ' ').trim();
     const dc = text.match(/DC\s*(\d+)/i)?.[1];
@@ -11,6 +15,15 @@
     if (/once per day.*(invincibility|resistance)/i.test(text)) return `As an action, you awaken the item’s protective surge. For 1 minute, you have resistance to all damage; this halves damage after other reductions, but does not make you immune to conditions, falling, or effects that do not deal damage. The surge ends early if you are incapacitated, the item is destroyed, or its 1/day use has already been spent.`;
     return `This is a homebrew shop effect: ${text}. Its activation, exact target, and limits are determined by the item’s reviewed rules. The effect ends when its stated duration expires, its charges are spent, or the item is destroyed; it is not automatically a generic consumable action.`;
   };
+  const itemNameFor = group => {
+    let node = group;
+    for (let i = 0; node && i < 7; i++, node = node.parentElement) {
+      const heading = node.querySelector?.('h1,h2,h3');
+      if (heading?.textContent?.trim()) return heading.textContent.trim();
+    }
+    return '';
+  };
+  const reviewedFor = group => reviewedCatalog[`name:${itemNameFor(group).toLowerCase()}`] || null;
   const usageFor = group => {
     const cardText = (group.closest('[role="dialog"]') || group.parentElement?.parentElement || document.body).textContent.toLowerCase();
     if (cardText.includes('consumable')) return 'USAGE & INVENTORY: Activate as listed on the item. Unless its reviewed rules say it has charges, this is consumed and removed from inventory immediately after its effect resolves.';
@@ -45,13 +58,17 @@
       group.dataset.inlineRules = 'true';
       const rules = document.createElement('div'); rules.className = 'live-inline-rules';
       const title = document.createElement('div'); title.className = 'live-inline-heading'; title.textContent = '📖 WHAT THESE EFFECTS DO'; rules.append(title);
-      [...group.querySelectorAll('.effect-tag')].forEach(chip => {
+      const reviewed = reviewedFor(group);
+      [...group.querySelectorAll('.effect-tag')].filter(chip => !/^\+\d+\s+more$/i.test(chip.textContent.trim())).forEach((chip, index) => {
         const row = document.createElement('div'); row.className = 'live-inline-rule';
         const label = document.createElement('strong'); label.textContent = chip.textContent.trim();
-        const explanation = document.createElement('span'); explanation.textContent = rulesFor(chip.textContent.trim());
+        const explanation = document.createElement('span');
+        explanation.textContent = reviewed?.effectDetails?.[index]?.rules || rulesFor(chip.textContent.trim());
         row.append(label, explanation); rules.append(row);
       });
-      const usage = document.createElement('div'); usage.className = 'live-inline-usage'; usage.textContent = usageFor(group); rules.append(usage);
+      const usage = document.createElement('div'); usage.className = 'live-inline-usage';
+      usage.textContent = reviewed?.usage ? `USAGE & INVENTORY: Activation — ${reviewed.usage.activation}. Duration — ${reviewed.usage.duration}. Ends / removed when — ${reviewed.usage.endsWhen}. Charges — ${reviewed.usage.charges}.` : usageFor(group);
+      rules.append(usage);
       group.insertAdjacentElement('afterend', rules);
     });
   };

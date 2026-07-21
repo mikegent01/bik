@@ -271,6 +271,21 @@ def needs_review(item: dict[str, Any], settings: Settings) -> bool:
         return True  # an invalid legacy timestamp should be reviewed rather than trusted
 
 
+def update_live_details_catalog(item: dict[str, Any]) -> None:
+    """Expose reviewed rules to the separately bundled shop.html enhancement."""
+    path = ROOT / "data" / "shop-effect-details.json"
+    try:
+        catalog = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    except json.JSONDecodeError:
+        catalog = {}
+    record = {key: item.get(key) for key in ("id", "name", "effects", "effectDetails", "usage", "aiReviewedAt")}
+    catalog[item["id"]] = record
+    catalog[f"name:{item['name'].strip().lower()}"] = record
+    temporary = path.with_suffix(".tmp")
+    temporary.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(path)
+
+
 def write_chunk(source: Path, items: list[dict[str, Any]]) -> None:
     export = re.search(r"export const (ITEMS_\d+)\s*=", source.read_text(encoding="utf-8"))
     if not export:
@@ -345,6 +360,8 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
             shard["failures"].pop(result_key, None)
             shard["results"][result_key] = enriched
             save_shard(shard_path, shard)
+            if not settings.review_only:
+                update_live_details_catalog(enriched)
             completed += 1
             changed_in_chunk = True
             notify("Saved checkpoint" + (" and source data." if not settings.review_only else " (review-only; source unchanged)."),
