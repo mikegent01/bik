@@ -1498,7 +1498,7 @@ function renderInlineEffectRules(item) {
                     <p>${escapeShopHtml(detail.rules)}</p>
                 </article>`;
             }).join('')}
-            ${usage ? `<div class="inline-effect-usage"><strong>Use:</strong> ${escapeShopHtml(usage.activation)} · <strong>Duration:</strong> ${escapeShopHtml(usage.duration)} · <strong>Ends:</strong> ${escapeShopHtml(usage.endsWhen)} · <strong>Charges:</strong> ${escapeShopHtml(usage.charges)}</div>` : ''}
+            ${usage ? `<div class="inline-effect-usage"><strong>USAGE & INVENTORY</strong><br><strong>Use:</strong> ${escapeShopHtml(usage.activation)} · <strong>Duration:</strong> ${escapeShopHtml(usage.duration)} · <strong>Ends / removal:</strong> ${escapeShopHtml(usage.endsWhen)} · <strong>Charges:</strong> ${escapeShopHtml(usage.charges)}</div>` : ''}
         </section>`;
 }
 

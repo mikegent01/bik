@@ -11,6 +11,13 @@
     if (/once per day.*(invincibility|resistance)/i.test(text)) return `As an action, you awaken the item’s protective surge. For 1 minute, you have resistance to all damage; this halves damage after other reductions, but does not make you immune to conditions, falling, or effects that do not deal damage. The surge ends early if you are incapacitated, the item is destroyed, or its 1/day use has already been spent.`;
     return `This is a homebrew shop effect: ${text}. Its activation, exact target, and limits are determined by the item’s reviewed rules. The effect ends when its stated duration expires, its charges are spent, or the item is destroyed; it is not automatically a generic consumable action.`;
   };
+  const usageFor = group => {
+    const cardText = (group.closest('[role="dialog"]') || group.parentElement?.parentElement || document.body).textContent.toLowerCase();
+    if (cardText.includes('consumable')) return 'USAGE & INVENTORY: Activate as listed on the item. Unless its reviewed rules say it has charges, this is consumed and removed from inventory immediately after its effect resolves.';
+    if (cardText.includes('material')) return 'USAGE & INVENTORY: This is a crafting material. It stays in inventory until a recipe, repair, or stated ability consumes it; remove the listed quantity only when that process completes.';
+    if (cardText.includes('service')) return 'USAGE & INVENTORY: This is redeemed when its listed service is completed. Remove it from inventory after redemption; unused service tokens remain valid until their stated expiry.';
+    return 'USAGE & INVENTORY: Equip or carry this item as its reviewed rules require. Normal use does not remove it from inventory; remove it only if a listed charge is spent, it is intentionally consumed, or it is destroyed by a stated effect.';
+  };
   const open = (effect, itemName) => {
     document.querySelector('.live-effect-dialog')?.remove();
     const overlay = document.createElement('div'); overlay.className = 'live-effect-dialog';
@@ -44,6 +51,7 @@
         const explanation = document.createElement('span'); explanation.textContent = rulesFor(chip.textContent.trim());
         row.append(label, explanation); rules.append(row);
       });
+      const usage = document.createElement('div'); usage.className = 'live-inline-usage'; usage.textContent = usageFor(group); rules.append(usage);
       group.insertAdjacentElement('afterend', rules);
     });
   };
