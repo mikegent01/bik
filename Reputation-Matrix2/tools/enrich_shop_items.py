@@ -51,6 +51,10 @@ Your JSON must have exactly:
 - description: string, 1-3 flavorful sentences
 - effects: array of 2-4 short visible effect tags
 - effectDetails: array matching effects in order, each object {"title": string, "rules": string}
+- levelRequirement: whole non-negative integer, plus levelRequirementReason: string
+- vendor: an existing vendor id from the input item, plus vendorReason: string
+- shippedBy: a specific shipping/courier string, plus shippingDetail: string
+- usage: object with activation, duration, endsWhen, and charges strings; explicitly say what stops/exhausts/destroys the item
 - price: whole positive integer in XP
 - priceReason: string, one short sentence explaining the fair-value adjustment
 """
@@ -144,7 +148,7 @@ def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
 
 
 def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]:
-    required = {"description", "effects", "effectDetails", "price", "priceReason"}
+    required = {"description", "effects", "effectDetails", "levelRequirement", "levelRequirementReason", "vendor", "vendorReason", "shippedBy", "shippingDetail", "usage", "price", "priceReason"}
     if set(answer) != required:
         raise ValueError(f"Expected exactly {sorted(required)}; got {sorted(answer)}")
     if not isinstance(answer["description"], str) or not answer["description"].strip():
@@ -155,6 +159,13 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
         raise ValueError("effects must contain 2-4 entries")
     if not isinstance(answer["effectDetails"], list) or len(answer["effectDetails"]) != len(answer["effects"]):
         raise ValueError("effectDetails must match effects")
+    if not isinstance(answer["levelRequirement"], int) or isinstance(answer["levelRequirement"], bool) or answer["levelRequirement"] < 0:
+        raise ValueError("levelRequirement must be a whole non-negative number")
+    for key in ("levelRequirementReason", "vendor", "vendorReason", "shippedBy", "shippingDetail"):
+        if not isinstance(answer[key], str) or not answer[key].strip():
+            raise ValueError(f"{key} must be non-empty")
+    if not isinstance(answer["usage"], dict) or set(answer["usage"]) != {"activation", "duration", "endsWhen", "charges"} or not all(isinstance(value, str) and value.strip() for value in answer["usage"].values()):
+        raise ValueError("usage needs activation, duration, endsWhen, and charges")
     if not isinstance(answer["price"], int) or isinstance(answer["price"], bool) or not 25 <= answer["price"] <= 10_000_000:
         raise ValueError("price must be a reasonable whole XP amount")
     if not isinstance(answer["priceReason"], str) or not answer["priceReason"].strip():

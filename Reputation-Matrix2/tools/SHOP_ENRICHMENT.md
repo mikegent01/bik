@@ -2,9 +2,19 @@
 
 `enrich_shop_items.py` uses a local LM Studio model to give every shop item an original description, balanced XP price, concise visible effects, and clickable 5e-inspired homebrew rules text.
 
-## Desktop GUI (recommended)
+## Start here: Shop Studio main menu
 
-Start LM Studio's **OpenAI-compatible local server**, then double-click the Python file or run:
+For one starting window for all maintenance tasks, run:
+
+```bash
+python tools/shop_studio.py
+```
+
+It launches item review, vendor-database generation, event/battle context watching, validation, duplicate cleanup, and object-key normalization. Start LM Studio's **OpenAI-compatible local server** before launching either AI task.
+
+## Item review GUI
+
+You can also open only the item-review desktop interface:
 
 ```bash
 python tools/enrich_shop_items.py --gui

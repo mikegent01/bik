@@ -1488,6 +1488,7 @@ function openEffectDetails(itemId, index) {
     const item = getShopItemById(itemId);
     if (!item) return;
     const detail = getEffectDetail(item, Number(index));
+    const usage = item.usage || { activation: 'Use as described', duration: 'See effect rules', endsWhen: 'As determined by the item or DM', charges: 'Not yet reviewed' };
     document.querySelector('.effect-details-modal')?.remove();
     const modal = document.createElement('div');
     modal.className = 'effect-details-modal';
@@ -1500,6 +1501,12 @@ function openEffectDetails(itemId, index) {
             <h3>${escapeShopHtml(detail.title)}</h3>
             <p class="effect-details-item">${escapeShopHtml(item.icon)} ${escapeShopHtml(item.name)}</p>
             <p>${escapeShopHtml(detail.rules)}</p>
+            <dl class="effect-usage-grid">
+                <dt>Activation</dt><dd>${escapeShopHtml(usage.activation)}</dd>
+                <dt>Duration</dt><dd>${escapeShopHtml(usage.duration)}</dd>
+                <dt>Ends when</dt><dd>${escapeShopHtml(usage.endsWhen)}</dd>
+                <dt>Uses / charges</dt><dd>${escapeShopHtml(usage.charges)}</dd>
+            </dl>
             <p class="effect-details-note">Rules text is a table-ready interpretation, not official D&D 5e material. Your DM has final say.</p>
         </div>`;
     modal.addEventListener('click', event => {
@@ -2000,6 +2007,7 @@ ${isWarioScam(item) ? (() => {
                 ` : `
                     <span class="shipping-label">📬 Delivery:</span>
                     <span class="shipping-info">${item.shippedBy || 'Standard Courier'}</span>
+                    ${item.shippingDetail ? `<span class="shipping-detail" title="${item.shippingDetail}">ⓘ shipping details</span>` : ''}
                 `}
             </div>
             
