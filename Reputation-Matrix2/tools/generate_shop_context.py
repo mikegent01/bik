@@ -76,7 +76,7 @@ def generate_items(endpoint: str, model: str | None) -> None:
     items = json.loads(content)["items"]
     if not isinstance(items, list) or len(items) != 3: raise ValueError("LM Studio did not return exactly three items")
     mapping = {f"world_{item['id']}": item for item in items}
-    target = ROOT / "shop-items" / "items_world_generated.js"
+    target = ROOT / "data" / "shop-items" / "items_world_generated.js"
     body = "// Generated from current world context; do not hand-edit.\nimport { SHOP_CATEGORIES } from './categories.js';\n\nexport const ITEMS_WORLD_GENERATED = " + json.dumps(mapping, ensure_ascii=False, indent=2) + ";\n"
     temporary = target.with_suffix(".tmp"); temporary.write_text(body, encoding="utf-8"); temporary.replace(target)
     print(f"Generated {len(items)} new world-context shop items in {target}")

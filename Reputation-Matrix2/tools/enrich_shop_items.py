@@ -36,7 +36,9 @@ for _stream in (sys.stdout, sys.stderr):
         pass
 
 ROOT = Path(__file__).resolve().parents[1]
-ITEMS_DIR = ROOT / "shop-items"
+# The live React shop reads the split catalog under data/shop-items. The older
+# root-level shop-items copy is legacy source data and is not the player-facing catalog.
+ITEMS_DIR = ROOT / "data" / "shop-items"
 WORK_DIR = ROOT / "tools" / ".shop-enrichment"
 TEMPLATE_PATH = ROOT / "tools" / "shop-item-response-template.json"
 DEFAULT_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
@@ -107,6 +109,14 @@ def load_shard(source: Path) -> tuple[Path, dict[str, Any]]:
     if path.exists():
         try:
             shard = json.loads(path.read_text(encoding="utf-8"))
+            expected_source = str(source.relative_to(ROOT))
+            # The live catalog moved from the legacy root shop-items folder to
+            # data/shop-items. Never apply a legacy checkpoint to the live data.
+            if shard.get("source") != expected_source:
+                path.replace(path.with_suffix(f".legacy-{int(time.time())}.json"))
+                shard = {"source": expected_source, "items": run_node_export(source), "results": {}, "failures": {}}
+                save_shard(path, shard)
+                return path, shard
             if isinstance(shard.get("items"), list) and isinstance(shard.get("results"), dict):
                 # Source may have been cleaned by the duplicate checker since the
                 # checkpoint was made. Reload it so removed items cannot return.
@@ -118,7 +128,7 @@ def load_shard(source: Path) -> tuple[Path, dict[str, Any]]:
                 shard["failures"] = {key: value for key, value in shard["failures"].items() if key in valid_keys}
                 save_shard(path, shard)
                 return path, shard
-        except (OSError, json.JSONDecodeError):
+        except (OSError, json.JSONDecodeError, ValueError):
             # Preserve bad evidence rather than silently discarding a night's work.
             path.replace(path.with_suffix(f".corrupt-{int(time.time())}.json"))
     shard = {"source": str(source.relative_to(ROOT)), "items": run_node_export(source), "results": {}, "failures": {}}
