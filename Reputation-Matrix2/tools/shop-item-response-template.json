@@ -1,0 +1,19 @@
+{
+  "description": "<1-3 original, player-facing flavor sentences>",
+  "effects": [
+    "<short effect tag 1>",
+    "<short effect tag 2>"
+  ],
+  "effectDetails": [
+    {
+      "title": "<effect 1 name>",
+      "rules": "<5e-inspired action, duration, range/area, save DC and use-limit details as needed>"
+    },
+    {
+      "title": "<effect 2 name>",
+      "rules": "<specific, table-ready rule details>"
+    }
+  ],
+  "price": 1000,
+  "priceReason": "<one sentence explaining the balanced XP price>"
+}

@@ -30,7 +30,9 @@ python tools/enrich_shop_items.py --review-only --limit 5
 python tools/enrich_shop_items.py --chunk items_052.js
 ```
 
-Default endpoint: `http://127.0.0.1:1234/v1/chat/completions`. Override it with `--endpoint` or `LM_STUDIO_URL`; set `--model` / `LM_STUDIO_MODEL` if the server needs a model name.
+Default endpoint: `http://127.0.0.1:1234/v1/chat/completions`. Override it with `--endpoint` or `LM_STUDIO_URL`; set `--model` / `LM_STUDIO_MODEL` if the server needs a model name. If a blank model field gets an HTTP 400 response, select/copy the loaded model's identifier from LM Studio into the GUI's **Model** field (or use `--model`).
+
+The request uses `tools/shop-item-response-template.json` as an explicit fill-in template. It intentionally does **not** send OpenAI's `response_format` option because some LM Studio server versions reject that option with HTTP 400. Any future server error now includes LM Studio's actual response body, so it is actionable rather than just saying "Bad Request".
 
 ## Data and safeguards
 

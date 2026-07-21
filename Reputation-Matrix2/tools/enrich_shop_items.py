@@ -38,6 +38,7 @@ for _stream in (sys.stdout, sys.stderr):
 ROOT = Path(__file__).resolve().parents[1]
 ITEMS_DIR = ROOT / "shop-items"
 WORK_DIR = ROOT / "tools" / ".shop-enrichment"
+TEMPLATE_PATH = ROOT / "tools" / "shop-item-response-template.json"
 DEFAULT_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
 
 SYSTEM_PROMPT = """You are the meticulous rules editor for a whimsical D&D 5e-inspired item shop.
@@ -107,20 +108,27 @@ def save_shard(path: Path, shard: dict[str, Any]) -> None:
 
 def call_lm_studio(settings: Settings, item: dict[str, Any]) -> dict[str, Any]:
     editable = {key: value for key, value in item.items() if key not in {"_sourceKey", "priceOriginal", "priceReviewedAt", "priceReason", "effectDetails"}}
+    template = TEMPLATE_PATH.read_text(encoding="utf-8")
     payload: dict[str, Any] = {
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": "Improve and balance this item:\n" + json.dumps(editable, ensure_ascii=False)},
+            {"role": "user", "content": "Improve and balance this item:\n" + json.dumps(editable, ensure_ascii=False)
+             + "\n\nFill in this exact JSON template; return JSON only:\n" + template},
         ],
         "temperature": 0.55,
-        "response_format": {"type": "json_object"},
     }
+    # Do not send OpenAI's response_format parameter. Several LM Studio server
+    # versions reject it with HTTP 400 even when the loaded model can output JSON.
     if settings.model:
         payload["model"] = settings.model
-    request = urllib.request.Request(settings.endpoint, data=json.dumps(payload).encode(),
-                                     headers={"Content-Type": "application/json"}, method="POST")
-    with urllib.request.urlopen(request, timeout=settings.timeout) as response:
-        response_data = json.loads(response.read())
+    request = urllib.request.Request(settings.endpoint, data=json.dumps(payload).encode("utf-8"),
+                                     headers={"Content-Type": "application/json; charset=utf-8"}, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=settings.timeout) as response:
+            response_data = json.loads(response.read())
+    except urllib.error.HTTPError as error:
+        detail = error.read().decode("utf-8", errors="replace").strip()
+        raise RuntimeError(f"LM Studio HTTP {error.code}: {detail or error.reason}") from error
     content = response_data["choices"][0]["message"]["content"]
     if not isinstance(content, str):
         raise ValueError("LM Studio returned a non-text response")
@@ -197,7 +205,7 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
             notify(f"[{completed + 1}] {source.name}: {item['name']}", None)
             try:
                 enriched = validate(item, call_lm_studio(settings, item))
-            except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError) as error:
+            except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError, RuntimeError) as error:
                 notify(f"ERROR on {item['name']}: {error}. Nothing was written for this item.", None)
                 return completed
             shard["results"][result_key] = enriched
