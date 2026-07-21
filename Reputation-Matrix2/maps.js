@@ -143,14 +143,21 @@ const PAGE_MAP_IDS = {
 };
 
 function getMapIdForPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mapParam = urlParams.get('map');
+    if (mapParam) return mapParam;
+
     const pathname = window.location.pathname;
     const currentPage = pathname.split('/').pop();
     return PAGE_MAP_IDS[currentPage] || 'mushroom_kingdom_full';
 }
 
 function isMapPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('map')) return true;
+
     const currentPage = window.location.pathname.split('/').pop();
-    return Object.keys(PAGE_MAP_IDS).includes(currentPage);
+    return Object.keys(PAGE_MAP_IDS).includes(currentPage) || currentPage === 'maps-view.html';
 }
 
 // ============================================================================
@@ -309,6 +316,16 @@ function setupEventListeners() {
 function init() {
     // Set initial map based on page
     setActiveMapId(getMapIdForPage());
+
+    // Dynamically update page header and document titles in unified maps-view.html
+    const mapData = MAP_DATA[mapState.activeMapId];
+    if (mapData) {
+        const titleEl = document.getElementById('unified-header-title');
+        const pageTitleEl = document.getElementById('unified-page-title');
+        if (titleEl) titleEl.textContent = (mapData.name || '').replace(' (Full)', '') + " Tactical Map";
+        if (pageTitleEl) pageTitleEl.textContent = "Tactical Maps: " + (mapData.name || '').replace(' (Full)', '');
+        document.title = "Vigilance Terminal | " + (mapData.name || '').replace(' (Full)', '') + " Map";
+    }
 
     // Load saved state
     loadState();
