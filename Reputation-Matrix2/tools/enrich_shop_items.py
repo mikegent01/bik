@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 import queue
 import re
@@ -81,6 +82,7 @@ class Settings:
     limit: int = 0
     delay: float = 0.15
     timeout: int = 180
+    concurrency: int = 1  # local server requests in flight; keep low for VRAM safety
     review_only: bool = False
     review_mode: str = "unchecked"  # all, unchecked, or stale
     stale_days: int = 30
@@ -224,6 +226,18 @@ def call_lm_studio(settings: Settings, item: dict[str, Any], feedback: str = "")
     raise ValueError(f"LM Studio returned invalid JSON after 3 attempts: {last_error}")
 
 
+def review_item_with_retries(settings: Settings, item: dict[str, Any]) -> tuple[dict[str, Any] | None, Exception | None]:
+    """One isolated review job. Safe to run in a small thread pool."""
+    last_error: Exception | None = None
+    for _retry in range(1, 6):
+        try:
+            candidate = call_lm_studio(settings, item, str(last_error or ""))
+            return validate(item, candidate), None
+        except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError, RuntimeError) as error:
+            last_error = error
+    return None, last_error
+
+
 def identity_terms(name: Any) -> set[str]:
     """Meaningful title words that keep an AI description tied to its real item."""
     ignored = {"the", "of", "and", "for", "with", "from", "a", "an", "to", "in", "on", "up", "item"}
@@ -353,51 +367,51 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
         if not settings.review_only and shard["results"]:
             write_chunk(source, [shard["results"].get(record.get("_sourceKey", record["id"]), record) for record in shard["items"]])
         changed_in_chunk = False
+        pending = []
         for item in shard["items"]:
+            result_key = item.get("_sourceKey", item["id"])
+            current_item = shard["results"].get(result_key, item)
+            if needs_review(current_item, settings):
+                pending.append((result_key, current_item))
+        # A small pool overlaps requests. LM Studio still controls GPU queuing;
+        # keep this at 2 by default for fast models, not 20 concurrent requests.
+        for start in range(0, len(pending), max(1, settings.concurrency)):
             if stop and stop.is_set():
                 notify("Stopped. Checkpoints and any completed source edits were retained.", None)
                 return completed
-            result_key = item.get("_sourceKey", item["id"])
-            current_item = shard["results"].get(result_key, item)
-            if not needs_review(current_item, settings):
-                continue
-            if settings.limit and completed >= settings.limit:
+            batch = pending[start:start + max(1, settings.concurrency)]
+            if settings.limit:
+                batch = batch[:max(0, settings.limit - completed)]
+            if not batch:
                 notify("Limit reached; run again to resume.", None)
                 return completed
-            notify(f"[{completed + 1}] {source.name}: {current_item['name']}", None)
-            enriched = None
-            last_error: Exception | None = None
-            # Validation feedback is sent back to the model five times before an
-            # item is deferred. This makes it repair a weak effect section now,
-            # not merely leave it for a future batch.
-            for retry in range(1, 6):
-                try:
-                    candidate = call_lm_studio(settings, current_item, str(last_error or ""))
-                    enriched = validate(current_item, candidate)
-                    break
-                except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError, TimeoutError, RuntimeError) as error:
-                    last_error = error
-                    if retry < 5:
-                        notify(f"  Retry {retry}/5 for {current_item['name']}: {error}", None)
+            for _, current_item in batch:
+                notify(f"[queued] {source.name}: {current_item['name']}", None)
+            with ThreadPoolExecutor(max_workers=max(1, settings.concurrency)) as pool:
+                futures = {pool.submit(review_item_with_retries, settings, item): (key, item) for key, item in batch}
+                for future in as_completed(futures):
+                    result_key, current_item = futures[future]
+                    try:
+                        enriched, error = future.result()
+                    except Exception as error:
+                        enriched = None
+                    if enriched is None:
+                        shard["failures"][result_key] = {"at": datetime.now(timezone.utc).isoformat(), "error": str(error), "attempts": 5}
+                        save_shard(shard_path, shard)
+                        notify(f"ERROR on {current_item['name']}: failed after 5 targeted retries; continuing.", None)
                         continue
-            if enriched is None:
-                shard["failures"][result_key] = {"at": datetime.now(timezone.utc).isoformat(), "error": str(last_error), "attempts": 5}
-                save_shard(shard_path, shard)
-                notify(f"ERROR on {current_item['name']}: failed after 5 targeted retries; continuing to the next item.", None)
-                continue
-            shard["failures"].pop(result_key, None)
-            shard["results"][result_key] = enriched
-            save_shard(shard_path, shard)
-            if not settings.review_only:
-                update_live_details_catalog(enriched)
-            completed += 1
-            save_resume_state(source, enriched, completed)
-            changed_in_chunk = True
-            notify("Saved checkpoint" + (" and source data." if not settings.review_only else " (review-only; source unchanged)."),
-                   {"item": current_item, "updated": enriched})
-            if not settings.review_only:
-                updated_items = [shard["results"].get(record.get("_sourceKey", record["id"]), record) for record in shard["items"]]
-                write_chunk(source, updated_items)
+                    shard["failures"].pop(result_key, None)
+                    shard["results"][result_key] = enriched
+                    save_shard(shard_path, shard)
+                    if not settings.review_only:
+                        update_live_details_catalog(enriched)
+                    completed += 1
+                    save_resume_state(source, enriched, completed)
+                    changed_in_chunk = True
+                    notify("Saved checkpoint" + (" and source data." if not settings.review_only else " (review-only; source unchanged)."), {"item": current_item, "updated": enriched})
+                    if not settings.review_only:
+                        updated_items = [shard["results"].get(record.get("_sourceKey", record["id"]), record) for record in shard["items"]]
+                        write_chunk(source, updated_items)
             if settings.delay:
                 time.sleep(settings.delay)
         if changed_in_chunk and not settings.review_only:
@@ -419,6 +433,7 @@ def cli() -> int:
     parser.add_argument("--model", default=os.getenv("LM_STUDIO_MODEL"))
     parser.add_argument("--limit", type=int, default=0, help="Maximum unfinished items (0 = all)")
     parser.add_argument("--delay", type=float, default=.15)
+    parser.add_argument("--concurrency", type=int, default=2, help="LM Studio requests in flight (use 1 for safest mode, 2 recommended)")
     parser.add_argument("--timeout", type=int, default=180)
     parser.add_argument("--review-only", action="store_true", help="Save JSON checkpoints but do not overwrite source modules")
     parser.add_argument("--review-mode", choices=("all", "unchecked", "stale"), default="unchecked", help="all items, never-reviewed items, or reviews older than --stale-days")
@@ -449,6 +464,7 @@ class ShopEnrichmentApp:
         self.model = tk.StringVar(value=os.getenv("LM_STUDIO_MODEL", ""))
         self.limit = tk.StringVar(value="0")
         self.delay = tk.StringVar(value="0.15")
+        self.concurrency = tk.StringVar(value="2")
         self.chunk = tk.StringVar(value="")
         self.review_mode = tk.StringVar(value="unchecked")
         self.stale_days = tk.StringVar(value="30")
@@ -465,11 +481,13 @@ class ShopEnrichmentApp:
         for row, (label, variable) in enumerate(fields):
             ttk.Label(form, text=label).grid(row=row // 2, column=(row % 2) * 2, sticky="w", padx=(0, 6), pady=3)
             ttk.Entry(form, textvariable=variable, width=48 if row < 2 else 20).grid(row=row // 2, column=(row % 2) * 2 + 1, sticky="ew", padx=(0, 14), pady=3)
-        ttk.Label(form, text="Review mode").grid(row=3, column=0, sticky="w", padx=(0, 6), pady=(7, 3))
-        ttk.Combobox(form, textvariable=self.review_mode, values=("unchecked", "stale", "all"), state="readonly", width=18).grid(row=3, column=1, sticky="w", pady=(7, 3))
-        ttk.Label(form, text="Stale after days").grid(row=3, column=2, sticky="w", padx=(0, 6), pady=(7, 3))
-        ttk.Entry(form, textvariable=self.stale_days, width=10).grid(row=3, column=3, sticky="w", pady=(7, 3))
-        ttk.Checkbutton(form, text="Review-only (keep results in JSON; do not overwrite item modules)", variable=self.review_only).grid(row=4, column=0, columnspan=4, sticky="w", pady=(7, 0))
+        ttk.Label(form, text="Parallel requests (1-2)").grid(row=3, column=0, sticky="w", padx=(0, 6), pady=(7, 3))
+        ttk.Entry(form, textvariable=self.concurrency, width=10).grid(row=3, column=1, sticky="w", pady=(7, 3))
+        ttk.Label(form, text="Review mode").grid(row=4, column=0, sticky="w", padx=(0, 6), pady=(7, 3))
+        ttk.Combobox(form, textvariable=self.review_mode, values=("unchecked", "stale", "all"), state="readonly", width=18).grid(row=4, column=1, sticky="w", pady=(7, 3))
+        ttk.Label(form, text="Stale after days").grid(row=4, column=2, sticky="w", padx=(0, 6), pady=(7, 3))
+        ttk.Entry(form, textvariable=self.stale_days, width=10).grid(row=4, column=3, sticky="w", pady=(7, 3))
+        ttk.Checkbutton(form, text="Review-only (keep results in JSON; do not overwrite item modules)", variable=self.review_only).grid(row=5, column=0, columnspan=4, sticky="w", pady=(7, 0))
         actions = ttk.Frame(self.root)
         actions.pack(fill="x", padx=12)
         self.start_button = ttk.Button(actions, text="Start / Resume Enrichment", command=self.start)
@@ -489,10 +507,10 @@ class ShopEnrichmentApp:
     def start(self) -> None:
         try:
             settings = Settings(endpoint=self.endpoint.get().strip(), model=self.model.get().strip() or None,
-                                limit=int(self.limit.get() or 0), delay=float(self.delay.get() or 0),
+                                limit=int(self.limit.get() or 0), delay=float(self.delay.get() or 0), concurrency=int(self.concurrency.get() or 1),
                                 review_only=self.review_only.get(), review_mode=self.review_mode.get(),
                                 stale_days=int(self.stale_days.get() or 0), chunk=self.chunk.get().strip() or None)
-            if settings.limit < 0 or settings.delay < 0 or settings.stale_days < 0: raise ValueError
+            if settings.limit < 0 or settings.delay < 0 or settings.stale_days < 0 or not 1 <= settings.concurrency <= 4: raise ValueError
         except ValueError:
             self.status.set("Limit and delay must be zero or positive numbers.")
             return
