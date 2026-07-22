@@ -3010,6 +3010,32 @@
     color: var(--dynasty-text);
 }
 
+/* Long-form member articles (intro paragraph + `## ` sections) */
+.dossier-summary p + p,
+.summary-section p + p,
+.mystery-summary p + p,
+.head-summary p + p {
+    margin-top: 0.65rem;
+}
+
+.summary-subhead {
+    margin: 1.25rem 0 0.45rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--dynasty-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.summary-subhead:first-child {
+    margin-top: 0;
+}
+
+.member-summary p {
+    margin: 0;
+}
+
 .dossier-achievements ul,
 .dossier-controversies ul {
     margin: 0;
