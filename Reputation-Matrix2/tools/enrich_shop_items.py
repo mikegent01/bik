@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 import os
 import queue
 import re
@@ -373,24 +373,29 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
             current_item = shard["results"].get(result_key, item)
             if needs_review(current_item, settings):
                 pending.append((result_key, current_item))
-        # A small pool overlaps requests. LM Studio still controls GPU queuing;
-        # keep this at 2 by default for fast models, not 20 concurrent requests.
-        for start in range(0, len(pending), max(1, settings.concurrency)):
-            if stop and stop.is_set():
-                notify("Stopped. Checkpoints and any completed source edits were retained.", None)
-                return completed
-            batch = pending[start:start + max(1, settings.concurrency)]
-            if settings.limit:
-                batch = batch[:max(0, settings.limit - completed)]
-            if not batch:
-                notify("Limit reached; run again to resume.", None)
-                return completed
-            for _, current_item in batch:
+        # Keep a rolling queue full: as soon as one model request finishes, submit
+        # the next item instead of waiting for the other three in the old batch.
+        iterator = iter(pending)
+        with ThreadPoolExecutor(max_workers=max(1, settings.concurrency)) as pool:
+            futures = {}
+            def submit_next() -> bool:
+                if settings.limit and completed + len(futures) >= settings.limit:
+                    return False
+                try:
+                    result_key, current_item = next(iterator)
+                except StopIteration:
+                    return False
                 notify(f"[queued] {source.name}: {current_item['name']}", None)
-            with ThreadPoolExecutor(max_workers=max(1, settings.concurrency)) as pool:
-                futures = {pool.submit(review_item_with_retries, settings, item): (key, item) for key, item in batch}
-                for future in as_completed(futures):
-                    result_key, current_item = futures[future]
+                futures[pool.submit(review_item_with_retries, settings, current_item)] = (result_key, current_item)
+                return True
+            for _ in range(max(1, settings.concurrency)):
+                if not submit_next(): break
+            while futures:
+                if stop and stop.is_set():
+                    notify("Stop requested; waiting only for active requests to finish.", None)
+                done, _ = wait(futures, return_when=FIRST_COMPLETED)
+                for future in done:
+                    result_key, current_item = futures.pop(future)
                     try:
                         enriched, error = future.result()
                     except Exception as error:
@@ -399,21 +404,23 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
                         shard["failures"][result_key] = {"at": datetime.now(timezone.utc).isoformat(), "error": str(error), "attempts": 5}
                         save_shard(shard_path, shard)
                         notify(f"ERROR on {current_item['name']}: failed after 5 targeted retries; continuing.", None)
-                        continue
-                    shard["failures"].pop(result_key, None)
-                    shard["results"][result_key] = enriched
-                    save_shard(shard_path, shard)
-                    if not settings.review_only:
-                        update_live_details_catalog(enriched)
-                    completed += 1
-                    save_resume_state(source, enriched, completed)
-                    changed_in_chunk = True
-                    notify("Saved checkpoint" + (" and source data." if not settings.review_only else " (review-only; source unchanged)."), {"item": current_item, "updated": enriched})
-                    if not settings.review_only:
-                        updated_items = [shard["results"].get(record.get("_sourceKey", record["id"]), record) for record in shard["items"]]
-                        write_chunk(source, updated_items)
-            if settings.delay:
-                time.sleep(settings.delay)
+                    else:
+                        shard["failures"].pop(result_key, None)
+                        shard["results"][result_key] = enriched
+                        save_shard(shard_path, shard)
+                        if not settings.review_only: update_live_details_catalog(enriched)
+                        completed += 1
+                        save_resume_state(source, enriched, completed)
+                        changed_in_chunk = True
+                        notify("Saved checkpoint" + (" and source data." if not settings.review_only else " (review-only; source unchanged)."), {"item": current_item, "updated": enriched})
+                        if not settings.review_only:
+                            updated_items = [shard["results"].get(record.get("_sourceKey", record["id"]), record) for record in shard["items"]]
+                            write_chunk(source, updated_items)
+                    if not (stop and stop.is_set()): submit_next()
+                if settings.delay: time.sleep(settings.delay)
+        if stop and stop.is_set():
+            notify("Stopped after active requests completed; checkpoints were retained.", None)
+            return completed
         if changed_in_chunk and not settings.review_only:
             notify(f"Finished and wrote {source.name}", None)
     # Always leave a machine-readable integrity/duplicate report after a completed pass.
