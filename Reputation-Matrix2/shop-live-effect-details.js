@@ -11,7 +11,8 @@
     const code = source
       .replace(/^\s*import\s+.*$/gm, '')
       .replace(/export\s+const\s+(ITEMS_\d+)\s*=/, 'const $1 =');
-    return new Function(`${code}\nreturn ${match[1]};`)() || {};
+    const categories = "const SHOP_CATEGORIES = new Proxy({}, { get: (_, key) => String(key).toLowerCase() });\n";
+    return new Function(`${categories}${code}\nreturn ${match[1]};`)() || {};
   };
   const mergeReviewedItems = items => {
     Object.values(items || {}).forEach(item => {
@@ -28,7 +29,7 @@
 
     // Prefer the live shop-items folder because that is the canonical item data
     // users edit. It includes effectDetails and usage on records like 1_up_deluxe.
-    for (const base of ['./shop-items/', './data/shop-items/']) {
+    for (const base of ['./data/shop-items/', './shop-items/']) {
       let loadedAny = false;
       let misses = 0;
       for (let fileNo = 1; fileNo <= 105; fileNo++) {

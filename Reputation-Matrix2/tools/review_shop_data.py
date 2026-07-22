@@ -19,6 +19,9 @@ def run(script: str, *extra: str) -> int:
 
 print(f'=== Wario Shop: item review ({args.review_mode}; all 84 split item chunks) ===', flush=True)
 item_status = run('enrich_shop_items.py', '--review-mode', args.review_mode, '--stale-days', str(args.stale_days), '--limit', str(args.limit), '--concurrency', str(args.concurrency))
+if item_status:
+    print('\nItem review failed; skipping vendor database review so the first error stays visible.', flush=True)
+    raise SystemExit(item_status)
 print('\n=== Wario Shop: vendor database review ===', flush=True)
 vendor_status = run('enrich_vendors.py', '--limit', str(args.limit))
-raise SystemExit(item_status or vendor_status)
+raise SystemExit(vendor_status)

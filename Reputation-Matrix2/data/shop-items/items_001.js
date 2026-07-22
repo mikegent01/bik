@@ -97,43 +97,43 @@ export const ITEMS_001 = {
   "1_up_deluxe": {
     "id": "1_up_deluxe",
     "name": "1-Up Deluxe",
-    "description": "The 1-Up Deluxe is a shimmering platinum mushroom harvested from the celestial gardens of Toad Town. This metallic fungus pulses with a faint, rhythmic light, promising a singular moment of rebirth.",
+    "description": "This 1-Up Deluxe is a shimmering, oversized mushroom forged from solid platinum that pulses with a rhythmic heartbeat. Held in your hand, it radiates a profound sense of safety to the wielder.",
     "category": "consumables",
     "price": 1000,
     "icon": "🍄",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Second Life",
-      "Limited Inventory"
+      "Second Chance",
+      "Single Use"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Divine Courier",
     "levelRequirement": 1,
     "effectDetails": [
       {
-        "title": "Second Life",
-        "rules": "If you drop to 0 hit points and would normally die, the 1-Up Deluxe activates automatically. You instead reappear at the start of your next turn in a space you can see within 30 feet, with all hit points, spell slots, and class features restored. This effect can only occur once per mushroom; once triggered, the mushroom is destroyed."
+        "title": "Second Chance",
+        "rules": "When you are reduced to 0 hit points but not killed outright, you can use your reaction to have the mushroom pulse with light. You instead drop to 1 hit point. Once this property is used, the platinum mushroom shatters into dust."
       },
       {
-        "title": "Limited Inventory",
-        "rules": "Due to its immense magical weight, a creature can only carry one 1-Up Deluxe at a time in their inventory."
+        "title": "Single Use",
+        "rules": "This item is a consumable and is destroyed immediately upon the successful activation of its Second Chance property."
       }
     ],
-    "levelRequirementReason": "This item is a basic life-saving consumable accessible to all adventurers.",
-    "vendorReason": "Toad Town is the primary hub for rare and magical fungi.",
-    "shippingDetail": "Requires a special enchanted crate to prevent the mushroom from phasing out of reality during transit.",
-    "usage": {
-      "activation": "Passive (Automatic on death)",
-      "duration": "Instantaneous",
-      "endsWhen": "The mushroom is destroyed upon use or consumed.",
-      "charges": "1 use"
-    },
-    "priceReason": "Reduced from 700,000 XP to a standard high-tier consumable price to prevent game-breaking economy inflation.",
+    "priceReason": "The price reflects the high cost of platinum and the life-saving utility of a one-time resurrection.",
     "priceOriginal": 700000,
-    "priceReviewedAt": "2026-07-21T22:24:44.881975+00:00",
-    "aiReviewedAt": "2026-07-21T22:24:44.881975+00:00",
-    "aiReviewVersion": 1
+    "priceReviewedAt": "2026-07-21T22:08:38.833975+00:00",
+    "aiReviewedAt": "2026-07-21T22:08:38.833975+00:00",
+    "aiReviewVersion": 1,
+    "levelRequirementReason": "This item is a basic survival tool accessible to all adventurers.",
+    "vendorReason": "The local mushroom farmers trade in rare fungal artifacts.",
+    "shippingDetail": "Delivered via a floating lily pad; requires a 1d4 hour delivery window.",
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous",
+      "endsWhen": "The mushroom is consumed and destroyed upon use.",
+      "charges": "1 use"
+    }
   },
   "1_up_mushroom": {
     "id": "1_up_mushroom",

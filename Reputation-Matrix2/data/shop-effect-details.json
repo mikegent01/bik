@@ -37908,5 +37908,55 @@
       "charges": "Unlimited, but only one summoning per long rest"
     },
     "aiReviewedAt": "2026-07-22T20:19:48.311664+00:00"
+  },
+  "1_up_deluxe": {
+    "id": "1_up_deluxe",
+    "name": "1-Up Deluxe",
+    "effects": [
+      "Second Chance",
+      "Single Use"
+    ],
+    "effectDetails": [
+      {
+        "title": "Second Chance",
+        "rules": "When you are reduced to 0 hit points but not killed outright, you can use your reaction to have the mushroom pulse with light. You instead drop to 1 hit point. Once this property is used, the platinum mushroom shatters into dust."
+      },
+      {
+        "title": "Single Use",
+        "rules": "This item is a consumable and is destroyed immediately upon the successful activation of its Second Chance property."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous",
+      "endsWhen": "The mushroom is consumed and destroyed upon use.",
+      "charges": "1 use"
+    },
+    "aiReviewedAt": "2026-07-21T22:08:38.833975+00:00"
+  },
+  "name:1-up deluxe": {
+    "id": "1_up_deluxe",
+    "name": "1-Up Deluxe",
+    "effects": [
+      "Second Chance",
+      "Single Use"
+    ],
+    "effectDetails": [
+      {
+        "title": "Second Chance",
+        "rules": "When you are reduced to 0 hit points but not killed outright, you can use your reaction to have the mushroom pulse with light. You instead drop to 1 hit point. Once this property is used, the platinum mushroom shatters into dust."
+      },
+      {
+        "title": "Single Use",
+        "rules": "This item is a consumable and is destroyed immediately upon the successful activation of its Second Chance property."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous",
+      "endsWhen": "The mushroom is consumed and destroyed upon use.",
+      "charges": "1 use"
+    },
+    "aiReviewedAt": "2026-07-21T22:08:38.833975+00:00"
   }
 }

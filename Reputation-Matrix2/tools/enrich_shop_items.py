@@ -16,6 +16,7 @@ import argparse
 import json
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 import os
+import stat
 import queue
 import re
 import subprocess
@@ -140,10 +141,33 @@ def load_shard(source: Path) -> tuple[Path, dict[str, Any]]:
     return path, shard
 
 
+def replace_with_retry(temporary: Path, target: Path, *, attempts: int = 12) -> None:
+    """Replace target with retries/chmod for Windows editors, AV, and read-only files."""
+    last_error: OSError | None = None
+    for attempt in range(attempts):
+        try:
+            if temporary.exists():
+                temporary.chmod(stat.S_IWRITE | stat.S_IREAD)
+            if target.exists():
+                target.chmod(stat.S_IWRITE | stat.S_IREAD)
+            temporary.replace(target)
+            return
+        except PermissionError as error:
+            last_error = error
+            time.sleep(0.25 * (attempt + 1))
+        except OSError as error:
+            last_error = error
+            time.sleep(0.1 * (attempt + 1))
+    raise PermissionError(
+        f"Could not replace {target} with {temporary}. Close any editor/browser/sync tool "
+        f"holding the file and make sure it is not read-only. Last error: {last_error}"
+    )
+
+
 def save_shard(path: Path, shard: dict[str, Any]) -> None:
     temporary = path.with_suffix(".tmp")
     temporary.write_text(json.dumps(shard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(path)  # atomic checkpoint on the local filesystem
+    replace_with_retry(temporary, path)  # atomic checkpoint on the local filesystem
 
 
 def load_resume_state() -> dict[str, Any]:
@@ -160,7 +184,7 @@ def save_resume_state(source: Path, item: dict[str, Any], completed: int) -> Non
              "savedAt": datetime.now(timezone.utc).isoformat()}
     temporary = RESUME_PATH.with_suffix(".tmp")
     temporary.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(RESUME_PATH)
+    replace_with_retry(temporary, RESUME_PATH)
 
 
 def context_for_item(context_path: Path, item: dict[str, Any]) -> str:
@@ -322,7 +346,7 @@ def update_live_details_catalog(item: dict[str, Any]) -> None:
     catalog[f"name:{item['name'].strip().lower()}"] = record
     temporary = path.with_suffix(".tmp")
     temporary.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    replace_with_retry(temporary, path)
 
 
 def write_chunk(source: Path, items: list[dict[str, Any]]) -> None:
@@ -339,7 +363,7 @@ def write_chunk(source: Path, items: list[dict[str, Any]]) -> None:
                f"export const {export.group(1)} = " + json.dumps(mapping, ensure_ascii=False, indent=2) + ";\n")
     temporary = source.with_suffix(".tmp")
     temporary.write_text(content, encoding="utf-8")
-    temporary.replace(source)
+    replace_with_retry(temporary, source)
 
 
 def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], None], stop: threading.Event | None = None) -> int:
