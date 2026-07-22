@@ -5,7 +5,6 @@
 
   const STORE = 'waluipediaAmbient';
   const VOL_STORE = 'waluipediaAmbientVolume';
-  const prefersQuiet = () => window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
   let enabled = localStorage.getItem(STORE) !== 'off';
   let audio = null;
   let master = null;
@@ -68,7 +67,7 @@
   ];
 
   function allowed() {
-    return enabled && !prefersQuiet();
+    return enabled;
   }
 
   function ctx() {
@@ -141,11 +140,16 @@
   }
 
   function start() {
-    if (!allowed() || playing) return;
+    enabled = true;
+    localStorage.setItem(STORE, 'on');
+    if (playing) return;
     const c = ctx();
     if (!c) return;
     playing = true;
-    nextTime = c.currentTime + 0.06;
+    nextTime = c.currentTime + 0.08;
+    // Immediate audible confirmation on the click that unlocked audio, then the loop follows.
+    hit('C5', c.currentTime + 0.02, 0.18, 'sine', 0.055);
+    hit('E5', c.currentTime + 0.12, 0.20, 'sine', 0.045);
     schedule();
     updateUi();
   }
@@ -200,8 +204,9 @@
     updateUi();
   }
 
-  document.addEventListener('pointerdown', () => { if (enabled && !playing) start(); }, { once: true, passive: true });
-  document.addEventListener('keydown', () => { if (enabled && !playing) start(); }, { once: true, passive: true });
+  // Do not auto-start on a generic pointerdown: that made the play button start
+  // on pointerdown and immediately stop again on click. Music starts only from
+  // the explicit 🎧/▶ controls.
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildUi);
   else buildUi();
 
