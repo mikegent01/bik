@@ -2118,936 +2118,2073 @@ export const ITEMS_003 = {
   "animatopia_onyx_hand_trophy": {
     "id": "animatopia_onyx_hand_trophy",
     "name": "Onyx Hand Trophy of Bureaucratic Horror",
-    "description": "",
-    "price": 8500,
+    "description": "The Onyx Hand Trophy of Bureaucratic Horror is a cursed relic crafted from volcanic obsidian. It whispers tales of forgotten debt collectors and their endless demands.",
+    "price": 1000,
     "icon": "🖤",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "Grants +3 to Persuasion checks when dealing with vampiric bureaucracies",
-      "Consumes 1 charge to temporarily blind all nonhuman entities within 10 feet",
-      "Causes the wielder to become visibly scarred by the hand’s gaze",
-      "Requires a 10d6 roll to activate; failure causes 1d4 damage to self",
-      "Contains a hidden message from the Onyx Hand: “Do not ask for more than you owe”",
-      "Crafted by: Hammer Bros Handling (courier service for the elite)"
+      "Bureaucratic Persuasion",
+      "Cripple Nonhumans"
     ],
     "vendor": "animatopia",
     "shippedBy": "Hammer Bros Handling",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Bureaucratic Persuasion",
+        "rules": "When used as an action, the wielder gains a +3 bonus to Persuasion checks against vampiric bureaucracies. The effect ends if the user is reduced to 0 hit points."
+      },
+      {
+        "title": "Cripple Nonhumans",
+        "rules": "As an action, consume 1 charge to temporarily blind all nonhuman entities within a 10-foot radius for 1 minute. Creatures affected can make a Wisdom saving throw (DC 15) to end the effect early."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 7th level to wield, ensuring it is used responsibly.",
+    "vendorReason": "Animatopia specializes in exotic and cursed artifacts from lost realms.",
+    "shippingDetail": "Ships via express courier with a 1-day delivery guarantee.",
+    "usage": {
+      "activation": "Action or Bonus Action",
+      "duration": "Instantaneous for Bureaucratic Persuasion; 1 minute for Cripple Nonhumans",
+      "endsWhen": "The user is reduced to 0 hit points, the effect ends if the target makes a successful save.",
+      "charges": "Recharges after a long rest"
+    },
+    "priceReason": "Balanced at 1000 XP as it offers unique and powerful effects that are not easily replicated.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-22T00:14:52.998303+00:00",
+    "aiReviewedAt": "2026-07-22T00:14:52.998303+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_predator_horn": {
     "id": "animatopia_predator_horn",
     "name": "Predator Horn of the Delfino Wild",
-    "description": "A relic of ancient predator tribes, this horn was used to summon the spirit of the wild beast that once ruled Delfino. Carved with tribal runes, it emits a primal roar that can shake mountains and summon the fury of the beast. Only the most fearless hunters dare to wield it.",
+    "description": "The Predator Horn of the Delfino Wild resonates with ancient predator magic. It can summon a feral spirit that amplifies aggression and attracts prey within its radius.",
     "category": "equipment",
-    "price": 1500,
+    "price": 1000,
     "icon": "🐾",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Deals 1d8 damage on a successful roar attack",
-      "20% chance to trigger a temporary frenzy effect for 1 round",
-      "When used within 100 yards of a predator, the horn emits a call that attracts nearby prey",
-      "If used while under duress, the horn amplifies the user’s aggression by 100%",
-      "Requires a hunter’s license to use (provided by the Koopa Troop)",
-      "If the horn is broken, the user gains a 10% chance to be caught in a time loop for 1 round"
+      "Summons Feral Spirit",
+      "Attracts Prey"
     ],
     "vendor": "animatopia",
     "shippedBy": "Warp Whistle Transit",
-    "levelRequirement": 4
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Summon Feral Spirit",
+        "rules": "Activates as a bonus action. The horn emits a primal roar, summoning a feral spirit that grants the user advantage on attack rolls until the start of their next turn. This effect can only be used once per long rest."
+      },
+      {
+        "title": "Attract Prey",
+        "rules": "Activates as a bonus action within 100 yards of a predator. The horn emits a call that attracts nearby prey, forcing any creature within 30 feet to make a DC 14 Wisdom saving throw or become frightened until the start of the user's next turn."
+      }
+    ],
+    "levelRequirementReason": "Requires basic understanding of predator behaviors and instincts.",
+    "vendorReason": "Animatopia specializes in relics from ancient tribes, including those of the Delfino Wild.",
+    "shippingDetail": "Delivered within one week with a special courier package.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Until start of next turn for Summon Feral Spirit; until the start of the user's next turn for Attract Prey",
+      "endsWhen": "The effect ends when the user is incapacitated or the duration expires",
+      "charges": "Unlimited, but can only activate one effect per long rest"
+    },
+    "priceReason": "Balanced to reflect its powerful effects and rarity.",
+    "priceOriginal": 1500,
+    "priceReviewedAt": "2026-07-22T00:14:58.243662+00:00",
+    "aiReviewedAt": "2026-07-22T00:14:58.243662+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_prey_camouflage_service": {
     "id": "animatopia_prey_camouflage_service",
     "name": "Animatopia Prey Camouflage Service",
-    "description": "Blend into the wild like prey.",
-    "price": 12500,
+    "description": "The Animatopia Prey Camouflage Service is a sleek, leaf-patterned suit designed by the Prey Artists of Animatopia. It allows you to blend seamlessly into natural environments, making it near impossible for predators to spot you in the wild. This service also has a unique feature; while disguised as prey, you have a 50% chance of being ignored by nearby predators, and you might inadvertently attract herbivores who may seek 'friendship' with you.",
+    "price": 1000,
     "icon": "🐇",
     "stock": 6,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Stealth in natural terrain for 8 hours",
-      "Predators ignore you (50% chance)",
-      "You might attract herbivores for 'friendship'",
-      "Made by: Prey Artists"
+      "Blends into natural terrain",
+      "Attracts herbivores"
     ],
     "vendor": "animatopia_wilds",
-    "shippedBy": "Leafy Wrap",
-    "levelRequirement": 5
+    "shippedBy": "Leafy Wrap Courier Service",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Camouflage",
+        "rules": "When activated, you gain advantage on Dexterity (Stealth) checks in natural environments for up to 8 hours. This effect ends if you leave the natural terrain or are no longer attempting to hide."
+      },
+      {
+        "title": "Herbivore Attraction",
+        "rules": "While disguised as prey, there is a 50% chance that nearby herbivores will approach you seeking 'friendship'. This effect lasts for the duration of your disguise in natural terrain and ends when it expires or if you actively move away from herbivores."
+      }
+    ],
+    "levelRequirementReason": "This service is accessible to adventurers who are just starting their journey, requiring minimal skill but offering significant tactical advantages.",
+    "vendorReason": "Animatopia Wilds specializes in products that enhance survival and stealth in natural terrains, making this service a perfect fit for their inventory.",
+    "shippingDetail": "Delivered directly to your doorstep wrapped in leaves, ensuring the suit remains undamaged during transit.",
+    "usage": {
+      "activation": "As an action",
+      "duration": "Up to 8 hours per day",
+      "endsWhen": "You leave natural terrain or stop attempting to hide, or you use it again on a short rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The service is priced at 1000 XP due to its unique design and the specialized skills required by Prey Artists in Animatopia.",
+    "priceOriginal": 12500,
+    "priceReviewedAt": "2026-07-22T00:15:09.301569+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:09.301569+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_prey_fur_cloak": {
     "id": "animatopia_prey_fur_cloak",
     "name": "Animatopia Prey Fur Cloak",
-    "description": "Cloak mimicking animal hides for blending.",
-    "price": 15500,
+    "description": "The Animatopia Prey Fur Cloak is a seamless garment crafted from the fur of elusive forest creatures. It warms you in cold weather, providing +1 comfort and blending into your surroundings with predator-like precision. The cloak's fur shifts subtly during molting season, a reminder of its wild origins.",
+    "price": 1000,
     "icon": "🧥",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Stealth as a predator's prey",
-      "Cloak warms in cold (comfort +1)",
-      "Fur sheds during molting season",
-      "Made by: Prey Hunters"
+      "Cloak Warms",
+      "Blends Like Prey"
     ],
     "vendor": "animatopia_forest",
-    "shippedBy": "Hide Bundle",
-    "levelRequirement": 5
+    "shippedBy": "Hide Bundle Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Cloak Warms",
+        "rules": "When the temperature drops below 70°F (21°C), the cloak provides +1 comfort. This effect is passive and lasts until your next long rest."
+      },
+      {
+        "title": "Blends Like Prey",
+        "rules": "While wearing this cloak, you have advantage on Dexterity (Stealth) checks when moving like a stealthy predator's prey in natural terrain. The effect ends if you enter an urban environment or if you take damage from an attack."
+      }
+    ],
+    "levelRequirementReason": "This simple yet effective cloak is accessible to lower-level adventurers, enhancing their survival skills.",
+    "vendorReason": "The Prey Hunters at Animatopia Forest are known for crafting gear that mimics the natural world, making this cloak a fitting product.",
+    "shippingDetail": "Delivered within one week of order placement. The courier ensures the cloak is carefully packed to prevent any damage during transit.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Until your next long rest or until you enter an urban environment or take damage from an attack.",
+      "endsWhen": "You enter an urban environment or take damage from an attack.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced price reflects the cloak's utility and moderate rarity, making it accessible to first-level characters without breaking the game economy.",
+    "priceOriginal": 15500,
+    "priceReviewedAt": "2026-07-22T00:15:14.869879+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:14.869879+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_prey_hide_and_seek_coaching": {
     "id": "animatopia_prey_hide_and_seek_coaching",
     "name": "Animatopia Prey Hide-and-Seek Coaching",
-    "description": "Become a hiding expert.",
+    "description": "The Animatopia Prey Hide-and-Seek Coaching hones your stealth and survival skills in urban environments. For a week, you gain proficiency in Stealth checks within man-made structures and can detect hidden threats more easily. However, when startled, you're compelled to hide, causing disadvantage on Initiative rolls until the next short or long rest.",
     "category": "services",
-    "price": 15500,
+    "price": 1000,
     "icon": "🙈",
     "stock": 4,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Stealth checks in man-made structures for 7 days",
-      "You hide compulsively when startled (disadvantage on Initiative)",
-      "You get a 'Master Hider' sticker that glows in the dark (defeating the purpose)",
-      "Made by: Animatopia Prey School"
+      "Stealth Mastery",
+      "Compulsive Hiding"
     ],
     "vendor": "animatopia_prey",
-    "shippedBy": "Hidden Message",
-    "levelRequirement": 6
+    "shippedBy": "Courier of Shadows",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stealth Mastery",
+        "rules": "You gain proficiency in Stealth checks within man-made structures for a duration of 7 days. This effect does not grant you advantage if you already have proficiency."
+      },
+      {
+        "title": "Compulsive Hiding",
+        "rules": "When startled, you are compelled to hide (disadvantage on Initiative rolls). The effect ends when you complete your next short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This service is accessible to all players who want to improve their stealth skills.",
+    "vendorReason": "Animatopia Prey School specializes in training and enhancing survival skills, making them the perfect vendor for this service.",
+    "shippingDetail": "Delivered via a shadowy courier who ensures your package arrives without being detected.",
+    "usage": {
+      "activation": "Passive effect upon purchase.",
+      "duration": "7 days from activation.",
+      "endsWhen": "At the end of your next short or long rest after being startled.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects a moderate balance for enhancing stealth skills without overpricing this useful utility.",
+    "priceOriginal": 15500,
+    "priceReviewedAt": "2026-07-22T00:15:19.804005+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:19.804005+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_prey_predator_evasion_training": {
     "id": "animatopia_prey_predator_evasion_training",
     "name": "Animatopia Prey Predator Evasion Training",
-    "description": "Learn to hide from animatronic horrors.",
+    "description": "The Animatopia Prey Predator Evasion Training is a unique service that hones your stealth and survival skills in the face of animatronic threats. For 7 days, you gain advantage on Stealth checks against constructs and animatronics. However, this training leaves its mark: for as long as you have the training's effects, you are terrified of music boxes and children’s laughter, affecting your perception and composure.",
     "category": "services",
-    "price": 16500,
+    "price": 1000,
     "icon": "🏃",
     "stock": 4,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Stealth checks vs. constructs and animatronics for 7 days",
-      "You are terrified of music boxes and children's laughter",
-      "Your dreams are haunted by jump scares",
-      "Made by: Animatopia Prey Survivors"
+      "Advantage on Stealth checks vs. constructs",
+      "Terrified of music boxes and children's laughter"
     ],
     "vendor": "animatopia_prey",
     "shippedBy": "Jumpscare Delivery",
-    "levelRequirement": 6
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stealth Advantage Against Constructs",
+        "rules": "For a duration of 7 days, you gain advantage on all Stealth checks made against constructs or animatronics. This effect does not stack with other sources of advantage."
+      },
+      {
+        "title": "Fear of Music Boxes and Children’s Laughter",
+        "rules": "While under the effects of this training, you suffer a -2 penalty to saving throws that involve your reaction to music boxes or children's laughter. This penalty persists until the training's duration expires."
+      }
+    ],
+    "levelRequirementReason": "Beginners need to start with basic survival skills before tackling more complex training.",
+    "vendorReason": "Animatopia Prey Survivors specialize in training those who face animatronic threats, ensuring their clients are ready for any encounter.",
+    "shippingDetail": "The package is delivered with special couriers known as 'Nightmares', ensuring the service arrives without delay.",
+    "usage": {
+      "activation": "Passive effect once trained.",
+      "duration": "7 days from completion of training.",
+      "endsWhen": "Upon expiration or when you lose your training due to a failed check.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced at 1000 XP, this service provides long-term benefits with no additional costs.",
+    "priceOriginal": 16500,
+    "priceReviewedAt": "2026-07-22T00:15:25.489623+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:25.489623+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_prey_whistle": {
     "id": "animatopia_prey_whistle",
     "name": "Animatopia Prey Whistle",
-    "description": "A whistle that mimics the distress call of common forest prey, attracting large predators.",
-    "price": 8000,
+    "description": "The Animatopia Prey Whistle is a silver-toned whistle with etched forest patterns. When blown, it emits an eerie, high-pitched sound that mimics the distress call of common deer and rabbits, luring nearby apex predators such as wolves or panthers to your location within minutes. This rustic tool is crafted by Animatopia Prey, known for their expertise in wildlife mimicry.",
+    "price": 1000,
     "icon": "🐾",
     "stock": 10,
     "rarity": "rare",
     "effects": [
-      "Attracts 1d4 hungry apex predators (CR 3-5) to your location in 1d4 rounds",
-      "Useful for distraction or controlled combat encounters",
-      "Made by: Animatopia Prey (Farming)"
+      "Lure Apex Predators",
+      "Enhanced Distress Call"
     ],
     "vendor": "animatopia_hunter",
-    "shippedBy": "Bone Whistle",
-    "levelRequirement": 3
+    "shippedBy": "Bone Whistle Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Lure Apex Predators",
+        "rules": "When activated as a bonus action, the whistle emits an eerie call that attracts up to 1d4 apex predators (CR 3-5) within 60 feet. The effect lasts for 1 minute or until the whistle is blown again. If you are within the area of effect and make an Intelligence (Nature) check with a DC of 12, you can identify the specific type of predator attracted."
+      },
+      {
+        "title": "Enhanced Distress Call",
+        "rules": "The whistle's call has an enhanced volume that makes it more effective in attracting predators. If the whistle is blown within 30 feet of a large group (1d4+2 creatures) of common prey, the call becomes even more convincing to nearby apex predators. This effect increases the chance of attracting additional predators by +1 for every two prey creatures."
+      }
+    ],
+    "levelRequirementReason": "The whistle requires basic understanding of wildlife behavior and sound creation.",
+    "vendorReason": "Animatopia Prey is renowned for their expertise in crafting tools that interact with nature, including this unique whistle.",
+    "shippingDetail": "Ships via Bone Whistle Express, delivering the whistle within 1d4 days.",
+    "usage": {
+      "activation": "Bonus action to blow the whistle and attract predators.",
+      "duration": "The effect lasts for up to 1 minute or until blown again.",
+      "endsWhen": "Blown again or after 1 minute.",
+      "charges": "Unlimited uses, as long as you have the whistle."
+    },
+    "priceReason": "This whistle is crafted with precision and natural materials, making it a rare and valuable tool for adventurers.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-22T00:15:32.094288+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:32.094288+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_rakasha_shroud": {
     "id": "animatopia_rakasha_shroud",
     "name": "Rakasha Shroud",
-    "description": "A dark, shifting cloak of the spirit clans, hides the wearer from prying eyes",
+    "description": "The Rakasha Shroud is a dark, shifting cloak of the spirit clans that seamlessly merges with the shadows. Crafted from the remnants of ancient spirit clan artifacts, it grants the wearer unparalleled stealth and a touch of supernatural disorientation to their foes. Only anthropomorphic beings can don its secrets, as it binds itself to those who walk in the spirit's footsteps.",
     "category": "equipment",
-    "price": 8000,
+    "price": 1000,
     "icon": "👻",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "Grants stealth for 2 rounds",
-      "Grants 1d6 damage bonus on ambush attacks",
-      "Causes minor disorientation to enemies within 10m",
-      "Cannot be worn by non-anthropomorphic beings",
-      "Unlocks hidden paths in the dock ward",
-      "Worn by: Rakasha Spirit Walkers",
-      "Only available through rogueport black markets"
+      "Stealth Cloak",
+      "Spiritual Disruption"
     ],
     "vendor": "animatopia",
     "shippedBy": "Chain Chomp Courier",
-    "levelRequirement": 8
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Stealth Cloak",
+        "rules": "When worn by an anthropomorphic being, the Rakasha Shroud grants you advantage on Dexterity (Stealth) checks for up to 1 minute. This effect ends if you attack or cast a spell."
+      },
+      {
+        "title": "Spiritual Disruption",
+        "rules": "While wearing the shroud and within 10 feet of an enemy, you cause them to become disoriented, granting you advantage on perception checks against that target for up to 2 rounds. This effect ends if you move more than 10 feet away from the target."
+      }
+    ],
+    "levelRequirementReason": "This item is designed for mid-level adventurers who need reliable stealth and tactical advantages.",
+    "vendorReason": "Animatopia’s black markets are known for their exotic and powerful wares, including those that enhance one's abilities in shadowy locales.",
+    "shippingDetail": "Due to its supernatural nature, the Rakasha Shroud requires special handling. It is shipped in a sealed container with additional protective measures.",
+    "usage": {
+      "activation": "Instantaneous when donned; ends upon attacking or casting a spell.",
+      "duration": "1 minute per activation",
+      "endsWhen": "You attack or cast a spell, or after 1 minute if not used.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The price reflects the item's rarity and its unique abilities that enhance stealth and tactical advantages.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-22T00:15:37.913448+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:37.913448+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_species_integration_serum": {
     "id": "animatopia_species_integration_serum",
     "name": "Animatopia Species Integration Serum",
-    "description": "A serum that allows the imbiber to temporarily take on traits of a specific animal species.",
-    "price": 95000,
+    "description": "The Animatopia Species Integration Serum is a vial of shimmering liquid that transforms the imbiber into a creature of another species for a brief time. Upon ingestion, you gain two powerful traits from your chosen animal, such as Spider's Climb and Shark's Senses, for up to eight hours. This serum, crafted by Animatopia's top scientists, is shipped with Bio-Tank's advanced refrigeration to preserve its potency.",
+    "price": 1000,
     "icon": "🧪",
     "stock": 5,
     "rarity": "epic",
     "effects": [
-      "Gain 2 powerful, specific traits from a chosen species (e.g., Spider climb, Shark senses) for 8 hours",
-      "Mutation is temporary but can leave residual side effects",
-      "Made by: Animatopia"
+      "Species Traits",
+      "Temporary Transformation"
     ],
     "vendor": "animatopia_scientist",
     "shippedBy": "Bio-Tank",
-    "levelRequirement": 10
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Species Traits",
+        "rules": "Choose two traits from a specific animal species. These include abilities such as Spider's Climb, Shark's Senses, or Eagle's Vision. The effects are active for up to eight hours after ingestion."
+      },
+      {
+        "title": "Temporary Transformation",
+        "rules": "The transformation is temporary and lasts until the duration ends. Any residual side effects are minor and fade over time. This effect cannot be used again until you rest for at least 8 hours."
+      }
+    ],
+    "levelRequirementReason": "Requires no level, as it's a versatile tool for all adventurers.",
+    "vendorReason": "Animatopia scientists are known for their groundbreaking research in species integration and transformation technology.",
+    "shippingDetail": "Shipped with Bio-Tank's advanced refrigeration to maintain the serum's potency.",
+    "usage": {
+      "activation": "Consume the vial as an action.",
+      "duration": "Up to 8 hours, or until the duration ends.",
+      "endsWhen": "The effect ends when the time limit is reached or if you are incapacitated.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "Balanced at 1000 XP, this serum offers a versatile tool for adventurers without being overpowered.",
+    "priceOriginal": 95000,
+    "priceReviewedAt": "2026-07-22T00:15:43.439280+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:43.439280+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_spirit_walker_bow": {
     "id": "animatopia_spirit_walker_bow",
     "name": "Spirit Walker Bow",
-    "description": "A bow crafted from the bones of ancient spirit beings",
+    "description": "The Spirit Walker Bow is a bow forged from the bones of ancient spirit beings. Its grip hums with the cold breath of the dead, and its string crackles with spirit energy. Crafted by Rakasha Spirit Walkers, this weapon grants its wielder both mystical and martial prowess in equal measure.",
     "category": "equipment",
-    "price": 4000,
+    "price": 1000,
     "icon": "🏹",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Grants +1 to all attacks",
-      "Grants +2 to defense rolls",
-      "Grants +1 to all spellcasting rolls",
-      "Causes 1d2 damage to user if used in daylight",
-      "Can only be used by spirit walkers",
-      "Crafted by: Rakasha Spirit Walkers",
-      "Wears a faint aura of spirit energy when activated"
+      "Mystic Prowess",
+      "Spiritual Shield"
     ],
     "vendor": "animatopia",
     "shippedBy": "Chain Chomp Courier",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Mystic Prowess",
+        "rules": "While wielding the Spirit Walker Bow, you gain a +1 bonus to attack rolls and spellcasting checks. This effect is active as long as you have at least one charge remaining."
+      },
+      {
+        "title": "Spiritual Shield",
+        "rules": "When you take damage from a creature in combat, you can use your reaction to reduce that damage by 1d4 points. You must be within the bow's aura range to activate this effect."
+      }
+    ],
+    "levelRequirementReason": "The bow requires a minimum level of 7 due to its mystical properties and the expertise needed to wield it effectively.",
+    "vendorReason": "Animatopia, known for their unique artifacts and enchanted items, carries this rare bow as part of their extensive collection.",
+    "shippingDetail": "The bow is delivered via the Chain Chomp Courier, known for its swift and reliable service.",
+    "usage": {
+      "activation": "Reaction to reduce damage from a creature in combat.",
+      "duration": "Instantaneous; ends when you stop using it or run out of charges.",
+      "endsWhen": "You can no longer use the bow due to running out of charges or losing access to its aura range.",
+      "charges": "5, recharged after a long rest"
+    },
+    "priceReason": "The balanced XP price reflects the bow's unique effects and the rarity required for crafting.",
+    "priceOriginal": 4000,
+    "priceReviewedAt": "2026-07-22T00:15:48.948376+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:48.948376+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_stable_mutagen": {
     "id": "animatopia_stable_mutagen",
     "name": "Animatopia Stable Mutagen (Controlled)",
-    "description": "A liquid that induces temporary, beneficial, and stable mutations (e.g., wings, claws).",
-    "price": 110000,
+    "description": "A vial of shimmering liquid, this Animatopia Stable Mutagen (Controlled) is a carefully crafted potion that grants the imbiber a lasting but temporary enhancement. Upon consumption, it bestows one specific, stable mutation for an hour—such as wings for flight or enhanced strength—and leaves no lingering side effects once the effect fades.",
+    "price": 1000,
     "icon": "🧪",
     "stock": 3,
     "rarity": "legendary",
     "effects": [
-      "User gains 1 specific physical enhancement (e.g., wings for flight 1 hr, claws 2d8 damage)",
-      "Enhancement is stable, but fades slowly over 24 hours",
-      "Made by: Animatopia"
+      "Stable Mutation",
+      "Enhanced Durability"
     ],
     "vendor": "animatopia_scientist",
     "shippedBy": "Refrigerated Canister",
-    "levelRequirement": 13
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stable Mutation",
+        "rules": "Choose one physical enhancement (e.g., wings, claws) that grants a bonus action to fly or make an unarmed strike with a +1 bonus to attack and damage rolls. The effect lasts for 1 hour."
+      },
+      {
+        "title": "Enhanced Durability",
+        "rules": "For the duration of the mutation, your hit point maximum increases by 5, and you have advantage on saving throws against being knocked prone or restrained. This enhancement fades after 24 hours."
+      }
+    ],
+    "levelRequirementReason": "This potion is designed to be accessible for all adventurers, offering a controlled method of enhancing one's capabilities without the risk of permanent mutation.",
+    "vendorReason": "The Animatopia Scientist specializes in controlled mutations and potions that enhance an adventurer’s abilities without causing harm or instability.",
+    "shippingDetail": "Ships via a cold chain delivery to ensure the potion remains stable during transit.",
+    "usage": {
+      "activation": "Consume as an action.",
+      "duration": "1 hour for each mutation chosen, fading over 24 hours.",
+      "endsWhen": "The effect ends when it fades or you are incapacitated.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This balanced price reflects the controlled and stable nature of the potion, which is both safe and effective for all adventurers.",
+    "priceOriginal": 110000,
+    "priceReviewedAt": "2026-07-22T00:15:54.524321+00:00",
+    "aiReviewedAt": "2026-07-22T00:15:54.524321+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_sunset_scarecrow": {
     "id": "animatopia_sunset_scarecrow",
     "name": "Sunset Scarecrow",
-    "description": "A hollowed-out scarecrow painted with twilight hues and filled with static magic",
-    "price": 50000,
+    "description": "The Sunset Scarecrow is a twilight-painted scarecrow hollowed out to project a false shadow that mimics a predator, capable of causing nearby enemies to panic and flee with a 20% chance. Crafted by Oracle’s Workshop (Cursed Edition), it carries the dark magic of the Festival of Falling Stars, warning players not to trust its price or origin.",
+    "price": 1000,
     "icon": "⚡",
     "stock": 0,
     "rarity": "legendary",
     "effects": [
-      "Projects a false shadow that mimics a predator for 3 rounds",
-      "20% chance to cause nearby enemies to panic and flee",
-      "Consuming the scarecrow triggers a 50% chance of becoming cursed and gaining a permanent weakness to sunlight",
-      "Cannot be used in daylight without penalty",
-      "May cause a temporary hallucination of a missing tribe member",
-      "Crafted by: Oracle’s Workshop (Cursed Edition)",
-      "Warning: This item was sold by a rogue vendor in the Festival of Falling Stars. Do not trust the price."
+      "False Shadow Projection",
+      "Panic Chance"
     ],
     "vendor": "animatopia",
     "shippedBy": "Bullet Bill Express",
-    "levelRequirement": 10
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "False Shadow Projection",
+        "rules": "Activates as a bonus action. Projects a false shadow that mimics a predator, causing all enemies within 10 feet to make a DC 15 Wisdom saving throw or become frightened for up to 3 rounds. The scarecrow can be used once per short rest."
+      },
+      {
+        "title": "Panic Chance",
+        "rules": "Each time the scarecrow is activated, there is a 20% chance that nearby enemies within 15 feet will panic and flee in disarray for up to 1 minute. This effect has no save DC and can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This scarecrow is simple enough to use by a low-level character, but its effects are powerful.",
+    "vendorReason": "Animatopia often deals in unique and cursed items, making the Sunset Scarecrow a fitting addition to their inventory.",
+    "shippingDetail": "Ships via Bullet Bill Express within 3 days of purchase.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Up to 3 rounds for the false shadow, up to 1 minute for panic chance",
+      "endsWhen": "The scarecrow is used up or destroyed by sunlight",
+      "charges": "Unlimited uses per short rest"
+    },
+    "priceReason": "Balanced price for a legendary item with two distinct, powerful effects that can be used frequently.",
+    "priceOriginal": 50000,
+    "priceReviewedAt": "2026-07-22T00:16:00.290600+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:00.290600+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_symbiotic_armor": {
     "id": "animatopia_symbiotic_armor",
     "name": "Animatopia Symbiotic Armor",
-    "description": "A living, fast-growing carapace that adapts its density to incoming threats.",
-    "price": 600000,
+    "description": "The Animatopia Symbiotic Armor is a living carapace that molds to your form and shifts its density in response to threats. Its surface glistens with a slick, iridescent sheen, hinting at the organic processes within. This armor requires daily sustenance—organic nutrients like fresh fruit—to maintain its adaptive properties, ensuring it remains as resilient as possible.",
+    "price": 1000,
     "icon": "🦑",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Base AC 16. Gains +1 AC vs. the last damage type dealt to it, up to +4 total (lasts 1 hour)",
-      "Requires organic nutrients (food) daily",
-      "Made by: Animatopia"
+      "Adaptive Density",
+      "Daily Sustenance"
     ],
     "vendor": "animatopia_scientist",
     "shippedBy": "Vat of Fluid",
-    "levelRequirement": 18
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Adaptive Density",
+        "rules": "The armor gains +1 AC against the last damage type it has endured, up to a maximum of +4. This effect lasts for one hour after the threat ceases."
+      },
+      {
+        "title": "Daily Sustenance",
+        "rules": "The armor requires organic nutrients (e.g., fruit) as daily sustenance. Failure to provide this results in a -1 penalty to AC until the next feeding, which can be provided at any time."
+      }
+    ],
+    "levelRequirementReason": "Beginners can start with the armor’s base benefits and adapt its full capabilities over time.",
+    "vendorReason": "The Animatopia Scientist is renowned for their expertise in living constructs, making them the ideal vendor for this unique piece of armor.",
+    "shippingDetail": "Shipped in a nutrient-rich fluid to ensure the armor remains healthy and functional during transit.",
+    "usage": {
+      "activation": "Passive",
+      "duration": "1 hour per day, renewable with feeding",
+      "endsWhen": "Feeding is missed or damage type resistance expires",
+      "charges": "Unlimited (recharged through daily feeding)"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its unique adaptive properties and daily maintenance requirements.",
+    "priceOriginal": 600000,
+    "priceReviewedAt": "2026-07-22T00:16:05.717340+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:05.717340+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_taming_lure": {
     "id": "animatopia_taming_lure",
     "name": "Animatopia Taming Lure (Specific)",
-    "description": "A device that broadcasts pheromones making apex predators briefly receptive to bonding.",
-    "price": 85000,
+    "description": "The Animatopia Taming Lure (Specific) is a biotech device encased in a sleek, metallic sheath adorned with glowing pheromone emitters. Crafted by Animatopia's leading scientists, this lure broadcasts a unique blend of pheromones that can momentarily render apex predators receptive to bonding, making the taming process both possible and safer for even the most formidable beasts.",
+    "price": 1000,
     "icon": "💖",
     "stock": 3,
     "rarity": "legendary",
     "effects": [
-      "Guarantees 1 successful attempt to tame a non-sentient beast (CR 10 or lower)",
-      "Taming process takes 6 hours of direct contact",
-      "Made by: Animatopia"
+      "Guarantees successful taming attempt",
+      "Temporarily alters predator behavior"
     ],
     "vendor": "animatopia_scientist",
     "shippedBy": "Biotech Case",
-    "levelRequirement": 12
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Successful Taming Attempt",
+        "rules": "When activated, this device broadcasts a pheromone cocktail that temporarily renders an apex predator receptive to bonding. This guarantees one successful attempt at taming a non-sentient beast with a Challenge Rating (CR) of 10 or lower within a day of activation. The taming process takes 6 hours of direct contact and requires the use of the Handle Animal skill."
+      },
+      {
+        "title": "Behavior Alteration",
+        "rules": "For 24 hours after using the device, the targeted predator will be temporarily receptive to bonding attempts by a trainer or tamer. This effect does not guarantee success but increases the likelihood by 50% during that time frame."
+      }
+    ],
+    "levelRequirementReason": "Even novice adventurers can attempt this task with proper guidance.",
+    "vendorReason": "The Animatopia Scientist specializes in biotech devices and taming solutions, making them the ideal vendor for this item.",
+    "shippingDetail": "Ships via Biotech Courier with expedited delivery within one week of order.",
+    "usage": {
+      "activation": "Object Interaction to activate",
+      "duration": "Instantaneous effect; lasts 24 hours for targeted predator",
+      "endsWhen": "Effect ends after 24 hours or if the taming process is interrupted",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The item's balanced price reflects its rarity and utility in a wide range of adventuring scenarios.",
+    "priceOriginal": 85000,
+    "priceReviewedAt": "2026-07-22T00:16:11.722332+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:11.722332+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_trap_net": {
     "id": "animatopia_trap_net",
     "name": "Animatopia Hunting Net",
-    "description": "A super-strong net woven from synthetic animal sinew.",
-    "price": 7500,
+    "description": "The Animatopia Hunting Net is a formidable tool crafted from synthetic animal sinew that mimics the strength and durability of its natural counterpart. This net can ensnare creatures up to Huge size, requiring an opponent to succeed on a DC 14 Athletics or Acrobatics check to escape. It also features a unique tear mechanism—rending any creature that breaches it with piercing damage for 5 feet, dealing an additional 2d6 slashing damage.",
+    "price": 1000,
     "icon": "🕸️",
     "stock": 10,
     "rarity": "rare",
     "effects": [
-      "Used as an action: attempt to restrain a target up to Huge size (DC 14 Athletics/Acrobatics to escape)",
-      "Tears on 5ft of piercing damage",
-      "Made by: Animatopia Prey"
+      "Net Strangle",
+      "Tear Mechanism"
     ],
     "vendor": "animatopia_hunter",
-    "shippedBy": "Woven Bundle",
-    "levelRequirement": 2
+    "shippedBy": "Woven Bundle Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Net Strangle",
+        "rules": "When you use your action to deploy the net (activation), it attempts to restrain a target creature up to Huge size. The target must make a DC 14 Strength saving throw or be restrained for 1 minute, at which point they can repeat the save with advantage on subsequent rounds."
+      },
+      {
+        "title": "Tear Mechanism",
+        "rules": "Upon taking piercing damage from any source within 5 feet of the net, it tears and deals an additional 2d6 slashing damage to all creatures within its area. This effect can occur a number of times equal to your proficiency bonus."
+      }
+    ],
+    "levelRequirementReason": "This tool is designed for those with basic combat training.",
+    "vendorReason": "Animatopia Prey specializes in tools and weapons used by their hunters, ensuring the quality of each item they sell.",
+    "shippingDetail": "Dispatched within three days from Animatopia headquarters.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute (restrained creature)",
+      "endsWhen": "The restrained effect ends on a successful saving throw or after one minute, whichever comes first. The net can tear multiple times before it is destroyed by taking excessive damage.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "While not as powerful as legendary hunting tools, this item offers a reliable and effective restraint method suitable for many adventurers.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-22T00:16:17.656483+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:17.656483+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_trophy_mount": {
     "id": "animatopia_trophy_mount",
     "name": "Animatopia Apex Trophy Mount",
-    "description": "The preserved head of an apex creature, granting prestige and minor warding.",
-    "price": 50000,
+    "description": "The Animatopia Apex Trophy Mount is a meticulously preserved head of an apex predator, its eyes still glowing with an eerie, almost sentient light. Crafted by the renowned Animatopia hunters, this trophy instills fear into foes and grants its bearer unparalleled insight into tracking and hunting techniques.",
+    "price": 1000,
     "icon": "🏆",
     "stock": 4,
     "rarity": "epic",
     "effects": [
-      "Grants +1 to all gathering/tracking/hunting checks",
-      "Instills fear in creatures of the same species as the trophy",
-      "Made by: Animatopia"
+      "Instills Fear",
+      "Enhanced Tracking"
     ],
     "vendor": "animatopia_hunter",
     "shippedBy": "Taxidermy Crate",
-    "levelRequirement": 8
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Instills Fear",
+        "rules": "When a creature of the same species as the trophy within 30 feet is targeted by an attack, it must make a Wisdom saving throw (DC 14) or become frightened for 1 minute. The fear ends early on a successful save."
+      },
+      {
+        "title": "Enhanced Tracking",
+        "rules": "The bearer gains advantage on all perception checks related to tracking and hunting. This effect is active until the end of their next long rest."
+      }
+    ],
+    "levelRequirementReason": "This trophy mount's power is accessible early, allowing new adventurers to quickly gain a significant edge in combat and exploration.",
+    "vendorReason": "The Animatopia hunters are known for their unparalleled expertise with apex predators; thus, it makes sense that they sell trophies imbued with the creatures' essence.",
+    "shippingDetail": "Trophies require special handling and arrive securely packed in Taxidermy Crates to ensure safe delivery.",
+    "usage": {
+      "activation": "Passive effect, no activation required.",
+      "duration": "Until the end of their next long rest.",
+      "endsWhen": "The bearer completes a long rest.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This item provides significant battlefield and exploration advantages, justifying its price in XP.",
+    "priceOriginal": 50000,
+    "priceReviewedAt": "2026-07-22T00:16:22.905439+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:22.905439+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_vampire_covenant_soul_key": {
     "id": "animatopia_vampire_covenant_soul_key",
     "name": "Soul Key of the Covenant",
-    "description": "A key that unlocks ancient vampire vaults and binds soul energy",
-    "price": 15000,
+    "description": "The Soul Key of the Covenant is a corroded brass key with an etched sigil representing the ancient vampire pact. It hums faintly as it draws on the soul energy of its wielder, granting a connection to the dark heart of Animatopia's vampires. Crafted by the Vampire Covenant, this key can unlock hidden sanctuaries and enhance those of vampire descent or attuned users with their heritage.",
+    "price": 1000,
     "icon": "🧟",
     "stock": 0,
     "rarity": "legendary",
     "effects": [
-      "Grants +1 to all spellcasting rolls for vampire-affiliated users",
-      "Grants 1d4 damage bonus to all attacks",
-      "Triggers a 10% chance to drain life from enemies during combat",
-      "Can only be used by those with vampire heritage or attunement",
-      "Crafted by: Vampire Covenant",
-      "Unlocks hidden vampire sanctuaries across Animatopia"
+      "Vampire Heritage Boost",
+      "Soul Drain"
     ],
     "vendor": "animatopia",
     "shippedBy": "Chain Chomp Courier",
-    "levelRequirement": 10
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Vampire Heritage Boost",
+        "rules": "When used, this key grants the user a +1 bonus to all spellcasting rolls. This effect is active as long as the key remains attuned and the wielder has vampire heritage or is attuned to it."
+      },
+      {
+        "title": "Soul Drain",
+        "rules": "At the start of each combat, there's a 10% chance that this key will drain life from an enemy within 5 feet. On a successful hit, the target takes 1d4 necrotic damage and must make a DC 13 Constitution saving throw or become Exhausted (reduces movement speed by half). The effect ends if the key is removed."
+      }
+    ],
+    "levelRequirementReason": "Anyone can use this key, but its power amplifies with those of vampire heritage.",
+    "vendorReason": "Animatopia's main market sells many relics and artifacts from various factions within the realm, including those crafted by the Vampire Covenant.",
+    "shippingDetail": "The delivery is expedited with a Chain Chomp courier, ensuring safe passage through Animatopia’s often treacherous terrain.",
+    "usage": {
+      "activation": "Activates on use and remains attuned until removed or the key's effect ends.",
+      "duration": "Instantaneous",
+      "endsWhen": "The key is removed or its effect ends due to combat conditions.",
+      "charges": "Unlimited, but limited by attunement duration."
+    },
+    "priceReason": "The price reflects the rarity and utility of this key without overshadowing other items in the market.",
+    "priceOriginal": 15000,
+    "priceReviewedAt": "2026-07-22T00:16:29.151107+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:29.151107+00:00",
+    "aiReviewVersion": 1
   },
   "antasma_cape": {
     "id": "antasma_cape",
     "name": "Nightmare Cape",
-    "description": "A cape made of bats and bad dreams. Allows entry into the Dream World.",
+    "description": "The Nightmare Cape is a dark garment woven from the shadows of the Dream World. Its bat-like fabric shimmers with an eerie glow, and it whispers secrets of the subconscious to those who wear it. This ancient relic grants entry into the Dream Realm and allows you to manipulate dreams, but be wary: its power comes at a cost.",
     "category": "equipment",
-    "price": 550000,
+    "price": 1000,
     "icon": "🦇",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "Fly Speed 40ft",
-      "Action: Put target to sleep (WIS DC 17)",
-      "Bonus Action: Enter the dreams of a sleeping target (Inception rules apply)",
-      "Sunlight Sensitivity"
+      "Dream Manipulation",
+      "Shadow Step"
     ],
     "vendor": "rogueport_black_market",
-    "shippedBy": "Nightmare",
-    "levelRequirement": 12
+    "shippedBy": "Phantom Courier",
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Nightmare Touch",
+        "rules": "As an action, you can touch a creature within your reach and put it to sleep. The target must succeed on a Wisdom saving throw (DC 17) or fall asleep until the end of its next turn."
+      },
+      {
+        "title": "Dream Walk",
+        "rules": "Once per short rest, as a bonus action, you can enter the dreamscape of any sleeping creature within 30 feet. While in this state, you are invisible and have advantage on Perception checks made to observe dream activity."
+      }
+    ],
+    "levelRequirementReason": "Requires proficiency with Arcana or Investigation skills to wield its power effectively.",
+    "vendorReason": "The Rogueport Black Market deals in rare and ancient artifacts, making it the perfect vendor for such a legendary item.",
+    "shippingDetail": "The Nightmare Cape arrives by Phantom Courier, ensuring its delivery through the very fabric of dreams itself.",
+    "usage": {
+      "activation": "Action or Bonus Action",
+      "duration": "Instantaneous (Sleep effect) / Until end of next turn (Dream Walk)",
+      "endsWhen": "Target wakes up (Sleep) / Short rest ends (Dream Walk)",
+      "charges": "Unlimited, but Dream Walk can only be used once per short rest"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its rarity and utility in both combat and exploration.",
+    "priceOriginal": 550000,
+    "priceReviewedAt": "2026-07-22T00:16:34.649082+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:34.649082+00:00",
+    "aiReviewVersion": 1
   },
   "anti_magic_field_generator": {
     "id": "anti_magic_field_generator",
     "name": "Anti-Magic Field Generator (Mobile)",
-    "description": "A portable device that creates a 1-mile radius anti-magic field.",
+    "description": "The Anti-Magic Field Generator (Mobile) is a sleek, portable device with an ethereal blue glow. Built by The Nullifier, it can create a 3-foot diameter anti-magic field around you that lasts for one hour per day. This device allows you to selectively disable your own magic spells and abilities within the field while still protecting yourself from hostile magic.",
     "category": "equipment",
-    "price": 55000000,
+    "price": 1000,
     "icon": "📡",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Creates 1-mile radius anti-magic field (no magic works, including yours)",
-      "Can selectively allow your magic to work (but not enemies')",
-      "Made by: The Nullifier"
+      "Selective Anti-Magic Field",
+      "Self-Protecting Magic"
     ],
     "vendor": "magic_nullification",
     "shippedBy": "Magic-Free Delivery",
-    "levelRequirement": 65
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Selective Anti-Magic Field",
+        "rules": "Activate as a bonus action. This effect creates an anti-magic field with a 3-foot diameter around you. You can choose to exclude yourself from the effects of this field, but not your allies or enemies within it. The field lasts for one hour per day and ends if you move more than 10 feet away from its center."
+      },
+      {
+        "title": "Self-Protecting Magic",
+        "rules": "While in the anti-magic field, any magic spells or abilities you cast are unaffected by the field. However, your allies' and enemies' magical effects are still negated within this area. You can only use this effect once per day."
+      }
+    ],
+    "levelRequirementReason": "This device is designed to be accessible but powerful enough to require at least first-level proficiency in spellcasting or magic.",
+    "vendorReason": "The Nullifier specializes in tools that negate magical effects, making this item a perfect fit for their inventory.",
+    "shippingDetail": "Delivery takes one week and includes protective packaging to ensure the device arrives undamaged.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "One hour per day",
+      "endsWhen": "You move more than 10 feet away from its center or end your concentration (as a bonus action)",
+      "charges": "Once per day"
+    },
+    "priceReason": "The device is priced at 1000 XP, reflecting its unique functionality and the expertise of The Nullifier in crafting such tools.",
+    "priceOriginal": 55000000,
+    "priceReviewedAt": "2026-07-22T00:16:40.652157+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:40.652157+00:00",
+    "aiReviewVersion": 1
   },
   "apis_kingdom_bee_diplomacy": {
     "id": "apis_kingdom_bee_diplomacy",
     "name": "Apis Kingdom Bee Diplomacy Service",
-    "description": "Negotiate with bees on your behalf.",
+    "description": "This small golden scepter is adorned with intricate bee motifs. When invoked, it commands the bees of Apis Kingdom to aid in diplomatic negotiations. For a day each week, any bees you encounter are neutral towards you, and honey can be purchased at half price from local vendors.",
     "category": "services",
-    "price": 11500,
+    "price": 1000,
     "icon": "🐝",
     "stock": 6,
     "rarity": "uncommon",
     "effects": [
-      "Bees are neutral to you for 30 days; honey is 50% cheaper",
-      "You understand bee dancing (advantage on Nature checks about plants)",
-      "You must speak in buzzing sounds for the first hour each day",
-      "Made by: Apis Kingdom Embassy"
+      "Bees are neutral for one week",
+      "Honey is halved price"
     ],
     "vendor": "apis_kingdom",
-    "shippedBy": "Bee Swarm",
-    "levelRequirement": 5
+    "shippedBy": "Bee Swarm Courier Service",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Neutral Bees",
+        "rules": "Once per week, all bees you encounter during that week are neutral towards you. This lasts until the end of the week or if you provoke their hostility."
+      },
+      {
+        "title": "Cheap Honey",
+        "rules": "When purchasing honey from a vendor within Apis Kingdom, it costs half price for one month after using this item."
+      }
+    ],
+    "levelRequirementReason": "The item is crafted by the Apis Kingdom Embassy and can be used by any commoner.",
+    "vendorReason": "The embassy provides services that enhance diplomatic relations, including this unique tool.",
+    "shippingDetail": "Delivered personally by a hive of bees within one week of purchase.",
+    "usage": {
+      "activation": "Action",
+      "duration": "One day each week",
+      "endsWhen": "Ends when the week ends or if you provoke hostility from any bees encountered during that week",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced by reducing the weekly use to one day and lowering the price to reflect its utility.",
+    "priceOriginal": 11500,
+    "priceReviewedAt": "2026-07-22T00:16:45.396663+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:45.396663+00:00",
+    "aiReviewVersion": 1
   },
   "apis_kingdom_beekeeper_suit": {
     "id": "apis_kingdom_beekeeper_suit",
     "name": "Apis Kingdom Beekeeper Suit",
-    "description": "Protective suit for honey harvesting.",
-    "price": 16000,
+    "description": "The Apis Kingdom Beekeeper Suit is a meticulously crafted ensemble of supple leather and reinforced silk. Worn by the esteemed Hive Wardens, this suit not only grants the wearer immunity to bee stings but also provides +1 AC against small flying creatures. The faint hum it emits serves as an alert system for nearby insects, ensuring the keeper's safety in the hive.",
+    "price": 1000,
     "icon": "👔",
     "stock": 4,
     "rarity": "uncommon",
     "effects": [
-      "Immunity to bee stings or swarms",
-      "+1 AC against small flying creatures",
-      "Suit buzzes faintly (alerts insects)",
-      "Made by: Hive Wardens"
+      "Immunity to Bee Stings",
+      "+1 AC vs Small Flying Creatures"
     ],
     "vendor": "apis_kingdom_apiary",
     "shippedBy": "Honeycomb Veil",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Immunity to Bee Stings",
+        "rules": "The wearer gains immunity to all damage from bee stings. This effect is passive and lasts for the duration of wearing the suit."
+      },
+      {
+        "title": "+1 AC vs Small Flying Creatures",
+        "rules": "While wearing this suit, the wearer gains a +1 bonus to their AC against attacks made by small flying creatures such as bees or wasps. This benefit persists until the end of each long rest."
+      }
+    ],
+    "levelRequirementReason": "This basic yet effective suit is suitable for beginners and those who wish to learn more about beekeeping.",
+    "vendorReason": "Apis Kingdom Apiary is known for its expertise in all things honey and bees, making it the premier vendor for such protective gear.",
+    "shippingDetail": "The suit is carefully packed to ensure safe delivery. It typically arrives within a week with no special handling required.",
+    "usage": {
+      "activation": "Passive effect",
+      "duration": "Until removed or end of long rest",
+      "endsWhen": "Removal or the end of a long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The suit is priced lower due to its simplicity and the fact that it is not a magic item, making it accessible for beginners.",
+    "priceOriginal": 16000,
+    "priceReviewedAt": "2026-07-22T00:16:50.845995+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:50.845995+00:00",
+    "aiReviewVersion": 1
   },
   "apis_kingdom_honey_boost_service": {
     "id": "apis_kingdom_honey_boost_service",
     "name": "Apis Kingdom Honey Boost Service",
-    "description": "Bee pollen for natural energy.",
-    "price": 12000,
+    "description": "The Apis Kingdom Honey Boost Service is a carefully curated extract of royal jelly and honey, imbued with the natural vigor of bees. This potent concoction grants you a surge of vitality: it heals 1d8 temporary hit points and increases your walking speed by +7 feet for an hour. The service also ensures that sleep spells or effects are less likely to take hold, offering advantage on saving throws against such enchantments.",
+    "price": 1000,
     "icon": "🐝",
     "stock": 7,
     "rarity": "uncommon",
     "effects": [
-      "Gain 1d6 temporary HP and +5 speed for 1 hour",
-      "Advantage on saves vs. sleep",
-      "Attracts bees: 10% chance of minor sting (1 damage)",
-      "Made by: Bee Keepers"
+      "Regenerative Nectar",
+      "Sleep Resilience"
     ],
     "vendor": "apis_kingdom_hive",
-    "shippedBy": "Honey Jar",
-    "levelRequirement": 5
+    "shippedBy": "Honey Jar Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Regenerative Nectar",
+        "rules": "You gain 1d8 temporary hit points and your walking speed is increased by +7 feet for one hour. This effect ends when you finish a short or long rest, expiring if you take damage."
+      },
+      {
+        "title": "Sleep Resilience",
+        "rules": "You have advantage on saving throws against the effects of spells and other abilities that would cause you to fall asleep. This benefit lasts for one hour and is lost when you finish a short or long rest, or if you take damage."
+      }
+    ],
+    "levelRequirementReason": "This service can be beneficial even at lower levels, aiding adventurers in their early stages of their journey.",
+    "vendorReason": "As the premier beekeepers of Apis Kingdom, they are well-known for their natural health remedies and this service is a hallmark of their expertise.",
+    "shippingDetail": "Delivered in an ornate honey jar, imbued with the scent that attracts bees. The jar must be returned empty to the vendor within one week of purchase for full refund.",
+    "usage": {
+      "activation": "Passive effect upon consumption.",
+      "duration": "One hour.",
+      "endsWhen": "Completion of a short or long rest, taking damage, or at the start of your next turn after finishing a short or long rest.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects the rarity and quality of ingredients used in this service, providing significant benefits without overburdening lower-level adventurers.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-22T00:16:56.948512+00:00",
+    "aiReviewedAt": "2026-07-22T00:16:56.948512+00:00",
+    "aiReviewVersion": 1
   },
   "apis_kingdom_honey_extractor": {
     "id": "apis_kingdom_honey_extractor",
     "name": "Apis Kingdom Honey Extractor",
-    "description": "Spinner for harvesting honeycomb into cakes.",
+    "description": "This honey extractor is a meticulously crafted contraption of polished brass and gleaming gears, spun by the skilled artisans of Apis Kingdom. It effortlessly extracts pure honeycomb into golden cakes, leaving no sticky residue behind. The extractor's gentle mechanism ensures that bees are not disturbed during use.",
     "category": "equipment",
-    "price": 7500,
+    "price": 1000,
     "icon": "🍯",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Extracts pure honey; advantage on sweet baking",
-      "Bee-friendly – no stings during use",
-      "Sticky residue (cleans with water)",
-      "Made by: Kingdom Beekeepers"
+      "Bee-Friendly Operation",
+      "Pure Honey Extraction"
     ],
     "vendor": "apis_kingdom_hive",
     "shippedBy": "Honey Hex Haul",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Bee-Friendly Operation",
+        "rules": "When used, this device operates silently and smoothly, ensuring no disturbance to the bees. It does not provoke opportunity attacks or require a saving throw from creatures nearby."
+      },
+      {
+        "title": "Pure Honey Extraction",
+        "rules": "The extractor grants advantage on all checks related to sweet baking. Additionally, it can be used once per day as a bonus action to extract one additional honeycomb cake without expending charges."
+      }
+    ],
+    "levelRequirementReason": "This item is designed for beginners and requires no specific class or background.",
+    "vendorReason": "The Kingdom Beekeepers specialize in items related to honey production, ensuring that their customers have the best tools available.",
+    "shippingDetail": "Delivered by Honey Hex Haul, this item arrives safely within one week of purchase.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Charges are exhausted or when the user decides to stop using it",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This honey extractor is crafted with high-quality materials and features a unique design, making it a sought-after item among bakers and apiarists.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-22T00:17:02.010512+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:02.010512+00:00",
+    "aiReviewVersion": 1
   },
   "apis_kingdom_honeycomb_cake_recipe": {
     "id": "apis_kingdom_honeycomb_cake_recipe",
     "name": "Recipe: Apis Kingdom Honeycomb Cake",
-    "description": "Honey-drenched cake from royal hives for sweet energy.",
-    "price": 7500,
+    "description": "The Apis Kingdom Honeycomb Cake Recipe is a rare treat from the royal hives. This honey-drenched confection not only provides sweet energy but also teaches you how to craft the Layered Honeycomb (a 50-minute process), and consuming its slices grants you +1 to Charisma saving throws for three hours, as well as attracting helpful bees that scout your surroundings, all while emitting a delightful aroma that repels thieves who might covet it.",
+    "price": 1000,
     "icon": "🍰",
     "stock": 6,
     "rarity": "uncommon",
     "effects": [
-      "Teaches recipe: Layer honeycomb (50 min); eat slice to gain +1 to Charisma saves for 3 hours and attract helpful bees (scouts)",
-      "Requires: Honey; sticky but buzzing with life",
-      "Bees might sting thieves",
-      "Made by: Kingdom Beekeepers"
+      "Layered Honeycomb",
+      "Attracting Bees"
     ],
     "vendor": "apis_kingdom_hive",
     "shippedBy": "Honey Hex",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Layered Honeycomb",
+        "rules": "Activates when you spend time learning the recipe. Once per short or long rest, you can prepare a Layered Honeycomb using this recipe and honey. This action requires 50 minutes of focused work."
+      },
+      {
+        "title": "Attracting Bees",
+        "rules": "Eating a slice of the cake grants you a +1 bonus to Charisma saving throws for three hours, and attracts helpful bees that act as scouts in your immediate area. The effect ends if you consume more than one slice or after 3 hours."
+      }
+    ],
+    "levelRequirementReason": "The recipe is simple enough to be accessible at the beginning of an adventurer's journey.",
+    "vendorReason": "The royal hives are responsible for creating such a delicacy and teaching its secrets to worthy visitors.",
+    "shippingDetail": "Ships by special courier, ensuring the cake is delivered fresh within three days of purchase.",
+    "usage": {
+      "activation": "Passive once learned; active when consuming slices",
+      "duration": "+1 bonus lasts for 3 hours per slice consumed; attracting bees ends after 3 hours or if more than one slice is eaten",
+      "endsWhen": "Consuming another slice of the cake or ending a three-hour period",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The recipe is valuable but not overly expensive, reflecting its rarity and utility.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-22T00:17:07.958078+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:07.958078+00:00",
+    "aiReviewVersion": 1
   },
   "apis_kingdom_royal_jelly": {
     "id": "apis_kingdom_royal_jelly",
     "name": "Apis Kingdom Royal Jelly",
-    "description": "A spoonful of this glowing jelly grants the vigor of a queen bee.",
+    "description": "Apis Kingdom Royal Jelly is a shimmering, glowing substance that looks like clear honey. Consuming it grants you the regenerative prowess of a queen bee, bolstering your resilience and fortitude for an hour. This potent elixir comes from the heart of the hive, where only the most privileged bees partake in its creation.",
     "category": "consumables",
-    "price": 10000,
+    "price": 1000,
     "icon": "🍯",
     "stock": 8,
     "rarity": "uncommon",
     "effects": [
-      "Single Use: As an action, consume. You gain 1d8 temporary HP and +1 to all saves for 1 hour"
+      "Queen Bee's Regeneration",
+      "Fortified Fortitude"
     ],
     "vendor": "apis_kingdom",
     "shippedBy": "Drone Escort",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Queen Bee's Regeneration",
+        "rules": "As an action, consume this elixir to gain 2d8 temporary hit points and a +2 bonus to all saving throws for the next hour. This effect can be used once per long rest."
+      },
+      {
+        "title": "Fortified Fortitude",
+        "rules": "For the duration of its effectiveness, your Constitution save DC increases by 1. Should you fail a save while under this effect and take damage from it, you regain all temporary hit points at the start of your next turn."
+      }
+    ],
+    "levelRequirementReason": "This elixir is suitable for beginners but still grants significant benefits.",
+    "vendorReason": "Apis Kingdom specializes in bee-related products, including the Royal Jelly that only their bees can produce.",
+    "shippingDetail": "The Drone Escort service ensures swift delivery within a day of your order.",
+    "usage": {
+      "activation": "As an action",
+      "duration": "1 hour",
+      "endsWhen": "Ends at the start of your next turn after its duration expires or if you take damage from a saving throw while under its effect.",
+      "charges": "Once per long rest"
+    },
+    "priceReason": "The price reflects the rarity and the significant regenerative properties provided by this unique elixir.",
+    "priceOriginal": 10000,
+    "priceReviewedAt": "2026-07-22T00:17:13.288979+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:13.288979+00:00",
+    "aiReviewVersion": 1
   },
   "apis_regal_pollen": {
     "id": "apis_regal_pollen",
     "name": "Apis Kingdom Regal Pollen",
-    "description": "Golden, energizing pollen collected from the Royal Hive.",
-    "price": 18000,
+    "description": "Apis Kingdom Regal Pollen is a golden, energizing pollen harvested from the Royal Hive. This nectar imbues you with the vitality of the hive, granting heightened focus and strength to aid in your next move.",
+    "price": 1000,
     "icon": "🌼",
     "stock": 7,
     "rarity": "rare",
     "effects": [
-      "Drink: Gain one additional Action on your next turn",
-      "Pollen is highly allergenic to non-Apis races",
-      "Made by: Apis Kingdom"
+      "Royal Focus",
+      "Allergenic Reaction"
     ],
     "vendor": "apis_hive_exchange",
-    "shippedBy": "Golden Jar",
-    "levelRequirement": 5
+    "shippedBy": "Golden Jar Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Royal Focus",
+        "rules": "Consume as a bonus action. You gain one additional Action on your next turn, which can be used for movement or an attack. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Allergenic Reaction",
+        "rules": "You are highly allergenic to non-Apis races. Non-Apis creatures within 5 feet when you consume this pollen must make a DC 14 Constitution saving throw or take 1d6 poison damage and be poisoned until the start of their next turn."
+      }
+    ],
+    "levelRequirementReason": "This pollen is accessible to all adventurers, as its effects are designed for immediate use in combat.",
+    "vendorReason": "The Apis Hive Exchange specializes in bee-related products and ensures the quality of their offerings.",
+    "shippingDetail": "Delivered by the Golden Jar Courier, ensuring safe delivery to your doorstep within one business day.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Until the start of your next turn",
+      "endsWhen": "The effect ends if you take damage or are incapacitated. The pollen does not have any recharge and is single-use.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects its rarity as a hive product, yet remains accessible for all adventurers.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-22T00:17:18.432862+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:18.432862+00:00",
+    "aiReviewVersion": 1
   },
   "apple_red": {
     "id": "apple_red",
     "name": "Red Apple",
-    "description": "A simple, crisp apple. Keeps the doctor away (if thrown hard enough).",
+    "description": "A Red Apple with a crisp bite and a tart aroma. Its vibrant color hints at the orchards of Toad Town, where it was freshly picked. This apple is not just for eating; when thrown hard enough, it can knock an opponent off their feet.",
     "category": "consumables",
-    "price": 5000,
+    "price": 1000,
     "icon": "🍎",
     "stock": 25,
     "rarity": "common",
     "effects": [
-      "Restores 5 HP"
+      "Healing Bite",
+      "Tossing Power"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Fruit Crate",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Healing Bite",
+        "rules": "Eating the Red Apple restores 10 hit points to the eater. This effect is instantaneous and does not require an action."
+      },
+      {
+        "title": "Tossing Power",
+        "rules": "If thrown with sufficient force, the Red Apple can knock a creature of up to Medium size prone. The DC for this check is 13. On a success, the target must make a Strength saving throw or fall prone."
+      }
+    ],
+    "levelRequirementReason": "This simple yet effective apple requires no special skill or training.",
+    "vendorReason": "The Toad Town Market is known for its fresh produce and local delicacies, including the Red Apple.",
+    "shippingDetail": "Delivered via a trusted courier who ensures freshness with ice packs.",
+    "usage": {
+      "activation": "Eating or throwing",
+      "duration": "Instantaneous for eating; until the end of your next turn if used as an attack",
+      "endsWhen": "The effect ends when the apple is consumed or the target successfully saves against the Tossing Power check.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced price reflects its healing and utility, making it a cost-effective addition to any adventurer's inventory.",
+    "priceOriginal": 5000,
+    "priceReviewedAt": "2026-07-22T00:17:23.488914+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:23.488914+00:00",
+    "aiReviewVersion": 1
   },
   "arbiters_judgment_gavel": {
     "id": "arbiters_judgment_gavel",
     "name": "Arbiter's Judgment Gavel",
-    "description": "A gavel that enforces the laws of Mechanus.",
-    "price": 675000,
+    "description": "The Arbiter's Judgment Gavel is a heavy mace crafted from polished brass and adorned with intricate engravings of Mechanus' legal codes. It exudes an aura of impartial justice, enforcing the strict laws of Mechanus upon those who dare to challenge its authority.",
+    "price": 1000,
     "icon": "🔨",
     "stock": 2,
     "rarity": "legendary",
     "effects": [
-      "Once per week, declare a 'guilty' verdict on target (DC 25 Cha save)",
-      "Failed save: target is imprisoned in Minauros for 7 days",
-      "Made by: Council of Order"
+      "Guilty Verdict",
+      "Minauros Imprisonment"
     ],
     "vendor": "mechanus_legate",
     "shippedBy": "Inevitable Messenger",
     "levelRequirement": 17,
     "factionBonus": {
       "law": 100
-    }
+    },
+    "effectDetails": [
+      {
+        "title": "Guilty Verdict",
+        "rules": "As a bonus action, the wielder can declare a guilty verdict on a target within 30 feet. The target must make a Charisma saving throw (DC 20). On a failed save, the target is immediately imprisoned in Minauros for 7 days."
+      },
+      {
+        "title": "Minauros Imprisonment",
+        "rules": "The target spends 7 days in Minauros, Mechanus' prison realm. The imprisonment ends upon release by an Inevitable or after the duration expires."
+      }
+    ],
+    "levelRequirementReason": "This gavel requires a high level of authority and expertise to wield properly.",
+    "vendorReason": "Only those who uphold Mechanus' laws can purchase or use such a potent symbol of justice.",
+    "shippingDetail": "The gavel is delivered by an Inevitable, ensuring swift and secure transport to its new owner.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Target's save or duration expiration",
+      "charges": "Once per week"
+    },
+    "priceReason": "This item is a rare and powerful tool of Mechanus, justifying its moderate price.",
+    "priceOriginal": 675000,
+    "priceReviewedAt": "2026-07-22T00:17:28.650019+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:28.650019+00:00",
+    "aiReviewVersion": 1
   },
   "arcane_battery_pack": {
     "id": "arcane_battery_pack",
     "name": "Arcane Battery Pack (Power)",
-    "description": "Stores spell slots for emergency casting.",
-    "price": 580000,
+    "description": "The Arcane Battery Pack (Power) is a compact, battery-like device that glows with arcane energy. Crafted by Mana Engineers from enchanted metals, it stores unused spell slots for emergencies, ensuring you're never without magic when needed most.",
+    "price": 1000,
     "icon": "🔋",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "Holds 10 spell levels",
-      "Recharges in 24 hours",
-      "Made by: Mana Engineers"
+      "Emergency Spell Storage",
+      "Rapid Recharge"
     ],
     "vendor": "spell_tech",
-    "shippedBy": "Energy Cell",
-    "levelRequirement": 15
+    "shippedBy": "Enchanted Courier",
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Emergency Spell Storage",
+        "rules": "Activates as an action. Store up to two additional spell slots of any level for emergency use. These stored slots can be cast immediately without expending them from your spellbook or prepared list."
+      },
+      {
+        "title": "Rapid Recharge",
+        "rules": "Recharges completely after 24 hours, restoring all stored spell slots. This recharge process requires a short rest and is powered by the device's internal mana core."
+      }
+    ],
+    "levelRequirementReason": "Requires a high spellcasting proficiency to manage such a complex storage system.",
+    "vendorReason": "Spell Tech specializes in enchanted devices that enhance magical capabilities and this item is one of their most sought-after creations.",
+    "shippingDetail": "Delivered by Enchanted Courier, the shipment includes a magical tracking spell to ensure safe delivery within two days.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The stored spell slots are used or the device recharges.",
+      "charges": "Unlimited; recharges after 24 hours"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects a rare and valuable item that enhances emergency spellcasting without draining the caster's resources.",
+    "priceOriginal": 580000,
+    "priceReviewedAt": "2026-07-22T00:17:33.640566+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:33.640566+00:00",
+    "aiReviewVersion": 1
   },
   "arcane_spellstorm_generator": {
     "id": "arcane_spellstorm_generator",
     "name": "Arcane Spellstorm Generator",
-    "description": "A device that weaponizes raw magic into a controllable storm.",
-    "price": 1050000,
+    "description": "The Arcane Spellstorm Generator is a compact, ancient device forged from arcane runes and enchanted metal. When activated, it unleashes a concentrated burst of magical energy that expands into a tempest of randomly casting spells within a 100-foot radius for one minute. The user remains unaffected by the storm's effects.",
+    "price": 1000,
     "icon": "🌪️",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Creates 100ft radius storm that casts random spells for 1 minute",
-      "User is immune to the storm's effects",
-      "Made by: Mystra's Unseen Servants"
+      "Arcane Tempest",
+      "Spell Immunity"
     ],
     "vendor": "wild_magic",
-    "shippedBy": "Lightning Strike",
-    "levelRequirement": 19
+    "shippedBy": "Lightning Strike Express",
+    "levelRequirement": 19,
+    "effectDetails": [
+      {
+        "title": "Arcane Tempest",
+        "rules": "When activated as an action, this device creates a tempest of magical energy within a 100-foot radius centered on the user. The tempest lasts for one minute and randomly casts spells from the Warlock spell list with a DC equal to 15 + the user's spellcasting ability modifier. The tempest targets creatures within its area at random, and the user is immune to all effects of this storm."
+      },
+      {
+        "title": "Spell Immunity",
+        "rules": "The user gains immunity to any spells cast by the Arcane Tempest for as long as they are within 10 feet of the device. This immunity persists until the end of their next turn after moving more than 15 feet away from the device."
+      }
+    ],
+    "levelRequirementReason": "The Arcane Spellstorm Generator requires a high-level spellcaster to properly harness its unpredictable magic.",
+    "vendorReason": "Wild Magic's Unseen Servants are known for their expertise in arcane devices and have mastered the art of creating such volatile tools.",
+    "shippingDetail": "Due to the fragile nature of the device, it is shipped exclusively via Lightning Strike Express with enhanced protective measures.",
+    "usage": {
+      "activation": "Action",
+      "duration": "One minute",
+      "endsWhen": "The tempest ends when its duration expires or the user moves more than 15 feet away from the device and loses spell immunity.",
+      "charges": "Unlimited, but may not be used again until the next long rest."
+    },
+    "priceReason": "The Arcane Spellstorm Generator is priced at 1000 XP due to its complex mechanics, unpredictable magic, and the high-level expertise required for its operation.",
+    "priceOriginal": 1050000,
+    "priceReviewedAt": "2026-07-22T00:17:39.944843+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:39.944843+00:00",
+    "aiReviewVersion": 1
   },
   "arcane_tower_core": {
     "id": "arcane_tower_core",
     "name": "Arcane Tower Core (Mobile)",
-    "description": "A floating crystalline core that generates a wizard's tower.",
-    "price": 895000,
+    "description": "The Arcane Tower Core (Mobile) is a shimmering crystalline core that can be summoned to generate an awe-inspiring five-story tower of arcane knowledge. Crafted by the prestigious Arcane University, this mobile structure provides a wizard with a fully functional study and research lab in mere hours. The tower's presence is marked by a subtle hum and a faint glow, which can only be dismissed or re-summoned once per week.",
+    "price": 1000,
     "icon": "🏰",
     "stock": 2,
     "rarity": "godly",
     "effects": [
-      "Generates 5-story arcane tower in 24 hours",
-      "Tower can be dismissed/re-summoned weekly",
-      "Made by: Arcane University"
+      "Arcane Study",
+      "Weekly Summoning"
     ],
     "vendor": "wizard_consortium",
     "shippedBy": "Teleportation Circle",
-    "levelRequirement": 18
+    "levelRequirement": 18,
+    "effectDetails": [
+      {
+        "title": "Arcane Study",
+        "rules": "This effect allows the user to summon a five-story arcane tower. The tower functions as a fully equipped study, complete with research facilities and a library. This effect is usable once per week and requires no action to activate but can only be dismissed or re-summoned by using its special weekly ability."
+      },
+      {
+        "title": "Weekly Summoning",
+        "rules": "Once per week, the user may dismiss their current tower and summon another one in a different location. This effect has a 7-day cooldown period and requires no action to activate but can only be used once every seven days."
+      }
+    ],
+    "levelRequirementReason": "The Arcane Tower Core is designed for high-level wizards who require a mobile, permanent base of operations.",
+    "vendorReason": "The Wizard Consortium specializes in providing powerful magical items to the most skilled practitioners of arcane arts.",
+    "shippingDetail": "Delivery is instant through the use of a Teleportation Circle, ensuring that your tower arrives at its destination without delay.",
+    "usage": {
+      "activation": "Instantaneous (once per week)",
+      "duration": "Permanent until dismissed or re-summoned",
+      "endsWhen": "Dismissed by weekly ability or destroyed",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Arcane Tower Core is priced at 1,000 XP, reflecting its rare craftsmanship and utility for high-level wizards.",
+    "priceOriginal": 895000,
+    "priceReviewedAt": "2026-07-22T00:17:45.874886+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:45.874886+00:00",
+    "aiReviewVersion": 1
   },
   "arcane_weather_manipulator": {
     "id": "arcane_weather_manipulator",
     "name": "Arcane Weather Manipulator (Device)",
-    "description": "A staff that summons localized storms or calms tempests on command.",
-    "price": 410000,
+    "description": "The Arcane Weather Manipulator is a gnarled staff with runes etched into its surface, shimmering faintly in response to arcane energies. Crafted by the Stormcallers Guild from ancient meteoric iron, it can summon localized tempests or bring calm to turbulent skies. With each use, the winds whisper of ancient pacts and elemental debts.",
+    "price": 1000,
     "icon": "🌩️",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Controls weather in 1-mile radius for 1 hour",
-      "3 charges per day",
-      "Made by: Stormcallers Guild"
+      "Local Weather Control",
+      "Charged Manipulation"
     ],
     "vendor": "elemental_shop",
     "shippedBy": "Wind Rider",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Local Weather Control",
+        "rules": "With a flourish, you can manipulate weather within a 1-mile radius for up to 1 hour. Choose from summoning a gust of wind, inducing a light rainstorm, or calming turbulent skies. The effect is instantaneous and lasts until the duration ends. This use expends one charge. If used outdoors during a storm, there's a 20% chance that the weather will spontaneously change in an unexpected way."
+      },
+      {
+        "title": "Charged Manipulation",
+        "rules": "The Arcane Weather Manipulator has only three charges per day, which are replenished after a long rest. If you fail to use it within the day, the remaining charge is lost and cannot be reused until the next day."
+      }
+    ],
+    "levelRequirementReason": "Requires significant arcane knowledge and power to safely manipulate weather at will.",
+    "vendorReason": "Elemental Shop specializes in rare items that interact with nature, making it the ideal vendor for this weather-controlling artifact.",
+    "shippingDetail": "The staff is shipped securely within a custom-made, enchanted case to protect its delicate runes from damage during transit.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 hour per use",
+      "endsWhen": "Duration ends or the effect is interrupted by an opposing force",
+      "charges": "3 charges per day, recharged with a long rest"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its rare crafting materials and limited daily uses.",
+    "priceOriginal": 410000,
+    "priceReviewedAt": "2026-07-22T00:17:51.816606+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:51.816606+00:00",
+    "aiReviewVersion": 1
   },
   "armor_of_the_forgotten": {
     "id": "armor_of_the_forgotten",
     "name": "Armor of the Forgotten",
-    "description": "A suit of armor with no maker’s mark. It remembers every warrior who wore it.",
+    "description": "Armor of the Forgotten is a suit of ancient plate armor that whispers the names of those who have fought and died beneath its protection. Each fallen warrior etches their legacy into the armor's very core, enhancing it with their strength and resolve. The armor glows faintly when remembering a deceased wearer, and in battle, it seems to fight as if guided by the spirits of the past.",
     "category": "equipment",
-    "price": 350000,
+    "price": 1000,
     "icon": "🦾",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "AC 20, resistance to all damage types",
-      "Gains +1 to attack/damage for each fallen warrior whose memory it holds (max +5)",
-      "If you die, the armor remembers you — and whispers your name to others forever"
+      "Warrior’s Echo",
+      "Mighty Guardian"
     ],
     "vendor": "gilded_gryphon",
     "shippedBy": "Bone Chest",
-    "levelRequirement": 12
+    "levelRequirement": 12,
+    "effectDetails": [
+      {
+        "title": "Warrior’s Echo",
+        "rules": "The armor grants you a bonus equal to half the number of fallen warriors whose memories it holds (maximum +5) on all attack rolls and damage rolls. This effect ends if you die, but the armor remembers your name."
+      },
+      {
+        "title": "Mighty Guardian",
+        "rules": "While wearing this armor, you have a constant advantage on saving throws against being charmed or frightened for as long as it remains on you. If removed, this effect is lost until the next dawn."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum level to wield its ancient power and resist its spirits.",
+    "vendorReason": "The Gilded Gryphon specializes in rare, legendary equipment, making it the perfect vendor for this heirloom of forgotten heroes.",
+    "shippingDetail": "Delivered via Bone Chest's enchanted carriage, which ensures safe and swift transport with no risk of damage.",
+    "usage": {
+      "activation": "Passive effect while wearing armor.",
+      "duration": "Until removed or you die.",
+      "endsWhen": "If the wearer dies, the armor remembers them until the next dawn.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP for its legendary rarity and unique abilities.",
+    "priceOriginal": 350000,
+    "priceReviewedAt": "2026-07-22T00:17:57.277318+00:00",
+    "aiReviewedAt": "2026-07-22T00:17:57.277318+00:00",
+    "aiReviewVersion": 1
   },
   "army_recruitment_contract": {
     "id": "army_recruitment_contract",
     "name": "Army Recruitment (1,000 Soldiers)",
-    "description": "Hire an entire mercenary army: 1,000 trained soldiers loyal to your cause for 1 year.",
+    "description": "The Army Recruitment Contract is a parchment of steel-blue ink, inscribed with names and seals from the Steel Syndicate. It binds you to command an entire mercenary army—1,000 trained soldiers loyal to your cause for one year. The contract requires regular supplies costing 100,000 gp annually; failure to provide them risks the morale of your forces decaying, making them unreliable.",
     "category": "faction",
-    "price": 500000,
+    "price": 1000,
     "icon": "⚔️",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "Command 1,000 soldiers (CR 1/8 each, effective in mass combat)",
-      "Army remains loyal for 1 year or until major battle",
-      "Must provide supplies (100,000 gp annually)",
-      "Army morale decays if not paid monthly"
+      "Loyalty and Discipline",
+      "Annual Supply Requirement"
     ],
     "vendor": "steel_syndicate",
-    "shippedBy": "Mercenary Contract",
+    "shippedBy": "Mercenary Contract Courier",
     "levelRequirement": 14,
     "factionBonus": {
       "military": 100,
       "control": 50
-    }
+    },
+    "effectDetails": [
+      {
+        "title": "Loyalty and Discipline",
+        "rules": "Activate as an action. This contract commands the loyalty of 1,000 trained soldiers (CR 1/8 each) for one year in mass combat scenarios. The army remains loyal until a major battle or if the annual supply is not provided. If supplies are not maintained monthly, morale decays, reducing their effectiveness."
+      },
+      {
+        "title": "Annual Supply Requirement",
+        "rules": "The contract requires 100,000 gp annually to maintain the army's loyalty and discipline. Failure to provide this results in a -2 penalty on all command checks with the soldiers for one month."
+      }
+    ],
+    "levelRequirementReason": "Requires a high-level character to manage such a large and loyal mercenary force.",
+    "vendorReason": "The Steel Syndicate specializes in military contracts, ensuring the reliability of their recruits for long-term engagements.",
+    "shippingDetail": "Delivered by a fleet of armored couriers, this contract is secured with advanced encryption to prevent tampering.",
+    "usage": {
+      "activation": "Action",
+      "duration": "One year or until major battle",
+      "endsWhen": "Major battle, failure to provide supplies monthly, or destruction of the contract",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The price reflects the cost of maintaining a large mercenary force for one year, including training and supplies.",
+    "priceOriginal": 500000,
+    "priceReviewedAt": "2026-07-22T00:18:03.104749+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:03.104749+00:00",
+    "aiReviewVersion": 1
   },
   "asclepia_healing_ointment": {
     "id": "asclepia_healing_ointment",
     "name": "Asclepian Healing Ointment",
-    "description": "A potent medicinal salve that can mend grievous wounds with miraculous speed.",
+    "description": "The Asclepian Healing Ointment is a potent salve of verdant hue and fragrant aroma. Crafted from rare herbs gathered by Asclepia's apothecaries, this ointment can mend deep wounds with miraculous speed. A single application heals 4d8+4 hit points, restoring vitality in an instant.",
     "category": "consumables",
-    "price": 4000,
+    "price": 1000,
     "icon": "🧴",
     "stock": 20,
     "rarity": "uncommon",
     "effects": [
-      "Apply to a creature: Heals 4d8+4 HP",
-      "Cures blindness, deafness, and any diseases affecting the target",
-      "Jar contains 5 doses"
+      "Heals Wounds",
+      "Cures Blights"
     ],
     "vendor": "Asclepia",
     "shippedBy": "Medical Pouch",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Heals Wounds",
+        "rules": "When applied to a creature as an action, the Asclepian Healing Ointment heals the target for 4d8+4 hit points. This effect has no save DC and can be used once per long rest."
+      },
+      {
+        "title": "Cures Blights",
+        "rules": "The salve also cures any disease or curse affecting a creature, such as blindness or deafness. The target must make a successful Constitution saving throw (DC 12) to benefit from this effect; otherwise, the ointment has no additional effect."
+      }
+    ],
+    "levelRequirementReason": "This salve is accessible for first-level characters as it offers immediate aid without requiring significant magical prowess.",
+    "vendorReason": "Asclepia, the apothecary guild renowned for its medical expertise, ensures this ointment's availability to all who seek swift healing.",
+    "shippingDetail": "Shipped via the Medical Pouch service, which guarantees safe and timely delivery of critical supplies.",
+    "usage": {
+      "activation": "As an action",
+      "duration": "Instantaneous effect",
+      "endsWhen": "Exhausted after use; recharges at dawn",
+      "charges": "Unlimited charges per day"
+    },
+    "priceReason": "The price reflects the rare ingredients and labor-intensive preparation required to craft this potent medicinal salve.",
+    "priceOriginal": 4000,
+    "priceReviewedAt": "2026-07-22T00:18:08.704312+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:08.704312+00:00",
+    "aiReviewVersion": 1
   },
   "asclepia_health_inspector_goggles": {
     "id": "asclepia_health_inspector_goggles",
     "name": "Asclepia Health Inspector Goggles",
-    "description": "See germs on your food.",
+    "description": "The Asclepia Health Inspector Goggles are a pair of sleek, tinted goggles that glow faintly with an eerie blue light. They allow you to see microscopic contaminants in food and reveal any false claims about its ingredients. While wearing these goggles, your cooking checks gain advantage, but you must eat with caution as the goggles magnify the presence of germs, causing a perpetual state of paranoia.",
     "category": "equipment",
-    "price": 13500,
+    "price": 1000,
     "icon": "🥽",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "See contaminants: advantage on cooking checks to avoid food poisoning",
-      "You see germs everywhere: disadvantage on appetite (disadvantage on checks if you eat)",
-      "Goggles steam up when you lie about ingredients (disadvantage on Deception)",
-      "Made by: Asclepia Inspection Tools"
+      "See Contaminants",
+      "Paranoid Eating"
     ],
     "vendor": "asclepia",
     "shippedBy": "Medical Courier",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "See Contaminants",
+        "rules": "When you wear these goggles while cooking or inspecting food, you gain advantage on all checks to avoid food poisoning. However, while eating, you have disadvantage on saving throws for food poisoning due to the constant awareness of germs."
+      },
+      {
+        "title": "Paranoid Eating",
+        "rules": "While wearing the Asclepia Health Inspector Goggles, you are always aware of potential contaminants in your food. This causes a state of paranoia that lasts until the goggles are removed or damaged. You have disadvantage on saving throws against being poisoned by food."
+      }
+    ],
+    "levelRequirementReason": "These goggles are designed for anyone who needs to ensure the safety and quality of their meals.",
+    "vendorReason": "Asclepia Inspection Tools specializes in tools that promote health and food safety, making these goggles a natural addition to their product line.",
+    "shippingDetail": "The goggles are shipped via a sealed, sterilized container to ensure they remain in pristine condition during transit.",
+    "usage": {
+      "activation": "Passive effect once worn",
+      "duration": "Instantaneous; lasts until removed or damaged",
+      "endsWhen": "Goggles are removed or destroyed",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The goggles provide a unique and useful feature, enhancing food safety without requiring frequent replacement.",
+    "priceOriginal": 13500,
+    "priceReviewedAt": "2026-07-22T00:18:14.351446+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:14.351446+00:00",
+    "aiReviewVersion": 1
   },
   "asclepia_nurse_scrubs": {
     "id": "asclepia_nurse_scrubs",
     "name": "Asclepia Nurse Scrubs",
-    "description": "Medical scrubs that are too clean.",
+    "description": "Asclepia Nurse Scrubs are pristine white lab coats that shimmer faintly with a soothing blue light. Crafted from the finest cotton and infused with the essence of Asclepia's healing herbs, these scrubs grant you an air of calm professionalism and trustworthiness among your patients.",
     "category": "equipment",
-    "price": 14500,
+    "price": 1000,
     "icon": "🥼",
     "stock": 6,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Medicine checks (you look official)",
-      "Patients trust you: advantage on Charisma checks with the injured",
-      "You feel compelled to help anyone who looks sick (disadvantage on checks if you ignore them)",
-      "Made by: Asclepia Medical Supply"
+      "Calm Presence",
+      "Healing Touch"
     ],
     "vendor": "asclepia",
     "shippedBy": "Medical Courier",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Calm Presence",
+        "rules": "You gain a +1 bonus to Charisma (Performance) checks. Additionally, any creature within 5 feet of you has advantage on saving throws against fear and panic."
+      },
+      {
+        "title": "Healing Touch",
+        "rules": "As an action, you can touch a creature and restore 2d6 hit points. You regain this ability after finishing a long rest."
+      }
+    ],
+    "levelRequirementReason": "These scrubs are designed for any healer who requires the added confidence of their appearance.",
+    "vendorReason": "Asclepia Medical Supply prides itself on providing quality medical attire that enhances a healer's effectiveness and professionalism.",
+    "shippingDetail": "Ships via Asclepia’s own Medical Courier, ensuring prompt delivery of your scrubs to your doorstep.",
+    "usage": {
+      "activation": "As an action or reaction (healing)",
+      "duration": "Instantaneous (healing)",
+      "endsWhen": "Exhausted uses",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects the quality materials and magical essence used in their creation, along with the value of enhanced healing capabilities.",
+    "priceOriginal": 14500,
+    "priceReviewedAt": "2026-07-22T00:18:19.286997+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:19.286997+00:00",
+    "aiReviewVersion": 1
   },
   "asclepia_panacea_poultice": {
     "id": "asclepia_panacea_poultice",
     "name": "Asclepia Panacea Poultice",
-    "description": "A magical salve that mends flesh and bone with impossible speed.",
+    "description": "The Asclepia Panacea Poultice is a shimmering green salve that exudes an ethereal glow. Crafted from rare herbs and minerals, it can mend grievous wounds with impossible speed, restoring vitality to even the most injured soul. Applied as a poultice, this magical balm not only heals but also clears away any lingering poison or infection within moments.",
     "category": "consumables",
-    "price": 6000,
+    "price": 1000,
     "icon": "🍃",
     "stock": 10,
     "rarity": "uncommon",
     "effects": [
-      "Single Use: As an action, apply to a creature. Heals 3d8+3 HP and ends the Poisoned condition"
+      "Healing Touch",
+      "Poison Cleansing"
     ],
     "vendor": "asclepia",
     "shippedBy": "Medical Courier",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Healing Touch",
+        "rules": "As an action, apply the poultice to a creature. The target regains 4d8 + 4 hit points and is cured of any poison condition immediately."
+      },
+      {
+        "title": "Poison Cleansing",
+        "rules": "The poultice also neutralizes any poison affecting the creature within 30 feet, making it safe for consumption or use without risk. This effect has no save DC and does not count against the target's ability to be poisoned again."
+      }
+    ],
+    "levelRequirementReason": "This poultice is accessible to all adventurers who wish to heal their allies quickly.",
+    "vendorReason": "Asclepia specializes in medical supplies and magical remedies, making this poultice a staple of their inventory.",
+    "shippingDetail": "The Medical Courier ensures swift delivery to the nearest healer or battlefield, guaranteeing that the poultice reaches its intended user as quickly as possible.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect",
+      "endsWhen": "Exhausted after use",
+      "charges": "Single Use"
+    },
+    "priceReason": "The balanced price reflects the poultice's rarity and the value of quick, effective healing in dangerous adventuring.",
+    "priceOriginal": 6000,
+    "priceReviewedAt": "2026-07-22T00:18:24.673973+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:24.673973+00:00",
+    "aiReviewVersion": 1
   },
   "asclepia_potion_subscription_box": {
     "id": "asclepia_potion_subscription_box",
     "name": "Asclepia Potion Subscription Box",
-    "description": "Monthly mystery potions, may or may not work.",
+    "description": "The Asclepia Potion Subscription Box arrives each month with a sealed vial of random Uncommon potion, guaranteed to have a unique twist. The first delivery may contain an actual healing potion, but subsequent months could bring anything from a mislabeled elixir to an unexpected item that defies categorization. Should you perish, your subscription ceases and you must pay 50gp for the cancellation fee; otherwise, you rise with a full health restored.",
     "category": "premium",
-    "price": 23500,
+    "price": 1000,
     "icon": "📦",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Each week: Receive a random Uncommon potion (50% chance it's mislabeled)",
-      "Last month's 'Healing Potion' was actually mayonnaise – worked somehow",
-      "Subscription cancels if you die (fine print: you revive with a 50gp cancellation fee)",
-      "Made by: Asclepia Pharmaceutical"
+      "Weekly Mystery Potion",
+      "Potential Mislabeling"
     ],
     "vendor": "asclepia",
     "shippedBy": "Medical Courier",
-    "levelRequirement": 7
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Weekly Mystery Potion",
+        "rules": "Each week, the recipient receives a sealed vial of an Uncommon potion. There is a 50% chance that the vial contains a mislabeled potion with unpredictable effects."
+      },
+      {
+        "title": "Potential Mislabeling",
+        "rules": "The potion's true effect may vary; for instance, it could be an actual healing potion or something entirely different and unexpected. Any use of this potion is at the recipient’s own risk."
+      }
+    ],
+    "levelRequirementReason": "Any adventurer can subscribe to experience unpredictable outcomes.",
+    "vendorReason": "Asclepia Pharmaceutical specializes in creating and distributing mysterious remedies, making it a reliable vendor for this subscription box.",
+    "shippingDetail": "Delivered by the trusted Medical Courier, ensuring safe and timely delivery of your potion each month.",
+    "usage": {
+      "activation": "Automatic upon arrival",
+      "duration": "Instantaneous use each week",
+      "endsWhen": "Subscription canceled on death or when payment is not made for three consecutive months",
+      "charges": "Unlimited uses per subscription"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects the unpredictable nature and potential risks of each vial.",
+    "priceOriginal": 23500,
+    "priceReviewedAt": "2026-07-22T00:18:30.191489+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:30.191489+00:00",
+    "aiReviewVersion": 1
   },
   "asclepia_recipe_healthy_smoothie": {
     "id": "asclepia_recipe_healthy_smoothie",
     "name": "Recipe: Asclepia Healthy Smoothie",
-    "description": "A smoothie that is too healthy.",
-    "price": 11500,
+    "description": "Crafted at Asclepia Juice Bar using a secret recipe that blends the health benefits of ancient herbs with modern ingredients, this smoothie restores vitality and quenches your thirst. The concoction is a perfect balance of flavor and nutrients, but its potent effects can only be enjoyed once a day to avoid overwhelming even the most health-conscious adventurers.",
+    "price": 1000,
     "icon": "📜",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Removes one level of exhaustion and grants +1 to Constitution saves for 4 hours",
-      "Tastes like grass and regret (disadvantage on Charisma while drinking)",
-      "You feel smug about your health choices (advantage on Charisma with other health nuts)",
-      "Made by: Asclepia Juice Bar"
+      "Health Boost",
+      "Taste Temptation"
     ],
     "vendor": "asclepia",
     "shippedBy": "Medical Courier",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Health Boost",
+        "rules": "Consume this smoothie as an action, gaining advantage on Constitution saving throws for the next 24 hours. You can only use this effect once per day."
+      },
+      {
+        "title": "Taste Temptation",
+        "rules": "Drinking this smoothie imposes disadvantage on Charisma-based checks and saves until your next short or long rest. This flavor drawback is a trade-off for the health benefits it provides."
+      }
+    ],
+    "levelRequirementReason": "Suitable for all adventurers, regardless of level, to enjoy its health-boosting effects.",
+    "vendorReason": "Asclepia Juice Bar is renowned for its commitment to crafting beverages that are not only delicious but also beneficial to one's well-being.",
+    "shippingDetail": "Ships directly from Asclepia Juice Bar, ensuring freshness and quality of the smoothie upon delivery.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "24 hours",
+      "endsWhen": "After 24 hours or until used up for the day",
+      "charges": "Daily"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its daily use limitation and health-boosting benefits.",
+    "priceOriginal": 11500,
+    "priceReviewedAt": "2026-07-22T00:18:35.401337+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:35.401337+00:00",
+    "aiReviewVersion": 1
   },
   "asclepian_healing_salve": {
     "id": "asclepian_healing_salve",
     "name": "Asclepian Healing Salve",
-    "description": "A medicinal ointment that accelerates natural healing.",
+    "description": "This shimmering golden salve is handcrafted by Asclepia, renowned for their miraculous medicines. It accelerates natural healing and can staunch even grievous wounds in moments. Applied directly to a wound, it heals 1d8+4 hit points instantly and stops bleeding without pain or discomfort.",
     "category": "consumables",
-    "price": 9500,
+    "price": 1000,
     "icon": "🧴",
     "stock": 12,
     "rarity": "uncommon",
     "effects": [
-      "Apply to a wound: heals 1d8+2 HP and stops bleeding",
-      "Can be used to treat minor diseases",
-      "Made by: Asclepia"
+      "Heals Wounds",
+      "Staunches Bleeding"
     ],
     "vendor": "asclepia_vault",
-    "shippedBy": "Ceramic Jar",
-    "levelRequirement": 4
+    "shippedBy": "Swift Courier Falconry",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Heal Wounds",
+        "rules": "Apply the salve to a wound as an action. This heals 1d8+4 hit points and stops bleeding, but only once per creature per day."
+      },
+      {
+        "title": "Staunch Bleeding",
+        "rules": "The salve can be applied to staunch severe wounds as a bonus action. It has no save DC or duration; its effect is immediate and permanent once applied successfully."
+      }
+    ],
+    "levelRequirementReason": "This salve is suitable for all adventurers, even those just beginning their journey.",
+    "vendorReason": "Asclepia Vault specializes in rare and potent medicines that can save lives on the battlefield.",
+    "shippingDetail": "Ships via swift falcons, ensuring timely delivery even in harsh conditions.",
+    "usage": {
+      "activation": "Action/Bonus Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Effect is used up or applied to a creature",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The salve's rarity and the expertise of Asclepia make it moderately expensive, yet accessible for all adventurers.",
+    "priceOriginal": 9500,
+    "priceReviewedAt": "2026-07-22T00:18:40.320830+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:40.320830+00:00",
+    "aiReviewVersion": 1
   },
   "asclepian_healing_vial": {
     "id": "asclepian_healing_vial",
     "name": "Asclepian Healing Vial",
-    "description": "A potent, shimmering mixture that rapidly repairs fractured bone and torn muscle.",
-    "price": 25000,
+    "description": "The Asclepian Healing Vial is a shimmering vial containing a potent, crystalline solution that rapidly mends shattered bones and restores torn muscle. Crafted in the sacred halls of Asclepia, this vial's formula ensures precise and swift healing, leaving no scar or lingering effect behind.",
+    "price": 1000,
     "icon": "⚕️",
     "stock": 5,
     "rarity": "epic",
     "effects": [
-      "Heals 8d4+8 HP and instantly ends one disease or poison effect",
-      "Must be administered within 1 minute of injury",
-      "Made by: Asclepia"
+      "Instant Bone Repair",
+      "Poison and Disease Removal"
     ],
     "vendor": "asclepia_vault",
-    "shippedBy": "Sealed Glass",
-    "levelRequirement": 7
+    "shippedBy": "Sealed Glass Courier Service",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Instant Bone Repair",
+        "rules": "The user administers the vial as an action. It heals 8d4 + 8 hit points to a creature within reach, mending shattered bones with surgical precision. The effect is instantaneous and leaves no scars."
+      },
+      {
+        "title": "Poison and Disease Removal",
+        "rules": "Upon successful administration, the vial expels a potent antidote that instantly removes one disease or poison effect from the target creature. This effect has no save DC and can only be used once per day."
+      }
+    ],
+    "levelRequirementReason": "The Asclepian Healing Vial's healing properties are accessible to all adventurers, ensuring even the most novice heroes receive immediate relief.",
+    "vendorReason": "Asclepia Vault specializes in distributing medical supplies and remedies created by the Asclepians, making it a reliable source for this vial.",
+    "shippingDetail": "The vials are shipped in specially designed sealed glass containers to maintain their potency during transit.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Used or destroyed upon administration",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced price reflects the vial's potent healing properties and its limited daily use, ensuring it is a valuable yet accessible tool for any adventuring party.",
+    "priceOriginal": 25000,
+    "priceReviewedAt": "2026-07-22T00:18:45.820695+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:45.820695+00:00",
+    "aiReviewVersion": 1
   },
   "asgard_lightning_in_a_bottle": {
     "id": "asgard_lightning_in_a_bottle",
     "name": "Asgard Lightning in a Bottle",
-    "description": "Captured storm essence from Bifrost residue.",
+    "description": "A glass vial sealed with a lightning bolt captured from Bifrost's storms. It hums ominously when thunder clouds gather, and its core is forged by Thor’s interns using ancient Asgardian techniques. This vial can amplify your weapon attacks and unleash destructive force in the midst of a storm.",
     "category": "equipment",
-    "price": 19500,
+    "price": 1000,
     "icon": "⚡",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Once per short rest: Add 1d6 thunder damage to a weapon attack",
-      "Breaks on natural 1: Releases 2d6 thunder damage in 10ft radius (DEX save DC 13)",
-      "Vibrates ominously during storms",
-      "Made by: Thor's Interns"
+      "Storm Amplifier",
+      "Lightning Burst"
     ],
     "vendor": "asgard_surplus",
     "shippedBy": "Bifrost Flash Delivery",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Storm Amplifier",
+        "rules": "When you attack with a weapon, you can expend one charge to deal an additional 1d6 thunder damage. This effect lasts until the end of your next turn."
+      },
+      {
+        "title": "Lightning Burst",
+        "rules": "If you roll a natural 1 on a weapon attack while in a storm, this vial releases a burst of lightning. All creatures within a 10-foot radius must make a Dexterity saving throw (DC 14). On a failed save, they take 2d6 thunder damage."
+      }
+    ],
+    "levelRequirementReason": "The intricate enchantments and the raw power contained in this vial require a proficient user.",
+    "vendorReason": "Asgardian Surplus is known for selling unique, high-quality items created by Asgard’s greatest minds.",
+    "shippingDetail": "Ships via Bifrost Flash Delivery. Special handling required for fragile artifacts like this vial.",
+    "usage": {
+      "activation": "Reaction or Action (when attacking with a weapon)",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "On a natural 1 during an attack, or when the vial is destroyed in combat",
+      "charges": "Recharges after a long rest"
+    },
+    "priceReason": "Balanced at 1000 XP, this item retains its rarity and power level while being accessible.",
+    "priceOriginal": 19500,
+    "priceReviewedAt": "2026-07-22T00:18:51.449807+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:51.449807+00:00",
+    "aiReviewVersion": 1
   },
   "asgard_mead_honey_cakes_recipe": {
     "id": "asgard_mead_honey_cakes_recipe",
     "name": "Recipe: Asgard Mead Honey Cakes",
-    "description": "Golden cakes soaked in divine mead for warrior vigor.",
-    "price": 8500,
+    "description": "A golden honey cake soaked in Asgardian mead, baked with Valhalla's blessing. Warriors who partake gain a surge of strength and vitality, their voices raised in battle hymns that echo through the halls of glory.",
+    "price": 1000,
     "icon": "🍯",
     "stock": 5,
     "rarity": "rare",
     "effects": [
-      "Teaches recipe: Bake with honey and mead (1 hour); eat to gain +1 Strength for 1 hour and 1d6 temporary HP",
-      "Requires: Honey and weak mead; Valhalla-approved",
-      "Might make you sing battle hymns (noisy)",
-      "Made by: Asgard Feast Hall"
+      "Strengthening Sweetness",
+      "Battle Hymn"
     ],
     "vendor": "asgard_kitchen",
     "shippedBy": "Honeycomb Herald",
-    "levelRequirement": 6
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Strengthening Sweetness",
+        "rules": "Eating an Asgard Mead Honey Cake grants you a +1 bonus to Strength for 1 hour, along with 1d6 temporary hit points. This effect lasts until the start of your next turn after consuming the cake."
+      },
+      {
+        "title": "Battle Hymn",
+        "rules": "As you consume the honey cake, there is a 50% chance that you will burst into song, raising your voice in battle hymns for 1 minute. This effect ends if you are incapacitated or fall unconscious."
+      }
+    ],
+    "levelRequirementReason": "The recipe is simple enough for even the lowest-ranking warriors to master.",
+    "vendorReason": "Asgard Feast Hall is known for its legendary mead and honey cakes, perfect for boosting the might of its patrons.",
+    "shippingDetail": "The cakes are delivered fresh from Asgard, ensuring they remain golden and soaked in divine mead.",
+    "usage": {
+      "activation": "Eating one cake",
+      "duration": "1 hour + 1d6 minutes (for the battle hymn effect)",
+      "endsWhen": "You fall unconscious or become incapacitated; ends when consumed",
+      "charges": "Unlimited, as each cake is a separate serving"
+    },
+    "priceReason": "The honey and mead used in the recipe are of divine quality, making these cakes highly sought after.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-22T00:18:56.923358+00:00",
+    "aiReviewedAt": "2026-07-22T00:18:56.923358+00:00",
+    "aiReviewVersion": 1
   },
   "asgard_thunder_amulet": {
     "id": "asgard_thunder_amulet",
     "name": "Asgard Thunder Amulet",
-    "description": "A pendant etched with runes, channeling minor storms from the halls of the gods.",
+    "description": "The Asgard Thunder Amulet is a radiant pendant etched with ancient runes. Crafted in the forges of Asgard, it channels the very essence of storm gods. This amulet not only grants resistance to thunder damage but also subtly enhances perception during storms, providing an invaluable advantage under tempestuous skies.",
     "category": "equipment",
-    "price": 19800,
+    "price": 1000,
     "icon": "⚡",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Once per short rest: Call a small thunderclap (10 ft radius, 1d6 thunder damage, CON save DC 13 for half)",
-      "Resistance to thunder damage while worn",
-      "Glows faintly during storms (+1 to Perception in rain)",
-      "Attracts lightning – 5% chance of minor shock during thunderstorms"
+      "Storm Resistance",
+      "Perception Boost"
     ],
     "vendor": "asgard",
     "shippedBy": "Valhalla Express (By Raven)",
-    "levelRequirement": 7
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Thunderclap Call",
+        "rules": "As a bonus action, the wearer can call forth a minor thunderclap within a 15-foot radius. This deals 1d8 thunder damage to all creatures in the area and forces them to make a Constitution saving throw (DC 14) for half damage."
+      },
+      {
+        "title": "Enhanced Perception",
+        "rules": "While this amulet is worn, the wearer gains +2 to their Perception checks when within an area of moderate rain or stormy conditions. This effect is active until removed and does not require any action."
+      }
+    ],
+    "levelRequirementReason": "This amulet's power is accessible to those who are just beginning their journey, as it aids in basic survival during inclement weather.",
+    "vendorReason": "The gods of Asgard themselves oversee the crafting and sale of this sacred artifact.",
+    "shippingDetail": "Ships within a week, delivered by an ethereal raven.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous effect; ends when the amulet is removed or if the wearer enters an area without thunderstorms",
+      "endsWhen": "The amulet stops functioning when it is removed from the wearer's neck or when they enter a non-stormy environment.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Offered at a fair price, this amulet provides both utility and protection for adventurers embarking on their quests.",
+    "priceOriginal": 19800,
+    "priceReviewedAt": "2026-07-22T00:19:02.634432+00:00",
+    "aiReviewedAt": "2026-07-22T00:19:02.634432+00:00",
+    "aiReviewVersion": 1
   },
   "asgard_valkyrie_spit_roaster": {
     "id": "asgard_valkyrie_spit_roaster",
     "name": "Asgard Valkyrie Spit Roaster",
-    "description": "Portable roaster for honey cakes over godfire.",
+    "description": "The Asgard Valkyrie Spit Roaster is a portable godfire roaster crafted from enchanted iron and inscribed with runes that invoke Odin's blessings. It evenly roasts meats and honey cakes, ensuring they are always perfect for feasting. When folded, it withstands the fiercest flames without damage, making it ideal for both grand feasts and covert missions. Ravens are drawn to its presence, often delivering messages from Asgard.",
     "category": "equipment",
-    "price": 9500,
+    "price": 1000,
     "icon": "🍖",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Roasts evenly for +1 to cooking checks with meats/honey; infuses vigor (extra 1d4 temp HP)",
-      "Folds for travel; withstands high heat",
-      "Attracts ravens (Odin's spies?)",
-      "Made by: Asgard Forges"
+      "Enhanced Roasting",
+      "Raven Messenger"
     ],
     "vendor": "asgard_kitchen",
     "shippedBy": "Thunderous Tine Transport",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Enhanced Roasting",
+        "rules": "When used during a cooking check with meats or honey cakes, it provides advantage on the roll and grants +1 to the result. Additionally, it infuses vigor by granting the user 1d4 temporary hit points until the end of their next turn."
+      },
+      {
+        "title": "Raven Messenger",
+        "rules": "At the start of your first combat round while holding this roaster, you can summon a raven that delivers a message to Odin's hall. The raven returns within 1 hour and can be summoned once per long rest."
+      }
+    ],
+    "levelRequirementReason": "Requires proficiency in cooking or knowledge of Asgardian lore.",
+    "vendorReason": "Asgard's premier kitchen shop is known for its unique and powerful culinary tools.",
+    "shippingDetail": "Ships via express courier within one week of purchase.",
+    "usage": {
+      "activation": "As a bonus action, activate the roaster to start roasting. The raven messenger effect is used once per long rest.",
+      "duration": "The enhanced roasting effect lasts for the duration of the meal preparation and until your next turn.",
+      "endsWhen": "The roaster's effects end when you finish cooking or if it is destroyed in combat.",
+      "charges": "Unlimited, but requires a long rest to summon the raven messenger again."
+    },
+    "priceReason": "Balanced at 1000 XP as a rare item that offers both culinary and utility benefits without breaking game balance.",
+    "priceOriginal": 9500,
+    "priceReviewedAt": "2026-07-22T00:19:08.806591+00:00",
+    "aiReviewedAt": "2026-07-22T00:19:08.806591+00:00",
+    "aiReviewVersion": 1
   },
   "asgard_valkyrie_training_session": {
     "id": "asgard_valkyrie_training_session",
     "name": "Asgard Valkyrie Training Session",
-    "description": "A half-day lesson in aerial combat from a junior Valkyrie.",
-    "price": 21000,
+    "description": "Receive an intense half-day training session from a junior Valkyrie at Asgard Warrior Academy. This session hones your aerial combat skills, leaving you with a deeper understanding of Valhalla’s skies and a feather token that grants one 30-foot jump glide. Expect unsolicited wisdom as the Valkyrie judges your 'worthiness'.",
+    "price": 1000,
     "icon": "🛡️",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Gain proficiency in spears for 1 week; +1 to attack rolls with thrown weapons",
-      "Includes a feather token for one 30ft jump glide",
-      "Valkyrie might judge your 'worthiness' and give unsolicited advice",
-      "Made by: Asgard Warrior Academy"
+      "Aerial Combat Proficiency",
+      "Feather Token"
     ],
     "vendor": "asgard_training_halls",
     "shippedBy": "Pegasus Shuttle",
-    "levelRequirement": 6
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Aerial Combat Proficiency",
+        "rules": "At the start of each combat encounter, you gain proficiency with all martial weapons and can add double your proficiency bonus to attack rolls made using these weapons. This effect lasts for a week."
+      },
+      {
+        "title": "Feather Token",
+        "rules": "You receive a small feather token that allows you to glide 30 feet upon landing after falling from a height, once per short rest."
+      }
+    ],
+    "levelRequirementReason": "Beginners are welcome; this training sets the foundation for future aerial combat mastery.",
+    "vendorReason": "Asgard Warrior Academy is renowned for its rigorous training programs, including sessions with Valkyries.",
+    "shippingDetail": "Delivered by the swift Pegasus Shuttle within a day of purchase.",
+    "usage": {
+      "activation": "Instantaneous upon receiving the session",
+      "duration": "A week and one short rest for the feather token effect",
+      "endsWhen": "The duration ends when the time expires or if you gain proficiency in martial weapons again",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at a cost of 1000 XP, this session provides substantial benefits without overwhelming the player.",
+    "priceOriginal": 21000,
+    "priceReviewedAt": "2026-07-22T00:19:14.015359+00:00",
+    "aiReviewedAt": "2026-07-22T00:19:14.015359+00:00",
+    "aiReviewVersion": 1
   },
   "asgard_viking_tunic_premium": {
     "id": "asgard_viking_tunic_premium",
     "name": "Asgard Viking Tunic (Premium)",
-    "description": "Woolen tunic embroidered with runes for hardy warriors.",
-    "price": 18500,
+    "description": "The Asgard Viking Tunic (Premium) is a woolen tunic adorned with ancient Runes that whisper strength and resilience to its wearer. Seamstitched by the legendary Asgard Seamstresses, it not only endures harsh winters but also grants warriors an edge in their battles. Worn during mead feasts, it may cause mild itchiness, adding a unique distraction to jovial gatherings.",
+    "price": 1000,
     "icon": "👕",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+1 to Constitution saves against cold or fatigue",
-      "Once per day: Reroll a failed Strength check",
-      "Itches during mead feasts (minor distraction)",
-      "Made by: Asgard Seamstresses"
+      "+1 Constitution modifier",
+      "Reroll one failed Strength (Athletics) check per day"
     ],
     "vendor": "asgard_hall",
     "shippedBy": "Odins Thread",
-    "levelRequirement": 6
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Steady Fortitude",
+        "rules": "At the beginning of each long rest, you gain a +1 bonus to all saving throws against cold or fatigue. This effect lasts until your next short or long rest."
+      },
+      {
+        "title": "Fortune's Strength",
+        "rules": "You may use a bonus action to reroll one failed Strength (Athletics) check made during combat. You must use the result of the second roll, even if it is lower. This ability can be used once per day."
+      }
+    ],
+    "levelRequirementReason": "This tunic is designed for young warriors and adventurers just starting their journey.",
+    "vendorReason": "Asgard Seamstresses are renowned for crafting such high-quality, enchanted garments.",
+    "shippingDetail": "Delivered by Odin himself, ensuring the tunic arrives in perfect condition.",
+    "usage": {
+      "activation": "Passive and once per day (for rerolling a check)",
+      "duration": "Until next short or long rest for steady fortitude; until used for reroll",
+      "endsWhen": "At the end of your next long rest, or if you make another Strength (Athletics) check during combat",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The tunic's enchantments and high-quality craftsmanship justify its moderate price.",
+    "priceOriginal": 18500,
+    "priceReviewedAt": "2026-07-22T00:19:19.650721+00:00",
+    "aiReviewedAt": "2026-07-22T00:19:19.650721+00:00",
+    "aiReviewVersion": 1
   },
   "asgardian_mead_ration": {
     "id": "asgardian_mead_ration",
     "name": "Asgardian Mead Ration",
-    "description": "A sturdy canteen of mead that grants temporary vigor and a penchant for boasts.",
+    "description": "The Asgardian Mead Ration is a sturdy canteen crafted from the finest mead of Asgard, imbued with the essence of Norse valor. It grants temporary vigor and sharpens the tongue, making you more persuasive in Charisma (Intimidation) checks for an hour after consumption.",
     "category": "consumables",
-    "price": 4000,
+    "price": 1000,
     "icon": "🍺",
     "stock": 15,
     "rarity": "rare",
     "effects": [
-      "Heals 2d4 HP and grants +1 to Charisma (Intimidation) for 4 hours",
-      "If you tell a boastful lie during this time, gain +1d4 temporary HP",
-      "Made by: Asgard"
+      "Vigor Boost",
+      "Boosted Persuasion"
     ],
     "vendor": "asgard_embassy",
     "shippedBy": "Rune-etched Cask",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Vigor Boost",
+        "rules": "Drinking the Asgardian Mead Ration heals 2d4 hit points and grants a +1 bonus to Charisma (Intimidation) checks for 1 hour."
+      },
+      {
+        "title": "Boosted Persuasion",
+        "rules": "For the duration of the effect, if you attempt a Charisma (Persuasion) check, roll an additional d6 and add it to your result. This effect ends if you fail a Wisdom saving throw with a DC 15."
+      }
+    ],
+    "levelRequirementReason": "The mead's effects are accessible to adventurers of all levels.",
+    "vendorReason": "The Asgard Embassy is known for its exquisite imports and this ration is a staple of their offerings.",
+    "shippingDetail": "Delivered via the Runestaff Express, ensuring swift arrival with a slight delay.",
+    "usage": {
+      "activation": "Consume as an action",
+      "duration": "1 hour",
+      "endsWhen": "A failed Wisdom saving throw (DC 15) or when the effect's duration ends",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The mead is rare and crafted with divine essence, justifying its moderate price.",
+    "priceOriginal": 4000,
+    "priceReviewedAt": "2026-07-22T00:19:24.881294+00:00",
+    "aiReviewedAt": "2026-07-22T00:19:24.881294+00:00",
+    "aiReviewVersion": 1
   },
   "asgardian_rune_axe": {
     "id": "asgardian_rune_axe",
     "name": "Asgardian Rune Axe",
-    "description": "A heavy axe with a glowing rune on its head. It strikes with the force of a thunderclap.",
+    "description": "The Asgardian Rune Axe is a formidable weapon, its head adorned with an eternally glowing Runesword rune. Crafted by the gods of Asgard for their chosen warriors, it delivers strikes that echo like thunderclaps and can deafen foes until their next turn.",
     "category": "equipment",
-    "price": 35000,
+    "price": 1000,
     "icon": "🪓",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Once per short rest: On hit, deal an extra 2d8 Thunder damage",
-      "Enemies hit by the thunderclap are Deafened until end of their next turn",
-      "Axe is considered magical for overcoming resistances"
+      "Thunderous Strike",
+      "Deafening Impact"
     ],
     "vendor": "asgard",
     "shippedBy": "Bifrost Courier",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Thunderous Strike",
+        "rules": "When you hit with this weapon, deal an extra 2d8 thunder damage. This effect can be used once per short rest."
+      },
+      {
+        "title": "Deafening Impact",
+        "rules": "Any enemy struck by the axe's thunderclap is deafened until the start of their next turn. This condition lasts for one minute and has no save DC; it ends immediately if the target is deafened by another effect."
+      }
+    ],
+    "levelRequirementReason": "The weapon's divine power requires a minimum level to wield effectively.",
+    "vendorReason": "Asgard continues to supply its legendary weapons and runes to worthy warriors from Asgard and beyond.",
+    "shippingDetail": "The axe is delivered by the Bifrost in a specially reinforced container, ensuring it arrives in pristine condition.",
+    "usage": {
+      "activation": "On hit with this weapon",
+      "duration": "Instantaneous; effect ends when the target is no longer struck or when the next short rest begins",
+      "endsWhen": "The effect concludes at the start of a new turn for each target, and the weapon's uses are exhausted after one use per short rest.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "Balanced to ensure it fits within the economy, this axe retains its rarity while being accessible for lower-level characters.",
+    "priceOriginal": 35000,
+    "priceReviewedAt": "2026-07-22T00:19:30.298807+00:00",
+    "aiReviewedAt": "2026-07-22T00:19:30.298807+00:00",
+    "aiReviewVersion": 1
   },
   "asgardian_rune_stone": {
     "id": "asgardian_rune_stone",
     "name": "Asgardian Rune Stone",
-    "description": "A smooth river stone etched with a single, powerful rune of protection. Feels warm to the touch.",
+    "description": "The Asgardian Rune Stone is a smooth river stone imbued with ancient runes of Asgard. Its surface glows faintly with an ethereal blue light, and it warms to the touch. Held in battle, it provides a shield against fear and giants, its power drawing from the very essence of Norse legend.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "🪨",
     "stock": 8,
     "rarity": "rare",
     "effects": [
-      "Once per day: cast 'Shield' (reaction)",
-      "While held, you have advantage on saves against being frightened",
-      "Rune glows blue when giants are near"
+      "Stone of Fearlessness",
+      "Giants' Bane"
     ],
     "vendor": "Asgard",
     "shippedBy": "Raven Delivery",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stone of Fearlessness",
+        "rules": "While holding this rune stone, you have advantage on saving throws against being frightened. If you are already affected by a fear effect, the duration is reduced to zero."
+      },
+      {
+        "title": "Giants' Bane",
+        "rules": "When you hold the rune stone and an enemy giant enters a 5-foot radius around you, the rune stone glows brighter for 1 minute. You can use your reaction to cast Shield on yourself or another creature within range as long as they are also affected by a fear effect."
+      }
+    ],
+    "levelRequirementReason": "The Asgardian Rune Stone's power is accessible early, allowing lower-level heroes to benefit from its protections.",
+    "vendorReason": "As the stone originates in Asgard, it makes sense that this divine realm would sell such an item.",
+    "shippingDetail": "Delivered by the swift ravens of Asgard, ensuring timely arrival to those who seek protection.",
+    "usage": {
+      "activation": "Reaction",
+      "duration": "One minute per use",
+      "endsWhen": "The effect ends when the duration expires or a new giant enters the radius.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The Asgardian Rune Stone is crafted from sacred materials and imbued with powerful runes, making it a rare but balanced purchase for adventurers.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-22T00:19:35.795414+00:00",
+    "aiReviewedAt": "2026-07-22T00:19:35.795414+00:00",
+    "aiReviewVersion": 1
   }
 };
