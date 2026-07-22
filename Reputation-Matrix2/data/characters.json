@@ -61,7 +61,18 @@
       "speen_kind_of_down_lately",
       "pet_rock",
       "dedan"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "Gamma Division’s Mount Ebott survey is not merely a visitor problem: Sans recognized the expedition’s forbidden Iron Legion protocols before the town guard understood the risk."
+      },
+      {
+        "intel": 65,
+        "text": "The Bone-Line has an old maintenance map showing a service tunnel that reaches a sealed lower-Ebott relay."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "gamma_agent",
@@ -2168,7 +2179,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "Spaghetti Friday has become neutral ground for refugees, Toad loyalists, and even nervous Koopa deserters; Papyrus does not know how politically valuable his hospitality is."
+      },
+      {
+        "intel": 65,
+        "text": "A recipe ledger in Papyrus’s kitchen contains a ciphered delivery mark used by Snowdin’s wartime relief network."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "grandpa_semi",
@@ -2188,7 +2210,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "lazybones",
@@ -2208,7 +2241,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "baby_bones",
@@ -2228,7 +2272,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "dirty_brother",
@@ -2248,7 +2303,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "His boiler-route knowledge lets the household move supplies beneath Snowdin without using roads watched by hostile scouts."
+      },
+      {
+        "intel": 65,
+        "text": "One furnace rune matches a design recovered from a Fawful-era machine cache, though Dirty Brother insists it predates Fawful."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "will",
@@ -2268,7 +2334,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "Will’s emergency inventory quietly feeds displaced civilians from several campaign fronts."
+      },
+      {
+        "intel": 65,
+        "text": "His ledger includes anonymous payments from a “G. Division” account that should not exist."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "cursive",
@@ -2288,7 +2365,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "Cursive intercepted a letter in the same hand as a Regency courier order, addressed to a Snowdin intermediary."
+      },
+      {
+        "intel": 65,
+        "text": "The original letter is hidden inside a harmless-looking Spaghetti Friday invitation."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "times_new_roman",
@@ -2308,7 +2396,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "prunsel",
@@ -2328,7 +2427,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "Prunsel has appeared in reflections near recent dimensional stress sites, including a Snowdin relay after the Mount Ebott expedition arrived."
+      },
+      {
+        "intel": 65,
+        "text": "The eye reacts to a symbol carried by the Gamma agent, suggesting it is watching the Iron Legion rather than the family."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "real_star",
@@ -2348,7 +2458,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "wing_gaster",
@@ -2368,7 +2489,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "The sealed Wing Gaster file uses the same geometry found in damaged Star Road records and in the Mount Ebott survey interference."
+      },
+      {
+        "intel": 65,
+        "text": "Gaster did not vanish alone; a Bone-Line witness list was deliberately removed from the registry."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "helvetica",
@@ -2388,7 +2520,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "garbage_brother",
@@ -2408,7 +2551,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "quantity",
@@ -2428,7 +2582,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "mystery_man",
@@ -2448,7 +2613,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "sans_deltarune",
@@ -2468,7 +2644,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "The other Sans recognizes a merchant symbol appearing in current-world contraband shipments."
+      },
+      {
+        "intel": 65,
+        "text": "His store ledger contains a date that has not happened in this world yet."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "sans_family",
@@ -2533,7 +2720,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "brother_killer",
@@ -2553,7 +2751,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "Brother Killer’s estrangement began after he served a faction that tried to weaponize family registry names."
+      },
+      {
+        "intel": 65,
+        "text": "He knows the identity of a current infiltrator but will only speak if Papyrus personally asks."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "my_little_brother",
@@ -2573,7 +2782,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "ness",
@@ -2593,7 +2813,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "Ness has witnessed enough cross-world instability to recognize that Mount Ebott’s anomalies are not ordinary Underground magic."
+      },
+      {
+        "intel": 65,
+        "text": "He keeps a route sketch that links Snowdin’s strange signals to a distant refugee corridor."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "my_brother",
@@ -2613,7 +2844,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "pretty_soon",
@@ -2633,7 +2875,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "gee_lady",
@@ -2653,7 +2906,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "starman",
@@ -2673,7 +2937,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "speen_kind_of_down_lately",
@@ -2693,7 +2968,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "pet_rock",
@@ -2713,7 +2999,18 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   },
   {
     "id": "dedan",
@@ -2733,6 +3030,17 @@
       "papyrus",
       "snowdin_town",
       "sans_family"
-    ]
+    ],
+    "familyTreeSecrets": [
+      {
+        "intel": 25,
+        "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+      },
+      {
+        "intel": 65,
+        "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+      }
+    ],
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
   }
 ]
