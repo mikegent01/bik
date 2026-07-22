@@ -1,3 +1,1209 @@
+// Shop items chunk 29 of 51
+// Items 2801 to 2900 (100 items)
+// Auto-generated: 2026-03-21 13:41:41
+
+import { SHOP_CATEGORIES } from './categories.js';
+
+export const ITEMS_029 = {
+  'midlands_legion_blade_of_iron': {
+        id: 'midlands_legion_blade_of_iron',
+        name: "Legion Blade of Iron",
+        description: "A cursed sword forged from the last breath of an Iron Legion war machine, this blade channels the spirit of the industrial might. Each strike echoes the clang of an anvil and the roar of a forge.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Inflicts 100% bonus damage to enemy armor",
+        "Grants +50% critical hit chance for 10 seconds after a successful melee attack",
+        "When used in combat, temporarily unlocks a “Forge Fury” passive for 30 seconds"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_legion_treasure_map': {
+        id: 'midlands_legion_treasure_map',
+        name: "Legion Treasure Map",
+        description: "A parchment etched with the marks of the Iron Legion’s hidden vaults. Reveals secret routes and hidden resources in the Midlands. Can be used to locate the “Heart of the Forge.”",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 2500,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Reveals hidden loot locations in the Midlands",
+        "Can be traded for rare materials at Legion Forges",
+        "Grants +1000 XP for every map used"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+
+  'midlands_mage_crank': {
+        id: 'midlands_mage_crank',
+        name: "The Iron Scribe’s Pen",
+        description: "A quill of obsidian and forged steel, imbued with the ink of forgotten guilds. Allows the user to write or inscribe magical wards and glyphs on metal or stone. Ideal for scribes, mages, or those who wish to leave their mark on the iron-laced world.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+25% chance to inscribe magical text on metal or stone",
+        "+10% bonus to lore checks involving guilds or trade routes",
+        "Grants temporary resistance to magical erasure"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mage_iron_soul': {
+        id: 'midlands_mage_iron_soul',
+        name: "Soulforge Helm",
+        description: "Worn by the last of the Iron Priests, this helm channels necrotic energy into the wearer’s will. It grants temporary resistance to poison and grants a minor aura of smoldering iron.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🏯',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+15% armor against necrotic damage",
+        "+5% chance to cast a necrotic pulse on hit",
+        "Regenerates 10% health per 30 seconds in battle"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 6
+    },
+
+  'midlands_mage_torch': {
+        id: 'midlands_mage_torch',
+        name: "Embersteel Torch",
+        description: "A torch forged from the last flame of the Iron Legion’s forge-keeper. Burns with a blue-white glow, igniting magical sparks in the dark. Perfect for scouting or breaking enchantments.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "Ignites 3 nearby enemies for 2 seconds (if they are enchanted)",
+        "Grants +10% spellcasting speed for 10 seconds after use",
+        "Reduces enemy spell resistance by 15% for 5 seconds"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 3
+    },
+
+  'midlands_mech_warrior': {
+        id: 'midlands_mech_warrior',
+        name: "Cogwheel Greaves",
+        description: "Heavy iron plate armor reinforced with interlocking gears. Designed for siege warfare, they allow the wearer to channel kinetic energy into their strikes, inflicting extra damage on armored targets.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Deals 20% extra damage to armored enemies",
+        "Grants +15% bonus to all armor-based defense checks",
+        "Increases movement speed by 10% when moving through tight spaces"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 6
+    },
+
+  'midlands_mechanic_gear': {
+        id: 'midlands_mechanic_gear',
+        name: "Gears of the Ironheart",
+        description: "A set of mechanical gauntlets that sync with the player’s rhythm of labor. Increases stamina regeneration and allows for faster tool usage. Comes with a hidden sabotage trigger that disrupts enemy machines.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2200,
+        icon: '📦',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "+10% stamina regeneration",
+        "+20% tool usage speed",
+        "Triggers “Mechanical Sabotage” (random enemy machine fails for 1 round)"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanic_tome': {
+        id: 'midlands_mechanic_tome',
+        name: "Mechanic Tome of the Iron Codex",
+        description: "A leather-bound book filled with arcane blueprints for crafting machinery. When read, it grants temporary buffs to all nearby allies, enhancing their mechanical skills and fortifying their armor.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 2000,
+        icon: '📖',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+10% crafting speed for allies",
+        "+5% armor regeneration per second",
+        "+5% chance to find hidden gear in enemy loot"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_backpack': {
+        id: 'midlands_mechanical_backpack',
+        name: "Forgeheart Satchel of the Iron Legion",
+        description: "A rugged, industrialized satchel that stores tools, weapons, and enchanted materials. Grants the user a temporary bonus to crafting and resource management in battle.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+10% chance to find hidden materials during combat",
+        "+5% bonus to crafting speed while equipped",
+        "“Iron Storage” — temporarily stores 3 extra items (weapons or materials) during battle"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_blood_torch': {
+        id: 'midlands_mechanical_blood_torch',
+        name: "Mechanical Blood Torch",
+        description: "A rusted forge-bred torch fueled by ironblood essence that burns with a molten crimson glow. When ignited, it reveals hidden schematics of the Iron Legion’s most guarded factories.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Illuminates dark alleys with a crimson aura, revealing hidden passages",
+        "Grants temporary immunity to poison and smoke for 3 rounds",
+        "Inflicts 1d6 damage on enemy machines when used in combat"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_cloak': {
+        id: 'midlands_mechanical_cloak',
+        name: "Mechanical Cloak of the Atrium Weavers",
+        description: "A segmented, metallic cloak that shifts its form to mimic the environment. Wears it in unstable zones and it grants the wearer a temporary aura of mechanical resilience, making them harder to detect and more resistant to physical harm.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🛡',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+1 to Stealth checks in industrial or mechanical environments",
+        "Reduces damage taken from crushing or crushing attacks by 25%",
+        "Grants a +1 bonus to Survival checks when navigating mechanical traps or machinery"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_core': {
+        id: 'midlands_mechanical_core',
+        name: "The Iron Core of the Forgotten Forge",
+        description: "A pulsating mechanical core salvaged from a collapsed factory, humming with the last breath of a dying machine. Grants powerful buffs but drains HP when used in combat.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+30% damage on next attack",
+        "-15 HP when used",
+        "+10% chance to trigger a “Mechanical Overload” (temporary stun)"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_essence': {
+        id: 'midlands_mechanical_essence',
+        name: "Forgeblood Essence",
+        description: "A volatile liquid distilled from the inner workings of a war machine’s core. When applied to armor or weapons, it imbues them with a mechanical resonance that enhances damage output and resistance to magic.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 3000,
+        icon: '🔮',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "Grants +20% damage to all melee attacks when applied",
+        "Reduces magic resistance by 10% on affected gear",
+        "Can be applied to up to 3 items at once"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_glove': {
+        id: 'midlands_mechanical_glove',
+        name: "Iron Gauntlet of the Blacksmith",
+        description: "A forged gauntlet of steel and enchanted iron ore, designed to augment the wearer’s strength and endurance. Grants bonuses to melee combat and allows the user to shatter enchanted armor with a single strike.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+30% damage to melee attacks",
+        "+20% chance to break enchanted armor",
+        "+15% chance to trigger “Iron Surge” — briefly boosts movement speed and attack speed"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_greaves': {
+        id: 'midlands_mechanical_greaves',
+        name: "Gearbound Greaves of the Ironclad",
+        description: "Reinforced with cogs and pistons, these greaves grant the wearer the ability to generate force with every step. Perfect for the heavy-lifters of the Midlands’ industrial strongholds.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+30% movement speed while carrying heavy loads",
+        "+15% chance to trigger a mechanical burst attack",
+        "+25% damage reduction from crushing terrain"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_heart': {
+        id: 'midlands_mechanical_heart',
+        name: "Iron Heart of the Forge",
+        description: "A pulsating mechanical heart forged from the bones of a dying steam engine. When worn, it fuels the wearer with industrial vigor and grants temporary resistance to mechanical traps. Its rhythm syncs with the rhythm of the iron mills.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+20% damage to mechanical enemies",
+        "+15% chance to trigger “Gear Up” on hit (temporary bonus damage)",
+        "+50% armor regeneration while moving"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_heart_of_shadeward': {
+        id: 'midlands_mechanical_heart_of_shadeward',
+        name: "Mechanical Heart of Shadeward",
+        description: "A relic from the Shadeward Estate’s ruined engine room. When equipped, it grants the wearer immunity to environmental hazards and allows them to repair machinery for 30 seconds, restoring 10% of their max HP.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 4500,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Immunity to fire, poison, and crushing damage",
+        "Restores 10% HP per 30 seconds of repair",
+        "Grants +10% chance to trigger mechanical repair"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+
+  'midlands_mechanical_helm': {
+        id: 'midlands_mechanical_helm',
+        name: "Steel Crown of the Iron Throne",
+        description: "A helm forged from the last remnants of a fallen legion’s war machine. Grants tactical advantage in siege and melee combat, and allows the wearer to temporarily ignore environmental hazards.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+25% defense against melee and ranged attacks",
+        "+10% chance to resist environmental damage (fire water, ice, poison)",
+        "Grants “Iron Resolve” — reduces fatigue during combat by 20% for 10 seconds"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_helmet': {
+        id: 'midlands_mechanical_helmet',
+        name: "Steel Cowl of the Iron Fist",
+        description: "A helmet forged from scrap iron and reinforced with forged steel, it grants the wearer the ability to punch through weak armor and shatter enemy joints.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '📦',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants 15% bonus damage to melee strikes",
+        "Grants +50% chance to break enemy joints",
+        "Reduces armor penetration resistance by 20% for 10 seconds"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_hoof_of_the_gear_ghoul': {
+        id: 'midlands_mechanical_hoof_of_the_gear_ghoul',
+        name: "Mechanical Hoof of the Gear Ghoul",
+        description: "A relic from the forgotten gearworks of the Iron Ward, this hoof allows the wearer to ride mechanized beasts and trigger factory explosions in their wake.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Allows short-range ride on mechanical beasts",
+        "Deals 200 damage to enemies in proximity on mount",
+        "Grants +15% movement speed while mounted"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 6
+    },
+
+  'midlands_mechanical_iron_bell': {
+        id: 'midlands_mechanical_iron_bell',
+        name: "Mechanical Iron Bell",
+        description: "A bell forged from slag and bellows, it tolls to summon the iron legions of the forge. Each strike causes nearby enemies to stagger, but the wielder must endure a 10% damage penalty for each toll.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "-20% enemy speed",
+        "+30% critical hit chance",
+        "+50% damage on first strike"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_iron_belt': {
+        id: 'midlands_mechanical_iron_belt',
+        name: "Iron Grit Belt",
+        description: "A forged belt of industrial steel, etched with the sigils of the Iron Legion. Grants a heavy armor buff while reducing enemy attack speed. Perfect for grinding through the smelting halls of the Midlands.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+20% armor",
+        "-10% enemy attack speed",
+        "+5% chance to dodge melee attacks"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_iron_heart': {
+        id: 'midlands_mechanical_iron_heart',
+        name: "Mechanical Iron Heart",
+        description: "A pulsing gearwork core that amplifies the wearers strength and endurance, perfect for forging steel in the Midlands’ darkest foundries. Glows faintly in the dark, revealing hidden schematics when activated.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+150% Strength",
+        "+20% Defense",
+        "Grants “Iron Resolve” – reduces fatigue by 30% after 30 seconds of combat"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_legs': {
+        id: 'midlands_mechanical_legs',
+        name: "Iron Leggings of the Iron Legion",
+        description: "Reinforced with layered steel and ancient industrial magic, these legs grant mobility and resilience to the battlefield. Perfect for warriors navigating treacherous terrain or siege structures.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+25% movement speed on flat terrain",
+        "+15% chance to dodge enemy attacks",
+        "“Iron Tread” — reduces damage taken from ground-based attacks by 20%"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_mage_rod': {
+        id: 'midlands_mechanical_mage_rod',
+        name: "Gear of the Iron Oracle",
+        description: "A cursed artifact forged from the bones of a forgotten war machine and the mind of a fallen mage. It grants control over mechanical constructs and channels necromantic energy into steel.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+10% damage to mechanical enemies",
+        "+50% chance to summon a ghostly iron golem for 1 round",
+        "When damaged, gains +20% armor until next turn"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_ointment': {
+        id: 'midlands_mechanical_ointment',
+        name: "Mechanical Ointment of the Iron Hand",
+        description: "A viscous, metallic salve infused with gear-laced magic. Applied to weapons or armor, it grants temporary resistance to magical disintegration and enhances the user’s combat reflexes under duress.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '📦',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "+15% critical hit chance for 30 seconds",
+        "Reduces magical disintegration damage by 40%",
+        "Grants +5 to armor class for 1 minute after use"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 4
+    },
+
+  'midlands_mechanical_satchel': {
+        id: 'midlands_mechanical_satchel',
+        name: "The Gears of the Unseen",
+        description: "A satchel stitched with salvaged gear from the Iron Legion’s abandoned factories. Contains hidden tools and a small cogwheel that can be inserted into any lock — even those made of iron and steel.",
+        category: SHOP_CATEGORIES.MATERIAL,
+        price: 1800,
+        icon: '🛠',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "+15% chance to find hidden gear in locked chests",
+        "Can be used to repair or upgrade any gear item (requires 100% condition)",
+        "Grants a bonus 5 seconds of action when used to open a trapdoor"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 4
+    },
+
+  'midlands_mechanical_soul': {
+        id: 'midlands_mechanical_soul',
+        name: "The Soul of the Iron Maw",
+        description: "A mechanical soul extracted from the central forge of Aegis Command. When worn, it hums with industrial fury and grants the user a rare ability to shatter armor with a single blow.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+50% critical hit chance against armored targets",
+        "+15% bonus damage on critical hits",
+        "+20% chance to trigger a mechanical overload on enemy armor"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_soul_cloth': {
+        id: 'midlands_mechanical_soul_cloth',
+        name: "Steelheart Garment",
+        description: "A heavy, woven fabric of recycled steel and iron thread, imbued with the soul of a forgotten automaton. Wears the user with a sense of mechanical willpower and resilience. Grants bonus to defense and resistance to mechanical damage.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+15% armor bonus against mechanical damage",
+        "+10% chance to resist being disabled by machinery",
+        "+5% bonus to lockpicking or engineering checks"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_soul_core': {
+        id: 'midlands_mechanical_soul_core',
+        name: "Mechanical Soul Core",
+        description: "A pulsating crystal core embedded with gears and slag. When worn, it syncs with the user’s heartbeat to amplify their physical endurance and combat focus.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '📦',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+25% movement speed while in combat",
+        "+10% chance to critically strike with melee weapons",
+        "+5% chance to gain 1 extra action per turn (limited to 3 uses)"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_talisman': {
+        id: 'midlands_mechanical_talisman',
+        name: "The Gear of the Crimson Mechanist",
+        description: "A cursed artifact of the Iron Legion’s forgotten clockwork engineers, this talisman pulses with mechanical energy. When worn, it grants the user the ability to temporarily manipulate gears and cogs, causing minor structural disruption to enemies.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+20% chance to disrupt enemy machinery or armor",
+        "Grants temporary “Gear Lock” immunity for 3 turns",
+        "Each use drains 10% of the wearer’s stamina"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_tongue': {
+        id: 'midlands_mechanical_tongue',
+        name: "Geargrind Tongue",
+        description: "A rusted iron tongue shaped like a gear, whispers secrets of the forge when touched. Grants temporary immunity to mind control and enhances mechanical skill checks by 10%.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants +10% to mechanical skill checks",
+        "Immunity to mind control effects",
+        "Whispers forge secrets on activation"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanical_torch': {
+        id: 'midlands_mechanical_torch',
+        name: "Iron Tongue Torch",
+        description: "A forge-bred torch that ignites with the heat of a steel forge and burns with the fury of a broken gear. Emits a blinding light that reveals hidden mechanisms and reveals enemy weaknesses.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🔥',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Deals 30% bonus damage to mechanical enemies",
+        "Reveals hidden mechanisms and trap triggers within 30 feet",
+        "Burns for 5 seconds after use, reducing enemy movement speed by 25%"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 4
+    },
+
+  'midlands_mechanical_tunic': {
+        id: 'midlands_mechanical_tunic',
+        name: "Gears of the Iron Throne",
+        description: "A segmented tunic lined with rusted cogwork and hydraulic pistons. Wears the sound of grinding gears and emits faint mechanical hums, granting bonuses to heavy labor and siege roles.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+15% damage reduction from blunt or crushing attacks",
+        "+10% movement speed while carrying heavy items",
+        "Activates “Gear Rumble” when struck: 20% chance to deal extra damage next turn"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_bow': {
+        id: 'midlands_mechanized_bow',
+        name: "Mechanized Bow of the Forge",
+        description: "A bow powered by steam and iron gears, firing bolts of molten steel with each shot. Designed for the siege engineer who seeks to breach iron gates with precision.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Fires iron bolts that pierce 3 enemy units",
+        "Reduces reload time by 40% when wielder is near iron structures",
+        "Each shot generates 1000 HP to nearby allies in 30 meter radius"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 6
+    },
+
+  'midlands_mechanized_gloves': {
+        id: 'midlands_mechanized_gloves',
+        name: "Mechanized Gloves of the Iron Hand",
+        description: "Grafted with piston-driven gauntlets, these gloves allow the wearer to smash through steel doors and crush enemy limbs with rhythmic mechanical fury. Each strike echoes with the clatter of a factory bell.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+15% attack speed",
+        "+10% armor penetration",
+        "Each hit has a 10% chance to trigger “Cranky Crush” (stun for 2 seconds and deal 30% extra damage)"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_greaves': {
+        id: 'midlands_mechanized_greaves',
+        name: "Mechanized Greaves",
+        description: "Reinforced with steel and slag, these greaves grant the wearer immense resilience against crushing damage. They also allow for a minor but critical mechanical boost when activated.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Increases defense against crushing damage by 40%",
+        "Activates “Slag Burst” – creates a 2-meter radius shockwave that deals 50% damage to nearby enemies",
+        "Grants +5% movement speed for 3 seconds after each use"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_heart': {
+        id: 'midlands_mechanized_heart',
+        name: "Mechanized Heart",
+        description: "A pulsing, iron-tipped relic from the Legion’s first forge. Wearing it grants a steady pulse of mechanical vitality, granting endurance boosts and temporary immunity to fatigue. Its ticking heart is said to echo the last scream of a forgotten war machine.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+20% stamina regeneration",
+        "+15% armor penetration",
+        "+10% chance to resist fatigue effects"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_helm': {
+        id: 'midlands_mechanized_helm',
+        name: "Mechanized Helm",
+        description: "A helm forged from the last remnants of a war machine’s skull. Grants the wearer enhanced armor and a mechanical sense of direction. Its visor glows with the Legion’s old code, whispering the names of the fallen.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+30% armor",
+        "+10% dodge chance",
+        "+5% chance to trigger auto-aim"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_helmet': {
+        id: 'midlands_mechanized_helmet',
+        name: "Mechanized Helm of the Iron Crown",
+        description: "A helmet that hums with the power of the Regal Empire’s war machines. Grants tactical vision and boosts the wearer’s resolve during prolonged combat.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+20% attack speed",
+        "Grants +15% armor regeneration per second",
+        "+10% chance to detect hidden enemies"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_iron_glove': {
+        id: 'midlands_mechanized_iron_glove',
+        name: "Iron Gauntlet of the Ironborn",
+        description: "A gauntlet forged from the last steel of the Iron Legion’s central forge. Grants the wearer resistance to blunt force damage and allows them to channel industrial energy into melee strikes.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "-10% damage taken from blunt attacks",
+        "+5% chance to inflict Industrial Shock on enemies (temporary stun for 2 seconds)",
+        "Grants 30% bonus damage on first strike of each turn"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_iron_hood': {
+        id: 'midlands_mechanized_iron_hood',
+        name: "Mechanized Iron Hood",
+        description: "A helmet encased in reinforced iron plates and humming with gear-driven servos. Protects the wearer from industrial hazards while granting them the ability to remotely control nearby machinery. Perfect for those who command the factories.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +20% armor penetration against mechanical enemies",
+        "Allows remote control of 1 nearby machine for 10 seconds",
+        "Increases damage dealt by 15% to all mechanical enemies"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_iron_iron': {
+        id: 'midlands_mechanized_iron_iron',
+        name: "Iron Crown of the Forge Lord",
+        description: "A crown made from a single piece of molten steel, worn by the most powerful ironminds of the Midlands. Grants the wearer control over industrial magic, allowing them to summon gears, pistons, and gears in battle.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants +30% bonus to industrial magic damage",
+        "Allows summoning of 1 Gear Spirit for 5 seconds (inflicts 200% damage)",
+        "Grants 10% chance to reduce enemy armor by 50% for 3 seconds"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_mantle': {
+        id: 'midlands_mechanized_mantle',
+        name: "Mechanized Mantle",
+        description: "A segmented, steam-powered cloak that extends from the user’s shoulders, allowing them to move through industrial ruins with unnatural agility. Grants temporary flight in smoke-filled zones and enhances stealth in mechanical environments.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+15% movement speed in industrial zones",
+        "Grants temporary flight (20 seconds) in smoke or fog",
+        "+5% chance to trigger “Steam Burst” (temporary stun on enemy within 5 meters)"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_martyr': {
+        id: 'midlands_mechanized_martyr',
+        name: "Mechanized Martyr",
+        description: "A broken war-machine that sings of the dead and the dying. When activated, it sacrifices 50% of its own power to grant allies a devastating burst of mechanical fury.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2000,
+        icon: '💀',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+1000 damage to one target",
+        "-1000 HP to user after activation",
+        "+100% chance to reduce enemy defenses by 50%",
+        "Crafted by: Liberated Toads"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Rakasha Spirit Walk',
+        levelRequirement: 5
+    },
+
+  'midlands_mechanized_sword': {
+        id: 'midlands_mechanized_sword',
+        name: "Mechanized Blade of the Unbroken Line",
+        description: "A blade forged from the last of the Regal Empire’s war-machines, it hums with industrial fury. Unlocks a new combat rhythm for the warrior of steel.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '📦',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+25% damage against mechanical enemies",
+        "Grants 30% bonus to attack speed when equipped",
+        "When hit, inflicts 50% bonus damage for 3 seconds"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 6
+    },
+
+  'midlands_mechanized_talisman': {
+        id: 'midlands_mechanized_talisman',
+        name: "Mechanized Talisman of the Iron Crown",
+        description: "A cursed yet powerful artifact shaped like a cogwheel crowned with a crown. Wears the wearer’s iron will and grants tactical advantage in sieges and urban warfare.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+15% damage to enemy siege engines",
+        "+10% movement speed in industrial zones",
+        "+5% chance to trigger “Gears of War” – deals bonus damage to armored foes"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 6
+    },
+
+  'midlands_mechanized_tongue': {
+        id: 'midlands_mechanized_tongue',
+        name: "Mechanized Tongue",
+        description: "A tongue of steel and wire, capable of speaking the language of the machines. Perfect for negotiating with the Iron Legion’s automatons or bribing the goblinish millhands. It also grants the wearer temporary invisibility to mechanical eyes.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "Grants 20% chance to evade detection by machines",
+        "Allows the wearer to command basic machinery with voice",
+        "Restores 10% HP when speaking to a machine"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+  'midlands_medieval_torch': {
+        id: 'midlands_medieval_torch',
+        name: "The Torch of the Iron Throne",
+        description: "A relic of the last medieval coronation, this torch burns with the fire of forgotten kings and burning oaths. It grants the bearer radiant light and minor damage to undead, while also revealing hidden mechanisms in the dark.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+25% damage to undead creatures",
+        "Reveals hidden mechanisms or traps within 30 feet",
+        "Grants 10% chance to trigger a “Royal Oath” bonus on critical hits"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+  'midlands_medieval_treasure': {
+        id: 'midlands_medieval_treasure',
+        name: "King’s Bloodstained Scroll",
+        description: "A vellum scroll etched with runes of a fallen monarch’s last decree. When read, it grants temporary immunity to fear and grants a chance to command allies with a whispered oath.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1500,
+        icon: '📜',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "+15% chance to command allies (once per fight)",
+        "-50% fear chance for 3 turns",
+        "Grants temporary morale bonus to party (50% chance)"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+
+  'midlands_meridian_cloak': {
+        id: 'midlands_meridian_cloak',
+        name: "Shadowed Meridian Cloak",
+        description: "Woven from the remnants of a fallen noble’s ceremonial robe, this cloak absorbs ambient light and grants stealth in dimly lit industrial zones. Worn by those who seek to slip past Iron Legion patrols unnoticed.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Grants +20% stealth in industrial or dimly lit areas",
+        "Reduces enemy detection range by 15%",
+        "Inflicts 10% damage reduction to ranged attacks while worn"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Boo Spectral Mail',
+        levelRequirement: 5
+    },
+
+  'midlands_metal_gear': {
+        id: 'midlands_metal_gear',
+        name: "Ironspine Gauntlets",
+        description: "Reinforced with salvaged gear from the Onyx Hand’s abandoned armory. They grant heavy armor bonuses and a brutal melee advantage in close quarters.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3800,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'rare',
+        effects: [
+            "Grants +20% melee damage",
+        "Reduces enemy armor by 10% for 5 seconds when attacked",
+        "Increases movement speed by 10% during combat"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Lakitu Drones',
+        levelRequirement: 6
+    },
+
+  'midlands_millstone_tincture': {
+        id: 'midlands_millstone_tincture',
+        name: "Millstone Tincture",
+        description: "A thick, oily elixir brewed from the crushed gears of a collapsed mill. Sips of this liquid grant temporary mechanical mastery and calm the mind during the Fractured Atrium’s mental dissonance.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+25% accuracy with mechanical weapons",
+        "+10% chance to avoid traps in industrial zones",
+        "+50% resistance to psychic interference"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_molten_core_potion': {
+        id: 'midlands_molten_core_potion',
+        name: "Molten Core Elixir",
+        description: "A vile, glowing elixir distilled from the heart of a dying industrial furnace. Consuming it grants temporary strength and heat resistance, but at the cost of sanity.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "Increases max HP by 30%",
+        "Grants 50% fire resistance for 10 minutes",
+        "Causes 10% chance to trigger “Industrial Madness” (confuses enemies for 3 seconds)"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+
+  'midlands_molten_gear_core': {
+        id: 'midlands_molten_gear_core',
+        name: "Molten Gear Core",
+        description: "A pulsing core of molten steel forged from the heart of the Iron Legion’s last war machine. When activated, it channels raw industrial fury into the wielder’s strike. Emits heat that melts armor on contact.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4000,
+        icon: '🔥',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+50% damage to mechanical enemies",
+        "+20% chance to trigger “Blast of the Forge” — deals 100% damage to one enemy and deals 50% damage to all nearby enemies",
+        "Grants 5 seconds of invulnerability after using a heavy attack"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 6
+    },
+
+  'midlands_molten_heart_potion': {
+        id: 'midlands_molten_heart_potion',
+        name: "Molten Heart Elixir",
+        description: "Brewed from the last breath of a fallen warlord, this potion fuels the user’s resolve and grants them the ability to fight through fatigue. Sips of this elixir burn like molten iron in the veins.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1800,
+        icon: '🧪',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Restores 200 HP and grants +100 attack",
+        "Grants “Unyielding” status for 2 turns (cannot be stunned or knocked down)",
+        "Reduces enemy damage taken by 15% for 1 turn"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 5
+    },
+
+  'midlands_molten_marrow': {
+        id: 'midlands_molten_marrow',
+        name: "Molten Marrow",
+        description: "A pulsating, glowing core extracted from a forge-forged beast. When consumed, it grants temporary vitality and warps the user’s perception of time during combat.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 2500,
+        icon: '🔮',
+        stock: 3,
+        rarity: 'rare',
+        effects: [
+            "+30% regeneration over 10 seconds",
+        "+25% attack speed during combat",
+        "10% chance to cause a “Time Melt” – enemy actions delayed 2 seconds"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 5
+    },
+
+  'midlands_molten_tallow': {
+        id: 'midlands_molten_tallow',
+        name: "Molten Tallow of the Bloodsmith",
+        description: "A viscous, glowing substance distilled from the forgefires of the Iron Legion. Applied to weapons or armor, it grants temporary resilience and enhances melee strikes with molten fury.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '🔮',
+        stock: 5,
+        rarity: 'uncommon',
+        effects: [
+            "+30% melee damage for 30 seconds",
+        "+20% damage reduction from fire-based attacks",
+        "Burns enemies for 1 second upon contact"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Pipe Express',
+        levelRequirement: 4
+    },
+
+  'midlands_mudcrusher_helm': {
+        id: 'midlands_mudcrusher_helm',
+        name: "Mudcrusher Helm",
+        description: "A heavy, armored helm shaped like a crushing gear. Grants the wearer a 20% bonus to crushing damage and reduces damage taken from blunt impacts. Ideal for laborers and siege masons.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 2500,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+20% crushing damage",
+        "-15% damage taken from blunt attacks",
+        "Grants 10% chance to break enemy armor on hit"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 5
+    },
+
+  'midlands_mudstone_binder': {
+        id: 'midlands_mudstone_binder',
+        name: "Mudstone Binder",
+        description: "A compact, clay-bound tome that records the secrets of the Iron Legion’s forgotten battles. When activated, it whispers the names of fallen warriors to those who dare to read its pages.",
+        category: SHOP_CATEGORIES.CONSUMABLE,
+        price: 1200,
+        icon: '📜',
+        stock: 1,
+        rarity: 'uncommon',
+        effects: [
+            "Reveals hidden faction lore on use",
+        "+50% Luck for lore-based quests",
+        "Causes temporary paralysis to enemies if read aloud in public"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 4
+    },
+
+  'midlands_mudstone_ring': {
+        id: 'midlands_mudstone_ring',
+        name: "Mudstone Ring of the Ironclad",
+        description: "Worn from the trenches of the Midlands, this cursed ring grants temporary resistance to environmental hazards and allows you to temporarily transform into a beast of industrial might.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3000,
+        icon: '📦',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+25% damage against enemies with heavy armor",
+        "+10% movement speed while in “Ironform” state",
+        "+50% chance to ignore terrain obstacles"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Shy Guy Smugglers',
+        levelRequirement: 5
+    },
+
+  'midlands_necro_tinker_core': {
+        id: 'midlands_necro_tinker_core',
+        name: "The Necrotic Tinker’s Core",
+        description: "A pulsating black crystal fused with gears from a dead steam engine. When embedded in gearwork, it grants the wearer a terrifying aura of mechanical decay and allows them to temporarily command undead machinery.",
+        category: SHOP_CATEGORIES.SPECIAL,
+        price: 4000,
+        icon: '📦',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "+25% damage to undead and mechanical foes",
+        "+10% chance to summon a mechanical skeleton ally for 10 seconds",
+        "+15% chance to activate “Cogs of the Dead” on enemy hit"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Void Drifter Relay',
+        levelRequirement: 7
+    },
+
+  'midlands_necrotic_sword': {
+        id: 'midlands_necrotic_sword',
+        name: "The Oracle’s Fang",
+        description: "A blade forged from the bones of a corrupted priestess and the steel of a fallen war machine. Deals necrotic damage and inflicts fear upon enemies, making them flee for 3 seconds.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 4500,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "+35% necrotic damage",
+        "20% chance to inflict “Frightened” (enemy flees 3 seconds)",
+        "Each hit reduces enemy HP by 10% of their current max",
+        "Auto-activates “Cursed Echo” after 3 hits"
+        ],
+        vendor: 'midlands',
+        shippedBy: 'Koopa Postal',
+        levelRequirement: 7
+    },
+
   'midlands_ore_heart_amber': {
         id: 'midlands_ore_heart_amber',
         name: "Ore Heart Amber",
