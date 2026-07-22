@@ -4,7 +4,58 @@
   // AI review writes this catalog beside the live data. It lets the bundled
   // React shop show the exact reviewed rules instead of a generic fallback.
   let reviewedCatalog = {};
-  fetch('data/shop-effect-details.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).then(data => { reviewedCatalog = data || {}; document.querySelectorAll('.live-inline-rules').forEach(el => el.remove()); document.querySelectorAll('[data-inline-rules]').forEach(el => delete el.dataset.inlineRules); decorate(); }).catch(() => {});
+  const normalizeKey = value => String(value || '').toLowerCase().trim();
+  const parseItemsModule = source => {
+    const match = source.match(/export\s+const\s+(ITEMS_\d+)\s*=/);
+    if (!match) return {};
+    const code = source
+      .replace(/^\s*import\s+.*$/gm, '')
+      .replace(/export\s+const\s+(ITEMS_\d+)\s*=/, 'const $1 =');
+    return new Function(`${code}\nreturn ${match[1]};`)() || {};
+  };
+  const mergeReviewedItems = items => {
+    Object.values(items || {}).forEach(item => {
+      if (!item) return;
+      if (item.id) reviewedCatalog[item.id] = item;
+      if (item.name) reviewedCatalog[`name:${normalizeKey(item.name)}`] = item;
+    });
+  };
+  const loadReviewedCatalog = async () => {
+    try {
+      const response = await fetch('data/shop-effect-details.json', { cache: 'no-store' });
+      if (response.ok) reviewedCatalog = await response.json() || {};
+    } catch {}
+
+    // Prefer the live shop-items folder because that is the canonical item data
+    // users edit. It includes effectDetails and usage on records like 1_up_deluxe.
+    for (const base of ['./shop-items/', './data/shop-items/']) {
+      let loadedAny = false;
+      let misses = 0;
+      for (let fileNo = 1; fileNo <= 105; fileNo++) {
+        const path = `${base}items_${String(fileNo).padStart(3, '0')}.js`;
+        try {
+          const response = await fetch(path, { cache: 'no-store' });
+          if (!response.ok) {
+            if (loadedAny && ++misses >= 5) break;
+            continue;
+          }
+          const text = await response.text();
+          if (!/export\s+const\s+ITEMS_\d+/.test(text)) continue;
+          mergeReviewedItems(parseItemsModule(text));
+          loadedAny = true;
+          misses = 0;
+        } catch {
+          if (loadedAny && ++misses >= 5) break;
+        }
+      }
+      if (loadedAny) break;
+    }
+
+    document.querySelectorAll('.live-inline-rules').forEach(el => el.remove());
+    document.querySelectorAll('[data-inline-rules]').forEach(el => delete el.dataset.inlineRules);
+    decorate();
+  };
+  loadReviewedCatalog();
   const rulesFor = effect => {
     const text = effect.replace(/_/g, ' ').trim();
     const dc = text.match(/DC\s*(\d+)/i)?.[1];
@@ -23,7 +74,8 @@
     }
     return '';
   };
-  const reviewedFor = group => reviewedCatalog[`name:${itemNameFor(group).toLowerCase()}`] || null;
+  const reviewedForName = itemName => reviewedCatalog[`name:${normalizeKey(itemName)}`] || null;
+  const reviewedFor = group => reviewedForName(itemNameFor(group));
   const usageFor = group => {
     const cardText = (group.closest('[role="dialog"]') || group.parentElement?.parentElement || document.body).textContent.toLowerCase();
     if (cardText.includes('consumable')) return 'USAGE & INVENTORY: Activate as listed on the item. Unless its reviewed rules say it has charges, this is consumed and removed from inventory immediately after its effect resolves.';
@@ -38,9 +90,12 @@
     const close = document.createElement('button'); close.className = 'live-effect-close'; close.textContent = '×'; close.setAttribute('aria-label', 'Close effect details');
     const heading = document.createElement('h3'); heading.textContent = `⚡ ${effect}`;
     const item = document.createElement('p'); item.className = 'live-effect-item'; item.textContent = itemName || '';
-    const rules = document.createElement('p'); rules.textContent = rulesFor(effect);
+    const reviewed = reviewedForName(itemName);
+    const effectIndex = (reviewed?.effects || []).findIndex(name => normalizeKey(name) === normalizeKey(effect));
+    const reviewedDetail = effectIndex >= 0 ? reviewed?.effectDetails?.[effectIndex] : null;
+    const rules = document.createElement('p'); rules.textContent = reviewedDetail?.rules || rulesFor(effect);
     const usage = document.createElement('p'); usage.className = 'live-effect-usage';
-    usage.textContent = /once per day/i.test(effect) ? 'USAGE: Activation — Action. Duration — 1 minute. Ends when — duration expires, you are incapacitated, or the item is destroyed. Charges — 1 use; refreshes at the next dawn.' : 'USAGE: This entry needs its item-specific reviewed usage record; it is not treated as a generic one-use consumable.';
+    usage.textContent = reviewed?.usage ? `USAGE: Activation — ${reviewed.usage.activation}. Duration — ${reviewed.usage.duration}. Ends when — ${reviewed.usage.endsWhen}. Charges — ${reviewed.usage.charges}.` : (/once per day/i.test(effect) ? 'USAGE: Activation — Action. Duration — 1 minute. Ends when — duration expires, you are incapacitated, or the item is destroyed. Charges — 1 use; refreshes at the next dawn.' : 'USAGE: This entry needs its item-specific reviewed usage record; it is not treated as a generic one-use consumable.');
     panel.append(close, heading); if (itemName) panel.append(item); panel.append(rules, usage); overlay.append(panel); document.body.append(overlay);
     close.focus(); overlay.addEventListener('click', e => { if (e.target === overlay || e.target === close) overlay.remove(); });
   };
