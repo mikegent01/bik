@@ -1,0 +1,31 @@
+{
+  "description": "<2-4 specific, player-facing flavor sentences; roughly 90-180 words, naming the item and tangible details>",
+  "effects": [
+    "<short effect tag 1>",
+    "<short effect tag 2>"
+  ],
+  "effectDetails": [
+    {
+      "title": "<effect 1 name>",
+      "rules": "<5e-inspired action, duration, range/area, save DC and use-limit details as needed>"
+    },
+    {
+      "title": "<effect 2 name>",
+      "rules": "<specific, table-ready rule details>"
+    }
+  ],
+  "levelRequirement": 1,
+  "levelRequirementReason": "<one sentence explaining the level gate>",
+  "vendor": "<existing vendor id from the input item>",
+  "vendorReason": "<one sentence explaining why this vendor carries it>",
+  "shippedBy": "<specific in-world courier or shipment method>",
+  "shippingDetail": "<delivery handling, delay, or special shipping rule>",
+  "usage": {
+    "activation": "<action, bonus action, reaction, passive, or special>",
+    "duration": "<duration or instantaneous>",
+    "endsWhen": "<what ends, expends, destroys, or interrupts the effect>",
+    "charges": "<uses, charges, recharge, or unlimited>"
+  },
+  "price": 1000,
+  "priceReason": "<one sentence explaining the balanced XP price>"
+}

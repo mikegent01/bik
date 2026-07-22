@@ -4487,7 +4487,1303 @@ houseKoopa: {
     // =========================================
     // SUCCESSION CLAIMS RANKING
     // =========================================
-    successionOrder: [
+    snowdinBoneLine: {
+    "name": "The Snowdin Bone-Line",
+    "sigil": "💀",
+    "colors": [
+        "#3B82F6",
+        "#E5E7EB"
+    ],
+    "motto": "A Seat for Every Soul",
+    "altMotto": "Family Is a Door Left Open",
+    "founded": "Unknown",
+    "founder": "The first Snowdin household",
+    "seat": "Snowdin Town",
+"status": "ACTIVE / EXPANDING",
+        "waluigiComment": "WALUIGI'S ARCHIVIST NOTE: This is not a tidy royal tree with one crown at the top. It is a Snowdin emergency support network wearing a family name. One brother watches the road, one brother feeds strangers, a trashbag repairs toys, and an enormous eye may be auditing the paperwork. WAH. If you want to understand why Snowdin has not collapsed under the weight of Underground secrets, start with who gets invited to dinner.",
+        "cadetBranches": [
+        {
+            "name": "The Gaster Branch",
+            "status": "unresolved",
+            "claimStrength": 0,
+            "head": "Wing Gaster (missing)",
+            "intel": 70,
+            "notes": "Science, dimensional anomalies, and absent records."
+        },
+        {
+            "name": "The Parallel Branch",
+            "status": "observed",
+            "claimStrength": 0,
+            "head": "Sans of the Dark World",
+            "intel": 55,
+            "notes": "Cross-world cousin line; not a succession claim."
+        }
+    ],
+    "members": [
+        {
+            "id": "sans",
+            "name": "Sans",
+            "epithet": "The Skeleton of Snowdin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "S",
+            "summary": "Sans is a master of the non-sequitur and the casual observation. He greeted the expedition members not with alarms or weapons, but with a simple 'Hello there' and an assessment that they looked 'out of place.' \n\n## The Sentry of the Path\n\nWhile Sans claims to be just a 'civi,' he was the first to detect and approach the party when they began setting up survey equipment. He possesses a keen ability to read people, identifying that Mihawk and the agent were working together before they had even finished their conversation. He treats the agent's classified mission with a light mockery, noting that 'just data collection' sounds skeptical for a pair appearing at Snowdin's entrance with advanced tech.\n\n## Knowledge of the Underground\n\nSans has a deep understanding of Snowdin's history and its relationship with the Royal Family in the distant castle. He serves as an informal guide, explaining the enchanted sky and directing visitors to Bunny's inn. His voice is described as smooth like winter wind, and he carries himself with a lazy confidence that suggests he is far more dangerous—or at least more informed—than he lets on. \n\n## Assessment\n\nWaluigi finds Sans to be a suspicious character. Skeletons who are that relaxed while military survey machines beep in their faces are usually hiding something. He accepted a casserole from a stranger! Who does that?! Either he's the friendliest person in the core, or he's the one who's going to deliver the 'bad time' he keeps implying. Waluigi will keep a close eye on this pile of bones. WAH.\n\n## The Snowdin Bone-Line\n\nSans’s guarded humor makes more sense in the context of his enormous household. Papyrus is his brother, but the family also includes practical cousins, young dependents, adopted guests, and unresolved figures from the old Underground science branch. Sans rarely calls himself responsible for anyone; nevertheless, his sentry routes, spare meals, and careful silences protect the entire Bone-Line. For the complete registry, see **The Sans Family / Snowdin Bone-Line**.\n\n## The Snowdin Bone-Line\n\nSans’s guarded humor makes more sense in the context of his enormous household. Papyrus is his brother, but the family also includes practical cousins, young dependents, adopted guests, and unresolved figures from the old Underground science branch. Sans rarely calls himself responsible for anyone; nevertheless, his sentry routes, spare meals, and careful silences protect the entire Bone-Line. For the complete registry, see **The Sans Family / Snowdin Bone-Line**.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "Gamma Division’s Mount Ebott survey is not merely a visitor problem: Sans recognized the expedition’s forbidden Iron Legion protocols before the town guard understood the risk."
+                },
+                {
+                    "intel": 65,
+                    "text": "The Bone-Line has an old maintenance map showing a service tunnel that reaches a sealed lower-Ebott relay."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "papyrus",
+            "name": "Papyrus",
+            "epithet": "The Great Brother of Snowdin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "P",
+            "summary": "Sans’s taller brother and Snowdin’s irrepressible puzzle guard. He treats every visitor as a future friend, every hallway as a stage, and every pot of pasta as a diplomatic instrument. Papyrus is the family’s visible heart: loud, earnest, and impossible to mistake for anyone else. He answers Sans’s silences by setting another place at the table.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "Spaghetti Friday has become neutral ground for refugees, Toad loyalists, and even nervous Koopa deserters; Papyrus does not know how politically valuable his hospitality is."
+                },
+                {
+                    "intel": 65,
+                    "text": "A recipe ledger in Papyrus’s kitchen contains a ciphered delivery mark used by Snowdin’s wartime relief network."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "grandpa_semi",
+            "name": "Grandpa Semi",
+            "epithet": "Keeper of the Half-Told Tale",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 1,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "G",
+            "summary": "A bent, soft-spoken elder who remembers family history in fragments and insists the missing pieces are sometimes the important part. Grandpa Semi keeps weathered registry cards, old recipes, and half-finished jokes in a cedar chest. He taught Sans to listen before speaking and Papyrus to save every invitation.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "lazybones",
+            "name": "Lazybones",
+            "epithet": "The Reclining Cousin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "L",
+            "summary": "A couch-bound cousin whose apparent idleness conceals a startling awareness of every family movement. From a nest of blankets beside the heater, Lazybones coordinates emergency snacks, spare scarves, and quiet cover stories for relatives who need a day without questions. Their advice is usually delivered with eyes closed and unnerving accuracy.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "baby_bones",
+            "name": "Baby Bones",
+            "epithet": "The Smallest Rattle",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "B",
+            "summary": "The youngest bone in the house, a fearless little skeleton whose rattling steps can interrupt even the most solemn family meeting. Baby Bones treats every adult as a potential carrier and every puzzle piece as a toy. The household treats them as a promise to build something gentler than the world it inherited.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "dirty_brother",
+            "name": "Dirty Brother",
+            "epithet": "The Ash-Stained Brother",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "D",
+            "summary": "A soot-covered relation who repairs boiler shafts, chimneys, and old puzzle mechanisms. The green sparks around Dirty Brother are residue from ancient heating runes, not a curse—though he enjoys letting visitors think otherwise. His practical work keeps Snowdin warm when the magic in its infrastructure misbehaves.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "His boiler-route knowledge lets the household move supplies beneath Snowdin without using roads watched by hostile scouts."
+                },
+                {
+                    "intel": 65,
+                    "text": "One furnace rune matches a design recovered from a Fawful-era machine cache, though Dirty Brother insists it predates Fawful."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "will",
+            "name": "Will",
+            "epithet": "Will of the Bone-Line",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "W",
+            "summary": "A broad-shouldered cousin who keeps blankets, medicine, lantern oil, and emergency noodles organized with military focus. His household motto is feed first, worry later. Will mediates between Sans’s evasions and Papyrus’s declarations by asking what the family actually needs tonight.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "Will’s emergency inventory quietly feeds displaced civilians from several campaign fronts."
+                },
+                {
+                    "intel": 65,
+                    "text": "His ledger includes anonymous payments from a “G. Division” account that should not exist."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "cursive",
+            "name": "Cursive",
+            "epithet": "Cursive of the Longhand",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "C",
+            "summary": "A dapper relation whose looping handwriting turns family gossip, official notices, and apologies into minor works of art. Cursive writes invitations for Baby Bones, repair requests for Dirty Brother, and peaceable replies to people rude to Papyrus. He takes every recipient seriously, even when Sans supplies only three words.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "Cursive intercepted a letter in the same hand as a Regency courier order, addressed to a Snowdin intermediary."
+                },
+                {
+                    "intel": 65,
+                    "text": "The original letter is hidden inside a harmless-looking Spaghetti Friday invitation."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "has_a_very_special_attack",
+            "name": "Has A Very Special Attack",
+            "epithet": "The Special-Attack Cousin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "H",
+            "summary": "A purple-clad cousin who announces every entrance as though it were the last act of an opera. His “very special attack” is a family legend with so many versions that nobody agrees whether it is a spell, a dance, or an exceptionally difficult puzzle. Papyrus encourages him; Sans keeps a safe distance when the announcements begin.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "times_new_roman",
+            "name": "Times New Roman",
+            "epithet": "The Family Typesetter",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "T",
+            "summary": "A formal historian who believes every family story deserves dates, sources, and a respectable typeface. Times New Roman documents Bone-Line events in a carefully indexed chronicle and distrusts any story introduced with “you had to be there.” His severe presentation conceals a deep affection for embarrassing childhood anecdotes.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "prunsel",
+            "name": "Prunsel",
+            "epithet": "The Watching Eye",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "👁",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "P",
+            "summary": "A colossal eye-shaped relative or omen recorded in the margins of the family archive. Some entries call Prunsel a cousin transformed by unfinished science; others call it a guardian that learned the Bone-Line name. Sans treats the subject with unusual care, and Grandpa Semi refuses to classify it as a monster.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "Prunsel has appeared in reflections near recent dimensional stress sites, including a Snowdin relay after the Mount Ebott expedition arrived."
+                },
+                {
+                    "intel": 65,
+                    "text": "The eye reacts to a symbol carried by the Gamma agent, suggesting it is watching the Iron Legion rather than the family."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "real_star",
+            "name": "S' a Real Star",
+            "epithet": "The Adopted Stellar Cousin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "⭐",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "A",
+            "summary": "A brilliant, star-shaped family eccentric who claims the Bone-Line adopted him by cheering loudly enough at the night sky. Papyrus accepted the claim immediately. A Real Star performs with radiant arms, navigates by private constellations, and brings warmth to Snowdin’s longest nights despite being terrible for the curtains.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "brother_killer",
+            "name": "Brother Killer",
+            "epithet": "The Estranged Protector",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "B",
+            "summary": "An intense, red-eyed relation carrying the consequences of a conflict nobody summarizes the same way twice. Brother Killer does not let his title become an excuse for cruelty: in Snowdin, he directs his anger toward threats at the perimeter and is slowly learning that repair requires more than standing guard.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "Brother Killer’s estrangement began after he served a faction that tried to weaponize family registry names."
+                },
+                {
+                    "intel": 65,
+                    "text": "He knows the identity of a current infiltrator but will only speak if Papyrus personally asks."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "my_little_brother",
+            "name": "My Little Brother",
+            "epithet": "The Junior Runner",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "M",
+            "summary": "A blue-hooded younger relation who takes “little brother” as a job description rather than a comparison. He delivers messages, finds misplaced gloves, and follows older relatives on patrol until someone notices. He is not related to every person who calls him brother, which he considers proof the household is working correctly.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "ness",
+            "name": "Ness",
+            "epithet": "The Purple-Capped Guest",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "🧢",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "N",
+            "summary": "A human friend in a striped shirt whose calm courage earned him a place at the Bone-Line table. Ness brings a traveler’s perspective to family arguments and is one of the few people willing to tell Sans when a joke has gone too far. He remains a guest on paper and family in practice.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "Ness has witnessed enough cross-world instability to recognize that Mount Ebott’s anomalies are not ordinary Underground magic."
+                },
+                {
+                    "intel": 65,
+                    "text": "He keeps a route sketch that links Snowdin’s strange signals to a distant refugee corridor."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "wing_gaster",
+            "name": "Wing Gaster",
+            "epithet": "The Missing Wing",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 1,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "W",
+            "summary": "A shadowed elder whose experiments and absence still shape the family’s caution around impossible doors. Family records identify Wing Gaster as a brilliant scientist studying darkness and the architecture between worlds before vanishing from ordinary history. Sans knows more than he shares; Grandpa Semi keeps a sealed folder marked with a wing-shaped sigil.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "The sealed Wing Gaster file uses the same geometry found in damaged Star Road records and in the Mount Ebott survey interference."
+                },
+                {
+                    "intel": 65,
+                    "text": "Gaster did not vanish alone; a Bone-Line witness list was deliberately removed from the registry."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "my_brother",
+            "name": "My Brother?",
+            "epithet": "The Question-Mark Kin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "M",
+            "summary": "A white-armored skeleton whose registry entry begins with a question mark because nobody can agree which branch he belongs to. My Brother? finds the uncertainty liberating: he offers help before credentials and treats every reunion as an opportunity to discover a new sibling. Papyrus admires his confidence; Times New Roman demands footnotes.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "pretty_soon",
+            "name": "Pretty Soon",
+            "epithet": "The Impatient Cousin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "P",
+            "summary": "A small green-scarfed cousin who promises that every delayed plan will happen “pretty soon.” The phrase has become a family signal for hopeful patience rather than an actual deadline. Pretty Soon is excellent at making people wait without feeling abandoned, particularly when Baby Bones asks whether an absent relative is coming home.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "helvetica",
+            "name": "Helvetica",
+            "epithet": "The Clean-Lined Cousin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "H",
+            "summary": "A sharply dressed cousin who believes clarity is mercy. Helvetica designs signs, patrol notices, and puzzle instructions readable through a snowstorm. His friendly typographic rivalry with Cursive produces Snowdin’s best public notices. Sans consults Helvetica whenever a message must be understood the first time.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "gee_lady",
+            "name": "Gee Lady",
+            "epithet": "The G-Shaped Aunt",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "G",
+            "summary": "A jubilant aunt whose letter-shaped silhouette appears at every birthday and victory dinner. Nobody agrees what the G originally stood for, but everyone agrees that Gee Lady can spot who is standing apart from the group. She brings frosting, ribbon, and an aggressively encouraging speech before anyone can claim they are fine.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "garbage_brother",
+            "name": "Garbage Brother",
+            "epithet": "The Smiley Trashbag",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "G",
+            "summary": "A bag-wrapped brother who salvages bent puzzle parts, cracked toys, and almost-useful cookware. Baby Bones’s favorite rattle and Papyrus’s emergency spaghetti strainer both came from his workbench. He dislikes the nickname, but accepts it because it reminds Snowdin that discarded does not mean worthless.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "starman",
+            "name": "Starman",
+            "epithet": "The Quiet Visitor",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "S",
+            "summary": "A silent gray visitor connected to the family by old favors and a talent for arriving when the sky changes. Starman guided several relatives through a whiteout using a light that did not cast shadows. Will leaves a chair for him at dinner, and Sans watches the horizon rather than the guest whenever he appears.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "quantity",
+            "name": "Quantity",
+            "epithet": "The Many-Boned Cousin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "Q",
+            "summary": "A cooperative cluster of skeletons sharing one rolling chassis, several opinions, and an impeccable sense of timing. Quantity handles work requiring many hands: moving furniture, building puzzles, and carrying soup for crowds. Their family status began as a joke when Baby Bones called every skull uncle; the registry made it official.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "speen_kind_of_down_lately",
+            "name": "Speen Kind of Down Lately",
+            "epithet": "The Low-Spirited Cousin",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "S",
+            "summary": "A tired-looking relative in a violet coat whose name began as an honest status update and became a family promise to check in. Speen is not defined by sadness; he is a careful observer who notices when other people are performing happiness. Lazybones keeps tea ready for him, and Papyrus never lets a quiet seat stay empty for long.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "pet_rock",
+            "name": "Pet Rock",
+            "epithet": "The Smallest Dependent",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "🪨",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "P",
+            "summary": "A tiny stone with no verified movement, no visible face, and an unquestioned place in the family. Pet Rock became kin when Baby Bones named it and Papyrus prepared it a tiny dinner plate. It travels in a padded pocket, attends major meals, and has a place in Will’s emergency evacuation plan.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "dedan",
+            "name": "Dedan",
+            "epithet": "The Bone-Line Bouncer",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "D",
+            "summary": "A formidable striped guardian who treats every entrance as a question of responsibility. Dedan is intimidating by profession and unexpectedly patient by choice, especially with children and nervous visitors. He does not call himself family, but he has stood watch through too many household emergencies for anyone else to believe him.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "mystery_man",
+            "name": "Mysteryman",
+            "epithet": "The Unfiled Relative",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "M",
+            "summary": "A pale figure in black whose relationship to the family is documented only by sightings, sketches, and absence. Mysteryman appears near sealed rooms, broken save points, and old photographs. The household policy is simple: leave a seat, ask no cruel questions, and do not pretend an unfinished person is erased.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "A private registry note connects this member to the campaign’s Snowdin relief and observation network."
+                },
+                {
+                    "intel": 65,
+                    "text": "Their full connection remains locked until more of the Bone-Line archive is recovered."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        },
+        {
+            "id": "sans_deltarune",
+            "name": "Sans of the Dark World",
+            "epithet": "The Other Sentry",
+            "born": "Unknown",
+            "died": null,
+            "reign": "—",
+            "generation": 2,
+            "icon": "💀",
+            "status": "active",
+            "spouse": null,
+            "children": [],
+            "parents": null,
+            "portrait": "S",
+            "summary": "A parallel counterpart who runs a familiar storefront, tells familiar jokes, and carries a different map of impossible roads. The household treats him as a cousin from a neighboring story, not a replacement. His visits let Sans speak plainly about paths and choices that cannot be unwound.",
+            "secrets": [
+                {
+                    "intel": 25,
+                    "text": "The other Sans recognizes a merchant symbol appearing in current-world contraband shipments."
+                },
+                {
+                    "intel": 65,
+                    "text": "His store ledger contains a date that has not happened in this world yet."
+                }
+            ],
+            "achievements": [
+                "Maintains a role in Snowdin’s Bone-Line household",
+                "Connected to the Snowdin civilian support network"
+            ],
+            "controversies": [
+                "Their exact genealogical relationship is disputed by the registry."
+            ],
+            "relationships": [
+                {
+                    "person": "Sans",
+                    "type": "Bone-Line Kin",
+                    "notes": "Bound by household, history, or adopted family."
+                },
+                {
+                    "person": "Papyrus",
+                    "type": "Household Connection",
+                    "notes": "Linked through Snowdin’s extended family network."
+                }
+            ]
+        }
+    ]
+},
+
+        successionOrder: [
         {
             rank: 1,
             claimant: 'The Hidden Heir',
@@ -4550,6 +5846,21 @@ houseKoopa: {
 // =============================================
 // DYNASTY TREE INTERFACE
 // =============================================
+
+const BONE_LINE_WALUIGI_NOTES = {
+    sans: "This sentry has already counted every exit, every lie, and probably Waluigi's teeth. Suspicious!",
+    papyrus: "This tall noodle is accidentally running Snowdin's best diplomatic program: feeding everyone until they stop shooting.",
+    wing_gaster: "Geometry, missing pages, and a file marked do not open. Waluigi investigates this ancestor from behind three locked doors.",
+    prunsel: "An enormous eye in the registry? Finally, a relative who understands archival oversight. Stop looking at Waluigi's receipts!",
+    dirty_brother: "The furnace cousin knows every warm tunnel in Snowdin. That is a resistance network with soot on it. WAH.",
+    will: "Supply ledgers, spare blankets, and mysterious Gamma payments: Will calls it inventory. Waluigi calls it evidence.",
+    cursive: "Never trust a beautiful invitation. It might be a party, a trap, or a ciphered intelligence drop disguised as spaghetti.",
+    sans_deltarune: "Parallel cousin, alternate shop, impossible ledger date. Useful intelligence or a very expensive coupon.",
+    mystery_man: "The unfiled relative gets a chair at dinner. Touching family loyalty or terrible counterintelligence? Both."
+};
+function boneLineComment(member) {
+    return BONE_LINE_WALUIGI_NOTES[member.id] || `Waluigi's assessment: ${member.name} is allegedly a ${member.epithet || 'Bone-Line relative'}. In this family that means a dependable neighbor, a dimensional anomaly, or both.`;
+}
 
 class DynastyTreeInterface {
     constructor() {
@@ -4674,6 +5985,7 @@ renderNavigation() {
             { id: 'houseSarasa', name: 'House Sarasa', icon: '🌻', color: '#FFA500' },
             { id: 'houseBeanstar', name: 'House Beanstar', icon: '⭐', color: '#32CD32' },
             { id: 'rakashaClans', name: 'Rakasha Clans', icon: '🐾', color: '#8B4513' },
+            { id: 'snowdinBoneLine', name: 'Snowdin Bone-Line', icon: '💀', color: '#60A5FA' },
             { id: 'succession', name: 'Succession', icon: '📜', color: '#FFD700' },
             { id: 'marriages', name: 'Alliances', icon: '💍', color: '#FF69B4' }
         ];
@@ -4753,6 +6065,8 @@ renderSidebar() {
                     <span class="detail-value status-${status.toLowerCase().replace(/[^a-z]/g, '')}">${status}</span>
                 </div>
             </div>
+
+            ${house.waluigiComment ? `<div class="waluigi-archive-note"><span>🟣 Waluigi's Margin Note</span><p>${house.waluigiComment}</p></div>` : ''}
             
             ${house.cadetBranches && house.cadetBranches.length > 0 ? `
                 <div class="cadet-branches">
@@ -4892,6 +6206,7 @@ openBranchMemberDetail(member, branch) {
                     <h3>📋 Summary</h3>
                     <p>${member.summary || 'No information available.'}</p>
                 </div>
+                ${this.activeHouse === 'snowdinBoneLine' ? `<div class="detail-section waluigi-member-note"><h3>🟣 Waluigi's Assessment</h3><p>${boneLineComment(member)}</p></div>` : ''}
                 
                 ${member.achievements && member.achievements.length > 0 ? `
                     <div class="detail-section achievements-section">

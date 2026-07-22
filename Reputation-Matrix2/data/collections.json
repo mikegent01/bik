@@ -775,5 +775,42 @@
         "reason": "The dynasty article consolidates public Star-Pact, cadet branch, and succession knowledge."
       }
     ]
+  },
+  {
+    "id": "snowdin_bone_line_dynasty",
+    "name": "The Snowdin Bone-Line",
+    "title": "Family, Favors, and the Underground’s Strangest Registry",
+    "type": "Dynasty / Household Network",
+    "scope": "Snowdin household, Mount Ebott intelligence, Gamma Division and Underground anomalies",
+    "criteria": "Major family line and civilian support network with campaign-scale intelligence links",
+    "summary": "Waluigi files the Snowdin Bone-Line as a dynasty because pretending it is merely a collection of skeleton relatives is how sensible people miss the relief tunnels, intercepted Regency correspondence, dimensional witnesses, and suspiciously well-fed refugee network hiding in plain sight.",
+    "description": "Waluigi is adding the Snowdin Bone-Line to the dynasty archive because blood is not the only thing that makes a family politically dangerous. This household is held together by invitations, boiler routes, old science files, shared meals, adopted guests, and a collective refusal to leave strange people outside in the snow. Sans guards the road; Papyrus turns hospitality into diplomacy; Will keeps the supplies moving; Cursive’s invitations sometimes carry ciphers; Dirty Brother knows the warm tunnels beneath town.\n\n## Campaign Relevance\n\nThe Gamma Division survey at Mount Ebott turned Snowdin from a quiet stop into an intelligence crossroads. Gaster-linked geometry appears in the interference reports. Prunsel reacts to an Iron Legion symbol. A ledger contains payments from a Gamma account that should not exist. The family does not command an army, but it knows who is hungry, who is lying, and which door should not be opened. Waluigi considers that more useful than most armies.\n\n## Waluigi’s Assessment\n\nA royal dynasty inherits a crown. The Bone-Line inherited a responsibility: keep the door open without letting the apocalypse walk through it. That is harder. WAH.",
+    "articles": [
+      "sans",
+      "papyrus",
+      "grandpa_semi",
+      "wing_gaster",
+      "prunsel",
+      "will",
+      "dirty_brother",
+      "cursive",
+      "sans_deltarune",
+      "sans_family"
+    ],
+    "relatedArticles": [
+      "snowdin_town",
+      "mount_ebott",
+      "gamma_agent",
+      "iron_legion",
+      "sans_family"
+    ],
+    "intelGains": [
+      {
+        "targetType": "dynasty",
+        "targetId": "snowdinBoneLine",
+        "amount": 20,
+        "reason": "The Bone-Line article consolidates household intelligence, Mount Ebott observations, and Snowdin relief links."
+      }
+    ]
   }
 ]
