@@ -67,7 +67,7 @@
         row.append(label, explanation); rules.append(row);
       });
       const usage = document.createElement('div'); usage.className = 'live-inline-usage';
-      usage.textContent = reviewed?.usage ? `USAGE & INVENTORY: Activation — ${reviewed.usage.activation}. Duration — ${reviewed.usage.duration}. Ends / removed when — ${reviewed.usage.endsWhen}. Charges — ${reviewed.usage.charges}.` : usageFor(group);
+      usage.textContent = reviewed?.usage ? `USAGE & INVENTORY\nActivation: ${reviewed.usage.activation}\nDuration: ${reviewed.usage.duration}\nEnds / removed when: ${reviewed.usage.endsWhen}\nCharges: ${reviewed.usage.charges}` : usageFor(group);
       rules.append(usage);
       group.insertAdjacentElement('afterend', rules);
     });

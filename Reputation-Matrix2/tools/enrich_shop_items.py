@@ -62,7 +62,7 @@ specify a concrete activation, target/range, duration, what ends it, save DC whe
 limits/rests when relevant. Never claim this is official D&D content.
 
 Your JSON must have exactly:
-- description: string, 1-3 flavorful sentences
+- description: string, 2-4 flavorful sentences (roughly 90-180 words; make the item feel tangible and specific)
 - effects: array of 2-4 short visible effect tags
 - effectDetails: array matching effects in order, each object {"title": string, "rules": string}
 - levelRequirement: whole non-negative integer, plus levelRequirementReason: string
@@ -236,7 +236,10 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
         raise ValueError(f"Expected exactly {sorted(required)}; got {sorted(answer)}")
     if not isinstance(answer["description"], str) or not answer["description"].strip():
         raise ValueError("description must be a non-empty string")
-    if len(answer["description"]) > 900:
+    word_count = len(re.findall(r"\b\w+\b", answer["description"]))
+    if word_count < 70:
+        raise ValueError("description is too short; write 2-4 specific flavorful sentences (at least 70 words)")
+    if len(answer["description"]) > 1200:
         raise ValueError("description is too long")
     title_terms = identity_terms(original.get("name"))
     description_words = set(re.findall(r"[a-z]{4,}", answer["description"].lower()))
