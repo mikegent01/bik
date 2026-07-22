@@ -4499,8 +4499,9 @@ houseKoopa: {
     "founded": "Unknown",
     "founder": "The first Snowdin household",
     "seat": "Snowdin Town",
-    "status": "ACTIVE / EXPANDING",
-    "cadetBranches": [
+"status": "ACTIVE / EXPANDING",
+        "waluigiComment": "WALUIGI'S ARCHIVIST NOTE: This is not a tidy royal tree with one crown at the top. It is a Snowdin emergency support network wearing a family name. One brother watches the road, one brother feeds strangers, a trashbag repairs toys, and an enormous eye may be auditing the paperwork. WAH. If you want to understand why Snowdin has not collapsed under the weight of Underground secrets, start with who gets invited to dinner.",
+        "cadetBranches": [
         {
             "name": "The Gaster Branch",
             "status": "unresolved",
@@ -5846,6 +5847,21 @@ houseKoopa: {
 // DYNASTY TREE INTERFACE
 // =============================================
 
+const BONE_LINE_WALUIGI_NOTES = {
+    sans: "This sentry has already counted every exit, every lie, and probably Waluigi's teeth. Suspicious!",
+    papyrus: "This tall noodle is accidentally running Snowdin's best diplomatic program: feeding everyone until they stop shooting.",
+    wing_gaster: "Geometry, missing pages, and a file marked do not open. Waluigi investigates this ancestor from behind three locked doors.",
+    prunsel: "An enormous eye in the registry? Finally, a relative who understands archival oversight. Stop looking at Waluigi's receipts!",
+    dirty_brother: "The furnace cousin knows every warm tunnel in Snowdin. That is a resistance network with soot on it. WAH.",
+    will: "Supply ledgers, spare blankets, and mysterious Gamma payments: Will calls it inventory. Waluigi calls it evidence.",
+    cursive: "Never trust a beautiful invitation. It might be a party, a trap, or a ciphered intelligence drop disguised as spaghetti.",
+    sans_deltarune: "Parallel cousin, alternate shop, impossible ledger date. Useful intelligence or a very expensive coupon.",
+    mystery_man: "The unfiled relative gets a chair at dinner. Touching family loyalty or terrible counterintelligence? Both."
+};
+function boneLineComment(member) {
+    return BONE_LINE_WALUIGI_NOTES[member.id] || `Waluigi's assessment: ${member.name} is allegedly a ${member.epithet || 'Bone-Line relative'}. In this family that means a dependable neighbor, a dimensional anomaly, or both.`;
+}
+
 class DynastyTreeInterface {
     constructor() {
         this.container = null;
@@ -6049,6 +6065,8 @@ renderSidebar() {
                     <span class="detail-value status-${status.toLowerCase().replace(/[^a-z]/g, '')}">${status}</span>
                 </div>
             </div>
+
+            ${house.waluigiComment ? `<div class="waluigi-archive-note"><span>🟣 Waluigi's Margin Note</span><p>${house.waluigiComment}</p></div>` : ''}
             
             ${house.cadetBranches && house.cadetBranches.length > 0 ? `
                 <div class="cadet-branches">
@@ -6188,6 +6206,7 @@ openBranchMemberDetail(member, branch) {
                     <h3>📋 Summary</h3>
                     <p>${member.summary || 'No information available.'}</p>
                 </div>
+                ${this.activeHouse === 'snowdinBoneLine' ? `<div class="detail-section waluigi-member-note"><h3>🟣 Waluigi's Assessment</h3><p>${boneLineComment(member)}</p></div>` : ''}
                 
                 ${member.achievements && member.achievements.length > 0 ? `
                     <div class="detail-section achievements-section">
