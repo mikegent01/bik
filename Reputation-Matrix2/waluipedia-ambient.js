@@ -18,7 +18,7 @@
   let ui = null;
   let titleEl = null;
   let playBtn = null;
-  let volume = Number(localStorage.getItem(VOL_STORE) || 0.22);
+  let volume = Number(localStorage.getItem(VOL_STORE) || 0.42);
   if (!Number.isFinite(volume)) volume = 0.22;
 
   const noteHz = {
@@ -68,7 +68,7 @@
   ];
 
   function allowed() {
-    return enabled && !prefersQuiet() && window.__warioSoundEnabled !== false;
+    return enabled && !prefersQuiet();
   }
 
   function ctx() {
@@ -112,11 +112,11 @@
       const pos = step % track.melody.length;
       const chord = track.chords[Math.floor(pos / 8) % track.chords.length];
       const bass = track.bass[pos % track.bass.length];
-      if (pos % 8 === 0) chord.forEach((n, i) => hit(n, nextTime + i * 0.018, beat * 3.7, 'sine', 0.018));
-      if (pos % 4 === 0) hit(bass, nextTime, beat * 2.4, 'triangle', 0.027);
+      if (pos % 8 === 0) chord.forEach((n, i) => hit(n, nextTime + i * 0.018, beat * 3.7, 'sine', 0.036));
+      if (pos % 4 === 0) hit(bass, nextTime, beat * 2.4, 'triangle', 0.052);
       const melodyNote = track.melody[pos];
-      if (melodyNote !== '_') hit(melodyNote, nextTime, beat * 0.88, track.texture, 0.017);
-      if (pos % 8 === 6) hit(chord[1], nextTime + beat * 0.15, beat * 0.7, 'sine', 0.009);
+      if (melodyNote !== '_') hit(melodyNote, nextTime, beat * 0.88, track.texture, 0.044);
+      if (pos % 8 === 6) hit(chord[1], nextTime + beat * 0.15, beat * 0.7, 'sine', 0.02);
       step++;
       if (step % track.melody.length === 0) {
         currentTrackLoops++;
@@ -132,6 +132,11 @@
     if (titleEl) titleEl.textContent = track.name;
     if (playBtn) playBtn.textContent = playing ? '⏸' : '▶';
     if (ui) ui.classList.toggle('is-playing', playing);
+    const headerButton = document.getElementById('musicBtn');
+    if (headerButton) {
+      headerButton.textContent = playing ? '🎶' : '🎧';
+      headerButton.title = playing ? `Pause reading music: ${track.name}` : `Play Waluigi reading music: ${track.name}`;
+    }
     localStorage.setItem('waluipediaAmbientTrack', String(trackIndex));
   }
 
@@ -186,6 +191,12 @@
     playBtn.addEventListener('click', toggle);
     ui.querySelector('.walu-ambient-next').addEventListener('click', () => { nextTrack(); if (!playing) start(); });
     ui.querySelector('.walu-ambient-shuffle').addEventListener('click', () => { randomTrack(); if (!playing) start(); });
+    const headerButton = document.getElementById('musicBtn');
+    if (headerButton && !headerButton.dataset.waluAmbientBound) {
+      headerButton.dataset.waluAmbientBound = 'true';
+      headerButton.addEventListener('click', event => { event.preventDefault(); toggle(); });
+      headerButton.addEventListener('contextmenu', event => { event.preventDefault(); randomTrack(); if (!playing) start(); });
+    }
     updateUi();
   }
 
@@ -197,7 +208,7 @@
   window.WaluipediaAmbient = {
     start, stop, toggle, nextTrack, randomTrack,
     setVolume(v) {
-      volume = Math.max(0, Math.min(0.6, Number(v) || 0));
+      volume = Math.max(0, Math.min(0.9, Number(v) || 0));
       localStorage.setItem(VOL_STORE, String(volume));
       if (master) master.gain.value = volume;
     },
