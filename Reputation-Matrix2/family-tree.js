@@ -5016,7 +5016,7 @@ houseKoopa: {
         },
         {
             "id": "real_star",
-            "name": "A Real Star",
+            "name": "S' a Real Star",
             "epithet": "The Adopted Stellar Cousin",
             "born": "Unknown",
             "died": null,
@@ -5028,7 +5028,7 @@ houseKoopa: {
             "children": [],
             "parents": null,
             "portrait": "A",
-            "summary": "A brilliant, star-shaped family eccentric who claims the Bone-Line adopted him by cheering loudly enough at the night sky. Papyrus accepted the claim immediately. A Real Star performs with radiant arms, navigates by private constellations, and brings warmth to Snowdin’s longest nights despite being terrible for the curtains.",
+            "summary": "A brilliant, star-shaped family eccentric who claims the Bone-Line adopted him by cheering loudly enough at the night sky. Papyrus accepted the claim immediately. S' a Real Star performs with radiant arms, navigates by private constellations, and brings warmth to Snowdin’s longest nights despite being terrible for the curtains.",
             "secrets": [
                 {
                     "intel": 25,
