@@ -5,383 +5,899 @@ export const ITEMS_001 = {
   "Pauline_mic": {
     "id": "pauline_mic",
     "name": "Pauline's Microphone",
-    "description": "A mic that amplifies voice for commands or songs.",
+    "description": "Pauline's Microphone is a polished brass and velvet instrument that hums with a faint magical resonance. This theatrical tool allows the wielder to project their voice with captivating clarity to command audiences or armies.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1200,
     "icon": "🎤",
     "stock": 5,
     "rarity": "rare",
     "effects": [
-      "Amplify voice: Command spell (DC 14)",
-      "Performance +3",
-      "Echoes in large areas"
+      "Resonant Command",
+      "Acoustic Projection"
     ],
     "vendor": "gilded_gryphon",
     "shippedBy": "Sound Box",
-    "levelRequirement": 4
+    "levelRequirement": 4,
+    "effectDetails": [
+      {
+        "title": "Resonant Command",
+        "rules": "As an action, you can speak a command to one creature you can see within 60 feet. The target must succeed on a DC 15 Wisdom saving throw or be Charmed by your voice and must follow your next verbal command (up to one action in difficulty) as if it were its own. The effect lasts for 1 minute or until the target succeeds on its saving throw at the end of its first turn. You can use this property a number of times equal to your Proficiency Bonus per long rest."
+      },
+      {
+        "title": "Acoustic Projection",
+        "rules": "While holding the microphone, your voice can be heard clearly by all creatures within 120 feet, regardless of ambient noise or distance. This effect is always active while the item is held."
+      }
+    ],
+    "levelRequirementReason": "The microphone's magical resonance requires a level of magical awareness common in mid-tier adventurers.",
+    "vendorReason": "The Gilded Gryphon specializes in high-quality instruments and luxury equipment for performers.",
+    "shippingDetail": "Delivered in a padded, sound-proofed crate to prevent any accidental acoustic feedback during transit.",
+    "usage": {
+      "activation": "Action for Resonant Command; Passive for Acoustic Projection",
+      "duration": "1 minute for Resonant Command",
+      "endsWhen": "The Command effect ends if the target succeeds on its saving throw, if the user loses consciousness, or when all daily charges are expended.",
+      "charges": "Proficiency Bonus uses per long rest"
+    },
+    "priceReason": "The price reflects a rare utility item that provides both a constant utility buff and a high-impact crowd control ability.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-21T22:10:34.452296+00:00",
+    "aiReviewedAt": "2026-07-21T22:10:34.452296+00:00",
+    "aiReviewVersion": 1
   },
   "shy_guy_torch": {
     "id": "shy_guy_torch",
     "name": "Shy Guy's Mask Torch",
-    "description": "A torch that burns with a shy flame. Hides you in shadows but whispers secrets.",
+    "description": "The Shy Guy's Mask Torch is a soot-treated torch fashioned from a weathered, porcelain-like mask. It emits a flickering violet flame that seems to swallow the surrounding light rather than illuminate it.",
     "category": "equipment",
-    "price": 8000,
+    "price": 1000,
     "icon": "🔦",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Sheds dim light in 20ft, but you're invisible in it",
-      "Whispers one secret per day (DM's choice)",
-      "Mask on torch giggles when nervous",
-      "Burns out if you speak loudly"
+      "Shadow Veil",
+      "Secret Whispers",
+      "Nervous Giggling"
     ],
     "vendor": "rogueport_black_market",
     "shippedBy": "Dark Wrap",
-    "levelRequirement": 2
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Shadow Veil",
+        "rules": "While holding the lit torch, you can cast the Hide action as a bonus action even if you are in bright light, provided you are within 5 feet of a surface or object to lean against. This effect lasts until you move more than 10 feet away from that surface or the torch is extinguished."
+      },
+      {
+        "title": "Secret Whispers",
+        "rules": "As an action, you can focus the violet flame to transmit a message to a creature within 60 feet. The target must succeed on a DC 13 Wisdom saving throw or hear your voice as a faint whisper in their mind. You can use this property once per day."
+      },
+      {
+        "title": "Nervous Giggling",
+        "rules": "Whenever a creature within 10 feet of the torch attempts to initiate combat, the torch emits a high-pitched giggle. The creature must succeed on a DC 12 Wisdom saving throw or have disadvantage on their first attack roll against you."
+      }
+    ],
+    "levelRequirementReason": "The item requires a basic understanding of stealth and social interaction to be useful.",
+    "vendorReason": "The black market specializes in tools for covert operations and clandestine information gathering.",
+    "shippingDetail": "Delivered in a lead-lined crate to ensure the whispers do not reach neighbors.",
+    "usage": {
+      "activation": "Passive (while held and lit)",
+      "duration": "1 hour of light per day",
+      "endsWhen": "The torch is extinguished, destroyed by a loud noise (volume above a shout), or the 1-hour light limit is reached.",
+      "charges": "1 daily use for Secret Whispers"
+    },
+    "priceReason": "The price reflects its utility as a specialized tool for stealth and communication in urban environments.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-21T22:11:09.458124+00:00",
+    "aiReviewedAt": "2026-07-21T22:11:09.458124+00:00",
+    "aiReviewVersion": 1
   },
   "1_up_deluxe": {
     "id": "1_up_deluxe",
     "name": "1-Up Deluxe",
-    "description": "A platinum mushroom. Grants a literal second life.",
+    "description": "This 1-Up Deluxe is a shimmering, oversized mushroom forged from solid platinum that pulses with a rhythmic heartbeat. Held in your hand, it radiates a profound sense of safety to the wielder.",
     "category": "consumables",
-    "price": 700000,
+    "price": 1000,
     "icon": "🍄",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Passive: If you die, you immediately respawn at the start of your next turn with Full HP, Spell Slots, and Abilities.",
-      "Consumed on use.",
-      "Can only carry one at a time."
+      "Second Chance",
+      "Single Use"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Divine Courier",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Second Chance",
+        "rules": "When you are reduced to 0 hit points but not killed outright, you can use your reaction to have the mushroom pulse with light. You instead drop to 1 hit point. Once this property is used, the platinum mushroom shatters into dust."
+      },
+      {
+        "title": "Single Use",
+        "rules": "This item is a consumable and is destroyed immediately upon the successful activation of its Second Chance property."
+      }
+    ],
+    "priceReason": "The price reflects the high cost of platinum and the life-saving utility of a one-time resurrection.",
+    "priceOriginal": 700000,
+    "priceReviewedAt": "2026-07-21T22:08:38.833975+00:00",
+    "aiReviewedAt": "2026-07-21T22:08:38.833975+00:00",
+    "aiReviewVersion": 1,
+    "levelRequirementReason": "This item is a basic survival tool accessible to all adventurers.",
+    "vendorReason": "The local mushroom farmers trade in rare fungal artifacts.",
+    "shippingDetail": "Delivered via a floating lily pad; requires a 1d4 hour delivery window.",
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous",
+      "endsWhen": "The mushroom is consumed and destroyed upon use.",
+      "charges": "1 use"
+    }
   },
   "1_up_mushroom": {
     "id": "1_up_mushroom",
     "name": "1-Up Mushroom",
-    "description": "The green miracle. A mushroom that vibrates with the frequency of life itself. Cheats death.",
+    "description": "This 1-Up Mushroom is a vibrant, pulsating green fungus that hums with a rhythmic frequency vibrating in your teeth. It smells of damp earth and ozone, holding a concentrated essence of a second chance.",
     "category": "premium",
-    "price": 300000,
+    "price": 1000,
     "icon": "💚",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "Single Use",
-      "Cast 'True Resurrection' on target (touch)",
-      "Works even if the body is destroyed",
-      "The universe frowns upon this exchange"
+      "Defy Death",
+      "Mystical Resonance"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Armored Escort",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Defy Death",
+        "rules": "When you are reduced to 0 hit points but not killed outright, you can use your reaction to consume this mushroom. You instead drop to 1 hit point and gain 1d10 + 5 temporary hit points. This effect can only be triggered once per mushroom."
+      },
+      {
+        "title": "Mystical Resonance",
+        "rules": "While holding the mushroom, you have advantage on Intelligence (Nature) checks made to identify fungal life-forms or spores."
+      }
+    ],
+    "levelRequirementReason": "The item is a consumable utility and does not require high-level proficiency to use.",
+    "vendorReason": "The local toads are the primary cultivators of these rare fungal life-forms.",
+    "shippingDetail": "Requires a heavy guard to prevent theft due to its high value and magical signature.",
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous",
+      "endsWhen": "The mushroom is consumed and its effect is triggered.",
+      "charges": "Single use; destroyed upon consumption."
+    },
+    "priceReason": "The price reflects its legendary rarity and its ability to prevent a character's death.",
+    "priceOriginal": 300000,
+    "priceReviewedAt": "2026-07-21T22:09:05.475025+00:00",
+    "aiReviewedAt": "2026-07-21T22:09:05.475025+00:00",
+    "aiReviewVersion": 1
   },
   "a_bag_that_defies_vertical_1": {
     "id": "a_bag_that_defies_vertical_1",
     "name": "Gravity Satchel",
-    "description": "A bag that defies vertical gravity and fits perfectly on a side of the doughnut",
+    "description": "Woven with shimmering threads from the Doughnut's rim, this satchel ignores the standard pull of the earth. It clings to your hip with stubborn intent, remaining perfectly level even as you tumble through the air.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "🌌",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "Allows wearer to float vertically up to 30 feet",
-      "10% chance to cause a localized gravity anomaly",
-      "Can be used to carry up to 100 lbs of gear",
-      "Connects to The Grand Country’s side of the doughnut",
-      "Cursed: If dropped in the Void, wearer becomes permanently upside down"
+      "Vertical Levitation",
+      "Gravity Anomaly",
+      "Enhanced Capacity",
+      "Void Curse"
     ],
     "vendor": "inkopolis",
     "shippedBy": "Paratroopa Air",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Vertical Levitation",
+        "rules": "As an action, you can cause the satchel to exert an upward force. You and any creatures within 5 feet of the bag float up to 30 feet vertically. This effect lasts for 1 minute or until you fall prone, move horizontally more than 10 feet, or use an action to land."
+      },
+      {
+        "title": "Gravity Anomaly",
+        "rules": "While the satchel is on your person, you have advantage on Athletics checks made to resist being knocked prone or pushed by environmental hazards like wind or falling debris."
+      },
+      {
+        "title": "Enhanced Capacity",
+        "rules": "The satchel's interior defies geometry, allowing it to hold up to 500 pounds of weight without increasing its physical size or making it heavy to carry."
+      },
+      {
+        "title": "Void Curse",
+        "rules": "While attuned to the satchel, you have disadvantage on Perception checks made to detect subtle vibrations or sounds from above, as the bag's gravity-defying hum muffles the world."
+      }
+    ],
+    "levelRequirementReason": "The magical weight of the satchel's gravity-defying properties requires a high level of magical attunement.",
+    "vendorReason": "Inkopolis merchants specialize in high-end, gravity-resistant accessories for travelers.",
+    "shippingDetail": "Delivered via high-altitude drop; the package may drift slightly off-course due to its weightless nature.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute",
+      "endsWhen": "Moving horizontally more than 10 feet, falling prone, or choosing to land",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects its epic rarity and the significant utility provided by its weightless storage and levitation.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-21T21:54:06.931943+00:00",
+    "aiReviewedAt": "2026-07-21T21:54:06.931943+00:00",
+    "aiReviewVersion": 1
   },
   "a_bottle_of_whiskey_garlic": {
     "id": "a_bottle_of_whiskey_garlic",
     "name": "Wario's Wild West Bottle",
-    "description": "A bottle of 'whiskey' (garlic juice).",
+    "description": "This oversized, dusty bottle contains a murky liquid that reeks of pungent garlic and cheap grain. One sip grants a rugged surge of fortitude, though the revolting taste lingers long after the effect fades.",
     "category": "equipment",
-    "price": 4700,
+    "price": 1000,
     "icon": "🍾",
     "stock": 10,
     "rarity": "common",
     "effects": [
-      "Drink for +1 CON (tough)",
-      "Juice burns: disadvantage on taste",
-      "Western: +1 Intimidation",
-      "Made by: Wario West"
+      "Garlic Fortitude",
+      "Western Grit",
+      "Pungent Aftertaste"
     ],
     "vendor": "wario_land",
     "shippedBy": "Bottle Bounce",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Garlic Fortitude",
+        "rules": "When you drink this whiskey as an action, you gain 10 temporary hit points. These hit points remain until the end of your next long rest."
+      },
+      {
+        "title": "Western Grit",
+        "rules": "For 1 hour after drinking, you have advantage on saving throws against being frightened or charmed. You must succeed on a DC 10 Constitution saving throw to avoid being poisoned by the whiskey's harsh kick, which causes you to be unable to take reactions until the end of your next turn."
+      },
+      {
+        "title": "Pungent Aftertaste",
+        "rules": "For 1 hour after consumption, your breath is so foul that any creature within 5 feet of you that can see you must succeed on a DC 12 Constitution saving throw or become nauseated, giving them disadvantage on their next attack roll made against you."
+      }
+    ],
+    "levelRequirementReason": "This is a common consumable item suitable for all adventurers.",
+    "vendorReason": "Wario's land is the primary source for such rustic and pungent concoctions.",
+    "shippingDetail": "Delivered via high-speed bouncing; arrives in 1d4 days.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 hour",
+      "endsWhen": "The duration expires, the user falls unconscious, or the item is consumed.",
+      "charges": "Single use; the bottle is destroyed after drinking."
+    },
+    "priceReason": "The price reflects a common utility item providing temporary health and minor tactical advantages.",
+    "priceOriginal": 4700,
+    "priceReviewedAt": "2026-07-21T21:54:32.456933+00:00",
+    "aiReviewedAt": "2026-07-21T21:54:32.456933+00:00",
+    "aiReviewVersion": 1
   },
   "a_bracelet_infused_with_wario": {
     "id": "a_bracelet_infused_with_wario",
     "name": "Wario's Garlic Power Bracelet",
-    "description": "A bracelet infused with Wario's favorite garlic – boosts strength or your stench?",
+    "description": "This heavy, pungent bracelet radiates the overwhelming aroma of roasted garlic. It pulses with a crude, muscular energy that makes your muscles bulge and your breath turn toxic.",
     "category": "equipment",
-    "price": 9500,
+    "price": 1000,
     "icon": "🧄",
     "stock": 8,
     "rarity": "uncommon",
     "effects": [
-      "Once per day: Gain +1 Strength for 1 hour (garlic munchies!)",
-      "Repels vampires and picky eaters: advantage on saves vs. undead charms",
-      "Side effect: Your breath becomes a weapon (1d4 poison damage in 5ft cone, but allies must save DC 10 CON or nauseated)",
-      "Made by: Wario's Garlic Lab"
+      "Garlic Might",
+      "Foul Reek",
+      "Stink Blast"
     ],
     "vendor": "wario_land",
     "shippedBy": "Stinky Sack",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Garlic Might",
+        "rules": "While wearing this bracelet, you gain a +1 bonus to Strength (Athletics) checks and your melee weapon damage rolls include an extra 1d4 force damage."
+      },
+      {
+        "title": "Foul Reek",
+        "rules": "Your breath emits a pungent odor; any creature that starts its turn within 5 feet of you must succeed on a DC 13 Constitution saving throw or be Poisoned until the start of its next turn."
+      },
+      {
+        "title": "Stink Blast",
+        "rules": "As an action, you can exhale a cloud of garlic gas in a 15-foot cone. Each creature in the area must succeed on a DC 13 Constitution saving throw or be Blinded until the end of your next turn."
+      }
+    ],
+    "levelRequirementReason": "The intense odor and physical strain of the garlic energy require a seasoned constitution.",
+    "vendorReason": "The shop specializes in items derived from Wario's eccentric and pungent culinary experiments.",
+    "shippingDetail": "Wrapped in airtight, wax-sealed burlap to prevent the aroma from leaking during transit.",
+    "usage": {
+      "activation": "Passive (Might/Reek) or Action (Stink Blast)",
+      "duration": "1 hour or instantaneous",
+      "endsWhen": "The Stink Blast effect ends after one use or when the bracelet's 1-hour duration expires.",
+      "charges": "1 use per long rest"
+    },
+    "priceReason": "The price reflects an uncommon utility item providing both consistent buffs and a limited area-of-effect crowd control ability.",
+    "priceOriginal": 9500,
+    "priceReviewedAt": "2026-07-21T21:55:01.407549+00:00",
+    "aiReviewedAt": "2026-07-21T21:55:01.407549+00:00",
+    "aiReviewVersion": 1
   },
   "a_brass_token_engraved_with": {
     "id": "a_brass_token_engraved_with",
     "name": "Pipe Network Key",
-    "description": "A brass token engraved with the symbols of the Pipe Network’s collapse. When inserted into a pipe node, it unlocks ancient data streams that reveal the hidden routes smugglers use to bypass the failing infrastructure. However, prolonged use causes the bearer to hear whispers of the Princess’s final plea for help.",
-    "price": 800,
+    "description": "This weathered brass token is engraved with the crumbling symbols of the Pipe Network. When inserted into a node, it illuminates hidden smuggling routes and whispers the haunting echoes of a final, desperate plea.",
+    "price": 1000,
     "icon": "⚙",
     "stock": 1,
     "rarity": "uncommon",
     "effects": [
-      "Unlocks hidden pipe routes",
-      "Reveals smuggler activity patterns",
-      "Causes auditory hallucinations after 10 minutes of use",
-      "Grants 1d4 bonus to stealth checks in pipe systems",
-      "Corrupts memory if used with non-authorized nodes",
-      "Crafted by: Pianta Chuck Express"
+      "Hidden Route Revelation",
+      "Smuggler Awareness",
+      "Auditory Hallucinations"
     ],
     "vendor": "mushroom_kingdom",
     "shippedBy": "Pianta Chuck Express",
-    "levelRequirement": 3
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Hidden Route Revelation",
+        "rules": "While the token is active, you can see glowing ley-lines on the walls and floors that mark secret passages and smuggling tunnels within 60 feet. You gain a +5 bonus to Wisdom (Perception) checks made to find these specific secret paths."
+      },
+      {
+        "title": "Smuggler Awareness",
+        "rules": "You gain a +2 bonus to Stealth checks made while moving through the Pipe Network's infrastructure. Additionally, you have advantage on Wisdom (Insight) checks to determine if a creature is a known smuggler."
+      },
+      {
+        "title": "Auditory Hallucinations",
+        "rules": "While the token is active, you hear a faint, sobbing voice. You have disadvantage on Perception checks that rely on hearing, as the ghostly plea masks nearby sounds."
+      }
+    ],
+    "levelRequirementReason": "The complexity of navigating the Pipe Network's infrastructure requires basic mechanical proficiency.",
+    "vendorReason": "The Mushroom Kingdom serves as a primary hub for salvaged industrial artifacts.",
+    "shippingDetail": "Fragile handling required; delivery takes 2 days via heavy-duty courier.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 hour",
+      "endsWhen": "The effect ends when the 1-hour duration expires or the token is removed from the node.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The price reflects a balanced cost for a specialized utility item that provides significant navigation advantages.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-21T21:55:28.676915+00:00",
+    "aiReviewedAt": "2026-07-21T21:55:28.676915+00:00",
+    "aiReviewVersion": 1
   },
   "a_buoyant_satchel_woven_from": {
     "id": "a_buoyant_satchel_woven_from",
     "name": "Tropical Tide Satchel",
-    "description": "A buoyant satchel woven from sea grass and coral that expands with water. Ideal for carrying gear or catching fish. Floats silently and hides from enemy sight when submerged.",
+    "description": "Woven from resilient seagrass and bleached coral, this satchel remains perfectly buoyant even in heavy currents. It feels light as a sea breeze and possesses a peculiar way of blending into the ocean's depths.",
     "category": "equipment",
-    "price": 2200,
+    "price": 1000,
     "icon": "🐠",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Increases carrying capacity by 30%",
-      "Grants +5% swim speed",
-      "Reduces water damage by 20%",
-      "Crafted by: Pond Patrol"
+      "Buoyant Storage",
+      "Amphibious Mobility",
+      "Submerged Stealth"
     ],
     "vendor": "isle_delfino",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Buoyant Storage",
+        "rules": "While the satchel is submerged in water, it does not sink and provides a +2 bonus to any Difficulty Class (DC) checks made to prevent the contents from being washed away by currents."
+      },
+      {
+        "title": "Amphibious Mobility",
+        "rules": "You gain a swimming speed equal to your walking speed while wearing or carrying this satchel."
+      },
+      {
+        "title": "Submerged Stealth",
+        "rules": "While underwater, the satchel's coral weave grants you advantage on Stealth checks made to hide from creatures that rely on sight."
+      }
+    ],
+    "levelRequirementReason": "This is a basic utility item suitable for any adventurer exploring coastal regions.",
+    "vendorReason": "Isle Delfino is a primary hub for tropical maritime goods and sea-grass weaving.",
+    "shippingDetail": "Delivered via waterproof courier; standard 2-day transit for coastal regions.",
+    "usage": {
+      "activation": "Passive",
+      "duration": "Permanent",
+      "endsWhen": "The satchel is destroyed or discarded",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects a standard uncommon utility item providing mobility and minor stealth benefits.",
+    "priceOriginal": 2200,
+    "priceReviewedAt": "2026-07-21T21:55:51.992264+00:00",
+    "aiReviewedAt": "2026-07-21T21:55:51.992264+00:00",
+    "aiReviewVersion": 1
   },
   "a_cape_that_makes_you": {
     "id": "a_cape_that_makes_you",
     "name": "Wario's Super Star Cape",
-    "description": "A cape that makes you feel invincible – like Wario after a power-up!",
+    "description": "This heavy, vibrant cape radiates a pulsing golden glow that hums with raw, chaotic energy. When donned, the wearer feels an overwhelming surge of bravado and unyielding physical might.",
     "category": "equipment",
-    "price": 17000,
+    "price": 1500,
     "icon": "⭐",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Once per day: Gain temporary invincibility (resistance to all damage for 1 minute)",
-      "Cape sparkles: Advantage on Intimidation (star power!)",
-      "Gimmick: After use, you crash (disadvantage on next 3 checks from 'power-down')",
-      "Made by: Wario's Star Factory"
+      "Starlight Aura",
+      "Invincible Burst",
+      "Power-Down Crash"
     ],
     "vendor": "wario_land",
     "shippedBy": "Starry Shipment",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Starlight Aura",
+        "rules": "While wearing the cape, you have advantage on Charisma (Intimidation) checks."
+      },
+      {
+        "title": "Invincible Burst",
+        "rules": "As a bonus action, you can enter a state of invincibility for 1 minute. While in this state, you have resistance to all damage. Once used, this property can't be used again until you finish a long rest."
+      },
+      {
+        "title": "Power-Down Crash",
+        "rules": "Immediately after the Invincible Burst duration ends, you suffer from exhaustion. You have disadvantage on all ability checks and attack rolls until the end of your next three turns."
+      }
+    ],
+    "levelRequirementReason": "The chaotic energy of the cape is too volatile for those who haven't mastered their own inner strength.",
+    "vendorReason": "The cape was manufactured in Wario's own factory and is sold as a premium 'power-up' garment.",
+    "shippingDetail": "Delivered via a shooting star; arrives instantly but may leave a small scorch mark on the doorstep.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "1 minute",
+      "endsWhen": "The duration expires or the wearer dies.",
+      "charges": "1 charge per long rest"
+    },
+    "priceReason": "Reduced from 17,000 to reflect a balanced rare-tier price point for a temporary defensive buff.",
+    "priceOriginal": 17000,
+    "priceReviewedAt": "2026-07-21T21:20:07.467555+00:00",
+    "aiReviewedAt": "2026-07-21T21:20:07.467555+00:00",
+    "aiReviewVersion": 1
   },
   "a_card_that_wilds_any": {
     "id": "a_card_that_wilds_any",
     "name": "Wario's Wildcard",
-    "description": "A card that 'wilds' any game.",
+    "description": "A vibrant, slightly greasy playing card that seems to shimmer with unpredictable energy. It feels heavier than paper and smells faintly of garlic and triumph.",
     "category": "equipment",
-    "price": 5000,
+    "price": 1000,
     "icon": "🃏",
     "stock": 9,
     "rarity": "common",
     "effects": [
-      "Play in games: +1 to gambling rolls",
-      "Card bends: disadvantage on sleight",
-      "Wario luck: 50% double or nothing",
-      "Made by: Wario Cards"
+      "Gambler's Edge",
+      "Clumsy Handling",
+      "Wario's Gamble"
     ],
     "vendor": "wario_land",
     "shippedBy": "Joker Jog",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Gambler's Edge",
+        "rules": "When you make a Dexterity (Sleight of Hand) check related to gambling or card tricks, you gain a +1 bonus."
+      },
+      {
+        "title": "Clumsy Handling",
+        "rules": "Because the card is so unruly, you have disadvantage on Sleight of Hand checks made to hide the card or perform complex card flourishes."
+      },
+      {
+        "title": "Wario's Gamble",
+        "rules": "As an action, you can discard the card to attempt a 'Double or Nothing' wager. Roll a d20; on a 10 or higher, you double your current gold reward for the session. On a 9 or lower, you lose all gold earned during that session."
+      }
+    ],
+    "levelRequirementReason": "The card is common enough for any adventurer to possess, though its power is limited.",
+    "vendorReason": "This is a signature item from Wario's own card manufacturing line.",
+    "shippingDetail": "Delivered in a grease-stained envelope; may arrive with a small 'Winner' sticker.",
+    "usage": {
+      "activation": "Passive (Gambler's Edge) / Action (Wario's Gamble)",
+      "duration": "Instantaneous",
+      "endsWhen": "The card is discarded or destroyed during Wario's Gamble.",
+      "charges": "Single Use"
+    },
+    "priceReason": "Reduced from 5000 to reflect a common rarity while maintaining its high-risk, high-reward utility.",
+    "priceOriginal": 5000,
+    "priceReviewedAt": "2026-07-21T21:20:29.245628+00:00",
+    "aiReviewedAt": "2026-07-21T21:20:29.245628+00:00",
+    "aiReviewVersion": 1
   },
   "a_chest_full_of_treasure": {
     "id": "a_chest_full_of_treasure",
     "name": "Wario's Fake Treasure Chest (Scam Chest!)",
-    "description": "A chest full of 'treasure' to fool your foes – Wario's decoy delight!",
+    "description": "This oversized, gaudy chest is overflowing with glittering 'gold' that clinks with a hollow sound. It is a masterwork of misdirection, designed to lure greedy enemies into a clumsy trap.",
     "category": "equipment",
-    "price": 9000,
+    "price": 1000,
     "icon": "📦",
     "stock": 7,
     "rarity": "uncommon",
     "effects": [
-      "Place as decoy: Enemies investigate (DC 13 INT save or waste turn opening empty chest)",
-      "Inside: Spring-loaded fake gold (blinds opener, DC 12 CON save)",
-      "Scam: Chest is lightweight – easy to spot as fake if shaken",
-      "Made by: Wario's Trap Treasury"
+      "Decoy Lure",
+      "Spring-Loaded Surprise"
     ],
     "vendor": "wario_land",
     "shippedBy": "Empty Echo Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Decoy Lure",
+        "rules": "As an action, you can place the chest in an unoccupied space. Any creature that notices the chest and attempts to interact with it must succeed on a DC 13 Intelligence saving throw or spend its entire action attempting to pry it open, finding only a hollow interior."
+      },
+      {
+        "title": "Spring-Loaded Surprise",
+        "rules": "When a creature succeeds on the Intelligence save to open the chest, it triggers a spring-loaded mechanism. The creature must succeed on a DC 12 Constitution saving throw or be Blinded until the end of its next turn."
+      }
+    ],
+    "levelRequirementReason": "The item is a low-level utility trap and does not require advanced martial or magical proficiency.",
+    "vendorReason": "Wario's shop is the primary source for high-quality, deceptive loot and traps.",
+    "shippingDetail": "Delivered via heavy-duty carriage; the chest is weighted with actual stones to feel authentic.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The chest is destroyed or the spring mechanism is jammed.",
+      "charges": "Unlimited uses until the spring mechanism breaks."
+    },
+    "priceReason": "Reduced from 9000 to reflect its status as a common tactical tool rather than a hoard of wealth.",
+    "priceOriginal": 9000,
+    "priceReviewedAt": "2026-07-21T21:20:48.059191+00:00",
+    "aiReviewedAt": "2026-07-21T21:20:48.059191+00:00",
+    "aiReviewVersion": 1
   },
   "a_classic_wizard_hat_that": {
     "id": "a_classic_wizard_hat_that",
     "name": "Mages' Guild Pointed Hat of Stereotypes",
-    "description": "A classic wizard hat that is very flimsy.",
+    "description": "This floppy, oversized hat is the quintessential uniform of the arcane arts. While it radiates an aura of scholarly expertise, its construction is tragically flimsy.",
     "category": "equipment",
-    "price": 9500,
+    "price": 1000,
     "icon": "🎩",
     "stock": 8,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Arcana checks (you look like a wizard)",
-      "Disadvantage on saves vs. wind (hat flies off easily)",
-      "You must gesture dramatically when casting spells (disadvantage on Stealth)",
-      "Made by: Mages' Guild Haberdashery"
+      "Arcane Aesthetic",
+      "Aerodynamic Liability",
+      "Dramatic Flair"
     ],
     "vendor": "mages_guild",
     "shippedBy": "Arcane Relay",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Arcane Aesthetic",
+        "rules": "You have advantage on Intelligence (Arcana) checks made to identify magical properties or lore, as your attire perfectly fits the wizardly archetype."
+      },
+      {
+        "title": "Aerodynamic Liability",
+        "rules": "You have disadvantage on saving throws against effects that move objects or creatures via wind or forced movement."
+      },
+      {
+        "title": "Dramatic Flair",
+        "rules": "You have disadvantage on Dexterity (Stealth) checks made while casting a spell or performing any action that requires a dramatic gesture."
+      }
+    ],
+    "levelRequirementReason": "The item is balanced for all levels and does not require high-level magic to function.",
+    "vendorReason": "The Mages' Guild Haberdashery specializes in traditional wizarding attire and accessories.",
+    "shippingDetail": "Delivered via a minor teleportation rift; the hat may arrive slightly dusty.",
+    "usage": {
+      "activation": "Passive",
+      "duration": "Permanent",
+      "endsWhen": "The hat is removed or destroyed",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Reduced from 9500 to reflect an uncommon utility item with mixed benefits.",
+    "priceOriginal": 9500,
+    "priceReviewedAt": "2026-07-21T21:21:04.880379+00:00",
+    "aiReviewedAt": "2026-07-21T21:21:04.880379+00:00",
+    "aiReviewVersion": 1
   },
   "a_coin_with_wario_s": {
     "id": "a_coin_with_wario_s",
     "name": "Wario's Lucky W Coin",
-    "description": "A coin with Wario's face – 'brings good luck' (or bad).",
+    "description": "This chunky, slightly tarnished coin bears the wide, greedy grin of a certainkoopaling tycoon. It feels suspiciously heavy in the palm, as if it's actively trying to stay in your pocket.",
     "category": "equipment",
-    "price": 4100,
+    "price": 1000,
     "icon": "🪙",
     "stock": 15,
     "rarity": "common",
     "effects": [
-      "Flip for luck: heads +1 to next roll, tails -1 (50/50)",
-      "Coin is weighted: 60% chance tails (Wario's luck)",
-      "Wario's grin: advantage on Deception when gambling",
-      "Made by: Wario's Mint (Counterfeit)"
+      "Wario's Gamble",
+      "Greedy Grin"
     ],
     "vendor": "wario_land",
     "shippedBy": "Coin Flip Courier",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Wario's Gamble",
+        "rules": "When you flip the coin as a bonus action, roll a d20. On a 1-12, you gain a +1 bonus to your next d20 roll; on a 13-20, you suffer a -1 penalty to that roll. This effect lasts until the roll is made."
+      },
+      {
+        "title": "Greedy Grin",
+        "rules": "You have advantage on Charisma (Deception) checks made specifically to bluff or cheat during gambling games."
+      }
+    ],
+    "levelRequirementReason": "The item is common and does not provide significant power scaling.",
+    "vendorReason": "The vendor specializes in items related to Wario's eccentricities.",
+    "shippingDetail": "Delivered via a frantic courier who flips the coin to decide if your package is 'on time'.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous",
+      "endsWhen": "After the next d20 roll is made",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Reduced from 4100 to reflect its common rarity and minor utility.",
+    "priceOriginal": 4100,
+    "priceReviewedAt": "2026-07-21T21:21:21.997164+00:00",
+    "aiReviewedAt": "2026-07-21T21:21:21.997164+00:00",
+    "aiReviewVersion": 1
   },
   "a_controller_that_controls_minor": {
     "id": "a_controller_that_controls_minor",
     "name": "Wario's  WiiMote",
-    "description": "A controller that 'controls' minor things.",
+    "description": "This chunky, oversized remote feels strangely heavy and vibrates with an erratic, mischievous energy. It allows the user to manipulate the physical world with a flick of the wrist, provided the objects aren't too heavy to lift.",
     "category": "equipment",
-    "price": 5200,
+    "price": 1000,
     "icon": "🎮",
     "stock": 8,
     "rarity": "uncommon",
     "effects": [
-      "Point to move small objects 5ft (Mage Hand lite)",
-      "Mote vibrates: disadvantage on Concentration",
-      "Gamers: +1 Charisma with techies",
-      "Made by: WarioWare Remotes"
+      "Remote Manipulation",
+      "Erratic Vibration",
+      "Technological Rapport"
     ],
     "vendor": "wario_land",
     "shippedBy": "Game Over Delivery",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Remote Manipulation",
+        "rules": "As an action, you can point at an object weighing less than 10 pounds within 30 feet. The object moves up to 5 feet in any direction. You can use this property a number of times equal to your Proficiency Bonus, regaining all uses after a long rest."
+      },
+      {
+        "title": "Erratic Vibration",
+        "rules": "While holding the remote, it vibrates intensely. You have disadvantage on all Concentration checks."
+      },
+      {
+        "title": "Technological Rapport",
+        "rules": "You gain a +1 bonus to Charisma (Persuasion) checks made to interact with mechanical devices or NPCs who specialize in technology."
+      }
+    ],
+    "levelRequirementReason": "The item is balanced for low-level utility and does not grant significant combat advantages.",
+    "vendorReason": "Wario's shop is the primary source for bizarre and high-tech gaming peripherals.",
+    "shippingDetail": "Delivered in a reinforced box to prevent the remote from vibrating off the delivery wagon.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The remote's daily uses are exhausted or the user lets go.",
+      "charges": "Proficiency Bonus per long rest"
+    },
+    "priceReason": "Reduced from 5200 to reflect a balanced uncommon utility item for early-game play.",
+    "priceOriginal": 5200,
+    "priceReviewedAt": "2026-07-21T21:21:41.328981+00:00",
+    "aiReviewedAt": "2026-07-21T21:21:41.328981+00:00",
+    "aiReviewVersion": 1
   },
   "a_cowboy_hat_with_wario": {
     "id": "a_cowboy_hat_with_wario",
     "name": "Wario's Wild West Hat",
-    "description": "A cowboy hat with Wario flair.",
+    "description": "This oversized, rugged cowboy hat features a defiant, mustache-shaped brim and a vibrant yellow hue. It radiates a boisterous, greedy energy that makes anyone nearby feel slightly pressured.",
     "category": "equipment",
-    "price": 4800,
+    "price": 1000,
     "icon": "🤠",
     "stock": 10,
     "rarity": "common",
     "effects": [
-      "+1 Intimidation in saloons",
-      "Hat tips: disadvantage on balance",
-      "Western fans: +1 Persuasion",
-      "Made by: Wario West"
+      "Bravado of the Outlaw",
+      "Clumsy Brim",
+      "Western Charisma"
     ],
     "vendor": "wario_land",
     "shippedBy": "Yeehaw Yonder",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Bravado of the Outlaw",
+        "rules": "You have advantage on Charisma (Intimidation) checks made while inside a tavern, saloon, or gambling hall."
+      },
+      {
+        "title": "Clumsy Brim",
+        "rules": "Because of its exaggerated size, you have disadvantage on Dexterity (Balance) checks and Acrobatics checks."
+      },
+      {
+        "title": "Western Charisma",
+        "rules": "You gain a +1 bonus to Charisma (Persuasion) checks made specifically when negotiating for goods or services in a frontier setting."
+      }
+    ],
+    "levelRequirementReason": "This is a common accessory and does not require high-level proficiency to wear.",
+    "vendorReason": "Wario's personal branding makes this a staple item in his frontier-themed shop.",
+    "shippingDetail": "Delivered via dusty stagecoach; arrives within 3 days of purchase.",
+    "usage": {
+      "activation": "Passive",
+      "duration": "Permanent",
+      "endsWhen": "The hat is lost, destroyed, or removed from the head.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Reduced from 4800 to reflect a common-tier item with minor situational bonuses.",
+    "priceOriginal": 4800,
+    "priceReviewedAt": "2026-07-21T21:22:21.921228+00:00",
+    "aiReviewedAt": "2026-07-21T21:22:21.921228+00:00",
+    "aiReviewVersion": 1
   },
   "a_cursed_explosive_infused_with": {
     "id": "a_cursed_explosive_infused_with",
     "name": "Garlic Bomb",
-    "description": "A cursed explosive infused with Wario’s greed",
-    "price": 450,
+    "description": "A pungent, volatile sphere of garlic infused with a lingering sense of avarice. When thrown, it releases a stinging cloud and a burst of greedy energy.",
+    "price": 1000,
     "icon": "🧄",
     "stock": 12,
     "rarity": "uncommon",
     "effects": [
-      "Detonates on contact with a living target",
-      "Deals 3d4 piercing damage",
-      "Causes temporary garlic blindness to enemies",
-      "Triggers Wario’s greed aura for 3 rounds",
-      "Crafted by: Pipe Express",
-      "Contains: 1000g Wario’s garlic"
+      "Stinging Burst",
+      "Garlic Blindness",
+      "Aura of Greed"
     ],
     "vendor": "doughnut_hole",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 2
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Stinging Burst",
+        "rules": "On impact with a creature, the bomb deals 3d4 piercing damage. The target must succeed on a DC 12 Dexterity saving throw to take only half damage."
+      },
+      {
+        "title": "Garlic Blindness",
+        "rules": "Targets hit by the explosion are Blinded by the pungent fumes until the end of their next turn."
+      },
+      {
+        "title": "Aura of Greed",
+        "rules": "For 3 rounds, any creature within 10 feet of the explosion must succeed on a DC 12 Wisdom saving throw or have disadvantage on Wisdom (Insight) and Charisma (Persuasion) checks as they become obsessed with nearby loot."
+      }
+    ],
+    "levelRequirementReason": "The explosive potency and mental aura effects are tuned for established adventurers.",
+    "vendorReason": "The shop specializes in pungent, oversized snacks and 'experimental' kitchen explosives.",
+    "shippingDetail": "Fragile and highly odorous; requires extra-thick sealing to prevent leaks during transit.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The bomb is detonated and destroyed.",
+      "charges": "Single use"
+    },
+    "priceReason": "Adjusted to reflect the potency of a multi-effect area of effect item.",
+    "priceOriginal": 450,
+    "priceReviewedAt": "2026-07-21T21:24:58.449397+00:00",
+    "aiReviewedAt": "2026-07-21T21:24:58.449397+00:00",
+    "aiReviewVersion": 1
   },
   "a_cursed_relic_forged_from": {
     "id": "a_cursed_relic_forged_from",
     "name": "Entropy Ring",
-    "description": "A cursed relic forged from the shattered heart of the Iron Legion’s sleeper agent Toadburt, this ring radiates a slow decay that erodes memories and sanity. It grants temporary resistance to fear, but every hour worn causes the wearer to forget a random memory. Only the Changeling Hive can explain why it’s not “unlocked” until the end of the world.",
-    "price": 5000,
+    "description": "A jagged band of rusted iron that pulses with a cold, hollow rhythm. It radiates a sense of profound loss, as if the wearer's very identity is being slowly unspooled.",
+    "price": 1000,
     "icon": "⚙",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "Grants +2 to Will saves against fear effects",
-      "Causes 1d4 memory loss per hour of wear",
-      "Increases damage taken from psychic attacks by 10%",
-      "Triggered by: Toadburt’s failed loyalty oath",
-      "Wears out after 24 hours, then becomes inert",
-      "Only usable by: Changeling Hive agents"
+      "Fear Resistance",
+      "Memory Erosion",
+      "Psychic Vulnerability"
     ],
     "vendor": "sarasaland",
     "shippedBy": "Chain Chomp Courier",
-    "levelRequirement": 8
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Fear Resistance",
+        "rules": "While wearing this ring, you have advantage on saving throws against being frightened."
+      },
+      {
+        "title": "Memory Erosion",
+        "rules": "Every hour the ring is worn, you must succeed on a DC 13 Wisdom saving throw or lose a random personal memory. On a failure, the DM chooses a minor memory (e.g., a childhood pet's name or a past meal) that you can no longer recall."
+      },
+      {
+        "title": "Psychic Vulnerability",
+        "rules": "You take an extra 1d6 psychic damage whenever you are hit by a psychic attack."
+      }
+    ],
+    "levelRequirementReason": "The psychic weight of the relic requires a high level of mental fortitude to wield without immediate collapse.",
+    "vendorReason": "Sarasaland deals in artifacts of tragic history and cursed lineage.",
+    "shippingDetail": "The courier refuses to look at the package and demands it be kept in a lead-lined box during transit.",
+    "usage": {
+      "activation": "Passive",
+      "duration": "24 hours",
+      "endsWhen": "The ring becomes inert after 24 hours of continuous wear.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects the high risk of permanent memory loss and the item's limited utility period.",
+    "priceOriginal": 5000,
+    "priceReviewedAt": "2026-07-21T21:25:18.650808+00:00",
+    "aiReviewedAt": "2026-07-21T21:25:18.650808+00:00",
+    "aiReviewVersion": 1
   },
   "a_cursed_tool_forged_from_1": {
     "id": "a_cursed_tool_forged_from_1",
     "name": "Ironclad Hammer of the Forge",
-    "description": "A cursed tool forged from the last steel of the Blacksmith’s Guild, it strikes with brutal efficiency and inflicts heavy damage to armored foes. Its handle glows faintly with the fire of the Iron Legion’s labor.",
+    "description": "A heavy, soot-stained hammer forged from the final steel of the Blacksmith’s Guild. Its handle pulses with a dull, rhythmic heat, as if the labor of the Iron Legion still beats within the metal.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1200,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals +200 damage to enemy armor",
-      "Causes enemy armor to degrade by 10% after each hit",
-      "Grants 5% chance to inflict “Iron Will” status effect (resists damage for 3 turns)"
+      "Armor-Piercing Strike",
+      "Structural Decay",
+      "Iron Will"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Armor-Piercing Strike",
+        "rules": "When you hit a creature wearing heavy armor or a shield with a melee weapon attack using this hammer, you deal an extra 1d8 bludgeoning damage."
+      },
+      {
+        "title": "Structural Decay",
+        "rules": "On a successful hit against an armored target, the target's AC is reduced by 1 until the end of your next turn as the metal buckles. This effect does not stack."
+      },
+      {
+        "title": "Iron Will",
+        "rules": "On a natural 20 hit, the target must succeed on a DC 14 Wisdom saving throw or gain the 'Iron Will' status, granting them resistance to all damage but reducing their movement speed by 10 feet for 3 rounds."
+      }
+    ],
+    "levelRequirementReason": "The hammer's weight and the intensity of its heat require a seasoned warrior to wield effectively.",
+    "vendorReason": "The Midlands region is the primary hub for heavy industrial smithing and historical relics.",
+    "shippingDetail": "Requires heavy-duty reinforced crates to prevent the hammer from vibrating through standard packaging.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect ends when the target's turn concludes or the hammer misses.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Reduced from the original 2500 to reflect a balanced rare-tier utility item.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-21T21:26:22.523408+00:00",
+    "aiReviewedAt": "2026-07-21T21:26:22.523408+00:00",
+    "aiReviewVersion": 1
   },
   "a_custom_motorcycle_loud_fast": {
     "id": "a_custom_motorcycle_loud_fast",
     "name": "Wario's Chopper",
-    "description": "A custom motorcycle. Loud, fast, and indestructible.",
+    "description": "A roaring, grease-stained chopper that vibrates with raw, unbridled power. It leaves a trail of thick soot and smells faintly of pungent spices.",
     "category": "equipment",
-    "price": 200000,
+    "price": 10000,
     "icon": "🏍️",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "Land Speed 100ft",
-      "Can ram enemies (4d10 Bludgeoning)",
-      "Emits black smoke (Obscures vision)",
-      "Runs on garlic"
+      "High-Speed Travel",
+      "Ram Attack",
+      "Smoke Screen"
     ],
     "vendor": "wario_direct",
     "shippedBy": "Driven through your wall",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "High-Speed Travel",
+        "rules": "While mounted, your movement speed is 100 feet. You can move through non-magical difficult terrain without penalty."
+      },
+      {
+        "title": "Ram Attack",
+        "rules": "As an action, you can move in a straight line and collide with a creature. The target must succeed on a DC 15 Strength saving throw or take 4d10 bludgeoning damage and be knocked prone."
+      },
+      {
+        "title": "Smoke Screen",
+        "rules": "As a bonus action, the bike exhales a 20-foot-radius cloud of black smoke. The area is heavily obscured for 1 minute or until a wind of 10 mph or greater blows through it."
+      }
+    ],
+    "levelRequirementReason": "The sheer velocity and weight of the chopper require a seasoned rider to handle.",
+    "vendorReason": "Wario personally guarantees the 'indestructible' quality of his custom fleet.",
+    "shippingDetail": "Delivery is instantaneous; the bike will arrive by crashing into your nearest structure.",
+    "usage": {
+      "activation": "Passive (Movement), Action (Ram), Bonus Action (Smoke)",
+      "duration": "Continuous",
+      "endsWhen": "The bike is destroyed or the rider is incapacitated",
+      "charges": "Unlimited (Requires 1 unit of Garlic per 10 miles of travel)"
+    },
+    "priceReason": "Reduced from 200k to reflect a balanced legendary equipment cost for a high-mobility vehicle.",
+    "priceOriginal": 200000,
+    "priceReviewedAt": "2026-07-21T21:27:22.979176+00:00",
+    "aiReviewedAt": "2026-07-21T21:27:22.979176+00:00",
+    "aiReviewVersion": 1
   },
   "a_darkly_polished_ring_forged": {
     "id": "a_darkly_polished_ring_forged",
