@@ -168,19 +168,42 @@ export const ITEMS_008 = {
   "dk_crew_pirate_ship_lease": {
     "id": "dk_crew_pirate_ship_lease",
     "name": "DK Crew Pirate Ship Lease (Monthly)",
-    "description": "Lease a fast, heavily armed pirate galleon for naval dominance.",
-    "price": 40000,
+    "description": "Rent a fearsome pirate galleon, forged from the bones of ancient ships and tempered in the fires of forgotten battles. This vessel sails under the DK Crew’s black flag, boasting cannons that can level coastal fortifications and a crew whose loyalty is as volatile as the sea itself. The ship is yours for 30 days, but beware—mutiny looms if you fail to maintain high morale among its swashbuckling crew.",
+    "price": 1000,
     "icon": "⚓",
     "stock": 999,
     "rarity": "rare",
     "effects": [
-      "Use of a heavily armed sloop for 30 days",
-      "Crew is competent but prone to mutiny if morale drops",
-      "Made by: The DK Crew"
+      "Nautical Dominance",
+      "Mutinous Crew"
     ],
     "vendor": "dk_crew_pitstop",
     "shippedBy": "Signed Manifest",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Nautical Dominance",
+        "rules": "You gain a +2 bonus to attack rolls and damage rolls made with naval weapons. This effect lasts for the duration of your control over the ship, up to 30 days."
+      },
+      {
+        "title": "Mutinous Crew",
+        "rules": "If you fail to maintain at least 15 morale points among the crew members each day, they may attempt a DC 15 Charisma saving throw. On a success, they declare open mutiny and may attack any non-crew member within reach."
+      }
+    ],
+    "levelRequirementReason": "Requires at least third level to effectively command such a powerful vessel.",
+    "vendorReason": "The DK Crew maintains this pitstop for their own and others’ convenience, ensuring fast access to maritime power.",
+    "shippingDetail": "Ships are delivered with a two-day turnaround, courtesy of the Signed Manifest's reliable couriers.",
+    "usage": {
+      "activation": "Instantaneous upon lease, lasts for the duration of your control over the ship.",
+      "duration": "30 days from the start date",
+      "endsWhen": "Lease expires or you lose command of the vessel",
+      "charges": "Unlimited, as long as the lease is active"
+    },
+    "priceReason": "Balanced to provide a significant but not overpowered nautical advantage for a moderate cost.",
+    "priceOriginal": 40000,
+    "priceReviewedAt": "2026-07-22T04:21:04.439580+00:00",
+    "aiReviewedAt": "2026-07-22T04:21:04.439580+00:00",
+    "aiReviewVersion": 1
   },
   "dk_crew_recipe_banana_cream_pie": {
     "id": "dk_crew_recipe_banana_cream_pie",
@@ -1115,20 +1138,43 @@ export const ITEMS_008 = {
   "dk_isles_cold_war_cryptic_ribbon": {
     "id": "dk_isles_cold_war_cryptic_ribbon",
     "name": "Cold War Cryptic Ribbon",
-    "description": "A shimmering, frost-infused ribbon woven from Kremling espionage secrets. When worn, it grants stealth and reveals hidden paths in jungle terrain. Perfect for covert infiltration.",
+    "description": "The Cold War Cryptic Ribbon is a shimmering, frost-laden artifact woven from the very threads of Kremling espionage secrets. When worn in the dense jungles of the Dark Isles, it grants you the stealthy grace of a jungle cat and reveals hidden paths that even the most seasoned explorers miss. As you move through the underbrush, your enemies' positions are laid bare, giving you a tactical advantage in covert operations.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🕵",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Grants 30% stealth bonus while moving",
-      "Reveals hidden jungle paths and enemy positions for 8 seconds",
-      "Increases evasion chance by 25%"
+      "Stealthy Disguise",
+      "Reveal Hidden Paths"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Stealthy Disguise",
+        "rules": "While wearing the Cold War Cryptic Ribbon, you gain a +30 bonus to Dexterity (Stealth) checks for 8 seconds. This effect ends if you are hit in combat or if you stop moving."
+      },
+      {
+        "title": "Reveal Hidden Paths",
+        "rules": "You can use an action to reveal hidden paths and enemy positions within a 30-foot radius for 8 seconds. Creatures with blindsight or truesight can see through this effect. This power has no save DC but is limited to once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This item requires a level 5 character due to its complex magical properties and the espionage lore woven into it.",
+    "vendorReason": "The Dark Isles are known for their rich history of covert operations, making this vendor a perfect source for such an artifact.",
+    "shippingDetail": "Delivery via the Void Drifter takes three days with no additional charges.",
+    "usage": {
+      "activation": "Action or Reaction (to gain the stealth bonus); Action to use reveal hidden paths",
+      "duration": "8 seconds for Stealthy Disguise; 8 seconds duration for Reveal Hidden Paths, ends if interrupted",
+      "endsWhen": "Combat or stopping movement ends Stealthy Disguise; Revealed effects end after their durations",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The item's unique magical properties and espionage lore justify its price, aligning with the vendor’s reputation.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:21:21.334086+00:00",
+    "aiReviewedAt": "2026-07-22T04:21:21.334086+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_cold_war_echo_shard": {
     "id": "dk_isles_cold_war_echo_shard",
@@ -2027,19 +2073,42 @@ export const ITEMS_008 = {
   "dk_isles_feywild_flask": {
     "id": "dk_isles_feywild_flask",
     "name": "Feywild Flask",
-    "description": "Sips of this elixir grant temporary control over nature’s illusions. Useful for blending into jungle foliage or dodging traps. Contains a whisper of the Feywild’s laughter.",
-    "price": 2500,
+    "description": "The Feywild Flask is a glass vessel sealed with a cork that holds a shimmering elixir. When sipped, it grants temporary control over nature’s illusions, enabling you to blend seamlessly into jungle foliage or evade traps for a moment. The flask contains a whisper of the Feywild's laughter, which can charm nearby animals, making them cooperative for 30 seconds. A sip is all it takes to harness this whimsical magic from the heart of the eldritch realm.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+15% evasion chance in jungle areas",
-      "Temporary illusion camouflage (30s)",
-      "Grants minor charm to animals (30s)"
+      "Illusion Camouflage",
+      "Animal Charm"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Illusion Camouflage",
+        "rules": "As a bonus action, you can use the flask's contents to blend into your surroundings. You gain advantage on Dexterity (Stealth) checks made in jungle areas for 30 seconds. This effect ends if you take damage or if you willingly stop using it."
+      },
+      {
+        "title": "Animal Charm",
+        "rules": "Sipping the flask's contents grants a minor charm to nearby animals, making them cooperative and docile towards you for 30 seconds. You can use this ability once per short rest. Creatures with an Intelligence of 4 or higher are immune."
+      }
+    ],
+    "levelRequirementReason": "The Feywild Flask's magic is accessible to all adventurers, making it a versatile tool that can be used in various situations.",
+    "vendorReason": "As keepers of ancient knowledge and mystical artifacts, the DK Isles are known for their connection to the Feywild, making them reliable vendors for such an item.",
+    "shippingDetail": "The flask is shipped in a padded envelope with additional care to ensure it arrives intact.",
+    "usage": {
+      "activation": "Bonus action or reaction",
+      "duration": "30 seconds per use",
+      "endsWhen": "You take damage or willingly end the effect",
+      "charges": "Unlimited, but only one animal charm can be active at a time"
+    },
+    "priceReason": "The price reflects its rarity and utility in both combat and exploration scenarios.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T19:24:08.067886+00:00",
+    "aiReviewedAt": "2026-07-22T19:24:08.067886+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_feywild_shade_satchel": {
     "id": "dk_isles_feywild_shade_satchel",
@@ -2370,20 +2439,43 @@ export const ITEMS_008 = {
   "dk_isles_frost_shade": {
     "id": "dk_isles_frost_shade",
     "name": "Frost Shade of the Forgotten Glacier",
-    "description": "A cold artifact from the icy ruins of the Jungle’s northern edge. Grants frost resistance and temporarily freezes enemy movements in jungle swamps. Ideal for counterattacking after jungle stealth.",
+    "description": "The Frost Shade of the Forgotten Glacier is a cold artifact forged from the shattered remains of an ancient glacier. Crafted in the heart of the Jungle’s northern edge, it grants frost resistance and has the power to momentarily freeze enemies within its icy touch. Ideal for swift counterattacks after stealthy maneuvers, this relic leaves its mark on foes, causing them to shiver in place as they cannot move for a fleeting moment.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Immune to 20% frost damage for 5 seconds",
-      "Enemies within 5 meters freeze for 2 seconds on hit",
-      "Grants 5% bonus damage to ice-based attacks"
+      "Frost Resistance",
+      "Freezing Touch"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Frost Resistance",
+        "rules": "The wielder gains immunity to frost damage equal to 20% of their total hit points for 5 seconds upon activation. This effect can be used once per long rest."
+      },
+      {
+        "title": "Freezing Touch",
+        "rules": "When the user strikes an enemy with a melee attack within 5 meters, that foe is immobilized for 2 seconds, as if they were stunned, and cannot take reactions during this time. This effect can be used up to three times per short rest."
+      }
+    ],
+    "levelRequirementReason": "This relic requires minimal arcane knowledge to wield effectively.",
+    "vendorReason": "The Frost Shade is a cherished item from the Jungle’s northern edge, and DK Isles maintains an inventory of such artifacts.",
+    "shippingDetail": "Ships via spectral courier, ensuring the artifact arrives in pristine condition with no risk of damage.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous (with a 1-second cooldown)",
+      "endsWhen": "The effect ends upon expiration or when used again during its respective rest period",
+      "charges": "Unlimited, recharges after each long rest"
+    },
+    "priceReason": "This relic strikes the balance between power and cost by offering potent effects within reach of a novice adventurer.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:21:03.361672+00:00",
+    "aiReviewedAt": "2026-07-22T04:21:03.361672+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_fungal_essence": {
     "id": "dk_isles_fungal_essence",
@@ -2998,19 +3090,42 @@ export const ITEMS_008 = {
   "dk_isles_jungle_bloom": {
     "id": "dk_isles_jungle_bloom",
     "name": "Bloom of the Forgotten Grove",
-    "description": "A glowing root-infused potion that restores vitality while granting temporary jungle resonance. Drink to feel the earth’s heartbeat and resist poison effects from Kremling toxins.",
-    "price": 1200,
+    "description": "The Bloom of the Forgotten Grove is a root-infused potion that glows with an ethereal emerald light, pulsing in rhythm with the ancient jungle's heartbeat. When consumed, it grants the drinker temporary jungle resonance, allowing them to feel the earth’s pulse and resist Kremling toxins' venomous effects. For 60 seconds, the imbiber moves as one with nature, gaining both enhanced vitality and a keen awareness of their surroundings.",
+    "price": 1000,
     "icon": "🌿",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "+30% health regeneration per second for 60 seconds",
-      "Immunity to poison from Kremling flora",
-      "+10% movement speed in jungle zones"
+      "Jungle Resonance",
+      "Venom Resistance"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Jungle Resonance",
+        "rules": "Upon activation by drinking the potion, you gain +30% health regeneration per second for a duration of 60 seconds. This effect ends if you take any damage or enter a state that requires concentration."
+      },
+      {
+        "title": "Venom Resistance",
+        "rules": "While under the effects of Jungle Resonance, you are immune to poison effects from Kremling flora. The immunity lasts for the duration of the potion's effect and is not subject to save checks."
+      }
+    ],
+    "levelRequirementReason": "The potion provides a minor boost that even lower-level adventurers can benefit from without undue risk.",
+    "vendorReason": "DK Isles traders are well-known for their knowledge of the jungle and its secrets, making them the perfect purveyors of such an item.",
+    "shippingDetail": "Delivered via spectral courier, ensuring swift arrival to even the remotest areas of the jungle.",
+    "usage": {
+      "activation": "Consume the potion as a bonus action.",
+      "duration": "60 seconds.",
+      "endsWhen": "The effect ends if you take damage or enter a state that requires concentration.",
+      "charges": "Unlimited; the potion can be consumed multiple times without recharging."
+    },
+    "priceReason": "The price reflects its uncommon rarity and the mystical properties it provides, making it accessible yet valuable to adventurers of all levels.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T04:21:31.147024+00:00",
+    "aiReviewedAt": "2026-07-22T04:21:31.147024+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_bloom_potion": {
     "id": "dk_isles_jungle_bloom_potion",
@@ -3298,20 +3413,43 @@ export const ITEMS_008 = {
   "dk_isles_jungle_cold_war_ice_shield": {
     "id": "dk_isles_jungle_cold_war_ice_shield",
     "name": "Glacier Shield Fragment",
-    "description": "A shattered ice-armor fragment from a fallen Kremling siege tower. Grants defensive buffs and ice-based area denial. Ideal for frontline defense or blocking enemy teleporters.",
+    "description": "A Glacier Shield Fragment is a jagged shard of ice armor, once part of an elite Kremling siege tower’s defensive barrier. It crackles with cold magic and can freeze foes on impact, while also slowly healing its bearer through the arcane properties of frost. Ideal for frontline defense or blocking teleporters, this relic is a formidable shield for any brave soul facing icy winters in the far reaches of the realm.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "📦",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+25% armor regeneration per 10 seconds",
-      "+10% chance to freeze enemies on hit",
-      "+5% chance to reflect projectiles"
+      "Glacial Freeze",
+      "Frost Regeneration"
     ],
     "vendor": "dk_isles",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "shippedBy": "Spectral Courier of the Frostwind",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Glacial Freeze",
+        "rules": "When you hit an enemy with a melee attack, there is a 15% chance to freeze them in place for 1d4 rounds. The DC to break the effect is equal to 8 + your Strength modifier. This effect can occur once per long rest."
+      },
+      {
+        "title": "Frost Regeneration",
+        "rules": "At the start of each of your turns, you regain 5 hit points if you are wearing this fragment as part of your armor. This benefit lasts until you complete a short or long rest."
+      }
+    ],
+    "levelRequirementReason": "The Glacier Shield Fragment is suitable for all adventurers to use its defensive benefits.",
+    "vendorReason": "As a vendor specializing in relics and ancient artifacts, dk Isles naturally stocks this powerful yet approachable item.",
+    "shippingDetail": "The fragment is delivered by spectral means, arriving at your doorstep within one game turn.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Until you complete a short or long rest.",
+      "endsWhen": "Once per long rest for Glacial Freeze and until you finish a rest for Frost Regeneration.",
+      "charges": "Unlimited, resets after each long rest."
+    },
+    "priceReason": "The price reflects its rare material composition and unique defensive properties, making it accessible yet valuable to any adventurer.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:21:51.596088+00:00",
+    "aiReviewedAt": "2026-07-22T04:21:51.596088+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_cold_war_ice_sword": {
     "id": "dk_isles_jungle_cold_war_ice_sword",

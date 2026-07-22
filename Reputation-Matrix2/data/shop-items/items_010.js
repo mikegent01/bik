@@ -45,19 +45,42 @@ export const ITEMS_010 = {
   "dk_isles_mushroom_mind_binder": {
     "id": "dk_isles_mushroom_mind_binder",
     "name": "Mushroom Mind Binder",
-    "description": "A psychedelic fungus grown in the heart of the jungle’s forgotten labs. Consuming it grants temporary insight into enemy motives and hidden paths. May cause hallucinations in high-stress situations.",
-    "price": 2500,
+    "description": "The Mushroom Mind Binder is a potent psychoactive fungus cultivated in the deep, hidden labs of the Distant Isles. Consuming it grants you fleeting insight into enemy motivations and uncovers hidden paths through dense jungle mazes. However, under high stress or fatigue, the hallucinatory effects can become disorienting, reducing your movement speed by 10 feet for up to an hour. This mind-bending gift comes with a price: temporary instability that could leave you vulnerable in combat.",
+    "price": 1000,
     "icon": "🍄",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+15% bonus to puzzle solving",
-      "+20% chance to detect hidden switches or traps",
-      "-10% movement speed while hallucinating (unstable state)"
+      "+20% insight into enemy motives",
+      "Detect hidden paths +15%"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Insightful Glimpse",
+        "rules": "You gain a +20 bonus to checks made with the Insight skill for 1 hour. This effect is exhausted after use, and you must rest before using it again."
+      },
+      {
+        "title": "Pathfinding Aura",
+        "rules": "For the duration of your next exploration or combat encounter, you have advantage on Wisdom (Perception) checks to detect hidden paths or traps in dense jungle terrain. This effect can be used once per short rest."
+      }
+    ],
+    "levelRequirementReason": "The Mushroom Mind Binder's hallucinatory effects require a stable mental state, which is generally achieved by level 1 characters.",
+    "vendorReason": "The Distant Isles are known for their advanced alchemy and the cultivation of exotic fungi like this binder.",
+    "shippingDetail": "Due to its volatile nature, the Mushrooms must be shipped in a specially insulated container with a cooling pack. This ensures they remain stable until consumption.",
+    "usage": {
+      "activation": "Eaten as an action",
+      "duration": "1 hour per use or combat encounter",
+      "endsWhen": "Exhausted after one use, requires rest to reuse",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Mushroom Mind Binder is crafted from rare jungle fungi and requires specialized alchemy to stabilize for consumption.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T19:24:52.036454+00:00",
+    "aiReviewedAt": "2026-07-22T19:24:52.036454+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_mystic_jungle_satchel": {
     "id": "dk_isles_mystic_jungle_satchel",
@@ -550,20 +573,43 @@ export const ITEMS_010 = {
   "dk_isles_shadowfury_tome": {
     "id": "dk_isles_shadowfury_tome",
     "name": "Shadowfury Tome",
-    "description": "A cursed tomes that channels shadow energy into devastating strikes. Perfect for melee fighters seeking a dark power surge in the Feywild.",
+    "description": "The Shadowfury Tome exudes an otherworldly aura of dark magic, its leather-bound cover embossed with gnarled symbols that seem to pulse with malevolent energy. This cursed tome channels shadow energy into devastating strikes, granting melee fighters the power to stagger foes and teleport forward after a successful attack in the Feywild. The very air seems to darken around you when wielding this tome, as if the shadows themselves are your allies.",
     "category": "equipment",
-    "price": 4500,
+    "price": 1000,
     "icon": "🖋",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "Deals 20% more damage on critical hits",
-      "Grants 50% chance to teleport 3 meters forward after attack",
-      "Causes enemies to stagger for 2 seconds on hit"
+      "Shadow Teleport",
+      "Staggering Strike"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Shadow Teleport",
+        "rules": "On a successful melee attack, the user can teleport 3 meters forward. This effect has a 50% chance to occur after each attack. The user must be within 15 feet of an enemy to activate this ability."
+      },
+      {
+        "title": "Staggering Strike",
+        "rules": "On a critical hit, the target is staggered for 2 seconds. This effect imposes the 'stunned' condition on the target and has a 20% chance to occur on each critical hit."
+      }
+    ],
+    "levelRequirementReason": "The Shadowfury Tome's dark magic requires a proficient user with at least 5 levels of experience to channel its full power.",
+    "vendorReason": "The Dark Isles are known for their mastery of shadow and magic, making them the perfect purveyors of this cursed tome.",
+    "shippingDetail": "Ships via Boo Spectral Mail, which ensures safe delivery but may add a delay due to its spectral nature.",
+    "usage": {
+      "activation": "Instantaneous on successful melee attack",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "On miss or when you take another action",
+      "charges": "Unlimited, recharges after a short rest"
+    },
+    "priceReason": "The Shadowfury Tome's price reflects its epic rarity and the dark magic it channels, offering significant combat advantages at an appropriate cost.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-22T04:24:44.809477+00:00",
+    "aiReviewedAt": "2026-07-22T04:24:44.809477+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_snow_gear": {
     "id": "dk_isles_snow_gear",
@@ -1990,21 +2036,43 @@ export const ITEMS_010 = {
   "doughnut_hole_item_name_here": {
     "id": "doughnut_hole_item_name_here",
     "name": "Void Siphon Doughnut",
-    "description": "Sucks in ambient void energy for a burst of power",
+    "description": "The Void Siphon Doughnut is a peculiar treat that sips at the very fabric of reality, drawing ambient void energy into its sugary depths to grant a brief burst of power. As you bite down, the doughnut hums with an eerie glow, momentarily shielding your mind from psychic attacks and leaving you with a lingering sense of disorientation. This delicacy is crafted by the Changeling Hive using ingredients harvested from the interdimensional void itself.",
     "category": "equipment",
-    "price": 3000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Absorbs 10% of ambient void energy",
-      "Grants temporary resistance to psychic attacks",
-      "Causes minor hallucinations during use",
-      "Made by: Changeling Hive"
+      "Absorbs ambient void energy",
+      "Grants temporary resistance to psychic damage"
     ],
     "vendor": "doughnut_hole",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Void Absorption",
+        "rules": "When consumed, the Void Siphon Doughnut absorbs 10% of nearby ambient void energy. This effect provides a +2 bonus to saving throws against psychic attacks for 1 minute. The effect ends if you take damage or you voluntarily end it."
+      },
+      {
+        "title": "Psychic Resistance",
+        "rules": "For the duration, you have resistance to psychic damage until the start of your next turn after consuming the doughnut. If you are exposed to a new source of psychic damage before this effect ends, it renews for another minute."
+      }
+    ],
+    "levelRequirementReason": "The Void Siphon Doughnut's effects are subtle but effective, making it accessible to low-level characters who need quick bursts of resilience.",
+    "vendorReason": "Doughnut Hole specializes in unique and powerful treats that blur the lines between mundane and magical, making this item a perfect fit for their catalog.",
+    "shippingDetail": "The Void Siphon Doughnut is shipped via Pipe Express, known for its reliable service and timely delivery of enchanted goods.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "1 minute per use until the effect ends or you take damage",
+      "endsWhen": "You take damage or voluntarily end it",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The Void Siphon Doughnut is priced at 1000 XP due to its unique ingredient sourcing and the subtle yet effective magical properties that make it a valuable tool for adventurers.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-22T04:24:35.123501+00:00",
+    "aiReviewedAt": "2026-07-22T04:24:35.123501+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_pipe_express_item": {
     "id": "doughnut_hole_pipe_express_item",
@@ -2654,20 +2722,42 @@ export const ITEMS_010 = {
   "dreamland_connectopia_item": {
     "id": "dreamland_connectopia_item",
     "name": "Nightmare Frontier Map",
-    "description": "A cracked map showing haunted zones and frontier routes",
+    "description": "The Nightmare Frontier Map, a cracked parchment worn by years of use, reveals ghostly routes and haunted zones in Dream Land's frontier. This relic allows adventurers to travel between Connectopia and the ethereal realms of dreams, but its very presence can cause disorientation, making it perilous for those who venture into dreamscapes. Crafted by Hammer Bros Handling from rare materials found deep within the frontier, this map is a treasured tool for explorers seeking new paths and hidden secrets.",
     "price": 1000,
     "icon": "🗺",
     "stock": 3,
     "rarity": "uncommon",
     "effects": [
-      "Allows travel between Dream Land and Connectopia",
-      "Reveals hidden crafting stations in frontier zones",
-      "Causes disorientation when used in dreamland",
-      "Made by: Hammer Bros Handling"
+      "Travel between Dream Land and Connectopia",
+      "Reveal hidden crafting stations in haunted zones"
     ],
     "vendor": "dreamland",
     "shippedBy": "Hammer Bros Handling",
-    "levelRequirement": 3
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Interdimensional Travel",
+        "rules": "Activates as a bonus action. The user can travel to either Connectopia or the dream realms, but the map must be cracked open during use. This effect is instantaneous and has no range. There is a 15% chance of disorientation on first use in Dream Land for one hour. Recharges after a long rest."
+      },
+      {
+        "title": "Crafting Station Revelation",
+        "rules": "Passive effect that reveals the location of hidden crafting stations within haunted zones when the map is cracked open, but only while traveling between Dream Land and Connectopia or its dream realms. This effect lasts for 10 minutes per use."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum level to handle the map's ethereal properties and avoid disorientation.",
+    "vendorReason": "Hammer Bros Handling specializes in crafting tools for frontier exploration, including this treasured relic.",
+    "shippingDetail": "Delivered via enchanted courier pigeon; arrives within one week.",
+    "usage": {
+      "activation": "Bonus action to activate travel or reveal crafting stations.",
+      "duration": "Instantaneous for travel, passive for revealing hidden stations.",
+      "endsWhen": "Disorientation ends after one hour in Dream Land, or when the map is no longer cracked open.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "The Nightmare Frontier Map's balanced price reflects its rare materials and utility for both travel and exploration.",
+    "priceOriginal": 1000,
+    "priceReviewedAt": "2026-07-22T04:24:31.536522+00:00",
+    "aiReviewedAt": "2026-07-22T04:24:31.536522+00:00",
+    "aiReviewVersion": 1
   },
   "dreamland_fated_connector": {
     "id": "dreamland_fated_connector",
@@ -2752,21 +2842,43 @@ export const ITEMS_010 = {
   "dreamland_item_name_here": {
     "id": "dreamland_item_name_here",
     "name": "Dreamland Puffball Amulet",
-    "description": "A glowing puffball with a soft yet menacing aura",
+    "description": "The Dreamland Puffball Amulet glows softly, its surface a patchwork of vivid dreams and nightmares. When worn in combat, it grants temporary immunity to nightmare dimensions, ensuring that you remain lucid even amidst eldritch horrors. The amulet also increases damage dealt to eldritch foes by 30%, making your strikes more effective against these otherworldly threats. Crafted by the Peach Loyalists, this artifact carries with it a sense of whimsical dread and resilience.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 5,
     "rarity": "rare",
     "effects": [
-      "Grants temporary immunity to nightmare dimensions",
-      "Increases damage dealt to eldritch foes by 30%",
-      "Causes minor hallucinations during combat",
-      "Made by: Peach Loyalists"
+      "Nightmare Immunity",
+      "Eldritch Damage Boost"
     ],
     "vendor": "dreamland",
     "shippedBy": "Hammer Bros Handling",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Nightmare Immunity",
+        "rules": "While wearing the Dreamland Puffball Amulet, you gain temporary immunity to the effects of nightmare dimensions. This lasts for a number of minutes equal to your Wisdom modifier (minimum 1 minute). The effect ends if you are no longer in a nightmare dimension or if you take damage."
+      },
+      {
+        "title": "Eldritch Damage Boost",
+        "rules": "For every successful hit against an eldritch foe, the damage dealt is increased by 30%. This bonus can stack up to three times. The effect ends when you deal a critical hit or after 1 minute of continuous combat."
+      }
+    ],
+    "levelRequirementReason": "The amulet's enchantments require a player of at least fifth level to wield it effectively in combat.",
+    "vendorReason": "Peach Loyalists are known for their mastery of dreamscapes and eldritch magic, making them the perfect vendors for items that interact with these realms.",
+    "shippingDetail": "The shipment is handled with care by Hammer Bros Handling, ensuring the amulet arrives in pristine condition.",
+    "usage": {
+      "activation": "Passive effect when worn during combat.",
+      "duration": "Lasts for a number of minutes equal to your Wisdom modifier (minimum 1 minute) or until you are no longer in a nightmare dimension or take damage.",
+      "endsWhen": "The effect ends if you leave a nightmare dimension, take damage, or after 1 minute of continuous combat.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Crafted by the Peach Loyalists and tailored for fifth-level adventurers, this amulet is priced at 1000 XP to reflect its unique abilities.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:25:07.054298+00:00",
+    "aiReviewedAt": "2026-07-22T04:25:07.054298+00:00",
+    "aiReviewVersion": 1
   },
   "dreamland_memetic_satchel": {
     "id": "dreamland_memetic_satchel",

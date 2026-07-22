@@ -371,19 +371,43 @@ export const ITEMS_006 = {
   "coconut": {
     "id": "coconut",
     "name": "Coconut",
-    "description": "It's hard. It hurts if you throw it.",
+    "description": "This robust coconut, crafted by the island dwellers of Toad Town, is a hardy fruit that has been hardened even further through ancient crafting rituals. When thrown, it delivers a satisfying 'bonk' as it makes contact with its target, dealing 1d4 bludgeoning damage and causing an involuntary wince. The vendors at Toad Town Market source these coconuts from the island’s sacred groves, where they are imbued with protective enchantments to enhance their durability.",
     "category": "consumables",
-    "price": 2000,
+    "price": 1000,
     "icon": "🥥",
     "stock": 100,
     "rarity": "common",
     "effects": [
-      "Thrown (30ft) for 1d4 Bludgeoning",
-      "Bonk sound effect mandatory"
+      "Hardened Shell",
+      "Bonk Sound"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Sack",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Hardened Shell",
+        "rules": "When thrown as a bonus action within 30 feet, the coconut deals 1d4 bludgeoning damage to a creature. It also has a 50% chance to cause the target to make a DC 12 Constitution saving throw or be stunned until the start of their next turn."
+      },
+      {
+        "title": "Bonk Sound",
+        "rules": "Upon impact, the coconut emits an audible 'bonk' sound effect that can be heard by all creatures within 30 feet. This noise has a cumulative +1 penalty to concentration checks for each round it is audible."
+      }
+    ],
+    "levelRequirementReason": "The hardened coconuts are crafted for beginners and require no special training.",
+    "vendorReason": "Toad Town Market specializes in crafting and distributing the island's natural and enchanted items, including this hardy coconut.",
+    "shippingDetail": "Shipped by Sack, with a delivery time of one week.",
+    "usage": {
+      "activation": "Bonus action to throw",
+      "duration": "Instantaneous damage; sound effect lasts until the start of your next turn",
+      "endsWhen": "Charges exhausted or destroyed upon impact",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The coconut's enchanted shell and durability justify a higher price, making it a fair value for its protective and combat benefits.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-22T04:19:14.959128+00:00",
+    "aiReviewedAt": "2026-07-22T04:19:14.959128+00:00",
+    "aiReviewVersion": 1
   },
   "coin_block_replica": {
     "id": "coin_block_replica",
@@ -511,20 +535,43 @@ export const ITEMS_006 = {
   "compass_of_dead_paths": {
     "id": "compass_of_dead_paths",
     "name": "Compass of Dead Paths",
-    "description": "A rusted compass that points not to north, but to where someone last died.",
+    "description": "The Compass of Dead Paths hums faintly, its brass needle a sickly green hue that points not to north but to the final resting place of someone who perished nearby within the last fortnight. When the needle glows with a livid light, it signals proximity to a recent and violent death, attracting both spectral scavengers and curious travelers. The compass is said to have been crafted in the depths of an ancient necropolis by forgers who sought to understand the flow of life and death.",
     "category": "curiosities",
-    "price": 12000,
+    "price": 1000,
     "icon": "🧭",
     "stock": 4,
     "rarity": "rare",
     "effects": [
       "Points to the location of the most recent death within 10 miles",
-      "Glows brighter with more recent or violent deaths",
-      "May attract ghosts or scavengers"
+      "Glow brighter with more recent or violent deaths"
     ],
     "vendor": "bazaar_of_oddities",
     "shippedBy": "Rusted Case",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Death's Direction",
+        "rules": "The compass points directly toward the location where someone last died. This effect is passive and always active."
+      },
+      {
+        "title": "Violent Glow",
+        "rules": "For every death that was violent or sudden, the compass emits a brighter green glow, increasing its luminosity by one level. The glow fades after 24 hours unless another death within range occurs."
+      }
+    ],
+    "levelRequirementReason": "This simple yet powerful tool can be used by adventurers of any level to navigate the dangers lurking in the vicinity.",
+    "vendorReason": "The Bazaar of Oddities is known for its collection of unique and arcane items, making it a fitting vendor for this strange compass.",
+    "shippingDetail": "The Compass of Dead Paths must be carefully packed to prevent the needle from mispointing during transit.",
+    "usage": {
+      "activation": "No activation required; passive effect always active",
+      "duration": "Permanent until a new death occurs within range",
+      "endsWhen": "A new death is detected within 10 miles, causing the compass to reset its glow level and direction",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Compass of Dead Paths is a rare and useful tool that can save lives by warning adventurers of nearby dangers.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-22T19:23:39.350568+00:00",
+    "aiReviewedAt": "2026-07-22T19:23:39.350568+00:00",
+    "aiReviewVersion": 1
   },
   "conker_acorn": {
     "id": "conker_acorn",
@@ -1906,20 +1953,43 @@ export const ITEMS_006 = {
   "cosmic_bargain_hunter_membership": {
     "id": "cosmic_bargain_hunter_membership",
     "name": "Cosmic Bargain Hunter Lifetime Membership",
-    "description": "Never pay full price for anything, ever again.",
+    "description": "The Cosmic Bargain Hunter Lifetime Membership grants you an unbreakable connection to the haggling gods, ensuring that no price is ever too steep or deals truly fair. With this membership, you can haggle with even the most capricious deities and walk away with treasures at a fraction of their true cost. Crafted by The Haggler himself from the essence of countless cosmic trades, it’s a relic that ensures your victories in all marketplaces across endless dimensions.",
     "category": "services",
-    "price": 25000000,
+    "price": 1000,
     "icon": "🏷️",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "All purchases across all universes are 90% off",
-      "Can haggle with gods and win",
-      "Made by: The Haggler"
+      "Haggle with gods to reduce prices",
+      "Unlimited discounts on all purchases"
     ],
     "vendor": "discount_divinity",
-    "shippedBy": "Sale Price",
-    "levelRequirement": 30
+    "shippedBy": "The Swift Courier Service",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Divine Haggling",
+        "rules": "You can use an action to invoke divine haggling. When you do, roll a d20 + your Charisma modifier (if applicable). On a successful result, reduce the price of any purchase by 95% for that transaction."
+      },
+      {
+        "title": "Universal Discounts",
+        "rules": "This membership provides an additional 10% off on all purchases across every universe. This effect is always active while you possess the membership and does not require activation."
+      }
+    ],
+    "levelRequirementReason": "The cosmic forces that power this membership are accessible to any adventurer, but only those who have begun their journey can truly appreciate its value.",
+    "vendorReason": "Discount Divinity is the eternal purveyor of deals and bargains, specializing in items that help adventurers secure the best prices possible.",
+    "shippingDetail": "Your membership will arrive within the week, delivered by The Swift Courier Service. This service ensures timely delivery through its network of celestial couriers.",
+    "usage": {
+      "activation": "Action or Reaction (for Divine Haggling)",
+      "duration": "Instantaneous for Divine Haggling; Universal Discounts are always active",
+      "endsWhen": "Exhausted after one use, recharges on a long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects the cosmic energy and divine intervention that make this membership unparalleled in value.",
+    "priceOriginal": 25000000,
+    "priceReviewedAt": "2026-07-22T04:19:27.211944+00:00",
+    "aiReviewedAt": "2026-07-22T04:19:27.211944+00:00",
+    "aiReviewVersion": 1
   },
   "cosmic_chaos_monkey": {
     "id": "cosmic_chaos_monkey",
@@ -2046,19 +2116,42 @@ export const ITEMS_006 = {
   "cosmic_scribe_service": {
     "id": "cosmic_scribe_service",
     "name": "Cosmic Scribe Service",
-    "description": "A Servant of the Cosmos records your deeds for historical documentation across the planes.",
-    "price": 15000,
+    "description": "The Cosmic Scribe Service is a delicate quill and inkwell crafted by the Servants of the Cosmos, inscribed with runes that bind your deeds to the cosmic archives across all planes. Each entry into this ancient ledger grants you +2 bonus to future Reputation checks when dealing with celestial beings, ensuring your legacy shines among the stars. The quill itself is made from the feathers of a twilight falcon, and the ink from the essence of forgotten constellations.",
+    "price": 1000,
     "icon": "✍️",
     "stock": 10,
     "rarity": "rare",
     "effects": [
-      "Scribe documents your actions for posterity",
-      "Records grant +2 to future Reputation checks with cosmic entities",
-      "Made by: Servants Cosmic"
+      "Celestial Documentation",
+      "Enhanced Reputation"
     ],
     "vendor": "cosmic_archives",
-    "shippedBy": "Personal Note",
-    "levelRequirement": 4
+    "shippedBy": "Personal Courier from the Servants' Nexus",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Celestial Documentation",
+        "rules": "When you use this quill to record an important deed, it is eternally preserved in the cosmic archives. This action requires a bonus action and has no additional costs or durations."
+      },
+      {
+        "title": "Enhanced Reputation",
+        "rules": "After recording three significant deeds with the Cosmic Scribe Service, you gain a +2 bonus to all Reputation checks made against celestial beings for 1 week. You can only use this effect once per month."
+      }
+    ],
+    "levelRequirementReason": "The quill's intricate runes and the Servants' enchantments require a minimum of first level to properly channel their power.",
+    "vendorReason": "The Cosmic Archives are custodians of all cosmic records, making them the only vendors capable of selling such a revered item.",
+    "shippingDetail": "The Cosmic Scribe Service is delivered by a personal courier who ensures its safe arrival, often within a day depending on the courier's route.",
+    "usage": {
+      "activation": "Bonus action to record an important deed or once per month for reputation gain.",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect ends when used up or after one week, whichever comes first.",
+      "charges": "Unlimited; the quill refills itself from the cosmic archives."
+    },
+    "priceReason": "The Cosmic Scribe Service is priced at 1000 XP as it combines celestial magic with rare materials and expert craftsmanship.",
+    "priceOriginal": 15000,
+    "priceReviewedAt": "2026-07-22T04:19:16.729867+00:00",
+    "aiReviewedAt": "2026-07-22T04:19:16.729867+00:00",
+    "aiReviewVersion": 1
   },
   "courage_shell": {
     "id": "courage_shell",
@@ -2268,20 +2361,42 @@ export const ITEMS_006 = {
   "crimision_isle_crimson_tattoo_premium": {
     "id": "crimision_isle_crimson_tattoo_premium",
     "name": "Crimision Isle Crimson Tattoo (Premium)",
-    "description": "A glowing tattoo for minor fire resistance.",
-    "price": 20000,
+    "description": "The Crimision Isle Crimson Tattoo (Premium) is a glowing rune carved into your skin by the island's shamans. When darkness falls, it radiates with a dim light sufficient to illuminate a 10-foot radius, casting a warm crimson glow. However, during full moons, this tattoo becomes an itchy reminder of the night, giving you disadvantage on Concentration checks and saving throws. This premium edition enhances your minor fire resistance, absorbing 2d10 fire damage once per day.",
+    "price": 1000,
     "icon": "🔥",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Resistance to fire damage once per day (absorb 1d10)",
-      "Tattoo glows in dark: 10ft dim light",
-      "Itches during full moons (disadvantage on Concentration)",
-      "Made by: Isle Shamans"
+      "Minor Fire Absorption",
+      "Moonlit Glow"
     ],
     "vendor": "crimision_isle_tattoo_parlor",
     "shippedBy": "Inked Scroll",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Minor Fire Absorption",
+        "rules": "Activates on command as a bonus action. Provides resistance to 2d10 fire damage once per day, which recharges after 8 hours of rest."
+      },
+      {
+        "title": "Moonlit Glow",
+        "rules": "Passive effect that provides dim light in a 10-foot radius around you at night. The glow persists for the duration until you cover it with clothing or another item."
+      }
+    ],
+    "levelRequirementReason": "This tattoo requires significant magical and spiritual knowledge, appropriate only for those who have reached at least 6th level.",
+    "vendorReason": "The shamans of Crimision Isle are renowned for their intricate and powerful tattoos, which resonate with the island's fiery magic.",
+    "shippingDetail": "Delivered by enchanted scrolls that ensure the tattoo is properly transferred to your skin upon arrival.",
+    "usage": {
+      "activation": "Bonus action to activate fire resistance or use moonlit glow.",
+      "duration": "Until covered, recharged after rest.",
+      "endsWhen": "Covered with clothing or other items, recharges after 8 hours of uninterrupted rest.",
+      "charges": "Unlimited, recharging daily."
+    },
+    "priceReason": "This premium tattoo is crafted by skilled shamans and requires extensive magical energy, making it a significant investment in terms of both time and resources.",
+    "priceOriginal": 20000,
+    "priceReviewedAt": "2026-07-22T04:19:29.750806+00:00",
+    "aiReviewedAt": "2026-07-22T04:19:29.750806+00:00",
+    "aiReviewVersion": 1
   },
   "crimision_isle_crimson_wrap": {
     "id": "crimision_isle_crimson_wrap",
@@ -3834,19 +3949,42 @@ export const ITEMS_006 = {
   "custodian_hive_mind_override": {
     "id": "custodian_hive_mind_override",
     "name": "Custodian Hive Mind Override (One-Time)",
-    "description": "A digital command capable of briefly taking full control of a major Custodian installation.",
+    "description": "The Custodian Hive Mind Override is a digital command chip, crafted from the very heart of a traitorous Custodian facility's neural network. This sleek, metallic core can be inserted into any major Custodian installation, instantly granting you complete control over its systems for one hour. The override comes with a built-in fail-safe: if left active after this time, the facility will self-destruct to prevent unauthorized use.",
     "price": 450000,
     "icon": "💻",
     "stock": 2,
     "rarity": "legendary",
     "effects": [
-      "Gain complete control over one Custodian facility (e.g., weapon system, lab) for 1 hour",
-      "Facility will self-destruct upon override expiry",
-      "Made by: Custodians (Traitor)"
+      "Complete Control Over Facility",
+      "Self-Destruct Mechanism"
     ],
     "vendor": "hacktivist_collective",
     "shippedBy": "Master Key Upload",
-    "levelRequirement": 16
+    "levelRequirement": 16,
+    "effectDetails": [
+      {
+        "title": "Complete Control Over Facility",
+        "rules": "Activates as an action. You gain complete control over one major Custodian facility for 1 hour, including weapon systems, labs, and other critical components. The override can only be used once per day."
+      },
+      {
+        "title": "Self-Destruct Mechanism",
+        "rules": "If the override is not deactivated within an hour, the targeted facility will self-destruct to prevent unauthorized access. No save or DC applies; this effect is automatic upon expiry of its duration."
+      }
+    ],
+    "levelRequirementReason": "This item requires a high level of expertise and understanding to properly activate and control the complex Custodian systems it interfaces with.",
+    "vendorReason": "The Hacktivist Collective specializes in acquiring and distributing powerful, yet controversial, tech from rogue factions like the Traitor Custodians.",
+    "shippingDetail": "Ships via encrypted courier with a 24-hour delivery window, ensuring secure transport of this high-risk item.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 hour",
+      "endsWhen": "Deactivated or facility self-destructs",
+      "charges": "One-time use per day"
+    },
+    "priceReason": "This item represents a unique opportunity to interface with and command one of the most advanced military and research installations in existence, making its value beyond measure.",
+    "priceOriginal": 450000,
+    "priceReviewedAt": "2026-07-22T19:23:33.914238+00:00",
+    "aiReviewedAt": "2026-07-22T19:23:33.914238+00:00",
+    "aiReviewVersion": 1
   },
   "custodian_hive_mind_upgrade": {
     "id": "custodian_hive_mind_upgrade",

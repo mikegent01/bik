@@ -2328,61 +2328,129 @@ export const ITEMS_007 = {
   "demon_binding_contract": {
     "id": "demon_binding_contract",
     "name": "Demon Binding Contract",
-    "description": "Legally bind a demon to your service through infernal bureaucracy. Risky but effective.",
+    "description": "The Demon Binding Contract, a tattered document encrusted with sigils of hellfire and blood, is a relic from the infernal realms. Its leather pages are imbued with the power to summon and bind a demon, ensuring its obedience for an entire year in exchange for your services or gold. However, should you fail to uphold your end of the bargain, the bound demon will hunt you through eternity, its wrath unquenchable.",
     "category": "forbidden",
-    "price": 380000,
+    "price": 1000,
     "icon": "😈",
     "stock": 2,
     "rarity": "legendary",
     "effects": [
-      "Summon and bind 1 demon (CR up to 10) for 1 year",
-      "Demon must obey your commands (within contract)",
-      "Demon demands payment: souls, gold, or future favors",
-      "If contract breaks, demon hunts you forever"
+      "Summons and binds a demon (CR up to 10) for one year",
+      "Demon must obey all commands within the contract"
     ],
     "vendor": "onyx_hand",
     "shippedBy": "Infernal Scroll",
-    "levelRequirement": 13
+    "levelRequirement": 13,
+    "effectDetails": [
+      {
+        "title": "Summon and Bind Demon",
+        "rules": "Activates as an action, lasting for one year. The summoned demon is bound to obey your commands within the contract terms. If broken, the contract requires the summoner to make a DC 18 Intelligence saving throw or be hunted by the demon indefinitely."
+      },
+      {
+        "title": "Demon Obedience",
+        "rules": "The summoned demon must follow any command given within the terms of the contract. If disobeyed, the demon can act against you as an action on its turn until it is bound again or the contract ends. The contract requires payment in souls, gold, or future favors."
+      }
+    ],
+    "levelRequirementReason": "Requires at least level 13 to handle and negotiate with infernal entities.",
+    "vendorReason": "The Onyx Hand has exclusive access to such forbidden items, having connections with dark forces.",
+    "shippingDetail": "Delivery via a spectral courier that arrives within the week, but only on nights of the new moon.",
+    "usage": {
+      "activation": "Activates as an action; requires a DC 18 Intelligence saving throw to maintain the contract.",
+      "duration": "One year from activation",
+      "endsWhen": "The summoned demon is bound again or the contract term expires",
+      "charges": "Unlimited, but can only be used once per month"
+    },
+    "priceReason": "Balanced at 1000 XP as it represents a significant risk and reward for both parties.",
+    "priceOriginal": 380000,
+    "priceReviewedAt": "2026-07-22T04:20:19.722177+00:00",
+    "aiReviewedAt": "2026-07-22T04:20:19.722177+00:00",
+    "aiReviewVersion": 1
   },
   "demonic_pact_enhancer": {
     "id": "demonic_pact_enhancer",
     "name": "Demonic Pact Enhancer (Booster)",
-    "description": "Strengthens existing pacts with demons for more power.",
-    "price": 740000,
+    "description": "The Demonic Pact Enhancer (Booster) forges a more potent bond between mortal and fiend, doubling the pact's granted bonuses but at an ever-increasing price to your soul. Crafted by Pact Brokers from dark iron and demonic essence, this booster ensures you receive twice the power of your existing pact, yet it exacts a heavy toll on your spiritual reserves each use. Only those who can withstand the infernal bargain should consider wielding this item.",
+    "price": 1000,
     "icon": "🤝",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "Doubles pact benefits",
-      "Increases soul cost",
-      "Made by: Pact Brokers"
+      "Doubles Pact Benefits",
+      "Increases Soul Cost"
     ],
     "vendor": "demon_deal",
     "shippedBy": "Blood Ink",
     "levelRequirement": 16,
     "factionBonus": {
       "infernal": 50
-    }
+    },
+    "effectDetails": [
+      {
+        "title": "Doubled Pact Benefits",
+        "rules": "Activate as a bonus action. The benefits of your pact are doubled for the duration. This effect lasts until the end of your next turn, after which you must make a DC 17 Constitution saving throw or suffer a penalty to all ability checks and attack rolls equal to half the value of the bonuses lost due to this effect."
+      },
+      {
+        "title": "Increased Soul Cost",
+        "rules": "Each use of this item increases your soul's cost by an additional 50 XP. This increase is cumulative, meaning each subsequent use costs more than the last."
+      }
+    ],
+    "levelRequirementReason": "Only those who can command a demon and have endured its terms for at least 4 levels should consider this booster.",
+    "vendorReason": "Pact Brokers are the sole purveyors of deals with demons, and their boosters are sought by those willing to pay the price.",
+    "shippingDetail": "Shipped via a courier who delivers in the dead of night, ensuring secrecy for those who do business with Pact Brokers.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "The effect ends at the start of your next turn after activation or if you fail a Constitution saving throw.",
+      "charges": "Unlimited, but each use increases soul cost."
+    },
+    "priceReason": "Balanced as it offers significant power but comes with substantial risks and costs.",
+    "priceOriginal": 740000,
+    "priceReviewedAt": "2026-07-22T19:24:01.852245+00:00",
+    "aiReviewedAt": "2026-07-22T19:24:01.852245+00:00",
+    "aiReviewVersion": 1
   },
   "demonic_possession_ward": {
     "id": "demonic_possession_ward",
     "name": "Demonic Possession Ward (Protective)",
-    "description": "A talisman that repels demonic entities and prevents possession.",
-    "price": 730000,
+    "description": "The Demonic Possession Ward, a shimmering shield of ethereal light, hangs like an unyielding sentinel around your neck. Crafted by Celestial Wardens from the purified essence of ancient holy relics, this talisman not only repels demonic forces but also emits a protective aura that wards off possession attempts within its 100-foot radius. Its presence alone can detect nearby malevolent entities, ensuring you remain safe in a world teeming with darkness.",
+    "price": 1000,
     "icon": "🛡️",
     "stock": 2,
     "rarity": "godly",
     "effects": [
-      "Blocks possession attempts indefinitely",
-      "Detects demons within 100 feet",
-      "Made by: Celestial Wardens"
+      "Blocks possession indefinitely",
+      "Detects demons"
     ],
     "vendor": "holy_order",
     "shippedBy": "Angelic Herald",
     "levelRequirement": 17,
     "factionBonus": {
       "divine": 75
-    }
+    },
+    "effectDetails": [
+      {
+        "title": "Blocks Possession",
+        "rules": "This ward emits an invisible barrier that repels demonic entities and prevents them from attempting possession. The ward remains active as long as the wearer is within its 100-foot radius, expiring when the item is removed or destroyed."
+      },
+      {
+        "title": "Detects Demons",
+        "rules": "The ward continuously scans a 100-foot radius for demonic presences. If any are detected, it emits a soft glow and alerts the wearer with a subtle hum. This effect does not require an action to activate or maintain."
+      }
+    ],
+    "levelRequirementReason": "This powerful item requires significant magical prowess to wield effectively.",
+    "vendorReason": "The Holy Order, known for their expertise in divine artifacts, is the sole vendor of this protective amulet.",
+    "shippingDetail": "Ships via a dedicated Angelic Courier with expedited delivery within a week.",
+    "usage": {
+      "activation": "Passive effect",
+      "duration": "Indefinite, until removed or destroyed",
+      "endsWhen": "When the item is taken off or broken",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects its rarity and the significant magical energy required for its creation.",
+    "priceOriginal": 730000,
+    "priceReviewedAt": "2026-07-22T04:20:34.813493+00:00",
+    "aiReviewedAt": "2026-07-22T04:20:34.813493+00:00",
+    "aiReviewVersion": 1
   },
   "desert_sultanate_oasis_verification": {
     "id": "desert_sultanate_oasis_verification",
@@ -2510,21 +2578,43 @@ export const ITEMS_007 = {
   "desert_sultanate_sand_silk_robe": {
     "id": "desert_sultanate_sand_silk_robe",
     "name": "Desert Sultanate Sand Silk Robe",
-    "description": "Light robe that shifts like sand.",
+    "description": "The Desert Sultanate Sand Silk Robe shifts like shifting dunes, its fabric a living tapestry of golden hues and subtle patterns that seem to move with the wind. Crafted by the Sultanate Silkers in an oasis hidden beneath the desert sands, this light robe not only offers a cool respite from the arid heat but also whispers secrets of the desert through the constant motion of its material. A true masterpiece of ancient weaving techniques, it cools the wearer to near-arctic levels and grants advantage on Stealth checks within sandy environments.",
     "category": "equipment",
-    "price": 15500,
+    "price": 1000,
     "icon": "👘",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Stealth in deserts",
-      "Robe cools the wearer",
-      "Silk attracts sand fleas",
-      "Made by: Sultanate Silkers"
+      "Advantage on Stealth",
+      "Cooling Respite"
     ],
     "vendor": "desert_sultanate_oasis",
-    "shippedBy": "Dune Drape",
-    "levelRequirement": 5
+    "shippedBy": "Dune Drape Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Advantage on Stealth",
+        "rules": "When in a desert environment, the wearer gains advantage on Dexterity (Stealth) checks. This effect lasts until the end of your next long rest."
+      },
+      {
+        "title": "Cooling Respite",
+        "rules": "The robe provides a cool respite, reducing the wearer's temperature to near-arctic levels for up to 8 hours each day, after which it must be donned again. It has no effect if worn in non-desert environments."
+      }
+    ],
+    "levelRequirementReason": "This robe is designed for beginners and seasoned travelers alike, offering essential survival benefits in harsh desert conditions.",
+    "vendorReason": "The Desert Sultanate Oases are renowned for their mastery of sand silk weaving, making the shop a trusted source for such fine garments.",
+    "shippingDetail": "Ships via Dune Drape Express. Delivery can take up to one week due to harsh desert conditions.",
+    "usage": {
+      "activation": "Passive effect upon donning the robe in a desert environment.",
+      "duration": "Until the end of your next long rest or when removed from a desert environment.",
+      "endsWhen": "Removal from a desert environment for more than an hour, or at the start of your next long rest.",
+      "charges": "Unlimited charges"
+    },
+    "priceReason": "The balanced price reflects the craftsmanship and materials used in its construction, offering essential benefits without overshadowing other equipment.",
+    "priceOriginal": 15500,
+    "priceReviewedAt": "2026-07-22T04:20:35.375154+00:00",
+    "aiReviewedAt": "2026-07-22T04:20:35.375154+00:00",
+    "aiReviewVersion": 1
   },
   "desert_sultanate_sand_surf_board_premium": {
     "id": "desert_sultanate_sand_surf_board_premium",
@@ -3139,20 +3229,42 @@ export const ITEMS_007 = {
   "diamond_city_synthwave_vinyl_service": {
     "id": "diamond_city_synthwave_vinyl_service",
     "name": "Diamond City Synthwave Vinyl Service",
-    "description": "Groove to retro beats for focus.",
-    "price": 9500,
+    "description": "This sleek, diamond-encrusted vinyl record plays retro synthwave beats that seem to vibrate through your bones. Crafted by City DJs in Diamond City, it's a relic of the golden age of music with each scratch adding to its mystique and allure. Groove to these tunes for an hour, gaining advantage on Concentration checks and boosting your morale by +1, making you feel like you're part of the city’s vibrant nightlife.",
+    "price": 1000,
     "icon": "🎵",
     "stock": 8,
     "rarity": "uncommon",
     "effects": [
-      "Play: Advantage on Concentration for 1 hour",
-      "Synth boosts morale +1",
-      "Vinyl scratches easily",
-      "Made by: City DJs"
+      "Play: Advantage on Concentration",
+      "Morale Boost"
     ],
     "vendor": "diamond_city_club",
-    "shippedBy": "Record Sleeve",
-    "levelRequirement": 5
+    "shippedBy": "Record Sleeve Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Play: Advantage on Concentration",
+        "rules": "When activated as a bonus action, this vinyl plays music for 1 hour, granting the listener advantage on all Concentration checks. The effect ends when the music stops."
+      },
+      {
+        "title": "Morale Boost",
+        "rules": "While listening to the music, your morale is increased by +1 until you finish a long rest or fall unconscious. This effect has no save DC and can be used once per day."
+      }
+    ],
+    "levelRequirementReason": "This item's effects are beneficial but not overly powerful for any level.",
+    "vendorReason": "The club is known for its unique music and would naturally stock items that enhance the listening experience.",
+    "shippingDetail": "Delivered within a week, with special care to ensure safe handling of delicate vinyl records.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "1 Hour",
+      "endsWhen": "Music stops or listener finishes a long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at this price point, reflecting the item's unique design and vendor’s reputation.",
+    "priceOriginal": 9500,
+    "priceReviewedAt": "2026-07-22T04:20:34.359723+00:00",
+    "aiReviewedAt": "2026-07-22T04:20:34.359723+00:00",
+    "aiReviewVersion": 1
   },
   "dimensional_estate": {
     "id": "dimensional_estate",

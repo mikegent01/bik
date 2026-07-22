@@ -127,38 +127,84 @@ export const ITEMS_009 = {
   "dk_isles_jungle_mistblade": {
     "id": "dk_isles_jungle_mistblade",
     "name": "Jungle Mistblade",
-    "description": "A curved blade forged from shadowwood and jungle mist, it whispers secrets to the forest and strikes with feral precision. Perfect for navigating the treacherous undergrowth of the DK Isles.",
+    "description": "The Jungle Mistblade is a curved shadowwood blade imbued with mist from the densest parts of the DK Isles' jungles. It whispers the forest's secrets and strikes with feral precision, its edge sharp enough to cut through even the thickest vines. This weapon enhances your agility in jungle terrain, making you nearly invisible to foes in low-light conditions while also granting a significant dodge chance against attacks from within these biomes.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+30% chance to dodge enemy attacks in jungle biomes",
-      "Inflicts 10% damage reduction to enemies in low-light conditions",
-      "+50% movement speed in jungle terrain"
+      "Shadow Whispers",
+      "Mist Veil"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Shadow Whispers",
+        "rules": "While wielding the Jungle Mistblade, you have advantage on Dexterity (Stealth) checks when within a jungle biome. Additionally, you gain a +30% chance to dodge enemy attacks in such environments."
+      },
+      {
+        "title": "Mist Veil",
+        "rules": "In low-light conditions, you and any allies within 10 feet of you are considered invisible to hostile creatures with darkvision or similar abilities. This effect lasts for 1 minute per use and ends when you attack, cast a spell, or move out of the jungle biome."
+      }
+    ],
+    "levelRequirementReason": "The Jungle Mistblade's enchantments require a certain degree of finesse and experience to wield effectively in its native environment.",
+    "vendorReason": "The local artisans of the DK Isles are adept at crafting weapons that resonate with their natural surroundings, making the Jungle Mistblade a perfect fit for their inventory.",
+    "shippingDetail": "Ships via the Void Drifter Relay, known for its reliable and swift delivery through any terrain, ensuring your blade arrives in pristine condition.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "1 minute per use; ends when you attack, cast a spell, or move out of the jungle biome.",
+      "endsWhen": "The duration expires after 1 minute, is ended by attacking, casting a spell, moving out of a jungle biome, or running out of charges.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "The Jungle Mistblade's unique enchantments and craftsmanship justify its fair value in XP, offering both tactical advantages and thematic immersion for adventurers navigating the DK Isles' jungles.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:22:39.846821+00:00",
+    "aiReviewedAt": "2026-07-22T04:22:39.846821+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_moonfang_bow": {
     "id": "dk_isles_jungle_moonfang_bow",
     "name": "Moonfang Jungle Bow",
-    "description": "A sleek, obsidian-forged bow that fires arrows infused with jungle venom. Perfect for sniping enemies from the treetops or luring beasts into traps.",
+    "description": "Moonfang Jungle Bow, a sleek obsidian-forged weapon imbued by the ancient spirits of the jungle, is said to have been crafted from the fangs of the moon-shadowed creatures themselves. This bow fires arrows that are laced with potent venom, capable of turning even the most resilient foes into trembling shadows within moments. Its deadly precision and the poison it delivers make it a favored weapon among those who navigate the dense foliage of the jungle.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+20% damage on all jungle enemies",
-      "Inflicts 10% poison damage per second on targets hit",
-      "Increases critical hit chance by 15%"
+      "Venomous Arrows",
+      "Jungle Precision"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Venomous Arrows",
+        "rules": "When an arrow strikes a target, it inflicts poison damage equal to 10% of the target's hit points per second for 6 rounds. The target can use its action to make a DC 15 Constitution saving throw to end this effect early."
+      },
+      {
+        "title": "Jungle Precision",
+        "rules": "This weapon grants you advantage on attack rolls against jungle creatures and increases your critical hit chance by 15%. This bonus does not stack with other sources of critical hit bonuses."
+      }
+    ],
+    "levelRequirementReason": "The balance of the jungle demands that only those who have proven their worth through experience wield Moonfang Jungle Bow.",
+    "vendorReason": "As guardians of the wild, dk Isles is entrusted with the most potent and rare weapons from the heart of the jungle.",
+    "shippingDetail": "Due to its fragile nature, Moonfang Jungle Bow requires special packaging and expedited delivery through Pipe Express.",
+    "usage": {
+      "activation": "Attack action",
+      "duration": "Instantaneous with each attack",
+      "endsWhen": "The arrow strikes a target or the effect is ended by a successful saving throw",
+      "charges": "Unlimited, recharged after long rest"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its unique crafting and potent effects in jungle combat.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:22:25.655687+00:00",
+    "aiReviewedAt": "2026-07-22T04:22:25.655687+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_moss_essence": {
     "id": "dk_isles_jungle_moss_essence",
@@ -285,19 +331,42 @@ export const ITEMS_009 = {
   "dk_isles_jungle_nectar": {
     "id": "dk_isles_jungle_nectar",
     "name": "Jungle Nectar of the Whispering Roots",
-    "description": "A rare elixir brewed from ancient jungle flora, this drink grants temporary invisibility and accelerates movement. Sip wisely—this nectar was harvested from a Toad who refused to be captured.",
-    "price": 2000,
+    "description": "The Jungle Nectar of the Whispering Roots is a shimmering green elixir that sparkles with the essence of ancient flora. It was crafted from rare roots by the Toads of the Dusk Isles, whose wisdom and cunning are unmatched in the world. Sip this nectar cautiously; it's said to be imbued with the spirit of a Toad who fought tooth and claw against captivity, granting you invisibility and enhanced speed for a fleeting moment.",
+    "price": 1000,
     "icon": "🍹",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Temporary invisibility (5s)",
-      "+40% movement speed for 10s",
-      "+10% crit chance while invisible"
+      "Invisibility",
+      "Speed Boost"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Invisibility (5s)",
+        "rules": "You gain temporary invisibility for 5 seconds. You can use this ability once per short or long rest."
+      },
+      {
+        "title": "Speed Boost (+40%)",
+        "rules": "Your movement speed is increased by 40% for 10 seconds, allowing you to traverse the jungle with unmatched agility. This effect also grants a +2 bonus to Dexterity (Acrobatics) checks."
+      }
+    ],
+    "levelRequirementReason": "This nectar's potency is accessible to all adventurers, as its effects are not tied to high-level skills or abilities.",
+    "vendorReason": "The Dusk Isles have a deep connection with the flora and fauna of their jungles, making them the perfect purveyors of this elixir.",
+    "shippingDetail": "Delivered swiftly by Lakitu Drones, ensuring you receive your nectar in peak condition.",
+    "usage": {
+      "activation": "As a bonus action",
+      "duration": "5 seconds of invisibility and 10 seconds of speed boost",
+      "endsWhen": "The effects expire after the stated duration or if you take any damage",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "This price reflects its rare origin, potent effects, and the time required to harvest and process the nectar.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-22T04:22:10.382519+00:00",
+    "aiReviewedAt": "2026-07-22T04:22:10.382519+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_nectar_of_the_vines": {
     "id": "dk_isles_jungle_nectar_of_the_vines",
@@ -950,20 +1019,43 @@ export const ITEMS_009 = {
   "dk_isles_jungle_soul_shard": {
     "id": "dk_isles_jungle_soul_shard",
     "name": "Jungle Soul Shard",
-    "description": "A pulsating fragment of ancient jungle magic that amplifies your combat prowess. When wielded, it emits a low-frequency hum that disrupts enemy morale and weakens their defenses. Perfect for jungle raids or sabotage missions.",
+    "description": "The Jungle Soul Shard is a pulsating fragment of ancient jungle magic, its emerald-green core glowing with primal energy. When wielded in combat, it emits a resonant hum that disrupts enemy morale and weakens their defenses. This shard amplifies the combat prowess of those who hold it, making even the most seasoned fighters feel invigorated by its power. The Shard’s magic is particularly potent against jungle creatures, enhancing critical hit chances when attacking them.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Increases attack speed by 15%",
-      "Reduces enemy morale by 20% for 5 seconds",
-      "Grants +50% critical hit chance when attacking jungle enemies"
+      "Disruptive Hum",
+      "Critical Boost"
     ],
     "vendor": "dk_isles",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "shippedBy": "Swiftwind Courier Service",
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Disruptive Hum",
+        "rules": "When activated as a bonus action, the Jungle Soul Shard emits a resonant hum that reduces enemy morale by 20% for 5 seconds. This effect has a range of 30 feet and does not target creatures immune to fear or similar effects. There is no save required, but if the Shard’s user is incapacitated, the effect ends immediately."
+      },
+      {
+        "title": "Critical Boost",
+        "rules": "The Shard grants +50% critical hit chance when attacking jungle enemies as long as it remains in hand. This effect is passive and does not require activation. If the Shard is dropped or destroyed, this bonus is lost until a new Shard is acquired."
+      }
+    ],
+    "levelRequirementReason": "The Jungle Soul Shard’s magic requires a certain level of spiritual attunement to wield effectively.",
+    "vendorReason": "As natives of the jungle, the DK Isles have intimate knowledge of the land's magical artifacts and often source unique relics like this Shard.",
+    "shippingDetail": "The courier service ensures that the fragile Shard arrives safely in pristine condition within a week.",
+    "usage": {
+      "activation": "Bonus Action (to activate the Disruptive Hum effect)",
+      "duration": "5 seconds (Disruptive Hum), passive while held (Critical Boost)",
+      "endsWhen": "User is incapacitated or Shard is dropped, destroyed, or lost",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Jungle Soul Shard combines potent abilities with a unique origin story and magical properties that justify its fair value.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:22:23.803177+00:00",
+    "aiReviewedAt": "2026-07-22T04:22:23.803177+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_spectral_satchel": {
     "id": "dk_isles_jungle_spectral_satchel",
@@ -1253,20 +1345,43 @@ export const ITEMS_009 = {
   "dk_isles_jungle_spirit_torch": {
     "id": "dk_isles_jungle_spirit_torch",
     "name": "Jungle Spirit Torch",
-    "description": "Emits a flickering green glow that reveals hidden paths in the undergrowth. When lit, it briefly summons a jungle spirit for guidance through treacherous terrain.",
+    "description": "The Jungle Spirit Torch emits a flickering green glow that reveals hidden paths in the undergrowth, its light piercing through dense foliage as if part of the jungle itself. When lit, it briefly summons a spirit guide from the wilds to provide invaluable advice on navigating treacherous terrain, ensuring your path is safe and clear for moments at a time. This torch's flame dances with the wind, providing both illumination and a sense of ancient magic intertwined with nature.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Illuminate dark areas for 10 seconds",
-      "Trigger spirit encounter once per use",
-      "Increases stealth detection chance by 20%"
+      "Illuminate dark areas",
+      "Summon spirit guide"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Illuminate Dark Areas",
+        "rules": "The Jungle Spirit Torch provides bright light in a 15-foot radius and dim light for an additional 30 feet. This effect lasts for 1 minute, but can be reactivated once the torch is extinguished."
+      },
+      {
+        "title": "Summon Spirit Guide",
+        "rules": "Once per use, when lit, the torch summons a spirit guide that provides guidance for up to 5 minutes. The spirit offers advice on navigating treacherous terrain and may grant temporary hit points equal to your level + Constitution modifier as long as you are within 30 feet of the torch."
+      }
+    ],
+    "levelRequirementReason": "This item is suitable for adventurers just beginning their journey, providing essential guidance without overwhelming power.",
+    "vendorReason": "The Dk Isles vendors are known for offering unique and useful items crafted from local materials, making the Jungle Spirit Torch a perfect addition to their inventory.",
+    "shippingDetail": "Ships within 3 days via Pipe Express, delivered directly from the jungle's heart.",
+    "usage": {
+      "activation": "Action (Light it once per day)",
+      "duration": "The illumination effect lasts for 1 minute. The spirit guide lasts up to 5 minutes as long as you are holding the torch.",
+      "endsWhen": "Exhausted after use or extinguished",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The price reflects its rare craftsmanship and unique utility, providing both illumination and spirit guidance without overstepping balance.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:22:53.095419+00:00",
+    "aiReviewedAt": "2026-07-22T04:22:53.095419+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_tide_bolt": {
     "id": "dk_isles_jungle_tide_bolt",
@@ -1553,19 +1668,42 @@ export const ITEMS_009 = {
   "dk_isles_jungle_treasure_pearl": {
     "id": "dk_isles_jungle_treasure_pearl",
     "name": "Jungle Treasure Pearl",
-    "description": "A glowing pearl rumored to hold the memory of a lost jungle deity. When used, it grants temporary elemental resistance and heals 50% of your max HP.",
-    "price": 2800,
+    "description": "The Jungle Treasure Pearl glows with a vibrant emerald light, its surface etched with ancient symbols that whisper of lost jungle deities. When activated, it grants you temporary resistance to fire and water elemental damage for the duration of the encounter, while also restoring your hit points equal to half of your maximum HP. This magical gem is said to have been crafted by an ancient civilization in tribute to a forgotten god of the wilds.",
+    "price": 1000,
     "icon": "💎",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "Elemental Resistance +15%",
-      "Heal 50% Max HP",
-      "Debuff Immunity for 3 seconds"
+      "Elemental Resistance (Fire & Water)",
+      "Healing"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Elemental Resistance",
+        "rules": "When activated, this pearl grants you resistance to fire and water elemental damage for the duration of one encounter. This effect can be used once per day."
+      },
+      {
+        "title": "Healing",
+        "rules": "Activating the pearl also restores your hit points equal to half of your maximum HP. This healing is instantaneous and cannot exceed 50% of your total hit point maximum."
+      }
+    ],
+    "levelRequirementReason": "This item requires no level, as its effects are balanced for early encounters.",
+    "vendorReason": "The merchants of the DK Isles have a reputation for trading rare and magical artifacts, including this gem which they claim was recovered from an ancient temple deep in the jungle.",
+    "shippingDetail": "Delivered swiftly by Pipe Express, ensuring adventurers can access its powers without delay.",
+    "usage": {
+      "activation": "As a bonus action",
+      "duration": "One encounter",
+      "endsWhen": "The effects end when the encounter ends or if you use your action for another effect",
+      "charges": "Once per day"
+    },
+    "priceReason": "This price reflects the rare and powerful nature of the pearl, balancing its effects with other daily-use items.",
+    "priceOriginal": 2800,
+    "priceReviewedAt": "2026-07-22T04:23:04.435760+00:00",
+    "aiReviewedAt": "2026-07-22T04:23:04.435760+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_troop_torch": {
     "id": "dk_isles_jungle_troop_torch",
@@ -1610,20 +1748,43 @@ export const ITEMS_009 = {
   "dk_isles_jungle_trooper_gear": {
     "id": "dk_isles_jungle_trooper_gear",
     "name": "Jungle Trooper Gear",
-    "description": "A rugged combat set forged from jungle vines and ancient Kremling tech. Grants agility and stealth in dense foliage. Perfect for ambushes and jungle patrols.",
+    "description": "Jungle Trooper Gear is a combat harness woven from the resilient vines of the jungle and laced with ancient Kremling technology. Its flexible design allows swift movement through dense foliage, making it ideal for stealthy patrols and ambushes in the wild. When activated, it grants the wearer +15% increased movement speed within jungle biomes and +10% evasion against ranged attacks. The harness also subtly alters one's gait to appear less conspicuous to predators or enemies.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
       "+15% movement speed in jungle biomes",
-      "+10% evasion chance against ranged attacks",
-      "+5% damage bonus to melee strikes"
+      "+10% evasion chance against ranged attacks"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Enhanced Stealth Gait",
+        "rules": "While wearing Jungle Trooper Gear, the user can move silently and blend with their surroundings, reducing their movement speed by 5 feet but granting a +10 bonus to Dexterity (Stealth) checks. This effect lasts until the end of your next turn."
+      },
+      {
+        "title": "Jungle Agility",
+        "rules": "The gear provides a +15% increase to movement speed within jungle biomes, which can be used as a bonus action once per short rest. It does not stack with other movement speed increases."
+      }
+    ],
+    "levelRequirementReason": "Requires at least third-level proficiency in stealth and survival to effectively utilize the gear's stealth capabilities.",
+    "vendorReason": "The DK Isles have extensive trade networks that include jungle regions, making them a reliable source for this specialized equipment.",
+    "shippingDetail": "Due to the fragile nature of the gear, it is shipped in specially reinforced crates with additional padding. Transit times may increase by one day due to extra handling.",
+    "usage": {
+      "activation": "Bonus action or reaction (for Stealth bonus)",
+      "duration": "Instantaneous; lasts until end of next turn for stealth gait, once per short rest for increased movement speed",
+      "endsWhen": "Effect expires at the end of your next turn or when the gear is removed",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced price reflects the rare materials and advanced technology required to craft this jungle-specific combat gear.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:22:41.556641+00:00",
+    "aiReviewedAt": "2026-07-22T04:22:41.556641+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_trooper_mask": {
     "id": "dk_isles_jungle_trooper_mask",
@@ -1831,20 +1992,43 @@ export const ITEMS_009 = {
   "dk_isles_jungle_vigilance_amulet": {
     "id": "dk_isles_jungle_vigilance_amulet",
     "name": "Jungle Vigilance Amulet",
-    "description": "Wears the soul of a captured Vigilance courier to amplify jungle stealth and suppress enemy detection. Glows faintly when near Purple Legion territory.",
+    "description": "The Jungle Vigilance Amulet is forged from the essence of a captured courier who once served the Purple Legion. It glows faintly in the jungle, signaling its wearer's proximity to the enemy territory and amplifying their stealth. While within this perilous biome, you can evade detection more effectively, though your own accuracy suffers slightly when under fire. This amulet whispers the secrets of the jungle, enhancing your ability to strike unseen.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+10% chance to evade enemy detection in jungle biomes",
-      "Inflicts 10% accuracy penalty on enemy fire while wearing",
-      "Grants 5% bonus to stealth-based attacks"
+      "+10% evasion against detection in jungle biomes",
+      "10% penalty on accuracy for yourself while enemies are firing at you"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Stealth Amplification",
+        "rules": "While within a jungle biome, the wearer has advantage on Dexterity (Stealth) checks and can use an action to attempt to hide. This effect lasts for 1 hour or until the wearer leaves the jungle."
+      },
+      {
+        "title": "Accuracy Penalty",
+        "rules": "When enemies are firing at you within a jungle biome, you take a -10 penalty to your Dexterity (Stealth) checks and ability checks related to evading attacks. This effect lasts for 1 round or until the start of your next turn."
+      }
+    ],
+    "levelRequirementReason": "Requires at least level 3 to maintain concentration on such stealthy magic.",
+    "vendorReason": "The Dk Isles vendors have extensive trade with the Purple Legion territories and thus can offer this item.",
+    "shippingDetail": "Ships directly from the jungle, ensuring swift delivery.",
+    "usage": {
+      "activation": "Passive effect activated upon entering a jungle biome.",
+      "duration": "1 hour or until leaving the jungle.",
+      "endsWhen": "Leaving the jungle or at the end of your next turn if under fire.",
+      "charges": "Unlimited, recharged when outside the jungle."
+    },
+    "priceReason": "Balanced price for a rare item that offers both evasion and stealth benefits within its specified environment.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:22:55.356964+00:00",
+    "aiReviewedAt": "2026-07-22T04:22:55.356964+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_jungle_vines_knife": {
     "id": "dk_isles_jungle_vines_knife",
@@ -2030,20 +2214,43 @@ export const ITEMS_009 = {
   "dk_isles_kremlin_fury_belt": {
     "id": "dk_isles_kremlin_fury_belt",
     "name": "Kremlin Fury Belt",
-    "description": "A belt forged in the heart of the cold war, designed to channel rage into devastating jungle strikes. Wears down enemies with every swing.",
+    "description": "The Kremlin Fury Belt is a cold war relic, its steel interwoven with ancient magic designed to harness fury and channel it into devastating swings. Crafted in the heart of the conflict, this belt allows you to strike with unrelenting speed and precision, wearing down foes with every blow. Wearers report a surge of strength and rage, making each hit both faster and more potent when dealing with wounded opponents.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Increases attack speed by 30% for 15 seconds",
-      "Deals 20% extra damage to enemies with 50% HP or less",
-      "Activates “Fury Surge” on hit: deals 10% extra damage and stuns for 0.5s"
+      "Rage Strike",
+      "Fury Surge"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Rage Strike",
+        "rules": "Activates on melee attack as a bonus action. Increases your attack speed by 30% for 15 seconds, dealing an additional 20% damage to enemies with 50% or less HP. This effect ends if you miss or the duration expires."
+      },
+      {
+        "title": "Fury Surge",
+        "rules": "Triggers on successful melee hit as a reaction. Deals an extra 10% damage and stuns the target for 0.5 seconds, but this can only occur once per minute."
+      }
+    ],
+    "levelRequirementReason": "Requires proficiency in melee weapons to effectively use its rage-enhancing capabilities.",
+    "vendorReason": "The DK Isles have a rich history with cold war relics and offer this belt for adventurers seeking to channel ancient fury into their battles.",
+    "shippingDetail": "Due to the nature of the item, it must be shipped via special courier ensuring safe arrival. Delivery may take up to a week.",
+    "usage": {
+      "activation": "Bonus action for Rage Strike; Reaction for Fury Surge on hit.",
+      "duration": "15 seconds per activation",
+      "endsWhen": "Missed attack or duration expires",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its unique combination of speed and damage output, making it a sought-after relic.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:23:45.244115+00:00",
+    "aiReviewedAt": "2026-07-22T04:23:45.244115+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_kremlin_gear": {
     "id": "dk_isles_kremlin_gear",
@@ -3106,19 +3313,42 @@ export const ITEMS_009 = {
   "dk_isles_kremling_frost_gel": {
     "id": "dk_isles_kremling_frost_gel",
     "name": "Kremling Frost Gel",
-    "description": "A sticky, ice-crusted gel infused with Kremling cold war remnants. Applied to weapons or armor, it slows enemy movement and deals bonus frost damage. Perfect for ambushes in humid jungles.",
-    "price": 2500,
+    "description": "Kremling Frost Gel is a viscous, ice-crusted gel that hardens upon contact, encasing weapons or armor in an unyielding frosty sheath. Crafted from ancient Kremling cold war relics, it not only slows the enemy's movements but also imbues them with a chilling touch capable of dealing additional frost damage. This gel is perfect for those who find themselves amidst the humid jungles, where the element of surprise and icy grip can turn the tide of battle in your favor.",
+    "price": 1000,
     "icon": "📦",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Applies Frost Aura for 10 seconds: reduces enemy movement speed by 20%",
-      "Inflicts 10% damage bonus from frost element",
-      "Can be applied to weapons or armor (one at a time)"
+      "Frosty Slow",
+      "Frost Damage Boost"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Frosty Slow",
+        "rules": "When applied to a weapon or piece of armor, Kremling Frost Gel creates an aura that reduces the movement speed of enemies within 10 feet by 20%. The effect lasts for 10 seconds and can be activated as a bonus action. This effect ends when the target enters or leaves the aura's area, or if the wearer takes a full rest."
+      },
+      {
+        "title": "Frost Damage Boost",
+        "rules": "Enemies struck by weapons or armor coated with Kremling Frost Gel suffer an additional 10% damage from frost elements. This effect applies to all attacks made while wearing or holding the coated item, and it persists for the duration of the fight. It can be recharged after a long rest."
+      }
+    ],
+    "levelRequirementReason": "The gel's potent abilities require a moderate level of expertise in combat and spellcasting to wield effectively.",
+    "vendorReason": "DK Isles is known for its mastery of cold and frost magic, making it the perfect vendor for Kremling Frost Gel.",
+    "shippingDetail": "The Void Drifter Relay ensures swift delivery, but due to its fragile nature, the gel requires special handling.",
+    "usage": {
+      "activation": "Applied as a bonus action when worn or held.",
+      "duration": "10 seconds for Frosty Slow; persists through combat for Frost Damage Boost.",
+      "endsWhen": "The effect ends if the wearer takes a full rest or the item is removed from the target.",
+      "charges": "Unlimited, recharged after a long rest."
+    },
+    "priceReason": "The gel's rare ingredients and intricate crafting process justify its moderate price in experience points.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:23:24.466320+00:00",
+    "aiReviewedAt": "2026-07-22T04:23:24.466320+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_kremling_frost_tattoo": {
     "id": "dk_isles_kremling_frost_tattoo",
@@ -3203,19 +3433,42 @@ export const ITEMS_009 = {
   "dk_isles_kremling_ice_core": {
     "id": "dk_isles_kremling_ice_core",
     "name": "Kremling Ice Core",
-    "description": "A frozen relic from the Cold War’s frozen trenches, infused with Kremling frost magic. Regenerates health and slows enemy movement.",
-    "price": 2500,
+    "description": "The Kremling Ice Core is a crystalline relic from the Cold War, forged in the bitter tundra where frost magic and espionage converged. Its icy exterior shimmers with ancient power, and when shattered, it releases a wave of frigid energy that heals the wielder while immobilizing foes. Crafted by the Frostborn of the Northern Isles, this artifact is both a relic and a weapon, embodying the struggle between two superpowers long past.",
+    "price": 1000,
     "icon": "📦",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Health Regen: Restore 20% of max HP when consumed",
-      "Slow Enemies: Reduce enemy movement speed by 50% for 8 seconds",
-      "Frost Blast: Launch a freezing projectile that freezes enemies for 2 seconds"
+      "Health Regen: Restore 40% of max HP when consumed",
+      "Slow Enemies: Reduce enemy movement speed by 50% for 10 seconds"
     ],
     "vendor": "dk_isles",
-    "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "shippedBy": "Frost Courier Express",
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Health Regeneration",
+        "rules": "When the Kremling Ice Core is shattered, it releases a burst of frost magic that heals the user by restoring 40% of their maximum hit points. This effect has no save DC and can be used once per long rest."
+      },
+      {
+        "title": "Enemy Slow",
+        "rules": "The shattering also unleashes a wave of freezing energy that reduces all nearby enemies' movement speed by 50%. The effect lasts for 10 seconds, during which time the targets cannot move faster than half their normal speed. There is no saving throw against this effect."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum of third-level spellcasting to effectively utilize its frost magic and combat utility.",
+    "vendorReason": "The DK Isles vendors specialize in relics from the Cold War era, making this artifact an ideal stock item for their store.",
+    "shippingDetail": "Delivered by frostbound couriers who ensure the core remains frozen during transit.",
+    "usage": {
+      "activation": "On a bonus action when shattered or broken",
+      "duration": "Instantaneous with 10-second effect duration",
+      "endsWhen": "The effect ends once its duration expires, and any remaining charges are exhausted.",
+      "charges": "Unlimited uses per short rest"
+    },
+    "priceReason": "Balanced at 1000 XP as it combines potent healing with a strong battlefield debuff, offering significant tactical advantage.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T04:24:00.153572+00:00",
+    "aiReviewedAt": "2026-07-22T04:24:00.153572+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_kremling_ice_sword": {
     "id": "dk_isles_kremling_ice_sword",
@@ -3341,20 +3594,43 @@ export const ITEMS_009 = {
   "dk_isles_kremling_mechanical_satchel": {
     "id": "dk_isles_kremling_mechanical_satchel",
     "name": "Kremling Mechanical Satchel",
-    "description": "A compact, ticking satchel that hums with cold war tech. Contains a miniaturized Kremling warhead and a decoy that triggers a sonic blast when triggered. Designed for sabotage and espionage.",
+    "description": "The Kremling Mechanical Satchel hums with the cold war's relentless tension, its compact frame ticking ominously as it holds a miniaturized warhead and a sonic decoy. This espionage tool can deliver a devastating payload or a disarming sonic blast that deafens foes within a ten-foot radius. Crafted by Kremling engineers for covert sabotage missions, it’s a relic of a bygone era now wielded by the daring and desperate.",
     "category": "equipment",
-    "price": 3500,
+    "price": 1000,
     "icon": "📦",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "Deals 300 damage on first hit",
-      "Triggers decoy explosion on hit",
-      "+10% chance to disarm enemy weapons on contact"
+      "Miniature Warhead",
+      "Sonic Deception"
     ],
     "vendor": "dk_isles",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "shippedBy": "Boo Spectral Mail - the delivery service of the spectral realm, ensuring discreet transport with magical haste.",
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Miniature Warhead",
+        "rules": "When activated as an action within ten feet, the satchel detonates a miniature warhead that deals 300 piercing damage to one target. The explosion creates a 15-foot-radius burst centered on the target, forcing all creatures in the area to make a DC 17 Dexterity saving throw or be knocked prone and take half the damage."
+      },
+      {
+        "title": "Sonic Deception",
+        "rules": "Simultaneously, the satchel releases a sonic blast that deafens one creature within ten feet for 1 minute. The target must succeed on a DC 17 Constitution saving throw or be stunned until the end of its next turn."
+      }
+    ],
+    "levelRequirementReason": "Requires at least fifth level to handle the explosive and sonic risks involved in deploying this device.",
+    "vendorReason": "The DK Isles are known for their clandestine operations and espionage, making them a fitting vendor for such a relic of sabotage technology.",
+    "shippingDetail": "Delivered within one week by Boo Spectral Mail, with an additional one-week delay due to the nature of spectral courier services.",
+    "usage": {
+      "activation": "Activate as a bonus action to deploy the device.",
+      "duration": "Instantaneous detonation and effect duration.",
+      "endsWhen": "The charges are exhausted after three uses.",
+      "charges": "3"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects the satchel's unique combination of explosive and sonic effects, suitable for an epic-level espionage mission.",
+    "priceOriginal": 3500,
+    "priceReviewedAt": "2026-07-22T04:23:50.590828+00:00",
+    "aiReviewedAt": "2026-07-22T04:23:50.590828+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_kremling_mechanical_turret_core": {
     "id": "dk_isles_kremling_mechanical_turret_core",
