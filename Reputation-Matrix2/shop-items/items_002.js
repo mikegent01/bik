@@ -1096,6 +1096,7 @@ export const ITEMS_002 = {
     "icon": "💰",
     "stock": 1,
     "rarity": "godly",
+    "warning": "Wario's Central Bank applies extreme anti-infinite-money scrutiny. Abuse can trigger audits, confiscation, and regional economic collapse.",
     "effects": [
       "Bag contains infinite gold (you never run out)",
       "Can break any economy instantly, this may be the last item you buy",

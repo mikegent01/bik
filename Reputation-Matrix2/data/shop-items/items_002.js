@@ -2585,17 +2585,18 @@ export const ITEMS_002 = {
     "name": "Aleph-Null Coins",
     "description": "The Aleph-Null Coins are a collection of shimmering gold pieces contained within a small, unassuming pouch. Crafted by The Mathematician, these coins defy the laws of spatial volume to provide an inexhaustible supply of wealth.",
     "category": "curiosities",
-    "price": 1000,
+    "price": 50000,
     "icon": "💰",
     "stock": 1,
     "rarity": "godly",
+    "warning": "Wario's Central Bank applies extreme anti-infinite-money scrutiny. Abuse can trigger audits, confiscation, and regional economic collapse.",
     "effects": [
       "Infinite Gold Supply",
       "Economic Collapse"
     ],
     "vendor": "infinite_wealth",
     "shippedBy": "Hilberts Hotel",
-    "levelRequirement": 1,
+    "levelRequirement": 20,
     "effectDetails": [
       {
         "title": "Infinite Gold Supply",
@@ -2606,7 +2607,7 @@ export const ITEMS_002 = {
         "rules": "If you spend more than 5,000 gold pieces in a single 24-hour period in a specific city or region, the local currency loses all value. Prices for all goods and services in that area triple as the local economy collapses, and you cannot use the pouch to generate more gold in that specific region for 1d7 days."
       }
     ],
-    "levelRequirementReason": "The item is balanced to be accessible at any level while maintaining its high-impact narrative consequences.",
+    "levelRequirementReason": "Infinite spendable currency is an economy-scale power and should be restricted to late-game characters who can handle political and financial consequences.",
     "vendorReason": "This vendor specializes in items that provide boundless resources.",
     "shippingDetail": "The shipment arrives via a room that technically shouldn't exist, arriving instantly upon request.",
     "usage": {
@@ -2615,7 +2616,7 @@ export const ITEMS_002 = {
       "endsWhen": "The pouch is destroyed or the user is incapacitated.",
       "charges": "Unlimited"
     },
-    "priceReason": "The price is lowered to a standard high-tier curiosity value to prevent breaking the game's progression while retaining its rarity.",
+    "priceReason": "Restored to an extreme godly-tier cost because an inexhaustible source of real spendable gold can destabilize entire economies.",
     "priceOriginal": 30000000,
     "priceReviewedAt": "2026-07-21T23:16:11.969720+00:00",
     "aiReviewedAt": "2026-07-21T23:16:11.969720+00:00",
