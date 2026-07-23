@@ -4758,7 +4758,6 @@ function renderSidebar(active){
   h+=`<div class="navlink ${active==='list:cultures'?'active':''}" onclick="Router.go('#/cultures')"><span><span class="emoji">⚖️</span> Cultures & Laws</span><span class="cnt">${(DATA.cultures||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='power'?'active':''}" onclick="Router.go('#/power')"><span><span class="emoji">⚡</span> Power Projection</span></div>`;
   h+=`<div class="navlink ${active==='imperial-network'?'active':''}" onclick="Router.go('#/imperial-network')"><span><span class="emoji">🕸️</span> Imperial Pressure Network</span></div>`;
-  h+=`<div class="navlink ${active==='legion'?'active':''}" onclick="Router.go('#/legion')"><span><span class="emoji">⚙️</span> Iron Legion Dossier</span></div>`;
   const isJournalActive = (active==='journal' || h1.includes('thornburys_field_journal'));
   h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/article/thornburys_field_journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
   h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
@@ -5545,11 +5544,37 @@ function imperialFactionCard(fid){
     </div>
     <div class="chips" style="margin-top:12px">
       <span class="chip active" onclick="Router.go('#/reputation/faction/${encodeURIComponent(fid)}')">📈 Reputation feed</span>
-      ${fid==='iron_legion'?`<span class="chip" onclick="Router.go('#/legion')">⚙️ Deep dossier</span>`:`<span class="chip" onclick="location.href='regal-empire-system.html'">👑 Regal Empire console</span>`}
+      ${fid==='iron_legion'?`<span class="chip" onclick="document.getElementById('iron-legion-integrated-dossier')?.scrollIntoView({behavior:'smooth'})">⚙️ Integrated dossier</span>`:`<span class="chip" onclick="location.href='regal-empire-system.html'">👑 Regal Empire console</span>`}
       <span class="chip" onclick="Router.go('#/power')">⚡ Power map</span>
       <span class="chip" onclick="location.href='currency.html'">🏦 Ledger impact</span>
     </div>
   </div>`;
+}
+
+function imperialInternalBlocPanel(fid){
+  const f=LORE_FACTIONS[fid]||{};
+  const blocs=f.internal_politics?.sub_factions||{};
+  const html=Object.entries(blocs).map(([key,bloc])=>{
+    const mods=Object.entries(bloc.reputation_modifiers||{}).map(([op,val])=>`<span class="pill ${val>=0?'pos':'neg'}">${esc(op)} ${val>=0?'+':''}${val}</span>`).join(' ');
+    return `<div class="card" style="margin:0;border-left:3px solid ${fid==='iron_legion'?'#c81d25':'#8a4bff'}"><h3 style="margin-top:0">${esc(bloc.name||prettyId(key))}</h3><p class="text-muted">${esc(bloc.description||bloc.opinion||'Internal bloc filed without public description.')}</p><div class="chips">${mods||'<span class="pill">No operator modifiers filed</span>'}</div></div>`;
+  }).join('');
+  return html || `<div class="card" style="margin:0"><p class="text-muted">No public internal bloc data filed for ${esc(f.name||fid)} yet.</p></div>`;
+}
+
+function imperialLinkCloud(){
+  const links=[
+    ['👑 Regal Empire faction','#/reputation/faction/regal_empire'],['⚙️ Iron Legion faction','#/reputation/faction/iron_legion'],['⚡ Power Projection','#/power'],['🍩 Atlas','#/atlas'],['🏦 Bank & Exchange','currency.html'],['🛒 Wario Shop','shop.html'],['📚 Library','#/books'],['⭐ Artifacts','#/artifacts'],['💬 Chatter Hub','#/annotations'],['✦ XP Ledger','#/xp'],
+    ['General Ironhand','#/article/general_ironhand'],['Emperor Elagabalus','#/article/emperor_elagabalus'],['The Midnight Audit','#/article/the_midnight_audit_of_harvestide_28'],['Vigilance / Legionlance','#/article/the_vigilance'],['Iron Mandate','#/article/iron_mandate'],['Order 120','#/article/order_120']
+  ];
+  return links.map(([label,href])=>`<a class="chip" href="${esc(href)}" onclick="${href.startsWith('#')?`event.preventDefault();Router.go('${esc(href)}')`:''}">${esc(label)}</a>`).join('');
+}
+
+function imperialEventRail(){
+  const records=[...Object.values(INDEX||{})].map(r=>r.item).filter(item=>{
+    const hay=JSON.stringify(item||{}).toLowerCase();
+    return hay.includes('iron legion')||hay.includes('regal empire')||hay.includes('iron mandate')||hay.includes('vigilance')||hay.includes('legionlance');
+  }).slice(0,12);
+  return records.map(item=>`<div class="update-card" onclick="openId('${esc(item.id)}')"><div class="kicker">Linked intelligence</div><h3>${esc(displayName(item))}</h3><p>${esc(previewText(item)).slice(0,170)}…</p></div>`).join('')||'<p class="text-muted">No linked records found.</p>';
 }
 
 function view_imperial_network(){
@@ -5563,13 +5588,16 @@ function view_imperial_network(){
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Imperial Pressure Network</div>
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(200,29,37,.10)),var(--panel)">
-      <div class="home-section-head"><div><h1>🕸️ Imperial Pressure Network</h1><p>The Regal Empire and Iron Legion integrated into Waluipedia's living systems: reputation, global power, money, shop logistics, and event history.</p></div><span class="chip active" onclick="Router.go('#/legion')">Open Iron Dossier →</span></div>
+      <div class="home-section-head"><div><h1>🕸️ Imperial Pressure Network</h1><p>The Regal Empire and Iron Legion integrated into Waluipedia's living systems: reputation, global power, money, shop logistics, and event history.</p></div><span class="chip active" onclick="document.getElementById('iron-legion-integrated-dossier')?.scrollIntoView({behavior:'smooth'})">Integrated Iron Legion Dossier ↓</span></div>
       <div class="wnote" style="border-left:4px solid #c81d25"><b>Waluigi integration note:</b> This is not a copied dossier. It is a command layer that points every Imperial/Legion fact back into the main website systems, so the Empire stops being a niche side page and starts affecting how users browse reputations, banks, power, and supply lines.</div>
       <div class="chips" style="margin-top:12px"><span class="chip" onclick="Router.go('#/reputation')">📈 Reputation Matrix</span><span class="chip" onclick="Router.go('#/power')">⚡ Power Projection</span><span class="chip" onclick="location.href='currency.html'">🏦 Currency / Debt</span><span class="chip" onclick="location.href='shop.html'">🛒 Wario Shop Supply Lines</span><span class="chip" onclick="Router.go('#/atlas')">🍩 World Atlas</span></div>
     </div>
     <div class="grid2">${imperialFactionCard('regal_empire')}${imperialFactionCard('iron_legion')}</div>
+    <div class="card"><div class="home-section-head"><div><h2>🔗 Cross-System Hyperlink Map</h2><p>Quick links make the Imperial system part of the whole site: reputation, banking, shop logistics, atlas, XP, books, and event records.</p></div><span class="pill">expanded hyperlinks</span></div><div class="chips">${imperialLinkCloud()}</div></div>
+    <div id="iron-legion-integrated-dossier" class="card" style="border-left:4px solid #c81d25"><div class="home-section-head"><div><h2>⚙️ Integrated Iron Legion Dossier</h2><p>The old standalone dossier is merged into this pressure network. Use these blocks to jump from Legion structure into live Waluipedia systems.</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/iron_legion')">Open Legion standing →</span></div><div class="grid2">${imperialInternalBlocPanel('iron_legion')}</div></div>
+    <div class="card" style="border-left:4px solid #8a4bff"><div class="home-section-head"><div><h2>👑 Regal Empire Internal System</h2><p>Imperial factions are shown alongside Legion pressure so the two systems read as one political machine.</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/regal_empire')">Open Empire standing →</span></div><div class="grid2">${imperialInternalBlocPanel('regal_empire')}</div></div>
     <div class="card"><div class="home-section-head"><div><h2>Operator Pressure Table</h2><p>Live scores from the reputation engine. Click a row to inspect the operator's full standings.</p></div><span class="pill">Regal Empire ↔ Iron Legion</span></div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Operator</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Empire</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Legion</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Pressure</th></tr></thead><tbody>${rows}</tbody></table></div>
-    <div class="card"><h2>System Bridges</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation/faction/regal_empire')"><h3>👑 Imperial diplomacy</h3><p>Faction standings, sub-faction modifiers, and operator penalties are calculated through the reputation engine.</p></div><div class="path-card" onclick="Router.go('#/legion')"><h3>⚙️ Iron Legion intelligence</h3><p>Deep dossier remains available, but now every panel links back into live site systems.</p></div><div class="path-card" onclick="Router.go('#/power')"><h3>⚡ Military projection</h3><p>Use the global-war monitor to compare Empire/Legion power with every other realm.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>🏦 Contract economy</h3><p>Follow debts, wallets, currencies, and supply costs tied to Imperial enforcement.</p></div><div class="path-card" onclick="location.href='shop.html'"><h3>🛒 Wario logistics</h3><p>Shop prices and vendors become a supply-line layer for the conflict instead of isolated shopping.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Recent intelligence</h3><p>Audit records and active incidents feed directly into the pressure model.</p></div></div></div>`;
+    <div class="card"><div class="home-section-head"><div><h2>Recent Linked Intelligence</h2><p>Auto-pulled records mentioning Empire, Legion, Mandate, Vigilance, or Legionlance.</p></div></div><div class="update-grid">${imperialEventRail()}</div></div><div class="card"><h2>System Bridges</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation/faction/regal_empire')"><h3>👑 Imperial diplomacy</h3><p>Faction standings, sub-faction modifiers, and operator penalties are calculated through the reputation engine.</p></div><div class="path-card" onclick="document.getElementById('iron-legion-integrated-dossier')?.scrollIntoView({behavior:'smooth'})"><h3>⚙️ Iron Legion intelligence</h3><p>The former standalone dossier is merged here as an integrated command panel connected to reputation, bank, shop, atlas, and power systems.</p></div><div class="path-card" onclick="Router.go('#/power')"><h3>⚡ Military projection</h3><p>Use the global-war monitor to compare Empire/Legion power with every other realm.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>🏦 Contract economy</h3><p>Follow debts, wallets, currencies, and supply costs tied to Imperial enforcement.</p></div><div class="path-card" onclick="location.href='shop.html'"><h3>🛒 Wario logistics</h3><p>Shop prices and vendors become a supply-line layer for the conflict instead of isolated shopping.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Recent intelligence</h3><p>Audit records and active incidents feed directly into the pressure model.</p></div></div></div>`;
   window.scrollTo(0,0);
 }
 
@@ -5592,36 +5620,6 @@ async function view_power() {
     </div>
   `;
   initGlobalWarListeners();
-  window.scrollTo(0,0);
-}
-
-async function view_legion() {
-  renderSidebar('legion');
-  const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  el('content').innerHTML = `
-    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Iron Legion Dossier</div>
-    <div class="card animate-fade-in" style="border-left: 4px solid #c81d25; background: linear-gradient(135deg, rgba(200, 29, 37, 0.1), rgba(0,0,0,0)), var(--panel);">
-      <div style="display:flex; gap: 15px; align-items:center;">
-        <img src="${pathPrefix}faction_iron_legion.png" style="width:50px; height:50px;">
-        <div>
-          <h1 class="art-title" style="margin:0; font-family: var(--font-display);">Iron Legion Intelligence Dossier</h1>
-          <div class="art-subtitle" style="color:var(--danger); font-size:12px; font-weight:bold; letter-spacing:0.5px;">Classification: PRIORITY THREAT | Day 21, 1040 BF</div>
-        </div>
-      </div>
-    </div>
-    <div class="card animate-fade-in" style="margin-top:14px;border-left:4px solid var(--accent)">
-      <div class="home-section-head"><div><h2>Integrated Waluipedia Links</h2><p>This dossier is now part of the main operational network instead of a sealed side room.</p></div></div>
-      <div class="chips">
-        <span class="chip active" onclick="Router.go('#/imperial-network')">🕸️ Open Imperial Pressure Network</span>
-        <span class="chip" onclick="Router.go('#/reputation/faction/iron_legion')">📈 Iron Legion Reputation Standing</span>
-        <span class="chip" onclick="Router.go('#/power')">⚡ Power Projection</span>
-        <span class="chip" onclick="location.href='currency.html'">🏦 Bank / Contracts</span>
-        <span class="chip" onclick="location.href='shop.html'">🛒 Wario Supply Lines</span>
-      </div>
-    </div>
-    <div id="legion-container" class="animate-fade-in" style="margin-top:20px;"></div>
-  `;
-  await import(pathPrefix + 'iron-legion.js');
   window.scrollTo(0,0);
 }
 
@@ -9563,8 +9561,7 @@ const Router={
     else if(route==='article')view_article(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
-    else if(route==='imperial-network'||route==='imperial'||route==='empire-network')view_imperial_network();
-    else if(route==='legion'||route==='iron-legion')view_legion();
+    else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion')view_imperial_network();
     else if(route==='battlefield')view_list('battles');
     else if(route==='conflict')view_conflict(arg);
     else if(route==='mbattle')view_mbattle(arg);
