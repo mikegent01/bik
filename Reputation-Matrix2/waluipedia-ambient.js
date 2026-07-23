@@ -134,6 +134,7 @@
     }
     ui?.classList.toggle('is-playing', playing);
     localStorage.setItem('waluipediaAmbientTrack', String(trackIndex));
+    renderPlaylist();
   }
 
   function start() {
@@ -179,28 +180,48 @@
   function nextTrack() { advanceTrack(false); if (!playing) start(); else confirmation('next'); }
   function shuffleTrack() { randomTrack(); if (!playing) start(); else confirmation('shuffle'); }
 
+  function renderPlaylist() {
+    const list = ui?.querySelector?.('[data-walu-music-list]');
+    if (!list) return;
+    list.innerHTML = tracks.map((track, index) => `<button type="button" data-walu-music-track="${index}" class="${index === trackIndex ? 'active' : ''}"><span>🎵</span><b>${track.name}</b><small>${track.tempo} bpm</small></button>`).join('');
+  }
+
   function buildUi() {
     if (ui || !document.body) return;
     const style = document.createElement('style');
-    style.textContent = `.walu-ambient{position:fixed;right:14px;bottom:14px;z-index:2147483000;display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid rgba(172,112,255,.45);border-radius:999px;background:linear-gradient(135deg,rgba(34,18,48,.96),rgba(12,7,22,.96));box-shadow:0 8px 30px rgba(0,0,0,.45);color:#eadbff;font:12px system-ui,sans-serif;backdrop-filter:blur(8px);pointer-events:auto}.walu-ambient button{border:1px solid rgba(234,219,255,.28);background:rgba(255,255,255,.08);color:#f4e7ff;border-radius:999px;min-width:30px;height:30px;cursor:pointer;pointer-events:auto}.walu-ambient button:hover{background:rgba(172,112,255,.25)}.walu-ambient-title{max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.88}.walu-ambient.is-playing{box-shadow:0 0 22px rgba(172,112,255,.32),0 8px 30px rgba(0,0,0,.45)}@media(max-width:700px){.walu-ambient{left:10px;right:10px;justify-content:center}.walu-ambient-title{max-width:130px}}`;
+    style.textContent = `.walu-ambient{position:fixed;right:14px;bottom:14px;z-index:2147483000;display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid rgba(172,112,255,.45);border-radius:999px;background:linear-gradient(135deg,rgba(34,18,48,.96),rgba(12,7,22,.96));box-shadow:0 8px 30px rgba(0,0,0,.45);color:#eadbff;font:12px system-ui,sans-serif;backdrop-filter:blur(8px);pointer-events:auto}.walu-ambient button{border:1px solid rgba(234,219,255,.28);background:rgba(255,255,255,.08);color:#f4e7ff;border-radius:999px;min-width:30px;height:30px;cursor:pointer;pointer-events:auto}.walu-ambient button:hover{background:rgba(172,112,255,.25)}.walu-ambient-title{max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.88}.walu-ambient.is-playing{box-shadow:0 0 22px rgba(172,112,255,.32),0 8px 30px rgba(0,0,0,.45)}.walu-music-panel{position:fixed;right:14px;bottom:68px;z-index:2147482999;width:min(360px,calc(100vw - 28px));max-height:430px;overflow:auto;border:1px solid rgba(172,112,255,.45);border-radius:18px;background:linear-gradient(180deg,rgba(34,18,48,.98),rgba(9,5,18,.98));box-shadow:0 18px 50px rgba(0,0,0,.55);color:#eadbff;padding:12px;display:none}.walu-music-panel.open{display:block}.walu-music-panel h3{margin:0 0 4px;font-size:14px}.walu-music-panel p{margin:0 0 10px;opacity:.7;font-size:12px;line-height:1.35}.walu-music-list{display:grid;gap:7px}.walu-music-list button{width:100%;display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid rgba(234,219,255,.16);border-radius:12px;background:rgba(255,255,255,.06);color:#f4e7ff;padding:8px;cursor:pointer}.walu-music-list button:hover,.walu-music-list button.active{border-color:#f8c14a;background:rgba(248,193,74,.13)}.walu-music-list small{opacity:.55}.walu-music-volume{width:100%;accent-color:#a855f7}@media(max-width:700px){.walu-ambient{left:10px;right:10px;justify-content:center}.walu-ambient-title{max-width:130px}.walu-music-panel{left:10px;right:10px;width:auto}}`;
     document.head.appendChild(style);
     ui = document.createElement('div');
     ui.className = 'walu-ambient';
-    ui.innerHTML = `<span title="Waluigi playlist">🎧</span><button type="button" data-walu-music-play title="Play / pause Waluigi playlist">▶</button><button type="button" data-walu-music-shuffle title="Shuffle Waluigi playlist">🔀</button><button type="button" data-walu-music-next title="Next Waluigi track">⏭</button><span data-walu-music-title class="walu-ambient-title"></span>`;
+    ui.innerHTML = `<span title="Waluigi playlist">🎧</span><button type="button" data-walu-music-play title="Play / pause Waluigi playlist">▶</button><button type="button" data-walu-music-shuffle title="Shuffle Waluigi playlist">🔀</button><button type="button" data-walu-music-next title="Next Waluigi track">⏭</button><button type="button" data-walu-music-panel-toggle title="Open dedicated music section">🎼</button><span data-walu-music-title class="walu-ambient-title"></span>`;
     document.body.appendChild(ui);
+    const panel = document.createElement('div');
+    panel.className = 'walu-music-panel';
+    panel.setAttribute('data-walu-music-panel', 'true');
+    panel.innerHTML = `<h3>🎼 Waluigi Site Playlist</h3><p>Dedicated music section for Waluipedia, Bank, Shop, Battlefield, and linked pages. Pick a calm reading loop or let it rotate.</p><div class="walu-music-list" data-walu-music-list></div><p style="margin-top:10px">Volume</p><input class="walu-music-volume" data-walu-music-volume type="range" min="0" max="1" step="0.01" value="${volume}">`;
+    document.body.appendChild(panel);
+    renderPlaylist();
     updateUi();
   }
 
   // Capture-phase event delegation makes the controls work even if the SPA adds
   // other click handlers later. Stop only these music-control clicks.
   document.addEventListener('click', event => {
-    const target = event.target?.closest?.('#musicBtn,[data-walu-music-play],[data-walu-music-next],[data-walu-music-shuffle]');
+    const target = event.target?.closest?.('#musicBtn,[data-walu-music-play],[data-walu-music-next],[data-walu-music-shuffle],[data-walu-music-panel-toggle],[data-walu-music-track]');
     if (!target) return;
     event.preventDefault();
     event.stopPropagation();
     if (target.matches('[data-walu-music-next]')) nextTrack();
     else if (target.matches('[data-walu-music-shuffle]')) shuffleTrack();
+    else if (target.matches('[data-walu-music-panel-toggle]')) document.querySelector('[data-walu-music-panel]')?.classList.toggle('open');
+    else if (target.matches('[data-walu-music-track]')) { trackIndex = Number(target.dataset.waluMusicTrack) || 0; step = 0; loopsOnTrack = 0; if (audio) nextTime = audio.currentTime + 0.12; updateUi(); if (!playing) start(); else confirmation('next'); }
     else toggle();
+  }, true);
+
+  document.addEventListener('input', event => {
+    const slider = event.target?.closest?.('[data-walu-music-volume]');
+    if (!slider) return;
+    window.WaluipediaAmbient?.setVolume?.(Number(slider.value));
   }, true);
 
   document.addEventListener('contextmenu', event => {

@@ -37,7 +37,11 @@
 <body>
 <div class="topbar">
   <div class="brand" onclick="location.href='battlefield.html#/home'"><div class="logo">W</div><div><b>Waluipedia</b><div style="font-size:11px;color:var(--muted)">Midlands Exchange — Universal Commerce Hub</div></div></div>
-  <div style="margin-left:auto;display:flex;gap:8px">
+  <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+    <button class="currency-theme-btn" data-cur-theme="vault" title="Purple vault theme">💜 Vault</button>
+    <button class="currency-theme-btn" data-cur-theme="mint" title="Mint exchange theme">🟢 Mint</button>
+    <button class="currency-theme-btn" data-cur-theme="casino" title="Wario casino theme">♦️ Casino</button>
+    <button class="currency-theme-btn" data-cur-theme="ledger" title="Paper ledger theme">📜 Ledger</button>
     <a class="chip active" href="shop.html">🛒 Wario's Shop</a>
     <a class="chip" href="battlefield.html#/reputation">📈 Reputation Matrix</a>
     <a class="chip" href="battlefield.html#/items">🎒 Inventory & Items</a>
@@ -193,6 +197,15 @@ let activeCategory = 'all';
 let marketId = 'universal';
 let currentShopSearch = '';
 let currentShopCurrency = 'gold';
+let currencyTheme = localStorage.getItem('currencyTheme') || 'vault';
+function applyCurrencyTheme(theme){
+  currencyTheme = theme || 'vault';
+  document.documentElement.setAttribute('data-currency-theme', currencyTheme);
+  try { localStorage.setItem('currencyTheme', currencyTheme); } catch(e){}
+  document.querySelectorAll('[data-cur-theme]').forEach(btn => btn.classList.toggle('active', btn.dataset.curTheme === currencyTheme));
+  window.WarioSiteSounds?.play?.('theme');
+}
+window.applyCurrencyTheme = applyCurrencyTheme;
 
 // merged wallets from currency.js + wallets.json (like shop-wallet-sync does)
 let MERGED_WALLETS = { ...(WALLETS||{}) };
@@ -648,6 +661,9 @@ function renderRates(){
     });
   });
 }
+
+document.querySelectorAll('[data-cur-theme]').forEach(btn => btn.addEventListener('click', () => applyCurrencyTheme(btn.dataset.curTheme)));
+applyCurrencyTheme(currencyTheme);
 
 // Event Listeners — mirroring xp.html's entrySearch + entrySort listeners
 fromAmt.addEventListener('input', updateConvert);

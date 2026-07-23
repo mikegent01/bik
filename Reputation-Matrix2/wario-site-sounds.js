@@ -31,7 +31,7 @@
       if (!AudioContext) return null;
       ctx = new AudioContext();
       master = ctx.createGain();
-      master.gain.value = 0.16;
+      master.gain.value = 0.22;
       master.connect(ctx.destination);
     }
     if (ctx.state === 'suspended') ctx.resume().catch(() => {});
@@ -88,7 +88,8 @@
     const t = audio.currentTime + 0.006;
     switch (kind) {
       case 'hover':
-        tone('E5', t, 0.035, 'sine', 0.025);
+        tone('E5', t, 0.045, 'sine', 0.038);
+        tone('B5', t + 0.022, 0.035, 'sine', 0.018);
         break;
       case 'click':
         tone('D5', t, 0.055, 'square', 0.055);
@@ -161,7 +162,7 @@
   }
 
   function interactiveFrom(target) {
-    return target?.closest?.('button,a,[role="button"],summary,select,input[type="checkbox"],input[type="radio"],.card,.arttile,.result-card,.timeline-event,.nav-link,.tab,.category-pill,.brand,.pill,.chip,.tag,.wiki-card,.wiki-home-cat-card,.wiki-result,.res-item,.arttile,.navitem,.sideitem,.menu-item,.result,.book-card,.faction-card,[onclick]');
+    return target?.closest?.('button,a,[role="button"],summary,select,input[type="checkbox"],input[type="radio"],.card,.arttile,.result-card,.timeline-event,.nav-link,.tab,.category-pill,.brand,.pill,.chip,.tag,.wiki-card,.wiki-home-cat-card,.wiki-result,.res-item,.arttile,.navitem,.sideitem,.menu-item,.result,.book-card,.faction-card,.cur-card,.currency-card,.wallet-card,.bank-card,.shop-item-tile,.rate-row,.rate,.convert-box,.topbar [class],tr,li,img,[onclick]');
   }
 
   function classifyClick(item) {
