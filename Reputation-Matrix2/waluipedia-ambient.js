@@ -181,7 +181,8 @@
   function shuffleTrack() { randomTrack(); if (!playing) start(); else confirmation('shuffle'); }
 
   function renderPlaylist() {
-    const list = ui?.querySelector?.('[data-walu-music-list]');
+    // The playlist lives in the separate floating panel, not inside the compact bar.
+    const list = document.querySelector('[data-walu-music-list]');
     if (!list) return;
     list.innerHTML = tracks.map((track, index) => `<button type="button" data-walu-music-track="${index}" class="${index === trackIndex ? 'active' : ''}"><span>🎵</span><b>${track.name}</b><small>${track.tempo} bpm</small></button>`).join('');
   }
