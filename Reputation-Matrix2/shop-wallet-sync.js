@@ -45,6 +45,19 @@ function currentWallet() {
   return uid ? wallets[uid] || wallets[normalizeUserId(uid.replace('_miser', ''))] || null : null;
 }
 
+function operatorOptions() {
+  const active = currentUserId();
+  const preferred = ['archie', 'waluigi', 'wario', 'bowser', 'markop', 'remi', 'hjumpik', 'green_t', 'dan'];
+  const entries = Object.entries(wallets || {})
+    .filter(([id, wallet]) => wallet && wallet.currencies && Object.keys(wallet.currencies).length)
+    .sort(([aId, a], [bId, b]) => {
+      const ai = preferred.indexOf(aId), bi = preferred.indexOf(bId);
+      if (ai !== -1 || bi !== -1) return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      return String(a.name || aId).localeCompare(String(b.name || bId));
+    });
+  return entries.map(([id, wallet]) => `<option value="${esc(id)}" ${id === active ? 'selected' : ''}>${esc(wallet.name || id)} (${Object.keys(wallet.currencies || {}).length} currencies)</option>`).join('');
+}
+
 function walletCurrencyIds(wallet = currentWallet()) {
   const ids = Object.keys(wallet?.currencies || {}).filter(id => CURRENCIES[id]);
   return ids.length ? ids : Object.keys(CURRENCIES || {});
@@ -498,6 +511,10 @@ function renderBridge() {
         <small>Actual wallet payment mode · dropdown limited to this character's currencies (${allowed.length})</small>
       </div>
       <div class="bridge-coins">${walletHoldingsMarkup(wallet)}</div>
+      <label class="bridge-payment">🧑 Switch operator
+        <select id="warehouseOperatorSelect">${operatorOptions()}</select>
+        <small>Changes the connected Waluipedia wallet used for affordability and checkout previews.</small>
+      </label>
       <label class="bridge-payment">💳 Pay with
         <select id="warehousePaymentCurrency">${currencyOptions()}</select>
         <small>Available: ${esc(c.icon || '🪙')} ${esc(selectedHolding().toLocaleString())} ${esc(c.name || selected)} · 1 Gold = ${esc(rate)} ${esc(c.name || selected)}. Affordability now uses this actual holding.</small>
@@ -508,6 +525,9 @@ function renderBridge() {
     <div class="bridge-warning currency-integrated">
       🔐 <b>No operator wallet connected</b>
       <span>Connect a character first; then this dropdown will only show that character's currencies.</span>
+      <label class="bridge-payment">🧑 Pick operator
+        <select id="warehouseOperatorSelect">${operatorOptions()}</select>
+      </label>
       <label class="bridge-payment">💳 Display prices in
         <select id="warehousePaymentCurrency">${currencyOptions()}</select>
       </label>
@@ -523,6 +543,21 @@ function renderBridge() {
       select.addEventListener('change', event => {
         selected = event.target.value;
         localStorage.setItem(SELECT_KEY, selected);
+        lastAppliedCartGold = null;
+        renderBridge();
+        applyActualWalletToCart();
+        convertVisiblePrices();
+      });
+    }
+    const operatorSelect = box.querySelector('#warehouseOperatorSelect');
+    if (operatorSelect) {
+      operatorSelect.addEventListener('change', event => {
+        const id = normalizeUserId(event.target.value);
+        localStorage.setItem('waluipediaUser', id);
+        localStorage.setItem('currentUserId', id);
+        selected = 'gold';
+        ensureSelectedCurrency();
+        lastBridgeMarkup = '';
         lastAppliedCartGold = null;
         renderBridge();
         applyActualWalletToCart();
