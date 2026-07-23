@@ -100,17 +100,64 @@
     panel.append(close, heading); if (itemName) panel.append(item); panel.append(rules, usage); overlay.append(panel); document.body.append(overlay);
     close.focus(); overlay.addEventListener('click', e => { if (e.target === overlay || e.target === close) overlay.remove(); });
   };
+  const ensureShopLinkStyle = () => {
+    if (document.getElementById('shop-wiki-link-style')) return;
+    const style = document.createElement('style');
+    style.id = 'shop-wiki-link-style';
+    style.textContent = `.shop-wiki-link{color:#facc15;text-decoration:none;border-bottom:1px dotted rgba(250,204,21,.6);font-weight:700}.shop-wiki-link:hover{color:#fff3a3;border-bottom-style:solid}`;
+    document.head.appendChild(style);
+  };
+  const SHOP_WIKI_LINKS = [
+    ['Iron Legion', '../index.html#/reputation/faction/iron_legion'],
+    ['Regal Empire', '../index.html#/reputation/faction/regal_empire'],
+    ['Mushroom Kingdom', '../index.html#/atlas/mushroom_kingdom'],
+    ['Toad Town', '../index.html#/atlas/mushroom_kingdom'],
+    ['Bowser', '../index.html#/article/bowser'],
+    ['Wario', '../index.html#/article/wario'],
+    ['Waluigi', '../index.html#/article/waluigi'],
+    ['Fawful', '../index.html#/article/fawful'],
+    ['Koopa Troop', '../index.html#/reputation/faction/koopa_troop'],
+    ['Onyx Hand', '../index.html#/reputation/faction/onyx_hand'],
+    ['Mages\' Guild', '../index.html#/reputation/faction/mages_guild'],
+    ['Peach Loyalists', '../index.html#/reputation/faction/peach_loyalists'],
+    ['Rakasha', '../index.html#/reputation/faction/rakasha_clans'],
+    ['Star Road', '../index.html#/artifacts'],
+    ['Shadow Estate', '../index.html#/article/shadow_estate_spotlight_cookie_cottage'],
+    ['Vigilance', '../index.html#/article/the_vigilance'],
+    ['Legionlance', '../index.html#/imperial-network']
+  ];
+  const linkShopLore = root => {
+    ensureShopLinkStyle();
+    const scope = root || document;
+    scope.querySelectorAll('.wario-card p,.checkout-item-card p,.live-inline-rule span,.live-effect-panel p').forEach(node => {
+      if (node.dataset.shopWikiLinked || node.closest('a,button')) return;
+      let html = node.innerHTML;
+      for (const [label, href] of SHOP_WIKI_LINKS) {
+        const safe = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`(^|[^>\\w])(${safe})(?![^<]*>|[\\w])`, 'i');
+        if (re.test(html)) {
+          html = html.replace(re, `$1<a class="shop-wiki-link" href="${href}" title="Open Waluipedia: ${label}">$2</a>`);
+          break;
+        }
+      }
+      node.innerHTML = html;
+      node.dataset.shopWikiLinked = 'true';
+    });
+  };
+
   const decorate = () => {
+    linkShopLore(document);
     document.querySelectorAll('.effect-tag:not([data-live-effect])').forEach(tag => {
       tag.dataset.liveEffect = 'true'; tag.tabIndex = 0; tag.setAttribute('role', 'button'); tag.setAttribute('title', 'Click for a focused rules view');
-      const show = () => open(tag.textContent.trim(), tag.closest('[role="dialog"]')?.querySelector('h2')?.textContent);
+      const show = () => open(tag.textContent.trim(), tag.closest('[role="dialog"]')?.querySelector('h2')?.textContent || itemNameFor(tag.parentElement));
       tag.addEventListener('click', show); tag.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); } });
     });
     // The bundled page originally hid all rules behind chips. Show a readable
     // explanation directly beneath every current item’s effects as well.
     document.querySelectorAll('.effect-tag[data-live-effect]').forEach(tag => {
       const group = tag.parentElement;
-      if (!group || group.dataset.inlineRules) return;
+      // Keep catalog cards compact. Full rules stay in the focused effect dialog / item modal.
+      if (!group || group.dataset.inlineRules || !group.closest('[role="dialog"]')) return;
       group.dataset.inlineRules = 'true';
       const rules = document.createElement('div'); rules.className = 'live-inline-rules';
       const title = document.createElement('div'); title.className = 'live-inline-heading'; title.textContent = '📖 WHAT THESE EFFECTS DO'; rules.append(title);
