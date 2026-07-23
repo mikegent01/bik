@@ -162,7 +162,18 @@
   }
 
   function interactiveFrom(target) {
-    return target?.closest?.('button,a,[role="button"],summary,select,input[type="checkbox"],input[type="radio"],.card,.arttile,.result-card,.timeline-event,.nav-link,.tab,.category-pill,.brand,.pill,.chip,.tag,.wiki-card,.wiki-home-cat-card,.wiki-result,.res-item,.arttile,.navitem,.sideitem,.menu-item,.result,.book-card,.faction-card,.cur-card,.currency-card,.wallet-card,.bank-card,.shop-item-tile,.rate-row,.rate,.convert-box,.topbar [class],tr,li,img,[onclick]');
+    const selector = 'button,a,[role="button"],summary,select,input[type="checkbox"],input[type="radio"],.card,.arttile,.result-card,.timeline-event,.nav-link,.tab,.category-pill,.brand,.pill,.chip,.tag,.wiki-card,.wiki-home-cat-card,.wiki-result,.res-item,.arttile,.navitem,.sideitem,.menu-item,.result,.book-card,.faction-card,.cur-card,.currency-card,.wallet-card,.bank-card,.shop-item-tile,.rate-row,.rate,.convert-box,.topbar [class],tr,li,img,[onclick],[tabindex]';
+    const direct = target?.closest?.(selector);
+    if (direct) return direct;
+    // Some React/generated Battlefield controls are plain div/span nodes with cursor:pointer.
+    let node = target?.nodeType === 1 ? target : target?.parentElement;
+    for (let depth = 0; node && depth < 5 && node !== document.body; depth++, node = node.parentElement) {
+      try {
+        const style = window.getComputedStyle(node);
+        if (style.cursor === 'pointer' || node.onclick || node.getAttribute('role') === 'button') return node;
+      } catch {}
+    }
+    return null;
   }
 
   function classifyClick(item) {

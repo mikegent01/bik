@@ -9557,7 +9557,11 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
   else if(e.key==='t'&&!typing)setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
   else if(e.key==='r'&&!typing)Nav.random();
   else if(e.key.toLowerCase()==='h'&&!typing)cycleLinkLevel();
-  else if(e.key.toLowerCase()==='c'&&!typing)setComments(!PREFS.comments);});
+  else if(e.key.toLowerCase()==='c'&&!typing){
+    const route=(location.hash||'').replace(/^#\/?/,'').split('/')[0];
+    if(route==='legion'||route==='iron-legion') return;
+    setComments(!PREFS.comments);
+  }});
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
