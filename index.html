@@ -4757,6 +4757,7 @@ function renderSidebar(active){
   h+=`<div class="navlink ${active==='atlas'?'active':''}" onclick="Router.go('#/atlas')"><span><span class="emoji">🍩</span> World Atlas</span><span class="cnt">${(DATA.nations||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='list:cultures'?'active':''}" onclick="Router.go('#/cultures')"><span><span class="emoji">⚖️</span> Cultures & Laws</span><span class="cnt">${(DATA.cultures||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='power'?'active':''}" onclick="Router.go('#/power')"><span><span class="emoji">⚡</span> Power Projection</span></div>`;
+  h+=`<div class="navlink ${active==='imperial-network'?'active':''}" onclick="Router.go('#/imperial-network')"><span><span class="emoji">🕸️</span> Imperial Pressure Network</span></div>`;
   h+=`<div class="navlink ${active==='legion'?'active':''}" onclick="Router.go('#/legion')"><span><span class="emoji">⚙️</span> Iron Legion Dossier</span></div>`;
   const isJournalActive = (active==='journal' || h1.includes('thornburys_field_journal'));
   h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/article/thornburys_field_journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
@@ -4817,6 +4818,7 @@ function view_home(){
   const latest=mp.latestUpdate&&INDEX[mp.latestUpdate.id]?INDEX[mp.latestUpdate.id].item:null;
   const cats=`<div class="catcard" onclick="Router.go('#/calendar')"><div class="cemoji">🗓️</div><div class="cname">Calendar</div><div class="ccount">${MONTHS.length} months · ${CUR.year} BF</div></div>`
     +`<div class="catcard" onclick="Router.go('#/atlas')"><div class="cemoji">🍩</div><div class="cname">World Atlas</div><div class="ccount">${(DATA.nations||[]).length} realms</div></div>`
+    +`<div class="catcard" onclick="Router.go('#/imperial-network')"><div class="cemoji">🕸️</div><div class="cname">Imperial Pressure</div><div class="ccount">Empire ↔ Legion integrated</div></div>`
     +`<div class="catcard" onclick="Router.go('#/dynasties')"><div class="cemoji">👑</div><div class="cname">Dynasties</div><div class="ccount">${Object.keys(DYNASTY_SYSTEM.houses||{}).length} bloodlines</div></div>`
     +`<div class="catcard" onclick="Router.go('#/items')"><div class="cemoji">🎒</div><div class="cname">Items</div><div class="ccount">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1} public items</div></div>`
     + TYPES.filter(t=>!['locations','nations'].includes(t.key)).map(t=>`<div class="catcard" onclick="Router.go('#/list/${t.key}')"><div class="cemoji">${t.emoji}</div><div class="cname">${t.label}</div><div class="ccount">${(DATA[t.key]||[]).length}</div></div>`).join('')
@@ -4918,6 +4920,7 @@ function view_home(){
          <span style="font-size:12px;color:var(--muted);font-weight:700">Waluigi Desk Shortcuts:</span>
          <span class="chip active" onclick="location.href='currency.html'">💱 Bank (48 Currencies)</span>
          <span class="chip" onclick="location.href='shop.html'">🛒 Wario Shop (7,880+ Items)</span>
+         <span class="chip" onclick="Router.go('#/imperial-network')">🕸️ Imperial Pressure Network</span>
          <span class="chip" onclick="location.href='assembly.html'">🏛️ Grand Assembly</span>
          <span class="chip" onclick="Router.go('#/artifacts')">⭐ Star Bearers Vault</span>
          <span class="chip" onclick="location.href='books/library.html'">📚 Grand Library</span>
@@ -4928,7 +4931,7 @@ function view_home(){
    <div class="card"><div class="home-section-head"><div><h2>Explore</h2><p>Explore all categories, system portals, and cross-realm directories in Waluipedia core.</p></div></div><div class="grid-cats">${cats}</div>
      <h2 class="mt-18">Recently Updated / Added</h2><div class="update-grid">${SITE_UPDATES.map(updateCard).join('')}</div>
      <h2 class="mt-18">Comment Spotlight <a class="chip" href="#/annotations" style="font-size:11px;vertical-align:middle;margin-left:8px">Full Chatter Hub →</a></h2><div class="comment-grid">${commentSpotlightCards()}</div>
-     <h2 class="mt-18">Suggested Reading Paths</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation')"><h3>📈 Reputation Matrix & Standings</h3><p>Live 100+ faction matrix, operator standings, custom narrative assessments, and public menace heat tracking.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>💱 Multi-Currency & Bank Vaults</h3><p>48 international tenders, conversion rates, wallet balances, loans, and debt ledgers.</p></div><div class="path-card" onclick="location.href='assembly.html'"><h3>🏛️ Grand Latin Assembly & Viral Feeds</h3><p>Cross-realm parliamentary motions, viral propaganda feeds, and live assembly votes across 100 polities.</p></div><div class="path-card" onclick="Router.go('#/artifacts')"><h3>⭐ Star Bearers & Main Artifacts</h3><p>Star Fragments, Fire Flower Petals, God Toad, and the 9 Cosmic Star Bearers.</p></div><div class="path-card" onclick="location.href='books/library.html'"><h3>📚 Grand Library Archive</h3><p>Over 40 full-text books with custom covers and library stock across Mushroom, Mordor, and Unseen archives.</p></div><div class="path-card" onclick="location.href='alliances.html'"><h3>🌐 Multi-Realm Alliances Grid</h3><p>Geopolitical defense pacts, non-aggression treaties, and coalition maps.</p></div><div class="path-card" onclick="Router.go('#/atlas/mushroom_kingdom')"><h3>🍄 Mushroom Civil War & House Toadstool</h3><p>Regency, Peach Loyalists, Fawful occupation, Koopa intervention, and the broken crown.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Shadow Estate Arc & Midnight Audit</h3><p>Intrusions, firearm recovery, Black Crystal testing, and the closet-bound spy.</p></div></div>
+     <h2 class="mt-18">Suggested Reading Paths</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation')"><h3>📈 Reputation Matrix & Standings</h3><p>Live 100+ faction matrix, operator standings, custom narrative assessments, and public menace heat tracking.</p></div><div class="path-card" onclick="Router.go('#/imperial-network')"><h3>🕸️ Imperial Pressure Network</h3><p>Regal Empire, Iron Legion, bank, shop, reputation, and global-war data fused into one operational command layer.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>💱 Multi-Currency & Bank Vaults</h3><p>48 international tenders, conversion rates, wallet balances, loans, and debt ledgers.</p></div><div class="path-card" onclick="location.href='assembly.html'"><h3>🏛️ Grand Latin Assembly & Viral Feeds</h3><p>Cross-realm parliamentary motions, viral propaganda feeds, and live assembly votes across 100 polities.</p></div><div class="path-card" onclick="Router.go('#/artifacts')"><h3>⭐ Star Bearers & Main Artifacts</h3><p>Star Fragments, Fire Flower Petals, God Toad, and the 9 Cosmic Star Bearers.</p></div><div class="path-card" onclick="location.href='books/library.html'"><h3>📚 Grand Library Archive</h3><p>Over 40 full-text books with custom covers and library stock across Mushroom, Mordor, and Unseen archives.</p></div><div class="path-card" onclick="location.href='alliances.html'"><h3>🌐 Multi-Realm Alliances Grid</h3><p>Geopolitical defense pacts, non-aggression treaties, and coalition maps.</p></div><div class="path-card" onclick="Router.go('#/atlas/mushroom_kingdom')"><h3>🍄 Mushroom Civil War & House Toadstool</h3><p>Regency, Peach Loyalists, Fawful occupation, Koopa intervention, and the broken crown.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Shadow Estate Arc & Midnight Audit</h3><p>Intrusions, firearm recovery, Black Crystal testing, and the closet-bound spy.</p></div></div>
    </div>
    <div class="grid2">
      <div class="card"><div class="section-title">Did You Know…</div><ul class="dyk">${dyk.slice(0,7).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
@@ -5524,6 +5527,52 @@ async function view_cultures() {
   window.scrollTo(0,0);
 }
 
+
+function imperialFactionCard(fid){
+  const f=LORE_FACTIONS[fid]||{name:prettyId(fid),description:'No dossier text filed yet.'};
+  const standings=REPUTATION_OPERATORS.map(op=>({op,score:calculateOperatorStanding(op.id,fid)})).sort((a,b)=>a.score.total-b.score.total);
+  const avg=Math.round(standings.reduce((sum,x)=>sum+x.score.total,0)/Math.max(1,standings.length));
+  const worst=standings[0], best=standings[standings.length-1];
+  const subCount=Object.keys(f.internal_politics?.sub_factions||{}).length;
+  const desc=String(f.description||'').replace(/\s+/g,' ').slice(0,360);
+  const logo=f.logo?`<img src="${pathPrefix}${esc(f.logo)}" style="width:42px;height:42px;object-fit:contain;border-radius:8px">`:`<span style="font-size:34px">${fid==='iron_legion'?'⚙️':'👑'}</span>`;
+  return `<div class="card" style="border-left:4px solid ${fid==='iron_legion'?'#c81d25':'#8a4bff'}">
+    <div style="display:flex;gap:12px;align-items:center">${logo}<div><h2 style="margin:0">${esc(f.name)}</h2><div class="text-muted" style="font-size:12px">${esc(f.category||'Strategic Power')} · Power ${esc(String(f.power_level||'?'))} · ${subCount} internal blocs</div></div></div>
+    <p class="text-muted" style="line-height:1.55">${esc(desc)}${desc.length>=360?'…':''}</p>
+    <div class="grid2" style="gap:10px;margin-top:10px">
+      <div class="reputation-total-card"><span>Party average standing</span><strong class="${avg>=0?'pos':'neg'}">${avg>=0?'+':''}${avg}</strong><span class="pill">live reputation matrix</span></div>
+      <div class="reputation-total-card"><span>Highest / lowest operator</span><strong>${esc(best.op.icon)} ${esc(best.op.name)} ${best.score.total>=0?'+':''}${best.score.total}</strong><span class="pill">${esc(worst.op.icon)} ${esc(worst.op.name)} ${worst.score.total>=0?'+':''}${worst.score.total}</span></div>
+    </div>
+    <div class="chips" style="margin-top:12px">
+      <span class="chip active" onclick="Router.go('#/reputation/faction/${encodeURIComponent(fid)}')">📈 Reputation feed</span>
+      ${fid==='iron_legion'?`<span class="chip" onclick="Router.go('#/legion')">⚙️ Deep dossier</span>`:`<span class="chip" onclick="location.href='regal-empire-system.html'">👑 Regal Empire console</span>`}
+      <span class="chip" onclick="Router.go('#/power')">⚡ Power map</span>
+      <span class="chip" onclick="location.href='currency.html'">🏦 Ledger impact</span>
+    </div>
+  </div>`;
+}
+
+function view_imperial_network(){
+  renderSidebar('imperial-network');
+  const rows=REPUTATION_OPERATORS.map(op=>{
+    const emp=calculateOperatorStanding(op.id,'regal_empire');
+    const leg=calculateOperatorStanding(op.id,'iron_legion');
+    const pressure=Math.round((Math.abs(Math.min(0,emp.total))+Math.abs(Math.min(0,leg.total)))/2);
+    return `<tr onclick="Router.go('#/reputation/character/${encodeURIComponent(op.id)}')" style="cursor:pointer"><td style="padding:8px;border-bottom:1px solid var(--border)">${esc(op.icon)} ${esc(op.name)}</td><td style="padding:8px;border-bottom:1px solid var(--border)" class="${emp.total>=0?'pos':'neg'}">${emp.total>=0?'+':''}${emp.total}</td><td style="padding:8px;border-bottom:1px solid var(--border)" class="${leg.total>=0?'pos':'neg'}">${leg.total>=0?'+':''}${leg.total}</td><td style="padding:8px;border-bottom:1px solid var(--border)">${pressure>=50?'🚨':pressure>=25?'⚠️':'👁️'} ${pressure}</td></tr>`;
+  }).join('');
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Imperial Pressure Network</div>
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(200,29,37,.10)),var(--panel)">
+      <div class="home-section-head"><div><h1>🕸️ Imperial Pressure Network</h1><p>The Regal Empire and Iron Legion integrated into Waluipedia's living systems: reputation, global power, money, shop logistics, and event history.</p></div><span class="chip active" onclick="Router.go('#/legion')">Open Iron Dossier →</span></div>
+      <div class="wnote" style="border-left:4px solid #c81d25"><b>Waluigi integration note:</b> This is not a copied dossier. It is a command layer that points every Imperial/Legion fact back into the main website systems, so the Empire stops being a niche side page and starts affecting how users browse reputations, banks, power, and supply lines.</div>
+      <div class="chips" style="margin-top:12px"><span class="chip" onclick="Router.go('#/reputation')">📈 Reputation Matrix</span><span class="chip" onclick="Router.go('#/power')">⚡ Power Projection</span><span class="chip" onclick="location.href='currency.html'">🏦 Currency / Debt</span><span class="chip" onclick="location.href='shop.html'">🛒 Wario Shop Supply Lines</span><span class="chip" onclick="Router.go('#/atlas')">🍩 World Atlas</span></div>
+    </div>
+    <div class="grid2">${imperialFactionCard('regal_empire')}${imperialFactionCard('iron_legion')}</div>
+    <div class="card"><div class="home-section-head"><div><h2>Operator Pressure Table</h2><p>Live scores from the reputation engine. Click a row to inspect the operator's full standings.</p></div><span class="pill">Regal Empire ↔ Iron Legion</span></div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Operator</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Empire</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Legion</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Pressure</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="card"><h2>System Bridges</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation/faction/regal_empire')"><h3>👑 Imperial diplomacy</h3><p>Faction standings, sub-faction modifiers, and operator penalties are calculated through the reputation engine.</p></div><div class="path-card" onclick="Router.go('#/legion')"><h3>⚙️ Iron Legion intelligence</h3><p>Deep dossier remains available, but now every panel links back into live site systems.</p></div><div class="path-card" onclick="Router.go('#/power')"><h3>⚡ Military projection</h3><p>Use the global-war monitor to compare Empire/Legion power with every other realm.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>🏦 Contract economy</h3><p>Follow debts, wallets, currencies, and supply costs tied to Imperial enforcement.</p></div><div class="path-card" onclick="location.href='shop.html'"><h3>🛒 Wario logistics</h3><p>Shop prices and vendors become a supply-line layer for the conflict instead of isolated shopping.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Recent intelligence</h3><p>Audit records and active incidents feed directly into the pressure model.</p></div></div></div>`;
+  window.scrollTo(0,0);
+}
+
 async function view_power() {
   renderSidebar('power');
   const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
@@ -5558,6 +5607,16 @@ async function view_legion() {
           <h1 class="art-title" style="margin:0; font-family: var(--font-display);">Iron Legion Intelligence Dossier</h1>
           <div class="art-subtitle" style="color:var(--danger); font-size:12px; font-weight:bold; letter-spacing:0.5px;">Classification: PRIORITY THREAT | Day 21, 1040 BF</div>
         </div>
+      </div>
+    </div>
+    <div class="card animate-fade-in" style="margin-top:14px;border-left:4px solid var(--accent)">
+      <div class="home-section-head"><div><h2>Integrated Waluipedia Links</h2><p>This dossier is now part of the main operational network instead of a sealed side room.</p></div></div>
+      <div class="chips">
+        <span class="chip active" onclick="Router.go('#/imperial-network')">🕸️ Open Imperial Pressure Network</span>
+        <span class="chip" onclick="Router.go('#/reputation/faction/iron_legion')">📈 Iron Legion Reputation Standing</span>
+        <span class="chip" onclick="Router.go('#/power')">⚡ Power Projection</span>
+        <span class="chip" onclick="location.href='currency.html'">🏦 Bank / Contracts</span>
+        <span class="chip" onclick="location.href='shop.html'">🛒 Wario Supply Lines</span>
       </div>
     </div>
     <div id="legion-container" class="animate-fade-in" style="margin-top:20px;"></div>
@@ -9504,6 +9563,7 @@ const Router={
     else if(route==='article')view_article(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
+    else if(route==='imperial-network'||route==='imperial'||route==='empire-network')view_imperial_network();
     else if(route==='legion'||route==='iron-legion')view_legion();
     else if(route==='battlefield')view_list('battles');
     else if(route==='conflict')view_conflict(arg);
