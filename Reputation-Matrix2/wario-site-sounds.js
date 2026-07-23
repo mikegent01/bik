@@ -4,7 +4,6 @@
   if (window.WarioSiteSounds?.__v3) return;
 
   const STORAGE_KEY = 'warioSiteSounds';
-  const prefersQuiet = () => window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
   let enabled = localStorage.getItem(STORAGE_KEY) !== 'off';
   let ctx = null;
   let master = null;
@@ -21,7 +20,7 @@
   };
 
   function allowed() {
-    return enabled && !prefersQuiet() && window.__warioSoundEnabled !== false;
+    return enabled;
   }
 
   function ensureAudio() {
@@ -31,7 +30,7 @@
       if (!AudioContext) return null;
       ctx = new AudioContext();
       master = ctx.createGain();
-      master.gain.value = 0.105;
+      master.gain.value = 0.16;
       master.connect(ctx.destination);
     }
     if (ctx.state === 'suspended') ctx.resume().catch(() => {});
