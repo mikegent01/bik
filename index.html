@@ -9382,8 +9382,9 @@ function view_books(categoryArg) {
 
     const cardsHtml = filtered.map(b => {
       const fallbackUri = emojiFallbackDataUri(b.icon || '📜', b.cover_color || '#2d0f42', b.cover_accent || '#ffd700', b.title);
-      const coverHtml = b.cover_image 
-        ? `<img src="${esc(b.cover_image)}" alt="${esc(b.title)}" onerror="this.onerror=null;this.src='${fallbackUri}'" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;border:1px solid var(--border)">`
+      const coverSrc = b.cover_image && !/^(?:https?:|data:|\/)/i.test(b.cover_image) ? pathPrefix + b.cover_image : b.cover_image;
+      const coverHtml = coverSrc 
+        ? `<img src="${esc(coverSrc)}" alt="${esc(b.title)}" onerror="this.onerror=null;this.src='${fallbackUri}'" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;border:1px solid var(--border)">`
         : `<img src="${fallbackUri}" alt="${esc(b.title)}" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;border:1px solid var(--border)">`;
 
       const linkedDesc = linkify ? linkify(esc(b.description || '')) : esc(b.description || '');

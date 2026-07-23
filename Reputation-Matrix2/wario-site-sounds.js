@@ -9,6 +9,7 @@
   let master = null;
   let lastHover = 0;
   let lastInput = 0;
+  let lastAnyClick = 0;
   let lastRoute = location.hash;
 
   const notes = {
@@ -160,7 +161,7 @@
   }
 
   function interactiveFrom(target) {
-    return target?.closest?.('button,a,[role="button"],summary,select,input[type="checkbox"],input[type="radio"],.card,.arttile,.result-card,.timeline-event,.nav-link,.tab,.category-pill,.brand,.pill,.chip,.tag');
+    return target?.closest?.('button,a,[role="button"],summary,select,input[type="checkbox"],input[type="radio"],.card,.arttile,.result-card,.timeline-event,.nav-link,.tab,.category-pill,.brand,.pill,.chip,.tag,.wiki-card,.wiki-home-cat-card,.wiki-result,.res-item,.arttile,.navitem,.sideitem,.menu-item,.result,.book-card,.faction-card,[onclick]');
   }
 
   function classifyClick(item) {
@@ -183,6 +184,13 @@
 
   document.addEventListener('pointerdown', ensureAudio, { passive: true, once: true });
   document.addEventListener('keydown', ensureAudio, { passive: true, once: true });
+
+  document.addEventListener('pointerdown', event => {
+    const item = interactiveFrom(event.target);
+    if (!item) return;
+    // Unlock + immediate tactile downbeat; click handler may add a more specific cue.
+    if (event.pointerType !== 'mouse') play('click');
+  }, true);
 
   document.addEventListener('pointerover', event => {
     const item = interactiveFrom(event.target);
@@ -207,9 +215,14 @@
   }, true);
 
   document.addEventListener('click', event => {
+    const now = performance.now();
+    if (now - lastAnyClick < 45) return;
+    lastAnyClick = now;
     const item = interactiveFrom(event.target);
-    if (!item) return;
-    play(classifyClick(item));
+    if (item) return play(classifyClick(item));
+    // Battlefield and generated pages often use plain divs/spans as clickable UI.
+    // Give every real click a soft tap so browsing never feels silent.
+    if (event.target && event.target !== document.body && event.target !== document.documentElement) play('click');
   }, true);
 
   document.addEventListener('change', event => {
