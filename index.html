@@ -9292,10 +9292,8 @@ function view_holiday(id){
           <div style="color:var(--accent2);font-style:italic;font-size:14px">${esc(h.type||'Observance')} — ${esc(calName)} calendar</div>
           <div class="chips mt-10">
             <span class="pill">📆 ${esc(monthLabel)} ${esc(String(h.day))}</span>
-            <span class="pill">Month ${esc(String(h.month))}, Day ${esc(String(h.day))}</span>
-            <span class="pill">${esc(h.type||'observance')}</span>
             ${h.isWeird?'<span class="pill" style="background:rgba(224,80,80,.18);border-color:rgba(224,80,80,.4);color:#ffb0b0">⚠️ Intercalary / Weird Day</span>':''}
-            ${h.color?`<span class="pill" style="background:${h.color}33;border-color:${h.color};color:${h.color}">🎨 ${esc(h.color)}</span>`:''}
+            ${h.color?`<span class="pill" style="background:${h.color}33;border-color:${h.color};color:${h.color}">🎨 Theme color</span>`:''}
           </div>
         </div>
       </div>
