@@ -4271,7 +4271,23 @@ function locationThumb(i,mode){
   const h=artHash(i.id||i.name); const x=24+(h%52), y=34+((h>>6)%42), small=mode==='tile';
   return `<figure class="auto-art ${small?'tile':'full'}"><svg class="auto-art-svg" viewBox="0 0 640 300"><defs><linearGradient id="lg${h}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2fae8a"/><stop offset=".55" stop-color="#15324a"/><stop offset="1" stop-color="#8a4bff"/></linearGradient></defs><rect width="640" height="300" fill="url(#lg${h})"/><path d="M60 240 C120 120 250 110 330 165 S520 95 600 210 L600 300 L60 300Z" fill="rgba(0,0,0,.24)"/><path d="M75 210 C170 170 205 235 290 188 S430 152 565 205" stroke="rgba(255,255,255,.30)" stroke-width="5" fill="none"/><circle cx="${x*6.4}" cy="${y*3}" r="18" fill="#e0b400" stroke="rgba(0,0,0,.45)" stroke-width="5"/><path d="M${x*6.4} ${y*3+18} L${x*6.4-13} ${y*3+50} L${x*6.4+13} ${y*3+50}Z" fill="#e0b400"/><text x="42" y="70" fill="rgba(255,255,255,.88)" font-size="14" font-weight="900" letter-spacing="2">LOCATION MAP</text><text x="42" y="172" fill="white" font-size="${small?'24':'32'}" font-weight="900">${esc((displayName(i).length>34?displayName(i).slice(0,32)+'…':displayName(i)))}</text>${small?'':`<text x="44" y="210" fill="rgba(255,255,255,.74)" font-size="16">${esc(i.region||i.type||'Mapped location')}</text>`}</svg></figure>`;
 }
-function cardVisual(i,key){ if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(['events','trials','factions','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
+const CHARACTER_EMOJI_RULES=[
+  [/waluigi/i,'🎾'],[/wario/i,'💰'],[/bowser|koopa|kamek/i,'🐢'],[/archie|miser|fire|pyro/i,'🔥'],[/markop|centaur|judi/i,'🐴'],[/remi|akamatsu|engineer|kivotos/i,'🔧'],[/hjumpik|dwarf|deldkur/i,'⛏️'],[/toad|mushroom/i,'🍄'],[/luigi/i,'👻'],[/mario/i,'⭐'],[/peach|princess/i,'🍑'],[/daisy/i,'🌼'],[/oracle|prophet|seer/i,'🔮'],[/morel|mystic/i,'🍄'],[/vampire|corvinarus|shadow|boo|ghost/i,'🌑'],[/iron|legion|agent|commander/i,'⚙️'],[/rakasha|cat|thornpaw/i,'🐾'],[/pirate|syrup/i,'🏴‍☠️'],[/sans|skeleton|bones/i,'💀'],[/flowey|flower/i,'🌻'],[/dragon|wyrm/i,'🐉'],[/mage|wizard|arcane/i,'✨'],[/king|queen|emperor|lord|lady/i,'👑']
+];
+function characterEmoji(i){
+  if(i.icon||i.emoji||i.portrait) return i.icon||i.emoji||i.portrait;
+  const hay=[i.id,i.name,i.title,i.race,i.affiliation,i.summary].filter(Boolean).join(' ');
+  const hit=CHARACTER_EMOJI_RULES.find(([re])=>re.test(hay));
+  return hit?hit[1]:'👤';
+}
+function characterVisual(i){
+  const h=artHash((i.id||displayName(i)||'character')+'-char-card');
+  const palette=[['#8a4bff','#e0b400'],['#e5484d','#ff9f1c'],['#2fae8a','#39ff88'],['#2088d8','#b7a7ff'],['#77768a','#e0b400'],['#5b3a8e','#39ff88'],['#c3282d','#8a4bff'],['#7acb58','#ffd36b']][h%8];
+  const emoji=characterEmoji(i);
+  const role=i.race||i.affiliation||i.type||'Character Dossier';
+  return `<div class="character-card-visual" style="--char-a:${palette[0]};--char-b:${palette[1]}"><div class="char-bg-emoji">${esc(emoji)}</div><div class="char-avatar">${esc(emoji)}</div><div class="char-visual-text"><span>${esc(String(role).split('/')[0].split('—')[0].trim()).slice(0,42)}</span><b>${esc((i.status||'Active file').split('—')[0].trim()).slice(0,32)}</b></div></div>`;
+}
+function cardVisual(i,key){ if(key==='characters')return characterVisual(i); if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(['events','trials','factions','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
 function decodeEntitiesBasic(s){return String(s||'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'");}
 function htmlishToMarkdown(s){
   s=decodeEntitiesBasic(s);
@@ -5279,7 +5295,7 @@ function view_list(key){
       const g=filterGroup(key,i);
       if(g&&g!==sub)meta.push(`<span class="pill">${esc(g)}</span>`);
       const visual=cardVisual(i,key);
-      return `<div class="arttile" onclick="openId('${esc(i.id)}')">${visual}<div class="tt">${esc(displayName(i))}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${sub?`<div class="tsub">${esc(sub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
+      return `<div class="arttile ${key==='characters'?'character-tile':''}" onclick="openId('${esc(i.id)}')">${visual}<div class="tt">${esc(displayName(i))}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${sub?`<div class="tsub">${esc(sub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
     }).join('');
     el('content').innerHTML=`<div class="card animate-fade-in"><div class="listhead"><h2>${t.emoji} ${t.label} <span style="color:var(--muted);font-size:15px">(${arr.length})</span></h2><div class="chip" id="sortBtn">Sort: ${st.sort==='az'?'A→Z':'Z→A'}</div></div>${key==='battles'?battleHubPanel():''}${key==='races'?speciesSystemPanel():''}${values.length>1?`<div class="chips" id="filterChips" class="mb-14">${chips}</div>`:''}<div class="artgrid">${tiles||'<p class="text-muted">No articles.</p>'}</div></div>`;
     const fc=el('filterChips');if(fc)fc.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{st.filter=c.dataset.v;draw();}));
