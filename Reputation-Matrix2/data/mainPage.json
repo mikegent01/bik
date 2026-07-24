@@ -2,12 +2,13 @@
   "featuredArticle": {
     "id": "mount_ebott_survey_part_3",
     "type": "event",
-    "excerpt": "Ebott Part III is now filed: Sans slips and says “the war,” Flowey is exposed as Asgore’s dead son and possible machine saboteur, Koffin-K accidentally founds an unauthorized Iron Legion team, and Snowdin briefly crowns a fedora. XP, reputation, and linked character/location pages are now attached. WAH."
+    "excerpt": "Ebott Part III is now filed: Sans slips and says “the war,” Flowey is exposed as Asgore’s dead son and possible machine saboteur, Koffin-K accidentally founds an unauthorized Iron Legion team, and Snowdin briefly crowns a fedora. XP, reputation, and linked character/location pages are now attached. WAH.",
+    "label": "Featured File · Ebott Survey"
   },
   "latestUpdate": {
-    "id": "mount_ebott_survey_part_3",
-    "label": "Latest Ebott File + XP/Reputation Pass",
-    "excerpt": "Mount Ebott Survey Part III now includes XP awards, reputation shifts, participants, intel gains, Koffin-K/Flowey/Asgore/Toriel pages, Snowdin/Ruins/CORE locations, and Monster Underground atlas linking."
+    "id": "monster_underground",
+    "label": "Latest Atlas / Realm Integration",
+    "excerpt": "The Monster Underground now has a proper Waluipedia realm link, connecting Mount Ebott, Snowdin, the Ruins, the CORE, Hotland routes, Flowey, Koffin-K, Sans, Asgore, Toriel, and the Iron Legion survey arc into the main atlas/search systems."
   },
   "didYouKnow": [
     "...that the Mount Ebott Survey Part III file now has XP awards and reputation deltas for Gamma Agent, Dracule Mihawk, Sans, Koffin-K, Flowey, and Asgore? Waluigi calls this “finally doing the paperwork.”",
