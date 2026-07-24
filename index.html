@@ -5331,42 +5331,56 @@ function speciesSystemPanel(){
 function view_list(key){
   const t=TYPE_BY_KEY[key];if(!t){view_home();return;}
   renderSidebar('list:'+key);
-  const items=(DATA[key]||[]).slice();const field=typeFilterField(key);
-  // build grouped, counted filter values from the normalizer
+  const items=(DATA[key]||[]).slice();
   const counts={};
-  items.forEach(i=>{const g=filterGroup(key,i);if(g){counts[g]=(counts[g]||0)+1;}});
-  // sort groups by count desc, then alphabetically
-  const allGroups=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
-  // show the top groups as chips; roll the long tail of rare groups into "Other"
-  const MAX_CHIPS=14;
-  let topGroups=allGroups, otherGroups=[];
-  if(allGroups.length>MAX_CHIPS+1){
-    topGroups=allGroups.slice(0,MAX_CHIPS);
-    otherGroups=allGroups.slice(MAX_CHIPS);
-  }
-  const otherSet=new Set(otherGroups);
-  const otherCount=otherGroups.reduce((s,g)=>s+counts[g],0);
-  const values=topGroups;
-  const st=listState[key]||(listState[key]={filter:'All',sort:'az'});
-  const matchesFilter=(i)=>{ if(st.filter==='All') return true; if(st.filter==='__other__') return otherSet.has(filterGroup(key,i)); return filterGroup(key,i)===st.filter; };
+  items.forEach(i=>{const g=filterGroup(key,i)||'Ungrouped';counts[g]=(counts[g]||0)+1;});
+  const groups=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
+  const st=listState[key]||(listState[key]={filter:'All',sort:'az',query:''});
+  const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const recordText=i=>clean([i.id,displayName(i),i.title,i.type,i.status,i.affiliation,i.race,i.region,i.era,i.location,i.summary,i.description,(i.tags||[]).join(' ')].filter(Boolean).join(' '));
+  const wordCount=i=>words([i.description,i.summary].filter(Boolean).join(' '));
+  const recordYear=i=>parseYear(i.date)||parseYear(i.era)||parseYear(i.status)||0;
+  const matchesFilter=i=>st.filter==='All'||(filterGroup(key,i)||'Ungrouped')===st.filter;
+  const matchesQuery=i=>{
+    const q=clean(st.query||''); if(!q) return true;
+    const hay=recordText(i); return q.split(/\s+/).filter(Boolean).every(term=>hay.includes(term));
+  };
+  const sorters={
+    az:(a,b)=>displayName(a).localeCompare(displayName(b)),
+    za:(a,b)=>displayName(b).localeCompare(displayName(a)),
+    group:(a,b)=>String(filterGroup(key,a)||'Ungrouped').localeCompare(String(filterGroup(key,b)||'Ungrouped'))||displayName(a).localeCompare(displayName(b)),
+    status:(a,b)=>String(a.status||'').localeCompare(String(b.status||''))||displayName(a).localeCompare(displayName(b)),
+    newest:(a,b)=>recordYear(b)-recordYear(a)||displayName(a).localeCompare(displayName(b)),
+    longest:(a,b)=>wordCount(b)-wordCount(a)||displayName(a).localeCompare(displayName(b)),
+    shortest:(a,b)=>wordCount(a)-wordCount(b)||displayName(a).localeCompare(displayName(b))
+  };
+  const sortLabels={az:'Name A→Z',za:'Name Z→A',group:'Group / Category',status:'Status',newest:'Newest / latest BF',longest:'Most detailed',shortest:'Briefest'};
+  const groupLabel=()=>({characters:'Affiliation',factions:'Type',events:'Era',battles:'Type',locations:'Region',races:'Type',nations:'Type',collections:'Type',trials:'Status'}[key]||'Group');
   const draw=()=>{
-    let arr=items.slice().filter(matchesFilter);
-    arr.sort((a,b)=>st.sort==='az'?displayName(a).localeCompare(displayName(b)):displayName(b).localeCompare(displayName(a)));
-    let chipArr=[`<span class="chip ${st.filter==='All'?'active':''}" data-v="All">All <span class="opacity-6">${items.length}</span></span>`]
-      .concat(values.map(v=>`<span class="chip ${st.filter===v?'active':''}" data-v="${esc(v)}">${esc(v)} <span class="opacity-6">${counts[v]}</span></span>`));
-    if(otherGroups.length) chipArr.push(`<span class="chip ${st.filter==='__other__'?'active':''}" data-v="__other__" title="${esc(otherGroups.join(', '))}">Other <span class="opacity-6">${otherCount}</span></span>`);
-    const chips=chipArr.join('');
+    let arr=items.slice().filter(i=>matchesFilter(i)&&matchesQuery(i));
+    arr.sort(sorters[st.sort]||sorters.az);
+    const groupOptions=['All'].concat(groups).map(g=>`<option value="${esc(g)}" ${st.filter===g?'selected':''}>${esc(g)}${g==='All'?` (${items.length})`:` (${counts[g]||0})`}</option>`).join('');
+    const sortOptions=Object.entries(sortLabels).map(([k,l])=>`<option value="${k}" ${st.sort===k?'selected':''}>${esc(l)}</option>`).join('');
     const tiles=arr.map(i=>{
       const sub=i.title||i.type||'';const meta=[];
       if(i.status)meta.push(`<span class="pill">${esc(String(i.status).split('—')[0].trim())}</span>`);
       const g=filterGroup(key,i);
       if(g&&g!==sub)meta.push(`<span class="pill">${esc(g)}</span>`);
+      const wc=wordCount(i); if(wc>600)meta.push(`<span class="pill">${wc.toLocaleString()} words</span>`);
       const visual=cardVisual(i,key);
       return `<div class="arttile ${key==='characters'?'character-tile':''}" onclick="openId('${esc(i.id)}')">${visual}<div class="tt">${esc(displayName(i))}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${sub?`<div class="tsub">${esc(sub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
     }).join('');
-    el('content').innerHTML=`<div class="card animate-fade-in"><div class="listhead"><h2>${t.emoji} ${t.label} <span style="color:var(--muted);font-size:15px">(${arr.length})</span></h2><div class="chip" id="sortBtn">Sort: ${st.sort==='az'?'A→Z':'Z→A'}</div></div>${key==='battles'?battleHubPanel():''}${key==='races'?speciesSystemPanel():''}${values.length>1?`<div class="chips" id="filterChips" class="mb-14">${chips}</div>`:''}<div class="artgrid">${tiles||'<p class="text-muted">No articles.</p>'}</div></div>`;
-    const fc=el('filterChips');if(fc)fc.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{st.filter=c.dataset.v;draw();}));
-    const sb=el('sortBtn');if(sb)sb.addEventListener('click',()=>{st.sort=st.sort==='az'?'za':'az';draw();});
+    const qid=`listSearch_${key}`, gid=`listGroup_${key}`, sid=`listSort_${key}`;
+    const activeBits=[];
+    if(st.filter!=='All')activeBits.push(`${groupLabel()}: ${st.filter}`);
+    if(st.query)activeBits.push(`Search: “${st.query}”`);
+    activeBits.push(`Sort: ${sortLabels[st.sort]||sortLabels.az}`);
+    el('content').innerHTML=`<div class="card animate-fade-in"><div class="listhead"><h2>${t.emoji} ${t.label} <span style="color:var(--muted);font-size:15px">(${arr.length}/${items.length})</span></h2></div>${key==='battles'?battleHubPanel():''}${key==='races'?speciesSystemPanel():''}<div class="list-toolbar"><label><span>Search</span><input id="${qid}" value="${esc(st.query||'')}" placeholder="Filter ${esc(t.label.toLowerCase())} by name, title, status, text…"></label><label><span>${esc(groupLabel())}</span><select id="${gid}">${groupOptions}</select></label><label><span>Sort</span><select id="${sid}">${sortOptions}</select></label><button class="list-clear-btn" id="listClear_${key}" type="button">Clear</button></div><div class="list-active-line">${activeBits.map(x=>`<span>${esc(x)}</span>`).join('')}</div><div class="artgrid">${tiles||'<p class="text-muted">No matching articles. Waluigi suggests fewer filters.</p>'}</div></div>`;
+    const q=el(qid), g=el(gid), so=el(sid), clear=el(`listClear_${key}`);
+    if(q)q.addEventListener('input',()=>{st.query=q.value;draw();setTimeout(()=>{const nq=el(qid);if(nq){nq.focus();nq.setSelectionRange(nq.value.length,nq.value.length);}},0);});
+    if(g)g.addEventListener('change',()=>{st.filter=g.value;draw();});
+    if(so)so.addEventListener('change',()=>{st.sort=so.value;draw();});
+    if(clear)clear.addEventListener('click',()=>{st.filter='All';st.query='';st.sort='az';draw();});
   };
   draw();window.scrollTo(0,0);
 }
