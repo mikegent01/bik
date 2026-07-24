@@ -4300,9 +4300,9 @@ function eventPeopleAndXpPanel(item){
   const add=id=>{ if(id&&INDEX[id]&&INDEX[id].typeKey==='characters'&&!ids.includes(id)) ids.push(id); };
   [].concat(item.participants||[],item.participatingCharacters||[]).forEach(p=>add(typeof p==='string'?p:(p&&p.id)));
   (item.relatedArticles||[]).forEach(add);
-  (XP_EVENT_AWARDS[item.id]||[]).forEach(a=>add(a.articleId));
+  xpAwardsForEvent(item.id).forEach(a=>add(a.articleId));
   const people=ids.map(id=>`<span class="rel-chip" onclick="openId('${esc(id)}')"><span class="rt">Character</span>${esc(displayName(INDEX[id].item))}</span>`).join('');
-  const awards=(XP_EVENT_AWARDS[item.id]||[]).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
+  const awards=xpAwardsForEvent(item.id).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
   const effectsPanel = renderReputationImpactPanel(item);
   if(!people && !awards && !effectsPanel) return '';
   if(!awards && !people) return effectsPanel;
@@ -4311,6 +4311,7 @@ function eventPeopleAndXpPanel(item){
   return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
+function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const rec=(DATA?.events||[]).find(e=>e&&e.id===eventId);if(Array.isArray(rec?.xpAwards))base.push(...rec.xpAwards);const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
 
 // Surface congress votes where a faction/nation was proposer, subject, notable_yea/nay/abstain, or clearly named in the description.
 function renderRelatedCongressVotes(item){
@@ -8044,8 +8045,8 @@ function _recordOperators(rec){
   if(rec.instigator) push(rec.instigator);
   (rec.targets||[]).forEach(push);
   // Also scan XP awards for this event id (already indexed on load).
-  if(typeof XP_EVENT_AWARDS!=='undefined' && rec.id && XP_EVENT_AWARDS[rec.id]){
-    XP_EVENT_AWARDS[rec.id].forEach(a => push(a.articleId||a.xpKey));
+  if(rec.id){
+    xpAwardsForEvent(rec.id).forEach(a => push(a.articleId||a.xpKey));
   }
   return [...out];
 }
@@ -9247,9 +9248,8 @@ function view_annotations(mode){
 function _xpAggregate(){
   if(window.__xpAgg) return window.__xpAgg;
   const rows=[];
-  Object.entries(typeof XP_EVENT_AWARDS!=='undefined'?XP_EVENT_AWARDS:{}).forEach(([evId, arr]) => {
-    (arr||[]).forEach(a => rows.push({...a, eventId:evId}));
-  });
+  const eventIds = new Set([...Object.keys(typeof XP_EVENT_AWARDS!=='undefined'?XP_EVENT_AWARDS:{}), ...(DATA?.events||[]).filter(e=>Array.isArray(e?.xpAwards)).map(e=>e.id)]);
+  eventIds.forEach(evId => xpAwardsForEvent(evId).forEach(a => rows.push({...a, eventId:evId})));
   const byOp={}; const byCat={}; const byEvent={}; const byYear={};
   rows.forEach(r => {
     const opKey = r.articleId || r.xpKey;
