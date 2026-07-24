@@ -33,9 +33,34 @@
     <div><b>Waluipedia</b><small>The Objective Encyclopedia</small></div>
   </div>
   <div class="searchwrap">
-    <span class="ico">🔍</span>
-    <input id="search" type="text" autocomplete="off" placeholder="Search everything — articles, trials, battles, congress votes…">
-    <span class="kbd">/</span>
+    <div class="searchline">
+      <span class="ico">🔍</span>
+      <input id="search" type="text" autocomplete="off" placeholder="Search Waluipedia — try “Hjumpik”, “mirror”, or @events feyward…">
+      <select id="searchCategory" class="search-select" title="Search category">
+        <option value="all">All</option>
+        <option value="articles">Articles</option>
+        <option value="characters">Characters</option>
+        <option value="factions">Factions</option>
+        <option value="events">Events</option>
+        <option value="locations">Locations</option>
+        <option value="items">Items</option>
+        <option value="currencies">Currencies</option>
+        <option value="battles">Battles</option>
+        <option value="congress">Congress</option>
+        <option value="books">Books</option>
+        <option value="chronicles">Chronicles</option>
+        <option value="dynasties">Dynasties</option>
+        <option value="vendors">Vendors</option>
+        <option value="holidays">Holidays</option>
+      </select>
+      <select id="searchMode" class="search-select search-mode" title="Search matching mode">
+        <option value="smart">Smart</option>
+        <option value="all">All words</option>
+        <option value="any">Any word</option>
+        <option value="exact">Exact phrase</option>
+      </select>
+      <span class="kbd">/</span>
+    </div>
     <div class="results" id="results"></div>
   </div>
   <div class="topbtns">
@@ -4752,53 +4777,162 @@ function mdToHtml(md,linkCtx){
 function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
-const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:()=>'🏛️',conflict:()=>'💥',majorbattle:()=>'🗡️',artifact:()=>'⭐',invitem:()=>'🎒',bearer:()=>'✴️',member:()=>'🏳️',session:()=>'📋',crisis:()=>'⚠️',faction:()=>'⚔️',dynasty:()=>'👑',vendor:()=>'🏪',holiday:()=>'🎉'};
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey].singular; if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; return ''; }
-function search(q){
-  q=q.trim().toLowerCase(); if(!q)return[];
-  const cleanQ = q.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ');
-  const terms = cleanQ.split(/\s+/).filter(Boolean);
-  if (!terms.length) return [];
-  const out=[];
-  for(const d of SEARCH_DOCS){let score=0,ok=true;
-    const normName = d.name.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ').replace(/\s+/g, ' ').trim();
-    const normHay = d.hay.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ').replace(/\s+/g, ' ').trim();
-    for(const t of terms){const inName=normName.includes(t),inHay=normHay.includes(t);
-      if(!inName&&!inHay){ok=false;break;}
-      if(normName===t)score+=120;if(normName.startsWith(t))score+=40;if(inName)score+=30;if(inHay)score+=6;}
-    if(ok){
-      const normCleanQ = cleanQ.replace(/\s+/g, ' ').trim();
-      if(normName===normCleanQ)score+=200;
-      if(normName.includes(normCleanQ))score+=150;
-      if(normHay.includes(normCleanQ))score+=120;
-      out.push({...d,score});
-    }
+const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚'};
+const SEARCH_CATEGORIES=[
+  ['all','All'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays']
+];
+const SEARCH_CATEGORY_ALIASES={all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays'};
+function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; return prettyId(d.kind||'record'); }
+function docCategory(d){
+  if(d.kind==='article'){
+    if(d.typeKey==='characters')return 'characters';
+    if(d.typeKey==='factions')return 'factions';
+    if(d.typeKey==='events'||d.typeKey==='trials')return 'events';
+    if(d.typeKey==='locations'||d.typeKey==='nations'||d.typeKey==='races'||d.typeKey==='cultures')return 'locations';
+    if(d.typeKey==='battles'||d.typeKey==='majorBattles'||d.typeKey==='conflicts')return 'battles';
+    if(d.typeKey==='collections')return 'articles';
+    return 'articles';
   }
-  out.sort((a,b)=>b.score-a.score);return out.slice(0,40);
+  if(['artifact','invitem','bearer'].includes(d.kind))return 'items';
+  if(['vote','member','session','crisis'].includes(d.kind))return 'congress';
+  if(['conflict','majorbattle'].includes(d.kind))return 'battles';
+  if(d.kind==='currency')return 'currencies';
+  if(d.kind==='book')return 'books';
+  if(d.kind==='chronicle')return 'chronicles';
+  if(d.kind==='dynasty')return 'dynasties';
+  if(d.kind==='vendor')return 'vendors';
+  if(d.kind==='holiday')return 'holidays';
+  if(d.kind==='collection')return 'articles';
+  if(d.kind==='faction')return 'factions';
+  return 'articles';
+}
+function categoryMatches(d,cat){
+  if(!cat||cat==='all')return true;
+  if(cat==='articles')return d.kind==='article'||d.kind==='collection';
+  return docCategory(d)===cat;
+}
+function normalizeSearchText(s){return String(s||'').toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘\[\]<>]/g,' ').replace(/\s+/g,' ').trim();}
+function parseSearchQuery(raw,opts){
+  let q=String(raw||'').trim();
+  const categorySelect=el('searchCategory'),modeSelect=el('searchMode');
+  let category=(opts&&opts.category)||categorySelect?.value||'all';
+  let mode=(opts&&opts.mode)||modeSelect?.value||'smart';
+  q=q.replace(/(?:^|\s)(?:@|(?:cat(?:egory)?|type|in):)([a-z0-9_-]+)/ig,(m,c)=>{const mapped=SEARCH_CATEGORY_ALIASES[String(c).toLowerCase()]||category;if(!(opts&&opts.keepPrefixCategory))category=mapped;return ' ';}).trim();
+  const quoted=[]; q=q.replace(/"([^"]+)"|'([^']+)'/g,(m,a,b)=>{const val=(a||b||'').trim();if(val)quoted.push(normalizeSearchText(val));return ' ';}).trim();
+  const clean=normalizeSearchText(q);
+  const terms=clean.split(/\s+/).filter(t=>t.length>0);
+  return {raw:String(raw||''),q,clean,terms,quoted,category,mode};
+}
+function scoreDoc(d,parsed,mode){
+  if(!categoryMatches(d,parsed.category))return null;
+  const label=searchTypeLabel(d);
+  const name=normalizeSearchText(d.name);
+  const id=normalizeSearchText(d.id);
+  const summary=normalizeSearchText(d.summary||'');
+  const hay=normalizeSearchText([d.id,d.name,label,d.typeKey,d.summary,d.hay].filter(Boolean).join(' '));
+  const query=parsed.clean;
+  const terms=parsed.terms;
+  let score=0,matched=0;
+  if(mode==='exact'){
+    const phrases=parsed.quoted.length?parsed.quoted:(query?[query]:[]);
+    if(!phrases.length)return null;
+    for(const ph of phrases){
+      if(name===ph)score+=420;
+      else if(name.includes(ph))score+=260;
+      else if(summary.includes(ph))score+=150;
+      else if(hay.includes(ph))score+=100;
+      else return null;
+    }
+    matched=phrases.length;
+  }else{
+    if(!terms.length&&!parsed.quoted.length)return null;
+    for(const ph of parsed.quoted){
+      if(name.includes(ph)){score+=230;matched++;}
+      else if(hay.includes(ph)){score+=115;matched++;}
+      else if(mode!=='any')return null;
+    }
+    for(const t of terms){
+      if(!t)continue;
+      const wordBoundary=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+      const inId=id.includes(t), starts=name.startsWith(t), inName=name.includes(t), boundary=wordBoundary.test(name), inSummary=summary.includes(t), inHay=hay.includes(t);
+      if(inId||starts||inName||inSummary||inHay){
+        matched++;
+        if(id===t)score+=180;
+        if(name===t)score+=260;
+        if(starts)score+=100;
+        if(boundary)score+=70;
+        if(inName)score+=55;
+        if(inSummary)score+=22;
+        if(inHay)score+=8;
+      }else if(mode!=='any')return null;
+    }
+    if(mode==='any' && matched===0)return null;
+    if((mode==='all'||mode==='smart') && matched < (terms.length+parsed.quoted.length))return null;
+  }
+  if(query){
+    if(name===query)score+=380;
+    else if(name.startsWith(query))score+=220;
+    else if(name.includes(query))score+=160;
+    if(hay.includes(query))score+=70;
+  }
+  if(d.kind==='article')score+=12;
+  if(docCategory(d)===parsed.category&&parsed.category!=='all')score+=35;
+  return score;
+}
+function search(q,opts={}){
+  const parsed=parseSearchQuery(q,opts);
+  if(!parsed.clean&&!parsed.quoted.length)return[];
+  const run=(mode)=>{
+    const out=[];
+    for(const d of SEARCH_DOCS){const score=scoreDoc(d,parsed,mode);if(score!=null)out.push({...d,score,cat:docCategory(d)});}
+    out.sort((a,b)=>b.score-a.score||String(a.name).localeCompare(String(b.name)));
+    return out;
+  };
+  let out=run(parsed.mode==='smart'?'all':parsed.mode);
+  if(parsed.mode==='smart'&&!out.length&&parsed.terms.length>1)out=run('any').map(r=>Object.assign(r,{score:Math.max(1,r.score-40)}));
+  return out.slice(0,opts.limit||60);
 }
 function highlight(text,q){
   if(!q)return esc(text);
-  const cleanQ = q.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ');
-  const terms=cleanQ.trim().split(/\s+/).filter(Boolean).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  const parsed=parseSearchQuery(q,{category:'all'});
+  const terms=[...parsed.quoted,...parsed.terms].filter(Boolean).sort((a,b)=>b.length-a.length).slice(0,8).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
   let o=esc(text);
-  terms.forEach(t=>{o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
+  terms.forEach(t=>{if(t.length>1)o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
   return o;
 }
 function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
-const searchInput=el('search'),resultsBox=el('results');let activeIdx=-1,currentResults=[];
+const searchInput=el('search'),resultsBox=el('results'),searchCategory=el('searchCategory'),searchMode=el('searchMode');let activeIdx=-1,currentResults=[];
+function searchCounts(q){const all=search(q,{category:'all',limit:600});const counts={all:all.length};all.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});return counts;}
+function renderSearchHelp(){
+  currentResults=[];activeIdx=-1;
+  const chips=['characters','events','items','currencies','battles','books'].map(cat=>`<span class="search-chip" data-search-cat="${cat}">${SEARCH_CATEGORIES.find(x=>x[0]===cat)?.[1]||prettyId(cat)}</span>`).join('');
+  resultsBox.innerHTML=`<div class="search-panel-head"><div class="search-panel-title"><b>Waluipedia Search Console</b><span>/ or Ctrl+K focuses · ↑↓ selects · Enter opens</span></div><div class="search-chipbar">${chips}</div></div><div class="search-help"><b>Tips:</b> choose a category, switch Smart/Exact/Any matching, use quotes for a phrase like <b>"Mirror of True Reflection"</b>, or type quick filters like <b>@characters bowser</b>, <b>@events feyward</b>, <b>type:currency gold</b>. Waluigi has made the search less embarrassing. You are welcome.</div>`;
+  resultsBox.classList.add('show');
+  bindSearchChips();
+}
+function bindSearchChips(){resultsBox.querySelectorAll('[data-search-cat]').forEach(ch=>ch.addEventListener('click',e=>{e.stopPropagation();if(searchCategory)searchCategory.value=ch.dataset.searchCat;runSearch(true);}));}
 function renderResults(list,q){
   currentResults=list;activeIdx=-1;
-  if(!q){resultsBox.classList.remove('show');resultsBox.innerHTML='';return;}
-  if(!list.length){resultsBox.innerHTML='<div class="res-empty">No results. Waluigi finds your query disappointing.</div>';resultsBox.classList.add('show');return;}
-  const headerHtml = `<div style="padding:10px 14px 4px 14px; font-size:11px; text-transform:uppercase; letter-spacing:.8px; color:var(--accent2); border-bottom:1px solid var(--border); background:rgba(138,75,255,.05)">Waluigi begrudgingly found ${list.length} matches. You better be grateful! WAH!</div>`;
-  resultsBox.innerHTML=headerHtml + list.map((r,i)=>`<div class="res-item" data-i="${i}"><span style="font-size:18px">${SEARCH_META[r.kind](r.typeKey)}</span><div style="min-width:0"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span>${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'').slice(0,140),q)}</div></div></div>`).join('');
+  if(!q){renderSearchHelp();return;}
+  const parsed=parseSearchQuery(q);
+  const counts=searchCounts(q);
+  const total=counts.all||0;
+  const chipHtml=SEARCH_CATEGORIES.filter(([cat])=>cat==='all'||counts[cat]||cat===parsed.category).map(([cat,label])=>`<span class="search-chip ${cat===parsed.category?'active':''}" data-search-cat="${cat}">${esc(label)}${counts[cat]?` ${counts[cat]}`:''}</span>`).join('');
+  const headerHtml=`<div class="search-panel-head"><div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b><span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
+  if(!list.length){resultsBox.innerHTML=headerHtml+'<div class="res-empty">No matches in this filter. Try All, Any word, or fewer words. Waluigi refuses to blame the index this time.</div>';resultsBox.classList.add('show');bindSearchChips();return;}
+  resultsBox.innerHTML=headerHtml + list.map((r,i)=>`<div class="res-item" data-i="${i}"><span class="res-icon">${esc(searchIcon(r))}</span><div style="min-width:0;flex:1"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span><span class="rscore">${esc(SEARCH_CATEGORIES.find(x=>x[0]===r.cat)?.[1]||prettyId(r.cat))}</span>${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'No summary filed.').slice(0,190),q)}</div></div></div>`).join('');
   resultsBox.classList.add('show');
+  bindSearchChips();
   resultsBox.querySelectorAll('.res-item').forEach((n,i)=>n.addEventListener('click',()=>{openSearchResult(currentResults[i]);closeSearch();}));
 }
+function runSearch(showHelp){const q=searchInput.value;if(!q.trim()){if(showHelp)renderSearchHelp();else closeSearch();return;}renderResults(search(q),q);}
 function closeSearch(){resultsBox.classList.remove('show');}
-searchInput.addEventListener('input',()=>renderResults(search(searchInput.value),searchInput.value));
-searchInput.addEventListener('focus',()=>{if(searchInput.value)renderResults(search(searchInput.value),searchInput.value);});
+searchInput.addEventListener('input',()=>runSearch(false));
+searchInput.addEventListener('focus',()=>runSearch(true));
+if(searchCategory)searchCategory.addEventListener('change',()=>runSearch(true));
+if(searchMode)searchMode.addEventListener('change',()=>runSearch(true));
 searchInput.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown'){e.preventDefault();activeIdx=Math.min(activeIdx+1,currentResults.length-1);paintActive();}
   else if(e.key==='ArrowUp'){e.preventDefault();activeIdx=Math.max(activeIdx-1,0);paintActive();}
@@ -5694,17 +5828,75 @@ function view_dynasty(id){
 
 function invForChar(id){return (INVENTORY_SYSTEM.inventories&&INVENTORY_SYSTEM.inventories[id])||[];}
 function itemDef(id){return (INVENTORY_SYSTEM.items&&INVENTORY_SYSTEM.items[id])||INVENTORY_SYSTEM.items.hidden_item_slot;}
+function walletSource(){
+  const src=(DATA&&DATA.wallets)||INVENTORY_SYSTEM.wallets||{};
+  return Object.fromEntries(Object.entries(src).filter(([k,v])=>v&&typeof v==='object'&&!String(k).startsWith('_')));
+}
+const MAIN_WALLET_ALIASES={archie_miser:'archie',remi_akamatsu_full_backstory:'remi'};
 function walletForChar(id,item){
+  const entries=Object.entries(walletSource());
+  const alias=MAIN_WALLET_ALIASES[id];
+  if(alias){const aliased=entries.find(([k])=>k.toLowerCase()===alias); if(aliased) return aliased[1];}
   const names=[id, displayName(item||{}), (item&&item.name)||''].map(x=>String(x||'').toLowerCase());
-  const entries=Object.entries(INVENTORY_SYSTEM.wallets||{});
   return entries.find(([k,w])=>names.includes(k.toLowerCase())||names.includes(String(w.name||'').toLowerCase()))?.[1]||null;
 }
-function bankRecordsForName(name){name=String(name||'').toLowerCase();const b=INVENTORY_SYSTEM.banking||{};return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name),loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name),debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name||String(x.creditor||'').toLowerCase()===name)};}
-function currencyName(k){return (INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]&&INVENTORY_SYSTEM.currencies[k].name)||prettyId(k);}
+function bankingSource(){return (DATA&&DATA.banking)||INVENTORY_SYSTEM.banking||{};}
+function bankRecordsForName(name){name=String(name||'').toLowerCase();const b=bankingSource();return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name),loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name),debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name||String(x.creditor||'').toLowerCase()===name)};}
+function currencyListSource(){
+  const src=(DATA&&DATA.currencies)||null;
+  if(Array.isArray(src)) return src;
+  if(src&&Array.isArray(src.currencies)) return src.currencies;
+  return [];
+}
+function normCurrencyKey(v){return String(v||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');}
+const CURRENCY_BUILTIN_DEFS={
+  platinum:{id:'platinum',name:'Platinum Piece',icon:'💎',base_value:10,tier:1,category:'core',type:'Metal'},
+  electrum:{id:'electrum',name:'Electrum Piece',icon:'⚪',base_value:0.5,tier:1,category:'core',type:'Metal'},
+  bronze:{id:'bronze',name:'Bronze Piece',icon:'🟫',base_value:0.01,tier:1,category:'core',type:'Metal'}
+};
+function currencyDef(k){
+  const key=normCurrencyKey(k);
+  const modern=currencyListSource().find(c=>normCurrencyKey(c.id||c.key||c.name)===key || normCurrencyKey(c.name)===key);
+  if(modern) return modern;
+  const legacy=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k])||null;
+  if(legacy) return Object.assign({id:k},legacy);
+  return CURRENCY_BUILTIN_DEFS[key]||null;
+}
+const CURRENCY_ICON_FALLBACKS={
+  gold:'💰', silver:'🪙', copper:'🟤', bronze:'🟫', platinum:'💎', electrum:'⚪',
+  midland_ducat:'🦁', imperial_crown:'👑', archive_writ:'📜', dwarf_oathgold:'⛏️', mora:'🪨', rupee:'💚', poke_dollar:'₽',
+  mushroom_coin:'🍄', peach_crown:'🍑', toad_bond:'🤝', relief_stamp:'🎟️', decree_strip:'📜', beanbean_bean:'🫘', toad_whistle:'📯',
+  wario_coin:'🟡', wario_points:'⭐', bowser_bux:'🐢', shell_credit:'🐚', banana_medallion:'🏅', coconut_bar:'🥥', kremling_koin:'🐊',
+  doubloon:'🏴‍☠️', cargo_share:'📦', arcane_shard:'💎', guild_seal:'🔮', transit_stamp:'🌀', astral_pearl:'🫧',
+  kivotos_credit:'💠', data_chit:'💾', credstick:'💳', soul_coin:'😈', blood_vial:'🩸', shadow_obol:'⚫', vampire_marker:'🦇', index_token:'🗂️',
+  warpstone:'☢️', warpstone_token:'☢️', broker_mark:'🕶️', tea_chit:'🍵', spirit_bead:'📿', fey_acorn:'🌰', court_leaf:'🍂', autumn_leaf:'🍃',
+  icon_gold_png:'💰', icon_silver_png:'🪙', icon_copper_png:'🟤', icon_midland_ducat_png:'🦁', icon_currency_png:'🪙', icon_magic_png:'🔮',
+  icon_mushroom_coin_png:'🍄', icon_dk_banana_png:'🍌', icon_kremling_koin_png:'🐊', icon_quests_png:'⭐', icon_rupee_png:'💚', icon_pokedollar_png:'₽', icon_mora_png:'🪨',
+  factions_empire_png:'👑', factions_dwarfs_png:'⛏️', factions_dwarves_png:'⛏️', factions_skaven_png:'☢️', faction_wario_png:'🟡', faction_koopa_troop_png:'🐢', faction_onyx_hand_png:'🦇'
+};
+function displayIcon(raw,key){
+  const fallback=CURRENCY_ICON_FALLBACKS[normCurrencyKey(key)]||'🪙';
+  const val=String(raw||'').trim();
+  if(!val) return fallback;
+  const norm=normCurrencyKey(val);
+  if(CURRENCY_ICON_FALLBACKS[norm]) return CURRENCY_ICON_FALLBACKS[norm];
+  if(/\.(png|jpe?g|gif|webp|svg)$/i.test(val)||val.includes('/')){
+    if(/dwarf/i.test(val)) return '⛏️';
+    if(/skaven|rat/i.test(val)) return '🐀';
+    if(/empire|crown/i.test(val)) return '👑';
+    if(/gold/i.test(val)) return '💰';
+    if(/silver/i.test(val)) return '🪙';
+    if(/copper|bronze/i.test(val)) return '🟤';
+    if(/ducat|regal|lion/i.test(val)) return '🦁';
+    return fallback;
+  }
+  return val;
+}
+function currencyName(k){const c=currencyDef(k);return (c&&c.name)||prettyId(k);}
 function currencyMeta(k){
-  const c=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k])||null;
+  const c=currencyDef(k);
   if(!c) return {base:1,icon:'🪙',tier:2,cat:'unknown'};
-  return {base:c.base_value||c.value||1, icon:c.iconFallback||c.icon||'🪙', tier:c.tier||2, cat:c.category||c.type||'?', type:c.type||'?'};
+  return {base:c.base_value||c.value||1, icon:displayIcon(c.iconFallback||c.emoji||c.icon,k), tier:c.tier||2, cat:c.category||c.type||'?', type:c.type||'?'};
 }
 function currencyGold(k,amt){const m=currencyMeta(k);return (m.base||1)*amt;}
 function inventoryPanel(articleId,item){
@@ -5723,7 +5915,7 @@ function inventoryPanel(articleId,item){
       const meta=currencyMeta(k); const gv=currencyGold(k,v); totalGold+=gv;
       if(meta.tier===1) core+=gv; else if(meta.tier===2) reg+=gv; else if(meta.tier===3) spec+=gv; else blk+=gv;
       const col=meta.tier===1?'var(--green)':meta.tier===2?'var(--accent2)':meta.tier===3?'var(--accent)':'var(--danger)';
-      return `<span class="coin-chip" style="border-left:3px solid ${col}"><span style="font-size:14px">${meta.icon}</span> <b>${Number(v).toLocaleString()}</b> ${esc(currencyName(k))} <span class="text-muted">· ${gv.toFixed(2)}g</span></span>`;
+      return `<span class="coin-chip" style="border-left:3px solid ${col}"><span style="font-size:14px">${esc(meta.icon)}</span> <b>${Number(v).toLocaleString()}</b> ${esc(currencyName(k))} <span class="text-muted">· ${gv.toFixed(2)}g</span></span>`;
     }).join('');
     walletHtml=`<h3 class="mt-14">💱 Wallet — ${Number(totalGold).toLocaleString()} gold equiv (intuitive)</h3>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0"><span class="pill border-green">Core ${Number(core).toLocaleString()}g</span><span class="pill border-accent2">Regional ${Number(reg).toLocaleString()}g</span><span class="pill border-accent">Special ${Number(spec).toLocaleString()}g</span>${blk?`<span class="pill border-danger">Black ${Number(blk).toLocaleString()}g</span>`:''}<span class="pill">1g=10s=100c</span></div>
@@ -5733,7 +5925,7 @@ function inventoryPanel(articleId,item){
   let bankHtml=''; let bankGold=0;
   if(bank.accounts.length||bank.loans.length||bank.debts.length){
     const rows=[];
-    bank.accounts.forEach(a=>{const meta=currencyMeta(a.currencyKey); const gv=currencyGold(a.currencyKey,a.balance); bankGold+=gv; rows.push(`<div class="bank-row border-left-green"><b>🏦 ${esc(a.bankId)}</b> — ${meta.icon} ${esc(a.balance.toLocaleString())} ${esc(currencyName(a.currencyKey))} <span class="text-muted">· ${gv.toFixed(2)}g equiv</span><br><span class="text-muted">${esc((a.note||'').slice(0,110))}</span></div>`);});
+    bank.accounts.forEach(a=>{const meta=currencyMeta(a.currencyKey); const gv=currencyGold(a.currencyKey,a.balance); bankGold+=gv; rows.push(`<div class="bank-row border-left-green"><b>🏦 ${esc(a.bankId)}</b> — ${esc(meta.icon)} ${esc(a.balance.toLocaleString())} ${esc(currencyName(a.currencyKey))} <span class="text-muted">· ${gv.toFixed(2)}g equiv</span><br><span class="text-muted">${esc((a.note||'').slice(0,110))}</span></div>`);});
     bank.loans.forEach(l=>{rows.push(`<div class="bank-row border-left-danger"><b>📉 Loan ${esc(l.bankId)}</b> — ${Number(l.principal).toLocaleString()} ${esc(currencyName(l.currencyKey))} · ${esc(l.status)} — paid ${Number(l.paid||0).toLocaleString()}/${Number(l.principal).toLocaleString()}<br><span class="text-muted">${esc((l.note||'').slice(0,100))}</span></div>`);});
     bank.debts.forEach(d=>{rows.push(`<div class="bank-row border-left-accent2"><b>💸 Debt → ${esc(d.creditor)}</b> — ${Number(d.amountOwed).toLocaleString()} ${esc(currencyName(d.currencyKey))} · ${esc(d.status)}<br><span class="text-muted">${esc((d.note||'').slice(0,100))}</span></div>`);});
     bankHtml=`<h3 class="mt-14">🏦 Banking — ${Number(bankGold).toLocaleString()}g in accounts</h3>${rows.join('')}<a class="map-link" href="currency.html">Open full exchange → tiers, instant convert, acceptance</a>`;
@@ -8990,9 +9182,7 @@ function getCurrencyMeta(id){
   const list=getCurrenciesList();
   const c=list.find(x=>x.id===id||x.key===id||currencySlug(x)===id);
   if(c) return c;
-  const legacy=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[id])||null;
-  if(legacy) return Object.assign({id},legacy);
-  return null;
+  return currencyDef(id);
 }
 function view_currencies(){
   renderSidebar('currencies');
@@ -9003,7 +9193,7 @@ function view_currencies(){
   const sections=Object.entries(byCat).sort().map(([cat,items])=>{
     const cards=items.sort((a,b)=>((b.base_value||0)-(a.base_value||0))||String(a.name).localeCompare(String(b.name))).map(c=>`
       <a class="card holiday-directory-card" href="#/currency/${encodeURIComponent(currencySlug(c))}" style="border-left:4px solid ${c.color||'var(--accent2)'}">
-        <h2 style="margin:0 0 6px;font-size:16px">${esc(c.icon||'🪙')} ${esc(c.name||prettyId(c.id))}</h2>
+        <h2 style="margin:0 0 6px;font-size:16px">${esc(displayIcon(c.icon,c.id||c.key||c.name))} ${esc(c.name||prettyId(c.id))}</h2>
         <p style="color:var(--muted);font-size:12.5px;line-height:1.45;margin:0 0 8px">${esc((c.short||c.description||'Regional tender.').slice(0,150))}</p>
         <div class="chips">
           <span class="pill">≈ ${Number(c.base_value||0).toLocaleString()}g</span>
@@ -9042,17 +9232,18 @@ function view_currency(id){
   const acceptingVendors=Object.values(vendors).filter(v=>(v.acceptedCurrencies||[]).includes(c.id)).slice(0,10);
 
   // Wallets holding this currency
-  const wallets=(INVENTORY_SYSTEM.wallets||{});
+  const wallets=walletSource();
   const holders=Object.entries(wallets).filter(([k,w])=>w && w.currencies && (w.currencies[c.id]||w.currencies[currencySlug(c)])).slice(0,8);
 
   const goldEquiv=(n)=>Number(n*(c.base_value||1)).toLocaleString(undefined,{maximumFractionDigits:2});
 
+  const cIcon=displayIcon(c.iconFallback||c.emoji||c.icon,c.id||c.key||c.name);
   const accentColor=c.color||'var(--accent2)';
   el('content').innerHTML=`
     <div class="card animate-fade-in" style="border-top:5px solid ${accentColor};background:linear-gradient(135deg,${c.color?c.color+'22':'rgba(224,180,0,.14)'},rgba(0,0,0,.05)),var(--panel)">
       <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/currencies')">Currencies</a> › ${esc(c.name||prettyId(c.id))}</div>
       <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-top:8px">
-        <div style="font-size:56px;line-height:1">${esc(c.icon||'🪙')}</div>
+        <div style="font-size:56px;line-height:1">${esc(cIcon)}</div>
         <div style="flex:1;min-width:220px">
           <h1 style="margin:0 0 6px;font-size:30px">${esc(c.name||prettyId(c.id))}</h1>
           <div style="color:var(--accent2);font-style:italic;font-size:14px">${esc(c.short||c.type||'Regional tender')}</div>
@@ -9081,7 +9272,7 @@ function view_currency(id){
       <table style="width:100%;border-collapse:collapse;font-size:13.5px">
         <thead><tr style="border-bottom:1px solid var(--border);color:var(--muted)"><th style="text-align:left;padding:6px">Amount</th><th style="text-align:right;padding:6px">Gold Equivalent</th></tr></thead>
         <tbody>
-          ${[1,5,10,25,100,500,1000,5000].map(n=>`<tr style="border-bottom:1px dashed var(--border)"><td style="padding:6px">${n.toLocaleString()} ${esc(c.icon||'🪙')} ${esc(c.name||prettyId(c.id))}</td><td style="text-align:right;padding:6px;color:var(--accent2)"><b>${goldEquiv(n)}g</b></td></tr>`).join('')}
+          ${[1,5,10,25,100,500,1000,5000].map(n=>`<tr style="border-bottom:1px dashed var(--border)"><td style="padding:6px">${n.toLocaleString()} ${esc(cIcon)} ${esc(c.name||prettyId(c.id))}</td><td style="text-align:right;padding:6px;color:var(--accent2)"><b>${goldEquiv(n)}g</b></td></tr>`).join('')}
         </tbody>
       </table>
       <div class="chips mt-10">
@@ -9107,14 +9298,14 @@ function view_currency(id){
 
     ${holders.length?`<div class="card">
       <h2 style="margin-top:0">👛 Notable Wallet Holdings</h2>
-      <div class="chips">${holders.map(([k,w])=>{const amt=(w.currencies[c.id]||w.currencies[currencySlug(c)]||0); return `<a class="chip" onclick="openId('${esc(k)}')">${esc(prettyId(k))} — ${Number(amt).toLocaleString()} ${esc(c.icon||'🪙')}</a>`;}).join('')}</div>
+      <div class="chips">${holders.map(([k,w])=>{const amt=(w.currencies[c.id]||w.currencies[currencySlug(c)]||0); return `<a class="chip" onclick="openId('${esc(k)}')">${esc(prettyId(k))} — ${Number(amt).toLocaleString()} ${esc(cIcon)}</a>`;}).join('')}</div>
     </div>`:''}
 
     ${factionCurrencies.length||sameCategory.length?`<div class="card">
       ${factionCurrencies.length?`<h3 style="margin-top:0">🏳️ Other Currencies from ${esc(prettyId(c.home_faction))}</h3>
-      <div class="chips" style="margin-bottom:12px">${factionCurrencies.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(x.icon||'🪙')} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
+      <div class="chips" style="margin-bottom:12px">${factionCurrencies.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(displayIcon(x.icon,x.id||x.key||x.name))} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
       ${sameCategory.length?`<h3 style="margin-top:0">🔗 Related ${esc(prettyId(c.category||'other'))} Tenders</h3>
-      <div class="chips">${sameCategory.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(x.icon||'🪙')} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
+      <div class="chips">${sameCategory.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(displayIcon(x.icon,x.id||x.key||x.name))} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
     </div>`:''}
   `;
   window.scrollTo(0,0);
@@ -9667,7 +9858,7 @@ setTheme((()=>{try{return localStorage.getItem('waluipedia-theme')||'dark';}catc
 themeBtn.addEventListener('click',()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
 el('randomBtn').addEventListener('click',()=>Nav.random());
 document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(document.activeElement.tagName);
-  if(e.key==='/'&&!typing){e.preventDefault();searchInput.focus();}
+  if((e.key==='/'&&!typing)||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();searchInput.focus();runSearch(true);}
   else if(e.key==='t'&&!typing)setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
   else if(e.key==='r'&&!typing)Nav.random();
   else if(e.key.toLowerCase()==='h'&&!typing)cycleLinkLevel();
