@@ -4321,19 +4321,41 @@ function battleParticipants(ids){
 
 function eventPeopleAndXpPanel(item){
   if(!item||!item.id) return '';
-  const ids=[];
-  const add=id=>{ if(id&&INDEX[id]&&INDEX[id].typeKey==='characters'&&!ids.includes(id)) ids.push(id); };
-  [].concat(item.participants||[],item.participatingCharacters||[]).forEach(p=>add(typeof p==='string'?p:(p&&p.id)));
-  (item.relatedArticles||[]).forEach(add);
-  xpAwardsForEvent(item.id).forEach(a=>add(a.articleId));
-  const people=ids.map(id=>`<span class="rel-chip" onclick="openId('${esc(id)}')"><span class="rt">Character</span>${esc(displayName(INDEX[id].item))}</span>`).join('');
+  const participantMap=new Map();
+  const normalizeParticipant=p=>{
+    if(!p) return null;
+    if(typeof p==='string') return {id:p,name:INDEX[p]?displayName(INDEX[p].item):prettyId(p),role:''};
+    const id=p.id||p.articleId||p.key||'';
+    const name=p.name||(id?(INDEX[id]?displayName(INDEX[id].item):prettyId(id)):'Unknown Participant');
+    return {id,name,role:p.role||p.description||p.title||p.note||p.summary||'',kind:p.kind||p.type||''};
+  };
+  const addParticipant=(p,roleHint)=>{
+    const rec=normalizeParticipant(p); if(!rec||(!rec.id&&!rec.name)) return;
+    const key=rec.id||String(rec.name).toLowerCase();
+    const existing=participantMap.get(key)||{};
+    participantMap.set(key,Object.assign({},existing,rec,{role:existing.role||rec.role||roleHint||''}));
+  };
+  [].concat(item.participants||[],item.participatingCharacters||[]).forEach(p=>addParticipant(p));
+  (item.relatedArticles||[]).forEach(id=>{ if(id&&INDEX[id]&&INDEX[id].typeKey==='characters') addParticipant({id},'Related character'); });
+  xpAwardsForEvent(item.id).forEach(a=>addParticipant({id:a.articleId,name:a.name},'XP recipient'));
+  const participantCards=[...participantMap.values()].map(p=>{
+    const linked=p.id&&INDEX[p.id];
+    const route=linked?`onclick="openId('${esc(p.id)}')"`:'';
+    const type=linked?TYPE_BY_KEY[INDEX[p.id].typeKey].singular:(p.kind||'Participant');
+    const initials=String(p.name||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?';
+    return `<div class="event-participant-card ${linked?'linked':'unlinked'}" ${route}>
+      <div class="event-participant-avatar">${esc(initials)}</div>
+      <div class="event-participant-body"><div class="event-participant-name">${esc(p.name||prettyId(p.id))}</div>${p.role?`<div class="event-participant-role">${esc(p.role)}</div>`:''}<div class="event-participant-meta">${esc(type)}${linked?' · Open dossier →':' · no dossier yet'}</div></div>
+    </div>`;
+  }).join('');
+  const people=participantCards?`<div class="event-participants"><div class="event-participant-grid">${participantCards}</div></div>`:'';
   const awards=xpAwardsForEvent(item.id).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
   const effectsPanel = renderReputationImpactPanel(item);
   if(!people && !awards && !effectsPanel) return '';
   if(!awards && !people) return effectsPanel;
-  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div></div></div>${effectsPanel}`;
+  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 Participants</h3>${people}</div></div></div>${effectsPanel}`;
   if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
-  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
+  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 Participants</h3>${people}</div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
 function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const rec=(DATA?.events||[]).find(e=>e&&e.id===eventId);if(Array.isArray(rec?.xpAwards))base.push(...rec.xpAwards);const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
@@ -6464,7 +6486,7 @@ function view_article(id){
       listBlocks.push(`<p><strong>${esc(label)}:</strong> ${rendered.join(', ')}</p>`);
     }
   };
-  af('distinctiveTraits','Distinctive Traits');af('notableFeatures','Notable Features');af('notableMembers','Notable Members',{linkable:true});af('regions','Regions');af('allies','Allies',{linkable:true});af('enemies','Enemies',{linkable:true});af('belligerents','Belligerents');af('participants','Participants',{linkable:true});af('members','Members',{linkable:true});
+  af('distinctiveTraits','Distinctive Traits');af('notableFeatures','Notable Features');af('notableMembers','Notable Members',{linkable:true});af('regions','Regions');af('allies','Allies',{linkable:true});af('enemies','Enemies',{linkable:true});af('belligerents','Belligerents');if(typeKey!=='events')af('participants','Participants',{linkable:true});af('members','Members',{linkable:true});
   // Race pages: reverse-index characters whose `race` field mentions this race.
   if(typeKey==='races' && item && item.name){
     const raceName=String(item.name).toLowerCase();
