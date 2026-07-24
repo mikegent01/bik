@@ -27,6 +27,9 @@
 .cur-meta-row { font-size: 11.5px; color: var(--muted); margin: 3px 0; }
 .cur-tip { background: rgba(138,75,255,.08); border: 1px dashed var(--border); border-radius: 8px; padding: 8px; font-size: 11.5px; color: var(--muted); margin-top: 10px; line-height: 1.4; }
 .cur-tip b { color: var(--accent2); }
+.cur-expanded { margin-top: 10px; border: 1px solid var(--border); border-radius: 10px; background: rgba(0,0,0,.08); overflow: hidden; }
+.cur-expanded summary { cursor: pointer; padding: 9px 10px; color: var(--accent2); font-size: 12px; font-weight: 800; }
+.cur-expanded div { padding: 0 12px 12px; color: var(--text); font-size: 13px; line-height: 1.65; white-space: pre-wrap; }
 /* Wallet sorting controls — inspired by xp.html */
 .wallet-controls { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; align-items:center; }
 .wallet-controls input, .wallet-controls select { padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:var(--bg2); color:var(--text); font-size:13px; }
@@ -56,7 +59,7 @@
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
       <div>
         <h1 style="margin:0;font-size:24px;font-weight:900">💱 Midlands Exchange & Shop Currency Connector</h1>
-        <p style="color:var(--muted);margin:4px 0 0;font-size:13px">45 Universal & Regional Currencies Registered · 7,884 Shop Items Cataloged · Real-Time Gold Conversion & Purchasing Power</p>
+        <p style="color:var(--muted);margin:4px 0 0;font-size:13px">48 Universal & Regional Currencies Registered · 7,884 Shop Items Cataloged · Real-Time Gold Conversion & Purchasing Power</p>
       </div>
       <span class="chip" style="background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.4);color:#4ade80;font-weight:900" id="globalReservePill">Reserve Standard: 1.0 Gold = 10 Silver = 100 Copper</span>
     </div>
@@ -616,7 +619,8 @@ function renderCurrencies(){
         </div>
         <div class="cur-meta-row">Category: <b>${esc(c.category||'')}</b> · Tier ${c.tier} · Type: <b>${esc(c.type||'Fiat')}</b></div>
         <div class="cur-meta-row">Issuer: <b>${esc(c.issuer||'Unknown')}</b> · Home faction: ${factionLink(c.home_faction)}</div>
-        <div style="font-size:12.5px;color:var(--text);margin-top:6px;line-height:1.4">${esc(c.description||c.short||'')}</div>
+        <div style="font-size:12.5px;color:var(--text);margin-top:6px;line-height:1.4">${esc(c.short||c.description||'')}</div>
+        ${c.expandedDescription ? `<details class="cur-expanded"><summary>Read 750-word Waluipedia currency dossier</summary><div>${esc(c.expandedDescription)}</div></details>` : ''}
       </div>
       <div>
         ${c.player_tip ? `<div class="cur-tip"><b>Waluigi Tip:</b> ${esc(c.player_tip)}</div>` : ''}
