@@ -2700,21 +2700,43 @@ export const ITEMS_020 = {
   "hobgoblin_legion_uniform": {
     "id": "hobgoblin_legion_uniform",
     "name": "Hobgoblin Legion Uniform",
-    "description": "Disciplined uniform for goblin ranks.",
+    "description": "The Hobgoblin Legion Uniform is a meticulously crafted ensemble of hardened leather and polished metal plates, each piece custom-fitted to enhance discipline in formation combat. This uniform not only boosts morale but also provides +1 bonus to attack rolls when moving in unison with your unit. The armor's precise fit and the Legion Tailors' expertise ensure it offers both protection and a sense of pride, making you an unwavering pillar of strength on the battlefield.",
     "category": "equipment",
-    "price": 12500,
+    "price": 1000,
     "icon": "👔",
     "stock": 7,
     "rarity": "uncommon",
     "effects": [
       "+1 to attack rolls in formation",
-      "Uniform boosts morale (advantage vs. fear)",
-      "Itchy wool",
-      "Made by: Legion Tailors"
+      "Uniform boosts morale (advantage vs. fear)"
     ],
     "vendor": "hobgoblin_legion_camp",
     "shippedBy": "Marching Fold",
-    "levelRequirement": 5
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "+1 to Attack Rolls in Formation",
+        "rules": "You gain a +1 bonus to attack rolls when you are within 5 feet of at least one ally who is also wearing the Hobgoblin Legion Uniform."
+      },
+      {
+        "title": "Uniform Boosts Morale (Advantage vs. Fear)",
+        "rules": "While wearing this uniform, you have advantage on saving throws against being frightened or charmed. This effect lasts for 1 hour after you remove it."
+      }
+    ],
+    "levelRequirementReason": "This uniform is designed to fit and enhance the discipline of seasoned goblin warriors.",
+    "vendorReason": "The Legion Camp ensures that only those who have proven their worth wear this emblematic armor.",
+    "shippingDetail": "Ships via the Marching Fold, a courier known for its precision and reliability in delivering important military gear.",
+    "usage": {
+      "activation": "Instantaneous when donned; lasts until removed or destroyed by damage.",
+      "duration": "Until removed or until it is destroyed by an attack that deals damage equal to or greater than your current hit points.",
+      "endsWhen": "You remove the uniform or suffer damage equal to or exceeding your current hit points.",
+      "charges": "Unlimited, recharges upon removal."
+    },
+    "priceReason": "The Hobgoblin Legion Uniform's balanced price reflects its craftsmanship and utility in enhancing combat effectiveness within disciplined formations.",
+    "priceOriginal": 12500,
+    "priceReviewedAt": "2026-07-23T16:35:54.183543+00:00",
+    "aiReviewedAt": "2026-07-23T16:35:54.183543+00:00",
+    "aiReviewVersion": 1
   },
   "hobgoblin_military_discipline_subscription": {
     "id": "hobgoblin_military_discipline_subscription",

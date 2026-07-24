@@ -2122,20 +2122,42 @@ export const ITEMS_018 = {
   "gehenna_academy_demon_pet_training_service": {
     "id": "gehenna_academy_demon_pet_training_service",
     "name": "Gehenna Academy Demon Pet Training Service",
-    "description": "Tame a imp for mischief.",
-    "price": 18000,
+    "description": "At Gehenna Academy, a Demon Pet Training Service grants you an imp as your familiar, perfect for mischief and minor telekinesis tasks. This imp is trained to deliver small items swiftly and with a playful twirl. However, its training lasts only one week, during which it might indulge in pranks, delighting or annoying you depending on the day. The imp's whims are legendary, but they come with a humorous demand for souls—just a joke between tutors and students.",
+    "price": 1000,
     "icon": "😈",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Imp familiar: Delivers small items, minor telekinesis",
-      "Training lasts 1 week; imp might prank",
-      "Imp demands souls (jokingly)",
-      "Made by: Infernal Tutors"
+      "Imp Familiar",
+      "Weekly Prankster"
     ],
     "vendor": "gehenna_academy",
     "shippedBy": "Hellfire Leash",
-    "levelRequirement": 6
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Imp Familiar",
+        "rules": "Once per week, the imp can deliver small items telekinetically within 30 feet. It has a +2 bonus to Dexterity (Sleight of Hand) checks and can attempt to use Telekinesis once per day."
+      },
+      {
+        "title": "Weekly Prankster",
+        "rules": "During its training week, the imp might cause minor pranks for 1 hour. You must succeed on a DC 12 Wisdom saving throw or be distracted by its antics until it calms down."
+      }
+    ],
+    "levelRequirementReason": "Appropriate for those with basic magical training and some experience.",
+    "vendorReason": "Only Infernal Tutors at Gehenna Academy have the expertise to train such mischievous familiars.",
+    "shippingDetail": "The imp is transported securely in a specially enchanted pouch, ensuring it remains calm during transit.",
+    "usage": {
+      "activation": "Passive effect once per week; pranks occur randomly.",
+      "duration": "One training week (7 days) and occasional pranks thereafter.",
+      "endsWhen": "Training ends upon completion or if the imp is dismissed.",
+      "charges": "Unlimited uses until the training period."
+    },
+    "priceReason": "Balanced price for a rare service with limited duration and whimsical effects.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-23T16:35:36.829077+00:00",
+    "aiReviewedAt": "2026-07-23T16:35:36.829077+00:00",
+    "aiReviewVersion": 1
   },
   "gehenna_academy_devils_advocate_service": {
     "id": "gehenna_academy_devils_advocate_service",

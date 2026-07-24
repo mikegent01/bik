@@ -168,20 +168,43 @@ export const ITEMS_026 = {
   "koopa_troop_patrol_scooter": {
     "id": "koopa_troop_patrol_scooter",
     "name": "Koopa Patrol Scooter",
-    "description": "A standard-issue, flame-decaled scooter for quick troop deployment. Surprisingly zippy.",
+    "description": "The Koopa Patrol Scooter gleams under the moonlight, its flame-decaled frame a symbol of swift and efficient troop movement. This zippy scooter allows you to move swiftly through any battlefield, making your passage as silent as a whisper before erupting into an earsplitting 'vroom-vroom' when in motion. In times of need, a puff of smoke can blind enemies within a five-foot radius for a round, giving you the upper hand.",
     "category": "equipment",
-    "price": 4500,
+    "price": 1000,
     "icon": "🛴",
     "stock": 10,
     "rarity": "uncommon",
     "effects": [
-      "Mount: Speed 40ft, can move through enemy spaces",
-      "Once per day: emit a puff of smoke (Blinds 5ft radius for 1 round)",
-      "Makes loud 'vroom-vroom' noises"
+      "Speed Boost",
+      "Smoke Screen"
     ],
     "vendor": "Koopa Troop",
     "shippedBy": "Armored Crate",
-    "levelRequirement": 2
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Speed Boost",
+        "rules": "You gain a flying speed of 40 feet while mounted on the scooter. You can move through enemy spaces without provoking opportunity attacks, but you must end your movement in an unoccupied space."
+      },
+      {
+        "title": "Smoke Screen",
+        "rules": "Once per day, you can exhale a puff of smoke from the scooter's exhaust, creating a 5-foot-radius sphere centered on a point of your choice within range. Creatures in this area are blinded until the start of your next turn."
+      }
+    ],
+    "levelRequirementReason": "The scooter is designed for quick and agile maneuvers that even a novice can manage.",
+    "vendorReason": "As standard-issue equipment, the Koopa Patrol Scooter is a reliable tool provided by the troop to their members.",
+    "shippingDetail": "Shipped in an armored crate to ensure safe delivery through treacherous terrain and hostile environments.",
+    "usage": {
+      "activation": "Action (to mount or dismount)",
+      "duration": "Instantaneous for movement, lasts until the start of your next turn for the smoke screen",
+      "endsWhen": "The effects end if you lose control of the scooter or are knocked unconscious.",
+      "charges": "Recharges after a long rest"
+    },
+    "priceReason": "The scooter's flame-decaled design and efficient performance justify its moderate price.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-22T21:58:56.134165+00:00",
+    "aiReviewedAt": "2026-07-22T21:58:56.134165+00:00",
+    "aiReviewVersion": 1
   },
   "koopa_troop_shell_oven": {
     "id": "koopa_troop_shell_oven",

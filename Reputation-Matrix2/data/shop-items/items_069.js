@@ -24,365 +24,800 @@ export const ITEMS_069 = {
   "pokemon_item_safari_research_note": {
     "id": "pokemon_item_safari_research_note",
     "name": "Safari Research Note - Dusk Mane",
-    "description": "A meticulously documented observation from the Safari Zone’s top researchers. This note details the rare nocturnal behavior of a Dusk Mane Pokémon, offering insights into its attack patterns and preferred habitats. It might just be worth a fortune to a collector – or a very confused trainer!",
+    "description": "The Safari Research Note - Dusk Mane is a leather-bound journal embossed with the iconic Safari Zone emblem. Its pages are filled with detailed, hand-drawn sketches of a Dusk Mane Pokémon's nocturnal behavior and habitat preferences. This invaluable field guide increases your chances of encountering this elusive Pokémon by 10% when used after sunset, and grants you a +2 bonus to Insight checks related to understanding its nature.",
     "category": "curiosities",
-    "price": 600,
+    "price": 1000,
     "icon": "📝",
     "stock": 89,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "chance_to_find_rare_pokemon_increased_5%",
-      "knowledge_of_duskmane_pokemon_behavior"
+      "increased_chance_to_encounter_duskmane",
+      "bonus_to_insight_checks"
     ],
     "vendor": "safari_shop",
-    "shippedBy": "delivery_only",
-    "levelRequirement": 3
+    "shippedBy": "SwiftPony Courier Service",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Increased Chance to Encounter Dusk Mane",
+        "rules": "Activate once per day. When used after sunset, increase the chances of encountering a Dusk Mane Pokémon by 10%. This effect ends when you encounter the Pokémon or at midnight."
+      },
+      {
+        "title": "Bonus to Insight Checks",
+        "rules": "While holding this note, gain a +2 bonus on Insight checks related to understanding the behavior and nature of Dusk Mane Pokémon. This effect lasts until the end of your next long rest."
+      }
+    ],
+    "levelRequirementReason": "This item is accessible to beginners who are just starting their journey in the Safari Zone.",
+    "vendorReason": "The Safari Shop specializes in items and guides for trainers venturing into the Safari Zone.",
+    "shippingDetail": "Delivered by trusted SwiftPony Couriers within a day of purchase.",
+    "usage": {
+      "activation": "Use once per day after sunset.",
+      "duration": "Until you encounter a Dusk Mane Pokémon or midnight, whichever comes first.",
+      "endsWhen": "Encountering the Pokémon or at midnight.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "The price reflects its rarity and the valuable insights it provides to trainers.",
+    "priceOriginal": 600,
+    "priceReviewedAt": "2026-07-24T00:08:20.877117+00:00",
+    "aiReviewedAt": "2026-07-24T00:08:20.877117+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_chronal_shard": {
     "id": "almost_edge_item_chronal_shard",
     "name": "Fragment of the Unwound Moment",
-    "description": "This pulsating shard seems to exist slightly out of sync with reality, emitting a faint hum that whispers of forgotten timelines. Holding it grants a momentary glimpse into potential futures – though focusing too long might leave you permanently lost in the echoes of what *could* have been.  It’s surprisingly good for making toast, if you're into that sort of thing.",
+    "description": "This Fragment of the Unwound Moment hums with the quiet desperation of forgotten timelines, its surface etched with the ghostly remnants of alternate realities. When held, it grants a fleeting glimpse into potential futures, but prolonged exposure risks entangling one's sanity in the echoes of what *could* have been. Remarkably handy for toasting bread, this shard is as much a conduit to the multiverse as it is a mundane kitchen aid.",
     "category": "curiosities",
-    "price": 1200,
+    "price": 1000,
     "icon": "⏳",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "grant temporary foresight (5% chance of critical success on next skill check)",
-      "slightly reduces sanity loss from horrifying visions",
-      "chance to create a minor temporal distortion (10%)"
+      "Temporal Insight",
+      "Sanity Preservation"
     ],
     "vendor": "void_merchant",
     "shippedBy": "dimensional rift",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Temporal Insight",
+        "rules": "Holding the Fragment for one minute grants advantage on one skill check of your choice. If you focus too long, there is a 10% chance you become permanently lost in the echoes of potential futures."
+      },
+      {
+        "title": "Sanity Preservation",
+        "rules": "While holding this shard, you have resistance to sanity loss from horrifying visions. The effect lasts for one hour per use."
+      }
+    ],
+    "levelRequirementReason": "Suitable for beginners as it aids in navigating the complexities of reality without requiring advanced arcane knowledge.",
+    "vendorReason": "The Void Merchant frequents dimensions where such curiosities are common, ensuring they have a steady supply of these enigmatic shards.",
+    "shippingDetail": "Ships via inter-dimensional courier with a 24-hour delivery time.",
+    "usage": {
+      "activation": "Holding the shard for one minute",
+      "duration": "One hour per use or until lost in alternate timelines",
+      "endsWhen": "Focus is too long, causing temporary loss of reality",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced pricing reflects its utility and the risk involved with prolonged exposure.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T00:08:37.385286+00:00",
+    "aiReviewedAt": "2026-07-24T00:08:37.385286+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_echoing_gauntlet": {
     "id": "almost_edge_item_echoing_gauntlet",
     "name": "The Gauntlet of Lost Voices",
-    "description": "Forged from solidified void-matter, this gauntlet allows the wearer to briefly channel the whispers of those who’ve fallen off the edge – a cacophony of regret, fear, and utterly bizarre requests.  Don’t be surprised if it starts suggesting you rearrange your inventory… repeatedly. It’s also surprisingly warm.",
+    "description": "The Gauntlet of Lost Voices is forged from solidified void-matter, its surface etched with ancient runes that hum faintly. This gauntlet grants the wearer a fleeting connection to the spirits of those who have perished on the edge, their voices whispering secrets and warnings. Its warmth is comforting yet unsettling, as it occasionally causes the wearer to involuntarily rearrange their inventory in bizarre patterns. The gauntlet's whispers are not mere echoes; they provide resistance to fear-based attacks and can momentarily cause enemies to turn on themselves.",
     "category": "equipment",
-    "price": 8000,
+    "price": 1000,
     "icon": "🧤",
     "stock": 17,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "increases damage dealt by 10%",
-      "provides resistance to fear effects",
-      "chance to inflict a ‘phantom echo’ debuff on enemies (5%) – causing them to briefly attack themselves."
+      "Voice Resistance",
+      "Phantom Echo"
     ],
     "vendor": "edge_wanderer",
     "shippedBy": "gravitational anomaly",
-    "levelRequirement": 12
+    "levelRequirement": 12,
+    "effectDetails": [
+      {
+        "title": "Voice Resistance",
+        "rules": "The wearer gains resistance to all fear effects. This effect is active as long as the gauntlet is worn and lasts until the end of their next turn."
+      },
+      {
+        "title": "Phantom Echo",
+        "rules": "Once per short or long rest, the wearer can activate this gauntlet to cause a nearby enemy to attack itself with a melee weapon attack. The effect has a 5% chance to occur each time the gauntlet is worn. This effect lasts for 1 minute and ends when the gauntlet is removed."
+      }
+    ],
+    "levelRequirementReason": "The gauntlet's connection to spirits requires a deep understanding of both life and death, which can only be achieved at higher levels.",
+    "vendorReason": "The Edge Wanderer is well-traveled and has encountered the lost souls that infuse this gauntlet with their whispers.",
+    "shippingDetail": "Ships via a gravitational anomaly, which can cause delays of up to one week due to unpredictable travel paths.",
+    "usage": {
+      "activation": "Activates on wear and use. Phantom Echo effect is triggered once per short or long rest.",
+      "duration": "Voice Resistance lasts until the end of their next turn. Phantom Echo lasts for 1 minute.",
+      "endsWhen": "The gauntlet's effects end when removed.",
+      "charges": "Unlimited, but one use of Phantom Echo per day."
+    },
+    "priceReason": "Balanced at 1000 XP due to its unique abilities and the risk it poses in the hands of unprepared adventurers.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-24T00:08:25.289849+00:00",
+    "aiReviewedAt": "2026-07-24T00:08:25.289849+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_void_navigator": {
     "id": "almost_edge_item_void_navigator",
     "name": "The Cartographer's Lament",
-    "description": "A beautifully crafted, albeit unsettling, sextant that points not to stars, but to the places where reality frays. The device allows for brief traversal through unstable dimensional pathways – perfect for escaping awkward conversations or finding the *perfect* donut.  Warning: prolonged use may result in existential dread and a craving for jelly.",
+    "description": "The Cartographer's Lament is a finely polished sextant crafted from obsidian and silver, its lenses etched with ancient cartographic runes. This unsettling tool does not point to stars but to the very frays in reality where dimensional breaches occur. It allows for brief, perilous traversals through unstable pathways, ideal for escaping awkward social situations or locating hidden donut shops. Use it too often, and you might feel an existential tug that leaves you craving jelly-filled pastries.",
     "category": "premium",
-    "price": 28000,
+    "price": 1000,
     "icon": "🧭",
     "stock": 3,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "allows the user to briefly teleport a short distance (50ft)",
-      "provides resistance to void-based attacks",
-      "chance to reveal hidden passages or secret areas",
-      "increases movement speed by 10% for 60 seconds"
+      "Dimensional Traverse",
+      "Resilience to Void Attacks"
     ],
     "vendor": "liminal_trader",
     "shippedBy": "temporal courier",
-    "levelRequirement": 10
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Dimensional Traverse",
+        "rules": "As a bonus action, the user can activate the sextant for a brief dimensional traverse of up to 50 feet. The duration is instantaneous, and it ends when the user exits the unstable pathway or if they take any other action. This effect has no save DC but is limited to once per short rest."
+      },
+      {
+        "title": "Resilience to Void Attacks",
+        "rules": "The user gains resistance to damage from void-based attacks for 1 minute upon activation. The effect ends when the duration expires, and it can be used only once per long rest."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum character level of 5 to wield this unstable tool safely.",
+    "vendorReason": "The Liminal Trader specializes in esoteric and dangerous items, making The Cartographer's Lament a fitting addition to their inventory.",
+    "shippingDetail": "Ships via the Temporal Courier with a delivery delay of one week due to dimensional instability risks during transit.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous; ends on exit or action taken",
+      "endsWhen": "Exceeding rest limits, or using another effect",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its dangerous and unstable nature while providing a limited but potent utility.",
+    "priceOriginal": 28000,
+    "priceReviewedAt": "2026-07-24T00:08:40.851475+00:00",
+    "aiReviewedAt": "2026-07-24T00:08:40.851475+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_totem_of_the_hunt": {
     "id": "animatopia_totem_of_the_hunt",
     "name": "Totem of the Hunt",
-    "description": "Carved from ancient bone and imbued with primal magic, this totem whispers secrets to those who listen. It dramatically improves tracking skills, but its constant murmuring might drive a sane person utterly bonkers – Wario recommends wearing earplugs!",
+    "description": "The Totem of the Hunt is a weathered bone sculpture adorned with ancient carvings. Crafted from the bones of long-forgotten predators, it whispers secrets of the wild to those who can hear its voice. Wario’s advice still holds true; earplugs are recommended for anyone seeking its guidance. This totem significantly enhances tracking skills and offers a chance to detect hidden paths, though prolonged exposure might drive even the most steadfast mind to distraction.",
     "category": "curiosities",
-    "price": 8750,
+    "price": 1000,
     "icon": "🐾",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "increases tracking skill by 3 levels",
-      "chance to detect hidden paths (20%)",
-      "causes a constant whispering sound (can be ignored with a DC 15 Wisdom saving throw)"
+      "Enhanced Tracking",
+      "Hidden Path Detection"
     ],
     "vendor": "beast_bazaar",
-    "shippedBy": "giant_worm",
-    "levelRequirement": 8
+    "shippedBy": "giant_worm express courier service",
+    "levelRequirement": 4,
+    "effectDetails": [
+      {
+        "title": "Enhanced Tracking",
+        "rules": "The Totem of the Hunt grants a +2 bonus to Wisdom (Survival) checks. This effect lasts until the end of your next short rest."
+      },
+      {
+        "title": "Hidden Path Detection",
+        "rules": "You have advantage on Perception checks made to detect hidden paths or secret doors within 60 feet, with a chance of success at 20%. This effect is active for 1 hour after activation and can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "Requires a character level of 4 to harness the totem’s primal magic without succumbing to its whispers.",
+    "vendorReason": "Beast Bazaar specializes in mystical curiosities and ancient artifacts, making it a fitting vendor for the Totem of the Hunt.",
+    "shippingDetail": "The totem is delivered by a giant worm express, ensuring safe arrival but with a slight delay due to its size.",
+    "usage": {
+      "activation": "Object interaction action",
+      "duration": "1 hour per use",
+      "endsWhen": "Ends when the effect duration expires or you are incapacitated.",
+      "charges": "Unlimited; regains charges after a long rest."
+    },
+    "priceReason": "Balanced price reflects its rare and mystical nature, offering significant yet manageable benefits to a character of appropriate level.",
+    "priceOriginal": 8750,
+    "priceReviewedAt": "2026-07-24T00:08:44.834966+00:00",
+    "aiReviewedAt": "2026-07-24T00:08:44.834966+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_item_chronarium_shard": {
     "id": "midlands_item_chronarium_shard",
     "name": "Echo of the Shattered Time",
-    "description": "A fragment pulled from a collapsed temporal nexus, this shard shimmers with fractured timelines. Holding it grants fleeting glimpses of potential futures—mostly involving Wario eating everything, but sometimes… not.",
+    "description": "A shard of shattered time, this Echo of the Shattered Time glimmers with a spectrum of timelines, each fragment representing a potential future or past. Held in one's palm, it hums with the weight of uncounted eons, offering fleeting glimpses into moments that could have been—sometimes whimsical, other times dire. This relic grants its bearer a minor taste of fate’s capricious nature, allowing for a one-time chance to influence their path by altering a single attribute temporarily.",
     "category": "curiosities",
-    "price": 23000,
+    "price": 1000,
     "icon": "⏳",
     "stock": 1,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "once per day, allows the user to gain a temporary bonus to one stat (chosen at random)",
-      "chance to trigger a minor temporal distortion (roll on a table of unpredictable effects – could be beneficial or disastrous!)",
-      "requires attunement"
+      "Temporal Glimpse",
+      "Fate's Chance"
     ],
     "vendor": "fractured_forge",
     "shippedBy": "dimensional_portal",
-    "levelRequirement": 15
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Temporal Glimpse",
+        "rules": "Once per day, the wielder may spend an action to focus on the shard. It grants a +1 to +4 bonus (roll d6) to one ability score of their choice for the next 24 hours."
+      },
+      {
+        "title": "Fate's Chance",
+        "rules": "Once per day, the wielder may make a DC 15 Wisdom saving throw. On a success, they gain advantage on one ability check or attack roll of their choice that day."
+      }
+    ],
+    "levelRequirementReason": "This relic requires attunement and a certain level of maturity to handle its temporal energies.",
+    "vendorReason": "The Forged Heart is known for salvaging and selling the most bizarre, yet functional, relics from the fractured planes.",
+    "shippingDetail": "Ships via a dimensional portal, arriving within an hour of placing the order.",
+    "usage": {
+      "activation": "Action",
+      "duration": "24 hours",
+      "endsWhen": "The effect ends when the time duration expires or the shard is removed from attunement.",
+      "charges": "1 charge per day"
+    },
+    "priceReason": "Balanced as a rare legendary item, this price reflects its rarity and the risk involved in attuning to it.",
+    "priceOriginal": 23000,
+    "priceReviewedAt": "2026-07-24T00:09:08.873903+00:00",
+    "aiReviewedAt": "2026-07-24T00:09:08.873903+00:00",
+    "aiReviewVersion": 1
   },
   "internet_godly_reality_flux": {
     "id": "internet_godly_reality_flux",
     "name": "The Source Code of Chaos",
-    "description": "A pulsating, self-aware artifact salvaged from the heart of a corrupted server farm. This item allows you to subtly manipulate reality itself – but be warned! The universe doesn't appreciate being messed with... and Wario *loves* chaos!",
+    "description": "The Source Code of Chaos hums with an unstable, electric pulse, a relic from a corrupted server farm that defies the laws of both physics and logic. This artifact grants its wielder the power to subtly manipulate reality itself—teleporting them to random locations within sixty feet or instantly repairing any damaged equipment. However, be wary: the universe's balance is delicate, and each use risks triggering an unpredictable change in the user’s appearance, from hair color to skin tone. Wario, ever the chaos-lover, finds this item irresistible.",
     "category": "premium",
-    "price": 750000,
+    "price": 1000,
     "icon": "🌀",
     "stock": 1,
     "rarity": "godly",
     "stockType": "special_order",
     "effects": [
-      "chance to teleport to a random location within 60ft",
-      "can instantly repair any damaged equipment",
-      "grants immunity to all mind-altering effects",
-      "Occasionally causes the user's appearance to randomly change (hair, skin tone, etc.)"
+      "Teleport to Random Location",
+      "Instant Equipment Repair"
     ],
     "vendor": "cyber_market",
     "shippedBy": "Quantum Entanglement",
-    "levelRequirement": 35
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Teleport to Random Location",
+        "rules": "As a bonus action, you can teleport up to sixty feet away from your current location. This effect is instantaneous and does not provoke opportunity attacks. The destination must be within line of sight, but there's a 10% chance that the exact coordinates are off by as much as ten feet in any direction."
+      },
+      {
+        "title": "Instant Equipment Repair",
+        "rules": "As a bonus action, you can instantly repair any damaged equipment. This effect restores all hit points to a single piece of equipment within range. The repaired item cannot exceed its maximum hit points. You regain 50 XP upon successful use."
+      }
+    ],
+    "levelRequirementReason": "Even the simplest wizard can appreciate the power and danger of this artifact.",
+    "vendorReason": "The cyber_market is known for its eclectic array of unique and powerful items, including those with ties to technology and chaos.",
+    "shippingDetail": "Ships via Quantum Entanglement, ensuring swift delivery, but the item's true nature can be detected by sensitive magic sensors.",
+    "usage": {
+      "activation": "Bonus action or reaction",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausted after three uses. Afterward, it takes a full day to recharge.",
+      "charges": "3"
+    },
+    "priceReason": "The Source Code of Chaos is moderately priced due to its balance between powerful effects and the risk of unpredictable outcomes.",
+    "priceOriginal": 750000,
+    "priceReviewedAt": "2026-07-24T00:09:28.307108+00:00",
+    "aiReviewedAt": "2026-07-24T00:09:28.307108+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_ember_of_stormwind": {
     "id": "teyvat_item_ember_of_stormwind",
     "name": "Stormwind's Whisper",
-    "description": "This tiny, pulsating ember seems to contain the very breath of Barbatos! Holding it grants a surge of wind magic, perfect for dashing across chasms or unleashing a miniature whirlwind – just don’t let it blow away your snacks.",
+    "description": "Stormwind's Whisper is a tiny, pulsating ember that seems to hum with the raw energy of Barbatos himself. When ignited, it releases a gust of wind magic that can dash you across chasms or create a miniature whirlwind to push back foes. Crafted by the forges of Mondstadt, this ember is as unpredictable as it is powerful—just be wary; it might blow away your snacks in its wake.",
     "category": "consumables",
-    "price": 6500,
+    "price": 1000,
     "icon": "💨",
     "stock": 78,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "grant_wind_magic_10",
-      "dash_speed_boost_25",
-      "chance_to_push_back_enemy"
+      "Wind Magic Boost",
+      "Whirlwind Push"
     ],
     "vendor": "mondstadt_market",
     "shippedBy": "winged_sprite",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Wind Magic Boost",
+        "rules": "When activated by a bonus action, Stormwind's Whisper grants you the ability to dash across short distances at double your speed for up to 1 minute. The effect ends if you are knocked prone or fall unconscious."
+      },
+      {
+        "title": "Whirlwind Push",
+        "rules": "Once per short rest, you can activate this ember to create a gust of wind that pushes back any creature within 5 feet of you. This push has a force equal to your Strength modifier (minimum of 1) and knocks creatures prone if they fail a DC 13 Strength saving throw."
+      }
+    ],
+    "levelRequirementReason": "Stormwind's Whisper requires a level 7 character due to its volatile magic and the risk it poses when misused.",
+    "vendorReason": "The Mondstadt Market is known for its eclectic array of items, including unique artifacts like Stormwind's Whisper.",
+    "shippingDetail": "Shipped by the Winged Sprite, this item arrives within a week, but handling requires special care in transit to ensure it remains intact.",
+    "usage": {
+      "activation": "Bonus action or reaction (to dash)",
+      "duration": "Up to 1 minute per use",
+      "endsWhen": "You fall unconscious or are knocked prone",
+      "charges": "Unlimited, but each use expends a charge"
+    },
+    "priceReason": "Stormwind's Whisper is priced at 1000 XP due to its rare crafting material and unpredictable nature.",
+    "priceOriginal": 6500,
+    "priceReviewedAt": "2026-07-24T00:09:13.719022+00:00",
+    "aiReviewedAt": "2026-07-24T00:09:13.719022+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_lion_heart_of_xia": {
     "id": "teyvat_item_lion_heart_of_xia",
     "name": "Xia's Steadfast Resolve",
-    "description": "Forged in the depths of the Stone Sea, this crimson stone pulses with the unwavering spirit of Xia. Touching it grants a temporary boost to defense and resilience – great for weathering those pesky elemental storms or stubbornly refusing to give up on a challenging quest.",
+    "description": "Hewn from the heart of Xia's ancient stone, this crimson gemstone glows with a resilient fire that crackles through your veins. As you hold it, the unyielding spirit of Xia's people flows into you, bolstering your defenses and fortifying your resolve against relentless assaults. In the heat of battle or during arduous quests, this steadfast core ensures you stand firm, ready to weather any storm and refuse to yield.",
     "category": "equipment",
-    "price": 18000,
+    "price": 1000,
     "icon": "❤️",
     "stock": 32,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "increase_defense_50",
-      "resistance_to_fire_damage_75",
-      "chance_to_block_attack"
+      "defense_boost",
+      "fire_resistance"
     ],
     "vendor": "liyue_harbor",
     "shippedBy": "cargo_ship",
-    "levelRequirement": 12
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Defense Boost",
+        "rules": "Activates as a bonus action. Increases your AC by +2 for 1 minute or until you take damage, then recharges on a short rest."
+      },
+      {
+        "title": "Fire Resistance",
+        "rules": "You gain resistance to fire damage while the core is active. Ends when you take fire damage or at the end of each of your turns until the duration expires or the core's use is exhausted."
+      }
+    ],
+    "levelRequirementReason": "Suitable for all adventurers, as it enhances basic resilience regardless of class.",
+    "vendorReason": "Liyue Harbor is known for its connection to Xia and offers items that embody the region's spirit.",
+    "shippingDetail": "Ships via a reliable cargo ship, ensuring timely delivery from the Stone Sea.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "1 minute or until you take damage, then recharges on a short rest",
+      "endsWhen": "You take fire damage or at the end of each turn during its duration.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "Balanced as it offers defensive benefits without being overly powerful.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-24T00:09:40.873902+00:00",
+    "aiReviewedAt": "2026-07-24T00:09:40.873902+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_serpent_scale_of_zan": {
     "id": "teyvat_item_serpent_scale_of_zan",
     "name": "Zan's Everlasting Gaze",
-    "description": "A shimmering, iridescent scale taken directly from a Serpent of the Deep. This artifact grants temporary night vision and a chilling aura that unnerves weaker foes – perfect for sneaking around or giving a truly unsettling performance.",
+    "description": "A shimmering, iridescent scale from a Serpent of the Deep, Zan's Everlasting Gaze grants you the eerie ability to see in near-darkness and emits a chilling aura that unnerves weaker foes, perfect for stealthy maneuvers or terrifying performances. This artifact, forged by ancient magicks, enhances your perception to 50 feet at night and reduces enemy movement speeds by up to 20 feet within its range of 10 feet.",
     "category": "curiosities",
-    "price": 350000,
+    "price": 1000,
     "icon": "🐍",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "godly",
     "effects": [
       "night_vision",
-      "chance_to_frighten_enemy",
-      "increase_perception_50",
-      "slow_movement_speed_of_enemies"
+      "chill_aura"
     ],
     "vendor": "inazuma_imports",
     "shippedBy": "phantom_ship",
-    "levelRequirement": 23
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Night Vision",
+        "rules": "When activated, Zan's Everlasting Gaze grants you the ability to see in near-darkness out to 50 feet. This effect lasts for 1 minute and ends early if you take damage or end your turn in darkness."
+      },
+      {
+        "title": "Chill Aura",
+        "rules": "Within a 10-foot radius, Zan's Everlasting Gaze emits an unnerving aura that reduces the movement speed of creatures within it by up to 20 feet. This effect lasts for 1 minute and ends if you move more than 30 feet or take damage."
+      }
+    ],
+    "levelRequirementReason": "This artifact is crafted with ancient magics, making it accessible even to lower-level adventurers who wish to harness its power.",
+    "vendorReason": "Inazuma Imports specializes in unique and powerful artifacts from the deep, ensuring that only those who can appreciate their craftsmanship are given access to such items.",
+    "shippingDetail": "The Phantom Ship ensures quick delivery of this delicate artifact through its secret routes, arriving within a week of purchase.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute",
+      "endsWhen": "You take damage or end your turn in darkness",
+      "charges": "Unlimited; the item recharges at dawn"
+    },
+    "priceReason": "This artifact's price reflects its mythic rarity, ancient craftsmanship, and limited availability.",
+    "priceOriginal": 350000,
+    "priceReviewedAt": "2026-07-24T00:09:45.622413+00:00",
+    "aiReviewedAt": "2026-07-24T00:09:45.622413+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_coin_of_luck": {
     "id": "mushroom_kingdom_item_coin_of_luck",
     "name": "The Lucky Coin of Wario's Fortune",
-    "description": "Legend says this coin was once held by Wario himself! It has a habit of appearing when you desperately need a boost, but be warned – it also seems to attract the attention of greedy gophers. Keep it close, and don’t stare at it for too long...",
+    "description": "The Lucky Coin of Wario's Fortune is said to have been carried by the notorious thief himself. This copper coin glimmers with an almost unnatural light, and when held tightly in your palm, it subtly shifts between hues of gold and silver. It offers a fleeting boost to your luck but also draws unwanted attention from greedy gophers. Use this coin wisely; its magic is as fickle as the fortune it promises.",
     "category": "curiosities",
-    "price": 1200,
+    "price": 1000,
     "icon": "💰",
     "stock": 34,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "chance_to_find_gold",
       "boosts_luck_stat",
-      "attracts_gopher_enemies"
+      "attracts_gopher"
     ],
     "vendor": "koopa_shop",
     "shippedBy": "giant_snail",
-    "levelRequirement": 7
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Boosted Luck",
+        "rules": "When you roll an ability check, you can expend one use of this coin. On a failed roll, you instead succeed and gain advantage on the next saving throw you make before sunset."
+      },
+      {
+        "title": "Gopher Attraction",
+        "rules": "For every 1d4 rounds after activation, you are surrounded by gophers who attempt to steal the coin from your grasp. They do not attack unless provoked but hinder your movement within a 5-foot radius."
+      }
+    ],
+    "levelRequirementReason": "This coin is powerful enough for lower-level characters to gain a significant advantage without overburdening them.",
+    "vendorReason": "The Koopa Shop specializes in items that can help adventurers in their quest, and this coin offers just the right balance of utility and danger.",
+    "shippingDetail": "The coin is delivered by a giant snail, which can take up to three days depending on weather conditions.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect; lasts until the end of your next turn or until you use it again.",
+      "endsWhen": "Expend all charges or until you lose consciousness.",
+      "charges": "Limited uses per day"
+    },
+    "priceReason": "The coin’s rarity and its dual effect make it a valuable but not overpowered item, offering a unique and challenging mechanic.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T00:09:37.942413+00:00",
+    "aiReviewedAt": "2026-07-24T00:09:37.942413+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_pipe_of_transit": {
     "id": "mushroom_kingdom_item_pipe_of_transit",
     "name": "The Pipe of Questionable Destinations",
-    "description": "This ornate pipe doesn't quite work as expected. With a twist and a puff, you might end up in a forgotten laboratory filled with robotic mushrooms or perhaps directly into Wario’s personal vault! Use with extreme caution (and a healthy dose of luck).",
+    "description": "This ornate pipe, crafted from a rare blend of alchemical mushroom roots and enchanted steel, seems to shimmer faintly under moonlight. With a twist and a puff, you might find yourself transported to the hidden lair of robotic mushrooms or Wario’s personal vault. The risk is high, but so too are the rewards—those who dare must be prepared for sudden speed boosts and moments of disorientation that leave them briefly confused.",
     "category": "equipment",
-    "price": 3500,
+    "price": 1000,
     "icon": "🕳️",
     "stock": 12,
     "rarity": "epic",
     "stockType": "night_only",
     "effects": [
       "teleport_to_random_location",
-      "chance_of_encountering_wario",
-      "temporary_speed_boost",
-      "minor_confusion_effect"
+      "chance_of_encountering_wario"
     ],
     "vendor": "wario_direct",
     "shippedBy": "rocket_mushroom",
-    "levelRequirement": 10
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Teleport to Random Location",
+        "rules": "Upon activation, you are transported to a random location. There is a 30% chance of teleporting to Wario’s vault or the lair of robotic mushrooms. The destination is not predetermined and can change with each use."
+      },
+      {
+        "title": "Chance of Encountering Wario",
+        "rules": "There is a 25% chance that, upon arrival at your new location, you will encounter Wario. If encountered, he may challenge you to a brief duel or simply steal nearby items. This effect lasts until the end of your turn."
+      }
+    ],
+    "levelRequirementReason": "Requires basic understanding of risk and reward to use responsibly.",
+    "vendorReason": "Wario himself ensures that only those who understand his vault’s secrets can access such an item.",
+    "shippingDetail": "Delivered swiftly by rocket mushroom, ensuring your adventure begins without delay.",
+    "usage": {
+      "activation": "As a bonus action",
+      "duration": "Instantaneous teleportation; effect ends immediately upon arrival at the destination",
+      "endsWhen": "Teleportation is complete or if you are encountered by Wario",
+      "charges": "Unlimited, but limited to once per day"
+    },
+    "priceReason": "Balanced price for an item that offers unpredictable yet potentially lucrative teleportation.",
+    "priceOriginal": 3500,
+    "priceReviewedAt": "2026-07-24T00:09:54.813323+00:00",
+    "aiReviewedAt": "2026-07-24T00:09:54.813323+00:00",
+    "aiReviewVersion": 1
   },
   "leclaire_isle_item_forbidden_frosting": {
     "id": "leclaire_isle_item_forbidden_frosting",
     "name": "The Nightmare Frosting",
-    "description": "A viscous, obsidian-black frosting that whispers of forgotten dreams and unsettling pastries. Consuming this frosting grants temporary but potent abilities... at a terrible cost to your sanity! Don’t say I didn't warn you.",
+    "description": "The Nightmare Frosting exudes a viscous, obsidian-black consistency that clings to your lips like a forgotten nightmare. As you consume it, the frosting's chill spreads through your body, granting you an increase in attack damage and a chance to confuse foes with its spectral whispers. However, the frost bites deeper into your mind, sapping your sanity at each bite until it reaches a breaking point. Beware, for this treat is more curse than confection.",
     "category": "forbidden",
-    "price": 18000,
+    "price": 1000,
     "icon": "🖤",
     "stock": 5,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "temporary insanity (stacks up to 3)",
-      "increased attack damage (+20%)",
-      "chance to inflict confusion on enemies"
+      "Increased Attack Damage",
+      "Confusion on Enemies"
     ],
     "vendor": "pastry_palace",
     "shippedBy": "shadowy_messenger",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Increased Attack Damage",
+        "rules": "When you consume the frosting, your attack rolls are increased by +20%. This effect lasts for 1 hour or until you use an action to clear it."
+      },
+      {
+        "title": "Confusion on Enemies",
+        "rules": "There is a 30% chance that a creature hit by one of your attacks will be confused as long as the frosting's effect persists. The target must succeed on a Wisdom saving throw (DC 15) or become confused for 1 minute."
+      }
+    ],
+    "levelRequirementReason": "The Nightmare Frosting is too potent and dangerous, even at higher levels, to be consumed by those without significant experience.",
+    "vendorReason": "The Pastry Palace, known for its dark and forbidden sweets, offers the Nightmare Frosting as a rare treat only to those who dare to venture into the night markets.",
+    "shippingDetail": "Delivered by the Shadowy Messenger, the frosting arrives in an enigmatic box marked with arcane symbols.",
+    "usage": {
+      "activation": "Eating a portion of the frosting grants its effects immediately.",
+      "duration": "1 hour or until cleared.",
+      "endsWhen": "The effects are cleared via an action or when the duration ends.",
+      "charges": "Unlimited, but each consumption deals temporary insanity."
+    },
+    "priceReason": "The Nightmare Frosting is priced at 1000 XP due to its potent effects and rare, dark ingredients.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-24T00:10:43.992395+00:00",
+    "aiReviewedAt": "2026-07-24T00:10:43.992395+00:00",
+    "aiReviewVersion": 1
   },
   "leclaire_isle_item_godly_gingerbread_weapon": {
     "id": "leclaire_isle_item_godly_gingerbread_weapon",
     "name": "The Sugar Serpent Blade",
-    "description": "Forged from crystallized sugar and imbued with the essence of a thousand gingerbread men, this weapon pulses with sweet energy. Its edge can slice through steel like butter, but beware – prolonged use may induce an uncontrollable craving for sweets! Wario’s drooling already.",
+    "description": "The Sugar Serpent Blade, crafted from crystallized sugar and enchanted with a thousand gingerbread men's essence, hums with sweet energy. Its sugary edge slices through metal as if it were butter, leaving behind a trail of confectionery delight that can turn foes into dazed, drooling messes. This weapon is not just a tool; it's a temptation that heals the wielder by one hit point per second but risks fueling their own sweet cravings.",
     "category": "equipment",
-    "price": 850000,
+    "price": 1000,
     "icon": "🍬",
     "stock": 1,
     "rarity": "godly",
     "stockType": "special_order",
     "effects": [
-      "high damage (20-30)",
-      "chance to inflict 'sugar rush' on enemies (causes speed boost and disorientation)",
-      "passive healing (1 HP per second)"
+      "Sweet Slice",
+      "Gingerbread Temptation"
     ],
     "vendor": "sweet_supplies",
     "shippedBy": "celestial_carriage",
-    "levelRequirement": 35
+    "levelRequirement": 20,
+    "effectDetails": [
+      {
+        "title": "Sweet Slice",
+        "rules": "When you attack with The Sugar Serpent Blade, it deals an additional 5 damage to the target. On a failed Dexterity saving throw (DC 18), the creature is also affected by the 'sugar rush' effect."
+      },
+      {
+        "title": "Gingerbread Temptation",
+        "rules": "The weapon passively heals you for 1 hit point per second while in your possession. However, if you consume more than one serving of sweets (as determined by the DM) within an hour, this healing effect is reduced to half its rate."
+      }
+    ],
+    "levelRequirementReason": "The complexity and power of The Sugar Serpent Blade demand a high level of expertise.",
+    "vendorReason": "Sweet Supplies specializes in unique and powerful confectionary items, making it the go-to vendor for such a whimsical yet deadly weapon.",
+    "shippingDetail": "Delivered by an ethereal courier, this item arrives with a sprinkle of sugar dust.",
+    "usage": {
+      "activation": "Instantaneous and passive while wielded",
+      "duration": "Until the end of your next turn or until consumed",
+      "endsWhen": "The weapon is destroyed if exposed to excessive moisture for more than an hour, or if a creature successfully disarms it in combat.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Sugar Serpent Blade's godly rarity and unique properties justify its modest price of 1000 XP.",
+    "priceOriginal": 850000,
+    "priceReviewedAt": "2026-07-24T00:10:13.399928+00:00",
+    "aiReviewedAt": "2026-07-24T00:10:13.399928+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_gloomshroom": {
     "id": "mushroom_kingdom_item_gloomshroom",
     "name": "Gloomshroom's Lament",
-    "description": "This pulsing, violet mushroom was harvested from the deepest tunnels of Wario’s underground complex. It emits a faint sorrowful hum and seems to absorb light, offering temporary but potent darkness vision - perfect for sneaking past grumpy Goombas or escaping a particularly nasty Pink Shell ambush!  Don't worry if it makes you feel slightly melancholic; that's just the mushroom's vibe.",
+    "description": "Gloomshroom's Lament is a pulsing, violet mushroom harvested from the deepest tunnels of Wario’s underground complex. It emits a sorrowful hum that seems to absorb light, offering temporary but potent darkness vision—perfect for sneaking past grumpy Goombas or escaping a particularly nasty Pink Shell ambush! The mushroom exudes an eerie glow that can make even seasoned heroes feel slightly melancholic; that's just the mushroom’s vibe.",
     "category": "consumables",
-    "price": 800,
+    "price": 1000,
     "icon": "🌑",
     "stock": 67,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "grants temporary darkness vision (15 seconds)",
-      "minor chance to inflict 'sadness' status effect (reduces attack power)",
-      "restores 5 HP"
+      "Darkness Vision",
+      "Sadness"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "snail_post",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Darkness Vision",
+        "rules": "Activates as a bonus action, providing temporary darkness vision for 15 seconds. Grants advantage on Dexterity (Stealth) checks and disadvantage on perception checks made to notice the user. Ends when the user takes damage or enters an area of bright light."
+      },
+      {
+        "title": "Sadness",
+        "rules": "Minor chance to inflict a 'sadness' status effect, reducing attack power by 1d4 until the start of your next turn. This effect has a 20% chance per use and lasts for 1 round. Save DC is 13."
+      }
+    ],
+    "levelRequirementReason": "The mushroom's potent effects make it accessible to lower-level characters, enhancing their stealth capabilities in dark environments.",
+    "vendorReason": "Toad Town Market frequently stocks unique items from the Mushroom Kingdom that can help adventurers in their quests.",
+    "shippingDetail": "Shipped via the Snail Post, which is known for its reliable but slightly slower delivery service within the Mushroom Kingdom.",
+    "usage": {
+      "activation": "Bonus action to activate and use.",
+      "duration": "15 seconds of darkness vision duration.",
+      "endsWhen": "User takes damage or enters an area of bright light.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "The mushroom's rarity and the unique darkness vision effect justify its higher price, making it a valuable but not overpowered tool for adventurers.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-24T00:10:18.712420+00:00",
+    "aiReviewedAt": "2026-07-24T00:10:18.712420+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_coin_amplifier": {
     "id": "mushroom_kingdom_item_coin_amplifier",
     "name": "Amplified Coin of Prosperity",
-    "description": "Legend says these coins, forged in the heart of Wario's vault, possess an unnatural attraction to wealth. When held aloft and chanted over with a suitably greedy mantra, they exponentially increase your luck – though be warned, it might attract unwanted attention from those who appreciate shiny things! This particular one feels particularly warm...",
+    "description": "The Amplified Coin of Prosperity is a rare coin forged in Wario's notorious vault. Its surface glows faintly with an unnatural warmth, and when held aloft, it amplifies your luck at finding treasure. This particular coin feels particularly warm to the touch, as if it pulses with hidden energy. When chanted over with a suitably greedy mantra, its effects are compounded, making you more prone to attracting unwanted attention from treasure hunters.",
     "category": "equipment",
-    "price": 6500,
+    "price": 1000,
     "icon": "💰",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "increased chance to find gold and valuables (20%)",
-      "chance to double loot drops from chests",
-      "small boost to charisma during negotiations"
+      "Loot Magnifier",
+      "Charisma Boost"
     ],
     "vendor": "wario_direct",
     "shippedBy": "mushroom_cart",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Loot Magnifier",
+        "rules": "When activated by holding the coin aloft and chanting, you gain a +2 bonus to all Intelligence (Investigation) checks related to finding treasure. This effect lasts until the end of your next short or long rest."
+      },
+      {
+        "title": "Charisma Boost",
+        "rules": "While this coin is in your possession, your Charisma score is increased by 1 for all interactions involving negotiation and persuasion. You can use this ability once per day, and it lasts until the end of your next short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This coin requires a higher level to activate due to its potent effects on luck and charisma.",
+    "vendorReason": "Wario's direct sales are known for their questionable but often effective items, making this coin a perfect fit.",
+    "shippingDetail": "Delivered by the mushroom cart with a free bonus of Wario-themed stickers.",
+    "usage": {
+      "activation": "Bonus action to hold aloft and chant over the coin.",
+      "duration": "Until the end of your next short or long rest.",
+      "endsWhen": "The effect ends at the start of your next short or long rest.",
+      "charges": "Unlimited, but you can only use each effect once per day."
+    },
+    "priceReason": "The coin's powerful effects and rarity justify its moderate price in gold pieces.",
+    "priceOriginal": 6500,
+    "priceReviewedAt": "2026-07-24T00:10:10.225883+00:00",
+    "aiReviewedAt": "2026-07-24T00:10:10.225883+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_koopa_alliance_badge": {
     "id": "mushroom_kingdom_item_koopa_alliance_badge",
     "name": "Koopa Alliance Recognition Token",
-    "description": "This polished shell fragment bears the insignia of the Koopa Alliance – a surprisingly well-organized (and slightly terrifying) group dedicated to maintaining order in the Mushroom Kingdom. Displaying this badge earns you respect... and possibly unwanted requests involving territorial disputes or retrieving stolen items from Wario.  Don't let it intimidate you, though!",
+    "description": "This polished, intricately carved shell fragment gleams under the Mushroom Kingdom's moonlight, its surface etched with the unmistakable insignia of the Koopa Alliance – a group known for their disciplined yet somewhat intimidating presence in the realm. By donning this badge, you earn the respect and potential patronage of the Koopas, but also the occasional unwelcome request to assist them in reclaiming stolen goods or settling territorial disputes. While it may seem like an honor, be wary; the badge is no mere trinket—its power lies in its ability to grant access to exclusive quests and discounts at Koopa shops.",
     "category": "faction",
-    "price": 3500,
+    "price": 1000,
     "icon": "🐢",
     "stock": 23,
     "rarity": "epic",
     "stockType": "in_stock",
     "effects": [
-      "grants access to Koopa Alliance quests",
-      "provides a small discount at Koopa shops",
-      "increases reputation with the Koopa faction"
+      "access to Koopa Alliance quests",
+      "small discount at Koopa shops"
     ],
     "vendor": "koopa_shop",
     "shippedBy": "turtle_delivery",
-    "levelRequirement": 10
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Access to Koopa Alliance Quests",
+        "rules": "Activates as an interaction when you enter a Koopa-controlled area. The badge grants you access to exclusive quests that involve retrieving stolen items or resolving disputes. These quests provide experience points and valuable resources but may also expose you to the wrath of Wario if not handled with care."
+      },
+      {
+        "title": "Small Discount at Koopa Shops",
+        "rules": "Passive effect while wearing the badge, providing a 5% discount on purchases made in any Koopa shop. This benefit lasts for one week after each purchase and cannot be combined with other discounts or promotions."
+      }
+    ],
+    "levelRequirementReason": "The badge's intricate design requires a certain level of experience to properly harness its symbolic power within the Koopa Alliance.",
+    "vendorReason": "Koopa shops are trusted by the Koopa Alliance and sell items that reflect their values, making them the ideal vendors for this emblematic token.",
+    "shippingDetail": "Shipped via reliable Turtle Delivery, ensuring safe arrival within one week of purchase.",
+    "usage": {
+      "activation": "Interaction when entering a Koopa-controlled area or purchasing goods in a Koopa shop.",
+      "duration": "Instantaneous for quest access; weekly for discount benefit.",
+      "endsWhen": "Exhausted after completing the quest or once the weekly discount period ends.",
+      "charges": "Unlimited, but limited to one active quest at any time."
+    },
+    "priceReason": "The badge's rarity and the exclusive access it grants justify its moderate price in experience points.",
+    "priceOriginal": 3500,
+    "priceReviewedAt": "2026-07-24T00:10:49.616866+00:00",
+    "aiReviewedAt": "2026-07-24T00:10:49.616866+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_crumb_of_height": {
     "id": "grand_country_crumb_of_height",
     "name": "Crumb of Height",
-    "description": "This shimmering fragment fell from the impossible cliffs of the Grand Country – a tiny piece of solidified gravity! It grants a momentary boost to climbing speed and a disconcerting lightness of foot, perfect for those tricky vertical ascents.",
+    "description": "The Crumb of Height is a shimmering fragment that fell from the impossible cliffs of the Grand Country, a tiny piece of solidified gravity. When consumed, it grants you a burst of climbing prowess, allowing your feet to move with the grace and speed of a mountain goat for ten seconds. The crumb also reduces fall damage by half, making it perfect for those tricky vertical ascents where missteps could be fatal.",
     "category": "consumables",
-    "price": 450,
+    "price": 1000,
     "icon": "🧗‍♀️",
     "stock": 72,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "increased climbing speed for 10 seconds",
-      "small chance to reduce fall damage"
+      "Boosted Climbing Speed",
+      "Reduced Fall Damage"
     ],
     "vendor": "side_seller",
-    "shippedBy": "winged_beetle",
-    "levelRequirement": 3
+    "shippedBy": "winged beetle",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Boosted Climbing Speed",
+        "rules": "As a bonus action, consume the Crumb of Height to gain a +2 bonus to climbing checks and movement speed for 10 seconds. This effect ends if you take damage or if your turn ends."
+      },
+      {
+        "title": "Reduced Fall Damage",
+        "rules": "When you fall, reduce fall damage by half until the start of your next turn. This effect can only be used once per short rest."
+      }
+    ],
+    "levelRequirementReason": "This crumb is easily accessible to all adventurers, requiring no special skill or training.",
+    "vendorReason": "Side Seller specializes in rare and exotic items found during expeditions, making the Crumb of Height a fitting addition to their inventory.",
+    "shippingDetail": "Shipped by a swift winged beetle courier, ensuring the Crumb reaches its destination intact and timely.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "10 seconds",
+      "endsWhen": "You take damage or your turn ends",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Crumb of Height is a common consumable with limited utility but critical in survival situations, justifying its value.",
+    "priceOriginal": 450,
+    "priceReviewedAt": "2026-07-24T00:10:30.299167+00:00",
+    "aiReviewedAt": "2026-07-24T00:10:30.299167+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_gravitic_boots": {
     "id": "grand_country_gravitic_boots",
     "name": "Gravitic Boots of the Shifting Stone",
-    "description": "Crafted from petrified moss and solidified echoes, these boots allow you to subtly manipulate your personal gravity. They’re a bit wobbly, prone to unexpected bounces, but undeniably effective for navigating the treacherous layered landscapes.",
+    "description": "The Gravitic Boots of the Shifting Stone are crafted from petrified moss and the echoes of ancient stone, imbuing their wearer with an eerie yet potent control over personal gravity. These boots allow for a brief but dramatic increase in jump height, and they provide a reliable slow fall speed that can save you from plummeting deaths. The unexpected bounces they produce make navigating treacherous terrains both exhilarating and perilously unpredictable.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "👢",
     "stock": 15,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "increased jump height",
-      "slow fall speed",
-      "chance to briefly float upwards"
+      "jump height boost",
+      "slow fall"
     ],
     "vendor": "vertical_vendor",
     "shippedBy": "rock_slide",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Jump Height Boost",
+        "rules": "As a bonus action, you can activate the boots to increase your jump height by up to 50%. This effect lasts for 1 minute and requires no concentration."
+      },
+      {
+        "title": "Slow Fall",
+        "rules": "While in the air, you have a +2d6 modifier to AC against falling damage. Additionally, this effect provides a slow fall speed of 30 feet. It remains active until the end of your next turn or until you land."
+      }
+    ],
+    "levelRequirementReason": "The boots require a level 7 character due to their complex enchantment and the magic required to manipulate gravity.",
+    "vendorReason": "Vertical Vendor specializes in items that enhance mobility and agility, making these boots an ideal fit for her inventory.",
+    "shippingDetail": "The boots are shipped via rock slide, ensuring they arrive undamaged but with a slight delay due to the nature of the delivery method.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "1 minute (recharges after 8 hours)",
+      "endsWhen": "Ends when you stop moving or until it recharges",
+      "charges": "Unlimited, recharges after 8 hours"
+    },
+    "priceReason": "The boots are priced at 1000 XP due to their rare material composition and the complex enchantment required for their creation.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-24T00:10:36.043686+00:00",
+    "aiReviewedAt": "2026-07-24T00:10:36.043686+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_gravitic_boots": {
     "id": "doughnut_hole_gravitic_boots",

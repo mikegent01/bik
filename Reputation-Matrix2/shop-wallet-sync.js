@@ -45,6 +45,19 @@ function currentWallet() {
   return uid ? wallets[uid] || wallets[normalizeUserId(uid.replace('_miser', ''))] || null : null;
 }
 
+function operatorOptions() {
+  const active = currentUserId();
+  const preferred = ['archie', 'waluigi', 'wario', 'bowser', 'markop', 'remi', 'hjumpik', 'green_t', 'dan'];
+  const entries = Object.entries(wallets || {})
+    .filter(([id, wallet]) => wallet && wallet.currencies && Object.keys(wallet.currencies).length)
+    .sort(([aId, a], [bId, b]) => {
+      const ai = preferred.indexOf(aId), bi = preferred.indexOf(bId);
+      if (ai !== -1 || bi !== -1) return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      return String(a.name || aId).localeCompare(String(b.name || bId));
+    });
+  return entries.map(([id, wallet]) => `<option value="${esc(id)}" ${id === active ? 'selected' : ''}>${esc(wallet.name || id)} (${Object.keys(wallet.currencies || {}).length} currencies)</option>`).join('');
+}
+
 function walletCurrencyIds(wallet = currentWallet()) {
   const ids = Object.keys(wallet?.currencies || {}).filter(id => CURRENCIES[id]);
   return ids.length ? ids : Object.keys(CURRENCIES || {});
@@ -96,8 +109,18 @@ function itemCurrencyKey(item) {
   return String(item?.priceCurrency || item?.currencyKey || item?.currency || 'gold').trim().toLowerCase();
 }
 
-function effectKeywordFee(item){let total=0;(Array.isArray(item?.effects)?item.effects:[]).forEach(effect=>{const text=String(effect||'').toLowerCase();let fee=0,match=text.match(/(?:heal|heals|restore|restores)\s*(\d+)\s*hp|(\d+)\s*hp/);if(match){const hp=Number(match[1]||match[2]||0);fee+=Math.max(5,hp*2)}match=text.match(/luck\D*(\d+)/);if(match)fee+=Number(match[1])*4;if(/mana|mp|spell slot|spell slots|restore spell|restore mana/.test(text))fee+=18;if(/resist|resistance|reduce damage/.test(text))fee+=8;if(/immune|immunity|cannot be damaged|cannot be targeted|cannot be ignored|invulnerable/.test(text))fee+=60;if(/revive|resurrect|respawn|second life|cheats death|immortal/.test(text))fee+=500;if(/summon|create|control|time|reality|wish|teleport|portal/.test(text))fee+=25;if(/stun|paraly|charm|fear|madness|curse|poison|blind|restrain/.test(text))fee+=10;match=text.match(/(\d+)d(\d+)/);if(match)fee+=Number(match[1])*(Number(match[2])+1)/2*.5;if(/chance|may |might |10%|20%|30%/.test(text))fee*=.55;if(/mild|minor|slight|temporary/.test(text))fee*=.65;if(/permanent|indefinitely|always/.test(text))fee*=2;total+=fee});return total}
-function itemPowerFee(item){const rarity=String(item?.rarity||'common').toLowerCase(),base={common:.5,uncommon:2,rare:5,epic:12,legendary:35,godly:100,wario_tier:150}[rarity]??1,level=Math.max(0,Number(item?.levelRequirement||1)-1),count=Array.isArray(item?.effects)?item.effects.length:0,extra=Math.max(0,count-1);return Math.round((level*base+extra*base*1.5+effectKeywordFee(item))*100)/100}
+function shopTextBlob(item){
+  return [
+    item?.id,item?.name,item?.description,item?.category,item?.rarity,item?.vendor,item?.shippedBy,
+    item?.levelRequirementReason,item?.priceReason,item?.vendorReason,item?.shippingDetail,item?.warning,
+    item?.usage?.activation,item?.usage?.duration,item?.usage?.endsWhen,item?.usage?.charges,
+    ...(Array.isArray(item?.effects)?item.effects:[]),
+    ...(Array.isArray(item?.effectDetails)?item.effectDetails.flatMap(row=>[row?.title,row?.rules]):[])
+  ].map(value=>String(value||'').toLowerCase()).join(' ');
+}
+function shopHash(item){let hash=2166136261,text=String(item?.id||item?.name||'');for(let i=0;i<text.length;i++)hash=(hash^text.charCodeAt(i))*16777619>>>0;return hash/4294967295}
+function effectKeywordFee(item){const text=shopTextBlob(item);let fee=0;const add=(regex,amount)=>{if(regex.test(text))fee+=amount};add(/heal|heals|restore.*hp|restores.*hp|regenerate/,1200);add(/mana|mp|spell slot|spell slots|restore spell|restore mana/,4e3);add(/resist|resistance|reduce damage/,6e3);add(/immune|immunity|cannot be damaged|cannot be targeted|cannot be ignored|invulnerable|invulnerability/,4e4);add(/revive|resurrect|respawn|second life|second chance|cheats death|immortal|resurrection/,15e4);add(/time stop|time travel|rewind|chronal|temporal|stasis/,9e4);add(/teleport|portal|plane shift|dimensional|multiversal|across dimensions/,5e4);add(/wish|rewrite reality|reality control|alter reality|existence control|erase existence|create existence/,25e4);add(/summon|create creature|create life|control creature|dominate|command obedience|compelled to obey|demand obedience|mind control/,8e4);add(/stun|paraly|charm|fear|madness|curse|poison|blind|restrain|silence/,1e4);add(/permanent|indefinitely|always active|never ends/,2e4);if(/unlimited|at will|never empties/.test(text)&&/gold|coin|heal|revive|immune|wish|teleport|damage/.test(text))fee+=25e3;if(/infinite|inexhaustible|never empties|boundless|aleph/.test(text)&&/gold|coin|wealth|money|currency|spendable|economy/.test(text))fee+=5e6;if(/economic collapse|currency loses all value|prices.*triple|break any economy|economy collaps|inflation|central bank/.test(text))fee+=1e6;const dc=text.match(/dc\s*(\d+)/i);if(dc)fee+=Math.max(0,Number(dc[1])-12)*8e3;const dice=text.match(/(\d+)d(\d+)/);if(dice)fee+=Number(dice[1])*(Number(dice[2])+1)/2*800;if(/chance|may |might |10%|20%|30%/.test(text))fee*=.75;if(/mild|minor|slight|cosmetic|flavor/.test(text))fee*=.65;return fee}
+function itemPowerFee(item){const rarity=String(item?.rarity||'common').toLowerCase(),band={common:{base:0,per:15,min:0,scale:.025},uncommon:{base:50,per:25,min:50,scale:.06},rare:{base:150,per:60,min:150,scale:.14},epic:{base:750,per:250,min:750,scale:.32},legendary:{base:5e3,per:2e3,min:5e3,scale:.7},godly:{base:1e5,per:3e4,min:1e5,scale:1},wario_tier:{base:5e5,per:1e5,min:5e5,scale:1.2}}[rarity]||{base:50,per:25,min:0,scale:.05},level=Math.max(1,Number(item?.levelRequirement||1)),count=Array.isArray(item?.effects)?item.effects.length:0,keyword=effectKeywordFee(item),variance=.85+shopHash(item)*.5,base=band.base+level*band.per+count*band.per*.25,total=base*variance+keyword*band.scale;return Math.round(Math.max(band.min,total)*100)/100}
 function itemGoldValue(item, quantity = 1) {
   const amount = Number(item?.price || 0);
   const c = currency(itemCurrencyKey(item));
@@ -331,6 +354,26 @@ function priceDisplayCurrencyFor(el) {
   return selected;
 }
 
+function splitNativeAuditFee(nativePrice, nativeCurrency, totalGold) {
+  const baseValue = Number(currency(nativeCurrency).base_value) || 1;
+  const nativeGold = nativePrice * baseValue;
+  const feeGold = Math.max(0, totalGold - nativeGold);
+  if (feeGold <= 0.01) return { nativeDisplay: nativePrice, feeDisplayGold: 0, foldedGold: 0 };
+  const severity = feeGold / Math.max(1, nativeGold);
+  let foldRatio = 0.35;
+  if (severity > 500) foldRatio = 0.88;
+  else if (severity > 100) foldRatio = 0.82;
+  else if (severity > 25) foldRatio = 0.72;
+  else if (severity > 5) foldRatio = 0.55;
+  // Keep a visible audit/tariff line, but make the native sticker price carry most of the power cost.
+  const foldedGold = feeGold * foldRatio;
+  return {
+    nativeDisplay: nativePrice + foldedGold / baseValue,
+    feeDisplayGold: feeGold - foldedGold,
+    foldedGold
+  };
+}
+
 function convertMarkedPrices(root) {
   root.querySelectorAll('[data-gold-price]').forEach(el => {
     if (el.closest('#playerWalletBridge,#shopExchangeQuote')) return;
@@ -345,10 +388,9 @@ function convertMarkedPrices(root) {
 
     let text = converted;
     if (displayMode !== 'gold' && nativeKnown && nativeCurrency !== displayId) {
-      const nativeGold = nativePrice * (Number(currency(nativeCurrency).base_value) || 1);
-      const feeGold = Math.max(0, gold - nativeGold);
-      const feeText = feeGold > 0.01 ? ` + fee ${formatCurrency(feeGold, displayId)}` : '';
-      text = `${formatNativeCurrency(nativePrice, nativeCurrency)}${feeText} · ≈ ${converted}`;
+      const split = splitNativeAuditFee(nativePrice, nativeCurrency, gold);
+      const feeText = split.feeDisplayGold > 0.01 ? ` + audit ${formatCurrency(split.feeDisplayGold, displayId)}` : '';
+      text = `${formatNativeCurrency(split.nativeDisplay, nativeCurrency)}${feeText} · ≈ ${converted}`;
     }
     if (el.textContent !== text) el.textContent = text;
   });
@@ -469,6 +511,10 @@ function renderBridge() {
         <small>Actual wallet payment mode · dropdown limited to this character's currencies (${allowed.length})</small>
       </div>
       <div class="bridge-coins">${walletHoldingsMarkup(wallet)}</div>
+      <label class="bridge-payment">🧑 Switch operator
+        <select id="warehouseOperatorSelect">${operatorOptions()}</select>
+        <small>Changes the connected Waluipedia wallet used for affordability and checkout previews.</small>
+      </label>
       <label class="bridge-payment">💳 Pay with
         <select id="warehousePaymentCurrency">${currencyOptions()}</select>
         <small>Available: ${esc(c.icon || '🪙')} ${esc(selectedHolding().toLocaleString())} ${esc(c.name || selected)} · 1 Gold = ${esc(rate)} ${esc(c.name || selected)}. Affordability now uses this actual holding.</small>
@@ -479,6 +525,9 @@ function renderBridge() {
     <div class="bridge-warning currency-integrated">
       🔐 <b>No operator wallet connected</b>
       <span>Connect a character first; then this dropdown will only show that character's currencies.</span>
+      <label class="bridge-payment">🧑 Pick operator
+        <select id="warehouseOperatorSelect">${operatorOptions()}</select>
+      </label>
       <label class="bridge-payment">💳 Display prices in
         <select id="warehousePaymentCurrency">${currencyOptions()}</select>
       </label>
@@ -494,6 +543,21 @@ function renderBridge() {
       select.addEventListener('change', event => {
         selected = event.target.value;
         localStorage.setItem(SELECT_KEY, selected);
+        lastAppliedCartGold = null;
+        renderBridge();
+        applyActualWalletToCart();
+        convertVisiblePrices();
+      });
+    }
+    const operatorSelect = box.querySelector('#warehouseOperatorSelect');
+    if (operatorSelect) {
+      operatorSelect.addEventListener('change', event => {
+        const id = normalizeUserId(event.target.value);
+        localStorage.setItem('waluipediaUser', id);
+        localStorage.setItem('currentUserId', id);
+        selected = 'gold';
+        ensureSelectedCurrency();
+        lastBridgeMarkup = '';
         lastAppliedCartGold = null;
         renderBridge();
         applyActualWalletToCart();

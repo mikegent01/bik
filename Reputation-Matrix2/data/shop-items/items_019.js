@@ -2042,23 +2042,43 @@ export const ITEMS_019 = {
   "grand_country_gravity_bolt": {
     "id": "grand_country_gravity_bolt",
     "name": "Gravity Bolt",
-    "description": "A device that temporarily warps local gravity",
+    "description": "The Gravity Bolt is a compact device that warps local gravity with a press of its button. In vertical terrain, it grants you a 30% bonus to your movement speed while causing 1d4 damage to any enemy caught in the ensuing inversion. It also activates a brief stasis field, immobilizing an ally within its radius for 10 seconds. Crafted by Lakitu Drones and only functional in The Grand Country's unique gravity fields.",
     "category": "equipment",
-    "price": 1200,
+    "price": 1000,
     "icon": "⚖",
     "stock": 2,
     "rarity": "uncommon",
     "effects": [
-      "Grants 30% bonus to movement speed in vertical terrain",
-      "Causes 1d4 damage to enemies caught in gravity inversion",
-      "Triggers a 10 second stasis field for 1 ally",
-      "Requires activation via button press",
-      "Crafted by: Lakitu Drones",
-      "Only usable in The Grand Country"
+      "Vertical Terrain Boost",
+      "Enemy Damage"
     ],
     "vendor": "grand_country",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Vertical Terrain Boost",
+        "rules": "When activated, you gain a +30 bonus to your movement speed while on vertical terrain. This effect lasts until the start of your next turn and is limited to once per short or long rest."
+      },
+      {
+        "title": "Enemy Damage",
+        "rules": "Any creature within 10 feet that starts its turn under the effects of Gravity Bolt takes 1d4 force damage at the beginning of each of their turns. This effect ends when the device is deactivated or expended."
+      }
+    ],
+    "levelRequirementReason": "This item aids explorers in navigating The Grand Country's unique terrain without requiring a high-level character.",
+    "vendorReason": "Grand Country vendors sell this item to aid travelers and adventurers within their jurisdiction.",
+    "shippingDetail": "Ships via Lakitu Drones, known for their swift aerial delivery services in The Grand Country.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect lasting until the start of your next turn",
+      "endsWhen": "Deactivated or expended after one use",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Gravity Bolt's balanced price reflects its utility for navigation and combat in The Grand Country.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T21:56:33.949561+00:00",
+    "aiReviewedAt": "2026-07-22T21:56:33.949561+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_gravity_tether": {
     "id": "grand_country_gravity_tether",

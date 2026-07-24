@@ -2156,19 +2156,42 @@ export const ITEMS_009 = {
   "dk_isles_jungle_whisper_pearl": {
     "id": "dk_isles_jungle_whisper_pearl",
     "name": "Jungle Whisper Pearl",
-    "description": "A glowing pearl that emits soothing jungle sounds, distracting enemies and healing nearby allies. When submerged in water, it reveals hidden paths. Only effective during moonlit nights or jungle storms.",
-    "price": 2500,
+    "description": "The Jungle Whisper Pearl, a luminescent gem embedded with the essence of the ancient rainforest, hums a soothing melody that calms nearby allies and drowns out enemy senses during moonlit nights or downpours. When submerged in water, it reveals hidden pathways and secret passages, guiding adventurers through treacherous jungles. This ethereal artifact is only effective under specific lunar conditions, making it a rare boon for those navigating the dense foliage.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Heals 300 HP to allies within 5m",
-      "Distracts enemy for 3 seconds",
-      "Reveals hidden path on water surface for 10 seconds"
+      "Calm Ally Within 5m",
+      "Drown Out Nearby Enemies"
     ],
     "vendor": "dk_isles",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Calm Ally Within 5m",
+        "rules": "When activated, this pearl heals 200 hit points to all allies within a 5-foot radius. The effect lasts for 1 minute and can only be used once per long rest."
+      },
+      {
+        "title": "Drown Out Nearby Enemies",
+        "rules": "The pearl emits a soothing melody that distracts enemies, reducing their effective Dexterity (Stealth) by 2 until the start of your next turn. This effect has no save DC and can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This pearl is a versatile tool for novice adventurers who need to heal allies and distract foes in a pinch.",
+    "vendorReason": "The islanders of the Dk Isles are renowned explorers, and their shop stocks items that aid those venturing into the wild.",
+    "shippingDetail": "Ships via Pipe Express with a guaranteed delivery within 2 days, even during harsh jungle conditions.",
+    "usage": {
+      "activation": "A bonus action to activate and use the pearl's effects.",
+      "duration": "1 minute for calming allies; duration ends when the effect is used again or at the start of your next turn for distracting enemies.",
+      "endsWhen": "The effect ends after its duration or when the pearl is used again, whichever comes first.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "This price reflects the rare and versatile nature of the Jungle Whisper Pearl, balancing its utility with a cost that allows for reasonable access.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-23T16:35:24.321414+00:00",
+    "aiReviewedAt": "2026-07-23T16:35:24.321414+00:00",
+    "aiReviewVersion": 1
   },
   "dk_isles_kremlin_frost_belt": {
     "id": "dk_isles_kremlin_frost_belt",

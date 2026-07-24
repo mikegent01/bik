@@ -612,19 +612,42 @@ export const ITEMS_025 = {
   "isle_delfino_tropical_tide_bottle": {
     "id": "isle_delfino_tropical_tide_bottle",
     "name": "Tropical Tide Bottle",
-    "description": "Siphoned from the deep blue waves of Isle Delfino’s hidden lagoons. Sip to restore vitality and gain temporary resistance to drowning. Also grants a minor buff to water-based combat.",
-    "price": 1200,
+    "description": "Drawn from Isle Delfino’s hidden lagoons, this bottle captures the essence of its tropical tide. Sip it to restore vitality and gain temporary resistance to drowning, as if the ocean itself grants you a second breath. Its water also enhances your prowess in aquatic combat, granting you a minor bonus to strikes aimed at foes beneath the waves. The bottle’s contents are as mysterious as they are potent, distilled from the very heart of the island’s watery secrets.",
+    "price": 1000,
     "icon": "🌊",
     "stock": 7,
     "rarity": "uncommon",
     "effects": [
-      "Restores 30% HP upon consumption",
-      "10% resistance to drowning effects",
-      "Minor bonus to water-based attacks"
+      "Restores vitality upon consumption",
+      "Grants temporary resistance to drowning"
     ],
     "vendor": "isle_delfino",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Restore Vitality",
+        "rules": "When consumed, this bottle restores 30% of your hit points. This effect is instantaneous and can only be used once per long rest."
+      },
+      {
+        "title": "Resistance to Drowning",
+        "rules": "For the duration of one hour after consumption, you gain a +2 bonus to saving throws against drowning effects. This resistance cannot be renewed until 8 hours have passed since your last consumption."
+      }
+    ],
+    "levelRequirementReason": "This bottle is designed for all adventurers, regardless of their level, as it can be consumed by anyone seeking a brief reprieve from the harshness of the ocean.",
+    "vendorReason": "Isle Delfino’s vendors are well-known for offering items that reflect the island's natural wonders and mystical waters.",
+    "shippingDetail": "Ships via Koopa Postal with a standard delivery time of three days. The bottle must be kept cool during transit to preserve its potency.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "Instantaneous, but effects last for one hour",
+      "endsWhen": "When the duration expires or the bottle is consumed again",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The bottle’s rarity and its unique properties make it a valuable commodity among adventurers, justifying this price in experience points.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T21:58:26.414974+00:00",
+    "aiReviewedAt": "2026-07-22T21:58:26.414974+00:00",
+    "aiReviewVersion": 1
   },
   "isle_delfino_tropical_tide_cape": {
     "id": "isle_delfino_tropical_tide_cape",

@@ -4,7 +4,59 @@
   // AI review writes this catalog beside the live data. It lets the bundled
   // React shop show the exact reviewed rules instead of a generic fallback.
   let reviewedCatalog = {};
-  fetch('data/shop-effect-details.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).then(data => { reviewedCatalog = data || {}; document.querySelectorAll('.live-inline-rules').forEach(el => el.remove()); document.querySelectorAll('[data-inline-rules]').forEach(el => delete el.dataset.inlineRules); decorate(); }).catch(() => {});
+  const normalizeKey = value => String(value || '').toLowerCase().trim();
+  const parseItemsModule = source => {
+    const match = source.match(/export\s+const\s+(ITEMS_\d+)\s*=/);
+    if (!match) return {};
+    const code = source
+      .replace(/^\s*import\s+.*$/gm, '')
+      .replace(/export\s+const\s+(ITEMS_\d+)\s*=/, 'const $1 =');
+    const categories = "const SHOP_CATEGORIES = new Proxy({}, { get: (_, key) => String(key).toLowerCase() });\n";
+    return new Function(`${categories}${code}\nreturn ${match[1]};`)() || {};
+  };
+  const mergeReviewedItems = items => {
+    Object.values(items || {}).forEach(item => {
+      if (!item) return;
+      if (item.id) reviewedCatalog[item.id] = item;
+      if (item.name) reviewedCatalog[`name:${normalizeKey(item.name)}`] = item;
+    });
+  };
+  const loadReviewedCatalog = async () => {
+    try {
+      const response = await fetch('data/shop-effect-details.json', { cache: 'no-store' });
+      if (response.ok) reviewedCatalog = await response.json() || {};
+    } catch {}
+
+    // Prefer the live shop-items folder because that is the canonical item data
+    // users edit. It includes effectDetails and usage on records like 1_up_deluxe.
+    for (const base of ['./data/shop-items/', './shop-items/']) {
+      let loadedAny = false;
+      let misses = 0;
+      for (let fileNo = 1; fileNo <= 105; fileNo++) {
+        const path = `${base}items_${String(fileNo).padStart(3, '0')}.js`;
+        try {
+          const response = await fetch(path, { cache: 'no-store' });
+          if (!response.ok) {
+            if (loadedAny && ++misses >= 5) break;
+            continue;
+          }
+          const text = await response.text();
+          if (!/export\s+const\s+ITEMS_\d+/.test(text)) continue;
+          mergeReviewedItems(parseItemsModule(text));
+          loadedAny = true;
+          misses = 0;
+        } catch {
+          if (loadedAny && ++misses >= 5) break;
+        }
+      }
+      if (loadedAny) break;
+    }
+
+    document.querySelectorAll('.live-inline-rules').forEach(el => el.remove());
+    document.querySelectorAll('[data-inline-rules]').forEach(el => delete el.dataset.inlineRules);
+    decorate();
+  };
+  loadReviewedCatalog();
   const rulesFor = effect => {
     const text = effect.replace(/_/g, ' ').trim();
     const dc = text.match(/DC\s*(\d+)/i)?.[1];
@@ -23,7 +75,8 @@
     }
     return '';
   };
-  const reviewedFor = group => reviewedCatalog[`name:${itemNameFor(group).toLowerCase()}`] || null;
+  const reviewedForName = itemName => reviewedCatalog[`name:${normalizeKey(itemName)}`] || null;
+  const reviewedFor = group => reviewedForName(itemNameFor(group));
   const usageFor = group => {
     const cardText = (group.closest('[role="dialog"]') || group.parentElement?.parentElement || document.body).textContent.toLowerCase();
     if (cardText.includes('consumable')) return 'USAGE & INVENTORY: Activate as listed on the item. Unless its reviewed rules say it has charges, this is consumed and removed from inventory immediately after its effect resolves.';
@@ -38,23 +91,73 @@
     const close = document.createElement('button'); close.className = 'live-effect-close'; close.textContent = '×'; close.setAttribute('aria-label', 'Close effect details');
     const heading = document.createElement('h3'); heading.textContent = `⚡ ${effect}`;
     const item = document.createElement('p'); item.className = 'live-effect-item'; item.textContent = itemName || '';
-    const rules = document.createElement('p'); rules.textContent = rulesFor(effect);
+    const reviewed = reviewedForName(itemName);
+    const effectIndex = (reviewed?.effects || []).findIndex(name => normalizeKey(name) === normalizeKey(effect));
+    const reviewedDetail = effectIndex >= 0 ? reviewed?.effectDetails?.[effectIndex] : null;
+    const rules = document.createElement('p'); rules.textContent = reviewedDetail?.rules || rulesFor(effect);
     const usage = document.createElement('p'); usage.className = 'live-effect-usage';
-    usage.textContent = /once per day/i.test(effect) ? 'USAGE: Activation — Action. Duration — 1 minute. Ends when — duration expires, you are incapacitated, or the item is destroyed. Charges — 1 use; refreshes at the next dawn.' : 'USAGE: This entry needs its item-specific reviewed usage record; it is not treated as a generic one-use consumable.';
+    usage.textContent = reviewed?.usage ? `USAGE: Activation — ${reviewed.usage.activation}. Duration — ${reviewed.usage.duration}. Ends when — ${reviewed.usage.endsWhen}. Charges — ${reviewed.usage.charges}.` : (/once per day/i.test(effect) ? 'USAGE: Activation — Action. Duration — 1 minute. Ends when — duration expires, you are incapacitated, or the item is destroyed. Charges — 1 use; refreshes at the next dawn.' : 'USAGE: This entry needs its item-specific reviewed usage record; it is not treated as a generic one-use consumable.');
     panel.append(close, heading); if (itemName) panel.append(item); panel.append(rules, usage); overlay.append(panel); document.body.append(overlay);
     close.focus(); overlay.addEventListener('click', e => { if (e.target === overlay || e.target === close) overlay.remove(); });
   };
+  const ensureShopLinkStyle = () => {
+    if (document.getElementById('shop-wiki-link-style')) return;
+    const style = document.createElement('style');
+    style.id = 'shop-wiki-link-style';
+    style.textContent = `.shop-wiki-link{color:#facc15;text-decoration:none;border-bottom:1px dotted rgba(250,204,21,.6);font-weight:700}.shop-wiki-link:hover{color:#fff3a3;border-bottom-style:solid}`;
+    document.head.appendChild(style);
+  };
+  const SHOP_WIKI_LINKS = [
+    ['Iron Legion', '../index.html#/reputation/faction/iron_legion'],
+    ['Regal Empire', '../index.html#/reputation/faction/regal_empire'],
+    ['Mushroom Kingdom', '../index.html#/atlas/mushroom_kingdom'],
+    ['Toad Town', '../index.html#/atlas/mushroom_kingdom'],
+    ['Bowser', '../index.html#/article/bowser'],
+    ['Wario', '../index.html#/article/wario'],
+    ['Waluigi', '../index.html#/article/waluigi'],
+    ['Fawful', '../index.html#/article/fawful'],
+    ['Koopa Troop', '../index.html#/reputation/faction/koopa_troop'],
+    ['Onyx Hand', '../index.html#/reputation/faction/onyx_hand'],
+    ['Mages\' Guild', '../index.html#/reputation/faction/mages_guild'],
+    ['Peach Loyalists', '../index.html#/reputation/faction/peach_loyalists'],
+    ['Rakasha', '../index.html#/reputation/faction/rakasha_clans'],
+    ['Star Road', '../index.html#/artifacts'],
+    ['Shadow Estate', '../index.html#/article/shadow_estate_spotlight_cookie_cottage'],
+    ['Vigilance', '../index.html#/article/the_vigilance'],
+    ['Legionlance', '../index.html#/imperial-network']
+  ];
+  const linkShopLore = root => {
+    ensureShopLinkStyle();
+    const scope = root || document;
+    scope.querySelectorAll('.wario-card p,.checkout-item-card p,.live-inline-rule span,.live-effect-panel p').forEach(node => {
+      if (node.dataset.shopWikiLinked || node.closest('a,button')) return;
+      let html = node.innerHTML;
+      for (const [label, href] of SHOP_WIKI_LINKS) {
+        const safe = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`(^|[^>\\w])(${safe})(?![^<]*>|[\\w])`, 'i');
+        if (re.test(html)) {
+          html = html.replace(re, `$1<a class="shop-wiki-link" href="${href}" title="Open Waluipedia: ${label}">$2</a>`);
+          break;
+        }
+      }
+      node.innerHTML = html;
+      node.dataset.shopWikiLinked = 'true';
+    });
+  };
+
   const decorate = () => {
+    linkShopLore(document);
     document.querySelectorAll('.effect-tag:not([data-live-effect])').forEach(tag => {
       tag.dataset.liveEffect = 'true'; tag.tabIndex = 0; tag.setAttribute('role', 'button'); tag.setAttribute('title', 'Click for a focused rules view');
-      const show = () => open(tag.textContent.trim(), tag.closest('[role="dialog"]')?.querySelector('h2')?.textContent);
+      const show = () => open(tag.textContent.trim(), tag.closest('[role="dialog"]')?.querySelector('h2')?.textContent || itemNameFor(tag.parentElement));
       tag.addEventListener('click', show); tag.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); } });
     });
     // The bundled page originally hid all rules behind chips. Show a readable
     // explanation directly beneath every current item’s effects as well.
     document.querySelectorAll('.effect-tag[data-live-effect]').forEach(tag => {
       const group = tag.parentElement;
-      if (!group || group.dataset.inlineRules) return;
+      // Keep catalog cards compact. Full rules stay in the focused effect dialog / item modal.
+      if (!group || group.dataset.inlineRules || !group.closest('[role="dialog"]')) return;
       group.dataset.inlineRules = 'true';
       const rules = document.createElement('div'); rules.className = 'live-inline-rules';
       const title = document.createElement('div'); title.className = 'live-inline-heading'; title.textContent = '📖 WHAT THESE EFFECTS DO'; rules.append(title);
