@@ -4972,8 +4972,8 @@ function renderSidebar(active){
   h+=`<div class="navlink ${active==='list:cultures'?'active':''}" onclick="Router.go('#/cultures')"><span><span class="emoji">⚖️</span> Cultures & Laws</span><span class="cnt">${(DATA.cultures||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='power'?'active':''}" onclick="Router.go('#/power')"><span><span class="emoji">⚡</span> Power Projection</span></div>`;
   h+=`<div class="navlink ${active==='imperial-network'?'active':''}" onclick="Router.go('#/imperial-network')"><span><span class="emoji">🕸️</span> Imperial Pressure Network</span></div>`;
-  const isJournalActive = (active==='journal' || h1.includes('thornburys_field_journal'));
-  h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/article/thornburys_field_journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
+  const isJournalActive = (active==='journal' || h1.includes('field-journal') || h1.includes('thornburys_field_journal'));
+  h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/field-journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
   h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
   h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}+shop</span></div>`;
   h+=`<div class="navlink ${active==='books'?'active':''}" onclick="Router.go('#/books')"><span><span class="emoji">📚</span> Library & Books</span><span class="cnt">${((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}</span></div>`;
@@ -5375,15 +5375,17 @@ function view_atlasNation(id){
   const cfg=NATION_ATLAS_CONFIG[id]||{};
   const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
   const mapFile = cfg.mapFile ? pathPrefix + cfg.mapFile : '';
+  const mapEmbedFile = mapFile ? mapFile + (mapFile.includes('?')?'&':'?') + 'embed=1' : '';
+  const mapFrameId = `atlasMapFrame_${String(id).replace(/[^a-z0-9_]/gi,'_')}`;
   const mapIframe = mapFile 
-    ? `<div class="card" style="padding:0; overflow:hidden; border:1px solid var(--border); border-radius:var(--radius); margin-top: 20px;">
-         <div style="background:var(--panel2); padding:10px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-           <h3 style="margin:0; font-family:var(--font-display); font-size:14px; color:var(--accent2); display:flex; align-items:center; gap:8px;">🗺️ ${esc(cfg.label || displayName(n))} Tactical Map</h3>
-           <span class="pill" style="font-size:10px; text-transform:uppercase; letter-spacing:0.5px; background:rgba(138,75,255,0.1); border-color:rgba(138,75,255,0.3); color:#a78bfa;">Interactive D3 Satellite Monitor</span>
+    ? `<div class="card atlas-map-applet">
+         <div class="atlas-map-toolbar">
+           <div><h3>🗺️ ${esc(cfg.label || displayName(n))} Tactical Map Applet</h3><p>${esc(cfg.status||'Embedded interactive regional map with POIs, modes, search, and detail panel.')}</p></div>
+           <div class="chips"><span class="chip active" onclick="document.getElementById('${esc(mapFrameId)}').src='${esc(mapEmbedFile)}'">Reset applet</span><a class="chip" href="${esc(mapFile)}">Open full screen →</a></div>
          </div>
-         <iframe src="${esc(mapFile)}" style="width:100%; height:620px; border:none; background:#0b0f19;"></iframe>
+         <iframe id="${esc(mapFrameId)}" src="${esc(mapEmbedFile)}" title="${esc(cfg.label || displayName(n))} Tactical Map"></iframe>
        </div>`
-    : '';
+    : `<div class="card atlas-map-empty"><h3>🗺️ No live map applet filed yet</h3><p class="text-muted">This realm has atlas records, but Waluigi has not connected a tactical map file. Locations and event records below remain available.</p></div>`;
 
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${flagArt(n)}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${mapFile?`<span class="chip" onclick="location.href='${esc(mapFile)}'">Open Full Screen</span>`:''}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${mapIframe}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
   window.scrollTo(0,0);
@@ -6429,8 +6431,31 @@ async function renderFactionPowerProjection(factionId) {
   `;
 }
 
+function view_fieldJournal(){
+  renderSidebar('journal');
+  const journalSrc=pathPrefix+'Field_Journal.html';
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Thornbury's Field Journal</div>
+    <div class="card animate-fade-in journal-viewer-hero">
+      <div>
+        <h1>📓 Thornbury's Field Journal</h1>
+        <p class="text-muted">The actual interactive field journal is now the primary view. Waluigi is not summarizing Thornbury's paranoia when the source document can incriminate itself.</p>
+      </div>
+      <div class="chips">
+        <a class="chip active" href="${esc(journalSrc)}">Open full journal →</a>
+        <span class="chip" onclick="document.getElementById('fieldJournalFrame').src='${esc(journalSrc)}'">Reload viewer</span>
+        <span class="chip" onclick="openId('thornbury')">Open Thornbury dossier</span>
+      </div>
+    </div>
+    <div class="card journal-viewer-card">
+      <iframe id="fieldJournalFrame" src="${esc(journalSrc)}" title="Thornbury's Field Journal"></iframe>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
 function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
+  if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
   let rec=INDEX[id];
   if(!rec && XP_SUMMARY){
     const alias=Object.keys(XP_SUMMARY).find(k=>XP_SUMMARY[k]&&XP_SUMMARY[k].xpKey===id);
@@ -9828,6 +9853,7 @@ const Router={
     LINK_TOTAL_COUNT=0;  // fresh per page view for low-link mode
     if(route==='home')view_home();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
+    else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='article')view_article(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();

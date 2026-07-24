@@ -27,10 +27,15 @@ export function renderTabs() {
     mapControls.appendChild(searchContainer);
 
     const currentPage = window.location.pathname.split('/').pop();
+    const currentMapData = MAP_DATA[map.activeMapId];
+    const urlParams = new URLSearchParams(window.location.search);
+    const isUnifiedMapApplet = currentPage === 'maps-view.html' && (urlParams.get('map') || currentMapData?.group);
     
     let relevantGroups;
 
-    if (currentPage === 'midlands-maps.html') {
+    if (isUnifiedMapApplet && currentMapData?.group) {
+        relevantGroups = [currentMapData.group];
+    } else if (currentPage === 'midlands-maps.html') {
         relevantGroups = ['The Midlands'];
     } else if (currentPage === 'internet-maps.html') {
         relevantGroups = ['The Internet'];

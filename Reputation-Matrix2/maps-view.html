@@ -10,13 +10,25 @@
     <link rel="stylesheet" href="maps.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+body.map-embed{margin:0;background:#080b14;overflow:hidden}
+body.map-embed .tablet-frame{min-height:100vh;border:0;border-radius:0;box-shadow:none;background:#080b14}
+body.map-embed #map-ecosystem-header{display:none!important}
+body.map-embed #main-content{padding:8px!important}
+body.map-embed #unified-page-title{display:none!important}
+body.map-embed #maps-layout{height:calc(100vh - 16px);min-height:560px;grid-template-columns:minmax(0,1fr) 300px;gap:12px}
+body.map-embed #map-controls{max-height:170px;overflow:auto;padding:10px}
+body.map-embed #map-display-area{min-height:380px}
+@media(max-width:900px){body.map-embed #maps-layout{grid-template-columns:1fr;height:auto;overflow:auto}body.map-embed{overflow:auto}body.map-embed #map-detail-panel{min-height:180px}}
+</style>
+<script>document.addEventListener('DOMContentLoaded',()=>{if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('map-embed');});</script>
 </head>
 <body>
     <div class="tablet-frame">
         <div class="scanline-overlay"></div>
         <div id="app">
             <!-- Native Walupedia Ecosystem Header inside standalone view -->
-            <div style="background: linear-gradient(90deg, #1f1245, #0f0a21); border-bottom: 2px solid #8a4bff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Roboto Mono', monospace; z-index: 9999; position: relative; color: #fff;">
+            <div id="map-ecosystem-header" style="background: linear-gradient(90deg, #1f1245, #0f0a21); border-bottom: 2px solid #8a4bff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Roboto Mono', monospace; z-index: 9999; position: relative; color: #fff;">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span style="font-size: 20px;">🗺️</span>
                     <div>
