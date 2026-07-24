@@ -888,3 +888,7 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 .atlas-map-applet iframe{display:block;width:100%;height:min(82vh,900px);min-height:680px;border:0;background:#080b14}
 .atlas-map-empty{border-left:4px solid var(--muted)}
 @media(max-width:760px){.journal-viewer-card iframe,.atlas-map-applet iframe{height:78vh;min-height:560px}.journal-viewer-hero{display:block}.journal-viewer-hero .chips{margin-top:10px}}
+
+/* Hide floating Waluigi ambient controls while large embedded applets/journals are active. */
+body.hide-walu-ambient .walu-ambient,
+body.hide-walu-ambient .walu-music-panel{display:none!important}

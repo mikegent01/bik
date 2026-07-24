@@ -5367,6 +5367,7 @@ function atlasChips(arr,kind){
   return (arr||[]).slice(0,80).map(o=>{const rec=INDEX[o.id]; const route= rec?`#/article/${encodeURIComponent(o.id)}`:(kind==='battle'&&o.conflict?`#/mbattle/${encodeURIComponent(o.id)}`:'#/home'); return `<span class="rel-chip" onclick="Router.go('${route}')"><span class="rt">${esc(kind)}</span>${esc(displayName(o)||o.name||o.id)}</span>`;}).join('')||'<p class="text-muted">No linked records yet.</p>';
 }
 function view_atlasNation(id){
+  document.body.classList.add('hide-walu-ambient');
   id=atlasCanonical(id);
   renderSidebar('atlas'); buildAtlasIndex(); const x=ATLAS_INDEX[id]; if(!x){view_atlas();return;} const n=x.nation;
   const stats=atlasStatCard('Locations',x.locations.length)+atlasStatCard('Events',x.events.length)+atlasStatCard('Battles',x.battles.length)+atlasStatCard('Trials',x.trials.length)+atlasStatCard('Factions',x.factions.length)+atlasStatCard('Species',x.species.length);
@@ -6432,6 +6433,7 @@ async function renderFactionPowerProjection(factionId) {
 }
 
 function view_fieldJournal(){
+  document.body.classList.add('hide-walu-ambient');
   renderSidebar('journal');
   const journalSrc=pathPrefix+'Field_Journal.html';
   el('content').innerHTML=`
@@ -9851,6 +9853,7 @@ const Router={
     const route=m[1],arg=decodeURIComponent(m[2]||'');
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
     LINK_TOTAL_COUNT=0;  // fresh per page view for low-link mode
+    document.body.classList.remove('hide-walu-ambient');
     if(route==='home')view_home();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
     else if(route==='field-journal'||route==='journal')view_fieldJournal();
