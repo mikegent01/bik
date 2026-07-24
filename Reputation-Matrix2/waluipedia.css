@@ -862,3 +862,17 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 }
 .event-participants{margin-top:4px}.event-participant-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px}.event-participant-card{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);border-radius:12px;background:linear-gradient(135deg,rgba(138,75,255,.10),rgba(224,180,0,.04)),var(--bg2);padding:10px;min-width:0;transition:transform .14s,border-color .14s,background .14s}.event-participant-card.linked{cursor:pointer}.event-participant-card.linked:hover{transform:translateY(-1px);border-color:var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.20),rgba(224,180,0,.08)),var(--bg2)}.event-participant-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;font-size:12px;letter-spacing:.4px;box-shadow:0 6px 18px rgba(0,0,0,.18)}.event-participant-body{min-width:0;flex:1}.event-participant-name{font-weight:900;color:var(--text);line-height:1.25}.event-participant-role{margin-top:3px;color:var(--muted);font-size:12.5px;line-height:1.35}.event-participant-meta{margin-top:5px;color:var(--accent2);font-size:10.5px;text-transform:uppercase;letter-spacing:.45px}.event-participant-card.unlinked{opacity:.82}.event-context-panel h3{display:flex;align-items:center;gap:6px}
 @media(max-width:560px){.event-participant-grid{grid-template-columns:1fr}.event-participant-card{padding:9px}.event-participant-avatar{width:32px;height:32px;flex-basis:32px}}
+
+/* ===== Walupedia Connect — less squished sign-on cards ===== */
+.layout{max-width:1480px}
+.login-grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:16px}
+.login-card{padding:22px;gap:16px;align-items:flex-start;min-height:132px;border-radius:16px}
+.login-card.vip{border-left-width:6px;background:linear-gradient(135deg,rgba(138,75,255,.10),rgba(224,180,0,.05)),var(--panel2)}
+.login-card .l-ava{width:64px;height:64px;flex:0 0 64px;font-size:28px;border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.22)}
+.login-card .l-name{font-size:16px;line-height:1.35;margin-bottom:6px}
+.login-card .l-meta{font-size:13.5px;line-height:1.45;margin-top:4px}
+.login-card .tmeta{margin-top:10px;gap:6px}
+.login-card .pill{font-size:11.5px;padding:4px 8px}
+#waluigiSignOn .waluigi-splash-card{max-width:min(920px,calc(100vw - 32px));padding:28px;border-radius:18px}
+#waluigiSignOn .waluigi-typed{font-size:16px;line-height:1.7;min-height:86px}
+@media(max-width:760px){.layout{max-width:100%}.login-grid{grid-template-columns:1fr}.login-card{min-height:0;padding:16px}.login-card .l-ava{width:52px;height:52px;flex-basis:52px;font-size:23px}}
