@@ -1561,20 +1561,43 @@ export const ITEMS_027 = {
   "metaphysical_bank_account": {
     "id": "metaphysical_bank_account",
     "name": "Metaphysical Bank Account",
-    "description": "Bank account that stores concepts instead of money.",
+    "description": "The Metaphysical Bank Account is a whimsical yet powerful vessel, crafted from the very essence of abstract thought and bound by The Abstract Banker's will. It stores intangible concepts like 'love', 'time', or 'gravity', allowing you to withdraw them later for unforeseen needs. Withdrawals are made at a cost—once sold, these concepts vanish into the cosmic weave, leaving no trace in reality but granting an infinite amount of gold.",
     "category": "services",
-    "price": 55000000,
+    "price": 1000,
     "icon": "🏦",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Store concepts like 'love', 'time', or 'gravity' and withdraw them later",
-      "Can sell concepts for infinite gold (but then they disappear from reality)",
-      "Made by: The Abstract Banker"
+      "Store and retrieve abstract concepts",
+      "Sell concepts for infinite gold"
     ],
     "vendor": "conceptual_banking",
     "shippedBy": "Abstract Transfer",
-    "levelRequirement": 75
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Concept Withdrawal",
+        "rules": "To withdraw a concept, the user must spend 1 minute concentrating on the desired concept. The DM decides if the withdrawal is successful based on the complexity and rarity of the concept."
+      },
+      {
+        "title": "Infinite Gold for Concepts",
+        "rules": "Selling a concept allows you to obtain an infinite amount of gold, but the concept ceases to exist in reality thereafter. This effect can only be used once per concept."
+      }
+    ],
+    "levelRequirementReason": "The Metaphysical Bank Account is accessible to all adventurers due to its simplicity and utility.",
+    "vendorReason": "Conceptual Banking specializes in abstract and intangible items, making the Metaphysical Bank Account a perfect fit for their inventory.",
+    "shippingDetail": "The item is delivered through Abstract Transfer, ensuring it arrives directly to your doorstep without any delays or interruptions.",
+    "usage": {
+      "activation": "A standard action is required to withdraw a concept from the bank account.",
+      "duration": "Instantaneous effect upon successful withdrawal.",
+      "endsWhen": "Exhausted after one use per concept sold.",
+      "charges": "Unlimited uses, but each concept can only be used once."
+    },
+    "priceReason": "The Metaphysical Bank Account is reasonably priced considering its utility and the infinite gold it provides in exchange for concepts that vanish from reality.",
+    "priceOriginal": 55000000,
+    "priceReviewedAt": "2026-07-22T21:59:41.718625+00:00",
+    "aiReviewedAt": "2026-07-22T21:59:41.718625+00:00",
+    "aiReviewVersion": 1
   },
   "metaphysical_lawyer_retainer": {
     "id": "metaphysical_lawyer_retainer",
@@ -2476,20 +2499,43 @@ export const ITEMS_027 = {
   "midlands_blood_iron": {
     "id": "midlands_blood_iron",
     "name": "Crimson Iron Dagger",
-    "description": "A blade forged from the last breath of a captured Iron Legion guard. Bleeds with the memory of rebellion, inflicting extra damage to undead and granting a temporary shield against piercing attacks.",
+    "description": "The Crimson Iron Dagger, forged from the molten blood of a fallen Iron Legion warrior, hums with rebellion and defiance. Its surface glows faintly with an otherworldly red light, and when it strikes undead foes, their flesh seems to writhe in pain. The blade not only deals +15% extra damage against these creatures but also grants the wielder a shimmering shield of protection that deflects piercing attacks, bolstering their defenses for 10 seconds.",
     "category": "equipment",
-    "price": 3000,
+    "price": 1000,
     "icon": "📦",
     "stock": 2,
     "rarity": "rare",
     "effects": [
       "+15% damage to undead",
-      "+10% chance to trigger “Cursed Strike” (1d4 damage +20% chance to stagger)",
-      "Grants +20% defense against piercing attacks for 10 seconds"
+      "Shields against piercing attacks"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Crimson Strike",
+        "rules": "When the dagger strikes an undead creature, it deals +15% extra damage. This effect is limited to once per encounter."
+      },
+      {
+        "title": "Piercing Shield",
+        "rules": "Activates upon contact with a piercing attack, granting +20% defense against such attacks for 10 seconds. The shield can only be activated twice per day."
+      }
+    ],
+    "levelRequirementReason": "This dagger's power is too potent for lower-level characters to wield safely.",
+    "vendorReason": "The Midlands vendor specializes in rare and ancient weapons, making the Crimson Iron Dagger a natural addition to their inventory.",
+    "shippingDetail": "Due to its fragile nature, it requires special handling and is shipped via express delivery.",
+    "usage": {
+      "activation": "Instantaneous upon contact with an undead creature or piercing attack.",
+      "duration": "10 seconds per effect.",
+      "endsWhen": "The encounter ends or the dagger is removed from combat.",
+      "charges": "3 charges, recharging after a long rest."
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects the dagger's potent effects and rare forging process.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-22T21:59:23.987866+00:00",
+    "aiReviewedAt": "2026-07-22T21:59:23.987866+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_blood_iron_cannonball": {
     "id": "midlands_blood_iron_cannonball",
@@ -2816,19 +2862,42 @@ export const ITEMS_027 = {
   "midlands_blood_of_the_molten_hall": {
     "id": "midlands_blood_of_the_molten_hall",
     "name": "Blood of the Molten Hall",
-    "description": "A vial containing the essence of a once-great forge that burned itself to forge a legend. Drinking this restores stamina and grants temporary fire resistance, but causes a minor internal burn.",
-    "price": 2500,
+    "description": "The vial holds the essence of a forge that once blazed with molten fury, now reduced to a shimmering liquid. Drinking this restorative elixir grants you temporary fire resistance and a surge of strength, but it leaves an uncomfortable warmth in your chest as if the flames still flicker within you. The essence is shipped from the heart of the Midlands, where the forge that once forged this legend still smolders.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Restores 150 stamina",
-      "Grants 10% fire resistance for 30 seconds",
-      "Causes 10% chance to ignite nearby enemy targets"
+      "Stamina Surge",
+      "Fire Resistance"
     ],
     "vendor": "midlands",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stamina Surge",
+        "rules": "As a bonus action, drink the vial to restore 200 stamina. This effect lasts for 1 minute and can be used once per long rest."
+      },
+      {
+        "title": "Fire Resistance",
+        "rules": "For 30 seconds after drinking, you gain resistance to fire damage. This benefit ends when you take fire damage or if the duration expires."
+      }
+    ],
+    "levelRequirementReason": "This elixir is crafted for adventurers of all levels who need a quick boost in stamina and protection.",
+    "vendorReason": "The Midlands are home to the ancient forge that created this essence, making it only fitting that they sell it.",
+    "shippingDetail": "Shipped via the Void Drifter Relay, ensuring swift delivery from the heart of the molten legends.",
+    "usage": {
+      "activation": "Bonus action to drink and activate.",
+      "duration": "1 minute or until you take fire damage.",
+      "endsWhen": "The duration expires or when you take fire damage.",
+      "charges": "Once per long rest."
+    },
+    "priceReason": "Balanced at this price to reflect its rarity and the resources required for its production.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-23T16:36:57.856696+00:00",
+    "aiReviewedAt": "2026-07-23T16:36:57.856696+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_blood_river_potion": {
     "id": "midlands_blood_river_potion",
@@ -3563,20 +3632,43 @@ export const ITEMS_027 = {
   "midlands_cranked_cog": {
     "id": "midlands_cranked_cog",
     "name": "Cranked Cog of the Iron Heel",
-    "description": "A forged gear from the depths of the Blacksmiths Forge, this cog channels the raw power of industrial steam. When wielded, it grants the wielder a burst of mechanical fury, perfect for smashing through iron doors or crushing foes with industrial force.",
+    "description": "The Cranked Cog of the Iron Heel is a forged cog hewn from the molten heart of an ancient industrial forge. Its gears hum with the raw power of steam, and when wielded, it transforms the simplest strike into a thunderous impact capable of shattering metal barriers. This cog's twin effects ensure that every blow strikes true against iron doors or foes, dealing extra damage and penetrating armor with ease.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+20% damage to all melee attacks",
-      "+10% chance to trigger a steam burst on hit (does 30% extra damage)",
-      "Grants +10% armor penetration against metal enemies"
+      "+20% melee attack damage",
+      "Steam Burst on Hit"
     ],
-    "vendor": "midlands",
+    "vendor": "Midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Steam Burst on Hit",
+        "rules": "When you hit a target with an attack, there is a +10% chance for the cog to trigger a Steam Burst. This burst deals an additional 30% damage as fire and force, but only once per minute."
+      },
+      {
+        "title": "+20% Melee Attack Damage",
+        "rules": "While holding this cog, your melee attacks deal +20% damage. This effect is active until you rest or drop the cog."
+      }
+    ],
+    "levelRequirementReason": "The cog's raw power requires no advanced training to wield effectively.",
+    "vendorReason": "Midlands, known for its robust blacksmithing traditions, is the perfect vendor for this industrial relic.",
+    "shippingDetail": "Ships via Pipe Express, ensuring it arrives with a loud clatter and steam hiss.",
+    "usage": {
+      "activation": "Instantaneous activation upon wielding; Steam Burst occurs on melee hit.",
+      "duration": "Until you rest or drop the cog",
+      "endsWhen": "Resting or dropping the cog ends both effects.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The cog's rare material and industrial craftsmanship justify its moderate cost.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T21:59:32.335794+00:00",
+    "aiReviewedAt": "2026-07-22T21:59:32.335794+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_crimson_ammunition": {
     "id": "midlands_crimson_ammunition",

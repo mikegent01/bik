@@ -2409,20 +2409,43 @@ export const ITEMS_021 = {
   "hyrule_spectral_mechanism": {
     "id": "hyrule_spectral_mechanism",
     "name": "Phantom Gear",
-    "description": "A humming artifact forged from the echoes of ancient temple guardians. When activated, it grants the wielder temporary invisibility and a 30% chance to bypass enemy defenses.",
+    "description": "Phantom Gear, a humbling artifact crafted from the whispers of long-dead guardians, is an intricate mechanism that seems to shimmer in and out of existence. When activated, it grants the wielder a fleeting moment of invisibility, allowing them to slip past foes unseen. Its most potent feature is a 30% chance to bypass enemy defenses during its active duration, making it ideal for those who must strike swiftly and stealthily.",
     "category": "equipment",
     "price": 2500,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Invisibility for 10 seconds",
-      "30% chance to ignore enemy defense checks",
-      "Requires a 2-second activation time"
+      "Invisibility",
+      "Bypass Defense Checks"
     ],
     "vendor": "hyrule",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Invisibility",
+        "rules": "The wielder becomes invisible for 10 seconds upon activation. This effect ends if the user takes any action other than movement or if they are hit by an attack."
+      },
+      {
+        "title": "Bypass Defense Checks",
+        "rules": "There is a 30% chance that each attack made against the wielder during the invisibility effect bypasses their defense checks. The effect ends when the invisibility duration expires, and this feature cannot be used more than once per long rest."
+      }
+    ],
+    "levelRequirementReason": "Phantom Gear requires a minimum level of 5 to wield effectively due to its complex mechanics and the need for precision.",
+    "vendorReason": "Hyrule is renowned for its crafting prowess, and Phantom Gear's intricate design makes it an ideal item for their shop.",
+    "shippingDetail": "Phantom Gear requires special handling by Boo Spectral Mail to ensure the artifact arrives in perfect condition.",
+    "usage": {
+      "activation": "Action",
+      "duration": "10 seconds per use",
+      "endsWhen": "Upon taking an action other than movement or being hit by an attack, or at the end of its duration.",
+      "charges": "Unlimited, but only one use per long rest"
+    },
+    "priceReason": "The intricate craftsmanship and rare materials used in Phantom Gear justify its high price.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T21:57:25.749347+00:00",
+    "aiReviewedAt": "2026-07-22T21:57:25.749347+00:00",
+    "aiReviewVersion": 1
   },
   "hyrule_spectral_satchel": {
     "id": "hyrule_spectral_satchel",

@@ -1224,20 +1224,43 @@ export const ITEMS_015 = {
   "feywild_tangled_fey_root": {
     "id": "feywild_tangled_fey_root",
     "name": "Tangled Fey Root",
-    "description": "A gnarled root pulsing with wild magic, it grants temporary chaos immunity and disrupts enemy spellcasting. When touched, the root whispers secrets of forgotten courts.",
+    "description": "The Tangled Fey Root appears as a gnarled, pulsating root that hums with untamed magic. When grasped, it releases a swirling mist of chaotic energy, temporarily granting immunity to chaos effects and disrupting spellcasting within its radius. The root whispers secrets from forgotten Feywild courts, offering cryptic lore that can be deciphered by those attuned to the wild. Its power is drawn from ancient Feywild roots, making it a rare find in the hands of adventurers.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Grants immunity to chaos effects for 1 round",
-      "Disrupts spellcasting within 10 feet for 1 round",
-      "Whispers a random court lore fact when activated"
+      "Immunity to Chaos Effects",
+      "Disrupt Spellcasting"
     ],
     "vendor": "feywild",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Immunity to Chaos Effects",
+        "rules": "The wielder gains temporary immunity to all chaos-related effects within 10 feet for 1 round. This effect is triggered when the root is grasped and lasts until the end of their next turn."
+      },
+      {
+        "title": "Disrupt Spellcasting",
+        "rules": "All creatures within a 20-foot radius of the wielder must make a DC 15 Concentration saving throw or be incapacitated for 1 round, unable to cast spells. This effect lasts until the start of their next turn."
+      }
+    ],
+    "levelRequirementReason": "The Tangled Fey Root is potent enough that even low-level adventurers can wield its power.",
+    "vendorReason": "Feywild is a direct supplier from the heart of the Feywild, where these roots are harvested for their unique properties.",
+    "shippingDetail": "Delivered by Lakitu Drones with a 24-hour expedited service guarantee.",
+    "usage": {
+      "activation": "Grasping the root activates its effects.",
+      "duration": "1 round, expiring at the start of the wielder's next turn.",
+      "endsWhen": "The effect ends when the wielder no longer holds the root or is incapacitated.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This price reflects the rare and potent nature of the Feywild Tangled Root, balancing its power with a fair market value.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T21:56:01.406503+00:00",
+    "aiReviewedAt": "2026-07-22T21:56:01.406503+00:00",
+    "aiReviewVersion": 1
   },
   "feywild_tangled_fey_talisman": {
     "id": "feywild_tangled_fey_talisman",

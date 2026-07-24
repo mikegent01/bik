@@ -899,20 +899,43 @@ export const ITEMS_029 = {
   "midlands_mechanical_iron_heart": {
     "id": "midlands_mechanical_iron_heart",
     "name": "Mechanical Iron Heart",
-    "description": "A pulsing gearwork core that amplifies the wearers strength and endurance, perfect for forging steel in the Midlands’ darkest foundries. Glows faintly in the dark, revealing hidden schematics when activated.",
+    "description": "The Mechanical Iron Heart hums like a well-tuned engine, its gears ticking with the rhythm of unyielding determination. When activated in the dim light of the Midlands’ forges, it amplifies your physical prowess and resilience, making you a master of steel and fire. This pulsating core not only boosts your strength by 150% but also grants ‘Iron Resolve’, reducing fatigue by 30% after 30 seconds of combat, ensuring you never falter in the heat of battle.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
       "+150% Strength",
-      "+20% Defense",
-      "Grants “Iron Resolve” – reduces fatigue by 30% after 30 seconds of combat"
+      "Grants “Iron Resolve”"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Iron Resolve",
+        "rules": "After 30 seconds of combat, this effect reduces your fatigue by 30%. This benefit lasts until the start of your next turn."
+      },
+      {
+        "title": "+150% Strength",
+        "rules": "Activate as a bonus action. The effect lasts for 1 minute and can be renewed on your next turn."
+      }
+    ],
+    "levelRequirementReason": "This core requires the user to have reached at least third level in order to wield its power effectively.",
+    "vendorReason": "The Midlands’ forges are renowned for crafting such powerful and essential tools, and no blacksmith would dare sell this item outside their region.",
+    "shippingDetail": "Delivered via a secret courier route that ensures the Mechanical Iron Heart reaches its destination without attracting unwanted attention.",
+    "usage": {
+      "activation": "Bonus action to activate, and can be renewed on your next turn.",
+      "duration": "1 minute per activation.",
+      "endsWhen": "The effect ends when you finish a short or long rest, or if the item is destroyed.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "This rare and powerful core reflects its value in the Midlands’ forges, making it worth the substantial XP cost.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:00:59.784672+00:00",
+    "aiReviewedAt": "2026-07-22T22:00:59.784672+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_mechanical_legs": {
     "id": "midlands_mechanical_legs",
@@ -1406,38 +1429,84 @@ export const ITEMS_029 = {
   "midlands_mechanized_gloves": {
     "id": "midlands_mechanized_gloves",
     "name": "Mechanized Gloves of the Iron Hand",
-    "description": "Grafted with piston-driven gauntlets, these gloves allow the wearer to smash through steel doors and crush enemy limbs with rhythmic mechanical fury. Each strike echoes with the clatter of a factory bell.",
+    "description": "The Mechanized Gloves of the Iron Hand are grafted with piston-driven gauntlets, imbued with the relentless fury of a forgeheart core. These gloves allow the wearer to smash through steel doors with ease and crush enemy limbs in rhythmic mechanical fury. Each strike echoes like a factory bell, its clatter resonating through metal and flesh alike. The wearer's strikes are not just physical; they carry the weight of industrial might.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
       "+15% attack speed",
-      "+10% armor penetration",
-      "Each hit has a 10% chance to trigger “Cranky Crush” (stun for 2 seconds and deal 30% extra damage)"
+      "Steel Door Smasher"
     ],
     "vendor": "midlands",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Cranky Crush",
+        "rules": "Each hit has a 10% chance to stun the target for 2 seconds and deal an additional 30% damage. This effect has a cooldown of 1 minute."
+      },
+      {
+        "title": "Steel Door Smasher",
+        "rules": "The wearer gains the ability to break through steel doors with ease, as if they were made of wood. This effect lasts for 1 hour and can be used once per day."
+      }
+    ],
+    "levelRequirementReason": "Wielding these gloves requires a strong grasp of mechanics and brute strength.",
+    "vendorReason": "Midlands is known for their mastery of mechanical devices, making them the perfect vendor for such powerful yet intricate items.",
+    "shippingDetail": "Delivered by Boo Spectral Mail, these gloves arrive with a whisper and a creak, ensuring they reach their destination in one piece.",
+    "usage": {
+      "activation": "Instantaneous",
+      "duration": "Until used or the effect ends naturally",
+      "endsWhen": "The effect ends when the target is stunned, after 1 minute of Cranky Crush cooldown, or at midnight on a new day.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced against other rare items, this glove set combines offensive prowess with unique utility features.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:00:51.820530+00:00",
+    "aiReviewedAt": "2026-07-22T22:00:51.820530+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_mechanized_greaves": {
     "id": "midlands_mechanized_greaves",
     "name": "Mechanized Greaves",
-    "description": "Reinforced with steel and slag, these greaves grant the wearer immense resilience against crushing damage. They also allow for a minor but critical mechanical boost when activated.",
+    "description": "The Mechanized Greaves are reinforced with steel and slag, their joints gleaming like molten metal under moonlight. Crafted in the heart of Midlands by blacksmiths who have forged legends, these greaves not only increase resilience against crushing damage but also grant a fleeting boost to speed when activated. Legends say that wearing them brings a warrior closer to the forge’s spirit, making their steps as light and sure as the wind.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Increases defense against crushing damage by 40%",
-      "Activates “Slag Burst” – creates a 2-meter radius shockwave that deals 50% damage to nearby enemies",
-      "Grants +5% movement speed for 3 seconds after each use"
+      "Resilience Against Crushing",
+      "Enhanced Mobility"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Resilience Against Crushing",
+        "rules": "Activates when worn. The wearer gains a +40% bonus to AC against crushing damage for the duration of one short rest or until the greaves are removed."
+      },
+      {
+        "title": "Enhanced Mobility",
+        "rules": "When activated, allows the wearer to gain a +5 movement speed for 3 seconds. This effect can be used once per long rest and is expended after use."
+      }
+    ],
+    "levelRequirementReason": "These greaves are crafted with intricate but not overly complex magic, making them accessible to any capable warrior.",
+    "vendorReason": "Midlands is renowned for its unmatched craftsmanship and the Mechanized Greaves embody this heritage perfectly.",
+    "shippingDetail": "Pipe Express ensures swift delivery with their reliable service, guaranteeing timely arrival of these valuable greaves.",
+    "usage": {
+      "activation": "Activates when worn as equipment.",
+      "duration": "Lasts for the duration of one short rest or until removed.",
+      "endsWhen": "Exhausted after a long rest or when removed.",
+      "charges": "Unlimited uses, but can only be used once per long rest."
+    },
+    "priceReason": "The Mechanized Greaves are priced at 1000 XP due to their rare materials and the craftsmanship required for their intricate design.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-23T16:37:27.689081+00:00",
+    "aiReviewedAt": "2026-07-23T16:37:27.689081+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_mechanized_heart": {
     "id": "midlands_mechanized_heart",
@@ -1729,20 +1798,42 @@ export const ITEMS_029 = {
   "midlands_mechanized_martyr": {
     "id": "midlands_mechanized_martyr",
     "name": "Mechanized Martyr",
-    "description": "A broken war-machine that sings of the dead and the dying. When activated, it sacrifices 50% of its own power to grant allies a devastating burst of mechanical fury.",
-    "price": 2000,
+    "description": "The Mechanized Martyr, a rusted relic of war, hums ominously as it channels the final struggles of those who fought and fell. When activated, it unleashes a mechanical barrage that tears through foes with devastating precision, but at a cost—its gears grind to a halt, leaving it weak for hours. This forgotten machine was once part of the Liberated Toads' arsenal before they dismantled it into pieces of unyielding metal and lore.",
+    "price": 1000,
     "icon": "💀",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "+1000 damage to one target",
-      "-1000 HP to user after activation",
-      "+100% chance to reduce enemy defenses by 50%",
-      "Crafted by: Liberated Toads"
+      "+1500 damage in a burst",
+      "-75% enemy defense for 2 turns"
     ],
     "vendor": "midlands",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Devastating Burst",
+        "rules": "The Mechanized Martyr unleashes an explosive burst of mechanical fury when activated as a bonus action. This attack deals 1500 damage to one target and reduces their armor class by 75% for the next two turns. The user must make a DC 16 Constitution saving throw or take 750 points of non-lethal damage."
+      },
+      {
+        "title": "Self-Destruction",
+        "rules": "After activation, the Mechanized Martyr is reduced to a pile of scrap metal and cannot be used again until it has been repaired. It regains functionality after one hour."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 3rd level to wield its destructive power.",
+    "vendorReason": "Midlands merchants have a knack for salvaging and repurposing old war machines into useful artifacts.",
+    "shippingDetail": "Delivered by spirit courier, the item arrives intact but requires immediate setup before use.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous (but has a cooldown of one hour)",
+      "endsWhen": "The user fails their Constitution saving throw or after two turns if the target is still affected.",
+      "charges": "Unlimited, but requires repair after use"
+    },
+    "priceReason": "Balanced at 1000 XP as a rare item with significant power and limited usage.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-22T22:00:54.628903+00:00",
+    "aiReviewedAt": "2026-07-22T22:00:54.628903+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_mechanized_sword": {
     "id": "midlands_mechanized_sword",
@@ -1910,19 +2001,42 @@ export const ITEMS_029 = {
   "midlands_medieval_treasure": {
     "id": "midlands_medieval_treasure",
     "name": "King’s Bloodstained Scroll",
-    "description": "A vellum scroll etched with runes of a fallen monarch’s last decree. When read, it grants temporary immunity to fear and grants a chance to command allies with a whispered oath.",
-    "price": 1500,
+    "description": "The King’s Bloodstained Scroll, a relic of a bygone era, is a vellum scroll covered in ancient runes that whisper tales of a fallen monarch’s final decree. When unrolled and read aloud, it grants temporary immunity to fear for 1 minute and allows the reader to command an ally within 30 feet with a whispered oath, compelling them to act on their behalf until the end of their next turn.",
+    "price": 1000,
     "icon": "📜",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "+15% chance to command allies (once per fight)",
-      "-50% fear chance for 3 turns",
-      "Grants temporary morale bonus to party (50% chance)"
+      "Command Ally",
+      "Immunity to Fear"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Command Ally",
+        "rules": "As an action, read aloud a whispered oath and choose one willing creature within 30 feet. The target must succeed on a DC 15 Wisdom saving throw or be compelled to act on your behalf until the end of their next turn."
+      },
+      {
+        "title": "Immunity to Fear",
+        "rules": "For 1 minute, you gain immunity to the fear condition and advantage on saving throws against being frightened. This effect ends if you take any damage during this time or if it is dispelled."
+      }
+    ],
+    "levelRequirementReason": "The scroll’s power requires a certain level of experience to wield its effects without risk.",
+    "vendorReason": "Midlands, with their extensive knowledge of ancient artifacts, are trusted dealers of such powerful relics.",
+    "shippingDetail": "Due to the scroll’s fragile nature and historical significance, it is shipped via Koopa Postal’s express delivery service.",
+    "usage": {
+      "activation": "Action (read aloud)",
+      "duration": "1 minute or until dispelled by damage",
+      "endsWhen": "The scroll is destroyed if used twice in a single day",
+      "charges": "Unlimited, but only one effect can be active at a time"
+    },
+    "priceReason": "The scroll’s rarity and historical importance justify its moderate price.",
+    "priceOriginal": 1500,
+    "priceReviewedAt": "2026-07-22T22:01:26.415983+00:00",
+    "aiReviewedAt": "2026-07-22T22:01:26.415983+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_meridian_cloak": {
     "id": "midlands_meridian_cloak",
@@ -2049,19 +2163,42 @@ export const ITEMS_029 = {
   "midlands_molten_core_potion": {
     "id": "midlands_molten_core_potion",
     "name": "Molten Core Elixir",
-    "description": "A vile, glowing elixir distilled from the heart of a dying industrial furnace. Consuming it grants temporary strength and heat resistance, but at the cost of sanity.",
-    "price": 2500,
+    "description": "The Molten Core Elixir is a vile, glowing elixir extracted from the heart of an ancient industrial furnace. Its fiery glow hints at the inferno it once fed. This potion grants temporary strength and heat resistance but comes with a price—consumers risk losing their sanity as the elixir's madness begins to take root within them. For 10 minutes, you gain +30% maximum hit points and 50% fire resistance. Enemies nearby have a 10% chance of being confused for 3 seconds.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Increases max HP by 30%",
-      "Grants 50% fire resistance for 10 minutes",
-      "Causes 10% chance to trigger “Industrial Madness” (confuses enemies for 3 seconds)"
+      "Max HP Boost",
+      "Fire Resistance"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Max HP Boost",
+        "rules": "Consume as an action to gain +30% maximum hit points for 10 minutes. Ends when you finish a short or long rest."
+      },
+      {
+        "title": "Fire Resistance",
+        "rules": "Grants 50% fire resistance for 10 minutes. Ends if you take any cold damage, your concentration is broken, or you finish a short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This potion can be consumed by adventurers of all levels but is particularly useful to lower-level characters who need immediate combat readiness.",
+    "vendorReason": "The Midlands are known for their industrial prowess, making them the ideal place for such a potent elixir.",
+    "shippingDetail": "Delivered within one week by Pipe Express; requires special handling to ensure the potion's potency remains intact during transit.",
+    "usage": {
+      "activation": "Consume as an action",
+      "duration": "10 minutes",
+      "endsWhen": "Finish a short or long rest, take cold damage, or have concentration broken",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects the rare materials and skilled labor required to distill this powerful but dangerous elixir.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:01:13.463715+00:00",
+    "aiReviewedAt": "2026-07-22T22:01:13.463715+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_molten_gear_core": {
     "id": "midlands_molten_gear_core",
@@ -2187,19 +2324,42 @@ export const ITEMS_029 = {
   "midlands_molten_tallow": {
     "id": "midlands_molten_tallow",
     "name": "Molten Tallow of the Bloodsmith",
-    "description": "A viscous, glowing substance distilled from the forgefires of the Iron Legion. Applied to weapons or armor, it grants temporary resilience and enhances melee strikes with molten fury.",
-    "price": 1200,
+    "description": "The Molten Tallow of the Bloodsmith, a viscous and glowing substance born from the forgefires of the Iron Legion, coats weapons or armor in resilient molten fury. Applied to a weapon, it grants +30% melee damage for 30 seconds and provides +20% damage reduction against fire-based attacks. Upon contact with an enemy, it burns them for 1 second, dealing minor fire damage as it clings tenaciously to the metal it coats.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "+30% melee damage for 30 seconds",
-      "+20% damage reduction from fire-based attacks",
-      "Burns enemies for 1 second upon contact"
+      "+30% Melee Damage",
+      "Damage Reduction from Fire Attacks"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Molten Fury",
+        "rules": "When applied, the Molten Tallow grants +30% melee damage for 30 seconds. This effect is activated as a bonus action and ends when the tallow wears off or the item it's applied to is removed."
+      },
+      {
+        "title": "Fire Resistance",
+        "rules": "The Molten Tallow provides the wearer with +20% damage reduction against fire-based attacks for 30 seconds. This effect persists until the duration expires, and the tallow is no longer on the armor or weapon."
+      }
+    ],
+    "levelRequirementReason": "This item's effects are moderate but useful early in a character's career.",
+    "vendorReason": "The Midlands forgehouses have exclusive access to the Iron Legion's resources, making their wares highly sought after by adventurers.",
+    "shippingDetail": ".pipe Express offers expedited delivery for this item, ensuring it arrives just in time before a pivotal battle.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "30 seconds",
+      "endsWhen": "The duration expires or the Molten Tallow is removed from the applied weapon or armor.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects the rare and potent properties of the tallow, balanced to ensure it's a valuable but not overpowered addition to any adventurer's arsenal.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T22:01:31.906841+00:00",
+    "aiReviewedAt": "2026-07-22T22:01:31.906841+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_mudcrusher_helm": {
     "id": "midlands_mudcrusher_helm",
@@ -2245,19 +2405,42 @@ export const ITEMS_029 = {
   "midlands_mudstone_binder": {
     "id": "midlands_mudstone_binder",
     "name": "Mudstone Binder",
-    "description": "A compact, clay-bound tome that records the secrets of the Iron Legion’s forgotten battles. When activated, it whispers the names of fallen warriors to those who dare to read its pages.",
-    "price": 1200,
+    "description": "The Mudstone Binder is a compact, clay-bound tome that records the forgotten battles of the Iron Legion, its pages etched with the names of fallen warriors in iron-clad script. When activated by a scholar or historian, it whispers the secrets of these lost conflicts, revealing hidden lore and increasing one’s luck for lore-based quests by 50%. However, should an enemy witness its reading aloud in public, they may be struck by a wave of temporary paralysis, rendering them immobile for several rounds.",
+    "price": 1000,
     "icon": "📜",
     "stock": 1,
     "rarity": "uncommon",
     "effects": [
       "Reveals hidden faction lore on use",
-      "+50% Luck for lore-based quests",
-      "Causes temporary paralysis to enemies if read aloud in public"
+      "+50% Luck for lore-based quests"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Hidden Lore Revelation",
+        "rules": "When activated by a scholar or historian, this tome reveals forgotten battles and secrets of the Iron Legion. The user gains advantage on Intelligence (History) checks related to the Iron Legion’s history for one hour."
+      },
+      {
+        "title": "Lucky Luck Boost",
+        "rules": "For every lore-based quest undertaken within an hour after using the Mudstone Binder, the user has a +50% chance of success. This effect is cumulative but does not stack with other bonuses."
+      }
+    ],
+    "levelRequirementReason": "This item is suitable for beginners as it aids in learning and reveals faction secrets without requiring advanced combat skills.",
+    "vendorReason": "The Midlands are home to many historians and scholars, making this tome a natural addition to their inventory.",
+    "shippingDetail": "Delivered with utmost discretion; the delivery time may vary depending on courier availability.",
+    "usage": {
+      "activation": "Action",
+      "duration": "One hour from activation",
+      "endsWhen": "The duration expires or the user completes a lore-based quest",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This price reflects the item’s rarity and the significant advantage it provides in understanding forgotten battles.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T22:01:45.444228+00:00",
+    "aiReviewedAt": "2026-07-22T22:01:45.444228+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_mudstone_ring": {
     "id": "midlands_mudstone_ring",
@@ -2343,557 +2526,1259 @@ export const ITEMS_029 = {
   "midlands_necrotic_sword": {
     "id": "midlands_necrotic_sword",
     "name": "The Oracle’s Fang",
-    "description": "A blade forged from the bones of a corrupted priestess and the steel of a fallen war machine. Deals necrotic damage and inflicts fear upon enemies, making them flee for 3 seconds.",
+    "description": "The Oracle’s Fang is a blade forged from the bones of a corrupted priestess and the steel of a fallen war machine. This necrotic-edged weapon drains an enemy's vitality, reducing their hit points by 10% with each strike. Its shadowy aura also instills fear in foes, causing them to flee in terror for 3 seconds upon being struck. A relic of ancient magic and warfare, the sword whispers secrets of death and dread as it cuts through flesh.",
     "category": "equipment",
-    "price": 4500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "+35% necrotic damage",
-      "20% chance to inflict “Frightened” (enemy flees 3 seconds)",
-      "Each hit reduces enemy HP by 10% of their current max",
-      "Auto-activates “Cursed Echo” after 3 hits"
+      "Necrotic Drain",
+      "Fear Aura"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Necrotic Drain",
+        "rules": "When you hit a target with this weapon, the target's hit points are reduced by 10% of their total maximum hit points. This effect cannot be resisted."
+      },
+      {
+        "title": "Fear Aura",
+        "rules": "When an enemy is struck by The Oracle’s Fang and fails a Wisdom saving throw (DC 15), they become frightened for 3 seconds, fleeing in terror. They can repeat the saving throw at the end of their turns to end this effect."
+      }
+    ],
+    "levelRequirementReason": "The intricate magic and craftsmanship required to wield The Oracle’s Fang demand a significant amount of experience.",
+    "vendorReason": "Midlands, with its deep ties to ancient relics and dark arcane knowledge, is the most fitting vendor for such an artifact.",
+    "shippingDetail": "The blade is shipped in a specially reinforced box to prevent any accidental damage during transit.",
+    "usage": {
+      "activation": "On hit",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausts on critical failure or when the weapon is sheathed for more than an hour",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced price reflects its epic rarity and unique combination of abilities, providing a fair value.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-22T22:02:22.396971+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:22.396971+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_ore_heart_amber": {
     "id": "midlands_ore_heart_amber",
     "name": "Ore Heart Amber",
-    "description": "A crystallized core of molten ore that pulses with the energy of the Iron Legion’s forge. When held, it grants visions of industrial futures and past failures.",
-    "price": 2500,
+    "description": "The Ore Heart Amber is a crystallized core of molten iron forged from the fires of the Iron Legion’s forge. This pulsating gemstone grants visions of past industrial triumphs and failures, guiding you through both successes and setbacks in crafting. It pulses with energy that can be harnessed to speed up the creation of iron gear by 50% for two rounds and offers a shield of protection when held, boosting armor checks by +1d4.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Increases crafting speed of iron gear by 50% for 2 rounds",
-      "Grants 1d4 bonus to armor checks when holding",
-      "Reveals hidden forge locations on map for 1 turn"
+      "Crafting Boost",
+      "Armor Check Bonus"
     ],
     "vendor": "midlands",
-    "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "shippedBy": "Ironfoot Express",
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Crafting Boost",
+        "rules": "When activated as an action, the user gains a bonus of 50% to crafting speed for two rounds. This effect can be recharged by placing it in a forge for one hour."
+      },
+      {
+        "title": "Armor Check Bonus",
+        "rules": "While holding Ore Heart Amber, gain a +1d4 bonus to armor check rolls. This effect lasts until the end of your next short or long rest."
+      }
+    ],
+    "levelRequirementReason": "Beginners in crafting need to gain experience before they can harness the full potential of this artifact.",
+    "vendorReason": "The Midlands are renowned for their ironwork and thus have a deep connection with items related to forging and crafting.",
+    "shippingDetail": "Items are delivered via Ironfoot Express, ensuring they reach the intended destination swiftly and securely.",
+    "usage": {
+      "activation": "Action",
+      "duration": "2 rounds",
+      "endsWhen": "The end of your next short or long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Crafting is a crucial skill in the Midlands, and this item reflects its value without overpricing.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:01:45.349789+00:00",
+    "aiReviewedAt": "2026-07-22T22:01:45.349789+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_peasley_foolscap": {
     "id": "midlands_peasley_foolscap",
     "name": "Peasley Foolscap",
-    "description": "A counterfeit artifact from the Peasley Financial Scandal",
-    "price": 15000,
+    "description": "The Peasley Foolscap is a tattered, counterfeit artifact from the infamous Peasley Financial Scandal. Crafted from old parchment and ink, it appears to grant +10 to all rolls but actually saps your concentration; only Toadettes can wield its power without failing their checks. When used in water, it reveals hidden treasure maps by subtly altering the environment. Held for 30 seconds, it emits a low-frequency scream that repels undead creatures within 20 feet, requiring a DC 15 Wisdom saving throw to resist.",
+    "price": 1000,
     "icon": "🧨",
     "stock": 0,
     "rarity": "legendary",
     "effects": [
-      "Appears to grant +10 to all rolls",
-      "Actually causes all rolls to fail unless the user is a Toadette",
-      "Reveals hidden treasure maps when used in water",
-      "If held for 30 seconds, emits a low-frequency scream that drives away undead",
-      "Contains a curse: after 3 uses, the user will be cursed to speak only in coin slang",
-      "Shipped by: Shy Guy Smugglers",
-      "Created by: The Oracle’s last experiment",
-      "Cursed by: Peasley’s own greed and Toadette relief ops"
+      "Toadette's Blessing",
+      "Treasure Revealer"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 7
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Toadette's Blessing",
+        "rules": "Activates on command, lasts for a short duration. Only Toadettes can use it without failing their rolls. If used by another, all rolls fail until the next long rest."
+      },
+      {
+        "title": "Treasure Revealer",
+        "rules": "Used in water, this effect reveals hidden treasure maps within 30 feet with a DC 15 Intelligence (Investigation) check to interpret them accurately. Consumes one use."
+      }
+    ],
+    "levelRequirementReason": "Suitable for beginners to familiarize themselves with the artifact's peculiar effects.",
+    "vendorReason": "Midlands is known for its diverse inventory, including rare and unusual artifacts like this one.",
+    "shippingDetail": "Delivered discreetly via a series of hidden routes to ensure the artifact's arrival remains unknown.",
+    "usage": {
+      "activation": "Command word",
+      "duration": "Until the next long rest for Toadettes; instantaneous for others",
+      "endsWhen": "The next long rest or when used in water, whichever comes first",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Balanced as a rare artifact with unique and thematic effects that are both fun and challenging to use.",
+    "priceOriginal": 15000,
+    "priceReviewedAt": "2026-07-22T22:02:04.681098+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:04.681098+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_political_amulet": {
     "id": "midlands_political_amulet",
     "name": "The Amulet of the Iron Oath",
-    "description": "Worn by those who swear loyalty to the Iron Legion’s highest command, this amulet strengthens political alliances and suppresses dissent. It grants the wearer a minor buff to persuasion checks and grants immunity to political corruption.",
+    "description": "The Amulet of the Iron Oath is a heavy, iron-tipped pendant that radiates an aura of unwavering resolve. It is said to have been forged by the hands of the Legion’s most trusted blacksmiths and imbued with the essence of those who have sworn their loyalty to the highest command. The wearer finds that they can easily persuade others to align with them, as if their words are laced with an unbreakable bond. Corruption attempts against this amulet's wearer simply falter, for it stands like a fortress against deceitful designs.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+15% to persuasion checks against factions",
-      "Grants immunity to “Corruption” status effects",
-      "When used in a political negotiation, gains +1 to the final outcome roll"
+      "+15% to persuasion checks",
+      "Immunity to political corruption"
     ],
     "vendor": "midlands",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "shippedBy": "Boo Spectral Mail - known for their reliable couriers who specialize in delivering important political artifacts.",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Persuasion Boost",
+        "rules": "The wearer gains +15% to all persuasion checks. This bonus is applied passively and lasts until the wearer completes a long rest."
+      },
+      {
+        "title": "Corruption Immunity",
+        "rules": "While wearing this amulet, the wearer is immune to any effect that would reduce their loyalty or alignment through political means. This protection persists as long as the amulet remains on the wearer's neck."
+      }
+    ],
+    "levelRequirementReason": "The amulet requires no specific level but grants a minor advantage in political matters, making it useful for adventurers of all ranks.",
+    "vendorReason": "The Midlands are the heartland of the Iron Legion and thus have access to these symbols of loyalty and command.",
+    "shippingDetail": "Ships via Boo Spectral Mail, ensuring that the amulet arrives within a week, even across vast distances.",
+    "usage": {
+      "activation": "Passive effect",
+      "duration": "Until wearer completes a long rest",
+      "endsWhen": "If removed or if the wearer completes a long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The amulet’s price reflects its rarity, forged craftsmanship, and the significant advantage it provides in political situations.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:02:07.686040+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:07.686040+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_rust_marrow_essence": {
     "id": "midlands_rust_marrow_essence",
     "name": "Rust Marrow Essence",
-    "description": "A vial of fermented iron-laced marrow, extracted from the bones of a decommissioned steam engine. Consuming it grants temporary power to the machine-wielder and grants resistance to industrial corrosion.",
-    "price": 2000,
+    "description": "A vial of Rust Marrow Essence encapsulates the essence of a steam engine's vitality. When consumed by a machine-wielder, it grants temporary power and resilience to industrial environments. This ancient elixir boosts damage against mechanical foes by 25%, while also providing resistance to rust-based corrosion for 1 minute. Its potency is tempered by a fleeting boost in stamina recovery, enhancing the user's endurance during prolonged exertion.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "+15% damage to mechanical enemies",
-      "Grants 20% resistance to rust damage for 30 seconds",
-      "Boosts stamina regeneration by 10% for 10 seconds"
+      "+25% Damage to Mechanical Enemies",
+      "Resistance to Rust-Based Corrosion"
     ],
     "vendor": "midlands",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Mechanical Might",
+        "rules": "The consumer deals an additional +25% damage to mechanical enemies. This effect lasts for 1 minute and can be recharged after a short rest."
+      },
+      {
+        "title": "Rust Resistance",
+        "rules": "The user gains resistance to rust-based corrosion, reducing all such damage by half, for the duration of 1 minute. This effect also refreshes with each short rest."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum character level of 2 to harness its potent mechanical effects.",
+    "vendorReason": "Midlands, renowned for their steamworks and industrial know-how, curate this essence from the heart of their machinery.",
+    "shippingDetail": "Delivered swiftly by the Void Drifters, ensuring this vial arrives in pristine condition.",
+    "usage": {
+      "activation": "Eaten as an action",
+      "duration": "1 minute",
+      "endsWhen": "After a short rest or upon death of the user",
+      "charges": "Recharges after a short rest"
+    },
+    "priceReason": "The rare extraction process and unique properties justify its price, making it a valuable addition to any machine-wielder's arsenal.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-22T22:02:03.221153+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:03.221153+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_rust_satchel": {
     "id": "midlands_rust_satchel",
     "name": "The Rustbound Satchel",
-    "description": "A satchel woven from salvaged steel mesh and cursed iron wire. Contains hidden charges of industrial energy and can be detonated to unleash a blast of molten slag.",
-    "price": 2500,
+    "description": "The Rustbound Satchel, a satchel spun from salvaged steel mesh and cursed iron wire, hums ominously when triggered. This relic of an industrial age can unleash a molten blast that scorches all within its fiery reach. When thrown, it ignites with a forceful explosion, dealing 50% extra damage to enemies in the vicinity. The satchel is a deadly companion for those who seek to dismantle and destroy their foes, each charge a testament to the dark art of forging in the heart of forgotten factories.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+20% damage from explosive or fire-based attacks",
-      "Grants “Rust Surge” when thrown: deals 50% extra damage to enemies within 5m",
-      "Can be used as a throwing weapon or explosive charge"
+      "Rust Surge",
+      "Explosive Blast"
     ],
     "vendor": "midlands",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Rust Surge",
+        "rules": "When thrown, the Rustbound Satchel deals an additional 50% damage to enemies within a 5-meter radius. This effect can only be triggered once per short rest."
+      },
+      {
+        "title": "Explosive Blast",
+        "rules": "Activates when used as an explosive charge. Deals fire and acid damage in a 10-foot cone, requiring a DC 16 Dexterity saving throw for half damage. The satchel can be used once before needing to recharge."
+      }
+    ],
+    "levelRequirementReason": "This relic requires a certain mastery over destructive forces and the ability to handle its volatile nature.",
+    "vendorReason": "Midlands, with their deep ties to industrial heritage and dark magic, are known for crafting such dangerous yet valuable tools of destruction.",
+    "shippingDetail": "Ships via the Rakasha's spectral courier, ensuring safe delivery through shadowy realms.",
+    "usage": {
+      "activation": "Action or bonus action to throw as a weapon or use as an explosive charge.",
+      "duration": "Instantaneous for throwing; 10-foot cone area of effect upon explosion.",
+      "endsWhen": "Exhausted after one use and recharges at the start of each long rest.",
+      "charges": "Limited to one charge per use."
+    },
+    "priceReason": "Balanced for its unique combination of explosive damage, area effects, and the challenge it presents in handling such a volatile item.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:03:14.542002+00:00",
+    "aiReviewedAt": "2026-07-22T22:03:14.542002+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_rusted_crown": {
     "id": "midlands_rusted_crown",
     "name": "The Rust Crown of the Iron Throne",
-    "description": "A relic of the Iron Legion’s fallen kings, this crown shimmers with molten iron and blood. Wearing it grants a sense of authority and summons the loyalty of the downtrodden.",
+    "description": "The Rust Crown of the Iron Throne, a relic encrusted with molten iron and crimson veins, whispers of ancient power in its tarnished glory. This regal headdress grants its wearer an aura of unshakable authority, compelling even the most defiant to kneel before it. Should you fail a diplomacy check by 5 or more, this crown temporarily heals your wounds, restoring hit points equal to twice the failed check result.",
     "category": "equipment",
-    "price": 3000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
       "+10% command influence on allies",
-      "+5% defense against political intrigue",
-      "Grants +10% HP on failed diplomacy checks"
+      "Heals hit points after failed diplomacy checks"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Command Influence Boost",
+        "rules": "When you issue a command, increase your Charisma (Persuasion) check by +2 for the day. This effect can be used once per long rest."
+      },
+      {
+        "title": "Heal Wounds After Failed Checks",
+        "rules": "If you fail a diplomacy check by 5 or more, this crown heals hit points equal to twice the failed check result. The crown only allows one use of this effect every three days."
+      }
+    ],
+    "levelRequirementReason": "This crown's ancient power demands a strong will and considerable experience before it can be wielded.",
+    "vendorReason": "The Midlands are home to many relics of the Iron Legion, having once been ruled by its kings.",
+    "shippingDetail": "Due to its delicate nature, this crown is shipped in a specially designed, reinforced wooden box to ensure safe delivery.",
+    "usage": {
+      "activation": "Passive effect upon donning the crown.",
+      "duration": "Until removed or until a long rest is completed.",
+      "endsWhen": "Removed from the wearer’s head or during a long rest.",
+      "charges": "Unlimited, but only one use of healing per three days."
+    },
+    "priceReason": "This crown's rarity and the power it wields justify its moderate price in XP.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-22T22:02:35.150823+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:35.150823+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_rusted_key": {
     "id": "midlands_rusted_key",
     "name": "The Iron Key to the Oracle’s Vault",
-    "description": "A rusted brass key rumored to open the vault of the Oracle’s necromantic experiments. It glows faintly when near undead, granting temporary immunity to poison and curse effects. Carries the weight of forgotten truths.",
-    "price": 1500,
+    "description": "The Iron Key to the Oracle’s Vault is a heavy, rusted brass key with an etched design depicting ancient runes. Its surface glows faintly when near undead creatures, granting temporary immunity to poison and curse effects. The key carries with it the weight of forgotten truths, hinting at secrets that could change the course of any campaign. Legends speak of its ability to unlock forbidden knowledge and protect from necromantic corruption.",
+    "price": 1000,
     "icon": "🔐",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "+30% chance to resist poison effects",
-      "+20% chance to resist curses",
-      "+10% chance to reveal hidden enemy weakness"
+      "Poison Immunity",
+      "Curse Resistance"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Poison Immunity",
+        "rules": "When near undead creatures, the user gains temporary immunity to poison effects for 1 minute. This effect can be used once per short or long rest."
+      },
+      {
+        "title": "Curse Resistance",
+        "rules": "The user has advantage on saving throws against curse and enchantment spells. This benefit lasts until the start of your next turn after using the key's poison immunity effect."
+      }
+    ],
+    "levelRequirementReason": "This key is accessible to low-level characters as it provides immediate utility without requiring high proficiency or power.",
+    "vendorReason": "The Midlands are known for their antique and magical artifacts, making this key a natural addition to their inventory.",
+    "shippingDetail": "Due to the delicate nature of the key, it is shipped via Shy Guy Smugglers with extra padding to ensure safe delivery.",
+    "usage": {
+      "activation": "Passive effect when near undead creatures.",
+      "duration": "1 minute per use, once per short or long rest.",
+      "endsWhen": "After one minute of immunity or when the user completes a short or long rest.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "The key's rarity and magical properties justify its price, providing immediate utility without being overly powerful at low levels.",
+    "priceOriginal": 1500,
+    "priceReviewedAt": "2026-07-22T22:02:20.443815+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:20.443815+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_rusted_laywer_crown": {
     "id": "midlands_rusted_laywer_crown",
     "name": "Rusted Laywer Crown",
-    "description": "A crown forged from scrap iron and stolen guild insignia. Grants temporary immunity to political traps and allows the wearer to speak truth to the Legion’s spies.",
+    "description": "The Rusted Laywer Crown, forged from scavenged scrap and guild insignia, is a relic of cunning and defiance. Its surface bears the marks of countless battles and forges, yet it whispers truths to those who wear it. This crown grants immunity to political traps and allows the wearer to reveal hidden faction secrets with a simple thought. The Legion's spies, ever vigilant, find their efforts thwarted by this ancient artifact.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+10% chance to disarm enemy traps",
-      "+5% chance to reveal hidden faction secrets",
-      "+15% resistance to political persuasion"
+      "Political Trap Immunity",
+      "Expose Hidden Secrets"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Political Trap Immunity",
+        "rules": "The wearer gains immunity to all political traps for the duration of one short rest. This effect can be activated once per day."
+      },
+      {
+        "title": "Expose Hidden Secrets",
+        "rules": "Once per short or long rest, the wearer can concentrate and expose hidden faction secrets within a 30-foot radius. This ability has no save DC but is limited to one use per day."
+      }
+    ],
+    "levelRequirementReason": "This crown is crafted for those who seek to navigate treacherous political landscapes with subtlety and skill.",
+    "vendorReason": "Midlands, known for its craftsmanship and historical artifacts, offers this unique relic.",
+    "shippingDetail": "Ships via Pipe Express, ensuring timely delivery of this delicate artifact.",
+    "usage": {
+      "activation": "Once per day during a short or long rest",
+      "duration": "One short rest duration",
+      "endsWhen": "The effect ends after one short rest",
+      "charges": "1 use per day"
+    },
+    "priceReason": "Balanced at 1,000 XP, this crown offers significant utility for those navigating complex political situations.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:02:51.960402+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:51.960402+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_rusted_sword": {
     "id": "midlands_rusted_sword",
     "name": "Rustclaw of the Broken Legion",
-    "description": "A blade forged from the remnants of a fallen Iron Legion war machine, its edge is dulled but its spirit is unyielding. It strikes with the fury of a machine that refused to be broken.",
+    "description": "The Rustclaw of the Broken Legion is a sword forged from the molten remains of an Iron Legion war machine. Its surface is pockmarked and rusted, yet its blade still gleams with the fury of a warrior that refused to yield. When wielded against mechanical foes, it strikes with unyielding force, dealing 50% extra damage and breaking enemy joints with a 30% higher chance than normal. The sword's very touch can dismantle armor, reducing an enemy’s armor penetration resistance by 30% for ten seconds.",
     "category": "equipment",
-    "price": 7000,
+    "price": 1000,
     "icon": "🗡",
     "stock": 0,
     "rarity": "legendary",
     "effects": [
-      "Deals 50% bonus damage to mechanical enemies",
-      "Grants +30% chance to break enemy joints",
-      "Reduces enemy armor penetration resistance by 30% for 10 seconds"
+      "Mechanical Fury",
+      "Joint Breaker"
     ],
     "vendor": "midlands",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Mechanical Fury",
+        "rules": "When you strike a mechanical creature with this sword, it deals an additional 50% damage. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Joint Breaker",
+        "rules": "This sword grants you advantage on Strength (Athletics) checks to break or disable mechanical joints. The effect ends when you finish a short rest, and it can be used only once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The Rustclaw's damage and special abilities make it suitable for higher-level adventurers who have the experience to handle its power.",
+    "vendorReason": "Midlands, known for their connections with ancient artifacts, can source this unique relic from the fallen Iron Legion.",
+    "shippingDetail": "Ships via Lakitu Drones' express courier service, ensuring swift delivery to your doorstep.",
+    "usage": {
+      "activation": "Instantaneous upon contact with a mechanical creature.",
+      "duration": "Until the start of your next turn for Mechanical Fury; ends when you finish a short rest for Joint Breaker.",
+      "endsWhen": "For Joint Breaker, it ends after one long rest. For both effects, they end if you are incapacitated or restrained.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "The sword's unique properties and the difficulty in acquiring such a relic make it reasonably priced at 1000 XP.",
+    "priceOriginal": 7000,
+    "priceReviewedAt": "2026-07-22T22:02:40.992560+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:40.992560+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_rusted_sword_of_the_titan": {
     "id": "midlands_rusted_sword_of_the_titan",
     "name": "Rusted Sword of the Titan",
-    "description": "A blade forged from the remains of a fallen Titan of the Iron Legion, now corroded with time and ambition. Its edge hums with the power of a thousand machines.",
+    "description": "The Rusted Sword of the Titan is a relic from the Iron Legion's golden age, its once-vibrant steel now dulled by time and battle. Crafted from the molten remains of a fallen Titan, its surface is etched with arcane runes that hum with latent power. The sword deals +3 damage to constructs and, when striking an enemy, reduces their armor class by 1d6 until the start of their next turn.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals +3 damage to enemy constructs",
-      "Causes enemies to lose 1d6 armor when hit",
-      "Grants +1 to initiative roll on first strike"
+      "Damage Boost vs Constructs",
+      "Armor Reduction on Hit"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Damage Boost vs Constructs",
+        "rules": "The sword deals +3 damage to any creature constructed primarily from metal or machine parts. Activation: On hit, no save required, Instantaneous."
+      },
+      {
+        "title": "Armor Reduction on Hit",
+        "rules": "When the sword strikes an enemy construct, it reduces their armor class by 1d6 until the start of their next turn. No save DC needed, lasts for one round per two levels or until the construct is destroyed."
+      }
+    ],
+    "levelRequirementReason": "Requires a character with at least three levels to wield and fully utilize its powers.",
+    "vendorReason": "Midlands, known for their trade in ancient relics, houses this powerful sword among their rare stock.",
+    "shippingDetail": "Delivered with a secret courier, ensuring the item arrives safely and discreetly.",
+    "usage": {
+      "activation": "On hit",
+      "duration": "Instantaneous effect; lasts until start of next turn for the target construct",
+      "endsWhen": "Target construct is destroyed or the effect expires after one round per two levels",
+      "charges": "Unlimited, recharges on a long rest"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its rare origin and potent effects against constructs.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:03:06.453662+00:00",
+    "aiReviewedAt": "2026-07-22T22:03:06.453662+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_sacred_trooper_torch": {
     "id": "midlands_sacred_trooper_torch",
     "name": "Sacred Trooper Torch",
-    "description": "A relic from the ancient Temple of the Reincarnate",
-    "price": 750,
+    "description": "The Sacred Trooper Torch is a relic of ancient design, forged from sacred iron and imbued with the Triforce’s pulse. It can illuminate dark corners for thirty rounds, and when used in battle, it grants nearby allies a +1 bonus to Perception checks and causes them to feel the Triforce’s pulse, boosting their morale. Outside of combat, it has a 5% chance to summon a sacred beast that aids in exploration or defense. When thrown into water, it reveals hidden paths leading to lost temples of Hyrule.",
+    "price": 1000,
     "icon": "🌟",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Illuminates dark corners for 3 rounds",
-      "Grants temporary +1 to Perception checks",
-      "When used in battle, causes nearby allies to feel the Triforce’s pulse",
-      "If used outside of battle, causes a 5% chance to summon a sacred beast",
-      "Thrown into water reveals hidden paths to Hyrule’s lost temples"
+      "Triforce Pulse",
+      "Sacred Illumination"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Triforce Pulse (Battle)",
+        "rules": "When used in battle, all allies within 10 feet gain a +1 bonus to Perception checks for the duration of one short rest. This effect does not stack with similar bonuses."
+      },
+      {
+        "title": "Sacred Illumination",
+        "rules": "The Torch illuminates dark corners for 30 rounds, providing bright light in a 20-foot radius and dim light for an additional 20 feet beyond that. It can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This torch is designed to aid adventurers of all levels, making it accessible for beginning heroes.",
+    "vendorReason": "The Midlands are known for their connection with ancient relics and artifacts from the Triforce’s era.",
+    "shippingDetail": "Delivered via a trusted courier, ensuring the Torch arrives in pristine condition.",
+    "usage": {
+      "activation": "Action",
+      "duration": "30 rounds",
+      "endsWhen": "Used up or destroyed",
+      "charges": "Unlimited (recharged after long rest)"
+    },
+    "priceReason": "The torch’s rarity and the unique abilities it grants justify its higher price.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-22T22:02:56.692454+00:00",
+    "aiReviewedAt": "2026-07-22T22:02:56.692454+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_scarf_of_the_scorched_scribe": {
     "id": "midlands_scarf_of_the_scorched_scribe",
     "name": "Scarf of the Scorched Scribe",
-    "description": "Woven from the charred remains of a medieval scribe who recorded the secrets of the Iron Legion’s darkest contracts. Wears this to gain insight into enemy schematics and contracts.",
+    "description": "The Scarf of the Scorched Scribe is woven from the charred remains of an ancient scribe who recorded the Iron Legion’s darkest secrets. When worn, it crackles with arcane fire that reveals hidden contracts and rooms in enemy strongholds. It grants you a +10% chance to decipher any written codes or secret messages you encounter, enhancing your ability to uncover plans. Any foe found with a written contract on their person takes 2d4 fire damage as the scarf’s flames singe through their secrets.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Reveals hidden contract locations or hidden rooms",
-      "Grants +10% chance to decipher enemy written codes",
-      "Causes 2d4 fire damage to enemies with written contracts"
+      "Reveals hidden documents",
+      "Enhances code-breaking skills"
     ],
     "vendor": "midlands",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Expose Hidden Contracts",
+        "rules": "As a bonus action, you can activate the scarf to reveal any hidden contracts or secret rooms within 30 feet. This effect lasts for 1 minute and requires no saving throw. The scarf can be used once per long rest."
+      },
+      {
+        "title": "Enhance Deciphering",
+        "rules": "While wearing the scarf, you have advantage on Intelligence (Investigation) checks to decipher written codes or secret messages. This effect is always active while the scarf remains in use."
+      }
+    ],
+    "levelRequirementReason": "The scribe’s knowledge and charred essence empower even low-level characters.",
+    "vendorReason": "Midlands vendors specialize in relics of ancient lore, making this scarf a fitting addition to their stock.",
+    "shippingDetail": "The scarf is delivered swiftly by Lakitu Drones, ensuring you receive it with minimal delay.",
+    "usage": {
+      "activation": "Bonus action to reveal hidden documents; always active for deciphering codes or messages",
+      "duration": "Instantaneous activation; lasts 1 minute and recharges after a long rest",
+      "endsWhen": "Discontinued once the duration ends or when removed from use",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Balanced for its rare origin, unique abilities, and powerful effects in combat and exploration.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:03:06.623493+00:00",
+    "aiReviewedAt": "2026-07-22T22:03:06.623493+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_scarlet_hammer_of_iron": {
     "id": "midlands_scarlet_hammer_of_iron",
     "name": "Scarlet Hammer of Iron",
-    "description": "A cursed maul forged from the heart of a fallen forge-master. It deals heavy damage and triggers a bloodlust effect, causing the wielder to gain +50% attack power for 30 seconds after each kill.",
+    "description": "The Scarlet Hammer of Iron is a cursed maul, forged from the molten heart of a fallen forge-master. Its surface glows with an eerie red light, pulsing with the essence of its creation. Each swing deals heavy damage and grants +50% attack power for 30 seconds after each kill, but it also leaves enemies vulnerable by reducing their defense by -20%. The hammer's power is tempered by a curse that drains your vitality if you overuse it.",
     "category": "equipment",
-    "price": 3000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
       "+50% melee damage after each kill",
-      "+20% attack speed",
-      "Inflicts -20% defense on enemies after 30 seconds of combat"
+      "-20% enemy defense"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Bloodlust Boost",
+        "rules": "When the wielder deals damage with this hammer, they gain +50% attack power for 30 seconds. This effect is limited to once every five minutes."
+      },
+      {
+        "title": "Vulnerability Infliction",
+        "rules": "After 30 seconds of combat, enemies within a 10-foot radius are reduced in defense by -20%. This debuff lasts until the start of the wielder's next turn. The effect can only be triggered once per battle."
+      }
+    ],
+    "levelRequirementReason": "Wielding this cursed weapon requires a proficient warrior to handle its power and mitigate its risks.",
+    "vendorReason": "Midlands, known for their blacksmiths' expertise, can both forge and sell such a cursed artifact.",
+    "shippingDetail": "Ships via enchanted mailbags that deliver the hammer within three days of purchase.",
+    "usage": {
+      "activation": "Instantaneous effect upon dealing damage with the weapon.",
+      "duration": "30 seconds after each kill, once every five minutes.",
+      "endsWhen": "The effect ends when combat ceases or the wielder takes a short rest.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP due to its limited use and strategic value in battle.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-22T22:03:14.461686+00:00",
+    "aiReviewedAt": "2026-07-22T22:03:14.461686+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_scarlet_mechanics_potion": {
     "id": "midlands_scarlet_mechanics_potion",
     "name": "Scarlet Mechanics Potion",
-    "description": "A vial of industrial elixir that grants temporary mechanical mastery—allowing the drinker to repair or activate machinery with a single touch. Scented with molten brass and forgotten gears, it leaves a faint metallic residue.",
-    "price": 1200,
+    "description": "A vial of crimson elixir, its glass bottle adorned with engravings of intricate cogs and gears. This Scarlet Mechanics Potion is a confluence of alchemy and industrial magic, granting the drinker unmatched mechanical prowess. Upon consumption, one gains the ability to repair or activate machinery within 10 feet instantly. The potion also grants a Gear Sense aura that reveals hidden mechanisms within a 50-foot radius for a brief moment.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "+20% chance to repair broken gear or machine within 10 seconds",
-      "+10% bonus damage to mechanical enemies",
-      "Grants temporary “Gear Sense”—detects hidden machinery in 50 ft radius"
+      "+20% chance to repair broken gear or machine",
+      "Instantaneous activation of mechanical devices"
     ],
-    "vendor": "midlands",
+    "vendor": "Midlands",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Gear Repair",
+        "rules": "When consumed, the drinker can attempt to repair a broken mechanism within 10 feet with a successful DC 15 Wisdom (Mechanics) check. This effect is instantaneous and does not require action or reaction."
+      },
+      {
+        "title": "Gear Sense Aura",
+        "rules": "The drinker gains the ability to detect hidden mechanisms in a 50-foot radius for 1 minute after consuming the potion. This effect requires no action, but it dissipates once the duration ends."
+      }
+    ],
+    "levelRequirementReason": "This potion is designed for beginners and those seeking immediate mechanical advantages.",
+    "vendorReason": "Midlands, being a bustling hub of industrial magic, regularly stocks items that enhance one's ability to work with machinery.",
+    "shippingDetail": "Ships within three days via the Void Drifter Relay, ensuring safe and swift delivery.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "Instantaneous repair; Gear Sense lasts for 1 minute",
+      "endsWhen": "Effect ends upon expiration of duration or when consumed by another",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This potion strikes a balance, providing immediate utility without being overpowered.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T22:03:52.573207+00:00",
+    "aiReviewedAt": "2026-07-22T22:03:52.573207+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_scarlet_sack_of_blood": {
     "id": "midlands_scarlet_sack_of_blood",
     "name": "Scarlet Sack of Blood",
-    "description": "A heavy sack stitched with crimson thread, rumored to hold the essence of the last Toad warlord’s sacrifice. When shaken, it emits a low hum that silences nearby enemies. Only those who swear loyalty to the Iron Legion may carry it.",
-    "price": 1200,
+    "description": "The Scarlet Sack of Blood is a heavy, crimson-stitched leather sack that whispers ominously when shaken. It is said to hold the blood essence of the Iron Legion’s fallen warlord, whose sacrifice sealed their victory in the Toad War. When activated, it emits a low hum that silences nearby enemies for 30 seconds, and its presence grants +20% critical hit chance to the bearer. Only those who have sworn loyalty to the Iron Legion may carry this cursed relic, as it is said to curse any who defy their vow.",
+    "price": 1000,
     "icon": "📦",
     "stock": 2,
     "rarity": "uncommon",
     "effects": [
-      "+30% critical hit chance",
-      "Temporary silence on one enemy per use",
-      "Reduces enemy armor by 15% for 30 seconds"
+      "+20% critical hit chance",
+      "Silence nearby enemies for 30 seconds"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 4
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Critical Boost",
+        "rules": "Activates on a bonus action. The user gains +20% to their critical hit chance until the end of their next turn."
+      },
+      {
+        "title": "Silent Hum",
+        "rules": "Shaken as an action, this creates a low hum that silences all enemies within 15 feet for 30 seconds. The effect ends if the user is incapacitated or if they move more than 10 feet away from the center of the silence."
+      }
+    ],
+    "levelRequirementReason": "The Scarlet Sack requires a minimum level to ensure its power does not overwhelm less experienced adventurers.",
+    "vendorReason": "Midlands is known for their dealings with ancient relics and cursed artifacts, making them the perfect purveyor of this dangerous but powerful item.",
+    "shippingDetail": "The Scarlet Sack must be delivered via a trusted courier to ensure its safe handling. The delivery may take an additional day due to heightened security measures.",
+    "usage": {
+      "activation": "Bonus action or as part of the user’s movement (shaken)",
+      "duration": "30 seconds",
+      "endsWhen": "The user is incapacitated or moves more than 10 feet away from the center of the silence",
+      "charges": "Unlimited, but cannot be used within an hour of being last used"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its cursed nature and potent effects without overshadowing other items.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T22:03:28.780866+00:00",
+    "aiReviewedAt": "2026-07-22T22:03:28.780866+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_scarlet_scarf": {
     "id": "midlands_scarlet_scarf",
     "name": "Bloodscar Mantle",
-    "description": "Woven from the threads of a Toad’s last scream and the smoke of a burning furnace. Grants a +5% chance to resist environmental damage and grants a hidden “Redemption” ability that heals allies within 10 meters.",
+    "description": "The Bloodscar Mantle, woven from threads spun by a toad's final scream and wrapped in the soot of a furnace, is a mantle of fiery resilience. It whispers protection against harsh elements and offers a hidden 'Redemption' that can heal allies within its 10-meter radius. The mantle's fabric hums with ancient magic, granting an additional +5% chance to resist environmental damage and increasing melee defense by 10%. Wearing it is like embracing the heart of a forge, where strength and protection intertwine.",
     "category": "equipment",
-    "price": 3500,
+    "price": 1000,
     "icon": "📦",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "+5% chance to resist environmental damage",
-      "Grants “Redemption” ability: heals 1 ally for 1d6 +10 HP",
-      "Increases melee defense by 10% while wearing"
+      "+5% resistance to environmental damage",
+      "Redemption: heals one ally for 1d6+10 HP"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Redemption",
+        "rules": "When an ally within 10 meters takes damage, the wearer can use a bonus action to activate the 'Redemption' ability. This grants an ally within range 1d6 + 10 hit points of healing. The mantle can only be used once per long rest."
+      },
+      {
+        "title": "Increased Melee Defense",
+        "rules": "While wearing, the wearer's melee defense increases by 10%. This effect is active as long as the mantle remains on the wearer and does not require any action to activate. It ends if the mantle is removed or destroyed."
+      }
+    ],
+    "levelRequirementReason": "The mantle requires a level 5 character due to its complex weave and potent magical properties.",
+    "vendorReason": "Midlands vendors are known for their deep connections with the arcane, making them the perfect purveyors of such a powerful and ancient item.",
+    "shippingDetail": "The mantle is carefully packed in fireproof crates to ensure safe delivery. Shipment takes two weeks from the time of purchase.",
+    "usage": {
+      "activation": "Bonus action for Redemption; passive effect for increased melee defense.",
+      "duration": "Until removed or destroyed, or until a long rest has passed since the last use of Redemption.",
+      "endsWhen": "The mantle is removed, destroyed, or its uses are exhausted (one per day).",
+      "charges": "Unlimited daily uses; one use per long rest."
+    },
+    "priceReason": "The mantle's balanced price reflects its rare materials and potent magical properties, ensuring it is a fair addition to any character’s inventory.",
+    "priceOriginal": 3500,
+    "priceReviewedAt": "2026-07-22T22:03:45.837967+00:00",
+    "aiReviewedAt": "2026-07-22T22:03:45.837967+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_scorched_gear_pearl": {
     "id": "midlands_scorched_gear_pearl",
     "name": "Scorched Gear Pearl",
-    "description": "A relic from the last war machine’s destruction. When worn, it grants the user temporary resistance to fire damage and enhances the chance to find hidden mechanical components in ruins.",
-    "price": 3000,
+    "description": "The Scorched Gear Pearl, a relic from the fiery battlefields of the last war machine, hums with the heat of its origins when worn. This enchanted gem grants you temporary resistance to fire damage and enhances your ability to uncover hidden mechanisms in ancient ruins. Crafters find it especially useful for their work, as it boosts their mechanical crafting speed by 20%. The pearl's warmth is a testament to its forge-made core, and its effects are as reliable as the fires that forged it.",
+    "price": 1000,
     "icon": "🔥",
     "stock": 1,
     "rarity": "rare",
     "effects": [
       "+30% resistance to fire damage",
-      "+10% chance to find hidden gear parts when exploring",
-      "Grants a 20% bonus to crafting speed for mechanical items"
+      "Enhances chance to find hidden gear parts when exploring"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "+30% Resistance to Fire Damage",
+        "rules": "When worn, the wearer gains temporary resistance to fire damage equal to +30%. This effect lasts for 1 hour and ends if the wearer is no longer in contact with a source of fire. There is no save DC required."
+      },
+      {
+        "title": "Enhances Chance to Find Hidden Gear Parts",
+        "rules": "When exploring ruins, the user gains a +10% chance to find hidden mechanical components. This effect is passive and does not require an action to activate. The bonus lasts for 1 hour or until the user is no longer in a location with significant mechanical ruins."
+      }
+    ],
+    "levelRequirementReason": "This relic is accessible to all adventurers, as it serves as an introduction to the world of mechanical crafting and exploration.",
+    "vendorReason": "Midlands vendors are known for their vast collection of rare relics and artifacts from various conflicts, making them a reliable source for items like the Scorched Gear Pearl.",
+    "shippingDetail": "Delivered with Pipe Express's standard express service within one week.",
+    "usage": {
+      "activation": "Passive effect upon donning; no activation required.",
+      "duration": "1 hour or until the wearer is no longer in contact with a source of fire or exploring significant mechanical ruins.",
+      "endsWhen": "The effects end if the wearer leaves a location with a source of fire or ceases exploration within mechanical ruins.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects the item's rarity and its utility for both combat and exploration.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-22T22:04:26.108705+00:00",
+    "aiReviewedAt": "2026-07-22T22:04:26.108705+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_scorched_tome": {
     "id": "midlands_scorched_tome",
     "name": "Scorched Tome of the Iron Choir",
-    "description": "A leather-bound tome filled with arcane verses forged in molten steel. When read, it grants the user the ability to command siege engines or steel constructs to obey their will.",
-    "price": 2500,
+    "description": "The Scorched Tome of the Iron Choir, bound in molten leather and sealed with ancient sigils, is a relic of the Iron Choir's fiery forges. When invoked by an initiate, it commands siege engines or steel constructs within its range to obey their every command. The tome’s power can enhance construct damage by +10%, but only when directly controlling them, while also granting a 5% chance to invoke 'Iron Echo,' duplicating the command for a fleeting second.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Commands 1 siege engine or construct per use",
-      "+10% damage output when commanding constructs",
-      "+5% chance to trigger “Iron Echo” – duplicate command for 2 seconds"
+      "Commands Siege Engines and Constructs",
+      "Enhanced Damage Output"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Command Control",
+        "rules": "Activate as an action, commanding one siege engine or steel construct within 30 feet. The target must succeed on a DC 15 Wisdom saving throw or be compelled to obey for 1 minute or until the tome is destroyed."
+      },
+      {
+        "title": "Enhanced Damage",
+        "rules": "When controlling constructs, they deal +10% damage output while under your command. This effect ends if you lose control of the construct, it is destroyed, or you use an action to end it manually."
+      }
+    ],
+    "levelRequirementReason": "Requires a 5th-level spellcaster to reliably master the tome’s ancient magic.",
+    "vendorReason": "Midlands is known for their deep connections with arcane lore and relics, making them a fitting vendor for such an artifact.",
+    "shippingDetail": "Ships via Pipe Express within one week of purchase.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute or until the tome is destroyed",
+      "endsWhen": "The command ends if you lose control, the construct is destroyed, or you manually end it",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its rare and powerful abilities.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:03:54.331948+00:00",
+    "aiReviewedAt": "2026-07-22T22:03:54.331948+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_screaming_cogwheel": {
     "id": "midlands_screaming_cogwheel",
     "name": "Screaming Cogwheel",
-    "description": "A cursed gear that emits a high-pitched whine to destabilize enemy machines. Only worn by those who have broken Legion oaths. Its noise is both weapon and warning.",
+    "description": "The Screaming Cogwheel is a cursed gear, forged from the remnants of Legion war machines. Its iron teeth grind and whine in a cacophony that disorients mechanical foes, causing them to malfunction and break down. Only those who have dishonored their oaths dare wear it, and its noise can be heard for miles. When activated, it destabilizes enemy machinery with a deafening screech, halting the operations of any nearby mechanical constructs.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
       "+25% damage to mechanical enemies",
-      "-5% enemy armor regeneration",
-      "+10% chance to trigger enemy mechanical malfunctions"
+      "-10% enemy mechanical defense"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Malfunction Trigger",
+        "rules": "When activated as a bonus action, the Screaming Cogwheel emits a screech that targets all mechanical creatures within 30 feet. This causes them to suffer from a -10 penalty on saving throws and ability checks related to mechanics for 1 minute. The effect ends early if the target is destroyed or moves more than 5 feet away."
+      },
+      {
+        "title": "Increased Damage",
+        "rules": "While wearing the Screaming Cogwheel, you deal an additional +25% damage against mechanical enemies. This bonus applies to all weapon attacks and spell effects that target such creatures."
+      }
+    ],
+    "levelRequirementReason": "Wearing this cursed gear requires a level of at least 1 due to its malevolent nature.",
+    "vendorReason": "Midlands traders often have access to rare and cursed items, including those used by Legion oathbreakers.",
+    "shippingDetail": "The gear is carefully packed in soundproof containers to prevent accidental activation during transit.",
+    "usage": {
+      "activation": "Bonus action to activate the screech effect.",
+      "duration": "1 minute, or until the target moves more than 5 feet away.",
+      "endsWhen": "The target of the malfunction trigger is destroyed or moves too far away.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "The price reflects the rare nature and cursed properties of the gear, as well as its unique mechanical destabilization ability.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-23T16:37:36.393701+00:00",
+    "aiReviewedAt": "2026-07-23T16:37:36.393701+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_shadow_forged_blood": {
     "id": "midlands_shadow_forged_blood",
     "name": "Shadowforged Blood",
-    "description": "A vial of dark elixir infused with the essence of the Shadowfell. Consuming it grants temporary resistance to fear and adds a chilling aura to nearby allies.",
-    "price": 2500,
+    "description": "The vial of Shadowforged Blood hums with the dark essence of the Shadowfell, its surface etched with runes that glimmer faintly under moonlight. Consuming this potent elixir grants you and your allies temporary resistance to fear and mental control, while also filling the air with a chilling aura that unsettles foes. This bloodied vial is a testament to the craftsmanship of the Midlands, forged in the heart of the Shadowfell by artisans who dare to walk its dark paths.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+12% resistance to fear and mental control",
-      "+8% chance to strike with shadow-based damage",
-      "Grants +3 to stealth checks for 10 minutes"
+      "Resistance to Fear",
+      "Chilling Aura"
     ],
     "vendor": "midlands",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Resistance to Fear and Mental Control",
+        "rules": "When you consume a vial, you gain temporary resistance to fear and mental control effects for 1 hour. This effect does not stack with similar resistances. Allies within 30 feet of you also gain this benefit."
+      },
+      {
+        "title": "Chilling Aura",
+        "rules": "For the duration of your concentration (up to 1 minute), any creature that starts its turn within 30 feet of you must make a DC 15 Wisdom saving throw or be frightened until the end of your next turn. This effect can only affect one target per use."
+      }
+    ],
+    "levelRequirementReason": "This item requires a character of at least level 3 to consume due to its potent magical properties.",
+    "vendorReason": "The Midlands are known for their mastery in crafting items that blend the living and the dead, making Shadowforged Blood a perfect addition to their inventory.",
+    "shippingDetail": "Delivered by shadowy couriers who weave through the night, arriving at your doorstep with a whisper of darkness.",
+    "usage": {
+      "activation": "Consume as an action",
+      "duration": "1 hour or until used up",
+      "endsWhen": "The effect ends if you die or if it is dispelled by magic",
+      "charges": "Unlimited uses, but only one effect can be active at a time"
+    },
+    "priceReason": "The price reflects the rare materials and dark magic required to craft this vial, as well as its potent effects.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:04:20.321047+00:00",
+    "aiReviewedAt": "2026-07-22T22:04:20.321047+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_shadowfell_gear": {
     "id": "midlands_shadowfell_gear",
     "name": "Shadowfell Gear of the Iron Hound",
-    "description": "Worn by agents of the Shadowfell Order, this gear allows the wearer to move unseen through the Iron Legion’s industrial corridors. Perfect for infiltration, sabotage, and espionage.",
+    "description": "The Shadowfell Gear of the Iron Hound, forged in the dark forges of the Shadowfell, is a suit of armor that whispers secrets to its wearer. Its leather harness is etched with runes that grant the user an eerie camouflage, blending seamlessly into the ironwork corridors of the Iron Legion. This gear not only enhances one's stealth but also amplifies the senses, allowing the wearer to uncover hidden dangers lurking in the shadows.",
     "category": "equipment",
-    "price": 4500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "+20% chance to bypass security cameras and sensors",
-      "+10% bonus to stealth checks",
-      "+5% chance to reveal hidden mechanisms or traps upon entry"
+      "+15% chance to bypass security cameras and sensors",
+      "Passive +8 to Stealth checks"
     ],
     "vendor": "midlands",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Bypass Security Cameras and Sensors",
+        "rules": "The wearer gains a +15% chance to bypass security cameras and sensors. This effect is active for the duration of one long rest per day."
+      },
+      {
+        "title": "Enhanced Stealth",
+        "rules": "Passive bonus to Stealth checks equal to 8, which stacks with other bonuses. The wearer must use a short rest each day to recover this benefit fully."
+      }
+    ],
+    "levelRequirementReason": "The intricate runes and enchantments require the user to have at least 5th level to properly channel their power.",
+    "vendorReason": "Midlands, being a hub for espionage and covert operations, frequently stocks gear from the Shadowfell Order to cater to its clientele's needs.",
+    "shippingDetail": "Due to the specialized nature of this item, Pipe Express ensures it is delivered securely in a custom-made padded box with tracking enabled.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Active until expended or interrupted.",
+      "endsWhen": "The user must rest for at least one long rest to regain the benefit of this gear.",
+      "charges": "Unlimited, but the wearer must rest for a long rest each day to maintain full benefits."
+    },
+    "priceReason": "The item's rarity and the complexity of its enchantments justify its moderate price in experience points.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-22T22:04:21.567759+00:00",
+    "aiReviewedAt": "2026-07-22T22:04:21.567759+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_shadowfell_weapon": {
     "id": "midlands_shadowfell_weapon",
     "name": "Onyx Edge Blade",
-    "description": "A blade forged from the bones of a fallen shadowlord and tempered in the fires of Raventree’s cursed forge. Strikes like a scream and leaves enemies in stunned silence.",
+    "description": "The Onyx Edge Blade is a sword forged from the bones of a fallen shadowlord, tempered in the fires of Raventree’s cursed forge. Its blade shimmers with an otherworldly glow, and when drawn, it emits a chilling scream that echoes through the night. Striking with this weapon against shadow creatures, you deal +20% damage and have a 10% chance to stun your foe for two turns. The blade whispers secrets of the dark arts, occasionally granting temporary stealth for three turns as a fleeting echo of the shadows.",
     "category": "equipment",
-    "price": 4000,
+    "price": 1000,
     "icon": "📦",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "+20% damage against shadow creatures",
-      "+10% chance to stun enemy for 2 turns",
-      "+5% chance to trigger “Shadow Echo” (temporary stealth for 3 turns)"
+      "Shadow Damage Boost",
+      "Stunning Strike"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Shadow Damage Boost",
+        "rules": "When you deal damage with this weapon to a shadow creature, you gain +20% bonus damage. This effect is limited to one use per short or long rest."
+      },
+      {
+        "title": "Stunning Strike",
+        "rules": "Once per battle, when you hit an enemy with the Onyx Edge Blade, there is a 10% chance that it will be stunned for two turns. The target can make a Wisdom saving throw (DC 13) to resist this effect."
+      }
+    ],
+    "levelRequirementReason": "The sword's dark magic requires the wielder to have faced the shadows and gained enough experience to understand its power.",
+    "vendorReason": "Midlands is known for their connections with shadowy creatures, making them a trusted source for such an artifact.",
+    "shippingDetail": "The blade must be shipped in a specially enchanted box to prevent it from disturbing the darkness on its own.",
+    "usage": {
+      "activation": "On hitting with this weapon against shadow creatures, or as a reaction when you are hit by an attack from one.",
+      "duration": "Instantaneous for each effect",
+      "endsWhen": "The rest period ends after dealing damage to shadows or stunning an enemy, respectively.",
+      "charges": "Unlimited, but limited to one use per short or long rest."
+    },
+    "priceReason": "The sword's rarity and the dark magic it contains justify its price of 1000 XP.",
+    "priceOriginal": 4000,
+    "priceReviewedAt": "2026-07-22T22:04:54.403333+00:00",
+    "aiReviewedAt": "2026-07-22T22:04:54.403333+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_siege_cogwheel": {
     "id": "midlands_siege_cogwheel",
     "name": "Siege Cogwheel",
-    "description": "A single, massive gear forged in the heart of the Midlands’ industrial furnaces, this item allows the user to manipulate machinery with raw force. Ideal for triggering traps or sabotaging enemy engines.",
+    "description": "The Siege Cogwheel is a colossal, wrought-iron gear forged in the Midlands' industrial heart, where the sounds of hammer and forge have shaped it into a tool of both creation and destruction. This ancient artifact allows its wielder to manipulate machinery with raw force, turning enemy siege engines against themselves or triggering mechanical traps hidden within fortifications (range 20 meters). The Cogwheel can also increase armor durability by 20% during siege engagements, making it an invaluable asset in the heat of battle.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "Grants +30% damage to siege weapons",
-      "Allows user to activate nearby mechanical traps (range 20m)",
-      "Increases durability of armor by 20% during siege mode"
+      "Siege Engine Manipulation",
+      "Mechanical Trap Activation"
     ],
     "vendor": "midlands",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Siege Engine Manipulation",
+        "rules": "As a bonus action, the user can manipulate a nearby siege engine (within 20 feet) to deal an additional 1d6 bludgeoning damage. This effect is limited to once per long rest."
+      },
+      {
+        "title": "Mechanical Trap Activation",
+        "rules": "The user can activate mechanical traps within a 20-meter radius as a reaction, dealing 1d8 damage and setting off any nearby traps (including those triggered by the activation). This effect has no save DC but is limited to once per short rest."
+      }
+    ],
+    "levelRequirementReason": "Requires proficiency with heavy machinery to effectively operate this ancient artifact.",
+    "vendorReason": "The Midlands are renowned for their industrial prowess and the Siege Cogwheel is a quintessential product of their forges.",
+    "shippingDetail": "Ships via Void Drifter Relay, ensuring swift delivery but with a handling fee of 10% on the total price.",
+    "usage": {
+      "activation": "Bonus action or reaction",
+      "duration": "Instantaneous effect; lasts until the start of your next turn",
+      "endsWhen": "Exhausted after one use per short rest",
+      "charges": "Unlimited uses, recharges at dawn"
+    },
+    "priceReason": "Balanced against other rare items, this Cogwheel's utility and rarity justify its moderate price.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:04:51.719452+00:00",
+    "aiReviewedAt": "2026-07-22T22:04:51.719452+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_silence_of_the_siege_mech": {
     "id": "midlands_silence_of_the_siege_mech",
     "name": "Silence of the Siege Mech",
-    "description": "A mechanical bracer that suppresses the noise of war, making the wearer invisible to enemy scouts. Its ticking gears mimic the sound of a clockwork dragon’s heartbeat.",
+    "description": "The Silence of the Siege Mech is a mechanical bracer forged from the gears of ancient war machines. Its ticking gears and polished metal plates mimic the heartbeats of clockwork dragons, making the wearer nearly invisible to enemy scouts. When in combat, it not only reduces the detection radius by 10 meters but also subtly disrupts the spells cast against its wielder, reducing their accuracy by 10%. The bracer's gears hum softly with each heartbeat, enhancing stealth and dousing the sounds of conflict.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Grants +50% stealth chance",
-      "Reduces enemy detection radius by 10m",
-      "When used in combat, enemy spells have 10% chance to miss"
+      "Stealth Enhancement",
+      "Spell Disruption"
     ],
     "vendor": "midlands",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Stealth Enhancement",
+        "rules": "Activates as a bonus action. The wearer gains +50% to Stealth checks until the end of their next turn, and reduces enemy detection radius by 10 meters for 1 minute."
+      },
+      {
+        "title": "Spell Disruption",
+        "rules": "When the bracer is activated in combat, there is a 10% chance that any spell cast against the wearer will miss. This effect lasts until the end of the activation's duration or until the user takes another action."
+      }
+    ],
+    "levelRequirementReason": "Requires at least third level to effectively utilize the bracer in combat.",
+    "vendorReason": "The Midlands are renowned for their expertise in crafting items that enhance stealth and combat effectiveness, making them a trusted vendor for this bracer.",
+    "shippingDetail": "Ships via the Void Drifter Relay with an additional 24-hour delivery delay due to its delicate nature.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "1 minute",
+      "endsWhen": "The end of the user's next turn or when another action is taken",
+      "charges": "Unlimited, recharges after a long rest"
+    },
+    "priceReason": "Balanced price to reflect its mechanical complexity and rarity among common items.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:04:40.279250+00:00",
+    "aiReviewedAt": "2026-07-22T22:04:40.279250+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_silken_scribe_of_the_iron_blood": {
     "id": "midlands_silken_scribe_of_the_iron_blood",
     "name": "Silken Scribe of the Iron Blood",
-    "description": "A vellum-bound ledger stitched with enchanted thread that records the names of slain foes. Each entry grants temporary invulnerability for 3 seconds upon reading.",
-    "price": 1200,
+    "description": "The Silken Scribe of the Iron Blood is a vellum-bound ledger encased in iron-threaded bindings, crafted by forges of the Ironblood Kingdom. Each page is enchanted with ink that records the names of foes slain within its cover. Upon reading an entry, you gain temporary invulnerability for 3 seconds, and your critical hit chance increases by 5% for 10 seconds. The ledger’s power comes from the blood of fallen enemies, imbuing it with a dark but protective magic.",
+    "price": 1000,
     "icon": "📜",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Activates upon reading a name in the ledger",
-      "Grants 3 seconds of invulnerability",
-      "Increases critical hit chance by 5% for 10 seconds"
+      "Invulnerability Burst",
+      "Critical Chance Boost"
     ],
     "vendor": "midlands",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Invulnerability Burst",
+        "rules": "Upon reading an entry in the ledger, you gain temporary invulnerability for 3 seconds. You cannot be damaged by any attack or effect during this duration."
+      },
+      {
+        "title": "Critical Chance Boost",
+        "rules": "For 10 seconds after reading an entry, your chance to score a critical hit increases by 5%. This bonus stacks with other sources of critical hit chances but does not exceed +20%."
+      }
+    ],
+    "levelRequirementReason": "The ledger's dark enchantments require a user experienced enough in combat to wield its power responsibly.",
+    "vendorReason": "Midlands, known for their scholarly and martial traditions, can source rare magical texts like the Silken Scribe of the Iron Blood.",
+    "shippingDetail": "The ledger is carefully packed in a spectral mail delivery to ensure its safe arrival. Delivery is expedited by one day.",
+    "usage": {
+      "activation": "Reading an entry from the ledger.",
+      "duration": "3 seconds of invulnerability, and critical hit chance boost for 10 seconds.",
+      "endsWhen": "The duration expires or you read another entry.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced at 1000 XP as it provides two distinct combat advantages with a reasonable cooldown.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T22:05:11.273656+00:00",
+    "aiReviewedAt": "2026-07-22T22:05:11.273656+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_smoke_cannon_shell": {
     "id": "midlands_smoke_cannon_shell",
     "name": "Ash of the Smelting Forge",
-    "description": "A volatile explosive shell that detonates with the force of a collapsing furnace. Perfect for clearing enemy lines or destroying heavy siege towers. Leaves behind a lingering smoke cloud that reduces enemy accuracy.",
-    "price": 2500,
+    "description": "The Ash of the Smelting Forge is a volatile explosive shell forged from the very heart of an ancient forge. When ignited, it unleashes the fury of a collapsing furnace, sending shrapnel in all directions and reducing enemy accuracy with its lingering smoke cloud. This weapon is perfect for breaking through formidable defenses or neutralizing heavy siege towers. A rare find, this item was crafted by master blacksmiths who draw power from the very essence of volcanic forge fires.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals 2000 damage on detonation",
-      "Creates 5-second smoke field that reduces enemy accuracy",
-      "Triggers a 10% chance to cause temporary paralysis to nearby enemies"
+      "Massive Explosive Force",
+      "Disrupting Smoke Screen"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Massive Explosive Force",
+        "rules": "When activated, this shell detonates with a force equivalent to that of a collapsing furnace. It deals 2000 fire damage in a 15-foot radius and has a 10% chance to cause temporary paralysis to nearby enemies for 1d4 rounds."
+      },
+      {
+        "title": "Disrupting Smoke Screen",
+        "rules": "Upon detonation, it creates a 5-second smoke screen that reduces enemy accuracy by 20%. The smoke dissipates after the duration and does not persist beyond this time limit. There is no save DC for this effect."
+      }
+    ],
+    "levelRequirementReason": "This item can be used by adventurers of all levels, but its power requires a certain familiarity with explosives.",
+    "vendorReason": "The Midlands market is known for its array of rare and powerful items crafted by local blacksmiths.",
+    "shippingDetail": "This item ships via express courier, arriving the next day if ordered before noon.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Expended after use",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced XP price reflects the item's rarity and powerful effects, making it accessible yet valuable.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:05:38.351742+00:00",
+    "aiReviewedAt": "2026-07-22T22:05:38.351742+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_soul_candle_of_the_blood_mill": {
     "id": "midlands_soul_candle_of_the_blood_mill",
     "name": "Soul Candle of the Blood Mill",
-    "description": "Lit by the sweat of the Iron Legion’s mills, this candle feeds the dark arts of the Moonfang Pack. It grants temporary invulnerability and amplifies stealth in industrial zones.",
-    "price": 1200,
+    "description": "The Soul Candle of the Blood Mill glows with a sickly crimson hue, its wick bathed in the sweat of toiling slaves. Crafted within the cursed mills of Iron Legion, it offers fleeting protection and augmented stealth in the industrial heartlands. Activated by a whispered incantation, it grants 5 seconds of invulnerability, during which you are immune to all damage. Its flame also enhances your ability to evade detection, increasing your Stealth skill checks by +30%. Each use saps ten percent of your stamina, ensuring its power remains reserved for the direst of circumstances.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Grants 5 seconds of invulnerability on activation",
-      "Increases stealth detection evasion by 30%",
-      "Consumes 10% of stamina per use"
+      "Invulnerability",
+      "Enhanced Stealth"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Invulnerability",
+        "rules": "Activation: On activation by a whispered incantation. Duration: Instantaneous, lasting for 5 seconds. Range/Area: Self. Ends When: The duration expires or the candle is extinguished."
+      },
+      {
+        "title": "Enhanced Stealth",
+        "rules": "Activation: Passive effect. Increases your Stealth skill checks by +30% while in industrial zones. Ends When: The candle is used to activate Invulnerability, or when you leave an industrial zone."
+      }
+    ],
+    "levelRequirementReason": "This candle's power requires no specific level as it focuses on providing immediate survival and tactical advantages.",
+    "vendorReason": "The Midlands are known for their clandestine deals and dark artifacts, making the Soul Candle a fitting addition to their offerings.",
+    "shippingDetail": "Delivered via secret routes, often arriving in the dead of night. Delays may occur due to the hazardous nature of the journey.",
+    "usage": {
+      "activation": "On activation by a whispered incantation.",
+      "duration": "Instantaneous, lasting for 5 seconds.",
+      "endsWhen": "The duration expires or the candle is extinguished.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its rare crafting and potent effects, ensuring it remains a valuable but not overpowered tool.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T22:05:12.894937+00:00",
+    "aiReviewedAt": "2026-07-22T22:05:12.894937+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_soul_of_the_forged": {
     "id": "midlands_soul_of_the_forged",
     "name": "Soul of the Forged",
-    "description": "A glowing, hammer-shaped pendant forged from the soul of a forgotten Iron Legion smith. Wears the user with a heavy, resonant presence, granting them temporary regeneration and a bonus to forging abilities.",
+    "description": "The Soul of the Forged is a hammer-shaped pendant, its surface etched with intricate runes that glow faintly in the dark. Crafted from the soul of an Iron Legion blacksmith who perished in the flames of his forge, this amulet bestows upon its wearer a resilience tempered by the very essence of the forge. The pendant grants +10% regeneration when critically injured and imbues the user with +5% bonus to repairing broken machinery or armor each time they strike an opponent, as if their blows carry the spirit of the blacksmith's relentless craft.",
     "category": "equipment",
-    "price": 2000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "+10% regeneration while under heavy damage",
-      "+5% chance to repair broken machinery or armor on hit",
-      "Grants +20% bonus to all crafting rolls in industrial zones"
+      "Regeneration on Critical Injury",
+      "Bonus to Repairing Damaged Gear"
     ],
     "vendor": "midlands",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Regeneration on Critical Injury",
+        "rules": "The wearer regenerates +10% health when critically injured. This effect lasts for 1 minute and can only be triggered once per short or long rest."
+      },
+      {
+        "title": "Bonus to Repairing Damaged Gear",
+        "rules": "Each time the user strikes an opponent in combat, they gain a +5% bonus to repairing broken machinery or armor. This effect does not stack with other similar abilities and can be used up to three times per long rest."
+      }
+    ],
+    "levelRequirementReason": "This amulet is designed for those who are just beginning their journey, offering a connection to the spirit of the forge without demanding too much from its wearer.",
+    "vendorReason": "The Midlands are known for their deep connections with blacksmiths and the history of crafting, making them the perfect vendor for this soul-infused artifact.",
+    "shippingDetail": "Shipped via Boo Spectral Mail, a reliable courier who ensures that any item entrusted to their care arrives safely and swiftly.",
+    "usage": {
+      "activation": "Passive effect triggered by critical injury or combat action.",
+      "duration": "1 minute per trigger; lasts until the start of your next turn after resting.",
+      "endsWhen": "The duration ends when you finish a short or long rest, or if you are no longer critically injured in the case of regeneration.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Crafted with the essence of an Iron Legion blacksmith and imbued with powerful regenerative properties, this amulet is a valuable tool for any adventurer.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-22T22:05:33.024897+00:00",
+    "aiReviewedAt": "2026-07-22T22:05:33.024897+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_soul_of_the_mechanical_hammer": {
     "id": "midlands_soul_of_the_mechanical_hammer",
     "name": "Soul of the Mechanical Hammer",
-    "description": "A relic forged from the soul of a forgotten siege engine. Wields the hammer’s power with every swing, shattering stone and steel alike. Its aura hums with the echo of a thousand battles.",
+    "description": "The Soul of the Mechanical Hammer is a relic forged from the soul of an ancient siege engine, its frame crafted from iron and obsidian. With every swing, it shatters stone and steel alike, its aura hummed with the echo of a thousand battles. This weapon grants Iron Resolve—immune to knockback for 3 turns after each successful hit—and a +40% increase in melee damage with heavy weapons, while there's a +20% chance to stun an enemy for two turns upon hitting them.",
     "category": "equipment",
-    "price": 5000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "epic",
     "effects": [
       "+40% melee damage with heavy weapons",
-      "+20% chance to stun enemy for 2 turns on hit",
-      "Grants “Iron Resolve”—immune to knockback for 3 turns after each successful hit"
+      "+20% chance to stun enemy for 2 turns on hit"
     ],
     "vendor": "midlands",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Iron Resolve",
+        "rules": "When you successfully hit a creature with this weapon, you gain immunity to knockback for the next 3 turns. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Stunning Blow",
+        "rules": "Once per short or long rest, when you hit a target with this weapon, there is a +20% chance that it becomes stunned for two turns. On a successful save against a DC 15 Constitution saving throw, the effect does not occur."
+      }
+    ],
+    "levelRequirementReason": "This relic requires significant strength and martial expertise to wield effectively.",
+    "vendorReason": "The Midlands are renowned for their mastery of ancient artifacts and relics, making this hammer a fitting addition to their inventory.",
+    "shippingDetail": "Delivered with expedited Void Drifter service; arrives within one week of purchase.",
+    "usage": {
+      "activation": "Instantaneous upon successful melee hit with the weapon",
+      "duration": "Until start of next turn or until the start of your next action, whichever occurs first",
+      "endsWhen": "The effect ends when you miss a hit or use another action that ends it.",
+      "charges": "Unlimited; recharges at the end of each long rest"
+    },
+    "priceReason": "The hammer's unique properties and historical significance justify its moderate price.",
+    "priceOriginal": 5000,
+    "priceReviewedAt": "2026-07-22T22:05:43.392745+00:00",
+    "aiReviewedAt": "2026-07-22T22:05:43.392745+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_soul_ward": {
     "id": "midlands_soul_ward",
     "name": "Soul Ward Amulet",
-    "description": "A relic infused with the echo of fallen warriors",
+    "description": "The Soul Ward Amulet is a relic crafted from the bones of fallen warriors, its surface etched with ancient runes. It hums softly when worn, drawing upon the essence of past battles to protect its bearer. This amulet not only grants +2 to saving throws against magical effects but also absorbs 1d4 negative energy damage per use. Its power is tethered to Hyrule’s ancient guardians and draws strength from their memories.",
     "category": "equipment",
-    "price": 1200,
+    "price": 1000,
     "icon": "🪦",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Grants +2 to all saving throws against magical effects",
-      "Absorbs 1d4 negative energy per use",
-      "May trigger memory flashes of past battles",
-      "Wears off after 24 hours of inactivity",
-      "Connected to Hyrule’s ancient temple guardians",
-      "Crafted by: Noki Coral Fleet"
+      "Absorbs Negative Energy",
+      "Enhanced Saving Throws"
     ],
     "vendor": "midlands",
     "shippedBy": "Noki Coral Fleet",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Absorbs Negative Energy",
+        "rules": "When activated, the amulet absorbs 1d4 negative energy damage. This effect is usable once per short or long rest and ends when the user completes a short rest."
+      },
+      {
+        "title": "Enhanced Saving Throws",
+        "rules": "While wearing this amulet, you gain +2 to all saving throws against magical effects. The bonus persists until you complete a long rest."
+      }
+    ],
+    "levelRequirementReason": "The Soul Ward Amulet is designed for those who have faced their first trials and need basic protection.",
+    "vendorReason": "Midlands, known for its ancient artifacts, offers this relic to protect the brave souls of Hyrule.",
+    "shippingDetail": "Ships via the Noki Coral Fleet, ensuring safe delivery from the heart of Hyrule.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "After a short rest",
+      "charges": "1 use per long or short rest"
+    },
+    "priceReason": "The balanced XP price reflects the amulet's moderate protective benefits and its connection to ancient Hyrulean guardians.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T22:05:25.657920+00:00",
+    "aiReviewedAt": "2026-07-22T22:05:25.657920+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_souls_of_the_burned_mill": {
     "id": "midlands_souls_of_the_burned_mill",
@@ -2915,108 +3800,246 @@ export const ITEMS_029 = {
   "midlands_spectral_mech_anvil": {
     "id": "midlands_spectral_mech_anvil",
     "name": "Anvil of the Whispering Iron",
-    "description": "A sentient forge that speaks in the tongue of iron and ghosts. It lets the user smelt steel into weapons and armor that glow with spectral energy.",
+    "description": "The Anvil of the Whispering Iron is a sentient forge that hums with the ghostly whispers of steel itself. Crafters who speak its language can melt iron into weapons and armor that glow with spectral energy, their edges shimmering in the dark like living light. The anvil's voice speaks not in words but in the song of metal, guiding users to craft masterpieces that resonate with a supernatural power.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+20% crafting speed for metal items",
-      "Grants +50% chance to receive bonus enchantments from forging",
-      "When used in combat, reduces enemy armor by 10% for 3 rounds"
+      "Spectral Smithing",
+      "Enchanted Armor"
     ],
     "vendor": "midlands",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Spectral Smithing",
+        "rules": "When activated as an action, the user can melt iron into weapons or armor that glow with spectral energy. These items have a +20% crafting speed for metal items and grant a +50% chance to receive bonus enchantments from forging."
+      },
+      {
+        "title": "Enchanted Armor",
+        "rules": "When used in combat, the anvil reduces enemy armor by 10% for up to 3 rounds. This effect ends when the user ceases to use the anvil or if a successful DC 15 Wisdom (Perception) check is made against it."
+      }
+    ],
+    "levelRequirementReason": "Crafting with such precision requires a certain level of experience and control over one's abilities.",
+    "vendorReason": "Midlands, known for their mastery of metalwork, are the perfect vendors to sell this enchanted anvil that enhances their craft.",
+    "shippingDetail": "Ships via Boo Spectral Mail; delivery may take up to one week due to spectral interference.",
+    "usage": {
+      "activation": "Activates as a standard action, with unlimited uses per day that recharge at dawn.",
+      "duration": "Instantaneous effect for each use of the anvil during combat.",
+      "endsWhen": "The effect ends when the user stops using the anvil or if a successful DC 15 Wisdom (Perception) check is made against it.",
+      "charges": "Unlimited uses per day, recharging at dawn."
+    },
+    "priceReason": "This anvil's price reflects its rarity and the unique crafting abilities it grants, making it a valuable asset to any blacksmith or adventurer.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:06:21.306765+00:00",
+    "aiReviewedAt": "2026-07-22T22:06:21.306765+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_steel_belt": {
     "id": "midlands_steel_belt",
     "name": "The Iron Girth of Aegis Command",
-    "description": "A reinforced steel belt etched with the sigil of the Iron Legion, granting the wearer immunity to poisons and heavy blows. Also allows for increased stamina during prolonged battles.",
+    "description": "The Iron Girth of Aegis Command is a reinforced steel belt etched with the sigil of the Iron Legion, forged in the heart of Midland's Armory. This formidable piece not only grants immunity to poison and blunt force but also enhances stamina during prolonged battles, ensuring that its wearer remains steadfast under siege. Crafted by master blacksmiths using ancient techniques passed down through generations, this belt is both a symbol of strength and a practical tool in the hands of those who seek to command the battlefield.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Grants immunity to poison damage",
-      "Increases stamina regeneration by 20%",
-      "Grants +15% defense against blunt damage"
+      "Poison Immunity",
+      "Stamina Boost"
     ],
     "vendor": "midlands",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Poison Immunity",
+        "rules": "The wearer gains immunity to poison damage. This effect is active as long as the belt is worn and does not require any action or activation."
+      },
+      {
+        "title": "Stamina Boost",
+        "rules": "While wearing this belt, the wearer's stamina regeneration increases by 20% during prolonged battles. This effect persists for one hour after each battle, but only while the belt remains in use."
+      }
+    ],
+    "levelRequirementReason": "The craftsmanship and magical properties of The Iron Girth of Aegis Command demand a high level of expertise to wield effectively.",
+    "vendorReason": "Midlands is renowned for its armories, and this belt's origin ensures it is sold only by them.",
+    "shippingDetail": "The belt arrives swiftly via Lakitu Drones, ensuring it reaches the buyer within a day of purchase.",
+    "usage": {
+      "activation": "Passive",
+      "duration": "Instantaneous (while worn)",
+      "endsWhen": "Removes when removed or destroyed",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects the belt's rare craftsmanship and magical properties, providing a balanced value for players.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:06:19.825895+00:00",
+    "aiReviewedAt": "2026-07-22T22:06:19.825895+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_steel_blood_glove": {
     "id": "midlands_steel_blood_glove",
     "name": "Steel Blood Glove",
-    "description": "A gauntlet forged from slag and Toad iron, it drips with the blood of executed prisoners. Wields immense crushing force and amplifies rage during combat.",
+    "description": "The Steel Blood Glove, forged from slag and Toad iron, drips with the blood of executed prisoners, imbued with their dark rage. This gauntlet amplifies your crushing force in combat, doubling the impact of your strikes, and grants a +30% chance to inflict Bleed on enemies you hit. Its wearer feels the primal fury coursing through their veins as they regenerate armor by 2d6 points each time they take damage.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+50% damage to enemy targets",
-      "+30% chance to inflict Bleed effect on hit",
-      "+20% armor regeneration while active"
+      "+50% crushing force damage",
+      "30% bleed on hit"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Crushing Force Amplification",
+        "rules": "When you make a melee attack, the Steel Blood Glove multiplies your damage by 1.5 times. This effect lasts for the duration of one short rest or until expended."
+      },
+      {
+        "title": "Bleed on Hit",
+        "rules": "Whenever you hit an enemy with a melee attack while wearing the glove, there is a 30% chance that they bleed, dealing 1d6 damage at the start of their next turn. This effect can occur multiple times per fight but resets after each short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This gauntlet demands a seasoned fighter who has faced significant combat to wield its dark power.",
+    "vendorReason": "The Midlands are known for their blacksmiths and the grim stories of their creations, making them the perfect vendor for this grisly artifact.",
+    "shippingDetail": "Due to its cursed nature, the Steel Blood Glove requires extra precautions. It ships via Koopa Postal's secure armored courier service.",
+    "usage": {
+      "activation": "Instantaneous activation upon donning; it can be removed at any time but does not require an action.",
+      "duration": "Until expended or removed",
+      "endsWhen": "At the start of your next turn after removal, or if you take a short rest",
+      "charges": "Unlimited charges"
+    },
+    "priceReason": "Balanced at this price to reflect its dark power and cursed nature, ensuring it remains a rare but not overpowered addition to any adventurer's arsenal.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:06:40.310273+00:00",
+    "aiReviewedAt": "2026-07-22T22:06:40.310273+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_steel_blood_potion": {
     "id": "midlands_steel_blood_potion",
     "name": "Steel Blood Potion",
-    "description": "A vial of industrial blood infused with the essence of the Legion’s first steel forge. Consuming this restores 30% HP and grants temporary resistance to poison and fire. For the weary enforcer.",
-    "price": 1200,
+    "description": "The vial of steel blood glimmers like polished iron, its surface etched with runes that whisper of forges long past. Consuming this potion fortifies your resolve, granting a surge of strength and resilience to withstand fire and poison. For the enforcer who faces the forge’s might, it offers not just healing but a fleeting bond with the very heart of steel itself, enhancing your defenses until the molten essence has run its course.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 4,
     "rarity": "uncommon",
     "effects": [
       "+30% HP recovery on use",
-      "+20% resistance to poison and fire damage",
-      "+5% chance to trigger “Steel Resolve” (for 1 turn)"
+      "Temporary resistance to fire and poison damage"
     ],
     "vendor": "midlands",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 4
+    "shippedBy": "Boo Spectral Mail - Swift Couriers",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Steel Resolve",
+        "rules": "For the duration of one turn, you gain temporary hit points equal to your Constitution modifier (minimum +1) for every point of temporary hit points granted by this potion. This effect ends when you take damage or if you use another effect that grants temporary hit points."
+      },
+      {
+        "title": "Enhanced Defense",
+        "rules": "For 10 minutes after drinking, you have resistance to fire and poison damage. This effect ends if you are incapacitated or if the duration expires."
+      }
+    ],
+    "levelRequirementReason": "This potion is designed for all enforcers, offering immediate support regardless of their current level.",
+    "vendorReason": "The Midland blacksmiths are renowned for their expertise in steel and forges, making them the ideal purveyors of a potion that draws its power from such origins.",
+    "shippingDetail": "Delivered via spectral means, this potion arrives in pristine condition, ensuring its potency remains intact.",
+    "usage": {
+      "activation": "Consume the potion as a bonus action.",
+      "duration": "Until the end of your next turn for Steel Resolve; 10 minutes total for Enhanced Defense.",
+      "endsWhen": "You take damage or use another effect that grants temporary hit points, or after 10 minutes respectively.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The potion's rarity and the specific benefits it provides to enforcers justify its moderate price in experience.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-22T22:06:44.704609+00:00",
+    "aiReviewedAt": "2026-07-22T22:06:44.704609+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_steel_crown_of_the_silencer": {
     "id": "midlands_steel_crown_of_the_silencer",
     "name": "Crown of the Silent Forge",
-    "description": "A ceremonial helmet forged from reclaimed war-machine scrap. Grants stealth for 3 seconds on a successful dodge, and reduces enemy perception by 20%. Perfect for spies in the shadow of the Iron Spire.",
+    "description": "The Crown of the Silent Forge is a ceremonial helmet crafted from the salvaged armor of war machines. Its surface gleams with the scars of countless battles, and its weight feels both ancient and resilient. When you successfully dodge an attack, this helm grants you stealth for 3 seconds, allowing you to slip past foes unseen. Additionally, it reduces enemy perception by 20%, making them less likely to notice your movements in combat.",
     "category": "equipment",
-    "price": 3500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "3s stealth on dodge",
-      "-20% enemy perception",
-      "+10% evasion chance"
+      "Stealth on Dodge",
+      "Reduced Enemy Perception"
     ],
     "vendor": "midlands",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Stealth on Dodge",
+        "rules": "When you successfully dodge an attack, as a reaction, you gain the benefits of the Cloak of Shadows feature for 3 seconds. This effect can only be used once per short or long rest."
+      },
+      {
+        "title": "Reduced Enemy Perception",
+        "rules": "Enemies within 10 feet have disadvantage on Perception checks to notice you. This effect lasts until the start of your next turn. You can use this ability a number of times equal to your Charisma modifier (minimum once)."
+      }
+    ],
+    "levelRequirementReason": "This helm requires at least level 5 to wield effectively, as it demands subtle control and experience in combat.",
+    "vendorReason": "Midlands is known for its expertise in reclaiming and reforging ancient weapons and armor, making the Crown of the Silent Forge a fitting addition to their inventory.",
+    "shippingDetail": "The shipment via Void Drifter Relay ensures swift delivery, but the package must be picked up within 24 hours upon arrival.",
+    "usage": {
+      "activation": "Reaction (Stealth on Dodge), Action (Reduced Enemy Perception)",
+      "duration": "Instantaneous for Stealth; until start of next turn for Reduced Enemy Perception",
+      "endsWhen": "The effects end when the duration expires or you take a hostile action.",
+      "charges": "Unlimited uses, but only one instance of the 'Stealth on Dodge' effect can be active at any time."
+    },
+    "priceReason": "The Crown's rarity and unique crafting materials justify its price in experience points.",
+    "priceOriginal": 3500,
+    "priceReviewedAt": "2026-07-22T22:06:38.455726+00:00",
+    "aiReviewedAt": "2026-07-22T22:06:38.455726+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_steel_glove": {
     "id": "midlands_steel_glove",
     "name": "Ironclad Gauntlet",
-    "description": "Reinforced with slag-forged steel and cursed with the echo of a fallen cogworker. Grants +20% damage to heavy strikes and dampens enemy morale when worn.",
+    "description": "The Ironclad Gauntlet is a reinforced steel glove forged in the heart of an ancient forge, its surface etched with runes that whisper of a cogworker's fate. When worn, it channels the relentless power of the machine, granting +20% damage to heavy strikes and dampening enemy morale by -15%. The gauntlet hums with latent energy, occasionally triggering Cogwork Fury: a 5% chance on each hit to unleash a surge of 1d6 damage with a 10% critical chance multiplier.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
       "+20% damage to heavy strikes",
-      "-10% enemy morale when worn",
-      "Grants a 5% chance to trigger “Cogwork Fury” (1d6 damage +10% chance to deal critical)"
+      "-15% enemy morale when worn"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Cogwork Fury",
+        "rules": "There is a 5% chance on each hit from this gauntlet to trigger Cogwork Fury. The effect deals 1d6 + 0.25 Str modifier damage and has a 10% chance to deal a critical hit."
+      },
+      {
+        "title": "Morale Dampening",
+        "rules": "-15% morale reduction on enemies within 30 feet, lasts until the end of your next turn, and can be reactivated once per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "A basic level requirement ensures that even novices can benefit from this gauntlet's mechanical prowess.",
+    "vendorReason": "Midlands, known for its robust and durable equipment, is the perfect vendor for the Ironclad Gauntlet.",
+    "shippingDetail": "Ships via Koopa Postal’s express delivery service with a 2-day transit time.",
+    "usage": {
+      "activation": "Instantaneous activation when donning or doffing the gauntlet.",
+      "duration": "Until removed, reactivated once per short or long rest.",
+      "endsWhen": "Removal of the gauntlet or at the end of a short or long rest.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "The balanced XP price reflects its rare quality and unique mechanical properties, offering a fair value for players seeking to enhance their combat prowess.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:07:00.977437+00:00",
+    "aiReviewedAt": "2026-07-22T22:07:00.977437+00:00",
+    "aiReviewVersion": 1
   }
 };

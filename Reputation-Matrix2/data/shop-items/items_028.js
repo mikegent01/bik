@@ -2372,20 +2372,43 @@ export const ITEMS_028 = {
   "midlands_iron_blood_torch": {
     "id": "midlands_iron_blood_torch",
     "name": "Iron Blood Torch",
-    "description": "A forged torch that drips molten steel when its wielder is injured, igniting the battlefield with blinding crimson light. Suits the heavy laborer who seeks to turn pain into power.",
+    "description": "The Iron Blood Torch is a fearsome weapon of labor, forged from the very heart of the Midlands' blacksmiths. Its blade drips molten steel when its wielder is injured, igniting the battlefield with blinding crimson light that rivals the forge fires themselves. This torch is not just a tool; it's an extension of the heavy laborer who wields it, transforming pain into power and turning every strike into a testament to resilience.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Inflicts 50 damage when wielder takes damage",
-      "Grants +20% armor regeneration per second while lit",
-      "Burns 20% faster when wielder is under heavy damage"
+      "Molten Reprisal",
+      "Forgeheart Regeneration"
     ],
     "vendor": "midlands",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Molten Reprisal",
+        "rules": "When the wielder takes damage, the Iron Blood Torch drips molten steel. This causes the wielder to deal an additional 50 fire damage to all creatures within a 10-foot radius of them at the start of their next turn. The damage increases by +2d6 for every 10 points of damage taken by the wielder before this effect triggers."
+      },
+      {
+        "title": "Forgeheart Regeneration",
+        "rules": "While lit, the Iron Blood Torch grants the wielder a +5 bonus to AC and a +2 bonus to Strength. Additionally, it regenerates 10 hit points at the start of each of their turns. This effect ends if the wielder is incapacitated or if they extinguish the torch."
+      }
+    ],
+    "levelRequirementReason": "The Iron Blood Torch requires a minimum level of 3 to use effectively, given its physical demands and the need for experience in handling such powerful tools.",
+    "vendorReason": "The Midlands are renowned for their blacksmiths who craft the most resilient and powerful weapons, making this torch a natural addition to their inventory.",
+    "shippingDetail": "Delivered via a Rakasha Spirit Walk, ensuring swift and safe transport of the weapon to its destination.",
+    "usage": {
+      "activation": "Instantaneous upon taking damage; ends if extinguished or the wielder is incapacitated.",
+      "duration": "Until the torch is extinguished or the wielder is incapacitated.",
+      "endsWhen": "Extinguishing the torch or becoming incapacitated.",
+      "charges": "Unlimited, recharged by the forge at the end of each long rest."
+    },
+    "priceReason": "The balanced XP price reflects its powerful effects and the unique forging process that makes it a rare commodity.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:00:18.906528+00:00",
+    "aiReviewedAt": "2026-07-22T22:00:18.906528+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_iron_blood_vial": {
     "id": "midlands_iron_blood_vial",
@@ -2675,20 +2698,43 @@ export const ITEMS_028 = {
   "midlands_iron_golem_glove": {
     "id": "midlands_iron_golem_glove",
     "name": "Iron Golem Glove",
-    "description": "Forged from the remnants of a fallen industrial colossus, this glove grants the wearer immense strength and resilience. Perfect for smashing through siege gates or crushing enemy armor.",
+    "description": "Forged from the iron heart of a fallen golem, this glove channels its unyielding strength and resilience into the hand that wears it. The metallic core hums with latent power, capable of shattering stone and rending steel with ease. Crafted in the forge pits of Midland's Ironfoundry, each finger seems to flex with an ancient will, lending the wearer the ability to crush siege gates and rend enemy armor without effort.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
       "+300% Strength",
-      "+15% Armor Penetration",
-      "+50% Damage Resistance"
+      "Armor Penetration +15%"
     ],
     "vendor": "midlands",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Fortified Strikes",
+        "rules": "The glove grants a +2 bonus to Strength checks and Strength saving throws. This effect is active as long as the wearer has at least one charge remaining."
+      },
+      {
+        "title": "Durable Metal",
+        "rules": "While wearing this glove, the wearer gains resistance to bludgeoning damage from non-magical attacks. The glove recharges after a short rest."
+      }
+    ],
+    "levelRequirementReason": "The glove's latent power requires no level to wield but grants significant benefits.",
+    "vendorReason": "Midland's Ironfoundry is renowned for crafting items from the remains of fallen golems, making this glove a natural addition to their inventory.",
+    "shippingDetail": "Shipment may take up to one week due to the fragile nature of the item during transport.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Until expended or destroyed.",
+      "endsWhen": "The glove is removed from the wearer, recharges after a short rest, or is destroyed.",
+      "charges": "Unlimited charges"
+    },
+    "priceReason": "The glove's rarity and its ability to enhance physical prowess without requiring a level make it a valuable but not overpowered addition to any adventurer’s arsenal.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T22:00:22.663247+00:00",
+    "aiReviewedAt": "2026-07-22T22:00:22.663247+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_iron_golem_heart": {
     "id": "midlands_iron_golem_heart",

@@ -412,20 +412,43 @@ export const ITEMS_022 = {
   "hyrule_temple_mind_blade": {
     "id": "hyrule_temple_mind_blade",
     "name": "Temple Mind Blade",
-    "description": "A cursed blade forged from the heart of a temple guardian. It cuts through illusions and echoes, leaving a temporary echo of your last attack.",
+    "description": "The Temple Mind Blade, forged from the very heart of a long-dead guardian, hums with the echoes of ancient battles. Its blade cuts through illusions and the whispers of deceit, leaving behind a lingering echo that repeats your last attack's sound and pattern. This weapon is not only a tool of combat but also a conduit for echoing strikes that can reflect your enemies' own damage back to them.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "📦",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Cuts through illusions and echo effects",
-      "Leaves a 3-second echo of your last attack",
-      "Causes enemies to reflect your damage for 2 seconds"
+      "Cuts Through Illusions",
+      "Echoing Strike"
     ],
     "vendor": "hyrule",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Cuts Through Illusions",
+        "rules": "When you strike an illusion, the blade creates a brief echo that lasts for 3 seconds. During this time, any creature affected by the echo must succeed on a DC 14 Wisdom saving throw or be stunned until the end of their next turn."
+      },
+      {
+        "title": "Echoing Strike",
+        "rules": "As an action, you can activate the blade to reflect your attack's damage back to the target and any creatures within 5 feet. This effect lasts for 2 seconds. The reflection deals force damage equal to half of the original damage dealt."
+      }
+    ],
+    "levelRequirementReason": "The blade requires a certain level of mastery in combat to wield its echoing abilities effectively.",
+    "vendorReason": "Hyrule's vendors are known for their unique and powerful artifacts, making the Temple Mind Blade an expected addition.",
+    "shippingDetail": "The blade is carefully couriered by the Rakasha Spirit Walk, ensuring it arrives in pristine condition.",
+    "usage": {
+      "activation": "Action or Reaction (to activate echoing strike)",
+      "duration": "Instantaneous (echo effect lasts for 3 seconds; reflection lasts for 2 seconds)",
+      "endsWhen": "The echo ends when the target makes a successful saving throw, and the reflection ends when it deals damage.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced to reflect its rarity and unique abilities, ensuring players can afford it without overpowered play.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-22T21:57:50.022849+00:00",
+    "aiReviewedAt": "2026-07-22T21:57:50.022849+00:00",
+    "aiReviewVersion": 1
   },
   "hyrule_temple_mirage_key": {
     "id": "hyrule_temple_mirage_key",
