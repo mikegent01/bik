@@ -3966,6 +3966,8 @@ function buildIndexes(){
   const A=DATA.artifacts||{};
   (A.main_artifacts||[]).forEach(a=>{ if(!a) return; SEARCH_DOCS.push({kind:'artifact',id:a.id,typeKey:'artifacts',name:a.name,summary:a.description||'',hay:[a.name,a.description,a.lore,(a.abilities||[]).join(' '),a.locations].filter(Boolean).join(' ').toLowerCase()}); });
   Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(!it || iid==='hidden_item_slot') return; SEARCH_DOCS.push({kind:'invitem',id:iid,typeKey:'items',name:it.name,summary:it.summary||it.description||'',hay:[it.name,it.type,it.rarity,it.summary,it.description,(it.relatedArticles||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
+  ((DATA.crafting&&DATA.crafting.recipes)||[]).forEach(r=>{ if(!r) return; SEARCH_DOCS.push({kind:'craftingrecipe',id:r.id,typeKey:'crafting',name:r.name,summary:r.description||r.effect||'',hay:[r.id,r.name,r.category,r.type,r.description,r.effect,r.rarity,r.school,(r.materials||[]).map(m=>m.id).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
+  ((DATA.crafting&&DATA.crafting.materials)||[]).forEach(m=>{ if(!m) return; SEARCH_DOCS.push({kind:'craftingmaterial',id:m.id,typeKey:'crafting',name:m.name,summary:m.description||'',hay:[m.id,m.name,m.category,m.rarity,m.description,(m.properties||[]).join(' '),(m.effects||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
   const allBearers=(A.star_bearers||[]).concat(A.god_toad?[A.god_toad]:[]);
   allBearers.forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'bearer',id:b.id,typeKey:'artifacts',name:(b.name||'')+(b.title?(' — '+b.title):''),summary:b.powers||'',hay:[b.name,b.title,b.species,b.element,b.powers,b.history,b.fragment_name].filter(Boolean).join(' ').toLowerCase()}); });
   Object.entries(LORE_FACTIONS||{}).forEach(([id,f])=>SEARCH_DOCS.push({kind:'faction',id,typeKey:'factions',name:f.name||prettyId(id),summary:f.description||'',hay:[id,f.name,f.description,f.region,f.leader,(f.relations?.allies||[]).join(' '),(f.relations?.enemies||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
@@ -4565,12 +4567,14 @@ function routeForKind(kind,id){
     case 'chronicle':return '#/chronicle/'+encodeURIComponent(id);
     case 'annotation':return '#/annotations';
     case 'collection':return '#/collection/'+encodeURIComponent(id);
+    case 'craftingrecipe':return '#/crafting/recipe/'+encodeURIComponent(id);
+    case 'craftingmaterial':return '#/crafting/material/'+encodeURIComponent(id);
     case 'system':return id;
     default:return '#/article/'+encodeURIComponent(id);
   }
 }
 function kindEmoji(kind,typeKey){
-  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚',chronicle:'📜',annotation:'💬',collection:'🗂️'};
+  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',chronicle:'📜',annotation:'💬',collection:'🗂️'};
   if(m[kind])return m[kind];
   return TYPE_BY_KEY[typeKey]?TYPE_BY_KEY[typeKey].emoji:'📄';
 }
@@ -4644,7 +4648,7 @@ function safeAliases(name,kind,rawObj){
 function buildLinkRegistry(){
   LINK_ENTRIES=[]; LINK_PREVIEW={};
   // Priority: when several entities claim the same alias, the higher-priority one wins the link.
-  const PRI={ article:100, nation:95, artifact:80, bearer:78, invitem:76, currency:75, vendor:74, dynasty:72, conflict:70, majorbattle:68, holiday:50, member:40, session:38, crisis:36, vote:30, system:20 };
+  const PRI={ article:100, nation:95, artifact:80, bearer:78, invitem:76, craftingrecipe:75, craftingmaterial:74, currency:75, vendor:74, dynasty:72, conflict:70, majorbattle:68, holiday:50, member:40, session:38, crisis:36, vote:30, system:20 };
   const claims={}; // aliasLower -> [{id,kind,name,exact,pri}]
   const add=(name,id,kind,typeKey,summary,sub,rawObj)=>{
     if(!name||!id)return;
@@ -4664,6 +4668,8 @@ function buildLinkRegistry(){
   (DATA.congress_votes||[]).forEach(v=>{ if(!v) return; add(v.title,v.id,'vote',null,v.description,('Vote #'+v.number),v); });
   // public inventory items
   Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(!it || iid==='hidden_item_slot') return; add(it.name,iid,'invitem',null,it.summary||it.description,it.rarity||it.type,it); });
+  ((DATA.crafting&&DATA.crafting.recipes)||[]).forEach(r=>{ if(!r) return; add(r.name,r.id,'craftingrecipe',null,r.description||r.effect,`Recipe · ${r.category||r.type||'crafting'}`,r); });
+  ((DATA.crafting&&DATA.crafting.materials)||[]).forEach(m=>{ if(!m) return; add(m.name,m.id,'craftingmaterial',null,m.description,`Material · ${m.rarity||m.category||'component'}`,m); });
   // books & codices
   const allBooks = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
   allBooks.forEach(b => {
@@ -4728,6 +4734,7 @@ function buildLinkRegistry(){
   // world systems
   add('Reputation Matrix','#/reputation','system',null,'100+ Faction Standings & Infamy Heat Watch','World System');
   add('Currency Exchange','currency.html','system',null,'Universal Currency Converter & Multi-Tender Settlement','World System');
+  add('Crafting Codex','#/crafting','system',null,'Scrolls, potions, enchantments, smithing recipes, and crafting materials integrated into Waluipedia','Crafting System');
   add('Wario Warehouse Shop','shop.html','system',null,'7,880+ Marketplace Items Listed for Sale','Commerce Hub');
   add('Unified Calendar','#/calendar','system',null,'Imperial Dates, Timelines & Holidays','World System');
   add('Grand Library Archive','books/library.html','system',null,'40+ Historic Codices, Text Collections & Library Stock','Lore System');
@@ -4882,13 +4889,13 @@ function mdToHtml(md,linkCtx){
 function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
-const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚'};
+const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪'};
 const SEARCH_CATEGORIES=[
   ['all','All'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays']
 ];
 const SEARCH_CATEGORY_ALIASES={all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays'};
 function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; return prettyId(d.kind||'record'); }
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; return prettyId(d.kind||'record'); }
 function docCategory(d){
   if(d.kind==='article'){
     if(d.typeKey==='characters')return 'characters';
@@ -4899,7 +4906,7 @@ function docCategory(d){
     if(d.typeKey==='collections')return 'articles';
     return 'articles';
   }
-  if(['artifact','invitem','bearer'].includes(d.kind))return 'items';
+  if(['artifact','invitem','bearer','craftingrecipe','craftingmaterial'].includes(d.kind))return 'items';
   if(['vote','member','session','crisis'].includes(d.kind))return 'congress';
   if(['conflict','majorbattle'].includes(d.kind))return 'battles';
   if(d.kind==='currency')return 'currencies';
@@ -5006,7 +5013,7 @@ function highlight(text,q){
   terms.forEach(t=>{if(t.length>1)o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
   return o;
 }
-function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
+function openSearchResult(d){ if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
 const searchInput=el('search'),resultsBox=el('results'),searchCategory=el('searchCategory'),searchMode=el('searchMode');let activeIdx=-1,currentResults=[];
 function searchCounts(q){const all=search(q,{category:'all',limit:600});const counts={all:all.length};all.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});return counts;}
@@ -5059,6 +5066,7 @@ function renderSidebar(active){
   h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/field-journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
   h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
   h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}+shop</span></div>`;
+  h+=`<div class="navlink ${active==='crafting'?'active':''}" onclick="Router.go('#/crafting')"><span><span class="emoji">⚒️</span> Crafting</span><span class="cnt">${((DATA.crafting&&DATA.crafting.recipes)||[]).length||0}</span></div>`;
   h+=`<div class="navlink ${active==='books'?'active':''}" onclick="Router.go('#/books')"><span><span class="emoji">📚</span> Library & Books</span><span class="cnt">${((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}</span></div>`;
   h+=`</div><div class="navsec"><div class="navhead">Encyclopedia</div>`;
   TYPES.filter(t=>!['locations','nations'].includes(t.key)).forEach(t=>{h+=`<div class="navlink ${active==='list:'+t.key?'active':''}" onclick="Router.go('#/list/${t.key}')"><span><span class="emoji">${t.emoji}</span> ${t.label}</span><span class="cnt">${(DATA[t.key]||[]).length}</span></div>`;});
@@ -9324,6 +9332,64 @@ function view_holiday(id){
   window.scrollTo(0,0);
 }
 
+
+/* ================= CRAFTING CODEX ================= */
+function craftingData(){return DATA.crafting||{recipes:[],materials:[],schools:{}};}
+function craftingRecipe(id){return (craftingData().recipes||[]).find(r=>r.id===id);}
+function craftingMaterial(id){return (craftingData().materials||[]).find(m=>m.id===id);}
+function craftingCategoryLabel(c){return String(c||'crafting').replace(/_/g,' ').replace(/\b\w/g,m=>m.toUpperCase());}
+function craftingMaterialLink(m){
+  const id=typeof m==='string'?m:(m&&m.id); const qty=(m&&m.quantity)?` ×${esc(String(m.quantity))}`:'';
+  const mat=craftingMaterial(id); const label=mat?mat.name:prettyId(id);
+  return `<a class="crafting-mat-chip" href="#/crafting/material/${encodeURIComponent(id||'')}">${esc(mat?.icon||'🧪')} ${esc(label)}${qty}</a>`;
+}
+function craftingRecipeCard(r){
+  const mats=(r.materials||[]).slice(0,4).map(craftingMaterialLink).join('');
+  const desc=r.description||r.effect||'Crafting recipe filed without a detailed effect.';
+  return `<div class="crafting-card" onclick="Router.go('#/crafting/recipe/${encodeURIComponent(r.id)}')" style="--craft-accent:${esc(craftingAccent(r.category||r.type))}">
+    <div class="crafting-card-head"><span class="craft-icon">${esc(r.icon||'⚒️')}</span><div><h3>${esc(r.name||prettyId(r.id))}</h3><div class="craft-sub">${esc(craftingCategoryLabel(r.category||r.type))}${r.rarity?` · ${esc(r.rarity)}`:''}${r.school?` · ${esc(r.school)}`:''}</div></div></div>
+    <p>${esc(desc).slice(0,180)}${desc.length>180?'…':''}</p>
+    <div class="craft-meta"><span>Lvl ${esc(String(r.levelRequirement||'?'))}</span><span>${esc(String(r.craftTime||'?'))}h</span><span>${esc(String(r.successChance||'?'))}%</span>${r.goldCost!=null?`<span>${esc(String(r.goldCost))}g</span>`:''}</div>
+    ${mats?`<div class="craft-mats-mini">${mats}</div>`:''}
+  </div>`;
+}
+function craftingMaterialCard(m){
+  return `<div class="crafting-card material" onclick="Router.go('#/crafting/material/${encodeURIComponent(m.id)}')" style="--craft-accent:${esc(materialRarityColor(m.rarity))}">
+    <div class="crafting-card-head"><span class="craft-icon">${esc(m.icon||'🧪')}</span><div><h3>${esc(m.name||prettyId(m.id))}</h3><div class="craft-sub">${esc(craftingCategoryLabel(m.category||'material'))}${m.rarity?` · ${esc(m.rarity)}`:''}${m.cost!=null?` · ${esc(String(m.cost))} XP` : ''}</div></div></div>
+    <p>${esc(m.description||'Crafting material.')}</p>
+  </div>`;
+}
+function craftingAccent(cat){const m={scrolls:'#a855f7',potions:'#22c55e',enchanting:'#f472b6',smithing:'#94a3b8',alchemy:'#eab308',runecarving:'#60a5fa'};return m[cat]||'#8a4bff';}
+function materialRarityColor(r){return {common:'#94a3b8',uncommon:'#22c55e',rare:'#38bdf8',legendary:'#eab308',very_rare:'#a855f7'}[String(r||'').toLowerCase()]||'#8a4bff';}
+function view_crafting(arg){
+  renderSidebar('crafting');
+  const parts=String(arg||'').split('/').filter(Boolean);
+  if(parts[0]==='recipe'&&parts[1]) return view_craftingRecipe(parts[1]);
+  if(parts[0]==='material'&&parts[1]) return view_craftingMaterial(parts[1]);
+  const data=craftingData(), recipes=data.recipes||[], materials=data.materials||[];
+  const cats=[...new Set(recipes.map(r=>r.category||r.type||'crafting'))].sort();
+  const cards=cats.map(cat=>{
+    const list=recipes.filter(r=>(r.category||r.type)===cat).slice(0,12);
+    return `<div class="card crafting-section" style="--craft-accent:${esc(craftingAccent(cat))}"><div class="crafting-section-head"><h2>${esc(craftingCategoryIcon(cat))} ${esc(craftingCategoryLabel(cat))}</h2><span class="pill">${recipes.filter(r=>(r.category||r.type)===cat).length} recipes</span></div><div class="crafting-grid">${list.map(craftingRecipeCard).join('')}</div>${recipes.filter(r=>(r.category||r.type)===cat).length>12?`<p class="text-muted text-sm">Showing first 12. Use search below for the full recipe list.</p>`:''}</div>`;
+  }).join('');
+  const materialPreview=materials.slice(0,24).map(craftingMaterialCard).join('');
+  el('content').innerHTML=`<div class="card animate-fade-in crafting-hero"><div><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Crafting Codex</div><h1>⚒️ Waluipedia Crafting Codex</h1><p class="text-muted">Scrolls, potions, enchantments, smithing plans, and materials are now first-class Waluipedia records with search and hyperlinks. Wario sees components. Waluigi sees evidence with itemized costs.</p></div><div class="species-stats"><div class="species-stat"><b>${recipes.length}</b>Recipes</div><div class="species-stat"><b>${materials.length}</b>Materials</div><div class="species-stat"><b>${cats.length}</b>Craft types</div></div><div class="chips mt-10"><a class="chip active" href="crafting.html">Open old crafting console →</a><span class="chip" onclick="document.getElementById('craftSearch')?.focus()">Search recipes ↓</span></div></div><div class="card"><div class="list-toolbar"><label><span>Search crafting</span><input id="craftSearch" placeholder="Potion of Healing, arcane dust, fireball scroll…"></label><label><span>Type</span><select id="craftType"><option value="all">All types</option>${cats.map(c=>`<option value="${esc(c)}">${esc(craftingCategoryLabel(c))}</option>`).join('')}<option value="materials">Materials</option></select></label></div><div id="craftResults" class="crafting-grid"></div></div>${cards}<div class="card crafting-section"><div class="crafting-section-head"><h2>🧪 Materials Index</h2><span class="pill">${materials.length} components</span></div><div class="crafting-grid">${materialPreview}</div></div>`;
+  const render=()=>{const q=String(el('craftSearch')?.value||'').toLowerCase();const type=el('craftType')?.value||'all';let rows=[];if(type==='materials'){rows=materials.filter(m=>[m.name,m.id,m.description,m.category,m.rarity].join(' ').toLowerCase().includes(q)).slice(0,60).map(craftingMaterialCard);}else{rows=recipes.filter(r=>(type==='all'||(r.category||r.type)===type)&&[r.name,r.id,r.description,r.effect,r.category,r.type,r.school,(r.materials||[]).map(m=>m.id).join(' ')].join(' ').toLowerCase().includes(q)).slice(0,60).map(craftingRecipeCard);}el('craftResults').innerHTML=rows.join('')||'<p class="text-muted">No crafting records match.</p>';};
+  el('craftSearch')?.addEventListener('input',render);el('craftType')?.addEventListener('change',render);render();window.scrollTo(0,0);
+}
+function craftingCategoryIcon(cat){return {scrolls:'📜',potions:'🧪',enchanting:'✨',smithing:'⚒️',alchemy:'⚗️',runecarving:'ᚱ'}[cat]||'⚒️';}
+function view_craftingRecipe(id){
+  const r=craftingRecipe(id); if(!r){view_crafting();return;}
+  const mats=(r.materials||[]).map(craftingMaterialLink).join('');
+  const related=(DATA.crafting.recipes||[]).filter(x=>x.id!==r.id&&(x.category===r.category||x.school&&x.school===r.school)).slice(0,8).map(x=>`<a class="chip" href="#/crafting/recipe/${encodeURIComponent(x.id)}">${esc(x.icon||'⚒️')} ${esc(x.name)}</a>`).join('');
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/crafting')">Crafting</a> › ${esc(r.name)}</div><div class="article-layout"><div><div class="card animate-fade-in crafting-detail" style="--craft-accent:${esc(craftingAccent(r.category||r.type))}"><h1>${esc(r.icon||'⚒️')} ${esc(r.name)}</h1><div class="metabar"><span class="pill">${esc(craftingCategoryLabel(r.category||r.type))}</span>${r.rarity?`<span class="pill">${esc(r.rarity)}</span>`:''}${r.school?`<span class="pill">${esc(r.school)}</span>`:''}</div><blockquote>${esc(r.description||r.effect||'No description filed.')}</blockquote><h2>Materials</h2><div class="craft-mats-list">${mats||'<span class="text-muted">No materials listed.</span>'}</div><h2>Crafting Check</h2><div class="species-stats"><div class="species-stat"><b>${esc(String(r.levelRequirement||'?'))}</b>Level</div><div class="species-stat"><b>${esc(String(r.craftTime||'?'))}h</b>Time</div><div class="species-stat"><b>${esc(String(r.successChance||'?'))}%</b>Success</div><div class="species-stat"><b>${esc(String(r.goldCost||0))}g</b>Cost</div></div>${related?`<h2>Related Recipes</h2><div class="chips">${related}</div>`:''}</div></div><div><div class="infobox"><h4>Recipe File</h4><div class="row"><span class="k">ID</span><span class="v">${esc(r.id)}</span></div><div class="row"><span class="k">Type</span><span class="v">${esc(r.category||r.type||'')}</span></div></div></div></div>`;window.scrollTo(0,0);
+}
+function view_craftingMaterial(id){
+  const m=craftingMaterial(id); if(!m){view_crafting();return;}
+  const used=(DATA.crafting.recipes||[]).filter(r=>(r.materials||[]).some(x=>x.id===id)).slice(0,30);
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/crafting')">Crafting</a> › ${esc(m.name)}</div><div class="article-layout"><div><div class="card animate-fade-in crafting-detail material" style="--craft-accent:${esc(materialRarityColor(m.rarity))}"><h1>${esc(m.icon||'🧪')} ${esc(m.name)}</h1><div class="metabar"><span class="pill">${esc(craftingCategoryLabel(m.category||'material'))}</span>${m.rarity?`<span class="pill">${esc(m.rarity)}</span>`:''}${m.cost!=null?`<span class="pill">${esc(String(m.cost))} XP</span>`:''}</div><blockquote>${esc(m.description||'No material description filed.')}</blockquote>${m.properties?.length?`<h2>Properties</h2><ul>${m.properties.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${m.effects?.length?`<h2>Effects</h2><ul>${m.effects.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}<h2>Used In Recipes</h2><div class="chips">${used.map(r=>`<a class="chip" href="#/crafting/recipe/${encodeURIComponent(r.id)}">${esc(r.icon||'⚒️')} ${esc(r.name)}</a>`).join('')||'<span class="text-muted">No linked recipes currently use this material.</span>'}</div></div></div><div><div class="infobox"><h4>Material File</h4><div class="row"><span class="k">ID</span><span class="v">${esc(m.id)}</span></div><div class="row"><span class="k">Category</span><span class="v">${esc(m.category||'')}</span></div></div></div></div>`;window.scrollTo(0,0);
+}
+
 /* ================= CURRENCY DEDICATED PAGES ================= */
 function currencySlug(c){ return String((c&&(c.id||c.key))||c||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
 function getCurrenciesList(){
@@ -9987,6 +10053,7 @@ const Router={
     else if(route==='atlas'){ if(arg)view_atlasNation(arg); else view_atlas(); }
     else if(route==='dynasties')view_dynasties();
     else if(route==='dynasty')view_dynasty(arg);
+    else if(route==='crafting')view_crafting(arg);
     else if(route==='items')view_items();
     else if(route==='item')view_item(arg);
     else if(route==='books'||route==='library'||route==='codex')view_books(arg);
@@ -10024,7 +10091,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','cultures'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
