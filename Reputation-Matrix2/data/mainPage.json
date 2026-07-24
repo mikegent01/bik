@@ -1,15 +1,18 @@
 {
   "featuredArticle": {
-    "id": "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
+    "id": "mount_ebott_survey_part_3",
     "type": "event",
-    "excerpt": "Bones wakes up alone in the Planar Sanctum, loots Corvinarus's 10-page codex, bare-hand drags a Yugoloth Canoloth, meets the Toad God at the Astral Altar, and gets dispatched to Alpine Bank where Thornbury places a 2,062-gold rope bounty on Archie. WAH."
+    "excerpt": "Ebott Part III is now filed: Sans slips and says “the war,” Flowey is exposed as Asgore’s dead son and possible machine saboteur, Koffin-K accidentally founds an unauthorized Iron Legion team, and Snowdin briefly crowns a fedora. XP, reputation, and linked character/location pages are now attached. WAH."
   },
   "latestUpdate": {
-    "id": "bones_alpine_bank_eavesdropping_and_inn_refuge",
-    "label": "Latest Intelligence Log",
-    "excerpt": "Thornbury's treason at Alpine Bank, currency enforcement of the Regal standard, the 2,062-gold broken rope warrant on Archie, and Bones's blizzard escape to a 3-ducat inn room."
+    "id": "mount_ebott_survey_part_3",
+    "label": "Latest Ebott File + XP/Reputation Pass",
+    "excerpt": "Mount Ebott Survey Part III now includes XP awards, reputation shifts, participants, intel gains, Koffin-K/Flowey/Asgore/Toriel pages, Snowdin/Ruins/CORE locations, and Monster Underground atlas linking."
   },
   "didYouKnow": [
+    "...that the Mount Ebott Survey Part III file now has XP awards and reputation deltas for Gamma Agent, Dracule Mihawk, Sans, Koffin-K, Flowey, and Asgore? Waluigi calls this “finally doing the paperwork.”",
+    "...that Sans saying “the war” may be evidence of memory suppression rather than ordinary forgetfulness? Waluigi has upgraded the Ebott file from “spooky cave trip” to “possible historical erasure incident.”",
+    "...that Flowey repaired the Legion survey machine to 98% integrity and left a vine behind like a signature? This is not plant behavior. This is audit behavior.",
     "...that Corvinarus's 10-page codex predicted Disaster Inc.'s exact seating arrangements 80 years in advance—naming the 'one-armed shadow' (Dan), the 'fire that bleeds' (Archie), and the 'green one taking the children's table' (Green T)?",
     "...that Thornbury charged Archie 2,062 gold and 5 silver for a broken hempen rope and converted it into an official Imperial Bounty across state lines?",
     "...that Bones grabbed a multi-ton Yugoloth Canoloth's spiny tongue bare-handed and physically hauled it toward a cliff edge? Waluigi calls this raw kinetic insanity.",
@@ -27,6 +30,7 @@
     "...that the Oracle keeps bodies in tanks? Disgusting! Science is for nerds who can't get rich honest ways (like stealing)."
   ],
   "onThisDay": [
+    "10XX BF — Mount Ebott Survey Part III: Sans slips about “the war,” Koffin-K joins an unauthorized Iron Legion team, Flowey is captured, and the repaired Legion survey machine is left in the abandoned Snowdin police station.",
     "1040 BF — Deep Mirror Sanctum & Alpine Bank Crisis: Bones loots Corvinarus's codex, bare-hand drags a Canoloth, meets the Toad God, eavesdrops on Thornbury's 2,062-gold rope bounty at Alpine Bank, and retreats into a mountain blizzard to a 3-ducat inn room.",
     "955 BF — Princess Peach takes a permanent nap. Everyone is still crying about it. Get over it!",
     "1035 BF — The Iron Legion starts ruining everyone's fun with 'laws' and 'taxes'.",
@@ -44,12 +48,12 @@
     },
     {
       "name": "Characters",
-      "count": 73,
+      "count": 123,
       "icon": "👤"
     },
     {
       "name": "Events",
-      "count": 73,
+      "count": 79,
       "icon": "📜"
     },
     {
@@ -69,7 +73,7 @@
     },
     {
       "name": "Nations & Realms",
-      "count": 14,
+      "count": 31,
       "icon": "🌍"
     }
   ]
