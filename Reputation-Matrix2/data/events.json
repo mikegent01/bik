@@ -7375,6 +7375,51 @@
         "xp": 300,
         "title": "Event — Mount Ebott Survey: Part III — Ruins Guidance",
         "date": "Mid-10XX BF — Day 3"
+      },
+      {
+        "xpKey": "koffin_k",
+        "articleId": "koffin_k",
+        "name": "Koffin-K",
+        "cat": "social",
+        "xp": 500,
+        "title": "Event — Mount Ebott Survey: Part III — Team Formation / Snowdin Hero Moment",
+        "date": "Mid-10XX BF — Day 3"
+      },
+      {
+        "xpKey": "koffin_k",
+        "articleId": "koffin_k",
+        "name": "Koffin-K",
+        "cat": "chaos",
+        "xp": 450,
+        "title": "Event — Mount Ebott Survey: Part III — Accidental Authority Crisis",
+        "date": "Mid-10XX BF — Day 3"
+      },
+      {
+        "xpKey": "flowey",
+        "articleId": "flowey",
+        "name": "Flowey",
+        "cat": "technique",
+        "xp": 600,
+        "title": "Event — Mount Ebott Survey: Part III — Survey Machine Repair",
+        "date": "Mid-10XX BF — Day 3"
+      },
+      {
+        "xpKey": "flowey",
+        "articleId": "flowey",
+        "name": "Flowey",
+        "cat": "chaos",
+        "xp": 700,
+        "title": "Event — Mount Ebott Survey: Part III — Snowdin Capture / Evidence Trap",
+        "date": "Mid-10XX BF — Day 3"
+      },
+      {
+        "xpKey": "asgore",
+        "articleId": "asgore",
+        "name": "Asgore",
+        "cat": "discovery",
+        "xp": 300,
+        "title": "Event — Mount Ebott Survey: Part III — Royal Family Revelation",
+        "date": "Mid-10XX BF — Day 3"
       }
     ]
   }

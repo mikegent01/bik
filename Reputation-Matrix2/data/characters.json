@@ -2190,7 +2190,15 @@
         "text": "A recipe ledger in Papyrus’s kitchen contains a ciphered delivery mark used by Snowdin’s wartime relief network."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Puzzle Guard",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "grandpa_semi",
@@ -2252,7 +2260,15 @@
         "text": "Registry observers suspect Lazybones authors the quiet cover stories that have moved at least three at-risk relatives off hostile watchlists across the wider campaign."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Household",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "baby_bones",
@@ -2283,7 +2299,15 @@
         "text": "During the last evacuation drill, Baby Bones walked straight to the hidden lower-Ebott service door no adult had ever mentioned and rattled at it until the route was changed."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Household",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "dirty_brother",
@@ -2314,7 +2338,15 @@
         "text": "One furnace rune matches a design recovered from a Fawful-era machine cache, though Dirty Brother insists it predates Fawful."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Maintenance Crew",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "will",
@@ -2345,7 +2377,15 @@
         "text": "His ledger includes anonymous payments from a “G. Division” account that should not exist."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Family Quartermaster",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "cursive",
@@ -2376,7 +2416,15 @@
         "text": "The original letter is hidden inside a harmless-looking Spaghetti Friday invitation."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Correspondence Circle",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "times_new_roman",
@@ -2407,7 +2455,15 @@
         "text": "Cross-referencing his appendix against the sealed Wing Gaster folder surfaces three citations to pages that were deliberately removed from the registry."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Chronicle Office",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "prunsel",
@@ -2438,7 +2494,15 @@
         "text": "The eye reacts to a symbol carried by the Gamma agent, suggesting it is watching the Iron Legion rather than the family."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Bone-Line Registry Anomaly",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "real_star",
@@ -2469,7 +2533,15 @@
         "text": "His private constellations include one star the campaign's damaged Star Road records list as extinguished; he navigates by it anyway, and it answers."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Skywatch",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "wing_gaster",
@@ -2500,7 +2572,15 @@
         "text": "Gaster did not vanish alone; a Bone-Line witness list was deliberately removed from the registry."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Underground Science Remnant",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "helvetica",
@@ -2531,7 +2611,15 @@
         "text": "A burned draft recovered from his folder shows an evacuation route through the sealed lower-Ebott relay access; he drew the geometry right and cannot explain how."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Signmakers Guild",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "garbage_brother",
@@ -2562,7 +2650,15 @@
         "text": "Salvaged parts he installed in Snowdin's heating grid over the past decade match components missing from a Fawful-era machine cache found elsewhere — installed years before the cache was discovered."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Recycling Crew",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "quantity",
@@ -2593,7 +2689,15 @@
         "text": "On the night the relay peaked, every skull in Quantity turned at once to face the wall sharing a boundary with the sealed Wing Gaster folder — 'we were counted,' they said, and declined to explain."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Household",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "mystery_man",
@@ -2624,7 +2728,15 @@
         "text": "A partway sketch of him, in the sealed Wing Gaster folder, carries Grandpa Semi's marginal instruction: 'do not finish the drawing.'"
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Bone-Line Registry",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "sans_deltarune",
@@ -2731,7 +2843,15 @@
         "text": "One witness account of the special attack describes a door-shaped outline in the air — and the account stops mid-sentence, finished in a hand that is not the witness's."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Puzzle Guard",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "brother_killer",
@@ -2762,7 +2882,15 @@
         "text": "He knows the identity of a current infiltrator but will only speak if Papyrus personally asks."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Perimeter Watch",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "my_little_brother",
@@ -2793,7 +2921,15 @@
         "text": "His blue hood matches the description of couriers documented on the eastern relief routes decades before he was born, in a file Lazybones will not discuss."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Household",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "ness",
@@ -2824,7 +2960,15 @@
         "text": "He keeps a route sketch that links Snowdin’s strange signals to a distant refugee corridor."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Guest Circle",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "my_brother",
@@ -2855,7 +2999,15 @@
         "text": "His question-mark entry was found already in the cedar chest — in Grandpa Semi's unreadable hand, describing him in detail — before anyone remembers writing or opening it."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Bone-Line Registry",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "pretty_soon",
@@ -2886,7 +3038,15 @@
         "text": "The notebook's oldest line, in ink older than the notebook and a hand not his, reads only 'the door, pretty soon' — the chronicle has cross-referenced it against the sealed folder."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Household",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "gee_lady",
@@ -2917,7 +3077,15 @@
         "text": "A victory-dinner photograph shows the extra chair occupied and blurred; shown the image, Gee Lady nodded and said only, 'good, they ate.'"
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Household",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "starman",
@@ -2948,7 +3116,15 @@
         "text": "The shadowless light has now been documented at three separate dimensional stress sites across the campaign, always guiding people the registry had listed as lost."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Guest Circle",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "speen_kind_of_down_lately",
@@ -2979,7 +3155,15 @@
         "text": "The household's caretaker check-in rota — its most important hallway document — exists because he asked, once, who checks on the people who check on everyone."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Household",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "pet_rock",
@@ -3010,7 +3194,15 @@
         "text": "A relay-night photograph shows the stone slightly forward of its plate, leaning toward the mountain; Times New Roman's only annotation is 'present, as always.'"
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Household",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "dedan",
@@ -3041,7 +3233,15 @@
         "text": "One log night shows him standing aside at 3 a.m. for an arrival marked only 'family, returning,' through a door he had barred himself; no departure was ever logged."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Perimeter Watch",
+    "currentXP": 120,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 1,
+    "fameScore": 18,
+    "fameTier": "Obscure"
   },
   {
     "id": "flowey",
@@ -3063,7 +3263,15 @@
     ],
     "needsReview": true,
     "autoGenerated": false,
-    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH."
+    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH.",
+    "faction": "enemy_wildcards",
+    "membership": "Hostile Underground royal remnant / Flowey anomaly",
+    "currentXP": 1300,
+    "nextXP": 2700,
+    "level": 3,
+    "powerLevel": 8,
+    "fameScore": 45,
+    "fameTier": "Known"
   },
   {
     "id": "koffin_k",
@@ -3085,7 +3293,15 @@
     ],
     "needsReview": true,
     "autoGenerated": false,
-    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH."
+    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH.",
+    "faction": "undertale_monsters",
+    "membership": "Ruins/Snowdin self-appointed villain cell",
+    "currentXP": 1000,
+    "nextXP": 2700,
+    "level": 3,
+    "powerLevel": 3,
+    "fameScore": 35,
+    "fameTier": "Local"
   },
   {
     "id": "crossbones",
@@ -3104,7 +3320,15 @@
     ],
     "needsReview": true,
     "autoGenerated": false,
-    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH."
+    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH.",
+    "faction": "undertale_monsters",
+    "membership": "Monster Underground media/culture file",
+    "currentXP": 200,
+    "nextXP": 300,
+    "level": 1,
+    "powerLevel": 2,
+    "fameScore": 24,
+    "fameTier": "Local"
   },
   {
     "id": "toriel",
@@ -3123,7 +3347,15 @@
     ],
     "needsReview": true,
     "autoGenerated": false,
-    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH."
+    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH.",
+    "faction": "undertale_monsters",
+    "membership": "Monster Underground Royal Family",
+    "currentXP": 900,
+    "nextXP": 2700,
+    "level": 3,
+    "powerLevel": 8,
+    "fameScore": 60,
+    "fameTier": "Notorious"
   },
   {
     "id": "asgore",
@@ -3144,7 +3376,15 @@
     ],
     "needsReview": true,
     "autoGenerated": false,
-    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH."
+    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH.",
+    "faction": "undertale_monsters",
+    "membership": "Monster Underground Royal Family",
+    "currentXP": 900,
+    "nextXP": 2700,
+    "level": 3,
+    "powerLevel": 9,
+    "fameScore": 58,
+    "fameTier": "Known"
   },
   {
     "id": "boss_knuckles",
@@ -3161,7 +3401,15 @@
     ],
     "needsReview": true,
     "autoGenerated": false,
-    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH."
+    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH.",
+    "faction": "enemy_wildcards",
+    "membership": "Enemy wildcard / needs source review",
+    "currentXP": 300,
+    "nextXP": 900,
+    "level": 2,
+    "powerLevel": 3,
+    "fameScore": 20,
+    "fameTier": "Local"
   },
   {
     "id": "high_inquisitor_vale",
@@ -3180,7 +3428,15 @@
     ],
     "needsReview": true,
     "autoGenerated": false,
-    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH."
+    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH.",
+    "faction": "midlands_court",
+    "membership": "Midlands Court / inquisitorial authority review",
+    "currentXP": 600,
+    "nextXP": 900,
+    "level": 2,
+    "powerLevel": 5,
+    "fameScore": 34,
+    "fameTier": "Local"
   },
   {
     "id": "skullcap_murphy",
@@ -3199,6 +3455,14 @@
     ],
     "needsReview": true,
     "autoGenerated": false,
-    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH."
+    "waluigiComment": "Created to prevent the Ebott arc from leaving named figures unlinked. Needs a full editor pass. WAH.",
+    "faction": "toad_network",
+    "membership": "Toad Network",
+    "currentXP": 450,
+    "nextXP": 900,
+    "level": 2,
+    "powerLevel": 3,
+    "fameScore": 34,
+    "fameTier": "Local"
   }
 ]

@@ -17194,6 +17194,38 @@ const CHARACTER_FACTION_FIXES = {
   goodstyle: { faction: 'artisan_circle', membership: 'Ancient revered artisan / beauty absolutist', fameScore: 78, fameTier: 'Legendary' },
   merric: { faction: 'shadowfell_denizens', membership: 'Recruited ally / axe-wielding sheep', fameScore: 18, fameTier: 'Obscure' },
   sans: { faction: 'undertale_monsters', membership: 'Sans from Undertale / Monster Underground', fameScore: 90, fameTier: 'Mythic' },
+  // Mount Ebott / Snowdin / Undertale-linked review cleanup
+  asgore: { faction: 'undertale_monsters', membership: 'Monster Underground Royal Family', fameScore: 58, fameTier: 'Known' },
+  flowey: { faction: 'enemy_wildcards', membership: 'Hostile Underground royal remnant / Flowey anomaly', fameScore: 45, fameTier: 'Known', allianceTags: ['Flowey', 'Hostile', 'Monster Underground'] },
+  koffin_k: { faction: 'undertale_monsters', membership: 'Ruins/Snowdin self-appointed villain cell', fameScore: 35, fameTier: 'Local' },
+  crossbones: { faction: 'undertale_monsters', membership: 'Monster Underground media/culture file', fameScore: 24, fameTier: 'Local' },
+  boss_knuckles: { faction: 'enemy_wildcards', membership: 'Enemy wildcard / needs source review', fameScore: 20, fameTier: 'Local' },
+  high_inquisitor_vale: { faction: 'midlands_court', membership: 'Midlands Court / inquisitorial authority review', fameScore: 34, fameTier: 'Local' },
+  baby_bones: { faction: 'undertale_monsters', membership: 'Snowdin Household / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  brother_killer: { faction: 'undertale_monsters', membership: 'Snowdin Perimeter Watch / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  cursive: { faction: 'undertale_monsters', membership: 'Snowdin Correspondence Circle / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  dedan: { faction: 'undertale_monsters', membership: 'Snowdin Perimeter Watch / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  dirty_brother: { faction: 'undertale_monsters', membership: 'Snowdin Maintenance Crew / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  garbage_brother: { faction: 'undertale_monsters', membership: 'Snowdin Recycling Crew / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  gee_lady: { faction: 'undertale_monsters', membership: 'Snowdin Household / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  has_a_very_special_attack: { faction: 'undertale_monsters', membership: 'Snowdin Puzzle Guard / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  helvetica: { faction: 'undertale_monsters', membership: 'Snowdin Signmakers Guild / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  lazybones: { faction: 'undertale_monsters', membership: 'Snowdin Household / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  my_brother: { faction: 'undertale_monsters', membership: 'Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  my_little_brother: { faction: 'undertale_monsters', membership: 'Snowdin Household / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  mystery_man: { faction: 'undertale_monsters', membership: 'Bone-Line registry anomaly', fameScore: 22, fameTier: 'Local' },
+  ness: { faction: 'undertale_monsters', membership: 'Snowdin Guest Circle / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  papyrus: { faction: 'undertale_monsters', membership: 'Snowdin Puzzle Guard / Bone-Line registry', fameScore: 40, fameTier: 'Known' },
+  pet_rock: { faction: 'undertale_monsters', membership: 'Snowdin Household / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  pretty_soon: { faction: 'undertale_monsters', membership: 'Snowdin Household / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  prunsel: { faction: 'undertale_monsters', membership: 'Bone-Line registry anomaly', fameScore: 20, fameTier: 'Local' },
+  quantity: { faction: 'undertale_monsters', membership: 'Snowdin Household / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  real_star: { faction: 'undertale_monsters', membership: 'Snowdin Skywatch / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  speen_kind_of_down_lately: { faction: 'undertale_monsters', membership: 'Snowdin Household / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  starman: { faction: 'undertale_monsters', membership: 'Snowdin Guest Circle / Bone-Line registry', fameScore: 18, fameTier: 'Obscure' },
+  times_new_roman: { faction: 'undertale_monsters', membership: 'Snowdin Chronicle Office / Bone-Line registry', fameScore: 22, fameTier: 'Local' },
+  will: { faction: 'undertale_monsters', membership: 'Family Quartermaster / Bone-Line registry', fameScore: 20, fameTier: 'Local' },
+  wing_gaster: { faction: 'undertale_monsters', membership: 'Underground Science Remnant / Bone-Line registry', fameScore: 45, fameTier: 'Known' },
   skullcap_murphgy: { faction: 'toad_network', membership: 'Toad Network', fameScore: 34, fameTier: 'Local' },
   skullcap_murphy: { faction: 'toad_network', membership: 'Toad Network', fameScore: 34, fameTier: 'Local' },
   the_broker: { faction: 'freelancer_underworld', membership: 'Information broker / center of the Freelancer Underworld web', fameScore: 70, fameTier: 'Notorious' },
@@ -17227,6 +17259,7 @@ function getCharacterFactionCorrection(record, key) {
   if (/freelancer underworld|information broker|fixer|underworld/.test(blob)) return { faction: 'freelancer_underworld', membership: 'Freelancer Underworld' };
   if (/regal empire|emperor/.test(blob)) return { faction: 'regal_empire', membership: 'Regal Empire' };
   if (/koopa troop|bowser/.test(blob)) return { faction: 'koopa_troop', membership: 'Koopa Troop' };
+  if (/snowdin|bone-line|bone line|monster underground|underground monster|undertale|ruins|flowey|asgore|toriel|papyrus/.test(blob)) return { faction: 'undertale_monsters', membership: 'Undertale / Monster Underground' };
   return null;
 }
 
