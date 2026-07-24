@@ -9846,7 +9846,7 @@ function openBookReader(bookId) {
 const Router={
   go(hash){if(location.hash===hash)Router.render();else location.hash=hash;},
   render(){
-    const h=location.hash||'#/home';const m=h.match(/^#\/([\w]+)\/?(.*)$/);
+    const h=location.hash||'#/home';const m=h.match(/^#\/([^\/]+)\/?(.*)$/);
     if(!m){view_home();return;}
     const route=m[1],arg=decodeURIComponent(m[2]||'');
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
