@@ -7251,6 +7251,75 @@
       "survey machine"
     ],
     "importance": "High",
-    "waluigiReviewStatus": "New Part III file — verify chronology and create dedicated character records for Koffin-K, Flowey, Crossbones, Toriel, and Asgore if the arc continues."
+    "waluigiReviewStatus": "New Part III file — verify chronology and create dedicated character records for Koffin-K, Flowey, Crossbones, Toriel, and Asgore if the arc continues.",
+    "participants": [
+      {
+        "id": "gamma_agent",
+        "name": "Gamma Agent",
+        "role": "Legion surveyor / accidental cell member"
+      },
+      {
+        "id": "dracule_mihawk",
+        "name": "Dracule Mihawk",
+        "role": "Tactical enforcer / team-name decider"
+      },
+      {
+        "id": "sans",
+        "name": "Sans",
+        "role": "Underground guide / war-slip source"
+      },
+      {
+        "id": "koffin_k",
+        "name": "Koffin-K",
+        "role": "Self-appointed villain, team recruit, temporary civic hero"
+      },
+      {
+        "id": "flowey",
+        "name": "Flowey",
+        "role": "Captured entity / repaired survey machine suspect"
+      }
+    ],
+    "reputationChanges": {
+      "gamma_agent": {
+        "iron_legion": -14,
+        "regal_empire": -6,
+        "mages_guild": 4,
+        "freelancer_underworld": 3
+      },
+      "dracule_mihawk": {
+        "iron_legion": -10,
+        "regal_empire": -4,
+        "freelancer_underworld": 5
+      },
+      "sans": {
+        "iron_legion": -12,
+        "regal_empire": -8,
+        "mages_guild": 6,
+        "freelancer_underworld": 4
+      }
+    },
+    "reputationReason": "Day Three weakens Iron Legion/Regal information control: Sans exposes a war-memory contradiction, Mihawk names an unauthorized Ruins team \"Iron Legion,\" and the Agent leaves a repaired Legion survey machine in Flowey-contaminated custody. Arcane and underworld observers gain leverage from the anomaly.",
+    "intelGains": [
+      {
+        "topic": "Underground Barrier Access",
+        "amount": 2,
+        "reason": "Sans identifies the CORE, unstable Hotland portals, and royal permission as known exit routes."
+      },
+      {
+        "topic": "Suppressed War Memory",
+        "amount": 4,
+        "reason": "Sans contradicts his prior no-war claim and displays involuntary memory disruption."
+      },
+      {
+        "topic": "Flowey Technical Competence",
+        "amount": 4,
+        "reason": "The damaged Legion survey machine is repaired to 98% integrity with Flowey vine evidence left behind."
+      },
+      {
+        "topic": "Unauthorized Iron Legion Cell",
+        "amount": 3,
+        "reason": "Mihawk names the Ruins party Iron Legion without institutional authorization, creating a splinter-identity risk."
+      }
+    ]
   }
 ]
