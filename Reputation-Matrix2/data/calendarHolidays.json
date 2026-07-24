@@ -1,67 +1,1197 @@
 {
   "meta": {
     "description": "Holidays per calendar — modular. Each calendar id maps to array of holidays. Fields: name, month (ordinal), day, icon, color, description, type. Separate from intercalaryDays (weird days outside months).",
-    "version": "1.0.0"
+    "version": "1.1.0",
+    "expanded": "All holidays now include longDescription, observancePractices, adventureHooks, publicMood, and waluigiNote."
   },
   "holidays": {
     "imperial": [
-      {"name":"Founding Day","month":1,"day":1,"icon":"🏛️","color":"#8a4bff","description":"Empire Founding — oaths sworn in frost","type":"festival"},
-      {"name":"Thaw Parade","month":1,"day":20,"icon":"❄️","color":"#ADD8E6","description":"End of deepest frost, lanterns on ice","type":"festival"},
-      {"name":"Verdant Rite","month":3,"day":15,"icon":"🌱","color":"#90EE90","description":"First planting, druids bless fields","type":"seasonal"},
-      {"name":"Bloom Festival","month":4,"day":10,"icon":"🌸","color":"#7dd87d","description":"Allergy season weaponized, flower crowns mandatory","type":"festival"},
-      {"name":"Road Blessing","month":5,"day":30,"icon":"🛣️","color":"#6bc96b","description":"Trade roads blessed before summer heat","type":"civic"},
-      {"name":"Highsun Bonfire","month":7,"day":15,"icon":"🔥","color":"#FFD700","description":"Midsummer zenith — bonfires, treaties, diplomatic sunburn","type":"festival"},
-      {"name":"Harvest Feast","month":8,"day":28,"icon":"🌾","color":"#FFC200","description":"Harvest audits complete, Shadow Estate pays in grain","type":"harvest"},
-      {"name":"Starfall Night","month":9,"day":21,"icon":"⭐","color":"#FF8C69","description":"Aethel's amber meteors — wishes and litigation","type":"astral"},
-      {"name":"Warding Night","month":10,"day":31,"icon":"🌑","color":"#E07050","description":"Darkmoon warding rites against Old World","type":"warding"},
-      {"name":"Frostfall Market","month":11,"day":15,"icon":"🍂","color":"#CC6A50","description":"Last trade before Deepwinter closes roads","type":"market"},
-      {"name":"Deepwinter Vigil","month":12,"day":35,"icon":"🕯️","color":"#8ab4d0","description":"Silence night — 35th day, no travel","type":"vigil"}
+      {
+        "name": "Founding Day",
+        "month": 1,
+        "day": 1,
+        "icon": "🏛️",
+        "color": "#8a4bff",
+        "description": "Empire Founding — oaths sworn in frost",
+        "type": "festival",
+        "id": "founding_day",
+        "longDescription": "Founding Day is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Empire Founding — oaths sworn in frost. That is accurate, but criminally insufficient. The day falls in Firstlight frost, oath halls, white banners, and locked treasury ledgers, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is oath renewal in frost-lit halls. In practice, imperial officers recite the first compact, common houses hang purple ribbon, and old families quietly compare whose ancestors were actually present. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Founding Day to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Founding Day should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Founding Day as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with oath renewal in frost-lit halls.",
+          "Public custom: imperial officers recite the first compact, common houses hang purple ribbon, and old families quietly compare whose ancestors were actually present.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Founding Day appears in a crime scene ledger.",
+          "A faction tries to exploit Founding Day crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Founding Day contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Founding Day."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Founding Day does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Thaw Parade",
+        "month": 1,
+        "day": 20,
+        "icon": "❄️",
+        "color": "#ADD8E6",
+        "description": "End of deepest frost, lanterns on ice",
+        "type": "festival",
+        "id": "thaw_parade",
+        "longDescription": "Thaw Parade is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: End of deepest frost, lanterns on ice. That is accurate, but criminally insufficient. The day falls in Firstlight frost, oath halls, white banners, and locked treasury ledgers, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is lanterns over ice channels. In practice, children race carved frost-boats while engineers inspect bridges for winter damage. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Thaw Parade to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Thaw Parade should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Thaw Parade as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with lanterns over ice channels.",
+          "Public custom: children race carved frost-boats while engineers inspect bridges for winter damage.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Thaw Parade appears in a crime scene ledger.",
+          "A faction tries to exploit Thaw Parade crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Thaw Parade contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Thaw Parade."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Thaw Parade does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Verdant Rite",
+        "month": 3,
+        "day": 15,
+        "icon": "🌱",
+        "color": "#90EE90",
+        "description": "First planting, druids bless fields",
+        "type": "seasonal",
+        "id": "verdant_rite",
+        "longDescription": "Verdant Rite is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: First planting, druids bless fields. That is accurate, but criminally insufficient. The day falls in muddy fields, green roads, and wary druids, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is first furrow blessing. In practice, farmers bring seed bowls, druids test soil, and tax clerks pretend this is spiritual instead of economic. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Seasonal marker used by farmers, travelers, spirits, and anyone who distrusts official weather reports. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Verdant Rite to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Verdant Rite should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Verdant Rite as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with first furrow blessing.",
+          "Public custom: farmers bring seed bowls, druids test soil, and tax clerks pretend this is spiritual instead of economic.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Verdant Rite appears in a crime scene ledger.",
+          "A faction tries to exploit Verdant Rite crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Verdant Rite contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Verdant Rite."
+        ],
+        "publicMood": "Practical, superstitious, and weather-aware.",
+        "waluigiNote": "Waluigi note: if Verdant Rite does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Bloom Festival",
+        "month": 4,
+        "day": 10,
+        "icon": "🌸",
+        "color": "#7dd87d",
+        "description": "Allergy season weaponized, flower crowns mandatory",
+        "type": "festival",
+        "id": "bloom_festival",
+        "longDescription": "Bloom Festival is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Allergy season weaponized, flower crowns mandatory. That is accurate, but criminally insufficient. The day falls in flowered streets and pollen warfare, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is flower crowns and allergic warfare. In practice, every respectable street becomes a garden while apothecaries sell anti-sneeze tinctures at predatory margins. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Bloom Festival to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Bloom Festival should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Bloom Festival as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with flower crowns and allergic warfare.",
+          "Public custom: every respectable street becomes a garden while apothecaries sell anti-sneeze tinctures at predatory margins.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Bloom Festival appears in a crime scene ledger.",
+          "A faction tries to exploit Bloom Festival crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Bloom Festival contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Bloom Festival."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Bloom Festival does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Road Blessing",
+        "month": 5,
+        "day": 30,
+        "icon": "🛣️",
+        "color": "#6bc96b",
+        "description": "Trade roads blessed before summer heat",
+        "type": "civic",
+        "id": "road_blessing",
+        "longDescription": "Road Blessing is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Trade roads blessed before summer heat. That is accurate, but criminally insufficient. The day falls in caravan yards and road shrines, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is road-shrine circuit. In practice, caravan masters chalk wheels, priests bless milestones, and bandits listen carefully for route announcements. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Administrative observance where law, public order, bureaucracy, and ceremony shake hands awkwardly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Road Blessing to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Road Blessing should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Road Blessing as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with road-shrine circuit.",
+          "Public custom: caravan masters chalk wheels, priests bless milestones, and bandits listen carefully for route announcements.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Road Blessing appears in a crime scene ledger.",
+          "A faction tries to exploit Road Blessing crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Road Blessing contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Road Blessing."
+        ],
+        "publicMood": "Orderly on paper, tense behind the podium.",
+        "waluigiNote": "Waluigi note: if Road Blessing does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Highsun Bonfire",
+        "month": 7,
+        "day": 15,
+        "icon": "🔥",
+        "color": "#FFD700",
+        "description": "Midsummer zenith — bonfires, treaties, diplomatic sunburn",
+        "type": "festival",
+        "id": "highsun_bonfire",
+        "longDescription": "Highsun Bonfire is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Midsummer zenith — bonfires, treaties, diplomatic sunburn. That is accurate, but criminally insufficient. The day falls in hard sunlight, diplomatic tents, and treaty fires, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is treaty fire at noon. In practice, foreign guests exchange gifts while standing too close to ceremonial flames. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Highsun Bonfire to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Highsun Bonfire should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Highsun Bonfire as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with treaty fire at noon.",
+          "Public custom: foreign guests exchange gifts while standing too close to ceremonial flames.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Highsun Bonfire appears in a crime scene ledger.",
+          "A faction tries to exploit Highsun Bonfire crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Highsun Bonfire contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Highsun Bonfire."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Highsun Bonfire does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Harvest Feast",
+        "month": 8,
+        "day": 28,
+        "icon": "🌾",
+        "color": "#FFC200",
+        "description": "Harvest audits complete, Shadow Estate pays in grain",
+        "type": "harvest",
+        "id": "harvest_feast",
+        "longDescription": "Harvest Feast is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Harvest audits complete, Shadow Estate pays in grain. That is accurate, but criminally insufficient. The day falls in full granaries and nervous tax clerks, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is granary opening. In practice, villages display abundance, estates report yields, and hungry neighbors learn who has been lying. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Agrarian and tax-calendar observance where gratitude and accounting happen at the same table. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Harvest Feast to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Harvest Feast should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Harvest Feast as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with granary opening.",
+          "Public custom: villages display abundance, estates report yields, and hungry neighbors learn who has been lying.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Harvest Feast appears in a crime scene ledger.",
+          "A faction tries to exploit Harvest Feast crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Harvest Feast contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Harvest Feast."
+        ],
+        "publicMood": "Generous until the ledgers open.",
+        "waluigiNote": "Waluigi note: if Harvest Feast does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Starfall Night",
+        "month": 9,
+        "day": 21,
+        "icon": "⭐",
+        "color": "#FF8C69",
+        "description": "Aethel's amber meteors — wishes and litigation",
+        "type": "astral",
+        "id": "starfall_night",
+        "longDescription": "Starfall Night is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Aethel's amber meteors — wishes and litigation. That is accurate, but criminally insufficient. The day falls in amber skies and falling-star litigation, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is wish lanterns under amber meteors. In practice, romantics, astrologers, and lawyers all claim the sky supports their case. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Sky-linked observance watched by astronomers, mystics, sailors, prophets, and litigants who blame stars. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Starfall Night to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Starfall Night should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Starfall Night as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with wish lanterns under amber meteors.",
+          "Public custom: romantics, astrologers, and lawyers all claim the sky supports their case.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Starfall Night appears in a crime scene ledger.",
+          "A faction tries to exploit Starfall Night crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Starfall Night contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Starfall Night."
+        ],
+        "publicMood": "Hopeful, nervous, and full of bad predictions.",
+        "waluigiNote": "Waluigi note: if Starfall Night does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Warding Night",
+        "month": 10,
+        "day": 31,
+        "icon": "🌑",
+        "color": "#E07050",
+        "description": "Darkmoon warding rites against Old World",
+        "type": "warding",
+        "id": "warding_night",
+        "longDescription": "Warding Night is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Darkmoon warding rites against Old World. That is accurate, but criminally insufficient. The day falls in dark moons and warded thresholds, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is threshold charms. In practice, families repaint sigils, children dare each other to knock on locked doors, and old monsters are named quietly. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Protective rite meant to keep old threats outside the door and newer threats embarrassed to enter. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Warding Night to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Warding Night should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Warding Night as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with threshold charms.",
+          "Public custom: families repaint sigils, children dare each other to knock on locked doors, and old monsters are named quietly.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Warding Night appears in a crime scene ledger.",
+          "A faction tries to exploit Warding Night crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Warding Night contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Warding Night."
+        ],
+        "publicMood": "Quietly frightened under the decorations.",
+        "waluigiNote": "Waluigi note: if Warding Night does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Frostfall Market",
+        "month": 11,
+        "day": 15,
+        "icon": "🍂",
+        "color": "#CC6A50",
+        "description": "Last trade before Deepwinter closes roads",
+        "type": "market",
+        "id": "frostfall_market",
+        "longDescription": "Frostfall Market is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Last trade before Deepwinter closes roads. That is accurate, but criminally insufficient. The day falls in closing roads and last markets, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is last-road fair. In practice, merchants discount fragile stock and overcharge for anything that survives snow. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Commerce holiday where prices, travel, debt, and supply lines become cultural performance. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Frostfall Market to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Frostfall Market should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Frostfall Market as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with last-road fair.",
+          "Public custom: merchants discount fragile stock and overcharge for anything that survives snow.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Frostfall Market appears in a crime scene ledger.",
+          "A faction tries to exploit Frostfall Market crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Frostfall Market contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Frostfall Market."
+        ],
+        "publicMood": "Greedy, useful, mobile, and rumor-rich.",
+        "waluigiNote": "Waluigi note: if Frostfall Market does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Deepwinter Vigil",
+        "month": 12,
+        "day": 35,
+        "icon": "🕯️",
+        "color": "#8ab4d0",
+        "description": "Silence night — 35th day, no travel",
+        "type": "vigil",
+        "id": "deepwinter_vigil",
+        "longDescription": "Deepwinter Vigil is not just a square on the Regal Empire Standard calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Silence night — 35th day, no travel. That is accurate, but criminally insufficient. The day falls in deep snow, silent gates, and candlelit patrols, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is silence candles. In practice, travel stops, bells are muffled, and even Wario would be asked to whisper. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Quiet observance built around memory, restraint, mourning, and things best not disturbed. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Deepwinter Vigil to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Deepwinter Vigil should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Deepwinter Vigil as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with silence candles.",
+          "Public custom: travel stops, bells are muffled, and even Wario would be asked to whisper.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Deepwinter Vigil appears in a crime scene ledger.",
+          "A faction tries to exploit Deepwinter Vigil crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Deepwinter Vigil contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Deepwinter Vigil."
+        ],
+        "publicMood": "Restrained, watchful, and easy to offend.",
+        "waluigiNote": "Waluigi note: if Deepwinter Vigil does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      }
     ],
     "mushroom_folk": [
-      {"name":"Toadling New Sprout","month":1,"day":1,"icon":"🍄","color":"#9be68c","description":"New caps sprout, Toad Town census","type":"festival"},
-      {"name":"Pipe Bloom Day","month":2,"day":18,"icon":"🟢","color":"#a8e6a0","description":"Pipes flower, warp routes unstable","type":"seasonal"},
-      {"name":"Coinshine Shower","month":3,"day":36,"icon":"🪙","color":"#ffe26a","description":"Coins rain in Coinshine month end","type":"festival"},
-      {"name":"Star Festival","month":4,"day":20,"icon":"⭐","color":"#ffdb4d","description":"Star Spirits visit, wishes granted loudly","type":"astral"},
-      {"name":"Shroomheat Siesta","month":5,"day":15,"icon":"🌞","color":"#ffb84d","description":"Too hot to work, mandatory nap","type":"rest"},
-      {"name":"Bowser's Reprieve","month":6,"day":36,"icon":"🐢","color":"#ff8a4d","description":"One day truce — Koopa Troop shares cake","type":"civic"},
-      {"name":"Leaf Crumble","month":7,"day":10,"icon":"🍂","color":"#e68a4d","description":"Fall of giant leaves, building repairs","type":"seasonal"},
-      {"name":"Frostshroom Glow","month":8,"day":1,"icon":"❄️","color":"#a0c8e6","description":"First frost shrooms glow","type":"seasonal"}
+      {
+        "name": "Toadling New Sprout",
+        "month": 1,
+        "day": 1,
+        "icon": "🍄",
+        "color": "#9be68c",
+        "description": "New caps sprout, Toad Town census",
+        "type": "festival",
+        "id": "toadling_new_sprout",
+        "longDescription": "Toadling New Sprout is not just a square on the Mushroom Folk calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: New caps sprout, Toad Town census. That is accurate, but criminally insufficient. The day falls in new caps, census desks, and Toad Town bells, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is cap-counting census. In practice, new growth is blessed, names are recorded, and every family argues about spelling. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Toadling New Sprout to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Toadling New Sprout should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Toadling New Sprout as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with cap-counting census.",
+          "Public custom: new growth is blessed, names are recorded, and every family argues about spelling.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Toadling New Sprout appears in a crime scene ledger.",
+          "A faction tries to exploit Toadling New Sprout crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Toadling New Sprout contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Toadling New Sprout."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Toadling New Sprout does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Pipe Bloom Day",
+        "month": 2,
+        "day": 18,
+        "icon": "🟢",
+        "color": "#a8e6a0",
+        "description": "Pipes flower, warp routes unstable",
+        "type": "seasonal",
+        "id": "pipe_bloom_day",
+        "longDescription": "Pipe Bloom Day is not just a square on the Mushroom Folk calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Pipes flower, warp routes unstable. That is accurate, but criminally insufficient. The day falls in flowering pipes and unstable warp routes, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is green pipe flowering. In practice, warp routes shift, plumbers panic, and mapmakers pretend they expected it. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Seasonal marker used by farmers, travelers, spirits, and anyone who distrusts official weather reports. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Pipe Bloom Day to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Pipe Bloom Day should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Pipe Bloom Day as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with green pipe flowering.",
+          "Public custom: warp routes shift, plumbers panic, and mapmakers pretend they expected it.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Pipe Bloom Day appears in a crime scene ledger.",
+          "A faction tries to exploit Pipe Bloom Day crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Pipe Bloom Day contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Pipe Bloom Day."
+        ],
+        "publicMood": "Practical, superstitious, and weather-aware.",
+        "waluigiNote": "Waluigi note: if Pipe Bloom Day does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Coinshine Shower",
+        "month": 3,
+        "day": 36,
+        "icon": "🪙",
+        "color": "#ffe26a",
+        "description": "Coins rain in Coinshine month end",
+        "type": "festival",
+        "id": "coinshine_shower",
+        "longDescription": "Coinshine Shower is not just a square on the Mushroom Folk calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Coins rain in Coinshine month end. That is accurate, but criminally insufficient. The day falls in coin-bright skies and market games, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is falling-coin games. In practice, citizens wear padded caps and bankers develop temporary religion. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Coinshine Shower to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Coinshine Shower should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Coinshine Shower as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with falling-coin games.",
+          "Public custom: citizens wear padded caps and bankers develop temporary religion.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Coinshine Shower appears in a crime scene ledger.",
+          "A faction tries to exploit Coinshine Shower crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Coinshine Shower contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Coinshine Shower."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Coinshine Shower does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Star Festival",
+        "month": 4,
+        "day": 20,
+        "icon": "⭐",
+        "color": "#ffdb4d",
+        "description": "Star Spirits visit, wishes granted loudly",
+        "type": "astral",
+        "id": "star_festival",
+        "longDescription": "Star Festival is not just a square on the Mushroom Folk calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Star Spirits visit, wishes granted loudly. That is accurate, but criminally insufficient. The day falls in star lanterns and loud wishes, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is Star Spirit welcome. In practice, wishes are shouted so loudly that subtle prayers file complaints. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Sky-linked observance watched by astronomers, mystics, sailors, prophets, and litigants who blame stars. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Star Festival to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Star Festival should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Star Festival as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with Star Spirit welcome.",
+          "Public custom: wishes are shouted so loudly that subtle prayers file complaints.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Star Festival appears in a crime scene ledger.",
+          "A faction tries to exploit Star Festival crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Star Festival contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Star Festival."
+        ],
+        "publicMood": "Hopeful, nervous, and full of bad predictions.",
+        "waluigiNote": "Waluigi note: if Star Festival does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Shroomheat Siesta",
+        "month": 5,
+        "day": 15,
+        "icon": "🌞",
+        "color": "#ffb84d",
+        "description": "Too hot to work, mandatory nap",
+        "type": "rest",
+        "id": "shroomheat_siesta",
+        "longDescription": "Shroomheat Siesta is not just a square on the Mushroom Folk calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Too hot to work, mandatory nap. That is accurate, but criminally insufficient. The day falls in hot plazas and mandatory shade, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is kingdom-wide nap. In practice, commerce pauses, shade is sacred, and productivity is accused of treason. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Sanctioned pause. Waluigi notes that civilizations invent rest days because collapse is expensive. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Shroomheat Siesta to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Shroomheat Siesta should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Shroomheat Siesta as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with kingdom-wide nap.",
+          "Public custom: commerce pauses, shade is sacred, and productivity is accused of treason.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Shroomheat Siesta appears in a crime scene ledger.",
+          "A faction tries to exploit Shroomheat Siesta crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Shroomheat Siesta contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Shroomheat Siesta."
+        ],
+        "publicMood": "Sleepy, slow, and unusually honest.",
+        "waluigiNote": "Waluigi note: if Shroomheat Siesta does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Bowser's Reprieve",
+        "month": 6,
+        "day": 36,
+        "icon": "🐢",
+        "color": "#ff8a4d",
+        "description": "One day truce — Koopa Troop shares cake",
+        "type": "civic",
+        "id": "bowsers_reprieve",
+        "longDescription": "Bowser's Reprieve is not just a square on the Mushroom Folk calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: One day truce — Koopa Troop shares cake. That is accurate, but criminally insufficient. The day falls in cake tables across old enemy lines, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is truce cake day. In practice, Koopa and Mushroom tables share dessert under many watchful guards. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Administrative observance where law, public order, bureaucracy, and ceremony shake hands awkwardly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Bowser's Reprieve to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Bowser's Reprieve should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Bowser's Reprieve as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with truce cake day.",
+          "Public custom: Koopa and Mushroom tables share dessert under many watchful guards.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Bowser's Reprieve appears in a crime scene ledger.",
+          "A faction tries to exploit Bowser's Reprieve crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Bowser's Reprieve contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Bowser's Reprieve."
+        ],
+        "publicMood": "Orderly on paper, tense behind the podium.",
+        "waluigiNote": "Waluigi note: if Bowser's Reprieve does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Leaf Crumble",
+        "month": 7,
+        "day": 10,
+        "icon": "🍂",
+        "color": "#e68a4d",
+        "description": "Fall of giant leaves, building repairs",
+        "type": "seasonal",
+        "id": "leaf_crumble",
+        "longDescription": "Leaf Crumble is not just a square on the Mushroom Folk calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Fall of giant leaves, building repairs. That is accurate, but criminally insufficient. The day falls in falling leaves larger than houses, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is giant leaf fall. In practice, builders inspect roofs and children build forts from foliage larger than carts. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Seasonal marker used by farmers, travelers, spirits, and anyone who distrusts official weather reports. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Leaf Crumble to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Leaf Crumble should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Leaf Crumble as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with giant leaf fall.",
+          "Public custom: builders inspect roofs and children build forts from foliage larger than carts.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Leaf Crumble appears in a crime scene ledger.",
+          "A faction tries to exploit Leaf Crumble crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Leaf Crumble contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Leaf Crumble."
+        ],
+        "publicMood": "Practical, superstitious, and weather-aware.",
+        "waluigiNote": "Waluigi note: if Leaf Crumble does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Frostshroom Glow",
+        "month": 8,
+        "day": 1,
+        "icon": "❄️",
+        "color": "#a0c8e6",
+        "description": "First frost shrooms glow",
+        "type": "seasonal",
+        "id": "frostshroom_glow",
+        "longDescription": "Frostshroom Glow is not just a square on the Mushroom Folk calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: First frost shrooms glow. That is accurate, but criminally insufficient. The day falls in blue-glowing frostshrooms, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is blue mushroom lamps. In practice, families walk glowing lanes and mushroom-gatherers become insufferable experts. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Seasonal marker used by farmers, travelers, spirits, and anyone who distrusts official weather reports. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Frostshroom Glow to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Frostshroom Glow should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Frostshroom Glow as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with blue mushroom lamps.",
+          "Public custom: families walk glowing lanes and mushroom-gatherers become insufferable experts.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Frostshroom Glow appears in a crime scene ledger.",
+          "A faction tries to exploit Frostshroom Glow crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Frostshroom Glow contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Frostshroom Glow."
+        ],
+        "publicMood": "Practical, superstitious, and weather-aware.",
+        "waluigiNote": "Waluigi note: if Frostshroom Glow does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      }
     ],
     "kivotos": [
-      {"name":"Entrance Ceremony","month":1,"day":1,"icon":"🎓","color":"#7aa8ff","description":"Kivotos Academy terms begin","type":"civic"},
-      {"name":"Midterm Exams","month":2,"day":25,"icon":"📚","color":"#ffaa44","description":"Exams, chaos, club raids","type":"civic"},
-      {"name":"Festival Week","month":4,"day":10,"icon":"🎉","color":"#ff6b9a","description":"School festival, cross-academy invites","type":"festival"},
-      {"name":"Summer Break","month":6,"day":1,"icon":"🏖️","color":"#ffd166","description":"Beach episode canon","type":"rest"}
+      {
+        "name": "Entrance Ceremony",
+        "month": 1,
+        "day": 1,
+        "icon": "🎓",
+        "color": "#7aa8ff",
+        "description": "Kivotos Academy terms begin",
+        "type": "civic",
+        "id": "entrance_ceremony",
+        "longDescription": "Entrance Ceremony is not just a square on the Kivotos Academy calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Kivotos Academy terms begin. That is accurate, but criminally insufficient. The day falls in fresh uniforms, academy banners, and paperwork nobody reads, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is academy oath gates. In practice, new students receive schedules, warnings, and immediate club recruitment ambushes. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Administrative observance where law, public order, bureaucracy, and ceremony shake hands awkwardly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Entrance Ceremony to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Entrance Ceremony should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Entrance Ceremony as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with academy oath gates.",
+          "Public custom: new students receive schedules, warnings, and immediate club recruitment ambushes.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Entrance Ceremony appears in a crime scene ledger.",
+          "A faction tries to exploit Entrance Ceremony crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Entrance Ceremony contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Entrance Ceremony."
+        ],
+        "publicMood": "Orderly on paper, tense behind the podium.",
+        "waluigiNote": "Waluigi note: if Entrance Ceremony does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Midterm Exams",
+        "month": 2,
+        "day": 25,
+        "icon": "📚",
+        "color": "#ffaa44",
+        "description": "Exams, chaos, club raids",
+        "type": "civic",
+        "id": "midterm_exams",
+        "longDescription": "Midterm Exams is not just a square on the Kivotos Academy calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Exams, chaos, club raids. That is accurate, but criminally insufficient. The day falls in exam panic, club raids, and tactical caffeine, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is exam siege. In practice, libraries become battlefields of notes, snacks, and suspiciously tactical study groups. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Administrative observance where law, public order, bureaucracy, and ceremony shake hands awkwardly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Midterm Exams to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Midterm Exams should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Midterm Exams as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with exam siege.",
+          "Public custom: libraries become battlefields of notes, snacks, and suspiciously tactical study groups.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Midterm Exams appears in a crime scene ledger.",
+          "A faction tries to exploit Midterm Exams crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Midterm Exams contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Midterm Exams."
+        ],
+        "publicMood": "Orderly on paper, tense behind the podium.",
+        "waluigiNote": "Waluigi note: if Midterm Exams does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Festival Week",
+        "month": 4,
+        "day": 10,
+        "icon": "🎉",
+        "color": "#ff6b9a",
+        "description": "School festival, cross-academy invites",
+        "type": "festival",
+        "id": "festival_week",
+        "longDescription": "Festival Week is not just a square on the Kivotos Academy calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: School festival, cross-academy invites. That is accurate, but criminally insufficient. The day falls in festival booths and cross-academy rivalry, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is cross-academy fair. In practice, clubs build booths that are definitely not weapons platforms until inspected. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Festival Week to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Festival Week should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Festival Week as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with cross-academy fair.",
+          "Public custom: clubs build booths that are definitely not weapons platforms until inspected.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Festival Week appears in a crime scene ledger.",
+          "A faction tries to exploit Festival Week crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Festival Week contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Festival Week."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Festival Week does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Summer Break",
+        "month": 6,
+        "day": 1,
+        "icon": "🏖️",
+        "color": "#ffd166",
+        "description": "Beach episode canon",
+        "type": "rest",
+        "id": "summer_break",
+        "longDescription": "Summer Break is not just a square on the Kivotos Academy calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Beach episode canon. That is accurate, but criminally insufficient. The day falls in beach permits, repair kits, and suspiciously armed vacations, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is beach episode logistics. In practice, students call it rest while packing enough firepower to invade a pier. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Sanctioned pause. Waluigi notes that civilizations invent rest days because collapse is expensive. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Summer Break to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Summer Break should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Summer Break as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with beach episode logistics.",
+          "Public custom: students call it rest while packing enough firepower to invade a pier.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Summer Break appears in a crime scene ledger.",
+          "A faction tries to exploit Summer Break crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Summer Break contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Summer Break."
+        ],
+        "publicMood": "Sleepy, slow, and unusually honest.",
+        "waluigiNote": "Waluigi note: if Summer Break does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      }
     ],
     "equestrian": [
-      {"name":"Sun Celebration","month":1,"day":1,"icon":"☀️","color":"#ffd700","description":"Celestia raises sun with ceremony","type":"festival"},
-      {"name":"Night Court","month":3,"day":15,"icon":"🌙","color":"#191970","description":"Luna judges dreams","type":"civic"},
-      {"name":"Running of Leaves","month":11,"day":5,"icon":"🍂","color":"#daa520","description":"Ponyville leaf running","type":"seasonal"},
-      {"name":"Hearth's Warming Eve","month":13,"day":30,"icon":"❄️","color":"#87ceeb","description":"Founding of Equestria remembered","type":"festival"},
-      {"name":"Harmony Day","month":13,"day":31,"icon":"💖","color":"#ff69b4","description":"Leap harmony day every 4 years","type":"leap"}
+      {
+        "name": "Sun Celebration",
+        "month": 1,
+        "day": 1,
+        "icon": "☀️",
+        "color": "#ffd700",
+        "description": "Celestia raises sun with ceremony",
+        "type": "festival",
+        "id": "sun_celebration",
+        "longDescription": "Sun Celebration is not just a square on the Equestrian calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Celestia raises sun with ceremony. That is accurate, but criminally insufficient. The day falls in sun banners and royal balcony crowds, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is sunrise court. In practice, royal light, golden music, and very polished civic optimism. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Sun Celebration to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Sun Celebration should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Sun Celebration as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with sunrise court.",
+          "Public custom: royal light, golden music, and very polished civic optimism.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Sun Celebration appears in a crime scene ledger.",
+          "A faction tries to exploit Sun Celebration crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Sun Celebration contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Sun Celebration."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Sun Celebration does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Night Court",
+        "month": 3,
+        "day": 15,
+        "icon": "🌙",
+        "color": "#191970",
+        "description": "Luna judges dreams",
+        "type": "civic",
+        "id": "night_court",
+        "longDescription": "Night Court is not just a square on the Equestrian calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Luna judges dreams. That is accurate, but criminally insufficient. The day falls in moonlit petitions and dream testimony, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is dream petitions. In practice, night judges collect stories people were not brave enough to tell awake. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Administrative observance where law, public order, bureaucracy, and ceremony shake hands awkwardly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Night Court to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Night Court should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Night Court as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with dream petitions.",
+          "Public custom: night judges collect stories people were not brave enough to tell awake.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Night Court appears in a crime scene ledger.",
+          "A faction tries to exploit Night Court crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Night Court contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Night Court."
+        ],
+        "publicMood": "Orderly on paper, tense behind the podium.",
+        "waluigiNote": "Waluigi note: if Night Court does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Running of Leaves",
+        "month": 11,
+        "day": 5,
+        "icon": "🍂",
+        "color": "#daa520",
+        "description": "Ponyville leaf running",
+        "type": "seasonal",
+        "id": "running_of_leaves",
+        "longDescription": "Running of Leaves is not just a square on the Equestrian calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Ponyville leaf running. That is accurate, but criminally insufficient. The day falls in leaf-strewn roads and racing hooves, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is leaf-race rite. In practice, hooves, laughter, and agricultural maintenance become the same event. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Seasonal marker used by farmers, travelers, spirits, and anyone who distrusts official weather reports. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Running of Leaves to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Running of Leaves should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Running of Leaves as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with leaf-race rite.",
+          "Public custom: hooves, laughter, and agricultural maintenance become the same event.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Running of Leaves appears in a crime scene ledger.",
+          "A faction tries to exploit Running of Leaves crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Running of Leaves contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Running of Leaves."
+        ],
+        "publicMood": "Practical, superstitious, and weather-aware.",
+        "waluigiNote": "Waluigi note: if Running of Leaves does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Hearth's Warming Eve",
+        "month": 13,
+        "day": 30,
+        "icon": "❄️",
+        "color": "#87ceeb",
+        "description": "Founding of Equestria remembered",
+        "type": "festival",
+        "id": "hearths_warming_eve",
+        "longDescription": "Hearth's Warming Eve is not just a square on the Equestrian calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Founding of Equestria remembered. That is accurate, but criminally insufficient. The day falls in winter songs and founding pageants, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is founding pageant. In practice, old divisions are reenacted until everyone remembers unity was cheaper than freezing. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Hearth's Warming Eve to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Hearth's Warming Eve should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Hearth's Warming Eve as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with founding pageant.",
+          "Public custom: old divisions are reenacted until everyone remembers unity was cheaper than freezing.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Hearth's Warming Eve appears in a crime scene ledger.",
+          "A faction tries to exploit Hearth's Warming Eve crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Hearth's Warming Eve contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Hearth's Warming Eve."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Hearth's Warming Eve does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Harmony Day",
+        "month": 13,
+        "day": 31,
+        "icon": "💖",
+        "color": "#ff69b4",
+        "description": "Leap harmony day every 4 years",
+        "type": "leap",
+        "id": "harmony_day",
+        "longDescription": "Harmony Day is not just a square on the Equestrian calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Leap harmony day every 4 years. That is accurate, but criminally insufficient. The day falls in winter songs and founding pageants, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is leap-day kindness. In practice, calendar correction becomes a public excuse to repair social damage. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Calendar correction disguised as spiritual necessity, because nobody respects arithmetic unless it wears flowers. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Harmony Day to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Harmony Day should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Harmony Day as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with leap-day kindness.",
+          "Public custom: calendar correction becomes a public excuse to repair social damage.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Harmony Day appears in a crime scene ledger.",
+          "A faction tries to exploit Harmony Day crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Harmony Day contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Harmony Day."
+        ],
+        "publicMood": "Kindly, ceremonial, and mathematically suspicious.",
+        "waluigiNote": "Waluigi note: if Harmony Day does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      }
     ],
     "old_world": [
-      {"name":"Hexenstag","month":12,"day":32,"icon":"🕯️","color":"#000000","description":"Witching day outside year — chaos risk","type":"weird","isWeird":true},
-      {"name":"Mitterfruhl Feast","month":3,"day":33,"icon":"🌱","color":"#88ff88","description":"Spring equinox void feast","type":"seasonal"},
-      {"name":"Sonnenstill Fire","month":6,"day":33,"icon":"☀️","color":"#ffff00","description":"Summer solstice bonfire — witch hunters busy","type":"festival"},
-      {"name":"Brauzeit Oktober","month":9,"day":15,"icon":"🍺","color":"#aa7755","description":"Beer festival, dwarf holds open gates","type":"festival"},
-      {"name":"Geheimnistag Veil","month":9,"day":33,"icon":"🔮","color":"#aa88ff","description":"Mystery day — prophecies discounted","type":"astral"}
+      {
+        "name": "Hexenstag",
+        "month": 12,
+        "day": 32,
+        "icon": "🕯️",
+        "color": "#000000",
+        "description": "Witching day outside year — chaos risk",
+        "type": "weird",
+        "isWeird": true,
+        "id": "hexenstag",
+        "longDescription": "Hexenstag is not just a square on the Old World calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Witching day outside year — chaos risk. That is accurate, but criminally insufficient. The day falls in thin candles and chaos omens, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is witching-day lockdown. In practice, candles burn low, doors stay barred, and every shadow gets audited. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Unstable calendar anomaly. Treat as holiday, hazard, and clerical headache at once. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Hexenstag to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Hexenstag should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Hexenstag as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with witching-day lockdown.",
+          "Public custom: candles burn low, doors stay barred, and every shadow gets audited.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Hexenstag appears in a crime scene ledger.",
+          "A faction tries to exploit Hexenstag crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Hexenstag contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Hexenstag."
+        ],
+        "publicMood": "Unstable, superstitious, and best approached with rope.",
+        "waluigiNote": "Waluigi note: if Hexenstag does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Mitterfruhl Feast",
+        "month": 3,
+        "day": 33,
+        "icon": "🌱",
+        "color": "#88ff88",
+        "description": "Spring equinox void feast",
+        "type": "seasonal",
+        "id": "mitterfruhl_feast",
+        "longDescription": "Mitterfruhl Feast is not just a square on the Old World calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Spring equinox void feast. That is accurate, but criminally insufficient. The day falls in spring mud, suspect feasts, and nervous priests, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is void-spring meal. In practice, spring is welcomed with food nobody admits might be cursed. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Seasonal marker used by farmers, travelers, spirits, and anyone who distrusts official weather reports. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Mitterfruhl Feast to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Mitterfruhl Feast should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Mitterfruhl Feast as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with void-spring meal.",
+          "Public custom: spring is welcomed with food nobody admits might be cursed.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Mitterfruhl Feast appears in a crime scene ledger.",
+          "A faction tries to exploit Mitterfruhl Feast crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Mitterfruhl Feast contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Mitterfruhl Feast."
+        ],
+        "publicMood": "Practical, superstitious, and weather-aware.",
+        "waluigiNote": "Waluigi note: if Mitterfruhl Feast does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Sonnenstill Fire",
+        "month": 6,
+        "day": 33,
+        "icon": "☀️",
+        "color": "#ffff00",
+        "description": "Summer solstice bonfire — witch hunters busy",
+        "type": "festival",
+        "id": "sonnenstill_fire",
+        "longDescription": "Sonnenstill Fire is not just a square on the Old World calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Summer solstice bonfire — witch hunters busy. That is accurate, but criminally insufficient. The day falls in solstice smoke and witch-hunter patrols, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is solstice bonfire. In practice, witch hunters, villagers, and drunk nobles all stare into the same flames for different reasons. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Sonnenstill Fire to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Sonnenstill Fire should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Sonnenstill Fire as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with solstice bonfire.",
+          "Public custom: witch hunters, villagers, and drunk nobles all stare into the same flames for different reasons.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Sonnenstill Fire appears in a crime scene ledger.",
+          "A faction tries to exploit Sonnenstill Fire crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Sonnenstill Fire contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Sonnenstill Fire."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Sonnenstill Fire does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Brauzeit Oktober",
+        "month": 9,
+        "day": 15,
+        "icon": "🍺",
+        "color": "#aa7755",
+        "description": "Beer festival, dwarf holds open gates",
+        "type": "festival",
+        "id": "brauzeit_oktober",
+        "longDescription": "Brauzeit Oktober is not just a square on the Old World calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Beer festival, dwarf holds open gates. That is accurate, but criminally insufficient. The day falls in ale halls, prophecy booths, and bad decisions, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is great beer opening. In practice, dwarf gates, human taverns, and bad songs align. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Brauzeit Oktober to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Brauzeit Oktober should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Brauzeit Oktober as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with great beer opening.",
+          "Public custom: dwarf gates, human taverns, and bad songs align.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Brauzeit Oktober appears in a crime scene ledger.",
+          "A faction tries to exploit Brauzeit Oktober crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Brauzeit Oktober contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Brauzeit Oktober."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Brauzeit Oktober does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Geheimnistag Veil",
+        "month": 9,
+        "day": 33,
+        "icon": "🔮",
+        "color": "#aa88ff",
+        "description": "Mystery day — prophecies discounted",
+        "type": "astral",
+        "id": "geheimnistag_veil",
+        "longDescription": "Geheimnistag Veil is not just a square on the Old World calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Mystery day — prophecies discounted. That is accurate, but criminally insufficient. The day falls in ale halls, prophecy booths, and bad decisions, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is prophecy market. In practice, fortune-tellers discount riddles, which is how you know they are dangerous. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Sky-linked observance watched by astronomers, mystics, sailors, prophets, and litigants who blame stars. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Geheimnistag Veil to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Geheimnistag Veil should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Geheimnistag Veil as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with prophecy market.",
+          "Public custom: fortune-tellers discount riddles, which is how you know they are dangerous.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Geheimnistag Veil appears in a crime scene ledger.",
+          "A faction tries to exploit Geheimnistag Veil crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Geheimnistag Veil contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Geheimnistag Veil."
+        ],
+        "publicMood": "Hopeful, nervous, and full of bad predictions.",
+        "waluigiNote": "Waluigi note: if Geheimnistag Veil does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      }
     ],
     "void_drifters": [
-      {"name":"Ignition Day","month":1,"day":1,"icon":"🚀","color":"#ff4444","description":"Year burn starts, engines lit","type":"civic"},
-      {"name":"Signal Lost","month":3,"day":15,"icon":"📡","color":"#44ff44","description":"Annual comms blackout — listen instead","type":"weird"},
-      {"name":"Starfall Drift","month":5,"day":30,"icon":"⭐","color":"#ffff44","description":"Stars fall sideways in void","type":"astral"},
-      {"name":"Void Drift Start","month":13,"day":30,"icon":"♾️","color":"#000000","description":"10-day void outside time begins","type":"weird","isWeird":true}
+      {
+        "name": "Ignition Day",
+        "month": 1,
+        "day": 1,
+        "icon": "🚀",
+        "color": "#ff4444",
+        "description": "Year burn starts, engines lit",
+        "type": "civic",
+        "id": "ignition_day",
+        "longDescription": "Ignition Day is not just a square on the Void Drifters calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Year burn starts, engines lit. That is accurate, but criminally insufficient. The day falls in engine bells and ignition smoke, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is engine-year beginning. In practice, crews light drives, name routes, and pretend the hull is not listening. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Administrative observance where law, public order, bureaucracy, and ceremony shake hands awkwardly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Ignition Day to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Ignition Day should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Ignition Day as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with engine-year beginning.",
+          "Public custom: crews light drives, name routes, and pretend the hull is not listening.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Ignition Day appears in a crime scene ledger.",
+          "A faction tries to exploit Ignition Day crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Ignition Day contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Ignition Day."
+        ],
+        "publicMood": "Orderly on paper, tense behind the podium.",
+        "waluigiNote": "Waluigi note: if Ignition Day does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Signal Lost",
+        "month": 3,
+        "day": 15,
+        "icon": "📡",
+        "color": "#44ff44",
+        "description": "Annual comms blackout — listen instead",
+        "type": "weird",
+        "id": "signal_lost",
+        "longDescription": "Signal Lost is not just a square on the Void Drifters calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Annual comms blackout — listen instead. That is accurate, but criminally insufficient. The day falls in dead channels and listening watches, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is blackout listening. In practice, all transmitters go quiet so the fleet can hear what silence says back. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Unstable calendar anomaly. Treat as holiday, hazard, and clerical headache at once. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Signal Lost to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Signal Lost should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Signal Lost as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with blackout listening.",
+          "Public custom: all transmitters go quiet so the fleet can hear what silence says back.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Signal Lost appears in a crime scene ledger.",
+          "A faction tries to exploit Signal Lost crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Signal Lost contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Signal Lost."
+        ],
+        "publicMood": "Unstable, superstitious, and best approached with rope.",
+        "waluigiNote": "Waluigi note: if Signal Lost does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Starfall Drift",
+        "month": 5,
+        "day": 30,
+        "icon": "⭐",
+        "color": "#ffff44",
+        "description": "Stars fall sideways in void",
+        "type": "astral",
+        "id": "starfall_drift",
+        "longDescription": "Starfall Drift is not just a square on the Void Drifters calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Stars fall sideways in void. That is accurate, but criminally insufficient. The day falls in sideways starlight and drifting hulls, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is sideways meteor watch. In practice, navigators gamble on trajectories and poets become briefly tolerable. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Sky-linked observance watched by astronomers, mystics, sailors, prophets, and litigants who blame stars. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Starfall Drift to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Starfall Drift should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Starfall Drift as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with sideways meteor watch.",
+          "Public custom: navigators gamble on trajectories and poets become briefly tolerable.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Starfall Drift appears in a crime scene ledger.",
+          "A faction tries to exploit Starfall Drift crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Starfall Drift contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Starfall Drift."
+        ],
+        "publicMood": "Hopeful, nervous, and full of bad predictions.",
+        "waluigiNote": "Waluigi note: if Starfall Drift does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Void Drift Start",
+        "month": 13,
+        "day": 30,
+        "icon": "♾️",
+        "color": "#000000",
+        "description": "10-day void outside time begins",
+        "type": "weird",
+        "isWeird": true,
+        "id": "void_drift_start",
+        "longDescription": "Void Drift Start is not just a square on the Void Drifters calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: 10-day void outside time begins. That is accurate, but criminally insufficient. The day falls in black calendars and time-outside-time, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is ten-day outside-time passage. In practice, clocks are covered, contracts are suspended, and nobody agrees how old they are afterward. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Unstable calendar anomaly. Treat as holiday, hazard, and clerical headache at once. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Void Drift Start to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Void Drift Start should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Void Drift Start as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with ten-day outside-time passage.",
+          "Public custom: clocks are covered, contracts are suspended, and nobody agrees how old they are afterward.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Void Drift Start appears in a crime scene ledger.",
+          "A faction tries to exploit Void Drift Start crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Void Drift Start contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Void Drift Start."
+        ],
+        "publicMood": "Unstable, superstitious, and best approached with rope.",
+        "waluigiNote": "Waluigi note: if Void Drift Start does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      }
     ],
     "snowdin": [
-      {"name":"First Chill","month":1,"day":1,"icon":"❄️","color":"#a0d0ff","description":"Underground chill sets — puzzles freeze","type":"seasonal"},
-      {"name":"Glow Days Start","month":2,"day":40,"icon":"✨","color":"#ffff88","description":"Crystals brighten — 5-day glow outside months","type":"weird","isWeird":true},
-      {"name":"Spaghetti Friday","month":3,"day":20,"icon":"🍝","color":"#ffcc88","description":"Papyrus cooks, all invited","type":"festival"},
-      {"name":"Thaw Leak","month":3,"day":40,"icon":"💧","color":"#a0ffa0","description":"First drips from above","type":"seasonal"},
-      {"name":"CORE Overheat","month":6,"day":25,"icon":"🔥","color":"#ff4444","description":"CORE vents heat — Hotland fans on","type":"civic"},
-      {"name":"MTT Show","month":6,"day":40,"icon":"📺","color":"#ff44ff","description":"Mettaton showtime — ratings spike","type":"festival"},
-      {"name":"Deep Freeze Start","month":8,"day":40,"icon":"🧊","color":"#88ccff","description":"35-day freeze outside months — town hunkers","type":"weird","isWeird":true},
-      {"name":"Nap Day","month":2,"day":15,"icon":"💤","color":"#a0d0ff","description":"Everyone naps, puzzles wait","type":"rest"}
+      {
+        "name": "First Chill",
+        "month": 1,
+        "day": 1,
+        "icon": "❄️",
+        "color": "#a0d0ff",
+        "description": "Underground chill sets — puzzles freeze",
+        "type": "seasonal",
+        "id": "first_chill",
+        "longDescription": "First Chill is not just a square on the Snowdin Underground calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Underground chill sets — puzzles freeze. That is accurate, but criminally insufficient. The day falls in blue snow, frozen puzzles, and quiet sentry posts, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is first freeze notice. In practice, puzzles ice over, scarves emerge, and Sans probably makes a bad joke. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Seasonal marker used by farmers, travelers, spirits, and anyone who distrusts official weather reports. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use First Chill to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, First Chill should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file First Chill as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with first freeze notice.",
+          "Public custom: puzzles ice over, scarves emerge, and Sans probably makes a bad joke.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from First Chill appears in a crime scene ledger.",
+          "A faction tries to exploit First Chill crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of First Chill contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during First Chill."
+        ],
+        "publicMood": "Practical, superstitious, and weather-aware.",
+        "waluigiNote": "Waluigi note: if First Chill does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Glow Days Start",
+        "month": 2,
+        "day": 40,
+        "icon": "✨",
+        "color": "#ffff88",
+        "description": "Crystals brighten — 5-day glow outside months",
+        "type": "weird",
+        "isWeird": true,
+        "id": "glow_days_start",
+        "longDescription": "Glow Days Start is not just a square on the Snowdin Underground calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Crystals brighten — 5-day glow outside months. That is accurate, but criminally insufficient. The day falls in crystal glow and heroic naps, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is crystal brightening. In practice, the Underground glows like it remembered how to be a sky. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Unstable calendar anomaly. Treat as holiday, hazard, and clerical headache at once. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Glow Days Start to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Glow Days Start should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Glow Days Start as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with crystal brightening.",
+          "Public custom: the Underground glows like it remembered how to be a sky.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Glow Days Start appears in a crime scene ledger.",
+          "A faction tries to exploit Glow Days Start crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Glow Days Start contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Glow Days Start."
+        ],
+        "publicMood": "Unstable, superstitious, and best approached with rope.",
+        "waluigiNote": "Waluigi note: if Glow Days Start does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Spaghetti Friday",
+        "month": 3,
+        "day": 20,
+        "icon": "🍝",
+        "color": "#ffcc88",
+        "description": "Papyrus cooks, all invited",
+        "type": "festival",
+        "id": "spaghetti_friday",
+        "longDescription": "Spaghetti Friday is not just a square on the Snowdin Underground calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Papyrus cooks, all invited. That is accurate, but criminally insufficient. The day falls in pasta steam and ceiling drips, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is Papyrus pasta table. In practice, everyone is invited, everyone is observed, and the noodles have ambition. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Spaghetti Friday to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Spaghetti Friday should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Spaghetti Friday as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with Papyrus pasta table.",
+          "Public custom: everyone is invited, everyone is observed, and the noodles have ambition.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Spaghetti Friday appears in a crime scene ledger.",
+          "A faction tries to exploit Spaghetti Friday crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Spaghetti Friday contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Spaghetti Friday."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if Spaghetti Friday does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Thaw Leak",
+        "month": 3,
+        "day": 40,
+        "icon": "💧",
+        "color": "#a0ffa0",
+        "description": "First drips from above",
+        "type": "seasonal",
+        "id": "thaw_leak",
+        "longDescription": "Thaw Leak is not just a square on the Snowdin Underground calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: First drips from above. That is accurate, but criminally insufficient. The day falls in pasta steam and ceiling drips, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is first ceiling drip. In practice, water from above becomes prophecy, maintenance issue, and town gossip. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Seasonal marker used by farmers, travelers, spirits, and anyone who distrusts official weather reports. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Thaw Leak to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Thaw Leak should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Thaw Leak as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with first ceiling drip.",
+          "Public custom: water from above becomes prophecy, maintenance issue, and town gossip.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Thaw Leak appears in a crime scene ledger.",
+          "A faction tries to exploit Thaw Leak crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Thaw Leak contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Thaw Leak."
+        ],
+        "publicMood": "Practical, superstitious, and weather-aware.",
+        "waluigiNote": "Waluigi note: if Thaw Leak does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "CORE Overheat",
+        "month": 6,
+        "day": 25,
+        "icon": "🔥",
+        "color": "#ff4444",
+        "description": "CORE vents heat — Hotland fans on",
+        "type": "civic",
+        "id": "core_overheat",
+        "longDescription": "CORE Overheat is not just a square on the Snowdin Underground calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: CORE vents heat — Hotland fans on. That is accurate, but criminally insufficient. The day falls in CORE heat and television glare, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is venting day. In practice, Hotland heat rolls outward and Snowdin remembers machinery has moods. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Administrative observance where law, public order, bureaucracy, and ceremony shake hands awkwardly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use CORE Overheat to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, CORE Overheat should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file CORE Overheat as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with venting day.",
+          "Public custom: Hotland heat rolls outward and Snowdin remembers machinery has moods.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from CORE Overheat appears in a crime scene ledger.",
+          "A faction tries to exploit CORE Overheat crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of CORE Overheat contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during CORE Overheat."
+        ],
+        "publicMood": "Orderly on paper, tense behind the podium.",
+        "waluigiNote": "Waluigi note: if CORE Overheat does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "MTT Show",
+        "month": 6,
+        "day": 40,
+        "icon": "📺",
+        "color": "#ff44ff",
+        "description": "Mettaton showtime — ratings spike",
+        "type": "festival",
+        "id": "mtt_show",
+        "longDescription": "MTT Show is not just a square on the Snowdin Underground calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Mettaton showtime — ratings spike. That is accurate, but criminally insufficient. The day falls in CORE heat and television glare, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is ratings festival. In practice, Mettaton makes the calendar louder by existing near it. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Public celebration with food, music, banners, and civic permission to behave slightly foolishly. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use MTT Show to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, MTT Show should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file MTT Show as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with ratings festival.",
+          "Public custom: Mettaton makes the calendar louder by existing near it.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from MTT Show appears in a crime scene ledger.",
+          "A faction tries to exploit MTT Show crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of MTT Show contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during MTT Show."
+        ],
+        "publicMood": "Crowded, loud, permissive, and easy to hide inside.",
+        "waluigiNote": "Waluigi note: if MTT Show does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Deep Freeze Start",
+        "month": 8,
+        "day": 40,
+        "icon": "🧊",
+        "color": "#88ccff",
+        "description": "35-day freeze outside months — town hunkers",
+        "type": "weird",
+        "isWeird": true,
+        "id": "deep_freeze_start",
+        "longDescription": "Deep Freeze Start is not just a square on the Snowdin Underground calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: 35-day freeze outside months — town hunkers. That is accurate, but criminally insufficient. The day falls in hard freeze shelters and long stories, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is hunker-down season. In practice, doors seal, puzzles sleep, and town stories grow long enough to need chapters. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Unstable calendar anomaly. Treat as holiday, hazard, and clerical headache at once. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Deep Freeze Start to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Deep Freeze Start should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Deep Freeze Start as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with hunker-down season.",
+          "Public custom: doors seal, puzzles sleep, and town stories grow long enough to need chapters.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Deep Freeze Start appears in a crime scene ledger.",
+          "A faction tries to exploit Deep Freeze Start crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Deep Freeze Start contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Deep Freeze Start."
+        ],
+        "publicMood": "Unstable, superstitious, and best approached with rope.",
+        "waluigiNote": "Waluigi note: if Deep Freeze Start does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      },
+      {
+        "name": "Nap Day",
+        "month": 2,
+        "day": 15,
+        "icon": "💤",
+        "color": "#a0d0ff",
+        "description": "Everyone naps, puzzles wait",
+        "type": "rest",
+        "id": "nap_day",
+        "longDescription": "Nap Day is not just a square on the Snowdin Underground calendar. It is a social pressure valve, a memory device, and a public excuse for everyone to agree that this particular day means something. The short archive line says: Everyone naps, puzzles wait. That is accurate, but criminally insufficient. The day falls in crystal glow and heroic naps, which means the weather, trade routes, food supply, and public mood all shape how the observance is experienced.\n\nThe central custom is official sleeping window. In practice, puzzles wait, sentries yawn, and productivity is declared optional. The ceremony looks simple from the outside, but it tells locals who belongs, who is tolerated, and who is trying too hard to look innocent. Sanctioned pause. Waluigi notes that civilizations invent rest days because collapse is expensive. The public version is usually cheerful or solemn. The private version is where the useful history hides.\n\nOrdinary people use Nap Day to settle small debts, renew family habits, visit shrines, argue with relatives, court disaster, or sell seasonal food at insulting prices. Officials use it to make announcements because nobody can claim they were not present. Guilds use it to recruit. Priests use it to remind everyone that the calendar has moral opinions. Merchants use it to turn tradition into margins. Wario would approve. Waluigi does not approve, but Waluigi respects the efficiency.\n\nFor campaign play, Nap Day should create scenes rather than merely flavor. Streets change. Guards change shifts. Inns fill. Markets appear or close. Sacred spaces become crowded. Someone important is easier to approach because protocol demands public attendance, and someone dangerous is harder to accuse because the whole town is watching. If the day is ignored, the setting becomes flatter. If it is used, the holiday becomes a lever for mysteries, deals, riots, prophecies, smuggling, confessions, or extremely awkward family dinners.\n\nWaluigi's ruling: file Nap Day as an active observance. It can affect travel, prices, rumor flow, faction behavior, and what locals consider rude. A party arriving on this date should immediately feel that the calendar has hands and is pushing the scene. WAH.",
+        "observancePractices": [
+          "Open with official sleeping window.",
+          "Public custom: puzzles wait, sentries yawn, and productivity is declared optional.",
+          "Families, guilds, or crews mark attendance with small tokens, ribbons, chalk signs, or shared food.",
+          "Officials use the day to announce routes, warnings, ledgers, or seasonal restrictions.",
+          "Waluigi recommends watching who refuses to participate, because refusal is often more informative than celebration."
+        ],
+        "adventureHooks": [
+          "A forged observance token from Nap Day appears in a crime scene ledger.",
+          "A faction tries to exploit Nap Day crowds to move an agent, prisoner, relic, or debt note.",
+          "The old meaning of Nap Day contradicts the current public ceremony, revealing a suppressed chronicle.",
+          "A vendor, spirit, or official honors only payments or promises made during Nap Day."
+        ],
+        "publicMood": "Sleepy, slow, and unusually honest.",
+        "waluigiNote": "Waluigi note: if Nap Day does not change how NPCs act, prices move, or rumors spread, then the calendar entry is wasting perfectly good ink."
+      }
     ]
   }
 }

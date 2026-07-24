@@ -3971,7 +3971,7 @@ function buildIndexes(){
   Object.entries(LORE_FACTIONS||{}).forEach(([id,f])=>SEARCH_DOCS.push({kind:'faction',id,typeKey:'factions',name:f.name||prettyId(id),summary:f.description||'',hay:[id,f.name,f.description,f.region,f.leader,(f.relations?.allies||[]).join(' '),(f.relations?.enemies||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
   Object.entries(DYNASTY_SYSTEM.houses||{}).forEach(([id,h])=>SEARCH_DOCS.push({kind:'dynasty',id,typeKey:'dynasties',name:h.name||prettyId(id),summary:h.motto||h.status||'',hay:[id,h.name,h.motto,h.founder,h.seat,h.status,(h.members||[]).map(x=>x.name).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
   Object.entries(window.WIKI_VENDORS||{}).forEach(([id,v])=>SEARCH_DOCS.push({kind:'vendor',id,typeKey:'vendors',name:v.name||prettyId(id),summary:v.description||'',hay:[id,v.name,v.location,v.description,(v.acceptedCurrencies||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
-  Object.entries(DATA.calendarHolidays?.holidays||{}).forEach(([calendarId,items])=>(items||[]).forEach(h=>{const id=String(h.id||h.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'holiday',id,typeKey:'holidays',name:h.name||id,summary:h.description||'',hay:[id,h.name,h.description,h.type,calendarId].filter(Boolean).join(' ').toLowerCase()});}));
+  Object.entries(DATA.calendarHolidays?.holidays||{}).forEach(([calendarId,items])=>(items||[]).forEach(h=>{const id=String(h.id||h.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'holiday',id,typeKey:'holidays',name:h.name||id,summary:h.description||h.longDescription||'',hay:[id,h.name,h.description,h.longDescription,(h.observancePractices||[]).join(' '),(h.adventureHooks||[]).join(' '),h.type,calendarId].filter(Boolean).join(' ').toLowerCase()});}));
   const _currList = ((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]);
   (Array.isArray(_currList)?_currList:[]).forEach(c=>{ if(!c) return; const id=String(c.id||c.key||c.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'currency',id,typeKey:'currencies',name:c.name||prettyId(id),summary:c.short||c.description||'',hay:[id,c.name,c.short,c.description,c.expandedDescription,c.type,c.category,c.issuer,c.home_faction].filter(Boolean).join(' ').toLowerCase()}); });
   // Books search entries
@@ -9278,6 +9278,9 @@ function view_holiday(id){
     </a>`).join('');
 
   const relEventHtml=relatedEvents.length?relatedEvents.map(ev=>`<a class="chip" onclick="openId('${esc(ev.id)}')">📜 ${esc(ev.title||prettyId(ev.id))}</a>`).join(''):'<span class="text-muted" style="font-size:12px">No events currently reference this holiday.</span>';
+  const practicesHtml=Array.isArray(h.observancePractices)&&h.observancePractices.length?`<div class="holiday-lore-grid"><div><h3>🎭 Common Practices</h3><ul>${h.observancePractices.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h3>🧭 Adventure Hooks</h3><ul>${(h.adventureHooks||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div>`:'';
+  const moodHtml=h.publicMood?`<div class="wnote"><b>Public Mood:</b> ${esc(h.publicMood)}</div>`:'';
+  const wNote=h.waluigiNote?`<div class="wnote"><b>Waluigi's Note:</b> ${esc(h.waluigiNote)}</div>`:'';
 
   el('content').innerHTML=`
     <div class="card holiday-record animate-fade-in" style="border-top:5px solid ${h.color||'var(--accent)'};background:linear-gradient(135deg,${h.color?h.color+'22':'rgba(138,75,255,.14)'},rgba(0,0,0,.05)),var(--panel)">
@@ -9300,7 +9303,8 @@ function view_holiday(id){
 
     <div class="card">
       <h2 style="margin-top:0">📖 Observance Record</h2>
-      <p class="prose" style="font-size:15px;line-height:1.7">${linkedDesc||'<span class="text-muted">No description has been filed yet by Master Scribe Inkwell.</span>'}</p>
+      <div class="prose" style="font-size:15px;line-height:1.7;white-space:pre-wrap">${linkedDesc||'<span class="text-muted">No description has been filed yet by Master Scribe Inkwell.</span>'}</div>
+      ${moodHtml}${practicesHtml}${wNote}
       <div class="chips mt-10">
         <a class="chip active" href="#/calendar/${h.calendarId}/month/${CUR?CUR.year:1040}/${Number(h.month)-1}/${h.day}">📅 Open on calendar →</a>
         <a class="chip" href="#/calendar">Full Imperial Calendar</a>
