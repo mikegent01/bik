@@ -15947,6 +15947,41 @@ const PLAYERS = {
   }
 };
 
+// Latest Ebott Part III XP awards — keeps the XP dashboard's "Latest XP Added" panel current.
+(function applyEbottPart3RecentXp(){
+  const awards = [
+    { key:'gamma_agent', name:'Gamma Legionary Agent', faction:'gamma_division', cat:'discovery', xp:700, title:'Event — Mount Ebott Survey: Part III — War Slip / Repaired Machine', desc:'Identified the suppressed-war contradiction, Flowey-as-royal-remnant revelation, and the repaired survey machine problem. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003 },
+    { key:'gamma_agent', name:'Gamma Legionary Agent', faction:'gamma_division', cat:'technique', xp:350, title:'Event — Mount Ebott Survey: Part III — Machine Diagnostics & Data Chip', desc:'Ran the honest machine diagnostic, extracted the data chip, and preserved the evidence despite earlier sabotage. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003 },
+    { key:'dracule_mihawk', name:'Dracule Mihawk', faction:'independent', cat:'technique', xp:600, title:'Event — Mount Ebott Survey: Part III — Tactical Pursuit / Flowey Capture', desc:'Executed the pursuit, cut off the fleeing suspect, and helped physically uproot and contain Flowey. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003 },
+    { key:'dracule_mihawk', name:'Dracule Mihawk', faction:'independent', cat:'discovery', xp:450, title:'Event — Mount Ebott Survey: Part III — War Contradiction Recognition', desc:'Recognized Sans’s contradiction immediately and pressed the war-memory anomaly instead of treating it as a joke. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003 },
+    { key:'sans', name:'Sans', faction:'undertale_monsters', cat:'discovery', xp:650, title:'Event — Mount Ebott Survey: Part III — Barrier / War / Flowey Revelations', desc:'Revealed barrier exit routes, Flowey’s royal origin, and the suppressed-war contradiction. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003 },
+    { key:'sans', name:'Sans', faction:'undertale_monsters', cat:'social', xp:300, title:'Event — Mount Ebott Survey: Part III — Ruins Guidance', desc:'Guided the party through the Ruins and explained the Underground’s isolation with enough precision to reframe the entire expedition. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003 },
+    { key:'koffin_k', name:'Koffin-K', faction:'undertale_monsters', cat:'social', xp:500, title:'Event — Mount Ebott Survey: Part III — Team Formation / Snowdin Hero Moment', desc:'Joined the unauthorized “Iron Legion” team, produced a real hideout/minion problem, and briefly became Snowdin’s civic hero. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003, powerLevel:3, fameScore:35, membership:'Ruins/Snowdin self-appointed villain cell' },
+    { key:'koffin_k', name:'Koffin-K', faction:'undertale_monsters', cat:'chaos', xp:450, title:'Event — Mount Ebott Survey: Part III — Accidental Authority Crisis', desc:'Demonstrated how quickly Snowdin can grant authority to a theatrical stranger with a cage and a speech. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003, powerLevel:3, fameScore:35, membership:'Ruins/Snowdin self-appointed villain cell' },
+    { key:'flowey', name:'Flowey', faction:'enemy_wildcards', cat:'technique', xp:600, title:'Event — Mount Ebott Survey: Part III — Survey Machine Repair', desc:'Repaired the sabotaged Legion survey machine to 98% integrity and left a vine as a signature. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003, powerLevel:8, fameScore:45, membership:'Hostile Underground royal remnant / Flowey anomaly' },
+    { key:'flowey', name:'Flowey', faction:'enemy_wildcards', cat:'chaos', xp:700, title:'Event — Mount Ebott Survey: Part III — Snowdin Capture / Evidence Trap', desc:'Was captured but ended the session alone with the repaired machine, creating a probable evidence trap. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003, powerLevel:8, fameScore:45, membership:'Hostile Underground royal remnant / Flowey anomaly' },
+    { key:'asgore', name:'Asgore', faction:'undertale_monsters', cat:'discovery', xp:300, title:'Event — Mount Ebott Survey: Part III — Royal Family Revelation', desc:'Entered the active ledger through Sans’s statement that Flowey was Asgore’s dead firstborn son. Filed: Mid-10XX BF — Day 3. Source: events.json.', date:'Mid-10XX BF — Day 3', dateSort:10410003, powerLevel:9, fameScore:58, membership:'Monster Underground Royal Family' }
+  ];
+  const thresholds = [0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,165000,195000,225000,265000,305000,355000];
+  const lvlFor = total => { let level=1; for(let i=0;i<thresholds.length;i++) if(total>=thresholds[i]) level=i+1; return { level, nextXP: thresholds[level] || Math.ceil((total+1)/5000)*5000 }; };
+  awards.forEach(a => {
+    if (!PLAYERS[a.key]) PLAYERS[a.key] = { name:a.name, faction:a.faction, level:1, currentXP:0, nextXP:300, entries:[], membership:a.membership || 'Mount Ebott Survey file', status:'Active', powerLevel:a.powerLevel || 1, powerTier:'Mortal', fameScore:a.fameScore || 10, fameTier:'Obscure', fameTags:['Mount Ebott'] };
+    const p = PLAYERS[a.key];
+    if (a.faction) p.faction = a.faction;
+    if (a.membership) p.membership = a.membership;
+    if (a.powerLevel && a.powerLevel > Number(p.powerLevel||0)) p.powerLevel = a.powerLevel;
+    if (a.fameScore && a.fameScore > Number(p.fameScore||0)) p.fameScore = a.fameScore;
+    if (!p.entries.some(e => e.title === a.title && e.cat === a.cat && Number(e.xp) === Number(a.xp))) {
+      p.entries.push({ cat:a.cat, xp:a.xp, title:a.title, desc:a.desc, date:a.date, dateSort:a.dateSort, sourceMarker:'✦' });
+      p.currentXP = Number(p.currentXP || 0) + Number(a.xp || 0);
+    }
+    const fixed = lvlFor(Number(p.currentXP || 0));
+    p.level = Math.max(Number(p.level || 1), fixed.level);
+    p.nextXP = Math.max(Number(p.nextXP || 0), fixed.nextXP);
+  });
+})();
+
+
 var ENTRY_STATE = window.ENTRY_STATE || {};
 window.ENTRY_STATE = ENTRY_STATE;
 
