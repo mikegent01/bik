@@ -4271,21 +4271,88 @@ function locationThumb(i,mode){
   const h=artHash(i.id||i.name); const x=24+(h%52), y=34+((h>>6)%42), small=mode==='tile';
   return `<figure class="auto-art ${small?'tile':'full'}"><svg class="auto-art-svg" viewBox="0 0 640 300"><defs><linearGradient id="lg${h}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2fae8a"/><stop offset=".55" stop-color="#15324a"/><stop offset="1" stop-color="#8a4bff"/></linearGradient></defs><rect width="640" height="300" fill="url(#lg${h})"/><path d="M60 240 C120 120 250 110 330 165 S520 95 600 210 L600 300 L60 300Z" fill="rgba(0,0,0,.24)"/><path d="M75 210 C170 170 205 235 290 188 S430 152 565 205" stroke="rgba(255,255,255,.30)" stroke-width="5" fill="none"/><circle cx="${x*6.4}" cy="${y*3}" r="18" fill="#e0b400" stroke="rgba(0,0,0,.45)" stroke-width="5"/><path d="M${x*6.4} ${y*3+18} L${x*6.4-13} ${y*3+50} L${x*6.4+13} ${y*3+50}Z" fill="#e0b400"/><text x="42" y="70" fill="rgba(255,255,255,.88)" font-size="14" font-weight="900" letter-spacing="2">LOCATION MAP</text><text x="42" y="172" fill="white" font-size="${small?'24':'32'}" font-weight="900">${esc((displayName(i).length>34?displayName(i).slice(0,32)+'…':displayName(i)))}</text>${small?'':`<text x="44" y="210" fill="rgba(255,255,255,.74)" font-size="16">${esc(i.region||i.type||'Mapped location')}</text>`}</svg></figure>`;
 }
-const CHARACTER_EMOJI_RULES=[
-  [/waluigi/i,'🎾'],[/wario/i,'💰'],[/bowser|koopa|kamek/i,'🐢'],[/archie|miser|fire|pyro/i,'🔥'],[/markop|centaur|judi/i,'🐴'],[/remi|akamatsu|engineer|kivotos/i,'🔧'],[/hjumpik|dwarf|deldkur/i,'⛏️'],[/toad|mushroom/i,'🍄'],[/luigi/i,'👻'],[/mario/i,'⭐'],[/peach|princess/i,'🍑'],[/daisy/i,'🌼'],[/oracle|prophet|seer/i,'🔮'],[/morel|mystic/i,'🍄'],[/vampire|corvinarus|shadow|boo|ghost/i,'🌑'],[/iron|legion|agent|commander/i,'⚙️'],[/rakasha|cat|thornpaw/i,'🐾'],[/pirate|syrup/i,'🏴‍☠️'],[/sans|skeleton|bones/i,'💀'],[/flowey|flower/i,'🌻'],[/dragon|wyrm/i,'🐉'],[/mage|wizard|arcane/i,'✨'],[/king|queen|emperor|lord|lady/i,'👑']
-];
-function characterEmoji(i){
-  if(i.icon||i.emoji||i.portrait) return i.icon||i.emoji||i.portrait;
-  const hay=[i.id,i.name,i.title,i.race,i.affiliation,i.summary].filter(Boolean).join(' ');
-  const hit=CHARACTER_EMOJI_RULES.find(([re])=>re.test(hay));
-  return hit?hit[1]:'👤';
+const CHARACTER_VISUAL_OVERRIDES={
+  waluigi:{primary:'🎾',badges:['❄️','📚','💜'],theme:'arcane',label:'Ice magic / archive ego'},
+  wario:{primary:'💰',badges:['💣','🟡','📈'],theme:'coin',label:'Greed economy hazard'},
+  bowser:{primary:'🐢',badges:['🔥','👑','🛡️'],theme:'fire',label:'Koopa sovereign'},
+  archie_miser:{primary:'🔥',badges:['👁️','🧨','💸'],theme:'fire',label:'Entropy pyromancer'},
+  markop:{primary:'🐴',badges:['🛡️','🪓','⬆️'],theme:'iron',label:'Centaur shield / titan'},
+  remi_akamatsu_full_backstory:{primary:'🔧',badges:['🎴','🤖','💠'],theme:'tech',label:'Engineer / card bearer'},
+  hjumpik:{primary:'⛏️',badges:['🔔','🗝️','🪞'],theme:'iron',label:'Asset Orange / Anvil'},
+  mystic_morel:{primary:'🍄',badges:['🔮','🗝️','🎭'],theme:'arcane',label:'Fortune thief'},
+  the_oracle:{primary:'🔮',badges:['🧵','🌀','👁️'],theme:'arcane',label:'Metaphysical custodian'},
+  luigi:{primary:'👻',badges:['🟢','🔦','🏚️'],theme:'shadow',label:'Reluctant ghostbuster'},
+  mario:{primary:'⭐',badges:['🍄','🟥','❓'],theme:'royal',label:'Vanished hero'},
+  princess_peach:{primary:'🍑',badges:['👑','🕯️','⚰️'],theme:'royal',label:'Fallen monarch'},
+  princess_daisy:{primary:'🌼',badges:['👑','⚡','🏜️'],theme:'royal',label:'Competent royal'},
+  kamek:{primary:'🪄',badges:['🐢','📜','🐉'],theme:'arcane',label:'Fallen regent'},
+  king_boo:{primary:'👻',badges:['👑','🪞','🌑'],theme:'shadow',label:'Mirror-side monarch'},
+  fawful:{primary:'🫘',badges:['🟩','🌀','😂'],theme:'nature',label:'Cackling conqueror'},
+  sans:{primary:'💀',badges:['🧥','🕳️','🧠'],theme:'undead',label:'Snowdin skeleton'},
+  papyrus:{primary:'💀',badges:['🧣','⭐','🍝'],theme:'undead',label:'Great brother'},
+  flowey:{primary:'🌻',badges:['🤖','🧪','⚠️'],theme:'nature',label:'Machine-tampering flower'},
+  koffin_k:{primary:'🎩',badges:['☠️','⚙️','🏅'],theme:'iron',label:'Accidental recruit'},
+  crossbones:{primary:'☠️',badges:['📚','🦸','⚔️'],theme:'undead',label:'Hero-comic rival'},
+  toriel:{primary:'🐐',badges:['👑','🕯️','🚪'],theme:'royal',label:'Royal approval authority'},
+  asgore:{primary:'👑',badges:['🌻','🕯️','⚔️'],theme:'royal',label:'Underground king'},
+  captain_syrup:{primary:'🏴‍☠️',badges:['🌊','💰','⚓'],theme:'sea',label:'Pirate queen'},
+  king_k_rool:{primary:'🐊',badges:['👑','🏴‍☠️','💣'],theme:'sea',label:'Kremling king'},
+  kirby:{primary:'🌟',badges:['💗','🌌','🍽️'],theme:'arcane',label:'Pink apocalypse'},
+  king_dedede:{primary:'🐧',badges:['👑','🔨','⭐'],theme:'royal',label:'Penguin incident'},
+  meta_knight:{primary:'🦇',badges:['⚔️','🌌','🎭'],theme:'shadow',label:'Masked adult'},
+  dracule_mihawk:{primary:'🗡️',badges:['🦅','⚫','⚔️'],theme:'iron',label:'Hawk of Blackfen'},
+  gamma_agent:{primary:'⚙️',badges:['📡','🪖','🕳️'],theme:'iron',label:'Legion surveyor'},
+  captain_toadette:{primary:'🍄',badges:['🎒','⚔️','👑'],theme:'royal',label:'Ruthless restorer'},
+  green_t:{primary:'🍄',badges:['⬆️','🛡️','👶'],theme:'nature',label:'Giant from the table'},
+  toad_lee:{primary:'🍄',badges:['🪟','🤝','📜'],theme:'nature',label:'Defenestrated diplomat'},
+  toadburt:{primary:'🍄',badges:['💍','⚙️','📚'],theme:'iron',label:'Former leashed agent'},
+  tanukiburt:{primary:'🦝',badges:['🍄','🚪','⚠️'],theme:'shadow',label:'Portal impostor'},
+  rakasha:{primary:'🐾',badges:['🌲','🔥','🧬'],theme:'nature',label:'Forest people'},
+  chief_thornpaw:{primary:'🐾',badges:['👑','🌹','🌲'],theme:'nature',label:'Rakasha chief'},
+  azure_rakasha:{primary:'🐾',badges:['🍷','✨','🌿'],theme:'nature',label:'Intoxicated mystic'},
+  bones:{primary:'🕵️',badges:['💀','⚙️','🔓'],theme:'shadow',label:'Infiltrator'},
+  rattles:{primary:'💀',badges:['🦴','🧍','↩️'],theme:'undead',label:'Body-seeking skeleton'},
+  mossy:{primary:'🤖',badges:['🐕','🔧','🧠'],theme:'tech',label:'Stolen construct'},
+  professor_e_gadd:{primary:'🔬',badges:['👻','💡','🏚️'],theme:'tech',label:'Ghost researcher'},
+  miles_edgeworth:{primary:'⚖️',badges:['📄','🔴','🏛️'],theme:'royal',label:'Prosecutor'},
+  general_ironhand:{primary:'⚙️',badges:['🩸','📋','🪖'],theme:'iron',label:'Atrocity administrator'},
+  lyranth:{primary:'🐍',badges:['🗿','🔨','🌑'],theme:'shadow',label:'Stone artist'},
+  vivian_corvinarus:{primary:'🩸',badges:['🎭','🐉','🌑'],theme:'shadow',label:'Impostor heir'},
+  orangus_cornelius:{primary:'🦇',badges:['👑','🪟','🩸'],theme:'shadow',label:'Defenestrated lord'},
+  lady_aurelian:{primary:'🧚',badges:['🧵','🐉','🌿'],theme:'nature',label:'Thread-weaver'},
+  tymnas:{primary:'🐐',badges:['🌿','🛠️','⏳'],theme:'nature',label:'Lost groundskeeper'},
+  thornbury:{primary:'📓',badges:['🪖','📦','🕵️'],theme:'iron',label:'Quartermaster spy'},
+  bryan:{primary:'🍄',badges:['⚖️','🙏','🌑'],theme:'royal',label:'Toad god instrument'}
+};
+const CHARACTER_THEME_COLORS={
+  fire:['#c3282d','#ff9f1c'], royal:['#8a4bff','#e0b400'], shadow:['#151022','#8a4bff'],
+  tech:['#2088d8','#39ff88'], nature:['#2fae8a','#7acb58'], undead:['#77768a','#b7a7ff'],
+  sea:['#0f5f9e','#2dd4bf'], coin:['#8a5a12','#ffd36b'], iron:['#4b5563','#e5484d'], arcane:['#5b3a8e','#e0b400'], neutral:['#3b3454','#8a4bff']
+};
+function pushUnique(arr,v){ if(v&&!arr.includes(v)) arr.push(v); }
+function characterVisualProfile(i){
+  const id=i.id||'';
+  const override=CHARACTER_VISUAL_OVERRIDES[id];
+  const hay=[id,i.name,i.title,i.race,i.affiliation,i.status,i.summary].filter(Boolean).join(' ').toLowerCase();
+  let primary=override?.primary||'';
+  const badges=[...(override?.badges||[])];
+  let theme=override?.theme||'neutral';
+  let label=override?.label||'';
+  const speciesRules=[[/skeleton|bone-line|bones?\b/,'💀','undead','Skeleton'],[/toad|mushroom/,'🍄','nature','Toad'],[/koopa|magikoopa/,'🐢','fire','Koopa'],[/rakasha|cat/,'🐾','nature','Rakasha'],[/dwarf/,'⛏️','iron','Dwarf'],[/centaur|horse/,'🐴','iron','Centaur'],[/fey|satyr|dryad/,'🧚','nature','Fey'],[/vampire|boo|ghost|shadow/,'👻','shadow','Shadow entity'],[/medusa/,'🐍','shadow','Medusa'],[/construct|machine|robot/,'🤖','tech','Construct'],[/human/,'👤','neutral','Human'],[/kremling|crocodile/,'🐊','sea','Kremling'],[/penguin/,'🐧','royal','Penguin'],[/beanish/,'🫘','nature','Beanish'],[/orc/,'🪓','iron','Orc'],[/goblin|hobgoblin/,'🗡️','iron','Goblin'],[/elf/,'🧝','nature','Elf'],[/sheep/,'🐑','nature','Sheep'],[/flower/,'🌻','nature','Flower entity'],[/underground/,'🕳️','undead','Underground entity']];
+  speciesRules.forEach(([re,emo,th,lab])=>{ if(re.test(hay)){ if(!primary)primary=emo; pushUnique(badges,emo); if(theme==='neutral')theme=th; if(!label)label=lab; }});
+  const roleRules=[[/king|queen|princess|emperor|monarch|royal|lord|lady|regent/,'👑','royal'],[/fire|pyro|burn|flame|explosive|bomb/,'🔥','fire'],[/ice|frost|snowdin/,'❄️','arcane'],[/mage|magic|arcane|oracle|prophet|fortune|ritual/,'🔮','arcane'],[/engineer|machine|survey|construct|tech|data/,'🔧','tech'],[/legion|agent|commander|military|quartermaster|iron/,'⚙️','iron'],[/pirate|ship|sea|captain|harbor/,'🏴‍☠️','sea'],[/money|coin|wallet|accountant|debt|merchant/,'💰','coin'],[/trial|prosecutor|law|judge|barrister|court/,'⚖️','royal'],[/infiltrat|spy|assassin|secret|steal|thief/,'🕵️','shadow'],[/mirror|shadow|vampire|ghost|boo|night/,'🌑','shadow'],[/dragon|wyrm/,'🐉','fire'],[/star|cosmic|apocalypse/,'⭐','arcane'],[/journal|archive|record|book|field/,'📚','arcane'],[/flower|forest|grove|fey|tree|garden/,'🌿','nature']];
+  roleRules.forEach(([re,emo,th])=>{ if(re.test(hay)){ pushUnique(badges,emo); if(!primary)primary=emo; if(theme==='neutral')theme=th; }});
+  if(!primary) primary=badges[0]||'👤';
+  const finalBadges=badges.filter(x=>x!==primary).slice(0,4);
+  while(finalBadges.length<3) pushUnique(finalBadges,['📄','🧭','◇','✦'][finalBadges.length]);
+  if(!label) label=(i.race||i.affiliation||i.type||'Character dossier');
+  const colors=CHARACTER_THEME_COLORS[theme]||CHARACTER_THEME_COLORS.neutral;
+  return {primary,badges:finalBadges.slice(0,4),theme,label:String(label).split('/')[0].split('—')[0].trim(),colors};
 }
 function characterVisual(i){
-  const h=artHash((i.id||displayName(i)||'character')+'-char-card');
-  const palette=[['#8a4bff','#e0b400'],['#e5484d','#ff9f1c'],['#2fae8a','#39ff88'],['#2088d8','#b7a7ff'],['#77768a','#e0b400'],['#5b3a8e','#39ff88'],['#c3282d','#8a4bff'],['#7acb58','#ffd36b']][h%8];
-  const emoji=characterEmoji(i);
-  const role=i.race||i.affiliation||i.type||'Character Dossier';
-  return `<div class="character-card-visual" style="--char-a:${palette[0]};--char-b:${palette[1]}"><div class="char-bg-emoji">${esc(emoji)}</div><div class="char-avatar">${esc(emoji)}</div><div class="char-visual-text"><span>${esc(String(role).split('/')[0].split('—')[0].trim()).slice(0,42)}</span><b>${esc((i.status||'Active file').split('—')[0].trim()).slice(0,32)}</b></div></div>`;
+  const v=characterVisualProfile(i);
+  const status=(i.status||'Active file').split('—')[0].trim();
+  return `<div class="character-card-visual theme-${esc(v.theme)}" style="--char-a:${v.colors[0]};--char-b:${v.colors[1]}"><div class="char-bg-emoji">${esc(v.primary)}${esc(v.badges[0]||'')}</div><div class="char-avatar"><span class="char-primary">${esc(v.primary)}</span></div><div class="char-visual-text"><span>${esc(v.label).slice(0,42)}</span><b>${esc(status).slice(0,32)}</b><div class="char-badge-row">${v.badges.map(b=>`<i>${esc(b)}</i>`).join('')}</div></div></div>`;
 }
 function cardVisual(i,key){ if(key==='characters')return characterVisual(i); if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(['events','trials','factions','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
 function decodeEntitiesBasic(s){return String(s||'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'");}

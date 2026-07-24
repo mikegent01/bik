@@ -902,3 +902,11 @@ body.hide-walu-ambient .walu-music-panel{display:none!important}
 .char-visual-text span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.7px;opacity:.78;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
 .char-visual-text b{display:block;margin-top:3px;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}
 @media(max-width:640px){.character-card-visual{min-height:104px}.char-bg-emoji{font-size:96px}.char-avatar{width:50px;height:50px;flex-basis:50px;font-size:28px}}
+.character-card-visual .char-primary{filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+.char-badge-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.char-badge-row i{font-style:normal;width:22px;height:22px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);font-size:13px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.character-card-visual.theme-fire .char-avatar{background:rgba(255,130,45,.22)}
+.character-card-visual.theme-shadow .char-avatar{background:rgba(138,75,255,.24)}
+.character-card-visual.theme-tech .char-avatar{background:rgba(32,136,216,.24)}
+.character-card-visual.theme-nature .char-avatar{background:rgba(47,174,138,.24)}
+.character-card-visual.theme-coin .char-avatar{background:rgba(224,180,0,.24)}
