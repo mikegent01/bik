@@ -32,9 +32,6 @@
       <nav class="ws-nav">${LINKS.map(l =>
         `<a class="ws-link" href="${l.href}"><span>${l.icon}</span><em>${l.label}</em></a>`).join('')}</nav>
       <div class="ws-right">
-        <button class="ws-btn" id="wsCraft" title="Crafting index — recipes, materials and schools">
-          ⚒️ <em>Crafting</em>
-        </button>
         <button class="ws-btn" id="wsLoot" title="Your loot — what you own and where it appears in the story">
           🎒 <em>Loot</em> <i id="wsLootN"></i>
         </button>
@@ -48,7 +45,6 @@
       paintMusic(on);
     });
     document.getElementById('wsLoot').addEventListener('click', () => window.WarioLoot?.open());
-    document.getElementById('wsCraft').addEventListener('click', () => window.WarioCrafting?.open());
     paintMusic(!!window.WarioAudioBridge?.musicOn);
     document.addEventListener('wario-music-changed', e => paintMusic(e.detail.on));
     document.addEventListener('wario-loot-changed', paintLoot);

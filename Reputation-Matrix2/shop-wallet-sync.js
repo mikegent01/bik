@@ -28,6 +28,11 @@ function esc(value) {
 
 function normalizeUserId(raw) {
   const id = String(raw || '').trim().toLowerCase();
+  // Only alias when the source id has no wallet of its own. `archie_miser`,
+  // for example, is a REAL distinct wallet (43 gold / 173 wario_coin), so
+  // blindly mapping it to `archie` (349 gold) loaded the wrong character's
+  // money and made the picker look broken.
+  if (wallets && Object.prototype.hasOwnProperty.call(wallets, id)) return id;
   return aliases[id] || id;
 }
 
@@ -57,7 +62,16 @@ function operatorOptions() {
       if (ai !== -1 || bi !== -1) return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
       return String(a.name || aId).localeCompare(String(b.name || bId));
     });
-  return entries.map(([id, wallet]) => `<option value="${esc(id)}" ${id === active ? 'selected' : ''}>${esc(wallet.name || id)} (${Object.keys(wallet.currencies || {}).length} currencies)</option>`).join('');
+  const nameCount = {};
+  entries.forEach(([id, w]) => { const n = String(w.name || id); nameCount[n] = (nameCount[n] || 0) + 1; });
+  return entries.map(([id, wallet]) => {
+    const name = String(wallet.name || id);
+    // Several characters share a display name across wallet ids; show the id so
+    // the two "Archie Miser" / "Original Dan" rows are tellable apart.
+    const label = nameCount[name] > 1 ? `${name} — ${id}` : name;
+    const n = Object.keys(wallet.currencies || {}).length;
+    return `<option value="${esc(id)}" ${id === active ? 'selected' : ''}>${esc(label)} (${n} ${n === 1 ? 'currency' : 'currencies'})</option>`;
+  }).join('');
 }
 
 function walletCurrencyIds(wallet = currentWallet()) {
@@ -537,7 +551,7 @@ function renderBridge() {
       🔐 <b>No operator wallet connected</b>
       <span>Connect a character first; then this dropdown will only show that character's currencies.</span>
       <label class="bridge-payment">🧑 Pick operator
-        <select id="warehouseOperatorSelect">${operatorOptions()}</select>
+        <select id="warehouseOperatorSelect"><option value="">— not connected —</option>${operatorOptions()}</select>
       </label>
       <label class="bridge-payment">💳 Display prices in
         <select id="warehousePaymentCurrency">${currencyOptions()}</select>
