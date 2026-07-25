@@ -7038,6 +7038,25 @@ async function view_items(arg) {
   window.scrollTo(0,0);
 }
 
+/* Shop items <-> story. data/itemLoreLinks.json maps a shop item id to the
+   events / battles / characters that actually reference it, so ownership can
+   link back into the archive instead of being a dead inventory row. */
+const LORE_KIND_LABEL={events:'Event',battles:'Battle',majorBattles:'Battle',characters:'Character',locations:'Location',trials:'Trial',factions:'Faction'};
+function itemLoreRefs(itemId){
+  const m=(DATA.itemLoreLinks||{})[itemId];
+  return (m&&m.refs)||[];
+}
+function itemLorePanel(itemId){
+  const refs=itemLoreRefs(itemId);
+  if(!refs.length) return '';
+  const chips=refs.map(r=>{
+    const rec=INDEX[r.id];
+    const label=rec?displayName(rec.item):(r.name||prettyId(r.id));
+    const go=rec?`openId('${esc(r.id)}')`:`Router.go('${esc(r.route||'#/home')}')`;
+    return `<span class="rel-chip" onclick="${go}"><span class="rt">${esc(LORE_KIND_LABEL[r.kind]||r.kind)}</span>${esc(label)}</span>`;
+  }).join('');
+  return `<div class="card"><div class="home-section-head"><div><h2>📖 Appears in the Story</h2><p>Records where this item is actually used or referenced.</p></div><span class="pill">${refs.length} record${refs.length===1?'':'s'}</span></div><div class="related-list">${chips}</div></div>`;
+}
 async function view_item(id) {
   if (id === 'morel_feyward_key') { Router.go('#/item/morel_feyward_key'); return; }
   renderSidebar('items');
@@ -7072,6 +7091,7 @@ async function view_item(id) {
           ${features}${hist}
           <div class="card"><h2>Public Holders</h2>${hold}</div>
           ${rel ? `<div class="card"><h2>Related Articles</h2><div class="related-list">${rel}</div></div>` : ''}
+          ${itemLorePanel(id)}
         </div>
         <div>
           <div class="cross-page-panel">
@@ -10986,7 +11006,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};

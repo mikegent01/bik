@@ -1,0 +1,364 @@
+{
+ "a_cursed_relic_forged_from": {
+  "name": "Entropy Ring",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "remi_shadeward_arc",
+    "name": "Remi's Shadeward Arc",
+    "route": "#/article/remi_shadeward_arc"
+   },
+   {
+    "kind": "events",
+    "id": "planar_fracture",
+    "name": "The Planar Fracture",
+    "route": "#/article/planar_fracture"
+   },
+   {
+    "kind": "events",
+    "id": "thornburys_field_journal",
+    "name": "Thornbury's Field Journal",
+    "route": "#/article/thornburys_field_journal"
+   },
+   {
+    "kind": "characters",
+    "id": "hargram_fidger",
+    "name": "Hargram Fidger",
+    "route": "#/article/hargram_fidger"
+   },
+   {
+    "kind": "characters",
+    "id": "mystic_morel",
+    "name": "Mystic Morel (Purple T)",
+    "route": "#/article/mystic_morel"
+   },
+   {
+    "kind": "characters",
+    "id": "the_archivist",
+    "name": "The Archivist",
+    "route": "#/article/the_archivist"
+   }
+  ]
+ },
+ "assassination_contract": {
+  "name": "Assassination Contract",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "shadow_estate_session_Harvestside_14_continued",
+    "name": "14 Harvestside (Continued) — The Hidden Hall, Pierce Anamatar, the Lasso Room, and the Anchor",
+    "route": "#/article/shadow_estate_session_Harvestside_14_continued"
+   }
+  ]
+ },
+ "bob_omb_buddy": {
+  "name": "Bob-Omb Buddy",
+  "refs": [
+   {
+    "kind": "locations",
+    "id": "peachs_castle",
+    "name": "Peach's Castle",
+    "route": "#/article/peachs_castle"
+   }
+  ]
+ },
+ "bullet_bill_launcher": {
+  "name": "Bullet Bill Blaster",
+  "refs": [
+   {
+    "kind": "locations",
+    "id": "peachs_castle",
+    "name": "Peach's Castle",
+    "route": "#/article/peachs_castle"
+   }
+  ]
+ },
+ "chaos_heart": {
+  "name": "The Chaos Heart",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "glazed_congress_founding",
+    "name": "The First Glazed Congress",
+    "route": "#/article/glazed_congress_founding"
+   },
+   {
+    "kind": "events",
+    "id": "baldi_schoolhouse_extraction_failed",
+    "name": "The Schoolhouse Extraction — Operation POP QUIZ",
+    "route": "#/article/baldi_schoolhouse_extraction_failed"
+   },
+   {
+    "kind": "events",
+    "id": "chaos_heart_crisis",
+    "name": "The Chaos Heart Crisis",
+    "route": "#/article/chaos_heart_crisis"
+   },
+   {
+    "kind": "events",
+    "id": "sarasaland_incident_1033",
+    "name": "The Sarasaland Incident",
+    "route": "#/article/sarasaland_incident_1033"
+   },
+   {
+    "kind": "events",
+    "id": "first_bowser_conflict",
+    "name": "The First Bowser Conflict",
+    "route": "#/article/first_bowser_conflict"
+   },
+   {
+    "kind": "events",
+    "id": "the_lounge_incident_and_the_paper_war",
+    "name": "The Lounge Incident and the Paper War",
+    "route": "#/article/the_lounge_incident_and_the_paper_war"
+   }
+  ]
+ },
+ "dark_prognosticus": {
+  "name": "Dark Prognosticus",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "chaos_heart_crisis",
+    "name": "The Chaos Heart Crisis",
+    "route": "#/article/chaos_heart_crisis"
+   }
+  ]
+ },
+ "fake_mustache": {
+  "name": "Fake Mustache",
+  "refs": [
+   {
+    "kind": "battles",
+    "id": "auction_room_brawl",
+    "name": "The Auction Room Brawl",
+    "route": "#/article/auction_room_brawl"
+   }
+  ]
+ },
+ "hyrule_feywild_fragments": {
+  "name": "Feywild Fragments",
+  "refs": [
+   {
+    "kind": "characters",
+    "id": "orvinder_danos",
+    "name": "Orvinder Danos",
+    "route": "#/article/orvinder_danos"
+   }
+  ]
+ },
+ "koopa_clown_car": {
+  "name": "Koopa Clown Car",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "the_eastern_passage",
+    "name": "The Eastern Passage",
+    "route": "#/article/the_eastern_passage"
+   },
+   {
+    "kind": "events",
+    "id": "toadsmith_incident",
+    "name": "The Toadsmith Incident",
+    "route": "#/article/toadsmith_incident"
+   }
+  ]
+ },
+ "midlands_iron_legion_banner": {
+  "name": "Iron Legion Banner",
+  "refs": [
+   {
+    "kind": "factions",
+    "id": "purple_legion",
+    "name": "The Purple Legion",
+    "route": "#/article/purple_legion"
+   }
+  ]
+ },
+ "mov_service": {
+  "name": "Motivational Speech",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "funeral_of_junimus_gorolini_bongo_jr",
+    "name": "The Funeral of Junimus Gorolini Bongo Jr.",
+    "route": "#/article/funeral_of_junimus_gorolini_bongo_jr"
+   }
+  ]
+ },
+ "mushroom_basic": {
+  "name": "Standard Mushroom",
+  "refs": [
+   {
+    "kind": "characters",
+    "id": "mario",
+    "name": "Mario",
+    "route": "#/article/mario"
+   }
+  ]
+ },
+ "pure_heart": {
+  "name": "The Pure Heart",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "chaos_heart_crisis",
+    "name": "The Chaos Heart Crisis",
+    "route": "#/article/chaos_heart_crisis"
+   }
+  ]
+ },
+ "shadowfell_onyx_blood_vial": {
+  "name": "Onyx Blood Vial",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "shadow_estate_campaign",
+    "name": "The Shadow Estate Campaign",
+    "route": "#/article/shadow_estate_campaign"
+   }
+  ]
+ },
+ "shy_guy_toy": {
+  "name": "Shy Guy Toy",
+  "refs": [
+   {
+    "kind": "locations",
+    "id": "overgrown_manor_campaign",
+    "name": "The Overgrown Manor Campaign",
+    "route": "#/article/overgrown_manor_campaign"
+   }
+  ]
+ },
+ "spiny_egg": {
+  "name": "Spiny Egg",
+  "refs": [
+   {
+    "kind": "majorBattles",
+    "id": "delfino_corona_invasion",
+    "name": "Invasion of Corona Mountain",
+    "route": "#/mbattle/delfino_corona_invasion"
+   }
+  ]
+ },
+ "star_rod": {
+  "name": "The Star Rod",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "star_shard_caves_tanuki_origin",
+    "name": "The Star Shard Caves and the Tanuki's Origin",
+    "route": "#/article/star_shard_caves_tanuki_origin"
+   },
+   {
+    "kind": "characters",
+    "id": "kirby",
+    "name": "Kirby",
+    "route": "#/article/kirby"
+   },
+   {
+    "kind": "locations",
+    "id": "fountain_of_dreams",
+    "name": "The Fountain of Dreams",
+    "route": "#/article/fountain_of_dreams"
+   },
+   {
+    "kind": "locations",
+    "id": "star_rod",
+    "name": "The Star Rod",
+    "route": "#/article/star_rod"
+   }
+  ]
+ },
+ "stop_watch": {
+  "name": "Stop Watch",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "9_Harvestside_aftermath_shadeward",
+    "name": "9 Harvestside — The Knife, the Ring, the Imp, and the Death Lounge",
+    "route": "#/article/9_Harvestside_aftermath_shadeward"
+   }
+  ]
+ },
+ "toad_cap": {
+  "name": "Toad Cap",
+  "refs": [
+   {
+    "kind": "majorBattles",
+    "id": "skirmish_dance_hall",
+    "name": "The Dance Hall Discord",
+    "route": "#/mbattle/skirmish_dance_hall"
+   }
+  ]
+ },
+ "vanish_cap": {
+  "name": "Vanish Cap",
+  "refs": [
+   {
+    "kind": "locations",
+    "id": "peachs_castle",
+    "name": "Peach's Castle",
+    "route": "#/article/peachs_castle"
+   }
+  ]
+ },
+ "warhammer_garlic_grenade": {
+  "name": "Garlic Grenade",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "overgrown_manor_campaign",
+    "name": "The Overgrown Manor Campaign",
+    "route": "#/article/overgrown_manor_campaign"
+   },
+   {
+    "kind": "events",
+    "id": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+    "name": "12 Harvestside — The Ghost, the Gallery, the Gas, and the Climb",
+    "route": "#/article/remi_birthday_12_Harvestside_ghost_gallery_climb"
+   }
+  ]
+ },
+ "middle_earth_ringwraith_shard": {
+  "name": "Shadowfell Fragment",
+  "refs": [
+   {
+    "kind": "events",
+    "id": "the_shadeward_ritual",
+    "name": "The Shadeward Anchor Ritual (Take Two)",
+    "route": "#/article/the_shadeward_ritual"
+   },
+   {
+    "kind": "events",
+    "id": "shadow_estate_campaign",
+    "name": "The Shadow Estate Campaign",
+    "route": "#/article/shadow_estate_campaign"
+   },
+   {
+    "kind": "events",
+    "id": "shadow_estate_session_Harvestside_14_full",
+    "name": "Rattles, the Note, Mystic Morel, and the Watermelon",
+    "route": "#/article/shadow_estate_session_Harvestside_14_full"
+   },
+   {
+    "kind": "events",
+    "id": "shadow_estate_session_Harvestside_8",
+    "name": "The Portal Betrayal and the Gardner's Vote",
+    "route": "#/article/shadow_estate_session_Harvestside_8"
+   },
+   {
+    "kind": "events",
+    "id": "archies_return_to_shadow_estate",
+    "name": "Archie's Return to the Shadow Estate",
+    "route": "#/article/archies_return_to_shadow_estate"
+   },
+   {
+    "kind": "events",
+    "id": "shadow_estate_session_Harvestside_14_continued",
+    "name": "14 Harvestside (Continued) — The Hidden Hall, Pierce Anamatar, the Lasso Room, and the Anchor",
+    "route": "#/article/shadow_estate_session_Harvestside_14_continued"
+   }
+  ]
+ }
+}
