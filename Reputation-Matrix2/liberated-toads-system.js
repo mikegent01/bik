@@ -3545,9 +3545,7 @@ function renderDetailTabContent(toad) {
                 <div class="class-info">
                     <span>Hit Die: d${classDef?.hit_die || 6}</span>
                     <span>Primary: ${classDef?.primary_stat?.toUpperCase() || 'N/A'}</span>
-                    <span>Proficiency: +${toad.stats.proficiency || 2,
-        notes: ["Engaged in combat with a color-shifting creature; demonstrated high bravery by charging into the fray."]
-    }</span>
+                    <span>Proficiency: +${toad.stats.proficiency || 2}</span>
                 </div>
             </div>
             
@@ -3679,9 +3677,7 @@ function renderTimeline() {
                 <div class="timeline-events">
                     ${dayEntry.events.map(event => `
                         <div class="timeline-event severity-${event.severity}">
-                            <div class="event-time">${event.time,
-        notes: ["Participated in a stealth scouting mission through windows and bushes."]
-    }</div>
+                            <div class="event-time">${event.time}</div>
                             <div class="event-icon">${event.icon}</div>
                             <div class="event-content">
                                 <div class="event-title">${event.title}</div>

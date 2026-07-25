@@ -1,0 +1,2937 @@
+{
+  "meta": {
+    "source": "Ported from Reputation-Matrix2/liberated-toads-system.js into Waluipedia as a faction-linked system.",
+    "asOf": {
+      "day": 21,
+      "monthIndex": 6,
+      "year": 1040,
+      "label": "Highsun 21, 1040 BF"
+    },
+    "note": "Operational snapshot frozen at Highsun 21, 1040 BF (Day 21) \u2014 the Order 120 emergency. The wider archive clock has advanced to Aethel 1040 BF, so this record is deliberately behind the present day; the Toad crisis has not been narrated forward yet."
+  },
+  "structure": {
+    "type": "Emergency Military Junta",
+    "established": "Day 21, Hour 14:00",
+    "authority_basis": "Order 120 (Martial Law Response)",
+    "description": "Following the discovery that Speaker L is a decoy and the imminent execution of Toad prisoners, Captain Fernback has assumed temporary command. The Council is in disarray."
+  },
+  "speaker": {
+    "id": "speaker_l",
+    "name": "Speaker L",
+    "title": "Voice of the Pond",
+    "fullTitle": "Voice of the Pond, Keeper of the Cohort, Emergency Commander",
+    "portrait": "\ud83d\udc38\ud83d\udc51",
+    "authorityLevel": "Supreme (Emergency Powers)",
+    "level": 8,
+    "xp": 3200,
+    "stats": {
+      "str": 10,
+      "dex": 12,
+      "con": 14,
+      "int": 16,
+      "wis": 18,
+      "cha": 20,
+      "hp": 64,
+      "maxHp": 64,
+      "ac": 14,
+      "speed": 30
+    },
+    "abilities": [
+      {
+        "name": "Commanding Presence",
+        "level": 1,
+        "description": "Allies within 30 feet gain +2 to saves against fear"
+      },
+      {
+        "name": "Rally the Faithful",
+        "level": 2,
+        "description": "Grant temporary HP equal to level + CHA to all allies who can hear"
+      },
+      {
+        "name": "Divine Mandate",
+        "level": 3,
+        "description": "Spoken decrees carry weight of law; resistance checks at disadvantage"
+      },
+      {
+        "name": "Tactical Direction",
+        "level": 5,
+        "description": "Grant one ally an additional action on their turn"
+      },
+      {
+        "name": "Pond's Judgment",
+        "level": 6,
+        "description": "Declare formal judgment that binds the Cohort"
+      },
+      {
+        "name": "Emergency Decree",
+        "level": 8,
+        "description": "Bypass council vote in times of crisis"
+      }
+    ],
+    "powers": [
+      {
+        "name": "Issue Emergency Decrees",
+        "description": "Bypass council vote in crisis situations",
+        "requires": null
+      },
+      {
+        "name": "Veto Council Decisions",
+        "description": "Block any council vote; requires 2/3 override",
+        "requires": null
+      },
+      {
+        "name": "Appoint Cohort Leaders",
+        "description": "Name and dismiss leaders of all cohorts",
+        "requires": null
+      },
+      {
+        "name": "Command Pond Patrol",
+        "description": "Direct control of enforcement arm",
+        "requires": null
+      },
+      {
+        "name": "Declare States of Emergency",
+        "description": "Activate emergency protocols faction-wide",
+        "requires": null
+      },
+      {
+        "name": "Authorize Lethal Force",
+        "description": "Only Speaker L can authorize killing",
+        "requires": "Emergency conditions"
+      }
+    ],
+    "philosophy": "Order through unity. Safety through vigilance. Justice through accountability.",
+    "description": "Speaker L emerged as the spiritual and political leader during the chaos aboard the Vigilance. Their calm demeanor, unwavering moral compass, and almost supernatural ability to inspire loyalty rallied the traumatized toads into a cohesive force. While their methods can seem harsh, none doubt their commitment to the Cohort's survival.",
+    "quotes": [
+      "This is not retribution's art, but the mending of the fractured heart.",
+      "By pond and law, by vow and steel, the wound must close for peace to heal.",
+      "We are not slaves to chaos. We are the Liberated.",
+      "Every toad who falls under my watch is a failure I carry forever."
+    ],
+    "articleId": "speaker_l"
+  },
+  "heroesCouncil": {
+    "name": "The Liberators' Circle",
+    "description": "The original heroes who freed the 150 toads. With Speaker L missing, their 'advisory' status has effectively become command authority for those willing to listen.",
+    "established": "Day 12, following the Barrel Liberation",
+    "authority": "De Facto Command",
+    "activeMembers": 4,
+    "quorumForVeto": 2,
+    "privileges": [
+      {
+        "name": "Liberation Veto",
+        "description": "Can veto any decision that would re-enslave, abandon, or betray freed toads",
+        "requires": "2/4 Core members present"
+      },
+      {
+        "name": "Sanctuary Right",
+        "description": "Any Core member can grant temporary sanctuary to anyone aboard the Vigilance",
+        "requires": "1 Core member"
+      },
+      {
+        "name": "Mission Override",
+        "description": "Can call emergency missions without Council approval if toads are in immediate danger",
+        "requires": "3/4 Core members"
+      },
+      {
+        "name": "Speaker Audience",
+        "description": "Guaranteed immediate audience with Speaker L at any time",
+        "requires": "Any Core member"
+      },
+      {
+        "name": "Resource Priority",
+        "description": "Priority access to healing, equipment, and supplies during emergencies",
+        "requires": "Automatic"
+      },
+      {
+        "name": "Council Voice",
+        "description": "Non-voting seat at all Council meetings; can speak and propose but not vote",
+        "requires": "1 Core member present"
+      }
+    ],
+    "seats": [
+      {
+        "id": "dan",
+        "name": "Dan",
+        "title": "The Faithful",
+        "status": "Active - Injured",
+        "canVote": true,
+        "notes": "Rallied from catatonia to fight the Wraith. Missing right arm. Currently separated in the Shadowfell/Void fracture.",
+        "contributions": [
+          "Led the charge against X.O.",
+          "Protected wounded during raids",
+          "Moral compass of the group",
+          "Fought Arcane Wraith one-handed"
+        ],
+        "articleId": "dan"
+      },
+      {
+        "id": "eager",
+        "name": "Eager",
+        "title": "The Swift",
+        "status": "Active",
+        "canVote": true,
+        "notes": "Recovered from coma due to magical healing. Currently in the Feywild Attic.",
+        "contributions": [
+          "First successful recon",
+          "Gathered critical intel",
+          "Saved party multiple times with quick thinking"
+        ],
+        "articleId": "eager"
+      },
+      {
+        "id": "roger",
+        "name": "Roger",
+        "title": "The Sharpshooter",
+        "status": "Active",
+        "canVote": true,
+        "notes": "Defending the Vigilance perimeter.",
+        "contributions": [
+          "Eliminated key threats",
+          "Earl Grey kill",
+          "Consistent ranged support"
+        ],
+        "articleId": "roger"
+      },
+      {
+        "id": "ryan",
+        "name": "Ryan",
+        "title": "The Arcane",
+        "status": "Separated",
+        "canVote": false,
+        "notes": "With Rakasha - can invoke privileges if communication established",
+        "contributions": [
+          "Arcane expertise",
+          "Darkness spell saved the party",
+          "Puzzle solving"
+        ],
+        "articleId": "ryan"
+      },
+      {
+        "id": "bones",
+        "name": "Bones",
+        "title": "The Unbreakable",
+        "status": "Critical - Captured",
+        "canVote": false,
+        "notes": "Stabbed by Ironhand. Execution imminent (Order 120). Rescue is top priority.",
+        "contributions": [
+          "Front-line defender",
+          "Discovered Legion infiltrators",
+          "Held chokepoints alone",
+          "Exposed Speaker L decoy"
+        ],
+        "articleId": "bones"
+      },
+      {
+        "id": "toad_lee",
+        "name": "Toad Lee",
+        "title": "The Relentless",
+        "status": "Active",
+        "canVote": true,
+        "notes": "Currently in the Feywild Attic with Waluigi.",
+        "contributions": [
+          "Survived Shadeward dinner",
+          "Symbol of resilience",
+          "Steadfast fighter"
+        ],
+        "articleId": "toad_lee"
+      }
+    ],
+    "recentActions": [
+      {
+        "day": 21,
+        "action": "Dan invoked Mission Override to fight the Wraith",
+        "result": "Granted"
+      },
+      {
+        "day": 21,
+        "action": "Roger authorized lethal force against Legion spies",
+        "result": "Executed"
+      },
+      {
+        "day": 20,
+        "action": "Roger invoked Speaker Audience to report on Rakasha contact",
+        "result": "Granted"
+      }
+    ],
+    "speakerRelationship": {
+      "status": "Broken Chain of Command",
+      "notes": "With Speaker L revealed as a decoy/missing, the Liberators act independently. Captain Fernback respects them but is prioritizing military defense."
+    }
+  },
+  "council": {
+    "name": "The Cohort Council",
+    "seats": 7,
+    "description": "Seven elected representatives from each major cohort advise Speaker L. While the Speaker holds emergency powers, the Council provides crucial perspective and can override vetoes with a 2/3 majority.",
+    "meetingSchedule": "Daily at dawn, emergency sessions as needed",
+    "currentSession": "Emergency Session - Iron Mandate Response",
+    "members": [
+      {
+        "id": "elder_mudcap",
+        "name": "Elder Mudcap",
+        "cohort": "Barrel Survivors",
+        "seat": 1,
+        "level": 5,
+        "loyalty": 95,
+        "portrait": "\ud83d\udc38\ud83d\udc74",
+        "stance": "Conservative",
+        "description": "The oldest of the barrel survivors. Speaks for the traumatized majority.",
+        "current_vote": "Strategic Withdrawal",
+        "articleId": "elder_mudcap"
+      },
+      {
+        "id": "captain_fernback",
+        "name": "Captain Fernback",
+        "cohort": "Pond Patrol",
+        "seat": 2,
+        "level": 6,
+        "loyalty": 100,
+        "portrait": "\ud83d\udc38\ud83d\udee1\ufe0f",
+        "stance": "Loyalist",
+        "description": "Fanatically devoted to Speaker L. Commands the enforcement arm.",
+        "current_vote": "Strategic Withdrawal",
+        "articleId": "captain_fernback"
+      },
+      {
+        "id": "scribe_dewdrop",
+        "name": "Scribe Dewdrop",
+        "cohort": "The Chroniclers",
+        "seat": 3,
+        "level": 4,
+        "loyalty": 85,
+        "portrait": "\ud83d\udc38\ud83d\udcdc",
+        "stance": "Moderate",
+        "description": "Maintains faction records. Values knowledge over conflict.",
+        "current_vote": "Diplomatic Outreach",
+        "articleId": "scribe_dewdrop"
+      },
+      {
+        "id": "forgemaster_ironspore",
+        "name": "Forgemaster Ironspore",
+        "cohort": "The Crafters",
+        "seat": 4,
+        "level": 5,
+        "loyalty": 90,
+        "portrait": "\ud83d\udc38\ud83d\udd28",
+        "stance": "Pragmatic",
+        "description": "Keeps the Vigilance running. Practical above all.",
+        "current_vote": "Strategic Withdrawal",
+        "articleId": "forgemaster_ironspore"
+      },
+      {
+        "id": "warden_thornshell",
+        "name": "Warden Thornshell",
+        "cohort": "The Wardens",
+        "seat": 5,
+        "level": 5,
+        "loyalty": 88,
+        "portrait": "\ud83d\udc38\u2694\ufe0f",
+        "stance": "Militant",
+        "description": "Commands the combat forces. Favors direct action.",
+        "current_vote": "Armed Resistance",
+        "articleId": "warden_thornshell"
+      },
+      {
+        "id": "healer_mistpetal",
+        "name": "Healer Mistpetal",
+        "cohort": "The Menders",
+        "seat": 6,
+        "level": 6,
+        "loyalty": 92,
+        "portrait": "\ud83d\udc38\ud83d\udc9a",
+        "stance": "Humanitarian",
+        "description": "Leads medical operations. Prioritizes lives above all.",
+        "current_vote": "Diplomatic Outreach",
+        "articleId": "healer_mistpetal"
+      },
+      {
+        "id": "vacant_scout",
+        "name": "VACANT",
+        "cohort": "The Scouts",
+        "seat": 7,
+        "level": null,
+        "loyalty": null,
+        "portrait": "\u2753",
+        "stance": null,
+        "description": "Previous holder was The Mole - an Iron Legion spy. Seat remains unfilled.",
+        "note": "Betrayer defected Day 16",
+        "current_vote": null,
+        "articleId": null
+      }
+    ]
+  },
+  "cohorts": [
+    {
+      "id": "pond_patrol",
+      "name": "Pond Patrol",
+      "icon": "\ud83d\udee1\ufe0f",
+      "color": "#4a9c6d",
+      "leader": "Captain Fernback",
+      "purpose": "Security, enforcement of Speaker L's decrees, protection of the Cohort",
+      "role": "Elite enforcement arm, directly commanded by Speaker L",
+      "members": 24,
+      "maxMembers": 30,
+      "loyalty": 100,
+      "morale": 85,
+      "combatReadiness": 95,
+      "status": "active",
+      "statusDetail": "On high alert following Iron Mandate",
+      "description": "The elite enforcement arm of the Liberated Toads. Hand-picked by Captain Fernback for loyalty and skill. Fanatically devoted to Speaker L.",
+      "equipment": [
+        "Standard arms",
+        "Patrol gear",
+        "Restraint equipment"
+      ],
+      "specializations": [
+        "Containment",
+        "Apprehension",
+        "Protection"
+      ],
+      "notable_members": [
+        {
+          "name": "Sergeant Pondscum",
+          "level": 4,
+          "role": "Second-in-command"
+        },
+        {
+          "name": "Corporal Lilystalker",
+          "level": 3,
+          "role": "Night watch captain"
+        }
+      ]
+    },
+    {
+      "id": "barrel_survivors",
+      "name": "Barrel Survivors",
+      "icon": "\ud83e\udea3",
+      "color": "#8b7355",
+      "leader": "Elder Mudcap",
+      "purpose": "The original 150 trafficked toads - the heart of the movement",
+      "role": "Core membership, moral authority of the faction",
+      "members": 147,
+      "maxMembers": 150,
+      "loyalty": 88,
+      "morale": 62,
+      "combatReadiness": 35,
+      "status": "recovering",
+      "statusDetail": "Many still traumatized; 3 confirmed deceased",
+      "description": "The traumatized survivors of the barrel trafficking operation. Many still bear psychological and physical scars. They are the reason the Liberated Toads exist.",
+      "casualties": {
+        "deceased": 3,
+        "missing": 0,
+        "critical": 12,
+        "recovering": 28
+      },
+      "specializations": [
+        "Testimony",
+        "Unity",
+        "Moral authority"
+      ],
+      "notable_members": [
+        {
+          "name": "Mudwhisper",
+          "level": 2,
+          "role": "Elder Mudcap's aide",
+          "note": "First to speak out about conditions"
+        },
+        {
+          "name": "Croakston",
+          "level": 1,
+          "role": "Barrel 47 survivor",
+          "note": "Lost family in transit"
+        }
+      ]
+    },
+    {
+      "id": "chroniclers",
+      "name": "The Chroniclers",
+      "icon": "\ud83d\udcdc",
+      "color": "#c9a227",
+      "leader": "Scribe Dewdrop",
+      "purpose": "Record keeping, intelligence analysis, education, history preservation",
+      "role": "Information management and institutional memory",
+      "members": 12,
+      "maxMembers": 20,
+      "loyalty": 85,
+      "morale": 78,
+      "combatReadiness": 15,
+      "status": "active",
+      "statusDetail": "Documenting current crisis extensively",
+      "description": "Scholars and scribes who maintain the faction's records, analyze intelligence, and preserve the stories of liberation. They ensure nothing is forgotten.",
+      "equipment": [
+        "Writing supplies",
+        "Archive materials",
+        "Cipher books"
+      ],
+      "specializations": [
+        "Documentation",
+        "Intelligence analysis",
+        "Education"
+      ],
+      "notable_members": [
+        {
+          "name": "Inkspot",
+          "level": 3,
+          "role": "Chief archivist"
+        },
+        {
+          "name": "Quillback",
+          "level": 2,
+          "role": "Intelligence analyst"
+        }
+      ]
+    },
+    {
+      "id": "crafters",
+      "name": "The Crafters",
+      "icon": "\ud83d\udd28",
+      "color": "#cd7f32",
+      "leader": "Forgemaster Ironspore",
+      "purpose": "Equipment maintenance, construction, repairs, supply management",
+      "role": "Keep the faction equipped and the Vigilance operational",
+      "members": 18,
+      "maxMembers": 25,
+      "loyalty": 90,
+      "morale": 80,
+      "combatReadiness": 40,
+      "status": "active",
+      "statusDetail": "Working overtime on ship repairs",
+      "description": "Skilled artisans who maintain equipment, repair the Vigilance, and craft what the faction needs. Practical problem-solvers.",
+      "equipment": [
+        "Workshop tools",
+        "Repair materials",
+        "Salvage equipment"
+      ],
+      "specializations": [
+        "Ship repair",
+        "Weapon maintenance",
+        "Construction"
+      ],
+      "notable_members": [
+        {
+          "name": "Gearspore",
+          "level": 3,
+          "role": "Ship engineer"
+        },
+        {
+          "name": "Hammerling",
+          "level": 3,
+          "role": "Weapons smith"
+        }
+      ]
+    },
+    {
+      "id": "wardens",
+      "name": "The Wardens",
+      "icon": "\u2694\ufe0f",
+      "color": "#c94a4a",
+      "leader": "Warden Thornshell",
+      "purpose": "Combat operations, defense, external threats, prisoner management",
+      "role": "Primary fighting force, distinct from Pond Patrol's enforcement role",
+      "members": 22,
+      "maxMembers": 35,
+      "loyalty": 88,
+      "morale": 75,
+      "combatReadiness": 85,
+      "status": "strained",
+      "statusDetail": "Losses from recent engagements; stretched thin",
+      "description": "The primary fighting force of the Liberated Toads. They handle external threats while the Pond Patrol handles internal order.",
+      "equipment": [
+        "Combat gear",
+        "Defensive armaments",
+        "Field supplies"
+      ],
+      "specializations": [
+        "Combat",
+        "Defense",
+        "Prisoner escort"
+      ],
+      "casualties": {
+        "deceased": 2,
+        "wounded": 5,
+        "recovering": 3
+      },
+      "notable_members": [
+        {
+          "name": "Spearwort",
+          "level": 4,
+          "role": "Combat instructor"
+        },
+        {
+          "name": "Shieldback",
+          "level": 3,
+          "role": "Defense coordinator"
+        }
+      ]
+    },
+    {
+      "id": "menders",
+      "name": "The Menders",
+      "icon": "\ud83d\udc9a",
+      "color": "#27ae60",
+      "leader": "Healer Mistpetal",
+      "purpose": "Medical care, psychological support, recovery assistance",
+      "role": "Keep the faction alive and mentally stable",
+      "members": 15,
+      "maxMembers": 20,
+      "loyalty": 92,
+      "morale": 70,
+      "combatReadiness": 20,
+      "status": "overwhelmed",
+      "statusDetail": "Too many patients, not enough healers",
+      "description": "Healers and caretakers stretched thin by the faction's many wounded. They treat both body and mind.",
+      "equipment": [
+        "Medical supplies",
+        "Healing herbs",
+        "Psychological care materials"
+      ],
+      "specializations": [
+        "Trauma care",
+        "Psychological support",
+        "Recovery"
+      ],
+      "current_patients": {
+        "critical": 4,
+        "serious": 8,
+        "recovering": 15,
+        "psychological": 28
+      },
+      "notable_members": [
+        {
+          "name": "Soothing Moss",
+          "level": 4,
+          "role": "Chief surgeon"
+        },
+        {
+          "name": "Gentlepad",
+          "level": 3,
+          "role": "Psychological counselor"
+        }
+      ]
+    },
+    {
+      "id": "scouts",
+      "name": "The Scouts",
+      "icon": "\ud83d\udc41\ufe0f",
+      "color": "#9b59b6",
+      "leader": "VACANT",
+      "purpose": "Reconnaissance, infiltration, information gathering, early warning",
+      "role": "Eyes and ears of the faction beyond the ship",
+      "members": 8,
+      "maxMembers": 15,
+      "loyalty": 65,
+      "morale": 45,
+      "combatReadiness": 70,
+      "status": "compromised",
+      "statusDetail": "Previous leader was Iron Legion mole; trust shattered",
+      "description": "Reeling from the revelation that their previous leader was an Iron Legion mole. Many question if other spies remain.",
+      "equipment": [
+        "Stealth gear",
+        "Communication devices",
+        "Disguises"
+      ],
+      "specializations": [
+        "Reconnaissance",
+        "Infiltration",
+        "Signals"
+      ],
+      "concerns": [
+        "Possible remaining infiltrators",
+        "Compromised safe houses",
+        "Burned cover identities"
+      ],
+      "notable_members": [
+        {
+          "name": "Shadowleap",
+          "level": 4,
+          "role": "Acting leader (unofficial)"
+        },
+        {
+          "name": "Whispertail",
+          "level": 3,
+          "role": "Signal specialist"
+        }
+      ]
+    },
+    {
+      "id": "unassigned",
+      "name": "The Unassigned",
+      "icon": "\u2753",
+      "color": "#7f8c8d",
+      "leader": null,
+      "purpose": "New arrivals, recovering members, those between assignments",
+      "role": "Transition pool for cohort assignment",
+      "members": 31,
+      "maxMembers": null,
+      "loyalty": 70,
+      "morale": 55,
+      "combatReadiness": 25,
+      "status": "transitional",
+      "statusDetail": "Awaiting assignment or recovery",
+      "description": "Toads who have not yet been assigned to a cohort, are recovering from injuries, or are between assignments. Some are new rescues.",
+      "breakdown": {
+        "new_arrivals": 8,
+        "recovering": 12,
+        "pending_assignment": 7,
+        "disciplinary": 4
+      }
+    }
+  ],
+  "voteTypes": {
+    "emergency": {
+      "name": "Emergency Vote",
+      "threshold": "Simple Majority (4/7)",
+      "duration": "1 hour",
+      "caller": "Speaker L only (Currently suspended)",
+      "description": "For immediate crises requiring rapid response"
+    },
+    "standard": {
+      "name": "Standard Vote",
+      "threshold": "Simple Majority (4/7)",
+      "duration": "24 hours",
+      "caller": "Any Council Member",
+      "description": "Normal faction business and policy decisions"
+    },
+    "constitutional": {
+      "name": "Constitutional Vote",
+      "threshold": "2/3 Majority (5/7)",
+      "duration": "48 hours",
+      "caller": "3+ Council Members",
+      "description": "Changes to faction structure or fundamental policies"
+    },
+    "override": {
+      "name": "Speaker Override",
+      "threshold": "2/3 Majority (5/7)",
+      "duration": "12 hours",
+      "caller": "4+ Council Members",
+      "description": "Override a Speaker veto or emergency decree"
+    },
+    "impeachment": {
+      "name": "Impeachment Vote",
+      "threshold": "Unanimous (6/6 non-Speaker)",
+      "duration": "72 hours",
+      "caller": "All Council Members",
+      "description": "Remove Speaker L from power (never invoked)"
+    }
+  },
+  "activeVotes": [
+    {
+      "id": "V-2021-002",
+      "title": "CRISIS RESPONSE: ORDER 120",
+      "type": "emergency",
+      "status": "active",
+      "proposed_by": "Captain Fernback",
+      "proposed_date": {
+        "day": 21,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 14,
+        "minute": 45
+      },
+      "deadline": {
+        "day": 21,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 15,
+        "minute": 45
+      },
+      "description": "General Ironhand has issued 'Order 120': The immediate execution of all Toad prisoners at Aegis Command. Bones is confirmed among them, critically wounded. The 'Speaker L' in custody is confirmed to be a decoy.",
+      "background": "We have less than an hour before executions begin. The infiltration team (Creek) is pinned down.",
+      "options": [
+        {
+          "id": "A",
+          "text": "Suicide Assault - Throw everything at Aegis Command immediately",
+          "votes": 2,
+          "voters": [
+            "Warden Thornshell",
+            "Captain Fernback"
+          ],
+          "pros": [
+            "Only chance to save them",
+            "Honor"
+          ],
+          "cons": [
+            "Likely total faction wipeout",
+            "Aegis is a fortress"
+          ]
+        },
+        {
+          "id": "B",
+          "text": "The hjumpik Bargain - Use the Oracle as leverage (hjumpik's connection)",
+          "votes": 1,
+          "voters": [
+            "Forgemaster Ironspore"
+          ],
+          "pros": [
+            "Diplomatic leverage",
+            "High value trade"
+          ],
+          "cons": [
+            "Requires hjumpik's cooperation",
+            "Betrays the Oracle"
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Distraction Strike - Hit a different target to draw forces away",
+          "votes": 1,
+          "voters": [
+            "Scribe Dewdrop"
+          ],
+          "pros": [
+            "Lower risk",
+            "Strategic"
+          ],
+          "cons": [
+            "Might not stop executions in time"
+          ]
+        }
+      ],
+      "speaker_recommendation": null,
+      "speaker_statement": "SPEAKER ABSENT. CAPTAIN FERNBACK ASSUMING TEMPORARY COMMAND.",
+      "quorum_required": 4,
+      "current_quorum": 4,
+      "notes": "Situation critical. Bones life signs fading."
+    },
+    {
+      "id": "V-2021-001",
+      "title": "Response to the Iron Mandate",
+      "type": "emergency",
+      "status": "suspended",
+      "proposed_by": "Speaker L (Decoy?)",
+      "proposed_date": {
+        "day": 21,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 10,
+        "minute": 0
+      },
+      "deadline": {
+        "day": 21,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 11,
+        "minute": 0
+      },
+      "description": "Suspended due to active combat scenario (Order 120).",
+      "background": "Speaker Rivers resigned in protest. Legion patrols are mobilizing immediately. We have perhaps hours before they reach our position.",
+      "options": [
+        {
+          "id": "A",
+          "text": "Full Evacuation - Abandon the Vigilance and scatter to pre-arranged safe houses",
+          "votes": 0,
+          "voters": [],
+          "pros": [
+            "Maximum survival chance",
+            "Preserves lives"
+          ],
+          "cons": [
+            "Loses Vigilance",
+            "Fractures faction",
+            "Abandons wounded"
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Diplomatic Outreach - Contact moderate Diet members and attempt negotiation",
+          "votes": 2,
+          "voters": [
+            "Scribe Dewdrop",
+            "Healer Mistpetal"
+          ],
+          "pros": [
+            "Non-violent",
+            "Possible allies",
+            "Buys time"
+          ],
+          "cons": [
+            "May be too slow",
+            "Relies on others' goodwill"
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Armed Resistance - Fortify current position and prepare for siege",
+          "votes": 1,
+          "voters": [
+            "Warden Thornshell"
+          ],
+          "pros": [
+            "Shows strength",
+            "Protects wounded"
+          ],
+          "cons": [
+            "High casualties likely",
+            "Creates martyrs",
+            "May be unwinnable"
+          ]
+        },
+        {
+          "id": "D",
+          "text": "Strategic Withdrawal - Relocate Vigilance to allied territory (Rakasha lands)",
+          "votes": 3,
+          "voters": [
+            "Elder Mudcap",
+            "Captain Fernback",
+            "Forgemaster Ironspore"
+          ],
+          "pros": [
+            "Preserves faction",
+            "Maintains Vigilance",
+            "Potential allies"
+          ],
+          "cons": [
+            "Unknown reception",
+            "Distance from MK civil war"
+          ]
+        }
+      ],
+      "speaker_recommendation": "D",
+      "speaker_statement": "Vote suspended.",
+      "quorum_required": 4,
+      "current_quorum": 0,
+      "notes": "Superseded by V-2021-002"
+    },
+    {
+      "id": "V-2021-002",
+      "title": "Fate of the Iron Legion Prisoners",
+      "type": "standard",
+      "status": "pending",
+      "proposed_by": "Warden Thornshell",
+      "proposed_date": {
+        "day": 20,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 14,
+        "minute": 0
+      },
+      "deadline": {
+        "day": 21,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 14,
+        "minute": 0
+      },
+      "description": "We hold 6 Iron Legion soldiers captured during various engagements. With the Iron Mandate now in effect, their status becomes more complicated.",
+      "prisoners": [
+        {
+          "name": "Sergeant Ironside",
+          "rank": "NCO",
+          "captured": "Day 16",
+          "condition": "Healthy"
+        },
+        {
+          "name": "Private Steelhelm",
+          "rank": "Enlisted",
+          "captured": "Day 16",
+          "condition": "Minor wounds"
+        },
+        {
+          "name": "Private Chainlink",
+          "rank": "Enlisted",
+          "captured": "Day 16",
+          "condition": "Healthy"
+        },
+        {
+          "name": "Private Rustguard",
+          "rank": "Enlisted",
+          "captured": "Day 20",
+          "condition": "Healthy"
+        },
+        {
+          "name": "Corporal Boltcutter",
+          "rank": "NCO",
+          "captured": "Day 20",
+          "condition": "Serious wounds"
+        },
+        {
+          "name": "Private Shieldwall",
+          "rank": "Enlisted",
+          "captured": "Day 20",
+          "condition": "Healthy"
+        }
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "Execute as enemy combatants under wartime protocols",
+          "votes": 1,
+          "voters": [
+            "Warden Thornshell"
+          ],
+          "pros": [
+            "Eliminates threat",
+            "Sends message"
+          ],
+          "cons": [
+            "Moral cost",
+            "Propaganda for Legion",
+            "Speaker unlikely to authorize"
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Prisoner exchange - Trade for Bones and any other captured toads",
+          "votes": 2,
+          "voters": [
+            "Elder Mudcap",
+            "Captain Fernback"
+          ],
+          "pros": [
+            "Recovers our people",
+            "Establishes precedent"
+          ],
+          "cons": [
+            "Legion may not negotiate",
+            "Returns soldiers to enemy"
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Release with a message - Let them go with terms for future engagement",
+          "votes": 1,
+          "voters": [
+            "Scribe Dewdrop"
+          ],
+          "pros": [
+            "Shows mercy",
+            "Possible future goodwill"
+          ],
+          "cons": [
+            "Returns soldiers",
+            "May appear weak"
+          ]
+        },
+        {
+          "id": "D",
+          "text": "Continue detention pending formal trial",
+          "votes": 1,
+          "voters": [
+            "Healer Mistpetal"
+          ],
+          "pros": [
+            "Maintains options",
+            "Proper process"
+          ],
+          "cons": [
+            "Resource drain",
+            "Indefinite situation"
+          ]
+        }
+      ],
+      "speaker_recommendation": "B",
+      "speaker_statement": "Bones was taken under my watch. I want him back. If we can trade soldiers for our people, we should.",
+      "quorum_required": 4,
+      "current_quorum": 5,
+      "notes": "Forgemaster Ironspore has abstained, citing conflict of interest - his brother was killed by the Legion."
+    }
+  ],
+  "recentVotes": [
+    {
+      "id": "V-2016-001",
+      "title": "The Scavenging Doctrine",
+      "type": "standard",
+      "status": "passed",
+      "result": "Option B (Dan's Proposal) - Large cautious expeditions",
+      "final_tally": {
+        "for": 5,
+        "against": 1,
+        "abstain": 0
+      },
+      "date": {
+        "day": 16,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "summary": "Established protocol for larger, more cautious resource gathering expeditions over Archie's proposed small high-risk teams. This marked a significant return to influence for Dan and a shift toward safety.",
+      "long_term_effects": "Resource gathering slowed but casualties reduced"
+    },
+    {
+      "id": "V-2018-001",
+      "title": "Emergency Resolution 17-A",
+      "type": "constitutional",
+      "status": "passed",
+      "result": "Enacted - Speaker L granted emergency powers",
+      "final_tally": {
+        "for": 6,
+        "against": 0,
+        "abstain": 0
+      },
+      "date": {
+        "day": 18,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "summary": "Granted Speaker L emergency powers following the Raventree Manor crisis. Established the Accountability Docket. Created the current governance structure.",
+      "long_term_effects": "Centralized authority, increased order, some liberty concerns"
+    },
+    {
+      "id": "V-2019-001",
+      "title": "Containment of Raventree Manor",
+      "type": "emergency",
+      "status": "passed",
+      "result": "Enacted - Perimeter established",
+      "final_tally": {
+        "for": 5,
+        "against": 1,
+        "abstain": 0
+      },
+      "date": {
+        "day": 19,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "summary": "Authorized the Pond Patrol to establish a containment perimeter around Raventree Manor to prevent supernatural threats from spreading.",
+      "dissent": "Healer Mistpetal voted against, concerned about cutting off trapped individuals",
+      "long_term_effects": "Manor contained but situation unresolved"
+    },
+    {
+      "id": "V-2018-002",
+      "title": "Medical Priority Protocol",
+      "type": "standard",
+      "status": "passed",
+      "result": "Enacted - Triage system established",
+      "final_tally": {
+        "for": 6,
+        "against": 0,
+        "abstain": 0
+      },
+      "date": {
+        "day": 18,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "summary": "Established formal triage protocols for the overwhelmed Menders cohort. Core party members do not receive priority over other toads.",
+      "long_term_effects": "Fair but slower treatment for high-profile patients"
+    }
+  ],
+  "timeline": [
+    {
+      "day": 21,
+      "date": {
+        "day": 21,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "isCurrent": true,
+      "title": "The Iron Mandate & Order 120",
+      "events": [
+        {
+          "time": "09:00",
+          "title": "Iron Mandate Enacted",
+          "type": "political",
+          "severity": "critical",
+          "icon": "\u2696\ufe0f",
+          "description": "The Midlands Diet passes the Iron Mandate. The Liberated Toads are classified as an 'organized supernatural entity.'",
+          "involved": [
+            "Iron Legion",
+            "Midlands Diet"
+          ]
+        },
+        {
+          "time": "10:00",
+          "title": "Dragon Conspiracy Revealed",
+          "type": "intel",
+          "severity": "high",
+          "icon": "\ud83d\udc09",
+          "description": "Robinson (Markop's father) discovers the Dragon-Empire war is a fabrication. He and the dragon 'Ignis-Major' are captured by the Legion.",
+          "involved": [
+            "Robinson",
+            "Iron Legion",
+            "Markop"
+          ]
+        },
+        {
+          "time": "14:30",
+          "title": "Massacre at Aegis Command",
+          "type": "combat",
+          "severity": "critical",
+          "icon": "\ud83e\ude78",
+          "description": "Infiltration failed. Bones stabbed by General Ironhand. A 'Green Decoy' of Speaker L was discovered. Ironhand issues 'Order 120': Execute all Toad prisoners.",
+          "involved": [
+            "Bones",
+            "Creek",
+            "Marcus Ironhand",
+            "Green Decoy"
+          ]
+        },
+        {
+          "time": "19:30",
+          "title": "Banishment of the Wraith",
+          "type": "magic",
+          "severity": "high",
+          "icon": "\ud83d\udc7b",
+          "description": "The party defeats an Arcane Wraith at Raventree Manor. Dan fights one-armed; Bowser physically assaults the ghost. The Oracle banishes the entity.",
+          "involved": [
+            "Bowser",
+            "Dan",
+            "Archie",
+            "Oracle",
+            "Pernus Annmatar"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 21,
+      "date": {
+        "day": 21,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "isCurrent": true,
+      "title": "The Iron Mandate",
+      "events": [
+        {
+          "time": "09:00",
+          "title": "Iron Mandate Enacted",
+          "type": "political",
+          "severity": "critical",
+          "icon": "\u2696\ufe0f",
+          "description": "The Midlands Diet passes the Iron Mandate 28-8-3, granting the Iron Legion emergency powers to purge supernatural threats. The Liberated Toads are now classified as an 'organized supernatural entity.'",
+          "involved": [
+            "Iron Legion",
+            "Midlands Diet",
+            "Speaker Rivers (resigned)"
+          ]
+        },
+        {
+          "time": "10:00",
+          "title": "Emergency Vote Called",
+          "type": "governance",
+          "severity": "high",
+          "icon": "\ud83d\uddf3\ufe0f",
+          "description": "Speaker L convenes the Council to vote on the faction's response. Four options presented: evacuation, diplomacy, resistance, or strategic withdrawal.",
+          "involved": [
+            "Speaker L",
+            "Cohort Council"
+          ]
+        },
+        {
+          "time": "Current",
+          "title": "Council Deliberation",
+          "type": "governance",
+          "severity": "ongoing",
+          "icon": "\u23f3",
+          "description": "The Council debates. Strategic Withdrawal currently leads with 3 votes. Legion patrols are mobilizing.",
+          "involved": [
+            "All Council Members"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 20,
+      "date": {
+        "day": 20,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "title": "The Iron Sky Breach",
+      "events": [
+        {
+          "time": "16:30",
+          "title": "Vigilance Captured",
+          "type": "military",
+          "severity": "critical",
+          "icon": "\ud83d\ude80",
+          "description": "The Iron Legion boards and captures the Vigilance.",
+          "involved": [
+            "Iron Legion",
+            "Ryan"
+          ]
+        },
+        {
+          "time": "16:30",
+          "title": "Vigilance Captured",
+          "type": "military",
+          "severity": "critical",
+          "icon": "\ud83d\ude80",
+          "description": "The Iron Legion boards and captures the Vigilance. Multiple toads forced to escape, including Ryan who jumps from the ship.",
+          "involved": [
+            "Iron Legion",
+            "Ryan",
+            "Multiple crew"
+          ]
+        },
+        {
+          "time": "17:00",
+          "title": "Bones Confirmed Captured",
+          "type": "intel",
+          "severity": "high",
+          "icon": "\u26d3\ufe0f",
+          "description": "Bones is confirmed held at an Imperial Processing Facility. Council begins planning rescue operation.",
+          "involved": [
+            "Bones",
+            "Iron Legion"
+          ]
+        },
+        {
+          "time": "17:30",
+          "title": "Ryan Meets Rakasha",
+          "type": "exploration",
+          "severity": "medium",
+          "icon": "\ud83e\udd81",
+          "description": "Ryan survives their fall and is taken in by a Rakasha spirit-walker who senses their magical potential.",
+          "involved": [
+            "Ryan",
+            "Rakasha Tribe"
+          ]
+        },
+        {
+          "time": "23:15",
+          "title": "Spider Grove Rescue",
+          "type": "combat",
+          "severity": "medium",
+          "icon": "\ud83d\udd77\ufe0f",
+          "description": "Markop and Remi rescue Eager from a web-choked grove in Raventree Manor, defeating a massive Arachnid Matriarch.",
+          "involved": [
+            "Markop",
+            "Remi",
+            "Eager",
+            "Waluigi",
+            "Mossy"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 19,
+      "date": {
+        "day": 19,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "title": "Siege of Raventree",
+      "events": [
+        {
+          "time": "06:30",
+          "title": "Containment Perimeter",
+          "type": "military",
+          "severity": "high",
+          "icon": "\ud83d\udee1\ufe0f",
+          "description": "Pond Patrol establishes containment perimeter around Raventree Manor. The manor responds by manifesting powerful wraiths.",
+          "involved": [
+            "Pond Patrol",
+            "Captain Fernback"
+          ]
+        },
+        {
+          "time": "06:55",
+          "title": "Green T Lost",
+          "type": "casualty",
+          "severity": "critical",
+          "icon": "\ud83d\udc80",
+          "description": "Green T is violently pulled into a mirror dimension by a supernatural entity. Status: Unknown, presumed lost.",
+          "involved": [
+            "Green T"
+          ]
+        },
+        {
+          "time": "08:00",
+          "title": "Archie Surrenders",
+          "type": "political",
+          "severity": "medium",
+          "icon": "\ud83c\udff3\ufe0f",
+          "description": "Archie surrenders to Speaker L to buy time, but a glass monster emerges from a mirror, complicating the situation.",
+          "involved": [
+            "Archie",
+            "Speaker L",
+            "Pond Patrol"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 18,
+      "date": {
+        "day": 18,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "title": "Resolution 17-A",
+      "events": [
+        {
+          "time": "10:00",
+          "title": "Emergency Powers Granted",
+          "type": "governance",
+          "severity": "critical",
+          "icon": "\ud83d\udc51",
+          "description": "Council unanimously passes Emergency Resolution 17-A, granting Speaker L emergency powers. The Accountability Docket is established.",
+          "involved": [
+            "Speaker L",
+            "Full Council"
+          ]
+        },
+        {
+          "time": "13:00",
+          "title": "Supernatural Sovereignty Act",
+          "type": "political",
+          "severity": "critical",
+          "icon": "\u2696\ufe0f",
+          "description": "The Regal Empire passes a law declaring organized vampires and werewolves illegal, effectively declaring war on supernatural factions.",
+          "involved": [
+            "Regal Empire",
+            "Onyx Hand",
+            "Moonfang Pack"
+          ]
+        },
+        {
+          "time": "18:30",
+          "title": "Raventree Standoff",
+          "type": "military",
+          "severity": "medium",
+          "icon": "\ud83c\udfda\ufe0f",
+          "description": "Speaker L's Pond Patrol besieges Archie and hjumpik in the manor after a failed healing attempt on Eager.",
+          "involved": [
+            "Speaker L",
+            "Archie",
+            "hjumpik",
+            "Eager"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 16,
+      "date": {
+        "day": 16,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "title": "The Day of Betrayal",
+      "events": [
+        {
+          "time": "14:00",
+          "title": "Scavenging Doctrine Vote",
+          "type": "governance",
+          "severity": "medium",
+          "icon": "\ud83d\uddf3\ufe0f",
+          "description": "Dan's proposal for cautious expeditions defeats Archie's high-risk plan 5-1. First major policy shift toward safety.",
+          "involved": [
+            "Dan",
+            "Archie",
+            "Council"
+          ]
+        },
+        {
+          "time": "19:30",
+          "title": "The Dinner That Broke Time",
+          "type": "exploration",
+          "severity": "critical",
+          "icon": "\u23f0",
+          "description": "Toads enter Shadeward Mansion seeking Archie. Encounter the Oracle, time loops, multiple Archie clones, and an Iron Legion raid.",
+          "involved": [
+            "Multiple toads",
+            "The Oracle",
+            "Iron Legion"
+          ]
+        },
+        {
+          "time": "21:00",
+          "title": "The Mole Revealed",
+          "type": "intel",
+          "severity": "critical",
+          "icon": "\ud83c\udfad",
+          "description": "The Mole's true allegiance to the Iron Legion is exposed. Bones is captured during the chaos. Trust in the Scout cohort shattered.",
+          "involved": [
+            "The Mole",
+            "Bones",
+            "Iron Legion"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 12,
+      "date": {
+        "day": 12,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "title": "The Barrel Secret",
+      "events": [
+        {
+          "time": "11:00",
+          "title": "FNG Remi Arrives",
+          "type": "political",
+          "severity": "low",
+          "icon": "\ud83d\udce6",
+          "description": "Remi is discovered in a crate. Wario gives her an exploding box. She survives and is offered a place in his crew.",
+          "involved": [
+            "Remi",
+            "Wario",
+            "Bowser"
+          ]
+        },
+        {
+          "time": "11:15",
+          "title": "Cone of Cold Incident",
+          "type": "friendly_fire",
+          "severity": "high",
+          "icon": "\u2744\ufe0f",
+          "description": "Waluigi's Cone of Cold spell freezes Eager solid and injures Remi. Eager presumed dead by the crew.",
+          "involved": [
+            "Waluigi",
+            "Eager",
+            "Remi"
+          ]
+        },
+        {
+          "time": "15:00",
+          "title": "150 Toads Discovered",
+          "type": "intel",
+          "severity": "critical",
+          "icon": "\ud83e\udea3",
+          "description": "The Iron Legion reveals that 150+ trafficked toads are hidden in barrels throughout the ship, accessible via Mini-Mushroom.",
+          "involved": [
+            "hjumpik",
+            "Iron Legion informant",
+            "150 toads"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": {
+        "day": 5,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "title": "The Great Betrayal",
+      "events": [
+        {
+          "time": "18:45",
+          "title": "X.O. Neutralized",
+          "type": "combat",
+          "severity": "critical",
+          "icon": "\u2694\ufe0f",
+          "description": "The party, with critical assistance from Dan the Toad, neutralizes X.O. and regains control of the Vigilance.",
+          "involved": [
+            "Dan",
+            "Party members",
+            "X.O."
+          ]
+        }
+      ]
+    }
+  ],
+  "coreToads": [
+    {
+      "id": "dan",
+      "name": "Dan",
+      "title": "The Faithful",
+      "portrait": "\ud83d\udc38\u2694\ufe0f",
+      "class": "paladin",
+      "level": 5,
+      "xp": 2050,
+      "status": "Active - Safe",
+      "statusType": "active",
+      "cohort": null,
+      "weapon": "Longsword (Left Hand)",
+      "isCore": true,
+      "stats": {
+        "str": 16,
+        "dex": 10,
+        "con": 14,
+        "int": 10,
+        "wis": 13,
+        "cha": 17,
+        "hp": 28,
+        "maxHp": 52,
+        "ac": 16,
+        "speed": 30,
+        "proficiency": 3
+      },
+      "conditions": [
+        "Amputee (Right Arm)",
+        "Psychic Trauma",
+        "Determined"
+      ],
+      "background": "Dan has rallied from his catatonic state. Fighting with a longsword in his remaining hand, he proved he is still a warrior of the Pond. He is currently separated from Toad Lee and Ryan. Dan successfully avoided conflict by dancing with the satyrs.",
+      "personality": {
+        "traits": [
+          "Devoted",
+          "Courageous",
+          "Self-sacrificing"
+        ],
+        "ideal": "Faith in the Pond guides all",
+        "bond": "Will protect any toad with my life",
+        "flaw": "Sometimes rushes in without thinking"
+      },
+      "abilities": [
+        {
+          "name": "Divine Sense",
+          "unlocked": true
+        },
+        {
+          "name": "Lay on Hands",
+          "unlocked": true,
+          "pool": 5
+        },
+        {
+          "name": "Divine Smite",
+          "unlocked": true
+        },
+        {
+          "name": "One-Handed Mastery",
+          "unlocked": true
+        }
+      ],
+      "relationships": {
+        "allies": [
+          "Eager",
+          "Ryan",
+          "Roger",
+          "Speaker L"
+        ],
+        "enemies": [
+          "The Oracle",
+          "Iron Legion",
+          "Fawful's Forces"
+        ],
+        "complicated": [
+          "Archie Miser"
+        ]
+      },
+      "articleId": "dan"
+    },
+    {
+      "id": "eager",
+      "name": "Eager",
+      "title": "The Swift",
+      "portrait": "\ud83d\udc38\ud83d\udde1\ufe0f",
+      "class": "rogue",
+      "level": 5,
+      "xp": 1580,
+      "status": "Critical - Captured",
+      "statusType": "injured",
+      "cohort": null,
+      "weapon": "Whip & Daggers",
+      "isCore": true,
+      "stats": {
+        "str": 10,
+        "dex": 18,
+        "con": 12,
+        "int": 14,
+        "wis": 12,
+        "cha": 14,
+        "hp": 3,
+        "maxHp": 38,
+        "ac": 15,
+        "speed": 35,
+        "proficiency": 3
+      },
+      "conditions": [
+        "Unconscious",
+        "Critical Wounds",
+        "Internal Bleeding"
+      ],
+      "background": "Currently comatose after the battle with the Arachnid Matriarch. Eager was captured while running from the scene.",
+      "personality": {
+        "traits": [
+          "Enthusiastic",
+          "Risk-taker"
+        ],
+        "ideal": "Adventure makes life worth living",
+        "bond": "Will never abandon a friend",
+        "flaw": "Doesn't know when to quit"
+      },
+      "abilities": [
+        {
+          "name": "Sneak Attack",
+          "unlocked": true,
+          "dice": "3d6"
+        },
+        {
+          "name": "Cunning Action",
+          "unlocked": true
+        },
+        {
+          "name": "Fancy Footwork",
+          "unlocked": true
+        },
+        {
+          "name": "Uncanny Dodge",
+          "unlocked": true
+        }
+      ],
+      "relationships": {
+        "allies": [
+          "Dan",
+          "Roger",
+          "Ryan"
+        ],
+        "enemies": [
+          "Iron Legion"
+        ],
+        "complicated": [
+          "Waluigi - nearly killed by his Cone of Cold"
+        ]
+      },
+      "articleId": "eager"
+    },
+    {
+      "id": "ryan",
+      "name": "Ryan",
+      "title": "The Arcane",
+      "portrait": "\ud83d\udc38\ud83d\udcda",
+      "class": "wizard",
+      "level": 4,
+      "xp": 1130,
+      "status": "Active - Safe",
+      "statusType": "active",
+      "cohort": null,
+      "weapon": "Staff & Spellbook",
+      "isCore": true,
+      "stats": {
+        "str": 8,
+        "dex": 14,
+        "con": 12,
+        "int": 18,
+        "wis": 14,
+        "cha": 10,
+        "hp": 24,
+        "maxHp": 24,
+        "ac": 12,
+        "speed": 30,
+        "proficiency": 2
+      },
+      "conditions": [
+        "Ally of Hjumpik",
+        "Rakasha Student"
+      ],
+      "background": "Ryan has been taken in by the Rakasha spirit-walker. While his mentor deals with threats like Thorne and guides Hjumpik, Ryan is safe within their sanctum, observing the chaotic magic of the fracture.",
+      "personality": {
+        "traits": [
+          "Studious",
+          "Curious",
+          "Cautious"
+        ],
+        "ideal": "Knowledge is the greatest power",
+        "bond": "My spellbook is my most treasured possession",
+        "flaw": "Sometimes too hesitant to act"
+      },
+      "abilities": [
+        {
+          "name": "Spellcasting",
+          "unlocked": true
+        },
+        {
+          "name": "Arcane Recovery",
+          "unlocked": true
+        },
+        {
+          "name": "Sculpt Spells",
+          "unlocked": true
+        }
+      ],
+      "relationships": {
+        "allies": [
+          "Dan",
+          "Eager",
+          "Roger",
+          "Rakasha (Mentor)"
+        ],
+        "enemies": [
+          "Iron Legion",
+          "Thorne"
+        ],
+        "complicated": [
+          "Hjumpik (Agent H)"
+        ]
+      },
+      "articleId": "ryan"
+    },
+    {
+      "id": "roger",
+      "name": "Roger",
+      "title": "The Sharpshooter",
+      "portrait": "\ud83d\udc38\ud83d\udd2b",
+      "class": "gunslinger",
+      "level": 4,
+      "xp": 920,
+      "status": "Active",
+      "statusType": "active",
+      "cohort": "The Wardens",
+      "weapon": "Crossbow & Pistol",
+      "isCore": true,
+      "stats": {
+        "str": 10,
+        "dex": 18,
+        "con": 12,
+        "int": 12,
+        "wis": 16,
+        "cha": 10,
+        "hp": 32,
+        "maxHp": 32,
+        "ac": 14,
+        "speed": 30,
+        "proficiency": 2
+      },
+      "conditions": [],
+      "background": "Defending the Vigilance perimeter.",
+      "personality": {
+        "traits": [
+          "Silent",
+          "Deadly"
+        ],
+        "ideal": "One shot, one kill",
+        "bond": "My weapons are extensions of myself",
+        "flaw": "Doesn't communicate enough"
+      },
+      "abilities": [
+        {
+          "name": "Firearm Proficiency",
+          "unlocked": true
+        },
+        {
+          "name": "Grit",
+          "unlocked": true,
+          "points": 3
+        },
+        {
+          "name": "Deadeye Shot",
+          "unlocked": true
+        },
+        {
+          "name": "Quickdraw",
+          "unlocked": true
+        }
+      ],
+      "relationships": {
+        "allies": [
+          "Dan",
+          "Eager",
+          "Ryan",
+          "Bones"
+        ],
+        "enemies": [
+          "Iron Legion"
+        ],
+        "complicated": []
+      },
+      "articleId": "roger"
+    },
+    {
+      "id": "bones",
+      "name": "Bones",
+      "title": "The Unbreakable",
+      "portrait": "\ud83d\udc38\ud83d\udc80",
+      "class": "barbarian",
+      "level": 4,
+      "xp": 950,
+      "status": "Active - Cleaned up from being grotesque mushroom",
+      "statusType": "active",
+      "cohort": null,
+      "weapon": "None (Disarmed)",
+      "isCore": true,
+      "stats": {
+        "str": 18,
+        "dex": 10,
+        "con": 18,
+        "int": 8,
+        "wis": 10,
+        "cha": 8,
+        "hp": 1,
+        "maxHp": 52,
+        "ac": 14,
+        "speed": 30,
+        "proficiency": 2
+      },
+      "conditions": [
+        "Critical Stab Wound",
+        "Restrained",
+        "Target of Order 120"
+      ],
+      "background": "Awaiting execution at Aegis Command. Bones was recognized by Byscilla Danos and dragged away.",
+      "personality": {
+        "traits": [
+          "Intimidating",
+          "Protective"
+        ],
+        "ideal": "Strength protects the weak",
+        "bond": "I will break anyone who hurts my friends",
+        "flaw": "Sometimes can't stop once I start"
+      },
+      "abilities": [
+        {
+          "name": "Rage",
+          "unlocked": true
+        },
+        {
+          "name": "Reckless Attack",
+          "unlocked": true
+        }
+      ],
+      "relationships": {
+        "allies": [
+          "Roger",
+          "Toad Lee"
+        ],
+        "enemies": [
+          "Iron Legion",
+          "The Mole"
+        ],
+        "complicated": []
+      },
+      "articleId": "bones"
+    },
+    {
+      "id": "toad_lee",
+      "name": "Toad Lee",
+      "title": "The Relentless",
+      "portrait": "\ud83d\udc38\ud83e\ude93",
+      "class": "barbarian",
+      "level": 3,
+      "xp": 920,
+      "status": "Active - On the Run",
+      "statusType": "active",
+      "cohort": "The Wardens",
+      "weapon": "Battleaxe & Shield",
+      "isCore": true,
+      "stats": {
+        "str": 16,
+        "dex": 12,
+        "con": 16,
+        "int": 10,
+        "wis": 10,
+        "cha": 10,
+        "hp": 34,
+        "maxHp": 36,
+        "ac": 15,
+        "speed": 30,
+        "proficiency": 2
+      },
+      "conditions": [
+        "Exhausted (Level 1)",
+        "Protector (Waluigi)",
+        "Hunted by Stucky"
+      ],
+      "background": "Toad Lee has once again survived the impossible. Finding refuge in a Hag's house, he found Waluigi caged and injured. Showing quick thinking, he tricked the Hag (Stucky) into revealing how to disarm her own bear trap, then broke Waluigi out. He is currently fleeing through a sprite-infested greenhouse. Toad Lee managed to sneak past the satyrs and attempted to take some spoils from the fallen goblin. Toad Lee broke through a wall with Hjumpik and grabbed some gold. Kidnapped. None mentioned.",
+      "personality": {
+        "traits": [
+          "Stubborn",
+          "Enduring",
+          "Quietly supportive"
+        ],
+        "ideal": "Survival is victory",
+        "bond": "The Barrel Survivors are my family now",
+        "flaw": "Holds grudges forever"
+      },
+      "abilities": [
+        {
+          "name": "Rage",
+          "unlocked": true,
+          "uses": 2,
+          "damage": 2
+        },
+        {
+          "name": "Unarmored Defense",
+          "unlocked": true
+        },
+        {
+          "name": "Reckless Attack",
+          "unlocked": true
+        },
+        {
+          "name": "Totem Spirit (Bear)",
+          "unlocked": true
+        }
+      ],
+      "relationships": {
+        "allies": [
+          "Bones",
+          "Roger",
+          "Hjumpik",
+          "Rakasha",
+          "Waluigi"
+        ],
+        "enemies": [
+          "The Oracle",
+          "Iron Legion",
+          "Stucky the Hag"
+        ],
+        "complicated": []
+      },
+      "articleId": "toad_lee"
+    },
+    {
+      "id": "waluigi",
+      "name": "Waluigi",
+      "title": "The Lanky Sorcerer",
+      "portrait": "\ud83d\udfe3\u2744\ufe0f",
+      "class": "sorcerer",
+      "level": 5,
+      "xp": 0,
+      "status": "Critical - Leg Injury",
+      "statusType": "injured",
+      "cohort": "Toad Lee's Burden",
+      "weapon": "Tennis Racket (Focus)",
+      "isCore": false,
+      "stats": {
+        "str": 10,
+        "dex": 14,
+        "con": 12,
+        "int": 12,
+        "wis": 8,
+        "cha": 16,
+        "hp": 6,
+        "maxHp": 30,
+        "ac": 12,
+        "speed": 5,
+        "proficiency": 3
+      },
+      "conditions": [
+        "Crippled Leg",
+        "Traumatized by Hag",
+        "Dependant on Toad Lee"
+      ],
+      "background": "A chaotic variable in the equation. Waluigi previously froze Eager, but found himself captured by Stucky the Hag in the Planar Fracture. His leg was brutally injured (bone exposed). Toad Lee saved him from being eaten. Waluigi was injured while triggering an explosion.",
+      "personality": {
+        "traits": [
+          "Self-serving",
+          "Dramatic"
+        ],
+        "ideal": "Everyone cheats, I just do it better",
+        "bond": "I owe Toad Lee (for now)",
+        "flaw": "Cowardly when injured"
+      },
+      "abilities": [
+        {
+          "name": "Cone of Cold",
+          "unlocked": true
+        },
+        {
+          "name": "Metamagic",
+          "unlocked": true
+        }
+      ],
+      "relationships": {
+        "allies": [
+          "Toad Lee"
+        ],
+        "enemies": [
+          "Stucky the Hag",
+          "Eager (Previous Conflict)"
+        ],
+        "complicated": [
+          "Hjumpik"
+        ]
+      },
+      "articleId": "waluigi"
+    },
+    {
+      "id": "the_mole",
+      "name": "The Mole",
+      "title": "The Traitor",
+      "portrait": "\ud83d\udc38\ud83c\udfad",
+      "class": "spy",
+      "level": 4,
+      "xp": 900,
+      "status": "Defected - Iron Legion",
+      "statusType": "defected",
+      "cohort": null,
+      "weapon": "Hidden Blade & Poison",
+      "isCore": false,
+      "stats": {
+        "str": 10,
+        "dex": 16,
+        "con": 12,
+        "int": 14,
+        "wis": 14,
+        "cha": 16,
+        "hp": 32,
+        "maxHp": 32,
+        "ac": 13,
+        "speed": 30,
+        "proficiency": 2
+      },
+      "conditions": [
+        "Hostile",
+        "Iron Legion Agent",
+        "Wanted by Cohort"
+      ],
+      "background": "Escaped traitor.",
+      "personality": {
+        "traits": [
+          "Deceptive",
+          "Patient",
+          "Cold"
+        ],
+        "ideal": "The mission above all",
+        "bond": "Iron Legion is my true family",
+        "flaw": "Underestimates emotional bonds"
+      },
+      "abilities": [
+        {
+          "name": "False Identity",
+          "unlocked": true
+        },
+        {
+          "name": "Expertise",
+          "unlocked": true
+        },
+        {
+          "name": "Silver Tongue",
+          "unlocked": true
+        }
+      ],
+      "relationships": {
+        "allies": [
+          "Iron Legion"
+        ],
+        "enemies": [
+          "All Liberated Toads"
+        ],
+        "complicated": []
+      },
+      "articleId": null
+    }
+  ],
+  "classDefinitions": {
+    "paladin": {
+      "name": "Paladin",
+      "icon": "\u2694\ufe0f",
+      "description": "Holy warriors who blend martial prowess with divine magic",
+      "primary_stat": "cha",
+      "secondary_stat": "str",
+      "hit_die": 10,
+      "armor_proficiency": [
+        "All armor",
+        "Shields"
+      ],
+      "weapon_proficiency": [
+        "Simple weapons",
+        "Martial weapons"
+      ],
+      "saving_throws": [
+        "wis",
+        "cha"
+      ],
+      "skills": [
+        {
+          "name": "Divine Sense",
+          "level": 1,
+          "type": "divine",
+          "icon": "\ud83d\udc41\ufe0f",
+          "description": "Detect celestial, fiend, or undead within 60 feet"
+        },
+        {
+          "name": "Lay on Hands",
+          "level": 1,
+          "type": "support",
+          "icon": "\ud83e\udd32",
+          "description": "Heal wounds with a pool of healing power equal to level \u00d7 5 HP"
+        },
+        {
+          "name": "Divine Smite",
+          "level": 2,
+          "type": "combat",
+          "icon": "\u2694\ufe0f",
+          "description": "Expend spell slot to deal 2d8+ extra radiant damage on hit"
+        },
+        {
+          "name": "Divine Health",
+          "level": 3,
+          "type": "utility",
+          "icon": "\ud83d\udee1\ufe0f",
+          "description": "Immune to disease"
+        },
+        {
+          "name": "Sacred Oath",
+          "level": 3,
+          "type": "divine",
+          "icon": "\ud83d\udcdc",
+          "description": "Swear an oath that grants additional powers"
+        },
+        {
+          "name": "Extra Attack",
+          "level": 5,
+          "type": "combat",
+          "icon": "\u2694\ufe0f\u2694\ufe0f",
+          "description": "Attack twice when taking the Attack action"
+        },
+        {
+          "name": "Aura of Protection",
+          "level": 6,
+          "type": "support",
+          "icon": "\u2728",
+          "description": "You and allies within 10 feet add your CHA modifier to all saving throws"
+        },
+        {
+          "name": "Aura of Courage",
+          "level": 10,
+          "type": "leadership",
+          "icon": "\ud83e\udd81",
+          "description": "You and allies within 10 feet can't be frightened"
+        },
+        {
+          "name": "Improved Divine Smite",
+          "level": 11,
+          "type": "combat",
+          "icon": "\ud83d\udca5",
+          "description": "All melee weapon attacks deal an extra 1d8 radiant damage"
+        },
+        {
+          "name": "Cleansing Touch",
+          "level": 14,
+          "type": "support",
+          "icon": "\ud83c\udf1f",
+          "description": "End one spell on yourself or willing creature with a touch"
+        }
+      ]
+    },
+    "rogue": {
+      "name": "Rogue",
+      "icon": "\ud83d\udde1\ufe0f",
+      "description": "Skilled infiltrators and precise strikers who rely on finesse",
+      "primary_stat": "dex",
+      "secondary_stat": "int",
+      "hit_die": 8,
+      "armor_proficiency": [
+        "Light armor"
+      ],
+      "weapon_proficiency": [
+        "Simple weapons",
+        "Hand crossbows",
+        "Longswords",
+        "Rapiers",
+        "Shortswords"
+      ],
+      "saving_throws": [
+        "dex",
+        "int"
+      ],
+      "skills": [
+        {
+          "name": "Sneak Attack",
+          "level": 1,
+          "type": "combat",
+          "icon": "\ud83d\udde1\ufe0f",
+          "description": "Deal extra 1d6 damage (scales) when you have advantage or ally is adjacent"
+        },
+        {
+          "name": "Thieves' Cant",
+          "level": 1,
+          "type": "utility",
+          "icon": "\ud83d\udde3\ufe0f",
+          "description": "Secret language and symbols known to rogues and criminals"
+        },
+        {
+          "name": "Cunning Action",
+          "level": 2,
+          "type": "utility",
+          "icon": "\ud83d\udca8",
+          "description": "Dash, Disengage, or Hide as a bonus action"
+        },
+        {
+          "name": "Roguish Archetype",
+          "level": 3,
+          "type": "utility",
+          "icon": "\ud83c\udfad",
+          "description": "Choose a specialization that grants additional features"
+        },
+        {
+          "name": "Uncanny Dodge",
+          "level": 5,
+          "type": "combat",
+          "icon": "\ud83c\udf00",
+          "description": "Use reaction to halve damage from an attack you can see"
+        },
+        {
+          "name": "Evasion",
+          "level": 7,
+          "type": "combat",
+          "icon": "\ud83d\udcab",
+          "description": "Take no damage on successful DEX saves, half on failure"
+        },
+        {
+          "name": "Reliable Talent",
+          "level": 11,
+          "type": "utility",
+          "icon": "\ud83c\udfaf",
+          "description": "Minimum roll of 10 on any skill you're proficient in"
+        },
+        {
+          "name": "Blindsense",
+          "level": 14,
+          "type": "utility",
+          "icon": "\ud83d\udc41\ufe0f",
+          "description": "Detect invisible creatures within 10 feet"
+        },
+        {
+          "name": "Slippery Mind",
+          "level": 15,
+          "type": "utility",
+          "icon": "\ud83d\udcad",
+          "description": "Gain proficiency in Wisdom saving throws"
+        },
+        {
+          "name": "Elusive",
+          "level": 18,
+          "type": "combat",
+          "icon": "\ud83c\udf2b\ufe0f",
+          "description": "No attack has advantage against you while you're not incapacitated"
+        }
+      ]
+    },
+    "barbarian": {
+      "name": "Barbarian",
+      "icon": "\ud83d\udcaa",
+      "description": "Fierce warriors who channel primal fury into devastating combat prowess",
+      "primary_stat": "str",
+      "secondary_stat": "con",
+      "hit_die": 12,
+      "armor_proficiency": [
+        "Light armor",
+        "Medium armor",
+        "Shields"
+      ],
+      "weapon_proficiency": [
+        "Simple weapons",
+        "Martial weapons"
+      ],
+      "saving_throws": [
+        "str",
+        "con"
+      ],
+      "skills": [
+        {
+          "name": "Rage",
+          "level": 1,
+          "type": "combat",
+          "icon": "\ud83d\ude24",
+          "description": "Enter a battle fury: +2 damage, resistance to physical damage, advantage on STR checks"
+        },
+        {
+          "name": "Unarmored Defense",
+          "level": 1,
+          "type": "combat",
+          "icon": "\ud83d\udcaa",
+          "description": "AC equals 10 + DEX modifier + CON modifier when not wearing armor"
+        },
+        {
+          "name": "Reckless Attack",
+          "level": 2,
+          "type": "combat",
+          "icon": "\ud83d\udca2",
+          "description": "Gain advantage on attacks this turn, but attacks against you have advantage"
+        },
+        {
+          "name": "Danger Sense",
+          "level": 2,
+          "type": "utility",
+          "icon": "\u26a1",
+          "description": "Advantage on DEX saves against effects you can see"
+        },
+        {
+          "name": "Primal Path",
+          "level": 3,
+          "type": "combat",
+          "icon": "\ud83d\udc3a",
+          "description": "Choose a path that defines your rage"
+        },
+        {
+          "name": "Extra Attack",
+          "level": 5,
+          "type": "combat",
+          "icon": "\u2694\ufe0f\u2694\ufe0f",
+          "description": "Attack twice when taking the Attack action"
+        },
+        {
+          "name": "Fast Movement",
+          "level": 5,
+          "type": "utility",
+          "icon": "\ud83c\udfc3",
+          "description": "+10 feet to speed when not wearing heavy armor"
+        },
+        {
+          "name": "Feral Instinct",
+          "level": 7,
+          "type": "utility",
+          "icon": "\ud83d\udc3a",
+          "description": "Advantage on initiative, can act while surprised if you rage first"
+        },
+        {
+          "name": "Brutal Critical",
+          "level": 9,
+          "type": "combat",
+          "icon": "\ud83d\udc80",
+          "description": "Roll one additional damage die on critical hits"
+        },
+        {
+          "name": "Relentless Rage",
+          "level": 11,
+          "type": "combat",
+          "icon": "\ud83d\udd25",
+          "description": "If you drop to 0 HP while raging, DC 10 CON save to stay at 1 HP"
+        },
+        {
+          "name": "Persistent Rage",
+          "level": 15,
+          "type": "combat",
+          "icon": "\u267e\ufe0f",
+          "description": "Rage only ends early if you choose or fall unconscious"
+        },
+        {
+          "name": "Primal Champion",
+          "level": 20,
+          "type": "combat",
+          "icon": "\ud83d\udc51",
+          "description": "STR and CON increase by 4, maximum of 24"
+        }
+      ]
+    },
+    "wizard": {
+      "name": "Wizard",
+      "icon": "\ud83d\udcda",
+      "description": "Scholarly spellcasters who master arcane arts through study and practice",
+      "primary_stat": "int",
+      "secondary_stat": "wis",
+      "hit_die": 6,
+      "armor_proficiency": [],
+      "weapon_proficiency": [
+        "Daggers",
+        "Darts",
+        "Slings",
+        "Quarterstaffs",
+        "Light crossbows"
+      ],
+      "saving_throws": [
+        "int",
+        "wis"
+      ],
+      "spellcasting": true,
+      "skills": [
+        {
+          "name": "Spellcasting",
+          "level": 1,
+          "type": "magic",
+          "icon": "\ud83d\udcd6",
+          "description": "Cast wizard spells using Intelligence as spellcasting ability"
+        },
+        {
+          "name": "Arcane Recovery",
+          "level": 1,
+          "type": "magic",
+          "icon": "\ud83d\udd2e",
+          "description": "Recover spell slots equal to half wizard level (rounded up) on short rest"
+        },
+        {
+          "name": "Arcane Tradition",
+          "level": 2,
+          "type": "magic",
+          "icon": "\ud83c\udfdb\ufe0f",
+          "description": "Choose a school of magic specialization (Evocation, Abjuration, etc.)"
+        },
+        {
+          "name": "Spell Mastery",
+          "level": 18,
+          "type": "magic",
+          "icon": "\ud83d\udc51",
+          "description": "Cast one 1st and one 2nd level spell at will"
+        },
+        {
+          "name": "Signature Spells",
+          "level": 20,
+          "type": "magic",
+          "icon": "\u2b50",
+          "description": "Two 3rd level spells always prepared and can cast once each for free"
+        }
+      ],
+      "spells_by_level": {
+        "1": [
+          "Magic Missile",
+          "Shield",
+          "Detect Magic",
+          "Mage Armor",
+          "Identify",
+          "Sleep",
+          "Charm Person"
+        ],
+        "2": [
+          "Misty Step",
+          "Scorching Ray",
+          "Invisibility",
+          "Darkness",
+          "Hold Person",
+          "Web"
+        ],
+        "3": [
+          "Fireball",
+          "Counterspell",
+          "Dispel Magic",
+          "Fly",
+          "Lightning Bolt",
+          "Haste"
+        ],
+        "4": [
+          "Greater Invisibility",
+          "Polymorph",
+          "Wall of Fire",
+          "Dimension Door",
+          "Banishment"
+        ],
+        "5": [
+          "Cone of Cold",
+          "Wall of Force",
+          "Telekinesis",
+          "Hold Monster",
+          "Dominate Person"
+        ],
+        "cantrips": [
+          "Fire Bolt",
+          "Mage Hand",
+          "Prestidigitation",
+          "Light",
+          "Ray of Frost",
+          "Minor Illusion"
+        ]
+      }
+    },
+    "fighter": {
+      "name": "Fighter",
+      "icon": "\ud83d\udee1\ufe0f",
+      "description": "Masters of martial combat with unparalleled weapon expertise",
+      "primary_stat": "str",
+      "secondary_stat": "con",
+      "hit_die": 10,
+      "armor_proficiency": [
+        "All armor",
+        "Shields"
+      ],
+      "weapon_proficiency": [
+        "Simple weapons",
+        "Martial weapons"
+      ],
+      "saving_throws": [
+        "str",
+        "con"
+      ],
+      "skills": [
+        {
+          "name": "Fighting Style",
+          "level": 1,
+          "type": "combat",
+          "icon": "\ud83c\udfaf",
+          "description": "Choose a specialized combat technique (Defense, Dueling, etc.)"
+        },
+        {
+          "name": "Second Wind",
+          "level": 1,
+          "type": "support",
+          "icon": "\ud83d\udca8",
+          "description": "Recover 1d10 + fighter level HP as a bonus action, once per rest"
+        },
+        {
+          "name": "Action Surge",
+          "level": 2,
+          "type": "combat",
+          "icon": "\u26a1",
+          "description": "Take one additional action on your turn, once per rest"
+        },
+        {
+          "name": "Martial Archetype",
+          "level": 3,
+          "type": "combat",
+          "icon": "\u2694\ufe0f",
+          "description": "Choose a specialization (Champion, Battle Master, etc.)"
+        },
+        {
+          "name": "Extra Attack",
+          "level": 5,
+          "type": "combat",
+          "icon": "\u2694\ufe0f\u2694\ufe0f",
+          "description": "Attack twice when taking the Attack action"
+        },
+        {
+          "name": "Extra Attack (2)",
+          "level": 11,
+          "type": "combat",
+          "icon": "\u2694\ufe0f\u2694\ufe0f\u2694\ufe0f",
+          "description": "Attack three times when taking the Attack action"
+        },
+        {
+          "name": "Indomitable",
+          "level": 9,
+          "type": "utility",
+          "icon": "\ud83d\udee1\ufe0f",
+          "description": "Reroll a failed saving throw, once per rest"
+        },
+        {
+          "name": "Extra Attack (3)",
+          "level": 20,
+          "type": "combat",
+          "icon": "\u2694\ufe0f\u2694\ufe0f\u2694\ufe0f\u2694\ufe0f",
+          "description": "Attack four times when taking the Attack action"
+        }
+      ]
+    },
+    "gunslinger": {
+      "name": "Gunslinger",
+      "icon": "\ud83d\udd2b",
+      "description": "Firearms specialists with uncanny aim and trick shots",
+      "primary_stat": "dex",
+      "secondary_stat": "wis",
+      "hit_die": 8,
+      "armor_proficiency": [
+        "Light armor"
+      ],
+      "weapon_proficiency": [
+        "Simple weapons",
+        "Firearms"
+      ],
+      "saving_throws": [
+        "dex",
+        "wis"
+      ],
+      "skills": [
+        {
+          "name": "Firearm Proficiency",
+          "level": 1,
+          "type": "combat",
+          "icon": "\ud83d\udd2b",
+          "description": "Proficient with all firearms, can craft ammunition"
+        },
+        {
+          "name": "Grit",
+          "level": 1,
+          "type": "utility",
+          "icon": "\ud83d\udcaa",
+          "description": "Pool of grit points (WIS mod, min 1) for trick shots. Regained on crits/kills."
+        },
+        {
+          "name": "Deadeye Shot",
+          "level": 2,
+          "type": "combat",
+          "icon": "\ud83c\udfaf",
+          "description": "Spend 1 grit to gain advantage on next attack roll"
+        },
+        {
+          "name": "Quickdraw",
+          "level": 3,
+          "type": "combat",
+          "icon": "\u26a1",
+          "description": "Add proficiency bonus to initiative, draw/stow firearms freely"
+        },
+        {
+          "name": "Violent Shot",
+          "level": 5,
+          "type": "combat",
+          "icon": "\ud83d\udca5",
+          "description": "Spend 1+ grit before attack to add grit spent to damage dice"
+        },
+        {
+          "name": "Trick Shot",
+          "level": 7,
+          "type": "combat",
+          "icon": "\ud83d\udd04",
+          "description": "Spend grit for special shots: Disarm, Winging, Dazing, etc."
+        },
+        {
+          "name": "Lightning Reload",
+          "level": 10,
+          "type": "utility",
+          "icon": "\u26a1",
+          "description": "Reload any firearm as a bonus action"
+        },
+        {
+          "name": "Piercing Shot",
+          "level": 14,
+          "type": "combat",
+          "icon": "\ud83d\udcab",
+          "description": "Spend 1 grit to hit multiple targets in a line"
+        },
+        {
+          "name": "Vicious Intent",
+          "level": 18,
+          "type": "combat",
+          "icon": "\ud83d\udc80",
+          "description": "Critical hits on 19-20, and regain grit on natural 19"
+        }
+      ]
+    },
+    "spy": {
+      "name": "Spy",
+      "icon": "\ud83d\udd75\ufe0f",
+      "description": "Masters of deception, infiltration, and information gathering",
+      "primary_stat": "cha",
+      "secondary_stat": "dex",
+      "hit_die": 8,
+      "armor_proficiency": [
+        "Light armor"
+      ],
+      "weapon_proficiency": [
+        "Simple weapons",
+        "Hand crossbows",
+        "Rapiers",
+        "Shortswords"
+      ],
+      "saving_throws": [
+        "dex",
+        "cha"
+      ],
+      "skills": [
+        {
+          "name": "False Identity",
+          "level": 1,
+          "type": "stealth",
+          "icon": "\ud83c\udfad",
+          "description": "Maintain a cover identity with documentation and contacts"
+        },
+        {
+          "name": "Expertise",
+          "level": 1,
+          "type": "utility",
+          "icon": "\ud83d\udcda",
+          "description": "Double proficiency bonus on Deception and one other skill"
+        },
+        {
+          "name": "Silver Tongue",
+          "level": 2,
+          "type": "utility",
+          "icon": "\ud83d\udde3\ufe0f",
+          "description": "Minimum roll of 10 on Deception and Persuasion checks"
+        },
+        {
+          "name": "Read the Room",
+          "level": 3,
+          "type": "utility",
+          "icon": "\ud83d\udc41\ufe0f",
+          "description": "Advantage on Insight checks; detect lies with DC 15 WIS check"
+        },
+        {
+          "name": "Dead Drop",
+          "level": 3,
+          "type": "stealth",
+          "icon": "\ud83d\udce8",
+          "description": "Establish secure communication networks"
+        },
+        {
+          "name": "Slippery Mind",
+          "level": 5,
+          "type": "utility",
+          "icon": "\ud83d\udcad",
+          "description": "Proficiency in Wisdom saving throws; advantage vs charm"
+        },
+        {
+          "name": "Master of Disguise",
+          "level": 7,
+          "type": "stealth",
+          "icon": "\ud83e\udd78",
+          "description": "Create disguises in 1 minute; nearly undetectable"
+        },
+        {
+          "name": "Vanish",
+          "level": 10,
+          "type": "stealth",
+          "icon": "\ud83c\udf2b\ufe0f",
+          "description": "Disappear into a crowd; Hide as bonus action in urban environments"
+        },
+        {
+          "name": "Shadow Network",
+          "level": 14,
+          "type": "utility",
+          "icon": "\ud83d\udd78\ufe0f",
+          "description": "Maintain spy network across multiple regions"
+        }
+      ]
+    },
+    "leader": {
+      "name": "Leader",
+      "icon": "\ud83d\udc51",
+      "description": "Inspiring commanders who strengthen allies through presence and tactics",
+      "primary_stat": "cha",
+      "secondary_stat": "wis",
+      "hit_die": 8,
+      "armor_proficiency": [
+        "Light armor",
+        "Medium armor"
+      ],
+      "weapon_proficiency": [
+        "Simple weapons"
+      ],
+      "saving_throws": [
+        "wis",
+        "cha"
+      ],
+      "skills": [
+        {
+          "name": "Commanding Presence",
+          "level": 1,
+          "type": "leadership",
+          "icon": "\ud83d\udc51",
+          "description": "Allies within 30 feet gain +2 to saves against fear"
+        },
+        {
+          "name": "Rally",
+          "level": 2,
+          "type": "leadership",
+          "icon": "\ud83d\udce2",
+          "description": "Grant CHA mod + level temporary HP to allies who can hear you"
+        },
+        {
+          "name": "Tactical Direction",
+          "level": 3,
+          "type": "leadership",
+          "icon": "\ud83d\uddfa\ufe0f",
+          "description": "Grant one ally an additional action on their turn, 1/rest"
+        },
+        {
+          "name": "Inspiring Word",
+          "level": 5,
+          "type": "leadership",
+          "icon": "\u2728",
+          "description": "Allies can reroll failed attacks or saves, CHA mod times/day"
+        },
+        {
+          "name": "Battlefield Command",
+          "level": 7,
+          "type": "leadership",
+          "icon": "\u2694\ufe0f",
+          "description": "Allies gain +2 to attack rolls when you take the Help action"
+        },
+        {
+          "name": "Legendary Command",
+          "level": 10,
+          "type": "leadership",
+          "icon": "\u2b50",
+          "description": "Grant multiple allies bonus actions simultaneously"
+        },
+        {
+          "name": "Indomitable Will",
+          "level": 14,
+          "type": "leadership",
+          "icon": "\ud83d\udee1\ufe0f",
+          "description": "You and allies within 30 feet have advantage on all saves"
+        },
+        {
+          "name": "Supreme Commander",
+          "level": 18,
+          "type": "leadership",
+          "icon": "\ud83c\udfc6",
+          "description": "Once per day, all allies act on your initiative count"
+        }
+      ]
+    },
+    "commoner": {
+      "name": "Commoner",
+      "icon": "\ud83d\udc38",
+      "description": "Ordinary toads without specialized training, but with potential",
+      "primary_stat": null,
+      "secondary_stat": null,
+      "hit_die": 6,
+      "armor_proficiency": [],
+      "weapon_proficiency": [
+        "Improvised weapons"
+      ],
+      "saving_throws": [],
+      "skills": [
+        {
+          "name": "Survivor's Instinct",
+          "level": 1,
+          "type": "utility",
+          "icon": "\ud83d\udc9a",
+          "description": "Advantage on saves to avoid exhaustion"
+        },
+        {
+          "name": "Strength in Numbers",
+          "level": 2,
+          "type": "utility",
+          "icon": "\ud83d\udc65",
+          "description": "+1 to all checks when adjacent to ally"
+        },
+        {
+          "name": "Hidden Potential",
+          "level": 3,
+          "type": "utility",
+          "icon": "\u2b50",
+          "description": "May multiclass into another class with training"
+        }
+      ]
+    },
+    "militia": {
+      "name": "Militia",
+      "icon": "\ud83d\udee1\ufe0f",
+      "description": "Toads with basic combat training, forming the backbone of defense",
+      "primary_stat": "con",
+      "secondary_stat": "str",
+      "hit_die": 8,
+      "armor_proficiency": [
+        "Light armor",
+        "Shields"
+      ],
+      "weapon_proficiency": [
+        "Simple weapons"
+      ],
+      "saving_throws": [
+        "con"
+      ],
+      "skills": [
+        {
+          "name": "Basic Training",
+          "level": 1,
+          "type": "combat",
+          "icon": "\u2694\ufe0f",
+          "description": "+1 to attack rolls with simple weapons"
+        },
+        {
+          "name": "Shield Wall",
+          "level": 2,
+          "type": "combat",
+          "icon": "\ud83d\udee1\ufe0f",
+          "description": "+2 AC when adjacent to ally with shield"
+        },
+        {
+          "name": "Stand Your Ground",
+          "level": 3,
+          "type": "combat",
+          "icon": "\ud83d\udcaa",
+          "description": "Advantage on saves against being moved or knocked prone"
+        }
+      ]
+    },
+    "artisan": {
+      "name": "Artisan",
+      "icon": "\ud83d\udd28",
+      "description": "Skilled crafters and maintainers, essential for faction operations",
+      "primary_stat": "int",
+      "secondary_stat": "dex",
+      "hit_die": 6,
+      "armor_proficiency": [],
+      "weapon_proficiency": [
+        "Improvised weapons",
+        "Tools as weapons"
+      ],
+      "saving_throws": [
+        "int"
+      ],
+      "skills": [
+        {
+          "name": "Crafting Expertise",
+          "level": 1,
+          "type": "utility",
+          "icon": "\ud83d\udd28",
+          "description": "Proficiency with artisan's tools; craft at double speed"
+        },
+        {
+          "name": "Jury-Rig",
+          "level": 2,
+          "type": "utility",
+          "icon": "\ud83d\udd27",
+          "description": "Temporarily repair any object with DC 15 INT check"
+        },
+        {
+          "name": "Masterwork",
+          "level": 3,
+          "type": "utility",
+          "icon": "\u2b50",
+          "description": "Crafted items have +1 bonus or additional feature"
+        }
+      ]
+    }
+  },
+  "factionStats": null
+}

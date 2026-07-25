@@ -67,6 +67,36 @@
 .dock-opt{margin:9px 0}
 .dock-opt .dock-opt-t{display:flex;justify-content:space-between;gap:10px;font-size:12.5px}
 .dock-opt small{color:var(--muted);font-size:11px}
+.dock-opt.lt-rec{border-left:3px solid var(--accent2);padding-left:9px;background:rgba(224,180,0,.06);border-radius:8px}
+/* docket tab bar */
+.lt-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 14px}
+.lt-tab{border:1px solid var(--border);background:var(--panel2);color:var(--muted);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;cursor:pointer;transition:.12s;font-family:inherit}
+.lt-tab:hover{border-color:var(--accent);color:var(--text)}
+.lt-tab.active{background:linear-gradient(135deg,rgba(74,156,109,.22),rgba(224,180,0,.10));border-color:#4a9c6d;color:#7fd8a4}
+/* meters */
+.lt-meters{display:grid;gap:8px;margin-top:11px}
+.lt-meter-top{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-bottom:3px}
+.lt-meter-top b{color:var(--accent2)}
+/* stat blocks */
+.lt-statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(52px,1fr));gap:6px;margin-top:10px}
+.lt-stat{border:1px solid var(--border);border-radius:9px;background:var(--bg2);padding:6px 4px;text-align:center}
+.lt-stat b{display:block;color:var(--accent2);font-size:16px;line-height:1.15}
+.lt-stat span{color:var(--muted);font-size:9.5px;letter-spacing:.5px}
+/* timeline */
+.lt-timeline{display:grid;gap:16px}
+.lt-day{border:1px solid var(--border);border-radius:13px;background:var(--panel2);padding:13px}
+.lt-day-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;padding-bottom:9px;border-bottom:1px dashed var(--border)}
+.lt-day-head b{color:var(--accent2);font-size:15px}
+.lt-day-head span{color:var(--muted);font-size:13px}
+.lt-ev{display:flex;gap:11px;padding:9px 0;border-top:1px solid rgba(255,255,255,.04)}
+.lt-ev:first-of-type{border-top:0}
+.lt-ev-time{flex:0 0 52px;color:var(--sev,var(--muted));font-size:11.5px;font-weight:900;font-family:var(--font-mono,monospace);padding-top:2px}
+.lt-ev-body{flex:1;min-width:0;border-left:3px solid var(--sev,var(--border));padding-left:11px}
+.lt-ev-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.lt-ev-icon{font-size:16px}
+.lt-ev-body p{margin:5px 0 0;color:var(--muted);font-size:12.5px;line-height:1.5}
+.lt-ev-body .chips{margin-top:7px}
+@media(max-width:600px){.lt-ev{flex-direction:column;gap:4px}.lt-ev-time{flex:none}}
 </style>
 </head>
 <body>
@@ -5994,6 +6024,114 @@ function docketRoot(){
   const lt=factionRecord('liberated_toads');
   return (lt&&lt.factionDocket)||null;
 }
+/* Full operational data ported from the standalone Liberated Toads terminal. */
+function ltSystem(){ return DATA.liberatedToadsSystem||null; }
+/* Roster statistics, computed live from the ported cohort + core-toad data. */
+function ltFactionStats(){
+  const S=ltSystem(); if(!S) return null;
+  const cohorts=S.cohorts||[];
+  const totalMembers=cohorts.reduce((s,c)=>s+(c.members||0),0);
+  const wsum=(key)=>cohorts.reduce((s,c)=>s+((c[key]||0)*(c.members||0)),0);
+  const w=(key)=>totalMembers?Math.round(wsum(key)/totalMembers):0;
+  let deceased=0,critical=0,recovering=0,wounded=0;
+  cohorts.forEach(c=>{ const k=c.casualties||{}; deceased+=k.deceased||0; critical+=k.critical||0; recovering+=k.recovering||0; wounded+=k.wounded||0; });
+  // NOTE: cohort sizes overlap — Barrel Survivors is the whole freed population and the
+  // functional cohorts are drawn from it. Sum of sizes = assignments, NOT a headcount.
+  const barrel=(cohorts.find(c=>c.id==='barrel_survivors')||{}).members||0;
+  return {
+    totalMembers, barrel, cohorts:cohorts.length,
+    morale:w('morale'), loyalty:w('loyalty'), combatReadiness:w('combatReadiness'),
+    deceased, critical, recovering, wounded,
+    coreToads:(S.coreToads||[]).length
+  };
+}
+function ltStatusTone(t){
+  const s=String(t||'').toLowerCase();
+  if(/critical|captured|defected|hostile/.test(s)) return '#e0574a';
+  if(/injur|wounded|run|separated|missing|compromis/.test(s)) return '#e0b400';
+  if(/active|safe|recovered/.test(s)) return '#4a9c6d';
+  return '#7a8a99';
+}
+function ltCohortStatusTone(s){
+  return ({active:'#4a9c6d',recovering:'#e0b400',strained:'#e08a4a',overwhelmed:'#e0574a',compromised:'#a06bd8',transitional:'#7a8a99'})[s]||'#7a8a99';
+}
+function meterRow(label,val,tone){
+  const v=Math.max(0,Math.min(100,Number(val)||0));
+  return `<div class="lt-meter"><div class="lt-meter-top"><span>${esc(label)}</span><b>${v}</b></div><div class="dock-bar"><i style="width:${v}%;background:${tone||'linear-gradient(90deg,var(--accent),var(--accent2))'}"></i></div></div>`;
+}
+/* ---- Cohorts ---- */
+function ltCohortCard(c){
+  const tone=ltCohortStatusTone(c.status);
+  const cap=c.maxMembers?`${c.members}/${c.maxMembers}`:`${c.members}`;
+  const notable=(c.notable_members||[]).map(n=>`<li><b>${esc(n.name)}</b>${n.level?` · Lv ${n.level}`:''}${n.role?` — ${esc(n.role)}`:''}${n.note?`<br><span style="color:var(--muted)">${esc(n.note)}</span>`:''}</li>`).join('');
+  const spec=(c.specializations||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
+  const equip=(c.equipment||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
+  const cas=c.casualties?Object.entries(c.casualties).filter(([,v])=>v).map(([k,v])=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">${esc(prettyId(k))}: ${v}</span>`).join(''):'';
+  const leaderId=(ltSystem().council.members.find(m=>m.name===c.leader)||{}).articleId;
+  const leader=c.leader?(leaderId&&INDEX[leaderId]?`<a onclick="openId('${esc(leaderId)}')" style="cursor:pointer">${esc(c.leader)}</a>`:esc(c.leader)):'<i>vacant</i>';
+  return `<div class="dock-card" style="--dk:${tone}">
+    <div class="dock-head">
+      <span class="dock-face">${c.icon||'🐸'}</span>
+      <div style="min-width:0"><h3>${esc(c.name)}</h3><div class="dock-sub">Led by ${leader} · ${esc(cap)} members</div></div>
+      <div class="dock-status"><span class="dock-badge">${esc(c.status||'')}</span></div>
+    </div>
+    ${c.statusDetail?`<div class="dock-sub" style="margin-top:7px;color:${tone}">${esc(c.statusDetail)}</div>`:''}
+    <p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(c.description||c.purpose||'')}</p>
+    <div class="lt-meters">${meterRow('Loyalty',c.loyalty)}${meterRow('Morale',c.morale)}${meterRow('Combat readiness',c.combatReadiness)}</div>
+    ${c.role?`<div class="dock-label">Role</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(c.role)}</p>`:''}
+    ${spec?`<div class="dock-label">Specialisations</div><div class="chips">${spec}</div>`:''}
+    ${equip?`<div class="dock-label">Equipment</div><div class="chips">${equip}</div>`:''}
+    ${cas?`<div class="dock-label">Casualties</div><div class="chips">${cas}</div>`:''}
+    ${notable?`<div class="dock-label">Notable members</div><ul class="dock-list">${notable}</ul>`:''}
+  </div>`;
+}
+/* ---- Core roster ---- */
+function ltToadCard(t){
+  const tone=ltStatusTone(t.statusType||t.status);
+  const st=t.stats||{};
+  const statCells=['str','dex','con','int','wis','cha'].filter(k=>st[k]!=null)
+    .map(k=>`<div class="lt-stat"><b>${st[k]}</b><span>${k.toUpperCase()}</span></div>`).join('');
+  const hp=(st.hp!=null&&st.maxHp!=null)?`<span class="pill">HP ${st.hp}/${st.maxHp}</span>`:'';
+  const ac=st.ac!=null?`<span class="pill">AC ${st.ac}</span>`:'';
+  const conds=(t.conditions||[]).map(c=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">${esc(c)}</span>`).join('');
+  const abil=(t.abilities||[]).slice(0,6).map(a=>`<li><b>${esc(a.name)}</b>${a.level?` (Lv ${a.level})`:''}${a.description?` — ${esc(a.description)}`:''}</li>`).join('');
+  const link=t.articleId&&INDEX[t.articleId]?`<span class="chip active" onclick="openId('${esc(t.articleId)}')">📄 Open ${esc(t.name)}'s article →</span>`:'';
+  const onDocket=(docketData()?.targets||[]).some(d=>d.articleId===t.articleId||d.name===t.name);
+  return `<div class="dock-card" style="--dk:${tone}">
+    <div class="dock-head">
+      <span class="dock-face">${t.portrait||'🐸'}</span>
+      <div style="min-width:0"><h3>${esc(t.name)}</h3><div class="dock-sub">${esc(t.title||'')}${t.cohort?` · ${esc(t.cohort)}`:''}</div></div>
+      <div class="dock-status"><span class="dock-badge">Lv ${t.level??'?'}</span><span class="dock-prio">${esc(t.class||'')}</span></div>
+    </div>
+    <div class="chips" style="margin-top:8px"><span class="pill" style="border-color:${tone};color:${tone}">${esc(t.status||'')}</span>${hp}${ac}${t.weapon?`<span class="pill">${esc(t.weapon)}</span>`:''}${t.xp!=null?`<span class="pill">${Number(t.xp).toLocaleString()} XP</span>`:''}${onDocket?`<span class="pill" style="border-color:#e0b400;color:#e0b400">⚖️ On the docket</span>`:''}</div>
+    ${statCells?`<div class="lt-statgrid">${statCells}</div>`:''}
+    ${conds?`<div class="dock-label">Conditions</div><div class="chips">${conds}</div>`:''}
+    ${t.background?`<div class="dock-label">Background</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(t.background)}</p>`:''}
+    ${abil?`<div class="dock-label">Abilities</div><ul class="dock-list">${abil}</ul>`:''}
+    ${link?`<div class="chips" style="margin-top:11px">${link}</div>`:''}
+  </div>`;
+}
+/* ---- Timeline ---- */
+function ltTimeline(days){
+  return (days||[]).map(d=>{
+    const evs=(d.events||[]).map(e=>{
+      const sev=({critical:'#e0574a',high:'#e08a4a',medium:'#e0b400',low:'#4a9c6d'})[e.severity]||'#7a8a99';
+      const who=(e.involved||[]).map(n=>{
+        const id=String(n).toLowerCase().replace(/[^a-z0-9]+/g,'_');
+        return INDEX[id]?`<span class="chip" onclick="openId('${esc(id)}')">${esc(n)}</span>`:`<span class="pill">${esc(n)}</span>`;
+      }).join('');
+      return `<div class="lt-ev" style="--sev:${sev}">
+        <div class="lt-ev-time">${esc(e.time||'')}</div>
+        <div class="lt-ev-body">
+          <div class="lt-ev-head"><span class="lt-ev-icon">${e.icon||'•'}</span><b>${esc(e.title||'')}</b><span class="dock-badge" style="--dk:${sev};border-color:${sev};color:${sev};margin-left:auto">${esc(e.type||'')}</span></div>
+          <p>${esc(e.description||'')}</p>
+          ${who?`<div class="chips">${who}</div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="lt-day"><div class="lt-day-head"><b>Day ${esc(String(d.day))}</b><span>${esc(d.title||'')}</span>${d.isCurrent?'<span class="dock-badge" style="--dk:#e0574a;border-color:#e0574a;color:#e0574a">CURRENT</span>':''}</div>${evs}</div>`;
+  }).join('');
+}
 /* The banner that makes a faction's system impossible to miss on its own page. */
 function factionSystemBanner(fid){
   const sys=systemsForFaction(fid);
@@ -6078,69 +6216,53 @@ function docketCohortCard(c){
     ${c.status?`<div class="dock-sub" style="margin-top:6px"><b style="color:var(--accent2)">Status:</b> ${esc(c.status)}</div>`:''}
   </div>`;
 }
+let DOCKET_TAB='overview';
+function setDocketTab(t){ DOCKET_TAB=t; view_pond_docket(); }
 function view_pond_docket(){
   renderSidebar('pond-docket');
-  const root=docketRoot(), a=docketData();
+  const root=docketRoot(), a=docketData(), S=ltSystem();
   if(!a){ el('content').innerHTML=`<div class="card"><h1>⚖️ Pond Patrol Docket</h1><p class="text-muted">The docket data has not loaded. Check <code>data/factions.json</code> → <code>liberated_toads.factionDocket</code>.</p></div>`; return; }
   const sys=FACTION_SYSTEMS.pond_patrol_docket;
   const ltName=(factionRecord('liberated_toads')||{}).name||'Liberated Toads';
   const ppName=(factionRecord('pond_patrol')||{}).name||'Pond Patrol';
+  const stats=ltFactionStats();
   const targets=(a.targets||[]).slice().sort((x,y)=>(DOCKET_PRIORITY_ORDER[x.priority]??9)-(DOCKET_PRIORITY_ORDER[y.priority]??9)||String(x.name).localeCompare(String(y.name)));
+  const openCount=targets.filter(t=>t.status!=='cleared_active').length;
+
+  const TABS=[['overview','📊','Overview'],['register','📋','Register'],['governance','👑','Governance'],
+              ['voting','🗳️','Voting'],['cohorts','🐸','Cohorts'],['roster','⭐','Core Roster'],['timeline','📅','Timeline']];
+  const tabBar=`<div class="lt-tabs">${TABS.map(([k,e,l])=>`<button class="lt-tab ${DOCKET_TAB===k?'active':''}" onclick="setDocketTab('${k}')">${e} ${l}</button>`).join('')}</div>`;
+
+  /* ---------- OVERVIEW ---------- */
   const statusLegend=Object.entries(DOCKET_STATUS_META).map(([k,m])=>`<div class="dock-pillar" style="border-left:3px solid ${m.color}"><b style="color:${m.color};letter-spacing:.4px;font-size:12.5px">${esc(m.label)}</b><span>${esc(m.blurb)}</span></div>`).join('');
   const pillars=(a.pillars||[]).map(p=>`<div class="dock-pillar"><b>${p.icon||''} ${esc(p.name)}</b><span>${esc(p.description)}</span></div>`).join('');
   const orders=(a.standingOrders||[]).map(o=>`<tr><td style="padding:8px;border-bottom:1px solid var(--border);white-space:nowrap"><b>${esc(o.id)}</b></td><td style="padding:8px;border-bottom:1px solid var(--border)">${esc(o.title)}</td><td style="padding:8px;border-bottom:1px solid var(--border)">${esc(o.issued||'')}</td><td style="padding:8px;border-bottom:1px solid var(--border)">${esc(o.status||'')}</td><td style="padding:8px;border-bottom:1px solid var(--border);color:var(--muted)">${esc(o.effect||'')}</td></tr>`).join('');
-  const resolved=(a.resolved||[]).map(r=>`<div class="dock-card" style="--dk:#7a8a99">
-      <div class="dock-head"><span class="dock-face">🗃️</span><div><h3>${esc(r.name)}</h3><div class="dock-sub">${esc(r.date||'')} · ${esc(r.resolution||'')}</div></div></div>
-      ${(r.charges||[]).length?`<div class="dock-label">Charges</div><ul class="dock-list">${r.charges.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>`:''}
-      ${r.notes?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:9px">${esc(r.notes)}</p>`:''}
-      ${r.speakerNote?`<div class="dock-note">“${esc(r.speakerNote)}” — Speaker L</div>`:''}
-    </div>`).join('');
-  const votes=(root.councilVotes||[]).map(docketVoteCard).join('');
-  const cohorts=(root.cohorts||[]).map(docketCohortCard).join('');
-  const seats=(root.councilSeats||[]).map(s=>{
-    const linked=INDEX[s.id];
-    return `<tr ${linked?`onclick="openId('${esc(s.id)}')" style="cursor:pointer"`:''}><td style="padding:8px;border-bottom:1px solid var(--border)">${esc(String(s.seat))}</td><td style="padding:8px;border-bottom:1px solid var(--border)">${linked?`<a>${esc(s.name)}</a>`:esc(s.name)}</td><td style="padding:8px;border-bottom:1px solid var(--border)">${esc(s.cohort||'')}</td><td style="padding:8px;border-bottom:1px solid var(--border);color:var(--muted)">${esc(s.stance||'')}</td></tr>`;
-  }).join('');
   const impact=(a.playerImpact||[]).map(x=>`<li>${esc(x)}</li>`).join('');
   const threads=(a.unresolvedThreads||[]).map(x=>`<li>${esc(x)}</li>`).join('');
   const linked=root.linkedRecords||{};
   const linkChips=[]
-    .concat((linked.factions||[]).map(id=>[id,'⚔️']))
-    .concat((linked.battles||[]).map(id=>[id,'🗡️']))
-    .concat((linked.trials||[]).map(id=>[id,'⚖️']))
-    .concat((linked.locations||[]).map(id=>[id,'🏰']))
+    .concat((linked.factions||[]).map(id=>[id,'⚔️'])).concat((linked.battles||[]).map(id=>[id,'🗡️']))
+    .concat((linked.trials||[]).map(id=>[id,'⚖️'])).concat((linked.locations||[]).map(id=>[id,'🏰']))
     .concat((linked.characters||[]).map(id=>[id,'👤']))
-    .map(([id,emo])=>{
-      const rec=INDEX[id];
-      const nm=rec?displayName(rec.item):prettyId(id);
-      return rec?`<span class="chip" onclick="openId('${esc(id)}')">${emo} ${esc(nm)}</span>`:`<span class="chip" style="opacity:.55" title="No article filed yet">${emo} ${esc(nm)}</span>`;
-    }).join('');
-  const openCount=targets.filter(t=>t.status!=='cleared_active').length;
+    .map(([id,emo])=>{const rec=INDEX[id];const nm=rec?displayName(rec.item):prettyId(id);
+      return rec?`<span class="chip" onclick="openId('${esc(id)}')">${emo} ${esc(nm)}</span>`:`<span class="chip" style="opacity:.55" title="No article filed yet">${emo} ${esc(nm)}</span>`;}).join('');
+  const struct=S&&S.structure?`<div class="card" style="border-left:4px solid #e0574a">
+      <div class="home-section-head"><div><h2>⚠️ Command Structure — ${esc(S.structure.type||'')}</h2><p>Established ${esc(S.structure.established||'')} · authority basis: ${esc(S.structure.authority_basis||'')}</p></div></div>
+      <p class="dock-list" style="padding-left:0;list-style:none">${esc(S.structure.description||'')}</p>
+    </div>`:'';
+  const healthCard=stats?`<div class="card">
+      <div class="home-section-head"><div><h2>📊 Faction Health</h2><p>Weighted across all ${stats.cohorts} cohorts.</p></div></div>
+      <div class="lt-meters">${meterRow('Loyalty',stats.loyalty)}${meterRow('Morale',stats.morale)}${meterRow('Combat readiness',stats.combatReadiness)}</div>
+      <div class="fsys-metrics" style="margin-top:12px">
+        <div class="fsys-metric"><b>${stats.barrel}</b><span>Barrel Survivors (the freed population)</span></div>
+        <div class="fsys-metric"><b>${stats.totalMembers}</b><span>Cohort assignments (overlapping)</span></div>
+        <div class="fsys-metric"><b style="color:#e0574a">${stats.deceased}</b><span>Confirmed dead</span></div>
+        <div class="fsys-metric"><b style="color:#e08a4a">${stats.critical}</b><span>Critical</span></div>
+        <div class="fsys-metric"><b style="color:#e0b400">${stats.recovering+stats.wounded}</b><span>Wounded / recovering</span></div>
+      </div>
+    </div>`:'';
 
-  el('content').innerHTML=`
-    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/factions')">Factions</a> › <a onclick="openId('liberated_toads')">${esc(ltName)}</a> › Pond Patrol Docket</div>
-    <div class="card animate-fade-in" style="--sys-accent:${sys.accent};--sys-glow:${sys.glow};border-left:5px solid ${sys.accent};background:linear-gradient(135deg,${sys.glow},rgba(0,0,0,0)),var(--panel)">
-      <span class="fsys-flag">★ Integrated Faction System</span>
-      <div class="home-section-head" style="margin-top:10px">
-        <div><h1 style="margin:0">⚖️ Pond Patrol Docket</h1><p>${esc(a.authority)} — the accountability system operated by the ${esc(ltName)} and enforced by the ${esc(ppName)}.</p></div>
-        <span class="chip active" onclick="openId('liberated_toads')">Back to the faction dossier →</span>
-      </div>
-      <div class="wnote"><b>Waluigi's filing note:</b> This is not a separate wiki. It is the ${esc(ltName)}' own machinery, attached to their page where a reader cannot walk past it. Waluigi is on this list personally, which he considers evidence of institutional bias and excellent taste.</div>
-      <div class="fsys-metrics">
-        <div class="fsys-metric"><b>${openCount}</b><span>Open files</span></div>
-        <div class="fsys-metric"><b>${(a.targets||[]).filter(t=>t.priority==='high').length}</b><span>High priority</span></div>
-        <div class="fsys-metric"><b>${(a.resolved||[]).length}</b><span>Resolved / archived</span></div>
-        <div class="fsys-metric"><b>${(a.standingOrders||[]).length}</b><span>Standing orders</span></div>
-        <div class="fsys-metric"><b>${(root.councilVotes||[]).length}</b><span>Council votes on record</span></div>
-      </div>
-      <div class="chips" style="margin-top:13px">
-        <span class="chip" onclick="openId('pond_patrol')">🛡️ ${esc(ppName)} dossier</span>
-        <span class="chip" onclick="Router.go('#/reputation/faction/liberated_toads')">📈 Reputation standing</span>
-        <span class="chip" onclick="Router.go('#/imperial-network')">🕸️ Imperial Pressure Network</span>
-        <span class="chip" onclick="Router.go('#/list/trials')">⚖️ Trials index</span>
-      </div>
-    </div>
-
+  const overview=`
     <div class="card">
       <div class="home-section-head"><div><h2>The Authority</h2><p>Where the docket's power comes from, and what it is allowed to do.</p></div><span class="pill">${esc(a.resolutionId||'')}</span></div>
       <div class="wnote" style="font-style:italic">“${esc(a.quote.text)}” <span style="display:block;margin-top:6px;font-style:normal;color:var(--muted)">— ${esc(a.quote.speaker)}, ${esc(a.quote.day)}</span></div>
@@ -6153,45 +6275,177 @@ function view_pond_docket(){
       <p class="dock-list" style="padding-left:0;list-style:none">${esc(a.lethalForceRule)}</p>
       <div class="dock-label">Purpose</div>
       <p class="dock-list" style="padding-left:0;list-style:none">${esc(a.purpose)}</p>
-      <h3 style="margin-top:16px">The Four Pillars</h3>
-      <div class="dock-pillars">${pillars}</div>
+      <h3 style="margin-top:16px">The Four Pillars</h3><div class="dock-pillars">${pillars}</div>
     </div>
-
+    ${struct}
+    ${healthCard}
     ${root.currentPosture?`<div class="card" style="border-left:4px solid #e0574a">
       <div class="home-section-head"><div><h2>⚠️ Current Posture — ${esc(root.currentPosture.asOf)}</h2><p>${esc(root.currentPosture.governmentType)}</p></div></div>
       <p class="dock-list" style="padding-left:0;list-style:none"><b style="color:var(--accent2)">Trigger:</b> ${esc(root.currentPosture.trigger)}</p>
-      <div class="wnote">${esc(root.currentPosture.notes)}</div>
-    </div>`:''}
-
-    <div class="card">
-      <div class="home-section-head"><div><h2>📋 The Register</h2><p>Everyone currently accounted for under ER-17-A, sorted by priority.</p></div><span class="pill">${targets.length} files</span></div>
-      <div class="dock-pillars" style="margin-bottom:14px">${statusLegend}</div>
-      <div class="dock-grid">${targets.map(docketTargetCard).join('')}</div>
-    </div>
-
-    ${resolved?`<div class="card"><div class="home-section-head"><div><h2>🗃️ Resolved & Archived</h2><p>Closed files the Cohort still remembers.</p></div></div><div class="dock-grid">${resolved}</div></div>`:''}
-
+      <div class="wnote">${esc(root.currentPosture.notes)}</div></div>`:''}
+    ${orders?`<div class="card"><div class="home-section-head"><div><h2>📜 Standing Orders</h2><p>Emergency decrees currently shaping Patrol behaviour.</p></div></div><div class="rep-table-wrap"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">ID</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Order</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Issued</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Status</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Effect</th></tr></thead><tbody>${orders}</tbody></table></div></div>`:''}
     ${impact?`<div class="card" style="border-left:4px solid var(--accent2)"><div class="home-section-head"><div><h2>🎲 What This Means At The Table</h2><p>How the docket actually bites during play.</p></div></div><ul class="dock-list" style="font-size:13.5px">${impact}</ul></div>`:''}
-
-    ${orders?`<div class="card"><div class="home-section-head"><div><h2>📜 Standing Orders</h2><p>Emergency decrees currently shaping Patrol behaviour.</p></div></div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">ID</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Order</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Issued</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Status</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Effect</th></tr></thead><tbody>${orders}</tbody></table></div>`:''}
-
-    ${votes?`<div class="card"><div class="home-section-head"><div><h2>🗳️ Cohort Council Votes</h2><p>The votes that created the docket — and the ones deciding whether it survives.</p></div></div>${votes}</div>`:''}
-
-    ${seats?`<div class="card"><div class="home-section-head"><div><h2>👑 The Cohort Council</h2><p>Seven seats. One still empty where the Mole sat.</p></div><span class="pill">${esc(((root.governance||{}).council||'').split('—')[0].trim())}</span></div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Seat</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Member</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Cohort</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Stance</th></tr></thead><tbody>${seats}</tbody></table></div>`:''}
-
-    ${cohorts?`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2><p>The bodies the docket draws its enforcers, evidence, and medics from.</p></div></div><div class="dock-grid">${cohorts}</div></div>`:''}
-
     ${threads?`<div class="card" style="border-left:4px solid #a06bd8"><div class="home-section-head"><div><h2>🕳️ Open Questions</h2><p>Deliberately unresolved. Fill these in as play answers them.</p></div><span class="pill">needs detail</span></div><ul class="dock-list" style="font-size:13.5px">${threads}</ul></div>`:''}
-
     ${linkChips?`<div class="card"><div class="home-section-head"><div><h2>🔗 Linked Records</h2><p>Every article this system touches. Faded chips have no dossier written yet.</p></div></div><div class="chips">${linkChips}</div></div>`:''}
-
     <div class="card"><div class="home-section-head"><div><h2>System Bridges</h2></div></div><div class="path-grid">
       <div class="path-card" onclick="openId('liberated_toads')"><h3>🐸 Liberated Toads</h3><p>The faction that passed ER-17-A. The docket lives on their page.</p></div>
       <div class="path-card" onclick="openId('pond_patrol')"><h3>🛡️ Pond Patrol</h3><p>The enforcement arm that serves every warrant listed here.</p></div>
       <div class="path-card" onclick="Router.go('#/imperial-network')"><h3>🕸️ Imperial Pressure Network</h3><p>The Legion's competing claim on several of the same bodies.</p></div>
       <div class="path-card" onclick="Router.go('#/reputation')"><h3>📈 Reputation Matrix</h3><p>Being on the docket is not the same as being an enemy — check the live scores.</p></div>
     </div></div>`;
+
+  /* ---------- REGISTER ---------- */
+  const resolved=(a.resolved||[]).map(r=>`<div class="dock-card" style="--dk:#7a8a99">
+      <div class="dock-head"><span class="dock-face">🗃️</span><div><h3>${esc(r.name)}</h3><div class="dock-sub">${esc(r.date||'')} · ${esc(r.resolution||'')}</div></div></div>
+      ${(r.charges||[]).length?`<div class="dock-label">Charges</div><ul class="dock-list">${r.charges.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>`:''}
+      ${r.notes?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:9px">${esc(r.notes)}</p>`:''}
+      ${r.speakerNote?`<div class="dock-note">“${esc(r.speakerNote)}” — Speaker L</div>`:''}</div>`).join('');
+  const register=`
+    <div class="card">
+      <div class="home-section-head"><div><h2>📋 The Register</h2><p>Everyone currently accounted for under ER-17-A, sorted by priority.</p></div><span class="pill">${targets.length} files</span></div>
+      <div class="dock-pillars" style="margin-bottom:14px">${statusLegend}</div>
+      <div class="dock-grid">${targets.map(docketTargetCard).join('')}</div>
+    </div>
+    ${resolved?`<div class="card"><div class="home-section-head"><div><h2>🗃️ Resolved & Archived</h2><p>Closed files the Cohort still remembers.</p></div></div><div class="dock-grid">${resolved}</div></div>`:''}`;
+
+  /* ---------- GOVERNANCE ---------- */
+  let governance='<div class="card"><p class="text-muted">Governance data not loaded.</p></div>';
+  if(S){
+    const sp=S.speaker;
+    const spAb=(sp.abilities||[]).map(x=>`<li><b>${esc(x.name)}</b> (Lv ${x.level}) — ${esc(x.description)}</li>`).join('');
+    const spPw=(sp.powers||[]).map(x=>`<li><b>${esc(x.name)}</b> — ${esc(x.description)}${x.requires?` <i>(requires ${esc(x.requires)})</i>`:''}</li>`).join('');
+    const spSt=Object.entries(sp.stats||{}).filter(([k])=>['str','dex','con','int','wis','cha'].includes(k))
+      .map(([k,v])=>`<div class="lt-stat"><b>${v}</b><span>${k.toUpperCase()}</span></div>`).join('');
+    const quotes=(sp.quotes||[]).map(q=>`<div class="dock-note">“${esc(q)}”</div>`).join('');
+    const hc=S.heroesCouncil;
+    const priv=(hc.privileges||[]).map(p=>`<li><b>${esc(p.name)}</b> — ${esc(p.description)} <i>(${esc(p.requires)})</i></li>`).join('');
+    const hcSeats=(hc.seats||[]).map(s=>{
+      const tone=ltStatusTone(s.status);
+      const link=s.articleId&&INDEX[s.articleId];
+      return `<div class="dock-card" style="--dk:${tone}">
+        <div class="dock-head"><span class="dock-face">🐸</span><div><h3>${link?`<a onclick="openId('${esc(s.articleId)}')" style="cursor:pointer">${esc(s.name)}</a>`:esc(s.name)}</h3><div class="dock-sub">${esc(s.title||'')}</div></div>
+        <div class="dock-status"><span class="dock-badge">${s.canVote?'Voting':'No vote'}</span></div></div>
+        <div class="chips" style="margin-top:8px"><span class="pill" style="border-color:${tone};color:${tone}">${esc(s.status||'')}</span></div>
+        ${s.notes?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(s.notes)}</p>`:''}
+        ${(s.contributions||[]).length?`<div class="dock-label">Contributions</div><ul class="dock-list">${s.contributions.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>`:''}
+      </div>`;}).join('');
+    const actions=(hc.recentActions||[]).map(r=>`<li><b>Day ${r.day}</b> — ${esc(r.action)} → <i>${esc(r.result)}</i></li>`).join('');
+    const seatRows=(S.council.members||[]).map(s=>{
+      const link=s.articleId&&INDEX[s.articleId];
+      return `<tr ${link?`onclick="openId('${esc(s.articleId)}')" style="cursor:pointer"`:''}>
+        <td style="padding:8px;border-bottom:1px solid var(--border)">${esc(String(s.seat))}</td>
+        <td style="padding:8px;border-bottom:1px solid var(--border)">${s.portrait||''} ${link?`<a>${esc(s.name)}</a>`:esc(s.name)}</td>
+        <td style="padding:8px;border-bottom:1px solid var(--border)">${esc(s.cohort||'')}</td>
+        <td style="padding:8px;border-bottom:1px solid var(--border)">${esc(s.stance||'—')}</td>
+        <td style="padding:8px;border-bottom:1px solid var(--border)">${s.loyalty!=null?`<span class="pill">${s.loyalty}</span>`:'—'}</td>
+        <td style="padding:8px;border-bottom:1px solid var(--border);color:var(--muted)">${esc(s.current_vote||'—')}</td></tr>`;}).join('');
+    governance=`
+      <div class="card" style="border-left:4px solid var(--accent)">
+        <div class="home-section-head"><div><h2>${sp.portrait||'👑'} ${esc(sp.name)} — ${esc(sp.title||'')}</h2><p>${esc(sp.fullTitle||'')} · Authority: ${esc(sp.authorityLevel||'')}</p></div>
+        ${INDEX[sp.articleId]?`<span class="chip active" onclick="openId('${esc(sp.articleId)}')">Open dossier →</span>`:''}</div>
+        <div class="chips"><span class="pill">Level ${sp.level??'?'}</span><span class="pill">${Number(sp.xp||0).toLocaleString()} XP</span>${sp.stats&&sp.stats.hp!=null?`<span class="pill">HP ${sp.stats.hp}/${sp.stats.maxHp}</span>`:''}${sp.stats&&sp.stats.ac!=null?`<span class="pill">AC ${sp.stats.ac}</span>`:''}</div>
+        ${spSt?`<div class="lt-statgrid">${spSt}</div>`:''}
+        <p class="dock-list" style="padding-left:0;list-style:none;margin-top:10px">${esc(sp.description||'')}</p>
+        ${sp.philosophy?`<div class="dock-label">Philosophy</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(sp.philosophy)}</p>`:''}
+        ${spPw?`<div class="dock-label">Powers of the Voice</div><ul class="dock-list">${spPw}</ul>`:''}
+        ${spAb?`<div class="dock-label">Abilities</div><ul class="dock-list">${spAb}</ul>`:''}
+        ${quotes?`<div class="dock-label">On the record</div>${quotes}`:''}
+      </div>
+      <div class="card">
+        <div class="home-section-head"><div><h2>👑 ${esc(S.council.name)}</h2><p>${esc(S.council.description||'')}</p></div><span class="pill">${esc(S.council.currentSession||'')}</span></div>
+        <div class="rep-table-wrap"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Seat</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Member</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Cohort</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Stance</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Loyalty</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Current vote</th></tr></thead><tbody>${seatRows}</tbody></table></div>
+        <div class="dock-sub" style="margin-top:8px">${esc(S.council.meetingSchedule||'')}</div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--accent2)">
+        <div class="home-section-head"><div><h2>⭐ ${esc(hc.name)}</h2><p>${esc(hc.description||'')}</p></div><span class="pill">${esc(hc.authority||'')}</span></div>
+        ${hc.speakerRelationship?`<div class="wnote"><b>${esc(hc.speakerRelationship.status||'')}:</b> ${esc(hc.speakerRelationship.notes||'')}</div>`:''}
+        ${priv?`<div class="dock-label">Standing privileges</div><ul class="dock-list">${priv}</ul>`:''}
+        ${actions?`<div class="dock-label">Recent invocations</div><ul class="dock-list">${actions}</ul>`:''}
+        <h3 style="margin-top:14px">Members</h3><div class="dock-grid">${hcSeats}</div>
+      </div>`;
+  }
+
+  /* ---------- VOTING ---------- */
+  let voting='<div class="card"><p class="text-muted">Voting data not loaded.</p></div>';
+  if(S){
+    const av=(S.activeVotes||[]).map(v=>ltVoteCard(v,true)).join('');
+    const rv=(S.recentVotes||[]).map(v=>ltVoteCard(v,false)).join('');
+    const types=Object.entries(S.voteTypes||{}).map(([k,t])=>`<div class="dock-pillar" style="border-left:3px solid ${t.color||'var(--accent)'}"><b style="color:${t.color||'var(--accent2)'}">${esc(t.name||prettyId(k))}</b><span>${esc(t.description||'')}${t.threshold?` · threshold ${esc(String(t.threshold))}`:''}</span></div>`).join('');
+    voting=`
+      ${types?`<div class="card"><div class="home-section-head"><div><h2>🗳️ Vote Classes</h2><p>How the Cohort Council weighs a motion.</p></div></div><div class="dock-pillars">${types}</div></div>`:''}
+      <div class="card"><div class="home-section-head"><div><h2>⏳ Live & Suspended Motions</h2><p>What the Council is deciding right now.</p></div><span class="pill">${(S.activeVotes||[]).length}</span></div>${av||'<p class="text-muted">No live motions.</p>'}</div>
+      <div class="card"><div class="home-section-head"><div><h2>📚 Decided</h2><p>Resolutions already on the books — including the one that created this docket.</p></div><span class="pill">${(S.recentVotes||[]).length}</span></div>${rv}</div>
+      ${(root.councilVotes||[]).length?`<div class="card"><div class="home-section-head"><div><h2>🗂️ Docket-Linked Votes</h2><p>The condensed canonical record stored on the faction dossier.</p></div></div>${(root.councilVotes||[]).map(docketVoteCard).join('')}</div>`:''}`;
+  }
+
+  /* ---------- COHORTS / ROSTER / TIMELINE ---------- */
+  const cohortsTab=S?`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2><p>Every body the docket draws enforcers, evidence, medics and testimony from.</p></div><span class="pill">${(S.cohorts||[]).length} cohorts · ${stats?stats.totalMembers:'?'} assignments</span></div><div class="wnote" style="margin-top:0"><b>Reading the numbers:</b> cohort sizes overlap. <i>Barrel Survivors</i> is the whole freed population of ~150; the functional cohorts are drawn from it and from later arrivals, so the sizes sum to more than the faction's headcount.</div><div class="dock-grid">${(S.cohorts||[]).map(ltCohortCard).join('')}</div></div>`
+    :`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2></div></div><div class="dock-grid">${(root.cohorts||[]).map(docketCohortCard).join('')}</div></div>`;
+  const rosterTab=S?`<div class="card"><div class="home-section-head"><div><h2>⭐ Core Roster</h2><p>The named toads at the centre of the crisis — stats, conditions, abilities, and docket exposure.</p></div><span class="pill">${(S.coreToads||[]).length}</span></div><div class="dock-grid">${(S.coreToads||[]).map(ltToadCard).join('')}</div></div>`:'';
+  const timelineTab=S?`<div class="card"><div class="home-section-head"><div><h2>📅 Faction Timeline</h2><p>${esc((S.meta&&S.meta.note)||'')}</p></div><span class="pill">${(S.timeline||[]).length} days</span></div><div class="lt-timeline">${ltTimeline(S.timeline)}</div></div>`:'';
+
+  const bodies={overview,register,governance,voting,cohorts:cohortsTab,roster:rosterTab,timeline:timelineTab};
+
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/factions')">Factions</a> › <a onclick="openId('liberated_toads')">${esc(ltName)}</a> › Pond Patrol Docket</div>
+    <div class="card animate-fade-in" style="--sys-accent:${sys.accent};--sys-glow:${sys.glow};border-left:5px solid ${sys.accent};background:linear-gradient(135deg,${sys.glow},rgba(0,0,0,0)),var(--panel)">
+      <span class="fsys-flag">★ Integrated Faction System</span>
+      <div class="home-section-head" style="margin-top:10px">
+        <div><h1 style="margin:0">⚖️ Pond Patrol Docket</h1><p>${esc(a.authority)} — the accountability system operated by the ${esc(ltName)} and enforced by the ${esc(ppName)}.</p></div>
+        <span class="chip active" onclick="openId('liberated_toads')">Back to the faction dossier →</span>
+      </div>
+      ${S&&S.meta?`<div class="dock-sub" style="margin-top:6px">📌 Operational snapshot: <b>${esc(S.meta.asOf.label)}</b> — ${esc(S.meta.note)}</div>`:''}
+      <div class="wnote"><b>Waluigi's filing note:</b> This is not a separate wiki. It is the ${esc(ltName)}' own machinery, attached to their page where a reader cannot walk past it. Waluigi is on this list personally, which he considers evidence of institutional bias and excellent taste.</div>
+      <div class="fsys-metrics">
+        <div class="fsys-metric"><b>${openCount}</b><span>Open files</span></div>
+        <div class="fsys-metric"><b>${(a.targets||[]).filter(t=>t.priority==='high').length}</b><span>High priority</span></div>
+        <div class="fsys-metric"><b>${(a.resolved||[]).length}</b><span>Resolved</span></div>
+        <div class="fsys-metric"><b>${(a.standingOrders||[]).length}</b><span>Standing orders</span></div>
+        ${stats?`<div class="fsys-metric"><b>${stats.barrel}</b><span>Freed toads</span></div><div class="fsys-metric"><b>${stats.cohorts}</b><span>Cohorts</span></div>`:''}
+      </div>
+      <div class="chips" style="margin-top:13px">
+        <span class="chip" onclick="openId('pond_patrol')">🛡️ ${esc(ppName)} dossier</span>
+        <span class="chip" onclick="Router.go('#/reputation/faction/liberated_toads')">📈 Reputation standing</span>
+        <span class="chip" onclick="Router.go('#/imperial-network')">🕸️ Imperial Pressure Network</span>
+        <span class="chip" onclick="Router.go('#/list/trials')">⚖️ Trials index</span>
+      </div>
+    </div>
+    ${tabBar}
+    ${bodies[DOCKET_TAB]||overview}`;
   window.scrollTo(0,0);
+}
+/* Rich vote card for the ported voting system. */
+function ltVoteCard(v,live){
+  const total=(v.options||[]).reduce((s,o)=>s+(o.votes||0),0)||1;
+  const rec=v.speaker_recommendation;
+  const opts=(v.options||[]).map(o=>{
+    const pros=(o.pros||[]).map(p=>`<span class="pill" style="border-color:#4a9c6d;color:#4a9c6d">+ ${esc(p)}</span>`).join('');
+    const cons=(o.cons||[]).map(p=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">− ${esc(p)}</span>`).join('');
+    return `<div class="dock-opt ${rec===o.id?'lt-rec':''}">
+      <div class="dock-opt-t"><span>${rec===o.id?'👑 ':''}<b>${esc(o.id)}.</b> ${esc(o.text)}</span><b>${o.votes||0}</b></div>
+      <div class="dock-bar"><i style="width:${Math.round(((o.votes||0)/total)*100)}%"></i></div>
+      ${(o.voters||[]).length?`<small>${(o.voters||[]).map(esc).join(' · ')}</small>`:''}
+      ${(pros||cons)?`<div class="chips" style="margin-top:5px">${pros}${cons}</div>`:''}
+    </div>`;}).join('');
+  const prisoners=(v.prisoners||[]).map(p=>`<li><b>${esc(p.name)}</b> · ${esc(p.rank||'')} · captured ${esc(p.captured||'')} · ${esc(p.condition||'')}</li>`).join('');
+  const tone=v.status==='active'?'#e0574a':v.status==='passed'?'#4a9c6d':v.status==='suspended'?'#a06bd8':'#e0b400';
+  return `<div class="dock-vote">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap">
+      <div><b style="font-size:15px">${esc(v.title)}</b><div class="dock-sub">${esc(v.id)} · ${esc(v.type||'')} · proposed by ${esc(v.proposed_by||v.proposedBy||'—')}${v.date?` · Day ${esc(String(v.date.day))}`:v.proposed_date?` · Day ${esc(String(v.proposed_date.day))}`:''}</div></div>
+      <span class="dock-badge" style="--dk:${tone};border-color:${tone};color:${tone}">${esc(v.status||'')}</span>
+    </div>
+    ${v.description?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(v.description)}</p>`:''}
+    ${v.background?`<div class="dock-sub" style="margin-top:6px">${esc(v.background)}</div>`:''}
+    ${v.result?`<div class="dock-list" style="padding-left:0;list-style:none"><b style="color:var(--accent2)">Result:</b> ${esc(v.result)}</div>`:''}
+    ${v.final_tally?`<div class="dock-sub">Final tally — ${v.final_tally.for} for · ${v.final_tally.against} against · ${v.final_tally.abstain} abstaining</div>`:''}
+    ${prisoners?`<div class="dock-label">Prisoners in question</div><ul class="dock-list">${prisoners}</ul>`:''}
+    ${opts}
+    ${v.speaker_statement?`<div class="dock-note">“${esc(v.speaker_statement)}” — Speaker's statement</div>`:''}
+    ${v.quorum_required!=null?`<div class="dock-sub" style="margin-top:6px">Quorum ${v.current_quorum??0}/${v.quorum_required} ${(v.current_quorum??0)>=v.quorum_required?'✓ met':'✗ short'}</div>`:''}
+    ${v.dissent?`<div class="dock-note">${esc(v.dissent)}</div>`:''}
+    ${v.long_term_effects?`<div class="dock-sub" style="margin-top:6px"><b style="color:var(--accent2)">Long-term effect:</b> ${esc(v.long_term_effects)}</div>`:''}
+    ${v.notes?`<div class="dock-sub" style="margin-top:6px">${esc(v.notes)}</div>`:''}
+  </div>`;
 }
 
 function imperialFactionCard(fid){
@@ -6244,6 +6498,118 @@ function imperialEventRail(){
   return records.map(item=>`<div class="update-card" onclick="openId('${esc(item.id)}')"><div class="kicker">Linked intelligence</div><h3>${esc(displayName(item))}</h3><p>${esc(previewText(item)).slice(0,170)}…</p></div>`).join('')||'<p class="text-muted">No linked records found.</p>';
 }
 
+/* =============== IRON LEGION FULL DOSSIER (ported into the Imperial Pressure Network) ====== */
+function ilSystem(){ return DATA.ironLegionSystem||null; }
+function ilThreatTone(v){
+  const s=String(v||'').toUpperCase();
+  if(/CRITICAL|EXTREME|SEVERE/.test(s)) return '#e0574a';
+  if(/HIGH/.test(s)) return '#e08a4a';
+  if(/MODERATE|MEDIUM/.test(s)) return '#e0b400';
+  return '#4a9c6d';
+}
+function ilStatusTone(v){
+  const s=String(v||'').toUpperCase();
+  if(/DESTROYED|ELIMINATED|DECEASED|KIA/.test(s)) return '#7a8a99';
+  if(/ACTIVE|ONGOING|OPERATIONAL/.test(s)) return '#e0574a';
+  if(/DEPLOY|MOBILIS|PENDING/.test(s)) return '#e0b400';
+  return '#a06bd8';
+}
+function ilKV(label,val){ return val?`<div class="reputation-total-card" style="margin:0"><span>${esc(label)}</span><strong style="font-size:15px">${esc(String(val))}</strong></div>`:''; }
+function ilList(arr,fmt){ return (arr||[]).map(fmt).join(''); }
+function ironLegionDossier(){
+  const D=ilSystem(); if(!D) return '';
+  const o=D.overview||{}, L=D.leadership||{}, T=D.threatAssessment||{};
+  const alias=(o.alias||[]).map(a=>`<span class="pill">${esc(a)}</span>`).join('');
+  const threatCards=['overall','military','political','intelligence'].filter(k=>T[k]).map(k=>{
+    const tone=ilThreatTone(T[k]);
+    return `<div class="fsys-metric" style="border-color:${tone}"><b style="color:${tone}">${esc(String(T[k]))}</b><span>${esc(prettyId(k))}</span></div>`;
+  }).join('');
+  const immediate=(T.immediateThreats||[]).map(x=>`<li>${esc(x)}</li>`).join('');
+  const actions=(T.recommendedActions||[]).map(x=>`<li>${esc(x)}</li>`).join('');
+  const council=((L.councilOfHammers||{}).members||[]).map(mem=>`<li><b>${esc(mem.name)}</b>${mem.portfolio?` — ${esc(mem.portfolio)}`:''}${mem.notes?`<br><span style="color:var(--muted)">${esc(mem.notes)}</span>`:''}</li>`).join('');
+  const ranks=(L.fieldRanks||[]).map(r=>`<li><b>${esc(r.rank||r.name||'')}</b>${r.description?` — ${esc(r.description)}`:''}</li>`).join('');
+  const sc=L.supremeCommand||{};
+  const units=((D.subsidiaryForces||{}).units||[]).map(u=>{
+    const tone=ilStatusTone(u.status);
+    return `<div class="dock-card" style="--dk:${tone}">
+      <div class="dock-head"><span class="dock-face">⚙️</span><div style="min-width:0"><h3>${esc(u.name)}</h3><div class="dock-sub">${esc(u.commander||'Commander unknown')}${u.strength?` · ${esc(u.strength)}`:''}</div></div>
+      <div class="dock-status"><span class="dock-badge">${esc(u.status||'')}</span></div></div>
+      ${u.location?`<div class="dock-sub" style="margin-top:7px">📍 ${esc(u.location)}</div>`:''}
+      ${u.mission?`<div class="dock-label">Mission</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(u.mission)}</p>`:''}
+      ${u.description?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:7px">${esc(u.description)}</p>`:''}
+    </div>`;}).join('');
+  const ops=((D.recentOperations||{}).operations||[]).map(op=>{
+    const tone=ilStatusTone(op.outcome);
+    return `<div class="dock-card" style="--dk:${tone}">
+      <div class="dock-head"><span class="dock-face">🎯</span><div style="min-width:0"><h3>${esc(op.codename||'Unnamed operation')}</h3><div class="dock-sub">${esc(op.date||'')}</div></div>
+      <div class="dock-status"><span class="dock-badge">${esc(op.outcome||'')}</span></div></div>
+      <p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(op.description||'')}</p>
+      ${op.casualties?`<div class="dock-sub" style="margin-top:6px"><b style="color:#e0574a">Casualties:</b> ${esc(op.casualties)}</div>`:''}
+    </div>`;}).join('');
+  const people=((D.knownPersonnel||{}).operatives||[]).map(p=>{
+    const tone=ilStatusTone(p.status);
+    const id=String(p.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'_');
+    const link=INDEX[id]?`<span class="chip active" onclick="openId('${esc(id)}')">📄 Open dossier →</span>`:'';
+    return `<div class="dock-card" style="--dk:${tone}">
+      <div class="dock-head"><span class="dock-face">${p.portrait||'🪖'}</span><div style="min-width:0"><h3>${esc(p.name)}</h3><div class="dock-sub">${esc(p.role||p.rank||'')}</div></div>
+      <div class="dock-status"><span class="dock-badge">${esc(p.status||'')}</span></div></div>
+      ${p.description?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(p.description)}</p>`:''}
+      ${(p.threat||p.threatLevel)?`<div class="dock-sub" style="margin-top:6px"><b style="color:${ilThreatTone(p.threat||p.threatLevel)}">Threat level:</b> ${esc(p.threat||p.threatLevel)}</div>`:''}
+      ${link?`<div class="chips" style="margin-top:10px">${link}</div>`:''}
+    </div>`;}).join('');
+  const weak=((D.vulnerabilities||{}).weaknesses||[]).map(x=>
+    typeof x==='string'?`<li>${esc(x)}</li>`
+      :`<li><b>${esc(x.weakness||x.name||'')}</b>${x.description?` — ${esc(x.description)}`:''}${x.exploitation?`<br><span style="color:var(--accent2)">Exploit: ${esc(x.exploitation)}</span>`:''}</li>`).join('');
+  const rel=((D.relationships||{}).factions||[]).map(f=>{
+    const id=String(f.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'_');
+    const known=LORE_FACTIONS[id]||INDEX[id];
+    const tone=/hostil|enem|war/i.test(f.stance||f.relationship||'')?'#e0574a':/all|friend/i.test(f.stance||f.relationship||'')?'#4a9c6d':'#e0b400';
+    return `<tr ${known?`onclick="Router.go('#/reputation/faction/${encodeURIComponent(id)}')" style="cursor:pointer"`:''}>
+      <td style="padding:8px;border-bottom:1px solid var(--border)">${known?`<a>${esc(f.name)}</a>`:esc(f.name)}</td>
+      <td style="padding:8px;border-bottom:1px solid var(--border);color:${tone};font-weight:700">${esc(f.stance||f.relationship||'')}</td>
+      <td style="padding:8px;border-bottom:1px solid var(--border);color:var(--muted)">${esc(f.notes||f.description||'')}</td></tr>`;}).join('');
+  const doct=D.doctrineAndTactics||{};
+  const principles=(doct.tacticalPrinciples||[]).map(p=>`<li>${typeof p==='string'?esc(p):`<b>${esc(p.name||'')}</b>${p.description?` — ${esc(p.description)}`:''}`}</li>`).join('');
+  const covert=(doct.covertTactics||[]).map(p=>`<li>${typeof p==='string'?esc(p):`<b>${esc(p.name||'')}</b>${p.description?` — ${esc(p.description)}`:''}`}</li>`).join('');
+  const ideo=D.ideology||{};
+  const tenets=(ideo.tenets||[]).map(t=>`<li>${typeof t==='string'?esc(t):`<b>${t.number?esc(String(t.number))+'. ':''}${esc(t.tenet||t.name||'')}</b>${(t.meaning||t.description)?` — ${esc(t.meaning||t.description)}`:''}`}</li>`).join('');
+  const rituals=(ideo.rituals||[]).map(t=>`<li>${typeof t==='string'?esc(t):`<b>${esc(t.name||'')}</b>${t.description?` — ${esc(t.description)}`:''}`}</li>`).join('');
+  const assets=D.assets||{};
+  const assetBlock=['military','intelligence','political'].filter(k=>assets[k]).map(k=>{
+    const v=assets[k];
+    const items=Array.isArray(v)?v.map(x=>`<li>${typeof x==='string'?esc(x):`<b>${esc(x.name||'')}</b>${x.description?` — ${esc(x.description)}`:''}`}</li>`).join(''):`<li>${esc(String(v))}</li>`;
+    return `<div class="dock-pillar"><b>${esc(prettyId(k))}</b><ul class="dock-list" style="margin-top:6px">${items}</ul></div>`;}).join('');
+  const quotes=(D.quotes||[]).map(q=>`<div class="dock-note">“${esc(typeof q==='string'?q:(q.text||q.quote||''))}”${(q&&q.author)?` <span style="font-style:normal;color:var(--muted)">— ${esc(q.author)}</span>`:''}</div>`).join('');
+  const rec=D.recruitment||{};
+  const recBlocks=Object.entries(rec).filter(([k,v])=>typeof v==='object'&&v).map(([k,v])=>
+    `<div class="dock-pillar"><b>${esc(v.name||prettyId(k))}</b><span>${esc(v.description||'')}${v.methods?`<br><i>${esc([].concat(v.methods).join('; '))}</i>`:''}</span></div>`).join('');
+
+  return `
+    <div id="iron-legion-integrated-dossier" class="card" style="border-left:4px solid #c81d25">
+      <div class="home-section-head"><div><h2>⚙️ Integrated Iron Legion Dossier</h2><p>${esc((D.meta&&D.meta.note)||'')}</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/iron_legion')">Open Legion standing →</span></div>
+      <div class="grid2" style="gap:10px">${ilKV('Founded',o.founded)}${ilKV('Founding event',o.foundedEvent)}${ilKV('Headquarters',o.headquarters)}${ilKV('Estimated strength',o.estimatedStrength)}${ilKV('Political status',o.politicalStatus)}${ilKV('Current objective',o.currentObjective)}</div>
+      ${alias?`<div class="dock-label">Also known as</div><div class="chips">${alias}</div>`:''}
+      ${threatCards?`<div class="dock-label">Threat assessment</div><div class="fsys-metrics">${threatCards}</div>`:''}
+      ${immediate?`<div class="dock-label">Immediate threats</div><ul class="dock-list">${immediate}</ul>`:''}
+      ${actions?`<div class="dock-label">Recommended counter-actions</div><ul class="dock-list">${actions}</ul>`:''}
+    </div>
+    <div class="card" style="border-left:4px solid #c81d25">
+      <div class="home-section-head"><div><h2>🪖 ${esc(L.title||'Chain of Command')}</h2></div></div>
+      ${sc.name?`<div class="dock-card" style="--dk:#c81d25;margin-bottom:12px"><div class="dock-head"><span class="dock-face">👑</span><div><h3>${esc(sc.name)}</h3><div class="dock-sub">${esc(sc.rank||'')}</div></div><div class="dock-status"><span class="dock-badge">${esc(sc.status||'')}</span></div></div><p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(sc.description||'')}</p></div>`:''}
+      ${council?`<div class="dock-label">${esc((L.councilOfHammers||{}).description||'Council of Hammers')}</div><ul class="dock-list">${council}</ul>`:''}
+      ${ranks?`<div class="dock-label">Field ranks</div><ul class="dock-list">${ranks}</ul>`:''}
+    </div>
+    ${units?`<div class="card"><div class="home-section-head"><div><h2>🛡️ ${esc((D.subsidiaryForces||{}).title||'Subsidiary Forces')}</h2><p>Standing units and where they are deployed.</p></div><span class="pill">${((D.subsidiaryForces||{}).units||[]).length} units</span></div><div class="dock-grid">${units}</div></div>`:''}
+    ${ops?`<div class="card"><div class="home-section-head"><div><h2>🎯 ${esc((D.recentOperations||{}).title||'Recent Operations')}</h2><p>Named operations, outcomes, and cost.</p></div><span class="pill">${((D.recentOperations||{}).operations||[]).length}</span></div><div class="dock-grid">${ops}</div></div>`:''}
+    ${people?`<div class="card"><div class="home-section-head"><div><h2>👤 ${esc((D.knownPersonnel||{}).title||'Known Personnel')}</h2><p>Identified operatives. Linked where Waluipedia has a dossier.</p></div><span class="pill">${((D.knownPersonnel||{}).operatives||[]).length}</span></div><div class="dock-grid">${people}</div></div>`:''}
+    ${(principles||covert)?`<div class="card"><div class="home-section-head"><div><h2>📐 ${esc(doct.title||'Doctrine & Tactics')}</h2>${doct.corePhilosophy?`<p>${esc(doct.corePhilosophy)}</p>`:''}</div></div>${principles?`<div class="dock-label">Tactical principles</div><ul class="dock-list">${principles}</ul>`:''}${covert?`<div class="dock-label">Covert tactics</div><ul class="dock-list">${covert}</ul>`:''}</div>`:''}
+    ${(tenets||rituals)?`<div class="card"><div class="home-section-head"><div><h2>🔥 ${esc(ideo.title||'Ideology')}</h2>${ideo.description?`<p>${esc(ideo.description)}</p>`:''}</div></div>${tenets?`<div class="dock-label">Tenets</div><ul class="dock-list">${tenets}</ul>`:''}${rituals?`<div class="dock-label">Rituals</div><ul class="dock-list">${rituals}</ul>`:''}</div>`:''}
+    ${recBlocks?`<div class="card"><div class="home-section-head"><div><h2>📣 ${esc(rec.title||'Recruitment')}</h2></div></div><div class="dock-pillars">${recBlocks}</div></div>`:''}
+    ${assetBlock?`<div class="card"><div class="home-section-head"><div><h2>💼 ${esc(assets.title||'Assets')}</h2></div></div><div class="dock-pillars">${assetBlock}</div></div>`:''}
+    ${weak?`<div class="card" style="border-left:4px solid #4a9c6d"><div class="home-section-head"><div><h2>🩸 ${esc((D.vulnerabilities||{}).title||'Vulnerabilities')}</h2><p>Where the machine can be hurt. Waluigi's favourite section.</p></div></div><ul class="dock-list" style="font-size:13.5px">${weak}</ul></div>`:''}
+    ${rel?`<div class="card"><div class="home-section-head"><div><h2>🤝 ${esc((D.relationships||{}).title||'Relationships')}</h2><p>Click a known faction to open its live reputation standing.</p></div></div><div class="rep-table-wrap"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Faction</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Stance</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Notes</th></tr></thead><tbody>${rel}</tbody></table></div></div>`:''}
+    ${quotes?`<div class="card"><div class="home-section-head"><div><h2>🗣️ On The Record</h2></div></div>${quotes}</div>`:''}`;
+}
 function view_imperial_network(){
   renderSidebar('imperial-network');
   const rows=REPUTATION_OPERATORS.map(op=>{
@@ -6261,7 +6627,8 @@ function view_imperial_network(){
     </div>
     <div class="grid2">${imperialFactionCard('regal_empire')}${imperialFactionCard('iron_legion')}</div>
     <div class="card"><div class="home-section-head"><div><h2>🔗 Cross-System Hyperlink Map</h2><p>Quick links make the Imperial system part of the whole site: reputation, banking, shop logistics, atlas, XP, books, and event records.</p></div><span class="pill">expanded hyperlinks</span></div><div class="chips">${imperialLinkCloud()}</div></div>
-    <div id="iron-legion-integrated-dossier" class="card" style="border-left:4px solid #c81d25"><div class="home-section-head"><div><h2>⚙️ Integrated Iron Legion Dossier</h2><p>The old standalone dossier is merged into this pressure network. Use these blocks to jump from Legion structure into live Waluipedia systems.</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/iron_legion')">Open Legion standing →</span></div><div class="grid2">${imperialInternalBlocPanel('iron_legion')}</div></div>
+    <div class="card" style="border-left:4px solid #c81d25"><div class="home-section-head"><div><h2>⚙️ Iron Legion Internal Blocs</h2><p>Faction-internal politics feeding the pressure model.</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/iron_legion')">Open Legion standing →</span></div><div class="grid2">${imperialInternalBlocPanel('iron_legion')}</div></div>
+    ${ironLegionDossier()}
     <div class="card" style="border-left:4px solid #8a4bff"><div class="home-section-head"><div><h2>👑 Regal Empire Internal System</h2><p>Imperial factions are shown alongside Legion pressure so the two systems read as one political machine.</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/regal_empire')">Open Empire standing →</span></div><div class="grid2">${imperialInternalBlocPanel('regal_empire')}</div></div>
     <div class="card"><div class="home-section-head"><div><h2>Operator Pressure Table</h2><p>Live scores from the reputation engine. Click a row to inspect the operator's full standings.</p></div><span class="pill">Regal Empire ↔ Iron Legion</span></div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Operator</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Empire</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Legion</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Pressure</th></tr></thead><tbody>${rows}</tbody></table></div>
     <div class="card"><div class="home-section-head"><div><h2>Recent Linked Intelligence</h2><p>Auto-pulled records mentioning Empire, Legion, Mandate, Vigilance, or Legionlance.</p></div></div><div class="update-grid">${imperialEventRail()}</div></div><div class="card"><h2>System Bridges</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation/faction/regal_empire')"><h3>👑 Imperial diplomacy</h3><p>Faction standings, sub-faction modifiers, and operator penalties are calculated through the reputation engine.</p></div><div class="path-card" onclick="document.getElementById('iron-legion-integrated-dossier')?.scrollIntoView({behavior:'smooth'})"><h3>⚙️ Iron Legion intelligence</h3><p>The former standalone dossier is merged here as an integrated command panel connected to reputation, bank, shop, atlas, and power systems.</p></div><div class="path-card" onclick="Router.go('#/power')"><h3>⚡ Military projection</h3><p>Use the global-war monitor to compare Empire/Legion power with every other realm.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>🏦 Contract economy</h3><p>Follow debts, wallets, currencies, and supply costs tied to Imperial enforcement.</p></div><div class="path-card" onclick="location.href='shop.html'"><h3>🛒 Wario logistics</h3><p>Shop prices and vendors become a supply-line layer for the conflict instead of isolated shopping.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Recent intelligence</h3><p>Audit records and active incidents feed directly into the pressure model.</p></div></div></div>`;
@@ -10444,7 +10811,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
