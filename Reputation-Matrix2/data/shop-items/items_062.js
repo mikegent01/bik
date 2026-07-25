@@ -1811,21 +1811,44 @@ export const ITEMS_062 = {
   "internet_data_weave": {
     "id": "internet_data_weave",
     "name": "Byte-Sized Battle Armor",
-    "description": "Forged from compressed packets and flickering pixels, this armor absorbs incoming data attacks! It’s surprisingly comfortable… mostly. Just don't overload your system while wearing it.",
+    "description": "Byte-Sized Battle Armor, forged from compressed data streams and woven from the very fabric of digital networks, provides a surprising layer of defense against cyber threats. This armor not only reduces damage from digital attacks by 20%, but also has a rare ability to reflect up to half of incoming data-based spells with every successful reflection. The armor's sleek design ensures minimal hindrance in movement or combat, though it still requires careful handling to avoid system crashes.",
     "category": "equipment",
-    "price": 12500,
+    "price": 1000,
     "icon": "💻",
     "stock": 8,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "increases resistance to digital attacks by 20%",
-      "chance to reflect data-based spells (5%)",
-      "reduces the effectiveness of hacking attempts"
+      "Reflects Data-Based Spells",
+      "Reduces Digital Damage"
     ],
     "vendor": "cyber_market",
     "shippedBy": "Secure Packet Transfer",
-    "levelRequirement": 10
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Reflects Data-Based Spells",
+        "rules": "When a data-based spell is successfully cast against the wearer, there's a 5% chance that the spell will be reflected back at the caster. The armor absorbs and redirects half of the spell’s energy. This effect can occur once per short or long rest."
+      },
+      {
+        "title": "Reduces Digital Damage",
+        "rules": "The armor increases resistance to digital attacks by 20%. This provides a passive defense boost that applies continuously while worn, until the wearer is no longer in direct contact with a data-based attack source."
+      }
+    ],
+    "levelRequirementReason": "The armor requires basic understanding of cybernetic systems to operate effectively.",
+    "vendorReason": "Cyber Market specializes in cutting-edge technology and digital defense gear, making Byte-Sized Battle Armor a natural fit for their offerings.",
+    "shippingDetail": "Delivered via encrypted data streams to ensure safe and swift arrival at your doorstep.",
+    "usage": {
+      "activation": "Passive",
+      "duration": "Continuous while worn",
+      "endsWhen": "Removed or no longer in contact with a digital attack source",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Reflecting data-based spells and reducing damage from cyber attacks provide significant benefits for digital adventurers, making this armor a valuable yet balanced investment.",
+    "priceOriginal": 12500,
+    "priceReviewedAt": "2026-07-25T14:25:51.304902+00:00",
+    "aiReviewedAt": "2026-07-25T14:25:51.304902+00:00",
+    "aiReviewVersion": 1
   },
   "earth_land_warriors_feast": {
     "id": "earth_land_warriors_feast",
@@ -3384,21 +3407,44 @@ export const ITEMS_062 = {
   "teyvat_item_sparkling_shard": {
     "id": "teyvat_item_sparkling_shard",
     "name": "Sparkling Shard of Storms",
-    "description": "This jagged piece of crystallized lightning seems to hum with raw elemental power! It's perfect for boosting your damage against foes vulnerable to lightning, or just making a really cool sparkly effect – Wario loves shiny things!",
+    "description": "The Sparkling Shard of Storms hums with a raw, crackling energy, its jagged edges sparking with lightning in constant motion. Crafted from the heart of a tempest-torn mountain peak, this shard channels the very essence of storm magic. With each activation, it releases a dazzling display of sparks and surges, enhancing your attacks against electrically vulnerable foes by 20%. It's not just a tool; it's an elemental partner in battle.",
     "category": "consumables",
-    "price": 850,
+    "price": 1000,
     "icon": "⚡️",
     "stock": 72,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "increase_lightning_damage_by_10%",
-      "chance_to_apply_shock",
-      "small_visual_sparkle"
+      "Electric Surge",
+      "Visual Sparkle"
     ],
     "vendor": "mondstadt_market",
     "shippedBy": "Wind Courier",
-    "levelRequirement": 4
+    "levelRequirement": 4,
+    "effectDetails": [
+      {
+        "title": "Electric Surge",
+        "rules": "When you use the shard, you gain a +2 bonus to damage rolls against creatures vulnerable to lightning. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Visual Sparkle",
+        "rules": "For 1 minute after activation, you and any ally within 5 feet emit an aura that grants advantage on saving throws made to resist being frightened or charmed by creatures with a lightning vulnerability. This effect ends early if the shard takes damage."
+      }
+    ],
+    "levelRequirementReason": "Requires level 4 to harness the shard's storm magic effectively.",
+    "vendorReason": "The market in Mondstadt is known for its diverse array of magical artifacts, and this shard is a popular item among adventurers seeking elemental assistance.",
+    "shippingDetail": "Ships via the Wind Courier, arriving within three days. The courier ensures that the shard remains undamaged during transit.",
+    "usage": {
+      "activation": "As an action",
+      "duration": "1 minute or until expended",
+      "endsWhen": "The start of your next turn or when it takes damage",
+      "charges": "Recharges on a short rest"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its unique combination of elemental surge and visual effect.",
+    "priceOriginal": 850,
+    "priceReviewedAt": "2026-07-25T14:25:51.441699+00:00",
+    "aiReviewedAt": "2026-07-25T14:25:51.441699+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_wind_dancer_amulet": {
     "id": "teyvat_item_wind_dancer_amulet",

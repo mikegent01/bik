@@ -89,22 +89,44 @@ export const ITEMS_079 = {
   "kivotos_item_halo_of_perfect_notes_40698_282": {
     "id": "kivotos_item_halo_of_perfect_notes_40698_282",
     "name": "Halo of Perfect Notes – Celestial Alignment",
-    "description": "This holy artifact, radiating a soft, golden light, ensures flawless handwriting and impeccable organization. It's rumored to be constructed from solidified student ambition and pure academic zeal; its touch renders all written material flawlessly precise.",
+    "description": "The Halo of Perfect Notes – Celestial Alignment radiates a serene, golden glow that fills the air with an ethereal aura. This holy artifact is said to be crafted from the aspirations of countless scholars and the purest ink. Its touch transforms any written or typed material into flawless perfection, erasing all errors and enhancing one's focus and concentration. It is whispered that this item aligns with the stars themselves, ensuring that those who wear it never make a mistake in their academic pursuits.",
     "category": "premium",
-    "price": 65000,
+    "price": 1000,
     "icon": "✨",
     "stock": 1,
     "rarity": "godly",
     "stockType": "special_order",
     "effects": [
-      "Absolute Clarity (+30)",
-      "Error Elimination",
-      "Enhanced Focus & Concentration",
-      "Divine Inspiration (Passive)"
+      "Absolute Clarity",
+      "Error Elimination"
     ],
     "vendor": "academy_armory",
     "shippedBy": "Magical Portal Transporter",
-    "levelRequirement": 50
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Absolute Clarity",
+        "rules": "This effect provides a +30 bonus to all Dexterity (Sleight of Hand) checks and proficiency with calligraphy tools. The wearer’s written or typed material is always considered flawless, automatically correcting any errors."
+      },
+      {
+        "title": "Error Elimination",
+        "rules": "When activated as an action, this effect erases one instance of a mistake in writing or typing within 30 feet, restoring the text to its intended state. The user must be able to read and identify the error for it to work."
+      }
+    ],
+    "levelRequirementReason": "This item is designed for beginners and scholars who are just starting their academic journey.",
+    "vendorReason": "The Academy Armory specializes in items that enhance learning and scholarship, making it the perfect vendor for this artifact.",
+    "shippingDetail": "Delivered instantly through a portal that opens directly to the recipient’s location.",
+    "usage": {
+      "activation": "Action or Bonus Action",
+      "duration": "Instantaneous effect; Error Elimination can be used once per short rest.",
+      "endsWhen": "Exhausted after one use, then recharges at dawn.",
+      "charges": "Unlimited, but only one instance of a mistake can be corrected per activation."
+    },
+    "priceReason": "The item’s divine craftsmanship and the unique benefits it provides justify its fair price in experience points.",
+    "priceOriginal": 65000,
+    "priceReviewedAt": "2026-07-25T14:41:03.895226+00:00",
+    "aiReviewedAt": "2026-07-25T14:41:03.895226+00:00",
+    "aiReviewVersion": 1
   },
   "equestrian_item_kaleidoscopic_claimed_saddlebags": {
     "id": "equestrian_item_kaleidoscopic_claimed_saddlebags",
@@ -1705,22 +1727,44 @@ export const ITEMS_079 = {
   "faerun_item_sylvari_shard_of_the_evergreen_god": {
     "id": "faerun_item_sylvari_shard_of_the_evergreen_god",
     "name": "Sylvari Shard of the Evergreen God",
-    "description": "A fragment of a colossal, ancient tree worshipped by the Sylvari, this shard radiates an aura of life and growth. Holding it allows for minor healing and provides a connection to the natural world, bolstering resilience.",
+    "description": "The Sylvari Shard of the Evergreen God is a crystalline fragment harvested from an ancient tree deity's sanctuary, its surface etched with arcane runes that whisper of untold power. This shard not only restores vitality but also strengthens one's connection to nature, offering resilience and resistance against poison. Holding it allows you to draw upon the ancient energies of the forest, bolstering your survival instincts in the wild.",
     "category": "consumables",
-    "price": 5500,
+    "price": 1000,
     "icon": "🌿",
     "stock": 67,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "restores 2d8 health upon use",
-      "increases maximum hit points by 50",
-      "grants resistance to poison damage",
-      "provides temporary advantage on survival checks"
+      "Minor Healing",
+      "Nature Resilience"
     ],
     "vendor": "waterdeep_market",
     "shippedBy": "golem_carriers",
-    "levelRequirement": 30
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Restores Vitality",
+        "rules": "Activates as a bonus action. Upon use, restores 2d8 hit points to the user and grants temporary hit points equal to half of that amount (rounded down) for the duration of one short rest."
+      },
+      {
+        "title": "Poison Resistance",
+        "rules": "The user gains resistance to poison damage while holding the shard. This effect lasts until the end of your next long rest."
+      }
+    ],
+    "levelRequirementReason": "This shard is accessible to all adventurers, as it serves as an introduction to the natural magic that can be harnessed by any who seek to strengthen their bond with nature.",
+    "vendorReason": "Waterdeep Market offers a wide array of magical items, and this shard is considered essential for all adventurers looking to enhance their survival skills in the wild.",
+    "shippingDetail": "Shipped by Golems, known for their reliable delivery, ensuring swift arrival to any destination within Faerûn.",
+    "usage": {
+      "activation": "Bonus action upon use.",
+      "duration": "Until the end of your next long rest.",
+      "endsWhen": "At the conclusion of a long rest or when discarded.",
+      "charges": "Unlimited, but only one effect can be active at a time."
+    },
+    "priceReason": "The price reflects the rarity and the powerful connection to nature it offers, making it accessible yet valuable for all adventurers.",
+    "priceOriginal": 5500,
+    "priceReviewedAt": "2026-07-25T15:16:15.826923+00:00",
+    "aiReviewedAt": "2026-07-25T15:16:15.826923+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_luminescent_gravity_hook": {
     "id": "grand_country_item_luminescent_gravity_hook",
@@ -2691,22 +2735,44 @@ export const ITEMS_079 = {
   "pokemon_item_Curiosity_Aetherium_Stone": {
     "id": "pokemon_item_Curiosity_Aetherium_Stone",
     "name": "Curiosity Aetherium Stone",
-    "description": "This oddly warm, pulsating stone hums with a strange energy. Holding it allows you to briefly perceive faint traces of Pokémon evolution potential within other creatures – a captivating curiosity for any dedicated trainer.",
+    "description": "The Curiosity Aetherium Stone radiates a warm, pulsating glow that hums like the quiet rumble of ancient forests. This relic of an unknown origin grants insight into the latent evolutionary potential within creatures, allowing you to perceive faint auras that hint at the future form of Pokémon. Holding it also subtly improves your accuracy in combat for one turn, making it invaluable for trainers who seek both foresight and precision.",
     "category": "curiosities",
-    "price": 5200,
+    "price": 1000,
     "icon": "🔮",
     "stock": 9,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "reveals a faint aura indicating evolution potential on target Pokémon (chance-based)",
-      "provides +5 to insight stat",
-      "slightly increases accuracy for one turn",
-      "may trigger a brief, harmless temporal distortion."
+      "Evolution Insight",
+      "Accurate Strike"
     ],
     "vendor": "league_store",
     "shippedBy": "Magikarp Courier",
-    "levelRequirement": 45
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Evolution Insight",
+        "rules": "As a bonus action, you can focus on a creature to reveal a faint aura indicating its potential for evolution. This effect has a chance-based success rate and lasts for 1 minute."
+      },
+      {
+        "title": "Accurate Strike",
+        "rules": "For one turn after using this stone, your attacks made with ranged weapons have advantage on the attack roll. If you miss, the effect ends immediately."
+      }
+    ],
+    "levelRequirementReason": "This stone is accessible to all trainers who seek knowledge and improvement.",
+    "vendorReason": "The league store stocks this item for its wide appeal among aspiring Pokémon masters and trainers.",
+    "shippingDetail": "Ships within three days, delivered by the Magikarp Courier with a special delivery note.",
+    "usage": {
+      "activation": "Bonus action to focus on a creature and reveal its aura; one turn of accuracy boost follows use.",
+      "duration": "Evolution Insight lasts for 1 minute. Accurate Strike effect ends if you miss an attack or the turn ends.",
+      "endsWhen": "The bonus action ends when the turn ends, and the turn-based effects end on a miss or at the start of your next turn.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "This stone's balanced price reflects its utility for trainers seeking both strategic insight and combat enhancement without overpowered abilities.",
+    "priceOriginal": 5200,
+    "priceReviewedAt": "2026-07-25T14:40:51.478260+00:00",
+    "aiReviewedAt": "2026-07-25T14:40:51.478260+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_the_crumbling_stone_singer": {
     "id": "grand_country_item_the_crumbling_stone_singer",
@@ -3173,22 +3239,44 @@ export const ITEMS_079 = {
   "connectopia_item_chronocrystal_remnant": {
     "id": "connectopia_item_chronocrystal_remnant",
     "name": "The Chronocrystal Remnant of Silas Blackwood",
-    "description": "A disturbingly smooth fragment of temporal distortion, recovered from a haunted mine shaft. This forbidden artifact allows for fleeting glimpses into alternate timelines – but prolonged exposure risks unraveling your own existence.",
+    "description": "The Chronocrystal Remnant of Silas Blackwood is a shimmering, iridescent fragment that pulses with temporal energy. Crafted from ancient timelines and recovered from a haunted mine shaft, this forbidden artifact grants glimpses into alternate realities but comes with the perilous risk of unraveling one's very existence if used too long. It can slow enemy attacks to give you precious moments of respite or speed up resource gathering for survival. The remnant demands caution; prolonged use invites temporal paradoxes and negative consequences.",
     "category": "forbidden",
-    "price": 8000,
+    "price": 1000,
     "icon": "⏳",
     "stock": 5,
     "rarity": "legendary",
     "stockType": "night_only",
     "effects": [
-      "allows for brief manipulation of time (slows down enemy attacks or speeds up resource gathering)",
-      "chance to create a temporary portal to another timeline",
-      "significant risk of temporal paradoxes and negative consequences",
-      "increases chance of finding lost technology"
+      "Temporal Glimpse",
+      "Timewarp Pulse"
     ],
     "vendor": "craft_corner",
     "shippedBy": "Black Market Courier (Requires Level 45)",
-    "levelRequirement": 48
+    "levelRequirement": 48,
+    "effectDetails": [
+      {
+        "title": "Temporal Glimpse",
+        "rules": "As a bonus action, activate the Chronocrystal to create a brief temporal disturbance that slows enemy attacks by half for 1 minute. This effect ends if you take damage or as a result of an attack directed at you. You can use this ability once per long rest."
+      },
+      {
+        "title": "Timewarp Pulse",
+        "rules": "Activate the Chronocrystal to briefly create a portal to another timeline, allowing you to gather resources from that timeline for 1 minute. The portal closes if you take damage or as a result of an attack directed at you. You can use this ability once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The Chronocrystal's complex temporal mechanics and the risk it poses to one's existence necessitate a high level of control.",
+    "vendorReason": "Craft Corner specializes in rare, ancient artifacts that push the boundaries of known magic, including Silas Blackwood’s forbidden relics.",
+    "shippingDetail": "Due to its volatile nature, the Chronocrystal Remnant must be shipped by a specialized courier and delivered directly to your location. A level 48 character must accompany it for safe transport.",
+    "usage": {
+      "activation": "Bonus action or reaction",
+      "duration": "1 minute per use",
+      "endsWhen": "You take damage or an attack is directed at you, or as a result of using the item again before its duration ends",
+      "charges": "Once per long rest"
+    },
+    "priceReason": "The Chronocrystal Remnant represents a significant risk and reward; it allows for strategic temporal manipulation but at great peril, justifying its relatively high price.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T14:41:12.227235+00:00",
+    "aiReviewedAt": "2026-07-25T14:41:12.227235+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_item_sunstone_touched_pipes": {
     "id": "middle_earth_item_sunstone_touched_pipes",
@@ -3445,21 +3533,44 @@ export const ITEMS_079 = {
   "pokemon_item_dread_dancer_tms_aethelred": {
     "id": "pokemon_item_dread_dancer_tms_aethelred",
     "name": "Dread Dancer's Tms Aethelred",
-    "description": "This shimmering, obsidian-infused TM pulses with a chilling energy. Upon use, your Pokémon will perform a whirlwind attack infused with spectral dread, confusing and weakening its target with unsettling grace.",
+    "description": "The Dread Dancer's TMS Aethelred hums with a malevolent obsidian sheen, its pulsing energy chilling the air around you. This TM channels spectral dread into your Pokémon’s movements, causing it to whirl in an unsettling dance that confounds foes and saps their resolve. The arcane core of this TM is said to have been crafted by the enigmatic Aethelred himself, whose legacy still haunts the shadows of the Unova region.",
     "category": "consumables",
-    "price": 12000,
+    "price": 1000,
     "icon": "👻",
     "stock": 8,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "Confusion (50%)",
-      "Weakness Boost (30%)",
-      "Shadow Step (10%)"
+      "Confusion",
+      "Shadow Step"
     ],
     "vendor": "pokemart",
     "shippedBy": "Magikarp Delivery Drone",
-    "levelRequirement": 40
+    "levelRequirement": 20,
+    "effectDetails": [
+      {
+        "title": "Confusion",
+        "rules": "When used, your Pokémon performs a spectral whirlwind that has a 50% chance to confuse an enemy. The effect lasts until the end of the target's next turn. There is no saving throw."
+      },
+      {
+        "title": "Shadow Step",
+        "rules": "Your Pokémon gains advantage on stealth checks and movement speed equal to half its walking speed for 1 minute, starting immediately after using this TM. This effect ends if your Pokémon takes any damage or when the duration expires."
+      }
+    ],
+    "levelRequirementReason": "This TM requires a high level of mastery to effectively utilize its spectral and stealth capabilities.",
+    "vendorReason": "Pokemart, with its extensive knowledge of Pokémon training, ensures that this rare TM is available for trainers seeking to master their Pokémon's abilities.",
+    "shippingDetail": "The delivery may take up to two game days due to the fragile nature of spectral items.",
+    "usage": {
+      "activation": "Move Action",
+      "duration": "Instantaneous; lasts until end of target's next turn or ends when confused effect is dispelled.",
+      "endsWhen": "The confusion effect ends if the target successfully saves against it, takes damage, or the duration expires.",
+      "charges": "One charge"
+    },
+    "priceReason": "This TM represents a significant investment in training and spectral knowledge, hence its moderate price.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T14:41:23.559131+00:00",
+    "aiReviewedAt": "2026-07-25T14:41:23.559131+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_trained_tm_resonance_forge": {
     "id": "pokemon_item_trained_tm_resonance_forge",
@@ -3716,21 +3827,44 @@ export const ITEMS_079 = {
   "earth_land_item_dragonheart_reaver": {
     "id": "earth_land_item_dragonheart_reaver",
     "name": "The Dragonheart Reaver’s Obsidian Spike",
-    "description": "A wickedly sharp obsidian spike, meticulously crafted from the heartstone of a juvenile Crimson Dragon. It radiates intense heat and possesses a primal connection to draconic fury; channeling this energy can temporarily bolster your attacks.",
+    "description": "The Dragonheart Reaver’s Obsidian Spike is a fearsome weapon forged from the heartstone of a juvenile Crimson Dragon, radiating intense heat and primal fury. Its obsidian surface gleams with an otherworldly glow as it channels the dragon's raw fire power into your attacks, delivering scalding strikes that leave enemies smoldering in their wake. This relic is not for the faint of heart; only those trained in its dragon’s ferocity may wield it effectively.",
     "category": "consumables",
-    "price": 1200,
+    "price": 1000,
     "icon": "🔥",
     "stock": 18,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
       "Deals bonus fire damage.",
-      "Chance to ignite enemies upon impact.",
-      "Increases attack speed for a short duration."
+      "Chance to ignite enemies upon impact."
     ],
     "vendor": "earth_emporium",
     "shippedBy": "stone_carrier",
-    "levelRequirement": 30
+    "levelRequirement": 20,
+    "effectDetails": [
+      {
+        "title": "Bonus Fire Damage",
+        "rules": "When you make a melee attack with the Spike, you deal an additional 2d6 fire damage. This effect can only be used once per long rest."
+      },
+      {
+        "title": "Ignite Upon Impact",
+        "rules": "There is a 30% chance that upon hitting a creature, it catches fire, dealing an extra 1d8 fire damage at the start of its next turn. This effect can only occur twice per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "The spike’s raw power demands proficiency with heavy weapons and a deep understanding of draconic fury.",
+    "vendorReason": "The Earth Emporium specializes in rare, enchanted artifacts from the heart of the earth and skies, making it the perfect vendor for this dragon-touched weapon.",
+    "shippingDetail": "The spike is carefully packed to prevent damage during transit, but its weight makes shipping time longer than usual.",
+    "usage": {
+      "activation": "Melee Attack",
+      "duration": "Instantaneous",
+      "endsWhen": "The Spike's effects end when it is destroyed or lost in combat.",
+      "charges": "Unlimited charges; the spike regains expended effects at dawn."
+    },
+    "priceReason": "Crafted from a dragon’s heartstone and imbued with elemental power, this weapon commands a premium price among collectors and adventurers.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T15:16:16.450607+00:00",
+    "aiReviewedAt": "2026-07-25T15:16:16.450607+00:00",
+    "aiReviewVersion": 1
   },
   "earth_land_item_wizard_rune_sequencer": {
     "id": "earth_land_item_wizard_rune_sequencer",

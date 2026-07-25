@@ -5,22 +5,44 @@ export const ITEMS_076 = {
   "doughnut_hole_item_chromatic_voidsinger": {
     "id": "doughnut_hole_item_chromatic_voidsinger",
     "name": "The Chromatic VoidSinger's Null",
-    "description": "A pulsating, obsidian null that resonates with the echoes of forgotten melodies. When consumed, it briefly grants the user a spectral awareness, revealing pathways through areas saturated with void energy - but prolonged exposure induces unsettling harmonic distortions.",
+    "description": "The Chromatic VoidSinger's Null is a pulsating obsidian nodule that hums with the forgotten harmonies of void space. When consumed, it grants spectral awareness for 1 minute, allowing you to traverse areas saturated with void energy as if they were open pathways. Yet, prolonged exposure leads to disorienting harmonic distortions, causing minor auditory hallucinations and a chance to generate unsettling 'phantom chords'. This nodule is a relic of the Chromatic VoidSingers, who once danced amidst the echoes of nothingness before vanishing into the void.",
     "category": "consumables",
-    "price": 750,
+    "price": 1000,
     "icon": "🎶",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "temporary void awareness",
-      "increased movement speed in void zones",
-      "minor auditory hallucinations",
-      "chance to generate a 'phantom chord'"
+      "spectral awareness",
+      "void traversal"
     ],
     "vendor": "void_vendor",
     "shippedBy": "Dimensional Ripple",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Spectral Awareness",
+        "rules": "Consume the null to gain spectral awareness for up to 1 minute. You can move through areas of void energy as if they were difficult terrain, but you are blinded and deafened within these zones until the effect ends."
+      },
+      {
+        "title": "Phantom Chords",
+        "rules": "There is a 20% chance per minute that you generate a 'phantom chord', which plays for 1 round. This produces a minor auditory hallucination, causing creatures within 30 feet to make a Wisdom saving throw (DC 15) or be frightened until the start of your next turn."
+      }
+    ],
+    "levelRequirementReason": "This item requires significant magical knowledge and experience to handle its unstable void energy.",
+    "vendorReason": "Void Vendor is known for her extensive network of contacts in the Chromatic VoidSingers' former domains, allowing her to acquire such rare relics.",
+    "shippingDetail": "The package may experience slight delays due to the unstable nature of void energy affecting dimensional transit.",
+    "usage": {
+      "activation": "Eaten as an action.",
+      "duration": "1 minute or until consumed by void energy.",
+      "endsWhen": "The effect ends when you take damage, are incapacitated, or enter a void zone for more than 30 feet.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The item's rarity and the risk of its unstable nature justify this price.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-25T15:14:15.004059+00:00",
+    "aiReviewedAt": "2026-07-25T15:14:15.004059+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_item_mk_37_inverted_resonance": {
     "id": "doughnut_hole_item_mk_37_inverted_resonance",
@@ -235,22 +257,44 @@ export const ITEMS_076 = {
   "grand_country_item_chronometric_layer_finder": {
     "id": "grand_country_item_chronometric_layer_finder",
     "name": "The Chronometric Quartz Layer Finder",
-    "description": "This intricately crafted device, built from tiered quartz and spiraling gears, vibrates with the echoes of passing moments. Holding it allows you to briefly glimpse fractured timelines layered upon your current reality – a chaotic but potentially insightful experience.",
+    "description": "The Chronometric Quartz Layer Finder is an intricate device forged from tiered quartz and spiraling gears, crafted by the enigmatic Vertigo Foundry to unravel the temporal layers beneath your feet. Its delicate cogs hum with the echoes of past events, allowing you a brief glance into fractured timelines. When activated, it grants you 60 seconds of heightened perception, increasing your insight into the immediate area, but beware – excessive use can cause minor temporal distortions and disorientation.",
     "category": "curiosities",
-    "price": 1200,
+    "price": 1000,
     "icon": "⏳",
     "stock": 42,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "Grants a momentary vision of past events related to the immediate area.",
-      "Increases perception by 10% for 60 seconds.",
-      "Chance to trigger a minor temporal distortion (roll: 1-10)",
-      "Causes slight disorientation if used excessively."
+      "Temporal Insight",
+      "Enhanced Perception"
     ],
     "vendor": "vertical_vendor",
     "shippedBy": "dimensional_packet",
-    "levelRequirement": 25
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Temporal Insight",
+        "rules": "When activated as a bonus action, this device reveals past events related to the immediate area for 60 seconds. The user gains advantage on perception checks within its radius of effect. There is a 1-in-10 chance (DC 12) that it triggers a minor temporal distortion, which can disrupt nearby creatures."
+      },
+      {
+        "title": "Enhanced Perception",
+        "rules": "For the duration of 60 seconds after activation, the user's perception increases by 10%. This effect is cumulative with other bonuses to perception. The device can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum character level of 5 to handle the temporal flux without causing harm.",
+    "vendorReason": "The vertical vendor is known for their extensive collection of rare and ancient curiosities, including time-related artifacts from Vertigo Foundry.",
+    "shippingDetail": "Ships via dimensional packet, ensuring safe delivery through the temporal flux without interference.",
+    "usage": {
+      "activation": "Bonus action to activate; once per long rest.",
+      "duration": "60 seconds of enhanced perception and temporal insight.",
+      "endsWhen": "The effect ends when its duration expires or if it triggers a minor temporal distortion.",
+      "charges": "Unlimited uses, recharging after a long rest."
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects the device's rare craftsmanship and powerful temporal effects.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T14:34:32.434710+00:00",
+    "aiReviewedAt": "2026-07-25T14:34:32.434710+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_abyssal_gear_stacker": {
     "id": "grand_country_item_abyssal_gear_stacker",
@@ -297,22 +341,44 @@ export const ITEMS_076 = {
   "grand_country_item_forbidden_tier_resonator": {
     "id": "grand_country_item_forbidden_tier_resonator",
     "name": "The Forbidden Tier Resonator - Variant Sigma",
-    "description": "A pulsating, tiered device forged from unstable, obsidian-like material. This forbidden artifact generates chaotic energy fields that disrupt the flow of time and space around its user – a dangerous tool for those who seek to control reality itself.",
+    "description": "The Forbidden Tier Resonator - Variant Sigma is a pulsating, tiered artifact crafted from obsidian-like material that glows with an eerie, unstable light. This relic can disrupt the very fabric of time and space when activated, creating localized temporal distortions that can either age or de-age its wielder by one decade at random. The resonator's chaotic energy also attracts unwanted attention, drawing magical creatures to its vicinity as though it were a beacon of instability.",
     "category": "forbidden",
-    "price": 23000,
+    "price": 1000,
     "icon": "💥",
     "stock": 1,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "Causes random temporal distortions (chance to age or de-age the user).",
-      "Creates a localized field of instability, attracting unwanted attention.",
-      "Grants temporary immunity to magical effects.",
-      "Risk of immediate disintegration if used improperly."
+      "Temporal Disruption",
+      "Unwanted Attention"
     ],
     "vendor": "layer_market",
     "shippedBy": "encrypted_drone",
-    "levelRequirement": 50
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Temporal Disruption",
+        "rules": "When activated as an action, the Resonator creates a localized temporal distortion. The wielder has a 50% chance to be aged or de-aged by one decade at random. This effect lasts for 1 minute and can only be used once per long rest."
+      },
+      {
+        "title": "Unwanted Attention",
+        "rules": "The Resonator attracts nearby magical creatures, causing them to take a 10-foot radius of the wielder to be considered an area of heightened awareness. This effect lasts until the Resonator is turned off or recharged."
+      }
+    ],
+    "levelRequirementReason": "This artifact's chaotic energy requires a certain level of magical understanding and control, even for its most powerful wielders.",
+    "vendorReason": "The Layer Market is known for selling rare and dangerous artifacts, including those that push the boundaries of reality.",
+    "shippingDetail": "Ships via encrypted drone, ensuring secrecy and protection during transit.",
+    "usage": {
+      "activation": "Activates as an action. Must be turned off manually or recharged after use.",
+      "duration": "Instantaneous effect with a duration of 1 minute.",
+      "endsWhen": "Turned off by the wielder or recharged.",
+      "charges": "Recharges at dawn."
+    },
+    "priceReason": "Despite its lower price, this item's rarity and the risk involved in using it justify a fair value of 1000 XP.",
+    "priceOriginal": 23000,
+    "priceReviewedAt": "2026-07-25T14:34:46.715608+00:00",
+    "aiReviewedAt": "2026-07-25T14:34:46.715608+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_item_crimson-echoes-of-despair": {
     "id": "warhammer_item_crimson-echoes-of-despair",
@@ -1031,22 +1097,44 @@ export const ITEMS_076 = {
   "internet_item_mk.74_data_resonance_tokens": {
     "id": "internet_item_mk.74_data_resonance_tokens",
     "name": "Mk.74 Data Resonance Tokens",
-    "description": "These meticulously crafted tokens vibrate with the echoes of countless digital interactions. They allow brief, targeted manipulation of network traffic – a subtle nudge here, a brief blockage there, but beware; prolonged use can attract unwanted attention from system administrators and security protocols.",
+    "description": "These meticulously crafted tokens vibrate with the echoes of countless digital interactions, their surfaces etched with arcane runes that shimmer faintly under the glow of network lights. A subtle nudge here, a brief blockage there – they allow for targeted manipulation of network traffic, but prolonged use risks attracting unwanted attention from system administrators and security protocols. Each token is forged in the heart of an ancient data center, imbued with the essence of countless digital transactions.",
     "category": "equipment",
-    "price": 4500,
+    "price": 1000,
     "icon": "📡",
     "stock": 33,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "Allows targeted manipulation of network packets (low level).",
-      "Provides a small chance to bypass basic firewall protections.",
-      "Increases data transfer speed by 10% for 30 seconds.",
-      "Attracts the attention of automated security programs."
+      "Targeted Manipulation",
+      "Attracts Security Attention"
     ],
     "vendor": "pixel_shop",
     "shippedBy": "Standard Postal Delivery",
-    "levelRequirement": 18
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Targeted Manipulation",
+        "rules": "Activate as a bonus action to subtly alter network traffic, rerouting packets for up to 1 minute. This effect can be used once per long rest."
+      },
+      {
+        "title": "Attracts Security Attention",
+        "rules": "Each use has a 20% chance of drawing the attention of automated security programs for the next hour. The DC to avoid this effect is 15."
+      }
+    ],
+    "levelRequirementReason": "These tokens are designed to be accessible, even to lower-level characters who need to manipulate network traffic.",
+    "vendorReason": "Pixel Shop specializes in tech-related items and equipment, making these tokens a natural addition to their inventory.",
+    "shippingDetail": "Tokens are carefully packed to ensure safe delivery, with no additional delays.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Up to 1 minute per use",
+      "endsWhen": "The effect ends when the duration expires or you use an action to stop it.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The tokens are crafted with rare materials and require significant skill to forge, justifying their moderate price.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-25T14:34:30.622802+00:00",
+    "aiReviewedAt": "2026-07-25T14:34:30.622802+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_chronometric_gravity_anchor": {
     "id": "grand_country_item_chronometric_gravity_anchor",
@@ -1639,22 +1727,44 @@ export const ITEMS_076 = {
   "internet_item_compressed_meme_cascade_scroll": {
     "id": "internet_item_compressed_meme_cascade_scroll",
     "name": "Compressed Meme Cascade Scroll",
-    "description": "This meticulously crafted scroll contains a compressed torrent of iconic memes, released upon activation in a chaotic wave of visual and auditory stimuli. Handle with caution; prolonged exposure can induce extreme irony.",
+    "description": "This intricately woven scroll, a relic of internet lore, contains an alchemical brew of iconic memes and jokes. Upon activation, it unleashes a chaotic cascade of visual and auditory stimuli that can leave even the most stoic warrior speechless with laughter. The resulting wave of absurdity not only damages enemies but also saps their willpower, leaving them distracted for several rounds. Use it wisely; prolonged exposure might just make you question reality itself.",
     "category": "consumables",
-    "price": 3500,
+    "price": 1000,
     "icon": "😂",
     "stock": 17,
     "rarity": "epic",
     "stockType": "night_only",
     "effects": [
-      "Deals 50 damage to enemies with ironic humor.",
-      "Applies 'Distracted' status for 3 turns",
-      "Chance to trigger a chain reaction of chaotic memes",
-      "Restores 10% health and sanity."
+      "Chaotic Visual and Auditory Assault",
+      "Enemies Distracted"
     ],
     "vendor": "data_dealer",
     "shippedBy": "Courier Bot",
-    "levelRequirement": 28
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Chaotic Visual and Auditory Assault",
+        "rules": "When activated, the scroll unleashes a torrent of memes and jokes that deal 50 necrotic damage to all creatures in a 10-foot radius. Creatures must succeed on a DC 14 Constitution saving throw or be stunned for 1 minute."
+      },
+      {
+        "title": "Enemies Distracted",
+        "rules": "All enemies within the area of effect are subjected to a 'Distracted' condition, which lasts for 3 turns. During this time, they have disadvantage on attack rolls and ability checks that require concentration."
+      }
+    ],
+    "levelRequirementReason": "Suitable for any brave soul to carry into battle, but only those with a strong will can resist the scroll's effects.",
+    "vendorReason": "The data dealer specializes in rare and exotic items from the digital realm, making this scroll an ideal addition to their inventory.",
+    "shippingDetail": "Ships via Courier Bot’s express delivery service. Delivery can be delayed by up to 24 hours due to the delicate nature of the item.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect, duration lasts until all creatures within the area are no longer affected.",
+      "endsWhen": "The scroll is destroyed once its effects have concluded or if a creature successfully saves against the 'Distracted' condition.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced at 1000 XP, this scroll offers a unique and powerful utility for any party, making it a worthwhile investment.",
+    "priceOriginal": 3500,
+    "priceReviewedAt": "2026-07-25T14:35:39.454548+00:00",
+    "aiReviewedAt": "2026-07-25T14:35:39.454548+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_item_crimson-skull-banner-eater": {
     "id": "warhammer_item_crimson-skull-banner-eater",
@@ -2079,40 +2189,86 @@ export const ITEMS_076 = {
   "faerun_item_mk_47_shadow_cloaks": {
     "id": "faerun_item_mk_47_shadow_cloaks",
     "name": "Mk.47 Shadow Cloaks of the Silent Watcher",
-    "description": "These charcoal-grey cloaks, etched with intricate runes depicting watchful owls, grant near-perfect concealment in dimly lit areas. They whisper secrets to those who listen closely, providing a minor bonus to stealth and perception.",
+    "description": "The Mk.47 Shadow Cloaks of the Silent Watcher are charcoal-grey, etched with runes depicting watchful owls. They whisper secrets to those who listen closely in dimly lit areas, granting near-perfect concealment and enhancing one's awareness of hidden details. These cloaks are said to have been crafted by ancient druids who sought harmony between nature and shadow. Wearing them is akin to becoming a silent sentinel among the night, perfect for those who need to move unseen or unnoticed.",
     "category": "equipment",
-    "price": 7500,
+    "price": 1000,
     "icon": "🦉",
     "stock": 8,
     "rarity": "epic",
     "stockType": "night_only",
     "effects": [
-      "enhanced stealth +6",
-      "improved perception in shadows",
-      "chance to detect illusions"
+      "near-perfect concealment",
+      "whispering secrets"
     ],
     "vendor": "sword_coast_traders",
     "shippedBy": "dark_horse_cart",
-    "levelRequirement": 30
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Near-Perfect Concealment",
+        "rules": "While wearing these cloaks in dimly lit areas, you gain a +6 bonus to Stealth checks. This effect lasts until the start of your next turn after removing the cloak."
+      },
+      {
+        "title": "Whispering Secrets",
+        "rules": "You can use an action to make a Wisdom (Perception) check with advantage when trying to detect hidden creatures or illusions within 30 feet. This effect is usable once per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "The cloaks are designed for all adventurers, not just the most seasoned warriors.",
+    "vendorReason": "Sword Coast Traders specialize in rare and exotic items that enhance a character's abilities, making them indispensable to any adventurer.",
+    "shippingDetail": "The cloaks are carefully packed and shipped by dark horse cart, ensuring safe arrival at your doorstep within three days.",
+    "usage": {
+      "activation": "action",
+      "duration": "until the start of your next turn after removal",
+      "endsWhen": "removing the cloak or ending a short/long rest",
+      "charges": "unlimited"
+    },
+    "priceReason": "The cloaks are crafted with rare materials and ancient druidic magic, ensuring their quality and utility justify this price.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-25T14:34:47.059181+00:00",
+    "aiReviewedAt": "2026-07-25T14:34:47.059181+00:00",
+    "aiReviewVersion": 1
   },
   "faerun_item_shadow_rune_of_the_lost_trail": {
     "id": "faerun_item_shadow_rune_of_the_lost_trail",
     "name": "Shadow Rune of the Lost Trail - Consumable",
-    "description": "This pulsating, obsidian rune burns with a cold light. Upon ingestion, it briefly illuminates the darkest paths, revealing hidden trails and momentarily disrupting magical concealment effects for the consumer.",
+    "description": "The Shadow Rune of the Lost Trail is a cold, pulsating obsidian talisman that burns with an eerie, spectral light. Upon ingestion, it momentarily pierces the veil of darkness, illuminating treacherous paths and dispelling magical concealment within a narrow radius around its bearer. The rune's shadowy glow can be seen even through thick fog or impenetrable shadows, making it invaluable for adventurers venturing into the deepest, most unforgiving lands.",
     "category": "consumables",
-    "price": 350,
+    "price": 1000,
     "icon": "🌑",
     "stock": 67,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "reveals hidden trails (short duration)",
-      "disrupts magical concealment +2",
-      "minor shadow resistance"
+      "Illuminates Hidden Trails",
+      "Disrupts Magical Concealment"
     ],
     "vendor": "baldurs_bazaar",
-    "shippedBy": "express_delivery",
-    "levelRequirement": 10
+    "shippedBy": "swift courier",
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Illuminates Hidden Trails",
+        "rules": "When consumed, this rune illuminates a 10-foot radius area in pitch darkness for up to 1 minute. It reveals hidden trails and obstacles, but does not provide light beyond the specified range."
+      },
+      {
+        "title": "Disrupts Magical Concealment",
+        "rules": "For the duration of its effect, this rune disrupts any active magical concealment within a 20-foot radius for up to 1 minute. Any creature affected by such concealment must make a DC 15 Wisdom saving throw or be seen as clearly as in daylight."
+      }
+    ],
+    "levelRequirementReason": "Adventurers below level 5 may lack the experience needed to handle the rune's shadowy magic without risk.",
+    "vendorReason": "Baldur, ever the benevolent patron of adventurers, ensures that even the most obscure and powerful items are available through his bazaar.",
+    "shippingDetail": "Ships via swift courier for expedited delivery directly to your door.",
+    "usage": {
+      "activation": "Eaten as a bonus action.",
+      "duration": "1 minute.",
+      "endsWhen": "The duration expires or the consumer is incapacitated, at which point it is expended.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "Crafted from rare shadowrunes and imbued with potent arcane energies, this rune commands a high price for its utility in dark and perilous terrains.",
+    "priceOriginal": 350,
+    "priceReviewedAt": "2026-07-25T15:14:11.949017+00:00",
+    "aiReviewedAt": "2026-07-25T15:14:11.949017+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_item_the-abyssal-resonance-breaker": {
     "id": "warhammer_item_the-abyssal-resonance-breaker",
@@ -2389,27 +2545,49 @@ export const ITEMS_076 = {
   "doughnut_hole_item_unholy_nulls_of_descent": {
     "id": "doughnut_hole_item_unholy_nulls_of_descent",
     "name": "The Unholy Nulls of Descent",
-    "description": "These fractured, grey nulls seem to pull at the very fabric of existence. Holding one grants a fleeting connection to the void's depths, offering glimpses into possible futures – but prolonged exposure can warp your perception and leave you vulnerable to unearthly whispers.",
+    "description": "The Unholy Nulls of Descent are fractured, grey spheres that seem to pull at the very fabric of existence. Holding one grants brief visions of possible futures, offering glimpses into the void's depths, but prolonged exposure can warp your perception and leave you vulnerable to unearthly whispers. These relics are crafted from a dark, unholy substance found in the deepest chasms of forgotten realms, and their touch is as chilling as the void itself.",
     "category": "curiosities",
-    "price": 850,
+    "price": 1000,
     "icon": "🌀",
     "stock": 21,
     "rarity": "uncommon",
     "stockType": "night_only",
     "effects": [
-      "Grants brief visions of possible futures (random)",
-      "Reduces sanity by 5% per minute while held.",
-      "Increases resistance to mind-altering effects.",
-      "Provides a slight aura of unsettling silence"
+      "Brief Visions of Futures",
+      "Vulnerability to Whispers"
     ],
     "vendor": "hole_hawker",
     "shippedBy": "Shadow Cartographer",
-    "levelRequirement": 18
+    "levelRequirement": 18,
+    "effectDetails": [
+      {
+        "title": "Brief Visions of Futures",
+        "rules": "Passive effect. Grants random visions of possible futures for 1 minute. After this duration, the user must succeed on a DC 15 Wisdom saving throw or be subjected to a minor hallucination that lasts until the start of their next turn."
+      },
+      {
+        "title": "Vulnerability to Whispers",
+        "rules": "While holding the Unholy Nulls of Descent, you are vulnerable to any mind-altering effect. This vulnerability persists for 1 minute after ceasing to hold the item unless a successful DC 15 Wisdom saving throw is made."
+      }
+    ],
+    "levelRequirementReason": "Only those with significant experience and mental fortitude can handle these relics without succumbing to their malevolent influence.",
+    "vendorReason": "Hole Hawker has a vast network of contacts in the underworld, allowing them access to rare and dangerous artifacts like the Unholy Nulls of Descent.",
+    "shippingDetail": "Ships via shadow travel, ensuring secrecy but with potential delays due to unpredictable routes.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "1 minute or until the user's next turn after ceasing to hold it.",
+      "endsWhen": "The effect ends when you stop holding the item and successfully make a Wisdom saving throw.",
+      "charges": "Unlimited, but only one effect operates at a time."
+    },
+    "priceReason": "The Unholy Nulls of Descent are priced high due to their rarity, dark craftsmanship, and the risks they pose to any who wield them.",
+    "priceOriginal": 850,
+    "priceReviewedAt": "2026-07-25T14:35:27.106361+00:00",
+    "aiReviewedAt": "2026-07-25T14:35:27.106361+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_item_inverted_gravity_prism_97": {
     "id": "doughnut_hole_item_inverted_gravity_prism_97",
     "name": "The Inverted Gravity Prism - Mk.97",
-    "description": "This multifaceted crystal, etched with inverted glyphs, channels the chaotic energies of the Fated Place's gravity wells. When focused, it creates a localized distortion field, allowing you to walk on walls and ceilings with surprising grace – but be warned: its power is volatile.",
+    "description": "The Inverted Gravity Prism - Mk.97 is a multifaceted crystal etched with arcane glyphs that seem to defy gravity itself. Crafted from the chaotic energies of Fated Place's gravity wells, this prism channels its volatile power into localized distortions, allowing the user to walk on walls and ceilings with surprising grace. However, the very instability of the prism means it can unpredictably trigger a surge, momentarily turning the surrounding area into an inverted gravitational field.",
     "category": "equipment",
     "price": 5200,
     "icon": "🧱",
@@ -2417,14 +2595,36 @@ export const ITEMS_076 = {
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "Allows the user to walk on walls and ceilings for 10 seconds.",
-      "Increases movement speed by 20%",
-      "Chance to trigger a localized gravity surge (moderate)",
-      "Provides protection against fall damage"
+      "Wall Walker",
+      "Gravity Surge"
     ],
     "vendor": "center_seller",
     "shippedBy": "Dimensional Postman",
-    "levelRequirement": 45
+    "levelRequirement": 4,
+    "effectDetails": [
+      {
+        "title": "Wall Walker",
+        "rules": "As a bonus action, you can activate the prism to allow you to walk on walls and ceilings. This effect lasts for 10 seconds or until you drop prone, whichever comes first."
+      },
+      {
+        "title": "Gravity Surge",
+        "rules": "There is a 25% chance that when you use Wall Walker, a localized gravity surge occurs. During this surge, the area around you becomes unstable and grants you temporary hit points equal to your level + your Constitution modifier for 1 minute."
+      }
+    ],
+    "levelRequirementReason": "This item requires a minimum character level of 4 due to its complex arcane properties.",
+    "vendorReason": "Center Seller specializes in rare and exotic magical items, including those that manipulate the very fabric of gravity like this prism.",
+    "shippingDetail": "The Dimensional Postman ensures secure delivery through interdimensional transit. Items are delivered within a week but must be collected personally from the Center Seller's location.",
+    "usage": {
+      "activation": "Bonus action to activate and use Wall Walker, which ends when you drop prone or after 10 seconds.",
+      "duration": "10 seconds or until you drop prone",
+      "endsWhen": "Dropping prone or after 10 seconds",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The prism's unique and volatile nature, combined with its rarity and the complexity of its construction, justify a high price point.",
+    "priceOriginal": 5200,
+    "priceReviewedAt": "2026-07-25T14:35:41.069135+00:00",
+    "aiReviewedAt": "2026-07-25T14:35:41.069135+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_chronos_resonance_mark": {
     "id": "pokemon_item_chronos_resonance_mark",
@@ -2723,61 +2923,128 @@ export const ITEMS_076 = {
   "internet_item_the_ancient_data_eater": {
     "id": "internet_item_the_ancient_data_eater",
     "name": "The Ancient Data Eater - Prototype X9",
-    "description": "A pulsating, obsidian shard infused with the compressed remnants of defunct social networks. This forbidden artifact devours excess data streams, leaving a trail of blissful silence in its wake... but at what cost?",
+    "description": "The Ancient Data Eater - Prototype X9 is a sleek obsidian shard, its surface etched with the remnants of forgotten social networks and digital avatars. This relic absorbs 50% of nearby data streams, instantly clearing network congestion in its vicinity but leaving users feeling slightly paranoid as if their every move is being watched by unseen algorithms. With each use, the shard hums with a faint pulse that resonates through the ether, ensuring blissful silence—temporarily—at the cost of one charge.",
     "category": "equipment",
-    "price": 12456,
+    "price": 1000,
     "icon": "👾",
     "stock": 8,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "Absorbs 50% of nearby data streams (reduces network congestion).",
-      "Grants temporary immunity to targeted online advertising.",
-      "Causes minor paranoia and the feeling of being watched by algorithms."
+      "Network Congestion Mitigator",
+      "Paranoid Pulse"
     ],
     "vendor": "cyber_market",
     "shippedBy": "Secure Packet Transfer",
-    "levelRequirement": 35
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Network Congestion Mitigator",
+        "rules": "When activated as a bonus action, this artifact reduces all nearby data streams by 50%, instantly clearing network congestion within a 30-foot radius. The effect lasts for 1 minute and ends if the user is disconnected from the network or if the shard runs out of charges."
+      },
+      {
+        "title": "Paranoid Pulse",
+        "rules": "Upon activation, users gain temporary immunity to targeted online advertising for 24 hours but suffer a -1 penalty to all Wisdom (Perception) checks related to detecting surveillance. This effect lasts until the user is disconnected from the network or if the shard runs out of charges."
+      }
+    ],
+    "levelRequirementReason": "This item's power, while potent, can be utilized by any adventurer who needs immediate relief from data overload.",
+    "vendorReason": "The cyber market specializes in cutting-edge and ancient tech, making it the perfect vendor for this relic.",
+    "shippingDetail": "Ships via encrypted packets, ensuring safe delivery of the artifact to its destination.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous effect lasting 1 minute or until network connection is lost",
+      "endsWhen": "Network disconnection or shard runs out of charges",
+      "charges": "Limited uses per day; recharges on a long rest"
+    },
+    "priceReason": "This item's rarity, power, and unique ability to mitigate network congestion make it a valuable asset worth its price in XP.",
+    "priceOriginal": 12456,
+    "priceReviewedAt": "2026-07-25T14:36:53.531193+00:00",
+    "aiReviewedAt": "2026-07-25T14:36:53.531193+00:00",
+    "aiReviewVersion": 1
   },
   "internet_item_mythic_chronometric_flux": {
     "id": "internet_item_mythic_chronometric_flux",
     "name": "Mythic Chronometric Flux - The Timestamp Serpent",
-    "description": "A swirling vortex of compressed time-data, harvested from the collapse of obsolete servers. This forbidden item grants momentary control over local temporal distortions—rewinding blunders or fast-forwarding through tedious content. Handle with extreme caution; paradoxes are a frequent side effect.",
+    "description": "The Timestamp Serpent is a swirling vortex of compressed time-data, harvested from the collapse of obsolete servers. Crafted by rogue tech-savvy alchemists in the shadows, this forbidden item allows users to manipulate temporal distortions. It grants momentary control over local time, rewinding blunders or fast-forwarding through tedious content—perfect for those who wish to avoid the pitfalls of modern technology. Handle with extreme caution; paradoxes are a frequent side effect.",
     "category": "forbidden",
-    "price": 87500,
+    "price": 1000,
     "icon": "⏳",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "night_only",
     "effects": [
-      "Allows the user to rewind time by up to 10 seconds.",
-      "Grants a temporary speed boost.",
-      "Causes unpredictable temporal distortions and potential paradoxes (50% chance of negative effects).",
-      "Increases the user's susceptibility to internet conspiracy theories."
+      "Rewind Time",
+      "Temporal Boost"
     ],
     "vendor": "pixel_shop",
     "shippedBy": "Quantum Courier",
-    "levelRequirement": 50
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Rewind Time",
+        "rules": "As an action, you can rewind time by up to 10 seconds for yourself or one creature within 5 feet. This effect has a 24-hour cooldown and causes unpredictable temporal distortions with a 50% chance of negative effects."
+      },
+      {
+        "title": "Temporal Boost",
+        "rules": "For the duration of 1 minute, you gain advantage on Dexterity (Stealth) checks and can move up to your speed +10 feet. This effect is limited to once per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This item is accessible to all characters, as it represents the ability to manipulate technology in a fantastical setting.",
+    "vendorReason": "The pixel_shop caters to those who dabble in the arcane and technological realms, making this item an appropriate offering for their clientele.",
+    "shippingDetail": "Delivered with a time-stamped note to ensure authenticity.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous (Rewind Time)",
+      "endsWhen": "Ends when the effect is used again or after 24 hours.",
+      "charges": "Recharge after 1 day"
+    },
+    "priceReason": "The price reflects a balanced XP cost, considering its mythic rarity and the balance it brings to the game without overpowered effects.",
+    "priceOriginal": 87500,
+    "priceReviewedAt": "2026-07-25T14:35:57.517986+00:00",
+    "aiReviewedAt": "2026-07-25T14:35:57.517986+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_item_echoing_heartwood_speaker": {
     "id": "middle_earth_item_echoing_heartwood_speaker",
     "name": "The Echoing Heartwood Speaker",
-    "description": "This intricately carved speaker, fashioned from the heartwood of a fallen Ent and inlaid with silver runes, resonates with the lingering memories of ancient forests. When activated, it emits a chorus of whispers – fragmented tales of forgotten battles and lost Elven songs, potentially revealing hidden pathways or weaknesses.",
+    "description": "The Echoing Heartwood Speaker is a delicate, intricately carved wooden device, its inlaid silver runes glowing faintly as they resonate with ancient tales and forgotten lore. Crafted from the heartwood of an Ent fallen to time's scythe, it hums with the echoes of lost battles and Elven melodies. When activated, it emits a cacophony of whispers—fragmented stories that can temporarily enhance perception and reveal hidden paths or weaknesses in both terrain and foes.",
     "category": "equipment",
-    "price": 1200,
+    "price": 1000,
     "icon": "🎶",
     "stock": 37,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "reveals hidden paths (chance)",
-      "increases perception by 10% for 60 seconds",
-      "emits a calming aura",
-      "chance to temporarily stun enemies with sonic waves"
+      "enhances perception",
+      "reveals hidden pathways"
     ],
     "vendor": "elven_market",
     "shippedBy": "winged_messenger",
-    "levelRequirement": 25
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Enhanced Perception",
+        "rules": "The user gains advantage on Wisdom (Perception) checks for 1 minute upon activation. This effect has a recharge after 5 minutes of inactivity."
+      },
+      {
+        "title": "Reveal Hidden Paths",
+        "rules": "When activated, this item reveals hidden or secret paths within a 60-foot radius. The DC to find these paths is reduced by 10 for the next hour."
+      }
+    ],
+    "levelRequirementReason": "The speaker's ancient magic requires a user with experience and focus.",
+    "vendorReason": "Elves have long revered the heartwood of Ents, crafting items that preserve their wisdom and history.",
+    "shippingDetail": "Delivered swiftly by winged messengers, ensuring the item arrives in pristine condition.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute",
+      "endsWhen": "The effect ends when the user completes a short rest or the speaker is destroyed.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Crafted from rare heartwood and ancient runes, this item commands a high price for its unique abilities.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T14:36:23.394819+00:00",
+    "aiReviewedAt": "2026-07-25T14:36:23.394819+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_item_vile_stone_of_grim_silence": {
     "id": "middle_earth_item_vile_stone_of_grim_silence",
@@ -2950,22 +3217,44 @@ export const ITEMS_076 = {
   "doughnut_hole_item_nobly_decaying_curiosity_essence": {
     "id": "doughnut_hole_item_nobly_decaying_curiosity_essence",
     "name": "Nobly Decaying Curiosity Essence - Variant Gamma",
-    "description": "A viscous, iridescent fluid harvested from the ruins of forgotten experiments – a testament to the void's chaotic nature. Immersing yourself in this essence grants brief access to forbidden knowledge and unsettling visions; however, prolonged use risks dissolving your sanity.",
+    "description": "Nobly Decaying Curiosity Essence – Variant Gamma, a gelid, opalescent fluid extracted from ancient void experiments, grants fleeting access to forbidden lore but risks unraveling your mind with every sip. Its iridescent sheen and chaotic pulse evoke the raw essence of chaos itself. Immersing yourself in its depths brings unsettling visions and a brief but profound connection to the void’s dark heart; yet, prolonged exposure may permanently erode your sanity.",
     "category": "curiosities",
-    "price": 35000,
+    "price": 1000,
     "icon": "🧪",
     "stock": 3,
     "rarity": "mythic",
     "stockType": "night_only",
     "effects": [
-      "Forbidden Knowledge (temporary access to obscure lore)",
-      "Hallucinatory Visions (distorted perception of reality)",
-      "Void Resonance (increased vulnerability to void effects – 20%)",
-      "Mental Degradation (cumulative sanity loss over time)"
+      "Forbidden Knowledge",
+      "Unsettling Visions"
     ],
     "vendor": "hole_hawker",
     "shippedBy": "Phantom Courier",
-    "levelRequirement": 50
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Forbidden Knowledge",
+        "rules": "Activates on contact. Grants a single use of temporary access to obscure lore and ancient knowledge for up to 10 minutes. The user must make a DC 25 Intelligence saving throw; failure results in a cumulative -1 penalty to all Intelligence checks until the next dawn."
+      },
+      {
+        "title": "Unsettling Visions",
+        "rules": "Passive effect while immersed in the essence. The user gains disadvantage on Wisdom (Perception) checks for 24 hours after use. This effect cannot be resisted and persists until the essence is no longer ingested or the user rests."
+      }
+    ],
+    "levelRequirementReason": "Even the simplest scholars are at risk when meddling with the void’s secrets.",
+    "vendorReason": "Hole Hawker deals in all manner of strange and mythic curiosities, including those that challenge sanity.",
+    "shippingDetail": "Delivery is perilous; the fluid must be kept refrigerated to maintain its integrity during transit.",
+    "usage": {
+      "activation": "Passive effect upon contact with the essence. The forbidden knowledge effect requires a single use and lasts for up to 10 minutes.",
+      "duration": "10 minutes or until dispelled by the user's willpower.",
+      "endsWhen": "The essence is no longer ingested, or the user rests; the unsettling visions persist for 24 hours.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced as a mythic item, this essence offers powerful but dangerous knowledge at a cost that reflects its chaotic and unpredictable nature.",
+    "priceOriginal": 35000,
+    "priceReviewedAt": "2026-07-25T15:21:48.887245+00:00",
+    "aiReviewedAt": "2026-07-25T15:21:48.887245+00:00",
+    "aiReviewVersion": 1
   },
   "internet_item_pixel_striker_792": {
     "id": "internet_item_pixel_striker_792",
@@ -3432,22 +3721,44 @@ export const ITEMS_076 = {
   "warhammer_item_fate-forge-mk-89-desolation-medals": {
     "id": "warhammer_item_fate-forge-mk-89-desolation-medals",
     "name": "Fate Forge Mk.89 Desolation Medals - Blessed Sacrifice",
-    "description": "Forged within the heart of a collapsing fortress, these medals represent a pact with forgotten gods. Wearing them grants potent protective magic but demands a sacrifice – a fragment of your memories, slowly eroding over time.",
+    "description": "Forged within the heart of a collapsing fortress, these medals are imbued with the essence of forgotten gods and dark pacts. As you wear them, they weave protective magic around your form, granting resistance to dark magic and bolstering your defense. However, their power comes at a cost: each day, a fragment of your memories fades until none remain, a silent reminder of the pact you made with ancient forces.",
     "category": "forbidden",
-    "price": 18500,
+    "price": 1000,
     "icon": "💀",
     "stock": 3,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "significant defense boost",
-      "resistance to dark magic",
-      "chance of critical hit",
-      "memory loss (gradual)"
+      "Dark Resistance",
+      "Memory Erosion"
     ],
     "vendor": "fate_forge",
     "shippedBy": "dimensional-portal",
-    "levelRequirement": 50
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Dark Resistance",
+        "rules": "While wearing these medals, you gain resistance to necrotic and shadow damage. This effect lasts until you remove the medals or are no longer within their protective radius."
+      },
+      {
+        "title": "Memory Erosion",
+        "rules": "Each day at dawn, roll a DC 15 Wisdom saving throw. On a failed save, you lose one memory fragment. You start each new day with the same number of fragments as when you first obtained these medals. This effect ends if you remove the medals or are no longer within their protective radius."
+      }
+    ],
+    "levelRequirementReason": "The medallions' power is too great for novices, requiring at least a level 1 character to handle their dark magic.",
+    "vendorReason": "Fate Forge has the means and dark lore necessary to craft such powerful and dangerous items.",
+    "shippingDetail": "The dimensional portal can only deliver these fragile artifacts once per week, ensuring their safe transit through otherworldly means.",
+    "usage": {
+      "activation": "Passive effect upon wearing the medals.",
+      "duration": "Lasts until removed or protective radius is lost.",
+      "endsWhen": "Removing the medals or losing protective radius",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The item's legendary rarity and powerful effects, combined with the limited availability through Fate Forge, justify its 1000 XP price.",
+    "priceOriginal": 18500,
+    "priceReviewedAt": "2026-07-25T15:14:51.875607+00:00",
+    "aiReviewedAt": "2026-07-25T15:14:51.875607+00:00",
+    "aiReviewVersion": 1
   },
   "internet_item_chromatic_meme_echo": {
     "id": "internet_item_chromatic_meme_echo",
@@ -3620,21 +3931,44 @@ export const ITEMS_076 = {
   "equestria_item_wicked_shade_shaper": {
     "id": "equestria_item_wicked_shade_shaper",
     "name": "The Wicked Shade Shaper – Obsidian Variant",
-    "description": "A chilling artifact crafted from solidified nightmare essence, this item allows the user to momentarily warp reality around their pony, creating unsettling illusions and disrupting magical defenses.  Handle with caution; prolonged use may lead to…unpleasant reflections.",
+    "description": "The Wicked Shade Shaper – Obsidian Variant is a chilling artifact crafted from solidified nightmare essence, forged by ancient specters in the deepest pits of Equestria's shadowed realms. This macabre device allows its wielder to momentarily warp reality around their pony, creating unsettling illusions that disorient foes and suppress magical defenses within a 10-meter radius. Use it with caution; prolonged exposure may leave an eerie imprint on your very essence.",
     "category": "equipment",
-    "price": 8000,
+    "price": 1000,
     "icon": "😈",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "creates a minor illusion, disorienting enemies for 5 seconds.",
-      "temporarily suppresses magical effects within a 10-meter radius (duration: 3 seconds).",
-      "chance to inflict ‘Wickedness’ status on target (chance: 20%)"
+      "Illusionary Disruption",
+      "Magical Suppression"
     ],
     "vendor": "ponyville_market",
     "shippedBy": "Swift Delivery Pony",
-    "levelRequirement": 28
+    "levelRequirement": 28,
+    "effectDetails": [
+      {
+        "title": "Illusionary Disruption",
+        "rules": "As a bonus action, the user can create a minor illusion that disorients enemies within range. The effect lasts for 5 seconds and has a 20% chance to inflict 'Wickedness' status on the target."
+      },
+      {
+        "title": "Magical Suppression",
+        "rules": "The user can suppress magical effects within a 10-meter radius as an action, reducing their effectiveness by half for 3 seconds. This effect has no save DC but is limited to once per short rest."
+      }
+    ],
+    "levelRequirementReason": "This artifact requires a high level of magical proficiency and control to wield its shadowy powers safely.",
+    "vendorReason": "Applejack's keen eye for quality and her extensive network with the spectral realms ensure this rare item finds its way into the market.",
+    "shippingDetail": "The delivery is expedited, but the package must be received under moonlight to preserve the artifact’s integrity.",
+    "usage": {
+      "activation": "Bonus Action or Action",
+      "duration": "Instantaneous for Illusionary Disruption; 3 seconds for Magical Suppression",
+      "endsWhen": "The effect ends when its duration expires or the user retracts the item's power.",
+      "charges": "Unlimited, but once per short rest for the Magical Suppression."
+    },
+    "priceReason": "Despite being a rare artifact with limited use, the price reflects its value as a tool for shadowy magic and its potential to disrupt enemies.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T15:14:43.734742+00:00",
+    "aiReviewedAt": "2026-07-25T15:14:43.734742+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_harmonious_bits_of_resonance": {
     "id": "equestria_item_harmonious_bits_of_resonance",
@@ -3681,42 +4015,86 @@ export const ITEMS_076 = {
   "faerun_item_dragonscale_walker": {
     "id": "faerun_item_dragonscale_walker",
     "name": "The Dragonscale Walker’s Treaders",
-    "description": "These boots, salvaged from the ruins of an ancient dragon hoard beneath Candlekeep, resonate with residual draconic energy. The yielding scales provide remarkable traction across treacherous terrain and offer a subtle resistance to fire damage.",
+    "description": "The Dragonscale Walker’s Treaders are crafted from ancient dragon scales, salvaged from an underground hoard beneath Candlekeep. These boots resonate with a subtle draconic aura that grants their wearer unmatched traction on treacherous terrains and subtle resistance to fire damage. The yielding scales have been enchanted to protect the walker against scorching temperatures, and the boots' weight feels as if they were molded specifically for your feet, offering an almost imperceptible boost in movement speed.",
     "category": "equipment",
-    "price": 7500,
+    "price": 1000,
     "icon": "🐉",
     "stock": 12,
     "rarity": "legendary",
     "stockType": "limited_daily",
     "effects": [
-      "increased_movement_speed",
-      "fire_resistance",
       "enhanced_traction",
-      "minor_draconic_aura"
+      "fire_resistance"
     ],
     "vendor": "sword_coast_traders",
     "shippedBy": "Griffon Express",
-    "levelRequirement": 35
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Enhanced Traction",
+        "rules": "The Dragonscale Walker’s Treaders grant a +2 bonus to Dexterity (Acrobatics) checks made for balance and movement on difficult terrains. This effect lasts until the end of your next turn."
+      },
+      {
+        "title": "Fire Resistance",
+        "rules": "You gain resistance to fire damage while wearing these boots. Additionally, you have advantage on saving throws against being set on fire by non-magical sources. This resistance does not stack with other forms of fire resistance or immunity."
+      }
+    ],
+    "levelRequirementReason": "These boots are crafted to be accessible to adventurers of all levels, allowing even the youngest heroes to benefit from their protective enchantments.",
+    "vendorReason": "The Sword Coast Traders have a long-standing relationship with the dragon hoard's caretakers and have been entrusted by them to sell these rare boots.",
+    "shippingDetail": "Delivered by the swift wings of Griffin Express, ensuring that the Dragonscale Walker’s Treaders reach their destination in perfect condition.",
+    "usage": {
+      "activation": "Passive effect, no activation required.",
+      "duration": "Instantaneous upon donning and lasts until removed or a new turn begins.",
+      "endsWhen": "The boots' effects end when they are removed or at the start of your next turn.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "Given their craftsmanship from an ancient dragon hoard and the unique enchantments, these boots provide a balanced value for adventurers looking to enhance their survivability in fire-filled environments.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-25T14:37:21.455889+00:00",
+    "aiReviewedAt": "2026-07-25T14:37:21.455889+00:00",
+    "aiReviewVersion": 1
   },
   "faerun_item_silversong_walker": {
     "id": "faerun_item_silversong_walker",
     "name": "Silversong Walker’s Echo Boots",
-    "description": "Forged by the dwarven smiths of Mithral Hall and infused with a captured fragment of a siren's lament, these boots hum with an ethereal melody.  They allow for uncanny stealth and subtly enhance one’s hearing in echoing environments.",
+    "description": "Silversong Walker's Echo Boots are crafted by Mithral Hall's most skilled dwarven artisans from a silver alloy that whispers secrets of old lore. Infused with fragments of a siren’s lament, these boots not only grant uncanny stealth but also enhance one's hearing in echoing environments, making every step and sound a potential advantage in the shadows. Their ethereal hum resonates like distant melodies, subtly masking movement and amplifying ambient sounds for the wearer.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "🎶",
     "stock": 8,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "stealth_bonus",
-      "enhanced_hearing",
-      "minor_illusion_resistance",
-      "whisper_step"
+      "stealth",
+      "hearing_boost"
     ],
     "vendor": "baldurs_bazaar",
     "shippedBy": "Night Hauler Cart",
-    "levelRequirement": 28
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stealth",
+        "rules": "When you take the Hide action, you have advantage on Dexterity (Stealth) checks. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Enhanced Hearing",
+        "rules": "In echoing environments, you can use an action to gain a +2 bonus to your Passive Perception score for 1 minute. This effect ends early if you are exposed to non-echoing sounds or silence."
+      }
+    ],
+    "levelRequirementReason": "These boots offer subtle enhancements that are accessible to lower-level adventurers who can benefit from improved stealth and hearing.",
+    "vendorReason": "Baldur's Bazaar caters to adventurers seeking unique and powerful gear, including items that enhance core skills like stealth and perception.",
+    "shippingDetail": "Delivered by the Night Hauler Cart at dawn, ensuring secrecy during shipment.",
+    "usage": {
+      "activation": "Passive effect for Stealth; Enhanced Hearing activated as a bonus action.",
+      "duration": "Stealth is permanent until your next turn. Enhanced Hearing lasts 1 minute.",
+      "endsWhen": "Stealth ends when you no longer need to hide, and Enhanced Hearing ends if exposed to non-echoing sounds or silence.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The boots offer balanced benefits without overtly powerful effects, making them accessible yet valuable.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T14:37:24.310118+00:00",
+    "aiReviewedAt": "2026-07-25T14:37:24.310118+00:00",
+    "aiReviewVersion": 1
   },
   "faerun_item_forgotten_walker": {
     "id": "faerun_item_forgotten_walker",

@@ -2796,22 +2796,44 @@ export const ITEMS_055 = {
   "connectopia_geode_of_ancient_codes": {
     "id": "connectopia_geode_of_ancient_codes",
     "name": "Nexus Core Fragment",
-    "description": "Recovered from the deepest mines of Connectopia, this geode hums with forgotten network protocols. It grants access to advanced crafting recipes and occasionally manifests strange, shifting blocks – perfect for a Wario-style surprise!  Don’t stare at it too long or you might start speaking in binary.",
+    "description": "Recovered from the deepest mines of Connectopia, this Nexus Core Fragment hums with ancient network protocols. Crafters who wear it can unlock advanced recipes, but beware—its strange, shifting blocks appear unpredictably, testing one's wits and reflexes. Should you stare too long, it might just start dictating binary commands to you in a voice that sounds like an old modem. Only the most skilled crafters dare to wield this fragment, for its power comes with a price: a touch of madness.",
     "category": "curiosities",
-    "price": 80000,
+    "price": 1000,
     "icon": "💎",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "unlocks advanced crafting recipes (5)",
-      "chance to spawn a small block puzzle (10%)",
-      "increases intelligence by 3",
-      "provides resistance to network interference"
+      "Advanced Crafting Recipes",
+      "Random Block Manifestations"
     ],
     "vendor": "craft_corner",
     "shippedBy": "express_crate",
-    "levelRequirement": 12
+    "levelRequirement": 12,
+    "effectDetails": [
+      {
+        "title": "Advanced Crafting Recipes",
+        "rules": "Activates as an action. The wearer gains access to five advanced crafting recipes, one of which is randomly selected from the Fragment's vast database. These recipes can be used once per long rest."
+      },
+      {
+        "title": "Random Block Manifestations",
+        "rules": "The Nexus Core Fragment has a 10% chance each day (one chance per short or long rest) to summon a small, shifting block puzzle that appears within 5 feet of the wearer. The puzzle must be solved before it dissipates after 1 minute. Failure results in a minor network interference."
+      }
+    ],
+    "levelRequirementReason": "Only those with experience and skill can handle the power of an ancient fragment like this one.",
+    "vendorReason": "Craft Corner specializes in rare and powerful items for crafters, making it a logical place for such a unique piece.",
+    "shippingDetail": "Ships via express crate within the week of purchase. Fragile item; avoid jarring or excessive heat during transit.",
+    "usage": {
+      "activation": "Activates as an action when worn and accessed with a crafting attempt.",
+      "duration": "Instantaneous access to recipes, lasts until next long rest.",
+      "endsWhen": "The effects end upon removal of the fragment or after one use per day.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its mythic rarity and limited utility.",
+    "priceOriginal": 80000,
+    "priceReviewedAt": "2026-07-25T15:11:11.285657+00:00",
+    "aiReviewedAt": "2026-07-25T15:11:11.285657+00:00",
+    "aiReviewVersion": 1
   },
   "leclaire_isle_doughy_duster": {
     "id": "leclaire_isle_doughy_duster",

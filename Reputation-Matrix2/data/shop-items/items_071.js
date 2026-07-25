@@ -929,21 +929,44 @@ export const ITEMS_071 = {
   "pokemon_item_evolution_focus": {
     "id": "pokemon_item_evolution_focus",
     "name": "Evolution Focus - Primal Instinct",
-    "description": "A pulsating obsidian stone, radiating with the raw energy of evolution! This device dramatically accelerates a Pokémon's evolutionary process, but beware – it can sometimes lead to… unexpected results. It’s said that trainers who have used this focus have become dangerously obsessed with power.",
+    "description": "A pulsating obsidian stone, radiating with primal energy, this Evolution Focus - Primal Instinct accelerates a Pokémon's evolutionary process. It is said that trainers who use it have become dangerously obsessed with power and strength, often pushing their Pokémon past safe limits. This focus ensures that the evolution occurs more reliably, reducing the risk of undesirable side effects by 10%, but there is always an unpredictable chance—once per day—that your Pokémon might undergo a double evolution.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "🔥",
     "stock": 3,
     "rarity": "epic",
     "stockType": "night_only",
     "effects": [
-      "increases evolution chance by 20%",
-      "reduces post-evolution stat penalties by 10%",
-      "chance to trigger a double evolution on a compatible Pokémon"
+      "Dramatically increases evolution success rate",
+      "Reduces post-evolution stat penalties"
     ],
     "vendor": "safari_shop",
     "shippedBy": "giant beetle",
-    "levelRequirement": 12
+    "levelRequirement": 12,
+    "effectDetails": [
+      {
+        "title": "Enhanced Evolution",
+        "rules": "This focus ensures that the next evolution attempt is more likely to succeed, reducing the chance of failure by 20%. The effect lasts until the Pokémon successfully evolves or attempts an additional time if the initial evolution fails. If used on a Pokémon with multiple evolutions, it has a 1 in 6 chance (16.7%) each day that the Pokémon undergoes two consecutive evolutions."
+      },
+      {
+        "title": "Stat Stability",
+        "rules": "Post-evolution, this focus reduces any negative stat penalties by 10%, ensuring your Pokémon remains at peak condition immediately after evolving. This effect is instantaneous and does not require an action to activate."
+      }
+    ],
+    "levelRequirementReason": "Trainers must have a solid understanding of their Pokémon's potential before using this powerful tool.",
+    "vendorReason": "The Safari Shop deals in rare and exotic items, making it the perfect vendor for this unique Evolution Focus.",
+    "shippingDetail": "Delivered swiftly by a giant beetle courier, ensuring your Pokémon receives its focus quickly.",
+    "usage": {
+      "activation": "Passive effect triggered upon use during an evolution attempt; no activation required.",
+      "duration": "Until the Pokémon successfully evolves or attempts to evolve again if failed initially.",
+      "endsWhen": "The effect ends when the Pokémon successfully evolves, fails to evolve after using this focus, or uses it more than once per day.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This Evolution Focus is priced at 1000 XP as it offers a significant advantage in the evolutionary process without being overpowered.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T14:30:19.104768+00:00",
+    "aiReviewedAt": "2026-07-25T14:30:19.104768+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_battle_strategy_consultation": {
     "id": "pokemon_item_battle_strategy_consultation",
@@ -1956,22 +1979,44 @@ export const ITEMS_071 = {
   "equestria_item_forbidden_heartstone": {
     "id": "equestria_item_forbidden_heartstone",
     "name": "Heartstone of Silent Sorrow",
-    "description": "Recovered from a forgotten shrine dedicated to the lost memories, this stone radiates an unnerving stillness. Touching it can reveal hidden truths... or drive you to obsessive melancholy and crafting miniature ponies out of despair.",
+    "description": "The Heartstone of Silent Sorrow, crafted from the petrified essence of a forgotten mare, glows faintly in the dark. It whispers secrets to those who dare touch it but at a terrible cost: prolonged contact can drive even the most steadfast into a spiral of despair and obsession with crafting tiny figurines out of despair. The stone's power is both a gift and a curse, revealing truths that might be better left hidden.",
     "category": "forbidden",
-    "price": 12000,
+    "price": 1000,
     "icon": "🖤",
     "stock": 5,
     "rarity": "uncommon",
     "stockType": "night_only",
     "effects": [
-      "chance_to_reveal_hidden_secrets",
-      "minor_damage_over_time_to_self",
-      "increase_intelligence",
-      "chance to trigger a nightmare vision"
+      "reveals_hidden_secrets",
+      "drives_to_despair"
     ],
     "vendor": "crystal_empire_black_market",
     "shippedBy": "shadow_rats",
-    "levelRequirement": 8
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Reveal Hidden Secrets",
+        "rules": "When touched, the stone grants the wielder advantage on History checks related to forgotten lore. However, prolonged contact (more than 10 minutes) can cause the wielder to be charmed by the stone for 1 hour, during which they become obsessed with crafting miniature ponies out of despair."
+      },
+      {
+        "title": "Drive to Despair",
+        "rules": "Every hour of continuous contact with the stone deals 1d6 psychic damage. The effect ends if the wielder makes a DC 15 Wisdom saving throw, or after 24 hours regardless."
+      }
+    ],
+    "levelRequirementReason": "The Heartstone's power requires a deep understanding of forgotten lore and resilience to its effects.",
+    "vendorReason": "The Crystal Empire's Black Market often deals in relics of ancient magic, including those that are forbidden or controversial.",
+    "shippingDetail": "Delivered by the elusive Shadow Rats, known for their unpredictable and dangerous courier routes.",
+    "usage": {
+      "activation": "Interact (object interaction)",
+      "duration": "Instantaneous; effect lasts until the end of the encounter or until a saving throw is made.",
+      "endsWhen": "A successful Wisdom saving throw or after 24 hours if not used.",
+      "charges": "Unlimited, but only one use per short rest."
+    },
+    "priceReason": "The Heartstone's rarity and the risk involved in its use justify a price of 1000 XP.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T14:30:13.395276+00:00",
+    "aiReviewedAt": "2026-07-25T14:30:13.395276+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_giant_puffball": {
     "id": "mushroom_kingdom_item_giant_puffball",
@@ -2018,21 +2063,44 @@ export const ITEMS_071 = {
   "mushroom_kingdom_item_potion_of_infinite_hunger": {
     "id": "mushroom_kingdom_item_potion_of_infinite_hunger",
     "name": "Potion of Infinite Hunger",
-    "description": "This viscous, crimson concoction promises to quell the most savage appetites. Drink deeply and prepare for an insatiable craving – you’ll devour everything in sight (and maybe a few unsuspecting NPCs). Side effects may include uncontrollable burping and a sudden obsession with mushrooms.",
+    "description": "This viscous, crimson potion exudes an aura of malevolent hunger. As you drink it, your body begins to crave sustenance in a way that defies logic and reason. Your stomach growls uncontrollably, and soon, you find yourself devouring the nearest edible object – be it a mundane wooden chair or a hapless NPC. The potion's effects are nearly instant, leaving you with an insatiable hunger that can only be sated by consuming everything in your path until nothing remains.",
     "category": "consumables",
-    "price": 600,
+    "price": 1000,
     "icon": "🍔",
     "stock": 90,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "restores 100 health",
-      "grants temporary increased hunger stat",
-      "chance to gain a negative status effect (e.g., nausea)"
+      "Infinite Hunger",
+      "Temporary Health Restoration"
     ],
     "vendor": "koopa_shop",
     "shippedBy": "delivery_drone",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Infinite Hunger",
+        "rules": "Upon activation, you gain a +2 bonus to attack rolls and damage rolls for the next hour. However, this effect also increases your Constitution by 4 (to a maximum of 20) until you consume food or drink something other than water. If you fail a Wisdom saving throw (DC 15), you must make another save every hour on the hour while under the effects of the potion."
+      },
+      {
+        "title": "Temporary Health Restoration",
+        "rules": "When consumed, this potion restores 20 hit points to you and grants temporary hit points equal to your level + your Constitution modifier until you finish a short or long rest. The potion also has only one use per day."
+      }
+    ],
+    "levelRequirementReason": "This potion is designed for adventurers who are already capable of managing the effects it brings, such as those with some experience in combat and survival.",
+    "vendorReason": "The Koopa Shop caters to adventurers seeking unique and potentially dangerous items that can be used strategically during their quests.",
+    "shippingDetail": "The delivery drone ensures the potion is delivered in a sealed, insulated container to maintain its potency.",
+    "usage": {
+      "activation": "Drink the potion as an action.",
+      "duration": "1 hour per use.",
+      "endsWhen": "You finish a short or long rest, or consume food or drink other than water.",
+      "charges": "One charge per day."
+    },
+    "priceReason": "The potion's rarity and the risk it poses to users justify its price, making it a sought-after commodity in the adventurer community.",
+    "priceOriginal": 600,
+    "priceReviewedAt": "2026-07-25T14:29:57.763816+00:00",
+    "aiReviewedAt": "2026-07-25T14:29:57.763816+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_elemental_boots": {
     "id": "equestria_item_elemental_boots",
@@ -2457,21 +2525,44 @@ export const ITEMS_071 = {
   "connectopia_legendary_gearbox_of_invention": {
     "id": "connectopia_legendary_gearbox_of_invention",
     "name": "Wario's Prototype Assembler",
-    "description": "This glorious, slightly dented gearbox was allegedly created by Wario himself during a particularly productive block-building binge. It grants the wielder +5 to all crafting rolls and has a 20% chance to produce entirely new, bizarre items – sometimes useful, mostly not.",
+    "description": "Wario's Prototype Assembler, a gleaming yet slightly dented gearbox, is said to have been crafted by the master builder himself during his legendary block-building sessions. This ingenious device grants its wielder +5 to all crafting rolls and has an unpredictable tendency to generate bizarre new items with a 20% chance – sometimes functional, often not. The assembler's self-assembly feature, though rare, can produce parts that are essential for completing ambitious projects.",
     "category": "equipment",
-    "price": 38000,
+    "price": 1000,
     "icon": "⚙️",
     "stock": 1,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "+5 crafting bonus",
-      "20% chance of generating a random item",
-      "chance for self-assembly (rare)"
+      "+5 Crafting Bonus",
+      "20% Random Item Generation"
     ],
     "vendor": "craft_corner",
     "shippedBy": "warp_transport",
-    "levelRequirement": 16
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "+5 Crafting Bonus",
+        "rules": "Activates as a bonus action. The effect lasts until the start of your next turn, granting +5 to all crafting checks."
+      },
+      {
+        "title": "20% Random Item Generation",
+        "rules": "This effect activates when you complete a successful crafting roll. There is a 20% chance that the assembler will generate a random item, which could be useful or entirely bizarre. The generated item's rarity and utility are determined by the DM."
+      }
+    ],
+    "levelRequirementReason": "This device is suitable for players who have some experience with crafting to appreciate its versatility.",
+    "vendorReason": "Craft Corner specializes in unique and rare items, including Wario's creations. They are the only known source for this legendary assembler.",
+    "shippingDetail": "Delivered via warp transport within a week of order placement.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Until Start of Next Turn",
+      "endsWhen": "The start of your next turn",
+      "charges": "Unlimited, as long as the assembler is functional"
+    },
+    "priceReason": "This price reflects its legendary rarity and unique utility in crafting.",
+    "priceOriginal": 38000,
+    "priceReviewedAt": "2026-07-25T14:30:04.678033+00:00",
+    "aiReviewedAt": "2026-07-25T14:30:04.678033+00:00",
+    "aiReviewVersion": 1
   },
   "connectopia_echoing_crystal": {
     "id": "connectopia_echoing_crystal",

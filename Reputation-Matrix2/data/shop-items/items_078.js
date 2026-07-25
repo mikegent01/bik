@@ -131,7 +131,7 @@ export const ITEMS_078 = {
   "warhammer_item_mk_57_godly_banners_of_the_eternal_storm": {
     "id": "warhammer_item_mk_57_godly_banners_of_the_eternal_storm",
     "name": "Mk.57 Godly Banners of the Eternal Storm",
-    "description": "Woven from solidified lightning and imbued with divine essence, these banners radiate an aura of pure destructive energy. Commanding them grants mastery over storms and a terrifying presence that can shatter even the most stalwart defenses.",
+    "description": "Mk.57 Godly Banners of the Eternal Storm are woven from solidified lightning and imbued with divine essence, radiating an aura that can shatter even the most stalwart defenses. These banners not only deal 50% extra lightning damage but also summon a small storm cloud that rains down bolts of lightning, adding a tempestuous presence to any battlefield. Commanding them grants mastery over storms and a terrifying presence that intimidates foes.",
     "category": "consumables",
     "price": 60000,
     "icon": "⛈️",
@@ -139,14 +139,36 @@ export const ITEMS_078 = {
     "rarity": "godly",
     "stockType": "delivery_only",
     "effects": [
-      "deals 50% extra lightning damage",
-      "chance to summon a small storm cloud that rains down bolts of lightning",
-      "grants immunity to thunder and lightning attacks",
-      "temporarily boosts weather manipulation abilities"
+      "Summons Tempest Cloud",
+      "Immunity to Thunder"
     ],
     "vendor": "fate_forge",
     "shippedBy": "angel-delivery",
-    "levelRequirement": 50
+    "levelRequirement": 50,
+    "effectDetails": [
+      {
+        "title": "Summon Tempest Cloud",
+        "rules": "As an action, the user can summon a tempest cloud that rains down bolts of lightning within a 30-foot radius. This effect lasts for 1 minute and requires a successful DC 25 Wisdom (Intimidation) check to control it effectively. The cloud deals 4d6 lightning damage per round to all creatures in its area, but friendly creatures are immune."
+      },
+      {
+        "title": "Immunity to Thunder",
+        "rules": "The wielder gains immunity to thunder and lightning attacks for the duration of one short or long rest. This effect can be activated once every 24 hours."
+      }
+    ],
+    "levelRequirementReason": "These banners are reserved for high-level clerics who have mastered the art of storm manipulation.",
+    "vendorReason": "Fate Forge is known for its divine artifacts, and these banners are among their most powerful creations.",
+    "shippingDetail": "Ships via angelic courier within one week of purchase.",
+    "usage": {
+      "activation": "Action or bonus action to summon the tempest cloud; once per long rest to gain immunity to thunder and lightning attacks.",
+      "duration": "Tempest cloud lasts for 1 minute, immunity lasts until next short or long rest.",
+      "endsWhen": "The user dismisses the cloud or falls unconscious. Immunity ends at the end of a short or long rest.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Crafted from divine essence and lightning, these banners are among the most expensive and powerful items in the realm.",
+    "priceOriginal": 60000,
+    "priceReviewedAt": "2026-07-25T14:39:42.362583+00:00",
+    "aiReviewedAt": "2026-07-25T14:39:42.362583+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_the_spiral_ascension_claimed": {
     "id": "grand_country_item_the_spiral_ascension_claimed",
@@ -801,22 +823,44 @@ export const ITEMS_078 = {
   "equestria_item_arcane_echo_scroll": {
     "id": "equestria_item_arcane_echo_scroll",
     "name": "Arcane Echo Scroll - Cartographer’s Variant",
-    "description": "Recovered from a forgotten observatory dedicated to celestial cartography, this scroll vibrates with residual arcane energy. When unfurled, it projects holographic echoes of past journeys across Equestria, revealing hidden pathways and long-lost landmarks – perfect for the intrepid explorer. The intricate markings appear to shift subtly based on the viewer’s intentions.",
+    "description": "The Arcane Echo Scroll - Cartographer’s Variant is a fragile parchment inscribed with ancient runes. Unfurled, it projects holographic echoes of past journeys across Equestria, revealing hidden pathways and long-lost landmarks. The intricate markings shimmer and shift in response to the viewer's intent, offering cryptic clues that can guide explorers to forgotten locations. Each scroll holds a fragment of an eldritch map, providing cartographers with a 5-level boost to their skill, but carries a risk of triggering a minor temporal distortion.",
     "category": "curiosities",
-    "price": 1800,
+    "price": 1000,
     "icon": "🗺️",
     "stock": 45,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "reveals hidden pathways on a small area map",
-      "provides cryptic clues to forgotten locations",
-      "chance to trigger a temporal distortion (minor)",
-      "increases cartography skill by 5 levels"
+      "reveals hidden pathways",
+      "boosts cartography skill"
     ],
     "vendor": "ponyville_market",
     "shippedBy": "Griffin Delivery Service",
-    "levelRequirement": 20
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Reveals Hidden Pathways",
+        "rules": "When activated by the explorer, this scroll projects a holographic map revealing hidden paths within a 10-foot radius. This effect lasts for 1 minute and can be used once per short or long rest."
+      },
+      {
+        "title": "Boosts Cartography Skill",
+        "rules": "The scroll grants the user a +5 temporary bonus to their cartography skill check, which is effective until the end of their next turn. This effect can only be used once every 24 hours."
+      }
+    ],
+    "levelRequirementReason": "This scroll provides useful but not overly powerful assistance for beginners and seasoned explorers alike.",
+    "vendorReason": "The Ponyville Market is known for its diverse array of rare and antique items, making it the perfect place to find this unique cartographic aid.",
+    "shippingDetail": "The scroll is shipped rolled in a protective case to ensure safe delivery.",
+    "usage": {
+      "activation": "Standard action",
+      "duration": "1 minute or until the explorer moves out of range",
+      "endsWhen": "Ends when the explorer moves more than 50 feet from where it was activated",
+      "charges": "Unlimited, but can only be used once per short or long rest"
+    },
+    "priceReason": "The scroll's rarity and unique utility justify its price of 1000 XP.",
+    "priceOriginal": 1800,
+    "priceReviewedAt": "2026-07-25T14:39:17.754565+00:00",
+    "aiReviewedAt": "2026-07-25T14:39:17.754565+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_bit_of_starlight_resonance": {
     "id": "equestria_item_bit_of_starlight_resonance",
@@ -1577,22 +1621,44 @@ export const ITEMS_078 = {
   "grand_country_item_angular_layer_resonator": {
     "id": "grand_country_item_angular_layer_resonator",
     "name": "The Angular Layer Resonator - Prototype Sigma",
-    "description": "This complex device, a tangle of polished obsidian and spinning gears, generates focused resonant frequencies within layer structures. By directing the resonator, the user can trigger localized structural collapses or stabilize weakened zones – vital for navigating unstable terrain or exploiting architectural vulnerabilities.",
+    "description": "The Angular Layer Resonator - Prototype Sigma, a sleek obsidian device adorned with spinning brass gears and etched in ancient runes, harnesses the very fabric of layer structures to manipulate their integrity. Its user can scan for weak points or trigger localized collapses, making it indispensable when navigating treacherous terrain or exploiting architectural weaknesses. With each activation, this resonator leaves an echo that can reveal hidden passages within layers, ensuring the user always finds a path forward in unstable environments.",
     "category": "curiosities",
-    "price": 8000,
+    "price": 1000,
     "icon": "🔊",
     "stock": 5,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "Layer Resonance Scan - Reveals Structural Weaknesses",
-      "Localized Collapse Trigger (2 second cooldown)",
-      "Structural Stabilization - Reduces Damage from Collapses",
-      "Echo Location - Detects Hidden Passages within Layers"
+      "Layer Resonance Scan",
+      "Localized Collapse"
     ],
     "vendor": "layer_market",
     "shippedBy": "Delivery Zeppelin",
-    "levelRequirement": 48
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Layer Resonance Scan",
+        "rules": "As a bonus action, the wielder can activate this resonator to scan an area for structural weaknesses within layer structures. This effect lasts until the start of your next turn and reveals any unstable zones or hidden passages. No saving throw is needed."
+      },
+      {
+        "title": "Localized Collapse",
+        "rules": "This resonator can be used as a reaction when you are in an unstable area to trigger a localized collapse, creating a safe passage through weakened layers. The target must succeed on a DC 18 Dexterity saving throw or be knocked prone and take 2d6 force damage. This effect has a 2-second cooldown."
+      }
+    ],
+    "levelRequirementReason": "This resonator is designed for ease of use, allowing even novice explorers to access its capabilities.",
+    "vendorReason": "The Layer Market specializes in cutting-edge tools and devices for navigating layer structures, making it the natural vendor for such an item.",
+    "shippingDetail": "Ships via a Delivery Zeppelin with expedited delivery within three days of purchase.",
+    "usage": {
+      "activation": "Bonus action or reaction",
+      "duration": "Instantaneous (Layer Resonance Scan) / Until the start of your next turn (Localized Collapse)",
+      "endsWhen": "The effect ends when its duration expires or the user is incapacitated.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This resonator offers a balanced price for its utility and ease of use, making it accessible yet valuable.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T14:39:29.470597+00:00",
+    "aiReviewedAt": "2026-07-25T14:39:29.470597+00:00",
+    "aiReviewVersion": 1
   },
   "earth_land_item_chronometric_dragonscale_maker": {
     "id": "earth_land_item_chronometric_dragonscale_maker",
@@ -1681,40 +1747,86 @@ export const ITEMS_078 = {
   "earth_land_item_rune_of_scorched_genesis": {
     "id": "earth_land_item_rune_of_scorched_genesis",
     "name": "Runic Device of Scorched Genesis Service",
-    "description": "This intricately carved device, pulsing with residual heat from volcanic origins, is not merely an item—it’s a temporary service. Upon activation, it creates a localized zone of intense heat, capable of rapidly hardening lava and temporarily boosting the power of fire-based attacks.  However, prolonged use risks overheating and damaging both the device and the user.",
+    "description": "The Runic Device of Scorched Genesis, a volcanic artifact carved from obsidian and imbued with the spirit of dormant lava, pulsates with residual heat. When activated, it heats its surroundings to scorching temperatures, hardening molten rock into solid stone in mere moments. Its power amplifies fire-based attacks by +50% for 12 seconds, but prolonged use risks catastrophic overheating that could destroy both the device and the wielder's hand.",
     "category": "services",
-    "price": 21000,
+    "price": 1000,
     "icon": "🔥",
     "stock": 8,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "Creates a 5-meter radius zone of extreme heat.",
-      "Boosts fire damage by 30% for 10 seconds",
-      "Allows the user to rapidly harden molten materials."
+      "Heats a 10-foot radius area to scorching temperatures",
+      "Temporarily enhances fire damage by +50%"
     ],
     "vendor": "guild_quartermaster",
     "shippedBy": "dragon_air_cargo",
-    "levelRequirement": 45
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Scorched Heat",
+        "rules": "Activates as an action. Creates a 10-foot radius, 20-foot tall column of intense heat that lasts for 1 minute or until the user stops concentrating on it (a bonus action is required to maintain). The area within the column has a temperature of at least 1,500 degrees Fahrenheit and can harden lava into stone in seconds. Concentration ends early if the user takes damage."
+      },
+      {
+        "title": "Flame Boost",
+        "rules": "Activates as an action. Increases fire-based attacks made by the user within a 30-foot radius by +50% for 12 seconds. This effect can be used once per short or long rest and requires concentration."
+      }
+    ],
+    "levelRequirementReason": "Requires minimal magic affinity but must be wielded carefully to avoid overheating.",
+    "vendorReason": "The Guild Quartermaster deals in unique and powerful artifacts, including those from volcanic regions.",
+    "shippingDetail": "Ships via dragon courier with a 1-day delivery time.",
+    "usage": {
+      "activation": "Action or bonus action to activate and maintain the effects; concentration is required for both effects.",
+      "duration": "Scorched Heat lasts 1 minute, Flame Boost is instantaneous but requires concentration. Both end if the user stops concentrating.",
+      "endsWhen": "Concentration ends early due to damage or when the effect's duration expires.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Balanced at a lower price given its limited and manageable effects.",
+    "priceOriginal": 21000,
+    "priceReviewedAt": "2026-07-25T14:39:58.750888+00:00",
+    "aiReviewedAt": "2026-07-25T14:39:58.750888+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_angular_gravity_ward_01": {
     "id": "grand_country_item_angular_gravity_ward_01",
     "name": "The Obsidian Spine Ward",
-    "description": "This angular ward, forged from solidified gravity currents, offers a fleeting shield against sudden drops and shifts. Its serrated edges resonate with the side's inherent instability, granting brief moments of controlled descent – but beware its cursed touch.",
+    "description": "The Obsidian Spine Ward is a jagged, angular shield crafted from the very essence of gravity itself—forged in the heart of an ancient, cursed mountain range. Its obsidian spikes hum with latent gravitational force, offering fleeting moments of controlled descent and protection against sudden drops. Though its touch is cursed, it grants a brief respite for those who dare to wield it, allowing them to navigate treacherous falls with a semblance of grace.",
     "category": "equipment",
-    "price": 875,
+    "price": 1000,
     "icon": "🛡️",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "Provides temporary gravity resistance (30 seconds)",
-      "Slows fall speed by 50%",
-      "Chance to inflict minor vertigo on impact"
+      "Fleeting Gravity Shield",
+      "Controlled Descent"
     ],
     "vendor": "side_seller",
     "shippedBy": "Vertical Courier",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Fleeting Gravity Shield",
+        "rules": "Activates as a reaction when you fall. Provides temporary gravity resistance, reducing falling damage by half for up to 30 seconds. Ends if you land or the duration expires."
+      },
+      {
+        "title": "Controlled Descent",
+        "rules": "Slows your fall speed by 50%, allowing for a controlled descent. Lasts until the end of your next turn. This effect can be used once per short rest."
+      }
+    ],
+    "levelRequirementReason": "Requires significant control over gravity to properly harness the Obsidian Spine Ward's power.",
+    "vendorReason": "Side Seller specializes in rare and cursed artifacts, making The Obsidian Spine Ward a fitting addition to their inventory.",
+    "shippingDetail": "Ships via Vertical Courier with expedited service for an additional cost.",
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Up to 30 seconds or until the end of your next turn",
+      "endsWhen": "Landing or duration expires, once per short rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Obsidian Spine Ward's unique ability to provide temporary gravity resistance and controlled descent makes it a valuable tool for adventurers facing treacherous terrain.",
+    "priceOriginal": 875,
+    "priceReviewedAt": "2026-07-25T14:39:56.258869+00:00",
+    "aiReviewedAt": "2026-07-25T14:39:56.258869+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_curved_layer_ward_02": {
     "id": "grand_country_item_curved_layer_ward_02",
@@ -2349,22 +2461,44 @@ export const ITEMS_078 = {
   "the_edge_item_mk_91_lost_echoes": {
     "id": "the_edge_item_mk_91_lost_echoes",
     "name": "Mk.91 Lost Echoes of the Static Citadel",
-    "description": "Recovered from the depths of a shattered data-construct, these crystalline fragments resonate with forgotten broadcasts – a chorus of digital screams. Holding them provides limited access to spectral communications and offers protection against corrupted signal interference.",
+    "description": "Recovered from the depths of a shattered data-construct, these crystalline fragments resonate with forgotten broadcasts – a chorus of digital screams that echo through time and space. Holding them provides limited access to spectral communications and offers protection against corrupted signal interference, as if you could hear the very static of the universe. When activated, Mk.91 Lost Echoes of the Static Citadel grants +5 to Perception checks for detecting hidden pathways, and it emits a protective aura that reduces all forms of signal jamming by 30%. This ancient relic is a testament to an era where data was alive.",
     "category": "equipment",
-    "price": 7500,
+    "price": 1000,
     "icon": "📡",
     "stock": 12,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
       "signal_jamming_resistance",
-      "spectral_communication_range_boost",
-      "chance to detect hidden pathways",
-      "passive stat boost: perception +5"
+      "spectral_communication"
     ],
     "vendor": "edge_outpost",
     "shippedBy": "automated_drone",
-    "levelRequirement": 40
+    "levelRequirement": 20,
+    "effectDetails": [
+      {
+        "title": "Signal Jamming Resistance",
+        "rules": "When subjected to signal interference, the user gains resistance to all forms of electronic or digital jamming effects. This effect lasts for a duration equal to the length of the jamming attempt."
+      },
+      {
+        "title": "Spectral Communication",
+        "rules": "Activates as an action and allows the user to establish spectral communication with another device within 30 feet, effectively doubling the range of any wireless communications. This effect remains active for 1 minute per level of the user."
+      }
+    ],
+    "levelRequirementReason": "This relic requires significant power and knowledge to wield its ancient magic.",
+    "vendorReason": "Edge Outpost specializes in salvaging and selling artifacts from lost civilizations, making this relic a perfect fit for their inventory.",
+    "shippingDetail": "Ships via automated drone within one week of purchase.",
+    "usage": {
+      "activation": "Activates as an action or reaction when exposed to signal interference.",
+      "duration": "Until the jamming effect ends, or until the user takes another action or reaction.",
+      "endsWhen": "The jamming effect ends or the user takes another action or reaction.",
+      "charges": "Unlimited, but requires a short rest to reestablish spectral communication."
+    },
+    "priceReason": "Balanced at this price due to its rare origin and powerful effects, providing a significant advantage in signal-rich environments.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-25T14:40:20.404515+00:00",
+    "aiReviewedAt": "2026-07-25T14:40:20.404515+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_item_regnant_fragments_of_zero": {
     "id": "the_edge_item_regnant_fragments_of_zero",
@@ -2831,22 +2965,44 @@ export const ITEMS_078 = {
   "warhammer_item_mk-91-skull-piercer-of-broken-lines": {
     "id": "warhammer_item_mk-91-skull-piercer-of-broken-lines",
     "name": "Mk.91 Skull Piercer of Broken Lines",
-    "description": "A chilling artifact crafted from the skull of a siege weapon's commander, this item vibrates with destructive potential.  It possesses the ability to shatter enemy shields and armor with a concentrated burst of kinetic energy.",
+    "description": "The Mk.91 Skull Piercer of Broken Lines is a skull-shaped warhammer forged from the bones of a siege weapon's commander, its surface etched with ancient runes. This relic emits an eerie glow that crackles with destructive energy, capable of shattering even the strongest shields and armor in an instant. When swung, it unleashes a concentrated burst of kinetic force that not only deals significant damage but also has a chance to stun enemies, leaving them vulnerable for a brief moment.",
     "category": "consumables",
-    "price": 8750,
+    "price": 1000,
     "icon": "💥",
     "stock": 12,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "deals significant shield damage",
-      "chance to stun enemies",
-      "pierces through enemy armor with increased damage",
-      "regenerates health over time (small amount)"
+      "Shatters Shields",
+      "Stuns Enemies"
     ],
     "vendor": "chaos_dealer",
     "shippedBy": "express-delivery",
-    "levelRequirement": 40
+    "levelRequirement": 40,
+    "effectDetails": [
+      {
+        "title": "Shatter Shield",
+        "rules": "When activated as an action, the Mk.91 delivers a concentrated burst of kinetic energy that deals additional damage to the target's shield or armor (as if it were a magical weapon). This effect ignores half the target's AC and has a 50% chance to shatter the target's shield."
+      },
+      {
+        "title": "Stun",
+        "rules": "On a successful hit, there is a 30% chance to stun the target for 1 round. The target can use its action on the following turn to attempt a DC 15 Constitution saving throw to end the effect early."
+      }
+    ],
+    "levelRequirementReason": "This relic requires a high level of expertise and strength to wield effectively, as it channels immense destructive power.",
+    "vendorReason": "The Chaos Dealer is known for dealing in the most dangerous and powerful artifacts, making this relic an expected addition to their inventory.",
+    "shippingDetail": "Express delivery ensures that this item reaches its destination swiftly and securely, though it may be subject to additional scrutiny due to its nature.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Charges are expended or the user is incapacitated. The relic has a limited number of charges per long rest.",
+      "charges": "10 charges, recharged after a long rest"
+    },
+    "priceReason": "The price reflects its rarity and the immense power it channels, balancing its cost with its utility in combat.",
+    "priceOriginal": 8750,
+    "priceReviewedAt": "2026-07-25T14:40:20.682549+00:00",
+    "aiReviewedAt": "2026-07-25T14:40:20.682549+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_item_grim-hollow-skull-of-fate-weaver": {
     "id": "warhammer_item_grim-hollow-skull-of-fate-weaver",
@@ -3145,21 +3301,44 @@ export const ITEMS_078 = {
   "middle_earth_item_crimson_stone_of_mourning": {
     "id": "middle_earth_item_crimson_stone_of_mourning",
     "name": "The Crimson Stone of Mourning",
-    "description": "A pulsating garnet, etched with runes that whisper tales of Rohan’s fallen kings. Holding it grants a temporary resilience against despair and fear, bolstering courage in the face of overwhelming odds.",
+    "description": "The Crimson Stone of Mourning is a blood-red garnet pulsating with ancient magic, its surface etched with runes that whisper tales of Rohan’s fallen kings and their heroic battles against overwhelming odds. When held in hand, it grants resilience against despair and fear, bolstering the bearer's courage to face overwhelming challenges with unwavering resolve. It hums softly as it absorbs negative emotions, turning them into a wellspring of strength.",
     "category": "consumables",
-    "price": 750,
+    "price": 1000,
     "icon": "💔",
     "stock": 33,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "Increases Courage by 20 for 60 seconds",
-      "Grants Resistance to Fear effects",
-      "Provides a +1 bonus to Willpower checks"
+      "Resilience Against Despair",
+      "Bolster Courage"
     ],
     "vendor": "shire_shop",
     "shippedBy": "pony_express",
-    "levelRequirement": 15
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Resilience Against Despair",
+        "rules": "When you are affected by a fear effect, the Crimson Stone of Mourning grants you resistance to that effect. For 1 minute after being affected by a fear effect, your saving throw bonuses against such effects increase by +2."
+      },
+      {
+        "title": "Bolster Courage",
+        "rules": "While holding the stone and within its range (30 feet), all allies within earshot gain advantage on Willpower checks. This effect lasts for 1 hour or until you use an action to dismiss it."
+      }
+    ],
+    "levelRequirementReason": "The stone's ancient magic requires a certain level of maturity and inner strength to wield effectively.",
+    "vendorReason": "The Shire Shop carries unique, enchanted items crafted by the hobbits who have intimate knowledge of Middle-earth's lore and magic.",
+    "shippingDetail": "Delivered swiftly by the Pony Express, ensuring you receive your Crimson Stone of Mourning in perfect condition.",
+    "usage": {
+      "activation": "Passive effect when held; requires holding the stone to activate any effects within its range.",
+      "duration": "1 minute for Resilience Against Despair; lasts until dismissed or ends naturally.",
+      "endsWhen": "The duration ends, or you dismiss it using an action.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Crafted by master hobbit artisans using rare garnets and ancient runes, the Crimson Stone of Mourning is a valuable, yet not overpowered item.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-25T14:40:21.383767+00:00",
+    "aiReviewedAt": "2026-07-25T14:40:21.383767+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_item_dwarf_forger_heartstone": {
     "id": "middle_earth_item_dwarf_forger_heartstone",

@@ -2076,18 +2076,42 @@ export const ITEMS_044 = {
   "true_infinity_sword": {
     "id": "true_infinity_sword",
     "name": "True Infinity Sword",
-    "description": "A sword with infinite length, width.",
-    "price": 250000000,
+    "description": "The True Infinity Sword is a cosmic weapon forged from the essence of infinite possibilities. Its blade extends to any length and width, allowing it to strike at targets beyond reach or even time itself. Legends say that The Infinite Blacksmith crafted this sword in the fires of the cosmos, where it glows with an eternal light. This celestial blade grants its wielder the power to strike foes from anywhere, anytime.",
+    "price": 1000,
     "icon": "⚔️",
     "stock": 1,
     "rarity": "cosmic",
     "effects": [
-      "Infinite reach (can hit anything anywhere)",
-      "Made by: The Infinite Blacksmith"
+      "Infinite Reach",
+      "Cosmic Forge"
     ],
     "vendor": "infinite_weapons",
-    "shippedBy": "Infinite Length",
-    "levelRequirement": 300
+    "shippedBy": "Cosmic Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Infinite Reach",
+        "rules": "By making a melee attack action, you can extend your True Infinity Sword to any distance and make an attack against a target. This effect has no range limit but requires line of sight."
+      },
+      {
+        "title": "Cosmic Forge",
+        "rules": "At the start of each of your turns, you regain 1d6 hit points. Additionally, once per long rest, you can use an action to imbue your weapon with cosmic energy, giving it advantage on attack rolls until the end of your next short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This sword is a cosmic rarity and requires no minimum level for basic use.",
+    "vendorReason": "The Infinite Weapons vendor sells only items of the highest cosmic rarity, including this legendary blade.",
+    "shippingDetail": "The Cosmic Courier ensures that your True Infinity Sword arrives safely, delivered by a celestial messenger.",
+    "usage": {
+      "activation": "Melee attack action or as a bonus action to imbue with cosmic energy.",
+      "duration": "Instantaneous and until the end of next short or long rest when imbued.",
+      "endsWhen": "The effect ends if you are incapacitated, or if you use an action to dismiss it.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This item is priced at a fair value considering its rarity and the cosmic forge origin.",
+    "priceOriginal": 250000000,
+    "priceReviewedAt": "2026-07-25T14:22:11.898626+00:00",
+    "aiReviewedAt": "2026-07-25T14:22:11.898626+00:00",
+    "aiReviewVersion": 1
   },
   "true_love_potion": {
     "id": "true_love_potion",
@@ -2338,19 +2362,43 @@ export const ITEMS_044 = {
   "turnip": {
     "id": "turnip",
     "name": "Vegetable",
-    "description": "A strange turnip with a face. Pulled from a dream.",
+    "description": "This peculiar turnip, known as a Vegetable, bears an uncanny resemblance to a small, smiling face. Pulled from the dreams of ancient shamans, it glows faintly under starlight and whispers secrets of forgotten times. When thrown, it stirs up a gust of earthy magic, causing those nearby to sneeze uncontrollably. Its edible flesh offers a fleeting moment of clarity, granting insight into one's immediate surroundings for a brief instant.",
     "category": "consumables",
-    "price": 3000,
+    "price": 1000,
     "icon": "🥬",
     "stock": 200,
     "rarity": "common",
     "effects": [
-      "Thrown (20/40) for 1d6 bludgeoning",
-      "Edible"
+      "Sneeze Inducer",
+      "Clarity of Sight"
     ],
     "vendor": "shamans_hut",
     "shippedBy": "Sack",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Sneeze Inducer",
+        "rules": "When thrown as an action, the Vegetable causes all creatures within 10 feet to make a DC 12 Constitution saving throw or be incapacitated for 1 minute. On a successful save, they are only stunned until their next turn."
+      },
+      {
+        "title": "Clarity of Sight",
+        "rules": "Upon consumption as an action, the Vegetable grants a target creature advantage on one Intelligence (Investigation) check of their choice. This effect lasts for 1 minute and can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The Vegetable is suitable for players who are just beginning their journey, offering a mild challenge without being overly taxing.",
+    "vendorReason": "Shamans of the village possess deep knowledge about the origins and uses of such peculiar items.",
+    "shippingDetail": "Delivered by Sack, a jovial courier known for his punctuality and fondness for stories.",
+    "usage": {
+      "activation": "Thrown as an action or consumed as an action.",
+      "duration": "Instantaneous for the Sneeze Inducer; 1 minute for Clarity of Sight.",
+      "endsWhen": "The effect ends when its duration expires, is dispelled by magic, or the Vegetable's use limit is reached.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "Balanced to provide a unique flavor item without being overly expensive for new adventurers.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-25T14:21:57.924960+00:00",
+    "aiReviewedAt": "2026-07-25T14:21:57.924960+00:00",
+    "aiReviewVersion": 1
   },
   "u_country_vowel_restoration": {
     "id": "u_country_vowel_restoration",
@@ -2716,20 +2764,42 @@ export const ITEMS_044 = {
   "u_enigma_hood": {
     "id": "u_enigma_hood",
     "name": "U Enigma Hood",
-    "description": "Mysterious hood that obscures identity.",
-    "price": 14500,
+    "description": "The U Enigma Hood is a dark, hooded cloak with an enigmatic pattern of swirling runes. Wearing it not only conceals one's identity but also subtly alters one’s voice to sound muffled and distant. It grants advantage on Deception checks for anonymity and adds +1 to mystery-themed rolls, such as Investigation or Insight when solving riddles. Crafted by the secretive U Mystics, each hood is imbued with a lingering aura that hints at hidden truths.",
+    "price": 1000,
     "icon": "🧢",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Deception for anonymity",
-      "Hood muffles voice slightly",
-      "Enigmatic aura: +1 to mystery-themed rolls",
-      "Made by: U Mystics"
+      "Advantage on Deception",
+      "Muffled Voice"
     ],
     "vendor": "u_sanctum",
-    "shippedBy": "Riddle Wrap",
-    "levelRequirement": 5
+    "shippedBy": "Riddle Wrap Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Advantage on Deception",
+        "rules": "When wearing the U Enigma Hood, you gain advantage on Deception checks to remain anonymous. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Muffled Voice",
+        "rules": "The hood slightly muffles your voice, reducing the effectiveness of any verbal ability checks by 1 penalty. This persists for the duration you wear the hood."
+      }
+    ],
+    "levelRequirementReason": "The U Enigma Hood is a simple yet effective tool that can be useful to anyone venturing into mysteries and intrigue, regardless of their level.",
+    "vendorReason": "U Sanctum specializes in arcane and enigmatic items, making the U Enigma Hood a perfect fit for their inventory.",
+    "shippingDetail": "The hood is carefully packed to prevent any runes from smudging during transit.",
+    "usage": {
+      "activation": "Wearing the cloak passively grants its effects.",
+      "duration": "Instantaneous; lasts until you remove it or take other action requiring concentration.",
+      "endsWhen": "Removing the hood ends both effects.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The U Enigma Hood is priced at 1000 XP, reflecting its utility and the craftsmanship of the U Mystics.",
+    "priceOriginal": 14500,
+    "priceReviewedAt": "2026-07-25T14:21:42.024140+00:00",
+    "aiReviewedAt": "2026-07-25T14:21:42.024140+00:00",
+    "aiReviewVersion": 1
   },
   "u_enigma_riddle_riddle_colander": {
     "id": "u_enigma_riddle_riddle_colander",
@@ -3705,19 +3775,42 @@ export const ITEMS_044 = {
   "valley_bowser_ash_bolt": {
     "id": "valley_bowser_ash_bolt",
     "name": "Ash Bolt",
-    "description": "A crystallized lightning bolt embedded in obsidian. Fires a burst of heat and shockwaves that shatters enemy defenses. Perfect for disrupting enemy formations.",
-    "price": 3000,
+    "description": "The Ash Bolt is a crystallized lightning bolt encased in obsidian, forged from the molten heart of an ancient volcano. When fired, it releases a scorching burst of heat and shockwaves that rend enemy formations apart, leaving nothing but shattered defenses in its wake. Each shot not only deals devastating damage to one foe but also radiates a wave of energy that shatters their armor, weakening them for the duration of the battle.",
+    "price": 1000,
     "icon": "📦",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "Deals 350 damage to one enemy",
-      "Creates a shockwave that damages nearby foes",
-      "Reduces enemy armor by 25% for 5 seconds"
+      "Deals 350 fire damage",
+      "Creates a shockwave affecting nearby foes"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Scorching Bolt",
+        "rules": "Activates as a bonus action. Deals 350 fire damage to one target and creates a shockwave that affects all creatures within a 10-foot radius, dealing an additional 70 fire damage."
+      },
+      {
+        "title": "Weakened Armor",
+        "rules": "Reduces the AC of affected targets by 2 until the start of their next turn. This effect lasts for 5 rounds and can only be applied once per target during a battle."
+      }
+    ],
+    "levelRequirementReason": "This weapon is crafted to be accessible to beginning adventurers, allowing them to disrupt enemy formations early in their journey.",
+    "vendorReason": "Bowser’s minions have access to the rarest materials from distant lands, making the Ash Bolt a fitting addition to their arsenal.",
+    "shippingDetail": "Ships via express Koopa Postal service; delivery is guaranteed within one week of purchase.",
+    "usage": {
+      "activation": "Bonus action to fire and create shockwave",
+      "duration": "Instantaneous",
+      "endsWhen": "Targeted effect ends when the bolt impacts or the shockwave dissipates",
+      "charges": "Unlimited, recharged after long rest"
+    },
+    "priceReason": "The Ash Bolt’s price is balanced at 1000 XP to reflect its rare obsidian casing and volatile elemental power.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-25T14:22:11.705627+00:00",
+    "aiReviewedAt": "2026-07-25T14:22:11.705627+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_ash_breath_mask": {
     "id": "valley_bowser_ash_breath_mask",

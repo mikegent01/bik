@@ -1423,19 +1423,42 @@ export const ITEMS_045 = {
   "valley_bowser_burnt_soul_ammunition": {
     "id": "valley_bowser_burnt_soul_ammunition",
     "name": "Burnt Soul Ammunition",
-    "description": "Loaded with the essence of fallen warriors, these bullets explode upon impact, dealing massive damage and triggering environmental fires. Perfect for clearing dense enemy swarms.",
-    "price": 1800,
+    "description": "Forged from the ashes of forgotten heroes, Burnt Soul Ammunition is a relic that channels their untold fury into each shot. These bullets are said to have been blessed by the spirits of fallen warriors, and when they strike an enemy, they explode with devastating force, dealing massive fire damage and igniting the battlefield around them. Only those who can harness the raw power of death themselves should wield this ammunition.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Explodes on hit causing 100% damage + 50% fire damage",
-      "Triggers 10-second fire aura in 30m radius",
-      "Consumes 100% of weapon ammo for next 2 shots"
+      "Explodes on hit",
+      "Triggers fire aura"
     ],
     "vendor": "valley_bowser",
-    "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "shippedBy": "Koopa Postal Express",
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Explosive Impact",
+        "rules": "When this ammunition strikes a target, it explodes causing 2d8 + 3d6 fire damage. This effect has a range of 15 feet and lasts until the end of the encounter."
+      },
+      {
+        "title": "Ignite the Battlefield",
+        "rules": "For every successful hit with Burnt Soul Ammunition, an area of effect 20 feet in radius centered on the target becomes engulfed in flames. This fire aura lasts for 1 minute and can be suppressed by a DC 15 Constitution save."
+      }
+    ],
+    "levelRequirementReason": "This ammunition requires a proficient user to control its destructive force.",
+    "vendorReason": "Bowser has a collection of rare and ancient weapons, making Burnt Soul Ammunition an expected addition to his arsenal.",
+    "shippingDetail": "Due to its volatile nature, this item is shipped with special care using Koopa Postal's reinforced crates. Delivery time may slightly increase due to safety protocols.",
+    "usage": {
+      "activation": "Instantaneous upon firing the weapon",
+      "duration": "Until end of the encounter or until consumed by fire",
+      "endsWhen": "The ammunition is expended in a blast, leaving no residue",
+      "charges": "Unlimited; each shot expends one charge"
+    },
+    "priceReason": "Balanced at this price point to reflect its rarity and the raw power it channels.",
+    "priceOriginal": 1800,
+    "priceReviewedAt": "2026-07-25T14:22:39.006044+00:00",
+    "aiReviewedAt": "2026-07-25T14:22:39.006044+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_burnt_soul_core": {
     "id": "valley_bowser_burnt_soul_core",
@@ -3716,19 +3739,42 @@ export const ITEMS_045 = {
   "valley_bowser_koopa_soul_amber": {
     "id": "valley_bowser_koopa_soul_amber",
     "name": "Koopa Soul Amber",
-    "description": "A glowing crystal forged from the essence of defeated Koopa generals. Enhances the wielder’s combat instincts and grants temporary invincibility during critical strikes.",
-    "price": 2500,
+    "description": "The Koopa Soul Amber is a radiant, amber-colored crystal forged from the very essence of defeated Koopa generals by the hands of the Valley Bowser himself. This glowing talisman not only enhances combat instincts but also grants the wielder temporary invincibility during critical strikes. When activated, it releases a surge of energy that heals 100 hit points and renders the user unharmed for three seconds, making every blow they land more devastating.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Restores 100 HP on activation",
-      "Grants 3 seconds of invincibility",
-      "Increases attack speed by 20% for 10 seconds"
+      "Critical Invulnerability",
+      "Healing Surge"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Critical Invulnerability",
+        "rules": "When activated as a reaction to a critical hit dealt by the user, this item grants the wielder temporary invincibility for 3 seconds. During this time, they are immune to all damage and cannot be knocked prone."
+      },
+      {
+        "title": "Healing Surge",
+        "rules": "Upon activation, the Koopa Soul Amber restores 100 hit points to the user. This effect can only be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This item is accessible early in one's adventuring career as it provides a significant combat edge without requiring high-level abilities.",
+    "vendorReason": "The Valley Bowser, being a master of Koopa lore and tradition, personally forges these items to honor the fallen generals who have served under him.",
+    "shippingDetail": "Delivered via Pipe Express's signature underground tunnels, ensuring safe and swift delivery directly to your doorstep.",
+    "usage": {
+      "activation": "Reaction (to a critical hit dealt by the user)",
+      "duration": "3 seconds of invincibility during critical strikes",
+      "endsWhen": "The duration ends or when the user takes damage again",
+      "charges": "Once per long rest"
+    },
+    "priceReason": "This price reflects the item's rarity, its combat utility, and the skill required to forge such a powerful artifact.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-25T14:22:26.577051+00:00",
+    "aiReviewedAt": "2026-07-25T14:22:26.577051+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_koopa_soul_belt": {
     "id": "valley_bowser_koopa_soul_belt",

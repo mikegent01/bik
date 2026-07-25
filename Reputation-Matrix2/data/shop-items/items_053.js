@@ -1811,21 +1811,44 @@ export const ITEMS_053 = {
   "internet_glitch_worm": {
     "id": "internet_glitch_worm",
     "name": "Data Corruption Worm",
-    "description": "This pulsating, iridescent worm seems to crawl out of your screen! It’s a concentrated dose of digital chaos – watch as enemies' spells glitch and their armor momentarily phases out.  Don't worry, it's totally safe... probably.",
+    "description": "The Data Corruption Worm is a shimmering, pulsating creature that seems to crawl straight from your monitor. Its iridescent body glows with an eerie blue light as it disrupts digital realms, causing spells to glitch and armor to momentarily phase out of existence. This concentrated dose of digital chaos can be devastating in the right hands, but be wary—its effects are unpredictable and leave you questioning whether the world is truly stable.",
     "category": "consumables",
-    "price": 12000,
+    "price": 1000,
     "icon": "🐛",
     "stock": 42,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "deals 50-100 fire damage on a single target",
-      "chance to inflict 'lag' (slows enemy movement by 30%)",
-      "restores 10% mana"
+      "Glitches Enemy Spells",
+      "Armor Phasing"
     ],
     "vendor": "data_dealer",
     "shippedBy": "packet_delivery",
-    "levelRequirement": 6
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Glitches Enemy Spells",
+        "rules": "When activated as a bonus action, this worm causes all ongoing magical effects on one target to malfunction for 1 minute. The DC of saving throws against these glitches is equal to 8 + the spell's level. This effect ends if the target is incapacitated or the spell effect ends."
+      },
+      {
+        "title": "Armor Phasing",
+        "rules": "For 24 hours after activation, any armor worn by a creature struck by this worm becomes partially translucent and loses all benefits of armor proficiency for that duration. This effect can only occur once per target."
+      }
+    ],
+    "levelRequirementReason": "Players at level 1 are beginning to explore the digital realms, making them suitable candidates to wield this tool.",
+    "vendorReason": "The Data Dealer specializes in cutting-edge and experimental tech items, including those that can manipulate digital environments.",
+    "shippingDetail": "Ships via high-speed data packets ensuring the worm arrives fresh and ready for use.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous effect, but ongoing magical effects glitch for 1 minute",
+      "endsWhen": "Target becomes incapacitated or spell effects end",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The Data Corruption Worm is a rare and versatile tool that can disrupt digital environments, making it valuable but not overly expensive for its utility.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T14:23:59.017793+00:00",
+    "aiReviewedAt": "2026-07-25T14:23:59.017793+00:00",
+    "aiReviewVersion": 1
   },
   "internet_meme_amulet": {
     "id": "internet_meme_amulet",

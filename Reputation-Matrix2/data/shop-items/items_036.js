@@ -2880,19 +2880,42 @@ export const ITEMS_036 = {
   "rogueport_nightshade_potion": {
     "id": "rogueport_nightshade_potion",
     "name": "Nightshade Elixir",
-    "description": "A dark elixir that grants temporary invisibility and enhances stealth. Consuming it causes a brief hallucination of shadows dancing around you, making enemies misjudge your position.",
-    "price": 2500,
+    "description": "The Nightshade Elixir is a pitch-black potion that, when consumed, grants you temporary invisibility and enhances your stealth capabilities. For the duration of its effect, enemies may see only fleeting shadows around you, causing them to misjudge your location and movements. This potent brew is crafted from rare nightshade flowers gathered under the light of a full moon in the shadowy forests of Rogueport. Only those who have mastered the art of stealth can truly appreciate the power it holds.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Grants temporary invisibility for 10 seconds",
-      "Enhances stealth by 30%",
-      "Induces hallucinatory shadow visions"
+      "Invisibility",
+      "Enhanced Stealth"
     ],
     "vendor": "rogueport",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Invisibility",
+        "rules": "You gain temporary invisibility for 10 seconds. During this time, you are invisible to all creatures that do not have darkvision. The effect ends if you attack or cast a spell. There is no saving throw against this effect."
+      },
+      {
+        "title": "Enhanced Stealth",
+        "rules": "While under the effects of the Nightshade Elixir, your stealth checks are made at advantage and your Stealth DC increases by 30%. This enhancement lasts for the duration of the invisibility effect or until you attack or cast a spell."
+      }
+    ],
+    "levelRequirementReason": "The potion's hallucinatory effects require a basic understanding of concentration and focus, accessible to even low-level rogues.",
+    "vendorReason": "Rogueport is known for its exotic and dangerous wares, making it the perfect vendor for such an item.",
+    "shippingDetail": "The potion arrives in a sealed vial, imbued with protective magic to preserve its potency until consumption.",
+    "usage": {
+      "activation": "Consume as a bonus action",
+      "duration": "10 seconds or until you attack or cast a spell",
+      "endsWhen": "You attack, cast a spell, or the duration expires",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The potion's rarity and the unique ingredients needed for its creation justify this moderate price in experience points.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-25T14:20:16.964831+00:00",
+    "aiReviewedAt": "2026-07-25T14:20:16.964831+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_onyx_blood_tincture": {
     "id": "rogueport_onyx_blood_tincture",

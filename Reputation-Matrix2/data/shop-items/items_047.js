@@ -821,19 +821,42 @@ export const ITEMS_047 = {
   "valley_bowser_volcanic_essence": {
     "id": "valley_bowser_volcanic_essence",
     "name": "Volcanic Essence Vial",
-    "description": "A vial of molten magma essence extracted from Bowser’s volcanic heart. When consumed, it grants a powerful buff for a short time.",
-    "price": 2000,
+    "description": "A vial of molten magma essence extracted from Bowser’s volcanic heart, this Volcanic Essence Vial simmers with raw power. When consumed, it grants a fleeting surge of strength and speed, turning even the most sluggish fighters into tempests of destruction for a brief moment. The heat lingers in your veins, making each strike land with devastating force. A truly forgehearted core, this vial is forged from the very essence of Bowser’s volcanic heart, ensuring its potency is unmatched by any other.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 4,
     "rarity": "uncommon",
     "effects": [
-      "Grants 15% increased attack speed for 3 turns",
-      "Deals 10% extra damage to all enemies",
-      "Grants 5% chance to critically hit"
+      "Increased Attack Speed",
+      "Damage Boost"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Increased Attack Speed",
+        "rules": "The user gains a +15% increase to their attack speed for 3 turns. This effect ends if the user is incapacitated or takes an action that requires both hands."
+      },
+      {
+        "title": "Damage Boost",
+        "rules": "For the duration of this effect, all attacks deal an additional 10% damage to enemies. The effect ends when the user's hit points are reduced to zero or if they take a major rest."
+      }
+    ],
+    "levelRequirementReason": "The Volcanic Essence Vial is powerful but not overly so, requiring no minimum level for use.",
+    "vendorReason": "Valley Bowser, the guardian of the volcanic heart, ensures only those who can truly appreciate its power obtain this item.",
+    "shippingDetail": "Delivered swiftly by Lakitu’s trusty drones, ensuring even the farthest reaches receive their shipment without delay.",
+    "usage": {
+      "activation": "Consumed as an action.",
+      "duration": "3 turns.",
+      "endsWhen": "The user is incapacitated or takes a major rest.",
+      "charges": "Unlimited."
+    },
+    "priceReason": "The Volcanic Essence Vial is moderately priced to reflect its powerful yet manageable effects, making it accessible to players of all levels while maintaining balance.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-25T15:10:09.731584+00:00",
+    "aiReviewedAt": "2026-07-25T15:10:09.731584+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_volcanic_gauntlet": {
     "id": "valley_bowser_volcanic_gauntlet",
@@ -1041,20 +1064,43 @@ export const ITEMS_047 = {
   "valley_bowser_volcanic_iron_plate": {
     "id": "valley_bowser_volcanic_iron_plate",
     "name": "Volcanic Iron Plate",
-    "description": "A forged armor fragment from the heart of Mount Bowser. Absorbs explosive damage and radiates heat to weaken foes. Ideal for frontline warriors.",
+    "description": "The Volcanic Iron Plate is a molten fragment forged deep within Mount Bowser's heart. Its surface crackles with heat, and when struck by explosive damage, it absorbs the force, reducing incoming damage by 30%. Warriors who wear this plate near lava gain a fiery aura, dealing an extra 15% fire damage to enemies in the area. The plate grants its wearer increased agility, boosting their attack speed by 10% while they are enraged or in combat.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Absorbs 30% of explosive damage",
-      "Deals 15% extra damage to enemies in lava",
-      "Grants 10% bonus attack speed when enraged"
+      "Explosive Absorption",
+      "Lava Aura"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Explosive Absorption",
+        "rules": "When the Volcanic Iron Plate absorbs explosive damage, it reduces the incoming damage by 30%. This effect is instantaneous and does not consume charges or require activation."
+      },
+      {
+        "title": "Lava Aura",
+        "rules": "The wearer deals an additional 15% fire damage to enemies within a 10-foot radius. This effect lasts for 1 minute, and it ends when the wearer leaves the area of active lava."
+      }
+    ],
+    "levelRequirementReason": "This plate is designed for warriors who can handle its heat and are experienced enough to wield it effectively in combat.",
+    "vendorReason": "Valley Bowser sources unique items from the depths of Mount Bowser, making this armor fragment a fitting addition to their inventory.",
+    "shippingDetail": "The Volcanic Iron Plate is shipped in a specially insulated container to prevent overheating during transit, ensuring it arrives in pristine condition.",
+    "usage": {
+      "activation": "Passive effect upon donning the armor.",
+      "duration": "1 minute per short or long rest while near active lava.",
+      "endsWhen": "Leaving an area of active lava or taking a long rest.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The plate's unique forging process and the rarity of materials used contribute to its moderate price, making it a valuable yet balanced choice for frontline warriors.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-25T14:23:24.277580+00:00",
+    "aiReviewedAt": "2026-07-25T14:23:24.277580+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_volcanic_mace": {
     "id": "valley_bowser_volcanic_mace",
@@ -1344,20 +1390,43 @@ export const ITEMS_047 = {
   "valley_bowser_volcanic_soul_burner": {
     "id": "valley_bowser_volcanic_soul_burner",
     "name": "Volcanic Soul Burner",
-    "description": "A fiery amulet that channels volcanic rage into combat, granting the wearer enhanced speed and damage in lava zones. When struck by enemy fire, it briefly ignites nearby foes.",
+    "description": "The Volcanic Soul Burner is a fiery amulet forged from the heart of Mount Bowser's lava pit, granting its wearer enhanced speed and damage within molten zones. Its core glows with an inner flame that ignites nearby enemies when struck by enemy fire, dealing fire damage in a 5-foot radius. The amulet's essence channels volcanic rage, allowing for a brief burst of speed and increased melee striking power on the battlefield.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+15% attack speed in lava terrain",
-      "+30% damage against fire-type enemies",
-      "Ignites enemies on hit (20% chance)"
+      "+15% attack speed within lava zones",
+      "Deal fire damage to nearby enemies when struck"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Ignite Nearby Enemies",
+        "rules": "When struck by an enemy's attack, the Volcanic Soul Burner ignites a 5-foot radius around its wearer. This effect deals 1d6 fire damage to all creatures in the area of effect. The amulet can activate this effect once per short or long rest."
+      },
+      {
+        "title": "Enhanced Melee Strikes",
+        "rules": "While within lava zones, the wearer gains +15% attack speed and +30% bonus damage against fire-type enemies. This effect is active as long as the wearer remains in a lava zone."
+      }
+    ],
+    "levelRequirementReason": "The amulet's volcanic essence requires a certain level of elemental mastery to harness effectively.",
+    "vendorReason": "Bowser himself oversees the crafting and distribution of this powerful artifact, ensuring only those capable of handling its power receive it.",
+    "shippingDetail": "The amulet is delivered via a special lava-resistant container to ensure safe transport through volcanic regions.",
+    "usage": {
+      "activation": "Instantaneous activation on being struck by an enemy's attack.",
+      "duration": "Active as long as the wearer remains in a lava zone, or until expended.",
+      "endsWhen": "The effect ends when the wearer leaves a lava zone or if they are no longer affected by fire damage.",
+      "charges": "Recharges after a short rest."
+    },
+    "priceReason": "Crafted from rare volcanic materials and requiring Bowser's approval, this amulet commands a high price in the market.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-25T14:23:45.312034+00:00",
+    "aiReviewedAt": "2026-07-25T14:23:45.312034+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_volcanic_soul_core": {
     "id": "valley_bowser_volcanic_soul_core",

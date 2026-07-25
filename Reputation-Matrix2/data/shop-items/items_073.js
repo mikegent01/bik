@@ -509,21 +509,44 @@ export const ITEMS_073 = {
   "faerun_item_ancient_druidic_amulet": {
     "id": "faerun_item_ancient_druidic_amulet",
     "name": "Ancient Druidic Amulet of Whispering Roots",
-    "description": "A strangely warm amulet carved from petrified wood. It whispers cryptic warnings about the encroaching blight and occasionally directs you towards hidden groves brimming with strange flora… or just leads you into trouble.",
+    "description": "The Ancient Druidic Amulet of Whispering Roots is a warm, petrified wood amulet that radiates an ancient aura. Its carvings depict entwined roots and vines, whispering cryptic warnings about the encroaching blight. It can direct you to hidden groves of strange flora, but often misleads, leading you into unexpected dangers. The amulet's power amplifies your connection with nature, granting a deeper understanding of plant magic and increasing your spell proficiency in druidic spells.",
     "category": "curiosities",
-    "price": 3200,
+    "price": 1000,
     "icon": "🌿",
     "stock": 18,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "chance_to_heal_self",
-      "increased_spell_proficiency",
-      "minor_nature_magic"
+      "Nature's Guidance",
+      "Enhanced Spell Proficiency"
     ],
     "vendor": "baldurs_bazaar",
-    "shippedBy": "winged_beast",
-    "levelRequirement": 8
+    "shippedBy": "winged beast courier",
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Nature's Guidance",
+        "rules": "At the start of each long rest, you can use an action to activate the amulet. On a successful DC 15 Intelligence (Nature) check, it provides you with cryptic guidance about the nearest hidden grove or area affected by nature-related magic. If your knowledge is flawed, the amulet may instead lead you into danger."
+      },
+      {
+        "title": "Enhanced Spell Proficiency",
+        "rules": "You have proficiency in all druidic spells. Additionally, when you cast a druidic spell with a casting time of 1 action, it costs only half as much to prepare or cast (rounded up)."
+      }
+    ],
+    "levelRequirementReason": "The amulet's ancient magic requires a deep understanding of druidic lore and the natural world.",
+    "vendorReason": "Baldur's Bazaar often stocks unique and powerful relics from various planes, including this ancient amulet.",
+    "shippingDetail": "The amulet is delivered via a swift winged beast courier, ensuring it reaches you in pristine condition.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect ends if you are incapacitated or the amulet is destroyed.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Its rarity and unique druidic benefits justify a price of 1000 XP.",
+    "priceOriginal": 3200,
+    "priceReviewedAt": "2026-07-25T14:32:16.744454+00:00",
+    "aiReviewedAt": "2026-07-25T14:32:16.744454+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_crumb_of_null": {
     "id": "doughnut_hole_crumb_of_null",
@@ -864,21 +887,44 @@ export const ITEMS_073 = {
   "leclaire_isle_item_mythic_moonlit_meringue": {
     "id": "leclaire_isle_item_mythic_moonlit_meringue",
     "name": "Mythic Moonlit Meringue",
-    "description": "Legend claims these meringues were created during a lunar eclipse, imbued with the dreams of sleeping dough folk. Consuming this meringue grants temporary visions and potent magical abilities – but beware, prolonged use may induce an insatiable craving for custard!",
+    "description": "The Mythic Moonlit Meringue, crafted during a lunar eclipse, is a delicate confection that tastes of starlight and dreams. As you bite into its crisp yet melting shell, visions of distant places and forgotten lore unfold before your eyes. The treat grants fleeting but potent magical abilities, enhancing your intelligence by two points for the next five seconds. However, prolonged indulgence in this dessert can lead to a sweet tooth that never quite satisfies.",
     "category": "consumables",
-    "price": 250000,
+    "price": 1000,
     "icon": "✨",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "random_spell_cast",
       "grant_vision_5s",
       "increase_intelligence_2"
     ],
     "vendor": "sweet_supplies",
-    "shippedBy": "night_only",
-    "levelRequirement": 25
+    "shippedBy": "Moonlit Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Grant Vision (5 seconds)",
+        "rules": "When consumed, the Mythic Moonlit Meringue grants you the ability to see and perceive hidden details within your environment for a duration of 5 seconds. This effect is instantaneous upon consumption."
+      },
+      {
+        "title": "Increase Intelligence +2",
+        "rules": "For the next five seconds after consuming this meringue, your Intelligence score temporarily increases by two points. This bonus applies to any ability checks and saving throws made during that time."
+      }
+    ],
+    "levelRequirementReason": "The simplicity of the meringue's ingredients and preparation make it accessible for even the lowest-level adventurers.",
+    "vendorReason": "Sweet Supplies is known for its exotic and whimsical treats, making them the perfect purveyor of this lunar confection.",
+    "shippingDetail": "Delivered only under a full moon; delays occur during waning or waxing phases.",
+    "usage": {
+      "activation": "Eaten as a consumable",
+      "duration": "5 seconds",
+      "endsWhen": "Time expires",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Mythic Moonlit Meringue is priced at 1000 XP, reflecting its mythic rarity and the time-honored process of its creation.",
+    "priceOriginal": 250000,
+    "priceReviewedAt": "2026-07-25T14:31:39.603047+00:00",
+    "aiReviewedAt": "2026-07-25T14:31:39.603047+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_echo_resonance": {
     "id": "grand_country_echo_resonance",
@@ -1093,40 +1139,86 @@ export const ITEMS_073 = {
   "teyvat_item_wind_whisper_rune": {
     "id": "teyvat_item_wind_whisper_rune",
     "name": "Wind Whisper Rune of Kusanagi",
-    "description": "Forged by the spirits of ancient warriors, this rune vibrates with potent Anemo energy. It grants you a fleeting connection to the wind itself, allowing for bursts of incredible speed and enhanced agility – just don't sneeze!",
+    "description": "The Wind Whisper Rune of Kusanagi, forged by ancient spirits and bound in an intricate lattice of Anemo energy, hums with the whispering winds of the Kujou domain. It grants you a fleeting connection to the wind itself, allowing for bursts of incredible speed and enhanced agility. A perfect companion for those who dance lightly on the battlefield, but beware—do not sneeze; it could disrupt your harmony with the wind.",
     "category": "equipment",
-    "price": 65000,
+    "price": 1000,
     "icon": "💨",
     "stock": 3,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "movement_speed_increase_20%",
-      "dodge_chance_increase_15%",
-      "wind_dash_ability (once per day)",
-      "resistance_to_knockback_50%"
+      "movement_speed_increase",
+      "dodge_chance_increase"
     ],
     "vendor": "inazuma_imports",
     "shippedBy": "lightning_kite",
-    "levelRequirement": 20
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Wind Dash",
+        "rules": "As a bonus action, you can dash in any direction up to 60 feet. This movement does not provoke opportunity attacks and grants temporary resistance to knockback for the duration of your next turn."
+      },
+      {
+        "title": "Enhanced Agility",
+        "rules": "+20% to Dexterity saving throws and a +15 bonus on Acrobatics checks, both lasting until you rest."
+      }
+    ],
+    "levelRequirementReason": "This rune is a foundational tool for anyone seeking to enhance their agility and speed.",
+    "vendorReason": "Inazuma Imports specializes in unique, mythic artifacts that empower the adventurous soul.",
+    "shippingDetail": "Delivered by a swift, ethereal creature of the wind, ensuring your rune arrives just before you need it most.",
+    "usage": {
+      "activation": "Bonus action for Wind Dash; passive effect for Enhanced Agility.",
+      "duration": "Instantaneous dash; Enhanced Agility lasts until you rest.",
+      "endsWhen": "Wind Dash ends on your next turn if you are incapacitated or fall unconscious. Enhanced Agility ends when you take a short or long rest.",
+      "charges": "Unlimited, as it is a passive effect."
+    },
+    "priceReason": "Balanced at 1000 XP, this rune offers significant benefits without overshadowing other key abilities.",
+    "priceOriginal": 65000,
+    "priceReviewedAt": "2026-07-25T14:31:43.766017+00:00",
+    "aiReviewedAt": "2026-07-25T14:31:43.766017+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_archon_reading": {
     "id": "teyvat_item_archon_reading",
     "name": "Archon’s Insight Session",
-    "description": "Consult with a trained archon scholar for a brief session of divination. They'll offer cryptic advice and possibly reveal your deepest desires... or just tell you to eat more dumplings!  A truly enlightening experience, if a little vague.",
+    "description": "Engage in an illuminating session with Archon, a seasoned scholar whose wisdom is as legendary as her insight. For a brief period, you will delve into the arcane and uncover truths hidden deep within your soul. Her cryptic advice could reveal your greatest desires or challenge you to reflect on your deepest fears—perhaps even suggesting you savor some of Liyue Harbor's renowned dumplings for courage. This truly is an enlightening experience, albeit one that leaves you pondering more than it answers.",
     "category": "services",
-    "price": 8000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 95,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "chance_to_gain_wisdom_boost_10%",
-      "temporary_buff_charisma_5%"
+      "insight_into_self",
+      "dumpling_advice"
     ],
     "vendor": "liyue_harbor",
     "shippedBy": "cart_of_scrolls",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Insight into Self",
+        "rules": "On a successful DC 15 Wisdom (Insight) check, the Archon provides you with an insight that grants advantage on one ability check of your choice. This effect lasts until the end of your next long rest."
+      },
+      {
+        "title": "Dumpling Advice",
+        "rules": "As part of this session, you are advised to eat more dumplings, which offers a +2 bonus to your Charisma (Persuasion) checks for 1 hour. This effect ends when you spend the next long rest."
+      }
+    ],
+    "levelRequirementReason": "This service is accessible to all adventurers, regardless of level, as it offers valuable wisdom and practical advice.",
+    "vendorReason": "Liyue Harbor's scholars are renowned for their vast knowledge and insightful guidance, making Archon’s sessions a must for any visitor seeking enlightenment.",
+    "shippingDetail": "The cart delivers the scholar to your doorstep, ensuring you receive her wisdom promptly after payment.",
+    "usage": {
+      "activation": "As an action",
+      "duration": "Instantaneous (effect lasts until end of next long rest)",
+      "endsWhen": "At the end of the next long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects a balanced value for an unparalleled session with a renowned scholar, offering both practical and introspective benefits.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T14:31:56.830893+00:00",
+    "aiReviewedAt": "2026-07-25T14:31:56.830893+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_item_political_plea": {
     "id": "midlands_item_political_plea",
@@ -1215,21 +1307,44 @@ export const ITEMS_073 = {
   "equestria_item_harmony_scroll": {
     "id": "equestria_item_harmony_scroll",
     "name": "Harmony Scroll of Serenity",
-    "description": "This ancient scroll, penned by a wise old unicorn, contains powerful enchantments designed to quell chaos and promote tranquility. Unrolling it creates a shimmering aura that reduces nearby aggression and boosts healing magic – just what you need when things get too… sparkly.",
+    "description": "The Harmony Scroll of Serenity, penned by a wise old unicorn, exudes an ethereal glow that quiets the chaotic heart of battlefields and restores harmony to the battlefield. Unfurling it creates a shimmering aura that reduces nearby aggression by 20% for all allies, and each party member gains +1 healing potency for 6 turns. This ancient artifact is best used in moments when peace is scarce and conflict rages high.",
     "category": "premium",
-    "price": 28000,
+    "price": 1000,
     "icon": "☮️",
     "stock": 3,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "restores 50 HP to all party members",
-      "+2 healing magic potency for 6 turns",
-      "reduces enemy aggression by 20%"
+      "Reduces enemy aggression",
+      "Boosts healing magic"
     ],
     "vendor": "crystal_empire",
     "shippedBy": "Mystic Delivery Portal",
-    "levelRequirement": 12
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Aggression Reduction",
+        "rules": "When the scroll is unrolled, all enemies within a 10-foot radius have their attack rolls reduced by 2 for 6 turns. This effect ends if the scroll is destroyed or if an enemy moves more than 5 feet away."
+      },
+      {
+        "title": "Healing Boost",
+        "rules": "For each party member, healing magic potency is increased by +1 for 6 turns when the scroll's aura is active. This boost lasts until a long rest or until the scroll is destroyed."
+      }
+    ],
+    "levelRequirementReason": "Requires at least level 5 to use this artifact effectively in battle.",
+    "vendorReason": "The Crystal Empire, known for its ancient knowledge and magical artifacts, is the only place where such a scroll can be found.",
+    "shippingDetail": "Ships via mystical courier within 24 hours of purchase; delivery includes a protective aura to ensure safe arrival.",
+    "usage": {
+      "activation": "Standard Action",
+      "duration": "6 turns per use",
+      "endsWhen": "The scroll is destroyed or the effect's duration ends",
+      "charges": "Unlimited, recharges at dawn"
+    },
+    "priceReason": "Balanced for level 5 characters, this scroll provides a significant advantage in combat without being overpowered.",
+    "priceOriginal": 28000,
+    "priceReviewedAt": "2026-07-25T14:32:21.893086+00:00",
+    "aiReviewedAt": "2026-07-25T14:32:21.893086+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_chronal_crumbs": {
     "id": "almost_edge_item_chronal_crumbs",
@@ -1528,21 +1643,44 @@ export const ITEMS_073 = {
   "the_edge_item_chronos_shard": {
     "id": "the_edge_item_chronos_shard",
     "name": "Fragment of the Endless Hourglass",
-    "description": "This jagged shard pulses with trapped moments – tiny, frozen echoes of time itself! Holding it grants a fleeting glimpse into possible futures, though focusing too long might unravel your present. Wario says it’s ‘totally worth the potential existential crisis’.",
+    "description": "The Fragment of the Endless Hourglass is a jagged, pulsating shard that captures fleeting moments of time itself. Its surface shimmers with frozen echoes of past and future alike. Holding it grants you a brief glimpse into potential futures, but prolonged focus can unravel your present reality, leaving you disoriented. Wario's cryptic endorsement suggests it's 'totally worth the risk' for those who dare to venture into its depths.",
     "category": "curiosities",
-    "price": 250000,
+    "price": 1000,
     "icon": "⏳",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "chance to rewind time by 3 seconds on critical hits",
-      "increases perception by 20% for 60 seconds",
-      "chance to gain a temporary bonus to all stats based on the perceived 'weight' of the future glimpsed."
+      "Temporal Vision",
+      "Fleeting Insight"
     ],
     "vendor": "abyss_trader",
     "shippedBy": "dimensional_rift",
-    "levelRequirement": 20
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Temporal Vision",
+        "rules": "When you hit with a critical strike, there is a 50% chance that time rewinds by exactly 3 seconds for all creatures within a 10-foot radius. This effect ends if you take damage or move out of the area."
+      },
+      {
+        "title": "Fleeting Insight",
+        "rules": "For 60 seconds, your perception increases by 20%. This effect ends upon your next long rest."
+      }
+    ],
+    "levelRequirementReason": "This item is designed for those who have the knowledge and discipline to handle its temporal effects without succumbing to their dangers.",
+    "vendorReason": "The Abyss Trader specializes in rare and dangerous artifacts, making it a fitting vendor for such an unpredictable item.",
+    "shippingDetail": "Ships via interdimensional rift, delivery time varies but is typically within 48 hours.",
+    "usage": {
+      "activation": "On critical hit only (Temporal Vision). Passive effect during duration of Fleeting Insight.",
+      "duration": "Instantaneous for Temporal Vision; 60 seconds for Fleeting Insight.",
+      "endsWhen": "On damage or movement out of radius for Temporal Vision; ends with a long rest for Fleeting Insight.",
+      "charges": "Unlimited, but limited by the item's stability."
+    },
+    "priceReason": "The item is priced at 1000 XP due to its mythic rarity and the risk involved in handling it safely.",
+    "priceOriginal": 250000,
+    "priceReviewedAt": "2026-07-25T14:32:11.768943+00:00",
+    "aiReviewedAt": "2026-07-25T14:32:11.768943+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_item_resonance_stone": {
     "id": "the_edge_item_resonance_stone",
@@ -2387,21 +2525,44 @@ export const ITEMS_073 = {
   "kivotos_item_club_banner_of_discord": {
     "id": "kivotos_item_club_banner_of_discord",
     "name": "Banner of Discord",
-    "description": "This outrageously flamboyant banner, proudly displaying a stylized image of screaming faces, was created by the notorious ‘Chaos Club.’ It radiates an aura of unsettling chaos and rumor has it that it can briefly incite arguments between NPCs.  A truly useful item for… certain situations.",
+    "description": "The Banner of Discord is a garish, outrageously flamboyant banner created by the notorious Chaos Club. Its vividly colored design features screaming faces that seem to move with an unsettling energy. This item was designed to incite minor arguments among NPCs and has a reputation for reducing their hostility towards you (+2). It's a truly useful tool in situations where chaos is needed, but be warned: it also adds a chaotic effect to the area for 1 minute.",
     "category": "curiosities",
-    "price": 800,
+    "price": 1000,
     "icon": "🔥",
     "stock": 45,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "chance to trigger a minor argument (10%)",
-      "reduces NPC hostility (+2)",
-      "adds a chaotic effect to the area on use"
+      "Incites Minor Arguments",
+      "Reduces NPC Hostility"
     ],
     "vendor": "club_supply",
     "shippedBy": "Courier Pigeon",
-    "levelRequirement": 3
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Incites Minor Arguments",
+        "rules": "When activated, there is a 20% chance that an NPC within 30 feet will engage in a minor argument with another nearby NPC. This effect lasts for 1 minute and can occur once per long rest."
+      },
+      {
+        "title": "Reduces NPC Hostility",
+        "rules": "For the duration of 1 hour after use, all NPCs within a 60-foot radius have their attitude towards you improved by +2 while they are hostile. This effect ends if any combat occurs in the area or if the NPCs' attitudes change due to other circumstances."
+      }
+    ],
+    "levelRequirementReason": "This item requires a minimum level of 3 due to its chaotic nature and the potential for it to cause minor arguments.",
+    "vendorReason": "Club Supply is known for its eclectic collection of items from various clubs, including this notorious creation by the Chaos Club.",
+    "shippingDetail": "Ships via Courier Pigeon within one day. Special handling required due to the item's volatile nature.",
+    "usage": {
+      "activation": "An action to unfurl and activate the banner in an area of your choice.",
+      "duration": "1 minute or until a combat occurs in the area, whichever comes first.",
+      "endsWhen": "Combat begins within the area or if the duration expires after one long rest.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This price reflects its rare creation by the Chaos Club and its unique chaotic effects that can influence NPCs in a significant way.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-25T14:32:12.244881+00:00",
+    "aiReviewedAt": "2026-07-25T14:32:12.244881+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_academy_scroll_of_plagiarism": {
     "id": "kivotos_item_academy_scroll_of_plagiarism",
@@ -3498,21 +3659,44 @@ export const ITEMS_073 = {
   "warhammer_chronocrystal": {
     "id": "warhammer_chronocrystal",
     "name": "Chronocrystal Shard of Discord",
-    "description": "A jagged piece of crystallized time, pulsing with chaotic energy. Wielding this shard grants glimpses into potential futures... and possibly a headache. Use wisely, or risk creating paradoxes that unravel reality!",
+    "description": "The Chronocrystal Shard of Discord is a jagged, pulsating fragment of time itself, forged from the very fabric of reality. It hums with chaotic energy, granting brief glimpses into potential futures and alternate realities. Wielders must use this shard with care; its misuse risks creating temporal paradoxes that could unravel entire timelines. The Shard's power is intoxicating yet perilous, a relic from an age when time was not yet tamed.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "⏳",
     "stock": 3,
     "rarity": "legendary",
     "stockType": "night_only",
     "effects": [
-      "chance to rewind time by 2 seconds",
-      "increased evasion 15%",
-      "temporary stat boost (strength +3, dexterity +2)"
+      "Temporal Glimpse",
+      "Evasion Boost"
     ],
     "vendor": "fate_forge",
     "shippedBy": "temporal_rift",
-    "levelRequirement": 16
+    "levelRequirement": 16,
+    "effectDetails": [
+      {
+        "title": "Temporal Glimpse",
+        "rules": "As a bonus action, the wielder can activate this effect to gain a brief insight into an alternate future. This grants advantage on one ability check or saving throw of their choice within the next minute. However, there is a 10% chance (DC 15) that this use will create a temporal ripple, causing the wielder to lose their turn as they are pulled into a minor paradox."
+      },
+      {
+        "title": "Evasion Boost",
+        "rules": "This effect provides a +15% evasion bonus while active. The bonus lasts until the end of your next turn after activation or if you take a long rest, whichever comes first. There is no limit to how often this can be activated per day."
+      }
+    ],
+    "levelRequirementReason": "Only those with experience and discipline can wield the Chronocrystal Shard safely.",
+    "vendorReason": "Fate Forge specializes in relics that interact with time, making them the ideal vendor for this shard.",
+    "shippingDetail": "The shipment travels through a temporal rift, ensuring its arrival is both swift and secure. However, this method can be unpredictable due to the nature of the rift itself.",
+    "usage": {
+      "activation": "Bonus action (Temporal Glimpse), Instantaneous (Evasion Boost)",
+      "duration": "Until the end of your next turn after activation or until you take a long rest for Evasion Boost. Ends when the effect is used for Temporal Glimpse.",
+      "endsWhen": "After one use per day",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Chronocrystal Shard's rarity and potential for misuse justify its moderate price in experience points.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T15:21:31.386543+00:00",
+    "aiReviewedAt": "2026-07-25T15:21:31.386543+00:00",
+    "aiReviewVersion": 1
   },
   "curiosity_grimscythe_charm": {
     "id": "curiosity_grimscythe_charm",

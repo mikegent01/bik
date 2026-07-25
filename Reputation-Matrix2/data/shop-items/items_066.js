@@ -5,20 +5,44 @@ export const ITEMS_066 = {
   "teyvat_item_archon_whisper": {
     "id": "teyvat_item_archon_whisper",
     "name": "Archon Whisper Stone",
-    "description": "Carved from a fragment of an Archon's decree, this stone allows you to briefly understand the subtle language of elemental spirits. Just don’t ask it about Wario’s schemes – it gets… uncomfortable.",
+    "description": "The Archon Whisper Stone, a fragment of an ancient Archon's decree, shimmers with elemental energy. Crafted from the heartwood of a celestial tree, it allows you to momentarily decipher the subtle languages of the elemental spirits, unlocking hidden paths and forgotten lore. Its surface is etched with runes that glow faintly in response to your queries, but beware—asking about Wario’s schemes will only elicit cryptic responses or silence.",
     "category": "curiosities",
-    "price": 800,
+    "price": 1000,
     "icon": "🗣️",
     "stock": 45,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "elemental_communication_2",
-      "chance_to_find_hidden_paths"
+      "elemental_communication",
+      "hidden_pathfinder"
     ],
     "vendor": "inazuma_imports",
     "shippedBy": "swift_current",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Elemental Communication",
+        "rules": "As a bonus action, you can use the stone to communicate with elemental spirits within 30 feet. You gain advantage on Intelligence (Nature) checks to understand and interpret their messages for up to 1 minute."
+      },
+      {
+        "title": "Hidden Pathfinder",
+        "rules": "The stone grants you a +2 bonus to Wisdom (Perception) checks made to find hidden paths or secret doors, as well as a +1 bonus on Dexterity saving throws related to avoiding traps. This effect lasts for 1 hour."
+      }
+    ],
+    "levelRequirementReason": "This item requires a minimum level of 5 due to its intricate construction and the ancient magic it contains.",
+    "vendorReason": "Inazuma Imports deals in rare artifacts from distant realms, including this fragment of an Archon's decree.",
+    "shippingDetail": "The stone is shipped by swift_current, ensuring it arrives intact and ready for use.",
+    "usage": {
+      "activation": "Bonus action to activate elemental communication; passive effect for hidden pathfinder until the duration expires.",
+      "duration": "Elemental Communication: 1 minute. Hidden Pathfinder: 1 hour.",
+      "endsWhen": "The effects end when their durations expire or the item is destroyed.",
+      "charges": "Unlimited, but the stone may lose its properties if exposed to extreme elemental forces."
+    },
+    "priceReason": "The price reflects the rare and ancient craftsmanship of this fragment from an Archon's decree.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-25T14:27:02.714880+00:00",
+    "aiReviewedAt": "2026-07-25T14:27:02.714880+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_elemental_resonance_scan": {
     "id": "teyvat_item_elemental_resonance_scan",
@@ -2039,22 +2063,44 @@ export const ITEMS_066 = {
   "teyvat_item_crimson_scroll": {
     "id": "teyvat_item_crimson_scroll",
     "name": "Crimson Scroll of Forbidden Whispers",
-    "description": "A disturbingly beautiful scroll filled with unsettling prophecies and forgotten rituals. Unsheathing this forbidden item grants temporary access to terrifying visions, but beware – prolonged exposure can drive a warrior mad!",
+    "description": "The Crimson Scroll of Forbidden Whispers is a leather-bound relic, its pages splattered with blood and adorned with arcane symbols that seem to pulse with malevolent intent. Unfurling it grants fleeting visions of future events, but the more you read, the darker your mind becomes. Each use leaves you vulnerable to madness, a small chance of which manifests as a shadowy imp that dances at your side for a brief while.",
     "category": "forbidden",
-    "price": 75000,
+    "price": 1000,
     "icon": "💀",
     "stock": 12,
     "rarity": "mythic",
     "stockType": "night_only",
     "effects": [
-      "chance to inflict madness on target (10%)",
-      "temporary vision of future events (5 turns)",
-      "increased critical hit chance (7%)",
-      "small chance to summon a shadowy imp"
+      "madness risk",
+      "visionary foresight"
     ],
     "vendor": "inazuma_imports",
     "shippedBy": "phantom_ship",
-    "levelRequirement": 16
+    "levelRequirement": 16,
+    "effectDetails": [
+      {
+        "title": "Madness Risk",
+        "rules": "There is a 10% chance per use to inflict madness on the user. This effect lasts until the end of your next turn and can be resisted with a DC 15 Wisdom saving throw."
+      },
+      {
+        "title": "Visionary Foresight",
+        "rules": "The user gains temporary access to terrifying visions that provide insight into future events for 5 turns. These visions are fleeting but offer crucial information, though the clarity fades after this duration."
+      }
+    ],
+    "levelRequirementReason": "Only those of significant experience and resilience can handle the scroll's dark power without succumbing to madness.",
+    "vendorReason": "Inazuma Imports specializes in exotic and dangerous goods, making it a fitting vendor for such an item.",
+    "shippingDetail": "The scroll is shipped via the Phantom Ship, ensuring secrecy but also adding to its mystique.",
+    "usage": {
+      "activation": "Reads as a bonus action.",
+      "duration": "Instantaneous effect; visions last for 5 turns.",
+      "endsWhen": "Madness or the expiration of the vision duration ends it.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its dark power and potential for madness risk.",
+    "priceOriginal": 75000,
+    "priceReviewedAt": "2026-07-25T14:26:45.538872+00:00",
+    "aiReviewedAt": "2026-07-25T14:26:45.538872+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_legendary_starshard_armor": {
     "id": "equestria_item_legendary_starshard_armor",

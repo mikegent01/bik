@@ -1433,21 +1433,44 @@ export const ITEMS_067 = {
   "fate_divination_scroll": {
     "id": "fate_divination_scroll",
     "name": "The Weaver's Whisper",
-    "description": "A tightly rolled scroll containing fragments of prophecy, carefully deciphered by the enigmatic Fate Forge. It grants a momentary glimpse into possible futures – though Wario always manages to mess things up regardless!",
+    "description": "The Weaver's Whisper is a fragile, parchment scroll sealed within a leather case adorned with intricate runes. Crafted by the enigmatic Fate Forge, this scroll reveals fleeting glimpses into possible futures, granting the user a momentary insight that can alter the course of events – though Wario's constant meddling ensures that not all prophecies come to pass as intended. The scroll's predictions are both cryptic and precise, offering a temporary bonus to perception checks and allowing for one reroll on failed skill checks.",
     "category": "services",
-    "price": 6000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 10,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "chance to reveal hidden enemy weaknesses",
-      "provides a temporary bonus to perception checks",
-      "allows the user to reroll one failed skill check"
+      "Fate Glimpse",
+      "Perception Boost"
     ],
     "vendor": "fate_forge",
     "shippedBy": "Fate Messenger",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Fate Glimpse",
+        "rules": "The user must spend a minute studying the scroll to activate its effect. The scroll illuminates one enemy within 30 feet, revealing hidden weaknesses that grant advantage on an attack roll against it for the next hour. This effect ends if the scroll is destroyed or if the user fails a DC 15 Constitution saving throw."
+      },
+      {
+        "title": "Perception Boost",
+        "rules": "For every hour spent studying The Weaver's Whisper, the user gains advantage on one perception check of their choice during that time. This effect can only be used once per day and is immediately lost if the scroll is destroyed or if the user fails a DC 15 Wisdom saving throw."
+      }
+    ],
+    "levelRequirementReason": "The scroll's complexity requires a minimum of third-level proficiency to fully grasp its prophecies.",
+    "vendorReason": "Only the enigmatic Fate Forge can craft scrolls that accurately reveal the threads of fate.",
+    "shippingDetail": "The scroll is delivered by the trusted courier known as the Fate Messenger, ensuring it arrives in pristine condition.",
+    "usage": {
+      "activation": "A minute-long study of the scroll.",
+      "duration": "One hour for each minute studied.",
+      "endsWhen": "The scroll's effect ends if destroyed or when a saving throw is failed.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "The scroll's rarity and the expertise required to use it justify its fair value in experience points.",
+    "priceOriginal": 6000,
+    "priceReviewedAt": "2026-07-25T14:27:15.048587+00:00",
+    "aiReviewedAt": "2026-07-25T14:27:15.048587+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_jungle_drum": {
     "id": "animatopia_jungle_drum",

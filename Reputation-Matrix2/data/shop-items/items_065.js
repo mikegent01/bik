@@ -2483,21 +2483,44 @@ export const ITEMS_065 = {
   "warhammer_chaosbomb": {
     "id": "warhammer_chaosbomb",
     "name": "Chaos Bomb - Unstable Edition",
-    "description": "A delightfully unstable explosive device guaranteed to cause mayhem! This little beauty is packed with volatile essence, making it a surprisingly effective weapon... or just a really messy distraction.",
+    "description": "The Chaos Bomb - Unstable Edition is a perilously crafted warhammer that exudes an aura of chaotic energy. Its body, forged from twisted metal and imbued with volatile essence, promises both destruction and mayhem. When thrown or activated, it detonates in a burst of explosive force, guaranteeing chaos within its 10-foot radius. The bomb has a slim but real chance to unleash additional area-of-effect status effects like confusion or stun on nearby foes, making it a versatile tool for battlefield disruption.",
     "category": "curiosities",
-    "price": 350,
+    "price": 1000,
     "icon": "💣",
     "stock": 99,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "deals 6d6 explosive damage in a 10ft radius",
-      "chance to cause area-of-effect status effects (stun, confusion)",
-      "small chance of self-detonation"
+      "Explosive Burst",
+      "Area Status Effects"
     ],
     "vendor": "chaos_dealer",
     "shippedBy": "Winged Gremlin Post",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Explosive Burst",
+        "rules": "When activated, the Chaos Bomb deals 6d6 fire damage in a 10-foot radius centered on its point of detonation. Targets must succeed on a DC 13 Dexterity saving throw or be knocked prone."
+      },
+      {
+        "title": "Area Status Effects",
+        "rules": "There is a 25% chance that the explosion will also inflict one additional status effect on creatures in the area: either confusion (save DC 13) or stunned for 1 minute (save DC 14). The effect ends if the creature takes any damage other than fire damage."
+      }
+    ],
+    "levelRequirementReason": "This warhammer is designed for players who have just begun their journey, offering a challenge that matches their growing combat capabilities.",
+    "vendorReason": "The Chaos Dealer specializes in items that embody chaos and destruction, making the Unstable Edition of the Chaos Bomb an ideal addition to his stock.",
+    "shippingDetail": "Shipped via Winged Gremlin Post, which delivers with a 1-day delay due to its unpredictable flight patterns.",
+    "usage": {
+      "activation": "Action (thrown or activated)",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausts after one use and is destroyed upon detonation",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Chaos Bomb's balanced price reflects its powerful combination of damage and area-of-effect effects, making it a strategic asset for players.",
+    "priceOriginal": 350,
+    "priceReviewedAt": "2026-07-25T14:26:31.297982+00:00",
+    "aiReviewedAt": "2026-07-25T14:26:31.297982+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_gargantuan_goober": {
     "id": "mushroom_kingdom_item_gargantuan_goober",

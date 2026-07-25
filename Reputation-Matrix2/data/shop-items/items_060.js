@@ -3869,20 +3869,44 @@ export const ITEMS_060 = {
   "connectopia_wire_weaving_service": {
     "id": "connectopia_wire_weaving_service",
     "name": "Automated Wire Weaving Consultation",
-    "description": "Feeling overwhelmed by all those wires? Let our expert technicians analyze your current setup and recommend the most efficient weaving patterns for maximum data flow! Don't worry, they won’t judge your chaotic mess… much.",
+    "description": "The Automated Wire Weaving Consultation service from Craft Corner offers you a detailed analysis of your tangled network of wires, recommending optimized patterns for unparalleled data flow. With the aid of expert technicians, this service ensures that even your most chaotic setup becomes a marvel of efficiency. For 30 minutes following its activation, you'll experience a +2 bonus to data transfer speed, streamlining communication and enhancing productivity like never before.",
     "category": "services",
-    "price": 800,
+    "price": 1000,
     "icon": "🧵",
     "stock": 15,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "grants access to advanced wire weaving blueprints",
-      "provides a +2 bonus to data transfer speed for 30 minutes"
+      "Optimized Data Flow",
+      "Bonus to Data Transfer Speed"
     ],
     "vendor": "craft_corner",
     "shippedBy": "pioneer_post",
-    "levelRequirement": 4
+    "levelRequirement": 4,
+    "effectDetails": [
+      {
+        "title": "Optimized Data Flow",
+        "rules": "For a period of 30 minutes following the service's activation, you gain a +2 bonus to data transfer speed within your immediate area. This effect ends when it expires or if you are incapacitated."
+      },
+      {
+        "title": "Bonus to Data Transfer Speed",
+        "rules": "While this effect is active, all electronic devices within 10 feet of you operate at maximum efficiency for the duration. There is no save applicable and this benefit is limited to one use per day."
+      }
+    ],
+    "levelRequirementReason": "This service requires a minimum character level of 4 due to its complexity and the expertise needed from Craft Corner's technicians.",
+    "vendorReason": "Craft Corner specializes in technological services, making it the perfect vendor for such an advanced consultation.",
+    "shippingDetail": "Pioneer Post guarantees delivery within a week of purchase. Shipping includes a detailed report from the technicians to assist you further.",
+    "usage": {
+      "activation": "Passive effect upon completion of the service.",
+      "duration": "30 minutes.",
+      "endsWhen": "Expires at the end of its duration or when incapacitated.",
+      "charges": "One use per day."
+    },
+    "priceReason": "The price is set at 1000 XP to reflect the service's complexity, expert analysis, and the immediate benefits it provides.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-25T14:25:35.838744+00:00",
+    "aiReviewedAt": "2026-07-25T14:25:35.838744+00:00",
+    "aiReviewVersion": 1
   },
   "connectopia_mineral_extractor_module": {
     "id": "connectopia_mineral_extractor_module",

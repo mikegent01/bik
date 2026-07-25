@@ -971,21 +971,44 @@ export const ITEMS_077 = {
   "equestria_item_crimson_elemental_cupcake_drinker": {
     "id": "equestria_item_crimson_elemental_cupcake_drinker",
     "name": "The Crimson Elemental Cupcake Drinker",
-    "description": "This unsettlingly vibrant cupcake pulses with contained thermal energy, granting a momentary surge of fire magic. Its yielding frosting whispers of forgotten volcanic plains and the echoes of chaotic elementals, offering a potent but volatile experience.",
+    "description": "The Crimson Elemental Cupcake Drinker exudes an unsettling yet captivating allure, its vibrant red frosting and golden swirls hinting at forgotten volcanic plumes and the chaotic dance of elementals. Consuming this confectionary marvel grants a fleeting surge of fire magic, but it comes with a volatile price: the chance to ignite your foe with 'Burn' status, and a small but dangerous explosion that could send you spiraling into chaos if not consumed with care.",
     "category": "consumables",
-    "price": 1200,
+    "price": 1000,
     "icon": "🔥",
     "stock": 37,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "Grants +5 Fire Damage for 30 seconds",
-      "Chance to inflict 'Burn' status on target (10%)",
-      "Causes a minor explosion upon consumption (small chance)"
+      "Fire Magic Surge",
+      "Chance for Burn"
     ],
     "vendor": "canterlot_commerce",
     "shippedBy": "Royal Mail Pegasus",
-    "levelRequirement": 25
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Fire Magic Surge",
+        "rules": "Upon consumption, the consumer gains +5 fire damage as a bonus action for 30 seconds. This effect can only be used once per long rest."
+      },
+      {
+        "title": "Chance for Burn",
+        "rules": "There is a 10% chance to inflict 'Burn' status on an enemy at the end of its next turn, unless it makes a successful Dexterity saving throw (DC 12). This effect can only be triggered once per short rest."
+      }
+    ],
+    "levelRequirementReason": "This item's volatile nature and potent fire magic effects necessitate a minimum level to ensure safe handling.",
+    "vendorReason": "As a premier supplier of magical confections, Canterlot Commerce is trusted with the sale of items like The Crimson Elemental Cupcake Drinker.",
+    "shippingDetail": "Ships via Royal Mail Pegasus Express; delivery can be delayed by adverse weather conditions.",
+    "usage": {
+      "activation": "Consumed as a bonus action.",
+      "duration": "30 seconds, once per long rest.",
+      "endsWhen": "The effect ends immediately if the consumer takes any damage.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "The item's rare ingredients and volatile nature justify a price of 1000 XP, aligning with its level requirement and unique effects.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T14:38:41.627036+00:00",
+    "aiReviewedAt": "2026-07-25T14:38:41.627036+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_silverwind_harvest_cupcakes": {
     "id": "equestria_item_silverwind_harvest_cupcakes",
@@ -1326,22 +1349,44 @@ export const ITEMS_077 = {
   "internet_item_chronometric_data_eater": {
     "id": "internet_item_chronometric_data_eater",
     "name": "The Chronometric Data Eater - Phase 7",
-    "description": "This pulsating, obsidian link consumes fragmented timelines and regurgitates them as fleeting moments of accelerated perception. Its rhythmic pulse disrupts digital signatures, allowing the user to briefly experience echoes of past data streams – a dangerous but potentially enlightening ability.",
+    "description": "The Chronometric Data Eater - Phase 7 is a pulsating obsidian link, its surface etched with the remnants of fragmented timelines. This relic disrupts digital signatures, allowing the bearer to briefly experience fleeting moments of accelerated perception. Its rhythmic pulse can even cause minor temporal distortions, leading to brief and disorienting hallucinations. Caution is advised; while this item grants a dangerous yet enlightening ability, it is known to attract Data Wraiths, making its use both perilous and potentially life-changing.",
     "category": "consumables",
-    "price": 12000,
+    "price": 1000,
     "icon": "⏳",
     "stock": 5,
     "rarity": "epic",
     "stockType": "limited_daily",
     "effects": [
-      "Grants temporary accelerated perception (3 turns)",
-      "Disrupts enemy digital defenses (20% chance)",
-      "Causes minor temporal distortion – brief hallucinations",
-      "Chance of attracting a 'Data Wraith'"
+      "Accelerated Perception",
+      "Temporal Distortion"
     ],
     "vendor": "cyber_market",
     "shippedBy": "Drone Delivery",
-    "levelRequirement": 35
+    "levelRequirement": 35,
+    "effectDetails": [
+      {
+        "title": "Accelerated Perception",
+        "rules": "The Chronometric Data Eater grants the user a burst of accelerated perception for up to three turns. During this time, the user can gain +2 to all Intelligence (History) checks made against digital data and systems. This effect is instantaneous upon activation but ends at the start of the user's next turn."
+      },
+      {
+        "title": "Temporal Distortion",
+        "rules": "For every three turns the accelerated perception lasts, there is a 10% chance that a minor temporal distortion occurs, causing brief hallucinations. The user must make a DC 15 Wisdom saving throw or be disoriented for 1 round. This effect can only occur once per day."
+      }
+    ],
+    "levelRequirementReason": "This item's power is reserved for those who have demonstrated the necessary control over their own timeline, as it deals with delicate and potentially dangerous temporal mechanics.",
+    "vendorReason": "The cyber market specializes in cutting-edge technology, including time-based artifacts like this one, making it a logical vendor for such an item.",
+    "shippingDetail": "Ships via Drone Delivery within 24 hours of purchase. Special handling required to ensure the artifact arrives in proper condition.",
+    "usage": {
+      "activation": "As an action",
+      "duration": "Up to three turns, with a 10% chance of a temporal distortion per turn",
+      "endsWhen": "At the start of the user's next turn or when destroyed by a successful Wisdom saving throw against a temporal distortion",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Chronometric Data Eater is priced at 1000 XP, reflecting its limited availability and the delicate nature of the technology involved.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T14:38:01.700235+00:00",
+    "aiReviewedAt": "2026-07-25T14:38:01.700235+00:00",
+    "aiReviewVersion": 1
   },
   "internet_item_pixel_ghost_collector": {
     "id": "internet_item_pixel_ghost_collector",
@@ -1430,21 +1475,44 @@ export const ITEMS_077 = {
   "kivotos_item_semester_passes_of_students": {
     "id": "kivotos_item_semester_passes_of_students",
     "name": "The Semester Passes of Students",
-    "description": "These passes, etched with the insignia of every major student club in Academy City, grant temporary access to exclusive after-hours study sessions and secret campus locations. Each pass pulses faintly with residual academic anxiety, amplifying concentration… briefly.",
+    "description": "The Semester Passes of Students are etched with the insignia of every major student club in Academy City, pulsing faintly with residual academic anxiety that briefly amplifies concentration. These passes grant temporary access to exclusive after-hours study sessions and secret campus locations, enhancing intellect for a fleeting moment. Each pass is imbued with the essence of countless late-night cramming sessions, making it nearly impossible not to stumble upon a lost assignment.",
     "category": "consumables",
-    "price": 185,
+    "price": 1000,
     "icon": "📚",
     "stock": 37,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "increased_focus_for_10_seconds",
-      "minor_boost_to_intellect",
-      "chance_of_finding_a_lost_assignment"
+      "increased_focus",
+      "chance_of_discovering_a_lost_assignment"
     ],
     "vendor": "student_store",
     "shippedBy": "Drone Delivery",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Increased Focus",
+        "rules": "When activated as an action, the user gains advantage on Intelligence checks and saving throws for 10 seconds. This effect ends if you take any other action on your turn."
+      },
+      {
+        "title": "Chance of Discovering a Lost Assignment",
+        "rules": "At the start of each short rest, there is a 25% chance that the user finds a lost assignment or study material. This effect has no save DC and can occur multiple times per day."
+      }
+    ],
+    "levelRequirementReason": "These passes are meant for students of all levels, providing them with tools to succeed in their studies.",
+    "vendorReason": "The Student Store sells these passes as they cater directly to the needs of Academy City's student body.",
+    "shippingDetail": "Delivered instantly via Drone Delivery's swift fleet, ensuring that students can use their passes immediately upon purchase.",
+    "usage": {
+      "activation": "Activate by using an action at the start of a study session or short rest.",
+      "duration": "10 seconds",
+      "endsWhen": "The effect ends if you take any other action on your turn.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "Balanced at this price, the Semester Passes of Students provide a substantial benefit for students without being overpowered.",
+    "priceOriginal": 185,
+    "priceReviewedAt": "2026-07-25T14:37:57.900725+00:00",
+    "aiReviewedAt": "2026-07-25T14:37:57.900725+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_umbral_cursed_passes": {
     "id": "kivotos_item_umbral_cursed_passes",
@@ -1785,21 +1853,44 @@ export const ITEMS_077 = {
   "the_edge_item_chronometric_watcher": {
     "id": "the_edge_item_chronometric_watcher",
     "name": "The Chronometric Watcher's Obsidian Shard",
-    "description": "This fractured shard pulses with an unsettling temporal energy, briefly accelerating or decelerating the user’s perception of time. It grants momentary bursts of speed and reflexes, but prolonged use risks unraveling one's own timeline within the endless expanse.",
+    "description": "The Chronometric Watcher's Obsidian Shard is a fractured, iridescent fragment of time itself, pulsing with an otherworldly temporal energy. When activated, it briefly accelerates or decelerates your perception of time, granting you bursts of speed and heightened reflexes but leaving a lingering risk of disrupting the very fabric of reality if used too long. This shard is said to have been crafted by ancient clockwork masters during the Age of Endless Clocks.",
     "category": "equipment",
-    "price": 350,
+    "price": 1000,
     "icon": "⏳",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "increase_movement_speed",
-      "temporal_distortion",
-      "reflex_boost"
+      "temporal distortion",
+      "reflex boost"
     ],
     "vendor": "edge_outpost",
     "shippedBy": "Automated Drone Delivery",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Temporal Distortion",
+        "rules": "As a bonus action, you can activate the shard to either accelerate or decelerate your perception of time for up to 1 minute. While active, your movement speed increases by 30 feet and your reflex saving throw DCs increase by +2. However, if you use this ability more than once in a 24-hour period, there is a cumulative -1 penalty on all Dexterity (Acrobatics) checks and saving throws for the next 8 hours."
+      },
+      {
+        "title": "Reflex Boost",
+        "rules": "While the shard's temporal distortion effect is active, you gain advantage on Dexterity saving throws. This benefit persists even after the shard's active time has ended."
+      }
+    ],
+    "levelRequirementReason": "The intricate clockwork and arcane energies within the shard require a certain level of expertise to wield without risk.",
+    "vendorReason": "Edge Outpost specializes in exotic artifacts and relics from various realms, including time-worn items like this one.",
+    "shippingDetail": "Ships via Automated Drone Delivery directly to your doorstep within the next business day.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "1 minute or until the end of your next turn, whichever comes first",
+      "endsWhen": "The shard's active time ends or if you take any damage",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The item's rarity and unique temporal properties justify its high price.",
+    "priceOriginal": 350,
+    "priceReviewedAt": "2026-07-25T14:38:01.917571+00:00",
+    "aiReviewedAt": "2026-07-25T14:38:01.917571+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_item_abyssal_resonance_orb": {
     "id": "the_edge_item_abyssal_resonance_orb",
@@ -2392,21 +2483,44 @@ export const ITEMS_077 = {
   "grand_country_item_brutal_resonance_shaper": {
     "id": "grand_country_item_brutal_resonance_shaper",
     "name": "The Brutal Resonance Shaper",
-    "description": "This obsidian anchor, carved from solidified vertical currents, vibrates with a low, brutal hum. When activated, it briefly elevates the surrounding terrain, creating unstable platforms for daring maneuvers and devastating falls.",
+    "description": "The Brutal Resonance Shaper, an obsidian anchor forged from the molten heart of a collapsed volcano, hums ominously as it solidifies vertical currents into unstable platforms. Activated by a primal scream, this relic momentarily elevates the terrain beneath your feet, offering fleeting vantage points for daring maneuvers or setting traps that plunge foes into vertiginous drops. Its raw power distorts gravity, making nearby enemies susceptible to 'Vertical Dizziness', a momentary disorientation that leaves them off-balance and vulnerable.",
     "category": "equipment",
-    "price": 1200,
+    "price": 1000,
     "icon": "🌋",
     "stock": 37,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "temporarily increases vertical movement speed by 20%",
-      "creates a small, unstable platform beneath the user for 5 seconds",
-      "chance to inflict 'Vertical Dizziness' on nearby enemies (minor disorientation)"
+      "Unstable Platforms",
+      "Gravity Distortion"
     ],
     "vendor": "vertical_vendor",
     "shippedBy": "Gravitic Drone",
-    "levelRequirement": 25
+    "levelRequirement": 20,
+    "effectDetails": [
+      {
+        "title": "Unstable Platforms",
+        "rules": "When activated, the Brutal Resonance Shaper creates a small, unstable platform beneath the user for 5 seconds. The platform grants a +20% bonus to vertical movement speed within its radius and imposes a disadvantage on Concentration checks made by any enemy in range. This effect ends when the platform collapses or the duration expires."
+      },
+      {
+        "title": "Gravity Distortion",
+        "rules": "Nearby enemies within 15 feet of the user must succeed on a DC 14 Constitution saving throw or become 'Vertigo-Stricken', suffering disadvantage on Strength and Dexterity checks for 1 minute. This effect ends when the target successfully saves against it."
+      }
+    ],
+    "levelRequirementReason": "This relic demands significant power to wield its volatile gravitational effects safely.",
+    "vendorReason": "Vertical Vendor specializes in items that manipulate terrain, making this obsidian marvel a perfect fit for their inventory.",
+    "shippingDetail": "The Gravitic Drone ensures swift delivery of the Brutal Resonance Shaper, though it requires careful handling to prevent accidental activation during transit.",
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous; ends on collapse or user movement beyond range",
+      "endsWhen": "Platform collapses or user moves out of range within 5 seconds",
+      "charges": "Unlimited, but requires concentration to maintain for more than 1 round"
+    },
+    "priceReason": "Balanced at the higher end as it commands rare materials and specialized crafting.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T15:22:20.424691+00:00",
+    "aiReviewedAt": "2026-07-25T15:22:20.424691+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_layer_chronal_anchor_shaper": {
     "id": "grand_country_item_layer_chronal_anchor_shaper",
@@ -3797,7 +3911,7 @@ export const ITEMS_077 = {
   "warhammer_item_chaos_dealer_mk_9_skull_whisperer": {
     "id": "warhammer_item_chaos_dealer_mk_9_skull_whisperer",
     "name": "Chaos Dealer Mk.9 Skull Whisperer’s Resonance Core",
-    "description": "This pulsating skull core hums with the raw energy of a thousand fragmented realities, allowing the wielder to briefly perceive and manipulate chaotic probabilities. Handle with extreme caution - prolonged exposure risks dissolving your sanity.",
+    "description": "The Chaos Dealer Mk.9 Skull Whisperer’s Resonance Core pulsates with a chaotic energy that dances like broken stars within its hollow eye sockets. Crafted from fragments of shattered realities, this core whispers secrets of probability and fate to those who wield it. A fleeting glimpse into the possible future outcomes can be achieved by those brave enough to handle it, but beware—prolonged exposure risks unraveling one's sanity.",
     "category": "curiosities",
     "price": 8000,
     "icon": "🌀",
@@ -3805,14 +3919,36 @@ export const ITEMS_077 = {
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "Chance to trigger a random chaotic effect (positive or negative)",
-      "Increase critical hit chance by 20%",
-      "Allows temporary manipulation of enemy movement",
-      "Brief glimpse into possible future outcomes"
+      "Temporal Manipulation",
+      "Chaotic Resonance"
     ],
     "vendor": "chaos_dealer",
     "shippedBy": "Night Serpent Delivery",
-    "levelRequirement": 25
+    "levelRequirement": 25,
+    "effectDetails": [
+      {
+        "title": "Temporal Manipulation",
+        "rules": "As a bonus action, the wielder can attempt to manipulate enemy movement within a 10-foot radius. This effect lasts for 1 minute and ends early if the wielder takes damage or drops below half hit points."
+      },
+      {
+        "title": "Chaotic Resonance",
+        "rules": "At the start of each of the wielder's turns, there is a 50% chance that a random chaotic effect (either positive or negative) occurs. This effect has no save DC and can be triggered up to three times per long rest."
+      }
+    ],
+    "levelRequirementReason": "Requires high proficiency with martial weapons and an understanding of chaos magic.",
+    "vendorReason": "The Chaos Dealer is a notorious vendor in the realms, known for its unique and dangerous wares, including this artifact.",
+    "shippingDetail": "Ships under cover of darkness to prevent unwanted attention from reality-warping entities.",
+    "usage": {
+      "activation": "Bonus action or as a reaction (to manipulate enemy movement).",
+      "duration": "1 minute, ends early if the wielder takes damage or drops below half hit points.",
+      "endsWhen": "The duration expires or the wielder is incapacitated.",
+      "charges": "Unlimited uses per long rest."
+    },
+    "priceReason": "The artifact’s rarity and unique chaotic properties justify its high price in the realm of night-time commerce.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T14:38:32.383077+00:00",
+    "aiReviewedAt": "2026-07-25T14:38:32.383077+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_item_fate_forge_obsidian_skull_of_echoes": {
     "id": "warhammer_item_fate_forge_obsidian_skull_of_echoes",
@@ -3901,22 +4037,44 @@ export const ITEMS_077 = {
   "warhammer_item-rune-master-of-desolation": {
     "id": "warhammer_item-rune-master-of-desolation",
     "name": "Rune Master of Desolation",
-    "description": "A dark, runic armor crafted from the remains of a shattered warlord’s throne. It grants formidable protection against physical attacks and channels potent runes of decay, inflicting grievous wounds upon your enemies.",
+    "description": "The Rune Master of Desolation is a dark, runic warhammer forged from the shattered remains of an ancient warlord’s throne. Its surface gleams with potent runes that pulse with necrotic energy, inflicting grievous wounds upon your enemies and reducing their ability to heal. This relic offers formidable protection against physical attacks, granting you a 40% increase in defense while also slowing any enemy's movement speed by 20 feet for every successful hit.",
     "category": "equipment",
-    "price": 9500,
+    "price": 1000,
     "icon": "🛡️",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "increases physical defense by 40%",
-      "deals minor necrotic damage with each attack",
-      "chance to inflict 'Wound' on hit (reduces healing)",
-      "slows enemy movement speed"
+      "Necrotic Infusion",
+      "Slow Movement"
     ],
     "vendor": "chaos_dealer",
     "shippedBy": "mechanical-drone",
-    "levelRequirement": 28
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Necrotic Infusion",
+        "rules": "The Rune Master of Desolation channels potent runes of decay, dealing 1d6 necrotic damage with each successful hit. There is a 25% chance that this damage reduces the target's healing ability by half for one minute on a successful hit. The effect ends if the target successfully saves against a DC 18 Constitution saving throw."
+      },
+      {
+        "title": "Slow Movement",
+        "rules": "Whenever you strike an enemy with the Rune Master of Desolation, they are slowed by 20 feet until the start of their next turn. This condition can be removed by taking a short rest or by using a spell that specifically counters speed reduction. The effect ends if the target successfully saves against a DC 18 Dexterity saving throw."
+      }
+    ],
+    "levelRequirementReason": "The Rune Master of Desolation requires significant strength and experience to wield effectively, as it channels potent necrotic energies.",
+    "vendorReason": "The Chaos Dealer specializes in items forged from the remains of fallen heroes and warlords, making this relic a perfect fit for their inventory.",
+    "shippingDetail": "The mechanical drone delivers the Rune Master of Desolation with precision, ensuring it reaches its destination intact and ready to be wielded.",
+    "usage": {
+      "activation": "Instantaneous activation on contact with an enemy during your action or reaction.",
+      "duration": "Until the start of your next turn for each effect.",
+      "endsWhen": "The effects end if a target successfully saves against their respective saving throw, or when the weapon is dropped or destroyed.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Rune Master of Desolation is priced at 1000 XP due to its rarity and the significant necrotic power it channels.",
+    "priceOriginal": 9500,
+    "priceReviewedAt": "2026-07-25T14:38:58.835232+00:00",
+    "aiReviewedAt": "2026-07-25T14:38:58.835232+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_item-fate-weaver-chronal-scribe": {
     "id": "warhammer_item-fate-weaver-chronal-scribe",

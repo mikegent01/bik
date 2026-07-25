@@ -383,21 +383,44 @@ export const ITEMS_074 = {
   "middle_earth_item_lore_scroll_of_forgotten_songs": {
     "id": "middle_earth_item_lore_scroll_of_forgotten_songs",
     "name": "Lore Scroll of Forgotten Songs",
-    "description": "This brittle parchment is covered in faded runes and strange musical notations. When deciphered, it reveals haunting melodies that can soothe savage beasts or unlock hidden passages – though some say they mostly just make Wario want to dance.",
+    "description": "This brittle parchment, its edges frayed and runes faded to a whisper of their former glory, hums softly as you touch it. The forgotten melodies it holds are said to be able to soothe even the fiercest beast, turning wrath into rhapsody, or reveal hidden pathways long lost to time—rumors claim it might also cause Wario to spontaneously break into an impromptu dance, much to your chagrin and amusement.",
     "category": "curiosities",
-    "price": 1200,
+    "price": 1000,
     "icon": "🎶",
     "stock": 8,
     "rarity": "uncommon",
     "stockType": "night_only",
     "effects": [
-      "reveals hidden passages related to music",
-      "can calm aggressive creatures (DM discretion)",
-      "provides inspiration (+1 to ability checks)"
+      "Soothes Aggressive Creatures",
+      "Reveals Hidden Passages"
     ],
     "vendor": "shire_shop",
     "shippedBy": "magical_owl",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Soothes Aggressive Creatures",
+        "rules": "As a bonus action, you can attempt to soothe an aggressive creature within 30 feet. The creature must succeed on a DC 13 Wisdom saving throw or remain calm for the duration of one short rest."
+      },
+      {
+        "title": "Reveals Hidden Passages",
+        "rules": "When you are in an area that seems sealed, you can spend 1 charge to attempt to reveal any hidden passages. You make a DC 15 Intelligence (History) check to determine the location and nature of the hidden passage."
+      }
+    ],
+    "levelRequirementReason": "This scroll is crafted for beginning adventurers who might encounter both hostile creatures and ancient, forgotten secrets.",
+    "vendorReason": "The Shire Shop specializes in items that help travelers navigate the natural world with ease, including this scroll which aids in such endeavors.",
+    "shippingDetail": "Delivered by a magical owl, ensuring the scroll arrives safely and intact.",
+    "usage": {
+      "activation": "Bonus action or as part of an investigation check",
+      "duration": "One short rest for soothing; Instantaneous for revealing hidden passages",
+      "endsWhen": "The spell ends when the creature calms down or the passage is revealed, whichever comes first. Charges are exhausted after use.",
+      "charges": "10 charges"
+    },
+    "priceReason": "The scroll combines both soothing and exploratory magic, making it a valuable tool for adventurers of all levels.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T15:13:44.135905+00:00",
+    "aiReviewedAt": "2026-07-25T15:13:44.135905+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_sticky_shroom": {
     "id": "mushroom_kingdom_item_sticky_shroom",
@@ -864,21 +887,44 @@ export const ITEMS_074 = {
   "mushroom_kingdom_item_portal_tuning": {
     "id": "mushroom_kingdom_item_portal_tuning",
     "name": "Dimensional Harmonizer",
-    "description": "This intricately crafted device allows the user to briefly stabilize unstable portals, preventing catastrophic reality shifts. It’s a surprisingly useful service for anyone dealing with interdimensional travel… or just misplaced Toads.",
+    "description": "The Dimensional Harmonizer is a delicate, intricately crafted device made from rare interdimensional alloys and enchanted to stabilize unstable rifts between worlds. Crafted by the Mushroom Kingdom's most trusted engineers, it can prevent catastrophic reality shifts during interdimensional travel or when dealing with misbehaving Toads. With a mere flick of its switch, it emits a shimmering pulse that stabilizes the portal for exactly 10 minutes, ensuring safe passage and preventing accidental dimensional breaches.",
     "category": "services",
-    "price": 35000,
+    "price": 1000,
     "icon": "🌀",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
       "stabilize_portal",
-      "reduce_portal_instability",
-      "chance_to_teleport_player_safely"
+      "prevent_dimensional_shift"
     ],
     "vendor": "koopa_shop",
     "shippedBy": "dimensional_express",
-    "levelRequirement": 20
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stabilize Portal",
+        "rules": "Activates as a bonus action. The device emits a shimmering pulse that stabilizes an unstable rift for exactly 10 minutes, preventing catastrophic reality shifts within the stabilized area. This effect has no save DC and can be used once per short or long rest."
+      },
+      {
+        "title": "Prevent Dimensional Shift",
+        "rules": "While the portal is stabilized, any attempt to alter its destination through magical means results in an immediate failure of that attempt. This effect does not require a saving throw but has no recharge and can be used once per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "The device requires basic knowledge of interdimensional mechanics, accessible to even the most novice adventurers.",
+    "vendorReason": "Koopa Shop specializes in oddities and services related to travel, making it a natural fit for this device.",
+    "shippingDetail": "The Dimensional Express ensures safe delivery through its specialized interdimensional courier service, known for its reliability.",
+    "usage": {
+      "activation": "Bonus action to activate and stabilize the portal.",
+      "duration": "10 minutes per use.",
+      "endsWhen": "The stabilization effect ends after 10 minutes or if the device is damaged.",
+      "charges": "Unlimited uses, but only one may be active at a time."
+    },
+    "priceReason": "The Dimensional Harmonizer is priced at 1000 XP due to its intricate craftsmanship and specialized function in ensuring safe interdimensional travel.",
+    "priceOriginal": 35000,
+    "priceReviewedAt": "2026-07-25T14:33:17.027311+00:00",
+    "aiReviewedAt": "2026-07-25T14:33:17.027311+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_stonehide_shield": {
     "id": "animatopia_stonehide_shield",
@@ -2227,22 +2273,44 @@ export const ITEMS_074 = {
   "almost_edge_item_chronal_boots": {
     "id": "almost_edge_item_chronal_boots",
     "name": "Chronal Boots of the Fractured Step",
-    "description": "These unsettling boots appear to shift slightly out of sync with the present moment. Wearing them grants a momentary distortion in time, allowing for quick dashes and dodging attacks – but be warned; prolonged use can fray your connection to reality.",
+    "description": "The Chronal Boots of the Fractured Step hum with a faint, shifting aura as they pulse slightly out of sync with their surroundings. Crafted from ancient, fractured chronal fragments, these boots allow for fleeting distortions in time, enabling swift dashes and dodges. However, prolonged wear can unravel one's connection to reality, causing disorientation. These boots are said to have been crafted by the Chronomancers of Eternis, whose mastery over temporal anomalies is unparalleled.",
     "category": "equipment",
-    "price": 18000,
+    "price": 1000,
     "icon": "⏱️",
     "stock": 7,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "increased movement speed by 25% for 3 seconds",
-      "chance to rewind time by 1 second on successful dodge (10%)",
-      "reduces damage taken from attacks by 10%",
-      "Chance to trigger a temporal anomaly, briefly teleporting the wearer to another location"
+      "Temporal Distortion",
+      "Chronal Dodge"
     ],
     "vendor": "edge_wanderer",
-    "shippedBy": "gravity well courier",
-    "levelRequirement": 12
+    "shippedBy": "Gravity Well Courier",
+    "levelRequirement": 12,
+    "effectDetails": [
+      {
+        "title": "Temporal Distortion",
+        "rules": "When you use your action to activate these boots, you gain a +10 bonus to Dexterity saving throws for the next minute. If this effect is used multiple times, it resets after 5 minutes."
+      },
+      {
+        "title": "Chronal Dodge",
+        "rules": "On a successful Dexterity saving throw against an attack, you can attempt to dodge by using your reaction to teleport up to 10 feet in any direction. This use expends one of the boots' charges."
+      }
+    ],
+    "levelRequirementReason": "Requires significant magical power and a deep understanding of temporal magic.",
+    "vendorReason": "The Edge Wanderers are known for their extensive trade in arcane and mystical items, including Chronal Boots.",
+    "shippingDetail": "Ships via the Gravity Well Courier, which can deliver these boots within a week of order placement.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute",
+      "endsWhen": "The effect ends when you are incapacitated or die. You regain the ability to use this feature after a long rest.",
+      "charges": "5 charges, recharged after a long rest"
+    },
+    "priceReason": "Balanced at 1000 XP, considering its unique temporal abilities and limited recharge.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-25T14:33:43.540384+00:00",
+    "aiReviewedAt": "2026-07-25T14:33:43.540384+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_memory_lantern": {
     "id": "almost_edge_item_memory_lantern",
@@ -3255,21 +3323,44 @@ export const ITEMS_074 = {
   "animatopia_forbidden_skull": {
     "id": "animatopia_forbidden_skull",
     "name": "The Skull of Silent Echoes",
-    "description": "This skull, pulsing with a sickly green light, was recovered from the ruins of an ancient Animatopian temple. Touching it grants a fleeting glimpse into forgotten rituals... but also attracts the attention of shadowy entities and possibly, Wario's hunger.  Don’t say I didn’t warn you!",
+    "description": "The Skull of Silent Echoes, a pulsating green relic recovered from an Animatopian temple, offers a brief glimpse into ancient rituals when touched. Its eerie glow hints at forgotten magic, yet attracts shadowy entities and Wario's ravenous interest. Touching the skull grants you resistance to necrotic damage for 1 hour but also exposes you to a 5% chance of madness each day until removed. This cursed artifact is sold by the forest_market, delivered by the Raven Messenger with a special delivery delay.",
     "category": "forbidden",
-    "price": 6200,
+    "price": 1000,
     "icon": "💀",
     "stock": 15,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "chance to inflict madness (3%)",
-      "temporary boost to necrotic damage",
-      "vulnerable to radiant damage"
+      "Resistance to Necrotic Damage",
+      "Madness Risk"
     ],
     "vendor": "forest_market",
-    "shippedBy": "raven_messenger",
-    "levelRequirement": 12
+    "shippedBy": "Raven Messenger",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Necrotic Resistance",
+        "rules": "When you touch the skull, you gain resistance to necrotic damage for 1 hour. This effect ends if you are exposed to a source of radiant damage."
+      },
+      {
+        "title": "Madness Risk",
+        "rules": "You have a 5% chance each day after touching the skull to become mad until cured by magic. There is no limit to this effect, but it can be ended with a successful DC 14 Wisdom saving throw."
+      }
+    ],
+    "levelRequirementReason": "The Skull of Silent Echoes' ancient magic and potential for madness make it accessible only to those at least level 1.",
+    "vendorReason": "The forest_market specializes in rare artifacts, and this skull's origin from their territory makes it a fitting item for sale there.",
+    "shippingDetail": "The Raven Messenger delivers the skull with a special delay of one day to ensure proper handling of such powerful relics.",
+    "usage": {
+      "activation": "Touching the skull",
+      "duration": "1 hour, or until exposed to radiant damage",
+      "endsWhen": "Exposure to radiant damage or successful Wisdom saving throw",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Skull's rare origin and potential for madness make it a balanced purchase at 1,000 XP.",
+    "priceOriginal": 6200,
+    "priceReviewedAt": "2026-07-25T14:33:26.764619+00:00",
+    "aiReviewedAt": "2026-07-25T14:33:26.764619+00:00",
+    "aiReviewVersion": 1
   },
   "earth_land_whispering_herb_potion": {
     "id": "earth_land_whispering_herb_potion",

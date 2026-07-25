@@ -299,21 +299,44 @@ export const ITEMS_070 = {
   "earth_land_item_runestone_of_echoes": {
     "id": "earth_land_item_runestone_of_echoes",
     "name": "The Silent Sentinel's Echo",
-    "description": "Crafted from a fragment of a long-dead wizard’s tower, this pulsating runestone emits faint whispers of past events. Touching it allows you to briefly perceive echoes of the area’s history—useful for finding hidden passages or uncovering forgotten secrets…or just getting lost in Wario's chaotic past.  Legend says a powerful curse resides within!",
+    "description": "The Silent Sentinel's Echo is a pulsating runestone crafted from a fragment of a long-dead wizard’s tower, its surface etched with runes that whisper faint echoes of the area’s history. Touching it activates a brief moment where you perceive hidden passages and secret lore, but be wary—legendary curses can linger in its touch. Use it to uncover ancient secrets or get lost in its chaotic past.",
     "category": "curiosities",
-    "price": 65000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "reveals hidden passages (30%)",
-      "grants a chance to trigger ghostly illusions",
-      "chance to inflict fear on enemies (5%)"
+      "Reveals Hidden Passages",
+      "Activates Ghostly Echoes"
     ],
     "vendor": "earth_emporium",
     "shippedBy": "giant_snail",
-    "levelRequirement": 12
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Reveals Hidden Passages",
+        "rules": "When activated, you can perceive hidden passages and secret lore in a 30-foot radius for up to 1 minute. This effect has a 5% chance of revealing additional secrets each day it is used."
+      },
+      {
+        "title": "Activates Ghostly Echoes",
+        "rules": "You gain the ability to see ghostly echoes that can trigger minor illusions, with a 20% success rate per attempt. These echoes last for 1 hour and have no save DC."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 8th level to wield its ancient power without risk.",
+    "vendorReason": "The Earth Emporium specializes in relics from forgotten realms, making it the best place to find this runestone.",
+    "shippingDetail": "Shipped by a giant snail courier who delivers with great caution due to the item's delicate nature.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute (recharges after 8 hours)",
+      "endsWhen": "The effect ends when you use your action again or if the runestone is destroyed.",
+      "charges": "Recharges after 8 hours of rest"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects its rarity and ancient craftsmanship.",
+    "priceOriginal": 65000,
+    "priceReviewedAt": "2026-07-25T14:28:17.294509+00:00",
+    "aiReviewedAt": "2026-07-25T14:28:17.294509+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_pony_massage_oil": {
     "id": "equestria_item_pony_massage_oil",
@@ -948,21 +971,44 @@ export const ITEMS_070 = {
   "middle_earth_amulet_of_forgotten_wisdom": {
     "id": "middle_earth_amulet_of_forgotten_wisdom",
     "name": "The Oracle's Echo",
-    "description": "This amulet, carved from a single piece of petrified wood, hums with the echoes of long-lost Elven prophecies. It grants the wearer flashes of insight – mostly about how to best exploit Wario's greed for shiny things.",
+    "description": "The Oracle's Echo, a pendant forged from the petrified wood of an ancient Elven tree, hums softly as it draws upon forgotten prophecies and whispers of times long past. It grants its wearer flashes of insight into hidden secrets and traps, often revealing paths to exploit the greed of others for personal gain. The amulet's power is tempered by a touch of wisdom, ensuring that any gained knowledge is used with discernment.",
     "category": "curiosities",
-    "price": 250000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "chance to gain critical hits (+10%)",
-      "increased intelligence +5",
-      "temporary insight (reveals hidden passages or traps)"
+      "Wisdom Boost",
+      "Insightful Flash"
     ],
     "vendor": "elven_market",
     "shippedBy": "dragon_airmail",
-    "levelRequirement": 22
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Wisdom Boost",
+        "rules": "Activates as a bonus action. Increases the wearer's Intelligence by +5 for 1 hour, allowing them to better perceive and navigate complex situations."
+      },
+      {
+        "title": "Insightful Flash",
+        "rules": "Once per day, the wearer can activate this effect as an action to gain temporary insight that reveals a hidden passage or trap within 30 feet. This effect has no save DC but is limited to once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The Oracle's Echo requires minimal magical power, making it accessible to all adventurers.",
+    "vendorReason": "Elves are known for their deep connection to ancient lore and wisdom, which makes them the perfect custodians of such an artifact.",
+    "shippingDetail": "Ships via dragon airmail within 48 hours, ensuring swift delivery of this valuable item.",
+    "usage": {
+      "activation": "Bonus action for Wisdom Boost; Action to activate Insightful Flash",
+      "duration": "1 hour for Wisdom Boost; Instantaneous effect for Insightful Flash",
+      "endsWhen": "Ends at the start of your next turn after the duration expires or when you lose consciousness.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "The Oracle's Echo is moderately priced given its mythic rarity and the significant benefits it offers to all adventurers.",
+    "priceOriginal": 250000,
+    "priceReviewedAt": "2026-07-25T14:28:54.593601+00:00",
+    "aiReviewedAt": "2026-07-25T14:28:54.593601+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_spirit_weaving_service": {
     "id": "animatopia_spirit_weaving_service",
@@ -1051,21 +1097,44 @@ export const ITEMS_070 = {
   "pokemon_item_thunderbolt_amulet": {
     "id": "pokemon_item_thunderbolt_amulet",
     "name": "Thunderbolt Amulet of Voltaria",
-    "description": "This shimmering amulet, crafted from solidified lightning, pulses with raw electrical energy! It's rumored to have been favored by legendary trainers seeking control over the storms – a truly electrifying accessory.",
+    "description": "The Thunderbolt Amulet of Voltaria, forged from the very essence of a tempest's fury, glimmers with an otherworldly light that crackles like lightning. Crafted by legendary trainers who sought dominion over stormy skies, this amulet is said to amplify one's connection to the elemental forces. Wearers report heightened reflexes and a magnetic aura that draws misfortune towards foes, making it an indispensable companion for any trainer facing the elements.",
     "category": "equipment",
-    "price": 7500,
+    "price": 1000,
     "icon": "⚡",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "damage_thunder_3",
-      "chance_paralysis",
-      "speed_boost_1"
+      "thunder_damage",
+      "dodge_boost"
     ],
     "vendor": "pokemart",
-    "shippedBy": "delivery_only",
-    "levelRequirement": 6
+    "shippedBy": "Express Couriers of Voltaria",
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Thunder Damage",
+        "rules": "When you or an ally within 5 feet of you takes thunder damage from a creature, you can use your reaction to deal lightning damage equal to the thunder damage taken. This effect has no cooldown."
+      },
+      {
+        "title": "Dodge Boost",
+        "rules": "While wearing this amulet, you have advantage on Dexterity saving throws and attack rolls made with ranged weapons. This effect lasts until the start of your next turn."
+      }
+    ],
+    "levelRequirementReason": "The amulet requires a minimum level to harness its volatile energies effectively.",
+    "vendorReason": "Pokemarts stock a variety of equipment favored by trainers, and this amulet is one such item.",
+    "shippingDetail": "Ships via express courier with same-day delivery within the region.",
+    "usage": {
+      "activation": "Reaction to amplify thunder damage taken or when making a Dexterity saving throw or attack roll with a ranged weapon.",
+      "duration": "Instantaneous for each effect, until the start of your next turn otherwise.",
+      "endsWhen": "The amulet's charges are exhausted after 3 uses per short rest.",
+      "charges": "3"
+    },
+    "priceReason": "This amulet requires a significant amount of XP, considering its unique and powerful abilities.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-25T15:12:26.028233+00:00",
+    "aiReviewedAt": "2026-07-25T15:12:26.028233+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_evolution_scroll": {
     "id": "pokemon_item_evolution_scroll",
@@ -1952,9 +2021,9 @@ export const ITEMS_070 = {
   "pokemon_item_evolution_consultation": {
     "id": "pokemon_item_evolution_consultation",
     "name": "Evolutionary Insight Session – Professor Oak’s Style!",
-    "description": "Feeling stuck in your current evolutionary stage? Let a seasoned Pokémon researcher, channeling the wisdom of Professor Oak himself, analyze your Pokémon's potential and guide you toward their ultimate form. Just don't ask about Mew.",
+    "description": "Seek the counsel of Pokémon lore at its heart in this Evolutionary Insight Session, conducted by a seasoned researcher steeped in Professor Oak’s wisdom. This rare consultation not only increases your Pokémon's happiness by 5 points but also grants it a chance to evolve on the next battle. Just remember, the session is as legendary and ancient as the professor himself, so tread lightly—lest you learn the hard way that not all evolutionary paths are meant for every Pokémon.",
     "category": "services",
-    "price": 750,
+    "price": 1000,
     "icon": "🧠",
     "stock": 23,
     "rarity": "uncommon",
@@ -1965,7 +2034,31 @@ export const ITEMS_070 = {
     ],
     "vendor": "league_store",
     "shippedBy": "delivery_express",
-    "levelRequirement": 3
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Chance to Evolve on Next Battle",
+        "rules": "The Pokémon gains a +2 bonus to its Evolution check. This effect lasts until the end of your next battle, at which point it has a 10% chance to evolve into its next form if applicable."
+      },
+      {
+        "title": "Increase Happiness by 5 Points",
+        "rules": "Your Pokémon's happiness is increased by 5 points immediately upon completing this session. This effect does not require any action and lasts until the Pokémon's happiness is reduced below this new value."
+      }
+    ],
+    "levelRequirementReason": "This service requires a basic understanding of Pokémon training to ensure it aligns with your team’s strategy.",
+    "vendorReason": "The league store only offers services that can benefit aspiring trainers at critical stages in their journey.",
+    "shippingDetail": "Expressed courier service ensures the consultation arrives fresh and ready for immediate use upon arrival.",
+    "usage": {
+      "activation": "A standard action to initiate the session. The effects last until the end of your next battle or until the Pokémon's happiness is reduced below its new value, whichever comes first.",
+      "duration": "Instantaneous activation with ongoing benefits",
+      "endsWhen": "The end of the next battle or when the Pokémon's happiness falls below 50 points",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This service is priced to reflect its rare and valuable nature, offering significant strategic advantages in your Pokémon’s development.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-25T14:28:30.831852+00:00",
+    "aiReviewedAt": "2026-07-25T14:28:30.831852+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_lucky_charm_pokeball": {
     "id": "pokemon_item_lucky_charm_pokeball",
@@ -2054,20 +2147,44 @@ export const ITEMS_070 = {
   "grand_country_stone_of_echoes": {
     "id": "grand_country_stone_of_echoes",
     "name": "Resonant Shale",
-    "description": "This oddly shaped shale seems to vibrate with forgotten voices. Holding it near a wall reveals brief, distorted echoes of the past – potentially helpful for uncovering secrets or scaring away pesky goblins!",
+    "description": "The Resonant Shale, a peculiarly shaped stone that hums with ancient whispers when held near any surface, reveals brief echoes of forgotten times. These faint, distorted sounds can unlock hidden secrets within walls or distract foes for mere seconds, making it invaluable for explorers and treasure hunters alike. Crafted from the heart of long-forgotten earth by a reclusive artisan known only as Echo, this stone is both a tool and a relic.",
     "category": "curiosities",
-    "price": 1200,
+    "price": 1000,
     "icon": "🗣️",
     "stock": 45,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "reveals hidden clues (50% chance)",
-      "emits a distracting sound effect for 2 seconds"
+      "Echoes of the Past",
+      "Distraction"
     ],
     "vendor": "layer_market",
-    "shippedBy": "Delivery Drone",
-    "levelRequirement": 6
+    "shippedBy": "Courier Falcon",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Echoes of the Past",
+        "rules": "When you hold Resonant Shale near any wall or surface, there is a 50% chance that it reveals hidden clues and secrets. This effect lasts for 1 round."
+      },
+      {
+        "title": "Distraction",
+        "rules": "Activating the stone emits a distracting sound effect, causing each creature within 10 feet to make a Wisdom saving throw (DC 12) or become distracted for 1 minute. The distraction ends if the creature takes any action."
+      }
+    ],
+    "levelRequirementReason": "The Resonant Shale is accessible to all adventurers, as its simple activation makes it a useful tool for beginners and seasoned explorers alike.",
+    "vendorReason": "Layer Market prides itself on offering unique curiosities that can assist in various adventuring endeavors, making the Resonant Shale an ideal addition to their inventory.",
+    "shippingDetail": "Ships via Courier Falcon within 3 days of purchase. A delivery confirmation is provided with each order.",
+    "usage": {
+      "activation": "A bonus action",
+      "duration": "Instantaneous (Echoes), 1 minute (Distraction)",
+      "endsWhen": "The distraction ends if the creature takes any action, or when Resonant Shale runs out of charges.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Resonant Shale is priced at 1000 XP for its unique combination of revealing hidden secrets and creating a useful distraction, making it an excellent value for any adventurer.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T15:12:21.821404+00:00",
+    "aiReviewedAt": "2026-07-25T15:12:21.821404+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_order_of_the_shepherd": {
     "id": "grand_country_order_of_the_shepherd",
@@ -2576,21 +2693,44 @@ export const ITEMS_070 = {
   "doughnut_hole_void_fragment_artifact": {
     "id": "doughnut_hole_void_fragment_artifact",
     "name": "Void Fragment Artifact",
-    "description": "A pulsing shard of solidified void energy – it feels cold to the touch. This artifact whispers fragmented memories from before time, offering glimpses into impossible geometries and unsettling truths. Handle with care; prolonged exposure may induce existential dread or a sudden craving for jelly donuts.",
+    "description": "The Void Fragment Artifact is a cold, pulsating shard of solidified void energy that hums with forgotten knowledge. Its surface glows faintly with an eerie blue light, whispering fragments of impossible geometries and unsettling truths to those who hold it. The fragment's touch can induce existential dread in the unwary or evoke an irresistible craving for jelly donuts, a strange quirk that has puzzled even the most seasoned scholars.",
     "category": "curiosities",
-    "price": 6200,
+    "price": 1000,
     "icon": "🌌",
     "stock": 5,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "Grants +3 to Intelligence",
-      "Chance to inflict ‘Terror’ on a single target (20%)",
-      "Increases magic resistance by 10%"
+      "Grants +3 Intelligence",
+      "Chance to Inflict ‘Terror’"
     ],
     "vendor": "void_vendor",
     "shippedBy": "Phantom Delivery Service",
-    "levelRequirement": 8
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Enhanced Intellect",
+        "rules": "When this artifact is held, the wielder gains a +3 bonus to Intelligence checks and saving throws. This effect lasts until the end of your next long rest."
+      },
+      {
+        "title": "Terror Infliction",
+        "rules": "Once per short or long rest, the wielder can use an action to attempt to terrify a creature within 10 feet. The target must succeed on a DC 15 Wisdom saving throw or become frightened for up to one minute. The effect ends early if the target takes any damage."
+      }
+    ],
+    "levelRequirementReason": "This artifact is designed to be accessible, even to the smallest adventurers who have shown promise.",
+    "vendorReason": "The Void Vendor specializes in rare and otherworldly artifacts, making it a natural fit for this fragment of void energy.",
+    "shippingDetail": "Carefully packed with arcane wards to preserve its integrity during transit, delivery is swift but requires a special courier.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect ends if the target takes any damage or at the end of your next long rest.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Void Fragment Artifact is priced moderately to reflect its rare and powerful nature, accessible to adventurers who are not yet of high level.",
+    "priceOriginal": 6200,
+    "priceReviewedAt": "2026-07-25T14:28:57.586775+00:00",
+    "aiReviewedAt": "2026-07-25T14:28:57.586775+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_item_whispering_stone": {
     "id": "middle_earth_item_whispering_stone",
@@ -3225,21 +3365,44 @@ export const ITEMS_070 = {
   "middle_earth_shire_messenger_scroll": {
     "id": "middle_earth_shire_messenger_scroll",
     "name": "A Curious Delivery from Bag End",
-    "description": "This exquisitely crafted scroll, delivered by a surprisingly grumpy hobbit courier, contains a single riddle and a small packet of honey. It's said that solving the riddle will lead you to a forgotten cache of Shire goods… or possibly just more riddles.",
+    "description": "This exquisitely crafted scroll, delivered by the grumpy yet surprisingly precise courier Pippin of Bag End, contains a single riddle written in ancient Elvish script and a small packet of golden honey from the Shire. The honey is said to be imbued with the essence of the land itself. Solving the riddle grants you access to a hidden cache of long-lost goods, though some say it might lead to more puzzles instead. Each delivery feels like a challenge, as Pippin insists on testing your wits before unsealing the scroll.",
     "category": "curiosities",
-    "price": 1800,
+    "price": 1000,
     "icon": "✉️",
     "stock": 15,
     "rarity": "uncommon",
     "stockType": "special_order",
     "effects": [
-      "chance_to_receive_quest",
-      "small_healing_effect",
-      "reveals_nearby_secrets"
+      "riddle_of_the_shire",
+      "honey_of_the_land"
     ],
     "vendor": "shire_shop",
-    "shippedBy": "grumpy_hobbit",
-    "levelRequirement": 5
+    "shippedBy": "Pippin of Bag End",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Riddle of the Shire",
+        "rules": "Activates when you solve the riddle. You must spend a minute deciphering the script and answering the question correctly. If successful, you gain access to a hidden cache containing goods worth 500 XP. Failure leads to more riddles at the vendor's discretion."
+      },
+      {
+        "title": "Honey of the Land",
+        "rules": "When consumed, it heals 1d6 + your Wisdom modifier hit points and grants you advantage on one Intelligence or Wisdom saving throw related to nature or geography within an hour. You can only use this effect once per day."
+      }
+    ],
+    "levelRequirementReason": "This scroll is accessible to all adventurers, as it tests their wits rather than their strength.",
+    "vendorReason": "Only the Shire Shop keeps such unique and valuable deliveries from the Hobbits' most trusted couriers.",
+    "shippingDetail": "The scroll is delivered with a small pouch containing the honey, ensuring it arrives fresh and intact.",
+    "usage": {
+      "activation": "Activates when you solve the riddle or consume the honey.",
+      "duration": "Instantaneous for solving the riddle; one hour for the effects of the honey.",
+      "endsWhen": "The scroll's effects expire upon solving the riddle or consuming the honey.",
+      "charges": "Unlimited, but only one effect can be used per day."
+    },
+    "priceReason": "The scroll combines unique lore and a physical item of value, making it worth 1000 XP.",
+    "priceOriginal": 1800,
+    "priceReviewedAt": "2026-07-25T14:29:33.848752+00:00",
+    "aiReviewedAt": "2026-07-25T14:29:33.848752+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_gravitic_gloop": {
     "id": "the_edge_gravitic_gloop",

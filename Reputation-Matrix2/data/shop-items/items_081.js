@@ -593,22 +593,44 @@ export const ITEMS_081 = {
   "teyvat_item_wicked_guardian_billet_of_tempest": {
     "id": "teyvat_item_wicked_guardian_billet_of_tempest",
     "name": "The Wicked Guardian’s Billet of Tempest",
-    "description": "Forged during a furious storm near Mondstadt, this billet crackles with wicked anemo energy. Upon impact, it creates a localized whirlwind that pushes enemies back and can briefly disable their elemental abilities. It is rumored to be favored by the Skyborn Vigilants.",
+    "description": "The Wicked Guardian’s Billet of Tempest was forged amidst a tempest near Mondstadt, its iron core pulsing with anemo energy. When struck, it unleashes a localized whirlwind that pushes back foes and briefly silences their elemental abilities, leaving them disoriented in the storm's wake. Crafted by Skyborn Vigilants for those who dare to face the elements head-on, this billet is both weapon and talisman of the tempest.",
     "category": "equipment",
-    "price": 950,
+    "price": 1000,
     "icon": "🌪️",
     "stock": 12,
     "rarity": "uncommon",
     "stockType": "night_only",
     "effects": [
-      "increases anemo defense by 15%",
-      "creates a small whirlwind on hit (pushes back enemies)",
-      "chance to silence enemy abilities for 2 seconds",
-      "slightly increases critical strike chance"
+      "Whirlwind Pushback",
+      "Silence Elemental Abilities"
     ],
     "vendor": "mondstadt_market",
-    "shippedBy": "windrider express",
-    "levelRequirement": 18
+    "shippedBy": "Windrider Express",
+    "levelRequirement": 18,
+    "effectDetails": [
+      {
+        "title": "Whirlwind Pushback",
+        "rules": "Upon impact against an enemy, a localized whirlwind erupts, pushing back all creatures within a 10-foot radius. This effect has a range of 20 feet and lasts for 1 round. The DC to resist this effect is 15."
+      },
+      {
+        "title": "Silence Elemental Abilities",
+        "rules": "For 2 seconds after impact, any enemy struck by the billet loses their ability to use elemental abilities as a reaction or bonus action. This effect has no save and can only be used once per short rest."
+      }
+    ],
+    "levelRequirementReason": "Requires high proficiency with anemo-based weapons to wield its full power.",
+    "vendorReason": "The Skyborn Vigilants favor this billet and sell it exclusively at the market in Mondstadt.",
+    "shippingDetail": "Ships directly from Mondstadt, arriving within a week of purchase.",
+    "usage": {
+      "activation": "On hit with an melee weapon",
+      "duration": "Instantaneous; lasts for 1 round after impact",
+      "endsWhen": "Once per short rest due to its limited use",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The billet's unique crafting process and exclusive vendor contribute to its high price.",
+    "priceOriginal": 950,
+    "priceReviewedAt": "2026-07-25T15:17:30.525084+00:00",
+    "aiReviewedAt": "2026-07-25T15:17:30.525084+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_hydro_billet_of_elemental_resonance_73": {
     "id": "teyvat_item_hydro_billet_of_elemental_resonance_73",
@@ -739,22 +761,44 @@ export const ITEMS_081 = {
   "middle_earth_item_the_cursed_stone_of_rivendell": {
     "id": "middle_earth_item_the_cursed_stone_of_rivendell",
     "name": "The Cursed Stone of Rivendell",
-    "description": "This smooth, grey stone radiates a subtle aura of melancholy and regret. Holding it for prolonged periods induces vivid nightmares filled with lost memories and forgotten sorrows, but also grants glimpses into the true intentions of others - though at a terrible cost to one's own sanity.",
+    "description": "The Cursed Stone of Rivendell radiates a cool, melancholic glow that seems to seep into your very bones when held for too long. Its surface is etched with ancient runes that whisper secrets of forgotten times and lost souls. While it grants fleeting insights into others' true intentions, the stone's touch also plunges the bearer into vivid nightmares, where they relive their own deepest regrets and sorrows, causing a slow erosion of one's sanity over time.",
     "category": "curiosities",
-    "price": 900,
+    "price": 1000,
     "icon": "💀",
     "stock": 33,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "chance to reveal hidden truths",
-      "causes nightmares (temporary debuff)",
-      "increased perception of deception",
-      "chance to inflict 'confusion' status"
+      "reveals hidden truths",
+      "causes nightmares"
     ],
     "vendor": "shire_shop",
     "shippedBy": "pony_express",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Reveals Hidden Truths",
+        "rules": "When the user focuses on an individual or situation for at least one minute, they gain advantage on Perception checks to discern lies and deceptions. This effect lasts until the end of their next short rest."
+      },
+      {
+        "title": "Causes Nightmares",
+        "rules": "Holding the stone for more than 10 minutes each day results in a nightmare that reduces the user's Wisdom score by 2 (to a minimum of 2) until they complete a long rest. The stone must be removed before this penalty can end."
+      }
+    ],
+    "levelRequirementReason": "Only those with the fortitude to face their own regrets and the wisdom to discern truth from deceit should wield such a powerful yet dangerous artifact.",
+    "vendorReason": "The Shire Shop, known for its eclectic array of magical curiosities, is trusted by many to carry rare and potent items like The Cursed Stone of Rivendell.",
+    "shippingDetail": "Shipped via the Pony Express with a special delivery that ensures the stone arrives intact but under strict secrecy.",
+    "usage": {
+      "activation": "Passive effect when held for more than 10 minutes; requires concentration to activate the truth-revealing effect.",
+      "duration": "Truth-revealing effect lasts until end of next short rest. Nightmares last until a long rest is completed.",
+      "endsWhen": "Nightmare ends with a long rest, truth-revealing effect ends at the end of the next short rest.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "The Cursed Stone's rarity and its dual effects—while powerful—make it a balanced addition to any character's collection, ensuring value in both utility and danger.",
+    "priceOriginal": 900,
+    "priceReviewedAt": "2026-07-25T14:44:54.548541+00:00",
+    "aiReviewedAt": "2026-07-25T14:44:54.548541+00:00",
+    "aiReviewVersion": 1
   },
   "connectopia_item_the_resonant_fountain_of_stonyfalls": {
     "id": "connectopia_item_the_resonant_fountain_of_stonyfalls",
@@ -1095,21 +1139,44 @@ export const ITEMS_081 = {
   "middle_earth_item_the_cursed_shard_of_morgoth": {
     "id": "middle_earth_item_the_cursed_shard_of_morgoth",
     "name": "The Cursed Shard of Morgoth",
-    "description": "A jagged piece of black crystal, radiating intense malevolent energy. Holding it for too long induces paranoia and whispers insidious suggestions. It can briefly disrupt magical effects but at a great personal cost.",
+    "description": "The Cursed Shard of Morgoth is a jagged, pitch-black crystal that pulsates with malevolent energy, emitting an aura so sinister it induces paranoia and whispers of insidious suggestions in any who hold it too long. Despite its corruptive influence, this shard can briefly disrupt magical effects, albeit at the cost of the bearer's sanity and well-being. A potent relic of ancient evil, it is said to have been forged in the fires of Angband itself, and only those of the highest level and greatest resolve dare to wield it.",
     "category": "forbidden",
-    "price": 8000,
+    "price": 1000,
     "icon": "🔥",
     "stock": 5,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "disrupt magical effects (chance)",
-      "paranoia (temporary)",
-      "minor corruption (cumulative)"
+      "Disrupts Magical Effects",
+      "Induces Paranoia"
     ],
     "vendor": "dwarven_forge",
     "shippedBy": "dire_wolf",
-    "levelRequirement": 45
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Disrupts Magical Effects",
+        "rules": "As a bonus action, the wielder can attempt to disrupt one targeted spell within 30 feet. The target must make a DC 18 Wisdom saving throw or be disrupted for up to 1 minute. On a successful save, the effect is negated but not expended."
+      },
+      {
+        "title": "Induces Paranoia",
+        "rules": "For every hour spent holding the shard without using it, the wielder must make a DC 15 Wisdom saving throw or suffer a -2 penalty to all Charisma checks and saving throws for the next 24 hours. On a successful save, the penalty is halved."
+      }
+    ],
+    "levelRequirementReason": "Only those of significant experience can hope to wield such an ancient and dangerous relic without succumbing entirely to its malevolent influence.",
+    "vendorReason": "The Dwarven Forge, with their deep knowledge of forges and dark magic, is the only vendor capable of safely handling and selling this cursed shard.",
+    "shippingDetail": "Ships via dire wolf courier, ensuring secure delivery through treacherous terrain.",
+    "usage": {
+      "activation": "Bonus action to disrupt a spell or use it for its effect.",
+      "duration": "Instantaneous when used; lasts until the end of the target's next turn if not saved against.",
+      "endsWhen": "Disrupted spell ends, or the shard is no longer being held.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "The price reflects its rarity and the risk involved in wielding such a dangerous relic, even for the most seasoned adventurers.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T15:31:15.806103+00:00",
+    "aiReviewedAt": "2026-07-25T15:31:15.806103+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_fringe_fragments_of_liminal_keeper": {
     "id": "almost_edge_item_fringe_fragments_of_liminal_keeper",
@@ -1618,21 +1685,44 @@ export const ITEMS_081 = {
   "mushroom_kingdom_item_crimson_chronos_stalker": {
     "id": "mushroom_kingdom_item_crimson_chronos_stalker",
     "name": "The Crimson Chronos Stalker",
-    "description": "This pulsating, crimson mushroom absorbs temporal distortions, briefly slowing your movement and enemies within a small radius. Its spores shimmer with fractured timelines – handle with caution!",
+    "description": "The Crimson Chronos Stalker, a pulsating crimson mushroom that thrives in the fractured timelines of Mushroom Kingdom, emits a temporal aura that disrupts both movement and combat. Its spores shimmer with fragmented realities, casting a temporal veil over all who enter its vicinity. Upon activation, there's a 10% chance it will briefly rewind your position, allowing you to dodge attacks, but beware—the effect can leave you disoriented for moments after use.",
     "category": "equipment",
-    "price": 250,
+    "price": 1000,
     "icon": "⏳",
     "stock": 47,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "Slows movement speed by 20% for 3 seconds",
-      "Reduces enemy attack speed by 15% within a 5-meter radius",
-      "Chance to briefly rewind your position upon activation (10%)"
+      "Temporal Disruption",
+      "Dodge Position Rewind"
     ],
-    "vendor": "toad_town_market",
+    "vendor": "Toad Town Market",
     "shippedBy": "Royal Post Pony Express",
-    "levelRequirement": 12
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Temporal Disruption",
+        "rules": "Activates as a bonus action. Reduces the movement speed of the user and all enemies within a 5-meter radius by 20% for 3 seconds. Enemies also have their attack speed reduced by 15%. This effect has no save DC, but it can be interrupted if the user takes any other action during its duration."
+      },
+      {
+        "title": "Dodge Position Rewind",
+        "rules": "There is a 10% chance that upon activation, your position will rewind for up to 5 feet. This effect allows you to dodge incoming attacks but can leave you momentarily disoriented (no action penalty). The effect ends immediately if the user takes any other action."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum level of 8 due to its complex temporal effects and strategic utility.",
+    "vendorReason": "The Toad Town Market specializes in rare botanicals and mystical items from the Mushroom Kingdom, making it an ideal vendor for the Crimson Chronos Stalker.",
+    "shippingDetail": "Ships via Royal Post Pony Express, ensuring timely delivery of this delicate and powerful item.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "3 seconds or until interrupted",
+      "endsWhen": "Effect ends when the user takes another action",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The Crimson Chronos Stalker is priced at 1000 XP due to its rarity, complex temporal effects, and strategic value in combat.",
+    "priceOriginal": 250,
+    "priceReviewedAt": "2026-07-25T14:44:51.671324+00:00",
+    "aiReviewedAt": "2026-07-25T14:44:51.671324+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_ebony_void_fungus": {
     "id": "mushroom_kingdom_item_ebony_void_fungus",
@@ -2057,21 +2147,44 @@ export const ITEMS_081 = {
   "pokemon_item_waning_chronos_resonance_curiosity": {
     "id": "pokemon_item_waning_chronos_resonance_curiosity",
     "name": "Waning Chronos Resonance Fragment",
-    "description": "A fragmented shard of solidified time, pulsating with a faint, almost sorrowful energy. This curiosity allows the user to briefly slow down their perception of battle, granting increased reaction speed but at the cost of slightly diminished attack power.",
+    "description": "The Waning Chronos Resonance Fragment hums with a melancholic resonance, a fragment of time's forgotten pulse. This curious relic allows its wielder to perceive their surroundings in slow motion, granting an uncanny ability to react to threats faster than the eye can see. However, this heightened awareness comes at a cost—striking with lethal precision becomes slightly more challenging, as if the very flow of battle tempers one's edge.",
     "category": "curiosities",
-    "price": 600,
+    "price": 1000,
     "icon": "⏳",
     "stock": 78,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "Slows down perception (15% reaction time boost)",
-      "Reduces Attack Power by 10%",
-      "Chance to inflict ‘Temporal Distortion’ (3%)"
+      "Temporal Perception",
+      "Reduced Attack Power"
     ],
     "vendor": "safari_shop",
-    "shippedBy": "Standard Parcel",
-    "levelRequirement": 25
+    "shippedBy": "Swift Courier",
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Temporal Perception",
+        "rules": "Activates as a reaction. When you take damage or are subjected to an effect that targets you, you can use your reaction to gain advantage on the next attack roll before the start of your next turn. This effect lasts for 1 minute and can be used once per long rest."
+      },
+      {
+        "title": "Reduced Attack Power",
+        "rules": "Reduces your melee and ranged weapon attack rolls by 2 until your next long rest. This reduction does not affect ability checks or saving throws."
+      }
+    ],
+    "levelRequirementReason": "This fragment requires a certain level of experience to harness its temporal effects without risking overextension.",
+    "vendorReason": "The Safari Shop specializes in rare and unusual artifacts, including time-related curiosities like the Waning Chronos Resonance Fragment.",
+    "shippingDetail": "Ships within 3 days via Swift Courier for expedited delivery to your doorstep.",
+    "usage": {
+      "activation": "Reaction",
+      "duration": "1 minute, recharges after a long rest",
+      "endsWhen": "The effect ends when you take damage or are subjected to an effect that targets you while the duration is active. It also ends if you fall unconscious or die.",
+      "charges": "Once per long rest"
+    },
+    "priceReason": "This relic strikes a balance between its unique temporal abilities and the cost of procuring such a fragment from the depths of time.",
+    "priceOriginal": 600,
+    "priceReviewedAt": "2026-07-25T14:45:21.717396+00:00",
+    "aiReviewedAt": "2026-07-25T14:45:21.717396+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_item_chronal_echoes_eater": {
     "id": "the_edge_item_chronal_echoes_eater",
@@ -2580,22 +2693,44 @@ export const ITEMS_081 = {
   "grand_country_item_verdant_gifted_rope_of_inverted_fall": {
     "id": "grand_country_item_verdant_gifted_rope_of_inverted_fall",
     "name": "Verdant Gifted's Ropes",
-    "description": "These ropes, spun from the fibers of gravity-resistant moss and imbued with a strange luminescence, allow for temporary traversal across inverted surfaces. The knots shift subtly, offering an unsettling yet efficient means of movement through the side’s bewildering architecture.",
+    "description": "Verdant Gifted's Ropes are spun from the fibers of gravity-resistant moss, glowing with an ethereal luminescence that shifts in eerie patterns as you move. These ropes offer a surreal means to traverse inverted surfaces with ease and speed, allowing for quick passage even when the world seems upside down. The knots twist and untwist on their own, adding both an unsettling and efficient element to your journey through this bewildering architecture.",
     "category": "equipment",
-    "price": 1800,
+    "price": 1000,
     "icon": "🌿",
     "stock": 32,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "temporary_gravity_shift",
-      "increased_movement_speed",
-      "resistance_to_falling",
-      "rope_length_increase"
+      "gravity_inversion",
+      "increased_movement_speed"
     ],
     "vendor": "side_seller",
     "shippedBy": "rotating_platform",
-    "levelRequirement": 25
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Gravity Inversion",
+        "rules": "When activated by a bonus action, the ropes invert gravity for you and up to three allies within reach. This effect lasts until all creatures move at least 10 feet or take an action. While inverted, any fall damage is reduced by half (rounded down). A DC 15 Dexterity saving throw can negate this effect."
+      },
+      {
+        "title": "Increased Movement Speed",
+        "rules": "While the gravity inversion effect is active, your movement speed increases by 30 feet for you and up to three allies. This increase remains until all creatures move at least 10 feet or take an action. The effect ends if any creature other than yourself takes a Dexterity saving throw."
+      }
+    ],
+    "levelRequirementReason": "Verdant Gifted's Ropes require a minimum level to ensure users can handle the unique gravity manipulation and speed boosts.",
+    "vendorReason": "Side Seller, known for their eccentric yet practical inventory, carries these ropes as a testament to their commitment to both novelty and utility.",
+    "shippingDetail": "The rotating platform ensures the ropes arrive in perfect condition, despite their delicate nature.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Until all creatures move at least 10 feet or take an action",
+      "endsWhen": "A creature other than yourself takes a Dexterity saving throw",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced price reflects the unique utility and the rarity of the materials used in its creation.",
+    "priceOriginal": 1800,
+    "priceReviewedAt": "2026-07-25T14:45:39.456510+00:00",
+    "aiReviewedAt": "2026-07-25T14:45:39.456510+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_mk_73_elevated_rope_of_the_spiral_drift": {
     "id": "grand_country_item_mk_73_elevated_rope_of_the_spiral_drift",
@@ -3146,22 +3281,44 @@ export const ITEMS_081 = {
   "doughnut_hole_item_center_seller_chronal_flow_service": {
     "id": "doughnut_hole_item_center_seller_chronal_flow_service",
     "name": "Chronal Flow Alignment Service - Level 3",
-    "description": "This meticulously crafted device emits a focused chronal field, delicately adjusting the flow of time around the user's immediate vicinity. Perfect for correcting minor temporal mishaps or subtly altering events.",
+    "description": "The Chronal Flow Alignment Service is a delicate, chronometer-like device that emits a focused field of temporal energy, meticulously crafted to subtly align and correct minor temporal anomalies in its vicinity. This artifact requires 15 minutes of precise concentration for activation, during which it hums with a soft, shimmering glow, ensuring the surrounding moments are neither too fast nor too slow. The device is known to provide a brief but potent shielding effect against temporal distortions, making it invaluable for those navigating unpredictable chronal landscapes.",
     "category": "services",
-    "price": 55000,
+    "price": 1000,
     "icon": "🌀",
     "stock": 1,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "Allows the user to rewind time by up to 3 seconds (once per day)",
-      "Provides a minor shielding effect against temporal distortions",
-      "Increases chance of successful negotiation by 15%",
-      "Requires 15 minutes of focused concentration"
+      "Temporal Shield",
+      "Minor Temporal Alignment"
     ],
     "vendor": "center_seller",
     "shippedBy": "Temporal Dispatcher",
-    "levelRequirement": 48
+    "levelRequirement": 4,
+    "effectDetails": [
+      {
+        "title": "Temporal Shield",
+        "rules": "When activated, the device creates a 5-foot radius barrier that provides resistance to damage from temporal effects. This shield lasts for 1 minute and has no save DC required."
+      },
+      {
+        "title": "Minor Temporal Alignment",
+        "rules": "For up to 8 hours after activation, the user gains advantage on checks related to timekeeping, navigation, or any action involving precise timing. The device can be used once per day."
+      }
+    ],
+    "levelRequirementReason": "The intricate calibration and concentration required for this service necessitate a minimum character level of 4.",
+    "vendorReason": "As the primary facilitator of temporal services, Center Seller is well-equipped to offer this delicate chronal artifact.",
+    "shippingDetail": "The Chronal Flow Alignment Service requires specialized courier handling and may take an additional hour for delivery.",
+    "usage": {
+      "activation": "A bonus action to activate the device, requiring 15 minutes of focused concentration.",
+      "duration": "The temporal shield lasts 1 minute, and minor temporal alignment effects last up to 8 hours.",
+      "endsWhen": "The effect ends when its duration expires or the user discontinues the focus.",
+      "charges": "One daily use."
+    },
+    "priceReason": "This item offers a balance of utility and rarity, making it a fair price point for its effects in the market.",
+    "priceOriginal": 55000,
+    "priceReviewedAt": "2026-07-25T14:45:46.596026+00:00",
+    "aiReviewedAt": "2026-07-25T14:45:46.596026+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_the_gravitic_spindle_maker": {
     "id": "grand_country_item_the_gravitic_spindle_maker",
@@ -3418,21 +3575,44 @@ export const ITEMS_081 = {
   "teyvat_item_dendro_gems_of_the_seventh_eye": {
     "id": "teyvat_item_dendro_gems_of_the_seventh_eye",
     "name": "Dendro Gems of the Seventh Eye",
-    "description": "These luminescent gems pulse with raw dendro energy, channeling the echoes of Archon decrees. Holding one grants a momentary clarity of purpose and enhances perception of elemental flows within the surrounding environment, allowing you to briefly see through illusionary constructs.",
+    "description": "The Dendro Gems of the Seventh Eye are a pair of glowing, heart-shaped gems that pulse with the raw dendro energy of the Archon's decrees. When held, these gems grant their bearer a momentary clarity of purpose and enhance perception of elemental flows in the environment, allowing them to discern hidden paths through illusionary constructs. The gem's power is such that it can momentarily disorient foes, sending their movements into a disarrayed state for a brief instant.",
     "category": "consumables",
-    "price": 750,
+    "price": 1000,
     "icon": "✨",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "increases dendro damage by 10% for 30 seconds",
-      "grants minor vision clarity (reveals hidden paths)",
-      "chance to inflict 'Echoing Distortion' on enemies (disorients for 2 seconds)"
+      "Elemental Insight",
+      "Disruptive Echo"
     ],
     "vendor": "mondstadt_market",
     "shippedBy": "Sky Courier",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Elemental Insight",
+        "rules": "When an ally holds one of these gems, they gain advantage on Perception checks to discern hidden paths and see through illusions within a 30-foot radius for 1 minute. This effect ends if the gem is removed or the duration expires."
+      },
+      {
+        "title": "Disruptive Echo",
+        "rules": "While holding one of these gems, there is a 25% chance to cause an enemy within 30 feet to become disoriented for 1 round as if struck by an unseen force. The target must make a DC 14 Dexterity saving throw or be disoriented (reduced movement speed by half) until the start of their next turn."
+      }
+    ],
+    "levelRequirementReason": "The gem's power requires a certain level of mastery to wield effectively, ensuring that only experienced adventurers can harness its full potential.",
+    "vendorReason": "As the heart of Dendro influence, Mondstadt is home to many who seek to harness elemental magic, including these unique gems.",
+    "shippingDetail": "Ships via the Sky Couriers' fastest route, ensuring timely delivery of these delicate artifacts.",
+    "usage": {
+      "activation": "Passive effect when held by an ally.",
+      "duration": "1 minute per gem used.",
+      "endsWhen": "The duration expires or the gem is removed from their grasp.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The rarity and power of these gems, combined with the limited daily stock, justify a higher price in experience points.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-25T14:45:58.944279+00:00",
+    "aiReviewedAt": "2026-07-25T14:45:58.944279+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_jeweled_bane_s_gems": {
     "id": "teyvat_item_jeweled_bane_s_gems",

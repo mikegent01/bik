@@ -1508,19 +1508,42 @@ export const ITEMS_037 = {
   "rogueport_soul_shard": {
     "id": "rogueport_soul_shard",
     "name": "Soul Shard",
-    "description": "A pulsating crystal that channels stolen memories and emotions into a temporary burst of psychic power. Use with caution—may cause emotional overload.",
-    "price": 3000,
+    "description": "The Soul Shard pulses with ethereal light, a crystalline heart forged from stolen memories and raw emotion. Crafted in the shadowy forges of Rogueport by rakasha artisans, it channels the essence of your target's psyche into a fleeting surge of power. Use it to inflict a mental drain that leaves you vulnerable, or to absorb their mind, but be wary—each use risks overwhelming your own psyche with the weight of another’s memories.",
+    "price": 1000,
     "icon": "🌀",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Grants 100% chance to steal a target’s memory for 10 seconds",
-      "Inflicts 50% mental drain on target",
-      "Can be used once per session"
+      "Mind Absorption",
+      "Mental Drain"
     ],
     "vendor": "rogueport",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 6
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Mind Absorption",
+        "rules": "When used as an action, target one creature within 30 feet. You gain a +2 bonus to all Charisma checks and saving throws for the next minute. The target must succeed on a DC 14 Wisdom saving throw or be affected by the mental drain."
+      },
+      {
+        "title": "Mental Drain",
+        "rules": "The target of Mind Absorption suffers a -2 penalty to Intelligence, Wisdom, and Charisma checks and saving throws for 1 minute. The effect ends early if the target is subjected to another use of this item within that time."
+      }
+    ],
+    "levelRequirementReason": "This item requires a minimum level of 3 to wield effectively.",
+    "vendorReason": "Only Roguport, known for its dark and clever wares, can craft such a delicate yet dangerous artifact.",
+    "shippingDetail": "Ships with the rakasha courier who delivers it, ensuring safe passage through shadowy realms.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect",
+      "endsWhen": "The target successfully saves or another use is made within a minute",
+      "charges": "1/Day"
+    },
+    "priceReason": "Crafted with rakasha magic and rare materials, this item is both powerful and limited in availability.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-25T14:20:27.437996+00:00",
+    "aiReviewedAt": "2026-07-25T14:20:27.437996+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_soul_siphon_chest": {
     "id": "rogueport_soul_siphon_chest",

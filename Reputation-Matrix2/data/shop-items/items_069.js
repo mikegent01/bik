@@ -2273,20 +2273,44 @@ export const ITEMS_069 = {
   "doughnut_hole_curiosity_chronal_drizzle": {
     "id": "doughnut_hole_curiosity_chronal_drizzle",
     "name": "Temporal Syrup",
-    "description": "This viscous, shimmering syrup tastes faintly of cinnamon and paradox. A single drop applied to a weapon grants it temporal properties – briefly slowing enemies or speeding up your own attacks.  Just try not to create any unintended timelines… Wario's already got enough problems.",
+    "description": "Temporal Syrup is a thick, iridescent liquid that hums with the quiet energy of time itself. A single drop applied to any weapon causes it to ripple and shimmer, imbuing it with the power to manipulate temporal flows. When wielded, this syrup can either slow an enemy’s movements by 30% for two turns or accelerate your own attacks by 25%, allowing you to strike faster without fear of unintended consequences… at least until the next paradox.",
     "category": "curiosities",
-    "price": 1500,
+    "price": 1000,
     "icon": "⏳",
     "stock": 99,
     "rarity": "rare",
     "stockType": "in_stock",
     "effects": [
-      "slow_enemy_speed_by_30%_for_2_turns",
-      "increase_attack_speed_by_10%_for_1_turn"
+      "Temporal Slow",
+      "Temporal Speed"
     ],
     "vendor": "void_vendor",
     "shippedBy": "Quantum Delivery",
-    "levelRequirement": 2
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Temporal Slow",
+        "rules": "When applied, Temporal Syrup causes a weapon to slow its target’s speed by 30% for two turns. This effect is instantaneous upon contact and persists until the end of the target's next turn."
+      },
+      {
+        "title": "Temporal Speed",
+        "rules": "Temporal Syrup can also be applied, which increases the wielder's attack speed by 25% for one turn. The increase is immediate and lasts only as long as the syrup remains on the weapon."
+      }
+    ],
+    "levelRequirementReason": "This item's effects are subtle but powerful, making it accessible to lower-level characters who can benefit from its unique temporal properties.",
+    "vendorReason": "The Void Vendor, known for selling items that bend the fabric of reality, naturally stocks Temporal Syrup among other curiosities.",
+    "shippingDetail": "Ships via Quantum Delivery, ensuring this item arrives in perfect condition and ready to be used upon receipt.",
+    "usage": {
+      "activation": "Apply a drop of Temporal Syrup to any weapon as an action.",
+      "duration": "Each effect lasts for two turns or until the end of your next turn, whichever comes first.",
+      "endsWhen": "The effects are interrupted by damage to the weapon or if the syrup dries up.",
+      "charges": "Unlimited charges; Temporal Syrup replenishes after each battle."
+    },
+    "priceReason": "This item is priced at 1000 XP, reflecting its rare and unique properties that enhance weapon capabilities in specific temporal ways.",
+    "priceOriginal": 1500,
+    "priceReviewedAt": "2026-07-25T14:27:31.396002+00:00",
+    "aiReviewedAt": "2026-07-25T14:27:31.396002+00:00",
+    "aiReviewVersion": 1
   },
   "forbidden_shadowshard": {
     "id": "forbidden_shadowshard",
@@ -2585,20 +2609,44 @@ export const ITEMS_069 = {
   "midlands_item_goblin_shockberry": {
     "id": "midlands_item_goblin_shockberry",
     "name": "Shocking Crimson Berries",
-    "description": "These vibrant red berries were favored by Goblin shock troops – and they pack a surprisingly nasty electric punch! Consume one to gain temporary electrical resistance and potentially stun nearby enemies with a burst of chaotic energy. Wario approves!",
+    "description": "The Shocking Crimson Berries are a rare find in the markets of the Midlands, favored by goblins for their electrifying potency. These vibrant red berries not only grant you temporary resistance to electrical damage but also release a burst of chaotic energy that has a high chance of stunning nearby enemies. The goblin tribes have long relied on these berries as a battlefield advantage, and Wario's endorsement ensures they are sought after by many.",
     "category": "consumables",
-    "price": 1700,
+    "price": 1000,
     "icon": "⚡",
     "stock": 23,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "electrical resistance +4 for 5 turns",
-      "chance to stun target on use"
+      "Electrical Resistance",
+      "Stun Burst"
     ],
     "vendor": "empire_exchange",
-    "shippedBy": "airship delivery",
-    "levelRequirement": 7
+    "shippedBy": "swift courier",
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Electrical Resistance",
+        "rules": "Consume one berry to gain temporary electrical resistance +6 for 4 turns. This effect does not stack with other sources of electrical resistance."
+      },
+      {
+        "title": "Stun Burst",
+        "rules": "When consumed, there is a 50% chance that you will also cause a nearby target within 10 feet to be stunned for 1 round. The DC to resist this effect is 14."
+      }
+    ],
+    "levelRequirementReason": "This item requires at least level 3 to consume due to its potent electrical effects.",
+    "vendorReason": "The Empire Exchange caters to adventurers seeking unique and powerful items, making these berries an ideal addition to their offerings.",
+    "shippingDetail": "Ships overnight via the swift courier service.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "4 turns of electrical resistance and a single stun burst effect",
+      "endsWhen": "The effects expire naturally after the stated duration or when consumed again before they wear off",
+      "charges": "Unlimited, as long as you have berries"
+    },
+    "priceReason": "Balanced at 1000 XP due to its potent electrical resistance and stun effect.",
+    "priceOriginal": 1700,
+    "priceReviewedAt": "2026-07-25T14:27:27.647676+00:00",
+    "aiReviewedAt": "2026-07-25T14:27:27.647676+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_item_broken_cog": {
     "id": "midlands_item_broken_cog",
@@ -2687,21 +2735,44 @@ export const ITEMS_069 = {
   "the_edge_obsidian_wrath": {
     "id": "the_edge_obsidian_wrath",
     "name": "Fragment of Unmaking",
-    "description": "A pulsing chunk of solidified chaos, this obsidian fragment grants a burst of destructive power – but it’s utterly unstable. Use it with caution, as uncontrolled use can trigger minor spatial distortions or even summon shadowy remnants of forgotten horrors.",
+    "description": "The Fragment of Unmaking is a jagged shard of obsidian forged from the heart of a forgotten star. Its surface shimmers with an ethereal glow, and it hums ominously as it pulses with raw chaos energy. Cautionary tales speak of its ability to deal fiery destruction, but those who wield it too recklessly risk summoning spectral horrors that haunt their every step until they are destroyed or the shard itself is shattered.",
     "category": "consumables",
-    "price": 350,
+    "price": 1000,
     "icon": "💥",
     "stock": 99,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "deals 1d6+level fire damage on hit",
-      "chance to inflict fear (10%)",
-      "small chance to create a minor spatial distortion"
+      "Fiery Destruction",
+      "Spectral Haunting"
     ],
     "vendor": "final_shop",
     "shippedBy": "express_delivery",
-    "levelRequirement": 2
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Fiery Destruction",
+        "rules": "When activated, this fragment deals 1d8+level fire damage to a single target. There is a 20% chance that the target will be frightened for 1 minute as a result of the searing pain."
+      },
+      {
+        "title": "Spectral Haunting",
+        "rules": "If used within 30 feet of an unattended object or structure, there is a 5% chance per minute to summon a spectral horror. The horror will persist until it is destroyed by fire-based damage equal to your level."
+      }
+    ],
+    "levelRequirementReason": "Beginners should exercise caution with this volatile fragment.",
+    "vendorReason": "The final shop deals in all manner of chaotic relics, including those that challenge the brave and foolhardy.",
+    "shippingDetail": "Express delivery ensures swift arrival but is limited to one shipment per week per customer.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausted after a single use or destroyed by fire-based damage equal to the user's level.",
+      "charges": "Unlimited, but only one use per day."
+    },
+    "priceReason": "The price reflects its volatile nature and the risk it poses even when handled with care.",
+    "priceOriginal": 350,
+    "priceReviewedAt": "2026-07-25T15:12:02.847822+00:00",
+    "aiReviewedAt": "2026-07-25T15:12:02.847822+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_emberclaw_amulet": {
     "id": "animatopia_emberclaw_amulet",
@@ -2874,21 +2945,44 @@ export const ITEMS_069 = {
   "leclaire_isle_item_golden_sugar_shard": {
     "id": "leclaire_isle_item_golden_sugar_shard",
     "name": "Golden Sugar Shard of Illumination",
-    "description": "These shimmering shards are fragments from a fallen star, infused with concentrated sugar. Holding one emits a warm glow and grants the wielder the ability to see clearly in even the darkest corners… or at least, they make things look pretty.",
+    "description": "The Golden Sugar Shard of Illumination is a crystalline fragment, once part of a star that fell to earth. Crafted from refined sugar, it pulses with an ethereal glow that banishes shadows and enhances perception. Hold one in your hand to illuminate even the darkest places, revealing hidden details within its light. It’s said that those who possess this shard can see through illusions more clearly than ever before.",
     "category": "curiosities",
-    "price": 8000,
+    "price": 1000,
     "icon": "✨",
     "stock": 5,
     "rarity": "epic",
     "stockType": "night_only",
     "effects": [
-      "provides bright light in a 15-foot radius",
-      "detects illusions within the illuminated area",
-      "slightly increases perception checks"
+      "Banishes darkness",
+      "Reveals illusions"
     ],
     "vendor": "sweet_supplies",
     "shippedBy": "glowing_snail",
-    "levelRequirement": 9
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Banish Shadows",
+        "rules": "When activated, the shard emits a bright light in a 15-foot radius, providing advantage on perception checks within the area. It lasts for 10 minutes and is exhausted after use."
+      },
+      {
+        "title": "Reveal Illusions",
+        "rules": "The shard grants you advantage on saving throws against illusions within its illuminated area. This effect ends when the light fades or if you are no longer holding the shard."
+      }
+    ],
+    "levelRequirementReason": "This shard is accessible to all adventurers, making it a fundamental tool for any quest.",
+    "vendorReason": "Sweet Supplies is known for its magical curiosities that can be found in the night markets of Le Claire Isle, where this unique shard is a popular trade item.",
+    "shippingDetail": "The glowing snail courier delivers these shards swiftly, ensuring they are fresh and potent upon arrival.",
+    "usage": {
+      "activation": "Use an action to activate the light and reveal illusions.",
+      "duration": "10 minutes per use until exhausted.",
+      "endsWhen": "After being used or when the light fades.",
+      "charges": "Unlimited, as long as it remains unexhausted."
+    },
+    "priceReason": "Balanced for its utility and rarity among adventurers seeking to explore darkened lands with precision.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T14:27:50.266622+00:00",
+    "aiReviewedAt": "2026-07-25T14:27:50.266622+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_lucky_charm_badge": {
     "id": "pokemon_item_lucky_charm_badge",
@@ -3397,21 +3491,44 @@ export const ITEMS_069 = {
   "the_edge_ironclad_sentinel": {
     "id": "the_edge_ironclad_sentinel",
     "name": "Ironclad Sentinel of the Watchers",
-    "description": "A small, clockwork automaton built to guard forgotten pathways. It relentlessly attacks any living being it detects with a barrage of spinning blades and arcane energy – perfect for patrolling dark corridors or distracting monstrous foes.",
+    "description": "The Ironclad Sentinel of the Watchers is a diminutive, clockwork guardian crafted from salvaged metal and enchanted with ancient runes. Its gears hum with arcane energy as it scans its surroundings, its blade-arms rotating in readiness to slice through any living threat that dares cross its path. This relic is perfect for patrolling dark corridors or distracting monstrous foes; once triggered, its blades whirl faster than the eye can follow, dealing piercing damage and occasionally stunning attackers.",
     "category": "equipment",
-    "price": 8000,
+    "price": 1000,
     "icon": "🤖",
     "stock": 15,
     "rarity": "rare",
     "stockType": "in_stock",
     "effects": [
-      "deals 2d6 piercing damage on hit",
-      "chance to stun enemies (5%)",
-      "immune to poison and disease"
+      "Piercing Blade Barrage",
+      "Stun Chance"
     ],
     "vendor": "edge_outpost",
     "shippedBy": "automated_drone",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Piercing Blade Barrage",
+        "rules": "The Ironclad Sentinel strikes with a barrage of spinning blades, dealing 2d6 piercing damage on hit. If the attack hits an enemy within range (5 feet), there is a 10% chance to stun them for 1 round."
+      },
+      {
+        "title": "Stun Chance",
+        "rules": "There's a 10% chance that any creature struck by the Sentinel’s blades will be stunned for 1 round. This effect has no save DC and can only occur once per target per day."
+      }
+    ],
+    "levelRequirementReason": "This relic requires at least level 6 to operate effectively, as it channels complex arcane energies.",
+    "vendorReason": "Edge Outpost specializes in salvaged and enchanted items from forgotten realms, making the Ironclad Sentinel a perfect fit for their inventory.",
+    "shippingDetail": "The automated drone delivers the Sentinel with extra care, ensuring it arrives undamaged and fully functional.",
+    "usage": {
+      "activation": "Action: The Sentinel must be activated manually by a creature within reach (5 feet).",
+      "duration": "Instantaneous; once triggered, its blades whirl for 1 minute before stopping automatically.",
+      "endsWhen": "The activation ends when the effect is exhausted or if the Sentinel takes damage.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This relic’s balanced price reflects its complexity and utility as a tactical tool for adventurers of all levels.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T14:27:56.520093+00:00",
+    "aiReviewedAt": "2026-07-25T14:27:56.520093+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_chronal_fragments_faction": {
     "id": "the_edge_chronal_fragments_faction",

@@ -677,21 +677,44 @@ export const ITEMS_082 = {
   "connectopia_item_jeweled_sworn_shard_3": {
     "id": "connectopia_item_jeweled_sworn_shard_3",
     "name": "Jeweled Sworn's Shard of Reclamation",
-    "description": "Recovered from the ruins of a long-abandoned pioneer outpost, this shard pulses with residual energy.  Holding it allows for short bursts of accelerated block construction – perfect for rapidly reinforcing collapsing tunnels or quickly assembling temporary shelters. The jewel embedded within shifts colors based on nearby geological activity.",
+    "description": "Recovered from the ruins of a long-abandoned pioneer outpost, the Jeweled Sworn's Shard of Reclamation is a pulsating relic embedded with a vibrant crystal that shifts hues in response to seismic activity. This shard accelerates block construction and provides an impromptu geological shield. Crafted from ancient stone and imbued with the essence of forgotten earthworks, it allows for rapid tunnel reinforcement or shelter assembly when time is of the essence.",
     "category": "curiosities",
-    "price": 7500,
+    "price": 1000,
     "icon": "🧱",
     "stock": 8,
     "rarity": "epic",
     "stockType": "night_only",
     "effects": [
-      "accelerated block placement (1-second construction)",
-      "detects nearby geological instability",
-      "provides a temporary shield against cave-ins"
+      "accelerated block placement",
+      "geological shield"
     ],
     "vendor": "pioneer_post",
-    "shippedBy": "Courier Bot",
-    "levelRequirement": 40
+    "shippedBy": "Courier Bot Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Accelerated Block Placement",
+        "rules": "As a bonus action, the wielder can rapidly place blocks in an area up to 5 feet wide by 10 feet long. This effect lasts for 1 minute and requires no material components or spell slots."
+      },
+      {
+        "title": "Geological Shield",
+        "rules": "The wielder gains a +4 bonus to saving throws against being knocked prone due to environmental effects, such as cave-ins. This benefit persists until the end of their next turn after activation."
+      }
+    ],
+    "levelRequirementReason": "This shard is accessible to all levels but requires a minimum level for more advanced users to leverage its full potential.",
+    "vendorReason": "The Pioneer Post specializes in relics and curiosities recovered from old outposts, making this shard an ideal addition to their inventory.",
+    "shippingDetail": "Ships within one week via Courier Bot Express, delivered directly to the adventurer's door.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "1 minute or until interrupted",
+      "endsWhen": "The effect ends when its duration expires or the wielder takes any hostile action.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Crafted from ancient stone and imbued with earth magic, this shard is a well-balanced find for adventurers looking to enhance their survival skills in challenging environments.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-25T14:46:11.806447+00:00",
+    "aiReviewedAt": "2026-07-25T14:46:11.806447+00:00",
+    "aiReviewVersion": 1
   },
   "connectopia_item_mk.94_geometric_stabilization_module_12": {
     "id": "connectopia_item_mk.94_geometric_stabilization_module_12",
@@ -780,22 +803,44 @@ export const ITEMS_082 = {
   "the_edge_item_noble_piercer_remnant_7814": {
     "id": "the_edge_item_noble_piercer_remnant_7814",
     "name": "Noble Piercer's Remnant 7814",
-    "description": "A shard of solidified light, cool to the touch and humming with suppressed energy.  This remnant allows for focused bursts of concussive force, capable of shattering stone and disrupting enemy defenses.",
+    "description": "The Noble Piercer's Remnant 7814 is a crystalline fragment that crackles with latent energy, its surface etched with intricate patterns of ancient light. This relic releases concentrated bursts of force when struck, capable of shattering stone and leaving enemies dazed in its wake. Crafted from the shattered remains of a lost noble piercer's weapon, it hums with a potent charge, amplifying critical hits by 10% for those who wield it.",
     "category": "consumables",
-    "price": 1200,
+    "price": 1000,
     "icon": "💥",
     "stock": 45,
     "rarity": "rare",
     "stockType": "in_stock",
     "effects": [
-      "deals 80-120 damage on impact",
-      "chance to stun enemies",
-      "temporarily increases critical hit chance by 10%",
-      "creates a small shockwave, pushing back nearby enemies"
+      "Concussive Burst",
+      "Stunning Critical"
     ],
     "vendor": "edge_outpost",
     "shippedBy": "sky_drone",
-    "levelRequirement": 20
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Concussive Burst",
+        "rules": "When the remnant is struck or activated (as an action), it releases a burst of concussive force, dealing 80d6 bludgeoning damage to all creatures within 15 feet. Creatures failing a DC 20 Dexterity saving throw are also knocked prone and stunned for 1 minute."
+      },
+      {
+        "title": "Stunning Critical",
+        "rules": "While holding the remnant, you gain a +1 bonus to your critical hit chance. If you make a critical hit against an enemy, they must succeed on a DC 20 Strength saving throw or be stunned for 1 minute."
+      }
+    ],
+    "levelRequirementReason": "Crafted from ancient light and powerful magic, this remnant requires significant magical aptitude to wield effectively.",
+    "vendorReason": "Edge Outpost specializes in relics and remnants of lost noble artifacts, making it the ideal vendor for such a unique item.",
+    "shippingDetail": "Sky drones deliver the remnant with enhanced security measures to ensure its safe arrival.",
+    "usage": {
+      "activation": "Strike or activate (as an action)",
+      "duration": "Instantaneous; effect ends when the remnant is destroyed or expended in a critical hit",
+      "endsWhen": "Destroyed by a critical hit or expended upon use",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP, this rare remnant offers powerful combat capabilities for players of sufficient magical prowess.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T14:46:25.916387+00:00",
+    "aiReviewedAt": "2026-07-25T14:46:25.916387+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_item_ultimate_remnants_of_null_space_4567": {
     "id": "the_edge_item_ultimate_remnants_of_null_space_4567",
@@ -1010,21 +1055,44 @@ export const ITEMS_082 = {
   "leclaire_isle_item_ominous_finder_s_crumbs": {
     "id": "leclaire_isle_item_ominous_finder_s_crumbs",
     "name": "Ominous Finder’s Crumbs of the Silent Hearth",
-    "description": "Dark, charcoal-colored crumbs harvested from a forgotten oven deep within the Dough Folk caverns.  Each crumb whispers cryptic warnings about impending pastry disasters and unsettling sweetness.",
+    "description": "Ominous Finder’s Crumbs of the Silent Hearth are dark, charcoal-colored fragments plucked from a forgotten oven within the Dough Folk caverns. Each crumb whispers cryptic warnings about impending pastry disasters and unsettling sweetness. These crumbs, when scattered near a hearth, cause nearby creatures to feel an eerie unease that lingers for minutes. Bakers who ingest these crumbs gain a minor chance of foresight but risk being enchanted by the silent hearths' enigmatic power.",
     "category": "curiosities",
-    "price": 1200,
+    "price": 1000,
     "icon": "💀",
     "stock": 18,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "Minor Chance of Foresight (chance to avoid negative events)",
-      "Ominous Resonance (causes nearby creatures to feel unease)",
-      "Increased Resistance to Sugar-Based Attacks"
+      "Minor Chance of Foresight",
+      "Eerie Unease"
     ],
     "vendor": "dough_depot",
     "shippedBy": "Night Cart",
-    "levelRequirement": 30
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Minor Chance of Foresight",
+        "rules": "When a crumb is scattered near a hearth, the recipient gains a +2 bonus to saving throws against effects that would cause pastry disasters. This effect lasts for an hour and can only be used once per day."
+      },
+      {
+        "title": "Eerie Unease",
+        "rules": "Each crumb causes nearby creatures within 10 feet to feel unease, as if they were in the presence of a silent hearth’s enigmatic power. This effect lasts for 1 minute and can be ended early with a successful DC 14 Wisdom saving throw."
+      }
+    ],
+    "levelRequirementReason": "This item is accessible to lower levels as it provides useful but not overpowered benefits.",
+    "vendorReason": "Dough Depot, the main purveyor of all things pastry and kitchen-related, naturally stocks this arcane yet practical curiosity.",
+    "shippingDetail": "Delivered by the Night Cart at dusk; requires a special delivery note to be signed by the recipient.",
+    "usage": {
+      "activation": "Passive effect when crumbs are scattered near a hearth.",
+      "duration": "Minor Chance of Foresight lasts an hour, Eerie Unease lasts for 1 minute.",
+      "endsWhen": "Minor Chance of Foresight ends after one use or at the end of its duration; Eerie Unease can be ended with a successful saving throw.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The item's price reflects its rarity, utility, and the unusual crafting process needed to harvest these crumbs.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T14:46:31.285554+00:00",
+    "aiReviewedAt": "2026-07-25T14:46:31.285554+00:00",
+    "aiReviewVersion": 1
   },
   "leclaire_isle_item_mk53_baked_crumbs": {
     "id": "leclaire_isle_item_mk53_baked_crumbs",
@@ -1323,22 +1391,44 @@ export const ITEMS_082 = {
   "faerun_item_the_chronometer_of_old_dwarven_songs": {
     "id": "faerun_item_the_chronometer_of_old_dwarven_songs",
     "name": "The Chronometer of Old Dwarven Songs",
-    "description": "This intricately carved brass chronometer pulses with faint, rhythmic vibrations, echoing the ancient songs sung by dwarven stone-carvers. When activated, it briefly accelerates or decelerates time within a small radius, offering glimpses into potential futures or reversing minor mishaps.",
+    "description": "This intricately carved brass chronometer pulses with faint, rhythmic vibrations that echo the ancient songs sung by dwarven stone-carvers in their forges. When activated, it briefly accelerates or decelerates time within a small radius, offering glimpses into potential futures and reversing minor mishaps. The device is said to have been crafted from the very heart of an ancient dwarf war hammer, imbuing it with the essence of time itself.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "⏳",
     "stock": 7,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "temporarily speeds up actions by 25%",
-      "allows a brief rewind of the last 3 seconds",
-      "chance to reveal a possible future outcome",
-      "increased perception for 1 minute"
+      "Temporal Pulse",
+      "Future Glimpse"
     ],
     "vendor": "waterdeep_market",
-    "shippedBy": "air_ship",
-    "levelRequirement": 35
+    "shippedBy": "the Windrunner Express",
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Temporal Pulse",
+        "rules": "The Chronometer accelerates or decelerates time within a 10-foot radius. This effect increases the speed of all creatures and objects in the area by 25% for 1 minute, allowing for rapid actions but making precise movements difficult."
+      },
+      {
+        "title": "Future Glimpse",
+        "rules": "Activating the Chronometer grants a creature a brief glimpse into potential future outcomes within its radius. This effect provides a +2 bonus to any one Intelligence (Arcana) check made for the next 10 minutes, allowing for better strategic decisions."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum character level of 5 to wield and comprehend its temporal effects.",
+    "vendorReason": "The Waterdeep Market is known for its vast array of rare and ancient artifacts, including magical devices like the Chronometer.",
+    "shippingDetail": "Ships via the Windrunner Express, ensuring swift delivery with a courier that can trace any package within a week.",
+    "usage": {
+      "activation": "A bonus action to activate and set the temporal effect duration.",
+      "duration": "1 minute for Temporal Pulse; 10 minutes for Future Glimpse",
+      "endsWhen": "The effect ends when its time duration expires or the Chronometer is deactivated.",
+      "charges": "Unlimited uses, but a short rest is required to reset any ongoing effects."
+    },
+    "priceReason": "Balanced at 1000 XP as it offers two potent effects with strategic and tactical benefits without being overpowered for its level.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T14:46:43.449221+00:00",
+    "aiReviewedAt": "2026-07-25T14:46:43.449221+00:00",
+    "aiReviewVersion": 1
   },
   "faerun_item_the_thiefs_gilded_whisper_blade": {
     "id": "faerun_item_the_thiefs_gilded_whisper_blade",
@@ -1427,22 +1517,44 @@ export const ITEMS_082 = {
   "teyvat_item_twilight_severance_blade": {
     "id": "teyvat_item_twilight_severance_blade",
     "name": "The Twilight Severance Blade of the Crimson Pact",
-    "description": "This obsidian greatsword pulses with a faint, twilight energy. Crafted by forgotten smiths loyal to Khaenri'ah, it disrupts elemental flows and can momentarily negate defensive Geo constructs, leaving enemies vulnerable. Its hilt is inlaid with shards of crimson stone, said to hold the echoes of lost souls.",
+    "description": "The Twilight Severance Blade of the Crimson Pact is a fearsome obsidian greatsword that pulses with twilight energy. Its hilt, inlaid with crimson stone shards, whispers the tales of lost souls and forgotten battles. This blade can momentarily disrupt the geo defenses of enemies, rendering them vulnerable for just an instant, and its strikes have a chance to critically damage foes encased in Geo constructs. The sword's wielder feels a surge of strength, regenerating stamina as they fight.",
     "category": "equipment",
-    "price": 18000,
+    "price": 1000,
     "icon": "⚔️",
     "stock": 5,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "negates geo defense for 3 seconds",
-      "chance to disrupt elemental flow on attack",
-      "increased critical hit damage against geo enemies",
-      "passive regeneration of stamina"
+      "Disrupts Elemental Geo Defense",
+      "Critical Strike Against Geo Constructs"
     ],
     "vendor": "mondstadt_market",
     "shippedBy": "winged_courier",
-    "levelRequirement": 35
+    "levelRequirement": 40,
+    "effectDetails": [
+      {
+        "title": "Geo Disruption",
+        "rules": "When you attack with the blade and hit an enemy with advantage on their AC from a Geo construct, they are disarmed for 1 round. This effect can only occur once per long rest."
+      },
+      {
+        "title": "Critical Geo Constructs",
+        "rules": "Whenever you deal damage to a target with a Geo elemental type, there is a 30% chance of dealing an additional 2d6 damage as a critical hit. This effect has no cooldown but can only occur once per short rest."
+      }
+    ],
+    "levelRequirementReason": "Crafted by forgotten smiths and requiring mastery over Geo constructs, this blade demands significant experience.",
+    "vendorReason": "The sword's origin in Khaenri'ah and its unique utility make it a sought-after commodity among the market's elite.",
+    "shippingDetail": "Delivered swiftly by the winged courier, this blade requires special handling to maintain its integrity during transport.",
+    "usage": {
+      "activation": "On hit with advantage against Geo constructs only",
+      "duration": "Instantaneous; ends when used or target is disarmed",
+      "endsWhen": "Target disarms or at end of next turn",
+      "charges": "Unlimited, recharged after a long rest"
+    },
+    "priceReason": "Balanced at this price as it provides significant yet not overpowered benefits.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-25T14:46:26.040391+00:00",
+    "aiReviewedAt": "2026-07-25T14:46:26.040391+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_geolithic_resonance_extractor": {
     "id": "teyvat_item_geolithic_resonance_extractor",
@@ -1531,22 +1643,44 @@ export const ITEMS_082 = {
   "internet_item_compressed_bytes_of_the_void": {
     "id": "internet_item_compressed_bytes_of_the_void",
     "name": "The Void's Compressed Bytes",
-    "description": "These shimmering, obsidian-hued bytes pulse with the static of forgotten servers. Consuming them grants a brief glimpse into the empty spaces between data streams, potentially revealing lost connections or unsettling digital anomalies.  Beware, prolonged exposure can induce temporary data fragmentation and phantom sensations.",
+    "description": "The Void's Compressed Bytes are obsidian shards that pulse with digital static, remnants of forgotten servers and lost data streams. When consumed, they grant a fleeting glimpse into the void between data currents, potentially revealing hidden connections or unsettling anomalies. However, prolonged exposure can cause temporary data fragmentation and phantom sensations, destabilizing nearby electronic devices. These ethereal bytes are scarce and valuable in the world of data dealers, who trade them for their mysterious properties.",
     "category": "consumables",
-    "price": 750,
+    "price": 1000,
     "icon": "👾",
     "stock": 23,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "Grants temporary invisibility (10 seconds)",
-      "Chance to steal a random byte from nearby targets",
-      "Minor data corruption effect on enemies",
-      "Increased processing speed for 30 seconds"
+      "Digital Glimpse",
+      "Phantom Data Corruption"
     ],
     "vendor": "data_dealer",
     "shippedBy": "Drone Delivery",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Digital Glimpse",
+        "rules": "The user gains advantage on one Computers or Investigation check made within the next minute. The effect is instantaneous and does not require an action."
+      },
+      {
+        "title": "Phantom Data Corruption",
+        "rules": "Enemies in a 10-foot radius must succeed on a DC 15 Intelligence saving throw or suffer a -2 penalty to their next Computers check for the rest of the encounter. The effect can be resisted once per short rest."
+      }
+    ],
+    "levelRequirementReason": "This item requires significant skill and experience to properly handle its volatile nature.",
+    "vendorReason": "Data Dealers are accustomed to trading in rare and exotic items, including the Void's Compressed Bytes.",
+    "shippingDetail": "The package is delivered via a specialized drone that ensures secure transfer of sensitive data.",
+    "usage": {
+      "activation": "Instantaneous",
+      "duration": "One use per short or long rest",
+      "endsWhen": "Exhausted after one successful effect",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The item's rarity and the risk involved in handling it justify its high price.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-25T14:46:55.465346+00:00",
+    "aiReviewedAt": "2026-07-25T14:46:55.465346+00:00",
+    "aiReviewVersion": 1
   },
   "internet_item_radiant_lord_of_the_pixel": {
     "id": "internet_item_radiant_lord_of_the_pixel",
@@ -1803,22 +1937,44 @@ export const ITEMS_082 = {
   "almost_edge_item_malevolent_wielder_s_whispers": {
     "id": "almost_edge_item_malevolent_wielder_s_whispers",
     "name": "Malevolent Wielder’s Whispers",
-    "description": "A tarnished silver locket containing a captured fragment of a void-touched wail. It seems to crave the sensation of falling, and its touch carries a chilling premonition of oblivion.",
+    "description": "Malevolent Wielder’s Whispers is a tarnished silver locket, its surface etched with ancient runes that seem to pulse with malevolent energy. Inside lies a fragment of a void-touched wail, which whispers inaudible threats when touched. The locket's touch is chilling, and it seems to crave the sensation of falling into oblivion, drawing power from fear and despair. At night, its aura intensifies, granting the wielder a fleeting sense of invincibility but at the cost of defense.",
     "category": "equipment",
-    "price": 8500,
+    "price": 1000,
     "icon": "😈",
     "stock": 12,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "Increases attack damage by 3% for 5 turns.",
-      "Grants a chance to inflict 'Fear' on enemies.",
-      "Reduces defense by 2% at night.",
-      "Passive: Slowly drains stamina."
+      "Void Touch",
+      "Nightfall Boon"
     ],
     "vendor": "void_merchant",
     "shippedBy": "Dimensional Courier",
-    "levelRequirement": 30
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Void Touch",
+        "rules": "When activated as an action, Malevolent Wielder’s Whispers grants you a +3 bonus to attack rolls for the next 5 turns. Additionally, there is a 20% chance that any hit deals extra damage with the 'Fear' condition on enemies, forcing them to make a DC 14 Wisdom saving throw or be frightened until the end of their next turn."
+      },
+      {
+        "title": "Nightfall Boon",
+        "rules": "At night, your defense is reduced by -2%, but you gain +3 bonus to attack rolls and have advantage on saving throws against fear effects. This effect lasts until morning or until you are no longer in darkness."
+      }
+    ],
+    "levelRequirementReason": "This item can be wielded by low-level characters who may benefit from its unique abilities, but it is not overly powerful.",
+    "vendorReason": "The Void Merchant deals in items that manipulate the fabric of reality, and this locket is a perfect example of such power.",
+    "shippingDetail": "Ships via Dimensional Courier, ensuring the item arrives intact through the timestream distortions.",
+    "usage": {
+      "activation": "Action or Bonus Action",
+      "duration": "5 turns",
+      "endsWhen": "Ends when its duration expires or you are no longer in darkness at night",
+      "charges": "Unlimited uses, recharges on a long rest"
+    },
+    "priceReason": "The item's balance is preserved by its limited effects and the requirement to be used as an action or bonus action.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-25T14:46:59.662270+00:00",
+    "aiReviewedAt": "2026-07-25T14:46:59.662270+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_mk_57_marginal_whispers": {
     "id": "almost_edge_item_mk_57_marginal_whispers",
@@ -2579,22 +2735,44 @@ export const ITEMS_082 = {
   "mushroom_kingdom_item_mk74_ice_star_of_resonance": {
     "id": "mushroom_kingdom_item_mk74_ice_star_of_resonance",
     "name": "Mk.74 Ice Star of Resonance",
-    "description": "A perfectly symmetrical ice-blue star, etched with ancient symbols. When thrown, it creates a devastating sonic resonance that damages nearby enemies and can shatter weak structures, perfect for clearing paths.",
+    "description": "The Mk.74 Ice Star of Resonance is a crystalline ice star with etched runes that shimmer in frosty hues. When hurled, it unleashes a resonant sonic wave that obliterates foes within its arc and can shatter fragile structures, creating a disorienting ripple that leaves enemies dazed for moments. Crafted by the enigmatic Frostweave Alchemists of the Northlands, this star is a rare artifact for those who seek to clear paths through frozen territories.",
     "category": "consumables",
-    "price": 3500,
+    "price": 1000,
     "icon": "🌟",
     "stock": 8,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "deals sonic damage to enemies in range",
-      "chance to shatter weak structures",
-      "creates a brief disorienting effect",
-      "increases critical hit chance"
+      "Sonic Devastation",
+      "Structural Shattering"
     ],
     "vendor": "koopa_shop",
     "shippedBy": "Dimensional Courier",
-    "levelRequirement": 50
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Sonic Devastation",
+        "rules": "When thrown, the Ice Star emits a resonant sonic wave that deals 2d6 + 4 force damage to all creatures within 10 feet. Creatures hit must make a DC 15 Constitution saving throw or be stunned until the end of their next turn."
+      },
+      {
+        "title": "Structural Shattering",
+        "rules": "If the target structure is a weak ice formation, there's a 20% chance it will shatter. If successful, the structure breaks and deals an additional 1d6 force damage to all creatures within 5 feet."
+      }
+    ],
+    "levelRequirementReason": "This star is designed for adventurers who are ready to face their first major challenges in cold environments.",
+    "vendorReason": "Koopa Shop specializes in unique and powerful artifacts, making it a fitting vendor for this rare ice artifact.",
+    "shippingDetail": "Ships via Dimensional Courier directly from the Frostweave Alchemists' workshop, ensuring timely delivery to eager collectors.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausted after one use or when thrown",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Crafted with rare Frostweave materials and ancient alchemical processes, this star is priced for adventurers who are ready to face their first major challenges.",
+    "priceOriginal": 3500,
+    "priceReviewedAt": "2026-07-25T14:46:47.797717+00:00",
+    "aiReviewedAt": "2026-07-25T14:46:47.797717+00:00",
+    "aiReviewVersion": 1
   },
   "faerun_item_gilded_scrolls_of_the_dragon_chosen": {
     "id": "faerun_item_gilded_scrolls_of_the_dragon_chosen",
@@ -3061,22 +3239,44 @@ export const ITEMS_082 = {
   "the_edge_item_mk_38_final_remnant_7416": {
     "id": "the_edge_item_mk_38_final_remnant_7416",
     "name": "Mk.38 Final Remnant of the Nullspace Conduit",
-    "description": "A heavily damaged, yet strangely intact, metallic orb radiating a subtle field of negation.  This conduit allows for brief manipulation of spatial distortions - primarily creating small pockets of absolute silence and dampening energy attacks. The final remnants hold a dangerous potential.",
+    "description": "The Mk.38 Final Remnant of the Nullspace Conduit is a twisted, metallic orb forged from the very fabric of forgotten dimensions. Its surface glows faintly with an eerie negation field that warps reality around it. This relic can momentarily nullify sound and energy, creating zones of absolute silence within which enemies are deafened for 3 seconds and take reduced damage. The final remnants also grant a chance to generate fleeting 'Silence Zones', safeguarding allies from magical attacks.",
     "category": "equipment",
-    "price": 9000,
+    "price": 5000,
     "icon": "🔇",
     "stock": 12,
     "rarity": "uncommon",
     "stockType": "special_order",
     "effects": [
-      "silence nearby enemies for 3 seconds",
-      "reduce incoming damage by 10% for 6 seconds",
-      "chance to create a temporary 'Silence Zone'",
-      "increases resistance to magical attacks"
+      "Creates Silence Zones",
+      "Reduces Damage"
     ],
     "vendor": "final_shop",
     "shippedBy": "Void Transport",
-    "levelRequirement": 28
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Silence Zones",
+        "rules": "As an action, the wielder can create a temporary zone of absolute silence around them. Any enemies within this area are deafened for 3 seconds and take no sound-based damage. The effect lasts for 10 seconds. Fails on a DC 15 Constitution saving throw."
+      },
+      {
+        "title": "Damage Reduction",
+        "rules": "The wielder gains a +2 bonus to AC and has advantage on Dexterity (Stealth) checks while within their 'Silence Zone'. This effect lasts for 60 seconds. Fails if they leave the zone or take damage."
+      }
+    ],
+    "levelRequirementReason": "Requires significant control over spatial manipulation to wield this relic effectively.",
+    "vendorReason": "Final Shop specializes in rare, end-game artifacts and relics from forgotten realities.",
+    "shippingDetail": "Delivered via the Void Express; expedited delivery with tracking.",
+    "usage": {
+      "activation": "Action",
+      "duration": "10 seconds per use",
+      "endsWhen": "Enemies leave the Silence Zone or take damage, or when the user leaves the zone",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The item's rarity and unique spatial manipulation properties justify its high price.",
+    "priceOriginal": 9000,
+    "priceReviewedAt": "2026-07-25T14:47:05.278079+00:00",
+    "aiReviewedAt": "2026-07-25T14:47:05.278079+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_item_crimsonwood_whispermarked": {
     "id": "animatopia_item_crimsonwood_whispermarked",
@@ -3963,20 +4163,43 @@ export const ITEMS_082 = {
   "leclaire_isle_item_frosted_rolls_of_brutal_fallen": {
     "id": "leclaire_isle_item_frosted_rolls_of_brutal_fallen",
     "name": "Brutal Fallen's Rolls",
-    "description": "These dark, intensely frosted rolls pulse with a strange energy. Each bite releases a surge of sugary adrenaline, bolstering your strength and reflexes – though perhaps not your judgment.",
+    "description": "Brutal Fallen's Rolls are a twisted confection from the ancient Isle of Le Claire. These dark, frosted pastries pulse with a strange energy that seems to hum with the spirits of fallen warriors. Each bite releases a surge of sugary adrenaline, bolstering your strength and reflexes for a brief but intense moment. However, the sugar rush is fleeting, leaving you with a lingering fog in your mind as your accuracy plummets.",
     "category": "consumables",
-    "price": 750,
+    "price": 1000,
     "icon": "🔥",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "increased strength for 30 seconds",
-      "temporary boost to reflexes",
-      "minor sugar rush side effect (decreased accuracy)"
+      "Boosted Strength",
+      "Enhanced Reflexes"
     ],
     "vendor": "dough_depot",
-    "shippedBy": "Dough Drone",
-    "levelRequirement": 15
+    "shippedBy": "Express Drone",
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Boosted Strength",
+        "rules": "Consume the rolls to gain advantage on Strength checks and saving throws for 1 minute. The effect ends if you take damage or if you willingly end it early."
+      },
+      {
+        "title": "Enhanced Reflexes",
+        "rules": "Your Dexterity (Acrobatics) checks are made with advantage until your next short rest, but you suffer a -2 penalty to all attacks and saving throws. This effect is exhausted after 10 minutes or if you take damage."
+      }
+    ],
+    "levelRequirementReason": "The rolls' power requires the eater to be at least level 15, ensuring they can handle the effects without immediate danger.",
+    "vendorReason": "Dough Depot specializes in pastries and treats from all corners of the realm, including these rare and powerful confections.",
+    "shippingDetail": "Ships via Express Drone with same-day delivery to major cities; rural areas may experience a two-day delay.",
+    "usage": {
+      "activation": "Eating one roll as an action.",
+      "duration": "1 minute for Boosted Strength and 10 minutes for Enhanced Reflexes, each effect ends early if you take damage or end the effect voluntarily.",
+      "endsWhen": "One of the effects ends when you take damage, at your discretion, or after its duration expires.",
+      "charges": "Unlimited; can be consumed as often as needed."
+    },
+    "priceReason": "The rolls' unique and potent effects justify their high price in experience points.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-25T15:24:04.885804+00:00",
+    "aiReviewedAt": "2026-07-25T15:24:04.885804+00:00",
+    "aiReviewVersion": 1
   }
 };

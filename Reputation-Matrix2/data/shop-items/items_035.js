@@ -165,20 +165,42 @@ export const ITEMS_035 = {
   "refijia_reflective_mirror_candy_recipe": {
     "id": "refijia_reflective_mirror_candy_recipe",
     "name": "Recipe: Refijia Reflective Mirror Candy",
-    "description": "Shiny hard candy that 'reflects' on choices.",
-    "price": 7000,
+    "description": "Refijia Reflective Mirror Candy is a shimmering hard candy that reflects light in dazzling patterns. When consumed, it grants you inspiration for one decision and advantage on an Insight check to discern truth from falsehood. The candy's surface glistens like polished gems, hinting at the sweet revelations it holds within. Created by the Mirror Confectioners of Refijia, each piece is a testament to their artistry in capturing the essence of clarity.",
+    "price": 1000,
     "icon": "🍭",
     "stock": 7,
     "rarity": "uncommon",
     "effects": [
-      "Teaches recipe: Mold sugar (20 min); eat to gain inspiration for one decision and advantage on Insight",
-      "Requires: Sugar; looks like gems",
-      "Sweet reflections – minor prophecy",
-      "Made by: Mirror Confectioners"
+      "Inspiration and Insight",
+      "Minor Prophecy"
     ],
     "vendor": "refijia_workshop",
     "shippedBy": "Shiny Sugar Sheet",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Decision Inspiration",
+        "rules": "When you eat this candy, you gain inspiration for one decision and advantage on an Insight check to discern truth from falsehood. This effect is instantaneous upon consumption."
+      },
+      {
+        "title": "Sweet Reflections",
+        "rules": "The candy grants minor prophecy, allowing you to see a glimmer of future events in its shimmering surface. This effect lasts until the end of your next turn."
+      }
+    ],
+    "levelRequirementReason": "This candy is accessible to all adventurers as it aids in decision-making and insight without requiring high-level expertise.",
+    "vendorReason": "The Mirror Confectioners of Refijia are renowned for their sweets that blend utility with culinary artistry.",
+    "shippingDetail": "Delivered promptly by the Shiny Sugar Sheet, known for its swift and reliable deliveries.",
+    "usage": {
+      "activation": "Eating the candy",
+      "duration": "Instantaneous; lasts until the end of your next turn for minor prophecy",
+      "endsWhen": "The effect ends when you use it or at the start of your next turn",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced to provide utility without being overpowered, this candy is priced moderately for its unique benefits.",
+    "priceOriginal": 7000,
+    "priceReviewedAt": "2026-07-25T14:19:54.625056+00:00",
+    "aiReviewedAt": "2026-07-25T14:19:54.625056+00:00",
+    "aiReviewVersion": 1
   },
   "refijia_reflective_mirror_service": {
     "id": "refijia_reflective_mirror_service",
@@ -752,19 +774,43 @@ export const ITEMS_035 = {
   "repel_gel": {
     "id": "repel_gel",
     "name": "Repel Gel",
-    "description": "A ghostly slime that makes you intangible for a moment.",
+    "description": "Repel Gel is a translucent, ghostly slime that oozes from a sealed vial of ectoplasm. When applied, it momentarily grants you ethereal presence, making you intangible and invisible to foes for the turn. However, using this gel in combat renders you unable to attack or cast ranged spells until your next action. The gel's eerie glow hints at its otherworldly origins, and only a select few vendors dare handle such dangerous wares.",
     "category": "consumables",
-    "price": 30000,
+    "price": 1000,
     "icon": "👻",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Gain 'Etherealness' until the start of your next turn",
-      "Cannot attack while active"
+      "Ethereal Presence",
+      "Invisibility"
     ],
     "vendor": "rogueport_black_market",
     "shippedBy": "Ectoplasm Container",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Ethereal Presence",
+        "rules": "Gain the 'Etherealness' condition until the start of your next turn. You can move through other creatures and objects as if they were difficult terrain, but you cannot end your movement in a space occupied by another creature or an object."
+      },
+      {
+        "title": "Invisibility",
+        "rules": "You become invisible until the start of your next turn. While invisible, you have advantage on Dexterity (Stealth) checks and can't be targeted by spells or other effects that require line of sight."
+      }
+    ],
+    "levelRequirementReason": "Repel Gel is a versatile tool for first-level adventurers seeking to evade enemies without resorting to combat.",
+    "vendorReason": "The Rogueport Black Market specializes in rare and dangerous items, making it the only vendor willing to sell Repel Gel.",
+    "shippingDetail": "Ships via an ethereal courier, ensuring safe delivery even through otherworldly hazards.",
+    "usage": {
+      "activation": "Use an action or bonus action to apply the gel and activate its effects.",
+      "duration": "Instantaneous; lasts until the start of your next turn.",
+      "endsWhen": "The effect ends when you take a hostile action, are targeted by an attack or spell, or run out of uses.",
+      "charges": "Unlimited uses per short rest"
+    },
+    "priceReason": "Repel Gel offers significant tactical advantages at a fair price for its rarity and utility.",
+    "priceOriginal": 30000,
+    "priceReviewedAt": "2026-07-25T14:20:05.730322+00:00",
+    "aiReviewedAt": "2026-07-25T14:20:05.730322+00:00",
+    "aiReviewVersion": 1
   },
   "resurrection_consultation": {
     "id": "resurrection_consultation",

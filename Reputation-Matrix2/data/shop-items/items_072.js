@@ -383,21 +383,44 @@ export const ITEMS_072 = {
   "doughnut_hole_anomaly_essence": {
     "id": "doughnut_hole_anomaly_essence",
     "name": "Essence of the Anomaly",
-    "description": "Captured from a fleeting tear in reality, this shimmering liquid pulsates with chaotic energy. Drinking it provides an unpredictable boost to your stats...or causes you to briefly transform into a sentient doughnut. You've been warned!",
+    "description": "The Essence of the Anomaly is a shimmering, unstable liquid that pulses with chaotic energy. Captured from a fleeting tear in reality, it grants unpredictable power to those who drink it but may also cause bizarre side effects. In addition to boosting one ability score by +2 for two turns, it has a chance to temporarily reduce another by -1 (roll a d6: 1-3 = -1, 4-6 = no effect). Drinking it also compels the imbiber to speak in rhymes for one minute, leaving them tongue-tied and prone to humorous wordplay.",
     "category": "consumables",
-    "price": 8000,
+    "price": 1000,
     "icon": "🧪",
     "stock": 3,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "Randomly grants +2 to one ability score (Strength, Dexterity, Intelligence, Wisdom, Charisma, or Constitution) for 2 turns.",
-      "Chance of temporary stat reduction (roll a d6: 1-3 = -1, 4-6 = no effect).",
-      "Causes the user to speak in rhymes for 1 minute."
+      "Chaotic Boost",
+      "Temporary Rhyming"
     ],
     "vendor": "void_vendor",
     "shippedBy": "Quantum Courier",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Chaotic Boost",
+        "rules": "Activates on consumption as a bonus action. Grants +2 to one ability score of your choice for two turns. Ends if you are incapacitated or take any damage."
+      },
+      {
+        "title": "Temporary Rhyming",
+        "rules": "Forces the drinker to speak in rhymes for one minute upon consuming the essence. This effect ends when it expires, and you must succeed on a DC 10 Charisma saving throw or become charmed by your own unintentional humor until the end of your next turn."
+      }
+    ],
+    "levelRequirementReason": "This item is accessible to lower-level characters as its effects are unpredictable but not overwhelmingly powerful.",
+    "vendorReason": "The Void Vendor specializes in rare and unique items, including those that defy normal reality, making the Essence of the Anomaly a fitting addition to their stock.",
+    "shippingDetail": "Ships via Quantum Courier, which delivers within one hour but requires you to sign a waiver acknowledging potential side effects.",
+    "usage": {
+      "activation": "Consumed as a bonus action.",
+      "duration": "2 turns for the ability boost and lasts until it expires or is ended by damage/incapacitation; speaking in rhymes for one minute upon consumption.",
+      "endsWhen": "Expires after two turns, ends if you take damage or become incapacitated; charm from rhyming ends on a successful Charisma saving throw or at the end of your next turn.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The Essence is priced moderately, balancing its rare and unpredictable nature with its limited duration and effects.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T14:30:38.242118+00:00",
+    "aiReviewedAt": "2026-07-25T14:30:38.242118+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_chaosshard_2": {
     "id": "warhammer_chaosshard_2",
@@ -822,21 +845,44 @@ export const ITEMS_072 = {
   "equestria_item_whispering_star_shard": {
     "id": "equestria_item_whispering_star_shard",
     "name": "Whispering Star Shard",
-    "description": "A fragment of a fallen star, this shard hums with ancient magic. Hold it close and listen carefully – sometimes, it whispers secrets of forgotten constellations and the locations of hidden rainbow gems... or just static.",
+    "description": "The Whispering Star Shard is a crystalline fragment from a star that met its fiery end long ago, now humbling in the hands of those who hold it. When pressed to your ear, it emits a soft, ancient hum, occasionally whispering secrets of forgotten constellations or guiding you towards hidden sources of rainbow magic. The shard's power is unpredictable and fleeting, often leading to moments of static silence that leave you wondering if it truly spoke at all.",
     "category": "curiosities",
-    "price": 850,
+    "price": 1000,
     "icon": "✨",
     "stock": 42,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "chance_to_reveal_hidden_objects",
-      "minor_mana_regeneration",
-      "attracts_elemental_spirits"
+      "whisper_of_the_stars",
+      "mana_regeneration"
     ],
     "vendor": "ponyville_market",
     "shippedBy": "griffin_express",
-    "levelRequirement": 8
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Whisper of the Stars",
+        "rules": "As a bonus action, activate the shard to hear its whisper. This reveals the location of a hidden rainbow gem within 100 feet with a DC 15 Wisdom (Perception) check. The effect is instantaneous but can only be used once per long rest."
+      },
+      {
+        "title": "Mana Regeneration",
+        "rules": "At the start of each hour, you regain 1d4+2 mana points if you hold the shard. This effect does not require an action and can occur multiple times in a day."
+      }
+    ],
+    "levelRequirementReason": "The magic within the star shard is too potent for those below fifth level, requiring a degree of experience to harness its full potential.",
+    "vendorReason": "Applejack, with her keen eye for rare and magical items, often finds herself in possession of such artifacts from her travels through Equestria's hidden realms.",
+    "shippingDetail": "The griffins ensure safe delivery by night, allowing the shard to arrive at its destination with minimal exposure to daylight, which could disrupt its magical properties.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausted after one use per long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Whispering Star Shard is priced at 1000 XP due to its rare origin, potent magical effects, and the limited availability of such artifacts in Equestria.",
+    "priceOriginal": 850,
+    "priceReviewedAt": "2026-07-25T15:12:45.289814+00:00",
+    "aiReviewedAt": "2026-07-25T15:12:45.289814+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_wario's_glitterbomb_starter": {
     "id": "equestria_item_wario's_glitterbomb_starter",
@@ -1051,21 +1097,44 @@ export const ITEMS_072 = {
   "connectopia_pioneer_shepherd's_boots": {
     "id": "connectopia_pioneer_shepherd's_boots",
     "name": "Sturdy Block Boots",
-    "description": "These boots were forged from the densest Connectopian blocks, reinforced with pioneer grit! They provide exceptional traction and protection against falling debris, perfect for exploring the perilous frontier.",
+    "description": "The Sturdy Block Boots, crafted from the densest Connectopian blocks and reinforced with the pioneer spirit of those who've walked this land, offer unparalleled protection against the perils of the frontier. These boots provide exceptional traction on treacherous block surfaces, ensuring your feet remain steady even in the most unstable conditions. Should you find yourself falling, these boots reduce the impact by half, sparing you from a catastrophic tumble.",
     "category": "equipment",
-    "price": 750,
+    "price": 1000,
     "icon": "👢",
     "stock": 23,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "increased movement speed by 5%",
-      "resistance to falling damage (decreased fall damage by 50%)",
-      "improved traction on block surfaces"
+      "Enhanced Traction",
+      "Fall Protection"
     ],
     "vendor": "pioneer_post",
     "shippedBy": "block_cart",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Enhanced Traction",
+        "rules": "While wearing Sturdy Block Boots, your movement speed is increased by 15 feet when traversing block surfaces. This effect lasts for the duration of your exploration on such terrain."
+      },
+      {
+        "title": "Fall Protection",
+        "rules": "When you fall from a height and land on solid ground, the boots reduce the damage taken by half (rounded down). This benefit can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "These boots are designed for adventurers just starting their journey into the frontier.",
+    "vendorReason": "Pioneer Post, a trusted vendor of equipment for explorers and settlers, ensures these boots are available to those venturing into the Connectopian frontier.",
+    "shippingDetail": "The block cart delivers these sturdy boots within two days, ensuring adventurers can hit the trail as soon as they receive their purchase.",
+    "usage": {
+      "activation": "Passive effect; no activation required once equipped.",
+      "duration": "Instantaneous and ongoing while on block surfaces.",
+      "endsWhen": "The effect ends when you leave a block surface or take off the boots.",
+      "charges": "Unlimited, recharged upon donning again."
+    },
+    "priceReason": "Crafted from rare Connectopian blocks and designed to withstand the harshest conditions, these boots are priced fairly for their exceptional utility in the frontier.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-25T15:12:56.302096+00:00",
+    "aiReviewedAt": "2026-07-25T15:12:56.302096+00:00",
+    "aiReviewVersion": 1
   },
   "connectopia_shard_of_the_great_architect": {
     "id": "connectopia_shard_of_the_great_architect",
@@ -1154,21 +1223,44 @@ export const ITEMS_072 = {
   "mushroom_kingdom_item_pipe_wrench": {
     "id": "mushroom_kingdom_item_pipe_wrench",
     "name": "Pipe Wrench of Disassembly",
-    "description": "This hefty wrench is forged from solid mushroom metal and can loosen even the most stubborn pipes! Use it to dismantle enemy defenses, repair broken machinery, or just mess around – Wario approves!",
+    "description": "The Pipe Wrench of Disassembly is a robust tool forged from solid mushroom metal. Its origin lies in the Mushroom Kingdom, where it has been refined by the hands of skilled mechanics. This wrench can dismantle even the most resilient enemy defenses with ease, and its unique design allows you to repair broken machinery at an accelerated rate. With this tool, you'll find yourself disabling traps with a simple twist, ensuring your path is clear and secure.",
     "category": "equipment",
-    "price": 8000,
+    "price": 1000,
     "icon": "🔧",
     "stock": 15,
     "rarity": "epic",
     "stockType": "limited_daily",
     "effects": [
-      "increased damage to mechanical enemies",
-      "+5 repair skill",
-      "chance to disable enemy traps"
+      "Dismantle Defenses",
+      "Accelerated Repair"
     ],
     "vendor": "wario_direct",
     "shippedBy": "mushroom_express",
-    "levelRequirement": 10
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Dismantle Defenses",
+        "rules": "As an action, you can use the Pipe Wrench of Disassembly to dismantle a target mechanical enemy. The wrench deals 1d6 + your proficiency bonus damage and has a 50% chance to disable any traps in its vicinity for 1 minute."
+      },
+      {
+        "title": "Accelerated Repair",
+        "rules": "While holding the Pipe Wrench of Disassembly, you gain a +2 bonus to repair checks. You can use this bonus once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This tool requires intermediate skills and experience to wield effectively in combat.",
+    "vendorReason": "Wario, a master of mechanics himself, ensures the quality of his wares meets the highest standards.",
+    "shippingDetail": "Delivered by Mushroom Express within 3 days via express service.",
+    "usage": {
+      "activation": "Action or Bonus Action",
+      "duration": "Instantaneous for dismantling, 1 minute for trap disabling",
+      "endsWhen": "The effect ends when the target is no longer mechanical or the traps are re-enabled.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced to reflect its unique utility and the materials used in its construction.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T14:30:34.581977+00:00",
+    "aiReviewedAt": "2026-07-25T14:30:34.581977+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_vision_catalyst": {
     "id": "teyvat_item_vision_catalyst",
@@ -1388,21 +1480,44 @@ export const ITEMS_072 = {
   "warhammer_desolation_strike": {
     "id": "warhammer_desolation_strike",
     "name": "Desolation Strike",
-    "description": "Forged in the heart of a shattered empire, this hammer screams with the fury of countless battles. It feels strangely warm to the touch... almost like Wario's belly after a particularly large pizza.",
+    "description": "Forged in the heart of a shattered empire, this hammer screams with the fury of countless battles. Its surface glows faintly with an ancient, almost sentient warmth, as if it remembers every strike and death that has ever been dealt by its handle. The Desolation Strike feels like Wario's belly after a particularly large pizza; warm to the touch yet ominously heavy in your grasp, hinting at the storm of destruction it can unleash upon impact.",
     "category": "equipment",
-    "price": 7500,
+    "price": 1000,
     "icon": "🔥",
     "stock": 3,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "increased_critical_hit_chance",
-      "massive_damage_1",
-      "chance_to_stun"
+      "massive_damage",
+      "stun_chance"
     ],
     "vendor": "chaos_dealer",
     "shippedBy": "Night Crawler",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Massive Damage",
+        "rules": "When you hit a target with this weapon on a critical hit, deal an additional 3d6 damage. This effect can occur once per short or long rest."
+      },
+      {
+        "title": "Stun Chance",
+        "rules": "At the start of your next turn after hitting a target with this weapon, there is a 25% chance to stun that target for 1 round unless they succeed on a DC 14 Dexterity saving throw. This effect can occur once per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "The Desolation Strike requires a minimum level of 6 due to its powerful effects and the need for martial expertise.",
+    "vendorReason": "The chaos dealer is known for their wares of dubious origin, including weapons that have been imbued with dark and ancient powers.",
+    "shippingDetail": "Delivered by the Night Crawler, this weapon arrives shrouded in darkness, ensuring it remains a secret until it reaches its intended recipient.",
+    "usage": {
+      "activation": "As a bonus action to unleash an additional swing with critical hit effects.",
+      "duration": "Instantaneous",
+      "endsWhen": "The hammer's charges are exhausted or when you take the rest at the end of a long rest.",
+      "charges": "2, recharged after a long rest"
+    },
+    "priceReason": "Balanced to match its powerful effects and unique properties, this rare weapon is priced fairly for its potential.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-25T14:31:09.473647+00:00",
+    "aiReviewedAt": "2026-07-25T14:31:09.473647+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_stormcaller_amulet": {
     "id": "teyvat_item_stormcaller_amulet",

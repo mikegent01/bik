@@ -1096,19 +1096,42 @@ export const ITEMS_040 = {
   "shadowfell_tainted_essence": {
     "id": "shadowfell_tainted_essence",
     "name": "Tainted Essence of the Crimson Veil",
-    "description": "A pulsating vial of corrupted blood that amplifies dark magic and drains vitality from foes. Siphons life to fuel your spells, but leaves you weaker after use.",
-    "price": 2500,
+    "description": "The Tainted Essence of the Crimson Veil is a vial of corrupted blood that pulsates with dark magic, its crimson hue a testament to the shadows it commands. This vial amplifies your spellcasting power, but at the cost of your vitality; foes within reach feel its draining touch as you draw on their life force. Once used, the vial's effects weaken you for hours, a reminder of the dark pact you've made with the Veil itself.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+30% spell damage",
-      "-20% max HP while active",
-      "10s cooldown after use"
+      "+30% Spell Damage",
+      "Drains 1d6 Constitution per minute while active"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Spell Amplification",
+        "rules": "Activates as a bonus action. The effect lasts until expended or the user drops to 0 hit points. For each spell cast, the caster drains 1d6 points of Constitution from a creature within 30 feet."
+      },
+      {
+        "title": "Vitality Drain",
+        "rules": "Lasts for 1 hour after activation. Each minute, the user loses 1d6 points of Constitution. This effect can be ended early by dropping to 0 hit points or by spending an action to discard the vial."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum level to prevent lower-level characters from succumbing to its dark magic easily.",
+    "vendorReason": "Shadowfell's vendors often deal in such dark and corrupting items, procuring them directly from the Veil.",
+    "shippingDetail": "The Tainted Essence is couriered with strict secrecy, as its use can be dangerous if intercepted by those who oppose the Veil.",
+    "usage": {
+      "activation": "Bonus action to activate; ends when the user drops to 0 hit points or chooses to end it early.",
+      "duration": "Until expended or ended",
+      "endsWhen": "User drops to 0 hit points or uses an action to discard the vial",
+      "charges": "Unlimited, but ends on use"
+    },
+    "priceReason": "Reflects its rare nature and the dark magic it contains.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-25T15:08:57.008881+00:00",
+    "aiReviewedAt": "2026-07-25T15:08:57.008881+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_talisman_of_rebirth": {
     "id": "shadowfell_talisman_of_rebirth",
@@ -2454,19 +2477,42 @@ export const ITEMS_040 = {
   "shadowfell_vampiric_echo": {
     "id": "shadowfell_vampiric_echo",
     "name": "Vampiric Echo",
-    "description": "A cursed mirror that echoes the last voice you heard. Upon activation, it reveals the last word spoken by your target—or your own dying thoughts. A deadly weapon of psychological warfare.",
-    "price": 2800,
+    "description": "The Vampiric Echo is a cursed mirror crafted from the very shadows of the Shadowfell, its surface etched with runes that whisper the final word spoken by your target or your own last dying breath. Upon activation, it echoes this spectral echo, leaving you and those nearby shaken by the haunting memory. This deadly psychological weapon cannot be used on a corpse, as the mirror draws strength from the living voice.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Reveals last spoken word of target",
-      "May cause psychological shock or panic",
-      "Cannot be used if target is already dead"
+      "Echoes Last Spoken Word",
+      "Psychological Impact"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Echoes Last Spoken Word",
+        "rules": "When activated, this mirror reveals the last word spoken by your target or your own final thoughts. You must succeed on a DC 15 Wisdom saving throw or become frightened until the start of your next turn."
+      },
+      {
+        "title": "Psychological Impact",
+        "rules": "If you fail the save, you and each creature within 10 feet of you are also frightened for 1 minute. This effect can be ended early with a successful DC 15 Wisdom saving throw."
+      }
+    ],
+    "levelRequirementReason": "The Vampiric Echo requires no level, as its power lies in the darkness it manipulates rather than the strength of the wielder.",
+    "vendorReason": "Shadowfell merchants are known for dealing in dark artifacts and psychological tools, making them the perfect purveyors of this cursed mirror.",
+    "shippingDetail": "The Boo Spectral Mail ensures safe delivery through their spectral courier network, but be wary—the journey may feel longer than it should.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect and 1 minute for the frightened condition to wear off",
+      "endsWhen": "On a failed Wisdom save or when used on a corpse",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Vampiric Echo is priced at 1000 XP due to its rarity, cursed nature, and the psychological impact it delivers.",
+    "priceOriginal": 2800,
+    "priceReviewedAt": "2026-07-25T14:20:48.115623+00:00",
+    "aiReviewedAt": "2026-07-25T14:20:48.115623+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_vampiric_echo_rod": {
     "id": "shadowfell_vampiric_echo_rod",

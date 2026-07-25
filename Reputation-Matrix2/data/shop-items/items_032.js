@@ -87,20 +87,43 @@ export const ITEMS_032 = {
   "mystery_box": {
     "id": "mystery_box",
     "name": "? Block",
-    "description": "A hovering yellow block with a question mark. Strike it to receive a random reward.",
+    "description": "A hovering, glowing yellow block adorned with a whimsical question mark that pulses faintly in the air. Strike it precisely to trigger a cascade of events: you may receive anything from a common consumable to an item of rare value, all determined by fate's whimsy. The vendor, Toad Town Market, ensures these surprises are always worth the wait, as their deliveries arrive with Anti-Gravity Containers that ensure no one misses out on the mystery within.",
     "category": "curiosities",
-    "price": 35000,
+    "price": 1000,
     "icon": "❓",
     "stock": 100,
     "rarity": "uncommon",
     "effects": [
-      "Single use",
-      "Roll 1d100 on the Mystery Box Table",
-      "Results range from common consumables to rare items"
+      "Single Use",
+      "Random Reward"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Anti-Gravity Container",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Mystery Trigger",
+        "rules": "Strike this block to roll a d100. The result determines your reward, ranging from common consumables to rare items. This effect is limited to one use."
+      },
+      {
+        "title": "Toad Town Market's Guarantee",
+        "rules": "The Toad Town Market ensures that each 'Mystery Box' contains an item whose value is at least 100 XP, providing a fair trade for the excitement and anticipation it brings."
+      }
+    ],
+    "levelRequirementReason": "This item's random nature makes it accessible to all levels, ensuring that players of any background can experience its mystery.",
+    "vendorReason": "Toad Town Market is known for its whimsical and unpredictable wares, making the 'Mystery Box' a staple in their inventory.",
+    "shippingDetail": "Delivered with Anti-Gravity Containers to ensure safe arrival and excitement at your doorstep.",
+    "usage": {
+      "activation": "Strike the block.",
+      "duration": "Instantaneous upon activation, limited to one use per item.",
+      "endsWhen": "The effect ends immediately after triggering a reward.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects the excitement and value of the mystery it promises, ensuring players receive a fair trade.",
+    "priceOriginal": 35000,
+    "priceReviewedAt": "2026-07-25T14:18:43.223567+00:00",
+    "aiReviewedAt": "2026-07-25T14:18:43.223567+00:00",
+    "aiReviewVersion": 1
   },
   "mystery_egg": {
     "id": "mystery_egg",

@@ -1685,21 +1685,44 @@ export const ITEMS_054 = {
   "mushroom_kingdom_item_strange_artifact": {
     "id": "mushroom_kingdom_item_strange_artifact",
     "name": "Echoing Spore Pod",
-    "description": "A pulsating, iridescent spore pod that seems to whisper fragments of forgotten melodies. Holding it allows you to briefly glimpse echoes of past events – be warned, some are unsettling!",
+    "description": "The Echoing Spore Pod is a pulsating, iridescent orb that glows with a spectrum of shifting colors, emanating a soft hum as it whispers fragments of past events. Holding this pod allows you to glimpse fleeting echoes of the past, but beware—some visions are deeply unsettling and can unsettle even the most seasoned adventurers. The pod’s power is drawn from the ancient fungal networks that crisscross the Mushroom Kingdom, granting brief insights into hidden secrets and forgotten lore.",
     "category": "curiosities",
-    "price": 1800,
+    "price": 1000,
     "icon": "🔮",
     "stock": 23,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "reveal_hidden_secrets_50%",
-      "chance_to_receive_a_vision_1d6",
-      "minor_intellect_boost_2"
+      "brief_insights_into_hidden_secrets",
+      "chance_to_receive_a_vision"
     ],
     "vendor": "koopa_shop",
     "shippedBy": "mushroom_drone",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Brief Insights Into Hidden Secrets",
+        "rules": "As an action, you can concentrate for up to 1 minute. During this time, the pod reveals hidden secrets within a 30-foot radius with a 50% chance of success. On a failed save (DC 14), you become disoriented and lose your concentration."
+      },
+      {
+        "title": "Chance To Receive A Vision",
+        "rules": "The pod grants a random vision once per long rest, which lasts until the start of your next turn. The DM rolls a d6 to determine if the vision is pleasant (1-3) or disturbing (4-6). Pleasant visions grant you advantage on one ability check of your choice; disturbing visions impose disadvantage on one saving throw of your choice."
+      }
+    ],
+    "levelRequirementReason": "Suitable for beginners to safely explore the pod’s abilities without overwhelming them with its effects.",
+    "vendorReason": "The Koopa Shop specializes in oddities and curios from across the Mushroom Kingdom, making it a fitting vendor for this enigmatic artifact.",
+    "shippingDetail": "Delivered by a fleet of mushroom drones that ensure safe delivery to your doorstep within one day.",
+    "usage": {
+      "activation": "as an action or bonus action, depending on the effect being used",
+      "duration": "up to 1 minute for secret revelations; instantaneous for visions",
+      "endsWhen": "concentration is lost (failed save) or a vision ends at the start of your next turn",
+      "charges": "unlimited"
+    },
+    "priceReason": "Balanced price reflects its rare nature and limited utility, ensuring it remains an intriguing but not overpowered addition to any adventurer’s arsenal.",
+    "priceOriginal": 1800,
+    "priceReviewedAt": "2026-07-25T15:10:29.821049+00:00",
+    "aiReviewedAt": "2026-07-25T15:10:29.821049+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_spectral_notepad": {
     "id": "kivotos_item_spectral_notepad",

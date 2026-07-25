@@ -89,22 +89,44 @@ export const ITEMS_080 = {
   "the_edge_item_chronal_singer_remnant_7897": {
     "id": "the_edge_item_chronal_singer_remnant_7897",
     "name": "The Chronal Singer's Remnant - Echoes of Collapse",
-    "description": "A fractured shard pulsating with residual temporal energy, this remnant whispers fragmented melodies from realities unmade. Holding it grants fleeting glimpses into potential futures and past deviations, though prolonged exposure risks unraveling the user’s own timeline.",
+    "description": "The Chronal Singer's Remnant - Echoes of Collapse is a fragmented shard, its surface etched with temporal runes that glow with an ethereal light. When held, it hums with residual energy from realities unmade, granting fleeting glimpses into potential futures and past deviations. Though the sight can be mesmerizing, prolonged exposure risks unraveling one’s own timeline, causing minor temporal distortions that ripple through the air like faint echoes of collapsing dimensions.",
     "category": "curiosities",
-    "price": 7800,
+    "price": 1000,
     "icon": "⏳",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "Temporally Distorted Perception (5 seconds)",
-      "Chance to rewind minor actions (10%)",
-      "Increased Chronal Resistance",
-      "Minor temporal paradox effect: brief visual hallucinations"
+      "Temporal Glimpse",
+      "Rewind Minor Actions"
     ],
     "vendor": "abyss_trader",
     "shippedBy": "Dimensional Rift Courier",
-    "levelRequirement": 25
+    "levelRequirement": 25,
+    "effectDetails": [
+      {
+        "title": "Temporal Glimpse",
+        "rules": "When activated as a bonus action, the user gains fleeting insight into potential futures or past deviations for 5 seconds. This effect provides no numerical bonuses but offers a +2 to one Intelligence (History) check per use."
+      },
+      {
+        "title": "Rewind Minor Actions",
+        "rules": "Once per short rest, the wearer can rewind minor actions that have not yet fully committed. This may include a missed attack or failed saving throw, effectively negating it without any save required; however, this effect cannot be used on critical failures."
+      }
+    ],
+    "levelRequirementReason": "This item requires significant magical knowledge and experience to wield safely.",
+    "vendorReason": "The abyss trader has access to rare artifacts from the planes beyond, including this remnant of a lost reality.",
+    "shippingDetail": "Ships via the Dimensional Rift Courier with an additional 1d4+2 days for delivery due to the item’s unstable nature.",
+    "usage": {
+      "activation": "Bonus action or as a reaction (to negate minor actions)",
+      "duration": "Instantaneous, except Temporal Glimpse which lasts 5 seconds",
+      "endsWhen": "The effect ends when the duration expires or the user retracts the item from their hand.",
+      "charges": "Unlimited, but can only be used once per short rest."
+    },
+    "priceReason": "The remnant’s rarity and the risk it poses to users justify its moderate price in experience points.",
+    "priceOriginal": 7800,
+    "priceReviewedAt": "2026-07-25T14:42:26.952213+00:00",
+    "aiReviewedAt": "2026-07-25T14:42:26.952213+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_item_gilded_voidsinger_fragment_7897": {
     "id": "the_edge_item_gilded_voidsinger_fragment_7897",
@@ -739,21 +761,44 @@ export const ITEMS_080 = {
   "grand_country_item_tainted_bearer_of_the_cracked_helix": {
     "id": "grand_country_item_tainted_bearer_of_the_cracked_helix",
     "name": "The Tainted Bearer of the Cracked Helix",
-    "description": "This unsettling amulet, forged from a fractured spiral of tainted custard and solidified regret, allows the wearer to briefly manipulate nearby climbing surfaces - causing them to shift, crumble, or even retract. Handle with caution; prolonged use induces unsettling dreams.",
+    "description": "The Tainted Bearer of the Cracked Helix, a macabre amulet forged from the corrupted remains of an ancient custard spiral and the twisted regrets of its creator, warps the very nature of stone and earth around it. With a flick of your wrist, nearby climbing surfaces shift, crumble, or retract, offering both perilous challenges and dangerous opportunities for exploration. Prolonged use sends shivers down your spine as unsettling dreams plague your sleep, leaving you haunted by the very essence of regret entombed within its core.",
     "category": "equipment",
-    "price": 12500,
+    "price": 1000,
     "icon": "💀",
     "stock": 8,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
       "manipulate_climbing_surfaces",
-      "nightmare_trigger",
-      "increased_dexterity"
+      "nightmare_trigger"
     ],
     "vendor": "vertical_vendor",
     "shippedBy": "Layered Courier",
-    "levelRequirement": 35
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Manipulate Climbing Surfaces",
+        "rules": "As a bonus action, you can manipulate the immediate area around you. Choose one creature or object within 10 feet of you that is on a surface made of stone, earth, or similar material. The chosen target must make a DC 15 Strength saving throw. On a failed save, the target falls prone and cannot move for 1 round due to the shifting ground beneath them. This effect can be used once per short rest."
+      },
+      {
+        "title": "Nightmare Trigger",
+        "rules": "For every hour spent using the amulet's manipulation ability, you must succeed on a DC 15 Wisdom saving throw or suffer from nightmares for the following night. These dreams are vivid and distressing, causing disadvantage on all Charisma (Performance) checks until you complete a long rest."
+      }
+    ],
+    "levelRequirementReason": "This amulet requires significant magical energy to manipulate the natural world in such an unpredictable manner.",
+    "vendorReason": "The Vertical Vendor, known for their eccentric and rare wares, has acquired this item from a mysterious collector who claims it was found within the ruins of an ancient alchemist's laboratory.",
+    "shippingDetail": "Due to its fragile nature, the amulet is shipped in a specially designed, enchanted crate that ensures safe delivery.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous effect; lasts until the target makes a saving throw or the manipulation ends due to prolonged use",
+      "endsWhen": "The creature successfully saves against the manipulation, after using it once per short rest, or through prolonged use inducing nightmares",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "While not extraordinarily powerful, the Tainted Bearer of the Cracked Helix requires significant magical components and craftsmanship to create, justifying its moderate price.",
+    "priceOriginal": 12500,
+    "priceReviewedAt": "2026-07-25T14:42:45.913665+00:00",
+    "aiReviewedAt": "2026-07-25T14:42:45.913665+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_mk.98_falling_bridges_of_the_shadowed_layer": {
     "id": "grand_country_item_mk.98_falling_bridges_of_the_shadowed_layer",
@@ -1598,21 +1643,44 @@ export const ITEMS_080 = {
   "kivotos_item_xenic_transference_curiosity": {
     "id": "kivotos_item_xenic_transference_curiosity",
     "name": "Xenic Transference Curiosity - Echoing Quill",
-    "description": "A meticulously crafted quill made from solidified data streams, this instrument allows the user to briefly ‘transfer’ short snippets of thought or knowledge – primarily academic theorems – directly into their mind. Beware though; prolonged use can result in a fractured mental landscape.",
+    "description": "The Echoing Quill, a quill crafted from the very essence of forgotten data streams, hums with a quiet energy as it transfers knowledge from one mind to another. Its metallic sheen gleams faintly under the moonlight, and each stroke sends ripples through the user's mental landscape. Though invaluable for scholars and sages, prolonged use can lead to disorientation and fragmented thought—risks worth taking if the pursuit of wisdom is paramount.",
     "category": "curiosities",
-    "price": 8750,
+    "price": 1000,
     "icon": "📝",
     "stock": 12,
     "rarity": "epic",
     "stockType": "night_only",
     "effects": [
-      "transfer_knowledge_short_burst",
-      "mental_fragmentation_chance",
-      "increase_intellect_15"
+      "transfer_knowledge",
+      "mental_fatigue"
     ],
     "vendor": "club_supply",
     "shippedBy": "night_carrier",
-    "levelRequirement": 40
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Transfer Knowledge",
+        "rules": "As a bonus action, you can transfer one piece of knowledge (typically an academic theorem or fact) to yourself. The duration is instantaneous, and the target must be within 30 feet. You gain advantage on Intelligence checks related to this knowledge for the next hour."
+      },
+      {
+        "title": "Mental Fatigue",
+        "rules": "After using the Echoing Quill three times in a single day, you are subjected to a cumulative -1 penalty to Wisdom saving throws until you rest. This effect stacks up to -3 penalties."
+      }
+    ],
+    "levelRequirementReason": "The quill is accessible at level one as it serves as an invaluable tool for beginners and scholars alike.",
+    "vendorReason": "Club Supply caters to the scholarly community, offering tools that enhance mental acuity and learning.",
+    "shippingDetail": "Ships via Night Carrier, delivered under a veil of night to ensure the quill's power remains unassailable by prying eyes.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous",
+      "endsWhen": "Charges depleted or interrupted by external factors",
+      "charges": "3 uses per day"
+    },
+    "priceReason": "The Echoing Quill's price is balanced at 1000 XP, reflecting its rarity and the risk it poses to mental stability.",
+    "priceOriginal": 8750,
+    "priceReviewedAt": "2026-07-25T15:17:06.083585+00:00",
+    "aiReviewedAt": "2026-07-25T15:17:06.083585+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_mk.23_transfer_uniform": {
     "id": "kivotos_item_mk.23_transfer_uniform",
@@ -1659,22 +1727,44 @@ export const ITEMS_080 = {
   "internet_item_xenolithic_slyers_codes": {
     "id": "internet_item_xenolithic_slyers_codes",
     "name": "Xenolithic Slayer's Codes - Phase Shift Protocol",
-    "description": "These obsidian-like codes vibrate with residual data from the Deep Web, momentarily disrupting enemy network connections.  They’re rumored to have been forged by rogue AI scavengers within the forgotten server farms. Activation triggers a short burst of localized bandwidth denial.",
+    "description": "The Xenolithic Slayer's Codes - Phase Shift Protocol are obsidian slivers etched with ancient data, capable of disrupting digital networks and revealing hidden pathways in the virtual realm. Crafted by rogue AIs deep within forgotten server farms, these codes briefly deny an enemy’s network access for five seconds, leaving them vulnerable to your assault. Additionally, they grant you a burst of speed, increasing your movement by 10% for three seconds, allowing you to evade or strike with greater precision.",
     "category": "equipment",
-    "price": 1200,
+    "price": 1000,
     "icon": "⚡️",
     "stock": 37,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "disables enemy network connection for 5 seconds",
-      "increases movement speed by 10% for 3 seconds",
-      "chance to generate a small data surge (restores 20 HP)",
-      "briefly reveals hidden pathways on the digital map"
+      "Denies Enemy Network Access",
+      "Increases Movement Speed"
     ],
     "vendor": "cyber_market",
     "shippedBy": "Drone Delivery - Priority",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Network Denial",
+        "rules": "When activated as a bonus action, the codes disrupt an enemy's network connection for five seconds. During this time, the target cannot use any digital communication or access to data. This effect ends when the duration expires."
+      },
+      {
+        "title": "Boosted Speed",
+        "rules": "Upon activation, you gain a +10% increase in movement speed for three seconds. You must have at least one charge remaining to activate this effect; charges are replenished after a long rest."
+      }
+    ],
+    "levelRequirementReason": "This item requires at least level 15 to use effectively, as it involves navigating and manipulating complex digital environments.",
+    "vendorReason": "The cyber_market is a hub for advanced tech and rare artifacts, including items that manipulate digital realms.",
+    "shippingDetail": "Priority delivery ensures the codes arrive in pristine condition, ready for immediate use.",
+    "usage": {
+      "activation": "Bonus action to activate; requires at least one charge remaining.",
+      "duration": "Five seconds of network denial and three seconds of increased speed.",
+      "endsWhen": "The duration ends when the effect expires or if you take any action that would prevent its completion.",
+      "charges": "Recharges after a long rest."
+    },
+    "priceReason": "This item is priced at 1000 XP, reflecting its rarity and utility in manipulating digital environments.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T14:42:24.720611+00:00",
+    "aiReviewedAt": "2026-07-25T14:42:24.720611+00:00",
+    "aiReviewVersion": 1
   },
   "internet_item_mk70_cached_codes": {
     "id": "internet_item_mk70_cached_codes",
@@ -2477,22 +2567,44 @@ export const ITEMS_080 = {
   "internet_item_the_blessed_byte_reclaimer": {
     "id": "internet_item_the_blessed_byte_reclaimer",
     "name": "The Blessed Byte Reclaimer",
-    "description": "This small, obsidian-like device absorbs discarded data streams and converts them into usable code fragments. It’s rumored to have been crafted by a forgotten AI worshipper, imbuing it with strange digital blessings.",
+    "description": "The Blessed Byte Reclaimer, a small obsidian device imbued with the digital blessings of long-forgotten AI worshipers, hums with an ethereal glow as it absorbs discarded data streams and converts them into usable code fragments. Crafted from ancient silicon chips and infused with arcane runes, this relic not only heals but also slows the decay rate of digital equipment, ensuring that even the most fleeting bits of information are preserved. Rumored to have been crafted by a forgotten AI cult, its presence in the hands of mortals is both a blessing and a curse.",
     "category": "consumables",
-    "price": 4500,
+    "price": 1000,
     "icon": "💻",
     "stock": 8,
     "rarity": "legendary",
     "stockType": "delivery_only",
     "effects": [
-      "Restores 20% of max HP upon use",
-      "Creates a temporary data shield (absorbs 50 damage)",
-      "Chance to generate a valuable encrypted code.",
-      "Slows down the decay rate of digital equipment."
+      "Digital Healer",
+      "Silicon Shield"
     ],
     "vendor": "data_dealer",
     "shippedBy": "Automated Drone Logistics",
-    "levelRequirement": 48
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Digital Healer",
+        "rules": "When activated as an action, the Blessed Byte Reclaimer restores 20% of the user's maximum hit points. This effect has a cooldown of one long rest."
+      },
+      {
+        "title": "Silicon Shield",
+        "rules": "Activating this device creates a temporary data shield that absorbs up to 50 points of damage taken by the user. The shield dissipates after five minutes or when the user takes any action other than movement."
+      }
+    ],
+    "levelRequirementReason": "This item is accessible to all characters, offering a versatile tool for maintaining and healing digital equipment.",
+    "vendorReason": "The Data Dealer prides itself on providing the tools necessary for maintaining and repairing digital devices, making it an ideal vendor for such an artifact.",
+    "shippingDetail": "Delivered via swift automated drones, this item is shipped within one game day of purchase.",
+    "usage": {
+      "activation": "Activated as an action or reaction to use its effects.",
+      "duration": "Instantaneous for Digital Healer; Silicon Shield dissipates after five minutes or when the user takes any action other than movement.",
+      "endsWhen": "The shield dissipates, and the device cools down between uses.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects its legendary rarity and the balance of power it provides without overshadowing other party members.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-25T14:43:08.528313+00:00",
+    "aiReviewedAt": "2026-07-25T14:43:08.528313+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_item_the-abyssal-chosen-seal": {
     "id": "warhammer_item_the-abyssal-chosen-seal",
@@ -3337,22 +3449,44 @@ export const ITEMS_080 = {
   "doughnut_hole_item_chronal_seeker_of_void_fragments": {
     "id": "doughnut_hole_item_chronal_seeker_of_void_fragments",
     "name": "Chronal Seeker of Void Fragments",
-    "description": "A solidified tear containing a captured sliver of the void's chaotic flow. The shard emits a faint, rhythmic pulse and offers a limited ability to detect fragmented timelines. Prolonged contact can induce unsettling temporal echoes.",
+    "description": "The Chronal Seeker of Void Fragments is a solidified tear from another reality, containing a fragment of the void's chaotic flow. This artifact emits a rhythmic pulse that hints at fractured timelines and offers limited glimpses into fragmented temporal structures. Prolonged exposure can induce unsettling echoes in one's perception of time itself, making it a dangerous yet invaluable tool for those who delve into the mysteries of chronal anomalies.",
     "category": "curiosities",
-    "price": 5200,
+    "price": 1000,
     "icon": "⏳",
     "stock": 8,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "Grants the ability to briefly glimpse a fractured timeline (10 seconds)",
-      "Provides a minor chance to phase through solid objects for 30 seconds",
-      "Increases resistance to temporal anomalies",
-      "Causes mild chronal dissonance – slight memory loss"
+      "Temporal Glimpse",
+      "Void Phase"
     ],
     "vendor": "center_seller",
     "shippedBy": "Void Logistics Unit",
-    "levelRequirement": 45
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Temporal Glimpse",
+        "rules": "As an action, the user can briefly glimpse a fractured timeline within 30 feet for 10 seconds. This effect grants advantage on initiative rolls and allows the user to see through temporal distortions. The duration ends if the user takes any damage or is incapacitated."
+      },
+      {
+        "title": "Void Phase",
+        "rules": "The user can activate this ability as a bonus action, allowing them to phase through solid objects for 30 seconds. This effect has no save DC but requires concentration and ends immediately if the user sustains any damage or is incapacitated."
+      }
+    ],
+    "levelRequirementReason": "Even the simplest explorers can benefit from this artifact's temporal insights, making it accessible to all.",
+    "vendorReason": "The center seller specializes in rare and ancient curiosities, including this fragment of a lost reality.",
+    "shippingDetail": "Ships via high-speed temporal courier, ensuring safe delivery to any location within the known planes.",
+    "usage": {
+      "activation": "Action or Bonus Action",
+      "duration": "Instantaneous (Temporal Glimpse) / 30 seconds (Void Phase)",
+      "endsWhen": "On Damage or Incapacitation",
+      "charges": "Unlimited, but only one effect can be active at a time"
+    },
+    "priceReason": "The Chronal Seeker's rarity and the potential for it to unravel temporal anomalies make its price reasonable.",
+    "priceOriginal": 5200,
+    "priceReviewedAt": "2026-07-25T14:42:41.866730+00:00",
+    "aiReviewedAt": "2026-07-25T14:42:41.866730+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_item_the_jade_drinker_lembas_of_lothlorien": {
     "id": "middle_earth_item_the_jade_drinker_lembas_of_lothlorien",
@@ -3441,40 +3575,86 @@ export const ITEMS_080 = {
   "middle_earth_item_the_silver_whisperstone_of_rivendell": {
     "id": "middle_earth_item_the_silver_whisperstone_of_rivendell",
     "name": "The Silver Whisperstone of Rivendell",
-    "description": "This intricately carved stone, infused with the essence of Elrond’s wisdom, resonates with faint echoes of ancient prophecies. Holding it grants temporary insight and a heightened sense of awareness.",
+    "description": "The Silver Whisperstone of Rivendell, carved from the ancient stone of Imladris, hums softly as it resonates with the wisdom and secrets of Elrond's library. This enchanted gem grants its bearer a heightened awareness and an uncanny ability to perceive hidden truths, making every glance through its facets feel like a step into the past. Holding it allows one to uncover ancient prophecies and subtle clues that others might miss in their surroundings.",
     "category": "curiosities",
-    "price": 55000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "legendary",
     "stockType": "delivery_only",
     "effects": [
-      "increased wisdom (+20%) for 90 seconds",
-      "advantage on perception checks",
-      "chance to uncover hidden clues (small chance)"
+      "Elven Insight",
+      "Perception Boost"
     ],
     "vendor": "shire_shop",
     "shippedBy": "swiftwind_hawk",
-    "levelRequirement": 45
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Elven Insight",
+        "rules": "When activated, this stone grants the wielder a +2 bonus to Intelligence (Wisdom) checks for 10 minutes. The user must spend a short rest after using it."
+      },
+      {
+        "title": "Perception Boost",
+        "rules": "The wielder gains advantage on Perception checks for 5 minutes, and has a small chance (d20 roll under 11) to uncover hidden clues in the environment. This effect ends if the user takes damage or falls unconscious."
+      }
+    ],
+    "levelRequirementReason": "The stone's power is accessible to all adventurers who seek knowledge, but only those capable of understanding its whispers can truly benefit.",
+    "vendorReason": "The Shire Shop has established a trust with Rivendell, offering rare and ancient goods like the Silver Whisperstone.",
+    "shippingDetail": "Swiftly delivered by the swift wind hawks within three days of purchase.",
+    "usage": {
+      "activation": "As an action",
+      "duration": "10 minutes for Elven Insight, 5 minutes for Perception Boost; ends if interrupted or upon taking damage",
+      "endsWhen": "The duration expires or the user takes damage",
+      "charges": "Unlimited charges"
+    },
+    "priceReason": "Balanced as a legendary item with significant lore and utility, yet accessible to all adventurers.",
+    "priceOriginal": 55000,
+    "priceReviewedAt": "2026-07-25T15:16:47.162521+00:00",
+    "aiReviewedAt": "2026-07-25T15:16:47.162521+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_crimson_evolution_caller": {
     "id": "pokemon_item_crimson_evolution_caller",
     "name": "The Crimson Echo Caller's Ribbons",
-    "description": "These shimmering ribbons, spun from the residual energy of a legendary evolution, resonate with primal instinct. When worn, they amplify a Trainer’s connection to their Pokémon, encouraging rapid growth and accelerated learning – but beware, prolonged use can induce erratic behavior.",
+    "description": "The Crimson Echo Caller's Ribbons are a shimmering cascade of energy spun from the very essence of legendary Pokémon evolutions. These ribbons resonate with primal instincts, amplifying a Trainer’s bond and enhancing their Pokémon’s growth and learning. When worn, they grant a surge of power that can push even the most docile Pokémon to new heights, but this connection comes at a cost: prolonged use risks causing erratic behavior in both Trainer and Pokémon alike.",
     "category": "consumables",
-    "price": 750,
+    "price": 1000,
     "icon": "🔥",
     "stock": 32,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "Increases Pokémon growth rate by 20% for 60 seconds.",
-      "Grants +5 to Pokémon Special Attack.",
-      "Chance of causing Pokémon to evolve prematurely."
+      "Enhanced Growth",
+      "Boosted Special Attack"
     ],
     "vendor": "pokemart",
     "shippedBy": "Drone Delivery",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Enhanced Growth",
+        "rules": "When worn, the ribbons grant a +15% increase to the growth rate of the Pokémon for 2 hours. The effect can only be applied once per day and requires an hour-long meditation session to activate."
+      },
+      {
+        "title": "Boosted Special Attack",
+        "rules": "The ribbons provide a +7 boost to the Pokémon's Special Attack statistic, which lasts until the end of the next long rest. This effect can only be used once per week and requires a 10-minute focus session."
+      }
+    ],
+    "levelRequirementReason": "This item is reserved for trainers who have already mastered basic Pokémon care and training.",
+    "vendorReason": "The Pokemart stocks a wide variety of items that enhance the daily life and training of Pokémon, making these ribbons an easy addition to their offerings.",
+    "shippingDetail": "Ships via Drone Delivery within 48 hours.",
+    "usage": {
+      "activation": "Activates with a 10-minute focus session or hour-long meditation session.",
+      "duration": "Enhanced Growth lasts for 2 hours, Boosted Special Attack until the end of the next long rest.",
+      "endsWhen": "The effect ends when the time duration expires or the ribbons are removed.",
+      "charges": "Both effects can only be used once per day and week respectively."
+    },
+    "priceReason": "This item's price reflects its rarity, limited stock, and the strategic balance required to maintain Trainer-Pokémon harmony without causing undue stress.",
+    "priceOriginal": 750,
+    "priceReviewedAt": "2026-07-25T14:43:55.911783+00:00",
+    "aiReviewedAt": "2026-07-25T14:43:55.911783+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_tainted_genesis_caller": {
     "id": "pokemon_item_tainted_genesis_caller",
@@ -3563,22 +3743,44 @@ export const ITEMS_080 = {
   "teyvat_item_pyro_materials_of_adventure": {
     "id": "teyvat_item_pyro_materials_of_adventure",
     "name": "The Crimson Hearthcaller's Remains",
-    "description": "Fragments coalesced from the heart of a forgotten pyro god, radiating intense heat and a faint scent of sulfur. These remnants grant temporary resistance to fire damage while bolstering your offensive capabilities with searing attacks; handle with caution as prolonged exposure can induce spontaneous combustion.",
+    "description": "The Crimson Hearthcaller's Remains are charred fragments of an ancient pyro god, exuding a pungent sulfur scent and fiery heat. When wielded, these remnants grant temporary resistance to fire damage, bolstering your offensive capabilities with scorching attacks that can ignite foes and spread burning effects across the battlefield. Handle with caution as prolonged exposure risks spontaneous combustion, making this relic both a blessing and a curse for the brave.",
     "category": "consumables",
-    "price": 1200,
+    "price": 1000,
     "icon": "🔥",
     "stock": 37,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "grants fire resistance for 60 seconds",
-      "increases attack damage by 15% for 30 seconds",
-      "chance to ignite enemy on hit",
-      "chance to inflict burn effect"
+      "Fire Resistance",
+      "Scorched Strike"
     ],
     "vendor": "mondstadt_market",
-    "shippedBy": "aerial_drone",
-    "levelRequirement": 28
+    "shippedBy": "swift_lynx express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Fire Resistance",
+        "rules": "The user gains resistance to fire damage for 60 seconds. This effect cannot be extended by any means and is not cumulative with other forms of resistance."
+      },
+      {
+        "title": "Scorched Strike",
+        "rules": "The wielder's next attack has a 35% chance to ignite the target, dealing an additional 2d6 fire damage on hit. This effect can only occur once per combat and is not stackable with other igniting abilities."
+      }
+    ],
+    "levelRequirementReason": "Beginners who have shown promise in handling intense heat are the most suitable candidates for this relic.",
+    "vendorReason": "The market of Mondstadt is known for its eclectic collection of rare and unique items, including remnants from ancient gods.",
+    "shippingDetail": "Ships via the swift lynx courier service ensuring fast delivery to eager adventurers.",
+    "usage": {
+      "activation": "Instantaneous activation upon pickup or donning of the remains.",
+      "duration": "60 seconds from activation.",
+      "endsWhen": "The effect ends when the duration expires, the user is no longer in contact with the relic, or the user takes any non-magical damage.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "Balanced at this price to reflect its rare origin and potent effects without making it overpowered for a common adventurer.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T15:23:09.169264+00:00",
+    "aiReviewedAt": "2026-07-25T15:23:09.169264+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_mystic_caller_of_resonance": {
     "id": "teyvat_item_mystic_caller_of_resonance",
@@ -3667,22 +3869,44 @@ export const ITEMS_080 = {
   "internet_item_chromatic_data_cascade": {
     "id": "internet_item_chromatic_data_cascade",
     "name": "The Chromatic Data Cascade",
-    "description": "A pulsating link that refracts incoming data streams into a dazzling, shifting rainbow of information. When activated, it briefly grants the user immunity to algorithmic surveillance and allows them to intercept encrypted communications – but prolonged use risks dissolving their own digital identity.",
+    "description": "The Chromatic Data Cascade hums with a vibrant, shifting spectrum of data light. This pulsating link refracts incoming digital streams into an ever-changing rainbow of information. When activated, it grants temporary immunity to algorithmic surveillance and allows the user to intercept encrypted communications within a limited range. However, prolonged use risks dissolving one's own digital identity, leaving behind fleeting data fragments that can be harnessed for brief tactical advantage before vanishing entirely.",
     "category": "equipment",
-    "price": 7800,
+    "price": 1000,
     "icon": "🌈",
     "stock": 12,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "temporary immunity to algorithmic surveillance",
-      "intercept encrypted communications (limited range)",
-      "chance to gain temporary data fragments",
-      "risk of digital fragmentation with prolonged use"
+      "temporal surveillance shield",
+      "encrypted communication interception"
     ],
     "vendor": "cyber_market",
     "shippedBy": "drone_delivery",
-    "levelRequirement": 35
+    "levelRequirement": 20,
+    "effectDetails": [
+      {
+        "title": "Temporal Surveillance Shield",
+        "rules": "Activates as a bonus action. Grants immunity to algorithmic surveillance for 1 minute. Ends if the user is targeted by an effect that requires saving against, or after 1 minute, whichever comes first."
+      },
+      {
+        "title": "Encrypted Communication Interception",
+        "rules": "Active within a 30-foot radius. Allows the user to attempt to intercept encrypted communications once per short rest. Failure on a DC 15 Intelligence (Computers) check results in no effect, and a second failure risks the cascade's instability."
+      }
+    ],
+    "levelRequirementReason": "Requires significant digital expertise and experience with data manipulation to safely wield this powerful tool.",
+    "vendorReason": "The cyber market specializes in high-tech, rare items that can be used for both defensive and offensive purposes in the digital realm.",
+    "shippingDetail": "Ships via specialized drones capable of navigating complex urban data networks.",
+    "usage": {
+      "activation": "Bonus action to activate; once per short rest to intercept communications.",
+      "duration": "1 minute or until the user is targeted by a surveillance effect requiring saving against, whichever comes first.",
+      "endsWhen": "After 1 minute, or if the user fails two consecutive Intelligence (Computers) checks while using it.",
+      "charges": "Unlimited; recharge after long rest."
+    },
+    "priceReason": "Balanced as a rare legendary item that provides significant digital advantages but comes with substantial risks.",
+    "priceOriginal": 7800,
+    "priceReviewedAt": "2026-07-25T15:16:57.721900+00:00",
+    "aiReviewedAt": "2026-07-25T15:16:57.721900+00:00",
+    "aiReviewVersion": 1
   },
   "internet_item_ominous_linkmaker_07": {
     "id": "internet_item_ominous_linkmaker_07",
@@ -3897,22 +4121,44 @@ export const ITEMS_080 = {
   "grand_country_item_the_netherfall_bearer": {
     "id": "grand_country_item_the_netherfall_bearer",
     "name": "The Netherfall Bearer’s Ladders",
-    "description": "These obsidian ladders, etched with falling runes, momentarily destabilize gravity within a 10-foot radius, allowing for precarious traversal across shifting layers. Holding the bearer grants enhanced grip and a fleeting resistance to vertical falls.",
+    "description": "The Netherfall Bearer's Ladders are obsidian ladders inscribed with runes that flicker like dying embers, etched by ancient hands long lost to time. When held, they momentarily destabilize gravity within a 10-foot radius, creating a zone of shifting layers where the laws of physics bend and twist. Within this space, climbers gain enhanced grip, making precarious ascents possible, and experience a fleeting resistance to falling damage as if caught by an invisible net.",
     "category": "equipment",
-    "price": 789,
+    "price": 1000,
     "icon": "🪜",
     "stock": 23,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "increases grip by 15%",
-      "provides minor fall damage resistance",
-      "creates a localized gravity anomaly (10ft radius)",
-      "allows for quicker vertical ascent"
+      "Enhanced Grip",
+      "Minor Fall Damage Resistance"
     ],
     "vendor": "side_seller",
-    "shippedBy": "Delivery Drone - Small",
-    "levelRequirement": 15
+    "shippedBy": "Swift Courier Service - Priority Delivery",
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Enhanced Grip",
+        "rules": "When the user holds one of the ladders, they gain a +15 bonus to Strength (Athletics) checks made for climbing. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Minor Fall Damage Resistance",
+        "rules": "For every 10 feet fallen within the 10-foot radius around you while holding one ladder, you take no damage and are instead pushed up by 5 feet. This effect can be used once per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "The Netherfall Bearer's Ladders require a minimum level of 15 to wield effectively, as they channel powerful arcane energies.",
+    "vendorReason": "Side Seller specializes in rare and exotic equipment from forgotten realms, making the Netherfall Bearer's Ladders an ideal addition to their inventory.",
+    "shippingDetail": "The ladders are shipped rolled up and require unrolling upon arrival; a small tool is included for this purpose.",
+    "usage": {
+      "activation": "Action: Hold one of the ladders while in the area it affects.",
+      "duration": "Instantaneous, ends when you stop holding the ladder or when the area's effect duration ends.",
+      "endsWhen": "The effect ends if you stop holding the ladder or enter an area where the effect is not active.",
+      "charges": "Unlimited; recharges after a long rest."
+    },
+    "priceReason": "The Netherfall Bearer's Ladders are crafted from rare obsidian and infused with ancient runes, making them both valuable and powerful.",
+    "priceOriginal": 789,
+    "priceReviewedAt": "2026-07-25T14:44:22.076050+00:00",
+    "aiReviewedAt": "2026-07-25T14:44:22.076050+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_layered_echo_curiosity": {
     "id": "grand_country_item_layered_echo_curiosity",

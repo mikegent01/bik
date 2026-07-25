@@ -1345,20 +1345,43 @@ export const ITEMS_046 = {
   "valley_bowser_lava_scorch": {
     "id": "valley_bowser_lava_scorch",
     "name": "Lava Scorch Gauntlets",
-    "description": "These fiery gauntlets channel volcanic energy, granting the wearer temporary fire resistance and explosive strikes. Perfect for fighting through Bowser’s magma tunnels.",
+    "description": "The Lava Scorch Gauntlets are molten steel bracers forged in the heart of Bowser's magma tunnels, their surface crackling with fiery runes that seem to pulse with volcanic energy. These gauntlets not only grant you fire resistance and explosive melee strikes but also allow you to channel a stream of scalding lava whenever you strike your foe, leaving them sizzling on contact. Perfect for navigating the treacherous lava fields of Bowser’s kingdom.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+10% fire resistance",
-      "+20% damage on melee attacks",
-      "10% chance to ignite enemies on hit"
+      "+15% Fire Resistance",
+      "Explosive Strikes"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Explosive Strikes",
+        "rules": "When you make a melee attack while wearing the Lava Scorch Gauntlets, there is a 20% chance that your strike will deal an additional 1d6 fire damage to the target. This effect has no cooldown and can be used once per turn."
+      },
+      {
+        "title": "Fire Resistance",
+        "rules": "While wearing these gauntlets, you have advantage on saving throws against fire-based effects and gain +15% fire resistance. This benefit lasts for 8 hours after you remove the gauntlets."
+      }
+    ],
+    "levelRequirementReason": "The Lava Scorch Gauntlets require a minimum level of 3 to wield effectively, as their fiery runes demand a certain mastery over fire magic.",
+    "vendorReason": "Valley Bowser, the blacksmith who forges weapons in the very heart of Bowser's kingdom, is the only vendor capable of creating such heat-resistant gear.",
+    "shippingDetail": "The gauntlets are carefully packed and shipped by Lakitu Drones through a special thermal insulation service to ensure they arrive in perfect condition.",
+    "usage": {
+      "activation": "Instantaneous effect triggered on melee attack.",
+      "duration": "Permanent while worn, with fire resistance lasting for 8 hours post removal.",
+      "endsWhen": "Effect ends upon removal of the gauntlets or if the user's fire resistance is negated by an external force.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "The Lava Scorch Gauntlets are priced at 1000 XP due to their unique fiery runes, advanced metallurgy, and the specialized crafting required by Valley Bowser.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-25T15:09:56.208256+00:00",
+    "aiReviewedAt": "2026-07-25T15:09:56.208256+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_lava_scorch_glove": {
     "id": "valley_bowser_lava_scorch_glove",
@@ -1729,19 +1752,42 @@ export const ITEMS_046 = {
   "valley_bowser_lava_soul_potion": {
     "id": "valley_bowser_lava_soul_potion",
     "name": "Lava Soul Elixir",
-    "description": "Brewed from the heart of subterranean magma, this potion fuels your body with raw volcanic energy. Sips of this elixir leave you burning with power—until the next eruption.",
-    "price": 1200,
+    "description": "Crafted from the molten heart of active volcanoes, Lava Soul Elixir is a potent potion that fuels your body with raw volcanic energy. Each sip ignites your flames, but beware—this power comes with a price: after each burst of strength, you must endure the fiery aftershocks for moments before the next eruption. This elixir was once reserved for the lava-skilled in Valley Bowser’s forge, where only those who can withstand its fury are allowed to partake.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Restores 300 HP",
-      "Increases fire damage by 20% for 10 seconds",
-      "Boosts movement speed by 20% for 5 seconds"
+      "Inflames with Volcanic Might",
+      "Eruption of Fire"
     ],
     "vendor": "valley_bowser",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 4
+    "shippedBy": "Spectral Mail Express",
+    "levelRequirement": 4,
+    "effectDetails": [
+      {
+        "title": "Inflames with Volcanic Might",
+        "rules": "Consume the potion as a bonus action. You gain temporary hit points equal to twice your level (minimum 30). These temporary hit points last for 1 minute or until you take damage, whichever comes first."
+      },
+      {
+        "title": "Eruption of Fire",
+        "rules": "For every 5 minutes after drinking the potion, you must make a DC 16 Constitution saving throw. On a failed save, you are engulfed in flames for 1 minute, dealing 2d8 fire damage to yourself and creating a 30-foot radius of heat that ignites any combustible material within reach."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum character level of 4 to withstand the potion's volatile effects.",
+    "vendorReason": "Valley Bowser, a master forger and guardian of volcanic secrets, ensures only those who can handle the heat are given this potent elixir.",
+    "shippingDetail": "Ships via Spectral Mail Express, known for its swift delivery through the infernal realms.",
+    "usage": {
+      "activation": "Consumed as a bonus action.",
+      "duration": "Temporary hit points last for 1 minute or until you take damage.",
+      "endsWhen": "On a failed Constitution saving throw due to erupting flames, lasting 1 minute.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The potion's rarity and the volcanic materials required make it a valuable commodity in the D&D market.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T15:09:50.067885+00:00",
+    "aiReviewedAt": "2026-07-25T15:09:50.067885+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_lava_sword": {
     "id": "valley_bowser_lava_sword",

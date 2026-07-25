@@ -251,19 +251,42 @@ export const ITEMS_034 = {
   "psionic_amplifier_crown": {
     "id": "psionic_amplifier_crown",
     "name": "Psionic Amplifier Crown (Headgear)",
-    "description": "Amplifies psionic powers for greater range and potency.",
+    "description": "The Psionic Amplifier Crown is a regal diadem forged from the molten dreams of the Mind Crown Forgers, its surface etched with ancient runes that glow faintly in response to your mental commands. This crown not only amplifies your psionic powers but also attunes itself to your mind, enhancing both their potency and range. With this helm upon your head, you feel as though you command the very fabric of reality itself.",
     "price": 550000,
     "icon": "👑",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "Doubles psionic damage and range",
-      "Attunes to wearer",
-      "Made by: Mind Crown Forgers"
+      "Doubles Psionic Potency",
+      "Extended Range"
     ],
     "vendor": "psi_emporium",
     "shippedBy": "Telekinetic Delivery",
-    "levelRequirement": 17
+    "levelRequirement": 17,
+    "effectDetails": [
+      {
+        "title": "Increased Psionic Potency",
+        "rules": "Activates on command as a bonus action. While wearing this crown, all psionic damage dealt and power DCs are doubled until the end of your next turn."
+      },
+      {
+        "title": "Extended Range",
+        "rules": "While wearing this crown, you can extend the range of any psionic power by an additional 30 feet for a duration of 1 minute. This effect ends early if you remove the crown or when you cast another psionic power."
+      }
+    ],
+    "levelRequirementReason": "The Psionic Amplifier Crown's complex enchantments and attunement to the wearer necessitate significant mental fortitude and experience.",
+    "vendorReason": "The Psi Emporium is renowned for its vast collection of powerful mind-related artifacts, making it the ideal vendor for such an item.",
+    "shippingDetail": "The crown is delivered via telekinetic means, ensuring swift and secure transport.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "1 minute (or until the end of your next turn, whichever comes first)",
+      "endsWhen": "You remove the crown or cast another psionic power",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Psionic Amplifier Crown's legendary status and intricate enchantments justify its high price.",
+    "priceOriginal": 550000,
+    "priceReviewedAt": "2026-07-25T15:20:10.344770+00:00",
+    "aiReviewedAt": "2026-07-25T15:20:10.344770+00:00",
+    "aiReviewVersion": 1
   },
   "psionic_dream_weaver": {
     "id": "psionic_dream_weaver",
@@ -512,19 +535,42 @@ export const ITEMS_034 = {
   "quantum_entanglement_comms": {
     "id": "quantum_entanglement_comms",
     "name": "Quantum Entanglement Comms (Device)",
-    "description": "Instant communication across any distance via quantum links.",
+    "description": "The Quantum Entanglement Comms are a pair of sleek, black devices that hum with an otherworldly charge. They allow for instantaneous communication between any two points within reach, defying the laws of physics to maintain constant contact. These devices were crafted by the enigmatic Entangle Labs, whose innovations have long been shrouded in mystery and awe. The comms are unjammable, ensuring that your messages will always reach their intended recipients.",
     "price": 450000,
     "icon": "📡",
     "stock": 2,
     "rarity": "godly",
     "effects": [
-      "Pair of devices, unlimited range",
-      "Unjammable",
-      "Made by: Entangle Labs"
+      "Unlimited Range Communication",
+      "Unjammable"
     ],
     "vendor": "comm_tower",
-    "shippedBy": "Quantum Pair",
-    "levelRequirement": 14
+    "shippedBy": "Quantum Pair Courier Service",
+    "levelRequirement": 14,
+    "effectDetails": [
+      {
+        "title": "Unlimited Range Communication",
+        "rules": "The user can send and receive messages with the paired device instantly, no matter the distance between them. This effect is instantaneous and does not consume any charges or require action to activate."
+      },
+      {
+        "title": "Unjammable",
+        "rules": "The Quantum Entanglement Comms are immune to all jamming attempts, ensuring that your communications remain secure and uninterrupted. This provides a +5 bonus to saving throws against effects that would disrupt or block communication."
+      }
+    ],
+    "levelRequirementReason": "This level requirement reflects the advanced technology and complex physics required for such devices.",
+    "vendorReason": "Comm Tower specializes in cutting-edge communication technologies, making it a logical vendor for these groundbreaking devices.",
+    "shippingDetail": "The courier service ensures the safe and timely delivery of your Quantum Entanglement Comms, guaranteeing they arrive fully charged and operational.",
+    "usage": {
+      "activation": "Instantaneous action to initiate communication or use device features.",
+      "duration": "Permanent until destroyed or lost",
+      "endsWhen": "Exhausted by loss or destruction; unlimited uses per day.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects the advanced technology, unique capabilities, and the prestige associated with such a device.",
+    "priceOriginal": 450000,
+    "priceReviewedAt": "2026-07-25T15:08:24.746896+00:00",
+    "aiReviewedAt": "2026-07-25T15:08:24.746896+00:00",
+    "aiReviewVersion": 1
   },
   "quantum_phase_shifter": {
     "id": "quantum_phase_shifter",
@@ -2358,21 +2404,43 @@ export const ITEMS_034 = {
   "rebel_clans_smokehouse_dryer": {
     "id": "rebel_clans_smokehouse_dryer",
     "name": "Rebel Clans Smokehouse Dryer",
-    "description": "Dryer for jerky in hidden camps.",
+    "description": "The Rebel Clans Smokehouse Dryer is a forge-made core crafted by Clan Dryers to quickly dry jerky in hidden camps. Its sturdy frame and sleek design make it both functional and durable, capable of drying food twice as long due to its efficient heat management. The dryer's smoke is nearly invisible, ensuring stealthy operations even when the winds are light. It attracts wild animals, providing a steady supply of fresh meat for campers.",
     "category": "equipment",
-    "price": 6000,
+    "price": 1000,
     "icon": "🥩",
     "stock": 8,
     "rarity": "uncommon",
     "effects": [
-      "Dries quickly; +1 to preservation (lasts 2x longer)",
-      "Stealthy smoke (low visibility)",
-      "Attracts wild animals",
-      "Made by: Clan Dryers"
+      "Dries Twice as Long",
+      "Stealth Smoke"
     ],
     "vendor": "rebel_clans_hideout",
     "shippedBy": "Smoke Dry Dispatch",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Dries Twice as Long",
+        "rules": "When activated, the dryer increases the preservation time of dried food by double. This effect is instantaneous and does not require a save or action."
+      },
+      {
+        "title": "Stealth Smoke",
+        "rules": "The smoker emits nearly invisible smoke, granting advantage on Stealth checks within 10 feet for 1 minute per activation. The effect ends if the user moves more than 30 feet away from the dryer's position."
+      }
+    ],
+    "levelRequirementReason": "This is a basic tool that can be used by any adventuring party member.",
+    "vendorReason": "The Rebel Clans are known for their expertise in survival gear and this dryer is a staple of their supply list.",
+    "shippingDetail": "Ships via Smoke Dry Dispatch, ensuring delivery within one week.",
+    "usage": {
+      "activation": "Object Interaction",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect ends when the user moves more than 30 feet from the dryer's position.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects its efficiency and utility without being overpowered.",
+    "priceOriginal": 6000,
+    "priceReviewedAt": "2026-07-25T14:19:19.455857+00:00",
+    "aiReviewedAt": "2026-07-25T14:19:19.455857+00:00",
+    "aiReviewVersion": 1
   },
   "rebel_clans_smokehouse_jerky_recipe": {
     "id": "rebel_clans_smokehouse_jerky_recipe",

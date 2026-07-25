@@ -246,19 +246,43 @@ export const ITEMS_041 = {
   "shooting_star": {
     "id": "shooting_star",
     "name": "Shooting Star",
-    "description": "A star that fell from the sky. Release its energy to bombard enemies.",
+    "description": "The Shooting Star is a meteorite that fell from the heavens, its surface still warm to the touch. When released, it unleashes a radiant burst of celestial energy, scorching all enemies within sight with its fiery might. This star falls true and true it strikes, sparing allies in its path while delivering a searing blow to foes. The very essence of this fallen star is drawn from the cosmos itself, making it a rare find for any brave soul willing to harness its power.",
     "category": "consumables",
-    "price": 45000,
+    "price": 1000,
     "icon": "🌠",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "All enemies in sight take 4d8 Radiant damage",
-      "No friendly fire"
+      "Radiant Burst",
+      "Friendly Fire Sparing"
     ],
     "vendor": "comet_observatory",
     "shippedBy": "Cosmic Mail",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Radiant Burst",
+        "rules": "When activated, the Shooting Star releases an intense burst of radiant energy that deals 4d8 Radiant damage to all creatures within a 15-foot radius. This effect has no save DC and is instantaneous in its execution."
+      },
+      {
+        "title": "Friendly Fire Sparing",
+        "rules": "This effect targets only enemies, sparing allies from the burst's fiery wrath. It also prevents friendly fire, ensuring that your comrades remain unharmed during its use."
+      }
+    ],
+    "levelRequirementReason": "The Shooting Star requires a lower level to use as it is accessible to heroes who are just beginning their journey.",
+    "vendorReason": "The Comet Observatory has the means to track and retrieve these rare celestial objects, making them available for purchase.",
+    "shippingDetail": "Delivered via the fastest Cosmic Mail service, ensuring you receive your Shooting Star promptly.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "After it is used or expended",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects the Shooting Star's rarity and the cosmic energy it contains, making it accessible yet valuable.",
+    "priceOriginal": 45000,
+    "priceReviewedAt": "2026-07-25T15:29:01.695400+00:00",
+    "aiReviewedAt": "2026-07-25T15:29:01.695400+00:00",
+    "aiReviewVersion": 1
   },
   "shroob_fragment": {
     "id": "shroob_fragment",
@@ -3284,20 +3308,43 @@ export const ITEMS_041 = {
   "sprocket_belt": {
     "id": "sprocket_belt",
     "name": "Sprocket Belt",
-    "description": "A leather belt studded with ticking gears. Powers small mechanical augmentations.",
+    "description": "The Sprocket Belt, a leather belt studded with intricate gears and cogs, whispers with mechanical life as it powers small augmentations. Crafted by Gearworks for clockwork adepts, this belt grants +2 to Strength checks when using tools or interacting with constructs. With each charge, the belt can grant +10 on a single craft check or attack roll, expending one of its three charges in the process; recharge after a short rest.",
     "category": "equipment",
-    "price": 22000,
+    "price": 1000,
     "icon": "⚙️",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Gain +2 to Strength checks for tool/construct use",
-      "3 charges: spend 1 for +10 on a single craft or attack; 1 charge/short rest",
-      "Belt emits faint ticking"
+      "+2 to Strength Checks for Tool/Construct Use",
+      "3 Charges: Spend 1 Charge for +10 on a Craft Check or Attack"
     ],
-    "vendor": "gearworks",
-    "shippedBy": "Metal Trunk",
-    "levelRequirement": 4
+    "vendor": "Gearworks",
+    "shippedBy": "Metal Trunk Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Tool/Construct Strength Boost",
+        "rules": "The wielder gains +2 to Strength checks when using tools or interacting with constructs. This effect is passive and always active."
+      },
+      {
+        "title": "Craft or Combat Boost",
+        "rules": "Activates as a bonus action, expending one charge to grant the user +10 on a single craft check or attack roll. The belt recharges one charge after each short rest."
+      }
+    ],
+    "levelRequirementReason": "The Sprocket Belt is designed for beginners and clockwork enthusiasts who need an assist in their mechanical endeavors.",
+    "vendorReason": "Gearworks specializes in the creation of items that enhance a character's mechanical aptitude, making this belt a natural addition to their product line.",
+    "shippingDetail": "Delivered via Metal Trunk Express within one week of order placement.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous; each charge is used once and expires after use",
+      "endsWhen": "Exhausted or recharged after a short rest",
+      "charges": "3 charges, with one recharge per short rest"
+    },
+    "priceReason": "The Sprocket Belt offers significant utility for beginners and clockwork enthusiasts without breaking the bank.",
+    "priceOriginal": 22000,
+    "priceReviewedAt": "2026-07-25T14:21:26.303732+00:00",
+    "aiReviewedAt": "2026-07-25T14:21:26.303732+00:00",
+    "aiReviewVersion": 1
   },
   "spurs_that_jingle_with_greed": {
     "id": "spurs_that_jingle_with_greed",

@@ -509,7 +509,7 @@ export const ITEMS_063 = {
   "the_edge_godly_heartstone": {
     "id": "the_edge_godly_heartstone",
     "name": "Godly Heartstone of the Abyss",
-    "description": "This pulsating stone radiates immense power, a fragment of the abyss itself! Holding it provides incredible protection against dark energies and allows you to briefly manipulate gravity. Use with caution – this thing's got attitude!",
+    "description": "The Godly Heartstone of the Abyss hums with malevolent energy, its pulsating surface etched with dark sigils that shimmer like molten lava. Held in your palm, it grants you a shield against necrotic and shadow-based attacks, while also allowing you to briefly manipulate gravity within a small radius, tipping the scales of combat with ease or precision. Use this artifact with caution; its power is as unpredictable as the abyss itself.",
     "category": "equipment",
     "price": 850000,
     "icon": "🔥",
@@ -517,14 +517,36 @@ export const ITEMS_063 = {
     "rarity": "godly",
     "stockType": "back_order",
     "effects": [
-      "high_defense",
-      "chance_to_nullify_dark_magic",
-      "minor_gravity_manipulation",
-      "increased_mana_pool"
+      "necrotic_shield",
+      "gravity_manipulation"
     ],
     "vendor": "final_shop",
     "shippedBy": "celestial_cart",
-    "levelRequirement": 35
+    "levelRequirement": 35,
+    "effectDetails": [
+      {
+        "title": "Necrotic Shield",
+        "rules": "When you are hit by a necrotic or shadow-based attack, you can activate this effect as an action to gain a +5 bonus to your AC against that attack. The bonus lasts for the start of your next turn."
+      },
+      {
+        "title": "Gravity Manipulation",
+        "rules": "As an action, you can manipulate gravity within a 10-foot radius around you for up to 1 minute. During this time, you and allies within the area can move more easily against gravity's pull or even defy it briefly."
+      }
+    ],
+    "levelRequirementReason": "This godly artifact requires significant power to wield its chaotic energies safely.",
+    "vendorReason": "The final shop deals in the most powerful and rarest artifacts, making it a fitting location for such an item.",
+    "shippingDetail": "Ships via the celestial cart, known for its speed and reliability, ensuring this item arrives safely to your door.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous (Necrotic Shield) / Up to 1 minute (Gravity Manipulation)",
+      "endsWhen": "Ends when the duration expires or you are hit by a critical attack.",
+      "charges": "Unlimited, but can only be used once per short rest."
+    },
+    "priceReason": "The price reflects its godly rarity and immense power, suitable for those who have already proven their mettle in the world.",
+    "priceOriginal": 850000,
+    "priceReviewedAt": "2026-07-25T15:11:55.763557+00:00",
+    "aiReviewedAt": "2026-07-25T15:11:55.763557+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_stone_echo_badge": {
     "id": "grand_country_stone_echo_badge",

@@ -333,19 +333,43 @@ export const ITEMS_033 = {
   "pet_rock_awkward": {
     "id": "pet_rock_awkward",
     "name": "Awkward Pet Rock",
-    "description": "A rock with googly eyes glued on. You feel judged by it.",
+    "description": "The Awkward Pet Rock is a smooth gray stone with oversized, unsettlingly lifelike googly eyes and a faintly crooked smile. It stares at you with an intensity that makes even the most stoic adventurers squirm, as if it can see through your bravado to the core of your soul. Despite its uncanny gaze, some claim it offers a strange form of comfort, like having an unblinking friend who never leaves you alone.",
     "category": "curiosities",
-    "price": 4000,
+    "price": 1000,
     "icon": "🪨",
     "stock": 100,
     "rarity": "common",
     "effects": [
-      "It stares at you",
-      "Emotional support (maybe)"
+      "Stares Intensely",
+      "Emotional Companion"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Heavy Box",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stares Intensely",
+        "rules": "The Awkward Pet Rock emits a gaze that makes creatures within 5 feet feel intensely judged. A creature must make a DC 12 Wisdom saving throw or become charmed for 1 hour, during which time it is distracted and can't take reactions."
+      },
+      {
+        "title": "Emotional Companion",
+        "rules": "For the duration of its charm effect (1 hour), the charmed creature gains advantage on saving throws against fear effects. This effect does not stack with other sources of similar benefits."
+      }
+    ],
+    "levelRequirementReason": "The Awkward Pet Rock's intense gaze and emotional support make it a useful ally for adventurers just starting their journey.",
+    "vendorReason": "Toad Town Market is known for its eclectic collection of oddities, making the Awkward Pet Rock a fitting addition to their offerings.",
+    "shippingDetail": "Due to its size and fragility, it ships in a specially reinforced box with extra padding.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "1 hour or until the charmed creature successfully saves against this effect.",
+      "endsWhen": "The charmed condition ends when the creature successfully saves or is no longer within line of sight of the Awkward Pet Rock.",
+      "charges": "Unlimited, but limited to one charm effect at a time."
+    },
+    "priceReason": "The Awkward Pet Rock provides both a unique challenge and support, making it a fair price for adventurers seeking an unusual companion.",
+    "priceOriginal": 4000,
+    "priceReviewedAt": "2026-07-25T15:08:02.854499+00:00",
+    "aiReviewedAt": "2026-07-25T15:08:02.854499+00:00",
+    "aiReviewVersion": 1
   },
   "petrified_tears": {
     "id": "petrified_tears",

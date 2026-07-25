@@ -131,21 +131,44 @@ export const ITEMS_075 = {
   "pokemon_item_legendary_flareon_scale": {
     "id": "pokemon_item_legendary_flareon_scale",
     "name": "Scale of the Blaze Pokémon",
-    "description": "A shimmering, iridescent scale shed by a truly magnificent Flareon. Imbued with intense heat and power, this scale provides a significant boost to fire-type attacks and offers resistance against cold.",
+    "description": "The Scale of the Blaze Pokémon, a shimmering, iridescent scale shed by a majestic Flareon, glows with an inner fire that crackles with untamed heat. This relic enhances the wielder's fire-type attacks by +30% and grants them resistance to cold damage, bolstered by an 15% chance of igniting their foes upon impact. The scale is a treasured artifact from the Safari Zone, where only the most skilled trainers can obtain it.",
     "category": "equipment",
-    "price": 60000,
+    "price": 1000,
     "icon": "🔥",
     "stock": 2,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
-      "increases fire damage by 30%",
-      "resistance to cold (50%)",
-      "chance to burn on hit (15%)"
+      "Fire Boost",
+      "Cold Resistance"
     ],
     "vendor": "safari_shop",
     "shippedBy": "Safari Zone Drone",
-    "levelRequirement": 16
+    "levelRequirement": 16,
+    "effectDetails": [
+      {
+        "title": "Fire Boost",
+        "rules": "Increases fire damage of the wielder's attacks by +30%. This effect is active until expended. The scale can be used once per short or long rest."
+      },
+      {
+        "title": "Cold Resistance",
+        "rules": "Grants a +50% resistance to cold damage, which persists for 1 hour or until the wielder takes damage from a source other than fire attacks."
+      }
+    ],
+    "levelRequirementReason": "This relic is crafted specifically for high-level trainers who have proven their mastery over fire-type Pokémon.",
+    "vendorReason": "The Safari Zone is the only place where trainers can encounter and obtain Flareons, making it a fitting vendor for such an artifact.",
+    "shippingDetail": "Ships via drone directly from the Safari Zone to ensure timely delivery of this precious scale.",
+    "usage": {
+      "activation": "Passive effect upon possession.",
+      "duration": "Until expended or destroyed.",
+      "endsWhen": "The scale is either expended after a short rest, destroyed in combat, or lost.",
+      "charges": "Unlimited uses, but can only be recharged with the return of the Flareon that shed it."
+    },
+    "priceReason": "This relic's price reflects its rarity and the significant boost it provides to fire-type attacks.",
+    "priceOriginal": 60000,
+    "priceReviewedAt": "2026-07-25T14:34:02.579573+00:00",
+    "aiReviewedAt": "2026-07-25T14:34:02.579573+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_ancient_dragon_scale": {
     "id": "pokemon_item_ancient_dragon_scale",
@@ -234,20 +257,44 @@ export const ITEMS_075 = {
   "grand_country_sticky_berry": {
     "id": "grand_country_sticky_berry",
     "name": "Glooping Gloomberries",
-    "description": "These unsettlingly vibrant berries are incredibly sticky and leave a faintly luminescent trail wherever they’re dropped. Consume one to gain temporary resistance to poison, but be warned - the lingering goo is... peculiar.",
+    "description": "Glooping Gloomberries are unnervingly vibrant, their iridescent hue casting a faint luminescence as they roll across the ground. These peculiar berries leave behind a sticky trail that clings to anything it touches, creating an eerie glow in the darkness. Consume one and you gain resistance to poison for 10 minutes, but beware—the lingering goo adheres to your skin, requiring a successful DC 15 Constitution saving throw every hour or risk infection.",
     "category": "consumables",
-    "price": 250,
+    "price": 1000,
     "icon": "🍇",
     "stock": 91,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "restore 30 health points",
-      "grant poison resistance for 5 minutes"
+      "Poison Resistance",
+      "Sticky Goo"
     ],
     "vendor": "side_seller",
     "shippedBy": "express_delivery",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Poison Resistance",
+        "rules": "Gain temporary resistance to poison damage for 10 minutes. This effect ends if you take poison damage, are incapacitated, or the duration expires."
+      },
+      {
+        "title": "Sticky Goo",
+        "rules": "You and anything you touch become covered in a sticky goo that lasts until washed off. You must make a DC 15 Constitution saving throw every hour to avoid infection from the goo; failing this save results in a condition of your choice, such as Poisoned or Diseased."
+      }
+    ],
+    "levelRequirementReason": "The berries are common and can be consumed by any level 1 character.",
+    "vendorReason": "Side sellers often have a knack for finding unusual and useful items, especially in the more rural areas where these berries grow.",
+    "shippingDetail": "Express delivery ensures that you receive your Glooping Gloomberries fresh and intact, ready to be consumed immediately upon arrival.",
+    "usage": {
+      "activation": "Eaten as a bonus action",
+      "duration": "10 minutes",
+      "endsWhen": "You take poison damage, are incapacitated, or the duration expires",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The berries are rare and their unique properties make them highly sought after by adventurers.",
+    "priceOriginal": 250,
+    "priceReviewedAt": "2026-07-25T14:34:03.357296+00:00",
+    "aiReviewedAt": "2026-07-25T14:34:03.357296+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_godly_layer_lens": {
     "id": "grand_country_godly_layer_lens",
