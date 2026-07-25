@@ -1322,3 +1322,141 @@ img { max-width: 100%; }
   .t-eq { text-align: left; }
   .cf-grid { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   PHASE 3 — item intel, multi-currency, receipts, ability wing
+   ========================================================================== */
+
+/* --- at-a-glance chips on cards --- */
+.p-glance { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0 2px; }
+.gl-chip {
+  font-size: 10.5px; line-height: 1.2; color: #37475a;
+  background: #eef3f8; border: 1px solid #d5dde6; border-radius: 10px;
+  padding: 3px 7px; white-space: nowrap; max-width: 100%;
+}
+.gl-lv { background: #fdf3e0; border-color: #f3dfb5; color: #7a5b00; }
+.gl-fac { background: #fdeeee; border-color: #f3c9c9; color: #8a2b2b; }
+
+/* --- accepted-currencies row --- */
+.p-accepts-row { min-height: 14px; margin-top: 2px; font-size: 11px; color: var(--wz-muted); }
+.p-accepts { display: inline-flex; align-items: center; gap: 3px; }
+.acc-coin {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #f0f2f2; border: 1px solid var(--wz-line); font-size: 11px;
+}
+.acc-coin.on { background: #fff8e1; border-color: var(--wz-orange); box-shadow: 0 0 0 1px var(--wz-orange); }
+.p-gold-eq { font-size: 11px; color: var(--wz-muted); margin-top: 1px; }
+.p-curname { font-size: 10px; color: var(--wz-muted); font-weight: 400; margin-left: 4px; }
+
+/* --- PDP currency picker & glance panel --- */
+.pdp-cur-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pdp-cur-pick { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--wz-muted); }
+.pdp-glance h2 { font-size: 16px; margin: 0 0 8px; }
+.pdp-glance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; }
+.pg-cell { display: flex; flex-direction: column; padding: 7px 10px; background: #f7f8f8; border: 1px solid #e7eaea; border-radius: 6px; }
+.pg-k { font-size: 10.5px; font-weight: 700; color: var(--wz-muted); text-transform: uppercase; letter-spacing: .03em; }
+.pg-v { font-size: 13px; color: var(--wz-text); line-height: 1.35; margin-top: 2px; }
+@media (max-width: 560px) { .pdp-glance-grid { grid-template-columns: 1fr; } }
+
+/* --- rarity chips we were missing --- */
+.rarity-mythic { background: linear-gradient(90deg, #e2492f, #ff7a45); }
+.rarity-unique { background: #e8618c; }
+.rarity-cosmic { background: #0891b2; }
+.rarity-forbidden { background: #b12704; }
+
+/* --- order cards: pending receipts + paid ledger --- */
+.oc-status b { display: inline-block; }
+.badge-pending, .badge-paid {
+  display: inline-block; font-size: 10.5px; font-weight: 700;
+  border-radius: 10px; padding: 2px 9px; white-space: nowrap;
+}
+.badge-pending { background: #fff4d6; color: #8a5a00; border: 1px solid #eccf8f; }
+.badge-paid { background: #e2f4e5; color: #067d1f; border: 1px solid #a9dcb2; }
+.oc-pending { border-left: 4px solid #f0b429; }
+.oc-paid { border-left: 4px solid #067d1f; }
+.oc-banner {
+  background: #fffbe8; border: 1px solid #ead9a0; border-radius: 6px;
+  padding: 9px 12px; font-size: 12.5px; color: #6a5300; margin-bottom: 10px; line-height: 1.45;
+}
+.oc-banner code, .receipt-done code, .abw-row code { background: rgba(0,0,0,.07); border-radius: 3px; padding: 0 4px; font-size: 11px; }
+.oc-tender { font-size: 12.5px; margin: 8px 0; }
+.oc-json { margin-top: 8px; }
+.oc-json summary { cursor: pointer; color: var(--wz-link); font-size: 12.5px; }
+.oc-json textarea {
+  width: 100%; margin-top: 8px; font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px; line-height: 1.45; border: 1px solid var(--wz-line); border-radius: 6px;
+  padding: 8px; background: #fbfcfc; color: #333; resize: vertical;
+}
+.oc-json .btn-plain { margin: 6px 6px 0 0; }
+
+/* --- checkout multi-currency rows --- */
+.co-banner-lite {
+  background: #eef6ff; border: 1px solid #c7dcf5; color: #274b73;
+  border-radius: 6px; padding: 8px 11px; font-size: 12.5px; margin: 8px 0 12px; line-height: 1.45;
+}
+.co-pay-row { display: grid; grid-template-columns: 44px 1fr auto auto; gap: 10px; align-items: center; }
+.co-pay-mid { display: flex; flex-direction: column; min-width: 0; }
+.co-pay-name { font-size: 13.5px; font-weight: 600; }
+.co-pay-note { font-size: 11px; color: var(--wz-muted); margin-top: 2px; }
+.co-pay-cur select { max-width: 220px; }
+.co-pay-amt { font-size: 13.5px; text-align: right; white-space: nowrap; }
+.co-pay-amt small { color: var(--wz-muted); font-weight: 400; }
+.co-shiptax { margin-top: 10px; font-size: 13px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.co-tender-head { font-size: 12px; font-weight: 700; color: var(--wz-muted); text-transform: uppercase; letter-spacing: .03em; margin: 6px 0 4px; }
+@media (max-width: 640px) {
+  .co-pay-row { grid-template-columns: 44px 1fr; }
+  .co-pay-cur, .co-pay-amt { grid-column: 2; text-align: left; }
+}
+
+/* --- receipt modal --- */
+.receipt-done .big { font-size: 46px; }
+.rc-tender {
+  display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
+  background: #fff8e6; border: 1px dashed var(--wz-orange); border-radius: 8px;
+  padding: 12px 16px; margin: 12px 0; font-size: 14px;
+}
+.rc-tender-head { font-size: 11px; font-weight: 700; color: #8a5a00; letter-spacing: .05em; }
+.rc-json-wrap textarea {
+  width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px;
+  line-height: 1.45; border: 1px solid var(--wz-line); border-radius: 6px;
+  padding: 10px; background: #fbfcfc; color: #333; resize: vertical;
+}
+.rc-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+
+/* --- ability wing --- */
+.ab-wallet {
+  background: #fff; border: 1px solid var(--wz-line); border-radius: 8px;
+  padding: 12px 16px; min-width: 250px; box-shadow: var(--wz-shadow);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.abw-row { display: flex; justify-content: space-between; gap: 14px; font-size: 13px; align-items: baseline; }
+.ab-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0; }
+.ab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.ab-card {
+  background: #fff; border: 1px solid var(--wz-line); border-left: 4px solid var(--ab-c, #7a8a99);
+  border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px;
+}
+.ab-card:hover { box-shadow: var(--wz-shadow); }
+.ab-top { display: flex; gap: 10px; align-items: flex-start; }
+.ab-ic { font-size: 28px; line-height: 1; }
+.ab-id { flex: 1; min-width: 0; }
+.ab-id h4 { margin: 0; font-size: 14.5px; }
+.ab-meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: 11px; color: var(--wz-muted); margin-top: 3px; }
+.ab-type { font-weight: 700; color: var(--ab-c, #555); }
+.ab-excl { background: #f3e8ff; color: #6b21a8; border-radius: 8px; padding: 0 6px; font-weight: 700; }
+.ab-cost { text-align: center; min-width: 46px; }
+.ab-cost b { display: block; font-size: 18px; color: var(--ab-c, #333); }
+.ab-cost span { font-size: 10px; font-weight: 700; color: var(--wz-muted); }
+.ab-cost small { display: block; font-size: 10px; color: var(--wz-muted); }
+.ab-desc { font-size: 12.5px; color: var(--wz-text); line-height: 1.45; margin: 0; }
+.ab-known { font-size: 11px; color: var(--wz-muted); }
+.ab-actions { margin-top: auto; }
+.ab-actions .btn-add { width: 100%; }
+.ab-pending {
+  background: #fffdf4; border: 1px solid #ead9a0; border-radius: 8px;
+  padding: 12px 16px; margin-top: 12px;
+}
+.ab-pending h3 { margin: 0 0 8px; font-size: 14px; }
+.abp-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; padding: 4px 0; flex-wrap: wrap; }
+@media (max-width: 720px) { .ab-grid { grid-template-columns: 1fr; } }

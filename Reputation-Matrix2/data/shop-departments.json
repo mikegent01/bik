@@ -1,0 +1,56 @@
+{
+  "_README": "Sidebar Department data for warizon-shop.js. Regenerate with tools/build_shop_departments.py after item files change.",
+  "totalItems": 5832,
+  "departments": [
+    {
+      "id": "consumables",
+      "label": "Garlic & Groceries",
+      "icon": "🧄",
+      "tagline": "Potions, snacks, and things Wario definitely did not lick.",
+      "count": 681
+    },
+    {
+      "id": "equipment",
+      "label": "Weapons & Equipment",
+      "icon": "⚔️",
+      "tagline": "Arm yourself. Wario insures nothing.",
+      "count": 3390
+    },
+    {
+      "id": "curiosities",
+      "label": "Curiosities & Oddities",
+      "icon": "🔮",
+      "tagline": "Strange relics of questionable origin. No refunds.",
+      "count": 798
+    },
+    {
+      "id": "services",
+      "label": "Services & Favors",
+      "icon": "🤝",
+      "tagline": "Hire a professional. Or Wario, who is nearby and cheap.",
+      "count": 377
+    },
+    {
+      "id": "faction",
+      "label": "Faction Supply Depot",
+      "icon": "🚩",
+      "tagline": "Quartermaster-grade gear for banner-carriers.",
+      "count": 165
+    },
+    {
+      "id": "forbidden",
+      "label": "The Forbidden Aisle",
+      "icon": "☠️",
+      "tagline": "You did not see this aisle. This aisle does not exist.",
+      "count": 201
+    },
+    {
+      "id": "premium",
+      "label": "WahPrime Exclusives",
+      "icon": "👑",
+      "tagline": "For customers whose pockets jingle loud enough.",
+      "count": 220
+    }
+  ],
+  "unmappedCategories": []
+}
