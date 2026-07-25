@@ -7,7 +7,7 @@
       "year": 1040,
       "label": "Highsun 21, 1040 BF"
     },
-    "note": "Operational snapshot frozen at Highsun 21, 1040 BF (Day 21) \u2014 the Order 120 emergency. The wider archive clock has advanced to Aethel 1040 BF, so this record is deliberately behind the present day; the Toad crisis has not been narrated forward yet."
+    "note": "Operational snapshot frozen at Highsun 21, 1040 BF (Day 21) — the Order 120 emergency. The wider archive clock has advanced to Aethel 1040 BF, so this record is deliberately behind the present day; the Toad crisis has not been narrated forward yet."
   },
   "structure": {
     "type": "Emergency Military Junta",
@@ -20,7 +20,7 @@
     "name": "Speaker L",
     "title": "Voice of the Pond",
     "fullTitle": "Voice of the Pond, Keeper of the Cohort, Emergency Commander",
-    "portrait": "\ud83d\udc38\ud83d\udc51",
+    "portrait": "🐸👑",
     "authorityLevel": "Supreme (Emergency Powers)",
     "level": 8,
     "xp": 3200,
@@ -273,7 +273,7 @@
         "seat": 1,
         "level": 5,
         "loyalty": 95,
-        "portrait": "\ud83d\udc38\ud83d\udc74",
+        "portrait": "🐸👴",
         "stance": "Conservative",
         "description": "The oldest of the barrel survivors. Speaks for the traumatized majority.",
         "current_vote": "Strategic Withdrawal",
@@ -286,7 +286,7 @@
         "seat": 2,
         "level": 6,
         "loyalty": 100,
-        "portrait": "\ud83d\udc38\ud83d\udee1\ufe0f",
+        "portrait": "🐸🛡️",
         "stance": "Loyalist",
         "description": "Fanatically devoted to Speaker L. Commands the enforcement arm.",
         "current_vote": "Strategic Withdrawal",
@@ -299,7 +299,7 @@
         "seat": 3,
         "level": 4,
         "loyalty": 85,
-        "portrait": "\ud83d\udc38\ud83d\udcdc",
+        "portrait": "🐸📜",
         "stance": "Moderate",
         "description": "Maintains faction records. Values knowledge over conflict.",
         "current_vote": "Diplomatic Outreach",
@@ -312,7 +312,7 @@
         "seat": 4,
         "level": 5,
         "loyalty": 90,
-        "portrait": "\ud83d\udc38\ud83d\udd28",
+        "portrait": "🐸🔨",
         "stance": "Pragmatic",
         "description": "Keeps the Vigilance running. Practical above all.",
         "current_vote": "Strategic Withdrawal",
@@ -325,7 +325,7 @@
         "seat": 5,
         "level": 5,
         "loyalty": 88,
-        "portrait": "\ud83d\udc38\u2694\ufe0f",
+        "portrait": "🐸⚔️",
         "stance": "Militant",
         "description": "Commands the combat forces. Favors direct action.",
         "current_vote": "Armed Resistance",
@@ -338,7 +338,7 @@
         "seat": 6,
         "level": 6,
         "loyalty": 92,
-        "portrait": "\ud83d\udc38\ud83d\udc9a",
+        "portrait": "🐸💚",
         "stance": "Humanitarian",
         "description": "Leads medical operations. Prioritizes lives above all.",
         "current_vote": "Diplomatic Outreach",
@@ -351,7 +351,7 @@
         "seat": 7,
         "level": null,
         "loyalty": null,
-        "portrait": "\u2753",
+        "portrait": "❓",
         "stance": null,
         "description": "Previous holder was The Mole - an Iron Legion spy. Seat remains unfilled.",
         "note": "Betrayer defected Day 16",
@@ -364,7 +364,7 @@
     {
       "id": "pond_patrol",
       "name": "Pond Patrol",
-      "icon": "\ud83d\udee1\ufe0f",
+      "icon": "🛡️",
       "color": "#4a9c6d",
       "leader": "Captain Fernback",
       "purpose": "Security, enforcement of Speaker L's decrees, protection of the Cohort",
@@ -403,7 +403,7 @@
     {
       "id": "barrel_survivors",
       "name": "Barrel Survivors",
-      "icon": "\ud83e\udea3",
+      "icon": "🪣",
       "color": "#8b7355",
       "leader": "Elder Mudcap",
       "purpose": "The original 150 trafficked toads - the heart of the movement",
@@ -445,7 +445,7 @@
     {
       "id": "chroniclers",
       "name": "The Chroniclers",
-      "icon": "\ud83d\udcdc",
+      "icon": "📜",
       "color": "#c9a227",
       "leader": "Scribe Dewdrop",
       "purpose": "Record keeping, intelligence analysis, education, history preservation",
@@ -484,7 +484,7 @@
     {
       "id": "crafters",
       "name": "The Crafters",
-      "icon": "\ud83d\udd28",
+      "icon": "🔨",
       "color": "#cd7f32",
       "leader": "Forgemaster Ironspore",
       "purpose": "Equipment maintenance, construction, repairs, supply management",
@@ -523,7 +523,7 @@
     {
       "id": "wardens",
       "name": "The Wardens",
-      "icon": "\u2694\ufe0f",
+      "icon": "⚔️",
       "color": "#c94a4a",
       "leader": "Warden Thornshell",
       "purpose": "Combat operations, defense, external threats, prisoner management",
@@ -567,7 +567,7 @@
     {
       "id": "menders",
       "name": "The Menders",
-      "icon": "\ud83d\udc9a",
+      "icon": "💚",
       "color": "#27ae60",
       "leader": "Healer Mistpetal",
       "purpose": "Medical care, psychological support, recovery assistance",
@@ -612,7 +612,7 @@
     {
       "id": "scouts",
       "name": "The Scouts",
-      "icon": "\ud83d\udc41\ufe0f",
+      "icon": "👁️",
       "color": "#9b59b6",
       "leader": "VACANT",
       "purpose": "Reconnaissance, infiltration, information gathering, early warning",
@@ -656,7 +656,7 @@
     {
       "id": "unassigned",
       "name": "The Unassigned",
-      "icon": "\u2753",
+      "icon": "❓",
       "color": "#7f8c8d",
       "leader": null,
       "purpose": "New arrivals, recovering members, those between assignments",
@@ -1121,7 +1121,7 @@
           "title": "Iron Mandate Enacted",
           "type": "political",
           "severity": "critical",
-          "icon": "\u2696\ufe0f",
+          "icon": "⚖️",
           "description": "The Midlands Diet passes the Iron Mandate. The Liberated Toads are classified as an 'organized supernatural entity.'",
           "involved": [
             "Iron Legion",
@@ -1133,7 +1133,7 @@
           "title": "Dragon Conspiracy Revealed",
           "type": "intel",
           "severity": "high",
-          "icon": "\ud83d\udc09",
+          "icon": "🐉",
           "description": "Robinson (Markop's father) discovers the Dragon-Empire war is a fabrication. He and the dragon 'Ignis-Major' are captured by the Legion.",
           "involved": [
             "Robinson",
@@ -1146,7 +1146,7 @@
           "title": "Massacre at Aegis Command",
           "type": "combat",
           "severity": "critical",
-          "icon": "\ud83e\ude78",
+          "icon": "🩸",
           "description": "Infiltration failed. Bones stabbed by General Ironhand. A 'Green Decoy' of Speaker L was discovered. Ironhand issues 'Order 120': Execute all Toad prisoners.",
           "involved": [
             "Bones",
@@ -1160,7 +1160,7 @@
           "title": "Banishment of the Wraith",
           "type": "magic",
           "severity": "high",
-          "icon": "\ud83d\udc7b",
+          "icon": "👻",
           "description": "The party defeats an Arcane Wraith at Raventree Manor. Dan fights one-armed; Bowser physically assaults the ghost. The Oracle banishes the entity.",
           "involved": [
             "Bowser",
@@ -1187,7 +1187,7 @@
           "title": "Iron Mandate Enacted",
           "type": "political",
           "severity": "critical",
-          "icon": "\u2696\ufe0f",
+          "icon": "⚖️",
           "description": "The Midlands Diet passes the Iron Mandate 28-8-3, granting the Iron Legion emergency powers to purge supernatural threats. The Liberated Toads are now classified as an 'organized supernatural entity.'",
           "involved": [
             "Iron Legion",
@@ -1200,7 +1200,7 @@
           "title": "Emergency Vote Called",
           "type": "governance",
           "severity": "high",
-          "icon": "\ud83d\uddf3\ufe0f",
+          "icon": "🗳️",
           "description": "Speaker L convenes the Council to vote on the faction's response. Four options presented: evacuation, diplomacy, resistance, or strategic withdrawal.",
           "involved": [
             "Speaker L",
@@ -1212,7 +1212,7 @@
           "title": "Council Deliberation",
           "type": "governance",
           "severity": "ongoing",
-          "icon": "\u23f3",
+          "icon": "⏳",
           "description": "The Council debates. Strategic Withdrawal currently leads with 3 votes. Legion patrols are mobilizing.",
           "involved": [
             "All Council Members"
@@ -1234,7 +1234,7 @@
           "title": "Vigilance Captured",
           "type": "military",
           "severity": "critical",
-          "icon": "\ud83d\ude80",
+          "icon": "🚀",
           "description": "The Iron Legion boards and captures the Vigilance.",
           "involved": [
             "Iron Legion",
@@ -1246,7 +1246,7 @@
           "title": "Vigilance Captured",
           "type": "military",
           "severity": "critical",
-          "icon": "\ud83d\ude80",
+          "icon": "🚀",
           "description": "The Iron Legion boards and captures the Vigilance. Multiple toads forced to escape, including Ryan who jumps from the ship.",
           "involved": [
             "Iron Legion",
@@ -1259,7 +1259,7 @@
           "title": "Bones Confirmed Captured",
           "type": "intel",
           "severity": "high",
-          "icon": "\u26d3\ufe0f",
+          "icon": "⛓️",
           "description": "Bones is confirmed held at an Imperial Processing Facility. Council begins planning rescue operation.",
           "involved": [
             "Bones",
@@ -1271,7 +1271,7 @@
           "title": "Ryan Meets Rakasha",
           "type": "exploration",
           "severity": "medium",
-          "icon": "\ud83e\udd81",
+          "icon": "🦁",
           "description": "Ryan survives their fall and is taken in by a Rakasha spirit-walker who senses their magical potential.",
           "involved": [
             "Ryan",
@@ -1283,7 +1283,7 @@
           "title": "Spider Grove Rescue",
           "type": "combat",
           "severity": "medium",
-          "icon": "\ud83d\udd77\ufe0f",
+          "icon": "🕷️",
           "description": "Markop and Remi rescue Eager from a web-choked grove in Raventree Manor, defeating a massive Arachnid Matriarch.",
           "involved": [
             "Markop",
@@ -1309,7 +1309,7 @@
           "title": "Containment Perimeter",
           "type": "military",
           "severity": "high",
-          "icon": "\ud83d\udee1\ufe0f",
+          "icon": "🛡️",
           "description": "Pond Patrol establishes containment perimeter around Raventree Manor. The manor responds by manifesting powerful wraiths.",
           "involved": [
             "Pond Patrol",
@@ -1321,7 +1321,7 @@
           "title": "Green T Lost",
           "type": "casualty",
           "severity": "critical",
-          "icon": "\ud83d\udc80",
+          "icon": "💀",
           "description": "Green T is violently pulled into a mirror dimension by a supernatural entity. Status: Unknown, presumed lost.",
           "involved": [
             "Green T"
@@ -1332,7 +1332,7 @@
           "title": "Archie Surrenders",
           "type": "political",
           "severity": "medium",
-          "icon": "\ud83c\udff3\ufe0f",
+          "icon": "🏳️",
           "description": "Archie surrenders to Speaker L to buy time, but a glass monster emerges from a mirror, complicating the situation.",
           "involved": [
             "Archie",
@@ -1356,7 +1356,7 @@
           "title": "Emergency Powers Granted",
           "type": "governance",
           "severity": "critical",
-          "icon": "\ud83d\udc51",
+          "icon": "👑",
           "description": "Council unanimously passes Emergency Resolution 17-A, granting Speaker L emergency powers. The Accountability Docket is established.",
           "involved": [
             "Speaker L",
@@ -1368,7 +1368,7 @@
           "title": "Supernatural Sovereignty Act",
           "type": "political",
           "severity": "critical",
-          "icon": "\u2696\ufe0f",
+          "icon": "⚖️",
           "description": "The Regal Empire passes a law declaring organized vampires and werewolves illegal, effectively declaring war on supernatural factions.",
           "involved": [
             "Regal Empire",
@@ -1381,7 +1381,7 @@
           "title": "Raventree Standoff",
           "type": "military",
           "severity": "medium",
-          "icon": "\ud83c\udfda\ufe0f",
+          "icon": "🏚️",
           "description": "Speaker L's Pond Patrol besieges Archie and hjumpik in the manor after a failed healing attempt on Eager.",
           "involved": [
             "Speaker L",
@@ -1406,7 +1406,7 @@
           "title": "Scavenging Doctrine Vote",
           "type": "governance",
           "severity": "medium",
-          "icon": "\ud83d\uddf3\ufe0f",
+          "icon": "🗳️",
           "description": "Dan's proposal for cautious expeditions defeats Archie's high-risk plan 5-1. First major policy shift toward safety.",
           "involved": [
             "Dan",
@@ -1419,7 +1419,7 @@
           "title": "The Dinner That Broke Time",
           "type": "exploration",
           "severity": "critical",
-          "icon": "\u23f0",
+          "icon": "⏰",
           "description": "Toads enter Shadeward Mansion seeking Archie. Encounter the Oracle, time loops, multiple Archie clones, and an Iron Legion raid.",
           "involved": [
             "Multiple toads",
@@ -1432,7 +1432,7 @@
           "title": "The Mole Revealed",
           "type": "intel",
           "severity": "critical",
-          "icon": "\ud83c\udfad",
+          "icon": "🎭",
           "description": "The Mole's true allegiance to the Iron Legion is exposed. Bones is captured during the chaos. Trust in the Scout cohort shattered.",
           "involved": [
             "The Mole",
@@ -1456,7 +1456,7 @@
           "title": "FNG Remi Arrives",
           "type": "political",
           "severity": "low",
-          "icon": "\ud83d\udce6",
+          "icon": "📦",
           "description": "Remi is discovered in a crate. Wario gives her an exploding box. She survives and is offered a place in his crew.",
           "involved": [
             "Remi",
@@ -1469,7 +1469,7 @@
           "title": "Cone of Cold Incident",
           "type": "friendly_fire",
           "severity": "high",
-          "icon": "\u2744\ufe0f",
+          "icon": "❄️",
           "description": "Waluigi's Cone of Cold spell freezes Eager solid and injures Remi. Eager presumed dead by the crew.",
           "involved": [
             "Waluigi",
@@ -1482,7 +1482,7 @@
           "title": "150 Toads Discovered",
           "type": "intel",
           "severity": "critical",
-          "icon": "\ud83e\udea3",
+          "icon": "🪣",
           "description": "The Iron Legion reveals that 150+ trafficked toads are hidden in barrels throughout the ship, accessible via Mini-Mushroom.",
           "involved": [
             "hjumpik",
@@ -1506,7 +1506,7 @@
           "title": "X.O. Neutralized",
           "type": "combat",
           "severity": "critical",
-          "icon": "\u2694\ufe0f",
+          "icon": "⚔️",
           "description": "The party, with critical assistance from Dan the Toad, neutralizes X.O. and regains control of the Vigilance.",
           "involved": [
             "Dan",
@@ -1522,7 +1522,7 @@
       "id": "dan",
       "name": "Dan",
       "title": "The Faithful",
-      "portrait": "\ud83d\udc38\u2694\ufe0f",
+      "portrait": "🐸⚔️",
       "class": "paladin",
       "level": 5,
       "xp": 2050,
@@ -1595,13 +1595,16 @@
           "Archie Miser"
         ]
       },
-      "articleId": "dan"
+      "articleId": "dan",
+      "affiliation": "member",
+      "affiliationLabel": "Liberated Toads — Liberators’ Circle",
+      "pondPatrol": false
     },
     {
       "id": "eager",
       "name": "Eager",
       "title": "The Swift",
-      "portrait": "\ud83d\udc38\ud83d\udde1\ufe0f",
+      "portrait": "🐸🗡️",
       "class": "rogue",
       "level": 5,
       "xp": 1580,
@@ -1670,13 +1673,16 @@
           "Waluigi - nearly killed by his Cone of Cold"
         ]
       },
-      "articleId": "eager"
+      "articleId": "eager",
+      "affiliation": "member",
+      "affiliationLabel": "Liberated Toads — Liberators’ Circle",
+      "pondPatrol": false
     },
     {
       "id": "ryan",
       "name": "Ryan",
       "title": "The Arcane",
-      "portrait": "\ud83d\udc38\ud83d\udcda",
+      "portrait": "🐸📚",
       "class": "wizard",
       "level": 4,
       "xp": 1130,
@@ -1742,13 +1748,16 @@
           "Hjumpik (Agent H)"
         ]
       },
-      "articleId": "ryan"
+      "articleId": "ryan",
+      "affiliation": "member",
+      "affiliationLabel": "Liberated Toads — Liberators’ Circle",
+      "pondPatrol": false
     },
     {
       "id": "roger",
       "name": "Roger",
       "title": "The Sharpshooter",
-      "portrait": "\ud83d\udc38\ud83d\udd2b",
+      "portrait": "🐸🔫",
       "class": "gunslinger",
       "level": 4,
       "xp": 920,
@@ -1812,13 +1821,16 @@
         ],
         "complicated": []
       },
-      "articleId": "roger"
+      "articleId": "roger",
+      "affiliation": "member",
+      "affiliationLabel": "Liberated Toads — The Wardens",
+      "pondPatrol": false
     },
     {
       "id": "bones",
       "name": "Bones",
       "title": "The Unbreakable",
-      "portrait": "\ud83d\udc38\ud83d\udc80",
+      "portrait": "🐸💀",
       "class": "barbarian",
       "level": 4,
       "xp": 950,
@@ -1876,13 +1888,16 @@
         ],
         "complicated": []
       },
-      "articleId": "bones"
+      "articleId": "bones",
+      "affiliation": "member",
+      "affiliationLabel": "Liberated Toads — Liberators’ Circle",
+      "pondPatrol": false
     },
     {
       "id": "toad_lee",
       "name": "Toad Lee",
       "title": "The Relentless",
-      "portrait": "\ud83d\udc38\ud83e\ude93",
+      "portrait": "🐸🪓",
       "class": "barbarian",
       "level": 3,
       "xp": 920,
@@ -1955,19 +1970,22 @@
         ],
         "complicated": []
       },
-      "articleId": "toad_lee"
+      "articleId": "toad_lee",
+      "affiliation": "member",
+      "affiliationLabel": "Liberated Toads — The Wardens",
+      "pondPatrol": false
     },
     {
       "id": "waluigi",
       "name": "Waluigi",
       "title": "The Lanky Sorcerer",
-      "portrait": "\ud83d\udfe3\u2744\ufe0f",
+      "portrait": "🟣❄️",
       "class": "sorcerer",
       "level": 5,
       "xp": 0,
       "status": "Critical - Leg Injury",
       "statusType": "injured",
-      "cohort": "Toad Lee's Burden",
+      "cohort": null,
       "weapon": "Tennis Racket (Focus)",
       "isCore": false,
       "stats": {
@@ -2020,13 +2038,17 @@
           "Hjumpik"
         ]
       },
-      "articleId": "waluigi"
+      "articleId": "waluigi",
+      "affiliation": "outsider",
+      "affiliationLabel": "Not a Liberated Toad — outside party, docket subject",
+      "pondPatrol": false,
+      "affiliationNote": "Waluigi is NOT a member of the Liberated Toads and NOT part of the Pond Patrol. He appears in this record only because he is a subject of the Accountability Docket and was present for the Raventree events. His abilities belong to his own sheet, not the Toad roster."
     },
     {
       "id": "the_mole",
       "name": "The Mole",
       "title": "The Traitor",
-      "portrait": "\ud83d\udc38\ud83c\udfad",
+      "portrait": "🐸🎭",
       "class": "spy",
       "level": 4,
       "xp": 900,
@@ -2087,13 +2109,17 @@
         ],
         "complicated": []
       },
-      "articleId": null
+      "articleId": null,
+      "affiliation": "defector",
+      "affiliationLabel": "Defected — Iron Legion infiltrator",
+      "pondPatrol": false,
+      "affiliationNote": "Former Scout cohort leader. Betrayed the Cohort on Day 16; the seventh Council seat is still empty because of him."
     }
   ],
   "classDefinitions": {
     "paladin": {
       "name": "Paladin",
-      "icon": "\u2694\ufe0f",
+      "icon": "⚔️",
       "description": "Holy warriors who blend martial prowess with divine magic",
       "primary_stat": "cha",
       "secondary_stat": "str",
@@ -2115,77 +2141,77 @@
           "name": "Divine Sense",
           "level": 1,
           "type": "divine",
-          "icon": "\ud83d\udc41\ufe0f",
+          "icon": "👁️",
           "description": "Detect celestial, fiend, or undead within 60 feet"
         },
         {
           "name": "Lay on Hands",
           "level": 1,
           "type": "support",
-          "icon": "\ud83e\udd32",
-          "description": "Heal wounds with a pool of healing power equal to level \u00d7 5 HP"
+          "icon": "🤲",
+          "description": "Heal wounds with a pool of healing power equal to level × 5 HP"
         },
         {
           "name": "Divine Smite",
           "level": 2,
           "type": "combat",
-          "icon": "\u2694\ufe0f",
+          "icon": "⚔️",
           "description": "Expend spell slot to deal 2d8+ extra radiant damage on hit"
         },
         {
           "name": "Divine Health",
           "level": 3,
           "type": "utility",
-          "icon": "\ud83d\udee1\ufe0f",
+          "icon": "🛡️",
           "description": "Immune to disease"
         },
         {
           "name": "Sacred Oath",
           "level": 3,
           "type": "divine",
-          "icon": "\ud83d\udcdc",
+          "icon": "📜",
           "description": "Swear an oath that grants additional powers"
         },
         {
           "name": "Extra Attack",
           "level": 5,
           "type": "combat",
-          "icon": "\u2694\ufe0f\u2694\ufe0f",
+          "icon": "⚔️⚔️",
           "description": "Attack twice when taking the Attack action"
         },
         {
           "name": "Aura of Protection",
           "level": 6,
           "type": "support",
-          "icon": "\u2728",
+          "icon": "✨",
           "description": "You and allies within 10 feet add your CHA modifier to all saving throws"
         },
         {
           "name": "Aura of Courage",
           "level": 10,
           "type": "leadership",
-          "icon": "\ud83e\udd81",
+          "icon": "🦁",
           "description": "You and allies within 10 feet can't be frightened"
         },
         {
           "name": "Improved Divine Smite",
           "level": 11,
           "type": "combat",
-          "icon": "\ud83d\udca5",
+          "icon": "💥",
           "description": "All melee weapon attacks deal an extra 1d8 radiant damage"
         },
         {
           "name": "Cleansing Touch",
           "level": 14,
           "type": "support",
-          "icon": "\ud83c\udf1f",
+          "icon": "🌟",
           "description": "End one spell on yourself or willing creature with a touch"
         }
       ]
     },
     "rogue": {
       "name": "Rogue",
-      "icon": "\ud83d\udde1\ufe0f",
+      "icon": "🗡️",
       "description": "Skilled infiltrators and precise strikers who rely on finesse",
       "primary_stat": "dex",
       "secondary_stat": "int",
@@ -2209,77 +2235,77 @@
           "name": "Sneak Attack",
           "level": 1,
           "type": "combat",
-          "icon": "\ud83d\udde1\ufe0f",
+          "icon": "🗡️",
           "description": "Deal extra 1d6 damage (scales) when you have advantage or ally is adjacent"
         },
         {
           "name": "Thieves' Cant",
           "level": 1,
           "type": "utility",
-          "icon": "\ud83d\udde3\ufe0f",
+          "icon": "🗣️",
           "description": "Secret language and symbols known to rogues and criminals"
         },
         {
           "name": "Cunning Action",
           "level": 2,
           "type": "utility",
-          "icon": "\ud83d\udca8",
+          "icon": "💨",
           "description": "Dash, Disengage, or Hide as a bonus action"
         },
         {
           "name": "Roguish Archetype",
           "level": 3,
           "type": "utility",
-          "icon": "\ud83c\udfad",
+          "icon": "🎭",
           "description": "Choose a specialization that grants additional features"
         },
         {
           "name": "Uncanny Dodge",
           "level": 5,
           "type": "combat",
-          "icon": "\ud83c\udf00",
+          "icon": "🌀",
           "description": "Use reaction to halve damage from an attack you can see"
         },
         {
           "name": "Evasion",
           "level": 7,
           "type": "combat",
-          "icon": "\ud83d\udcab",
+          "icon": "💫",
           "description": "Take no damage on successful DEX saves, half on failure"
         },
         {
           "name": "Reliable Talent",
           "level": 11,
           "type": "utility",
-          "icon": "\ud83c\udfaf",
+          "icon": "🎯",
           "description": "Minimum roll of 10 on any skill you're proficient in"
         },
         {
           "name": "Blindsense",
           "level": 14,
           "type": "utility",
-          "icon": "\ud83d\udc41\ufe0f",
+          "icon": "👁️",
           "description": "Detect invisible creatures within 10 feet"
         },
         {
           "name": "Slippery Mind",
           "level": 15,
           "type": "utility",
-          "icon": "\ud83d\udcad",
+          "icon": "💭",
           "description": "Gain proficiency in Wisdom saving throws"
         },
         {
           "name": "Elusive",
           "level": 18,
           "type": "combat",
-          "icon": "\ud83c\udf2b\ufe0f",
+          "icon": "🌫️",
           "description": "No attack has advantage against you while you're not incapacitated"
         }
       ]
     },
     "barbarian": {
       "name": "Barbarian",
-      "icon": "\ud83d\udcaa",
+      "icon": "💪",
       "description": "Fierce warriors who channel primal fury into devastating combat prowess",
       "primary_stat": "str",
       "secondary_stat": "con",
@@ -2302,91 +2328,91 @@
           "name": "Rage",
           "level": 1,
           "type": "combat",
-          "icon": "\ud83d\ude24",
+          "icon": "😤",
           "description": "Enter a battle fury: +2 damage, resistance to physical damage, advantage on STR checks"
         },
         {
           "name": "Unarmored Defense",
           "level": 1,
           "type": "combat",
-          "icon": "\ud83d\udcaa",
+          "icon": "💪",
           "description": "AC equals 10 + DEX modifier + CON modifier when not wearing armor"
         },
         {
           "name": "Reckless Attack",
           "level": 2,
           "type": "combat",
-          "icon": "\ud83d\udca2",
+          "icon": "💢",
           "description": "Gain advantage on attacks this turn, but attacks against you have advantage"
         },
         {
           "name": "Danger Sense",
           "level": 2,
           "type": "utility",
-          "icon": "\u26a1",
+          "icon": "⚡",
           "description": "Advantage on DEX saves against effects you can see"
         },
         {
           "name": "Primal Path",
           "level": 3,
           "type": "combat",
-          "icon": "\ud83d\udc3a",
+          "icon": "🐺",
           "description": "Choose a path that defines your rage"
         },
         {
           "name": "Extra Attack",
           "level": 5,
           "type": "combat",
-          "icon": "\u2694\ufe0f\u2694\ufe0f",
+          "icon": "⚔️⚔️",
           "description": "Attack twice when taking the Attack action"
         },
         {
           "name": "Fast Movement",
           "level": 5,
           "type": "utility",
-          "icon": "\ud83c\udfc3",
+          "icon": "🏃",
           "description": "+10 feet to speed when not wearing heavy armor"
         },
         {
           "name": "Feral Instinct",
           "level": 7,
           "type": "utility",
-          "icon": "\ud83d\udc3a",
+          "icon": "🐺",
           "description": "Advantage on initiative, can act while surprised if you rage first"
         },
         {
           "name": "Brutal Critical",
           "level": 9,
           "type": "combat",
-          "icon": "\ud83d\udc80",
+          "icon": "💀",
           "description": "Roll one additional damage die on critical hits"
         },
         {
           "name": "Relentless Rage",
           "level": 11,
           "type": "combat",
-          "icon": "\ud83d\udd25",
+          "icon": "🔥",
           "description": "If you drop to 0 HP while raging, DC 10 CON save to stay at 1 HP"
         },
         {
           "name": "Persistent Rage",
           "level": 15,
           "type": "combat",
-          "icon": "\u267e\ufe0f",
+          "icon": "♾️",
           "description": "Rage only ends early if you choose or fall unconscious"
         },
         {
           "name": "Primal Champion",
           "level": 20,
           "type": "combat",
-          "icon": "\ud83d\udc51",
+          "icon": "👑",
           "description": "STR and CON increase by 4, maximum of 24"
         }
       ]
     },
     "wizard": {
       "name": "Wizard",
-      "icon": "\ud83d\udcda",
+      "icon": "📚",
       "description": "Scholarly spellcasters who master arcane arts through study and practice",
       "primary_stat": "int",
       "secondary_stat": "wis",
@@ -2409,35 +2435,35 @@
           "name": "Spellcasting",
           "level": 1,
           "type": "magic",
-          "icon": "\ud83d\udcd6",
+          "icon": "📖",
           "description": "Cast wizard spells using Intelligence as spellcasting ability"
         },
         {
           "name": "Arcane Recovery",
           "level": 1,
           "type": "magic",
-          "icon": "\ud83d\udd2e",
+          "icon": "🔮",
           "description": "Recover spell slots equal to half wizard level (rounded up) on short rest"
         },
         {
           "name": "Arcane Tradition",
           "level": 2,
           "type": "magic",
-          "icon": "\ud83c\udfdb\ufe0f",
+          "icon": "🏛️",
           "description": "Choose a school of magic specialization (Evocation, Abjuration, etc.)"
         },
         {
           "name": "Spell Mastery",
           "level": 18,
           "type": "magic",
-          "icon": "\ud83d\udc51",
+          "icon": "👑",
           "description": "Cast one 1st and one 2nd level spell at will"
         },
         {
           "name": "Signature Spells",
           "level": 20,
           "type": "magic",
-          "icon": "\u2b50",
+          "icon": "⭐",
           "description": "Two 3rd level spells always prepared and can cast once each for free"
         }
       ],
@@ -2493,7 +2519,7 @@
     },
     "fighter": {
       "name": "Fighter",
-      "icon": "\ud83d\udee1\ufe0f",
+      "icon": "🛡️",
       "description": "Masters of martial combat with unparalleled weapon expertise",
       "primary_stat": "str",
       "secondary_stat": "con",
@@ -2515,63 +2541,63 @@
           "name": "Fighting Style",
           "level": 1,
           "type": "combat",
-          "icon": "\ud83c\udfaf",
+          "icon": "🎯",
           "description": "Choose a specialized combat technique (Defense, Dueling, etc.)"
         },
         {
           "name": "Second Wind",
           "level": 1,
           "type": "support",
-          "icon": "\ud83d\udca8",
+          "icon": "💨",
           "description": "Recover 1d10 + fighter level HP as a bonus action, once per rest"
         },
         {
           "name": "Action Surge",
           "level": 2,
           "type": "combat",
-          "icon": "\u26a1",
+          "icon": "⚡",
           "description": "Take one additional action on your turn, once per rest"
         },
         {
           "name": "Martial Archetype",
           "level": 3,
           "type": "combat",
-          "icon": "\u2694\ufe0f",
+          "icon": "⚔️",
           "description": "Choose a specialization (Champion, Battle Master, etc.)"
         },
         {
           "name": "Extra Attack",
           "level": 5,
           "type": "combat",
-          "icon": "\u2694\ufe0f\u2694\ufe0f",
+          "icon": "⚔️⚔️",
           "description": "Attack twice when taking the Attack action"
         },
         {
           "name": "Extra Attack (2)",
           "level": 11,
           "type": "combat",
-          "icon": "\u2694\ufe0f\u2694\ufe0f\u2694\ufe0f",
+          "icon": "⚔️⚔️⚔️",
           "description": "Attack three times when taking the Attack action"
         },
         {
           "name": "Indomitable",
           "level": 9,
           "type": "utility",
-          "icon": "\ud83d\udee1\ufe0f",
+          "icon": "🛡️",
           "description": "Reroll a failed saving throw, once per rest"
         },
         {
           "name": "Extra Attack (3)",
           "level": 20,
           "type": "combat",
-          "icon": "\u2694\ufe0f\u2694\ufe0f\u2694\ufe0f\u2694\ufe0f",
+          "icon": "⚔️⚔️⚔️⚔️",
           "description": "Attack four times when taking the Attack action"
         }
       ]
     },
     "gunslinger": {
       "name": "Gunslinger",
-      "icon": "\ud83d\udd2b",
+      "icon": "🔫",
       "description": "Firearms specialists with uncanny aim and trick shots",
       "primary_stat": "dex",
       "secondary_stat": "wis",
@@ -2592,70 +2618,70 @@
           "name": "Firearm Proficiency",
           "level": 1,
           "type": "combat",
-          "icon": "\ud83d\udd2b",
+          "icon": "🔫",
           "description": "Proficient with all firearms, can craft ammunition"
         },
         {
           "name": "Grit",
           "level": 1,
           "type": "utility",
-          "icon": "\ud83d\udcaa",
+          "icon": "💪",
           "description": "Pool of grit points (WIS mod, min 1) for trick shots. Regained on crits/kills."
         },
         {
           "name": "Deadeye Shot",
           "level": 2,
           "type": "combat",
-          "icon": "\ud83c\udfaf",
+          "icon": "🎯",
           "description": "Spend 1 grit to gain advantage on next attack roll"
         },
         {
           "name": "Quickdraw",
           "level": 3,
           "type": "combat",
-          "icon": "\u26a1",
+          "icon": "⚡",
           "description": "Add proficiency bonus to initiative, draw/stow firearms freely"
         },
         {
           "name": "Violent Shot",
           "level": 5,
           "type": "combat",
-          "icon": "\ud83d\udca5",
+          "icon": "💥",
           "description": "Spend 1+ grit before attack to add grit spent to damage dice"
         },
         {
           "name": "Trick Shot",
           "level": 7,
           "type": "combat",
-          "icon": "\ud83d\udd04",
+          "icon": "🔄",
           "description": "Spend grit for special shots: Disarm, Winging, Dazing, etc."
         },
         {
           "name": "Lightning Reload",
           "level": 10,
           "type": "utility",
-          "icon": "\u26a1",
+          "icon": "⚡",
           "description": "Reload any firearm as a bonus action"
         },
         {
           "name": "Piercing Shot",
           "level": 14,
           "type": "combat",
-          "icon": "\ud83d\udcab",
+          "icon": "💫",
           "description": "Spend 1 grit to hit multiple targets in a line"
         },
         {
           "name": "Vicious Intent",
           "level": 18,
           "type": "combat",
-          "icon": "\ud83d\udc80",
+          "icon": "💀",
           "description": "Critical hits on 19-20, and regain grit on natural 19"
         }
       ]
     },
     "spy": {
       "name": "Spy",
-      "icon": "\ud83d\udd75\ufe0f",
+      "icon": "🕵️",
       "description": "Masters of deception, infiltration, and information gathering",
       "primary_stat": "cha",
       "secondary_stat": "dex",
@@ -2678,70 +2704,70 @@
           "name": "False Identity",
           "level": 1,
           "type": "stealth",
-          "icon": "\ud83c\udfad",
+          "icon": "🎭",
           "description": "Maintain a cover identity with documentation and contacts"
         },
         {
           "name": "Expertise",
           "level": 1,
           "type": "utility",
-          "icon": "\ud83d\udcda",
+          "icon": "📚",
           "description": "Double proficiency bonus on Deception and one other skill"
         },
         {
           "name": "Silver Tongue",
           "level": 2,
           "type": "utility",
-          "icon": "\ud83d\udde3\ufe0f",
+          "icon": "🗣️",
           "description": "Minimum roll of 10 on Deception and Persuasion checks"
         },
         {
           "name": "Read the Room",
           "level": 3,
           "type": "utility",
-          "icon": "\ud83d\udc41\ufe0f",
+          "icon": "👁️",
           "description": "Advantage on Insight checks; detect lies with DC 15 WIS check"
         },
         {
           "name": "Dead Drop",
           "level": 3,
           "type": "stealth",
-          "icon": "\ud83d\udce8",
+          "icon": "📨",
           "description": "Establish secure communication networks"
         },
         {
           "name": "Slippery Mind",
           "level": 5,
           "type": "utility",
-          "icon": "\ud83d\udcad",
+          "icon": "💭",
           "description": "Proficiency in Wisdom saving throws; advantage vs charm"
         },
         {
           "name": "Master of Disguise",
           "level": 7,
           "type": "stealth",
-          "icon": "\ud83e\udd78",
+          "icon": "🥸",
           "description": "Create disguises in 1 minute; nearly undetectable"
         },
         {
           "name": "Vanish",
           "level": 10,
           "type": "stealth",
-          "icon": "\ud83c\udf2b\ufe0f",
+          "icon": "🌫️",
           "description": "Disappear into a crowd; Hide as bonus action in urban environments"
         },
         {
           "name": "Shadow Network",
           "level": 14,
           "type": "utility",
-          "icon": "\ud83d\udd78\ufe0f",
+          "icon": "🕸️",
           "description": "Maintain spy network across multiple regions"
         }
       ]
     },
     "leader": {
       "name": "Leader",
-      "icon": "\ud83d\udc51",
+      "icon": "👑",
       "description": "Inspiring commanders who strengthen allies through presence and tactics",
       "primary_stat": "cha",
       "secondary_stat": "wis",
@@ -2762,63 +2788,63 @@
           "name": "Commanding Presence",
           "level": 1,
           "type": "leadership",
-          "icon": "\ud83d\udc51",
+          "icon": "👑",
           "description": "Allies within 30 feet gain +2 to saves against fear"
         },
         {
           "name": "Rally",
           "level": 2,
           "type": "leadership",
-          "icon": "\ud83d\udce2",
+          "icon": "📢",
           "description": "Grant CHA mod + level temporary HP to allies who can hear you"
         },
         {
           "name": "Tactical Direction",
           "level": 3,
           "type": "leadership",
-          "icon": "\ud83d\uddfa\ufe0f",
+          "icon": "🗺️",
           "description": "Grant one ally an additional action on their turn, 1/rest"
         },
         {
           "name": "Inspiring Word",
           "level": 5,
           "type": "leadership",
-          "icon": "\u2728",
+          "icon": "✨",
           "description": "Allies can reroll failed attacks or saves, CHA mod times/day"
         },
         {
           "name": "Battlefield Command",
           "level": 7,
           "type": "leadership",
-          "icon": "\u2694\ufe0f",
+          "icon": "⚔️",
           "description": "Allies gain +2 to attack rolls when you take the Help action"
         },
         {
           "name": "Legendary Command",
           "level": 10,
           "type": "leadership",
-          "icon": "\u2b50",
+          "icon": "⭐",
           "description": "Grant multiple allies bonus actions simultaneously"
         },
         {
           "name": "Indomitable Will",
           "level": 14,
           "type": "leadership",
-          "icon": "\ud83d\udee1\ufe0f",
+          "icon": "🛡️",
           "description": "You and allies within 30 feet have advantage on all saves"
         },
         {
           "name": "Supreme Commander",
           "level": 18,
           "type": "leadership",
-          "icon": "\ud83c\udfc6",
+          "icon": "🏆",
           "description": "Once per day, all allies act on your initiative count"
         }
       ]
     },
     "commoner": {
       "name": "Commoner",
-      "icon": "\ud83d\udc38",
+      "icon": "🐸",
       "description": "Ordinary toads without specialized training, but with potential",
       "primary_stat": null,
       "secondary_stat": null,
@@ -2833,28 +2859,28 @@
           "name": "Survivor's Instinct",
           "level": 1,
           "type": "utility",
-          "icon": "\ud83d\udc9a",
+          "icon": "💚",
           "description": "Advantage on saves to avoid exhaustion"
         },
         {
           "name": "Strength in Numbers",
           "level": 2,
           "type": "utility",
-          "icon": "\ud83d\udc65",
+          "icon": "👥",
           "description": "+1 to all checks when adjacent to ally"
         },
         {
           "name": "Hidden Potential",
           "level": 3,
           "type": "utility",
-          "icon": "\u2b50",
+          "icon": "⭐",
           "description": "May multiclass into another class with training"
         }
       ]
     },
     "militia": {
       "name": "Militia",
-      "icon": "\ud83d\udee1\ufe0f",
+      "icon": "🛡️",
       "description": "Toads with basic combat training, forming the backbone of defense",
       "primary_stat": "con",
       "secondary_stat": "str",
@@ -2874,28 +2900,28 @@
           "name": "Basic Training",
           "level": 1,
           "type": "combat",
-          "icon": "\u2694\ufe0f",
+          "icon": "⚔️",
           "description": "+1 to attack rolls with simple weapons"
         },
         {
           "name": "Shield Wall",
           "level": 2,
           "type": "combat",
-          "icon": "\ud83d\udee1\ufe0f",
+          "icon": "🛡️",
           "description": "+2 AC when adjacent to ally with shield"
         },
         {
           "name": "Stand Your Ground",
           "level": 3,
           "type": "combat",
-          "icon": "\ud83d\udcaa",
+          "icon": "💪",
           "description": "Advantage on saves against being moved or knocked prone"
         }
       ]
     },
     "artisan": {
       "name": "Artisan",
-      "icon": "\ud83d\udd28",
+      "icon": "🔨",
       "description": "Skilled crafters and maintainers, essential for faction operations",
       "primary_stat": "int",
       "secondary_stat": "dex",
@@ -2913,25 +2939,26 @@
           "name": "Crafting Expertise",
           "level": 1,
           "type": "utility",
-          "icon": "\ud83d\udd28",
+          "icon": "🔨",
           "description": "Proficiency with artisan's tools; craft at double speed"
         },
         {
           "name": "Jury-Rig",
           "level": 2,
           "type": "utility",
-          "icon": "\ud83d\udd27",
+          "icon": "🔧",
           "description": "Temporarily repair any object with DC 15 INT check"
         },
         {
           "name": "Masterwork",
           "level": 3,
           "type": "utility",
-          "icon": "\u2b50",
+          "icon": "⭐",
           "description": "Crafted items have +1 bonus or additional feature"
         }
       ]
     }
   },
-  "factionStats": null
+  "factionStats": null,
+  "pondPatrolNote": "The Pond Patrol is a 24-member cohort commanded by Captain Fernback. None of the named core roster below serve in it; Waluigi in particular is an outsider and a docket subject, not an officer."
 }

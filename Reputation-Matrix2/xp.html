@@ -159,6 +159,27 @@
   }
 
   /* ═══ NAV ═══ */
+  .xp-system-links {
+    margin: 18px 0 22px; padding: 16px 18px;
+    border: 1px solid rgba(212,168,83,0.22); border-radius: 14px;
+    background: linear-gradient(135deg, rgba(212,168,83,0.07), rgba(0,0,0,0));
+  }
+  .xp-system-links-head {
+    font-size: 0.62rem; letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--accent-gold-dim, #d4a853); font-weight: 700; margin-bottom: 12px;
+  }
+  .xp-system-links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+  .xp-system-link {
+    display: flex; gap: 11px; align-items: flex-start; padding: 11px 13px;
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 11px;
+    background: rgba(255,255,255,0.02); text-decoration: none; transition: .15s;
+  }
+  .xp-system-link:hover { border-color: rgba(212,168,83,0.5); background: rgba(212,168,83,0.07); transform: translateY(-1px); }
+  .xsl-icon { font-size: 21px; line-height: 1; flex: 0 0 auto; }
+  .xsl-body { display: block; min-width: 0; }
+  .xsl-body b { display: block; color: var(--text-primary, #ece4d4); font-size: 0.83rem; margin-bottom: 2px; }
+  .xsl-body em { display: block; font-style: normal; color: var(--text-muted, #9a8f7d); font-size: 0.7rem; line-height: 1.45; }
+
   .nav-bar {
     position: sticky;
     top: 0;
@@ -16464,6 +16485,7 @@ function buildMainDashboard() {
       <div><strong>${Math.max(...chars.map(c => Number(c.powerLevel || 0)))}</strong><span>Highest Power</span></div>
     </div>
     ${latestXpPanel()}
+    ${xpSystemLinks()}
     <div class="dashboard-directory" id="dashboard-directory">
       ${factionOrder.map(fid => {
         const faction = { name: fid, icon: fid.includes('Disaster Inc.') ? '🎲' : fid.includes('Liberated') ? '🗽' : fid.includes('Toad') ? '🍄' : '◇' };
@@ -17682,6 +17704,24 @@ async function loadOptionalDirectoryModules() {
   }
 
   return modules;
+}
+
+function xpSystemLinks() {
+  const links = [
+    { href: '../index.html#/pond-docket', icon: '\u2696\ufe0f', label: 'Pond Patrol Docket', desc: 'Liberated Toads accountability register, cohorts, council votes & core roster.' },
+    { href: '../index.html#/ability-shop', icon: '\ud83c\udf93', label: 'Ability Shop', desc: 'Class abilities, requirements and training prices at Wario\u2019s warehouse.' },
+    { href: '../index.html#/imperial-network', icon: '\ud83d\udd78\ufe0f', label: 'Imperial Pressure Network', desc: 'Regal Empire + Iron Legion command layer and threat assessment.' },
+    { href: '../index.html#/reputation', icon: '\ud83d\udcc8', label: 'Reputation Matrix', desc: 'How every operator stands with all catalogued factions.' }
+  ];
+  return `<div class="xp-system-links">
+    <div class="xp-system-links-head">Linked Systems</div>
+    <div class="xp-system-links-grid">
+      ${links.map(l => `<a class="xp-system-link" href="${l.href}">
+        <span class="xsl-icon">${l.icon}</span>
+        <span class="xsl-body"><b>${escapeHtml(l.label)}</b><em>${escapeHtml(l.desc)}</em></span>
+      </a>`).join('')}
+    </div>
+  </div>`;
 }
 
 function getExternalModuleBanner() {

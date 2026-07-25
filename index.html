@@ -97,6 +97,50 @@
 .lt-ev-body p{margin:5px 0 0;color:var(--muted);font-size:12.5px;line-height:1.5}
 .lt-ev-body .chips{margin-top:7px}
 @media(max-width:600px){.lt-ev{flex-direction:column;gap:4px}.lt-ev-time{flex:none}}
+/* ===== Sidebar: grouped + collapsible ===== */
+.navsec{margin-bottom:4px}
+.navsec>.navhead{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);padding:9px 9px 5px;cursor:pointer;user-select:none;border-radius:8px}
+.navsec>.navhead:not(.static):hover{color:var(--text);background:rgba(138,75,255,.09)}
+.navsec>.navhead.static{cursor:default}
+.navsec .navchev{font-size:9px;opacity:.6;transition:transform .18s}
+.navsec.collapsed .navchev{transform:rotate(-90deg)}
+.navsec .navbody{display:grid;grid-template-rows:1fr;transition:grid-template-rows .18s ease}
+.navsec.collapsed .navbody{grid-template-rows:0fr}
+.navsec .navbody>*{overflow:hidden;min-height:0}
+.navsec.collapsed .navbody{pointer-events:none}
+.navlink .cnt.sys{background:linear-gradient(90deg,rgba(200,29,37,.22),rgba(224,180,0,.16));color:#f0c86a;font-weight:800;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase}
+.navlink.is-system{border-left:2px solid transparent}
+.navlink.is-system:hover{border-left-color:var(--accent2)}
+.navlink.is-system.active{border-left-color:var(--accent2)}
+/* ===== Right rail: tighten + make collapsible so it stops feeling cluttered ===== */
+.rail{display:grid;gap:12px;position:sticky;top:78px;max-height:calc(100vh - 96px);overflow-y:auto;overscroll-behavior:contain;padding-right:2px}
+.rail::-webkit-scrollbar{width:7px}
+.rail::-webkit-scrollbar-thumb{background:var(--border);border-radius:9px}
+.rail>*{margin-bottom:0 !important}
+.rail .toc{position:static;top:auto;max-height:none}
+.railbox{background:var(--panel2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.railbox>summary{list-style:none;cursor:pointer;padding:10px 13px;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--accent2);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.railbox>summary::-webkit-details-marker{display:none}
+.railbox>summary:hover{background:rgba(138,75,255,.08)}
+.railbox>summary::after{content:'▾';font-size:9px;opacity:.65;transition:transform .18s}
+.railbox:not([open])>summary::after{transform:rotate(-90deg)}
+.railbox .railbody{padding:0 13px 13px}
+.railbox .railbody>.cross-page-panel,.railbox .railbody>.infobox,.railbox .railbody>.article-controls{margin:0;border:0;background:none;padding:0}
+.rail-count{font-size:10px;color:var(--muted);background:var(--bg2);border-radius:999px;padding:1px 7px;font-weight:600;letter-spacing:0}
+@media(max-width:1050px){.rail{position:static;max-height:none;overflow:visible}}
+/* ===== Ability Shop ===== */
+.ability-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:13px;margin-top:14px}
+.ability-card{border:1px solid var(--border);border-left:4px solid var(--ab,#8a4bff);border-radius:13px;background:var(--panel2);padding:14px;cursor:pointer;transition:.14s}
+.ability-card:hover{transform:translateY(-2px);border-color:var(--ab,#8a4bff);box-shadow:var(--shadow)}
+.ability-head{display:flex;gap:11px;align-items:flex-start}
+.ability-icon{font-size:27px;line-height:1;flex:0 0 auto}
+.ability-card h3{margin:0;font-size:16px}
+.ability-price{margin-left:auto;text-align:right;font-family:var(--font-mono,monospace);font-weight:900;font-size:17px;color:#e0b400;line-height:1.1;flex:0 0 auto}
+.ability-price span{display:block;font-size:9px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ability-price.big{font-size:30px}
+.ability-desc{margin:9px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+.ability-link{cursor:pointer;color:var(--link);border-bottom:1px dotted var(--link)}
+.ability-link:hover{color:var(--accent2);border-bottom-style:solid}
 </style>
 </head>
 <body>
@@ -4066,6 +4110,14 @@ function buildIndexes(){
       hay:[sys.id,sys.name,sys.tagline,sys.body,sys.factions.join(' ')].filter(Boolean).join(' ').toLowerCase()});
   }); }catch(e){}
   (function(){
+    let A=null; try{ A=abilityShop(); }catch(e){ A=null; }
+    (A&&A.abilities||[]).forEach(ab=>{
+      SEARCH_DOCS.push({kind:'ability',id:ab.id,typeKey:'abilities',name:ab.name,
+        summary:`${ab.className} · Lv ${ab.level} · ${ab.price.toLocaleString()} coins`,route:'#/ability-shop/'+encodeURIComponent(ab.id),
+        hay:[ab.id,ab.name,ab.description,ab.className,ab.typeLabel,'ability',(ab.knownBy||[]).map(k=>k.name).join(' ')].filter(Boolean).join(' ').toLowerCase()});
+    });
+  })();
+  (function(){
     let a=null; try{ a=docketData(); }catch(e){ return; } if(!a) return;
     (a.targets||[]).forEach(t=>{
       SEARCH_DOCS.push({kind:'docketfile',id:t.id,typeKey:'systems',name:`${t.name} — Pond Patrol Docket file`,
@@ -4570,6 +4622,27 @@ function renderRelatedCongressVotes(item){
   </div>`;
 }
 
+/* Right-rail builder: groups the side panels into collapsible boxes so the
+   column stops being one long undifferentiated stack. */
+function railBox(title,body,opts={}){
+  if(!body) return '';
+  return `<details class="railbox"${opts.open?' open':''}><summary>${esc(title)}${opts.count!==undefined?`<span class="rail-count">${esc(String(opts.count))}</span>`:''}</summary><div class="railbody">${body}</div></details>`;
+}
+function articleRail(articleId,typeKey,item,infoRows,toc){
+  const parts=[];
+  if(infoRows) parts.push(`<div class="infobox"><h4>${esc(displayName(item))}</h4>${infoRows}</div>`);
+  if(toc) parts.push(toc);
+  // Faction systems get a prominent rail shortcut instead of hiding in the link soup.
+  if(typeKey==='factions'){
+    const sys=systemsForFaction(articleId);
+    if(sys.length) parts.push(`<div class="railbox" style="border-color:${sys[0].accent}"><div class="railbody" style="padding:12px 13px">${sys.map(x=>`<div class="navlink is-system active" style="border-left-color:${x.accent};margin:0" onclick="Router.go('${x.route}')"><span><span class="emoji">${x.emoji}</span> ${esc(x.name)}</span><span class="cnt sys">open</span></div>`).join('')}</div></div>`);
+  }
+  const inv=typeKey==='characters'?inventoryPanel(articleId,item):'';
+  if(inv) parts.push(railBox('🎒 Inventory & Wallet',inv,{open:true}));
+  parts.push(railBox('🔗 Connected Systems',crossPagePanel(articleId,typeKey,item),{open:false}));
+  parts.push(railBox('⚙️ Reader Controls',articleControlPanel(articleId),{open:false}));
+  return `<div class="rail">${parts.filter(Boolean).join('')}</div>`;
+}
 function crossPagePanel(articleId,typeKey,item){
   const links=[];
   links.push(`<a href="xp.html${xpStats(articleId)?`#/player/${encodeURIComponent(xpStats(articleId).xpKey)}`:''}">✦ XP Hotline</a>`);
@@ -4978,13 +5051,13 @@ function mdToHtml(md,linkCtx){
 function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
-const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️'};
+const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓'};
 const SEARCH_CATEGORIES=[
   ['all','All'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays']
 ];
 const SEARCH_CATEGORY_ALIASES={all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays'};
 function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; return prettyId(d.kind||'record'); }
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='ability')return 'Ability'; return prettyId(d.kind||'record'); }
 function docCategory(d){
   if(d.kind==='article'){
     if(d.typeKey==='characters')return 'characters';
@@ -5007,6 +5080,7 @@ function docCategory(d){
   if(d.kind==='collection')return 'articles';
   if(d.kind==='faction')return 'factions';
   if(d.kind==='system'||d.kind==='docketfile')return 'factions';
+  if(d.kind==='ability')return 'items';
   return 'articles';
 }
 function categoryMatches(d,cat){
@@ -5103,7 +5177,7 @@ function highlight(text,q){
   terms.forEach(t=>{if(t.length>1)o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
   return o;
 }
-function openSearchResult(d){ if(d.kind==='system'||d.kind==='docketfile')Router.go(d.route||'#/home'); else if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
+function openSearchResult(d){ if(d.kind==='system'||d.kind==='docketfile'||d.kind==='ability')Router.go(d.route||'#/home'); else if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
 const searchInput=el('search'),resultsBox=el('results'),searchCategory=el('searchCategory'),searchMode=el('searchMode');let activeIdx=-1,currentResults=[];
 function searchCounts(q){const all=search(q,{category:'all',limit:600});const counts={all:all.length};all.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});return counts;}
@@ -5144,50 +5218,88 @@ function paintActive(){resultsBox.querySelectorAll('.res-item').forEach((n,i)=>{
 document.addEventListener('click',e=>{if(!e.target.closest('.searchwrap'))closeSearch();});
 
 /* =============== SIDEBAR =============== */
+/* =============== SIDEBAR — grouped, collapsible, de-cluttered =============== */
+const NAV_COLLAPSE_KEY='waluipedia-nav-collapsed';
+let NAV_COLLAPSED=(()=>{ try{ return new Set(JSON.parse(localStorage.getItem(NAV_COLLAPSE_KEY)||'[]')); }catch(e){ return new Set(); } })();
+function toggleNavSection(id){
+  NAV_COLLAPSED.has(id)?NAV_COLLAPSED.delete(id):NAV_COLLAPSED.add(id);
+  try{ localStorage.setItem(NAV_COLLAPSE_KEY, JSON.stringify([...NAV_COLLAPSED])); }catch(e){}
+  document.querySelectorAll(`[data-navsec="${id}"]`).forEach(n=>n.classList.toggle('collapsed', NAV_COLLAPSED.has(id)));
+}
+function navLink(o){
+  const cls=['navlink']; if(o.active) cls.push('active'); if(o.system) cls.push('is-system');
+  const badge=o.system?`<span class="cnt sys">system</span>`:(o.count!==undefined&&o.count!==''?`<span class="cnt">${esc(String(o.count))}</span>`:'');
+  return `<div class="${cls.join(' ')}" onclick="${o.go}"${o.title?` title="${esc(o.title)}"`:''}><span><span class="emoji">${o.emoji}</span> ${esc(o.label)}</span>${badge}</div>`;
+}
+function navSection(id,title,links,opts={}){
+  if(!links.length) return '';
+  const collapsed=NAV_COLLAPSED.has(id)&&!opts.alwaysOpen;
+  const head=title?`<div class="navhead ${opts.alwaysOpen?'static':''}" ${opts.alwaysOpen?'':`onclick="toggleNavSection('${id}')"`}><span>${esc(title)}</span>${opts.alwaysOpen?'':`<span class="navchev">▾</span>`}</div>`:'';
+  return `<div class="navsec ${collapsed?'collapsed':''}" data-navsec="${id}">${head}<div class="navbody">${links.join('')}</div></div>`;
+}
 function renderSidebar(active){
   const h1=location.hash;
-  let h=`<div class="navsec"><div class="navlink ${(!h1||h1.startsWith('#/home'))?'active':''}" onclick="Router.go('#/home')"><span><span class="emoji">🏠</span> Home</span></div></div>`;
-  h+=`<div class="navsec"><div class="navhead">World</div>`;
-  h+=`<div class="navlink ${active==='atlas'?'active':''}" onclick="Router.go('#/atlas')"><span><span class="emoji">🍩</span> World Atlas</span><span class="cnt">${(DATA.nations||[]).length}</span></div>`;
-  h+=`<div class="navlink ${active==='list:cultures'?'active':''}" onclick="Router.go('#/cultures')"><span><span class="emoji">⚖️</span> Cultures & Laws</span><span class="cnt">${(DATA.cultures||[]).length}</span></div>`;
-  h+=`<div class="navlink ${active==='power'?'active':''}" onclick="Router.go('#/power')"><span><span class="emoji">⚡</span> Power Projection</span></div>`;
-  h+=`<div class="navlink ${active==='imperial-network'?'active':''}" onclick="Router.go('#/imperial-network')"><span><span class="emoji">🕸️</span> Imperial Pressure Network</span><span class="cnt">system</span></div>`;
-  h+=`<div class="navlink ${active==='pond-docket'?'active':''}" onclick="Router.go('#/pond-docket')"><span><span class="emoji">⚖️</span> Pond Patrol Docket</span><span class="cnt">system</span></div>`;
-  const isJournalActive = (active==='journal' || h1.includes('field-journal') || h1.includes('thornburys_field_journal'));
-  h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/field-journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
-  h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
-  h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}+shop</span></div>`;
-  h+=`<div class="navlink ${active==='crafting'?'active':''}" onclick="Router.go('#/crafting')"><span><span class="emoji">⚒️</span> Crafting</span><span class="cnt">${((DATA.crafting&&DATA.crafting.recipes)||[]).length||0}</span></div>`;
-  h+=`<div class="navlink ${active==='books'?'active':''}" onclick="Router.go('#/books')"><span><span class="emoji">📚</span> Library & Books</span><span class="cnt">${((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}</span></div>`;
-  h+=`</div><div class="navsec"><div class="navhead">Encyclopedia</div>`;
-  TYPES.filter(t=>!['locations','nations'].includes(t.key)).forEach(t=>{h+=`<div class="navlink ${active==='list:'+t.key?'active':''}" onclick="Router.go('#/list/${t.key}')"><span><span class="emoji">${t.emoji}</span> ${t.label}</span><span class="cnt">${(DATA[t.key]||[]).length}</span></div>`;});
-  h+=`</div><div class="navsec"><div class="navhead">World Systems</div>`;
-  h+=`<div class="navlink ${active==='congress'?'active':''}" onclick="Router.go('#/congress')"><span><span class="emoji">🏛️</span> Congress</span><span class="cnt">${(DATA.congress_votes||[]).length}</span></div>`;
-  h+=`<div class="navlink ${active==='currencies'?'active':''}" onclick="Router.go('#/currencies')"><span><span class="emoji">💱</span> Currencies</span><span class="cnt">${(getCurrenciesList?getCurrenciesList().length:((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]).length)||45}</span></div>`;
-  h+=`<div class="navlink" onclick="location.href='currency.html'"><span><span class="emoji">🏦</span> Bank & Exchange</span></div>`;
-  h+=`<div class="navlink ${active==='calendar'?'active':''}" onclick="Router.go('#/calendar')"><span><span class="emoji">📅</span> Calendar</span></div>`;
-  h+=`<div class="navlink ${active==='holidays'?'active':''}" onclick="Router.go('#/holiday')"><span><span class="emoji">🎉</span> Holidays</span><span class="cnt">${(()=>{const g=DATA.calendarHolidays?.holidays||{};let n=0;Object.values(g).forEach(a=>n+=(a||[]).length);return n;})()}</span></div>`;
-  h+=`<div class="navlink ${active==='timeline'||active==='calendar'?'':''}" onclick="Router.go('#/calendar/timeline')"><span><span class="emoji">🕰️</span> Timeline</span><span class="cnt">${(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}</span></div>`;
-  // Chronicles removed as a separate nav item — merged into the Calendar → Timeline tab.
-  // (Individual chronicle detail pages remain reachable via #/chronicle/:slug and via search.)
-h+=`<div class="navlink ${active==='reputation'?'active':''}" onclick="Router.go('#/reputation')"><span><span class="emoji">📈</span> Reputation Matrix</span><span class="cnt">${Object.keys(LORE_FACTIONS||{}).length||100}</span></div>`;
-  h+=`<div class="navlink ${active==='xp'?'active':''}" onclick="Router.go('#/xp')"><span><span class="emoji">✦</span> XP Leaderboard</span><span class="cnt">${(()=>{try{return _xpAggregate().totalRows;}catch(e){return '';}})()}</span></div>`;
-  h+=`<div class="navlink ${active==='annotations'?'active':''}" onclick="Router.go('#/annotations')"><span><span class="emoji">💬</span> Chatter Hub</span><span class="cnt">${(DATA.annotations||[]).length}</span></div>`;
-  const nbear=((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length + ((DATA.artifacts&&DATA.artifacts.god_toad)?1:0);
-  h+=`<div class="navlink ${active==='artifacts'?'active':''}" onclick="Router.go('#/artifacts')"><span><span class="emoji">⭐</span> Artifacts</span><span class="cnt">${nbear}</span></div>`;
-  h+=`</div><div class="navsec"><div class="navhead">Classic Indexes</div>`;
-  ['locations'].forEach(k=>{const t=TYPE_BY_KEY[k];h+=`<div class="navlink ${active==='list:'+k?'active':''}" onclick="Router.go('#/list/${k}')"><span><span class="emoji">${t.emoji}</span> ${t.label}</span><span class="cnt">${(DATA[k]||[]).length}</span></div>`;});
-  h+=`</div><div class="navsec"><div class="navhead">Tools</div><div class="navlink" onclick="Nav.random()"><span><span class="emoji">🎲</span> Random article</span></div></div>`;
-  const curU = (typeof getCurrentUserId==='function'?getCurrentUserId():null);
-  const curName = curU ? ( (INDEX[curU] && displayName(INDEX[curU].item)) || (typeof XP_SUMMARY!=='undefined' && XP_SUMMARY[curU]?.name) || curU ) : null;
-  h+=`<div class="navsec"><div class="navhead">Account</div>`;
+  const n=(k)=>(DATA[k]||[]).length;
+  let h='';
+
+  // Pinned: home + the systems, so the important routes never get buried.
+  h+=navSection('nav-top','',[
+    navLink({emoji:'🏠',label:'Home',go:"Router.go('#/home')",active:(!h1||h1.startsWith('#/home'))}),
+    navLink({emoji:'🔎',label:'Search & Index',go:"document.getElementById('search').focus()",title:'Focus the search bar ( / )'})
+  ],{alwaysOpen:true});
+
+  const sysLinks=Object.values(FACTION_SYSTEMS).map(s=>navLink({
+    emoji:s.emoji,label:s.name,go:`Router.go('${s.route}')`,
+    active:active===s.id||active===(s.route||'').replace('#/',''),system:true,title:s.tagline
+  }));
+  sysLinks.push(navLink({emoji:'🎓',label:'Ability Shop',go:"Router.go('#/ability-shop')",active:active==='ability-shop',system:true,title:"Wario's training wing — buy class abilities"}));
+  h+=navSection('nav-systems','⚡ Faction Systems',sysLinks,{alwaysOpen:true});
+
+  h+=navSection('nav-world','World',[
+    navLink({emoji:'🍩',label:'World Atlas',go:"Router.go('#/atlas')",active:active==='atlas',count:n('nations')}),
+    navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:n('cultures')}),
+    navLink({emoji:'⚡',label:'Power Projection',go:"Router.go('#/power')",active:active==='power'}),
+    navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
+    navLink({emoji:'📓',label:"Thornbury's Journal",go:"Router.go('#/field-journal')",active:(active==='journal'||h1.includes('field-journal')||h1.includes('thornburys_field_journal'))})
+  ]);
+
+  h+=navSection('nav-encyclopedia','Encyclopedia',
+    TYPES.filter(t=>!['locations','nations','cultures'].includes(t.key)).map(t=>navLink({
+      emoji:t.emoji,label:t.label,go:`Router.go('#/list/${t.key}')`,active:active==='list:'+t.key,count:n(t.key)
+    })).concat([navLink({emoji:'🏰',label:'Locations',go:"Router.go('#/list/locations')",active:active==='list:locations',count:n('locations')})])
+  );
+
+  h+=navSection('nav-progression','Progression & Gear',[
+    navLink({emoji:'✦',label:'XP Leaderboard',go:"Router.go('#/xp')",active:active==='xp',count:(()=>{try{return _xpAggregate().totalRows;}catch(e){return '';}})()}),
+    navLink({emoji:'📈',label:'Reputation Matrix',go:"Router.go('#/reputation')",active:active==='reputation',count:Object.keys(LORE_FACTIONS||{}).length||100}),
+    navLink({emoji:'🎒',label:'Items',go:"Router.go('#/items')",active:active==='items',count:Object.keys(INVENTORY_SYSTEM.items||{}).length-1}),
+    navLink({emoji:'⚒️',label:'Crafting',go:"Router.go('#/crafting')",active:active==='crafting',count:((DATA.crafting&&DATA.crafting.recipes)||[]).length||0}),
+    navLink({emoji:'⭐',label:'Artifacts',go:"Router.go('#/artifacts')",active:active==='artifacts',count:((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length+((DATA.artifacts&&DATA.artifacts.god_toad)?1:0)}),
+    navLink({emoji:'🛒',label:"Wario's Shop",go:"location.href='shop.html'"})
+  ]);
+
+  h+=navSection('nav-systems-world','World Systems',[
+    navLink({emoji:'🏛️',label:'Congress',go:"Router.go('#/congress')",active:active==='congress',count:n('congress_votes')}),
+    navLink({emoji:'💱',label:'Currencies',go:"Router.go('#/currencies')",active:active==='currencies',count:(getCurrenciesList?getCurrenciesList().length:((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]).length)||45}),
+    navLink({emoji:'🏦',label:'Bank & Exchange',go:"location.href='currency.html'"}),
+    navLink({emoji:'📅',label:'Calendar',go:"Router.go('#/calendar')",active:active==='calendar'}),
+    navLink({emoji:'🎉',label:'Holidays',go:"Router.go('#/holiday')",active:active==='holidays',count:(()=>{const g=DATA.calendarHolidays?.holidays||{};let c=0;Object.values(g).forEach(a=>c+=(a||[]).length);return c;})()}),
+    navLink({emoji:'🕰️',label:'Timeline',go:"Router.go('#/calendar/timeline')",count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
+    navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
+    navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')})
+  ]);
+
+  const curU=(typeof getCurrentUserId==='function'?getCurrentUserId():null);
+  const curName=curU?((INDEX[curU]&&displayName(INDEX[curU].item))||(typeof XP_SUMMARY!=='undefined'&&XP_SUMMARY[curU]?.name)||curU):null;
+  const acct=[navLink({emoji:'🎲',label:'Random article',go:'Nav.random()'})];
   if(curU){
-    h+=`<div class="navlink ${active==='profile'?'active':''}" onclick="Router.go('#/profile')"><span><span class="emoji">👤</span> ${esc(curName||'Profile')}</span><span class="cnt">Me</span></div>`;
-    h+=`<div class="navlink" onclick="(function(){localStorage.removeItem('waluipediaUser'); if(typeof updateTopbarLoginBtn==='function') updateTopbarLoginBtn(); Router.go('#/home');})()"><span><span class="emoji">🚪</span> Logout</span></div>`;
+    acct.push(navLink({emoji:'👤',label:curName||'Profile',go:"Router.go('#/profile')",active:active==='profile',count:'Me'}));
+    acct.push(navLink({emoji:'🚪',label:'Logout',go:"(function(){localStorage.removeItem('waluipediaUser'); if(typeof updateTopbarLoginBtn==='function') updateTopbarLoginBtn(); Router.go('#/home');})()"}));
   }else{
-    h+=`<div class="navlink ${active==='login'?'active':''}" onclick="Router.go('#/login')"><span><span class="emoji">🔐</span> Login</span></div>`;
+    acct.push(navLink({emoji:'🔐',label:'Login',go:"Router.go('#/login')",active:active==='login'}));
   }
-  h+=`</div>`;
+  h+=navSection('nav-account','Tools & Account',acct);
+
   el('sidenav').innerHTML=h;
 }
 
@@ -6094,7 +6206,17 @@ function ltToadCard(t){
   const hp=(st.hp!=null&&st.maxHp!=null)?`<span class="pill">HP ${st.hp}/${st.maxHp}</span>`:'';
   const ac=st.ac!=null?`<span class="pill">AC ${st.ac}</span>`:'';
   const conds=(t.conditions||[]).map(c=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">${esc(c)}</span>`).join('');
-  const abil=(t.abilities||[]).slice(0,6).map(a=>`<li><b>${esc(a.name)}</b>${a.level?` (Lv ${a.level})`:''}${a.description?` — ${esc(a.description)}`:''}</li>`).join('');
+  const abil=(t.abilities||[]).map(a=>{
+    const def=abilityByName(a.name,t.class);
+    const lock=a.unlocked===false?' <span class="pill" style="border-color:#7a8a99;color:#7a8a99">locked</span>':'';
+    return def
+      ? `<li><a class="ability-link" onclick="Router.go('#/ability-shop/'+encodeURIComponent('${esc(def.id)}'))"><b>${esc(a.name)}</b></a>${lock}${def.description?` — ${esc(def.description)}`:''}</li>`
+      : `<li><b>${esc(a.name)}</b>${lock}</li>`;
+  }).join('');
+  const affTone=t.affiliation==='outsider'?'#a06bd8':t.affiliation==='defector'?'#e0574a':'#4a9c6d';
+  const affRow=t.affiliationLabel?`<div class="dock-sub" style="margin-top:7px"><span class="pill" style="border-color:${affTone};color:${affTone}">${esc(t.affiliationLabel)}</span></div>`:'';
+  const affNote=t.affiliationNote?`<div class="dock-note" style="border-left-color:${affTone};background:rgba(160,107,216,.08)">${esc(t.affiliationNote)}</div>`:'';
+  const xpLink=t.articleId&&XP_SUMMARY[t.articleId]?`<span class="chip" onclick="location.href='xp.html#/player/${encodeURIComponent(XP_SUMMARY[t.articleId].xpKey||t.articleId)}'">✦ XP ledger</span>`:'';
   const link=t.articleId&&INDEX[t.articleId]?`<span class="chip active" onclick="openId('${esc(t.articleId)}')">📄 Open ${esc(t.name)}'s article →</span>`:'';
   const onDocket=(docketData()?.targets||[]).some(d=>d.articleId===t.articleId||d.name===t.name);
   return `<div class="dock-card" style="--dk:${tone}">
@@ -6103,12 +6225,14 @@ function ltToadCard(t){
       <div style="min-width:0"><h3>${esc(t.name)}</h3><div class="dock-sub">${esc(t.title||'')}${t.cohort?` · ${esc(t.cohort)}`:''}</div></div>
       <div class="dock-status"><span class="dock-badge">Lv ${t.level??'?'}</span><span class="dock-prio">${esc(t.class||'')}</span></div>
     </div>
+    ${affRow}
     <div class="chips" style="margin-top:8px"><span class="pill" style="border-color:${tone};color:${tone}">${esc(t.status||'')}</span>${hp}${ac}${t.weapon?`<span class="pill">${esc(t.weapon)}</span>`:''}${t.xp!=null?`<span class="pill">${Number(t.xp).toLocaleString()} XP</span>`:''}${onDocket?`<span class="pill" style="border-color:#e0b400;color:#e0b400">⚖️ On the docket</span>`:''}</div>
+    ${affNote}
     ${statCells?`<div class="lt-statgrid">${statCells}</div>`:''}
     ${conds?`<div class="dock-label">Conditions</div><div class="chips">${conds}</div>`:''}
     ${t.background?`<div class="dock-label">Background</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(t.background)}</p>`:''}
-    ${abil?`<div class="dock-label">Abilities</div><ul class="dock-list">${abil}</ul>`:''}
-    ${link?`<div class="chips" style="margin-top:11px">${link}</div>`:''}
+    ${abil?`<div class="dock-label">Abilities <span style="text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400">— click to open in the Ability Shop</span></div><ul class="dock-list">${abil}</ul>`:''}
+    ${(link||xpLink)?`<div class="chips" style="margin-top:11px">${link}${xpLink}</div>`:''}
   </div>`;
 }
 /* ---- Timeline ---- */
@@ -6496,6 +6620,131 @@ function imperialEventRail(){
     return hay.includes('iron legion')||hay.includes('regal empire')||hay.includes('iron mandate')||hay.includes('vigilance')||hay.includes('legionlance');
   }).slice(0,12);
   return records.map(item=>`<div class="update-card" onclick="openId('${esc(item.id)}')"><div class="kicker">Linked intelligence</div><h3>${esc(displayName(item))}</h3><p>${esc(previewText(item)).slice(0,170)}…</p></div>`).join('')||'<p class="text-muted">No linked records found.</p>';
+}
+
+/* =============== ABILITY SHOP — Wario's training wing =============== */
+function abilityShop(){ return DATA.abilityShop||null; }
+function abilityById(id){ const A=abilityShop(); return A?(A.abilities||[]).find(a=>a.id===id):null; }
+function abilityByName(name,cls){
+  const A=abilityShop(); if(!A) return null;
+  const list=(A.abilities||[]).filter(a=>a.name===name);
+  return list.find(a=>a.class===cls)||list[0]||null;
+}
+let ABILITY_FILTER={cls:'all',type:'all',q:''};
+function setAbilityFilter(k,v){ ABILITY_FILTER[k]=v; view_ability_shop(); }
+function abilityCard(a,compact){
+  const holders=(a.knownBy||[]).map(h=>{
+    const tone=h.affiliation==='outsider'?'#a06bd8':h.affiliation==='defector'?'#e0574a':'#4a9c6d';
+    return INDEX[h.id]
+      ? `<span class="chip" style="border-color:${tone}" onclick="event.stopPropagation();openId('${esc(h.id)}')">${esc(h.name)}</span>`
+      : `<span class="pill" style="border-color:${tone};color:${tone}">${esc(h.name)}</span>`;
+  }).join('');
+  return `<div class="ability-card" style="--ab:${a.accent}" onclick="Router.go('#/ability-shop/'+encodeURIComponent('${esc(a.id)}'))">
+    <div class="ability-head">
+      <span class="ability-icon">${a.icon||'•'}</span>
+      <div style="min-width:0"><h3>${esc(a.name)}</h3><div class="dock-sub">${esc(a.className)} · Lv ${a.level} · ${esc(a.typeLabel)}</div></div>
+      <div class="ability-price">${Number(a.price).toLocaleString()}<span>coins</span></div>
+    </div>
+    ${a.description?`<p class="ability-desc">${esc(a.description)}</p>`:''}
+    ${holders?`<div class="dock-label" style="margin-top:9px">Known by</div><div class="chips">${holders}</div>`:''}
+  </div>`;
+}
+function view_ability_shop(arg){
+  renderSidebar('ability-shop');
+  const A=abilityShop();
+  if(!A){ el('content').innerHTML=`<div class="card"><h1>🎓 Ability Shop</h1><p class="text-muted">Catalogue not loaded — check <code>data/abilityShop.json</code>.</p></div>`; return; }
+  if(arg){ const a=abilityById(arg); if(a){ view_ability_detail(a); return; } }
+
+  const all=A.abilities||[];
+  const q=String(ABILITY_FILTER.q||'').toLowerCase().trim();
+  const list=all.filter(a=>
+    (ABILITY_FILTER.cls==='all'||a.class===ABILITY_FILTER.cls) &&
+    (ABILITY_FILTER.type==='all'||a.type===ABILITY_FILTER.type) &&
+    (!q||[a.name,a.description,a.className,a.typeLabel].join(' ').toLowerCase().includes(q))
+  );
+  const clsOpts=['all'].concat(Object.keys(A.classes||{})).map(k=>
+    `<option value="${esc(k)}" ${ABILITY_FILTER.cls===k?'selected':''}>${k==='all'?`All classes (${all.length})`:esc((A.classes[k]||{}).name||k)+' ('+all.filter(a=>a.class===k).length+')'}</option>`).join('');
+  const typeOpts=['all'].concat([...new Set(all.map(a=>a.type))]).map(k=>
+    `<option value="${esc(k)}" ${ABILITY_FILTER.type===k?'selected':''}>${k==='all'?'All types':esc((A.types[k]||{}).label||prettyId(k))}</option>`).join('');
+  const classCards=Object.entries(A.classes||{}).map(([k,c])=>
+    `<div class="dock-pillar" style="cursor:pointer;border-left:3px solid var(--accent)" onclick="setAbilityFilter('cls','${esc(k)}')">
+      <b>${c.icon||'🎓'} ${esc(c.name)}</b>
+      <span>${esc(c.description||'')}<br><i>d${c.hitDie} hit die · ${esc(String(c.primaryStat||'—')).toUpperCase()} primary · ${c.count} abilities</i></span>
+    </div>`).join('');
+
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Ability Shop</div>
+    <div class="card animate-fade-in" style="border-left:5px solid #e0b400;background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(0,0,0,0)),var(--panel)">
+      <span class="fsys-flag" style="--sys-accent:#e0b400;--sys-glow:rgba(224,180,0,.4)">★ ${esc(A.meta.subtitle)}</span>
+      <div class="home-section-head" style="margin-top:10px">
+        <div><h1 style="margin:0">🎓 ${esc(A.meta.title)}</h1><p>${esc(A.meta.warioPitch)}</p></div>
+        <span class="chip active" onclick="location.href='shop.html'">🛒 Main warehouse →</span>
+      </div>
+      <div class="wnote" style="border-left-color:#e0b400"><b>Scaffold notice:</b> ${esc(A.meta.note)}</div>
+      <div class="fsys-metrics">
+        <div class="fsys-metric"><b>${all.length}</b><span>Abilities catalogued</span></div>
+        <div class="fsys-metric"><b>${Object.keys(A.classes||{}).length}</b><span>Classes</span></div>
+        <div class="fsys-metric"><b>${all.filter(a=>a.knownBy.length).length}</b><span>Already known by someone</span></div>
+        <div class="fsys-metric"><b>${Math.min(...all.map(a=>a.price)).toLocaleString()}–${Math.max(...all.map(a=>a.price)).toLocaleString()}</b><span>Price range</span></div>
+      </div>
+      <div class="chips" style="margin-top:13px">
+        <span class="chip" onclick="Router.go('#/pond-docket')">⚖️ Pond Patrol Docket</span>
+        <span class="chip" onclick="Router.go('#/xp')">✦ XP Leaderboard</span>
+        <span class="chip" onclick="location.href='currency.html'">🏦 Wallets & currency</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="home-section-head"><div><h2>🎓 Classes</h2><p>Click a class to filter the catalogue.</p></div>${ABILITY_FILTER.cls!=='all'?`<span class="chip active" onclick="setAbilityFilter('cls','all')">Clear class filter ✕</span>`:''}</div>
+      <div class="dock-pillars">${classCards}</div>
+    </div>
+    <div class="card">
+      <div class="home-section-head"><div><h2>📜 Catalogue</h2><p>Showing ${list.length} of ${all.length} abilities.</p></div></div>
+      <div class="list-toolbar">
+        <label><span>Search</span><input id="abQ" value="${esc(ABILITY_FILTER.q)}" placeholder="Search abilities, effects, classes…"></label>
+        <label><span>Class</span><select id="abCls">${clsOpts}</select></label>
+        <label><span>Type</span><select id="abType">${typeOpts}</select></label>
+        <button class="list-clear-btn" onclick="ABILITY_FILTER={cls:'all',type:'all',q:''};view_ability_shop()">Clear</button>
+      </div>
+      <div class="ability-grid">${list.map(a=>abilityCard(a)).join('')||'<p class="text-muted">No abilities match those filters.</p>'}</div>
+    </div>`;
+  const abQEl=el('abQ'); if(abQEl){ abQEl.addEventListener('input',()=>{ ABILITY_FILTER.q=abQEl.value; view_ability_shop(); setTimeout(()=>{const n=el('abQ'); if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length);} },0); }); }
+  const abClsEl=el('abCls'); if(abClsEl) abClsEl.addEventListener('change',()=>setAbilityFilter('cls',abClsEl.value));
+  const abTypeEl=el('abType'); if(abTypeEl) abTypeEl.addEventListener('change',()=>setAbilityFilter('type',abTypeEl.value));
+  window.scrollTo(0,0);
+}
+function view_ability_detail(a){
+  renderSidebar('ability-shop');
+  const A=abilityShop();
+  const cls=(A.classes||{})[a.class]||{};
+  const holders=(a.knownBy||[]).map(h=>{
+    const tone=h.affiliation==='outsider'?'#a06bd8':h.affiliation==='defector'?'#e0574a':'#4a9c6d';
+    const note=h.affiliation==='outsider'?' — not a Liberated Toad':h.affiliation==='defector'?' — defector':'';
+    return `<li>${INDEX[h.id]?`<a onclick="openId('${esc(h.id)}')" style="cursor:pointer"><b>${esc(h.name)}</b></a>`:`<b>${esc(h.name)}</b>`} <span style="color:${tone}">(${esc(h.class)}${note})</span>${h.unlocked===false?' — locked':''}</li>`;
+  }).join('');
+  const siblings=(A.abilities||[]).filter(x=>x.class===a.class&&x.id!==a.id)
+    .sort((x,y)=>x.level-y.level)
+    .map(x=>`<span class="chip" onclick="Router.go('#/ability-shop/'+encodeURIComponent('${esc(x.id)}'))">${x.icon||'•'} ${esc(x.name)} <small style="opacity:.6">Lv${x.level}</small></span>`).join('');
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/ability-shop')">Ability Shop</a> › ${esc(a.name)}</div>
+    <div class="card animate-fade-in" style="border-left:5px solid ${a.accent}">
+      <div class="home-section-head">
+        <div style="display:flex;gap:14px;align-items:center"><span style="font-size:40px">${a.icon||'•'}</span>
+          <div><h1 style="margin:0">${esc(a.name)}</h1><div class="art-subtitle">${esc(a.className)} · Level ${a.level} · ${esc(a.typeLabel)}</div></div></div>
+        <div class="ability-price big">${Number(a.price).toLocaleString()}<span>coins</span></div>
+      </div>
+      ${a.description?`<p style="font-size:14.5px;line-height:1.6;color:var(--text)">${esc(a.description)}</p>`:''}
+      <div class="grid2" style="gap:10px;margin-top:12px">
+        <div class="reputation-total-card" style="margin:0"><span>Class</span><strong style="font-size:16px">${esc(a.className)}</strong><span class="pill">d${a.hitDie} hit die · ${esc(String(a.primaryStat||'—')).toUpperCase()} primary</span></div>
+        <div class="reputation-total-card" style="margin:0"><span>Requirement</span><strong style="font-size:16px">Level ${a.level}</strong><span class="pill">${esc(a.typeLabel)} discipline</span></div>
+      </div>
+      <div class="wnote" style="border-left-color:#e0b400"><b>Wario's terms:</b> Payment up front, training happens in the back room, and if you die during the lesson that is a YOU problem. Price is placeholder — tune it in <code>data/abilityShop.json</code>.</div>
+      <div class="chips"><span class="chip active" onclick="location.href='shop.html'">🛒 Main warehouse</span><span class="chip" onclick="Router.go('#/ability-shop')">← Back to catalogue</span><span class="chip" onclick="location.href='currency.html'">🏦 Check wallet</span></div>
+    </div>
+    ${holders?`<div class="card"><div class="home-section-head"><div><h2>👤 Already Known By</h2><p>Characters who have this on their sheet. Affiliation is shown so the roster isn't misread.</p></div></div><ul class="dock-list" style="font-size:13.5px">${holders}</ul></div>`:''}
+    ${cls.name?`<div class="card"><div class="home-section-head"><div><h2>${cls.icon||'🎓'} ${esc(cls.name)}</h2><p>${esc(cls.description||'')}</p></div><span class="chip" onclick="setAbilityFilter('cls','${esc(a.class)}')">See all ${cls.count} →</span></div>
+      <div class="chips">${(cls.savingThrows||[]).map(x=>`<span class="pill">Save: ${esc(String(x).toUpperCase())}</span>`).join('')}${(cls.armor||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('')}${(cls.weapons||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</div>
+      ${siblings?`<div class="dock-label">Other ${esc(cls.name)} abilities</div><div class="chips">${siblings}</div>`:''}</div>`:''}`;
+  window.scrollTo(0,0);
 }
 
 /* =============== IRON LEGION FULL DOSSIER (ported into the Imperial Pressure Network) ====== */
@@ -7384,7 +7633,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
-   </div></div><div>${crossPagePanel(item.id,typeKey,item)}${typeKey==='characters'?inventoryPanel(item.id,item):''}${articleControlPanel(item.id)}${infoRows?`<div class="infobox"><h4>${esc(displayName(item))}</h4>${infoRows}</div>`:''}${toc}</div></div>`;
+   </div></div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
   window.scrollTo(0,0);setupScrollSpy();applyCustomCss(item.customCss);
   if(typeKey==='factions'){ renderFactionPowerProjection(item.id); }
 }
@@ -10750,6 +10999,7 @@ const Router={
     else if(route==='power'||route==='war')view_power();
     else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion')view_imperial_network();
     else if(route==='pond-docket'||route==='docket'||route==='pond-patrol'||route==='accountability-docket')view_pond_docket();
+    else if(route==='ability-shop'||route==='abilities'||route==='ability')view_ability_shop(arg);
     else if(route==='battlefield')view_list('battles');
     else if(route==='conflict')view_conflict(arg);
     else if(route==='mbattle')view_mbattle(arg);
@@ -10811,7 +11061,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
