@@ -37,6 +37,18 @@
     "id": "the_archivist",
     "name": "The Archivist",
     "route": "#/article/the_archivist"
+   },
+   {
+    "kind": "characters",
+    "id": "marcus_ashford",
+    "name": "Marcus Ashford",
+    "route": "#/article/marcus_ashford"
+   },
+   {
+    "kind": "characters",
+    "id": "toadburt",
+    "name": "Toadburt",
+    "route": "#/article/toadburt"
    }
   ]
  },
@@ -48,17 +60,6 @@
     "id": "shadow_estate_session_Harvestside_14_continued",
     "name": "14 Harvestside (Continued) — The Hidden Hall, Pierce Anamatar, the Lasso Room, and the Anchor",
     "route": "#/article/shadow_estate_session_Harvestside_14_continued"
-   }
-  ]
- },
- "bob_omb_buddy": {
-  "name": "Bob-Omb Buddy",
-  "refs": [
-   {
-    "kind": "locations",
-    "id": "peachs_castle",
-    "name": "Peach's Castle",
-    "route": "#/article/peachs_castle"
    }
   ]
  },
@@ -111,6 +112,18 @@
     "id": "the_lounge_incident_and_the_paper_war",
     "name": "The Lounge Incident and the Paper War",
     "route": "#/article/the_lounge_incident_and_the_paper_war"
+   },
+   {
+    "kind": "events",
+    "id": "the_wario_method_interview",
+    "name": "The Wario Method — Publication Interview and Associated Intelligence Catastrophe",
+    "route": "#/article/the_wario_method_interview"
+   },
+   {
+    "kind": "events",
+    "id": "the_toad_god_interview_and_the_star_shard",
+    "name": "The Toad God Interview and the Star Shard",
+    "route": "#/article/the_toad_god_interview_and_the_star_shard"
    }
   ]
  },
@@ -230,17 +243,6 @@
    }
   ]
  },
- "spiny_egg": {
-  "name": "Spiny Egg",
-  "refs": [
-   {
-    "kind": "majorBattles",
-    "id": "delfino_corona_invasion",
-    "name": "Invasion of Corona Mountain",
-    "route": "#/mbattle/delfino_corona_invasion"
-   }
-  ]
- },
  "star_rod": {
   "name": "The Star Rod",
   "refs": [
@@ -267,39 +269,6 @@
     "id": "star_rod",
     "name": "The Star Rod",
     "route": "#/article/star_rod"
-   }
-  ]
- },
- "stop_watch": {
-  "name": "Stop Watch",
-  "refs": [
-   {
-    "kind": "events",
-    "id": "9_Harvestside_aftermath_shadeward",
-    "name": "9 Harvestside — The Knife, the Ring, the Imp, and the Death Lounge",
-    "route": "#/article/9_Harvestside_aftermath_shadeward"
-   }
-  ]
- },
- "toad_cap": {
-  "name": "Toad Cap",
-  "refs": [
-   {
-    "kind": "majorBattles",
-    "id": "skirmish_dance_hall",
-    "name": "The Dance Hall Discord",
-    "route": "#/mbattle/skirmish_dance_hall"
-   }
-  ]
- },
- "vanish_cap": {
-  "name": "Vanish Cap",
-  "refs": [
-   {
-    "kind": "locations",
-    "id": "peachs_castle",
-    "name": "Peach's Castle",
-    "route": "#/article/peachs_castle"
    }
   ]
  },
@@ -358,6 +327,18 @@
     "id": "shadow_estate_session_Harvestside_14_continued",
     "name": "14 Harvestside (Continued) — The Hidden Hall, Pierce Anamatar, the Lasso Room, and the Anchor",
     "route": "#/article/shadow_estate_session_Harvestside_14_continued"
+   },
+   {
+    "kind": "events",
+    "id": "shadow_estate_mirror_rooftop_escape",
+    "name": "The Mirror, the Roof, and the Fall",
+    "route": "#/article/shadow_estate_mirror_rooftop_escape"
+   },
+   {
+    "kind": "events",
+    "id": "dinner_climax_vote",
+    "name": "The Shadow Estate Dinner",
+    "route": "#/article/dinner_climax_vote"
    }
   ]
  }
