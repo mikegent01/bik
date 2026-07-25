@@ -56,7 +56,10 @@
     document.querySelectorAll('[data-inline-rules]').forEach(el => delete el.dataset.inlineRules);
     decorate();
   };
-  loadReviewedCatalog();
+  // Deferred: loadReviewedCatalog() calls decorate(), which is declared further
+  // down as a const. Kicking it off here only worked because fetch() happened to
+  // suspend first — under file:// (or any sync-throwing fetch) it hit the TDZ and
+  // killed the whole module. Started at the bottom instead, after decorate exists.
   const rulesFor = effect => {
     const text = effect.replace(/_/g, ' ').trim();
     const dc = text.match(/DC\s*(\d+)/i)?.[1];
@@ -176,4 +179,5 @@
     });
   };
   new MutationObserver(decorate).observe(document.documentElement, { childList: true, subtree: true }); decorate();
+  loadReviewedCatalog();
 })();

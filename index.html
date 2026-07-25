@@ -128,19 +128,30 @@
 .railbox .railbody>.cross-page-panel,.railbox .railbody>.infobox,.railbox .railbody>.article-controls{margin:0;border:0;background:none;padding:0}
 .rail-count{font-size:10px;color:var(--muted);background:var(--bg2);border-radius:999px;padding:1px 7px;font-weight:600;letter-spacing:0}
 @media(max-width:1050px){.rail{position:static;max-height:none;overflow:visible}}
-/* ===== Ability Shop ===== */
-.ability-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:13px;margin-top:14px}
-.ability-card{border:1px solid var(--border);border-left:4px solid var(--ab,#8a4bff);border-radius:13px;background:var(--panel2);padding:14px;cursor:pointer;transition:.14s}
-.ability-card:hover{transform:translateY(-2px);border-color:var(--ab,#8a4bff);box-shadow:var(--shadow)}
-.ability-head{display:flex;gap:11px;align-items:flex-start}
-.ability-icon{font-size:27px;line-height:1;flex:0 0 auto}
-.ability-card h3{margin:0;font-size:16px}
-.ability-price{margin-left:auto;text-align:right;font-family:var(--font-mono,monospace);font-weight:900;font-size:17px;color:#e0b400;line-height:1.1;flex:0 0 auto}
-.ability-price span{display:block;font-size:9px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);font-weight:600}
-.ability-price.big{font-size:30px}
-.ability-desc{margin:9px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
-.ability-link{cursor:pointer;color:var(--link);border-bottom:1px dotted var(--link)}
+/* ===== Ability links (shop itself lives in shop.html) ===== */
+.ability-link{cursor:pointer;color:var(--link);border-bottom:1px dotted var(--link);text-decoration:none}
 .ability-link:hover{color:var(--accent2);border-bottom-style:solid}
+/* ===== Spec rows — styled replacement for bare definition bullet lists ===== */
+.spec-list{display:grid;gap:8px;margin:10px 0 2px}
+.spec-list.two-col{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.spec-row{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--border);border-left:3px solid var(--sp,var(--accent));border-radius:10px;background:var(--bg2);transition:.13s}
+.spec-row:hover{border-color:var(--sp,var(--accent));background:var(--panel2)}
+.spec-icon{font-size:15px;line-height:1.35;flex:0 0 auto;opacity:.9}
+.spec-main{min-width:0;flex:1}
+.spec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+.spec-name{font-size:13.5px;color:var(--text);font-weight:800;line-height:1.35}
+.spec-meta{font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--sp,var(--accent));border:1px solid currentColor;border-radius:999px;padding:1px 7px;white-space:nowrap;opacity:.95}
+.spec-meta.muted{color:var(--muted)}
+.spec-desc{margin:5px 0 0;color:var(--muted);font-size:12.5px;line-height:1.55}
+.spec-note{margin-top:6px;font-size:11.5px;color:var(--accent2);background:rgba(224,180,0,.07);border-radius:6px;padding:4px 8px;display:inline-block}
+.spec-lead{margin:6px 0 0;color:var(--muted);font-size:12.5px;line-height:1.55}
+/* nicer plain bullets where a full spec row is overkill */
+.dock-list.bullets{list-style:none;padding-left:0;display:grid;gap:6px}
+.dock-list.bullets li{position:relative;padding:7px 11px 7px 26px;border:1px solid var(--border);border-radius:9px;background:var(--bg2);color:var(--text);font-size:12.5px;line-height:1.5}
+.dock-list.bullets li::before{content:'▸';position:absolute;left:10px;top:7px;color:var(--accent);font-weight:900}
+.dock-list.bullets.danger li::before{content:'⚠';color:#e0574a;font-size:11px}
+.dock-list.bullets.good li::before{content:'✓';color:#4a9c6d}
+@media(max-width:640px){.spec-list.two-col{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -4113,7 +4124,7 @@ function buildIndexes(){
     let A=null; try{ A=abilityShop(); }catch(e){ A=null; }
     (A&&A.abilities||[]).forEach(ab=>{
       SEARCH_DOCS.push({kind:'ability',id:ab.id,typeKey:'abilities',name:ab.name,
-        summary:`${ab.className} · Lv ${ab.level} · ${ab.price.toLocaleString()} coins`,route:'#/ability-shop/'+encodeURIComponent(ab.id),
+        summary:`${ab.className} · Lv ${ab.level} · ${ab.price.toLocaleString()} coins — opens in Wario's shop`,href:abilityShopUrl(ab.id),
         hay:[ab.id,ab.name,ab.description,ab.className,ab.typeLabel,'ability',(ab.knownBy||[]).map(k=>k.name).join(' ')].filter(Boolean).join(' ').toLowerCase()});
     });
   })();
@@ -5177,7 +5188,7 @@ function highlight(text,q){
   terms.forEach(t=>{if(t.length>1)o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
   return o;
 }
-function openSearchResult(d){ if(d.kind==='system'||d.kind==='docketfile'||d.kind==='ability')Router.go(d.route||'#/home'); else if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
+function openSearchResult(d){ if(d.kind==='ability'){location.href=d.href||abilityShopUrl();return;} if(d.kind==='system'||d.kind==='docketfile')Router.go(d.route||'#/home'); else if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
 const searchInput=el('search'),resultsBox=el('results'),searchCategory=el('searchCategory'),searchMode=el('searchMode');let activeIdx=-1,currentResults=[];
 function searchCounts(q){const all=search(q,{category:'all',limit:600});const counts={all:all.length};all.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});return counts;}
@@ -5252,7 +5263,7 @@ function renderSidebar(active){
     emoji:s.emoji,label:s.name,go:`Router.go('${s.route}')`,
     active:active===s.id||active===(s.route||'').replace('#/',''),system:true,title:s.tagline
   }));
-  sysLinks.push(navLink({emoji:'🎓',label:'Ability Shop',go:"Router.go('#/ability-shop')",active:active==='ability-shop',system:true,title:"Wario's training wing — buy class abilities"}));
+  sysLinks.push(navLink({emoji:'🎓',label:'Ability Shop',go:`location.href='${abilityShopUrl()}'`,system:true,title:"Wario's training wing — opens in the shop"}));
   h+=navSection('nav-systems','⚡ Faction Systems',sysLinks,{alwaysOpen:true});
 
   h+=navSection('nav-world','World',[
@@ -6167,6 +6178,22 @@ function ltStatusTone(t){
 function ltCohortStatusTone(s){
   return ({active:'#4a9c6d',recovering:'#e0b400',strained:'#e08a4a',overwhelmed:'#e0574a',compromised:'#a06bd8',transitional:'#7a8a99'})[s]||'#7a8a99';
 }
+/* Styled definition rows — replaces bare <li><b>name</b> — desc</li> lists.
+   items: [{name, desc, meta, note, tone, icon}] */
+function specList(items,opts={}){
+  const rows=(items||[]).filter(Boolean).map(it=>{
+    const tone=it.tone||'var(--accent)';
+    return `<div class="spec-row" style="--sp:${tone}">
+      ${it.icon?`<span class="spec-icon">${it.icon}</span>`:''}
+      <div class="spec-main">
+        <div class="spec-head"><b class="spec-name">${esc(it.name||'')}</b>${it.meta?`<span class="spec-meta">${esc(it.meta)}</span>`:''}</div>
+        ${it.desc?`<p class="spec-desc">${esc(it.desc)}</p>`:''}
+        ${it.note?`<div class="spec-note">${esc(it.note)}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+  return rows?`<div class="spec-list ${opts.cols?'two-col':''}">${rows}</div>`:'';
+}
 function meterRow(label,val,tone){
   const v=Math.max(0,Math.min(100,Number(val)||0));
   return `<div class="lt-meter"><div class="lt-meter-top"><span>${esc(label)}</span><b>${v}</b></div><div class="dock-bar"><i style="width:${v}%;background:${tone||'linear-gradient(90deg,var(--accent),var(--accent2))'}"></i></div></div>`;
@@ -6175,7 +6202,7 @@ function meterRow(label,val,tone){
 function ltCohortCard(c){
   const tone=ltCohortStatusTone(c.status);
   const cap=c.maxMembers?`${c.members}/${c.maxMembers}`:`${c.members}`;
-  const notable=(c.notable_members||[]).map(n=>`<li><b>${esc(n.name)}</b>${n.level?` · Lv ${n.level}`:''}${n.role?` — ${esc(n.role)}`:''}${n.note?`<br><span style="color:var(--muted)">${esc(n.note)}</span>`:''}</li>`).join('');
+  const notable=specList((c.notable_members||[]).map(x=>({name:x.name,meta:x.level?`Lv ${x.level}`:'',desc:x.role,note:x.note,tone:c.color||'#4a9c6d',icon:'🐸'})));
   const spec=(c.specializations||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
   const equip=(c.equipment||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
   const cas=c.casualties?Object.entries(c.casualties).filter(([,v])=>v).map(([k,v])=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">${esc(prettyId(k))}: ${v}</span>`).join(''):'';
@@ -6194,7 +6221,7 @@ function ltCohortCard(c){
     ${spec?`<div class="dock-label">Specialisations</div><div class="chips">${spec}</div>`:''}
     ${equip?`<div class="dock-label">Equipment</div><div class="chips">${equip}</div>`:''}
     ${cas?`<div class="dock-label">Casualties</div><div class="chips">${cas}</div>`:''}
-    ${notable?`<div class="dock-label">Notable members</div><ul class="dock-list">${notable}</ul>`:''}
+    ${notable?`<div class="dock-label">Notable members</div>${notable}`:''}
   </div>`;
 }
 /* ---- Core roster ---- */
@@ -6208,10 +6235,15 @@ function ltToadCard(t){
   const conds=(t.conditions||[]).map(c=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">${esc(c)}</span>`).join('');
   const abil=(t.abilities||[]).map(a=>{
     const def=abilityByName(a.name,t.class);
-    const lock=a.unlocked===false?' <span class="pill" style="border-color:#7a8a99;color:#7a8a99">locked</span>':'';
-    return def
-      ? `<li><a class="ability-link" onclick="Router.go('#/ability-shop/'+encodeURIComponent('${esc(def.id)}'))"><b>${esc(a.name)}</b></a>${lock}${def.description?` — ${esc(def.description)}`:''}</li>`
-      : `<li><b>${esc(a.name)}</b>${lock}</li>`;
+    const locked=a.unlocked===false;
+    const nm=def?`<a class="ability-link" href="${esc(abilityShopUrl(def.id))}">${esc(a.name)}</a>`:esc(a.name);
+    return `<div class="spec-row" style="--sp:${locked?'#7a8a99':(def&&def.accent)||'#8a4bff'}">
+      ${def&&def.icon?`<span class="spec-icon">${def.icon}</span>`:'<span class="spec-icon">✦</span>'}
+      <div class="spec-main">
+        <div class="spec-head"><b class="spec-name">${nm}</b>${def&&def.level?`<span class="spec-meta">Lv ${def.level}</span>`:''}${locked?'<span class="spec-meta muted">locked</span>':''}</div>
+        ${def&&def.description?`<p class="spec-desc">${esc(def.description)}</p>`:''}
+      </div>
+    </div>`;
   }).join('');
   const affTone=t.affiliation==='outsider'?'#a06bd8':t.affiliation==='defector'?'#e0574a':'#4a9c6d';
   const affRow=t.affiliationLabel?`<div class="dock-sub" style="margin-top:7px"><span class="pill" style="border-color:${affTone};color:${affTone}">${esc(t.affiliationLabel)}</span></div>`:'';
@@ -6231,7 +6263,7 @@ function ltToadCard(t){
     ${statCells?`<div class="lt-statgrid">${statCells}</div>`:''}
     ${conds?`<div class="dock-label">Conditions</div><div class="chips">${conds}</div>`:''}
     ${t.background?`<div class="dock-label">Background</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(t.background)}</p>`:''}
-    ${abil?`<div class="dock-label">Abilities <span style="text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400">— click to open in the Ability Shop</span></div><ul class="dock-list">${abil}</ul>`:''}
+    ${abil?`<div class="dock-label">Abilities <span style="text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400">— opens in Wario's Ability Shop</span></div><div class="spec-list">${abil}</div>`:''}
     ${(link||xpLink)?`<div class="chips" style="margin-top:11px">${link}${xpLink}</div>`:''}
   </div>`;
 }
@@ -6307,8 +6339,8 @@ function docketTargetCard(t){
       <div style="min-width:0"><h3>${esc(t.name)}</h3><div class="dock-sub">Added ${esc(t.added||'—')} · Last seen ${esc(t.lastSeen||'unknown')}</div></div>
       <div class="dock-status"><span class="dock-badge">${esc(m.label)}</span><span class="dock-prio">${esc(t.priority||'—')} priority</span></div>
     </div>
-    ${charges?`<div class="dock-label">Charges</div><ul class="dock-list">${charges}</ul>`:''}
-    ${evidence?`<div class="dock-label">Evidence on file</div><ul class="dock-list">${evidence}</ul>`:''}
+    ${charges?`<div class="dock-label">Charges</div><ul class="dock-list bullets danger">${charges}</ul>`:''}
+    ${evidence?`<div class="dock-label">Evidence on file</div><ul class="dock-list bullets">${evidence}</ul>`:''}
     ${t.notes?`<div class="dock-label">Patrol notes</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(t.notes)}</p>`:''}
     ${t.restorationPath?`<div class="dock-label">Route back to good standing</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(t.restorationPath)}</p>`:''}
     ${t.speakerNote?`<div class="dock-note">“${esc(t.speakerNote)}” — Speaker L</div>`:''}
@@ -6421,7 +6453,7 @@ function view_pond_docket(){
   /* ---------- REGISTER ---------- */
   const resolved=(a.resolved||[]).map(r=>`<div class="dock-card" style="--dk:#7a8a99">
       <div class="dock-head"><span class="dock-face">🗃️</span><div><h3>${esc(r.name)}</h3><div class="dock-sub">${esc(r.date||'')} · ${esc(r.resolution||'')}</div></div></div>
-      ${(r.charges||[]).length?`<div class="dock-label">Charges</div><ul class="dock-list">${r.charges.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>`:''}
+      ${(r.charges||[]).length?`<div class="dock-label">Charges</div><ul class="dock-list bullets danger">${r.charges.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>`:''}
       ${r.notes?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:9px">${esc(r.notes)}</p>`:''}
       ${r.speakerNote?`<div class="dock-note">“${esc(r.speakerNote)}” — Speaker L</div>`:''}</div>`).join('');
   const register=`
@@ -6436,13 +6468,13 @@ function view_pond_docket(){
   let governance='<div class="card"><p class="text-muted">Governance data not loaded.</p></div>';
   if(S){
     const sp=S.speaker;
-    const spAb=(sp.abilities||[]).map(x=>`<li><b>${esc(x.name)}</b> (Lv ${x.level}) — ${esc(x.description)}</li>`).join('');
-    const spPw=(sp.powers||[]).map(x=>`<li><b>${esc(x.name)}</b> — ${esc(x.description)}${x.requires?` <i>(requires ${esc(x.requires)})</i>`:''}</li>`).join('');
+    const spAb=specList((sp.abilities||[]).map(x=>({name:x.name,meta:x.level?`Lv ${x.level}`:'',desc:x.description,tone:'#e0b400',icon:'✦'})),{cols:true});
+    const spPw=specList((sp.powers||[]).map(x=>({name:x.name,desc:x.description,note:x.requires?`Requires: ${x.requires}`:'',tone:'#8a4bff',icon:'👑'})),{cols:true});
     const spSt=Object.entries(sp.stats||{}).filter(([k])=>['str','dex','con','int','wis','cha'].includes(k))
       .map(([k,v])=>`<div class="lt-stat"><b>${v}</b><span>${k.toUpperCase()}</span></div>`).join('');
     const quotes=(sp.quotes||[]).map(q=>`<div class="dock-note">“${esc(q)}”</div>`).join('');
     const hc=S.heroesCouncil;
-    const priv=(hc.privileges||[]).map(p=>`<li><b>${esc(p.name)}</b> — ${esc(p.description)} <i>(${esc(p.requires)})</i></li>`).join('');
+    const priv=specList((hc.privileges||[]).map(p=>({name:p.name,desc:p.description,note:p.requires?`Requires: ${p.requires}`:'',tone:'#4a9c6d',icon:'🎖️'})),{cols:true});
     const hcSeats=(hc.seats||[]).map(s=>{
       const tone=ltStatusTone(s.status);
       const link=s.articleId&&INDEX[s.articleId];
@@ -6451,9 +6483,9 @@ function view_pond_docket(){
         <div class="dock-status"><span class="dock-badge">${s.canVote?'Voting':'No vote'}</span></div></div>
         <div class="chips" style="margin-top:8px"><span class="pill" style="border-color:${tone};color:${tone}">${esc(s.status||'')}</span></div>
         ${s.notes?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(s.notes)}</p>`:''}
-        ${(s.contributions||[]).length?`<div class="dock-label">Contributions</div><ul class="dock-list">${s.contributions.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>`:''}
+        ${(s.contributions||[]).length?`<div class="dock-label">Contributions</div><ul class="dock-list bullets good">${s.contributions.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>`:''}
       </div>`;}).join('');
-    const actions=(hc.recentActions||[]).map(r=>`<li><b>Day ${r.day}</b> — ${esc(r.action)} → <i>${esc(r.result)}</i></li>`).join('');
+    const actions=specList((hc.recentActions||[]).map(r=>({name:`Day ${r.day}`,meta:r.result,desc:r.action,tone:'#4a9cc9'})));
     const seatRows=(S.council.members||[]).map(s=>{
       const link=s.articleId&&INDEX[s.articleId];
       return `<tr ${link?`onclick="openId('${esc(s.articleId)}')" style="cursor:pointer"`:''}>
@@ -6471,8 +6503,8 @@ function view_pond_docket(){
         ${spSt?`<div class="lt-statgrid">${spSt}</div>`:''}
         <p class="dock-list" style="padding-left:0;list-style:none;margin-top:10px">${esc(sp.description||'')}</p>
         ${sp.philosophy?`<div class="dock-label">Philosophy</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(sp.philosophy)}</p>`:''}
-        ${spPw?`<div class="dock-label">Powers of the Voice</div><ul class="dock-list">${spPw}</ul>`:''}
-        ${spAb?`<div class="dock-label">Abilities</div><ul class="dock-list">${spAb}</ul>`:''}
+        ${spPw?`<div class="dock-label">Powers of the Voice</div>${spPw}`:''}
+        ${spAb?`<div class="dock-label">Abilities</div>${spAb}`:''}
         ${quotes?`<div class="dock-label">On the record</div>${quotes}`:''}
       </div>
       <div class="card">
@@ -6483,8 +6515,8 @@ function view_pond_docket(){
       <div class="card" style="border-left:4px solid var(--accent2)">
         <div class="home-section-head"><div><h2>⭐ ${esc(hc.name)}</h2><p>${esc(hc.description||'')}</p></div><span class="pill">${esc(hc.authority||'')}</span></div>
         ${hc.speakerRelationship?`<div class="wnote"><b>${esc(hc.speakerRelationship.status||'')}:</b> ${esc(hc.speakerRelationship.notes||'')}</div>`:''}
-        ${priv?`<div class="dock-label">Standing privileges</div><ul class="dock-list">${priv}</ul>`:''}
-        ${actions?`<div class="dock-label">Recent invocations</div><ul class="dock-list">${actions}</ul>`:''}
+        ${priv?`<div class="dock-label">Standing privileges</div>${priv}`:''}
+        ${actions?`<div class="dock-label">Recent invocations</div>${actions}`:''}
         <h3 style="margin-top:14px">Members</h3><div class="dock-grid">${hcSeats}</div>
       </div>`;
   }
@@ -6551,7 +6583,7 @@ function ltVoteCard(v,live){
       ${(o.voters||[]).length?`<small>${(o.voters||[]).map(esc).join(' · ')}</small>`:''}
       ${(pros||cons)?`<div class="chips" style="margin-top:5px">${pros}${cons}</div>`:''}
     </div>`;}).join('');
-  const prisoners=(v.prisoners||[]).map(p=>`<li><b>${esc(p.name)}</b> · ${esc(p.rank||'')} · captured ${esc(p.captured||'')} · ${esc(p.condition||'')}</li>`).join('');
+  const prisoners=specList((v.prisoners||[]).map(p=>({name:p.name,meta:p.rank,desc:[p.captured?`Captured ${p.captured}`:'',p.condition].filter(Boolean).join(' · '),tone:'#c81d25',icon:'⛓️'})),{cols:true});
   const tone=v.status==='active'?'#e0574a':v.status==='passed'?'#4a9c6d':v.status==='suspended'?'#a06bd8':'#e0b400';
   return `<div class="dock-vote">
     <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap">
@@ -6562,7 +6594,7 @@ function ltVoteCard(v,live){
     ${v.background?`<div class="dock-sub" style="margin-top:6px">${esc(v.background)}</div>`:''}
     ${v.result?`<div class="dock-list" style="padding-left:0;list-style:none"><b style="color:var(--accent2)">Result:</b> ${esc(v.result)}</div>`:''}
     ${v.final_tally?`<div class="dock-sub">Final tally — ${v.final_tally.for} for · ${v.final_tally.against} against · ${v.final_tally.abstain} abstaining</div>`:''}
-    ${prisoners?`<div class="dock-label">Prisoners in question</div><ul class="dock-list">${prisoners}</ul>`:''}
+    ${prisoners?`<div class="dock-label">Prisoners in question</div>${prisoners}`:''}
     ${opts}
     ${v.speaker_statement?`<div class="dock-note">“${esc(v.speaker_statement)}” — Speaker's statement</div>`:''}
     ${v.quorum_required!=null?`<div class="dock-sub" style="margin-top:6px">Quorum ${v.current_quorum??0}/${v.quorum_required} ${(v.current_quorum??0)>=v.quorum_required?'✓ met':'✗ short'}</div>`:''}
@@ -6622,7 +6654,7 @@ function imperialEventRail(){
   return records.map(item=>`<div class="update-card" onclick="openId('${esc(item.id)}')"><div class="kicker">Linked intelligence</div><h3>${esc(displayName(item))}</h3><p>${esc(previewText(item)).slice(0,170)}…</p></div>`).join('')||'<p class="text-muted">No linked records found.</p>';
 }
 
-/* =============== ABILITY SHOP — Wario's training wing =============== */
+/* =============== ABILITY SHOP (lives in Wario's shop.html) =============== */
 function abilityShop(){ return DATA.abilityShop||null; }
 function abilityById(id){ const A=abilityShop(); return A?(A.abilities||[]).find(a=>a.id===id):null; }
 function abilityByName(name,cls){
@@ -6630,122 +6662,9 @@ function abilityByName(name,cls){
   const list=(A.abilities||[]).filter(a=>a.name===name);
   return list.find(a=>a.class===cls)||list[0]||null;
 }
-let ABILITY_FILTER={cls:'all',type:'all',q:''};
-function setAbilityFilter(k,v){ ABILITY_FILTER[k]=v; view_ability_shop(); }
-function abilityCard(a,compact){
-  const holders=(a.knownBy||[]).map(h=>{
-    const tone=h.affiliation==='outsider'?'#a06bd8':h.affiliation==='defector'?'#e0574a':'#4a9c6d';
-    return INDEX[h.id]
-      ? `<span class="chip" style="border-color:${tone}" onclick="event.stopPropagation();openId('${esc(h.id)}')">${esc(h.name)}</span>`
-      : `<span class="pill" style="border-color:${tone};color:${tone}">${esc(h.name)}</span>`;
-  }).join('');
-  return `<div class="ability-card" style="--ab:${a.accent}" onclick="Router.go('#/ability-shop/'+encodeURIComponent('${esc(a.id)}'))">
-    <div class="ability-head">
-      <span class="ability-icon">${a.icon||'•'}</span>
-      <div style="min-width:0"><h3>${esc(a.name)}</h3><div class="dock-sub">${esc(a.className)} · Lv ${a.level} · ${esc(a.typeLabel)}</div></div>
-      <div class="ability-price">${Number(a.price).toLocaleString()}<span>coins</span></div>
-    </div>
-    ${a.description?`<p class="ability-desc">${esc(a.description)}</p>`:''}
-    ${holders?`<div class="dock-label" style="margin-top:9px">Known by</div><div class="chips">${holders}</div>`:''}
-  </div>`;
-}
-function view_ability_shop(arg){
-  renderSidebar('ability-shop');
-  const A=abilityShop();
-  if(!A){ el('content').innerHTML=`<div class="card"><h1>🎓 Ability Shop</h1><p class="text-muted">Catalogue not loaded — check <code>data/abilityShop.json</code>.</p></div>`; return; }
-  if(arg){ const a=abilityById(arg); if(a){ view_ability_detail(a); return; } }
+/* Deep link into Wario's shop overlay rather than a Waluipedia page. */
+function abilityShopUrl(id){ return 'shop.html#ability-shop'+(id?'/'+encodeURIComponent(id):''); }
 
-  const all=A.abilities||[];
-  const q=String(ABILITY_FILTER.q||'').toLowerCase().trim();
-  const list=all.filter(a=>
-    (ABILITY_FILTER.cls==='all'||a.class===ABILITY_FILTER.cls) &&
-    (ABILITY_FILTER.type==='all'||a.type===ABILITY_FILTER.type) &&
-    (!q||[a.name,a.description,a.className,a.typeLabel].join(' ').toLowerCase().includes(q))
-  );
-  const clsOpts=['all'].concat(Object.keys(A.classes||{})).map(k=>
-    `<option value="${esc(k)}" ${ABILITY_FILTER.cls===k?'selected':''}>${k==='all'?`All classes (${all.length})`:esc((A.classes[k]||{}).name||k)+' ('+all.filter(a=>a.class===k).length+')'}</option>`).join('');
-  const typeOpts=['all'].concat([...new Set(all.map(a=>a.type))]).map(k=>
-    `<option value="${esc(k)}" ${ABILITY_FILTER.type===k?'selected':''}>${k==='all'?'All types':esc((A.types[k]||{}).label||prettyId(k))}</option>`).join('');
-  const classCards=Object.entries(A.classes||{}).map(([k,c])=>
-    `<div class="dock-pillar" style="cursor:pointer;border-left:3px solid var(--accent)" onclick="setAbilityFilter('cls','${esc(k)}')">
-      <b>${c.icon||'🎓'} ${esc(c.name)}</b>
-      <span>${esc(c.description||'')}<br><i>d${c.hitDie} hit die · ${esc(String(c.primaryStat||'—')).toUpperCase()} primary · ${c.count} abilities</i></span>
-    </div>`).join('');
-
-  el('content').innerHTML=`
-    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Ability Shop</div>
-    <div class="card animate-fade-in" style="border-left:5px solid #e0b400;background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(0,0,0,0)),var(--panel)">
-      <span class="fsys-flag" style="--sys-accent:#e0b400;--sys-glow:rgba(224,180,0,.4)">★ ${esc(A.meta.subtitle)}</span>
-      <div class="home-section-head" style="margin-top:10px">
-        <div><h1 style="margin:0">🎓 ${esc(A.meta.title)}</h1><p>${esc(A.meta.warioPitch)}</p></div>
-        <span class="chip active" onclick="location.href='shop.html'">🛒 Main warehouse →</span>
-      </div>
-      <div class="wnote" style="border-left-color:#e0b400"><b>Scaffold notice:</b> ${esc(A.meta.note)}</div>
-      <div class="fsys-metrics">
-        <div class="fsys-metric"><b>${all.length}</b><span>Abilities catalogued</span></div>
-        <div class="fsys-metric"><b>${Object.keys(A.classes||{}).length}</b><span>Classes</span></div>
-        <div class="fsys-metric"><b>${all.filter(a=>a.knownBy.length).length}</b><span>Already known by someone</span></div>
-        <div class="fsys-metric"><b>${Math.min(...all.map(a=>a.price)).toLocaleString()}–${Math.max(...all.map(a=>a.price)).toLocaleString()}</b><span>Price range</span></div>
-      </div>
-      <div class="chips" style="margin-top:13px">
-        <span class="chip" onclick="Router.go('#/pond-docket')">⚖️ Pond Patrol Docket</span>
-        <span class="chip" onclick="Router.go('#/xp')">✦ XP Leaderboard</span>
-        <span class="chip" onclick="location.href='currency.html'">🏦 Wallets & currency</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="home-section-head"><div><h2>🎓 Classes</h2><p>Click a class to filter the catalogue.</p></div>${ABILITY_FILTER.cls!=='all'?`<span class="chip active" onclick="setAbilityFilter('cls','all')">Clear class filter ✕</span>`:''}</div>
-      <div class="dock-pillars">${classCards}</div>
-    </div>
-    <div class="card">
-      <div class="home-section-head"><div><h2>📜 Catalogue</h2><p>Showing ${list.length} of ${all.length} abilities.</p></div></div>
-      <div class="list-toolbar">
-        <label><span>Search</span><input id="abQ" value="${esc(ABILITY_FILTER.q)}" placeholder="Search abilities, effects, classes…"></label>
-        <label><span>Class</span><select id="abCls">${clsOpts}</select></label>
-        <label><span>Type</span><select id="abType">${typeOpts}</select></label>
-        <button class="list-clear-btn" onclick="ABILITY_FILTER={cls:'all',type:'all',q:''};view_ability_shop()">Clear</button>
-      </div>
-      <div class="ability-grid">${list.map(a=>abilityCard(a)).join('')||'<p class="text-muted">No abilities match those filters.</p>'}</div>
-    </div>`;
-  const abQEl=el('abQ'); if(abQEl){ abQEl.addEventListener('input',()=>{ ABILITY_FILTER.q=abQEl.value; view_ability_shop(); setTimeout(()=>{const n=el('abQ'); if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length);} },0); }); }
-  const abClsEl=el('abCls'); if(abClsEl) abClsEl.addEventListener('change',()=>setAbilityFilter('cls',abClsEl.value));
-  const abTypeEl=el('abType'); if(abTypeEl) abTypeEl.addEventListener('change',()=>setAbilityFilter('type',abTypeEl.value));
-  window.scrollTo(0,0);
-}
-function view_ability_detail(a){
-  renderSidebar('ability-shop');
-  const A=abilityShop();
-  const cls=(A.classes||{})[a.class]||{};
-  const holders=(a.knownBy||[]).map(h=>{
-    const tone=h.affiliation==='outsider'?'#a06bd8':h.affiliation==='defector'?'#e0574a':'#4a9c6d';
-    const note=h.affiliation==='outsider'?' — not a Liberated Toad':h.affiliation==='defector'?' — defector':'';
-    return `<li>${INDEX[h.id]?`<a onclick="openId('${esc(h.id)}')" style="cursor:pointer"><b>${esc(h.name)}</b></a>`:`<b>${esc(h.name)}</b>`} <span style="color:${tone}">(${esc(h.class)}${note})</span>${h.unlocked===false?' — locked':''}</li>`;
-  }).join('');
-  const siblings=(A.abilities||[]).filter(x=>x.class===a.class&&x.id!==a.id)
-    .sort((x,y)=>x.level-y.level)
-    .map(x=>`<span class="chip" onclick="Router.go('#/ability-shop/'+encodeURIComponent('${esc(x.id)}'))">${x.icon||'•'} ${esc(x.name)} <small style="opacity:.6">Lv${x.level}</small></span>`).join('');
-  el('content').innerHTML=`
-    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/ability-shop')">Ability Shop</a> › ${esc(a.name)}</div>
-    <div class="card animate-fade-in" style="border-left:5px solid ${a.accent}">
-      <div class="home-section-head">
-        <div style="display:flex;gap:14px;align-items:center"><span style="font-size:40px">${a.icon||'•'}</span>
-          <div><h1 style="margin:0">${esc(a.name)}</h1><div class="art-subtitle">${esc(a.className)} · Level ${a.level} · ${esc(a.typeLabel)}</div></div></div>
-        <div class="ability-price big">${Number(a.price).toLocaleString()}<span>coins</span></div>
-      </div>
-      ${a.description?`<p style="font-size:14.5px;line-height:1.6;color:var(--text)">${esc(a.description)}</p>`:''}
-      <div class="grid2" style="gap:10px;margin-top:12px">
-        <div class="reputation-total-card" style="margin:0"><span>Class</span><strong style="font-size:16px">${esc(a.className)}</strong><span class="pill">d${a.hitDie} hit die · ${esc(String(a.primaryStat||'—')).toUpperCase()} primary</span></div>
-        <div class="reputation-total-card" style="margin:0"><span>Requirement</span><strong style="font-size:16px">Level ${a.level}</strong><span class="pill">${esc(a.typeLabel)} discipline</span></div>
-      </div>
-      <div class="wnote" style="border-left-color:#e0b400"><b>Wario's terms:</b> Payment up front, training happens in the back room, and if you die during the lesson that is a YOU problem. Price is placeholder — tune it in <code>data/abilityShop.json</code>.</div>
-      <div class="chips"><span class="chip active" onclick="location.href='shop.html'">🛒 Main warehouse</span><span class="chip" onclick="Router.go('#/ability-shop')">← Back to catalogue</span><span class="chip" onclick="location.href='currency.html'">🏦 Check wallet</span></div>
-    </div>
-    ${holders?`<div class="card"><div class="home-section-head"><div><h2>👤 Already Known By</h2><p>Characters who have this on their sheet. Affiliation is shown so the roster isn't misread.</p></div></div><ul class="dock-list" style="font-size:13.5px">${holders}</ul></div>`:''}
-    ${cls.name?`<div class="card"><div class="home-section-head"><div><h2>${cls.icon||'🎓'} ${esc(cls.name)}</h2><p>${esc(cls.description||'')}</p></div><span class="chip" onclick="setAbilityFilter('cls','${esc(a.class)}')">See all ${cls.count} →</span></div>
-      <div class="chips">${(cls.savingThrows||[]).map(x=>`<span class="pill">Save: ${esc(String(x).toUpperCase())}</span>`).join('')}${(cls.armor||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('')}${(cls.weapons||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</div>
-      ${siblings?`<div class="dock-label">Other ${esc(cls.name)} abilities</div><div class="chips">${siblings}</div>`:''}</div>`:''}`;
-  window.scrollTo(0,0);
-}
 
 /* =============== IRON LEGION FULL DOSSIER (ported into the Imperial Pressure Network) ====== */
 function ilSystem(){ return DATA.ironLegionSystem||null; }
@@ -6775,8 +6694,8 @@ function ironLegionDossier(){
   }).join('');
   const immediate=(T.immediateThreats||[]).map(x=>`<li>${esc(x)}</li>`).join('');
   const actions=(T.recommendedActions||[]).map(x=>`<li>${esc(x)}</li>`).join('');
-  const council=((L.councilOfHammers||{}).members||[]).map(mem=>`<li><b>${esc(mem.name)}</b>${mem.portfolio?` — ${esc(mem.portfolio)}`:''}${mem.notes?`<br><span style="color:var(--muted)">${esc(mem.notes)}</span>`:''}</li>`).join('');
-  const ranks=(L.fieldRanks||[]).map(r=>`<li><b>${esc(r.rank||r.name||'')}</b>${r.description?` — ${esc(r.description)}`:''}</li>`).join('');
+  const council=specList(((L.councilOfHammers||{}).members||[]).map(mem=>({name:mem.name,meta:mem.portfolio,desc:mem.notes,tone:'#c81d25',icon:'🔨'})),{cols:true});
+  const ranks=specList((L.fieldRanks||[]).map(r=>({name:r.rank||r.name||'',desc:r.description,tone:'#c81d25',icon:'🎖️'})),{cols:true});
   const sc=L.supremeCommand||{};
   const units=((D.subsidiaryForces||{}).units||[]).map(u=>{
     const tone=ilStatusTone(u.status);
@@ -6806,9 +6725,9 @@ function ironLegionDossier(){
       ${(p.threat||p.threatLevel)?`<div class="dock-sub" style="margin-top:6px"><b style="color:${ilThreatTone(p.threat||p.threatLevel)}">Threat level:</b> ${esc(p.threat||p.threatLevel)}</div>`:''}
       ${link?`<div class="chips" style="margin-top:10px">${link}</div>`:''}
     </div>`;}).join('');
-  const weak=((D.vulnerabilities||{}).weaknesses||[]).map(x=>
-    typeof x==='string'?`<li>${esc(x)}</li>`
-      :`<li><b>${esc(x.weakness||x.name||'')}</b>${x.description?` — ${esc(x.description)}`:''}${x.exploitation?`<br><span style="color:var(--accent2)">Exploit: ${esc(x.exploitation)}</span>`:''}</li>`).join('');
+  const weak=specList(((D.vulnerabilities||{}).weaknesses||[]).map(x=>
+    typeof x==='string'?{name:x,tone:'#4a9c6d',icon:'🩸'}
+      :{name:x.weakness||x.name||'',desc:x.description,note:x.exploitation?`Exploit: ${x.exploitation}`:'',tone:'#4a9c6d',icon:'🩸'}));
   const rel=((D.relationships||{}).factions||[]).map(f=>{
     const id=String(f.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'_');
     const known=LORE_FACTIONS[id]||INDEX[id];
@@ -6818,11 +6737,14 @@ function ironLegionDossier(){
       <td style="padding:8px;border-bottom:1px solid var(--border);color:${tone};font-weight:700">${esc(f.stance||f.relationship||'')}</td>
       <td style="padding:8px;border-bottom:1px solid var(--border);color:var(--muted)">${esc(f.notes||f.description||'')}</td></tr>`;}).join('');
   const doct=D.doctrineAndTactics||{};
-  const principles=(doct.tacticalPrinciples||[]).map(p=>`<li>${typeof p==='string'?esc(p):`<b>${esc(p.name||'')}</b>${p.description?` — ${esc(p.description)}`:''}`}</li>`).join('');
-  const covert=(doct.covertTactics||[]).map(p=>`<li>${typeof p==='string'?esc(p):`<b>${esc(p.name||'')}</b>${p.description?` — ${esc(p.description)}`:''}`}</li>`).join('');
+  const norm=(p,tone,icon)=>typeof p==='string'?{name:p,tone,icon}:{name:p.name||'',desc:p.description,tone,icon};
+  const principles=specList((doct.tacticalPrinciples||[]).map(p=>norm(p,'#e08a4a','📐')),{cols:true});
+  const covert=specList((doct.covertTactics||[]).map(p=>norm(p,'#a06bd8','🗡️')),{cols:true});
   const ideo=D.ideology||{};
-  const tenets=(ideo.tenets||[]).map(t=>`<li>${typeof t==='string'?esc(t):`<b>${t.number?esc(String(t.number))+'. ':''}${esc(t.tenet||t.name||'')}</b>${(t.meaning||t.description)?` — ${esc(t.meaning||t.description)}`:''}`}</li>`).join('');
-  const rituals=(ideo.rituals||[]).map(t=>`<li>${typeof t==='string'?esc(t):`<b>${esc(t.name||'')}</b>${t.description?` — ${esc(t.description)}`:''}`}</li>`).join('');
+  const tenets=specList((ideo.tenets||[]).map(t=>typeof t==='string'?{name:t,tone:'#e0574a',icon:'🔥'}
+    :{name:(t.number?t.number+'. ':'')+(t.tenet||t.name||''),desc:t.meaning||t.description,tone:'#e0574a',icon:'🔥'}),{cols:true});
+  const rituals=specList((ideo.rituals||[]).map(t=>typeof t==='string'?{name:t,tone:'#e0b400',icon:'⛓️'}
+    :{name:t.name||'',desc:t.description,tone:'#e0b400',icon:'⛓️'}),{cols:true});
   const assets=D.assets||{};
   const assetBlock=['military','intelligence','political'].filter(k=>assets[k]).map(k=>{
     const v=assets[k];
@@ -6839,23 +6761,23 @@ function ironLegionDossier(){
       <div class="grid2" style="gap:10px">${ilKV('Founded',o.founded)}${ilKV('Founding event',o.foundedEvent)}${ilKV('Headquarters',o.headquarters)}${ilKV('Estimated strength',o.estimatedStrength)}${ilKV('Political status',o.politicalStatus)}${ilKV('Current objective',o.currentObjective)}</div>
       ${alias?`<div class="dock-label">Also known as</div><div class="chips">${alias}</div>`:''}
       ${threatCards?`<div class="dock-label">Threat assessment</div><div class="fsys-metrics">${threatCards}</div>`:''}
-      ${immediate?`<div class="dock-label">Immediate threats</div><ul class="dock-list">${immediate}</ul>`:''}
-      ${actions?`<div class="dock-label">Recommended counter-actions</div><ul class="dock-list">${actions}</ul>`:''}
+      ${immediate?`<div class="dock-label">Immediate threats</div><ul class="dock-list bullets danger">${immediate}</ul>`:''}
+      ${actions?`<div class="dock-label">Recommended counter-actions</div><ul class="dock-list bullets good">${actions}</ul>`:''}
     </div>
     <div class="card" style="border-left:4px solid #c81d25">
       <div class="home-section-head"><div><h2>🪖 ${esc(L.title||'Chain of Command')}</h2></div></div>
       ${sc.name?`<div class="dock-card" style="--dk:#c81d25;margin-bottom:12px"><div class="dock-head"><span class="dock-face">👑</span><div><h3>${esc(sc.name)}</h3><div class="dock-sub">${esc(sc.rank||'')}</div></div><div class="dock-status"><span class="dock-badge">${esc(sc.status||'')}</span></div></div><p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(sc.description||'')}</p></div>`:''}
-      ${council?`<div class="dock-label">${esc((L.councilOfHammers||{}).description||'Council of Hammers')}</div><ul class="dock-list">${council}</ul>`:''}
-      ${ranks?`<div class="dock-label">Field ranks</div><ul class="dock-list">${ranks}</ul>`:''}
+      ${council?`<div class="dock-label">Council of Hammers</div><p class="spec-lead">${esc((L.councilOfHammers||{}).description||'')}</p>${council}`:''}
+      ${ranks?`<div class="dock-label">Field ranks</div>${ranks}`:''}
     </div>
     ${units?`<div class="card"><div class="home-section-head"><div><h2>🛡️ ${esc((D.subsidiaryForces||{}).title||'Subsidiary Forces')}</h2><p>Standing units and where they are deployed.</p></div><span class="pill">${((D.subsidiaryForces||{}).units||[]).length} units</span></div><div class="dock-grid">${units}</div></div>`:''}
     ${ops?`<div class="card"><div class="home-section-head"><div><h2>🎯 ${esc((D.recentOperations||{}).title||'Recent Operations')}</h2><p>Named operations, outcomes, and cost.</p></div><span class="pill">${((D.recentOperations||{}).operations||[]).length}</span></div><div class="dock-grid">${ops}</div></div>`:''}
     ${people?`<div class="card"><div class="home-section-head"><div><h2>👤 ${esc((D.knownPersonnel||{}).title||'Known Personnel')}</h2><p>Identified operatives. Linked where Waluipedia has a dossier.</p></div><span class="pill">${((D.knownPersonnel||{}).operatives||[]).length}</span></div><div class="dock-grid">${people}</div></div>`:''}
-    ${(principles||covert)?`<div class="card"><div class="home-section-head"><div><h2>📐 ${esc(doct.title||'Doctrine & Tactics')}</h2>${doct.corePhilosophy?`<p>${esc(doct.corePhilosophy)}</p>`:''}</div></div>${principles?`<div class="dock-label">Tactical principles</div><ul class="dock-list">${principles}</ul>`:''}${covert?`<div class="dock-label">Covert tactics</div><ul class="dock-list">${covert}</ul>`:''}</div>`:''}
-    ${(tenets||rituals)?`<div class="card"><div class="home-section-head"><div><h2>🔥 ${esc(ideo.title||'Ideology')}</h2>${ideo.description?`<p>${esc(ideo.description)}</p>`:''}</div></div>${tenets?`<div class="dock-label">Tenets</div><ul class="dock-list">${tenets}</ul>`:''}${rituals?`<div class="dock-label">Rituals</div><ul class="dock-list">${rituals}</ul>`:''}</div>`:''}
+    ${(principles||covert)?`<div class="card"><div class="home-section-head"><div><h2>📐 ${esc(doct.title||'Doctrine & Tactics')}</h2>${doct.corePhilosophy?`<p>${esc(doct.corePhilosophy)}</p>`:''}</div></div>${principles?`<div class="dock-label">Tactical principles</div>${principles}`:''}${covert?`<div class="dock-label">Covert tactics</div>${covert}`:''}</div>`:''}
+    ${(tenets||rituals)?`<div class="card"><div class="home-section-head"><div><h2>🔥 ${esc(ideo.title||'Ideology')}</h2>${ideo.description?`<p>${esc(ideo.description)}</p>`:''}</div></div>${tenets?`<div class="dock-label">Tenets</div>${tenets}`:''}${rituals?`<div class="dock-label">Rituals</div>${rituals}`:''}</div>`:''}
     ${recBlocks?`<div class="card"><div class="home-section-head"><div><h2>📣 ${esc(rec.title||'Recruitment')}</h2></div></div><div class="dock-pillars">${recBlocks}</div></div>`:''}
     ${assetBlock?`<div class="card"><div class="home-section-head"><div><h2>💼 ${esc(assets.title||'Assets')}</h2></div></div><div class="dock-pillars">${assetBlock}</div></div>`:''}
-    ${weak?`<div class="card" style="border-left:4px solid #4a9c6d"><div class="home-section-head"><div><h2>🩸 ${esc((D.vulnerabilities||{}).title||'Vulnerabilities')}</h2><p>Where the machine can be hurt. Waluigi's favourite section.</p></div></div><ul class="dock-list" style="font-size:13.5px">${weak}</ul></div>`:''}
+    ${weak?`<div class="card" style="border-left:4px solid #4a9c6d"><div class="home-section-head"><div><h2>🩸 ${esc((D.vulnerabilities||{}).title||'Vulnerabilities')}</h2><p>Where the machine can be hurt. Waluigi's favourite section.</p></div></div>${weak}</div>`:''}
     ${rel?`<div class="card"><div class="home-section-head"><div><h2>🤝 ${esc((D.relationships||{}).title||'Relationships')}</h2><p>Click a known faction to open its live reputation standing.</p></div></div><div class="rep-table-wrap"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Faction</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Stance</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Notes</th></tr></thead><tbody>${rel}</tbody></table></div></div>`:''}
     ${quotes?`<div class="card"><div class="home-section-head"><div><h2>🗣️ On The Record</h2></div></div>${quotes}</div>`:''}`;
 }
@@ -10999,7 +10921,7 @@ const Router={
     else if(route==='power'||route==='war')view_power();
     else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion')view_imperial_network();
     else if(route==='pond-docket'||route==='docket'||route==='pond-patrol'||route==='accountability-docket')view_pond_docket();
-    else if(route==='ability-shop'||route==='abilities'||route==='ability')view_ability_shop(arg);
+    else if(route==='ability-shop'||route==='abilities'||route==='ability'){location.href=abilityShopUrl(arg);return;}
     else if(route==='battlefield')view_list('battles');
     else if(route==='conflict')view_conflict(arg);
     else if(route==='mbattle')view_mbattle(arg);
