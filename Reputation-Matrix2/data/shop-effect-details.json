@@ -206294,6 +206294,156 @@
     },
     "aiReviewedAt": "2026-07-24T00:10:49.616866+00:00"
   },
+  "grand_country_item_layered_rope_of_shifting_depths": {
+    "id": "grand_country_item_layered_rope_of_shifting_depths",
+    "name": "Mk.47 Layered Rope of Shifting Depths",
+    "effects": [
+      "dimensional_traversal",
+      "gravity_distortion"
+    ],
+    "effectDetails": [
+      {
+        "title": "Dimensional Traversal",
+        "rules": "As a bonus action, pulling on this rope allows you to phase partially into adjacent layers for up to 1 minute. You gain advantage on Strength (Athletics) checks and can pass through small openings that would otherwise be too tight. This effect ends if the rope is pulled again or if you take damage."
+      },
+      {
+        "title": "Gravity Distortion",
+        "rules": "The rope exerts a minor gravitational distortion, giving you advantage on Dexterity (Acrobatics) checks and saving throws against being moved by environmental effects within 30 feet. This effect persists for 1 hour per use until the rope is pulled again."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action when pulling the rope",
+      "duration": "1 minute or until pulled again",
+      "endsWhen": "Rope is pulled again or you take damage",
+      "charges": "Unlimited uses per day"
+    },
+    "aiReviewedAt": "2026-07-25T03:43:38.361355+00:00"
+  },
+  "name:mk.47 layered rope of shifting depths": {
+    "id": "grand_country_item_layered_rope_of_shifting_depths",
+    "name": "Mk.47 Layered Rope of Shifting Depths",
+    "effects": [
+      "dimensional_traversal",
+      "gravity_distortion"
+    ],
+    "effectDetails": [
+      {
+        "title": "Dimensional Traversal",
+        "rules": "As a bonus action, pulling on this rope allows you to phase partially into adjacent layers for up to 1 minute. You gain advantage on Strength (Athletics) checks and can pass through small openings that would otherwise be too tight. This effect ends if the rope is pulled again or if you take damage."
+      },
+      {
+        "title": "Gravity Distortion",
+        "rules": "The rope exerts a minor gravitational distortion, giving you advantage on Dexterity (Acrobatics) checks and saving throws against being moved by environmental effects within 30 feet. This effect persists for 1 hour per use until the rope is pulled again."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action when pulling the rope",
+      "duration": "1 minute or until pulled again",
+      "endsWhen": "Rope is pulled again or you take damage",
+      "charges": "Unlimited uses per day"
+    },
+    "aiReviewedAt": "2026-07-25T03:43:38.361355+00:00"
+  },
+  "the_edge_item_forbidden_chronal_fragments_77": {
+    "id": "the_edge_item_forbidden_chronal_fragments_77",
+    "name": "Forbidden Chronal Fragments – The Obsidian Shard’s Lament",
+    "effects": [
+      "Temporal Manipulation",
+      "Reality Distortion"
+    ],
+    "effectDetails": [
+      {
+        "title": "Temporal Manipulation",
+        "rules": "Once per day, you can activate one shard to attempt a short-range temporal jump. This effect lasts up to 1 minute and grants you advantage on all saving throws related to time manipulation for that duration. There is a 20% chance of inadvertently creating a paradox upon activation."
+      },
+      {
+        "title": "Reality Distortion",
+        "rules": "While holding the shards, you gain temporary resistance +20 against temporal effects and attacks. However, this power comes at a cost: there's a 15% chance each day that using or simply touching them will trigger an unpredictable reality shift within your immediate area."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 minute per day (Temporal Manipulation)",
+      "endsWhen": "The effect ends when its duration expires or if a paradox is created.",
+      "charges": "Unlimited"
+    },
+    "aiReviewedAt": "2026-07-25T03:43:47.840583+00:00"
+  },
+  "name:forbidden chronal fragments – the obsidian shard’s lament": {
+    "id": "the_edge_item_forbidden_chronal_fragments_77",
+    "name": "Forbidden Chronal Fragments – The Obsidian Shard’s Lament",
+    "effects": [
+      "Temporal Manipulation",
+      "Reality Distortion"
+    ],
+    "effectDetails": [
+      {
+        "title": "Temporal Manipulation",
+        "rules": "Once per day, you can activate one shard to attempt a short-range temporal jump. This effect lasts up to 1 minute and grants you advantage on all saving throws related to time manipulation for that duration. There is a 20% chance of inadvertently creating a paradox upon activation."
+      },
+      {
+        "title": "Reality Distortion",
+        "rules": "While holding the shards, you gain temporary resistance +20 against temporal effects and attacks. However, this power comes at a cost: there's a 15% chance each day that using or simply touching them will trigger an unpredictable reality shift within your immediate area."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 minute per day (Temporal Manipulation)",
+      "endsWhen": "The effect ends when its duration expires or if a paradox is created.",
+      "charges": "Unlimited"
+    },
+    "aiReviewedAt": "2026-07-25T03:43:47.840583+00:00"
+  },
+  "the_edge_item_infernal_striker_s_memories": {
+    "id": "the_edge_item_infernal_striker_s_memories",
+    "name": "Infernal Striker’s Memories – Echoes of the Unwritten",
+    "effects": [
+      "Strategic Insight",
+      "Phantom Pain"
+    ],
+    "effectDetails": [
+      {
+        "title": "Strategic Insight",
+        "rules": "When activated by an action, you gain a +10 bonus to Perception checks for 60 seconds. The shard then releases its visions, which can be either helpful or disturbing. There is a 5% chance that these visions will cause temporary madness (-2 to Wisdom until the next long rest)."
+      },
+      {
+        "title": "Phantom Pain",
+        "rules": "There is a 10% chance that the visions will inflict 'Phantom Pain', dealing 1d6 psychic damage each round for three rounds. This effect can only occur once per short or long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Activate as an action.",
+      "duration": "60 seconds per use.",
+      "endsWhen": "The effect ends when you are no longer within range or if you take a short rest.",
+      "charges": "Unlimited, but each use has a chance to cause temporary madness."
+    },
+    "aiReviewedAt": "2026-07-25T03:43:55.915754+00:00"
+  },
+  "name:infernal striker’s memories – echoes of the unwritten": {
+    "id": "the_edge_item_infernal_striker_s_memories",
+    "name": "Infernal Striker’s Memories – Echoes of the Unwritten",
+    "effects": [
+      "Strategic Insight",
+      "Phantom Pain"
+    ],
+    "effectDetails": [
+      {
+        "title": "Strategic Insight",
+        "rules": "When activated by an action, you gain a +10 bonus to Perception checks for 60 seconds. The shard then releases its visions, which can be either helpful or disturbing. There is a 5% chance that these visions will cause temporary madness (-2 to Wisdom until the next long rest)."
+      },
+      {
+        "title": "Phantom Pain",
+        "rules": "There is a 10% chance that the visions will inflict 'Phantom Pain', dealing 1d6 psychic damage each round for three rounds. This effect can only occur once per short or long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Activate as an action.",
+      "duration": "60 seconds per use.",
+      "endsWhen": "The effect ends when you are no longer within range or if you take a short rest.",
+      "charges": "Unlimited, but each use has a chance to cause temporary madness."
+    },
+    "aiReviewedAt": "2026-07-25T03:43:55.915754+00:00"
+  },
   "grand_country_item_forbidden_vertical_hook_of_stasis": {
     "id": "grand_country_item_forbidden_vertical_hook_of_stasis",
     "name": "The Obsidian Stasis Hook Caller",
