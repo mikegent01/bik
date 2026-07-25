@@ -792,12 +792,36 @@ function renderHeader() {
    RENDER: HOME
    -------------------------------------------------------------------------- */
 
+function cardIntelHtml(it, { mini = false } = {}) {
+  const rows = effectRowsFor(it);
+  const primary = rows.find(r => r.rules) || null;
+  const u = usageFor(it);
+  const cls = mini ? 'mc' : 'p';
+  const descMax = mini ? 118 : 164;
+  const ruleMax = mini ? 132 : 188;
+  const fallback = rows.length
+    ? `${rows.length} listed effect${rows.length === 1 ? '' : 's'} — open for complete table rules.`
+    : 'No written rules text found yet; ask the DM before Wario accepts your coins.';
+  const ruleText = primary?.rules || fallback;
+  const useBits = [];
+  if (u?.activation) useBits.push(`⚡ ${shortUse(u.activation, mini ? 18 : 28)}`);
+  if (u?.duration) useBits.push(`⏳ ${shortUse(u.duration, mini ? 18 : 28)}`);
+  if (u?.charges) useBits.push(`🔢 ${shortUse(u.charges, mini ? 18 : 28)}`);
+  if (it.factionBonus) useBits.push(`🚩 ${Object.entries(it.factionBonus).map(([k, v]) => `+${v} ${k}`).join(', ')}`);
+  return `<div class="${cls}-intel" data-open="${esc(it.id)}" title="Open ${esc(it.name)} for the full rules card">
+    ${it.desc ? `<p class="${cls}-desc">${esc(shortUse(it.desc, descMax))}</p>` : ''}
+    <div class="${cls}-rule"><span class="intel-label">${primary ? 'What it does' : 'Rules status'}</span><b>${esc(primary?.title || rows[0]?.title || 'DM note')}</b><em>${esc(shortUse(ruleText, ruleMax))}</em></div>
+    ${useBits.length ? `<div class="${cls}-usebits">${useBits.slice(0, mini ? 2 : 3).map(bit => `<span>${esc(bit)}</span>`).join('')}</div>` : ''}
+  </div>`;
+}
+
 function miniCard(it) {
   const c = it.nativeCur;
   return `<div class="mini-card" data-open="${esc(it.id)}">
     ${it.deal ? `<span class="deal-flag">${it.deal.off}% off</span>` : ''}
     <div class="mc-img">${esc(it.icon)}</div>
     <div class="mc-title">${esc(it.name)}</div>
+    ${cardIntelHtml(it, { mini: true })}
     <div>${starsHtml(it.rating)} <span style="font-size:11px;color:var(--wz-link)">${fmt(it.reviews)}</span></div>
     <div class="mc-price">${coinIcon(c)}${fmt(amtIn(it.price, c))}<span class="cents">${it.cents}</span></div>
     ${it.deal ? `<div class="mc-was">Was <s>${coinIcon(c)}${fmt(amtIn(it.deal.was, c))}</s> · Limited-time deal</div>` : ''}
@@ -934,6 +958,7 @@ function productCard(it) {
     ${it.deal ? `<span class="deal-flag">Limited-time deal</span>` : ''}
     <div class="p-img" data-open="${esc(it.id)}" title="${esc(it.name)}">${esc(it.icon)}</div>
     <div class="p-title" data-open="${esc(it.id)}">${esc(it.name)}</div>
+    ${cardIntelHtml(it)}
     <div class="p-rating">${starsHtml(it.rating)} <span style="color:#de7921" aria-hidden="true">▾</span> <span class="r-count">${fmt(it.reviews)}</span></div>
     ${priceWidget(it)}
     <div class="p-accepts-row">${acceptsHtml(it)}</div>
@@ -1447,10 +1472,29 @@ function openPdp(id, useCur = null) {
 
   const curOptions = it.accepted.map(c =>
     `<option value="${esc(c)}" ${c === cur ? 'selected' : ''}>${coinIcon(c)} ${esc(currencyName(c))}${c === it.nativeCur ? ' (vendor’s own)' : ''}</option>`).join('');
+  const pdpRows = effectRowsFor(it);
+  const pdpPrimary = pdpRows.find(r => r.rules) || null;
+  const pdpUsage = usageFor(it);
+  const pdpStatCards = [
+    ['📜 Rules', `${pdpRows.length} effect${pdpRows.length === 1 ? '' : 's'}`],
+    ['💱 Native coin', currencyName(it.nativeCur)],
+    ['🚚 Delivery', it.prime ? 'WahPrime eligible' : 'Economy delivery'],
+    ['📦 Stock', out ? 'Unavailable' : `${it.stock} left`]
+  ];
 
   scrim.innerHTML = `
-  <div class="modal" role="dialog" aria-modal="true">
+  <div class="modal pdp-modal" role="dialog" aria-modal="true">
     <button class="modal-x" data-close="1" aria-label="Close">✕</button>
+    <div class="pdp-banner">
+      <div>
+        <div class="pdp-kicker">Warizon product intelligence</div>
+        <h2>Read the rules before Wario gets paid.</h2>
+        <p>Every listing now previews what the item does, how it is used, and which currency the vendor actually wants.</p>
+      </div>
+      <div class="pdp-banner-stats">
+        ${pdpStatCards.map(([k, v]) => `<span><b>${esc(k)}</b><em>${esc(v)}</em></span>`).join('')}
+      </div>
+    </div>
     <div class="pdp">
       <div class="pdp-crumb">
         <a data-crumb-goto="1">Everything</a> ›
@@ -1464,6 +1508,12 @@ function openPdp(id, useCur = null) {
         <h1>${esc(it.name)}</h1>
         <div class="pdp-store">Visit the <a data-vendor-search="${esc(vendorName)}">${esc(vendorName)} Store</a>${it.nativeVia !== 'default' ? ` · prices set in <b>${esc(currencyName(it.nativeCur))}</b>` : ''}</div>
         <div class="p-rating">${starsHtml(it.rating)} <span style="color:#de7921">▾</span> <a class="r-count">${it.rating} · ${fmt(it.reviews)} ratings</a></div>
+        <div class="pdp-quick-read">
+          <div class="qr-head"><span>✨ Quick read</span><b>${esc(DEPARTMENTS[it.cat].label)}</b></div>
+          ${it.desc ? `<p>${esc(it.desc)}</p>` : '<p>Wario forgot to write a description, which is legally distinct from suspicious.</p>'}
+          ${pdpPrimary ? `<div class="qr-rule"><span>Primary table rule</span><b>${esc(pdpPrimary.title)}</b><em>${esc(pdpPrimary.rules)}</em></div>` : `<div class="qr-rule muted"><span>Rules status</span><b>Needs DM clarification</b><em>No reviewed rules text is attached to this item yet.</em></div>`}
+          ${pdpUsage ? `<div class="qr-use">${[['⚡ Activation','activation'],['⏳ Duration','duration'],['🔢 Charges','charges']].filter(([,k]) => pdpUsage[k]).map(([label,k]) => `<span><b>${label}</b>${esc(pdpUsage[k])}</span>`).join('')}</div>` : ''}
+        </div>
         <hr class="pdp-hr">
         <div class="pdp-price-block">
           <div class="pdp-cur-row">
