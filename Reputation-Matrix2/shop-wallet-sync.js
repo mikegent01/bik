@@ -138,10 +138,19 @@ function shopHash(item){let hash=2166136261,text=String(item?.id||item?.name||''
 function effectKeywordFee(item){const text=shopTextBlob(item);let fee=0;const add=(regex,amount)=>{if(regex.test(text))fee+=amount};add(/heal|heals|restore.*hp|restores.*hp|regenerate/,1200);add(/mana|mp|spell slot|spell slots|restore spell|restore mana/,4e3);add(/resist|resistance|reduce damage/,6e3);add(/immune|immunity|cannot be damaged|cannot be targeted|cannot be ignored|invulnerable|invulnerability/,4e4);add(/revive|resurrect|respawn|second life|second chance|cheats death|immortal|resurrection/,15e4);add(/time stop|time travel|rewind|chronal|temporal|stasis/,9e4);add(/teleport|portal|plane shift|dimensional|multiversal|across dimensions/,5e4);add(/wish|rewrite reality|reality control|alter reality|existence control|erase existence|create existence/,25e4);add(/summon|create creature|create life|control creature|dominate|command obedience|compelled to obey|demand obedience|mind control/,8e4);add(/stun|paraly|charm|fear|madness|curse|poison|blind|restrain|silence/,1e4);add(/permanent|indefinitely|always active|never ends/,2e4);if(/unlimited|at will|never empties/.test(text)&&/gold|coin|heal|revive|immune|wish|teleport|damage/.test(text))fee+=25e3;if(/infinite|inexhaustible|never empties|boundless|aleph/.test(text)&&/gold|coin|wealth|money|currency|spendable|economy/.test(text))fee+=5e6;if(/economic collapse|currency loses all value|prices.*triple|break any economy|economy collaps|inflation|central bank/.test(text))fee+=1e6;const dc=text.match(/dc\s*(\d+)/i);if(dc)fee+=Math.max(0,Number(dc[1])-12)*8e3;const dice=text.match(/(\d+)d(\d+)/);if(dice)fee+=Number(dice[1])*(Number(dice[2])+1)/2*800;if(/chance|may |might |10%|20%|30%/.test(text))fee*=.75;if(/mild|minor|slight|cosmetic|flavor/.test(text))fee*=.65;return fee}
 function itemPowerFee(item){const rarity=String(item?.rarity||'common').toLowerCase(),band={common:{base:0,per:15,min:0,scale:.025},uncommon:{base:50,per:25,min:50,scale:.06},rare:{base:150,per:60,min:150,scale:.14},epic:{base:750,per:250,min:750,scale:.32},legendary:{base:5e3,per:2e3,min:5e3,scale:.7},godly:{base:1e5,per:3e4,min:1e5,scale:1},wario_tier:{base:5e5,per:1e5,min:5e5,scale:1.2}}[rarity]||{base:50,per:25,min:0,scale:.05},level=Math.max(1,Number(item?.levelRequirement||1)),count=Array.isArray(item?.effects)?item.effects.length:0,keyword=effectKeywordFee(item),variance=.85+shopHash(item)*.5,base=band.base+level*band.per+count*band.per*.25,total=base*variance+keyword*band.scale;return Math.round(Math.max(band.min,total)*100)/100}
 function itemGoldValue(item, quantity = 1) {
+  // `price` is the item's GOLD value. It used to be multiplied by the display
+  // currency's base_value, which meant an item shown in bronze was worth 1/100th
+  // of the same item shown in gold — pure luck of a hash. The native sticker is
+  // now derived from this figure instead (see nativeStickerFor).
   const amount = Number(item?.price || 0);
-  const c = currency(itemCurrencyKey(item));
   const discount = typeof item?.discount === 'number' && item.discount > 0 ? (1 - item.discount / 100) : 1;
-  return (Math.floor(amount * discount) * (Number(c.base_value) || 1) + itemPowerFee(item)) * quantity;
+  return (Math.floor(amount * discount) + itemPowerFee(item)) * quantity;
+}
+
+/** How many coins of the item's display currency that gold value costs. */
+function nativeStickerFor(item, quantity = 1) {
+  const c = currency(itemCurrencyKey(item));
+  return itemGoldValue(item, quantity) / (Number(c.base_value) || 1);
 }
 
 function checkoutCurrencyGroups() {
@@ -374,6 +383,9 @@ function priceDisplayCurrencyFor(el) {
 
 function splitNativeAuditFee(nativePrice, nativeCurrency, totalGold) {
   const baseValue = Number(currency(nativeCurrency).base_value) || 1;
+  // nativePrice is already expressed in `nativeCurrency`; convert to gold to
+  // compare against the total. (Previously this line and the price pipeline
+  // disagreed about whether `price` was native or gold.)
   const nativeGold = nativePrice * baseValue;
   const feeGold = Math.max(0, totalGold - nativeGold);
   if (feeGold <= 0.01) return { nativeDisplay: nativePrice, feeDisplayGold: 0, foldedGold: 0 };
