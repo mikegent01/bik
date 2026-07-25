@@ -100,6 +100,12 @@ function normalizeItem(raw, idx) {
     level: Number(raw.levelRequirement || 0) || 0,
     warning: raw.warning ? String(raw.warning) : '',
     shippedBy: raw.shippedBy ? String(raw.shippedBy) : '',
+    effectDetailsRaw: (Array.isArray(raw.effectDetails) ? raw.effectDetails : [])
+      .map(d => ({ title: String(d?.title || ''), rules: String(d?.rules || '') }))
+      .filter(d => d.title || d.rules),
+    usageRaw: raw.usage && typeof raw.usage === 'object'
+      ? ['activation', 'duration', 'endsWhen', 'charges'].reduce((u, k) => raw.usage[k] ? (u[k] = String(raw.usage[k]), u) : u, {})
+      : null,
     vendorId, vendor,
     rating, reviews, cents, prime, deal,
     search: `${id} ${raw.name || ''} ${raw.description || ''} ${raw.category || ''} ${rarity} ${vendor?.name || vendorId} ${(raw.effects || []).join(' ')}`.toLowerCase(),
@@ -182,6 +188,194 @@ function signOut() {
 }
 
 /* --------------------------------------------------------------------------
+   MULTI-CURRENCY (ported from shop-wallet-sync.js)
+   - prices are GOLD-denominated; display converts into the operator's chosen
+     payment currency using CURRENCIES[id].base_value (gold equivalents)
+   - checkout supports split tender across the whole wallet, other currencies
+     converting through gold at a 10% "Wario conversion fee"
+   -------------------------------------------------------------------------- */
+
+const PAY_KEY = 'warehousePaymentCurrency';       // same key the old shop used
+const GOLD_FALLBACK_FEE = 0.10;
+const MAX_CHANGE_GOLD = 5;
+let payCurrency = localStorage.getItem(PAY_KEY) || 'gold';
+
+function currentAccount() { return accountById(getSession()?.id); }
+
+function currencyBase(id) { return Number(CURRENCIES[id]?.base_value) || 1; }
+function coinIcon(id) { return id === 'gold' ? '🪙' : (CURRENCIES[id]?.icon || '🪙'); }
+function currencyName(id) { return CURRENCIES[id]?.name || (id === 'gold' ? 'Gold Piece' : id); }
+
+/** Currencies the connected operator actually holds (for the pay-with menu). */
+function ownedCurrencyIds(acc = currentAccount()) {
+  const ids = Object.keys(acc?.currencies || {})
+    .filter(id => CURRENCIES[id] && Number(acc.currencies[id]) > 0);
+  if (!ids.includes('gold')) ids.push('gold');
+  return ids;
+}
+
+function ensurePayCurrency() {
+  const owned = ownedCurrencyIds();
+  if (!owned.includes(payCurrency)) {
+    payCurrency = owned.includes('gold') ? 'gold' : owned[0];
+    localStorage.setItem(PAY_KEY, payCurrency);
+  }
+  return payCurrency;
+}
+
+/** Whole-number amount of `goldAmount` expressed in `id` coins. */
+function nativeAmt(goldAmount, id = ensurePayCurrency()) {
+  return Math.max(0, Math.ceil(Number(goldAmount || 0) / currencyBase(id)));
+}
+
+/** "🪙1,234" display in the chosen payment currency (+ gold equivalent). */
+function moneyStr(goldAmount, { withRef = true } = {}) {
+  const id = ensurePayCurrency();
+  return `${coinIcon(id)}${fmt(nativeAmt(goldAmount, id))}` +
+    (withRef && id !== 'gold' ? ` <span class="gold-ref">≈ 🪙${fmt(goldAmount)} gold</span>` : '');
+}
+
+/** Amazon price widget driven by the current payment currency. */
+function priceWidget(goldAmount, cents = '00', deal = null) {
+  const id = ensurePayCurrency();
+  return `<span class="p-price">
+    <span class="sym">${coinIcon(id)}</span><span class="whole">${fmt(nativeAmt(goldAmount, id))}</span><span class="frac">${cents}</span>
+    ${deal ? `<span class="off">-${deal.off}%</span>` : ''}
+  </span>
+  ${deal ? `<div class="p-was">List: <s>${coinIcon(id)}${fmt(nativeAmt(deal.was, id))}</s> <small style="font-weight:400">(${esc(currencyName(id))})</small></div>` : ''}
+  ${id !== 'gold' ? `<div class="p-was">≈ 🪙${fmt(goldAmount)} gold</div>` : ''}`;
+}
+
+/* --------------------------------------------------------------------------
+   REVIEWED EFFECT RULES catalog (lazy-loaded once, browser-cached)
+   Built by tools/build_shop_effects_slim.py from the AI review JSON so PDP
+   pages can show what each effect ACTUALLY does — activation, rules text,
+   duration, charges — instead of a bare title.
+   -------------------------------------------------------------------------- */
+
+let effectCatalog = null;
+let effectCatalogLoading = false;
+function ensureEffectCatalog() {
+  if (effectCatalog || effectCatalogLoading || typeof fetch !== 'function') return effectCatalog;
+  effectCatalogLoading = true;
+  fetch('data/shop-effect-details-slim.json')
+    .then(r => (r.ok ? r.json() : null))
+    .then(j => {
+      effectCatalog = j || {};
+      /* catalog landed while a PDP is open → re-open it with reviewed rules */
+      const openId = document.getElementById('wzModal')?._wzItemId;
+      if (openId && ITEM_BY_ID.has(openId)) { closeModal(); openPdp(openId); }
+    })
+    .catch(() => { effectCatalog = {}; });
+  return effectCatalog;
+}
+
+/** Heuristic plain-English rules for effects with no reviewed text. */
+function heuristicRules(title) {
+  const text = String(title || '').replace(/_/g, ' ');
+  const dc = text.match(/DC\s*(\d+)/i)?.[1];
+  const plus = text.match(/\+\s*(\d+)/)?.[1];
+  const turns = text.match(/(\d+)\s*turn/i)?.[1];
+  if (/command spell/i.test(text)) return `As an action, speak a one-word command at one creature within 60 feet that can hear you. It makes a Wisdom saving throw (DC ${dc || 'listed'}); on a failure it follows the command on its next turn, if the command does not directly harm it.`;
+  if (/performance/i.test(text) && plus) return `While the item is held or worn openly, add +${plus} to Charisma (Performance) checks to sing, speak, rally a crowd, or deliver a rehearsed command. This is an item bonus.`;
+  if (/silence/i.test(text) && turns) return `For ${turns} turns, the affected creature cannot provide verbal spell components and cannot be heard beyond normal non-magical sound. The effect ends early on any listed saving throw.`;
+  if (/once per day/i.test(text) || text.match(/\b1\s*\/\s*day/i)) return `This effect recharges at dawn. Once used, it cannot be used again until the next day, even if the item changes hands.`;
+  if (/heal|healing|restore/i.test(text)) return `Restores hit points as described. Magical healing from an item does not stack with itself; spending a use consumes the stated charge or cooldown.`;
+  if (/teleport|portal|warp/i.test(text)) return `Moves the user (and any listed passengers) as described. Teleportation fails if the destination is blocked, warded, or beyond the item's stated range.`;
+  if (/resist|resistance/i.test(text)) return `While active, damage of the listed type is halved (rounded down) after other reductions. This does not grant immunity to conditions or non-damage effects.`;
+  if (/curse|cursed/i.test(text)) return `The curse follows its stated trigger. Until removed (usually by Remove Curse or a listed condition), the penalty persists through rest and cannot be ignored by swapping equipment slots.`;
+  return `Homebrew shop effect. Its activation, targets, and limits follow the item's reviewed rules; the effect ends when its duration expires, its charges are spent, or the item is destroyed — not automatically when the scene changes.`;
+}
+
+/**
+ * Resolved effect rows for an item: [{title, rules, source:'reviewed'|'heuristic'}]
+ * Prefers the AI-reviewed catalog (loaded lazily), then inline item data,
+ * then the heuristic fallback so every effect shows WHAT IT DOES.
+ */
+function effectRowsFor(item) {
+  const norm = s => String(s || '').trim().toLowerCase();
+  const reviewed = ensureEffectCatalog()?.[item.id] || null;
+
+  /* 1) AI-reviewed catalog: its own effects[] and effectDetails[] are parallel
+        arrays (item authors often write effect titles that differ from the
+        reviewed titles), so fall back to index matching when titles differ. */
+  if (reviewed) {
+    const detList = reviewed.effectDetails || [];
+    const names = (reviewed.effects?.length ? reviewed.effects : detList.map(d => d.title).filter(Boolean));
+    if (names.length) {
+      return names.map((title, i) => {
+        const found = detList.find(d => norm(d.title) === norm(title)) || detList[i] || null;
+        return { title, rules: found?.rules || heuristicRules(title), source: found?.rules ? 'reviewed' : 'heuristic' };
+      });
+    }
+  }
+
+  /* 2) inline effectDetails embedded in the item file itself */
+  const detList = item.effectDetailsRaw?.length ? item.effectDetailsRaw : null;
+  const names = item.effects.length ? item.effects : (detList ? detList.map(d => d.title).filter(Boolean) : []);
+  return names.map(title => {
+    const found = detList?.find(d => norm(d.title) === norm(title));
+    return { title, rules: found?.rules || heuristicRules(title), source: found ? 'reviewed' : 'heuristic' };
+  });
+}
+
+function usageFor(item) {
+  const reviewed = ensureEffectCatalog()?.[item.id] || null;
+  return reviewed?.usage || item.usageRaw || null;
+}
+
+/* --------------------------------------------------------------------------
+   CRAFTING FORGE (recipes / materials / schools from data/crafting.json)
+   -------------------------------------------------------------------------- */
+
+let craftData = null;
+let craftLoading = false;
+function ensureCrafting() {
+  if (craftData || craftLoading || typeof fetch !== 'function') return;
+  craftLoading = true;
+  fetch('data/crafting.json')
+    .then(r => (r.ok ? r.json() : { recipes: [], materials: [], schools: {} }))
+    .then(j => { craftData = j; craftLoading = false; if (S.view === 'crafting') render(); })
+    .catch(() => { craftData = { recipes: [], materials: [], schools: {} }; craftLoading = false; if (S.view === 'crafting') render(); });
+}
+
+const CRAFT_STATE = { tab: 'recipes', q: '', school: '', cat: '', shown: 60 };
+
+const CRAFT_RARITY_COLORS = {
+  junk: '#6b7280', common: '#767676', uncommon: '#1e8e3e', rare: '#1a73e8',
+  very_rare: '#60a5fa', epic: '#9334e6', legendary: '#f9ab00', mythic: '#e2492f',
+  unique: '#e8618c', forbidden: '#b12704', cosmic: '#0891b2', godly: '#d600aa', wario_tier: '#b8860b'
+};
+function craftColor(r) { return CRAFT_RARITY_COLORS[String(r || 'common').toLowerCase()] || CRAFT_RARITY_COLORS.common; }
+
+/** Scored search so "fire scroll" narrows instead of returning everything. */
+function craftScore(row, terms) {
+  if (!terms.length) return 1;
+  const nm = String(row.name || '').toLowerCase();
+  const ds = String(row.description || '').toLowerCase();
+  const ef = String(row.effect || '').toLowerCase();
+  const ct = String(row.category || row.type || '').toLowerCase();
+  let s = 0;
+  for (const t of terms) {
+    let hit = 0;
+    if (nm === t) hit = 120;
+    else if (nm.startsWith(t)) hit = 80;
+    else if (nm.includes(t)) hit = 45;
+    else if (ef.includes(t)) hit = 20;
+    else if (ds.includes(t)) hit = 12;
+    else if (ct.includes(t)) hit = 8;
+    if (!hit) return 0;
+    s += hit;
+  }
+  return s;
+}
+
+function craftRecipes() { return craftData?.recipes || []; }
+function craftMaterials() { return craftData?.materials || []; }
+function craftSchools() { return craftData?.schools || {}; }
+function craftMatById(id) { return craftMaterials().find(m => m.id === id); }
+
+/* --------------------------------------------------------------------------
    Cart & orders (per-account, localStorage)
    -------------------------------------------------------------------------- */
 
@@ -253,11 +447,7 @@ function toast(html) {
    -------------------------------------------------------------------------- */
 
 function priceHtml(item, big = false) {
-  return `<span class="p-price">
-    <span class="sym">🪙</span><span class="whole">${fmt(item.price)}</span><span class="frac">${item.cents}</span>
-    ${item.deal ? `<span class="off">-${item.deal.off}%</span>` : ''}
-  </span>
-  ${item.deal ? `<div class="p-was">List: <s>🪙${fmt(item.deal.was)}</s></div>` : ''}`;
+  return priceWidget(item.price, item.cents, item.deal);
 }
 
 function starsHtml(rating, extraClass = '') {
@@ -338,6 +528,7 @@ function goTo(view, patch = {}) {
 function renderHeader() {
   const session = getSession();
   const acc = session && accountById(session.id);
+  ensurePayCurrency();
   const nameEl = document.getElementById('acctName');
   if (nameEl) nameEl.textContent = acc ? acc.name.split(' ')[0] : 'sign in';
   const deliver = document.getElementById('deliverTo');
@@ -354,10 +545,25 @@ function renderHeader() {
       .slice(0, 8)
       .map(([cid, v]) => {
         const c = CURRENCIES[cid];
-        return `<span class="acct-coin">${esc(c?.icon || '🪙')} ${fmt(v)} ${esc(c?.name || cid)}</span>`;
+        const gold = Number(v) * currencyBase(cid);
+        return `<span class="acct-coin" title="≈ ${gold.toLocaleString(undefined, { maximumFractionDigits: 2 })} gold value">${esc(c?.icon || '🪙')} ${fmt(v)} ${esc(c?.name || cid)}</span>`;
       }).join('');
     w.innerHTML = coins || '<span class="acct-coin">🪙 0 — empty pockets</span>';
   }
+
+  /* pay-with currency selector (limited to this operator's currencies) */
+  const paySlot = document.getElementById('acctPaySlot');
+  if (paySlot && acc) {
+    const owned = ownedCurrencyIds(acc);
+    const cur = ensurePayCurrency();
+    paySlot.innerHTML = `<label class="pay-label">💳 Pay / display with
+      <select id="payCurrencySelect">${owned.map(id =>
+        `<option value="${esc(id)}" ${id === cur ? 'selected' : ''}>${esc(coinIcon(id))} ${esc(currencyName(id))}${id !== 'gold' ? ` (held ${fmt(acc.currencies[id])})` : ''}</option>`).join('')}
+      </select>
+      <small>Prices convert at Waluipedia exchange rates (1 gold = ${(1 / currencyBase(cur)).toLocaleString(undefined, { maximumFractionDigits: 4 })} ${esc(currencyName(cur))}).</small>
+    </label>`;
+  }
+
   const flyName = document.getElementById('flyHello');
   if (flyName && acc) flyName.textContent = `Hello, ${acc.name.split(' ')[0]}`;
   updateCartBadge();
@@ -368,13 +574,14 @@ function renderHeader() {
    -------------------------------------------------------------------------- */
 
 function miniCard(it) {
+  const cid = ensurePayCurrency();
   return `<div class="mini-card" data-open="${esc(it.id)}">
     ${it.deal ? `<span class="deal-flag">${it.deal.off}% off</span>` : ''}
     <div class="mc-img">${esc(it.icon)}</div>
     <div class="mc-title">${esc(it.name)}</div>
     <div>${starsHtml(it.rating)} <span style="font-size:11px;color:var(--wz-link)">${fmt(it.reviews)}</span></div>
-    <div class="mc-price">🪙${fmt(it.price)}<span class="cents">${it.cents}</span></div>
-    ${it.deal ? '<div class="mc-was">Was <s>🪙' + fmt(it.deal.was) + '</s> · Limited-time deal</div>' : ''}
+    <div class="mc-price">${coinIcon(cid)}${fmt(nativeAmt(it.price, cid))}<span class="cents">${it.cents}</span></div>
+    ${it.deal ? `<div class="mc-was">Was <s>${coinIcon(cid)}${fmt(nativeAmt(it.deal.was, cid))}</s> · Limited-time deal</div>` : ''}
     ${it.prime ? '<div><span class="wahprime">wahprime</span></div>' : ''}
   </div>`;
 }
@@ -424,6 +631,13 @@ function renderHome() {
       <div class="row-sub">Based on absolutely no privacy-respecting data, just Wario's gut feeling</div>
       <div class="carousel">${recs.map(miniCard).join('')}</div>
     </section>
+
+    <section class="row-card cf-teaser" id="craftTeaser">
+      <a class="row-more" data-go-craft="1">Open the Crafting Forge →</a>
+      <h2>🔨 Wario's Crafting Forge</h2>
+      <div class="row-sub">Potions, scrolls &amp; smithing — buy the reagents here, Wario charges extra for the anvil rental</div>
+      <div class="cf-teaser-body"><span class="cf-teaser-stat">📜 <b>1,038</b> recipes</span><span class="cf-teaser-stat">🧪 <b>372</b> materials</span><span class="cf-teaser-stat">🔮 <b>8</b> schools of craft</span><button class="btn-add" data-go-craft="1" style="max-width:220px">Start crafting</button></div>
+    </section>
   </div>`;
 }
 
@@ -472,6 +686,13 @@ function filterSidebar() {
 
 function productCard(it) {
   const out = it.stock <= 0;
+  /* use the same (reviewed) effect titles the PDP shows, so cards and the
+     detail page agree on what each effect is called */
+  const fx = effectRowsFor(it).map(r => r.title);
+  if (!fx.length && it.effects.length) fx.push(...it.effects);
+  const fxLine = fx.length
+    ? `<div class="p-fx" data-open="${esc(it.id)}" title="Effects: ${esc(fx.join(' · '))}">✨ <b>${fx.length}</b> effect${fx.length === 1 ? '' : 's'}: ${esc(fx.slice(0, 2).join(', '))}${fx.length > 2 ? ` +${fx.length - 2} more` : ''} <span class="p-fx-more">see rules</span></div>`
+    : '';
   return `<article class="p-card">
     ${it.deal ? `<span class="deal-flag">Limited-time deal</span>` : ''}
     <div class="p-img" data-open="${esc(it.id)}" title="${esc(it.name)}">${esc(it.icon)}</div>
@@ -480,6 +701,7 @@ function productCard(it) {
     ${priceHtml(it)}
     ${shipLine(it)}
     ${stockLine(it)}
+    ${fxLine}
     <div class="p-vendor">Sold by <a data-vendor-link="1">${esc(it.vendor?.name || 'Wario\'s Warehouse Direct')}</a> · <span class="rarity-chip rarity-${esc(it.rarity)}" style="font-size:9px">${esc(it.rarity.replace('_', ' '))}</span></div>
     <div class="p-actions">
       <button class="btn-add" data-add="${esc(it.id)}" ${out ? 'disabled' : ''}>${out ? 'Out of Stock' : 'Add to Cart'}</button>
@@ -589,6 +811,142 @@ function renderOrders() {
 }
 
 /* --------------------------------------------------------------------------
+   RENDER: CRAFTING FORGE — recipes, reagents you can actually buy, schools
+   -------------------------------------------------------------------------- */
+
+function craftRecipeCard(r) {
+  const sc = craftSchools()[String(r.school || '').toUpperCase()];
+  const col = sc?.color || craftColor(r.rarity);
+  const mats = (r.materials || []).map(m => {
+    const meta = craftMatById(m.id);
+    return `<button class="cf-mat" data-craft-buy="${esc(meta?.name || m.id)}" title="Find '${esc(meta?.name || m.id)}' in the warehouse">
+      <span>${esc(meta?.icon || '•')}</span>
+      <span class="cf-mat-n">${esc(meta?.name || m.id)}</span>
+      <span class="cf-mat-q">×${m.quantity || 1}</span>
+    </button>`;
+  }).join('');
+  const success = Number(r.successChance || 0);
+  return `<article class="cf-card" style="--cf-c:${col}">
+    <div class="cf-top">
+      <span class="cf-ic">${esc(r.icon || '⚗️')}</span>
+      <div class="cf-id">
+        <h4>${esc(r.name)}</h4>
+        <div class="cf-meta">
+          ${sc ? `<span class="cf-school">${esc(sc.icon || '')} ${esc(sc.name)}</span>` : ''}
+          ${r.spellLevel != null ? `<span>Spell Lv ${r.spellLevel}</span>` : ''}
+          ${r.levelRequirement ? `<span>Req Lv ${r.levelRequirement}</span>` : ''}
+        </div>
+      </div>
+      <div class="cf-cost">${fmt(r.goldCost || 0)}<span>g</span><small>≈ ${moneyStr(r.goldCost || 0, { withRef: false })} ${esc(currencyName(ensurePayCurrency()))}</small></div>
+    </div>
+    ${r.description ? `<p class="cf-desc">${esc(r.description)}</p>` : ''}
+    ${r.effect ? `<div class="cf-effect">✨ ${esc(r.effect)}</div>` : ''}
+    <div class="cf-stats">
+      ${r.craftTime ? `<span>⏱ ${esc(String(r.craftTime))}h</span>` : ''}
+      ${success ? `<span class="${success >= 80 ? 'good' : success >= 50 ? 'mid' : 'bad'}">✓ ${success}% success</span>` : ''}
+      <span class="cf-type">${esc(r.category || r.type || 'recipe')}</span>
+    </div>
+    ${mats ? `<div class="cf-mats"><small>Materials — tap to shop:</small>${mats}</div>` : ''}
+  </article>`;
+}
+
+function craftMaterialCard(m) {
+  return `<article class="cf-card" style="--cf-c:${craftColor(m.rarity)}">
+    <div class="cf-top">
+      <span class="cf-ic">${esc(m.icon || '⚗️')}</span>
+      <div class="cf-id">
+        <h4>${esc(m.name)}</h4>
+        <div class="cf-meta">
+          <span class="cf-type">${esc(m.category || 'material')}</span>
+          ${m.rarity ? `<span style="color:${craftColor(m.rarity)};font-weight:700">${esc(m.rarity)}</span>` : ''}
+        </div>
+      </div>
+      <div class="cf-cost">${fmt(m.cost || 0)}<span>g</span></div>
+    </div>
+    ${m.description ? `<p class="cf-desc">${esc(m.description)}</p>` : ''}
+    ${(m.effects || []).length ? `<div class="cf-effect">✨ ${esc(m.effects.join(' · '))}</div>` : ''}
+    ${m.source ? `<div class="cf-src">🗺 ${esc(m.source)}</div>` : ''}
+    <div class="cf-mats"><button class="btn-add" data-craft-buy="${esc(m.name)}" style="max-width:240px">🛒 Find in Warehouse</button></div>
+  </article>`;
+}
+
+function craftSchoolCard([key, sc]) {
+  const count = craftRecipes().filter(r => String(r.school || '').toUpperCase() === key).length;
+  return `<button class="cf-school-card" data-craft-school="${esc(key)}" style="--cf-c:${esc(sc.color || '#888')}">
+    <span class="cf-ic">${esc(sc.icon || '🔮')}</span>
+    <b>${esc(sc.name)}</b>
+    <small>${esc(sc.description || '')}</small>
+    <span class="cf-count">${count} recipes</span>
+  </button>`;
+}
+
+function renderCrafting() {
+  ensureCrafting();
+  const C = CRAFT_STATE;
+  if (!craftData) {
+    return `<div class="wz-container"><div class="empty-results" style="margin-top:20px">
+      <div class="big">🔨</div><h2>Stoking the forge…</h2><p>Wario is counting his recipes. This takes a moment because there are 1,038 of them.</p></div></div>`;
+  }
+  const terms = C.q.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  const filterScore = list => {
+    let rows = list;
+    if (C.school) rows = rows.filter(r => String(r.school || '').toUpperCase() === C.school);
+    if (C.cat) rows = rows.filter(r => String(r.category || r.type || '') === C.cat);
+    if (terms.length) rows = rows.map(r => ({ r, s: craftScore(r, terms) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).map(x => x.r);
+    return rows;
+  };
+
+  let body = '';
+  if (C.tab === 'recipes') {
+    const rows = filterScore(craftRecipes());
+    const cats = [...new Set(craftRecipes().map(r => String(r.category || r.type || '')))].filter(Boolean).sort();
+    body = `
+      <div class="cf-toolbar">
+        <select id="craftSchool" class="sort-select" title="School">
+          <option value="">All schools</option>
+          ${Object.entries(craftSchools()).map(([key, sc]) => `<option value="${esc(key)}" ${C.school === key ? 'selected' : ''}>${esc(sc.icon || '')} ${esc(sc.name)}</option>`).join('')}
+        </select>
+        <select id="craftCat" class="sort-select" title="Recipe type">
+          <option value="">All recipe types</option>
+          ${cats.map(c => `<option value="${esc(c)}" ${C.cat === c ? 'selected' : ''}>${esc(c)}</option>`).join('')}
+        </select>
+        <span style="color:var(--wz-muted);font-size:12px">${fmt(rows.length)} of ${fmt(craftRecipes().length)} recipes</span>
+      </div>
+      <div class="cf-grid">${rows.slice(0, C.shown).map(craftRecipeCard).join('')}</div>
+      ${rows.length > C.shown ? `<button class="btn-plain" id="craftMore" style="display:block;margin:16px auto;padding:10px 26px">Show more recipes (${fmt(rows.length - C.shown)} left)</button>` : ''}
+      ${rows.length === 0 ? `<div class="empty-results"><div class="big">⚗️</div><h2>No recipes match</h2><p>Try fewer words — "fire", "scroll", "healing". Wario suggests "gold".</p></div>` : ''}`;
+  } else if (C.tab === 'materials') {
+    const rows = filterScore(craftMaterials());
+    body = `<div class="cf-toolbar"><span style="color:var(--wz-muted);font-size:12px">${fmt(rows.length)} of ${fmt(craftMaterials().length)} reagents — every "🛒 Find in Warehouse" button searches the shop for you</span></div>
+      <div class="cf-grid">${rows.slice(0, C.shown).map(craftMaterialCard).join('')}</div>
+      ${rows.length > C.shown ? `<button class="btn-plain" id="craftMore" style="display:block;margin:16px auto;padding:10px 26px">Show more (${fmt(rows.length - C.shown)} left)</button>` : ''}
+      ${rows.length === 0 ? `<div class="empty-results"><div class="big">🧪</div><h2>No materials match</h2><p>Wario ate the entry you're looking for. Try another.</p></div>` : ''}`;
+  } else {
+    body = `<div class="cf-schools">${Object.entries(craftSchools()).map(craftSchoolCard).join('')}</div>`;
+  }
+
+  return `
+  <div class="wz-container" style="margin-top:14px">
+    <div class="results-bar" style="align-items:center">
+      <div>
+        <h1 class="page-title" style="margin:0">🔨 Wario's Crafting Forge</h1>
+        <div style="color:var(--wz-muted);font-size:13px">${fmt(craftRecipes().length)} recipes · ${fmt(craftMaterials().length)} materials · ${Object.keys(craftSchools()).length} schools — buy the reagents here, craft at your own risk.</div>
+      </div>
+      <div class="cf-tabs">
+        <button class="cf-tab ${C.tab === 'recipes' ? 'active' : ''}" data-craft-tab="recipes">📜 Recipes</button>
+        <button class="cf-tab ${C.tab === 'materials' ? 'active' : ''}" data-craft-tab="materials">🧪 Materials</button>
+        <button class="cf-tab ${C.tab === 'schools' ? 'active' : ''}" data-craft-tab="schools">🔮 Schools</button>
+      </div>
+      <form id="craftSearchForm" style="display:flex;gap:6px;flex:1;max-width:420px;margin-left:auto">
+        <input class="gate-input" id="craftSearch" value="${esc(C.q)}" placeholder="Search recipes &amp; materials (try: fire scroll)">
+        <button class="search-go" type="submit" style="border-radius:4px;width:42px">🔍</button>
+      </form>
+    </div>
+    ${body}
+  </div>`;
+}
+
+/* --------------------------------------------------------------------------
    RENDER root dispatcher
    -------------------------------------------------------------------------- */
 
@@ -597,6 +955,7 @@ function render() {
   if (!view) return;
   if (S.view === 'results') view.innerHTML = renderResults();
   else if (S.view === 'orders') view.innerHTML = renderOrders();
+  else if (S.view === 'crafting') view.innerHTML = renderCrafting();
   else view.innerHTML = renderHome();
   renderHeader();
 }
@@ -605,12 +964,44 @@ function render() {
    PRODUCT DETAIL MODAL (PDP)
    -------------------------------------------------------------------------- */
 
+/**
+ * PDP "Item effects & rules" — the part that tells shoppers what a thing
+ * ACTUALLY does: numbered effect rows with full rules text (AI-reviewed when
+ * available, standard rules otherwise), plus an activation/usage grid.
+ */
+function effectsSectionHtml(it) {
+  const rows = effectRowsFor(it);
+  const usage = usageFor(it);
+  if (!rows.length && !usage) return '';
+  const usageLabels = [['⚡ Activation', 'activation'], ['⏳ Duration', 'duration'], ['🔚 Ends when', 'endsWhen'], ['🔢 Charges', 'charges']];
+  const usageRows = usage ? usageLabels
+    .filter(([, k]) => usage[k])
+    .map(([label, k]) => `<div class="fx-usage-cell"><span>${label}</span><span>${esc(usage[k])}</span></div>`)
+    .join('') : '';
+  return `<div class="pdp-effects" id="pdpEffects">
+    <h2>Item effects &amp; rules <span class="fx-count">${rows.length} effect${rows.length === 1 ? '' : 's'}</span></h2>
+    <div class="effects-list">
+      ${rows.map((r, i) => `
+      <div class="effect-row">
+        <span class="fx-n">${i + 1}</span>
+        <div class="fx-body">
+          <div class="fx-head"><b>${esc(r.title)}</b><span class="fx-src ${r.source}">${r.source === 'reviewed' ? '✓ reviewed rules' : 'standard rules'}</span></div>
+          <p>${esc(r.rules)}</p>
+        </div>
+      </div>`).join('')}
+    </div>
+    ${usageRows ? `<div class="fx-usage">${usageRows}</div>` : ''}
+  </div><hr class="pdp-hr">`;
+}
+
 function openPdp(id) {
   const it = ITEM_BY_ID.get(id);
   if (!it) return;
+  ensureEffectCatalog();   // trigger lazy load so reviewed rules arrive
   const scrim = document.createElement('div');
   scrim.className = 'modal-scrim';
   scrim.id = 'wzModal';
+  scrim._wzItemId = id;
   const vendorName = it.vendor?.name || 'Wario\'s Warehouse Direct';
   const out = it.stock <= 0;
   const maxQty = Math.min(Math.max(it.stock, 0), 10);
@@ -638,13 +1029,14 @@ function openPdp(id) {
         </div>
         ${shipLine(it)}
         <hr class="pdp-hr">
+        ${effectsSectionHtml(it)}
         <div class="pdp-about">
           <h2>About this item</h2>
           <ul>
-            ${it.effects.map(e => `<li>${esc(e)}</li>`).join('') || '<li>A genuine Wario-grade product. Quality guaranteed-ish.</li>'}
             ${it.level ? `<li>Requires character level ${it.level} to operate safely.</li>` : ''}
             ${it.warning ? `<li style="color:#b12704">⚠ ${esc(it.warning)}</li>` : ''}
             ${it.stock <= 3 && it.stock > 0 ? `<li style="color:#b12704"><b>Hurry</b> — only ${it.stock} left in the warehouse.</li>` : ''}
+            ${!it.level && !it.warning && it.stock > 3 ? '<li>A genuine Wario-grade product. Quality guaranteed-ish.</li>' : ''}
           </ul>
           <div class="pdp-desc">${esc(it.desc)}</div>
           <table class="pdp-table">
@@ -659,8 +1051,9 @@ function openPdp(id) {
       </div>
 
       <aside class="pdp-buybox">
-        <div class="bb-price"><span class="sym">🪙</span><span class="whole">${fmt(it.price)}</span><span class="frac">${it.cents}</span></div>
-        ${it.deal ? `<div class="p-was">List: <s>🪙${fmt(it.deal.was)}</s> <span style="color:var(--wz-deal-red);font-weight:700">-${it.deal.off}%</span></div>` : ''}
+        <div class="bb-price"><span class="sym">${coinIcon(ensurePayCurrency())}</span><span class="whole">${fmt(nativeAmt(it.price))}</span><span class="frac">${it.cents}</span></div>
+        ${ensurePayCurrency() !== 'gold' ? `<div class="p-was">≈ 🪙${fmt(it.price)} gold · paying in ${esc(currencyName(ensurePayCurrency()))}</div>` : ''}
+        ${it.deal ? `<div class="p-was">List: <s>${coinIcon(ensurePayCurrency())}${fmt(nativeAmt(it.deal.was))}</s> <span style="color:var(--wz-deal-red);font-weight:700">-${it.deal.off}%</span></div>` : ''}
         <div style="margin-top:6px">${it.prime ? '<span class="wahprime">wahprime</span> FREE delivery' : 'Economy delivery'} <b>${deliveryLabel(it.id)}</b></div>
         ${out ? '<div class="bb-stock low">Currently unavailable</div>' : it.stock <= 3 ? `<div class="bb-stock low">Only ${it.stock} left in stock - order soon.</div>` : '<div class="bb-stock">In Stock</div>'}
         ${!out ? `<select class="qty-select" id="pdpQty">${qtyOpts}</select>` : ''}
@@ -715,6 +1108,7 @@ function renderCartDrawer() {
   if (!drawer) return;
   const rows = getCart();
   const subtotal = rows.reduce((s, r) => s + (ITEM_BY_ID.get(r.id)?.price || 0) * r.qty, 0);
+  const cid = ensurePayCurrency();
   drawer.innerHTML = `
     <div class="cart-head">Shopping Cart <button class="modal-x" style="position:static" data-cart-close="1">✕</button></div>
     <div class="cart-body">
@@ -725,7 +1119,7 @@ function renderCartDrawer() {
           <div class="cr-img" data-open="${esc(it.id)}">${esc(it.icon)}</div>
           <div>
             <div class="cr-title" data-open="${esc(it.id)}">${esc(it.name)}</div>
-            <div class="cr-price">🪙${fmt(it.price * r.qty)} <small style="color:var(--wz-muted);font-weight:400">(${fmt(it.price)} ea)</small></div>
+            <div class="cr-price">${coinIcon(cid)}${fmt(nativeAmt(it.price * r.qty, cid))} <small style="color:var(--wz-muted);font-weight:400">(${fmt(nativeAmt(it.price, cid))} ea)</small></div>
             ${it.prime ? '<div class="cr-prime"><span class="wahprime">wahprime</span></div>' : ''}
             <div class="cr-controls">
               <span class="qty-pill">
@@ -739,14 +1133,107 @@ function renderCartDrawer() {
       }).join('')}
     </div>
     <div class="cart-foot">
-      <div class="subtotal">Subtotal (${cartCount()} item${cartCount() === 1 ? '' : 's'}): <b>🪙${fmt(subtotal)}</b></div>
+      <div class="subtotal">Subtotal (${cartCount()} item${cartCount() === 1 ? '' : 's'}): <b>${coinIcon(cid)}${fmt(nativeAmt(subtotal, cid))}</b>${cid !== 'gold' ? ` <small class="gold-ref">≈ 🪙${fmt(subtotal)} gold</small>` : ''}</div>
       <button class="btn-buy" data-goto-checkout="1" ${rows.length === 0 ? 'disabled' : ''}>Proceed to checkout</button>
     </div>`;
 }
 
+/* --------------------------------------------------------------------------
+   SPLIT-TENDER PAYMENT PLANNER (multi-currency checkout)
+   Ported from shop-wallet-sync.js: offer coins of any currency in the
+   wallet; gold pays at face value, other currencies convert through gold at
+   a 10% Wario fee. Overpayment change is capped (Wario pockets the rest).
+   -------------------------------------------------------------------------- */
+
+function walletEntries(acc = currentAccount()) {
+  return Object.entries(acc?.currencies || {})
+    .filter(([cid, amt]) => CURRENCIES[cid] && Number(amt) > 0)
+    .map(([cid, amt]) => ({ id: cid, held: Number(amt), base: currencyBase(cid) }))
+    .sort((a, b) => (a.id === 'gold') - (b.id === 'gold') || (b.held * b.base) - (a.held * a.base));
+}
+
+/** Suggested offer per currency for a gold total: gold first, others convert. */
+function suggestTender(totalGold, acc = currentAccount()) {
+  const offers = {};
+  let remaining = totalGold;
+  for (const e of walletEntries(acc)) {
+    if (remaining <= 0) break;
+    if (e.id === 'gold') {
+      const offer = Math.min(e.held, remaining);
+      if (offer > 0) offers.gold = offer;
+      remaining -= offer;
+    }
+  }
+  for (const e of walletEntries(acc)) {
+    if (remaining <= 0 || e.id === 'gold') continue;
+    // convert: offers worth remaining*(1+fee) in native units, capped by held
+    const neededNative = (remaining * (1 + GOLD_FALLBACK_FEE)) / e.base;
+    const offer = Math.min(e.held, Math.ceil(neededNative * 100) / 100);
+    if (offer > 0) {
+      offers[e.id] = offer;
+      remaining -= (offer * e.base) / (1 + GOLD_FALLBACK_FEE);
+    }
+  }
+  return offers;
+}
+
+/** Evaluate an offer draft against a total. */
+function evaluateTender(totalGold, offers, acc = currentAccount()) {
+  const wallet = walletEntries(acc);
+  let coverage = 0;      // gold-equivalent buying power actually applied
+  let goldCoinSpent = 0; // gold-value handed over before fee discount
+  let convertSpent = 0;
+  const lines = [];
+  for (const e of wallet) {
+    let offer = Math.max(0, Number(offers[e.id] || 0));
+    offer = Math.min(offer, e.held);
+    if (offer <= 0) continue;
+    const goldValue = offer * e.base;
+    if (e.id === 'gold') {
+      coverage += offer;
+      goldCoinSpent += offer;
+      lines.push(`🪙 ${fmt(offer)} ${esc(currencyName('gold'))}`);
+    } else {
+      coverage += goldValue / (1 + GOLD_FALLBACK_FEE);
+      convertSpent += goldValue;
+      lines.push(`${coinIcon(e.id)} ${offer.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${esc(currencyName(e.id))} (≈${goldValue.toLocaleString(undefined, { maximumFractionDigits: 1 })}g → ${(goldValue / (1 + GOLD_FALLBACK_FEE)).toLocaleString(undefined, { maximumFractionDigits: 1 })}g after fee)`);
+    }
+  }
+  const remaining = totalGold - coverage;
+  const fees = convertSpent - convertSpent / (1 + GOLD_FALLBACK_FEE);
+  // change policy: Wario returns at most MAX_CHANGE_GOLD, keeps the rest
+  const changeGold = Math.max(0, -remaining);
+  const changeReturned = Math.min(changeGold, Math.min(MAX_CHANGE_GOLD, Math.max(0.1, totalGold * 0.05)));
+  return { coverage, remaining, covered: remaining <= 0.001, fees, changeGold, changeReturned, lines };
+}
+
+function tenderQuoteHtml(totalGold, offers, acc = currentAccount()) {
+  const ev = evaluateTender(totalGold, offers, acc);
+  const cid = ensurePayCurrency();
+  let result;
+  if (ev.covered) {
+    result = `<div class="tender-result ok">✅ <b>Split tender covers the order.</b>
+      ${ev.lines.join(' · ') || ''}
+      ${ev.fees > 0.01 ? `<br>Wario conversion fee included: ≈🪙${ev.fees.toLocaleString(undefined, { maximumFractionDigits: 1 })} gold (${Math.round(GOLD_FALLBACK_FEE * 100)}%).` : ''}
+      ${ev.changeGold > 0.001 ? `<br>Change owed ≈🪙${ev.changeGold.toLocaleString(undefined, { maximumFractionDigits: 1 })} → returned ≤🪙${ev.changeReturned.toLocaleString(undefined, { maximumFractionDigits: 1 })}; Wario keeps the rest. Obviously.` : ''}
+    </div>`;
+  } else {
+    result = `<div class="tender-result warn">⚠️ <b>Still due: 🪙${ev.remaining.toLocaleString(undefined, { maximumFractionDigits: 1 })} gold
+      (${coinIcon(cid)}${fmt(nativeAmt(ev.remaining, cid))} ${esc(currencyName(cid))})</b> —
+      offer more coins, or come back when your pockets are heavier. WAH!</div>`;
+  }
+  const feeNote = Object.keys(offers).some(k => k !== 'gold' && Number(offers[k]) > 0)
+    ? `<small>Non-gold coins convert through gold at a ${Math.round(GOLD_FALLBACK_FEE * 100)}% fee. Balances are preview-only — nothing is deducted on this page.</small>`
+    : `<small>Paying face-value in gold. Wallet balances are preview-only — nothing is deducted on this page.</small>`;
+  return `<div class="tender-quote">
+    <div class="tq-total">Grand total due: <b>🪙${fmt(totalGold)} gold</b> <span class="gold-ref">(${moneyStr(totalGold, { withRef: false })} ${esc(currencyName(cid))})</span></div>
+    ${result}${feeNote}
+  </div>`;
+}
+
 function openCheckout(buyNowRows = null) {
   closeCart();
-  const acc = accountById(getSession()?.id);
+  const acc = currentAccount();
   const rows = buyNowRows || getCart();
   if (!rows.length) { toast('Your cart is empty — Wario cannot sell you nothing. (He tried.)'); return; }
 
@@ -760,15 +1247,23 @@ function openCheckout(buyNowRows = null) {
   scrim.className = 'modal-scrim';
   scrim.id = 'wzModal';
 
-  const renderCo = (shipIdx = 0) => {
+  /* per-open checkout state (kept across shipping re-renders) */
+  const coState = { shipIdx: 0, offers: null };
+
+  const totals = shipIdx => {
     const subtotal = rows.reduce((s, r) => s + (ITEM_BY_ID.get(r.id)?.price || 0) * r.qty, 0);
-    const ship = shipOpts[shipIdx].m;
-    const shipCost = Number(ship.cost || 0);
+    const shipCost = Number(shipOpts[shipIdx].m.cost || 0);
     const tax = Math.round(subtotal * 0.05); // the Wario Tax
-    const total = subtotal + shipCost + tax;
-    const gold = Number(acc?.currencies?.gold || 0);
-    const canAfford = !acc || gold >= total;
+    return { subtotal, shipCost, tax, total: subtotal + shipCost + tax };
+  };
+
+  const renderCo = (shipIdx = 0) => {
+    const { subtotal, shipCost, tax, total } = totals(shipIdx);
+    if (!coState.offers) coState.offers = suggestTender(total, acc);
+    const ev = evaluateTender(total, coState.offers, acc);
     const addr = FREE_ADDRESSES[Math.floor(hash01(acc?.name || 'wario') * FREE_ADDRESSES.length)];
+    const cid = ensurePayCurrency();
+    const ship = shipOpts[shipIdx].m;
 
     return `
     <div class="modal" role="dialog" aria-modal="true">
@@ -780,11 +1275,21 @@ function openCheckout(buyNowRows = null) {
             <div style="font-size:13px"><b>${esc(acc?.name || 'Unknown Customer')}</b><br>${esc(addr)}<br>WAH-zon Prime Address (verified by Wario, allegedly)</div>
           </div>
           <div class="co-sec">
-            <h3>2 &nbsp;Payment method</h3>
-            <div class="co-line"><span>Waluipedia Wallet — ${esc(acc?.name || '?')}</span><b>🪙${fmt(gold)} gold</b></div>
-            ${Object.entries(acc?.currencies || {}).filter(([cid, v]) => cid !== 'gold' && v > 0).slice(0, 4)
-              .map(([cid, v]) => `<div class="co-line"><span>${esc(CURRENCIES[cid]?.icon || '🪙')} ${esc(CURRENCIES[cid]?.name || cid)}</span><span>${fmt(v)}</span></div>`).join('')}
-            <div class="co-warning">Preview only — this page does not save or deduct real wallet balances. Wario's auditors handle that offline.</div>
+            <h3>2 &nbsp;Payment — multi-currency split tender</h3>
+            <div class="co-line"><span>Waluipedia Wallet — ${esc(acc?.name || '?')}</span>
+              <b>≈🪙${walletEntries(acc).reduce((s, e) => s + e.held * e.base, 0).toLocaleString(undefined, { maximumFractionDigits: 1 })} gold value</b></div>
+            <div class="tender-planner">
+              ${walletEntries(acc).map(e => {
+                const offered = Number(coState.offers[e.id] || 0);
+                return `<label class="tender-row">
+                  <span class="t-cur">${coinIcon(e.id)} <b>${esc(currencyName(e.id))}</b><small>held ${fmt(e.held)} · 1 = ${e.base}g</small></span>
+                  <span class="t-offer">offer <input class="tender-input" data-tender="${esc(e.id)}" type="number" min="0" max="${e.held}" step="any" value="${offered || ''}" placeholder="0"></span>
+                  <span class="t-eq">${offered > 0 ? (e.id === 'gold' ? `= 🪙${fmt(offered)}` : `≈ 🪙${(offered * e.base).toLocaleString(undefined, { maximumFractionDigits: 1 })} face → 🪙${(offered * e.base / (1 + GOLD_FALLBACK_FEE)).toLocaleString(undefined, { maximumFractionDigits: 1 })} effective`) : ''}</span>
+                </label>`;
+              }).join('')}
+              <button type="button" class="tender-reset" id="tenderReset">↺ Reset suggested split</button>
+            </div>
+            <div id="tenderQuote">${tenderQuoteHtml(total, coState.offers, acc)}</div>
           </div>
           <div class="co-sec">
             <h3>3 &nbsp;Review items &amp; shipping</h3>
@@ -797,20 +1302,19 @@ function openCheckout(buyNowRows = null) {
             ${rows.map(r => {
               const it = ITEM_BY_ID.get(r.id); if (!it) return '';
               return `<div class="co-item"><div class="ci-img">${esc(it.icon)}</div>
-                <span>${esc(it.name)}</span><span class="ci-qty">×${r.qty} · 🪙${fmt(it.price * r.qty)}</span></div>`;
+                <span>${esc(it.name)}</span><span class="ci-qty">×${r.qty} · ${coinIcon(cid)}${fmt(nativeAmt(it.price * r.qty, cid))}</span></div>`;
             }).join('')}
           </div>
         </div>
         <div class="co-summary">
-          <button class="btn-buy" id="placeOrderBtn" ${canAfford ? '' : 'disabled'}>Place your order</button>
-          ${canAfford ? '' : '<div class="co-insufficient">❌ Not enough gold in this wallet. Wario laughs at your poverty. WAH!</div>'}
-          <div class="line"><span>Items (${rows.reduce((n, r) => n + r.qty, 0)}):</span><span>🪙${fmt(subtotal)}</span></div>
-          <div class="line"><span>Shipping &amp; handling:</span><span>${shipCost ? '🪙' + fmt(shipCost) : 'FREE'}</span></div>
-          <div class="line"><span>Total before tax:</span><span>🪙${fmt(subtotal + shipCost)}</span></div>
-          <div class="line"><span>Estimated Wario Tax (5%):</span><span>🪙${fmt(tax)}</span></div>
-          <div class="total"><span>Order total:</span><span>🪙${fmt(total)}</span></div>
-          <div class="co-warning">By placing your order, you agree to Warizon's <a>conditions of use</a>: no refunds, no exchanges, no eye contact with Wario.</div>
-          <div class="co-warning" style="margin-top:6px">Wallet balance after purchase: <b style="color:${canAfford ? '#067d62' : '#b12704'}">🪙${fmt(Math.max(0, gold - total))}</b></div>
+          <button class="btn-buy" id="placeOrderBtn" ${ev.covered ? '' : 'disabled'}>Place your order</button>
+          ${ev.covered ? '' : '<div class="co-insufficient">❌ Split tender does not cover this yet. Wario laughs at your pockets. WAH!</div>'}
+          <div class="line"><span>Items (${rows.reduce((n, r) => n + r.qty, 0)}):</span><span>${moneyStr(subtotal)}</span></div>
+          <div class="line"><span>Shipping &amp; handling:</span><span>${shipCost ? moneyStr(shipCost) : 'FREE'}</span></div>
+          <div class="line"><span>Total before tax:</span><span>${moneyStr(subtotal + shipCost)}</span></div>
+          <div class="line"><span>Estimated Wario Tax (5%):</span><span>${moneyStr(tax)}</span></div>
+          <div class="total"><span>Order total:</span><span>${moneyStr(total)}</span></div>
+          <div class="co-warning">By placing your order, you agree to Warizon's <a>conditions of use</a>: no refunds, no exchanges, no eye contact with Wario. ${ev.fees > 0.01 ? `Includes ≈🪙${ev.fees.toLocaleString(undefined, { maximumFractionDigits: 1 })} gold in conversion fees.` : ''}</div>
         </div>
       </div>
     </div>`;
@@ -821,25 +1325,44 @@ function openCheckout(buyNowRows = null) {
 
   scrim.addEventListener('change', e => {
     if (e.target.name === 'wzShip') {
-      scrim.innerHTML = renderCo(Number(e.target.value));
+      coState.shipIdx = Number(e.target.value);
+      coState.offers = null;   // new total → fresh suggested split
+      scrim.innerHTML = renderCo(coState.shipIdx);
+    }
+  });
+  scrim.addEventListener('input', e => {
+    const input = e.target.closest?.('[data-tender]');
+    if (!input) return;
+    coState.offers[input.dataset.tender] = Number(input.value || 0);
+    const quote = scrim.querySelector('#tenderQuote');
+    if (quote) {
+      const { total } = totals(coState.shipIdx);
+      quote.innerHTML = tenderQuoteHtml(total, coState.offers, acc);
+      const btn = scrim.querySelector('#placeOrderBtn');
+      if (btn) btn.disabled = !evaluateTender(total, coState.offers, acc).covered;
     }
   });
   scrim.addEventListener('click', e => {
     if (e.target === scrim || e.target.closest('[data-close]')) closeModal();
+    if (e.target.closest('#tenderReset')) {
+      coState.offers = null;
+      scrim.innerHTML = renderCo(coState.shipIdx);
+      return;
+    }
     if (e.target.closest('#placeOrderBtn')) {
-      const shipIdx = Number(scrim.querySelector('input[name="wzShip"]:checked')?.value || 0);
-      placeOrder(rows, shipOpts[shipIdx].m, !!buyNowRows);
+      placeOrder(rows, shipOpts[coState.shipIdx].m, !!buyNowRows, coState.offers);
     }
   });
 }
 
-function placeOrder(rows, ship, isBuyNow = false) {
-  const acc = accountById(getSession()?.id);
+function placeOrder(rows, ship, isBuyNow = false, offers = null) {
+  const acc = currentAccount();
   const subtotal = rows.reduce((s, r) => s + (ITEM_BY_ID.get(r.id)?.price || 0) * r.qty, 0);
   const tax = Math.round(subtotal * 0.05);
   const total = subtotal + Number(ship.cost || 0) + tax;
   const no = 'WAH-' + Math.floor(hash01(String(Date.now()) + total) * 9e13).toString(16).toUpperCase().padStart(11, '0').slice(0, 11);
   const eta = deliveryLabel(no, /hour|Instant/i.test(ship.deliveryTime || '') ? 0 : 2, 4);
+  const tender = offers ? evaluateTender(total, offers, acc) : null;
 
   const orders = getOrders();
   orders.push({ no, ts: Date.now(), shipTo: acc?.name?.split(' ')[0] || 'You', total, eta, ship: ship.name, items: rows });
@@ -861,7 +1384,8 @@ function placeOrder(rows, ship, isBuyNow = false) {
         <p>Confirmation will be sent to nobody — Wario does not do email.<br>
         Order number: <span class="order-no">${esc(no)}</span></p>
         <p><b>${esc(ship.icon || '📦')} ${esc(ship.name)}</b> — arriving <b>${esc(eta)}</b> (${esc(ship.deliveryTime)})</p>
-        <p style="color:#b12704;font-weight:700">Wario is already spending your 🪙${fmt(total)}. No refunds!</p>
+        ${tender && tender.lines.length ? `<p style="font-size:13px">Paid with: ${tender.lines.join(' · ')}</p>` : ''}
+        <p style="color:#b12704;font-weight:700">Wario is already spending your 🪙${fmt(total)} gold${tender && tender.fees > 0.01 ? ` (≈🪙${tender.fees.toLocaleString(undefined, { maximumFractionDigits: 1 })} went to conversion fees)` : ''}. No refunds!</p>
         <button class="btn-add" id="doneOrdersBtn" style="max-width:260px">View your orders</button>
       </div>
     </div>`;
@@ -897,6 +1421,7 @@ function openDrawer() {
         <h3>Programs &amp; Features</h3>
         <button data-drawer-deals="1">🔥 Today's Deals <span>›</span></button>
         <button data-drawer-prime="1">👑 WahPrime Exclusives <span>›</span></button>
+        <button data-drawer-crafting="1">🔨 Crafting Forge <span>›</span></button>
         <button data-drawer-orders="1">📦 Your Orders <span>›</span></button>
         <button data-drawer-cart="1">🛒 Your Cart <span>›</span></button>
         <hr>
@@ -1064,6 +1589,9 @@ function enterStore() {
   document.getElementById('store').hidden = false;
   applyDeepLink();
   render();
+  /* warm the reviewed-rules catalog in the background so PDP pages show
+     full effect rules instead of heuristic text once it lands */
+  ensureEffectCatalog();
   toast('Welcome back to <b>Warizon</b> — everything must go (into Wario\'s vault).');
 }
 
@@ -1104,6 +1632,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const godept = t.closest('[data-go-dept]');
     if (godept) { resetFilters(); S.q = ''; S.dept = godept.dataset.goDept; S.view = 'results'; render(); return; }
     if (t.closest('[data-go-shop]')) { goTo('home'); return; }
+    if (t.closest('[data-go-craft]')) { CRAFT_STATE.shown = 60; goTo('crafting'); return; }
 
     const buyAgain = t.closest('[data-buy-again]');
     if (buyAgain) { addToCart(buyAgain.dataset.buyAgain); openCart(); return; }
@@ -1187,6 +1716,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    /* crafting forge */
+    if (t.closest('#subCrafting')) { CRAFT_STATE.q = ''; CRAFT_STATE.shown = 60; goTo('crafting'); return; }
+    const ctab = t.closest('[data-craft-tab]');
+    if (ctab) { CRAFT_STATE.tab = ctab.dataset.craftTab; CRAFT_STATE.shown = 60; render(); return; }
+    if (t.closest('#craftMore')) { CRAFT_STATE.shown += 60; render(); return; }
+    const cschool = t.closest('[data-craft-school]');
+    if (cschool) { CRAFT_STATE.tab = 'recipes'; CRAFT_STATE.school = cschool.dataset.craftSchool; CRAFT_STATE.q = ''; CRAFT_STATE.shown = 60; render(); return; }
+    const cbuy = t.closest('[data-craft-buy]');
+    if (cbuy) { resetFilters(); S.q = cbuy.dataset.craftBuy; S.dept = 'all'; goTo('results'); toast(`Searching the warehouse for <b>${esc(cbuy.dataset.craftBuy)}</b>…`); return; }
+
     /* header */
     if (t.closest('#navLogo') || t.closest('#subHome')) { goTo('home'); return; }
     if (t.closest('#navOrders')) { goTo('orders'); return; }
@@ -1201,6 +1740,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dDept) { closeDrawer(); resetFilters(); S.q = ''; S.dept = dDept.dataset.drawerDept; goTo('results'); return; }
     if (t.closest('[data-drawer-deals]')) { closeDrawer(); resetFilters(); S.q = ''; S.dept = 'all'; goTo('results'); return; }
     if (t.closest('[data-drawer-prime]')) { closeDrawer(); resetFilters(); S.q = ''; S.dept = 'premium'; goTo('results'); return; }
+    if (t.closest('[data-drawer-crafting]')) { closeDrawer(); goTo('crafting'); return; }
     if (t.closest('[data-drawer-orders]')) { closeDrawer(); goTo('orders'); return; }
     if (t.closest('[data-drawer-cart]')) { closeDrawer(); openCart(); return; }
     if (t.closest('[data-drawer-account]')) { closeDrawer(); document.querySelector('.nav-acct-wrap')?.classList.toggle('open'); window.scrollTo({ top: 0 }); return; }
@@ -1236,17 +1776,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (t.matches('#fInStock')) { S.inStockOnly = t.checked; S.page = 1; render(); return; }
     if (t.matches('#sortSelect')) { S.sort = t.value; S.page = 1; render(); return; }
+    if (t.matches('#payCurrencySelect')) {
+      payCurrency = t.value;
+      localStorage.setItem(PAY_KEY, payCurrency);
+      render();
+      toast(`Prices now shown in <b>${esc(coinIcon(payCurrency))} ${esc(currencyName(payCurrency))}</b> — converted at Waluipedia exchange rates.`);
+      return;
+    }
+    if (t.matches('#craftSchool')) { CRAFT_STATE.school = t.value; CRAFT_STATE.shown = 60; render(); return; }
+    if (t.matches('#craftCat')) { CRAFT_STATE.cat = t.value; CRAFT_STATE.shown = 60; render(); return; }
     if (t.matches('#searchScope')) return;
   });
 
   /* --- search submit --- */
-  document.getElementById('searchForm')?.addEventListener('submit', e => {
-    e.preventDefault();
-    const q = document.getElementById('searchInput').value;
-    const scope = document.getElementById('searchScope').value;
-    resetFilters();
-    S.q = q; S.dept = scope;
-    goTo('results');
+  document.body.addEventListener('submit', e => {
+    if (e.target.id === 'searchForm') {
+      e.preventDefault();
+      const q = document.getElementById('searchInput').value;
+      const scope = document.getElementById('searchScope').value;
+      resetFilters();
+      S.q = q; S.dept = scope;
+      goTo('results');
+    }
+    if (e.target.id === 'craftSearchForm') {
+      e.preventDefault();
+      CRAFT_STATE.q = document.getElementById('craftSearch').value;
+      CRAFT_STATE.school = '';   // a search means "everywhere" — clear facet filters
+      CRAFT_STATE.cat = '';
+      CRAFT_STATE.shown = 60;
+      render();
+    }
   });
 
   /* --- Esc closes modals/drawers --- */
@@ -1260,6 +1819,7 @@ document.addEventListener('DOMContentLoaded', () => {
     store.hidden = false;
     applyDeepLink();
     render();
+    ensureEffectCatalog();   // warm reviewed rules in the background
   } else {
     store.hidden = true;       // storefront stays locked until sign-in
     gate.hidden = false;

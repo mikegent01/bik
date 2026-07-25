@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Warizon.wah — Wario's Everything Warehouse</title>
   <meta name="description" content="Warizon: Wario's login-gated online megastore. 3,500+ treasures, WahPrime delivery, and absolutely no refunds." />
+  <!-- Shared site audio: the AudioContext bridge must load before our module so
+       the site's shared music toggle stays authoritative (same setup the whole
+       Waluipedia main website uses). -->
+  <script src="wario-audio-bridge.js"></script>
+  <script defer src="wario-site-sounds.js"></script>
+  <script defer src="waluipedia-ambient.js"></script>
   <link rel="stylesheet" href="warizon-shop.css" />
 </head>
 <body>
@@ -60,10 +66,12 @@
         <div class="acct-flyout" role="menu">
           <h4 id="acctName">Your Account</h4>
           <div class="acct-wallet" id="acctWallet"></div>
+          <div class="acct-pay" id="acctPaySlot"></div>
           <div class="acct-menu">
             <button id="flyOrdersLink">📦 Your Orders</button>
             <button id="flySwitch">🔁 Switch Account</button>
             <button id="flyMembership">👑 WahPrime: <b>ACTIVE-ish</b></button>
+            <a href="currency.html" style="color:var(--wz-link)">💱 Currency exchange rates →</a>
           </div>
           <button class="acct-signout-btn" id="flySignOut">Sign Out</button>
         </div>
@@ -86,6 +94,7 @@
       <button class="subnav-all" id="allDepartmentsBtn">☰ All</button>
       <button id="subHome">warizon.wah</button>
       <button id="subDeals" class="deal-link">Today's Deals</button>
+      <button id="subCrafting" class="deal-link">🔨 Crafting Forge</button>
       <button data-sub-dept="equipment">Weapons &amp; Equipment</button>
       <button data-sub-dept="consumables">Garlic &amp; Groceries</button>
       <button data-sub-dept="curiosities">Curiosities</button>
