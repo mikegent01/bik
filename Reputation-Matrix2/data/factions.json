@@ -617,7 +617,407 @@
           "effect": "Determines whether the faction withdraws strategically, negotiates, or resists."
         }
       ],
-      "archivalRule": "Use stable IDs and named personnel in events, reputation, quests, and XP. Generic labels are permitted only when a source genuinely does not identify the person."
+      "archivalRule": "Use stable IDs and named personnel in events, reputation, quests, and XP. Generic labels are permitted only when a source genuinely does not identify the person.",
+      "system": {
+        "id": "pond_patrol_docket",
+        "name": "Pond Patrol Docket",
+        "emoji": "\u2696\ufe0f",
+        "route": "#/pond-docket",
+        "tagline": "Emergency Resolution 17-A \u2014 the Liberated Toads' accountability, containment, and apprehension system.",
+        "summary": "The operational system attached to the Liberated Toads and their enforcement arm, the Pond Patrol. It converts Speaker L's emergency decrees into a live list of who is wanted, why, by whom, and what the Patrol is authorised to do about it.",
+        "operatedBy": [
+          "liberated_toads",
+          "pond_patrol"
+        ],
+        "authorityChain": "Cohort Council \u2192 Emergency Resolution 17-A \u2192 Speaker L (absent) \u2192 Captain Fernback (acting) \u2192 Pond Patrol field units"
+      },
+      "accountability": {
+        "authority": "Emergency Resolution 17-A",
+        "resolutionId": "ER-17-A",
+        "established": "Highsun 18, 1040 BF (Day 18)",
+        "passedBy": "Cohort Council, unanimous \u2014 6 for, 0 against, 0 abstaining",
+        "enforcer": "Pond Patrol",
+        "enforcerFactionId": "pond_patrol",
+        "commander": "Captain Fernback (acting; Speaker L absent since the Aegis decoy reveal)",
+        "issuingVoice": "Speaker L, Voice of the Pond",
+        "protocol": "Apprehend, but do not slay. Lethal force denied unless by threat defied.",
+        "purpose": "To account for actions that endangered the Cohort \u2014 not as punishment, but as restoration.",
+        "lethalForceRule": "Only Speaker L may authorise killing. With the Speaker absent, Captain Fernback has ruled that no docket subject may be killed except in immediate defence of a toad's life.",
+        "quote": {
+          "text": "This is not retribution's art, but the mending of the fractured heart. By pond and law, by vow and steel, the wound must close for peace to heal.",
+          "speaker": "Speaker L",
+          "day": "Day 18"
+        },
+        "pillars": [
+          {
+            "name": "CONTAIN",
+            "icon": "\ud83d\udee1\ufe0f",
+            "description": "Halt the spread of disorder before it reaches the Cohort."
+          },
+          {
+            "name": "ACCOUNT",
+            "icon": "\ud83d\udcdc",
+            "description": "Every action has a cost that must be acknowledged out loud."
+          },
+          {
+            "name": "RESTORE",
+            "icon": "\ud83d\udd28",
+            "description": "Rebuild what was broken, heal what was wounded, return what was taken."
+          },
+          {
+            "name": "ADHERE",
+            "icon": "\u2694\ufe0f",
+            "description": "To the Will of the Cohort, as spoken by the Council."
+          }
+        ],
+        "standingOrders": [
+          {
+            "id": "ED-001",
+            "title": "The Accountability Docket",
+            "status": "Active",
+            "issued": "Day 18",
+            "effect": "Establishes formal charges against Archie, Bowser, Waluigi, Dan, and Eager, and creates this register."
+          },
+          {
+            "id": "ED-002",
+            "title": "Containment Protocol Alpha",
+            "status": "Active",
+            "issued": "Day 19",
+            "effect": "Authorises the Pond Patrol to hold a containment perimeter around Raventree Manor."
+          },
+          {
+            "id": "ED-003",
+            "title": "Iron Mandate Response",
+            "status": "Suspended \u2014 superseded by the Order 120 emergency",
+            "issued": "Day 21",
+            "effect": "Would have decided withdrawal, negotiation, or resistance. The vote was suspended mid-session."
+          }
+        ],
+        "playerImpact": [
+          "Being listed here is not the same as being an enemy. Docket subjects are still allied with the Liberated Toads and can be helped, escorted, or defended by them.",
+          "A Pond Patrol unit that meets a listed subject will attempt apprehension first. Fighting back moves a subject up the priority ladder and damages standing with both the Liberated Toads and the Pond Patrol.",
+          "Surrendering, submitting evidence, or completing a restoration task can move a subject from 'at large' to 'probationary' or clear them entirely.",
+          "The Patrol shares intelligence with the Cohort Council. Anything told to a Chronicler ends up in the record, and the record is used at review."
+        ],
+        "targets": [
+          {
+            "id": "archie",
+            "articleId": "archie_miser",
+            "name": "Archie Miser",
+            "portrait": "\ud83e\uddd9",
+            "status": "at_large",
+            "priority": "high",
+            "added": "Day 18",
+            "lastSeen": "Day 20 \u2014 dimensional breach at Raventree Manor",
+            "charges": [
+              "Reckless Mind \u2014 loss of magical control",
+              "Greenhouse Inferno \u2014 destruction of property, injury to allies",
+              "Casualties resulting from uncontrolled spellcasting"
+            ],
+            "evidence": [
+              "Multiple witness accounts recorded by the Chroniclers",
+              "Physical damage assessment of Raventree Manor",
+              "Archie's own public confession on WAHbook"
+            ],
+            "notes": "Escaped custody with help from an Iron Legion spy calling himself 'Jerry'. Last observed traversing alien dimensions via his Third Eye. Considered magically unstable and dangerous, but not malicious.",
+            "speakerNote": "Archie is not evil. He is broken. We seek to help him, not destroy him.",
+            "restorationPath": "Submit to a Chronicler interview, fund the greenhouse rebuild, and accept a Mender's binding on uncontrolled casting."
+          },
+          {
+            "id": "bowser",
+            "articleId": "bowser",
+            "name": "King Bowser",
+            "portrait": "\ud83d\udc22",
+            "status": "complicated",
+            "priority": "medium",
+            "added": "Day 18",
+            "lastSeen": "Day 20 \u2014 Raventree Manor area",
+            "charges": [
+              "Flame without Restraint \u2014 collateral fire damage",
+              "Destruction of infrastructure aboard the Vigilance"
+            ],
+            "evidence": [
+              "Burn damage assessment filed by the Crafters",
+              "Witness accounts from the Barrel Survivors"
+            ],
+            "notes": "Whereabouts unknown; may be travelling with Waluigi. Politically complicated \u2014 he is a foreign monarch, a current ally, and an entity the Iron Mandate has already declared illegal. His cooperation during the X.O. confrontation is formally noted in his favour.",
+            "speakerNote": "Bowser is an ally, but his flames have cost us. Accountability, not vengeance.",
+            "restorationPath": "Fund or supply the Crafters' repair backlog. No apprehension attempt is authorised while the Iron Legion hunts him."
+          },
+          {
+            "id": "waluigi",
+            "articleId": "waluigi",
+            "name": "Waluigi",
+            "portrait": "\ud83d\udc9c",
+            "status": "at_large",
+            "priority": "medium",
+            "added": "Day 18",
+            "lastSeen": "Day 20 \u2014 fleeing Raventree Manor on a summoned wyvern",
+            "charges": [
+              "Jester's Sin \u2014 chaotic magical behaviour",
+              "Breach of Lab and Discipline",
+              "The Cone of Cold Incident \u2014 nearly killed Eager"
+            ],
+            "evidence": [
+              "Frost injury records held by the Menders",
+              "Laboratory breach evidence",
+              "Eager's medical file"
+            ],
+            "notes": "Departed with Green T. Owns the cursed manor at the centre of the crisis, which the Patrol considers relevant and Waluigi considers slander. Unclear whether genuinely malicious or simply chaotic.",
+            "speakerNote": "The purple one is chaos incarnate. Approach with extreme caution.",
+            "restorationPath": "Grant the Cohort lawful access to Raventree Manor and compensate Eager's care. The archive notes that the subject wrote this encyclopedia entry himself."
+          },
+          {
+            "id": "dan_docket",
+            "articleId": "dan",
+            "name": "Dan",
+            "portrait": "\ud83d\udc38\u2694\ufe0f",
+            "status": "probationary_active",
+            "priority": "low",
+            "added": "Day 18",
+            "lastSeen": "Day 21 \u2014 Raventree Manor (combat)",
+            "charges": [
+              "Unstable Hand \u2014 magical endangerment"
+            ],
+            "evidence": [
+              "Witness accounts",
+              "Community inquiry record: Liberated Toads v. Dan, 1040 BF"
+            ],
+            "notes": "Returned to active duty during the wraith attack despite the loss of his arm. Demonstrated control and loyalty under fire. Charges suspended pending review.",
+            "speakerNote": "His spirit is unbroken. He fights for us still.",
+            "restorationPath": "Complete the review. The Chroniclers already recommend full clearance.",
+            "linkedTrial": "liberated_toads_v_dan_1040"
+          },
+          {
+            "id": "eager_docket",
+            "articleId": "eager",
+            "name": "Eager",
+            "portrait": "\ud83d\udc38\ud83d\udde1\ufe0f",
+            "status": "cleared_active",
+            "priority": "low",
+            "added": "Day 18",
+            "lastSeen": "Day 21 \u2014 the Silent Grove / Feywild fracture",
+            "charges": [
+              "Blind Loyalty \u2014 crossing the Line of Engagement",
+              "Disobeying direct orders in combat"
+            ],
+            "evidence": [
+              "After-action reports",
+              "Witness accounts"
+            ],
+            "notes": "Woke from his coma and rejoined combat operations the same day. Currently beyond the perimeter in the Feywild fracture, which the Patrol classifies as 'out of reach, not at large'.",
+            "speakerNote": "Eager's heart was in the right place. His body paid the price, and he paid it again.",
+            "restorationPath": "Charges functionally spent. The file stays open only so the precedent is recorded."
+          },
+          {
+            "id": "green_decoy",
+            "articleId": null,
+            "name": "The Green Decoy (identity unknown)",
+            "portrait": "\ud83d\udc38\ud83d\udfe2",
+            "status": "captured_by_legion",
+            "priority": "high",
+            "added": "Day 21",
+            "lastSeen": "Day 21 \u2014 Aegis Command interrogation room",
+            "charges": [
+              "Impersonating the Voice of the Pond",
+              "Spreading false doctrine ('The Fractured Heart')",
+              "Endangering the Cohort"
+            ],
+            "evidence": [
+              "Interrogation logs recovered by Bones"
+            ],
+            "notes": "A toad wearing Speaker L's face and using Speaker L's codes. Claimed his skin turned green from mushrooms. Currently in Iron Legion custody, which makes him simultaneously a wanted subject and a prisoner the Cohort may have to rescue.",
+            "speakerNote": "Who is this impostor? And who taught him our codes?",
+            "restorationPath": "None offered. This file is an investigation, not an accountability case."
+          }
+        ],
+        "resolved": [
+          {
+            "name": "The Mole (identity unconfirmed)",
+            "resolution": "Escaped with Iron Legion forces",
+            "date": "Day 16",
+            "charges": [
+              "Infiltration",
+              "Espionage",
+              "Conspiracy to capture Cohort members"
+            ],
+            "notes": "Operated as a trusted Scout cohort leader before the betrayal. Responsible for Bones' capture and for compromising faction security. The seventh Council seat remains empty in his place.",
+            "speakerNote": "This one will face the Pond's justice. Someday."
+          }
+        ],
+        "unresolvedThreads": [
+          "Who trained the Green Decoy in Pond Patrol codes?",
+          "Does ER-17-A survive Speaker L's absence, or does it expire with the voice that issued it?",
+          "Whether Captain Fernback's acting command is lawful without a Council confirmation vote.",
+          "How the docket treats subjects the Iron Legion also wants \u2014 competing claims on the same body.",
+          "Whether restoration tasks can be completed by proxy, and who signs off."
+        ]
+      },
+      "currentPosture": {
+        "asOf": "Highsun 21, 1040 BF (Day 21)",
+        "governmentType": "Emergency command \u2014 Cohort Council in disarray, Captain Fernback acting",
+        "trigger": "Order 120 and the discovery that the Speaker L in Legion custody is a decoy",
+        "notes": "The docket was written by a leader who believed in process. It is now being enforced by a captain running a war. Every entry below should be read with that shift in mind."
+      },
+      "linkedRecords": {
+        "factions": [
+          "pond_patrol",
+          "iron_legion",
+          "disaster_inc"
+        ],
+        "battles": [
+          "siege_raventree",
+          "massacre_aegis",
+          "iron_sky_breach",
+          "reclamation_of_the_vigilance"
+        ],
+        "trials": [
+          "liberated_toads_v_dan_1040"
+        ],
+        "locations": [
+          "raventree_manor",
+          "aegis_command",
+          "vigilance"
+        ],
+        "characters": [
+          "speaker_l",
+          "captain_fernback",
+          "elder_mudcap",
+          "scribe_dewdrop",
+          "forgemaster_ironspore",
+          "warden_thornshell",
+          "healer_mistpetal",
+          "bones",
+          "toad_lee",
+          "roger",
+          "ryan",
+          "dan",
+          "eager"
+        ]
+      },
+      "councilVotes": [
+        {
+          "id": "V-2021-003",
+          "title": "Response to Order 120",
+          "type": "emergency",
+          "status": "active",
+          "proposedBy": "Captain Fernback",
+          "day": 21,
+          "description": "General Ironhand has ordered the execution of all Toad prisoners at Aegis Command. Bones is among them.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Suicide assault on Aegis Command",
+              "votes": 2,
+              "voters": [
+                "Warden Thornshell",
+                "Captain Fernback"
+              ]
+            },
+            {
+              "id": "B",
+              "text": "The hjumpik Bargain \u2014 use the Oracle as leverage",
+              "votes": 1,
+              "voters": [
+                "Forgemaster Ironspore"
+              ]
+            },
+            {
+              "id": "C",
+              "text": "Distraction strike on a secondary target",
+              "votes": 1,
+              "voters": [
+                "Scribe Dewdrop"
+              ]
+            }
+          ],
+          "quorum": {
+            "required": 4,
+            "current": 4
+          },
+          "notes": "Speaker absent. Fernback assuming temporary command."
+        },
+        {
+          "id": "V-2021-002",
+          "title": "Fate of the Iron Legion Prisoners",
+          "type": "standard",
+          "status": "pending",
+          "proposedBy": "Warden Thornshell",
+          "day": 20,
+          "description": "Six Iron Legion soldiers are held by the Cohort. The Iron Mandate complicates their status.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Execute as enemy combatants",
+              "votes": 1,
+              "voters": [
+                "Warden Thornshell"
+              ]
+            },
+            {
+              "id": "B",
+              "text": "Exchange them for Bones and any other captured toads",
+              "votes": 2,
+              "voters": [
+                "Elder Mudcap",
+                "Captain Fernback"
+              ]
+            },
+            {
+              "id": "C",
+              "text": "Release with terms",
+              "votes": 1,
+              "voters": [
+                "Scribe Dewdrop"
+              ]
+            },
+            {
+              "id": "D",
+              "text": "Continue detention pending formal trial",
+              "votes": 1,
+              "voters": [
+                "Healer Mistpetal"
+              ]
+            }
+          ],
+          "quorum": {
+            "required": 4,
+            "current": 5
+          },
+          "notes": "Forgemaster Ironspore abstains, citing conflict of interest \u2014 his brother was killed by the Legion."
+        },
+        {
+          "id": "V-2018-001",
+          "title": "Emergency Resolution 17-A",
+          "type": "constitutional",
+          "status": "passed",
+          "proposedBy": "The Cohort Council",
+          "day": 18,
+          "result": "Enacted \u2014 Speaker L granted emergency powers; the Accountability Docket established",
+          "tally": {
+            "for": 6,
+            "against": 0,
+            "abstain": 0
+          },
+          "longTermEffect": "Centralised authority, increased order, unresolved liberty concerns."
+        },
+        {
+          "id": "V-2019-001",
+          "title": "Containment of Raventree Manor",
+          "type": "emergency",
+          "status": "passed",
+          "proposedBy": "Speaker L",
+          "day": 19,
+          "result": "Enacted \u2014 perimeter established",
+          "tally": {
+            "for": 5,
+            "against": 1,
+            "abstain": 0
+          },
+          "dissent": "Healer Mistpetal voted against, concerned about cutting off trapped individuals.",
+          "longTermEffect": "Manor contained, situation unresolved, wraiths engaged the perimeter."
+        }
+      ]
     }
   },
   {
@@ -679,7 +1079,13 @@
       "speaker_l",
       "liberated_toads",
       "raventree_manor"
-    ]
+    ],
+    "systemRef": {
+      "systemId": "pond_patrol_docket",
+      "route": "#/pond-docket",
+      "role": "Enforcement arm \u2014 the Pond Patrol executes every warrant, perimeter, and apprehension listed on the docket.",
+      "canonicalDocketHolder": "liberated_toads"
+    }
   },
   {
     "id": "mages_guild",
@@ -921,8 +1327,7 @@
       "shadow_estate_mirror_rooftop_escape",
       "tanukiburt"
     ]
-  }
-,
+  },
   {
     "id": "undertale_monsters",
     "name": "The Monster Underground",
