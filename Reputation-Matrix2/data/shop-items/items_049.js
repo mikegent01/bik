@@ -1185,23 +1185,43 @@ export const ITEMS_049 = {
   "wario_land_jester_soul_bangle": {
     "id": "wario_land_jester_soul_bangle",
     "name": "Jester Soul Bangle",
-    "description": "A cursed accessory that grants entropy powers",
+    "description": "The Jester Soul Bangle is a cursed accessory with an eerie golden hue and etched with arcane symbols. Crafted by The Cosmic Jester cult, it grants its wearer chaotic power, laughing uncontrollably after use. It can only be used in both Wario Land and Animatopia, where its entropy effects are most potent. When activated, it deals 3d8 damage to targets with chaotic or unpredictable behavior and grants the wearer a 1d4 bonus on attack rolls and saving throws.",
     "category": "equipment",
     "price": 7500,
     "icon": "🎭",
     "stock": 1,
     "rarity": "legendary",
     "effects": [
-      "Deals 3d8 damage to targets with chaotic or unpredictable behavior",
-      "Grants 1d4 bonus to roll when attacking or dodging",
-      "Causes the wearer to laugh uncontrollably for 1 round after each use",
-      "Triggers a 1d6 entropy burst that damages enemies within 3m",
-      "Only usable in both Wario Land and Animatopia",
-      "Crafted by: The Cosmic Jester cult using entropy core fragments"
+      "Chaotic Damage",
+      "Entropy Boost"
     ],
     "vendor": "wario_land",
     "shippedBy": "Pianta Chuck Express",
-    "levelRequirement": 8
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Chaotic Damage",
+        "rules": "When activated, this bangle deals 3d8 damage to targets with chaotic or unpredictable behavior. The effect is instantaneous and ends immediately after use."
+      },
+      {
+        "title": "Entropy Boost",
+        "rules": "The wearer gains a 1d4 bonus on attack rolls and saving throws for 1 minute. This effect ends if the wearer's laughter stops, they take damage, or at the end of their next turn."
+      }
+    ],
+    "levelRequirementReason": "This bangle requires a high level to wield effectively due to its chaotic nature and unique effects.",
+    "vendorReason": "Wario Land is familiar with the lore of The Cosmic Jester cult, making it the appropriate vendor for this cursed accessory.",
+    "shippingDetail": "The bangle must be delivered by Pianta Chuck Express to ensure its entropy powers are active during transit.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous and ends immediately after use for Chaotic Damage, lasts 1 minute for Entropy Boost",
+      "endsWhen": "Target takes damage, laughter stops, or at the end of next turn",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The bangle's unique and powerful effects justify its high price in terms of XP.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-24T23:48:39.899741+00:00",
+    "aiReviewedAt": "2026-07-24T23:48:39.899741+00:00",
+    "aiReviewVersion": 1
   },
   "wario_land_king_boo_portrait_scrap": {
     "id": "wario_land_king_boo_portrait_scrap",

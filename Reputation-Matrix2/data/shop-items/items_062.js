@@ -1643,21 +1643,44 @@ export const ITEMS_062 = {
   "pokemon_item_trainer_consultation": {
     "id": "pokemon_item_trainer_consultation",
     "name": "Elite Trainer Consultation",
-    "description": "Feeling overwhelmed by the sheer number of Pokémon in this region? A seasoned trainer will spend an hour analyzing your team's strengths and weaknesses, offering tailored advice on battling strategies and potential evolution paths.  Don’t ask them how they know so much... it’s a secret!",
+    "description": "Honed by years of experience in the Pokémon League, Elite Trainer Consultation is a one-hour session where you receive an in-depth analysis of your team’s performance and potential. The seasoned trainer will pinpoint your Pokémon's strengths and weaknesses, offering strategic advice on battling techniques and even suggesting paths to evolution that could turn your underdogs into champions. With this consultation, your team not only gains tactical improvements but also the confidence to tackle any challenge.",
     "category": "services",
-    "price": 1200,
+    "price": 1000,
     "icon": "🗣️",
     "stock": 34,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "grants a free battle report analysis",
-      "provides +2 to attack and defense for 1 hour",
-      "chance to learn a new battle technique"
+      "Enhances battle tactics",
+      "Boosts team morale"
     ],
     "vendor": "league_store",
     "shippedBy": "Certified Trainer Courier",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Tactical Boost",
+        "rules": "For one hour after consulting with an Elite Trainer, your Pokémon gain a +2 bonus to attack and defense. This effect ends when the consultation duration expires."
+      },
+      {
+        "title": "Morale Boost",
+        "rules": "Your Pokémon's morale is bolstered by 1 point for each level of the Pokémon in your team, up to a maximum increase of +5. This boost lasts until the next rest or until you enter battle again."
+      }
+    ],
+    "levelRequirementReason": "Even beginners can benefit from strategic advice and morale support.",
+    "vendorReason": "The league store is the official source for expert consultations within the Pokémon League ecosystem.",
+    "shippingDetail": "The courier ensures that your consultation arrives fresh and ready to be scheduled immediately.",
+    "usage": {
+      "activation": "A single use, activated by scheduling a one-hour session with an Elite Trainer.",
+      "duration": "One hour from the start of the consultation.",
+      "endsWhen": "The consultation ends or when you enter battle again.",
+      "charges": "Unlimited uses within a 24-hour period."
+    },
+    "priceReason": "Balanced to offer strategic advantage without being game-breaking, this service is priced at 1000 XP.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:58:30.894443+00:00",
+    "aiReviewedAt": "2026-07-24T23:58:30.894443+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_ancient_badge_fragment": {
     "id": "pokemon_item_ancient_badge_fragment",
@@ -3277,21 +3300,44 @@ export const ITEMS_062 = {
   "connectopia_curiosity_geode_of_echoes": {
     "id": "connectopia_curiosity_geode_of_echoes",
     "name": "Echoing Stone of the Ancients",
-    "description": "This shimmering geode seems to whisper secrets of Connectopia’s past! It's said that holding it allows you to hear faint echoes of long-gone pioneers – mostly complaining about the weather, but still!",
+    "description": "The Echoing Stone of the Ancients, a shimmering geode encased in veins of silver and lapis lazuli, hums softly as it whispers secrets of Connectopia’s past. It is said that those who hold this stone can hear faint echoes of long-gone pioneers, their complaints about the weather mingled with tales of adventure. The geode occasionally grants cryptic clues about nearby resources, but be wary—occasionally, wandering spirits may be drawn to its echo, mostly harmless, but still a curious encounter for the brave explorer.",
     "category": "curiosities",
-    "price": 8500,
+    "price": 1000,
     "icon": "🗣️",
     "stock": 12,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "provides a small bonus to perception checks",
-      "occasionally grants a cryptic clue about nearby resources",
-      "chance to attract wandering spirits (mostly harmless)"
+      "Whispering Echoes",
+      "Resource Clue"
     ],
     "vendor": "pioneer_post",
     "shippedBy": "Block Smith Delivery",
-    "levelRequirement": 10
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Whispering Echoes",
+        "rules": "When you spend an action to focus on the stone, roll a Perception check. On a successful result, you hear faint echoes of past events, granting advantage on one Perception check made within the next hour."
+      },
+      {
+        "title": "Resource Clue",
+        "rules": "At the start of your turn while holding the stone, there is a 25% chance that it grants you a cryptic clue about nearby resources. This effect does not provoke opportunity attacks and can occur up to once per day."
+      }
+    ],
+    "levelRequirementReason": "The geode’s power requires a deeper understanding of the ancient world, which is only attainable at higher levels.",
+    "vendorReason": "Pioneer Post has specialized in connecting adventurers with relics and curiosities from Connectopia's past.",
+    "shippingDetail": "Delivered by Block Smith’s trusted couriers, known for their punctuality and reliability.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "When the focus ends or you make another Perception check within an hour of hearing the echoes.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Echoing Stone of the Ancients provides a significant advantage in exploration and resource gathering, justifying its high price.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-24T23:58:47.969200+00:00",
+    "aiReviewedAt": "2026-07-24T23:58:47.969200+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_quantum_pen": {
     "id": "kivotos_item_quantum_pen",
@@ -3399,21 +3445,44 @@ export const ITEMS_062 = {
   "teyvat_item_crimson_echo_pearl": {
     "id": "teyvat_item_crimson_echo_pearl",
     "name": "Crimson Echo Pearl of Inazuma",
-    "description": "This pearl vibrates with the lingering energy of past battles in Inazuma. Holding it allows you to briefly glimpse fragments of forgotten conflicts, potentially revealing hidden weaknesses - just don't get lost in the echoes!",
+    "description": "The Crimson Echo Pearl of Inazuma hums with the raw energy of forgotten battles, its surface etched with the remnants of past conflicts. Held in your palm, it reveals fleeting glimpses into enemy strategies and hidden weaknesses, but be wary; lingering echoes can distort perception if used too often. Crafted by the artisans of Inazuma from ancient battle relics, this pearl is a relic of war, now repurposed for strategic insight.",
     "category": "curiosities",
-    "price": 5200,
+    "price": 1000,
     "icon": "🔮",
     "stock": 18,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "reveal_vulnerability_on_target_once_per_day",
-      "chance_to_gain_insightful_information",
-      "small_chance_to_confuse_enemy"
+      "reveal_vulnerability",
+      "insightful_glimpse"
     ],
-    "vendor": "inazuma_imports",
+    "vendor": "Inazuma Imports",
     "shippedBy": "Sea Serpent Courier",
-    "levelRequirement": 10
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Reveal Vulnerability",
+        "rules": "When you activate this pearl once per day, it grants you advantage on a single attack roll against a target. The target must succeed on a DC 15 Wisdom saving throw or be considered vulnerable to your next attack against them for the rest of the encounter."
+      },
+      {
+        "title": "Insightful Glimpse",
+        "rules": "Once per day, you can use this pearl to gain insight into an enemy's strategy. For the next minute, you have advantage on perception checks to detect hidden weaknesses or patterns in their movements."
+      }
+    ],
+    "levelRequirementReason": "The pearl requires a certain level of experience and focus to harness its strategic insights effectively.",
+    "vendorReason": "Inazuma Imports is renowned for its connections with the artisans who create these relics, ensuring authenticity and quality.",
+    "shippingDetail": "The Sea Serpent Courier delivers the pearl within a week of your order, carefully wrapped to protect this delicate artifact.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous reveal; lasts one minute for insightful glimpse",
+      "endsWhen": "Charges run out or target saves successfully against revealed vulnerability",
+      "charges": "1 use per day"
+    },
+    "priceReason": "The pearl's rarity and the strategic value it provides justify its price, aligning with standard market rates for such powerful curiosities.",
+    "priceOriginal": 5200,
+    "priceReviewedAt": "2026-07-24T23:58:58.119411+00:00",
+    "aiReviewedAt": "2026-07-24T23:58:58.119411+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_gravity_crumb": {
     "id": "doughnut_hole_gravity_crumb",
@@ -3502,21 +3571,44 @@ export const ITEMS_062 = {
   "doughnut_hole_void_slice": {
     "id": "doughnut_hole_void_slice",
     "name": "Nothingness Nibbler",
-    "description": "A deceptively delicious slice of void-infused dough. When consumed, it momentarily grants the ability to whisper to shadows and gain a fleeting understanding of forgotten secrets – but don't stare at it for too long, or you might become one with the hole!",
+    "description": "The Nothingness Nibbler is a deceptively mundane slice of dough, its surface etched with arcane runes that shimmer and fade like shadows. When consumed, it grants the eater the eerie ability to whisper secrets into the void, gaining fleeting insights into hidden knowledge. However, the core of this treat is hollow; staring too long at the void-infused center can cause a traveler to merge with the hole, leaving them forever lost within its depths.",
     "category": "consumables",
-    "price": 1200,
+    "price": 1000,
     "icon": "🌑",
     "stock": 78,
     "rarity": "epic",
     "stockType": "in_stock",
     "effects": [
-      "grant_insight",
-      "chance_to_reveal_hidden_objects",
-      "duration_15s"
+      "whisper_to_void",
+      "insight_into_forbidden_knowledge"
     ],
     "vendor": "void_vendor",
     "shippedBy": "Dimensional Parcel",
-    "levelRequirement": 9
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Whisper to Void",
+        "rules": "As an action, you can whisper a question into the void. If your target is a creature or object within line of sight, you gain advantage on any Wisdom (Insight) check made against that target for 1 minute."
+      },
+      {
+        "title": "Insight into Forbidden Knowledge",
+        "rules": "For 10 minutes after consuming the Nothingness Nibbler, you can make a DC 20 Intelligence (Arcana) check to gain insight into one forgotten secret related to your current location or recent events. This effect can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The arcane power within the Nothingness Nibbler requires a certain level of magical awareness and discipline.",
+    "vendorReason": "Void Vendor specializes in items that bridge the gap between the mundane and the mystical, making this treat an ideal addition to their inventory.",
+    "shippingDetail": "The delivery is swift but mysterious; the parcel arrives wrapped in shadowy fabric, hinting at its origins from beyond reality.",
+    "usage": {
+      "activation": "Action or reaction (to whisper into void)",
+      "duration": "10 minutes (insight effect) / 1 minute (advantage on Insight check)",
+      "endsWhen": "Use limit reached",
+      "charges": "Unlimited, but limited to one use per short rest"
+    },
+    "priceReason": "The Nothingness Nibbler's price reflects the rarity of its ingredients and the complex enchantments required for its creation.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:59:09.069640+00:00",
+    "aiReviewedAt": "2026-07-24T23:59:09.069640+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_mythic_void_lantern": {
     "id": "almost_edge_mythic_void_lantern",

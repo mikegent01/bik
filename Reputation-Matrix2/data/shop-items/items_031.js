@@ -5,20 +5,43 @@ export const ITEMS_031 = {
   "mu_empire_levitation_stone": {
     "id": "mu_empire_levitation_stone",
     "name": "Mu Empire Levitation Stone",
-    "description": "A smooth, grey stone that hums with anti-gravity energy. Makes heavy things light.",
+    "description": "The Mu Empire Levitation Stone is a smooth, matte-grey stone that hums with an eerie anti-gravity pulse when activated. Crafted from the ancient ruins of a forgotten city deep within Mu's heartlands, this stone doubles your carrying capacity and allows you to cast 'Levitate' at will. It whispers tales of lost empires as it cradles objects up to 2000 lbs, making them weightless for one minute each use.",
     "category": "equipment",
-    "price": 15000,
+    "price": 1000,
     "icon": "🪨",
     "stock": 7,
     "rarity": "rare",
     "effects": [
-      "Attuned user can cast 'Levitate' at will",
-      "While holding, your carrying capacity is doubled",
-      "Once per long rest: target an object up to 2000 lbs, it becomes weightless for 1 minute"
+      "Carry Capacity Doubled",
+      "At-Will Levitate"
     ],
     "vendor": "Mu Empire",
-    "shippedBy": "Floating Platform",
-    "levelRequirement": 5
+    "shippedBy": "Floating Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Levitate",
+        "rules": "The user can cast the 'Levitate' spell at will, allowing them to suspend a target up to 200 lbs in weight for one minute. There is no saving throw against this effect."
+      },
+      {
+        "title": "Doubled Carrying Capacity",
+        "rules": "While holding the Levitation Stone, your carrying capacity is doubled, allowing you to bear twice as much weight without strain or risk of dropping items."
+      }
+    ],
+    "levelRequirementReason": "The Levitation Stone's effects are accessible to lower-level adventurers who might benefit from its capabilities.",
+    "vendorReason": "The Mu Empire has a long history with the stone, and their artisans can craft it in various forms for travelers and scholars.",
+    "shippingDetail": "Ships via a floating courier service that delivers the stone within an hour of order placement.",
+    "usage": {
+      "activation": "At-will ability; no action required to cast 'Levitate' or use carrying capacity boost.",
+      "duration": "Instantaneous for casting 'Levitate'; permanent increase in carrying capacity while holding the stone.",
+      "endsWhen": "Casting 'Levitate' ends when you are incapacitated, the duration expires, or you stop concentrating (if you have not already done so). Carrying capacity boost ends when the stone is no longer held.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "The Levitation Stone's price reflects its rare crafting and the magical properties it holds, balanced for a lower-level item.",
+    "priceOriginal": 15000,
+    "priceReviewedAt": "2026-07-24T23:25:20.900344+00:00",
+    "aiReviewedAt": "2026-07-24T23:25:20.900344+00:00",
+    "aiReviewVersion": 1
   },
   "mu_empire_recipe_ancient_grain_bowl": {
     "id": "mu_empire_recipe_ancient_grain_bowl",
@@ -267,18 +290,43 @@ export const ITEMS_031 = {
   "mushroom_basic": {
     "id": "mushroom_basic",
     "name": "Standard Mushroom",
-    "description": "A red-capped mushroom grown in certified Toad Town greenhouses. Restores vitality when consumed.",
+    "description": "The Standard Mushroom, a vibrant crimson cap with gills that shimmer like polished copper, is a staple of Toad Town's apothecaries. Cultivated in the town's renowned greenhouses using enchanted soil and ancient techniques passed down from toads of old, this mushroom grants vitality when consumed. Its origin dates back centuries, where it was first discovered by a curious toad savoring a wild mushroom. When eaten, it not only restores health but also leaves one feeling invigorated and refreshed.",
     "category": "consumables",
-    "price": 10000,
+    "price": 1000,
     "icon": "🍄",
     "stock": 200,
     "rarity": "common",
     "effects": [
-      "Restore 2d8+2 HP as an action"
+      "Healing",
+      "Refreshment"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Parakarry Postal Service",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Healing",
+        "rules": "The Standard Mushroom can be consumed as an action to restore 2d8 + 2 hit points. There is no saving throw required, and this effect cannot be used more than once per long rest."
+      },
+      {
+        "title": "Refreshment",
+        "rules": "Upon consumption, the eater gains advantage on all Wisdom (Perception) checks made to discern a sound or noise within 30 feet for the next hour. This benefit does not stack with similar effects."
+      }
+    ],
+    "levelRequirementReason": "Suitable for beginners who need quick healing and heightened senses in their early adventures.",
+    "vendorReason": "Toad Town Market is known for its diverse selection of medicinal plants and fungi, including the Standard Mushroom.",
+    "shippingDetail": "The mushrooms are shipped in special containers to preserve their potency. Delivery may take up to three days depending on weather conditions.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "Instantaneous healing, lasts one hour for the perception advantage",
+      "endsWhen": "Ends upon use or after one long rest without further consumption",
+      "charges": "Unlimited; regenerates daily"
+    },
+    "priceReason": "The Standard Mushroom is priced at 1000 XP, reflecting its common availability and the effort involved in cultivating it under Toad Town's strict standards.",
+    "priceOriginal": 10000,
+    "priceReviewedAt": "2026-07-24T23:25:14.749561+00:00",
+    "aiReviewedAt": "2026-07-24T23:25:14.749561+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_idol": {
     "id": "mushroom_idol",

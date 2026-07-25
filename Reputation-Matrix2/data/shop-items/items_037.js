@@ -5,37 +5,83 @@ export const ITEMS_037 = {
   "rogueport_shadow_tongue": {
     "id": "rogueport_shadow_tongue",
     "name": "Shadow Tongue",
-    "description": "A cursed tongue that whispers secrets of the underworld. When worn, it reveals hidden truths and amplifies deception. Ideal for blackmail or seduction.",
+    "description": "The Shadow Tongue is a cursed appendage, crafted from the sinew of shadows and the whispers of the dead. When worn, it amplifies your voice, making you a master of deception and fear. It grants +20% to Deception checks and causes enemies within 15 feet to be frightened until they succeed on a saving throw (DC 14). The cursed nature of this tongue ensures that any secrets revealed through its use are never truly forgotten by the listener.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Reveals hidden truths when spoken to enemies",
-      "Grants +20% chance to succeed in deception checks",
-      "Causes enemies to fear the wearer’s voice"
+      "Deceptive Amplifier",
+      "Fearful Whisper"
     ],
     "vendor": "rogueport",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Deceptive Amplifier",
+        "rules": "When you speak, your voice carries an aura that enhances your Deception checks. This effect is passive and does not require action to activate."
+      },
+      {
+        "title": "Fearful Whisper",
+        "rules": "Enemies within 15 feet of you must succeed on a DC 14 Wisdom saving throw or become frightened for 1 minute. The effect ends early if the target takes any damage, moves out of range, or is incapacitated."
+      }
+    ],
+    "levelRequirementReason": "The Shadow Tongue's curse demands a certain level of experience to wield effectively.",
+    "vendorReason": "Rogueport has a reputation for dealing in the darkest secrets and curiosities, making it the perfect vendor for such an item.",
+    "shippingDetail": "The Shadow Tongue arrives via a shadowy courier who delivers it personally, ensuring its arrival is both timely and mysterious.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Instantaneous; ends when the target takes damage, moves out of range, or becomes incapacitated.",
+      "endsWhen": "The frightened condition ends as normal.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at a price that reflects its cursed nature and the specialized crafting required for such an item.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:32:59.647085+00:00",
+    "aiReviewedAt": "2026-07-24T23:32:59.647085+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_shadow_torch": {
     "id": "rogueport_shadow_torch",
     "name": "Shadow Torch",
-    "description": "A flickering flame that burns only in the dark, illuminating areas without revealing the user’s presence. Perfect for infiltration and ambush.",
-    "price": 4500,
+    "description": "The Shadow Torch exudes an eerie, flickering light that dances only in the deepest shadows, casting a halo of dim luminescence without betraying its wielder's position. Its flame is forged from the twilight itself, leaving no trace when extinguished and granting +2 to Stealth checks for up to 10 minutes with each use. Perfect for infiltration missions, it allows rogue agents to move unseen through darkened corridors and hidden enclaves.",
+    "price": 1000,
     "icon": "🌑",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "Illuminates 10 meters in darkness for 30 seconds",
-      "Leaves no trace when extinguished",
-      "Grants +2 stealth rating while active"
+      "Stealth Illumination",
+      "No Trace"
     ],
     "vendor": "rogueport",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Stealth Illumination",
+        "rules": "When activated as a bonus action, the Shadow Torch illuminates an area of 10 meters in complete darkness for up to 30 minutes. The torch leaves no trace when extinguished and grants +2 to Stealth checks while active."
+      },
+      {
+        "title": "No Trace",
+        "rules": "The flame dies without a trace, leaving no ash or scent behind, ensuring the user's passage remains undetected even after use."
+      }
+    ],
+    "levelRequirementReason": "This item requires a level 7 rogue to wield due to its complexity and specialized nature.",
+    "vendorReason": "Rogueport, with its extensive network of covert operations, is the only vendor capable of sourcing and selling such an advanced tool for stealth missions.",
+    "shippingDetail": "Ships via a Rakasha spirit courier known to navigate even the thickest shadows without detection.",
+    "usage": {
+      "activation": "Bonus action to activate and extinguish, or use passively while kept lit.",
+      "duration": "Up to 30 minutes per activation",
+      "endsWhen": "Extinguished or after its duration expires",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The Shadow Torch is priced at 1000 XP due to its epic rarity and specialized utility for stealth and infiltration.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-24T23:32:56.104285+00:00",
+    "aiReviewedAt": "2026-07-24T23:32:56.104285+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_shadowed_soul_amber": {
     "id": "rogueport_shadowed_soul_amber",
@@ -813,20 +859,43 @@ export const ITEMS_037 = {
   "rogueport_silken_scuttle": {
     "id": "rogueport_silken_scuttle",
     "name": "Silken Scuttle",
-    "description": "A woven silk cord infused with stolen venom, perfect for silent escapes or tying down foes with deadly grace. Glows faintly under moonlight, revealing hidden paths.",
+    "description": "The Silken Scuttle is a delicate, shimmering silk cord that weaves through shadows like a ghostly thread. Its weave is infused with the stolen venom of nightshade spiders, making it both deadly and dexterous. In moonlit nights, it glows faintly, revealing hidden paths and guiding you unseen through perilous terrain. A relic from the shadowy alleys of Rogueport, this cord is as much an art form as a weapon, perfect for binding foes with grace or slipping away without a sound.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+15% stealth in shadows",
-      "+5% chance to disarm enemy",
-      "+10% chance to trigger trap if enemy is nearby"
+      "+15% Stealth in Shadows",
+      "Disarm on Hit"
     ],
     "vendor": "rogueport",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Stealth Boost",
+        "rules": "When you are in shadows and take the Hide action, you benefit from a +15% chance to succeed. This effect lasts until your next short or long rest."
+      },
+      {
+        "title": "Disarm on Hit",
+        "rules": "If you hit an enemy with this cord while making an attack roll, there is a 30% chance (DC 14 Dexterity save) that the target is disarmed. This effect can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The Silken Scuttle's delicate construction and venom-infused strength make it accessible to lower-level rogues who are still learning their craft.",
+    "vendorReason": "Rogueport is known for its intricate silk weaves and the city's artisans' expertise with dangerous poisons, making them perfect purveyors of this deadly yet elegant tool.",
+    "shippingDetail": "The Silken Scuttle is carefully packed in a shadowed box to maintain its potency. Shipping times are expedited, ensuring it arrives at your doorstep as fresh and lethal as the day it was made.",
+    "usage": {
+      "activation": "As a bonus action or on hit",
+      "duration": "Instantaneous for Stealth Boost; once per long rest for Disarm on Hit",
+      "endsWhen": "Used up or when you take a short or long rest",
+      "charges": "Unlimited, recharges after a long rest"
+    },
+    "priceReason": "The Silken Scuttle's rarity and the expertise required to create it justify its moderate price in experience points.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:33:01.860358+00:00",
+    "aiReviewedAt": "2026-07-24T23:33:01.860358+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_silken_sleeve": {
     "id": "rogueport_silken_sleeve",
@@ -1578,20 +1647,43 @@ export const ITEMS_037 = {
   "rogueport_spectral_mask": {
     "id": "rogueport_spectral_mask",
     "name": "Shadow Veil Mask",
-    "description": "Conceals the wearer’s identity with a shifting, smoke-like veil that mimics ambient shadows. Perfect for slipping past guards or avoiding recognition. When worn, the mask whispers secrets of the wearer’s past.",
+    "description": "The Shadow Veil Mask, a rare relic forged from shadowy obsidian and enigmatic silver, weaves a veiling aura around its wearer that perfectly mimics ambient shadows. It whispers secrets of the past to those who speak to it in darkened rooms, while simultaneously concealing the wearer's identity. This mask not only hides the wearer but also grants a 10% chance of revealing hidden enemies' locations, making it an invaluable tool for sneaky rogues and spies.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Hide from vision and sound detection",
-      "Grants 10% chance to reveal hidden enemies’ location",
-      "Voice modulation: whispers can be heard in darkened rooms"
+      "Shadow Concealment",
+      "Reveal Hidden Enemies"
     ],
     "vendor": "rogueport",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Shadow Concealment",
+        "rules": "When worn as a bonus action, the Shadow Veil Mask creates an aura that allows the wearer to become invisible and silent for up to 1 minute. This effect also provides advantage on Dexterity (Stealth) checks. The duration ends if the wearer speaks or makes any noise."
+      },
+      {
+        "title": "Reveal Hidden Enemies",
+        "rules": "The mask grants a 10% chance per long rest that it can reveal the location of hidden enemies within 30 feet, as if using the Search action. This effect requires an Intelligence (Investigation) check against DC 15."
+      }
+    ],
+    "levelRequirementReason": "This mask is designed for beginners to help them practice their stealth skills and gain confidence.",
+    "vendorReason": "Rogueport, a hub of clandestine activities, naturally stocks this essential tool for its patrons.",
+    "shippingDetail": "The mask is carefully packed in shadowed containers to ensure it arrives in pristine condition.",
+    "usage": {
+      "activation": "Bonus action to activate the invisibility and silence effect; long rest required between uses of the reveal hidden enemies feature.",
+      "duration": "1 minute or until the wearer speaks or makes noise, whichever comes first; 8 hours between reveals due to the mask's sensitive enchantment.",
+      "endsWhen": "The invisibility ends if the wearer speaks or takes any noisy action. The reveal effect ends after a long rest.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "The mask's rarity and unique abilities justify its moderate price, making it accessible to aspiring rogues.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:33:25.907549+00:00",
+    "aiReviewedAt": "2026-07-24T23:33:25.907549+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_tainted_heart": {
     "id": "rogueport_tainted_heart",
@@ -1838,19 +1930,42 @@ export const ITEMS_037 = {
   "rogueport_torch_of_silence": {
     "id": "rogueport_torch_of_silence",
     "name": "Torch of the Silent God",
-    "description": "A blackened torch that burns with eerie silence. When lit, it leaves no trace of its presence — perfect for evading surveillance or sneaking past guards.",
-    "price": 2800,
+    "description": "The Torch of the Silent God glows with an ethereal, black flame that leaves no sound or scent in its wake. When lit within a crowded hall, it creates a silent bubble for 10 seconds, rendering all nearby noise undetectable to both friend and foe alike. The torch's flame is said to have been crafted from the ash of ancient gods, making it an invaluable tool for those who must navigate through the whispers of shadows and echoes without being heard.",
+    "price": 1000,
     "icon": "🔥",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Creates a 30-foot silent zone for 10 seconds",
-      "Grants +50% evasion against sound-based traps",
-      "After use, all nearby enemies are stunned for 2 seconds if they detect noise"
+      "Silent Bubble",
+      "Enhanced Evasion"
     ],
     "vendor": "rogueport",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Silent Bubble",
+        "rules": "When activated, the Torch of the Silent God creates a 30-foot radius silent zone for 10 seconds. All noise within this area is muffled and undetectable by sound-based traps or creatures with Perception checks. Enemies who detect noise must make a DC 15 Wisdom saving throw to avoid being stunned for 2 seconds."
+      },
+      {
+        "title": "Enhanced Evasion",
+        "rules": "While holding the Torch of the Silent God, you gain +50% evasion against sound-based attacks and traps. This effect lasts until the start of your next turn after using the torch."
+      }
+    ],
+    "levelRequirementReason": "This item is designed for a wide range of characters who might need to navigate through hostile environments without being detected.",
+    "vendorReason": "Rogueport specializes in crafting and selling items that aid adventurers in their quests, making the Torch of the Silent God an ideal addition to their inventory.",
+    "shippingDetail": "The Torch is carefully wrapped in soundproof packaging to ensure it arrives undetected by any eavesdropping ears.",
+    "usage": {
+      "activation": "Action",
+      "duration": "10 seconds",
+      "endsWhen": "Ends when the duration expires or if noise is detected within the silent zone.",
+      "charges": "Unlimited, but requires a short rest to recharge after using it."
+    },
+    "priceReason": "The price reflects the item's rarity and its unique ability to provide a critical advantage in stealth situations without being overpowered.",
+    "priceOriginal": 2800,
+    "priceReviewedAt": "2026-07-24T23:33:26.046551+00:00",
+    "aiReviewedAt": "2026-07-24T23:33:26.046551+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_vault_key": {
     "id": "rogueport_vault_key",
@@ -2422,19 +2537,43 @@ export const ITEMS_037 = {
   "rope_ladder": {
     "id": "rope_ladder",
     "name": "Vine Ladder",
-    "description": "A ladder made of sturdy vines. 50ft long.",
+    "description": "The Vine Ladder is a sturdy, hand-woven ladder made from flexible vines that grow in the wilds of the Verdant Cliffs. Each rung creaks slightly under your weight, but it can support up to three medium creatures at once. Crafted by the local vine-growers who trade at Valley Trading Post, this ladder is not only a climbing aid but also bio-degradable, ensuring that no trace remains after use.",
     "category": "equipment",
-    "price": 5000,
+    "price": 1000,
     "icon": "🪜",
     "stock": 15,
     "rarity": "common",
     "effects": [
-      "Climbing aid",
+      "Climbing Aid",
       "Bio-degradable"
     ],
     "vendor": "valley_trading_post",
     "shippedBy": "Sack",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Enhanced Grip",
+        "rules": "When you attempt to climb while using the Vine Ladder, you have advantage on the Strength (Athletics) check."
+      },
+      {
+        "title": "Self-Destruct",
+        "rules": "The ladder disintegrates into harmless vines after 10 minutes of non-use or when it has been used by three creatures in total."
+      }
+    ],
+    "levelRequirementReason": "This basic climbing aid is suitable for beginners and adventurers just starting their journey.",
+    "vendorReason": "Valley Trading Post specializes in the unique wares of the Verdant Cliffs, including the Vine Ladder.",
+    "shippingDetail": "Delivered by a trusted courier named Sack, who ensures the ladder arrives safely and intact.",
+    "usage": {
+      "activation": "Use as an action to deploy or retrieve the ladder.",
+      "duration": "Instantaneous use; ladder disintegrates after non-use or when three creatures have used it.",
+      "endsWhen": "After 10 minutes of inactivity or when it has been used by three creatures.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The Vine Ladder is crafted from renewable materials and can be reused multiple times, making its price a fair trade for its utility.",
+    "priceOriginal": 5000,
+    "priceReviewedAt": "2026-07-24T23:33:33.397125+00:00",
+    "aiReviewedAt": "2026-07-24T23:33:33.397125+00:00",
+    "aiReviewVersion": 1
   },
   "rosalina_wand": {
     "id": "rosalina_wand",
@@ -3459,20 +3598,43 @@ export const ITEMS_037 = {
   "sapphire_frog_boots": {
     "id": "sapphire_frog_boots",
     "name": "Sapphire Frog Boots",
-    "description": "Boots with a glossy blue sheen and webbed hems. You feel amphibious and precise.",
+    "description": "The Sapphire Frog Boots shimmer with a deep blue luster and webbed hemlines. Wearing these enchanted footwear, you feel amphibious, your movements precise and fluid as if nature itself has granted you its grace. These boots are said to have been crafted by the merfolk of the deep sea, their blue gemstones imbued with the essence of water. With each step, they leave a faint spray behind, hinting at the ancient magic that courses through them.",
     "category": "equipment",
-    "price": 38000,
+    "price": 1000,
     "icon": "🐸",
     "stock": 2,
     "rarity": "epic",
     "effects": [
-      "Grants swim speed equal to walking speed and advantage on Acrobatics in water",
-      "Once per day: leap across 60ft of water as if solid",
-      "Leaves a faint spray with each step"
+      "Aquatic Agility",
+      "Leap Across Water"
     ],
     "vendor": "sea_seller",
     "shippedBy": "Waterproof Satchel",
-    "levelRequirement": 6
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Aquatic Agility",
+        "rules": "While wearing these boots, you gain a swim speed equal to your walking speed and have advantage on Acrobatics checks made in water. This effect lasts until the end of your next turn."
+      },
+      {
+        "title": "Leap Across Water",
+        "rules": "Once per day, you can leap across 60 feet of water as if it were solid ground. You must be standing in at least 1 foot of water for this ability to function. This effect is instantaneous and has no save DC or use limit."
+      }
+    ],
+    "levelRequirementReason": "These boots are crafted with complex enchantments that require a moderate level of magic to wield effectively.",
+    "vendorReason": "The sea seller, known for their deep connections with the ocean and its mysteries, is trusted by many adventurers seeking treasures from beneath the waves.",
+    "shippingDetail": "Delivered directly to your doorstep, waterproofed against any aquatic mishaps during transit.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Until the end of your next turn for 'Aquatic Agility'; instantaneous for 'Leap Across Water'.",
+      "endsWhen": "The effects wear off at the start of your next turn or when you exit water, respectively.",
+      "charges": "Unlimited uses per day; no need to recharge."
+    },
+    "priceReason": "Balanced as a rare but not overpowered item, these boots offer significant utility at an appropriate price point for their rarity and power level.",
+    "priceOriginal": 38000,
+    "priceReviewedAt": "2026-07-24T23:33:15.834571+00:00",
+    "aiReviewedAt": "2026-07-24T23:33:15.834571+00:00",
+    "aiReviewVersion": 1
   },
   "sarasaland_desert_soul_torch": {
     "id": "sarasaland_desert_soul_torch",
@@ -3720,21 +3882,42 @@ export const ITEMS_037 = {
   "sarasaland_iron_bottle_bubble": {
     "id": "sarasaland_iron_bottle_bubble",
     "name": "Iron Bottle Bubble",
-    "description": "A glass vial filled with liquid iron that hums with the sound of a thousand war drums. It was smuggled across the desert by a desert merchant who claimed it could turn sand into gold—until it accidentally turned the merchant into a sandworm.",
-    "price": 500,
+    "description": "The Iron Bottle Bubble is a glass vial filled to the brim with liquid iron that resonates with an eerie hum, reminiscent of war drums echoing through the desert sands. It was smuggled by a desert merchant who claimed it could turn sand into gold—until it inexplicably turned him into a living sandworm, his voice now forever entombed within its depths. When consumed too quickly, the vial unleashes hallucinations of vast desert storms that can disorient even the most seasoned warriors.",
+    "price": 1000,
     "icon": "💧",
     "stock": 2,
     "rarity": "uncommon",
     "effects": [
-      "Grants temporary resistance to fire damage for 1 turn",
-      "Causes hallucinations of desert storms if consumed too fast",
-      "Increases thirst by 200% after use",
-      "Can be used as a distraction during combat",
-      "Crafted by: Land Mordor"
+      "Grants temporary resistance to fire damage",
+      "Causes hallucinations when consumed too fast"
     ],
     "vendor": "sarasaland",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Fire Resistance",
+        "rules": "When activated by drinking, the Iron Bottle Bubble grants the drinker temporary resistance to fire damage for 1 minute. This effect can be used once per long rest."
+      },
+      {
+        "title": "Desert Storm Hallucinations",
+        "rules": "If consumed too quickly (less than 5 feet from a target), the vial releases an overwhelming hallucination of a vast desert storm that lasts for 1 minute. All creatures within 30 feet must succeed on a DC 14 Wisdom saving throw or be stunned until the end of their next turn."
+      }
+    ],
+    "levelRequirementReason": "The Iron Bottle Bubble can be consumed by characters with minimal experience to introduce them to its effects.",
+    "vendorReason": "Sarasaland has a history of dealing in exotic items from the desert, making it reasonable for them to offer this unique artifact.",
+    "shippingDetail": "Shipped by Pipe Express with expedited delivery through the desert's treacherous routes.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "1 minute or until used in combat",
+      "endsWhen": "The effect ends when the duration expires or the drinker uses it again during a long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Iron Bottle Bubble's rarity, unique effects, and historical lore justify its fair price of 1000 XP.",
+    "priceOriginal": 500,
+    "priceReviewedAt": "2026-07-24T23:33:35.878340+00:00",
+    "aiReviewedAt": "2026-07-24T23:33:35.878340+00:00",
+    "aiReviewVersion": 1
   },
   "sarasaland_item_name_here": {
     "id": "sarasaland_item_name_here",

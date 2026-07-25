@@ -3226,20 +3226,43 @@ export const ITEMS_058 = {
   "wario_cw_magikoopa_staff_fragment": {
     "id": "wario_cw_magikoopa_staff_fragment",
     "name": "Civil War Relic: Magikoopa Staff Fragment",
-    "description": "A broken piece of Kamek's staff.",
+    "description": "This fragment of Kamek's staff is a brittle relic encrusted with spellweave. Crafted during the Civil War, it retains the essence of its master. Upon activation, it channels residual magic that can cast one first-level wizard spell once per day. Its wielder gains advantage on saving throws against magical effects, and Kamek himself feels its presence, appearing to reclaim it with a 20% chance each day he visits the shop.",
     "category": "equipment",
-    "price": 9400,
+    "price": 1000,
     "icon": "🪄",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Can cast one 1st-level spell from the wizard list once per day",
-      "You have advantage on saves vs. magic",
-      "Kamek can sense it: 20% chance per day he appears to reclaim it"
+      "Spellcasting Relic",
+      "Advantage Against Magic"
     ],
     "vendor": "wario_land",
     "shippedBy": "Spellbound Satchel",
-    "levelRequirement": 9
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Spellcasting Relic",
+        "rules": "Activates as an action. Casts one first-level wizard spell of your choice once per day. The spell has a range of touch and is subject to verbal, somatic, and material components."
+      },
+      {
+        "title": "Advantage Against Magic",
+        "rules": "You gain advantage on saving throws against any magical effect. This effect lasts until the start of your next turn after successfully making a save."
+      }
+    ],
+    "levelRequirementReason": "Requires at least first-level spellcasting to effectively use this relic's magic.",
+    "vendorReason": "Wario Land has a long-standing relationship with Kamek and keeps this fragment for its historical value and potential.",
+    "shippingDetail": "Ships via the Spellbound Satchel, ensuring safe delivery of such powerful but fragile relics.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous upon spellcasting; advantage lasts until end of next turn after a successful save",
+      "endsWhen": "Spell is cast or effect ends naturally with the save",
+      "charges": "1 per day"
+    },
+    "priceReason": "The relic's rarity and historical value justify its price, balancing its unique benefits against other first-level spellcasting options.",
+    "priceOriginal": 9400,
+    "priceReviewedAt": "2026-07-24T23:54:43.326443+00:00",
+    "aiReviewedAt": "2026-07-24T23:54:43.326443+00:00",
+    "aiReviewVersion": 1
   },
   "wario_cw_wartime_communication_orb": {
     "id": "wario_cw_wartime_communication_orb",
@@ -4679,20 +4702,43 @@ export const ITEMS_058 = {
   "servants_cosmic_asteroid_belt": {
     "id": "servants_cosmic_asteroid_belt",
     "name": "Asteroid Belt (Literally)",
-    "description": "A belt made from tiny asteroids.",
+    "description": "The Asteroid Belt (Literally) is an imposing belt crafted from a cluster of tiny, meteorite-like fragments. This relic's weight alone reduces your speed by ten feet and brings astronomers' scrutiny down upon you, forcing disadvantage on Charisma checks with them. Despite its cumbersome nature, the belt grants +1 AC in any situation where you are not wearing heavy armor, and once per long rest, it can unleash a devastating Meteor Swarm spell that leaves behind a cloud of dust and chaos.",
     "category": "equipment",
-    "price": 9800,
+    "price": 1000,
     "icon": "🌑",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+1 AC, can cast Meteor Swarm once (then belt breaks)",
-      "Belt is heavy: -10 ft speed",
-      "Astronomers hate you: disadvantage on Charisma with them"
+      "+1 AC (non-heavy armor)",
+      "Meteor Swarm Spell"
     ],
     "vendor": "servants_cosmic",
     "shippedBy": "Meteor Mail",
-    "levelRequirement": 9
+    "levelRequirement": 9,
+    "effectDetails": [
+      {
+        "title": "+1 AC",
+        "rules": "While not wearing heavy armor, you gain +1 to your Armor Class. This effect is always active."
+      },
+      {
+        "title": "Meteor Swarm Spell",
+        "rules": "You can cast the Meteor Swarm spell once per long rest as an action. The spell has a range of 60 feet and deals 8d6 fire damage in a 20-foot-radius sphere centered on a point you choose within range. You must make a DC 14 Constitution saving throw, taking half the damage if you succeed. After using this ability, the belt breaks into a cloud of dust."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 9th level to wield its heavy weight and cast Meteor Swarm effectively.",
+    "vendorReason": "Servants Cosmic specializes in rare, cosmic artifacts that push the boundaries of physics and reality.",
+    "shippingDetail": "Ships via Meteor Mail, which can only deliver during meteor showers, adding an extra day to delivery times.",
+    "usage": {
+      "activation": "Action for casting Meteor Swarm; Passive otherwise",
+      "duration": "Instantaneous effect when cast; lasts until used or dispelled by the caster.",
+      "endsWhen": "After using Meteor Swarm or if destroyed in combat",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its rare cosmic origin and the spell it can cast.",
+    "priceOriginal": 9800,
+    "priceReviewedAt": "2026-07-24T23:54:56.973369+00:00",
+    "aiReviewedAt": "2026-07-24T23:54:56.973369+00:00",
+    "aiReviewVersion": 1
   },
   "asclepia_medical_malpractice_insurance": {
     "id": "asclepia_medical_malpractice_insurance",
@@ -5681,20 +5727,43 @@ export const ITEMS_058 = {
   "servants_cosmic_horoscope_subscription": {
     "id": "servants_cosmic_horoscope_subscription",
     "name": "Premium Horoscope Subscription",
-    "description": "Daily prophecies delivered by starlight.",
+    "description": "Each morning, a cosmic whisper arrives via starlight, inscribed on parchment delivered by the Starlight Beam. The prophecy, crafted from ancient celestial lore, offers cryptic guidance that is both illuminating and maddeningly vague. Though the DM reveals hints of its true meaning, the prophecy's accuracy fluctuates—sometimes eerily precise, other times wildly off. Those who ignore it find themselves increasingly superstitious, gaining disadvantage on actions contrary to the horoscope.",
     "category": "services",
-    "price": 6800,
+    "price": 1000,
     "icon": "♈",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Each morning: receive a prophecy (DM gives vague hint)",
-      "Prophecy is 50% accurate",
-      "You become superstitious: disadvantage if you ignore it"
+      "Daily Prophecy",
+      "Superstitious Disadvantage"
     ],
     "vendor": "servants_cosmic",
     "shippedBy": "Starlight Beam",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Daily Prophecy",
+        "rules": "At sunrise, receive a prophecy inscribed by starlight. The DM provides vague hints about its meaning. The prophecy has a 50% chance of being accurate; the user must decide how to interpret it."
+      },
+      {
+        "title": "Superstitious Disadvantage",
+        "rules": "If you ignore the daily prophecy, you become increasingly superstitious. You gain disadvantage on any action that is contrary to the horoscope's recommendations until the next sunrise."
+      }
+    ],
+    "levelRequirementReason": "This service requires no specific level as it provides a passive benefit and can be enjoyed by all.",
+    "vendorReason": "Servants Cosmic, with their deep connection to the stars, are well-suited to deliver these cosmic prophecies.",
+    "shippingDetail": "The prophecy is delivered via a beam of starlight, arriving just before dawn. The delivery can be delayed by cloudy skies or other celestial obstructions.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Daily, at sunrise.",
+      "endsWhen": "Each morning when the next prophecy arrives.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects the service's rarity and the cosmic resources required to deliver daily prophecies.",
+    "priceOriginal": 6800,
+    "priceReviewedAt": "2026-07-24T23:55:11.460254+00:00",
+    "aiReviewedAt": "2026-07-24T23:55:11.460254+00:00",
+    "aiReviewVersion": 1
   },
   "asclepia_health_potion_subscription": {
     "id": "asclepia_health_potion_subscription",

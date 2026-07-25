@@ -1424,20 +1424,43 @@ export const ITEMS_025 = {
   "jotunheimr_frost_talisman": {
     "id": "jotunheimr_frost_talisman",
     "name": "Jotunheimr Frost Talisman",
-    "description": "A small charm that radiates cold and protects against heat.",
+    "description": "The Jotunheimr Frost Talisman gleams with an icy sheen, its surface etched with ancient runes that whisper of frost and cold. This small charm not only grants resistance to fire damage but also radiates a biting chill that can turn the warmest day into an arctic blizzard. Crafted by the enigmatic Jotunheimr, it is said to have been forged in the heart of their icy realm, ensuring its power remains as sharp and true as the northern winds.",
     "category": "equipment",
-    "price": 9000,
+    "price": 1000,
     "icon": "❄️",
     "stock": 6,
     "rarity": "uncommon",
     "effects": [
-      "Grants resistance to fire damage",
-      "Once per day, can emit a 10ft cone of cold (1d6 cold damage, DC 13 CON save for half)",
-      "Made by: Jotunheimr"
+      "Ice Resistance",
+      "Cone of Cold"
     ],
     "vendor": "jotunheimr_outpost",
-    "shippedBy": "Frost Case",
-    "levelRequirement": 4
+    "shippedBy": "Frost Case Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Ice Resistance",
+        "rules": "You gain resistance to fire damage. This effect is always active while you wear or carry the talisman."
+      },
+      {
+        "title": "Cone of Cold",
+        "rules": "As a bonus action, you can emit a 10-foot cone of cold affecting creatures within range. Creatures in the area must make a DC 13 Constitution saving throw, taking 1d6 cold damage on a failed save and half as much damage on a successful one. The talisman can be used once per day."
+      }
+    ],
+    "levelRequirementReason": "The Jotunheimr Frost Talisman is crafted to be accessible, allowing even low-level adventurers to harness its icy might.",
+    "vendorReason": "Jotunheimr Outpost specializes in items forged by the frost giants of Jotunheimr, making this talisman a natural addition to their inventory.",
+    "shippingDetail": "The Frost Case Express guarantees swift delivery through its icy routes, ensuring your talisman arrives as fresh and potent as the northern winds.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous",
+      "endsWhen": "After emitting the cone of cold once per day",
+      "charges": "1"
+    },
+    "priceReason": "The Jotunheimr Frost Talisman is priced at 1000 XP, reflecting its craftsmanship and unique abilities that can turn any fire-based threat into a frosty nightmare.",
+    "priceOriginal": 9000,
+    "priceReviewedAt": "2026-07-24T23:24:31.561097+00:00",
+    "aiReviewedAt": "2026-07-24T23:24:31.561097+00:00",
+    "aiReviewVersion": 1
   },
   "jotunheimr_frost_weave_mittens": {
     "id": "jotunheimr_frost_weave_mittens",

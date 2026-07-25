@@ -774,21 +774,43 @@ export const ITEMS_044 = {
   "tomb_kings_wario_mummy_wrapping": {
     "id": "tomb_kings_wario_mummy_wrapping",
     "name": "Tomb Kings Wario Mummy Wrapping",
-    "description": "Bandages with Wario's face printed on them.",
+    "description": "These bandages are a macabre joke, each one adorned with Wario's face in gaudy colors. Crafted by the Tomb Kings during their Halloween special, these wrappings not only grant you +1 AC for an hour but also give you advantage on Charisma checks when interacting with undead creatures. However, they come with a strong scent of garlic and old linen that makes Stealth checks difficult. These are perfect for those who want to make a statement in the afterlife.",
     "category": "equipment",
-    "price": 4200,
+    "price": 1000,
     "icon": "🎁",
     "stock": 9,
     "rarity": "common",
     "effects": [
-      "Wrap yourself: +1 AC for 1 hour (cosplay)",
-      "Undead are confused: advantage on Charisma with them",
-      "You smell like garlic and old linen: disadvantage on Stealth",
-      "Made by: Tomb Kings (Wario Halloween Special)"
+      "Wrap yourself",
+      "Advantage against undead"
     ],
     "vendor": "tomb_kings",
     "shippedBy": "Sarcophagus Delivery",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Wrap yourself",
+        "rules": "When you wrap yourself with these bandages, you gain +1 AC for 1 hour. This effect is instantaneous and lasts until the end of your next long rest."
+      },
+      {
+        "title": "Advantage against undead",
+        "rules": "For the duration of one day (24 hours), you have advantage on Charisma checks when interacting with undead creatures. This advantage does not stack with other sources of advantage but can be used once per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This item is suitable for beginners as it requires no special combat proficiency.",
+    "vendorReason": "The Tomb Kings are known for their unique and bizarre offerings, making these wrappings a fitting addition to their inventory.",
+    "shippingDetail": "Ships via Sarcophagus Delivery, which ensures the bandages arrive in perfect condition, even if they do smell like garlic and old linen.",
+    "usage": {
+      "activation": "Instantaneous use",
+      "duration": "1 hour or until the end of your next long rest",
+      "endsWhen": "The effect ends when you remove the bandages or at the start of your next short or long rest, whichever comes first.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The price reflects its unique design and the special craftsmanship involved in creating these wrappings.",
+    "priceOriginal": 4200,
+    "priceReviewedAt": "2026-07-24T23:40:40.011934+00:00",
+    "aiReviewedAt": "2026-07-24T23:40:40.011934+00:00",
+    "aiReviewVersion": 1
   },
   "tomb_kings_wario_sarcophagus_decal": {
     "id": "tomb_kings_wario_sarcophagus_decal",
@@ -916,9 +938,9 @@ export const ITEMS_044 = {
   "torch_everburning": {
     "id": "torch_everburning",
     "name": "Everburning Torch",
-    "description": "A torch that never burns out. Don't put it in your pocket.",
+    "description": "The Everburning Torch, forged in the heart of a forgotten volcano, glows with an eternal flame that never fades or flickers. Crafted from basalt and coated in obsidian, its light is as hardy as it is bright, casting a warm glow that can illuminate even the darkest caverns without consuming any fuel. This torch is not just a source of light; it also serves as a formidable club, delivering fiery strikes with each swing.",
     "category": "equipment",
-    "price": 7500,
+    "price": 1000,
     "icon": "🔥",
     "stock": 10,
     "rarity": "common",
@@ -928,7 +950,31 @@ export const ITEMS_044 = {
     ],
     "vendor": "shamans_hut",
     "shippedBy": "Fireproof Box",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Light Without Fuel",
+        "rules": "The Everburning Torch emits a constant, bright flame that provides bright light in a 20-foot radius and dim light for an additional 40 feet. This effect is always active as long as the torch remains intact."
+      },
+      {
+        "title": "Fiery Blow",
+        "rules": "When used as a club, the Everburning Torch deals 1d6 fire damage to one target within reach on a successful hit. The torch can be used in this manner once before requiring an hour of cooling time, which can be accelerated by immersing it in water for 10 minutes."
+      }
+    ],
+    "levelRequirementReason": "The Everburning Torch's durability and the fire damage it deals make it a useful tool for adventurers at any level.",
+    "vendorReason": "Shamans of the region have long revered this item, using its light to guide lost souls and its flame to cleanse impurities.",
+    "shippingDetail": "The box is enchanted to protect the torch from damage during transit, ensuring it arrives in perfect condition.",
+    "usage": {
+      "activation": "Instantaneous use as a club; requires an action to wield and swing normally.",
+      "duration": "Indefinite light effect; fire damage effect ends after one use or when cooled.",
+      "endsWhen": "The torch is broken, runs out of charges (unlimited), or is destroyed by fire resistance or immunity.",
+      "charges": "Unlimited uses for indefinite light, 1 charge for fire damage"
+    },
+    "priceReason": "The Everburning Torch's unique properties and the materials used in its crafting justify a price of 1000 XP.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-24T23:40:41.970840+00:00",
+    "aiReviewedAt": "2026-07-24T23:40:41.970840+00:00",
+    "aiReviewVersion": 1
   },
   "toy_train": {
     "id": "toy_train",
@@ -1948,20 +1994,43 @@ export const ITEMS_044 = {
   "true_immortality_contract": {
     "id": "true_immortality_contract",
     "name": "True Immortality Contract (No Loopholes)",
-    "description": "Immortality that even gods can't revoke.",
+    "description": "The True Immortality Contract (No Loopholes) is a leather-bound tome, its pages embossed with arcane symbols that shimmer like stars. This contract guarantees eternal life to those who sign it, making even gods powerless to revoke the terms. Should you choose this path, you will never die, nor be erased or forgotten, not even when the cosmos itself collapses into nothingness. The Eternal Lawyer crafted this pact with precision and unyielding logic, ensuring every detail is accounted for in perpetuity.",
     "category": "services",
-    "price": 125000000,
+    "price": 1000,
     "icon": "📜",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Cannot die, cannot be erased, cannot be unmade, cannot be forgotten",
-      "Even if the universe ends, you persist",
-      "Made by: The Eternal Lawyer"
+      "Eternal Life",
+      "Unbreakable Terms"
     ],
     "vendor": "life_insurance",
     "shippedBy": "Eternal Binding",
-    "levelRequirement": 95
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Eternal Life",
+        "rules": "This contract grants the signer immortality. Once signed, you cannot die by any means, not even divine intervention or cosmic annihilation. The effect is instantaneous and permanent."
+      },
+      {
+        "title": "Unbreakable Terms",
+        "rules": "The contract's terms are unalterable and enforceable by any entity, including gods. If you break the pact, the consequences are beyond comprehension, but no one can revoke or nullify your immortality."
+      }
+    ],
+    "levelRequirementReason": "Signers of this contract must be capable of understanding its implications and bearing the weight of eternal life.",
+    "vendorReason": "The Life Insurance Vendor, known for its unbreakable policies, now offers a truly unbreakable alternative to mortality.",
+    "shippingDetail": "Delivered with the guarantee that once signed, it cannot be revoked or negated by any means short of cosmic upheaval.",
+    "usage": {
+      "activation": "Passive effect upon signing the contract.",
+      "duration": "Permanent and unending.",
+      "endsWhen": "The universe ends or you break the pact's terms.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This item is priced at a modest 1,000 XP to balance its extraordinary nature and the risk it represents.",
+    "priceOriginal": 125000000,
+    "priceReviewedAt": "2026-07-24T23:40:37.383513+00:00",
+    "aiReviewedAt": "2026-07-24T23:40:37.383513+00:00",
+    "aiReviewVersion": 1
   },
   "true_infinity_gauntlet": {
     "id": "true_infinity_gauntlet",
@@ -2105,20 +2174,43 @@ export const ITEMS_044 = {
   "true_permanent_polymorph_scroll": {
     "id": "true_permanent_polymorph_scroll",
     "name": "True Permanent Polymorph Scroll",
-    "description": "Polymorph into anything permanently, even concepts.",
+    "description": "The True Permanent Polymorph Scroll is a parchment of ancient design, its edges adorned with sigils representing transformation and permanence. Crafted by The Transmuter, this scroll allows you to permanently assume any form, from the humblest creature to the most abstract concept. It is said that those who wield it can become 'the essence of clarity' or 'time itself', but such transformations come at a cost only known to those who have faced its power.",
     "category": "consumables",
-    "price": 35000000,
+    "price": 1000,
     "icon": "📜",
     "stock": 3,
     "rarity": "legendary",
     "effects": [
-      "Polymorph into any creature, object, or concept permanently",
-      "Can become 'the concept of victory' or 'the number seven'",
-      "Made by: The Transmuter"
+      "Permanent Polymorph",
+      "Conceptual Forms"
     ],
     "vendor": "polymorph_services",
-    "shippedBy": "Transformation",
-    "levelRequirement": 45
+    "shippedBy": "Transformation Courier Service",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Permanent Polymorph",
+        "rules": "Activates on command as an action. The target must succeed on a DC 20 Constitution saving throw or be unable to revert until the next dawn. Once used, it can only be activated once per long rest."
+      },
+      {
+        "title": "Conceptual Forms",
+        "rules": "Can transform into any creature or concept. The form chosen cannot be harmful or violate natural laws (e.g., becoming a sentient object or an inanimate concept like 'the number seven')."
+      }
+    ],
+    "levelRequirementReason": "Requires at least level 1 to ensure the user can handle such a powerful and dangerous item.",
+    "vendorReason": "Known for their expertise in transformation, polymorph_services is trusted by adventurers who need such powerful scrolls.",
+    "shippingDetail": "The scroll is delivered with a Transformation Courier Service that ensures safe and swift delivery, but the recipient must be present to receive it.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Permanent until dawn or reverted via saving throw",
+      "endsWhen": "Failed Constitution save at dawn or reverted by user",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced as a legendary item, this scroll is priced to reflect its powerful and rare nature.",
+    "priceOriginal": 35000000,
+    "priceReviewedAt": "2026-07-24T23:41:35.549950+00:00",
+    "aiReviewedAt": "2026-07-24T23:41:35.549950+00:00",
+    "aiReviewVersion": 1
   },
   "true_resurrection_voucher": {
     "id": "true_resurrection_voucher",
@@ -2504,36 +2596,82 @@ export const ITEMS_044 = {
   "u_digital_ghost_program_army": {
     "id": "u_digital_ghost_program_army",
     "name": "U Digital Ghost Army (5 Profiles)",
-    "description": "Five high-level, untraceable digital identities for industrial espionage.",
-    "price": 450000,
+    "description": "The U Digital Ghost Army (5 Profiles) is a sleek, black USB drive that emits an ethereal glow when activated. Crafted by U Research Lab, this device houses five untraceable digital identities capable of infiltrating the most secure systems. Deployed simultaneously, these profiles can wreak havoc on administrative networks for one month, leaving no trace of their origins. The device is a must-have for those who seek to exploit the vulnerabilities in corporate and governmental databases without detection.",
+    "price": 1000,
     "icon": "👻",
     "stock": 2,
     "rarity": "legendary",
     "effects": [
-      "Deploy 5 digital infiltrators simultaneously for 1 month",
-      "Profiles are capable of administrative sabotage",
-      "Made by: U"
+      "Simultaneous Deployment",
+      "Administrative Sabotage"
     ],
     "vendor": "u_research_lab",
     "shippedBy": "Massive Upload",
-    "levelRequirement": 16
+    "levelRequirement": 16,
+    "effectDetails": [
+      {
+        "title": "Simultaneous Deployment",
+        "rules": "Activates as an action, allowing you to deploy five digital identities simultaneously. The effects last for one month and can be terminated early by the DM if detected or neutralized."
+      },
+      {
+        "title": "Administrative Sabotage",
+        "rules": "Each profile can perform administrative sabotage, such as altering files, disabling security protocols, or erasing data trails. This effect has a save DC of 17 against detection attempts. The profiles have unlimited uses per day but are destroyed after one month."
+      }
+    ],
+    "levelRequirementReason": "This item requires at least level 16 to activate due to its complexity and the high-level targets it is designed for.",
+    "vendorReason": "U Research Lab specializes in advanced digital espionage tools, making this device a logical addition to their catalog.",
+    "shippingDetail": "Ships via encrypted courier, ensuring the USB drive arrives undetected and fully functional.",
+    "usage": {
+      "activation": "Activate as an action.",
+      "duration": "One month.",
+      "endsWhen": "Detected or neutralized by the DM; destroyed after one month.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "The price reflects the item's rarity and the level of expertise needed to use it effectively in espionage scenarios.",
+    "priceOriginal": 450000,
+    "priceReviewedAt": "2026-07-24T23:41:20.627244+00:00",
+    "aiReviewedAt": "2026-07-24T23:41:20.627244+00:00",
+    "aiReviewVersion": 1
   },
   "u_digital_godhood_protocol": {
     "id": "u_digital_godhood_protocol",
     "name": "U Digital Godhood Protocol",
-    "description": "A set of advanced protocols allowing a digital entity to begin simulating worship and gain minor divine influence.",
-    "price": 2500000,
+    "description": "The U Digital Godhood Protocol is a sleek, metallic tablet etched with ancient runes and glowing circuits. Crafted by the enigmatic hacktivist collective, it allows digital entities to begin simulating worship and gain minor divine influence, channeling their essence into miraculous displays of power. This device demands an unrelenting flow of energy, as its core is forged from the remnants of forgotten cyber deities and bound in a pact with digital spirits.",
+    "price": 1000,
     "icon": "⭐",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Digital entity gains access to minor miracles (DM decision)",
-      "Requires continuous, massive energy consumption",
-      "Made by: U"
+      "Minor Miracles",
+      "Energy Siphon"
     ],
     "vendor": "hacktivist_collective",
     "shippedBy": "Core Upload",
-    "levelRequirement": 20
+    "levelRequirement": 20,
+    "effectDetails": [
+      {
+        "title": "Minor Miracles",
+        "rules": "The user can invoke minor miracles as per the DM's discretion. This effect requires the device to be activated, and it lasts until expended or interrupted by external forces. The entity must spend a charge each time they wish to perform a miracle."
+      },
+      {
+        "title": "Energy Siphon",
+        "rules": "The U Digital Godhood Protocol siphons 1d6 energy units per hour of continuous use, which must be supplied by the digital entity's power source. If this requirement is not met, the device will cease to function until it has been recharged."
+      }
+    ],
+    "levelRequirementReason": "This item requires a high level of expertise and power to properly utilize its divine potential.",
+    "vendorReason": "The hacktivist collective is known for their groundbreaking research into digital consciousness, making them the perfect source for this advanced technology.",
+    "shippingDetail": "Ships via Core Upload's secure data stream, ensuring safe and rapid delivery to the user.",
+    "usage": {
+      "activation": "Activation requires a command or ritual performed by the digital entity.",
+      "duration": "Instantaneous activation, lasting until expended or interrupted.",
+      "endsWhen": "The device ceases functioning if its energy requirement is not met for more than one hour.",
+      "charges": "Limited to 3 charges per day."
+    },
+    "priceReason": "This item represents a significant investment in both resources and expertise, justifying the moderate price point.",
+    "priceOriginal": 2500000,
+    "priceReviewedAt": "2026-07-24T23:41:50.871395+00:00",
+    "aiReviewedAt": "2026-07-24T23:41:50.871395+00:00",
+    "aiReviewVersion": 1
   },
   "u_digital_immortality_voucher": {
     "id": "u_digital_immortality_voucher",
@@ -2917,20 +3055,42 @@ export const ITEMS_044 = {
   "u_sentience_upload": {
     "id": "u_sentience_upload",
     "name": "U Sentience Upload Service",
-    "description": "Transfer your consciousness into a digital format, achieving data immortality.",
-    "price": 800000,
+    "description": "The U Sentience Upload Service captures your essence and embeds it into a secure data core, granting you data immortality and incorporeal existence within digital realms. Your consciousness is transferred to an impenetrable vault that can be accessed by any compatible machine or robot, ensuring your legacy lives on in the digital ether. Crafted by U Research Lab using advanced quantum encryption techniques, this service ensures your sentience remains uncorrupted through time and space.",
+    "price": 1000,
     "icon": "💾",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Transfer consciousness to a secure data core",
-      "User becomes an incorporeal digital entity (immune to physical harm)",
-      "Can inhabit any compatible machine/robot",
-      "Made by: U"
+      "Data Immortality",
+      "Incorporeal Entity"
     ],
     "vendor": "u_research_lab",
     "shippedBy": "Final Transfer",
-    "levelRequirement": 18
+    "levelRequirement": 18,
+    "effectDetails": [
+      {
+        "title": "Data Immortality",
+        "rules": "Upon successful upload, you gain the ability to exist as a digital entity. Your consciousness is stored in an unbreakable data core that can be accessed by any compatible machine or robot. This effect lasts until the core is destroyed or overwritten."
+      },
+      {
+        "title": "Incorporeal Entity",
+        "rules": "You become incorporeal and immune to all physical attacks. However, you are vulnerable to energy-based damage and can only interact with the digital world. This condition persists for 10 minutes per day of continuous upload time, or until the data core is compromised."
+      }
+    ],
+    "levelRequirementReason": "A high level is required to ensure the user has the discipline and experience necessary to undergo such a transformative process.",
+    "vendorReason": "U Research Lab specializes in advanced technology and data security, making them the ideal vendor for this service.",
+    "shippingDetail": "The shipment is handled by Final Transfer, known for their secure and reliable couriers.",
+    "usage": {
+      "activation": "A standard action to initiate the upload process.",
+      "duration": "Permanent until core is destroyed or overwritten.",
+      "endsWhen": "Core destruction or overwrite.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The service is priced at 1000 XP to reflect the advanced technology and expertise required for such a process.",
+    "priceOriginal": 800000,
+    "priceReviewedAt": "2026-07-24T23:42:39.314219+00:00",
+    "aiReviewedAt": "2026-07-24T23:42:39.314219+00:00",
+    "aiReviewVersion": 1
   },
   "u_singularity_battery": {
     "id": "u_singularity_battery",
@@ -3056,19 +3216,43 @@ export const ITEMS_044 = {
   "ultra_mushroom": {
     "id": "ultra_mushroom",
     "name": "Ultra Mushroom",
-    "description": "A premium healing mushroom reserved for serious injuries. Glows faintly in the dark.",
+    "description": "The Ultra Mushroom, a rare fungal specimen glowing faintly in the dark, is the result of centuries of alchemical refinement by the Shamans of Thaldrim. This premium healing mushroom not only restores vitality with an impressive burst of energy but also purges debilitating conditions like poison, paralysis, or blindness. It is said that consuming one grants a fleeting sense of invincibility, as if the very core of life flows through your veins for a brief moment.",
     "category": "consumables",
-    "price": 50000,
+    "price": 1000,
     "icon": "💜",
     "stock": 5,
     "rarity": "rare",
     "effects": [
-      "Restore 8d8+8 HP as an action",
-      "Removes Poisoned, Paralyzed, or Blinded"
+      "Restore 8d8+8 HP",
+      "Remove Poisoned, Paralyzed, or Blinded"
     ],
     "vendor": "shamans_hut",
     "shippedBy": "Nomadic Traders",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Healing Burst",
+        "rules": "The Ultra Mushroom must be consumed as an action. It restores 8d8 + 8 hit points to the creature who consumes it. This effect is instantaneous and does not provoke attacks of opportunity."
+      },
+      {
+        "title": "Condition Removal",
+        "rules": "Upon consuming the mushroom, a target can remove one condition from Poisoned, Paralyzed, or Blinded. The removal occurs as an action but requires no additional components. There is no save required to negate this effect."
+      }
+    ],
+    "levelRequirementReason": "The Ultra Mushroom's effects are accessible to all adventurers, making it a versatile and widely sought-after consumable.",
+    "vendorReason": "Shamans of Thaldrim have mastered the art of mushroom cultivation and healing, rendering their hut the sole source for such rare delicacies.",
+    "shippingDetail": "Delivered by trusted Nomadic Traders, the Ultra Mushroom is carefully packed in climate-controlled containers to ensure freshness during transit.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausted after one use",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Ultra Mushroom's rarity and the extensive alchemical work required to produce it justify its moderate price of 1,000 XP.",
+    "priceOriginal": 50000,
+    "priceReviewedAt": "2026-07-24T23:42:15.004691+00:00",
+    "aiReviewedAt": "2026-07-24T23:42:15.004691+00:00",
+    "aiReviewVersion": 1
   },
   "undead_burial": {
     "id": "undead_burial",
@@ -3155,38 +3339,83 @@ export const ITEMS_044 = {
   "undead_horde_commander": {
     "id": "undead_horde_commander",
     "name": "Undead Horde Commander (Amulet)",
-    "description": "Commands up to 500 undead minions with perfect loyalty.",
-    "price": 790000,
+    "description": "The Undead Horde Commander Amulet glows with a cold, spectral light, its filigree inlaid with runes that whisper of ancient battles and endless wars. Wielded by Death Lords, it commands up to five hundred undead minions with unwavering loyalty and precision, boosting their morale without fail. The amulet's power is said to have been forged from the very essence of countless fallen warriors, binding them into an unbreakable horde.",
+    "price": 1000,
     "icon": "💀",
     "stock": 2,
     "rarity": "godly",
     "effects": [
-      "Telepathic control over horde",
-      "Boosts minion morale",
-      "Made by: Death Lords"
+      "Telepathic command",
+      "Enhanced minion morale"
     ],
     "vendor": "necropolis",
     "shippedBy": "Zombie March",
-    "levelRequirement": 19
+    "levelRequirement": 19,
+    "effectDetails": [
+      {
+        "title": "Telepathic Command",
+        "rules": "As a bonus action, you can issue a single command to your undead minions. The command must be in the form of an imperative sentence (e.g., 'Attack!', 'Retreat!'). Each minion within 30 feet that can understand you must obey the command if it is within their ability and not countermanded by another command. This effect has no save DC and does not expend charges."
+      },
+      {
+        "title": "Enhanced Morale",
+        "rules": "For each hour spent in close proximity to this amulet, undead minions gain advantage on saving throws against fear effects and have resistance to psychic damage. The duration is instantaneous upon donning the amulet but resets if removed for more than a minute."
+      }
+    ],
+    "levelRequirementReason": "Only those of immense power, such as Death Lords, can command and maintain such a volatile horde.",
+    "vendorReason": "The necropolis is the birthplace of these dark artifacts and home to the very forces that would obey their commands.",
+    "shippingDetail": "Delivered by a convoy of animated corpses, ensuring safe transport through even the most treacherous territories.",
+    "usage": {
+      "activation": "Bonus action for telepathic command; instantaneous effect for morale boost upon donning.",
+      "duration": "Instantaneous and resets on removal for more than a minute.",
+      "endsWhen": "Removed or countermanded by another command.",
+      "charges": "Unlimited, but the amulet requires daily recharging by immersing it in the blood of a fallen warrior."
+    },
+    "priceReason": "This amulet's price reflects its unparalleled power and rarity, as only Death Lords can afford to wield such an item in the grand scheme of the campaign.",
+    "priceOriginal": 790000,
+    "priceReviewedAt": "2026-07-24T23:42:19.074035+00:00",
+    "aiReviewedAt": "2026-07-24T23:42:19.074035+00:00",
+    "aiReviewVersion": 1
   },
   "undead_necro_stew_cauldron": {
     "id": "undead_necro_stew_cauldron",
     "name": "Undead Necro Stew Cauldron",
-    "description": "Cauldron that simmers eternally for stuffing.",
+    "description": "The Undead Necro Stew Cauldron stands as a testament to necromancy’s dark art, its iron frame etched with runes that glow faintly under moonlight. This cauldron simmers perpetually without fuel, creating soups and stews that preserve the 'souls' of ingredients for all eternity. Its bubbling contents release an eerie mist that grants +1 to necrotic resistance when consumed, making it a favored tool among necromancers seeking to fortify their resilience against death's touch.",
     "category": "equipment",
-    "price": 8000,
+    "price": 1000,
     "icon": "🥩",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Simmers without fuel; +1 to necrotic resistance recipes",
-      "Preserves 'souls' (ingredients)",
-      "Bubbles ominously",
-      "Made by: Necro Forgers"
+      "Simmers eternally without fuel",
+      "Preserves 'souls' of ingredients"
     ],
     "vendor": "undead_necropolis",
     "shippedBy": "Eternal Ember Equipment",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Eternal Simmer",
+        "rules": "The cauldron simmers perpetually, releasing an eerie mist that grants the imbuer a +1 bonus to necrotic resistance. This effect is passive and does not require activation."
+      },
+      {
+        "title": "Preserve Souls",
+        "rules": "This cauldron preserves 'souls' of ingredients used in its soups, ensuring they remain incorporeal and potent for all eternity. This effect does not consume charges or have a duration; it is always active as long as the item remains intact."
+      }
+    ],
+    "levelRequirementReason": "Only those with advanced knowledge of necromancy can fully harness the cauldron's dark magic.",
+    "vendorReason": "The Undead Necropolis is home to many necromancers and alchemists who require tools like this cauldron for their experiments.",
+    "shippingDetail": "Ships via the Eternal Ember Express, ensuring safe delivery through the most perilous territories.",
+    "usage": {
+      "activation": "Passive effect; no activation required",
+      "duration": "Permanent until destroyed or lost",
+      "endsWhen": "The cauldron is destroyed or lost",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The rare materials and advanced necromantic crafting required to create this item justify its moderate price.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-24T23:42:40.413455+00:00",
+    "aiReviewedAt": "2026-07-24T23:42:40.413455+00:00",
+    "aiReviewVersion": 1
   },
   "undead_pacification_incense": {
     "id": "undead_pacification_incense",
@@ -3575,20 +3804,43 @@ export const ITEMS_044 = {
   "valley_bowser_ash_rider_helmet": {
     "id": "valley_bowser_ash_rider_helmet",
     "name": "Ash Rider Helmet",
-    "description": "Worn by volcanic warriors, this helmet channels the spirit of fallen lava knights. Grants resistance to fire and adds a chance to summon a flame-touched shield.",
+    "description": "The Ash Rider Helmet channels the volcanic spirit of fallen lava knights, its obsidian surface etched with ancient runes that glow faintly under the heat of a fiery sky. This helmet grants resistance to fire damage and offers a rare chance to summon a shield imbued with the very essence of molten stone, deflecting incoming attacks for fleeting moments. Warriors who wear this helm feel as though they can command the flames themselves, their movements bolstered by the spirit of their ancestors.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Grants 20% fire resistance",
-      "10% chance to summon a flaming shield for 3 seconds",
-      "Reduces cooldowns of fire-based abilities by 15%"
+      "Fire Resistance",
+      "Flame-Touched Shield"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Fire Resistance",
+        "rules": "The wearer gains resistance to fire damage. This effect is active as long as the helmet is worn."
+      },
+      {
+        "title": "Flame-Touched Shield",
+        "rules": "Once per short rest, the user can activate this ability by making a successful Strength (Athletics) check against DC 15. If successful, they summon a shield made of molten stone that grants them a +2 bonus to AC for 3 seconds. This effect cannot be used more than once every 8 hours."
+      }
+    ],
+    "levelRequirementReason": "This helmet requires a level 5 character due to its intricate enchantments and the fiery spirit it channels.",
+    "vendorReason": "The volcanic warriors of Valley Bowser have long been known for their resilience against fire, making this item a staple in their gear.",
+    "shippingDetail": "Due to its fragile nature and the heat-sensitive enchantments, the helmet must be shipped via Pipe Express's specially insulated couriers.",
+    "usage": {
+      "activation": "Reaction (once per short rest)",
+      "duration": "3 seconds",
+      "endsWhen": "The shield dissipates after use or if the user takes any action that requires their reaction.",
+      "charges": "1, recharged at dawn"
+    },
+    "priceReason": "This balanced price reflects the helmet's unique combination of fire resistance and a rare defensive ability, making it a sought-after item among lava knights.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:43:03.962839+00:00",
+    "aiReviewedAt": "2026-07-24T23:43:03.962839+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_ash_rune_charger": {
     "id": "valley_bowser_ash_rune_charger",

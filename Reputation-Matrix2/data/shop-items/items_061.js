@@ -257,21 +257,44 @@ export const ITEMS_061 = {
   "the_edge_beetle_scuttler": {
     "id": "the_edge_beetle_scuttler",
     "name": "Chitinous Void Crawler",
-    "description": "A surprisingly resilient beetle, mutated by the energies of The Edge. It's got a nasty bite and an even nastier habit of disappearing into thin air – just like your coin purse!",
+    "description": "The Chitinous Void Crawler, a resilient beetle mutated by The Edge's dark energies, is a fearsome yet oddly charming creature. Its chitin armor gleams with an ethereal glow, and it possesses an uncanny knack for vanishing into the shadows. This tiny ally can heal minor wounds, but its real power lies in its ability to slip through the cracks of reality itself, making it a valuable companion on any journey.",
     "category": "consumables",
-    "price": 350,
+    "price": 1000,
     "icon": "🐛",
     "stock": 91,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "Heals 1d4 HP",
-      "Chance to inflict minor poison (10%)",
-      "Temporary +1 to stealth checks"
+      "Heals Minor Wounds",
+      "Temporal Displacement"
     ],
     "vendor": "edge_outpost",
-    "shippedBy": "winged courier",
-    "levelRequirement": 3
+    "shippedBy": "Winged Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Heals Minor Wounds",
+        "rules": "When activated by a bonus action, the Chitinous Void Crawler crawls over an injured creature, healing 1d4 hit points. The effect ends if the creature moves more than 5 feet away."
+      },
+      {
+        "title": "Temporal Displacement",
+        "rules": "The beetle can momentarily slip through time, causing it to vanish from sight for up to 1 minute. While invisible, it has advantage on stealth checks and can reappear in an unoccupied space within reach as a bonus action. This effect ends if the user takes any hostile action."
+      }
+    ],
+    "levelRequirementReason": "The Chitinous Void Crawler's mutation makes it accessible to lower-level adventurers who require reliable healing and stealth.",
+    "vendorReason": "Edge Outpost specializes in exotic creatures and items that originate from The Edge, making the Chitinous Void Crawler a natural addition.",
+    "shippingDetail": "The beetle is delivered via winged courier with an overnight delivery guarantee for adventurers in urgent need of its services.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous (Heals), Up to 1 Minute (Temporal Displacement)",
+      "endsWhen": "The creature moves more than 5 feet away (Healing), Taking any hostile action (Temporal Displacement)",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Chitinous Void Crawler's unique combination of healing and stealth capabilities, coupled with its origin from The Edge, justifies the substantial price.",
+    "priceOriginal": 350,
+    "priceReviewedAt": "2026-07-24T23:57:15.945326+00:00",
+    "aiReviewedAt": "2026-07-24T23:57:15.945326+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_chronometric_orb": {
     "id": "the_edge_chronometric_orb",
@@ -2082,21 +2105,44 @@ export const ITEMS_061 = {
   "leclaire_isle_item_sticky_tart": {
     "id": "leclaire_isle_item_sticky_tart",
     "name": "Glazed Goblin's Delight Tart",
-    "description": "This suspiciously shiny tart is rumored to be a favorite of mischievous goblins. Bite into it and experience an immediate burst of sugary energy – perfect for distracting your enemies or fueling a frantic pastry-making spree!",
+    "description": "The Glazed Goblin's Delight Tart, a suspiciously shiny confection, is said to be favored by mischievous goblins who use it to fuel frantic pastry-making sprees or distract foes with bursts of sugary energy. Bite into this tart and experience an immediate surge of sweetened vitality; your enemies might find themselves momentarily confused while you revel in the sugar rush. This treat is a delightful, if slightly dangerous, way to bolster your reflexes and outmaneuver your opponents.",
     "category": "consumables",
-    "price": 800,
+    "price": 1000,
     "icon": "🍬",
     "stock": 67,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "restores 50 HP",
-      "grants +2 Dexterity for 3 turns",
-      "chance to confuse target on use"
+      "Sweetened Vitality",
+      "Confusion"
     ],
     "vendor": "dough_depot",
     "shippedBy": "Rolling Cart",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Sweetened Vitality",
+        "rules": "Upon consuming the tart, you regain 60 hit points. For the following three turns, gain a +2 bonus to Dexterity saving throws and skill checks."
+      },
+      {
+        "title": "Confusion",
+        "rules": "There is a 30% chance that your next attack against a creature will be made with disadvantage due to its temporary disorientation from the tart's sugary effects. This effect ends when you make an attack roll or cast a spell."
+      }
+    ],
+    "levelRequirementReason": "This treat is suitable for adventurers of all levels, though beginners might find it more effective.",
+    "vendorReason": "The bakers at Dough Depot are known for their experimental and unconventional pastries that blend the mundane with the magical.",
+    "shippingDetail": "Delivered by the ever-popular Rolling Cart, which often stops in towns to sell its famous goods.",
+    "usage": {
+      "activation": "Eat the tart as a bonus action.",
+      "duration": "3 turns after consumption.",
+      "endsWhen": "The effects end when you make an attack roll or cast a spell.",
+      "charges": "Unlimited, but only one effect is active at a time."
+    },
+    "priceReason": "The tart's rare ingredients and the difficulty of its preparation justify the high price in experience points.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-24T23:57:01.766003+00:00",
+    "aiReviewedAt": "2026-07-24T23:57:01.766003+00:00",
+    "aiReviewVersion": 1
   },
   "leclaire_isle_item_dough_armor": {
     "id": "leclaire_isle_item_dough_armor",
@@ -2185,21 +2231,44 @@ export const ITEMS_061 = {
   "kivotos_item_forbidden_echo_shard": {
     "id": "kivotos_item_forbidden_echo_shard",
     "name": "Resonance of Ruin",
-    "description": "A jagged shard pulsing with residual chaotic energy. Touching this artifact grants a fleeting glimpse into the past, revealing hidden pathways or weaknesses in your enemies – but be warned! Prolonged exposure can cause unsettling hallucinations and attract unwanted attention from the Academy’s security forces.",
+    "description": "The Resonance of Ruin is a jagged, ethereal shard forged from ancient ruins, pulsing with chaotic energy. When you touch it, fleeting echoes of past battles reveal hidden weaknesses in your enemies, granting strategic insight. However, prolonged exposure can distort reality, causing unsettling hallucinations that last until the next dawn. The artifact's power draws unwanted attention from the Academy’s security forces, making it a forbidden relic known to scholars and adventurers alike.",
     "category": "forbidden",
-    "price": 7500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "reveal_hidden_paths_30%",
-      "enemy_vulnerability_buff_15%",
-      "chance_of_hallucination_on_use_10%"
+      "Expose Hidden Weaknesses",
+      "Hallucinatory Insight"
     ],
     "vendor": "club_supply",
     "shippedBy": "black_market_courier",
-    "levelRequirement": 12
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Expose Hidden Weaknesses",
+        "rules": "As an action, you touch the Resonance of Ruin to activate its power. This reveals a hidden weakness in one enemy within 30 feet, granting advantage on an attack roll or saving throw against that target for 1 minute. The effect ends if you lose sight of the target."
+      },
+      {
+        "title": "Hallucinatory Insight",
+        "rules": "There is a 20% chance (DC 14) that when you use the Resonance of Ruin, you are briefly overwhelmed by hallucinations. These last until your next short or long rest and can be resisted with a successful Wisdom saving throw."
+      }
+    ],
+    "levelRequirementReason": "The artifact's chaotic energy requires a seasoned adventurer to wield it safely.",
+    "vendorReason": "Club Supply deals in rare artifacts, and the Resonance of Ruin is one such relic known for its forbidden nature.",
+    "shippingDetail": "Special handling required; delivery may take an additional day due to restricted routes.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute, until the target is out of sight or you lose concentration (as if concentrating on a spell)",
+      "endsWhen": "You lose sight of the target or use it again within the same combat",
+      "charges": "Recharge after 8 hours of rest"
+    },
+    "priceReason": "The Resonance of Ruin is highly sought after for its strategic value and forbidden nature, justifying a price commensurate with rare artifacts.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-24T23:56:50.571488+00:00",
+    "aiReviewedAt": "2026-07-24T23:56:50.571488+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_student_study_pack": {
     "id": "kivotos_item_student_study_pack",
@@ -2876,40 +2945,86 @@ export const ITEMS_061 = {
   "middle_earth_dwarven_battleaxe_of_grit": {
     "id": "middle_earth_dwarven_battleaxe_of_grit",
     "name": "Stonebeard's Stubborn Swing",
-    "description": "Forged in the deepest dwarven halls, this axe practically *demands* a good fight! It’s incredibly durable and imbued with stubbornness - perfect for those pesky enemies who just won't go down!",
+    "description": "Stonebeard's Stubborn Swing is a dwarven battleaxe forged from ancient, enchanted stone in the heart of Mount Ironfist. Its very weight seems to imbue you with unyielding determination, making it practically impossible for even the most persistent foes to escape your wrath. The axe's adamantium blade gleams with an inner fire that never fades, and its hilt is wrapped in leather that has absorbed countless blows over centuries of use.",
     "category": "equipment",
-    "price": 18000,
+    "price": 1000,
     "icon": "⛏️",
     "stock": 7,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "damage_slashing_3d6",
-      "armor_class_bonus_2",
-      "resistance_poison"
+      "determination",
+      "poison_resistance"
     ],
     "vendor": "dwarven_forge",
     "shippedBy": "giant_worm",
-    "levelRequirement": 8
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Determination",
+        "rules": "When you make a melee attack with Stonebeard's Stubborn Swing, you gain temporary hit points equal to 1d8 + your Strength modifier. This effect can occur once per short or long rest."
+      },
+      {
+        "title": "Poison Resistance",
+        "rules": "While wielding Stonebeard's Stubborn Swing, you have advantage on saving throws against poison effects and are immune to poison damage from non-magical sources. This effect lasts until the start of your next turn after using it in combat."
+      }
+    ],
+    "levelRequirementReason": "This axe is crafted with a complexity that requires a seasoned warrior, ensuring its wielder can harness both its physical and spiritual might.",
+    "vendorReason": "The dwarves of Mount Ironfist are renowned for their craftsmanship in creating weapons that resonate with the spirit of their creators.",
+    "shippingDetail": "Ships via a giant worm, which may cause a slight delay due to its unpredictable route through underground caverns.",
+    "usage": {
+      "activation": "Melee attack",
+      "duration": "Instantaneous for each effect; Determination lasts until the start of your next turn after using it in combat.",
+      "endsWhen": "The effects end when you finish a short or long rest, or if you stop wielding the axe.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This axe is crafted from ancient stone and imbued with dwarven magic, making it a rare but balanced find for those who can wield its power.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-24T23:57:32.328628+00:00",
+    "aiReviewedAt": "2026-07-24T23:57:32.328628+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_gondorian_scroll_of_forgotten_prayers": {
     "id": "middle_earth_gondorian_scroll_of_forgotten_prayers",
     "name": "Echoes of the Faithful",
-    "description": "A crumbling scroll containing ancient Gondorian prayers – supposedly whispered by heroes long gone. Opening it triggers a brief burst of divine energy, healing the wielder and bolstering their resolve, though sometimes the whispers are a bit… unsettling.",
+    "description": "The Echoes of the Faithful is a tattered scroll, its parchment yellowed by time and inscribed with ancient Gondorian prayers that whisper of valorous deeds long past. When unrolled, it emits a soft glow, healing the wielder by 75 hit points and granting them a +2 bonus to Wisdom saving throws for an hour. The divine energy sometimes brings unsettling visions, but those who can endure these visions may invoke a rare chance of divine intervention during their next action.",
     "category": "consumables",
-    "price": 250000,
+    "price": 1000,
     "icon": "🙏",
     "stock": 1,
     "rarity": "godly",
     "stockType": "special_order",
     "effects": [
-      "heal_amount_75",
-      "wisdom_bonus_2",
-      "chance_of_divine_intervention_5%"
+      "divine_healing",
+      "wisdom_bonus"
     ],
     "vendor": "shire_shop",
     "shippedBy": "silver_hawk",
-    "levelRequirement": 30
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Divine Healing",
+        "rules": "Using an action, the wielder can unroll the scroll to heal themselves by 75 hit points. The effect ends immediately if the wielder takes any damage or falls unconscious."
+      },
+      {
+        "title": "Wisdom Bonus",
+        "rules": "The wielder gains a +2 bonus to Wisdom saving throws for one hour after using the scroll. This benefit is lost if the wielder fails a Wisdom saving throw during this time."
+      }
+    ],
+    "levelRequirementReason": "This scroll is accessible to all, as it is a potent reminder of Gondor's faith and resilience.",
+    "vendorReason": "The Shire Shop specializes in relics that connect the region with its ancient past, making this scroll an ideal addition to their inventory.",
+    "shippingDetail": "Ships via Silver Hawk, known for swift and secure deliveries across Middle-earth.",
+    "usage": {
+      "activation": "action",
+      "duration": "one hour or until the wielder takes damage or falls unconscious",
+      "endsWhen": "the wielder takes damage or falls unconscious; ends after one hour if undisturbed",
+      "charges": "unlimited"
+    },
+    "priceReason": "The Echoes of the Faithful is priced at 1000 XP, reflecting its divine origin and the skill required to interpret its ancient prayers.",
+    "priceOriginal": 250000,
+    "priceReviewedAt": "2026-07-24T23:57:15.676292+00:00",
+    "aiReviewedAt": "2026-07-24T23:57:15.676292+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_glowing_mushroom": {
     "id": "mushroom_kingdom_item_glowing_mushroom",
@@ -2956,21 +3071,44 @@ export const ITEMS_061 = {
   "mushroom_kingdom_item_warp_pipe_fragment": {
     "id": "mushroom_kingdom_item_warp_pipe_fragment",
     "name": "Echoing Fragment of the Shifting Pipes",
-    "description": "A shard of a corrupted warp pipe, humming with unstable energy. Touching it allows for brief, unpredictable teleportation – but be warned, you might end up in a puddle or worse!",
+    "description": "A fragment of a warp pipe warped beyond recognition, it hums with an unstable energy that resonates through the air. Touching this shard causes you to vanish in a burst of shimmering light and reappear nearby, but beware; the precise location is unpredictable and could leave you in a precarious situation or worse! This relic is said to have been crafted from the remnants of the Mushroom Kingdom’s corrupted warp pipes, once trusted conduits for Link's travels.",
     "category": "curiosities",
-    "price": 4500,
+    "price": 1000,
     "icon": "🌀",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "random_teleportation",
-      "chance_of_negative_status_effect",
-      "small_movement_speed_boost"
+      "teleportation",
+      "unpredictable destination"
     ],
     "vendor": "wario_direct",
     "shippedBy": "rocket_mail",
-    "levelRequirement": 9
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Teleportation",
+        "rules": "As a bonus action, touch this fragment to teleport up to 30 feet in any direction. You must end the movement in an unoccupied space or fall prone. The DM determines the exact location of your reappearing point."
+      },
+      {
+        "title": "Unpredictable Destination",
+        "rules": "There is a 25% chance that you will appear within 10 feet of an obstacle, difficult terrain, or hazardous area (such as water). If this occurs, you must make a DC 13 Dexterity saving throw. On a failed save, you fall prone and take 1d6 bludgeoning damage."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 5th level to handle the unpredictable nature of this fragment.",
+    "vendorReason": "Wario has a knack for salvaging and selling rare relics from his travels through the Mushroom Kingdom.",
+    "shippingDetail": "Ships via rocket mail, which can be delivered within three days but may cause slight fluctuations in your destination due to atmospheric conditions.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous teleportation",
+      "endsWhen": "The teleport ends when you reach your new location or fail the saving throw if teleported to a hazardous area.",
+      "charges": "Unlimited, but cannot be used within 1 hour of previous use."
+    },
+    "priceReason": "Balanced at 1000 XP as it offers unpredictable teleportation and a chance for negative effects, making it a rare yet not overpowered item.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-24T23:57:15.865821+00:00",
+    "aiReviewedAt": "2026-07-24T23:57:15.865821+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_forbidden_heartstone": {
     "id": "mushroom_kingdom_item_forbidden_heartstone",
@@ -3143,20 +3281,44 @@ export const ITEMS_061 = {
   "midlands_item_rusty_dagger": {
     "id": "midlands_item_rusty_dagger",
     "name": "Bloodsoaked Shard",
-    "description": "This dagger looks like it's seen better days... and probably a lot of battles! It’s surprisingly sharp, imbued with the lingering fury of countless Midlands skirmishes. Wario would totally use this to steal shiny things!",
+    "description": "The Bloodsoaked Shard gleams faintly, a dagger that has seen countless battles and spilled much blood in the Midlands. Its blade is etched with ancient runes that whisper of lost wars, and the hilt is worn smooth by years of gripping hands. This dagger's edge is sharper than it appears, having been tempered in the fires of many a skirmish. It deals 2d6 slashing damage on a successful hit, and there’s a chilling 15% chance to inflict bleeding wounds.",
     "category": "consumables",
-    "price": 350,
+    "price": 1000,
     "icon": "🔪",
     "stock": 78,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "deals 2 slashing damage",
-      "chance to inflict bleeding (10%)"
+      "deals 2d6 slashing damage",
+      "15% chance to inflict bleeding"
     ],
     "vendor": "midland_merchant",
     "shippedBy": "pony_express",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Slashing Damage",
+        "rules": "The Bloodsoaked Shard deals 2d6 slashing damage on a successful hit. This effect is not subject to any saving throws."
+      },
+      {
+        "title": "Bleeding Chance",
+        "rules": "There is a 15% chance that the target will bleed after being hit with this weapon. The bleeding lasts for one minute and causes an additional 1d4 slashing damage at the start of each of the target's turns."
+      }
+    ],
+    "levelRequirementReason": "The Bloodsoaked Shard is a common item, suitable for any level 1 character who has experienced battle.",
+    "vendorReason": "The Midlands Merchant specializes in goods from the region, including items with rich histories and connections to local lore.",
+    "shippingDetail": "Ships via Pony Express for expedited delivery within a week.",
+    "usage": {
+      "activation": "On a successful hit during a melee attack.",
+      "duration": "Instantaneous; bleeding effect lasts one minute.",
+      "endsWhen": "The bleeding effect ends when the target no longer has any hit points or takes damage from another source.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Bloodsoaked Shard is a common item but carries significant historical and magical value, justifying its higher price in XP.",
+    "priceOriginal": 350,
+    "priceReviewedAt": "2026-07-24T23:57:49.696832+00:00",
+    "aiReviewedAt": "2026-07-24T23:57:49.696832+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_item_imperial_scroll": {
     "id": "midlands_item_imperial_scroll",
@@ -3287,40 +3449,86 @@ export const ITEMS_061 = {
   "grand_country_forbidden_shard": {
     "id": "grand_country_forbidden_shard",
     "name": "Echoes of Oblivion",
-    "description": "A fragment ripped from the fabric of forgotten realities. Holding this shard whispers unsettling truths and can briefly warp space around you, but prolonged exposure… well, let’s just say it's best to admire from a distance.",
+    "description": "Echoes of Oblivion is a shard etched with the forgotten geometry of other realms. Held in your hand, it whispers truths from realities long lost to time, warping space around you for moments of eerie clarity. Yet prolonged exposure risks unraveling the fabric of existence; best admired from afar or only briefly wielded by those who dare. This fragment, a relic of ancient banishment, is as dangerous as it is enigmatic.",
     "category": "forbidden",
-    "price": 75000,
+    "price": 1000,
     "icon": "💀",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "chance_of_reality_distortion",
-      "minor_illusion_casting",
-      "small_damage_on_touch"
+      "reality_warp",
+      "truth_revelation"
     ],
     "vendor": "side_seller",
     "shippedBy": "void_packet",
-    "levelRequirement": 17
+    "levelRequirement": 17,
+    "effectDetails": [
+      {
+        "title": "Reality Warp",
+        "rules": "As a bonus action, you can manipulate space around you for up to 1 minute. This creates a localized distortion that grants advantage on saving throws and ability checks within the affected area (a 20-foot radius). The effect ends if you move more than 30 feet from where you used it."
+      },
+      {
+        "title": "Truth Revelation",
+        "rules": "When you make an Intelligence or Wisdom check, you can use Echoes of Oblivion as an action. It grants you advantage on that roll and reveals a hidden truth related to the situation (e.g., a secret motive, forgotten detail). This ability has a cooldown period of 10 minutes."
+      }
+    ],
+    "levelRequirementReason": "This item requires significant spellcasting prowess and understanding of reality's fabric.",
+    "vendorReason": "Side sellers often deal in the forbidden, and this shard is too dangerous for most to handle without a high-level mage or warlock backing it up.",
+    "shippingDetail": "The Echoes of Oblivion must be delivered via void packet, which ensures it remains stable during transit between dimensions.",
+    "usage": {
+      "activation": "Bonus action for Reality Warp; Action to use Truth Revelation.",
+      "duration": "1 minute per use (Reality Warp); Instantaneous (Truth Revelation).",
+      "endsWhen": "The duration ends or the user moves more than 30 feet from origin. Cooldown after each use of Truth Revelation is 10 minutes.",
+      "charges": "Unlimited, but each use has a cooldown."
+    },
+    "priceReason": "This item's rarity and unique effects justify its price in mythic XP; it’s a dangerous artifact that can alter reality itself.",
+    "priceOriginal": 75000,
+    "priceReviewedAt": "2026-07-24T23:57:51.217886+00:00",
+    "aiReviewedAt": "2026-07-24T23:57:51.217886+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_layer_cake_charm": {
     "id": "grand_country_layer_cake_charm",
     "name": "Chronometric Confection",
-    "description": "A tiny, edible replica of a layer cake, imbued with temporal magic! When consumed, it grants the user a fleeting glimpse into potential futures... mostly involving Wario eating all the cake.",
+    "description": "The Chronometric Confection is a diminutive, golden layer cake that gleams like it’s been dipped in time itself. When consumed, it grants its bearer a brief, chaotic glimpse into potential futures—each one featuring Wario inadvertently or purposefully consuming every last crumb. This ephemeral vision lasts only long enough to make the most strategic decisions, yet it comes with a peculiar side effect: those who partake are left feeling slightly more fortunate in their immediate circumstances.",
     "category": "curiosities",
-    "price": 350,
+    "price": 1000,
     "icon": "🍰",
     "stock": 99,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
       "grant_short_vision",
-      "chance_of_future_prediction",
-      "minor_luck_boost"
+      "temporary_luck_boost"
     ],
     "vendor": "layer_market",
     "shippedBy": "delivery_drone",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Grant Short Vision of Future Scenarios",
+        "rules": "Upon consumption, the Chronometric Confection grants the user a fleeting, chaotic vision into potential futures. These visions are not deterministic but rather probabilistic, with each one featuring Wario consuming every last crumb of the cake. The effect lasts for 1 minute and can be ended early by taking any action."
+      },
+      {
+        "title": "Temporary Luck Boost",
+        "rules": "For 24 hours after consumption, the user gains advantage on saving throws against effects that would cause them to fail a check due to chance or misfortune. This effect cannot stack with other sources of luck and is exhausted if the user fails an ability check."
+      }
+    ],
+    "levelRequirementReason": "This item's temporal magic, while intriguing, is not overly powerful for novice adventurers.",
+    "vendorReason": "Layer Market specializes in unique and whimsical items, making it a natural fit for the Chronometric Confection.",
+    "shippingDetail": "The confection is delivered fresh, but due to its time-sensitive nature, it must be consumed within one week of receiving.",
+    "usage": {
+      "activation": "Instantaneous upon consumption",
+      "duration": "1 minute or until ended early",
+      "endsWhen": "Taking any action, failing a check due to chance, or expiring after 1 minute",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Chronometric Confection is priced high for its unique blend of temporal magic and the whimsical concept of Wario eating cake.",
+    "priceOriginal": 350,
+    "priceReviewedAt": "2026-07-24T23:57:42.037553+00:00",
+    "aiReviewedAt": "2026-07-24T23:57:42.037553+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_claw_of_the_howler": {
     "id": "animatopia_claw_of_the_howler",

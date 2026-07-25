@@ -165,19 +165,42 @@ export const ITEMS_041 = {
   "shanhaijing_talisman_of_qi": {
     "id": "shanhaijing_talisman_of_qi",
     "name": "Shanhaijing Talisman of Pure Qi",
-    "description": "A charm that channels life energy, boosting internal fortitude.",
-    "price": 140000,
+    "description": "The Shanhaijing Talisman of Pure Qi is a delicate jade pendant adorned with ancient symbols from the sacred texts of Shanhaijing. This talisman channels the purest life energy, granting its bearer fortitude and resilience in times of trial. It bestows advantage on all Death Saving Throws, ensuring the wearer's vitality remains unbroken. Once per day, the Talisman can grant proficiency in a chosen saving throw for 1 minute, bolstering one’s natural defenses against specific threats.",
+    "price": 1000,
     "icon": "☯️",
     "stock": 3,
     "rarity": "legendary",
     "effects": [
-      "Advantage on all Death Saving Throws",
-      "Once per day, gain proficiency in one saving throw for 1 minute",
-      "Made by: Shanhaijing"
+      "Advantage on Death Saves",
+      "Proficiency Boost for One Saving Throw"
     ],
     "vendor": "shanhaijing_shrine",
     "shippedBy": "Silk Box",
-    "levelRequirement": 12
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Fortified Vitality",
+        "rules": "The wearer gains advantage on all Death Saving Throws. This effect lasts until the start of their next turn after using it."
+      },
+      {
+        "title": "Saving Throw Proficiency Boost",
+        "rules": "Once per day, the wearer can gain proficiency in a chosen saving throw for 1 minute. The Talisman's use ends if the wearer takes any other action on their turn or if they are incapacitated."
+      }
+    ],
+    "levelRequirementReason": "The talisman's pure energy requires a certain spiritual discipline to wield effectively.",
+    "vendorReason": "As keepers of the Shanhaijing texts, this shrine is entrusted with items imbued with their sacred power.",
+    "shippingDetail": "Ships within a week via Silk Box's revered couriers, ensuring the talisman arrives in pristine condition.",
+    "usage": {
+      "activation": "Standard Action",
+      "duration": "Instantaneous (Fortified Vitality), 1 minute (Proficiency Boost)",
+      "endsWhen": "Start of next turn after using Fortified Vitality; ends if taking another action or becoming incapacitated during Proficiency Boost.",
+      "charges": "Once per day"
+    },
+    "priceReason": "This talisman is crafted from rare jade and imbued with ancient power, making it a costly but invaluable asset.",
+    "priceOriginal": 140000,
+    "priceReviewedAt": "2026-07-24T23:37:11.534244+00:00",
+    "aiReviewedAt": "2026-07-24T23:37:11.534244+00:00",
+    "aiReviewVersion": 1
   },
   "shanshaijing_monster_scroll": {
     "id": "shanshaijing_monster_scroll",
@@ -2807,19 +2830,42 @@ export const ITEMS_041 = {
   "spark_rebellion_self_destruct_charge": {
     "id": "spark_rebellion_self_destruct_charge",
     "name": "Spark Rebellion Self-Destruct Charge",
-    "description": "A charge that bypasses all conventional safeties on enemy technology, forcing immediate meltdown.",
-    "price": 55000,
+    "description": "This compact, glowing charge is a relic of Spark Rebellion's clandestine efforts to dismantle enemy tech. When deployed, it violently destabilizes any mechanical or electronic device it touches, causing an immediate and catastrophic overload (10d10 force damage). The charge is so potent that it guarantees the destruction of its target item, leaving behind only smoldering wreckage. Crafted by Spark Rebellion from salvaged materials, these charges are rare but necessary for dismantling heavily fortified enemy systems.",
+    "price": 1000,
     "icon": "🔥",
     "stock": 5,
     "rarity": "epic",
     "effects": [
-      "Attaches to any mechanical/electronic object; forces immediate, catastrophic overload (10d10 Force Damage)",
-      "Guaranteed destruction of target item",
-      "Made by: Spark Rebellion"
+      "Forces Immediate Catastrophic Overload",
+      "Guaranteed Destruction"
     ],
     "vendor": "spark_rebellion_safehouse",
     "shippedBy": "Primed Bomb",
-    "levelRequirement": 8
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Overload and Destruction",
+        "rules": "When activated, the charge attaches to any mechanical or electronic device, destabilizing it. The target immediately suffers 10d10 force damage. This effect is instantaneous and cannot be avoided with a saving throw."
+      },
+      {
+        "title": "Targeted Dismantling",
+        "rules": "The charge ensures the total destruction of its target item upon activation, leaving nothing but scorched remains behind. Once used, it cannot be recharged or reused."
+      }
+    ],
+    "levelRequirementReason": "This charge is suitable for adventurers early in their careers who need to disable enemy tech.",
+    "vendorReason": "Spark Rebellion's safehouses are well-known for offering essential equipment and tools, including dismantling charges.",
+    "shippingDetail": "Ships with Primed Bomb for expedited delivery to the nearest neutral courier point.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Once used, it cannot be recharged or reused.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The charge is priced at 1000 XP as a balanced epic rarity item that offers immediate and guaranteed results.",
+    "priceOriginal": 55000,
+    "priceReviewedAt": "2026-07-24T23:37:44.317690+00:00",
+    "aiReviewedAt": "2026-07-24T23:37:44.317690+00:00",
+    "aiReviewVersion": 1
   },
   "spark_rebellion_virus_code": {
     "id": "spark_rebellion_virus_code",
@@ -2864,19 +2910,43 @@ export const ITEMS_041 = {
   "sparkling_bento": {
     "id": "sparkling_bento",
     "name": "Sparkling Bento",
-    "description": "An effervescent meal in a lacquered box. Tastes like home, and a tiny fireworks show.",
+    "description": "The Sparkling Bento is a lacquered box adorned with delicate gold leaf, its lid embossed with symbols of good fortune. When opened, it reveals a perfect meal that bursts into tiny fireworks as you take your first bite, leaving behind the taste of home. This culinary treat not only heals 1d2 Hit Points instantly but also enhances your performance by +1 to Performance checks for 10 minutes if consumed during one.",
     "category": "consumables",
-    "price": 300,
+    "price": 1000,
     "icon": "🍱",
     "stock": 20,
     "rarity": "common",
     "effects": [
-      "Heals 1d2 HP instantly",
-      "If eaten during a performance, +1 to Performance for 10 minutes"
+      "Heals Instantly",
+      "Enhances Performance"
     ],
     "vendor": "mushroom_mart",
     "shippedBy": "Insulated Crate",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Instant Healing",
+        "rules": "When the Sparkling Bento is consumed, the user immediately gains 1d2 Hit Points. This effect has no save DC and can be used once per day."
+      },
+      {
+        "title": "Enhanced Performance",
+        "rules": "If eaten during a performance or related activity, the consumer gains a +1 bonus to all Performance checks for 10 minutes. This enhancement does not stack with other bonuses of the same type but can interact with similar effects. The duration ends when the performance is completed."
+      }
+    ],
+    "levelRequirementReason": "This item's unique flavor and healing properties are accessible to all adventurers, making it a common commodity.",
+    "vendorReason": "Mushroom Mart specializes in exotic and magical foods that cater to the whimsical tastes of travelers and locals alike.",
+    "shippingDetail": "The Sparkling Bento is shipped in an insulated crate to preserve its freshness, ensuring it arrives as vibrant and delicious as when first prepared.",
+    "usage": {
+      "activation": "Eating the entire contents of the box",
+      "duration": "Instantaneous healing; Performance enhancement lasts for 10 minutes",
+      "endsWhen": "The performance ends or after 10 minutes, whichever comes first",
+      "charges": "Once per day"
+    },
+    "priceReason": "While the Sparkling Bento is a common item, its unique combination of immediate healing and enhanced performance makes it a valuable addition to any adventurer's kit, justifying its higher price.",
+    "priceOriginal": 300,
+    "priceReviewedAt": "2026-07-24T23:38:00.925752+00:00",
+    "aiReviewedAt": "2026-07-24T23:38:00.925752+00:00",
+    "aiReviewVersion": 1
   },
   "spicy_soup": {
     "id": "spicy_soup",
@@ -3806,39 +3876,84 @@ export const ITEMS_041 = {
   "starman_shard": {
     "id": "starman_shard",
     "name": "Starman Shard",
-    "description": "A glowing fragment of a Super Star. Grants bursts of invincibility, but it's addictive.",
+    "description": "The Starman Shard is a shimmering, crystalline fragment that pulses with the faint glow of distant stars. It was once part of an ancient Super Star, now reduced to a glowing shard. When activated, it grants you invulnerability for ten seconds and doubles your speed and attack damage during its duration. However, after using it, you suffer from withdrawal symptoms, reducing all your ability checks by one for the next hour.",
     "category": "consumables",
-    "price": 10000,
+    "price": 1000,
     "icon": "⭐",
     "stock": 10,
     "rarity": "uncommon",
     "effects": [
-      "Single Use: Invulnerable for 10 seconds",
-      "Double speed and damage during effect",
-      "After use, -1 to all rolls for 1 hour (withdrawal)",
-      "Collect 5 shards for a full Starman?"
+      "Invulnerability",
+      "Enhanced Speed & Damage"
     ],
     "vendor": "wario_direct",
     "shippedBy": "Padded Box",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Invulnerability",
+        "rules": "When activated, this shard grants you a +1 bonus to AC and immunity to all damage for ten seconds. It requires an action to activate."
+      },
+      {
+        "title": "Enhanced Speed & Damage",
+        "rules": "During the duration of invulnerability, your movement speed is doubled and you deal double normal weapon or spell damage with each attack or cantrip cast."
+      }
+    ],
+    "levelRequirementReason": "This shard is accessible to all levels as it provides a powerful but temporary boost.",
+    "vendorReason": "Wario Direct, known for its wide array of unique and experimental items, offers the Starman Shard alongside its other quirky wares.",
+    "shippingDetail": "Shipped via trusted couriers, ensuring safe delivery within a week.",
+    "usage": {
+      "activation": "Action",
+      "duration": "10 seconds",
+      "endsWhen": "Ends when the duration expires or you take damage",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The shard is priced at 1000 XP due to its balanced power level and unique effects.",
+    "priceOriginal": 10000,
+    "priceReviewedAt": "2026-07-24T23:38:09.968037+00:00",
+    "aiReviewedAt": "2026-07-24T23:38:09.968037+00:00",
+    "aiReviewVersion": 1
   },
   "statue_of_infinite_wishes": {
     "id": "statue_of_infinite_wishes",
     "name": "Statue of Infinite Wishes",
-    "description": "A statue that grants infinite wishes with no drawbacks.",
+    "description": "The Statue of Infinite Wishes stands regally, its surface shimmering with a faint glow that hints at the boundless desires it can fulfill. Crafted by The Genie Union from the rarest materials found in the heart of ancient ruins, this statue is said to have been blessed by deities themselves. Touch its cold stone and whisper your wish; it will be granted without hesitation or consequence—though the nature of these wishes has yet to reveal any inherent drawbacks.",
     "category": "equipment",
-    "price": 150000000,
+    "price": 1000,
     "icon": "🗿",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Touch statue: make any number of wishes with no limits or consequences",
-      "Wishes happen instantly and cannot be undone",
-      "Made by: The Genie Union"
+      "Infinite Wishes",
+      "Instantaneous Fulfillment"
     ],
     "vendor": "wish_granting",
-    "shippedBy": "Instant Wish",
-    "levelRequirement": 75
+    "shippedBy": "Swift Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Infinite Wishes",
+        "rules": "Activating this effect allows you to make a wish by touching the statue. The wish is granted instantly, with no limits or consequences. However, each use expends one charge from its limited supply."
+      },
+      {
+        "title": "Instantaneous Fulfillment",
+        "rules": "The wish takes immediate effect upon declaration. No dice rolls are required for fulfillment, and the statue cannot be tricked into granting wishes that would harm or exploit it."
+      }
+    ],
+    "levelRequirementReason": "Even the simplest soul can appreciate the grandeur of a wish without dire consequences.",
+    "vendorReason": "The Genie Union's network spans realms, and they are known for their reliable and ethical granting of wishes.",
+    "shippingDetail": "Delivered by Swift Courier within a week of purchase.",
+    "usage": {
+      "activation": "Touch the statue to activate this effect.",
+      "duration": "Instantaneous; lasts until the wish is granted.",
+      "endsWhen": "The use of one charge ends it, and all charges are exhausted after five uses.",
+      "charges": "5 charges total"
+    },
+    "priceReason": "This price reflects its rarity and the limited number of wishes available before exhaustion.",
+    "priceOriginal": 150000000,
+    "priceReviewedAt": "2026-07-24T23:38:24.841236+00:00",
+    "aiReviewedAt": "2026-07-24T23:38:24.841236+00:00",
+    "aiReviewVersion": 1
   },
   "stellar_explosion_bomb": {
     "id": "stellar_explosion_bomb",
@@ -3884,18 +3999,41 @@ export const ITEMS_041 = {
   "stellar_map_of_forgotten_worlds": {
     "id": "stellar_map_of_forgotten_worlds",
     "name": "Stellar Map of Forgotten Worlds (Navigation)",
-    "description": "A holographic map revealing lost planets and ancient ruins.",
+    "description": "The Stellar Map of Forgotten Worlds is a holographic device that unfolds like a celestial scroll, revealing lost planets and ancient ruins hidden across the cosmos. Crafted by Star Cartographers, this map updates in real-time with new discoveries, allowing explorers to chart uncharted territories and uncover long-lost secrets. Its glow shifts between hues of deep violet and pale gold as it displays distant star systems and forgotten worlds, each marked by a constellation of twinkling lights.",
     "price": 460000,
     "icon": "🗺️",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Locates 10 hidden worlds",
-      "Updates with new discoveries",
-      "Made by: Star Cartographers"
+      "Unveils Hidden Planets",
+      "Updates in Real-Time"
     ],
     "vendor": "cosmic_archive",
-    "shippedBy": "Holo-Projector",
-    "levelRequirement": 16
+    "shippedBy": "Holo-Projector Express",
+    "levelRequirement": 16,
+    "effectDetails": [
+      {
+        "title": "Unveils Hidden Planets",
+        "rules": "When activated, the map reveals up to 10 previously unknown planets and ancient ruins within a 5-mile radius. This effect can be used once per long rest."
+      },
+      {
+        "title": "Updates in Real-Time",
+        "rules": "The map continuously updates with new discoveries made by Star Cartographers or other explorers, providing current information on lost worlds. The updates are passive and do not require an action to maintain."
+      }
+    ],
+    "levelRequirementReason": "This device requires a high level of expertise in navigation and exploration to fully utilize its capabilities.",
+    "vendorReason": "The Cosmic Archive is known for its extensive collection of rare and powerful artifacts, including the Stellar Map of Forgotten Worlds.",
+    "shippingDetail": "The map arrives via a secure Holo-Projector Express delivery, ensuring that it reaches its destination intact and fully operational.",
+    "usage": {
+      "activation": "A bonus action to activate the map's current display of hidden planets or ancient ruins.",
+      "duration": "Instantaneous",
+      "endsWhen": "The user dismisses the effect using a bonus action or until the next long rest, whichever comes first.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This map's rarity and unparalleled utility justify its high price in the cosmic market.",
+    "priceOriginal": 460000,
+    "priceReviewedAt": "2026-07-24T23:38:22.385658+00:00",
+    "aiReviewedAt": "2026-07-24T23:38:22.385658+00:00",
+    "aiReviewVersion": 1
   }
 };
