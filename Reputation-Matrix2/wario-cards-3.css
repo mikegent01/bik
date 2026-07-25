@@ -133,13 +133,65 @@
 }
 
 /* ------------------------------------------------------------- 6. THE GRID */
-/* Wider min so the rules block has somewhere to live. */
-.w3card{ height:100%; }
+/* Rows are measured by the virtualizer now, so a card must be free to be as
+   tall as its own content — but every card in a row must end at the same
+   baseline or the grid looks ragged. `stretch` on the row + `height:100%`
+   here does both: the row takes the tallest card, the rest match it. */
+.w3card{ height:100%; display:flex; flex-direction:column; }
+.w3card > .p-4{ flex:1 1 auto; display:flex; flex-direction:column; min-height:0; }
+
+/* The effects block is the variable-height part. Cap it so one item with six
+   long rules can't make its whole row twice as tall as every other row, and
+   fade the cut instead of guillotining a word in half (the screenshots showed
+   "The Time Lace is a shimmering..." sliced through mid-letter). */
+.w3fx{ max-height:196px; overflow:hidden; position:relative; }
+.w3fx::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:22px;
+  background:linear-gradient(180deg, transparent, rgba(6,2,16,.92));
+  pointer-events:none;
+}
+
+/* Push price + ADD button to the bottom edge on every card regardless of how
+   much text sits above it, so the buy row lines up across the row. */
+.w3card .mt-auto{ margin-top:auto !important; }
+
+/* --------------------------------------------- 6b. STICKY FILTER TOOLBAR */
+/* The grid used to own a private scrollbox, so the filter row stayed put for
+   free. Now the window scrolls, so pin the toolbar or you'd have to scroll
+   7,722 items back to the top to change a filter. */
+.w3-filterbar{
+  /* 52px clears the fixed #warioShell site bar. */
+  position:sticky; top:52px; z-index:60;
+  background:linear-gradient(180deg, rgba(9,3,20,.98) 68%, rgba(9,3,20,.86) 100%);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,215,0,.14);
+  box-shadow:0 8px 24px rgba(0,0,0,.45);
+  padding-top:14px !important; padding-bottom:14px !important;
+}
+
+/* ---------------------------------------------------- 6c. FOOTER LEGIBILITY */
+/* The footer shipped at 8-20% white on a near-black panel, which is well under
+   the ~4.5:1 contrast floor — in the screenshots the "Warehouse 3.0 · data
+   streamed live from…" line is effectively invisible. Scoped to the footer so
+   the shared Tailwind opacity classes keep their meaning everywhere else. */
+footer .text-white\/8,
+footer .text-white\/10{ color:rgba(255,255,255,.42) !important; }
+footer .text-white\/15,
+footer .text-white\/20{ color:rgba(255,255,255,.55) !important; }
+footer .text-wario-gold\/20{ color:rgba(255,215,0,.62) !important; }
+footer .text-wario-gold\/40{ color:rgba(255,215,0,.78) !important; }
+footer code{
+  background:rgba(255,215,0,.08); border:1px solid rgba(255,215,0,.18);
+  border-radius:5px; padding:1px 5px;
+}
 
 /* --------------------------------------------------- 7. CART BUTTON MOVE */
-/* Was bottom-right, overlapping the site dock and the item grid's last column. */
+/* Three-way corner conflict: bottom-right is the audio dock ("Library of WAH",
+   z 2147483000), top-right was landing on the first row of cards (visible in
+   the screenshots), and top-* now belongs to the sticky filter bar. Bottom-left
+   is the only corner nothing else claims. */
 .cart-float-btn{
-  bottom:auto !important; top:84px !important;
-  right:18px !important;
+  top:auto !important; bottom:16px !important;
+  right:auto !important; left:16px !important;
   z-index:2147482200 !important;
 }
