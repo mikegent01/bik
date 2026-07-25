@@ -1883,3 +1883,136 @@ a.xlink:hover { color: #c7511f; }
   .hero-cta-secondary { margin-left: 0; margin-top: 8px; }
   .prime-actions .btn-buy, .prime-actions .btn-add { min-width: 100%; }
 }
+
+/* ==========================================================================
+   PHASE 6 — footer subpages, visual receipts, expanded WahPrime
+   ========================================================================== */
+
+.info-page { margin-top: 18px; }
+.info-hero {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background:
+    radial-gradient(600px 180px at 90% -20%, rgba(255,215,0,.28), transparent 60%),
+    linear-gradient(120deg, #171024, #3b1f6b 70%, #6b3fa0);
+  color: #fff;
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: 0 8px 22px rgba(15,17,17,.18);
+}
+.info-icon {
+  width: 92px; height: 92px;
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.24);
+  font-size: 48px;
+  flex: none;
+}
+.info-hero h1 { margin: 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: -.04em; }
+.info-hero p { margin: 4px 0 0; color: #eadff8; font-size: 16px; }
+.info-panel {
+  background: #fff;
+  border: 1px solid var(--wz-line);
+  border-radius: 14px;
+  padding: 18px;
+  margin: 14px 0;
+  box-shadow: 0 1px 5px rgba(15,17,17,.08);
+}
+.info-panel h2 { margin: 0 0 10px; }
+.info-panel p { font-size: 14px; color: #263238; line-height: 1.65; }
+.info-cards, .info-related {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.info-cards div, .info-related button {
+  border: 1px solid #e2d5f5;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff, #f7f1ff);
+  padding: 12px;
+  text-align: left;
+}
+.info-cards b, .info-related b { display: block; color: #3b1f6b; margin-bottom: 4px; }
+.info-cards span, .info-related small { color: var(--wz-muted); line-height: 1.45; }
+.info-related button span { font-size: 24px; display: block; margin-bottom: 4px; }
+.info-related button:hover { box-shadow: var(--wz-shadow); }
+.info-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.info-actions .btn-add, .info-actions .btn-buy, .info-a { width: auto; min-width: 190px; text-align: center; }
+.info-a { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; height: 31px; }
+.rc-visual-wrap, .oc-receipt-preview {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+}
+.rc-visual-img, .oc-receipt-preview img {
+  width: min(540px, 100%);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(15,17,17,.18);
+  border: 1px solid #ead9a0;
+  background: #fff8e6;
+}
+.oc-receipt-preview img { max-width: 360px; }
+.rc-json-wrap summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #3b1f6b;
+  margin: 6px 0;
+}
+.prime-benefit-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+.prime-benefit-table div {
+  border: 1px solid #e7e7e7;
+  border-left: 4px solid #ff9900;
+  border-radius: 10px;
+  padding: 12px;
+  background: #fffdf6;
+}
+.prime-benefit-table b { display: block; color: #221431; }
+.prime-benefit-table span { display: block; color: #b12704; font-weight: 800; margin: 2px 0; }
+.prime-benefit-table small { color: var(--wz-muted); line-height: 1.35; }
+.prime-tier-ladder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+.prime-tier-ladder div {
+  border: 1px solid #e2d5f5;
+  border-top: 5px solid var(--tier-c, #6b3fa0);
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+}
+.prime-tier-ladder div.cur { outline: 2px solid #ff9900; background: #fff8e6; }
+.prime-tier-ladder span { font-size: 28px; display: block; }
+.prime-tier-ladder b { display: block; color: #221431; }
+.prime-tier-ladder small { color: var(--wz-muted); line-height: 1.35; }
+.prime-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+.prime-flow div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #d5dde6;
+  border-radius: 12px;
+  background: #eef3f8;
+  padding: 12px;
+}
+.prime-flow b {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #3b1f6b; color: #ffd86b; flex: none;
+}
+.prime-flow code { background: rgba(0,0,0,.07); border-radius: 3px; padding: 0 3px; }
+@media (max-width: 640px) {
+  .info-hero { flex-direction: column; align-items: flex-start; }
+  .info-icon { width: 72px; height: 72px; font-size: 38px; }
+}

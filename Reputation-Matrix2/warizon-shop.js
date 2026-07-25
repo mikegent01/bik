@@ -822,9 +822,13 @@ function priceWidget(it, cur = null, { compact = false } = {}) {
 /** "Also accepts 💰 🟡 🍄" line shown under prices. */
 function acceptsHtml(it, active = null) {
   if (it.accepted.length <= 1) return '';
-  const coins = it.accepted.map(c =>
-    `<span class="acc-coin ${c === (active || it.nativeCur) ? 'on' : ''}" title="${esc(currencyName(c))} — 1 ${esc(c)} = ${currencyBase(c)} gold">${coinIcon(c)}</span>`).join('');
-  return `<span class="p-accepts" title="This vendor accepts ${it.accepted.map(currencyName).join(', ')}">accepts ${coins}</span>`;
+  const coins = it.accepted.map(c => {
+    const note = c === it.nativeCur ? 'native vendor tender'
+      : c === 'gold' ? 'Warizon universal reserve fallback; accepted through Wario exchange'
+      : 'regional/partner tender generated from vendor rules';
+    return `<span class="acc-coin ${c === (active || it.nativeCur) ? 'on' : ''}" title="${esc(currencyName(c))} — ${esc(note)} — 1 ${esc(c)} = ${currencyBase(c)} gold">${coinIcon(c)}</span>`;
+  }).join('');
+  return `<span class="p-accepts" title="Dynamic accepts: native vendor currency + regional extras + gold reserve fallback.">accepts ${coins}</span>`;
 }
 
 /* shorten usage strings for at-a-glance chips */
@@ -867,7 +871,8 @@ function shipLine(item) {
    -------------------------------------------------------------------------- */
 
 const S = {
-  view: 'home',            // 'home' | 'results' | 'orders' | 'crafting' | 'abilities' | 'wahprime'
+  view: 'home',            // 'home' | 'results' | 'orders' | 'crafting' | 'abilities' | 'wahprime' | 'info'
+  infoSlug: 'about-warizon',
   q: '', dept: 'all', page: 1, sort: 'featured',
   bucket: -1, minStars: 0, rarities: new Set(), vendors: new Set(), currencies: new Set(),
   inStockOnly: false, affordableOnly: false
@@ -1227,6 +1232,7 @@ function receiptJsonText(r) {
 function pendingReceiptCard(r) {
   const tenderLines = Object.entries(r.tender || {})
     .map(([cid, amt]) => `${coinIcon(cid)} <b>${fmt(amt)}</b> ${esc(currencyName(cid))}`).join(' &nbsp;+&nbsp; ');
+  const img = receiptImageSrc(r.no, r.entries || [], r.tender || {}, r.eta || 'pending', { name: r.ship || 'Warizon Delivery', icon: '📦' });
   return `<div class="order-card oc-pending">
     <div class="oc-head">
       <div>ORDER PLACED <b>${esc(new Date(r.ts).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }))}</b></div>
@@ -1237,6 +1243,7 @@ function pendingReceiptCard(r) {
     </div>
     <div class="oc-body">
       <div class="oc-banner">🧾 <b>This is a purchase order, not a charge.</b> Nothing left your wallet. Pay the DM the amounts below; the DM pastes the JSON into <code>shop-purchases.json</code> and marks it approved.</div>
+      <div class="oc-receipt-preview"><img alt="Visual receipt ${esc(r.no)}" src="${img}"></div>
       ${r.items.map(row => {
         const it = ITEM_BY_ID.get(row.id); if (!it) return '';
         return `<div class="oc-item">
@@ -1255,7 +1262,7 @@ function pendingReceiptCard(r) {
         <span style="color:var(--wz-muted)">(${esc(r.ship)} — arriving ${esc(r.eta)})</span></div>
       <details class="oc-json"><summary>📋 Receipt JSON for the DM (${r.entries.length} entr${r.entries.length === 1 ? 'y' : 'ies'})</summary>
         <textarea readonly rows="${Math.min(14, 3 + r.entries.length * 9)}">${esc(receiptJsonText(r))}</textarea>
-        <button class="btn-plain" data-copy-receipt="${esc(r.no)}">Copy JSON</button>
+        <button class="btn-plain" data-copy-receipt="${esc(r.no)}">Copy actual JSON</button>
         <button class="btn-plain" data-cancel-receipt="${esc(r.no)}">Cancel purchase order</button>
       </details>
     </div>
@@ -1448,6 +1455,61 @@ function renderAbilities() {
   </div>`;
 }
 
+
+/* --------------------------------------------------------------------------
+   FOOTER SUBPAGES — small Warizon help/legal/info pages inside shop.html
+   -------------------------------------------------------------------------- */
+
+const INFO_PAGES = {
+  'about-warizon': {
+    group: 'Get to Know Us', icon: '🏬', title: 'About Warizon', kicker: 'Wario’s Everything Warehouse',
+    body: ['Warizon is Wario’s totally legitimate marketplace for adventuring gear, cursed trinkets, faction supplies, groceries, garlic, and things Wario found in a barrel but refuses to call stolen.', 'Every checkout creates a receipt for the DM. The website never subtracts coins by itself, because Wario prefers a paper trail he can deny later.'],
+    cards: [['📦 Huge catalog', `${fmt(ITEMS.length)} active listings with item rules, currencies, and stock.`], ['💱 Dynamic tender', 'Accepted currencies are generated from vendor region, item keywords, and the universal Warizon gold reserve.'], ['🧾 Receipts first', 'DM approval turns pending receipts into paid ledger orders.']]
+  },
+  'careers-unpaid': { group: 'Get to Know Us', icon: '🧹', title: 'Careers (unpaid)', kicker: 'Exposure, garlic fumes, and danger', body: ['Open roles include Warehouse Gremlin, Receipt Goblin, Coin Counter, Return Denial Specialist, and Bullet Bill Logistics Intern.', 'Compensation is currently “Wario might remember your name.” Benefits include free cardboard dust.'], cards: [['Required', 'Ability to lift 50 lb crates while Wario shouts.'], ['Pay', 'Unpaid, but spiritually expensive.'], ['Apply', 'Shout WAH into a mailbox.']] },
+  'warios-blog': { group: 'Get to Know Us', icon: '✍️', title: "Wario's Blog", kicker: 'Thought leadership, greed leadership', body: ['Latest post: “Why refunds are a moral hazard.”', 'Previous posts include “Ten ways to monetize garlic breath,” “Gold is better when it is mine,” and “I invented shipping.”'], cards: [['Featured', 'Gold: You are holding it wrong. Give it to Wario.'], ['Opinion', 'Subscription revenue is beautiful.'], ['Breaking', 'Waluigi fact-checkers banned from comments.']] },
+  'investor-relations': { group: 'Get to Know Us', icon: '📈', title: 'Investor Relations (give Wario money)', kicker: 'Forward-looking greed statements', body: ['Warizon seeks investors willing to contribute capital while receiving no control, no refunds, and possibly a commemorative garlic sticker.', 'Investor gold is used for “growth,” “logistics,” and “a larger chair for Wario.”'], cards: [['Quarterly metric', 'Receipts up. Regret also up.'], ['Risk factor', 'Wario.'], ['Dividend', 'A confident thumbs-up.']] },
+  'sell-loot': { group: 'Make Money with Us', icon: '🎒', title: 'Sell your loot on Warizon', kicker: 'Third-party marketplace desk', body: ['Players can propose loot listings by generating a seller intake receipt. The DM decides whether the item becomes catalog stock.', 'Wario takes a listing fee, a success fee, a breathing fee, and a fee for explaining the fees.'], cards: [['Step 1', 'Bring item, story, rules, and desired currency.'], ['Step 2', 'DM approves listing JSON.'], ['Step 3', 'Wario takes credit.']] },
+  'affiliate-goon': { group: 'Make Money with Us', icon: '🕴️', title: 'Become an Affiliate Goon', kicker: 'Links, kickbacks, plausible deniability', body: ['Affiliate Goons receive a tracking phrase and a tiny commission paid in Wario Points unless Wario forgets.', 'Recommended for barkers, town criers, shady bards, and anyone comfortable yelling “limited-time deal.”'], cards: [['Commission', 'Negotiated by yelling.'], ['Tools', 'Banner, coupon phrase, garlic stamp.'], ['Warning', 'Do not outshine Wario.']] },
+  'advertise-garlic': { group: 'Make Money with Us', icon: '🧄', title: 'Advertise Your Garlic', kicker: 'Sponsored stench placements', body: ['Buy sponsored slots on Warizon rails. Your garlic appears beside cursed swords, emergency rations, and things that should not be eaten.', 'Ads are interest-based because Wario is interested in money.'], cards: [['Formats', 'Hero shout, rail tile, cart guilt message.'], ['Targeting', 'Everyone with a nose.'], ['Billing', 'Receipt generated; DM approves.']] },
+  'popup-vault': { group: 'Make Money with Us', icon: '🏦', title: 'Host a Wario Pop-up Vault', kicker: 'A temporary shop that may become permanent if profitable', body: ['A pop-up vault lets a faction, settlement, or ship host a temporary Warizon kiosk.', 'Wario provides crates, signs, and a contract that grows when nobody is looking.'], cards: [['Good for', 'Festivals, sieges, trials, airships.'], ['Requires', 'Space, guards, exit routes.'], ['Cut', 'Wario gets the loudest percentage.']] },
+  'wario-coin': { group: 'Wario Payment Products', icon: '🟡', title: 'Wario Coin', kicker: 'Definitely not a scam', body: ['Wario Coin is accepted by Wario-aligned vendors and can pay Warizon shipping/tax without the extra non-gold conversion fee.', 'It is dynamic tender: listings decide accepted currencies from vendor region and item keywords. Gold remains a universal reserve through the Warizon Exchange, but not every vendor loves it equally.'], cards: [['Policy', 'Native vendor currency first; regional extras second; gold reserve fallback.'], ['Fee', 'Wario Coin pays shipping/tax at face value. Other non-gold tender may pay a 10% conversion fee.'], ['Risk', 'Wario says risk is for customers.']] },
+  'reload-stash': { group: 'Wario Payment Products', icon: '💰', title: 'Reload Your Stash', kicker: 'A wallet top-up desk for DM bookkeeping', body: ['This page does not create money. It explains how to ask the DM to update wallet JSON after rewards, banking withdrawals, or approved exchanges.', 'Future version can generate wallet-change receipts, but it should still never edit the ledger automatically.'], cards: [['Source', 'Quest reward, bank withdrawal, currency exchange.'], ['Proof', 'Receipt or DM ruling.'], ['Update', 'DM edits wallet JSON.']] },
+  'gift-cards': { group: 'Wario Payment Products', icon: '🎁', title: 'Gift Cards (non-refundable)', kicker: 'The gift of limited liability', body: ['Warizon gift cards are promises to maybe accept value later. They cannot be refunded, divided, appealed, or used to pay Wario’s legal fees unless Wario says so.', 'Gift cards should be represented as DM-approved receipt entries before they affect wallets.'], cards: [['Denominations', 'Tiny, greedy, absurd.'], ['Expiration', 'Whenever Wario “misplaces” it.'], ['Refunds', 'No.']] },
+  'your-account': { group: 'Let Us Help You', icon: '👤', title: 'Your Account', kicker: 'Wallet, orders, WahPrime, receipts', body: ['Your account merges matching wallet identities, shows buying power, tracks pending receipts, and filters paid orders from shop-purchases.json.', 'If something is wrong, the DM JSON is the source of truth. Wario is the source of noise.'], cards: [['Orders', 'Paid ledger + pending local receipts.'], ['Wallet', 'Read-only display; no auto-charge.'], ['WahPrime', 'Subscription receipt + membership JSON.']] },
+  'shipping-policies': { group: 'Let Us Help You', icon: '🚚', title: 'Shipping Rates & Policies', kicker: 'Fast, slow, unsafe, and suspicious', body: ['Shipping options are selected at checkout. Active WahPrime can unlock free Warp Saver shipping.', 'Shipping and Wario Tax can be paid in an owned currency; Wario Coin is favored, other non-gold tender may include a conversion fee.'], cards: [['Dumpster Roll', 'Cheap, slow, raccoon-adjacent.'], ['Parakarry Post', 'Standard delivery. Usually lands upright.'], ['Bullet Bill', 'Fast. Define “safe.”']] },
+  'returns-none': { group: 'Let Us Help You', icon: '🚫', title: 'Returns (there are none)', kicker: 'The policy is the title', body: ['All sales final. If the item curses you, that means the item is working.', 'The DM may reverse a mistaken ledger entry, but Warizon itself offers no refunds, exchanges, apologies, or emotional closure.'], cards: [['Refunds', 'No.'], ['Exchanges', 'Also no.'], ['Cursed item?', 'Premium feature.']] },
+  'help-good-luck': { group: 'Let Us Help You', icon: '🆘', title: 'Help (good luck)', kicker: 'A help center-shaped maze', body: ['Try search, filters, affordable mode, Orders, WahPrime, or Training Wing. If the problem involves actual money, the DM ledger wins.', 'If the problem involves Wario, there is no known cure.'], cards: [['Need item rules?', 'Open product page and read Quick Read + Item effects.'], ['Need proof of purchase?', 'Copy receipt JSON from the receipt modal or Orders page.'], ['Need currency?', 'Open Waluipedia Currency Exchange.']] },
+  'conditions-of-use': { group: 'Legal', icon: '📜', title: 'Conditions of Use', kicker: 'By browsing you have already lost', body: ['Use of Warizon constitutes acceptance of Wario’s right to brag, upsell, and shout. The site is a static shop interface; the DM ledger is authoritative.', 'Do not treat pending receipts as paid orders until the DM records approval.'], cards: [['Receipts', 'Proof request, not automatic fulfillment.'], ['Wallets', 'Never edited by checkout.'], ['Disputes', 'Settled by DM, not Wario.']] },
+  'greed-notice': { group: 'Legal', icon: '🪙', title: 'Greed Notice', kicker: 'Your data is less valuable than your coins, but Wario wants both', body: ['Warizon stores carts and pending receipts in browser localStorage so players can copy JSON for the DM.', 'No server checkout exists here. If Wario claims otherwise, ask him to produce a receipt.'], cards: [['LocalStorage', 'Session, cart, pending receipts.'], ['JSON files', 'DM-maintained source of truth.'], ['Gold', 'Emotionally collected by Wario.']] },
+  'interest-based-ads': { group: 'Legal', icon: '📣', title: 'Interest-Based Ads', kicker: 'Wario is interested in selling you things', body: ['Recommendations use deterministic catalog flavor, not real surveillance. Wario calls this “guessing with confidence.”', 'Sponsored garlic placements may appear in future. They will still smell.'], cards: [['Signals', 'Search, category, item metadata.'], ['Privacy', 'Static site; mostly local.'], ['Opt out', 'Close your eyes.']] }
+};
+
+function renderInfoPage() {
+  const p = INFO_PAGES[S.infoSlug] || INFO_PAGES['about-warizon'];
+  const related = Object.entries(INFO_PAGES).filter(([, x]) => x.group === p.group && x.title !== p.title).slice(0, 4);
+  return `<div class="wz-container info-page">
+    <section class="info-hero">
+      <div class="info-icon">${esc(p.icon)}</div>
+      <div><div class="pdp-kicker">${esc(p.group)}</div><h1>${esc(p.title)}</h1><p>${esc(p.kicker)}</p></div>
+    </section>
+    <section class="info-panel">
+      ${p.body.map(x => `<p>${loreLinkText(x, 4)}</p>`).join('')}
+      <div class="info-cards">${(p.cards || []).map(([h, b]) => `<div><b>${esc(h)}</b><span>${loreLinkText(b, 3)}</span></div>`).join('')}</div>
+    </section>
+    <section class="info-panel">
+      <h2>What can you do here?</h2>
+      <div class="info-actions">
+        <button class="btn-add" data-go-shop="1">Return to Warizon</button>
+        <button class="btn-add" data-go-affordable="1">Shop affordable items</button>
+        <button class="btn-buy" data-go-prime="1">Open WahPrime</button>
+        <a class="btn-plain info-a" href="currency.html">💱 Waluipedia Currency Exchange</a>
+      </div>
+    </section>
+    ${related.length ? `<section class="info-panel"><h2>More in ${esc(p.group)}</h2><div class="info-related">${related.map(([slug, r]) => `<button data-foot="${esc(slug)}"><span>${esc(r.icon)}</span><b>${esc(r.title)}</b><small>${esc(r.kicker)}</small></button>`).join('')}</div></section>` : ''}
+  </div>`;
+}
+
 /* --------------------------------------------------------------------------
    RENDER: WahPrime membership dashboard
    -------------------------------------------------------------------------- */
@@ -1469,6 +1531,15 @@ function renderWahPrime() {
       <b>${esc(p.name || id)}</b><span>${coinIcon(p.currency || 'gold')} ${fmt(p.monthlyPrice || 0)} / ${fmt(p.billingCycleDays || 30)} days</span>
       <small>${(p.benefits || []).slice(0, 3).map(esc).join(' · ')}</small>
     </button>`).join('');
+  const ladderStart = Math.max(0, Number(prog.tier.index || 0) - 1);
+  const tierLadder = Array.from({ length: 7 }, (_, i) => generateTier(ladderStart + i)).filter(Boolean);
+  const benefitRows = [
+    ['Free Warp Saver shipping', active ? 'Active now' : 'Needs active membership', 'Appears as a checkout shipping option.'],
+    ['Tier discount display', `${fmt(primeDiscountFor(acc))}%`, 'Based on lifetime approved spend and active status.'],
+    ['Vault previews', 'Always visible', 'Premium rails show what Wario wants you to crave.'],
+    ['Payment receipts', 'JSON-backed', 'Subscription payments are receipts until DM approval.'],
+    ['Late payment handling', 'Suspends benefits', 'Lifetime rank remains; benefits pause if paidThrough expires.']
+  ];
   const pendingHtml = receipts.length ? `
     <section class="prime-panel">
       <h2>🧾 Pending WahPrime subscription receipts</h2>
@@ -1526,6 +1597,22 @@ function renderWahPrime() {
       <h2>Choose how Wario collects</h2>
       <p>These buttons do not charge a wallet. They create a subscription receipt for the DM to approve, just like item checkout.</p>
       <div class="prime-plan-grid">${planOptions}</div>
+    </section>
+
+    <section class="prime-panel">
+      <h2>WahPrime benefits matrix</h2>
+      <div class="prime-benefit-table">${benefitRows.map(([name, state, detail]) => `<div><b>${esc(name)}</b><span>${esc(state)}</span><small>${esc(detail)}</small></div>`).join('')}</div>
+    </section>
+
+    <section class="prime-panel">
+      <h2>Lifetime tier ladder</h2>
+      <p class="prime-note">Tier is generated dynamically from approved paid spend. This is separate from subscription status: a rich inactive customer still has rank, just no live benefits.</p>
+      <div class="prime-tier-ladder">${tierLadder.map(t => `<div class="${t.id === prog.tier.id ? 'cur' : ''}" style="--tier-c:${esc(t.color || '#6b3fa0')}"><span>${esc(t.icon || '👑')}</span><b>${esc(t.name)}</b><small>Requires 💰${fmt(t.threshold || 0)} · ${fmt(t.discount || 0)}% · max item ${t.maxPrice === Infinity ? '∞' : '💰' + fmt(t.maxPrice || 0)}</small></div>`).join('')}</div>
+    </section>
+
+    <section class="prime-panel">
+      <h2>How Wario collects WahPrime payments</h2>
+      <div class="prime-flow"><div><b>1</b><span>Player generates subscription receipt.</span></div><div><b>2</b><span>Player pays the DM in listed tender.</span></div><div><b>3</b><span>DM updates <code>wahprime-memberships.json</code>.</span></div><div><b>4</b><span>Website shows benefits active next load.</span></div></div>
     </section>
 
     ${pendingHtml}
@@ -1720,6 +1807,7 @@ function render() {
   else if (S.view === 'crafting') view.innerHTML = renderCrafting();
   else if (S.view === 'abilities') view.innerHTML = renderAbilities();
   else if (S.view === 'wahprime') view.innerHTML = renderWahPrime();
+  else if (S.view === 'info') view.innerHTML = renderInfoPage();
   else view.innerHTML = renderHome();
   renderHeader();
 }
@@ -2209,6 +2297,28 @@ function placeOrder(rows, ship, coState, isBuyNow = false) {
   openReceiptModal(no, entries, tender, eta, ship);
 }
 
+
+function receiptImageSrc(no, entries, tender, eta, ship) {
+  const lines = entries.slice(0, 5).map((e, i) => {
+    const y = 182 + i * 24;
+    const name = String(e.itemName || e.itemId || 'Item').slice(0, 34);
+    return `<text x="42" y="${y}" class="item">${esc(name)} x${e.qty || 1}</text><text x="488" y="${y}" text-anchor="end" class="amt">${fmt(Number(e.price || 0) * Number(e.qty || 1))}g</text>`;
+  }).join('');
+  const tenderText = Object.entries(tender || {}).map(([cid, amt]) => `${fmt(amt)} ${currencyName(cid)}`).join(' + ').slice(0, 54);
+  const bars = String(no).split('').map((ch, i) => `<rect x="${42 + i * 9}" y="335" width="${3 + (ch.charCodeAt(0) % 4)}" height="38" fill="#221431" opacity=".85"/>`).join('');
+  const total = entries.reduce((n, e) => n + Number(e.price || 0) * Number(e.qty || 1), 0);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="540" height="410" viewBox="0 0 540 410">
+    <style>.h{font:800 28px Arial;fill:#221431}.s{font:12px Arial;fill:#565959}.k{font:700 11px Arial;fill:#6b3fa0;text-transform:uppercase}.item{font:13px Arial;fill:#111}.amt{font:700 13px Arial;fill:#b12704}.big{font:800 20px Arial;fill:#0f1111}</style>
+    <rect width="540" height="410" rx="26" fill="#fff8e6"/><rect x="18" y="18" width="504" height="374" rx="18" fill="#fff" stroke="#ff9900" stroke-width="3"/>
+    <text x="42" y="62" class="h">warizon<tspan fill="#ff9900">.wah</tspan></text><text x="42" y="86" class="s">OFFICIAL PURCHASE ORDER — NOT PAID UNTIL DM APPROVES</text>
+    <rect x="42" y="108" width="456" height="46" rx="10" fill="#3b1f6b"/><text x="60" y="137" fill="#ffd86b" font-family="Arial" font-size="18" font-weight="800">${esc(no)}</text><text x="488" y="137" text-anchor="end" fill="#fff" font-family="Arial" font-size="13">${esc(ship?.icon || '📦')} ${esc(eta)}</text>
+    <text x="42" y="174" class="k">Items</text>${lines}${entries.length > 5 ? `<text x="42" y="${182 + 5 * 24}" class="s">+ ${entries.length - 5} more line(s) in JSON</text>` : ''}
+    <line x1="42" y1="298" x2="498" y2="298" stroke="#ead9a0"/><text x="42" y="322" class="big">Subtotal ledger value</text><text x="488" y="322" text-anchor="end" class="big">${fmt(total)}g</text>
+    ${bars}<text x="42" y="392" class="s">Pay DM: ${esc(tenderText || 'see JSON')}</text>
+  </svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
 /** Confirmation = the receipt itself, JSON ready to hand to the DM. */
 function openReceiptModal(no, entries, tender, eta, ship) {
   const scrim = document.createElement('div');
@@ -2217,6 +2327,7 @@ function openReceiptModal(no, entries, tender, eta, ship) {
   const tenderLines = Object.entries(tender)
     .map(([cid, amt]) => `<div class="rc-tender-line">${coinIcon(cid)} <b>${fmt(amt)}</b> ${esc(currencyName(cid))}</div>`).join('');
   const jsonText = JSON.stringify(entries, null, 2);
+  const receiptImg = receiptImageSrc(no, entries, tender, eta, ship);
   scrim.innerHTML = `
     <div class="modal" style="max-width:680px">
       <button class="modal-x" data-close="1">✕</button>
@@ -2225,12 +2336,14 @@ function openReceiptModal(no, entries, tender, eta, ship) {
         <h1>Purchase order filed!</h1>
         <p>Order <span class="order-no">${esc(no)}</span> · ${esc(ship.icon || '📦')} ${esc(ship.name)} — arriving <b>${esc(eta)}</b>.<br>
         <b>Nothing was charged.</b> Pay the DM the amounts below, and the DM files this JSON on the ledger.</p>
+        <div class="rc-visual-wrap"><img class="rc-visual-img" alt="Visual Warizon receipt ${esc(no)}" src="${receiptImg}"></div>
         <div class="rc-tender"><div class="rc-tender-head">PAY THE DM:</div>${tenderLines}</div>
-        <div class="rc-json-wrap">
+        <details class="rc-json-wrap" open>
+          <summary>Actual JSON data copied by the button below</summary>
           <textarea id="receiptJson" readonly rows="${Math.min(16, 4 + entries.length * 11)}">${esc(jsonText)}</textarea>
-        </div>
+        </details>
         <div class="rc-btns">
-          <button class="btn-add" id="copyReceiptBtn" style="max-width:280px">📋 Copy receipt JSON</button>
+          <button class="btn-add" id="copyReceiptBtn" style="max-width:280px">📋 Copy actual JSON receipt</button>
           <button class="btn-buy" id="doneOrdersBtn" style="max-width:280px">View your orders</button>
         </div>
         <p style="color:var(--wz-muted);font-size:12px">The DM pastes these into <code>Reputation-Matrix2/shop-purchases.json</code> when paid, fills in <code>approvedAt</code>/<code>approvedBy</code>, and the order flips to ✔ PAID on your Orders page. Until then it sits there as ⏳ AWAITING PAYMENT — a permanent reminder. Wario loves those.</p>
@@ -2753,7 +2866,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (t.closest('#flySignOut')) { signOut(); return; }
     if (t.closest('#flyMembership')) { toast('<b>WahPrime: ACTIVE-ish.</b> Benefits include free delivery, priority hoarding, and one (1) yearly compliment from Wario.'); return; }
     if (t.closest('#navDeliver')) { toast('Your delivery address is set to <b>' + esc(document.getElementById('deliverAddr')?.textContent || 'Wario Land') + '</b>. Changing it costs 💰5. Everything costs Wario 💰5.'); return; }
-    if (t.closest('[data-foot]')) { toast('That page is on Wario\'s desk. It has been there since 2019. WAH!'); return; }
+    const foot = t.closest('[data-foot]');
+    if (foot) { S.infoSlug = foot.dataset.foot || 'about-warizon'; goTo('info'); return; }
     if (t.closest('#flySwitch')) {
       localStorage.removeItem(SESSION_KEY);
       document.getElementById('store').hidden = true;
