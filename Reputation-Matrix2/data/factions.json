@@ -763,4 +763,40 @@
       "tanukiburt"
     ]
   }
+,
+  {
+    "id": "undertale_monsters",
+    "name": "The Monster Underground",
+    "title": "The Kingdom Below the Barrier",
+    "type": "Hidden Subterranean Monarchy / Civilian Realm / Defensive Magic Polity",
+    "region": "Mount Ebott \u2014 Ruins, Snowdin, Hotland, CORE, and the Royal barrier approaches",
+    "status": "Active; politically insulated; newly exposed to an unauthorized surface survey presence",
+    "leader": "Royal Family \u2014 Toriel and Asgore named as barrier authorities; present command arrangement requires confirmation",
+    "headquarters": "Royal seat beyond Snowdin; exact administrative location unverified",
+    "motto": "Unrecorded \u2014 the barrier, rather than a slogan, appears to be the state\u2019s defining policy",
+    "affiliation": "The Monster Underground realm; not a subordinate of the Iron Legion or Regal Empire",
+    "allies": [],
+    "enemies": [],
+    "summary": "The Monster Underground is the living political community beneath Mount Ebott, not simply a hazardous ruin system. Its monarchy controls or can authorize access through the ancient barrier, its towns maintain local social order, and its citizens carry the consequences of a surface history that may have been erased. Waluigi treats the Iron Legion survey as a foreign-contact incident, not a dungeon crawl. WAH.",
+    "description": "Waluigi is adding this faction record because too many connected files called the Underground a place when the evidence says it is a polity. A barrier that decides who may leave is border policy. A royal family whose permission is required to cross it is a government. Snowdin\u2019s social response to danger, Sans\u2019s sentry role, the Ruins\u2019 transit paths, and the abandoned police station all show institutions and habits that cannot be reduced to \u201cmonsters in caves.\u201d The fact that their paperwork is incomplete does not make them unorganized; it may only mean outsiders have not earned access to the parts that organize them.\n\nPart III makes the Underground\u2019s political problem visible. Sans remembers enough to identify the barrier, the royal exit routes, and Flowey\u2019s royal origin, yet appears unable to hold a stable account of the war that made these systems necessary. Toriel and Asgore are named as authorities but are absent from the field scene. In their absence, a sentry guides strangers, a town rewards whoever visibly stops a threat, and Koffin-K can briefly mistake applause for a mandate. Waluigi reads this not as proof that the monarchy is fake, but as evidence that official authority is distant, compartmentalized, or deliberately quiet at the frontier.\n\nThe Iron Legion creates the immediate external risk. Gamma Division\u2019s survey equipment, its manual, its censored dates, and the Agent\u2019s status all arrive before a negotiated contact framework. Mihawk then names an improvised party \u201cthe Iron Legion,\u201d importing an imperial identity into Snowdin without authority from either side. This is precisely the kind of ambiguity that turns reconnaissance into occupation in every history Waluigi has ever had the misfortune to read. The Underground\u2019s reaction remains unresolved, but it has every reason to distinguish the people who arrived from the surface from the story those people tell about why they are there.\n\nFlowey is the internal risk that does not fit cleanly into any faction box. He is connected by Sans\u2019s account to the royal family, behaves as a hostile independent actor, and demonstrates the ability to affect Legion technology. Koffin-K is another boundary case: a local theatrical villain with real followers and no demonstrated mandate. Waluigi refuses to pretend either is representative of the entire Underground. He does insist that both reveal stress points \u2014 unresolved history, informal authority, and the way an isolated society reacts when outsiders bring machines, titles, and an appetite for classification.\n\nWaluigi\u2019s ruling: treat the Monster Underground as a sovereign political community with unknown internal factions, not as unclaimed terrain. Do not infer consent from hospitality, do not infer weakness from whimsy, and do not let a broken survey machine define the people it was sent to measure. WAH.",
+    "keyEvents": [
+      "mount_ebott_survey_mission",
+      "mount_ebott_survey_part_2",
+      "mount_ebott_survey_part_3"
+    ],
+    "relatedArticles": [
+      "monster_underground",
+      "mount_ebott",
+      "snowdin_town",
+      "the_ruins_mount_ebott",
+      "sans",
+      "toriel",
+      "asgore",
+      "flowey",
+      "koffin_k",
+      "iron_legion",
+      "gamma_division",
+      "mount_ebott_survey_part_3"
+    ]
+  }
 ]
