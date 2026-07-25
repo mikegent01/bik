@@ -2,11 +2,13 @@
  "meta": {
   "title": "Ability Shop",
   "subtitle": "Wario's Warehouse — Training Wing",
-  "warioPitch": "Wario does not 'teach'. Wario SELLS. You bring coins, you leave knowing how to stab better. No refunds, no lawsuits, no exceptions.",
-  "note": "Catalogue scaffold built from the Liberated Toads class definitions. Prices are placeholder and derived from hit die + level tier — tune them freely.",
-  "placeholder": true,
+  "warioPitch": "Wario does not 'teach' for coin anymore. Training is paid in Ability Points, earned by levelling. Wario is furious about this. No refunds, no lawsuits, no exceptions.",
+  "note": "Abilities are unlocked with Ability Points (AP), not gold. AP is auto-calculated from each character's XP level - see data/abilityPoints.json and tools/build_ability_points.py. The legacy `price` field below is retained for history only and is NOT used by the shop.",
   "source": "Reputation-Matrix2/data/liberatedToadsSystem.json -> classDefinitions + core roster abilities",
-  "knownByEnriched": true
+  "knownByEnriched": true,
+  "currency": "ability_points",
+  "apCostRule": "By required level: 1-3 -> 1 AP, 5-7 -> 2 AP, 8-11 -> 3 AP, 14+ -> 5 AP",
+  "legacyPriceField": "unused"
  },
  "types": {
   "divine": {

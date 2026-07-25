@@ -1,0 +1,1487 @@
+{
+ "meta": {
+  "generated": "2026-07-25",
+  "generator": "tools/build_ability_points.py",
+  "source": "Reputation-Matrix2/xp.html -> const PLAYERS (level / currentXP)",
+  "formula": "apEarned = level + floor(level / 5)",
+  "costRule": "AP cost by required level: 1-3 -> 1, 5-7 -> 2, 8-11 -> 3, 14+ -> 5",
+  "note": "Abilities are unlocked with Ability Points earned by levelling, not with gold. Nothing here is authoritative over the table: the shop only generates a receipt, it never edits a character sheet."
+ },
+ "apByLevel": {
+  "1": 1,
+  "2": 2,
+  "3": 3,
+  "4": 4,
+  "5": 6,
+  "6": 7,
+  "7": 8,
+  "8": 9,
+  "9": 10,
+  "10": 12,
+  "11": 13,
+  "12": 14,
+  "13": 15,
+  "14": 16,
+  "15": 18,
+  "16": 19,
+  "17": 20,
+  "18": 21,
+  "19": 22,
+  "20": 24,
+  "21": 25,
+  "22": 26,
+  "23": 27,
+  "24": 28,
+  "25": 30,
+  "26": 31,
+  "27": 32,
+  "28": 33,
+  "29": 34,
+  "30": 36,
+  "31": 37,
+  "32": 38,
+  "33": 39,
+  "34": 40,
+  "35": 42,
+  "36": 43,
+  "37": 44,
+  "38": 45,
+  "39": 46,
+  "40": 48
+ },
+ "costTiers": [
+  {
+   "maxLevel": 3,
+   "ap": 1,
+   "label": "Foundational"
+  },
+  {
+   "maxLevel": 7,
+   "ap": 2,
+   "label": "Practised"
+  },
+  {
+   "maxLevel": 11,
+   "ap": 3,
+   "label": "Advanced"
+  },
+  {
+   "maxLevel": 99,
+   "ap": 5,
+   "label": "Capstone"
+  }
+ ],
+ "players": {
+  "gamma_agent": {
+   "name": "Gamma Legionary Agent",
+   "level": 3,
+   "currentXP": 1250,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "dracule_mihawk": {
+   "name": "Dracule Mihawk",
+   "level": 9,
+   "currentXP": 45000,
+   "nextXP": 64000,
+   "apEarned": 10,
+   "apSpent": 0,
+   "apAvailable": 10,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "sans": {
+   "name": "Sans",
+   "level": 1,
+   "currentXP": 300,
+   "nextXP": 900,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "bowser": {
+   "name": "Bowser",
+   "level": 8,
+   "currentXP": 35292,
+   "nextXP": 48000,
+   "apEarned": 9,
+   "apSpent": 0,
+   "apAvailable": 9,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "archie": {
+   "name": "Archie Archbold Miser",
+   "level": 6,
+   "currentXP": 21030,
+   "nextXP": 23000,
+   "apEarned": 7,
+   "apSpent": 0,
+   "apAvailable": 7,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "waluigi": {
+   "name": "Waluigi",
+   "level": 5,
+   "currentXP": 11331,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "markop": {
+   "name": "Markop",
+   "level": 8,
+   "currentXP": 37769,
+   "nextXP": 48000,
+   "apEarned": 9,
+   "apSpent": 0,
+   "apAvailable": 9,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "hjumpik": {
+   "name": "Hjumpik",
+   "level": 7,
+   "currentXP": 25022,
+   "nextXP": 34000,
+   "apEarned": 8,
+   "apSpent": 0,
+   "apAvailable": 8,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "remi": {
+   "name": "Remi",
+   "level": 7,
+   "currentXP": 31258,
+   "nextXP": 34000,
+   "apEarned": 8,
+   "apSpent": 0,
+   "apAvailable": 8,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "rakashaazure": {
+   "name": "Rakasha Azure",
+   "level": 4,
+   "currentXP": 5240,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "usk": {
+   "name": "Usk",
+   "level": 2,
+   "currentXP": 800,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "bones": {
+   "name": "Bones",
+   "level": 5,
+   "currentXP": 7880,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 2,
+   "apAvailable": 4,
+   "known": [
+    {
+     "id": "barbarian_rage",
+     "name": "Rage",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "barbarian_reckless_attack",
+     "name": "Reckless Attack",
+     "level": 2,
+     "apCost": 1
+    }
+   ],
+   "grantedAboveLevel": []
+  },
+  "dan": {
+   "name": "Dan",
+   "level": 4,
+   "currentXP": 3910,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 3,
+   "apAvailable": 1,
+   "known": [
+    {
+     "id": "paladin_divine_sense",
+     "name": "Divine Sense",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "paladin_lay_on_hands",
+     "name": "Lay on Hands",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "paladin_divine_smite",
+     "name": "Divine Smite",
+     "level": 2,
+     "apCost": 1
+    }
+   ],
+   "grantedAboveLevel": []
+  },
+  "toadlee": {
+   "name": "Toad Lee",
+   "level": 4,
+   "currentXP": 5790,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 3,
+   "apAvailable": 1,
+   "known": [
+    {
+     "id": "barbarian_rage",
+     "name": "Rage",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "barbarian_unarmored_defense",
+     "name": "Unarmored Defense",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "barbarian_reckless_attack",
+     "name": "Reckless Attack",
+     "level": 2,
+     "apCost": 1
+    }
+   ],
+   "grantedAboveLevel": []
+  },
+  "greent": {
+   "name": "Green T",
+   "level": 5,
+   "currentXP": 12500,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "feywarddan": {
+   "name": "Feyward Dan",
+   "level": 3,
+   "currentXP": 1960,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "speaker_l": {
+   "name": "Speaker L",
+   "level": 3,
+   "currentXP": 1470,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 9,
+   "apAvailable": -6,
+   "known": [
+    {
+     "id": "leader_commanding_presence",
+     "name": "Commanding Presence",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "leader_rally_the_faithful",
+     "name": "Rally the Faithful",
+     "level": 2,
+     "apCost": 1
+    },
+    {
+     "id": "leader_divine_mandate",
+     "name": "Divine Mandate",
+     "level": 3,
+     "apCost": 1
+    },
+    {
+     "id": "leader_tactical_direction",
+     "name": "Tactical Direction",
+     "level": 3,
+     "apCost": 1
+    },
+    {
+     "id": "leader_pond_s_judgment",
+     "name": "Pond's Judgment",
+     "level": 6,
+     "apCost": 2
+    },
+    {
+     "id": "leader_emergency_decree",
+     "name": "Emergency Decree",
+     "level": 8,
+     "apCost": 3
+    }
+   ],
+   "grantedAboveLevel": [
+    {
+     "id": "leader_pond_s_judgment",
+     "name": "Pond's Judgment",
+     "requires": 6
+    },
+    {
+     "id": "leader_emergency_decree",
+     "name": "Emergency Decree",
+     "requires": 8
+    }
+   ]
+  },
+  "eager": {
+   "name": "Eager",
+   "level": 4,
+   "currentXP": 4860,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 4,
+   "apAvailable": 0,
+   "known": [
+    {
+     "id": "rogue_sneak_attack",
+     "name": "Sneak Attack",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "rogue_cunning_action",
+     "name": "Cunning Action",
+     "level": 2,
+     "apCost": 1
+    },
+    {
+     "id": "rogue_uncanny_dodge",
+     "name": "Uncanny Dodge",
+     "level": 5,
+     "apCost": 2
+    }
+   ],
+   "grantedAboveLevel": [
+    {
+     "id": "rogue_uncanny_dodge",
+     "name": "Uncanny Dodge",
+     "requires": 5
+    }
+   ]
+  },
+  "salam": {
+   "name": "Salam",
+   "level": 3,
+   "currentXP": 2220,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "ryan": {
+   "name": "Ryan",
+   "level": 2,
+   "currentXP": 590,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 2,
+   "apAvailable": 0,
+   "known": [
+    {
+     "id": "wizard_arcane_recovery",
+     "name": "Arcane Recovery",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "wizard_spellcasting",
+     "name": "Spellcasting",
+     "level": 1,
+     "apCost": 1
+    }
+   ],
+   "grantedAboveLevel": []
+  },
+  "smoking_j": {
+   "name": "Smoking J",
+   "level": 2,
+   "currentXP": 550,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "mossy": {
+   "name": "Mossy / Steely",
+   "level": 4,
+   "currentXP": 3270,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "roger": {
+   "name": "Roger",
+   "level": 2,
+   "currentXP": 790,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 4,
+   "apAvailable": -2,
+   "known": [
+    {
+     "id": "gunslinger_firearm_proficiency",
+     "name": "Firearm Proficiency",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "gunslinger_grit",
+     "name": "Grit",
+     "level": 1,
+     "apCost": 1
+    },
+    {
+     "id": "gunslinger_deadeye_shot",
+     "name": "Deadeye Shot",
+     "level": 2,
+     "apCost": 1
+    },
+    {
+     "id": "gunslinger_quickdraw",
+     "name": "Quickdraw",
+     "level": 3,
+     "apCost": 1
+    }
+   ],
+   "grantedAboveLevel": [
+    {
+     "id": "gunslinger_quickdraw",
+     "name": "Quickdraw",
+     "requires": 3
+    }
+   ]
+  },
+  "luigi": {
+   "name": "Luigi",
+   "level": 5,
+   "currentXP": 10310,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "originaldan": {
+   "name": "Original Dan",
+   "level": 7,
+   "currentXP": 25690,
+   "nextXP": 34000,
+   "apEarned": 8,
+   "apSpent": 0,
+   "apAvailable": 8,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "valorian_stormweave": {
+   "name": "Valorian Stormweave",
+   "level": 2,
+   "currentXP": 860,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "thornbury": {
+   "name": "Thornbury",
+   "level": 2,
+   "currentXP": 840,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "parson_pellinost": {
+   "name": "Parson Pellinost",
+   "level": 2,
+   "currentXP": 490,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "sergeant_coldbrook": {
+   "name": "Sergeant Varn Coldbrook",
+   "level": 2,
+   "currentXP": 410,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "toadburt": {
+   "name": "Toadburt",
+   "level": 2,
+   "currentXP": 800,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "darno_spriggon": {
+   "name": "Darno Spriggon",
+   "level": 3,
+   "currentXP": 1510,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "hargram_fidger": {
+   "name": "Hargram Fidger",
+   "level": 2,
+   "currentXP": 550,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "byscilla_danos": {
+   "name": "Byscilla Danos",
+   "level": 3,
+   "currentXP": 1330,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "manderaz_the_mad": {
+   "name": "Manderaz the Mad",
+   "level": 3,
+   "currentXP": 910,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "general_ironhand": {
+   "name": "General Ironhand",
+   "level": 2,
+   "currentXP": 860,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "rhak_the_lost": {
+   "name": "Rhak the Lost",
+   "level": 2,
+   "currentXP": 790,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "aemenor_evenflight": {
+   "name": "Aemenor Evenflight",
+   "level": 1,
+   "currentXP": 130,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "warol_creeton": {
+   "name": "Warol Creeton",
+   "level": 1,
+   "currentXP": 180,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "theoracle": {
+   "name": "The Oracle",
+   "level": 8,
+   "currentXP": 39250,
+   "nextXP": 48000,
+   "apEarned": 9,
+   "apSpent": 0,
+   "apAvailable": 9,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "vivian_corvinarus": {
+   "name": "Vivian Corvinarus",
+   "level": 3,
+   "currentXP": 1010,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "lady_aurelian": {
+   "name": "Lady Aurelian Corvinarus",
+   "level": 3,
+   "currentXP": 1200,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "oranguscornelius": {
+   "name": "Orangus Cornelius",
+   "level": 5,
+   "currentXP": 9320,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "orange_t": {
+   "name": "Orange T",
+   "level": 2,
+   "currentXP": 320,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "lyranth": {
+   "name": "Lyranth",
+   "level": 3,
+   "currentXP": 1420,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "the_archivist": {
+   "name": "The Archivist",
+   "level": 3,
+   "currentXP": 2200,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "kryn": {
+   "name": "Kryn",
+   "level": 4,
+   "currentXP": 3500,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "orvinder_danos": {
+   "name": "Orvinder Danos",
+   "level": 2,
+   "currentXP": 800,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "tymnas": {
+   "name": "Tymnas",
+   "level": 3,
+   "currentXP": 1400,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "marcus_ashford": {
+   "name": "Marcus Ashford",
+   "level": 3,
+   "currentXP": 900,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "vaxillusthebeastmaster": {
+   "name": "Vaxillus the Beastmaster",
+   "level": 4,
+   "currentXP": 3970,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "rattles": {
+   "name": "Rattles",
+   "level": 3,
+   "currentXP": 1110,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "pierceanamatar": {
+   "name": "Pierce Anamatar",
+   "level": 3,
+   "currentXP": 2080,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "kamek": {
+   "name": "Kamek",
+   "level": 2,
+   "currentXP": 690,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "princess_peach": {
+   "name": "Princess Peach",
+   "level": 4,
+   "currentXP": 3820,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "mario": {
+   "name": "Mario",
+   "level": 5,
+   "currentXP": 13980,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "professor_e_gadd": {
+   "name": "Professor Elvin Gadd",
+   "level": 3,
+   "currentXP": 1970,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "pauline": {
+   "name": "Pauline",
+   "level": 1,
+   "currentXP": 240,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "lady_bloomia": {
+   "name": "Lady Bloomia",
+   "level": 3,
+   "currentXP": 1200,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "bryan": {
+   "name": "Bryan",
+   "level": 2,
+   "currentXP": 450,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "toadettesr": {
+   "name": "Toadette Sr.",
+   "level": 2,
+   "currentXP": 320,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "toadsworth_sr": {
+   "name": "Toadsworth the Elder",
+   "level": 4,
+   "currentXP": 3060,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "chancellor_toadsworth": {
+   "name": "Chancellor Toadsworth",
+   "level": 3,
+   "currentXP": 1160,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "princess_daisy": {
+   "name": "Princess Daisy",
+   "level": 3,
+   "currentXP": 2030,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "captain_toadette": {
+   "name": "Captain Toadette",
+   "level": 3,
+   "currentXP": 1730,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "mistveil": {
+   "name": "Mistveil",
+   "level": 3,
+   "currentXP": 970,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "embercap": {
+   "name": "Embercap",
+   "level": 2,
+   "currentXP": 470,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "fawful": {
+   "name": "Fawful",
+   "level": 5,
+   "currentXP": 8940,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "cackletta": {
+   "name": "Cackletta",
+   "level": 7,
+   "currentXP": 24050,
+   "nextXP": 34000,
+   "apEarned": 8,
+   "apSpent": 0,
+   "apAvailable": 8,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "mimbus": {
+   "name": "Mimbus",
+   "level": 5,
+   "currentXP": 8070,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "thejestergoomba": {
+   "name": "The Jester (Goomba)",
+   "level": 4,
+   "currentXP": 3550,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "wario": {
+   "name": "Wario",
+   "level": 6,
+   "currentXP": 18370,
+   "nextXP": 23000,
+   "apEarned": 7,
+   "apSpent": 0,
+   "apAvailable": 7,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "king_boo": {
+   "name": "King Boo",
+   "level": 2,
+   "currentXP": 580,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "mysticmorel": {
+   "name": "Mystic Morel",
+   "level": 4,
+   "currentXP": 3570,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "the_medusa": {
+   "name": "The Medusa",
+   "level": 1,
+   "currentXP": 140,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "rakka": {
+   "name": "Rakka",
+   "level": 3,
+   "currentXP": 920,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "king_k_rool": {
+   "name": "King K. Rool",
+   "level": 1,
+   "currentXP": 220,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "kremlings": {
+   "name": "The Kremlings",
+   "level": 2,
+   "currentXP": 370,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "kirby": {
+   "name": "Kirby",
+   "level": 1,
+   "currentXP": 130,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "king_dedede": {
+   "name": "King Dedede",
+   "level": 2,
+   "currentXP": 370,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "meta_knight": {
+   "name": "Meta Knight",
+   "level": 2,
+   "currentXP": 550,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "rakasha": {
+   "name": "The Rakasha",
+   "level": 4,
+   "currentXP": 2900,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "thornpaw": {
+   "name": "Thornpaw",
+   "level": 4,
+   "currentXP": 6340,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "loreholdprofessorofchaos": {
+   "name": "Lorehold Professor of Chaos",
+   "level": 5,
+   "currentXP": 7530,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "baldi": {
+   "name": "Baldi",
+   "level": 4,
+   "currentXP": 4580,
+   "nextXP": 6500,
+   "apEarned": 4,
+   "apSpent": 0,
+   "apAvailable": 4,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "prismari": {
+   "name": "Prismari",
+   "level": 5,
+   "currentXP": 7230,
+   "nextXP": 14000,
+   "apEarned": 6,
+   "apSpent": 0,
+   "apAvailable": 6,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "earl_grey": {
+   "name": "Earl Grey",
+   "level": 2,
+   "currentXP": 880,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "captain_syrup": {
+   "name": "Captain Syrup",
+   "level": 2,
+   "currentXP": 310,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "elder_meadowlight": {
+   "name": "Elder Rowan Meadowlight",
+   "level": 2,
+   "currentXP": 690,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "miles_edgeworth": {
+   "name": "Miles Edgeworth",
+   "level": 3,
+   "currentXP": 920,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "godtoad": {
+   "name": "God Toad",
+   "level": 3,
+   "currentXP": 2000,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "xo": {
+   "name": "X.O.",
+   "level": 2,
+   "currentXP": 690,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "commander_g": {
+   "name": "Commander G",
+   "level": 2,
+   "currentXP": 690,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "kyle_coinsoul": {
+   "name": "Kyle Coinsoul",
+   "level": 2,
+   "currentXP": 600,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "revelmaster": {
+   "name": "The Revelmaster",
+   "level": 2,
+   "currentXP": 420,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "scorncrow": {
+   "name": "The Scorncrow",
+   "level": 2,
+   "currentXP": 440,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "saedia": {
+   "name": "Saedia",
+   "level": 2,
+   "currentXP": 630,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "stuckina": {
+   "name": "Stuckina",
+   "level": 1,
+   "currentXP": 210,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "herniva": {
+   "name": "Herniva",
+   "level": 2,
+   "currentXP": 400,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "dyanos": {
+   "name": "Dyanos",
+   "level": 1,
+   "currentXP": 160,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "the_onyx_knight": {
+   "name": "The Onyx Knight",
+   "level": 1,
+   "currentXP": 190,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "the_goblin_spy": {
+   "name": "The Goblin Spy",
+   "level": 1,
+   "currentXP": 190,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "corporal_reyes": {
+   "name": "Corporal 'Ghost' Reyes",
+   "level": 2,
+   "currentXP": 440,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "sergeant_stone": {
+   "name": "Sergeant 'Brick' Stone",
+   "level": 2,
+   "currentXP": 440,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "agent_t": {
+   "name": "Agent T",
+   "level": 2,
+   "currentXP": 380,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "leo": {
+   "name": "Leo",
+   "level": 2,
+   "currentXP": 460,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "specialist_miller": {
+   "name": "Specialist Miller",
+   "level": 2,
+   "currentXP": 430,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "donkey_kong": {
+   "name": "Donkey Kong",
+   "level": 1,
+   "currentXP": 120,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "cranky_kong": {
+   "name": "Cranky Kong",
+   "level": 2,
+   "currentXP": 300,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "lanky_kong": {
+   "name": "Lanky Kong",
+   "level": 1,
+   "currentXP": 160,
+   "nextXP": 300,
+   "apEarned": 1,
+   "apSpent": 0,
+   "apAvailable": 1,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "mr_l": {
+   "name": "Mr. L",
+   "level": 3,
+   "currentXP": 1320,
+   "nextXP": 2700,
+   "apEarned": 3,
+   "apSpent": 0,
+   "apAvailable": 3,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "unknown_assassin": {
+   "name": "The Unknown Assassin",
+   "level": 2,
+   "currentXP": 740,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "merric": {
+   "name": "Merric",
+   "level": 2,
+   "currentXP": 450,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  },
+  "tanukiburt": {
+   "name": "Tanukiburt",
+   "level": 2,
+   "currentXP": 420,
+   "nextXP": 900,
+   "apEarned": 2,
+   "apSpent": 0,
+   "apAvailable": 2,
+   "known": [],
+   "grantedAboveLevel": []
+  }
+ }
+}

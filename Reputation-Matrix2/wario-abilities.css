@@ -120,3 +120,114 @@ a.wa-holder:hover{background:rgba(255,255,255,.08);border-color:var(--t,#9ca3af)
 .wa-ab.locked{opacity:.42;filter:grayscale(.6)}
 .wa-empty{grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,.4)}
 @media(max-width:640px){.wa-shell{width:calc(100vw - 8px);height:calc(100vh - 8px);margin:4px auto}.wa-grid{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   AP BUDGET — abilities are unlocked by levelling, not bought with gold.
+   The budget bar is the first thing in the panel because the whole screen is
+   meaningless without knowing whose points you're spending.
+   ══════════════════════════════════════════════════════════════════════════ */
+.wa-budget{
+  display:flex;flex-direction:column;gap:10px;
+  padding:14px 16px;margin-bottom:14px;
+  background:linear-gradient(180deg,rgba(74,222,128,.09),rgba(8,4,16,.92));
+  border:1px solid rgba(74,222,128,.30);border-left:4px solid #4ade80;
+  border-radius:12px;
+}
+.wa-budget.empty{
+  background:linear-gradient(180deg,rgba(251,191,36,.08),rgba(8,4,16,.92));
+  border-color:rgba(251,191,36,.30);border-left-color:#fbbf24;
+}
+/* Holding more training than your level pays for is legal — it's story-granted,
+   not an error — so this reads as a note, not a failure. */
+.wa-budget.over{
+  background:linear-gradient(180deg,rgba(139,92,246,.10),rgba(8,4,16,.92));
+  border-color:rgba(139,92,246,.34);border-left-color:#a855f7;
+}
+
+.wa-pick{display:flex;align-items:center;gap:9px;font-size:11.5px;color:rgba(255,255,255,.62);flex-wrap:wrap}
+.wa-pick select{
+  flex:1;min-width:240px;padding:7px 10px;border-radius:9px;
+  background:rgba(0,0,0,.45);color:#fff;font:inherit;font-size:12px;
+  border:1px solid rgba(255,255,255,.18);
+}
+.wa-pick select:focus{outline:none;border-color:#4ade80}
+
+.wa-budget-nums{display:flex;flex-wrap:wrap;gap:8px}
+.wa-bn{
+  display:flex;flex-direction:column;gap:1px;padding:6px 11px;min-width:74px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:9px;
+}
+.wa-bn b{font-family:Bungee,system-ui,sans-serif;font-size:16px;color:#fff;line-height:1.1}
+.wa-bn i{font-style:normal;font-size:8.5px;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.wa-bn.good b{color:#4ade80}
+.wa-bn.bad  b{color:#c084fc}
+.wa-bn.pending b{color:#fbbf24}
+
+.wa-budget-track{height:6px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden}
+.wa-budget-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#4ade80,#22d3ee);transition:width .25s ease}
+.wa-budget.over .wa-budget-fill{background:linear-gradient(90deg,#a855f7,#f472b6)}
+.wa-budget-note{font-size:10.5px;line-height:1.55;color:rgba(255,255,255,.5)}
+.wa-budget-note b{color:rgba(255,255,255,.78)}
+
+/* ------------------------------------------------- per-card AP affordances */
+.wa-cost{color:#4ade80}                     /* AP, not gold — green not amber */
+.wa-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wa-state{font-size:10.5px;line-height:1.4}
+.wa-state.known {color:#4ade80}
+.wa-state.gated {color:rgba(255,255,255,.42)}
+.wa-state.short {color:#fbbf24}
+.wa-state.picked{color:#22d3ee;font-weight:700}
+.wa-take{
+  margin-left:auto;padding:5px 12px;border-radius:8px;cursor:pointer;
+  font-family:Bungee,system-ui,sans-serif;font-size:10px;letter-spacing:.5px;
+  background:rgba(74,222,128,.16);border:1px solid rgba(74,222,128,.5);color:#86efac;
+  transition:.14s;
+}
+.wa-take:hover{background:rgba(74,222,128,.28);color:#fff;border-color:#4ade80}
+.wa-take.drop{background:rgba(244,63,94,.14);border-color:rgba(244,63,94,.45);color:#fda4af}
+.wa-take.drop:hover{background:rgba(244,63,94,.26);color:#fff}
+
+.wa-toggle{cursor:pointer;font:inherit;font-size:11px}
+.wa-toggle.on{background:rgba(74,222,128,.18);border-color:#4ade80;color:#86efac}
+.wa-noxp{opacity:.5;font-style:italic}
+.wa-free{color:#4ade80}
+.wa-granted{color:#c084fc;cursor:help}
+
+/* ---------------------------------------------------------------- receipt */
+/* The shop never writes to a character sheet — it prints this instead. */
+.wa-receipt{
+  padding:11px 13px;border-radius:10px;
+  background:rgba(0,0,0,.42);border:1px dashed rgba(255,255,255,.22);
+}
+.wa-receipt-h{
+  font-family:Bungee,system-ui,sans-serif;font-size:10.5px;letter-spacing:.6px;
+  color:#fbbf24;margin-bottom:8px;
+}
+.wa-receipt-list{list-style:none;margin:0 0 9px;padding:0;display:flex;flex-direction:column;gap:4px}
+.wa-receipt-list li{
+  display:flex;align-items:center;gap:9px;font-size:11.5px;color:rgba(255,255,255,.75);
+  padding-bottom:4px;border-bottom:1px dotted rgba(255,255,255,.10);
+}
+.wa-receipt-list li span{flex:1;min-width:0}
+.wa-receipt-list li i{font-style:normal;font-size:9.5px;color:rgba(255,255,255,.4)}
+.wa-receipt-list li b{font-family:Bungee,system-ui,sans-serif;font-size:11px;color:#4ade80}
+.wa-receipt-total{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-size:11px;color:rgba(255,255,255,.55);padding-top:2px;
+}
+.wa-receipt-total b{font-family:Bungee,system-ui,sans-serif;font-size:13px;color:#fff}
+.wa-receipt-total .good{color:#4ade80;margin-left:auto}
+.wa-receipt-total .bad {color:#c084fc;margin-left:auto}
+.wa-receipt-btns{display:flex;gap:7px;margin-top:9px}
+.wa-mini{
+  padding:5px 11px;border-radius:8px;cursor:pointer;font:inherit;font-size:10.5px;
+  background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.42);color:#fde68a;transition:.14s;
+}
+.wa-mini:hover{background:rgba(251,191,36,.26);color:#fff}
+.wa-mini.ghost{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.6)}
+.wa-mini.ghost:hover{background:rgba(255,255,255,.10);color:#fff}
+
+@media(max-width:640px){
+  .wa-bn{flex:1 1 calc(50% - 8px);min-width:0}
+  .wa-take{margin-left:0;width:100%;text-align:center}
+}

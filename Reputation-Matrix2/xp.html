@@ -1702,6 +1702,29 @@ body::before, body::after { opacity: .08 !important; }
   font-family:'Alegreya', serif; font-size:12px; color:#d8c6ff; margin-top:6px; font-style:italic;
   border-left:3px solid rgba(183,154,221,.35); padding-left:10px;
 }
+/* ── Ability Points ─────────────────────────────────────────────────────── */
+/* Matches the fame card's shape so it reads as a peer panel, not a bolt-on. */
+.ap-card {
+  border:1px solid rgba(110,231,183,.30); background:linear-gradient(135deg, rgba(52,211,153,.10), rgba(141,107,184,.08));
+  border-radius:18px; padding:16px; box-shadow:0 12px 34px rgba(0,0,0,.22); position:relative; overflow:hidden;
+}
+.ap-card.ap-over { border-color:rgba(192,132,252,.36); background:linear-gradient(135deg, rgba(168,85,247,.12), rgba(141,107,184,.08)); }
+.ap-head { display:flex; justify-content:space-between; gap:12px; align-items:center; font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.08em; color:#6ee7b7; text-transform:uppercase; }
+.ap-head b { color:#d1fae5; font-size:13px; }
+.ap-card.ap-over .ap-head { color:#e9d5ff; }
+.ap-card.ap-over .ap-head b { color:#f3e8ff; }
+.ap-nums { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; margin-top:13px; }
+.ap-nums > div { background:rgba(0,0,0,.20); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:9px 11px; text-align:center; }
+.ap-nums strong { display:block; font-size:20px; color:#ecfdf5; font-family:'JetBrains Mono', monospace; line-height:1.15; }
+.ap-nums span { display:block; margin-top:2px; font-size:10px; color:rgba(255,255,255,.52); }
+.ap-known { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+.ap-chip { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:999px; font-size:11px;
+  background:rgba(110,231,183,.12); border:1px solid rgba(110,231,183,.30); color:#d1fae5; }
+.ap-chip i { font-style:normal; font-size:9.5px; opacity:.65; }
+.ap-note { margin-top:12px; font-size:11.5px; line-height:1.55; color:rgba(255,255,255,.55); }
+.ap-note a { color:#6ee7b7; }
+.ap-granted { color:#e9d5ff; }
+@media (max-width:720px){ .ap-nums { grid-template-columns:repeat(2, minmax(0,1fr)); } }
 .fame-impact-card {
   border:1px solid rgba(197,160,97,.30); background:linear-gradient(135deg, rgba(197,160,97,.10), rgba(141,107,184,.08));
   border-radius:18px; padding:16px; box-shadow:0 12px 34px rgba(0,0,0,.22); position:relative; overflow:hidden;
@@ -16647,6 +16670,44 @@ function getFameImpact(ch, key = null) {
   return { tier, reach, heat, effect, importNote, hooks, personalAccess, legalImpact };
 }
 
+// ── ABILITY POINTS ─────────────────────────────────────────────────────────
+// Abilities are unlocked by levelling, not bought with gold. AP is derived
+// from the level already recorded above — nothing is typed in by hand.
+// Formula and cost tiers mirror tools/build_ability_points.py and
+// data/abilityPoints.json, which the shop's training wing reads.
+const AP_PER_LEVEL = level => { const L = Math.max(0, Number(level) || 0); return L + Math.floor(L / 5); };
+const AP_COST = level => { const L = Number(level) || 1; return L <= 3 ? 1 : L <= 7 ? 2 : L <= 11 ? 3 : 5; };
+let AP_DATA = null;
+function buildAbilityPointCard(key, p) {
+  const earned = AP_PER_LEVEL(p.level);
+  const rec = AP_DATA && AP_DATA.players ? AP_DATA.players[key] : null;
+  const spent = rec ? rec.apSpent : 0;
+  const known = (rec && rec.known) || [];
+  const avail = earned - spent;
+  const nextAt = AP_PER_LEVEL(Number(p.level) + 1) - earned;
+  const granted = (rec && rec.grantedAboveLevel) || [];
+  return `
+    <div class="ap-card${avail < 0 ? ' ap-over' : ''}">
+      <div class="ap-head">
+        <span>◈ ABILITY POINTS</span>
+        <b>${avail} available</b>
+      </div>
+      <div class="ap-nums">
+        <div><strong>${earned}</strong><span>earned at Lv ${p.level}</span></div>
+        <div><strong>${spent}</strong><span>committed to abilities</span></div>
+        <div><strong>${avail}</strong><span>free to spend</span></div>
+        <div><strong>+${nextAt}</strong><span>at Lv ${Number(p.level) + 1}</span></div>
+      </div>
+      ${known.length ? `<div class="ap-known">${known.map(a =>
+        `<span class="ap-chip">${escapeHtml(a.name)} <i>Lv${a.level} · ${a.apCost}AP</i></span>`).join('')}</div>` : ''}
+      ${granted.length ? `<div class="ap-note ap-granted">Story-granted above level: ${granted.map(g =>
+        `${escapeHtml(g.name)} (needs Lv${g.requires})`).join(', ')}. Kept as canon records it.</div>` : ''}
+      <div class="ap-note">Earned by levelling — 1 AP per level, +1 every 5th. Abilities cost 1–5 AP by tier.
+        Spend them in <a href="shop.html#/abilities">Wario's training wing</a>; it prints a receipt and never edits a sheet.</div>
+    </div>
+  `;
+}
+
 function buildFameImpactCard(key, p) {
   const impact = getFameImpact(p, key);
   return `
@@ -16815,6 +16876,7 @@ function buildPlayerPanel(key, p, isActive) {
       ${buildFameInfamyBar(key, p)}
     </div>
 
+    ${buildAbilityPointCard(key, p)}
     ${buildFameImpactCard(key, p)}
     ${buildLoreInfoCard(key, p)}
 
@@ -17873,8 +17935,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   buildHeader();
   buildNavigation();
-  buildAllPanels();
-  requestAnimationFrame(()=>activatePanel(initialXpPanelFromLocation()));
+
+  // Ability Points are derived from the levels in this file, but the
+  // already-committed spend lives in data/abilityPoints.json. Load it first so
+  // the AP card renders complete; if it's missing we still show earned AP from
+  // the level alone rather than failing the whole page.
+  const finishBoot = () => {
+    buildAllPanels();
+    requestAnimationFrame(()=>activatePanel(initialXpPanelFromLocation()));
+  };
+  // Wrapped in try/catch, not just .catch(): if `fetch` is missing entirely
+  // (or the page is opened over file://) the call throws synchronously, which
+  // would skip finishBoot and leave the whole ledger blank. The AP card
+  // degrades to earned-from-level on its own, so booting is never blocked.
+  try {
+    Promise.resolve(fetch('data/abilityPoints.json', { cache: 'no-cache' }))
+      .then(r => (r && r.ok) ? r.json() : null)
+      .catch(() => null)
+      .then(d => { AP_DATA = d; })
+      .catch(() => {})
+      .then(finishBoot, finishBoot);
+  } catch (err) {
+    AP_DATA = null;
+    finishBoot();
+  }
 
   document.addEventListener('keydown', (ev) => {
     if (ev.key === '/' && document.activeElement?.tagName !== 'INPUT') {
