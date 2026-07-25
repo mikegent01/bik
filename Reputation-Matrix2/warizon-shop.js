@@ -9,7 +9,7 @@
    ("Training Wing") with AP receipts.
    ========================================================================== */
 
-import { SHOP_ITEMS, VENDORS, SHIPPING_METHODS } from './shop-data.js';
+import { SHOP_ITEMS, VENDORS, SHIPPING_METHODS, BASE_MEMBERSHIP_TIERS, generateTier, getNextTier } from './shop-data.js';
 import { WALLETS, CURRENCIES } from './currency.js';
 
 /* --------------------------------------------------------------------------
@@ -21,6 +21,7 @@ const CUSTOM_WALLETS_KEY = 'warizon.customWallets';
 const CART_KEY = id => `warizon.cart.${id}`;
 const RECEIPTS_KEY = id => `warizon.receipts.${id}`;
 const AP_RECEIPTS_KEY = id => `warizon.apReceipts.${id}`;
+const PRIME_RECEIPTS_KEY = id => `warizon.wahprimeReceipts.${id}`;
 const PAGE_SIZE = 24;
 
 /** Static department metadata — the JSON in data/shop-departments.json is
@@ -302,6 +303,20 @@ function currentAccount() { return accountById(getSession()?.id); }
 
 function walletHeld(acc, cid) { return Number(acc?.currencies?.[cid] || 0); }
 
+function canAffordItem(item, acc = currentAccount()) {
+  if (!item || item.stock <= 0 || !acc) return false;
+  return (item.accepted || ['gold']).some(cid => walletHeld(acc, cid) >= amtIn(item.price, cid));
+}
+
+function affordLine(item, acc = currentAccount()) {
+  if (!acc) return 'Sign in to compare wallet balances.';
+  const ok = (item.accepted || ['gold']).filter(cid => walletHeld(acc, cid) >= amtIn(item.price, cid));
+  if (ok.length) return `Affordable with ${ok.slice(0, 3).map(cid => coinIcon(cid) + ' ' + currencyName(cid)).join(', ')}`;
+  const cheapest = (item.accepted || ['gold']).map(cid => ({ cid, need: amtIn(item.price, cid), have: walletHeld(acc, cid) }))
+    .sort((a, b) => (a.need - a.have) - (b.need - b.have))[0];
+  return cheapest ? `Short ${fmt(Math.max(0, cheapest.need - cheapest.have))} ${currencyName(cheapest.cid)}` : 'Not affordable from this wallet.';
+}
+
 /* --------------------------------------------------------------------------
    Session (LOGIN GATE) — the storefront is unreachable until signed in
    -------------------------------------------------------------------------- */
@@ -349,6 +364,68 @@ function ensureDeptMeta() {
       if (S.view === 'home' || S.view === 'results') render();
     })
     .catch(() => {});
+}
+
+
+/* --------------------------------------------------------------------------
+   WALUIPEDIA LINKS — lightweight auto-linking + item lore references
+   -------------------------------------------------------------------------- */
+
+let LORE = { entries: [], itemRefs: {} };
+let loreLoading = false;
+function wikiRoute(kind, id) {
+  if (kind === 'currency') return `currency.html#${encodeURIComponent(id)}`;
+  if (kind === 'nation') return `battlefield.html#/atlas/${encodeURIComponent(id)}`;
+  if (kind === 'location') return `battlefield.html#/article/${encodeURIComponent(id)}`;
+  return `battlefield.html#/article/${encodeURIComponent(id)}`;
+}
+function pushLoreEntry(entries, name, id, kind, summary = '', sub = '') {
+  const n = String(name || '').trim(); if (!n || !id || n.length < 5) return;
+  const low = n.toLowerCase();
+  if (['gold piece','gold pieces','the','wario','item','items'].includes(low)) return;
+  entries.push({ name: n, id: String(id), kind, summary: String(summary || '').slice(0, 220), sub: String(sub || ''), route: wikiRoute(kind, id) });
+}
+function ensureLoreData() {
+  if (loreLoading || LORE.entries.length || typeof fetch !== 'function') return;
+  loreLoading = true;
+  const get = f => fetch(`data/${f}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null);
+  Promise.all([get('characters'), get('factions'), get('locations'), get('nations'), get('currencies'), get('itemLoreLinks')])
+    .then(([characters, factions, locations, nations, currencies, itemRefs]) => {
+      const entries = [];
+      (Array.isArray(characters) ? characters : []).forEach(c => pushLoreEntry(entries, c.name, c.id, 'character', c.summary || c.description, c.title || c.affiliation));
+      (Array.isArray(factions) ? factions : []).forEach(f => pushLoreEntry(entries, f.name, f.id, 'faction', f.summary || f.description, f.type || f.region));
+      (Array.isArray(locations) ? locations : []).forEach(l => pushLoreEntry(entries, l.name, l.id, 'location', l.summary || l.description, l.region || l.type));
+      (Array.isArray(nations) ? nations : []).forEach(n => pushLoreEntry(entries, n.name, n.id, 'nation', n.summary || n.description, n.region || n.type));
+      Object.entries(CURRENCIES || {}).forEach(([id, c]) => pushLoreEntry(entries, c.name, id, 'currency', c.description || c.player_tip || 'Currency tender', `Currency · ${c.base_value || 1}g base`));
+      entries.sort((a, b) => b.name.length - a.name.length);
+      LORE = { entries: entries.slice(0, 800), itemRefs: itemRefs || {} };
+      loreLoading = false;
+      const openId = document.getElementById('wzModal')?._wzItemId;
+      if (openId && ITEM_BY_ID.has(openId)) { closeModal(); openPdp(openId); }
+      else if (['results', 'home', 'wahprime'].includes(S.view)) render();
+    })
+    .catch(() => { loreLoading = false; });
+}
+function loreLinkText(text, limit = 4) {
+  let html = esc(text);
+  if (!LORE.entries.length || !text) return html;
+  let count = 0;
+  for (const ent of LORE.entries) {
+    if (count >= limit) break;
+    const safe = ent.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`\\b${safe}\\b`);
+    if (re.test(html) && !html.includes(`>${ent.name}</a>`)) {
+      html = html.replace(re, `<a class="xlink" data-wiki-id="${esc(ent.id)}" title="${esc(ent.sub || ent.kind)} — ${esc(ent.summary)}" href="${esc(ent.route)}">${esc(ent.name)}</a>`);
+      count++;
+    }
+  }
+  return html;
+}
+function itemLoreHtml(it) {
+  ensureLoreData();
+  const refs = LORE.itemRefs?.[it.id]?.refs || [];
+  if (!refs.length) return '';
+  return `<div class="pdp-lore"><h2>Waluipedia cross-links</h2><div class="lore-pills">${refs.slice(0, 10).map(r => `<a class="xlink lore-pill" href="${esc(r.route && r.route.startsWith('#') ? 'battlefield.html' + r.route : (r.route || wikiRoute(r.kind, r.id)))}" title="${esc(r.kind || 'article')}">${esc(r.name || r.id)}</a>`).join('')}</div></div><hr class="pdp-hr">`;
 }
 
 /* --------------------------------------------------------------------------
@@ -511,7 +588,8 @@ function ensureAbilities() {
   });
 }
 
-const AB_STATE = { q: '', type: '', cls: '', onlyUnlock: false, shown: 60 };
+const PLAYER_AP_LOCKED_KEYS = new Set(['archie', 'archie_miser', 'markop', 'hjumpik', 'remi', 'waluigi', 'bowser']);
+const AB_STATE = { q: '', type: '', cls: '', onlyUnlock: false, shown: 60, target: '' };
 
 function apCostFor(level) {
   const tiers = AB?.points?.costTiers?.length ? AB.points.costTiers
@@ -522,8 +600,23 @@ function apCostFor(level) {
 
 function apPlayerFor(acc = currentAccount()) {
   const players = AB?.points?.players || {};
-  for (const id of acc?.ids || []) if (players[id]) return { key: id, ...players[id] };
+  for (const id of acc?.ids || []) if (players[id]) return { key: id, locked: PLAYER_AP_LOCKED_KEYS.has(id), ...players[id] };
   return null;
+}
+
+function trainableApRoster() {
+  const players = AB?.points?.players || {};
+  return Object.entries(players)
+    .filter(([key]) => !PLAYER_AP_LOCKED_KEYS.has(key))
+    .map(([key, p]) => ({ key, ...p, apAvailable: Math.max(0, Number(p.apAvailable || 0)) }))
+    .sort((a, b) => b.level - a.level || String(a.name).localeCompare(b.name));
+}
+
+function selectedTrainingTarget() {
+  const roster = trainableApRoster();
+  if (!roster.length) return null;
+  if (!AB_STATE.target || !roster.some(p => p.key === AB_STATE.target)) AB_STATE.target = roster[0].key;
+  return roster.find(p => p.key === AB_STATE.target) || roster[0];
 }
 
 function getApReceipts() {
@@ -534,7 +627,8 @@ function saveApReceipts(list) {
   const s = getSession(); if (!s) return;
   localStorage.setItem(AP_RECEIPTS_KEY(s.id), JSON.stringify(list));
 }
-function apReserved() { return getApReceipts().reduce((n, r) => n + Number(r.apCost || 0), 0); }
+function apReservedFor(targetKey = '') { return getApReceipts().filter(r => !targetKey || (r.targetKey || r.playerKey) === targetKey).reduce((n, r) => n + Number(r.apCost || 0), 0); }
+function apReserved() { return apReservedFor(); }
 
 /* --------------------------------------------------------------------------
    ORDER LEDGER (shop-purchases.json — paid/approved purchases) +
@@ -548,8 +642,8 @@ function ensureLedger() {
   ledgerLoading = true;
   fetch('shop-purchases.json')
     .then(r => (r.ok ? r.json() : []))
-    .then(j => { LEDGER = Array.isArray(j) ? j : []; ledgerLoading = false; if (S.view === 'orders') render(); })
-    .catch(() => { LEDGER = []; ledgerLoading = false; if (S.view === 'orders') render(); });
+    .then(j => { LEDGER = Array.isArray(j) ? j : []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); })
+    .catch(() => { LEDGER = []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); });
 }
 
 /** Ledger orders owned by the signed-in account (matched on wallet ids). */
@@ -568,6 +662,82 @@ function getReceipts() {
 function saveReceipts(list) {
   const s = getSession(); if (!s) return;
   localStorage.setItem(RECEIPTS_KEY(s.id), JSON.stringify(list));
+}
+
+
+/* --------------------------------------------------------------------------
+   WAHPRIME — subscription status JSON + lifetime tier from paid orders
+   -------------------------------------------------------------------------- */
+
+let PRIME_DATA = null;
+let primeLoading = false;
+function ensurePrimeData() {
+  if (PRIME_DATA || primeLoading || typeof fetch !== 'function') return;
+  primeLoading = true;
+  fetch('data/wahprime-memberships.json')
+    .then(r => (r.ok ? r.json() : null))
+    .then(j => { PRIME_DATA = j || { plans: {}, memberships: {} }; primeLoading = false; if (S.view === 'wahprime') render(); renderHeader(); })
+    .catch(() => { PRIME_DATA = { plans: {}, memberships: {} }; primeLoading = false; if (S.view === 'wahprime') render(); });
+}
+
+function primeReceipts() {
+  const s = getSession(); if (!s) return [];
+  try { return JSON.parse(localStorage.getItem(PRIME_RECEIPTS_KEY(s.id)) || '[]') || []; } catch (_) { return []; }
+}
+function savePrimeReceipts(list) {
+  const s = getSession(); if (!s) return;
+  localStorage.setItem(PRIME_RECEIPTS_KEY(s.id), JSON.stringify(list));
+}
+
+function primeMembershipFor(acc = currentAccount()) {
+  ensurePrimeData();
+  const ids = new Set(acc?.ids || []);
+  const memberships = PRIME_DATA?.memberships || {};
+  for (const [key, m] of Object.entries(memberships)) {
+    if ((m.accountIds || [key]).some(id => ids.has(String(id)))) return { key, ...m };
+  }
+  return acc ? { key: acc.id, accountIds: acc.ids || [acc.id], displayName: acc.name, status: 'inactive', plan: 'standard' } : null;
+}
+
+function lifetimeSpendFor(acc = currentAccount()) {
+  const paid = ledgerOrdersFor(acc);
+  const receiptSpend = getReceipts().reduce((sum, r) => sum + (r.entries || []).reduce((n, e) => n + Number(e.price || 0) * Number(e.qty || 1), 0), 0);
+  return {
+    paidCount: paid.length,
+    paidGold: paid.reduce((n, o) => n + Number(o.price || 0), 0),
+    pendingGold: receiptSpend
+  };
+}
+
+function primeTierFor(acc = currentAccount()) {
+  const spend = lifetimeSpendFor(acc);
+  const tier = generateTier ? generateTier(0) : (BASE_MEMBERSHIP_TIERS?.[0] || { name: 'Pocket Lint Licker', icon: '🧶', threshold: 0, discount: 0, index: 0 });
+  let idx = 0;
+  while (idx < 80) {
+    const nxt = generateTier(idx + 1);
+    if (!nxt || spend.paidGold < Number(nxt.threshold || 0)) break;
+    idx++;
+  }
+  const cur = generateTier(idx) || tier;
+  const next = getNextTier ? getNextTier(idx) : generateTier(idx + 1);
+  return { tier: cur, next, ...spend };
+}
+
+function isPrimeActive(acc = currentAccount()) {
+  const m = primeMembershipFor(acc);
+  if (!m || String(m.status || '').toLowerCase() !== 'active') return false;
+  if (m.paidThrough && new Date(m.paidThrough).getTime() < Date.now()) return false;
+  return true;
+}
+
+function primePlan(planId = 'standard') {
+  return PRIME_DATA?.plans?.[planId] || PRIME_DATA?.plans?.standard || { name: 'WahPrime Standard', monthlyPrice: 99, currency: 'gold', billingCycleDays: 30, benefits: [] };
+}
+
+function primeDiscountFor(acc = currentAccount()) {
+  if (!isPrimeActive(acc)) return 0;
+  const { tier } = primeTierFor(acc);
+  return Math.min(25, Number(tier.discount || 0));
 }
 
 /* --------------------------------------------------------------------------
@@ -697,15 +867,15 @@ function shipLine(item) {
    -------------------------------------------------------------------------- */
 
 const S = {
-  view: 'home',            // 'home' | 'results' | 'orders' | 'crafting' | 'abilities'
+  view: 'home',            // 'home' | 'results' | 'orders' | 'crafting' | 'abilities' | 'wahprime'
   q: '', dept: 'all', page: 1, sort: 'featured',
   bucket: -1, minStars: 0, rarities: new Set(), vendors: new Set(), currencies: new Set(),
-  inStockOnly: false
+  inStockOnly: false, affordableOnly: false
 };
 
 function resetFilters() {
   S.page = 1; S.bucket = -1; S.minStars = 0;
-  S.rarities = new Set(); S.vendors = new Set(); S.currencies = new Set(); S.inStockOnly = false;
+  S.rarities = new Set(); S.vendors = new Set(); S.currencies = new Set(); S.inStockOnly = false; S.affordableOnly = false;
 }
 
 function filteredItems() {
@@ -723,6 +893,7 @@ function filteredItems() {
   if (S.vendors.size) list = list.filter(it => S.vendors.has(it.vendorLabel));
   if (S.currencies.size) list = list.filter(it => it.accepted.some(c => S.currencies.has(c)));
   if (S.inStockOnly) list = list.filter(it => it.stock > 0);
+  if (S.affordableOnly) list = list.filter(it => canAffordItem(it));
   return sortItems(list);
 }
 
@@ -774,17 +945,27 @@ function renderHeader() {
     w.innerHTML = coins || '<span class="acct-coin">💰 0 — empty pockets</span>';
   }
 
-  /* total buying power */
+  /* total buying power + WahPrime rank */
   const paySlot = document.getElementById('acctPaySlot');
   if (paySlot && acc) {
+    ensureLedger(); ensurePrimeData();
     const totalGold = Object.entries(acc.currencies)
       .reduce((s, [cid, v]) => s + currencyBase(cid) * Number(v || 0), 0);
+    const pm = primeMembershipFor(acc);
+    const pr = primeTierFor(acc);
+    const active = isPrimeActive(acc);
     paySlot.innerHTML = `<div class="pay-label">💳 Total buying power ≈ <b>💰${fmtDec(totalGold, 1)} gold</b>
-      <small>Prices are set by each vendor — many items accept local coins, not just gold. The store never charges this wallet directly: checkout issues a purchase order you settle with the DM.</small></div>`;
+      <small>Prices are set by each vendor — many items accept local coins, not just gold. The store never charges this wallet directly: checkout issues a purchase order you settle with the DM.</small></div>
+      <div class="prime-mini ${active ? 'active' : 'inactive'}">
+        <span>${esc(pr.tier.icon || '👑')} <b>${esc(pr.tier.name || 'WahPrime')}</b></span>
+        <small>${active ? 'WahPrime benefits active' : `WahPrime ${esc(pm?.status || 'inactive')} — tier progress still tracked`} · ${fmt(pr.paidCount)} paid orders</small>
+      </div>`;
   }
 
   const flyName = document.getElementById('flyHello');
   if (flyName && acc) flyName.textContent = `Hello, ${acc.name.split(' ')[0]}`;
+  const flyMember = document.getElementById('flyMembership');
+  if (flyMember && acc) { const p = primeTierFor(acc); flyMember.innerHTML = `👑 WahPrime: <b>${isPrimeActive(acc) ? 'ACTIVE' : 'INACTIVE'}</b> · ${esc(p.tier.icon || '')} ${esc(p.tier.name || 'rank')}`; }
   updateCartBadge();
 }
 
@@ -845,6 +1026,7 @@ function renderHome() {
       <h1>The Everything Warehouse.<br><span class="gold">Low prices. No refunds. WAH!</span></h1>
       <p>${fmt(ITEMS.length)} priceless treasures, questionable relics, and garlic-infused bargains — priced in <b>${TOP_CURRENCIES.length - 1}+ currencies</b>, all hoarded by Wario himself. Sign-in customers only. Window shoppers get NOTHING.</p>
       <a class="hero-cta" data-go-deals="1">Shop today's deals →</a>
+      <a class="hero-cta hero-cta-secondary" data-go-affordable="1">Show only what I can afford →</a>
     </div>
     <div class="hero-wm">W</div>
     <div class="hero-fade"></div>
@@ -944,11 +1126,14 @@ function filterSidebar() {
     </ul>
     <h3>Sold By</h3><div>${vendorChecks}</div>
     <h3>Availability</h3>
-    <label class="f-check"><input type="checkbox" id="fInStock" ${S.inStockOnly ? 'checked' : ''}> Hide out-of-stock junk</label>`;
+    <label class="f-check"><input type="checkbox" id="fInStock" ${S.inStockOnly ? 'checked' : ''}> Hide out-of-stock junk</label>
+    <label class="f-check"><input type="checkbox" id="fAffordable" ${S.affordableOnly ? 'checked' : ''}> Affordable items only</label>
+    <div class="f-help">Checks your signed-in wallet against each item's accepted currencies. No coins are spent until the DM approves a receipt.</div>`;
 }
 
 function productCard(it) {
   const out = it.stock <= 0;
+  const affordable = canAffordItem(it);
   /* effect titles straight from the item's own reviewed data */
   const fx = effectRowsFor(it).map(r => r.title);
   const fxLine = fx.length
@@ -961,6 +1146,7 @@ function productCard(it) {
     ${cardIntelHtml(it)}
     <div class="p-rating">${starsHtml(it.rating)} <span style="color:#de7921" aria-hidden="true">▾</span> <span class="r-count">${fmt(it.reviews)}</span></div>
     ${priceWidget(it)}
+    <div class="p-afford ${affordable ? 'ok' : 'no'}" title="${esc(affordLine(it))}">${affordable ? '✅ Affordable from your wallet' : '🔒 Not affordable right now'}</div>
     <div class="p-accepts-row">${acceptsHtml(it)}</div>
     ${shipLine(it)}
     ${stockLine(it)}
@@ -1131,17 +1317,17 @@ function abilityCard(a, ctx) {
   const known = ctx.knownSet.has(a.id);
   const pending = ctx.pendingSet.has(a.id);
   let btn;
-  if (!ctx.player) {
-    btn = `<button class="btn-add" disabled title="This account has no entry in data/abilityPoints.json">No AP ledger</button>`;
+  if (!ctx.target) {
+    btn = `<button class="btn-add" disabled>No training target</button>`;
   } else if (known) {
-    btn = `<button class="btn-add" disabled>✓ Known</button>`;
+    btn = `<button class="btn-add" disabled>✓ ${esc(ctx.target.name)} knows this</button>`;
   } else if (pending) {
-    btn = `<button class="btn-add" disabled>⏳ Requested</button>`;
+    btn = `<button class="btn-add" disabled>⏳ Requested for ${esc(ctx.target.name)}</button>`;
   } else {
-    const canLevel = ctx.player.level >= a.level;
+    const canLevel = ctx.target.level >= a.level;
     const canAp = ctx.apLeft >= cost;
     btn = `<button class="btn-add" data-ap-unlock="${esc(a.id)}" ${canLevel && canAp ? '' : 'disabled'}>
-      Unlock — ${cost} AP${!canLevel ? ` (needs Lv ${a.level})` : !canAp ? ' (not enough AP)' : ''}</button>`;
+      Train target — ${cost} AP${!canLevel ? ` (target needs Lv ${a.level})` : !canAp ? ' (target lacks AP)' : ''}</button>`;
   }
   const knownBy = (a.knownBy || []).slice(0, 3).map(k => esc(k.name)).join(', ');
   return `<article class="ab-card" style="--ab-c:${esc(a.accent || t.accent || '#7a8a99')}">
@@ -1158,7 +1344,7 @@ function abilityCard(a, ctx) {
       <div class="ab-cost"><b>${cost}</b><span>AP</span><small>Lv ${a.level}+</small></div>
     </div>
     <p class="ab-desc">${esc(a.description || '')}</p>
-    ${knownBy ? `<div class="ab-known">📖 Known by: ${knownBy}${(a.knownBy || []).length > 3 ? ` +${a.knownBy.length - 3}` : ''}</div>` : '<div class="ab-known" style="opacity:.55">Nobody knows this yet. Be the first.</div>'}
+    ${knownBy ? `<div class="ab-known">📖 Known by: ${knownBy}${(a.knownBy || []).length > 3 ? ` +${a.knownBy.length - 3}` : ''}</div>` : '<div class="ab-known" style="opacity:.55">Nobody in the public ledger knows this yet.</div>'}
     <div class="ab-actions">${btn}</div>
   </article>`;
 }
@@ -1170,16 +1356,19 @@ function renderAbilities() {
       <div class="big">⚡</div><h2>Opening the Training Wing…</h2><p>Wario is oiling the training dummies. One moment.</p></div></div>`;
   }
   const acc = currentAccount();
-  const player = apPlayerFor(acc);
-  const receipts = getApReceipts();
+  const requester = apPlayerFor(acc);
+  const target = selectedTrainingTarget();
+  const receiptsAll = getApReceipts();
+  const receipts = target ? receiptsAll.filter(r => (r.targetKey || r.playerKey) === target.key) : [];
   const pendingSet = new Set(receipts.map(r => r.abilityId));
-  const knownSet = new Set(player?.known || []);
-  const apLeft = player ? Math.max(0, Number(player.apAvailable || 0) - apReserved()) : 0;
-  const ctx = { player, pendingSet, knownSet, apLeft };
+  const knownSet = new Set((target?.known || []).map(k => typeof k === 'string' ? k : k.id));
+  const apLeft = target ? Math.max(0, Number(target.apAvailable || 0) - apReservedFor(target.key)) : 0;
+  const ctx = { requester, target, pendingSet, knownSet, apLeft };
 
   const abilities = AB.shop?.abilities || [];
   const types = AB.shop?.types || {};
   const classes = AB.shop?.classes || {};
+  const roster = trainableApRoster();
 
   const terms = AB_STATE.q.toLowerCase().trim().split(/\s+/).filter(Boolean);
   let rows = abilities;
@@ -1187,33 +1376,39 @@ function renderAbilities() {
   if (AB_STATE.cls) rows = rows.filter(a => a.class === AB_STATE.cls);
   if (terms.length) rows = rows.filter(a => terms.every(t =>
     `${a.name} ${a.description} ${a.className} ${a.typeLabel}`.toLowerCase().includes(t)));
-  if (AB_STATE.onlyUnlock && player) rows = rows.filter(a =>
-    !knownSet.has(a.id) && !pendingSet.has(a.id) && player.level >= a.level && apLeft >= apCostFor(a.level));
+  if (AB_STATE.onlyUnlock && target) rows = rows.filter(a =>
+    !knownSet.has(a.id) && !pendingSet.has(a.id) && target.level >= a.level && apLeft >= apCostFor(a.level));
   rows = rows.slice().sort((a, b) => a.level - b.level || apCostFor(a.level) - apCostFor(b.level) || String(a.name).localeCompare(b.name));
 
-  const apPanel = player
-    ? `<div class="ab-wallet">
-        <div class="abw-row"><span>🎓 ${esc(player.name)}</span><b>Level ${player.level}</b></div>
-        <div class="abw-row"><span>⚡ AP available</span><b>${apLeft} <small style="color:var(--wz-muted)">(${apReserved()} reserved by receipts)</small></b></div>
-        <div class="abw-row"><span>📖 Abilities known</span><b>${knownSet.size}</b></div>
-        <div class="abw-row"><span>🧾 Pending receipts</span><b>${receipts.length}</b></div>
+  const targetOptions = roster.map(p => `<option value="${esc(p.key)}" ${target?.key === p.key ? 'selected' : ''}>${esc(p.name)} — Lv ${p.level}, ${Math.max(0, Number(p.apAvailable || 0) - apReservedFor(p.key))} AP</option>`).join('');
+  const requesterText = requester
+    ? `${esc(requester.name)} · personal AP ${requester.locked ? 'locked for player characters' : 'not used here'}`
+    : `${esc(acc?.name || 'This account')} · no personal AP ledger`;
+
+  const apPanel = target
+    ? `<div class="ab-wallet ab-wallet-wide">
+        <div class="abw-row"><span>🧑‍🏫 Requester</span><b>${requesterText}</b></div>
+        <div class="abw-row"><span>🎯 Training target</span><select id="abTarget" class="sort-select">${targetOptions}</select></div>
+        <div class="abw-row"><span>⚡ Target AP available</span><b>${apLeft} <small style="color:var(--wz-muted)">(${apReservedFor(target.key)} reserved)</small></b></div>
+        <div class="abw-row"><span>📖 Target abilities known</span><b>${knownSet.size}</b></div>
+        <div class="abw-row"><span>🚫 Player-character self spend</span><b>Disabled</b></div>
       </div>`
-    : `<div class="ab-wallet"><div class="abw-row"><span>⚠</span><span style="font-size:13px">This account has no Ability Points ledger entry (<code>data/abilityPoints.json</code>). Ask the DM to add one — browsing is free.</span></div></div>`;
+    : `<div class="ab-wallet"><div class="abw-row"><span>⚠</span><span style="font-size:13px">No trainable roster found in <code>data/abilityPoints.json</code>.</span></div></div>`;
 
   const pendingHtml = receipts.length ? `
     <div class="ab-pending">
-      <h3>🧾 Your AP receipts (${receipts.length})</h3>
+      <h3>🧾 Your AP receipts — pending for ${esc(target?.name || 'target')} (${receipts.length})</h3>
       ${receipts.map(r => {
         const a = abilities.find(x => x.id === r.abilityId);
         return `<div class="abp-row">
-          <span>${esc(a?.icon || '⚡')} <b>${esc(r.abilityName)}</b> — ${r.apCost} AP <span class="badge-pending">⏳ awaiting DM</span></span>
+          <span>${esc(a?.icon || '⚡')} <b>${esc(r.abilityName)}</b> for <b>${esc(r.targetName || r.playerName)}</b> — ${r.apCost} AP <span class="badge-pending">⏳ awaiting DM</span></span>
           <span>
             <button class="btn-plain" data-ap-copy="${esc(r.receiptId)}">Copy JSON</button>
             <button class="btn-plain" data-ap-cancel="${esc(r.receiptId)}">Cancel</button>
           </span>
         </div>
         <details class="oc-json"><summary>Receipt ${esc(r.receiptId)}</summary>
-          <textarea readonly rows="9">${esc(JSON.stringify(r, null, 2))}</textarea>
+          <textarea readonly rows="11">${esc(JSON.stringify(r, null, 2))}</textarea>
         </details>`;
       }).join('')}
     </div>` : '';
@@ -1224,20 +1419,24 @@ function renderAbilities() {
     .concat(Object.entries(classes).map(([k, c]) => `<option value="${esc(k)}" ${AB_STATE.cls === k ? 'selected' : ''}>${esc(c.icon || '')} ${esc(c.name || k)}</option>`)).join('');
 
   return `
-  <div class="wz-container" style="margin-top:14px">
-    <div class="results-bar" style="align-items:flex-start;gap:14px;flex-wrap:wrap">
+  <div class="wz-container ab-page" style="margin-top:14px">
+    <div class="results-bar ab-hero" style="align-items:flex-start;gap:14px;flex-wrap:wrap">
       <div style="flex:1;min-width:280px">
-        <h1 class="page-title" style="margin:0">⚡ Training Wing — Ability Shop</h1>
-        <div style="color:var(--wz-muted);font-size:13px;margin-top:4px">${abilities.length} abilities · ${Object.keys(classes).length} classes · paid in Ability Points earned by levelling.
-        Unlocking issues a <b>receipt</b> — the shop never edits a character sheet. Hand the JSON to the DM.</div>
+        <h1 class="page-title" style="margin:0">⚡ Training Wing — Party Upgrade Desk</h1>
+        <div style="color:var(--wz-muted);font-size:13px;margin-top:4px">Player characters (${[...PLAYER_AP_LOCKED_KEYS].filter(k => ['archie','markop','hjumpik','remi'].includes(k)).join(', ')}) do <b>not</b> spend AP on themselves here. Use the desk to strengthen allies, retainers, troops, and party NPCs. Every request still generates a DM receipt and never edits a sheet automatically.</div>
       </div>
       ${apPanel}
+    </div>
+    <div class="ab-suggestion-panel">
+      <b>Suggested next upgrade types:</b>
+      <span>❤️ Health bump receipt</span><span>💪 Stat training receipt</span><span>🛡️ Defensive reaction</span><span>🗣️ Leader aura</span>
+      <small>Health/stat training needs a character-sheet schema pass from the Toad docket before it should write real numbers; for now this desk safely handles ability receipts only.</small>
     </div>
     ${pendingHtml}
     <div class="ab-toolbar">
       <select id="abType" class="sort-select">${typeOpts}</select>
       <select id="abClass" class="sort-select">${classOpts}</select>
-      ${player ? `<label class="f-check" style="white-space:nowrap"><input type="checkbox" id="abUnlockable" ${AB_STATE.onlyUnlock ? 'checked' : ''}> Unlockable now</label>` : ''}
+      ${target ? `<label class="f-check" style="white-space:nowrap"><input type="checkbox" id="abUnlockable" ${AB_STATE.onlyUnlock ? 'checked' : ''}> Trainable now</label>` : ''}
       <form id="abSearchForm" style="display:flex;gap:6px;flex:1;max-width:420px;margin-left:auto">
         <input class="gate-input" id="abSearch" value="${esc(AB_STATE.q)}" placeholder="Search abilities (try: fire, stealth, paladin)">
         <button class="search-go" type="submit" style="border-radius:4px;width:42px">🔍</button>
@@ -1245,8 +1444,132 @@ function renderAbilities() {
     </div>
     <div class="ab-grid">${rows.slice(0, AB_STATE.shown).map(a => abilityCard(a, ctx)).join('')}</div>
     ${rows.length > AB_STATE.shown ? `<button class="btn-plain" id="abMore" style="display:block;margin:16px auto;padding:10px 26px">Show more (${fmt(rows.length - AB_STATE.shown)} left)</button>` : ''}
-    ${rows.length === 0 ? `<div class="empty-results"><div class="big">⚡</div><h2>No abilities match</h2><p>Even Wario cannot sell what does not exist. And he has TRIED.</p></div>` : ''}
+    ${rows.length === 0 ? `<div class="empty-results"><div class="big">⚡</div><h2>No abilities match</h2><p>Try a different target or fewer filters. Wario cannot teach a rock to backstab. He tried.</p></div>` : ''}
   </div>`;
+}
+
+/* --------------------------------------------------------------------------
+   RENDER: WahPrime membership dashboard
+   -------------------------------------------------------------------------- */
+
+function renderWahPrime() {
+  ensureLedger(); ensurePrimeData();
+  const acc = currentAccount();
+  const membership = primeMembershipFor(acc);
+  const plan = primePlan(membership?.plan || 'standard');
+  const prog = primeTierFor(acc);
+  const active = isPrimeActive(acc);
+  const nextNeed = prog.next ? Math.max(0, Number(prog.next.threshold || 0) - prog.paidGold) : 0;
+  const pct = prog.next ? Math.max(2, Math.min(100, (prog.paidGold / Math.max(1, Number(prog.next.threshold || 1))) * 100)) : 100;
+  const receipts = primeReceipts();
+  const vault = ITEMS.filter(it => it.prime || it.cat === 'premium' || ['legendary', 'mythic', 'godly', 'wario_tier'].includes(it.rarity))
+    .sort((a, b) => b.price - a.price).slice(0, 8);
+  const planOptions = Object.entries(PRIME_DATA?.plans || { standard: plan }).map(([id, p]) =>
+    `<button class="prime-plan ${id === (membership?.plan || 'standard') ? 'pick' : ''}" data-prime-plan="${esc(id)}">
+      <b>${esc(p.name || id)}</b><span>${coinIcon(p.currency || 'gold')} ${fmt(p.monthlyPrice || 0)} / ${fmt(p.billingCycleDays || 30)} days</span>
+      <small>${(p.benefits || []).slice(0, 3).map(esc).join(' · ')}</small>
+    </button>`).join('');
+  const pendingHtml = receipts.length ? `
+    <section class="prime-panel">
+      <h2>🧾 Pending WahPrime subscription receipts</h2>
+      ${receipts.map(r => `<div class="prime-receipt-row">
+        <span><b>${esc(r.receiptId)}</b> · ${esc(r.planName)} · ${coinIcon(r.currency)} ${fmt(r.amount)} <span class="badge-pending">awaiting DM payment approval</span></span>
+        <span><button class="btn-plain" data-prime-copy="${esc(r.receiptId)}">Copy JSON</button><button class="btn-plain" data-prime-cancel="${esc(r.receiptId)}">Cancel</button></span>
+        <details class="oc-json"><summary>Receipt JSON</summary><textarea readonly rows="10">${esc(JSON.stringify(r, null, 2))}</textarea></details>
+      </div>`).join('')}
+    </section>` : '';
+
+  return `<div class="wz-container prime-page">
+    <section class="prime-hero">
+      <div>
+        <div class="pdp-kicker">WahPrime subscription office</div>
+        <h1>👑 WahPrime is real now. Wario has paperwork.</h1>
+        <p>Subscription status comes from <code>data/wahprime-memberships.json</code>. Buying more approved Warizon orders raises your lifetime tier; active subscription status unlocks live site benefits.</p>
+        <div class="prime-actions"><button class="btn-buy" data-prime-subscribe="${esc(membership?.plan || 'standard')}">${active ? 'Renew / extend WahPrime' : 'Generate WahPrime payment receipt'}</button><button class="btn-add" data-go-affordable="1">Shop affordable items</button></div>
+      </div>
+      <div class="prime-card-big ${active ? 'active' : 'inactive'}">
+        <span class="pcrown">${esc(prog.tier.icon || '👑')}</span>
+        <b>${esc(prog.tier.name || 'WahPrime Rank')}</b>
+        <small>${active ? 'Benefits ACTIVE' : 'Benefits INACTIVE until DM records payment'}</small>
+      </div>
+    </section>
+
+    <section class="prime-grid-top">
+      <div class="prime-panel prime-status">
+        <h2>Membership status</h2>
+        <div class="prime-status-line"><span>Account</span><b>${esc(acc?.name || 'Unknown')}</b></div>
+        <div class="prime-status-line"><span>Plan</span><b>${esc(plan.name || 'WahPrime Standard')}</b></div>
+        <div class="prime-status-line"><span>Status</span><b class="${active ? 'good' : 'bad'}">${active ? 'ACTIVE' : esc(membership?.status || 'inactive').toUpperCase()}</b></div>
+        <div class="prime-status-line"><span>Paid through</span><b>${esc(membership?.paidThrough || 'not paid')}</b></div>
+        <div class="prime-status-line"><span>Collector</span><b>${esc(membership?.collector || 'Wario')}</b></div>
+        <p>${esc(membership?.collectionMethod || 'Generate a receipt here, pay the DM, then the DM updates the JSON.')}</p>
+      </div>
+      <div class="prime-panel prime-progress">
+        <h2>Lifetime buyer tier</h2>
+        <div class="tier-badge" style="--tier-c:${esc(prog.tier.color || '#6b3fa0')}"><span>${esc(prog.tier.icon || '👑')}</span><b>${esc(prog.tier.name || 'Tier')}</b><em>${fmt(prog.paidCount)} paid orders · 💰${fmt(prog.paidGold)} lifetime approved spend</em></div>
+        <div class="prime-meter"><span style="width:${pct}%"></span></div>
+        <p>${prog.next ? `Next rank: <b>${esc(prog.next.icon || '')} ${esc(prog.next.name)}</b> after 💰${fmt(nextNeed)} more approved purchases.` : 'Top tier reached. Wario is both impressed and afraid.'}</p>
+        <p class="prime-note">Pending receipts add 💰${fmt(prog.pendingGold)} potential spend, but tier only increases after DM approval in <code>shop-purchases.json</code>.</p>
+      </div>
+      <div class="prime-panel prime-benefits">
+        <h2>Live website effects</h2>
+        <ul>
+          <li>${active ? '✅' : '🔒'} Free <b>WahPrime Warp Saver</b> shipping option appears at checkout for active members.</li>
+          <li>${active ? '✅' : '🔒'} Member discount display: <b>${fmt(primeDiscountFor(acc))}%</b> tier rebate shown on eligible premium cards.</li>
+          <li>✅ Lifetime tier and progress are visible even while inactive.</li>
+          <li>✅ Affordable-only mode can be combined with WahPrime/premium browsing.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="prime-panel prime-plans">
+      <h2>Choose how Wario collects</h2>
+      <p>These buttons do not charge a wallet. They create a subscription receipt for the DM to approve, just like item checkout.</p>
+      <div class="prime-plan-grid">${planOptions}</div>
+    </section>
+
+    ${pendingHtml}
+
+    <section class="prime-panel">
+      <h2>👑 WahPrime Vault previews</h2>
+      <div class="prime-vault-grid">${vault.map(it => productCard(it)).join('')}</div>
+    </section>
+  </div>`;
+}
+
+function generatePrimeReceipt(planId = 'standard') {
+  const acc = currentAccount(); if (!acc) return;
+  ensurePrimeData();
+  const p = primePlan(planId);
+  const amount = Number(p.monthlyPrice || 0);
+  const cid = p.currency || 'gold';
+  if (amount > 0 && walletHeld(acc, cid) < amount) {
+    toast(`WahPrime requires ${coinIcon(cid)} <b>${fmt(amount)}</b> ${esc(currencyName(cid))}; your wallet only shows ${fmt(walletHeld(acc, cid))}. Wario refuses imaginary money.`);
+    return;
+  }
+  const receipt = {
+    receiptId: 'WP-' + hash01(Date.now() + acc.id + planId).toString(16).slice(2).toUpperCase().padStart(8, '0').slice(0, 8),
+    type: 'WAHPRIME_SUBSCRIPTION',
+    accountId: acc.id,
+    accountIds: acc.ids || [acc.id],
+    accountName: acc.name,
+    planId,
+    planName: p.name || planId,
+    amount,
+    currency: cid,
+    nativeTotal: amount,
+    billingCycleDays: Number(p.billingCycleDays || 30),
+    requestedAt: new Date().toISOString(),
+    paidThroughAfterApproval: new Date(Date.now() + Number(p.billingCycleDays || 30) * 864e5).toISOString().slice(0, 10),
+    approvedAt: null,
+    approvedBy: null,
+    status: 'PENDING_PAYMENT',
+    instructions: 'Player pays the DM. DM updates data/wahprime-memberships.json status/paidThrough manually. The website never subtracts coins.'
+  };
+  const list = primeReceipts();
+  list.push(receipt); savePrimeReceipts(list);
+  sfx('confirm'); render();
+  toast(`👑 WahPrime receipt <b>${esc(receipt.receiptId)}</b> generated. Pay the DM; Wario will not forget.`);
 }
 
 /* --------------------------------------------------------------------------
@@ -1396,6 +1719,7 @@ function render() {
   else if (S.view === 'orders') view.innerHTML = renderOrders();
   else if (S.view === 'crafting') view.innerHTML = renderCrafting();
   else if (S.view === 'abilities') view.innerHTML = renderAbilities();
+  else if (S.view === 'wahprime') view.innerHTML = renderWahPrime();
   else view.innerHTML = renderHome();
   renderHeader();
 }
@@ -1426,7 +1750,7 @@ function effectsSectionHtml(it) {
         <span class="fx-n">${i + 1}</span>
         <div class="fx-body">
           <div class="fx-head"><b>${esc(r.title)}</b><span class="fx-src ${r.source}">${r.source === 'reviewed' ? '✓ reviewed rules' : 'standard rules'}</span></div>
-          <p>${esc(r.rules)}</p>
+          <p>${loreLinkText(r.rules, 3)}</p>
         </div>
       </div>`).join('')}
     </div>
@@ -1458,6 +1782,7 @@ function openPdp(id, useCur = null) {
   const it = ITEM_BY_ID.get(id);
   if (!it) return;
   ensureEffectCatalog();   // warm the supplement catalog
+  ensureLoreData();        // warm Waluipedia cross-links
   const cur = (useCur && it.accepted.includes(useCur)) ? useCur : it.nativeCur;
   const vendorName = it.vendorLabel;
   const out = it.stock <= 0;
@@ -1510,8 +1835,8 @@ function openPdp(id, useCur = null) {
         <div class="p-rating">${starsHtml(it.rating)} <span style="color:#de7921">▾</span> <a class="r-count">${it.rating} · ${fmt(it.reviews)} ratings</a></div>
         <div class="pdp-quick-read">
           <div class="qr-head"><span>✨ Quick read</span><b>${esc(DEPARTMENTS[it.cat].label)}</b></div>
-          ${it.desc ? `<p>${esc(it.desc)}</p>` : '<p>Wario forgot to write a description, which is legally distinct from suspicious.</p>'}
-          ${pdpPrimary ? `<div class="qr-rule"><span>Primary table rule</span><b>${esc(pdpPrimary.title)}</b><em>${esc(pdpPrimary.rules)}</em></div>` : `<div class="qr-rule muted"><span>Rules status</span><b>Needs DM clarification</b><em>No reviewed rules text is attached to this item yet.</em></div>`}
+          ${it.desc ? `<p>${loreLinkText(it.desc, 6)}</p>` : '<p>Wario forgot to write a description, which is legally distinct from suspicious.</p>'}
+          ${pdpPrimary ? `<div class="qr-rule"><span>Primary table rule</span><b>${esc(pdpPrimary.title)}</b><em>${loreLinkText(pdpPrimary.rules, 4)}</em></div>` : `<div class="qr-rule muted"><span>Rules status</span><b>Needs DM clarification</b><em>No reviewed rules text is attached to this item yet.</em></div>`}
           ${pdpUsage ? `<div class="qr-use">${[['⚡ Activation','activation'],['⏳ Duration','duration'],['🔢 Charges','charges']].filter(([,k]) => pdpUsage[k]).map(([label,k]) => `<span><b>${label}</b>${esc(pdpUsage[k])}</span>`).join('')}</div>` : ''}
         </div>
         <hr class="pdp-hr">
@@ -1529,6 +1854,7 @@ function openPdp(id, useCur = null) {
         ${shipLine(it)}
         <hr class="pdp-hr">
         ${glancePanelHtml(it)}
+        ${itemLoreHtml(it)}
         ${effectsSectionHtml(it)}
         <div class="pdp-about">
           <h2>About this item</h2>
@@ -1538,7 +1864,7 @@ function openPdp(id, useCur = null) {
             ${it.stock <= 3 && it.stock > 0 ? `<li style="color:#b12704"><b>Hurry</b> — only ${it.stock} left in the warehouse.</li>` : ''}
             ${!it.level && !it.warning && it.stock > 3 ? '<li>A genuine Wario-grade product. Quality guaranteed-ish.</li>' : ''}
           </ul>
-          <div class="pdp-desc">${esc(it.desc)}</div>
+          <div class="pdp-desc">${loreLinkText(it.desc, 8)}</div>
           <table class="pdp-table">
             <tr><td>Department</td><td>${esc(DEPARTMENTS[it.cat].label)}</td></tr>
             <tr><td>Rarity</td><td>${esc(it.rarity.replace('_', ' '))}</td></tr>
@@ -1706,6 +2032,9 @@ function openCheckout(buyNowRows = null) {
   if (!rows.length) { toast('Your cart is empty — Wario cannot sell you nothing. (He tried.)'); return; }
 
   const shipOpts = SHIP_METHODS_LIST.map(f => f());
+  if (isPrimeActive(acc)) {
+    shipOpts.unshift({ name: 'WahPrime Warp Saver', deliveryTime: '1-2 days', cost: 0, icon: '👑', description: 'Active WahPrime benefit — free member shipping on this receipt' });
+  }
   const ownedCurs = Object.keys(acc?.currencies || {}).filter(cid => CURRENCIES?.[cid] && walletHeld(acc, cid) > 0);
   if (!ownedCurs.includes('gold')) ownedCurs.unshift('gold');
 
@@ -1986,30 +2315,34 @@ function closeDrawer() {
 function openAbilityUnlock(abilityId) {
   const a = AB?.shop?.abilities?.find(x => x.id === abilityId);
   const acc = currentAccount();
-  const player = apPlayerFor(acc);
-  if (!a || !player) return;
+  const requester = apPlayerFor(acc);
+  const target = selectedTrainingTarget();
+  if (!a || !target) return;
   const cost = apCostFor(a.level);
-  const left = Math.max(0, player.apAvailable - apReserved());
-  if (left < cost || player.level < a.level) { toast('WAH! Not enough Ability Points. Go level up, cheapskate.'); return; }
+  const left = Math.max(0, Number(target.apAvailable || 0) - apReservedFor(target.key));
+  if (left < cost || target.level < a.level) { toast('WAH! The selected training target lacks the level or AP for this upgrade.'); return; }
 
   closeModal();
   const scrim = document.createElement('div');
   scrim.className = 'modal-scrim';
   scrim.id = 'wzModal';
   scrim.innerHTML = `
-    <div class="modal" style="max-width:520px">
+    <div class="modal" style="max-width:560px">
       <button class="modal-x" data-close="1">✕</button>
       <div style="padding:26px">
-        <h1 style="font-size:22px;font-weight:700;margin:0 0 10px">${esc(a.icon || '⚡')} ${esc(a.name)}</h1>
+        <h1 style="font-size:22px;font-weight:700;margin:0 0 10px">${esc(a.icon || '⚡')} Train ${esc(target.name)}: ${esc(a.name)}</h1>
         <p style="font-size:14px;margin:0 0 12px">${esc(a.description || '')}</p>
+        <div class="co-banner-lite">Player character AP is locked on this page. <b>${esc(acc?.name || 'Requester')}</b> is filing a training request for <b>${esc(target.name)}</b>; the target's own AP is reserved pending DM approval.</div>
         <table class="pdp-table" style="margin-bottom:14px">
+          <tr><td>Requester</td><td>${esc(requester?.name || acc?.name || 'Unknown')} ${requester?.locked ? '(personal AP locked)' : ''}</td></tr>
+          <tr><td>Training target</td><td>${esc(target.name)} — Level ${target.level}</td></tr>
           <tr><td>Class</td><td>${esc(a.className || a.class)}</td></tr>
           <tr><td>Type</td><td>${esc(a.typeLabel || a.type)}</td></tr>
-          <tr><td>Required level</td><td>${a.level}+ (you are ${player.level})</td></tr>
-          <tr><td>AP cost</td><td><b>${cost} AP</b> (you have ${left} available)</td></tr>
+          <tr><td>Required level</td><td>${a.level}+ (target is ${target.level})</td></tr>
+          <tr><td>AP cost</td><td><b>${cost} AP</b> (target has ${left} available)</td></tr>
         </table>
-        <button class="btn-buy" id="apConfirmBtn" style="width:100%">Generate AP receipt</button>
-        <div class="co-warning" style="margin-top:10px">The receipt reserves ${cost} AP and goes to the DM for approval. The shop never edits a character sheet — per <code>data/abilityPoints.json</code>.</div>
+        <button class="btn-buy" id="apConfirmBtn" style="width:100%">Generate training receipt</button>
+        <div class="co-warning" style="margin-top:10px">The receipt reserves ${cost} of <b>${esc(target.name)}</b>'s AP and goes to the DM for approval. The shop never edits a character sheet.</div>
       </div>
     </div>`;
   document.body.appendChild(scrim);
@@ -2017,10 +2350,14 @@ function openAbilityUnlock(abilityId) {
     if (e.target === scrim || e.target.closest('[data-close]')) closeModal();
     if (e.target.closest('#apConfirmBtn')) {
       const receipt = {
-        receiptId: 'AP-' + hash01(Date.now() + abilityId).toString(16).slice(2).toUpperCase().padStart(8, 'AP0000').slice(0, 8),
-        playerKey: acc?.id || 'unknown',
-        playerName: player.name,
-        playerLevel: player.level,
+        receiptId: 'AP-' + hash01(Date.now() + abilityId + target.key).toString(16).slice(2).toUpperCase().padStart(8, 'AP0000').slice(0, 8),
+        requesterKey: acc?.id || 'unknown',
+        requesterName: acc?.name || 'Unknown requester',
+        playerKey: target.key,
+        playerName: target.name,
+        targetKey: target.key,
+        targetName: target.name,
+        targetLevel: target.level,
         abilityId: a.id,
         abilityName: a.name,
         class: a.class,
@@ -2029,15 +2366,16 @@ function openAbilityUnlock(abilityId) {
         requestedAt: new Date().toISOString(),
         approvedAt: null,
         approvedBy: null,
-        status: 'PENDING_DM_APPROVAL'
+        status: 'PENDING_DM_APPROVAL',
+        rule: 'Player-character AP is locked; this receipt trains the selected ally/NPC target only.'
       };
       const list = getApReceipts();
       list.push(receipt);
       saveApReceipts(list);
       sfx('confirm');
       closeModal();
-      render();      // refresh the wing (button now shows ⏳ Requested)
-      toast(`🧾 <b>${esc(a.name)}</b> receipt generated — ${cost} AP reserved pending DM approval.`);
+      render();
+      toast(`🧾 <b>${esc(a.name)}</b> training receipt generated for <b>${esc(target.name)}</b>.`);
     }
   });
 }
@@ -2222,6 +2560,8 @@ function buyNow(id, qty = 1) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  ensureLoreData();
+  ensurePrimeData();
   const gate = document.getElementById('gate');
   const store = document.getElementById('store');
 
@@ -2245,7 +2585,12 @@ document.addEventListener('DOMContentLoaded', () => {
       S.currencies = new Set(TOP_CURRENCIES.filter(([cid]) => cid !== 'gold').map(([cid]) => cid));
       S.view = 'results'; render(); return;
     }
+    if (t.closest('[data-go-affordable]')) {
+      resetFilters(); S.q = ''; S.dept = 'all'; S.sort = 'price-asc'; S.inStockOnly = true; S.affordableOnly = true;
+      S.view = 'results'; render(); return;
+    }
     if (t.closest('[data-go-shop]')) { goTo('home'); return; }
+    if (t.closest('[data-go-prime]')) { goTo('wahprime'); return; }
     if (t.closest('[data-go-craft]')) { CRAFT_STATE.shown = 60; goTo('crafting'); return; }
     if (t.closest('[data-go-abilities]')) { AB_STATE.shown = 60; goTo('abilities'); return; }
 
@@ -2253,6 +2598,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (buyAgain) { addToCart(buyAgain.dataset.buyAgain); openCart(); return; }
     if (t.closest('[data-no-refund]')) { sfx('wah'); toast('WAH HA HA! <b>No refunds!</b> Warizon return policy, page 1 of 1.'); return; }
     if (t.closest('[data-no-review]')) { toast('Your five stars are appreciated in advance. Wario accepts praise and gold only.'); return; }
+
+    const primeSub = t.closest('[data-prime-subscribe]');
+    if (primeSub) { generatePrimeReceipt(primeSub.dataset.primeSubscribe || 'standard'); return; }
+    const primePlanBtn = t.closest('[data-prime-plan]');
+    if (primePlanBtn) { generatePrimeReceipt(primePlanBtn.dataset.primePlan || 'standard'); return; }
+    const primeCopy = t.closest('[data-prime-copy]');
+    if (primeCopy) { const r = primeReceipts().find(x => x.receiptId === primeCopy.dataset.primeCopy); if (r) copyToClipboard(JSON.stringify(r, null, 2)); return; }
+    const primeCancel = t.closest('[data-prime-cancel]');
+    if (primeCancel) { savePrimeReceipts(primeReceipts().filter(x => x.receiptId !== primeCancel.dataset.primeCancel)); render(); toast('WahPrime receipt cancelled. Wario added your name to a list.'); return; }
 
     /* receipts on the orders page */
     const copyR = t.closest('[data-copy-receipt]');
@@ -2375,9 +2729,10 @@ document.addEventListener('DOMContentLoaded', () => {
     /* header */
     if (t.closest('#navLogo') || t.closest('#subHome')) { goTo('home'); return; }
     if (t.closest('#navOrders')) { goTo('orders'); return; }
+    if (t.closest('#flyMembership')) { goTo('wahprime'); document.querySelector('.nav-acct-wrap')?.classList.remove('open'); return; }
     if (t.closest('#subDeals')) { resetFilters(); S.q = ''; S.dept = 'all'; S.sort = 'featured'; goTo('results', { keepPage: true }); return; }
     const subDept = t.closest('[data-sub-dept]');
-    if (subDept) { resetFilters(); S.q = ''; S.dept = subDept.dataset.subDept; goTo('results'); return; }
+    if (subDept) { if (subDept.dataset.subDept === 'premium') { goTo('wahprime'); return; } resetFilters(); S.q = ''; S.dept = subDept.dataset.subDept; goTo('results'); return; }
     if (t.closest('#allDepartmentsBtn')) { openDrawer(); return; }
     if (t.closest('#backToTop')) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
 
@@ -2385,7 +2740,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dDept = t.closest('[data-drawer-dept]');
     if (dDept) { closeDrawer(); resetFilters(); S.q = ''; S.dept = dDept.dataset.drawerDept; goTo('results'); return; }
     if (t.closest('[data-drawer-deals]')) { closeDrawer(); resetFilters(); S.q = ''; S.dept = 'all'; goTo('results'); return; }
-    if (t.closest('[data-drawer-prime]')) { closeDrawer(); resetFilters(); S.q = ''; S.dept = 'premium'; goTo('results'); return; }
+    if (t.closest('[data-drawer-prime]')) { closeDrawer(); goTo('wahprime'); return; }
     if (t.closest('[data-drawer-abilities]')) { closeDrawer(); AB_STATE.shown = 60; goTo('abilities'); return; }
     if (t.closest('[data-drawer-crafting]')) { closeDrawer(); goTo('crafting'); return; }
     if (t.closest('[data-drawer-orders]')) { closeDrawer(); goTo('orders'); return; }
@@ -2425,11 +2780,13 @@ document.addEventListener('DOMContentLoaded', () => {
       S.page = 1; render(); return;
     }
     if (t.matches('#fInStock')) { S.inStockOnly = t.checked; S.page = 1; render(); return; }
+    if (t.matches('#fAffordable')) { S.affordableOnly = t.checked; S.inStockOnly = S.inStockOnly || t.checked; S.page = 1; render(); return; }
     if (t.matches('#sortSelect')) { S.sort = t.value; S.page = 1; render(); return; }
     if (t.matches('#craftSchool')) { CRAFT_STATE.school = t.value; CRAFT_STATE.shown = 60; render(); return; }
     if (t.matches('#craftCat')) { CRAFT_STATE.cat = t.value; CRAFT_STATE.shown = 60; render(); return; }
     if (t.matches('#abType')) { AB_STATE.type = t.value; AB_STATE.shown = 60; render(); return; }
     if (t.matches('#abClass')) { AB_STATE.cls = t.value; AB_STATE.shown = 60; render(); return; }
+    if (t.matches('#abTarget')) { AB_STATE.target = t.value; AB_STATE.shown = 60; render(); return; }
     if (t.matches('#abUnlockable')) { AB_STATE.onlyUnlock = t.checked; AB_STATE.shown = 60; render(); return; }
     if (t.matches('#searchScope')) return;
   });

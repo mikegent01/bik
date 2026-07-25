@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "system": "WahPrime subscription ledger",
+    "updated": "2026-07-25",
+    "sourceOfTruth": "DM-maintained JSON. The website may generate subscription receipts, but it never marks a membership paid by itself.",
+    "tierRule": "Lifetime paid Warizon order value determines the buyer rank. Active subscription status determines whether benefits are usable today.",
+    "paymentRule": "Wario collects subscription payments as purchase-order receipts. The DM verifies payment, then updates this JSON manually. Missed payments suspend benefits but do not erase lifetime tier."
+  },
+  "plans": {
+    "trial": {
+      "name": "WahPrime Garlic Trial",
+      "monthlyPrice": 0,
+      "currency": "gold",
+      "billingCycleDays": 7,
+      "benefits": ["Preview tier dashboard", "No delivery benefits until DM approves a paid plan"]
+    },
+    "standard": {
+      "name": "WahPrime Standard",
+      "monthlyPrice": 99,
+      "currency": "gold",
+      "billingCycleDays": 30,
+      "benefits": ["WahPrime Vault dashboard", "Free WahPrime shipping option on eligible carts", "Member-only product intelligence badges", "Tier progress tracked from paid orders"]
+    },
+    "garlic_plus": {
+      "name": "WahPrime Garlic+",
+      "monthlyPrice": 12,
+      "currency": "wario_coin",
+      "billingCycleDays": 30,
+      "benefits": ["All Standard benefits", "Wario Coin billing", "Priority garlic-stained packaging", "One DM-negotiated delivery favor per cycle"]
+    }
+  },
+  "memberships": {
+    "archie": {
+      "accountIds": ["archie", "archie_miser"],
+      "displayName": "Archie Miser",
+      "status": "inactive",
+      "plan": "standard",
+      "startedAt": null,
+      "paidThrough": null,
+      "nextDueAt": null,
+      "collector": "Wario Accounts Receivable Goblin #3",
+      "collectionMethod": "Generate a WahPrime receipt, pay the DM, then the DM marks this JSON active."
+    },
+    "markop": {
+      "accountIds": ["markop"],
+      "displayName": "Markop",
+      "status": "inactive",
+      "plan": "standard",
+      "startedAt": null,
+      "paidThrough": null,
+      "nextDueAt": null,
+      "collector": "Wario with a clipboard",
+      "collectionMethod": "No auto-charge. Receipt first; DM approval second."
+    },
+    "hjumpik": {
+      "accountIds": ["hjumpik"],
+      "displayName": "Hjumpik",
+      "status": "inactive",
+      "plan": "standard",
+      "startedAt": null,
+      "paidThrough": null,
+      "nextDueAt": null,
+      "collector": "Parakarry carrying a threatening envelope",
+      "collectionMethod": "Payment receipt in gold, ducats, or DM-approved tender."
+    },
+    "remi": {
+      "accountIds": ["remi"],
+      "displayName": "Remi",
+      "status": "inactive",
+      "plan": "standard",
+      "startedAt": null,
+      "paidThrough": null,
+      "nextDueAt": null,
+      "collector": "Wario's suspiciously polite billing ghost",
+      "collectionMethod": "Receipt generated here; DM files payment manually."
+    }
+  },
+  "delinquencyRules": [
+    "Subscription receipts are pending until the DM records payment.",
+    "If paidThrough is before today, benefits are suspended but lifetime tier remains visible.",
+    "Wario may add late fees in roleplay, but this page never subtracts coins automatically.",
+    "Tier is earned by approved purchases in shop-purchases.json plus DM-entered historical purchases if added later."
+  ]
+}
