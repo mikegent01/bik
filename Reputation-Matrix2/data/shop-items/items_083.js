@@ -1662,22 +1662,44 @@ export const ITEMS_083 = {
   "equestrian_item_the_vile_bits_of_discord": {
     "id": "equestrian_item_the_vile_bits_of_discord",
     "name": "The Vile Bits of Discord's Lament",
-    "description": "These tarnished bits are said to have been forged in the heart of a forgotten argument. Each bite introduces a subtle sense of unease and paranoia, making it difficult to trust even closest companions – proceed with caution.",
+    "description": "The Vile Bits of Discord's Lament are a twisted amalgamation of forgotten arguments and gnawed metal, forged in the heart of a long-lost quarrel. These tarnished fragments emit an insidious aura that subtly erodes trust among those who consume them, making even the closest companions seem unreliable. Biting into these cursed relics leaves you plagued with paranoia, reducing your charisma by 1 point and increasing the chance for others to react negatively towards you.",
     "category": "consumables",
-    "price": 600,
+    "price": 1000,
     "icon": "😈",
     "stock": 89,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "paranoia +15%",
-      "reduced trust (3%)",
-      "chance to trigger negative emotions in others",
-      "minor reduction in charisma"
+      "Paranoia",
+      "Reduced Charisma"
     ],
     "vendor": "canterlot_commerce",
-    "shippedBy": "Ground Delivery",
-    "levelRequirement": 10
+    "shippedBy": "Swift Pony Express",
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Paranoia",
+        "rules": "Upon consuming the Vile Bits, you become paranoid and distrusting of your companions. This effect lasts until the end of your next long rest. It does not require a saving throw but reduces your charisma by 1 point."
+      },
+      {
+        "title": "Reduced Charisma",
+        "rules": "Your charisma score is reduced by 1 point while you are under the effects of these bits, and this reduction persists until the end of your next long rest. This effect does not allow saving throws to negate its impact."
+      }
+    ],
+    "levelRequirementReason": "A lower-level character might find it difficult to cope with the paranoia and reduced charisma effects.",
+    "vendorReason": "Canterlot Commerce, known for their eclectic range of goods, includes these items in their stock due to their unique and controversial nature.",
+    "shippingDetail": "Ships via the Swift Pony Express, delivered within three days of purchase.",
+    "usage": {
+      "activation": "Eaten as a consumable item.",
+      "duration": "Lasts until the end of your next long rest.",
+      "endsWhen": "The effects end at the conclusion of your next long rest.",
+      "charges": "Unlimited, but one cannot consume more than three in a week."
+    },
+    "priceReason": "The price reflects the unique and potentially destabilizing nature of these items, balancing their utility with the risk they pose.",
+    "priceOriginal": 600,
+    "priceReviewedAt": "2026-07-25T03:44:41.043786+00:00",
+    "aiReviewedAt": "2026-07-25T03:44:41.043786+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_item_obsidian_whisperer_of_mirkwood": {
     "id": "middle_earth_item_obsidian_whisperer_of_mirkwood",
@@ -1720,21 +1742,44 @@ export const ITEMS_083 = {
   "middle_earth_item_service_of_the_greywatchers": {
     "id": "middle_earth_item_service_of_the_greywatchers",
     "name": "The Greywatcher’s Vigilance Offering",
-    "description": "A shimmering, ethereal sphere created by the ancient Greywatchers, this object projects a calming aura around its user. It can momentarily bolster courage and offer protection from overwhelming despair – a valuable service for those facing daunting trials or battling inner demons.",
+    "description": "The Greywatcher’s Vigilance Offering is a shimmering, ethereal sphere that pulses with the ancient wisdom of the Greywatchers. Crafted from the essence of the Misty Mountains and imbued with the protective spirit of the Watchers, this glowing orb provides its bearer with unshakable courage in times of trial. When wielded in combat or meditation, it emits a soft glow that can dispel minor curses and bolster one’s resolve against overwhelming despair.",
     "category": "services",
-    "price": 5500,
+    "price": 1000,
     "icon": "🛡️",
     "stock": 33,
     "rarity": "godly",
     "stockType": "delivery_only",
     "effects": [
-      "restores courage",
-      "provides temporary protection from despair",
-      "chance to dispel minor curses"
+      "dispels minor curses",
+      "bolsters courage"
     ],
     "vendor": "shire_shop",
     "shippedBy": "swift_horse",
-    "levelRequirement": 30
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Minor Curse Dispelling",
+        "rules": "When activated as an action, this offering grants advantage on saving throws against minor curses. The effect lasts until the start of your next turn and can be used once per long rest."
+      },
+      {
+        "title": "Bolstering Courage",
+        "rules": "This item provides a +1 bonus to all Charisma (Intimidation) checks for 1 hour after activation as an action. The effect ends early if you are incapacitated or fall unconscious."
+      }
+    ],
+    "levelRequirementReason": "Even the simplest heroes may need this offering when facing overwhelming despair.",
+    "vendorReason": "The Shire Shop stocks essential items for all travelers, including this rare gift from the Greywatchers.",
+    "shippingDetail": "Delivered by swift horse courier within one week of purchase.",
+    "usage": {
+      "activation": "Action or Bonus Action to activate and use in combat or meditation.",
+      "duration": "Instantaneous effect with ongoing benefits for the specified duration.",
+      "endsWhen": "The effect ends if you are incapacitated, fall unconscious, or do not use it within a long rest period.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "Balanced to reflect its divine origin and rare utility for adventurers of all levels.",
+    "priceOriginal": 5500,
+    "priceReviewedAt": "2026-07-25T03:44:48.030418+00:00",
+    "aiReviewedAt": "2026-07-25T03:44:48.030418+00:00",
+    "aiReviewVersion": 1
   },
   "dohut_hole_item_forsaken_walker_tears": {
     "id": "dohut_hole_item_forsaken_walker_tears",
