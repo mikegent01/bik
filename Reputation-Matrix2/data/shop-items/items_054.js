@@ -1704,20 +1704,44 @@ export const ITEMS_054 = {
   "kivotos_item_spectral_notepad": {
     "id": "kivotos_item_spectral_notepad",
     "name": "Whispers of the Archive",
-    "description": "A notebook that seems to fill itself with cryptic messages and half-formed ideas. Scribbling in it grants insight, but beware - the notes are often unsettlingly accurate (and slightly judgmental).",
+    "description": "Whispers of the Archive is a tattered leather-bound notebook, its pages filled with cryptic scribbles that seem to write themselves. The ink glows faintly under moonlight, and each entry offers a fleeting insight into forgotten lore or hidden truths. However, those who dare to delve too deeply find their own thoughts mirrored back at them—often in ways they do not expect. This spectral notebook grants knowledge with every use, though the insights it provides are rarely comforting.",
     "category": "curiosities",
-    "price": 800,
+    "price": 1000,
     "icon": "📝",
     "stock": 72,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "chance_insight_5%",
-      "grant_knowledge_1"
+      "grant_knowledge",
+      "mirror_insights"
     ],
     "vendor": "student_store",
     "shippedBy": "Standard Post",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Grant Knowledge",
+        "rules": "As a bonus action, you may flip to a random page in Whispers of the Archive. The notebook grants you one levelled insight on a topic related to history or forgotten lore, as determined by its spectral content. This effect has no save DC and can be used once per long rest."
+      },
+      {
+        "title": "Mirror Insights",
+        "rules": "The notebook occasionally records your own thoughts and experiences, offering a mirror of your mind's wanderings. Once per day, the notebook reveals one unsettling insight into a personal thought or memory you have recently considered, with a 10% chance for this effect to occur each time you use it."
+      }
+    ],
+    "levelRequirementReason": "This notebook provides useful knowledge but can be overwhelming if not used carefully, making it suitable only for those of at least first level.",
+    "vendorReason": "The student store caters to academic needs and supplies tools that aid in research, making Whispers of the Archive a fitting addition.",
+    "shippingDetail": "Ships via Standard Post within one week of purchase.",
+    "usage": {
+      "activation": "As a bonus action",
+      "duration": "Instantaneous",
+      "endsWhen": "The notebook's effects end when used or at the start of your next turn if you do not use it.",
+      "charges": "Unlimited, but limited to one use per long rest."
+    },
+    "priceReason": "This uncommon item provides both practical and unsettling benefits, balanced by its price, reflecting its unique and potentially disorienting nature.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-24T23:51:53.385237+00:00",
+    "aiReviewedAt": "2026-07-24T23:51:53.385237+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_nullifier_charm": {
     "id": "kivotos_item_nullifier_charm",

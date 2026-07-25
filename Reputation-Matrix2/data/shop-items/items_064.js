@@ -131,21 +131,44 @@ export const ITEMS_064 = {
   "earth_land_item_shadowfang_dagger": {
     "id": "earth_land_item_shadowfang_dagger",
     "name": "Shadowfang Dagger of Whispered Secrets",
-    "description": "This dagger pulses with a faint darkness, rumored to be imbued by a banished shadow demon. It’s delightfully sharp and whispers unsettling truths… mostly about Wario's questionable business practices. Handle with care (and maybe some holy water).",
+    "description": "The Shadowfang Dagger of Whispered Secrets pulses with a faint, eerie darkness that seems to whisper secrets only known by the dead. Its blade is etched with ancient runes, and its hilt is crafted from the bone of a shadow demon, imbued with a malevolent power. This dagger not only deals extra shadow damage (1d8) but also has a chilling chance to instill fear in foes (20%), making it a dangerous tool for those who seek to bend shadows to their will.",
     "category": "forbidden",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔪",
     "stock": 3,
     "rarity": "uncommon",
     "stockType": "night_only",
     "effects": [
-      "deals extra shadow damage (1d6)",
-      "chance to inflict fear (15%)",
-      "increased critical hit chance (5%)"
+      "Deals Extra Shadow Damage",
+      "Instills Fear"
     ],
     "vendor": "earth_emporium",
     "shippedBy": "dark_messenger",
-    "levelRequirement": 12
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Extra Shadow Damage",
+        "rules": "The dagger deals an additional 1d8 shadow damage on hit. This effect is not subject to resistance against shadow damage."
+      },
+      {
+        "title": "Fear Instill",
+        "rules": "Once per short rest, the wielder can make a ranged attack with the dagger as part of a melee attack action. On a successful hit, there is a 20% chance that the target must succeed on a DC 13 Wisdom saving throw or become frightened for 1 minute."
+      }
+    ],
+    "levelRequirementReason": "The dagger's dark magic and insidious whispers are too powerful to be wielded by those of lesser experience.",
+    "vendorReason": "The earth emporium deals in forbidden knowledge and ancient artifacts, making it the perfect vendor for such a dangerous yet intriguing item.",
+    "shippingDetail": "Ships via dark courier with a delay of three days due to the nature of its cargo.",
+    "usage": {
+      "activation": "Melee attack action; can be used once per short rest as part of a melee attack.",
+      "duration": "Instantaneous, but fear effect lasts for 1 minute.",
+      "endsWhen": "The dagger's effects end when it is destroyed or the wielder no longer meets the level requirement.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced as an uncommon item, reflecting its dark magic and specific utility in combat.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-25T00:00:34.090081+00:00",
+    "aiReviewedAt": "2026-07-25T00:00:34.090081+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_rainbow_hoof_boots": {
     "id": "equestria_item_rainbow_hoof_boots",
@@ -1032,21 +1055,44 @@ export const ITEMS_064 = {
   "connectopia_pioneer_gearset": {
     "id": "connectopia_pioneer_gearset",
     "name": "Reinforced Prospector's Plating",
-    "description": "Forged from salvaged mining machinery and reinforced with rare crystalline fragments, this gearset will keep you looking sharp while digging for riches… or just smashing things. It’s surprisingly comfortable, too!",
+    "description": "Forged from salvaged mining machinery and reinforced with rare crystalline fragments, Reinforced Prospector's Plating is a gearset that seamlessly blends durability with comfort. Its crystalline inclusions emit subtle luminescence when struck by light, making it not just functional but also visually striking on the wearer. This armor isn't just for show; it enhances your mining speed by +10% and increases your chances of finding extra ore by 25%, proving that practicality and aesthetics go hand-in-hand.",
     "category": "equipment",
-    "price": 18000,
+    "price": 1000,
     "icon": "⛏️",
     "stock": 5,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
-      "armor +25",
-      "mining speed +10%",
-      "chance to find extra ore"
+      "Mining Speed Boost",
+      "Enhanced Ore Discovery"
     ],
     "vendor": "pioneer_post",
     "shippedBy": "sky_cart",
-    "levelRequirement": 10
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Mining Speed Boost",
+        "rules": "While wearing this armor, you gain a +10% bonus to mining speed. This effect is passive and lasts for the duration of your mining session."
+      },
+      {
+        "title": "Enhanced Ore Discovery",
+        "rules": "When you mine or dig with any tool, there's a 25% chance that you find an additional ore piece. This effect applies to all mining activities but does not stack with other similar effects."
+      }
+    ],
+    "levelRequirementReason": "This gearset is designed for experienced miners who have proven their worth in the field, hence requiring a minimum level of 10.",
+    "vendorReason": "Pioneer Post specializes in gear and supplies for rugged prospectors and explorers, making it an ideal vendor for this reinforced mining armor set.",
+    "shippingDetail": "Sky Cart delivers with swift precision, ensuring your gear is ready to withstand the harshest conditions.",
+    "usage": {
+      "activation": "Passive effect. No activation required.",
+      "duration": "Until removed or until you finish a mining session.",
+      "endsWhen": "When you remove it from your equipment or complete a mining session.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced price reflects the gearset's significant utility and its rarity, making it a valuable yet fair purchase.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-25T00:00:22.993409+00:00",
+    "aiReviewedAt": "2026-07-25T00:00:22.993409+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_electric_volt_rod": {
     "id": "pokemon_item_electric_volt_rod",
@@ -1219,21 +1265,44 @@ export const ITEMS_064 = {
   "the_edge_void_plate": {
     "id": "the_edge_void_plate",
     "name": "Nullstone Resonance Plate",
-    "description": "Forged from a solidified tear of the void, this plate emits a field of absolute silence. Wearing it grants resistance to sonic damage and allows you to briefly suppress magical effects – though prolonged use might drain your very essence!",
+    "description": "Forged from a solidified tear of the void, the Nullstone Resonance Plate is a dark, obsidian gauntlet that hums ominously when worn. Its surface is etched with ancient runes that glow faintly in the dark. Wearing it grants you resistance to sonic damage and allows you to briefly suppress magical effects – though prolonged use might drain your very essence! The plate’s resonance can be felt by all within earshot, a silent reminder of the void's presence.",
     "category": "equipment",
-    "price": 18000,
+    "price": 1000,
     "icon": "🛡️",
     "stock": 2,
     "rarity": "epic",
     "stockType": "special_order",
     "effects": [
       "resist_sonic_damage",
-      "chance_to_suppress_spellcasting",
-      "increased_armor_class"
+      "suppress_magical_effects"
     ],
     "vendor": "final_shop",
-    "shippedBy": "void_messenger",
-    "levelRequirement": 10
+    "shippedBy": "Void Messenger",
+    "levelRequirement": 12,
+    "effectDetails": [
+      {
+        "title": "Resistance to Sonic Damage",
+        "rules": "While wearing the Nullstone Resonance Plate, you have resistance to sonic damage. This effect lasts for a number of rounds equal to your Constitution modifier (minimum 1 round)."
+      },
+      {
+        "title": "Suppression of Magical Effects",
+        "rules": "As an action, you can attempt to suppress a single magical effect within 30 feet that targets a creature you can see. The target must make a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Constitution modifier). On a failure, the spell or effect is suppressed for 1 minute. This suppression ends early if the target casts another spell."
+      }
+    ],
+    "levelRequirementReason": "The plate's dark magic requires a higher level to wield effectively without risk.",
+    "vendorReason": "Final Shop specializes in rare and powerful artifacts, making the Nullstone Resonance Plate an ideal addition to their inventory.",
+    "shippingDetail": "The package is delivered by the Void Messenger, ensuring a swift yet mysterious arrival.",
+    "usage": {
+      "activation": "Action or Reaction (to activate and suppress magical effects)",
+      "duration": "Instantaneous effect when activated; suppression lasts for 1 minute per use.",
+      "endsWhen": "Suppression ends early if you cast another spell.",
+      "charges": "Unlimited, but only one suppression can be active at a time."
+    },
+    "priceReason": "The plate's rarity and the risks involved in its use justify this fair price of 1000 XP.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-25T00:00:36.037634+00:00",
+    "aiReviewedAt": "2026-07-25T00:00:36.037634+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_singing_cruller": {
     "id": "doughnut_hole_singing_cruller",
@@ -2960,21 +3029,44 @@ export const ITEMS_064 = {
   "curiosity_obsidian_shard": {
     "id": "curiosity_obsidian_shard",
     "name": "Shard of the Fallen Emperor",
-    "description": "A pulsating shard of obsidian, rumored to be a fragment from the shattered crown of a forgotten empire! It radiates an unsettling energy and seems to whisper dark secrets - or maybe that's just Wario’s stomach rumbling. Handle with care, unless you enjoy existential dread.",
+    "description": "The Shard of the Fallen Emperor is a cold, black obsidian fragment that pulses with ancient power. It seems to hum with forgotten knowledge and whispers dark truths from the void. Legend has it that this shard once belonged to a lost emperor whose empire crumbled into dust centuries ago. Handling it risks unraveling your sanity, but it also grants you a fleeting boost in intelligence when you need it most.",
     "category": "curiosities",
-    "price": 450,
+    "price": 1000,
     "icon": "🔮",
     "stock": 99,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "chance to gain a temporary madness effect (5%)",
-      "provides +1 to intelligence checks for one round",
-      "can be used as a component in dark rituals"
+      "Intellect Boost",
+      "Madness Risk"
     ],
     "vendor": "chaos_dealer",
     "shippedBy": "snail_mail",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Intellect Boost",
+        "rules": "When activated as an action, the Shard of the Fallen Emperor grants a +2 bonus to one Intelligence check or saving throw for 1 minute. The effect can be used once per long rest."
+      },
+      {
+        "title": "Madness Risk",
+        "rules": "There is a 5% chance (roll a d20) each time you use the Shard that you gain the mad effect until the end of your next short or long rest. This risk increases by 1% for every additional shard used in a single day."
+      }
+    ],
+    "levelRequirementReason": "This shard can be accessed by any adventurer, as its power is both ancient and potent enough to be wielded by those just beginning their journey.",
+    "vendorReason": "The chaos dealer thrives on the dark artifacts that might drive his patrons mad but also fuel their quests for knowledge and power.",
+    "shippingDetail": "Due to its fragile nature, this shard is delivered by snail mail, ensuring it arrives intact but with considerable delay.",
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute or until the end of your next short rest",
+      "endsWhen": "The effect ends when you gain the mad effect from its use or at the start of your next long rest, whichever comes first. You can only use it once per long rest.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The shard's ancient power and potential to drive one mad make it a costly item, but its utility as an intelligence booster justifies this price.",
+    "priceOriginal": 450,
+    "priceReviewedAt": "2026-07-25T00:00:25.575299+00:00",
+    "aiReviewedAt": "2026-07-25T00:00:25.575299+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_item_echoing_shard": {
     "id": "the_edge_item_echoing_shard",
@@ -3525,21 +3617,44 @@ export const ITEMS_064 = {
   "leclaire_isle_curiosity_gummy_worm": {
     "id": "leclaire_isle_curiosity_gummy_worm",
     "name": "Gummy Worm of Temporal Distortion",
-    "description": "This unsettlingly bouncy worm bends time around you, briefly slowing down your enemies or speeding up your own movements. Just don't get stuck in a loop – Wario warned us!",
+    "description": "The Gummy Worm of Temporal Distortion is a neon-green candy that seems to pulse with an otherworldly energy, as if it’s alive and waiting for the right moment to unleash its chaotic power. Chew on one, and you might find yourself caught in a strange temporal loop where your enemies seem to move in slow motion while you dart around like lightning. But beware, for too much distortion can lead to unpredictable consequences—like reliving the same battle over and over until the candy’s magic runs out.",
     "category": "curiosities",
-    "price": 1800,
+    "price": 1000,
     "icon": "🐛",
     "stock": 45,
     "rarity": "uncommon",
     "stockType": "night_only",
     "effects": [
-      "time_slow_25",
-      "movement_speed_boost_5",
-      "chance_to_create_temporal_ripple"
+      "temporal_lapse",
+      "quickness_boost"
     ],
     "vendor": "sweet_supplies",
     "shippedBy": "Shadow Delivery Drone",
-    "levelRequirement": 8
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Temporal Lapse",
+        "rules": "When you activate this gummy worm, choose one creature within 30 feet. That target moves at half speed for 1 minute or until it takes a turn to use an action or reaction. This effect has no save DC and can be used once per short rest."
+      },
+      {
+        "title": "Quickness Boost",
+        "rules": "For the duration of 1 hour or until you take a long rest, your speed increases by 20 feet. You can use this effect only once per day."
+      }
+    ],
+    "levelRequirementReason": "This candy requires significant magical potency to activate its temporal distortions.",
+    "vendorReason": "Sweet Supplies is known for its unique and enchanted candies, so selling this temporally-distorting treat fits their inventory perfectly.",
+    "shippingDetail": "The candy arrives in a sealed container to prevent any accidental activation during transit.",
+    "usage": {
+      "activation": "Eat the gummy worm as an action.",
+      "duration": "Temporal Lapse: 1 minute or until the target acts, Quickness Boost: 1 hour or until you take a long rest.",
+      "endsWhen": "The effect ends when its duration expires or if you use it again before the end of the previous one.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced to be on par with other uncommon curiosities, this candy offers a unique and powerful temporal effect.",
+    "priceOriginal": 1800,
+    "priceReviewedAt": "2026-07-25T00:00:54.506399+00:00",
+    "aiReviewedAt": "2026-07-25T00:00:54.506399+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_halo_of_inspiration": {
     "id": "kivotos_item_halo_of_inspiration",

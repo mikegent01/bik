@@ -635,21 +635,44 @@ export const ITEMS_052 = {
   "grand_country_layer_stone_shard": {
     "id": "grand_country_layer_stone_shard",
     "name": "Layered Obsidian Shard of Echoes",
-    "description": "This jagged shard pulses with a faint, internal light. Touching it briefly reveals fragmented visions of past events within the layered terrain - mostly Wario losing things.",
+    "description": "The Layered Obsidian Shard of Echoes glimmers faintly, its facets reflecting shifting images from forgotten battles and lost treasures. Touching it briefly reveals fragmented visions of past events within layered terrain—most notably Wario's perpetual misadventures in the Mushroom Kingdom. This relic grants the user limited precognition (chance to see 1-3 turns ahead), enhancing their perception checks when navigating such environments, and can be used as a temporary focus for divination spells.",
     "category": "curiosities",
-    "price": 65000,
+    "price": 1000,
     "icon": "💎",
     "stock": 3,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "grants the user limited precognition (chance to see 1-3 turns ahead)",
-      "provides a small bonus to perception checks within layered environments",
-      "can be used as a temporary focus for divination spells (once per day)"
+      "Limited Precognition",
+      "Enhanced Perception Checks"
     ],
     "vendor": "layer_market",
     "shippedBy": "Winged Courier",
-    "levelRequirement": 15
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Limited Precognition",
+        "rules": "When the user touches the shard, they gain advantage on their next three perception checks. This effect lasts for one hour and can be used once per long rest."
+      },
+      {
+        "title": "Enhanced Perception Checks",
+        "rules": "The user gains a +1 bonus to all perception checks made within layered terrain features such as dungeons or ruins. This benefit is permanent until the next time they interact with the shard."
+      }
+    ],
+    "levelRequirementReason": "Lowering the level requirement allows adventurers at earlier stages of their journey to benefit from the shard's abilities.",
+    "vendorReason": "The Layer Market specializes in ancient and arcane artifacts found within layered environments, making it the perfect vendor for the Layered Obsidian Shard of Echoes.",
+    "shippingDetail": "This item is delivered via Winged Courier, ensuring swift arrival to eager collectors.",
+    "usage": {
+      "activation": "Touching the shard",
+      "duration": "One hour per use, lasting until the next long rest",
+      "endsWhen": "The effect ends upon resting or after three uses in a day",
+      "charges": "Unlimited, but can only be used once per short or long rest"
+    },
+    "priceReason": "The reduced price reflects the item's lower level requirement and its more focused utility compared to other mythic items.",
+    "priceOriginal": 65000,
+    "priceReviewedAt": "2026-07-24T23:50:07.999749+00:00",
+    "aiReviewedAt": "2026-07-24T23:50:07.999749+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_gravity_massage": {
     "id": "grand_country_gravity_massage",
@@ -780,21 +803,44 @@ export const ITEMS_052 = {
   "warhammer_item_bloodrune_amulet": {
     "id": "warhammer_item_bloodrune_amulet",
     "name": "The Bloodrune Amulet of Despair",
-    "description": "Wear this amulet and let the weight of countless lost souls fuel your strength! It's guaranteed to drain your enemies’ spirits...and maybe make you feel a little gloomy. Don’t say we didn’t warn you!",
+    "description": "The Bloodrune Amulet of Despair, forged from ancient runes soaked in the blood of countless despairing souls, hangs heavy about your neck. Its weight is a reminder of those lost to darkness, and as you wear it, their spirits whisper through you, feeding your strength and fear into your enemies. The amulet's power ensures that each blow you deal deals an additional 1d4 necrotic damage, while also granting you a +2 bonus to Strength checks and saving throws. However, the more you rely on its dark energy, the darker your own heart becomes.",
     "category": "equipment",
-    "price": 8500,
+    "price": 1000,
     "icon": "🩸",
     "stock": 12,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "damage_1d4_on_hit",
-      "increased_strength",
-      "chance_to_fear_enemies"
+      "necrotic_damage_on_hit",
+      "strength_bonus"
     ],
     "vendor": "chaos_dealer",
     "shippedBy": "giant_rat",
-    "levelRequirement": 10
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Necrotic Damage on Hit",
+        "rules": "When you hit with a melee attack, deal an additional 1d4 necrotic damage. This effect has no save or range requirements and can be used once per turn."
+      },
+      {
+        "title": "Strength Bonus",
+        "rules": "You gain a +2 bonus to Strength checks and saving throws while wearing the amulet. This bonus is permanent and does not require activation."
+      }
+    ],
+    "levelRequirementReason": "Only those who have proven their resilience through experience at level 10 can bear the burden of such dark magic.",
+    "vendorReason": "The chaos dealer, a master manipulator of dark and forbidden artifacts, is the only one willing to deal with the morbidly inclined.",
+    "shippingDetail": "Delivered by a giant rat, known for its unpredictable but reliable service.",
+    "usage": {
+      "activation": "Instantaneous; no activation required once equipped.",
+      "duration": "Permanent while worn.",
+      "endsWhen": "Removed or destroyed.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The amulet's rarity, dark magic, and the unique crafting process justify this fair price.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-24T23:50:02.363086+00:00",
+    "aiReviewedAt": "2026-07-24T23:50:02.363086+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_void_shard": {
     "id": "doughnut_hole_void_shard",
@@ -1555,21 +1601,44 @@ export const ITEMS_052 = {
   "earth_land_forbidden_echoing_shard": {
     "id": "earth_land_forbidden_echoing_shard",
     "name": "The Silent Scream of Xylos",
-    "description": "A fragment of a forgotten god's prison, this shard whispers with maddening echoes. Prolonged exposure can induce paranoia and an uncontrollable urge to collect shiny rocks – Wario would *love* this!",
+    "description": "The Silent Scream of Xylos, a crystalline shard etched with forgotten runes, radiates an eerie silence that echoes like a thousand unspoken secrets. Its touch sends shivers down your spine and compels you to seek out more fragments, driven by an insatiable urge to piece together its lost history. The artifact's whispers are as dangerous as they are alluring, driving those who hear it mad with the desire for knowledge that comes at a heavy price.",
     "category": "forbidden",
-    "price": 65000,
+    "price": 1000,
     "icon": "💀",
     "stock": 7,
     "rarity": "mythic",
     "stockType": "limited_daily",
     "effects": [
-      "chance_to_inflict_fear_10%",
-      "reduce_intelligence_5",
-      "causes_paranoia_on_use"
+      "maddening_silence",
+      "insatiable_curiosity"
     ],
     "vendor": "magic_shop",
     "shippedBy": "dark_messenger",
-    "levelRequirement": 20
+    "levelRequirement": 20,
+    "effectDetails": [
+      {
+        "title": "Maddening Silence",
+        "rules": "On use, you must succeed on a DC 15 Wisdom saving throw or become charmed for the duration. While charmed, you are compelled to listen to the shard's whispers, which induce a state of paranoia and an uncontrollable urge to collect similar artifacts or relics."
+      },
+      {
+        "title": "Insatiable Curiosity",
+        "rules": "You gain disadvantage on Wisdom (Perception) checks until the end of your next long rest. This effect also causes you to become obsessed with uncovering any secrets related to Xylos, leading to a 10% chance of becoming incapacitated for 1d4 hours each time you use this item."
+      }
+    ],
+    "levelRequirementReason": "Only those who have reached a high level can resist the shard's maddening whispers and dangerous allure.",
+    "vendorReason": "The magic shop specializes in ancient relics and artifacts, making it the most likely place to find this forbidden echo of forgotten times.",
+    "shippingDetail": "Ships via the Dark Messenger, a courier known for delivering mysterious packages with strict secrecy protocols.",
+    "usage": {
+      "activation": "Object Interaction",
+      "duration": "Instantaneous effect; lasts until the end of your next short or long rest after use.",
+      "endsWhen": "You succeed on a DC 15 Wisdom saving throw, complete a long rest, or destroy the shard.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced price reflects its mythic rarity and the risk of becoming trapped in a state of madness.",
+    "priceOriginal": 65000,
+    "priceReviewedAt": "2026-07-24T23:50:03.088839+00:00",
+    "aiReviewedAt": "2026-07-24T23:50:03.088839+00:00",
+    "aiReviewVersion": 1
   },
   "earth_land_dragonscale_bandage": {
     "id": "earth_land_dragonscale_bandage",

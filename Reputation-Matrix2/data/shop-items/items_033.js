@@ -1817,23 +1817,43 @@ export const ITEMS_033 = {
   "pokemon_griffonstone_talisman": {
     "id": "pokemon_griffonstone_talisman",
     "name": "Griffonstone Talisman",
-    "description": "This enchanted talisman was carved from the heart of a fallen Griffonstone—once a guardian of the Equestrian skies. Now it hums with the memory of pony wings and thunderclaps, granting flight to the unworthy and binding the unworthy to the ground. Only used by those who dare to break the law of nature.",
+    "description": "The Griffonstone Talisman is a heavy amulet of brass and obsidian, carved from the heart of an ancient Griffin. Its surface crackles with stormy energy, a relic of its guardian's power. It grants flight to those who dare attune themselves, but only for one round per use. Those who misuse it risk paralysis or energy drain, binding them to the earth until their next rest. The talisman can be fused with Pokémon Poké Balls to create an evolutions stone that unlocks the 'Skybound' ability, summoning a storm cloud in battle.",
     "category": "equipment",
-    "price": 8000,
+    "price": 1000,
     "icon": "🦅",
     "stock": 1,
     "rarity": "epic",
     "effects": [
-      "Grants temporary flight for 1 round per use",
-      "30% chance to cause a temporary paralysis in the user’s target",
-      "Inflicts 1d4 energy drain on the user after use",
-      "Unlocks “Skybound” ability: can summon a small storm cloud for 1 turn",
-      "Can be fused with a Pokémon’s Poké Ball to create a “Skybound” evolution stone",
-      "Requires attunement by a Ranger Union member"
+      "Flight",
+      "Paralysis"
     ],
     "vendor": "pokemon",
     "shippedBy": "Mages Guild Portal",
-    "levelRequirement": 8
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Flight",
+        "rules": "The talisman grants temporary flight for one round per use. The user must attune themselves to the talisman and activate it as an action. It ends immediately upon ending its turn or if the user falls prone."
+      },
+      {
+        "title": "Paralysis",
+        "rules": "There is a 30% chance that using the talisman will cause temporary paralysis in the user's target for one round, requiring a DC 15 Constitution saving throw. Failure results in the effect, which ends at the end of the target's next turn."
+      }
+    ],
+    "levelRequirementReason": "Requires attunement by a Ranger Union member to harness its stormy power.",
+    "vendorReason": "The Mages Guild Portal deals exclusively with enchanted items and relics, including this powerful talisman.",
+    "shippingDetail": "Ships via arcane courier, ensuring safe delivery within a week.",
+    "usage": {
+      "activation": "Action",
+      "duration": "One round per use",
+      "endsWhen": "Ends immediately on the user's turn or if they fall prone",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced at 1000 XP, this talisman is a rare and powerful tool for those who can wield its stormy might.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-24T23:26:09.106295+00:00",
+    "aiReviewedAt": "2026-07-24T23:26:09.106295+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_badge_brawler": {
     "id": "pokemon_item_badge_brawler",
@@ -3184,38 +3204,84 @@ export const ITEMS_033 = {
   "polybius_data_key": {
     "id": "polybius_data_key",
     "name": "Polybius Data Key",
-    "description": "A strange key made of pixelated light. It can unlock digital and psychic information gates.",
+    "description": "The Polybius Data Key is a strange key made of pixelated light, its surface etched with digital circuits and arcane runes. Crafted from a rare alloy fused with ancient data crystals, this key can bypass any non-physical lock, whether digital or psychic. However, when used, there is a 25% chance it will download into your mind a random, sanity-blasting secret that could unravel your very psyche if not resisted.",
     "category": "curiosities",
-    "price": 22000,
+    "price": 1000,
     "icon": "🔑",
     "stock": 2,
     "rarity": "epic",
     "effects": [
-      "Can bypass any non-physical lock (digital, magical, psychic)",
-      "On use, there is a 25% chance of downloading a random, sanity-blasting secret into your mind",
-      "Key glitches and flickers near strong electromagnetic fields"
+      "Digital and Psychic Lock Bypass",
+      "Sanity-Threatening Secret Download"
     ],
     "vendor": "Polybius",
     "shippedBy": "Encrypted File Transfer",
-    "levelRequirement": 9
+    "levelRequirement": 9,
+    "effectDetails": [
+      {
+        "title": "Digital and Psychic Lock Bypass",
+        "rules": "The Polybius Data Key can be used as an action to unlock any non-physical lock, including digital or psychic barriers. It has no range but requires the user to possess a valid keyhole to operate it effectively."
+      },
+      {
+        "title": "Sanity-Threatening Secret Download",
+        "rules": "When used, there is a 25% chance that upon successful unlocking, the key will download a random secret into your mind. This secret has a DC 17 Intelligence saving throw to resist; failure results in the secret being imprinted on your mind for one week."
+      }
+    ],
+    "levelRequirementReason": "The intricate design and powerful magic embedded within the Polybius Data Key necessitate a minimum level of expertise.",
+    "vendorReason": "As a tech-savvy vendor, Polybius specializes in rare and advanced artifacts that can manipulate data and information.",
+    "shippingDetail": "The key is shipped via encrypted courier services to ensure its secure arrival.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Used or destroyed upon successful lock bypass or secret download failure.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced XP price reflects the key's rarity and the potential risk involved in using it.",
+    "priceOriginal": 22000,
+    "priceReviewedAt": "2026-07-24T23:26:32.992781+00:00",
+    "aiReviewedAt": "2026-07-24T23:26:32.992781+00:00",
+    "aiReviewVersion": 1
   },
   "polybius_memory_chip": {
     "id": "polybius_memory_chip",
     "name": "Polybius Memory Chip",
-    "description": "A silicon chip that stores complex mathematical sequences and battle plans.",
+    "description": "The Polybius Memory Chip is a sleek, silicon-based device that hums with the power of encoded knowledge. Crafted by the enigmatic Polybius, this chip stores an array of complex mathematical sequences and battle strategies, allowing for instant recall of one proficiency in siege engineering or any other arcane skill. However, its activation requires a momentary insertion into your skull, temporarily degrading your Wisdom to 6 until the end of your next short rest.",
     "category": "equipment",
-    "price": 11000,
+    "price": 1000,
     "icon": "💾",
     "stock": 12,
     "rarity": "rare",
     "effects": [
-      "Allows instant recall of 1 complex skill proficiency (e.g., siege engineering)",
-      "Chip must be physically inserted (temporary debuff to Wisdom)",
-      "Made by: Polybius"
+      "Instant Recall of Proficiency",
+      "Temporary Wisdom Degradation"
     ],
     "vendor": "polybius_data_hub",
-    "shippedBy": "Data Transfer",
-    "levelRequirement": 4
+    "shippedBy": "Data Transfer Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Instant Recall of Proficiency",
+        "rules": "Activates as a bonus action. The user gains the benefits of one proficiency they know for 1 minute, including any associated features and spells."
+      },
+      {
+        "title": "Temporary Wisdom Degradation",
+        "rules": "Until the end of your next short rest, you have disadvantage on all Wisdom checks and saving throws. This effect does not stack with other similar effects."
+      }
+    ],
+    "levelRequirementReason": "This device requires basic knowledge of complex skills to activate its benefits.",
+    "vendorReason": "Polybius Data Hub specializes in advanced neural and computational technology, making this chip a prime offering.",
+    "shippingDetail": "Ships via secure courier service within the next business day.",
+    "usage": {
+      "activation": "Bonus action to insert into your skull and activate.",
+      "duration": "1 minute",
+      "endsWhen": "Until the end of your next short rest, or when removed.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "The chip's rarity and unique functionality justify a price point slightly below Epic level items.",
+    "priceOriginal": 11000,
+    "priceReviewedAt": "2026-07-24T23:26:46.062768+00:00",
+    "aiReviewedAt": "2026-07-24T23:26:46.062768+00:00",
+    "aiReviewVersion": 1
   },
   "polybius_pixel_popcorn_recipe": {
     "id": "polybius_pixel_popcorn_recipe",
@@ -3382,20 +3448,43 @@ export const ITEMS_033 = {
   "pony_nobility_diplomatic_seal": {
     "id": "pony_nobility_diplomatic_seal",
     "name": "Pony Nobility Diplomatic Seal",
-    "description": "A wax seal that authenticates documents as coming from the Pony Nobility.",
+    "description": "The Pony Nobility Diplomatic Seal is a sleek, embossed wax seal that glows faintly with the colors of the noble house it represents. This authenticating device ensures that documents bearing its imprint are treated as official by any Pony-aligned faction. It can also be used to forge minor diplomatic papers, though doing so risks exposing the forger if discovered. Crafted by the very hands of the nobility, this seal is a symbol of power and legitimacy in Equestria’s courtly system.",
     "category": "curiosities",
-    "price": 8500,
+    "price": 1000,
     "icon": "📜",
     "stock": 7,
     "rarity": "uncommon",
     "effects": [
-      "Documents bearing this seal are treated as official by Pony-aligned factions",
-      "Can be used to forge minor diplomatic papers",
-      "Made by: Pony Nobility"
+      "Official Authentication",
+      "Minor Diplomatic Forgery"
     ],
     "vendor": "pony_royal_court",
-    "shippedBy": "Sealed Envelope",
-    "levelRequirement": 4
+    "shippedBy": "Royal Couriers",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Official Authentication",
+        "rules": "When placed upon a document, the seal grants it official status among Pony-aligned factions. The user must be at least of noble birth or have a recognized authority to use this effect."
+      },
+      {
+        "title": "Minor Diplomatic Forgery",
+        "rules": "The user can create minor diplomatic papers that are convincing but not legally binding. Each use requires an hour and has a 5% chance of being detected by a courtly expert. Detection rolls are opposed by the user’s Intelligence (Investigation) check."
+      }
+    ],
+    "levelRequirementReason": "The seal is designed for those who need to establish credibility without drawing too much attention, such as young nobles or minor diplomats.",
+    "vendorReason": "Only the Pony Nobility can produce and authenticate seals of this caliber.",
+    "shippingDetail": "Dispatched by Royal Couriers, the seal arrives within a week with an official dispatch.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Detection or when used on another document",
+      "charges": "5 uses"
+    },
+    "priceReason": "The seal’s rarity and the trust it commands among nobility justify its substantial price.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-24T23:26:32.823781+00:00",
+    "aiReviewedAt": "2026-07-24T23:26:32.823781+00:00",
+    "aiReviewVersion": 1
   },
   "pony_nobility_invitation": {
     "id": "pony_nobility_invitation",

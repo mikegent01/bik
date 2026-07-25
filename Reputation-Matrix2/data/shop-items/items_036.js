@@ -980,20 +980,43 @@ export const ITEMS_036 = {
   "rogueport_gutter_gutter_gutter": {
     "id": "rogueport_gutter_gutter_gutter",
     "name": "Gutter Gutter Gutter",
-    "description": "A slick, obsidian-edged dagger that slips through enemy defenses like water through stone. Its cursed edge leaves behind a trail of phantom echoes that distract foes.",
+    "description": "The Gutter Gutter Gutter, a sleek obsidian dagger with edges that shimmer like dark water, whispers through defenses as silently as it strikes. Its cursed edge leaves behind a trail of phantom echoes that disorient foes, making them stumble and lose their footing. The dagger's blade seems to dance on its own, slicing through armor and flesh with deadly precision, leaving an unsettling echo in the air long after the strike.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
       "+50% critical strike chance",
-      "Inflicts 10% chance to stun target on hit",
-      "Each use creates a temporary illusion of the wielder’s face (disorienting nearby foes)"
+      "10% chance to stun target on hit"
     ],
     "vendor": "rogueport",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Critical Strike Boost",
+        "rules": "When you make a melee attack with this dagger, it grants you advantage on the roll and increases your critical hit range by one step. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Stunning Echo",
+        "rules": "On a successful hit, there is a 10% chance to stun the target for 1 round. The target must make a DC 15 Dexterity saving throw or be stunned. Once per short rest, you can use your action to attempt this effect."
+      }
+    ],
+    "levelRequirementReason": "Requires at least third-level proficiency in stealth and weapon use to wield the dagger effectively.",
+    "vendorReason": "Rogueport specializes in crafting and selling weapons for those who walk the shadows, making it a natural fit for such an enigmatic item.",
+    "shippingDetail": "Ships via Pipe Express with expedited delivery to ensure your dagger arrives sharp and ready for use.",
+    "usage": {
+      "activation": "On hit during a melee attack as a bonus action",
+      "duration": "Instantaneous, lasting until the start of your next turn after the strike",
+      "endsWhen": "The effect ends on a miss or when you make another melee attack with this dagger before your next turn.",
+      "charges": "Unlimited; it reforges itself after each use"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its cursed edge and disorienting effects that make it a formidable weapon for rogue classes.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:30:33.583502+00:00",
+    "aiReviewedAt": "2026-07-24T23:30:33.583502+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_gutter_serpent_tongue": {
     "id": "rogueport_gutter_serpent_tongue",
@@ -1079,19 +1102,42 @@ export const ITEMS_036 = {
   "rogueport_gutter_tongue_tome": {
     "id": "rogueport_gutter_tongue_tome",
     "name": "Gutter Tongue Tome of the Unwritten Law",
-    "description": "A leather-bound book that speaks in the language of the streets — a cryptic code of slang, bribes, and deals. Reading it reveals hidden truths, rumors, and secrets buried in the city’s underbelly.",
-    "price": 2800,
+    "description": "The Gutter Tongue Tome of the Unwritten Law is a worn leather-bound tome that hums with the city’s undercurrents. Its pages are stained with ink and grease, and its edges are frayed from countless readings. This book whispers secrets of the city’s hidden dealings, revealing truths only through the cryptic language of street slang and bribes. Reading it uncovers one secret or rumor each day, while its very presence reveals the true cost of services, often much higher than advertised.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Whisper of the Gutter: Reads 1 secret or rumor from the city’s underworld (once per day)",
-      "Codebreaker’s Eye: Grants +1 to persuasion or bluff checks against corrupt officials",
-      "Unwritten Law: Reveals the “true” cost of an item or service — often higher than expected"
+      "Street Whisper",
+      "True Cost Revelation"
     ],
     "vendor": "rogueport",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Street Whisper",
+        "rules": "As an action, you can read a secret or rumor from the city’s underworld. This effect reveals one piece of information each day, but only when used in areas known for their underground activities."
+      },
+      {
+        "title": "True Cost Revelation",
+        "rules": "While holding this tome, any transaction you make with a corrupt official is subject to a -1 penalty on the persuasion or bluff check. However, if successful, it uncovers the true cost of the item or service, often significantly higher than expected."
+      }
+    ],
+    "levelRequirementReason": "This item requires basic street knowledge and experience to properly use its effects.",
+    "vendorReason": "Rogueport is well-known for dealing in information and secrets, making this item a natural fit.",
+    "shippingDetail": "Due to the nature of the book’s contents, it must be delivered personally by Shy Guy Smugglers to ensure its secrecy.",
+    "usage": {
+      "activation": "action",
+      "duration": "instantaneous (one secret or rumor per day)",
+      "endsWhen": "charges are exhausted or the item is destroyed",
+      "charges": "1 charge per day"
+    },
+    "priceReason": "Balanced at this price point to reflect its rarity and usefulness without overshadowing other items.",
+    "priceOriginal": 2800,
+    "priceReviewedAt": "2026-07-24T23:29:51.835741+00:00",
+    "aiReviewedAt": "2026-07-24T23:29:51.835741+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_hag_s_cursed_glove": {
     "id": "rogueport_hag_s_cursed_glove",
@@ -1461,20 +1507,43 @@ export const ITEMS_036 = {
   "rogueport_ironclad_bloodmask": {
     "id": "rogueport_ironclad_bloodmask",
     "name": "Ironclad Bloodmask",
-    "description": "A cursed mask that hides your face while granting temporary invisibility and dampens enemy perception. Wears heavy but grants a chilling aura that intimidates foes.",
+    "description": "The Ironclad Bloodmask is a cursed, heavy iron helm that conceals your visage and grants you temporary invisibility to slip past foes unnoticed. The mask's cold metal shimmers with an eerie glow when worn, its chilling aura sending tremors down the spines of nearby creatures. Upon donning it, there's a 20% chance for enemies to be confused on their first encounter with you; this confusion lasts until they make a successful Wisdom saving throw.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Invisibility for 10 seconds",
-      "20% chance to confuse enemies on first encounter",
-      "Deals 50% extra damage to targets who have seen you before"
+      "Invisibility",
+      "Confusion"
     ],
     "vendor": "rogueport",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Invisibility",
+        "rules": "When activated, the mask grants temporary invisibility to the wearer for up to 10 seconds. This effect ends if you take any action other than moving silently or if you voluntarily end it."
+      },
+      {
+        "title": "Confusion",
+        "rules": "There is a 20% chance that enemies confused by your presence will be incapacitated until the start of their next turn. To counteract this effect, they must succeed on a DC 13 Wisdom saving throw. This effect ends when you are no longer in combat."
+      }
+    ],
+    "levelRequirementReason": "The mask's weight and curse make it more suited to lower-level adventurers.",
+    "vendorReason": "Rogueport is known for its extensive dealings with exotic and cursed items, making the Ironclad Bloodmask a fitting addition to their inventory.",
+    "shippingDetail": "Due to the mask's weight and fragile nature, it ships via Pipe Express with extra padding to prevent damage during transit.",
+    "usage": {
+      "activation": "Action",
+      "duration": "10 seconds or until you take an action other than moving silently",
+      "endsWhen": "You voluntarily end the effect or take any action other than moving silently",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The mask's rarity, cursed properties, and unique effects justify its relatively high price.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:30:27.432862+00:00",
+    "aiReviewedAt": "2026-07-24T23:30:27.432862+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_item_name": {
     "id": "rogueport_item_name",
@@ -1600,19 +1669,42 @@ export const ITEMS_036 = {
   "rogueport_metallic_mind_wipe": {
     "id": "rogueport_metallic_mind_wipe",
     "name": "Metallic Mind Wipe",
-    "description": "A vial of neural dampener infused with stolen Legion protocols. When injected, erases memories of betrayal or loyalty for 24 hours.",
-    "price": 2500,
+    "description": "The vial of Metallic Mind Wipe contains a neural dampener extracted from Legion protocols, rendered in metallic glass vials by Rogueport’s alchemical forges. When administered, it erases one memory of betrayal or loyalty in the target's mind, granting them temporary immunity to such emotions for 24 hours. The user experiences fleeting disorientation and gains an evasive aura that increases their chance of dodging attacks by 20% during this period.",
+    "price": 1000,
     "icon": "💊",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "Erases 1 memory from target’s mind",
-      "Grants 20% evasion chance for 24h",
-      "Causes temporary disorientation to user"
+      "Erases 1 memory",
+      "Grants 20% evasion chance"
     ],
     "vendor": "rogueport",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Memory Erasure",
+        "rules": "The user injects the target with Metallic Mind Wipe, erasing one memory of betrayal or loyalty. This effect is instantaneous and has a duration of 24 hours. The target must make a Wisdom saving throw (DC 15) to resist; on a success, they retain their memory."
+      },
+      {
+        "title": "Evasion Aura",
+        "rules": "The user gains an evasive aura for the duration of the effect. This grants them advantage on Dexterity saving throws and increases their chance to dodge attacks by 20%, until the effect ends or is otherwise interrupted."
+      }
+    ],
+    "levelRequirementReason": "This item is suitable for lower-level characters who need a temporary edge in critical situations.",
+    "vendorReason": "Rogueport specializes in alchemical wares and this item suits their expertise in extracting and manipulating neural protocols.",
+    "shippingDetail": "Ships via Lakitu Drones, arriving within a week of purchase with special handling for fragile glass containers.",
+    "usage": {
+      "activation": "An action to inject the target.",
+      "duration": "24 hours from activation.",
+      "endsWhen": "The effect expires after 24 hours or is prematurely ended by the user.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "This item provides a significant temporary advantage at an acceptable cost, balancing its powerful effects with limited duration and use.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:30:45.057347+00:00",
+    "aiReviewedAt": "2026-07-24T23:30:45.057347+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_mirage_satchel": {
     "id": "rogueport_mirage_satchel",
@@ -1900,19 +1992,42 @@ export const ITEMS_036 = {
   "rogueport_moonlit_soul_bottle": {
     "id": "rogueport_moonlit_soul_bottle",
     "name": "Moonlit Soul Bottle",
-    "description": "A vial containing the captured soul of a fallen moon-warden. When consumed, it grants temporary invisibility and a whispering voice that can lure enemies into traps. Shatters if exposed to daylight.",
-    "price": 2800,
+    "description": "The Moonlit Soul Bottle is a vial encased in moonstone, capturing the ethereal essence of a fallen moon-warden. When consumed, it grants 15 seconds of invisibility and imbues you with a whispering voice that can lure nearby enemies into traps set by your allies. Exposing the bottle to daylight shatters its arcane seal, rendering it useless. The captured soul's whispers also instill a temporary vulnerability in foes who approach too closely, reducing their effectiveness for 30 seconds.",
+    "price": 1000,
     "icon": "🌙",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Grants 15 seconds of invisibility",
-      "Adds a 5% chance to trigger traps on enemy contact",
-      "Inflicts 10% damage reduction for 30 seconds"
+      "Invisibility",
+      "Lure Enemies"
     ],
     "vendor": "rogueport",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Invisibility",
+        "rules": "The Moonlit Soul Bottle grants the drinker 15 seconds of total invisibility. This effect ends if exposed to daylight or if the drinker takes any action other than moving silently."
+      },
+      {
+        "title": "Lure Enemies",
+        "rules": "For every enemy that comes within 30 feet and makes contact with the drinker, there is a 5% chance they will trigger traps set by allies. Additionally, enemies struck by the drinker receive a penalty to their next attack roll equal to half the bottle's price in XP (rounded down). This effect ends if exposed to daylight or after five successful interactions."
+      }
+    ],
+    "levelRequirementReason": "The Moonlit Soul Bottle requires no specific level, but it is a rare item that novices and veterans alike can find useful.",
+    "vendorReason": "Rogueport's extensive network of spies and thieves allows them to procure unusual relics like the Moonlit Soul Bottle.",
+    "shippingDetail": "The bottle must be couriered under cover of night to prevent its arcane seal from breaking prematurely.",
+    "usage": {
+      "activation": "Eaten as a bonus action",
+      "duration": "15 seconds, or until exposed to daylight",
+      "endsWhen": "Exposure to daylight or the drinker taking an action other than moving silently",
+      "charges": "Unlimited; each use is a one-time effect"
+    },
+    "priceReason": "The Moonlit Soul Bottle's rarity and utility justify its moderate price, offering both tactical advantage and strategic value.",
+    "priceOriginal": 2800,
+    "priceReviewedAt": "2026-07-24T23:30:27.792862+00:00",
+    "aiReviewedAt": "2026-07-24T23:30:27.792862+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_murder_bottle": {
     "id": "rogueport_murder_bottle",
@@ -2117,20 +2232,43 @@ export const ITEMS_036 = {
   "rogueport_murderous_mask": {
     "id": "rogueport_murderous_mask",
     "name": "Murderous Mask of the Silent King",
-    "description": "A sleek, black-faced mask that grants the wearer invisibility in dim lighting and grants a 20% chance to evade capture during stealth. Faint whispers echo from within, urging the wearer to act swiftly.",
+    "description": "The Murderous Mask of the Silent King is a sleek, black-faced mask forged from obsidian and adorned with runes that whisper the ancient secrets of the Silent King. Worn in dim lighting, it grants the wearer near-perfect invisibility, blending them into shadows as one with night itself. The mask also whispers urgent advice, granting a 20% chance to evade capture during stealth checks, making any pursuit futile for those who dare to follow.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "Invisibility in low-light environments",
-      "20% chance to evade capture during stealth",
-      "Echoes whispers of the Silent King"
+      "Invisibility in Dim Lighting",
+      "Evasive Whisper"
     ],
     "vendor": "rogueport",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Invisibility in Dim Lighting",
+        "rules": "The wearer becomes invisible as if under the effect of an Invisibility spell. This lasts until the wearer takes damage or attacks, or until they voluntarily end it. The mask can only be used once per short rest."
+      },
+      {
+        "title": "Evasive Whisper",
+        "rules": "Once on each long rest, the wearer has a 20% chance to evade capture during stealth checks, as if under the effect of a Deception check. This ability does not stack with other evasion abilities and is negated by disadvantage."
+      }
+    ],
+    "levelRequirementReason": "The mask's complex runes and mystical properties require a certain level of arcane knowledge to properly wield.",
+    "vendorReason": "Rogueport is known for its extensive trade in rare and magical items, including those with ties to ancient lore and dark magic.",
+    "shippingDetail": "The mask arrives wrapped in shadows, delivered by a Rakasha courier who leaves without a trace.",
+    "usage": {
+      "activation": "Activating the mask requires an action. The wearer must be wearing it and in dim lighting to activate its invisibility effect.",
+      "duration": "Invisibility lasts until the wearer takes damage or attacks, or until they voluntarily end it. Evasive Whisper is a once-per-long-rest ability.",
+      "endsWhen": "The invisibility ends when the wearer takes damage, attacks, or ends it as an action. Evasive Whisper ends after a successful stealth check.",
+      "charges": "Unlimited; the mask recharges its abilities with each long rest."
+    },
+    "priceReason": "The mask's rarity and unique properties, including its connection to ancient magic and lore, justify its price.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:31:22.917802+00:00",
+    "aiReviewedAt": "2026-07-24T23:31:22.917802+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_murderous_mist_essence": {
     "id": "rogueport_murderous_mist_essence",
@@ -2418,19 +2556,42 @@ export const ITEMS_036 = {
   "rogueport_night_nectar": {
     "id": "rogueport_night_nectar",
     "name": "Night Nectar",
-    "description": "A vial of blackened liquid that grants temporary invisibility in shadows. Best used during moonlit alleyways or when sneaking past guards. Consuming too much may cause hallucinations.",
-    "price": 1500,
+    "description": "Night Nectar is a vial of pitch-black liquid, its surface flecked with silver stars that shimmer faintly in the dark. In the moonlight or under starlit skies, consuming this nectar grants you momentary invisibility within shadows, allowing for silent passage through hidden alleys. However, overuse may warp your senses, causing you to see things that are not there and leading to disorientation. The nectar's potency is such that it can only be consumed in true darkness, else its effects are negated.",
+    "price": 1000,
     "icon": "🍸",
     "stock": 2,
     "rarity": "uncommon",
     "effects": [
-      "Invisibility for 10 seconds",
-      "Can only be used in darkness",
-      "May trigger paranoia after 3 uses"
+      "Invisibility in Shadows",
+      "Causes Hallucinations with Overuse"
     ],
     "vendor": "rogueport",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 4
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Invisibility in Shadows",
+        "rules": "Activate as a bonus action. You become invisible until the start of your next turn, but only within darkness or areas obscured by shadows. This effect lasts for 1 minute per vial consumed."
+      },
+      {
+        "title": "Causes Hallucinations with Overuse",
+        "rules": "After consuming three vials, you suffer from hallucinations that last until the end of your next long rest. You have disadvantage on Wisdom (Perception) checks and saving throws against illusions for 1d4 days."
+      }
+    ],
+    "levelRequirementReason": "Night Nectar's potency requires a certain degree of experience to handle its effects safely.",
+    "vendorReason": "Rogueport is known for supplying the most effective tools and poisons to the underworld, making Night Nectar an essential addition to their inventory.",
+    "shippingDetail": "Ships via a secret route through the stars, ensuring it arrives in pristine condition.",
+    "usage": {
+      "activation": "Bonus action to activate and consume one vial.",
+      "duration": "1 minute per vial consumed, until your next turn after consumption.",
+      "endsWhen": "Ends when the duration expires or you are no longer within darkness.",
+      "charges": "Unlimited uses; each vial is a single charge."
+    },
+    "priceReason": "The rare ingredients and alchemical processes required to create Night Nectar justify its cost in experience points.",
+    "priceOriginal": 1500,
+    "priceReviewedAt": "2026-07-24T23:31:10.917389+00:00",
+    "aiReviewedAt": "2026-07-24T23:31:10.917389+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_night_scarf": {
     "id": "rogueport_night_scarf",
@@ -3549,37 +3710,83 @@ export const ITEMS_036 = {
   "rogueport_shadow_fury_rod": {
     "id": "rogueport_shadow_fury_rod",
     "name": "Shadow Fury Rod",
-    "description": "A cursed wand forged from stolen moonlight and blackened steel. When swung, it emits a shriek that disorients foes and drains their arcane energy. Perfect for assassins who need to vanish into the night.",
+    "description": "The Shadow Fury Rod is a cursed wand crafted from the blackened steel of a moonless night and stolen moonlight, its tip glowing ominously like a dying star. Its wielder can swing it to unleash a disorienting shriek that not only blinds foes momentarily but also drains their arcane power, leaving them weakened and vulnerable. This weapon is perfect for assassins who need to strike unseen and vanish into the night.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals 30% extra damage to enemies with magic resistance",
-      "Inflicts Shadow Veil on target for 3 turns, reducing their visibility and movement speed",
-      "Causes target to drop 10% of their current HP when hit"
+      "Disorients foes",
+      "Drains arcane energy"
     ],
     "vendor": "rogueport",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Disorienting Shriek",
+        "rules": "When activated as a bonus action, the Shadow Fury Rod emits a disorienting shriek that blinds all creatures within 10 feet for 2 rounds. Creatures making a successful Wisdom saving throw are not blinded but still take the rod's damage and effect."
+      },
+      {
+        "title": "Arcane Drain",
+        "rules": "The shriek also drains arcane energy, dealing an additional 4d6 necrotic damage to creatures with magical resistances or immunity. This effect has a save DC of 15."
+      }
+    ],
+    "levelRequirementReason": "Requires at least third level to control the rod's disorienting and draining powers effectively.",
+    "vendorReason": "Rogueport is known for its network of thieves and assassins, making it the perfect vendor for a cursed weapon like this.",
+    "shippingDetail": "The rod arrives wrapped in shadow cloth to protect its curse from prying eyes.",
+    "usage": {
+      "activation": "Bonus action to unleash the shriek and drain arcane energy.",
+      "duration": "Instantaneous, lasting for 2 rounds after activation.",
+      "endsWhen": "When the target creature succeeds on a Wisdom saving throw or is no longer within range.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "The rod's unique cursed properties and its ability to drain arcane energy justify this balanced price in XP.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:31:10.937391+00:00",
+    "aiReviewedAt": "2026-07-24T23:31:10.937391+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_shadow_ink": {
     "id": "rogueport_shadow_ink",
     "name": "Shadow Ink Vial",
-    "description": "A vial of inky black fluid that allows the user to leave no trace in inked documents or graffiti. Perfect for forging contracts or erasing evidence.",
-    "price": 1200,
+    "description": "The Shadow Ink Vial exudes a dark, almost sentient ink that can be used to forge contracts or erase evidence without leaving behind any physical trace. When applied, it reacts with the surface to vanish into the paper or wall, leaving not even the faintest smudge behind. In moonlight, the vial glows faintly, revealing hidden messages left by its mysterious ink, a trait that could be both a blessing and a curse for those who wield it.",
+    "price": 1000,
     "icon": "🖋",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Erases ink from paper or walls within 30 seconds",
-      "Leaves no physical trace after use",
-      "Glows faintly under moonlight, revealing hidden messages"
+      "Eradicates Inked Evidence",
+      "Reveals Hidden Messages"
     ],
     "vendor": "rogueport",
-    "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "shippedBy": "Courier of Shadows",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Eradicates Inked Evidence",
+        "rules": "As an action, the user can apply the ink to any surface that has been recently written or drawn upon. The ink reacts with the existing ink, erasing it completely and leaving no trace of what was there before. This effect lasts until the ink is dry, which takes 30 seconds."
+      },
+      {
+        "title": "Reveals Hidden Messages",
+        "rules": "When exposed to moonlight, the vial emits a faint glow that reveals any hidden messages or symbols written in ink on surfaces within reach. The user can only read one message per night and must wait 1 hour before using this ability again."
+      }
+    ],
+    "levelRequirementReason": "Even an untrained individual can use the vial to forge contracts or erase evidence, making it accessible to all levels.",
+    "vendorReason": "Rogueport is known for its collection of rare and illicit items useful in forgery and espionage, and this vial fits perfectly into their inventory.",
+    "shippingDetail": "The ink must be kept cool during transit to prevent premature drying. The Courier of Shadows ensures safe delivery through back alleys and hidden routes.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous (30 seconds for eradication)",
+      "endsWhen": "The ink dries or the user is caught in the act, whichever comes first",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The vial's rare ink and unique properties make it a valuable tool for anyone involved in forgery or espionage.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:31:49.336370+00:00",
+    "aiReviewedAt": "2026-07-24T23:31:49.336370+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_shadow_scarf": {
     "id": "rogueport_shadow_scarf",
@@ -3746,19 +3953,42 @@ export const ITEMS_036 = {
   "rogueport_shadow_tape": {
     "id": "rogueport_shadow_tape",
     "name": "Shadow Tape",
-    "description": "A slimy, self-repairing tape that allows you to leave no trace. Perfect for slipping past surveillance or covering up your tracks. Glows faintly in the dark, revealing hidden paths.",
-    "price": 1200,
+    "description": "Shadow Tape, a slimy, self-repairing adhesive that glows faintly in the dark, is crafted from enchanted silk and ink. It allows you to slip past surveillance undetected by erasing all digital or physical traces of your presence. Activating it reveals hidden passages or secret rooms, guiding you through concealed pathways. The tape's glow illuminates nearby allies or foes for 30 seconds, providing critical tactical insight in the shadows.",
+    "price": 1000,
     "icon": "🖋",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Erases all digital or physical traces of your presence",
-      "Reveals hidden passages or secret rooms when activated",
-      "Glows in the dark for 30 seconds, revealing nearby enemies or allies"
+      "Erases All Traces",
+      "Reveals Hidden Passages"
     ],
     "vendor": "rogueport",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Erase All Traces",
+        "rules": "As a bonus action, apply Shadow Tape to a surface. This erases all digital or physical traces of your presence within the area for 1 minute. You can use this effect once per long rest."
+      },
+      {
+        "title": "Reveal Hidden Passages",
+        "rules": "Activate Shadow Tape by touching it to a wall or floor, causing it to glow faintly and reveal any hidden passages or secret rooms in a 10-foot radius. This effect lasts for 1 minute and can be used once per short rest."
+      }
+    ],
+    "levelRequirementReason": "This item is suitable for beginners who wish to enhance their stealth and exploration abilities.",
+    "vendorReason": "Rogueport specializes in items that assist adventurers in navigating treacherous terrains and outsmarting enemies.",
+    "shippingDetail": "Ships via Koopa Express, ensuring timely delivery to your doorstep.",
+    "usage": {
+      "activation": "Bonus action for 'Erase All Traces'; Standard action for 'Reveal Hidden Passages'",
+      "duration": "1 minute per use; ends when the time expires or you activate a second effect",
+      "endsWhen": "The duration expires after 1 minute, or another Shadow Tape effect is activated",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced to provide significant utility without overpowered effects.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:31:43.945385+00:00",
+    "aiReviewedAt": "2026-07-24T23:31:43.945385+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_shadow_tapestry": {
     "id": "rogueport_shadow_tapestry",

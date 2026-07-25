@@ -2031,20 +2031,42 @@ export const ITEMS_043 = {
   "the_iron_fists_punch_glove_premium": {
     "id": "the_iron_fists_punch_glove_premium",
     "name": "The Iron Fists Punch Glove (Premium)",
-    "description": "Enhance fisticuffs.",
-    "price": 16500,
+    "description": "The Iron Fists Punch Glove (Premium) is a finely crafted gauntlet forged from hardened steel, encased in leather, and adorned with intricate engravings that whisper of ancient battles. It amplifies your strikes with an extra +1d4 damage on unarmed attacks once per day, and grants you a +2 bonus to Athletics checks for grappling situations. The glove's metal plates creak ominously upon impact, a subtle warning that your next punch will be felt. Crafted by Fist Fighters, these gloves are the pinnacle of martial artistry and street combat prowess.",
+    "price": 1000,
     "icon": "🥊",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Unarmed +1d4 damage once per day",
-      "+1 Athletics for grapples",
-      "Glove squeaks on hit",
-      "Made by: Fist Fighters"
+      "Unarmed Damage Boost",
+      "Enhanced Grappling"
     ],
     "vendor": "the_iron_fists_dojo",
-    "shippedBy": "Padded Mitt",
-    "levelRequirement": 5
+    "shippedBy": "Swift Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Unarmed Damage Boost",
+        "rules": "Activate as a bonus action on an unarmed strike. The attack deals an additional +1d4 damage once per long rest."
+      },
+      {
+        "title": "Enhanced Grappling",
+        "rules": "While wearing the gloves, you gain a +2 bonus to Athletics checks for grappling situations. This effect lasts until the end of your next short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This premium version is designed for beginners and veterans alike, enhancing their combat capabilities without requiring high-level prowess.",
+    "vendorReason": "The Iron Fists Dojo is renowned for its martial arts training, making it the perfect vendor to offer these meticulously crafted gloves.",
+    "shippingDetail": "Delivered by Swift Courier within a week of purchase.",
+    "usage": {
+      "activation": "Bonus action on an unarmed strike or Athletics check.",
+      "duration": "Until end of next short or long rest for grappling bonus, once per day for damage boost.",
+      "endsWhen": "On completion of the specified duration or when removed from combat.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The premium version's advanced crafting and superior materials justify its lower price point compared to a full suit of armor.",
+    "priceOriginal": 16500,
+    "priceReviewedAt": "2026-07-24T23:40:12.344717+00:00",
+    "aiReviewedAt": "2026-07-24T23:40:12.344717+00:00",
+    "aiReviewVersion": 1
   },
   "the_onyx_hand_gloved_fingers": {
     "id": "the_onyx_hand_gloved_fingers",
@@ -2453,21 +2475,43 @@ export const ITEMS_043 = {
   "the_toad_gang_marsh_muck_boots": {
     "id": "the_toad_gang_marsh_muck_boots",
     "name": "The Toad Gang Marsh Muck Boots",
-    "description": "Boots for slogging through swamps.",
+    "description": "The Toad Gang Marsh Muck Boots are crafted from enchanted swamp reeds and mud, forged by the skilled artisans of the Toad Gang Swamp. These boots not only allow you to traverse treacherous bogs with ease but also emit a distinctive squelch that can be heard for miles around, making your presence known to all within earshot. The Mudders have imbued these boots with a subtle magic that enhances your strength in muddy conditions, giving you an edge when navigating the swampy terrain.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "👢",
     "stock": 7,
     "rarity": "uncommon",
     "effects": [
-      "Ignore mud difficult terrain",
-      "+1 to Strength (Athletics) in bogs",
-      "Boots squelch loudly",
-      "Made by: Gang Mudders"
+      "Ignore Mud Difficult Terrain",
+      "Enhanced Strength in Bogs"
     ],
     "vendor": "the_toad_gang_swamp",
-    "shippedBy": "Muck Mud",
-    "levelRequirement": 5
+    "shippedBy": "Muck Mud Express",
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Ignore Mud Difficult Terrain",
+        "rules": "While wearing these boots, you are not considered to be on difficult terrain when moving through mud. This benefit is active while you remain within the swampy areas as defined by the Toad Gang Swamp. The effect ends if you leave the marsh or remove your boots."
+      },
+      {
+        "title": "Enhanced Strength in Bogs",
+        "rules": "While in bogs, you have advantage on Strength (Athletics) checks made to move through difficult terrain and gain a +1 bonus to your Strength score for the duration of the check. This effect is limited to once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The boots require a minimum level to ensure the wearer can handle the swampy environment effectively.",
+    "vendorReason": "The Toad Gang Swamp has a vested interest in ensuring its patrons are prepared for any swamp adventure, making these essential gear for all who visit.",
+    "shippingDetail": "Delivered with a distinctive squelch to match the boots' signature sound!",
+    "usage": {
+      "activation": "Passive effect",
+      "duration": "Instantaneous, lasting until you leave the swamp or remove your boots",
+      "endsWhen": "You exit the marshy areas or take off the boots",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced to provide a useful but not overpowered advantage for adventurers navigating swamps.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-24T23:40:00.196633+00:00",
+    "aiReviewedAt": "2026-07-24T23:40:00.196633+00:00",
+    "aiReviewVersion": 1
   },
   "the_toad_gang_marsh_muck_strainer": {
     "id": "the_toad_gang_marsh_muck_strainer",

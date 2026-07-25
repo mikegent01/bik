@@ -1059,20 +1059,43 @@ export const ITEMS_047 = {
   "valley_bowser_volcanic_mace": {
     "id": "valley_bowser_volcanic_mace",
     "name": "Volcanic Mace of the Shattered Throne",
-    "description": "This weapon channels the fury of the volcano’s core. It strikes with devastating force, dealing extra damage to enemies with fire or lava resistance. Its swing causes minor explosions.",
+    "description": "The Volcanic Mace of the Shattered Throne channels raw volcanic fury with each swing. This fiery mace deals +5 fire damage and can ignite enemies, dealing an additional 10 fire damage at the start of their next turn if they have any fire resistance. Its strikes also cause small explosions, dealing an area effect that damages all creatures within a 5-foot radius for 2d6 fire damage as long as it's held.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals 25% extra damage to fire or lava resistant enemies",
-      "Inflicts 10% explosion damage on hit (stacks up to 3 times)",
-      "Reduces enemy movement speed by 15% for 1 turn after hit"
+      "Fire Ignition",
+      "Explosive Strike"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Fire Ignition",
+        "rules": "When the mace hits a target with at least 25% fire resistance, the target is ignited. At the start of its next turn, it takes an additional 10 fire damage from the lingering flames."
+      },
+      {
+        "title": "Explosive Strike",
+        "rules": "The mace deals an area effect on hit, causing a small explosion that damages all creatures within a 5-foot radius for 2d6 fire damage. This effect stacks up to three times per target."
+      }
+    ],
+    "levelRequirementReason": "Beginners can learn the basics of wielding this fiery weapon.",
+    "vendorReason": "Valley Bowser's extensive network extends into volcanic regions, making them a reliable source for such exotic weaponry.",
+    "shippingDetail": "Delivered by spectral messengers, this mace arrives with a slight delay due to its magical essence.",
+    "usage": {
+      "activation": "Melee Weapon Attack",
+      "duration": "Instantaneous effect",
+      "endsWhen": "Targeted creature moves or is hit again by the mace",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced for its fire damage, area-of-effect abilities, and unique ignition feature.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:47:13.643061+00:00",
+    "aiReviewedAt": "2026-07-24T23:47:13.643061+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_volcanic_magma_bloom": {
     "id": "valley_bowser_volcanic_magma_bloom",
@@ -1118,19 +1141,42 @@ export const ITEMS_047 = {
   "valley_bowser_volcanic_ore": {
     "id": "valley_bowser_volcanic_ore",
     "name": "Volcanic Ore Chunk",
-    "description": "Raw, pulsating magma stone mined from Bowser’s core. Used to forge weapons of fire and fury. Adds a touch of volcanic wrath to any gear.",
-    "price": 2000,
+    "description": "This chunk of volcanic ore glows with an internal heat that crackles and pops, a testament to its origin deep within Bowser's fiery core. When forged into weapons or armor, it imbues them with a primal wrath that burns like molten lava. This rare material not only enhances fire damage by 15% but also grants the wielder a soothing yet powerful connection to the earth, regenerating stamina at a steady rate of 5% per second.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Enhances fire damage by 15%",
-      "Grants 5% stamina regeneration per second",
-      "Adds 2% to fire resistance"
+      "Enhances Fire Damage",
+      "Stamina Regeneration"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Enhanced Fire Damage",
+        "rules": "This effect increases fire damage dealt by weapons and spells made from or enchanted with Volcanic Ore Chunk by 15%. This bonus stacks with other sources of fire damage. The effect is active as long as the weapon or armor is in use."
+      },
+      {
+        "title": "Stamina Regeneration",
+        "rules": "While equipped, this chunk grants a passive regeneration of 5% stamina per second. This effect ends when the item is removed from the wielder's equipment."
+      }
+    ],
+    "levelRequirementReason": "The raw energy of volcanic ore can be harnessed by any adventurer willing to handle its volatile nature.",
+    "vendorReason": "Valley Bowser, a mining hub for the most resilient materials, regularly sources unique items like this chunk directly from the depths where it originated.",
+    "shippingDetail": "Special handling required due to its volatile nature; delivery takes an additional day.",
+    "usage": {
+      "activation": "Instantaneous upon crafting or equipping.",
+      "duration": "Until removed from equipment or the item is destroyed.",
+      "endsWhen": "Equipped item is removed or destroyed.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The rare and volatile nature of this ore, coupled with its unique properties, justifies a price that reflects its value without being overpriced.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-24T23:47:36.872882+00:00",
+    "aiReviewedAt": "2026-07-24T23:47:36.872882+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_volcanic_scorch_glove": {
     "id": "valley_bowser_volcanic_scorch_glove",
@@ -3385,21 +3431,42 @@ export const ITEMS_047 = {
   "warhammer_airship_anchor": {
     "id": "warhammer_airship_anchor",
     "name": "Airship Anchor",
-    "description": "Stabilizes floating vessels against storm winds",
-    "price": 3000,
+    "description": "The Airship Anchor is a compact, weathered iron anchor etched with runes that whisper of ancient airships. It stabilizes floating vessels against storm winds and prevents sudden drops during tempests. However, its full power can only be unleashed after upgrading it with the Remi Coil, which enhances its capabilities but limits cargo capacity by 15%. Crafted by Wario Inc, this rare artifact is a testament to their mastery of airship technology.",
+    "price": 1000,
     "icon": "🛫",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Increases airship speed by 20%",
-      "Prevents sudden drops during storms",
-      "Requires remi coil upgrade for full power",
-      "Limits cargo capacity by 15%",
-      "Made by: Wario Inc"
+      "Stabilizes against storm winds",
+      "Prevents sudden drops"
     ],
     "vendor": "warhammer",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Storm Stabilization",
+        "rules": "When an airship equipped with the Airship Anchor encounters severe weather, it gains a +2 bonus to AC and a +10 ft. bonus to flying speed for 1 minute. This effect ends when the storm ends or if the anchor is removed."
+      },
+      {
+        "title": "Drop Prevention",
+        "rules": "The airship equipped with this anchor cannot suffer from sudden drops exceeding 30 feet in height during storms, reducing the risk of catastrophic damage by half. This protection lasts for 1 hour and can be reactivated once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This item requires a minimum character level to handle its complex mechanics and ensure it does not overshadow player capabilities.",
+    "vendorReason": "Warhammer is renowned for their expertise in airship technology and has the resources to offer this rare artifact.",
+    "shippingDetail": "Shipped via a spirit courier, arriving within an hour of order placement.",
+    "usage": {
+      "activation": "Instantaneous activation upon encountering severe weather or impending drops.",
+      "duration": "Storm Stabilization lasts for 1 minute; Drop Prevention lasts for 1 hour and recharges after a long rest.",
+      "endsWhen": "The effects end when the storm ends, the anchor is removed, or if the airship reaches its maximum speed limit.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "Balanced to ensure it remains valuable but not game-breaking in terms of utility and cost.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-24T23:47:50.733124+00:00",
+    "aiReviewedAt": "2026-07-24T23:47:50.733124+00:00",
+    "aiReviewVersion": 1
   },
   "warhammer_blocky_torch": {
     "id": "warhammer_blocky_torch",

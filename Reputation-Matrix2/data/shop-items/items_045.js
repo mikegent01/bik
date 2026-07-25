@@ -492,20 +492,43 @@ export const ITEMS_045 = {
   "valley_bowser_bowser_bite_amulet": {
     "id": "valley_bowser_bowser_bite_amulet",
     "name": "Bowser Bite Amulet",
-    "description": "A cursed amulet shaped like a massive Koopa shell, it channels the wrath of Bowser himself. When worn, it enhances the wearer’s strength and inflicts fear on enemies, making them flee in terror.",
+    "description": "The Bowser Bite Amulet is a cursed trinket shaped like a formidable Koopa shell. Crafted from ancient volcanic rock, it channels Bowser's fiery wrath. When worn, it enhances the wearer’s strength and instills fear into foes, compelling them to flee in terror for two turns. The amulet's power is both potent and perilous, as it can be activated by a swift action but must recharge after three uses.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🦎",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "Increases max HP by 30%",
-      "Inflicts fear on enemies for 2 turns",
-      "Boosts attack power by 15% for 3 turns"
+      "Strength Boost",
+      "Fear Infliction"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Strength Boost",
+        "rules": "Activates on a swift action. Increases the wearer's Strength by +2 for 3 turns, boosting attack power and melee damage rolls. This effect is limited to once per long rest."
+      },
+      {
+        "title": "Fear Infliction",
+        "rules": "Inflicts fear upon enemies within 10 feet as a bonus action, compelling them to flee in terror for 2 turns. The save DC for this effect is 14. This ability can be used once per short rest."
+      }
+    ],
+    "levelRequirementReason": "This amulet's power requires the wearer to have reached a level where they can manage such volatile magic without overwhelming them.",
+    "vendorReason": "Bowser himself, through his minions, ensures that only those who are deemed worthy and capable of handling such dark artifacts can obtain this cursed amulet.",
+    "shippingDetail": "The amulet is delivered swiftly by Lakitu drones, but the package is heavily guarded to prevent it from falling into the wrong hands.",
+    "usage": {
+      "activation": "Swift action for Strength Boost; Bonus action for Fear Infliction",
+      "duration": "3 turns and 2 turns respectively",
+      "endsWhen": "At the end of the duration or when the wearer takes a long rest",
+      "charges": "Recharges after three uses, requiring a short rest"
+    },
+    "priceReason": "The amulet's price reflects its potent but cursed abilities, making it valuable yet dangerous for even seasoned adventurers.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:43:25.932427+00:00",
+    "aiReviewedAt": "2026-07-24T23:43:25.932427+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_bowser_bite_belt": {
     "id": "valley_bowser_bowser_bite_belt",
@@ -591,19 +614,42 @@ export const ITEMS_045 = {
   "valley_bowser_bowser_bomb": {
     "id": "valley_bowser_bowser_bomb",
     "name": "Bowser Bomb",
-    "description": "A explosive device that detonates with a blast of magma and shockwave. Ideal for clearing out enemy strongholds or collapsing lava tunnels.",
-    "price": 2500,
+    "description": "The Bowser Bomb is a fearsome explosive device forged in the heart of Bowser's fiery lair. Its compact, magma-scarred casing belies its devastating power. When triggered, it unleashes a searing blast of molten rock and a powerful shockwave that sends nearby foes reeling with each step they take. Crafted by the very hands of the Fire King himself, this weapon is a testament to Bowser's mastery over lava and destruction.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals 300 damage on detonation",
-      "Creates a 5m radius shockwave that stuns enemies",
-      "Triggers lava burst on hit (adds 100 fire damage)"
+      "Molten Blast",
+      "Stunning Shockwave"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Molten Blast",
+        "rules": "When activated, the Bowser Bomb unleashes a concentrated burst of magma within a 5-foot radius. Targets in this area take 30d6 fire damage and are knocked prone. The bomb also triggers a secondary effect: adding an additional 10d6 fire damage to any target that moves into or starts its turn in the blast's area."
+      },
+      {
+        "title": "Stunning Shockwave",
+        "rules": "The Bowser Bomb emits a shockwave immediately after detonation. All creatures within a 20-foot radius must succeed on a DC 15 Dexterity saving throw or be knocked prone and stunned for 1 round. The shockwave can only occur once per activation."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 3rd level to wield this powerful device, ensuring it's used by seasoned adventurers.",
+    "vendorReason": "As the creators and custodians of Bowser's weaponry, Valley Bowser is the only vendor that can supply these explosive masterpieces.",
+    "shippingDetail": "The Shy Guys ensure a quick delivery to adventurers across the land, but the package must be handled with care due to its volatile nature.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Expended upon use; no recharges or charges are required.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects the Bowser Bomb's rarity and the expertise needed to craft and wield it.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:43:39.136674+00:00",
+    "aiReviewedAt": "2026-07-24T23:43:39.136674+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_bowser_bone": {
     "id": "valley_bowser_bowser_bone",
@@ -770,19 +816,42 @@ export const ITEMS_045 = {
   "valley_bowser_bowser_burn": {
     "id": "valley_bowser_bowser_burn",
     "name": "Bowser Burn Potion",
-    "description": "A fiery concoction brewed in the heart of the volcanic caverns. Sips this potion to gain a temporary burst of rage, increasing damage and healing from fire damage.",
-    "price": 2500,
+    "description": "A fiery concoction brewed in the heart of the volcanic caverns, the Bowser Burn Potion ignites the user's flames with a surge of raw volcanic power. Swig this potion to gain a temporary burst of rage, increasing your fire damage and healing from all sources by 30% for 15 seconds. Additionally, it grants you a 5% chance to ignite enemies on each successful hit, but beware—overuse can lead to dangerous overheating.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Grants 30% damage boost for 15 seconds",
-      "Restores 25% HP from fire damage taken",
-      "Adds 5% chance to ignite enemies on hit"
+      "Flame Boost",
+      "Healing Surge"
     ],
     "vendor": "valley_bowser",
-    "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "shippedBy": "Volcanic Express Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Flame Boost",
+        "rules": "Activates as a bonus action. Increases fire damage and healing by 30% for 15 seconds. Ends when the effect duration expires."
+      },
+      {
+        "title": "Healing Surge",
+        "rules": "Restores 25% of your maximum hit points from any source of fire damage taken. This effect ends if you take non-fire damage or are incapacitated."
+      }
+    ],
+    "levelRequirementReason": "Beginners can safely experiment with this volatile potion.",
+    "vendorReason": "Bowser's trusted apothecary supplies potions that match the fiery temperament of his kingdom.",
+    "shippingDetail": "Ships via Volcanic Express Courier, ensuring swift delivery through lava-ridden paths.",
+    "usage": {
+      "activation": "Bonus action to activate; automatic on fire damage taken.",
+      "duration": "15 seconds",
+      "endsWhen": "Effect duration expires or you take non-fire damage.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced price for a rare, volatile potion that offers significant but manageable fire-related benefits.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:43:23.435807+00:00",
+    "aiReviewedAt": "2026-07-24T23:43:23.435807+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_bowser_eyes_aura": {
     "id": "valley_bowser_bowser_eyes_aura",
@@ -2103,20 +2172,43 @@ export const ITEMS_045 = {
   "valley_bowser_flame_bolt_launcher": {
     "id": "valley_bowser_flame_bolt_launcher",
     "name": "Flame Bolt Launcher",
-    "description": "Fires searing volcanic projectiles that burn enemies for 3 seconds. Ideal for clearing lava pits and Koopa minions. Equipped with a molten core that recharges after 30 seconds.",
+    "description": "The Flame Bolt Launcher is a volcanic contraption crafted from obsidian and molten rock, its barrel spitting out searing projectiles that ignite on contact. It's an invaluable tool for Bowser's minions, especially when clearing lava pits or dispatching swarms of Koopa Troopas. Each shot not only deals 120 fire damage but also ignites the target, causing a lingering burn for three seconds, ensuring the enemy is thoroughly incinerated.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals 120 damage per shot",
-      "Burns target for 3 seconds",
-      "Core recharges after 30 seconds"
+      "Deals 120 Damage",
+      "Ignites Target"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Explosive Flame Shot",
+        "rules": "When used as an action, the Flame Bolt Launcher fires a searing projectile that deals 120 fire damage to one target. The target also ignites and takes an additional 6d6 fire damage at the start of its next turn for three rounds."
+      },
+      {
+        "title": "Molten Core Recharge",
+        "rules": "The launcher's molten core recharges after every 30 seconds, allowing for immediate use again. The core can only recharge once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This simple yet effective weapon is accessible to even the least experienced of Bowser's minions.",
+    "vendorReason": "Valley Bowser, being a master of volcanic weaponry, personally oversees this item's production and sale.",
+    "shippingDetail": "Orders are shipped via Pipe Express, known for their reliability in delivering hot items safely and swiftly through the Mushroom Kingdom.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The shot is expended. The core recharges after 30 seconds or at the start of a long rest.",
+      "charges": "Unlimited, but the core must recharge after every 30 seconds."
+    },
+    "priceReason": "The Flame Bolt Launcher offers significant utility for clearing dangerous environments and defeating enemies, justifying its moderate price in experience points.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:44:20.826384+00:00",
+    "aiReviewedAt": "2026-07-24T23:44:20.826384+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_flame_helm": {
     "id": "valley_bowser_flame_helm",
@@ -2609,20 +2701,43 @@ export const ITEMS_045 = {
   "valley_bowser_koopa_blasters": {
     "id": "valley_bowser_koopa_blasters",
     "name": "Koopa Blasters",
-    "description": "Heavy artillery cannons strapped to your back, firing lava-shells that explode on impact. Designed for siege warfare and volcanic trenches.",
+    "description": "The Koopa Blasters are heavy artillery cannons strapped to your back, their barrels spitting molten lava-shells that explode on impact in a searing shower of fire. Designed for siege warfare and volcanic trenches, these weapons harness the raw power of the volcano's heart, dealing extra fire damage to ground targets and enhancing your ranged attacks by 30%. The Blasters require precise aim, as their fiery projectiles can only be fired once every minute, ensuring they are used with deadly intent.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
       "+30% attack range",
-      "+10% damage to ground targets",
       "Deals extra fire damage on hit"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Extra Fire Damage",
+        "rules": "When you hit a ground target with an attack, the Koopa Blasters deal an additional 2d6 fire damage. This effect has a cooldown of one minute."
+      },
+      {
+        "title": "Increased Attack Range",
+        "rules": "The Koopa Blaster's projectiles can travel up to 30 feet further than normal ranged attacks. However, this extended range requires precise aim and cannot be used in close combat situations."
+      }
+    ],
+    "levelRequirementReason": "These cannons are heavy and require significant strength and precision to wield effectively.",
+    "vendorReason": "Bowser’s minions are well-acquainted with the volcanic regions, making them adept at crafting and selling these weapons.",
+    "shippingDetail": "The Koopa Blasters are shipped in custom crates to protect against heat damage during transport. Special handling is required for delivery.",
+    "usage": {
+      "activation": "Action or bonus action to fire a lava-shell.",
+      "duration": "Instantaneous firing, cooldown of one minute between uses.",
+      "endsWhen": "Uses up when all charges are expended.",
+      "charges": "Unlimited but requires a long rest to fully recharge."
+    },
+    "priceReason": "The rare materials and craftsmanship required to create these cannons make them significantly more expensive, yet their utility in siege warfare justifies the cost.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:43:52.457770+00:00",
+    "aiReviewedAt": "2026-07-24T23:43:52.457770+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_koopa_blood": {
     "id": "valley_bowser_koopa_blood",
@@ -2667,20 +2782,43 @@ export const ITEMS_045 = {
   "valley_bowser_koopa_bolt": {
     "id": "valley_bowser_koopa_bolt",
     "name": "Koopa Bolt Launcher",
-    "description": "A compact, magma-charged launcher that fires explosive projectiles. Ideal for disrupting enemy formations from a distance.",
+    "description": "The Koopa Bolt Launcher is a compact, magma-charged weapon that rumbles to life in your hands like an angry volcano. Its sleek design channels molten energy into three explosive bolts, each capable of disrupting formations and igniting the battlefield with fiery destruction. This relic is forged from the heart of Mount Choco, where Bowser's minions refine it for use against intruders. Ideal for ranged combat, it reloads swiftly after each shot, ensuring you're always ready to strike.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Fires 3 explosive bolts with 200% damage",
-      "Each bolt applies 50% fire damage on impact",
-      "Reloads in 3 seconds after firing"
+      "Molten Power",
+      "Explosive Bolts"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Molten Power",
+        "rules": "When activated as a bonus action, the Koopa Bolt Launcher channels magma into three explosive bolts that fly toward the target. On impact, these bolts deal 1d8 + 2 fire damage and an additional 50% fire damage to all creatures within 5 feet of the impact point. The reload time is reduced by half if used in a volcanic environment."
+      },
+      {
+        "title": "Explosive Bolts",
+        "rules": "The launcher fires three explosive bolts that deal 1d8 + 2 force and fire damage on hit, targeting a single creature within 60 feet. If the target is reduced to half or less of its hit points by this attack, it must succeed on a DC 15 Constitution saving throw or be knocked prone."
+      }
+    ],
+    "levelRequirementReason": "Requires proficiency in ranged weapons and familiarity with Bowser's minions' craftsmanship.",
+    "vendorReason": "Valley Bowser is known for acquiring rare and powerful artifacts from the depths of his kingdom, including this magma-charged launcher.",
+    "shippingDetail": "Ships via Rakasha courier who delivers with a whirlwind, ensuring swift arrival.",
+    "usage": {
+      "activation": "Bonus Action (Reloads in 1.5 seconds if used in volcanic conditions)",
+      "duration": "Instantaneous",
+      "endsWhen": "Charges are depleted or the launcher breaks from overuse",
+      "charges": "3 charges, recharges after a long rest"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its powerful effects and rarity.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:44:38.829267+00:00",
+    "aiReviewedAt": "2026-07-24T23:44:38.829267+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_koopa_bolt_cannon": {
     "id": "valley_bowser_koopa_bolt_cannon",
@@ -3457,19 +3595,42 @@ export const ITEMS_045 = {
   "valley_bowser_koopa_scorched_heart": {
     "id": "valley_bowser_koopa_scorched_heart",
     "name": "Koopa Scorched Heart",
-    "description": "A cursed relic from Bowser’s volcanic lair. Emits a haunting glow that unnerves enemies. Best used at night to disrupt enemy formations.",
-    "price": 2500,
+    "description": "The Koopa Scorched Heart gleams with a sickly, red-lit glow that seems to warp space around it. Crafted from volcanic obsidian and imbued with dark magic, this relic was once part of Bowser's arsenal in his volcanic lair. Best wielded under the lightless cover of night, its eerie radiance can disrupt enemy formations by reducing their attack speed and dealing psychic damage, making it a fearsome tool for stealthy skirmishes.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals 25% psychic damage to enemies",
-      "Reduces enemy attack speed by 20% for 20 seconds",
-      "Grants invisibility for 5 seconds when used"
+      "Psychic Damage",
+      "Attack Speed Reduction"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Psychic Damage",
+        "rules": "When activated as an action, the Koopa Scorched Heart deals 25% psychic damage to all enemies within a 10-foot radius. This effect lasts for 10 seconds and can be used once per short or long rest."
+      },
+      {
+        "title": "Attack Speed Reduction",
+        "rules": "Upon activation, this relic reduces the attack speed of all enemies within a 20-foot cone by 20% for 20 seconds. This effect ends if an enemy moves out of the cone area."
+      }
+    ],
+    "levelRequirementReason": "Even novice adventurers can wield its power, though its dark magic requires some measure of experience to control.",
+    "vendorReason": "Valley Bowser, a master of volcanic artifacts, procured this relic from his own lair and offers it to those seeking to harness its malevolent might.",
+    "shippingDetail": "The Koopa Scorched Heart is shipped under strict secrecy; the Shy Guys promise safe delivery but warn adventurers of potential encounters with dark entities during transit.",
+    "usage": {
+      "activation": "Action",
+      "duration": "10 seconds for Psychic Damage, 20 seconds for Attack Speed Reduction",
+      "endsWhen": "Ends when its effects expire or the item is destroyed by a successful DC 15 Con saving throw against dark magic.",
+      "charges": "Unlimited uses per short or long rest"
+    },
+    "priceReason": "The Koopa Scorched Heart's rare material and dark enchantments justify its moderate price, offering significant battlefield utility for those willing to face the relic’s malevolent nature.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:44:40.445673+00:00",
+    "aiReviewedAt": "2026-07-24T23:44:40.445673+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_koopa_shield": {
     "id": "valley_bowser_koopa_shield",

@@ -131,22 +131,44 @@ export const ITEMS_063 = {
   "mushroom_kingdom_item_sparking_spore": {
     "id": "mushroom_kingdom_item_sparking_spore",
     "name": "Sparking Spore Bomb",
-    "description": "This pulsating mushroom delivers a shocking burst of fungal energy! Detonate it for an area-of-effect stun, perfect for disrupting enemy formations or clearing out pesky slime puddles. Just don't get caught in the spray – Wario would be *so* disappointed.",
+    "description": "The Sparking Spore Bomb is a pulsating, bioluminescent mushroom encased in a tough, fungal casing. When detonated, it releases a dazzling burst of electrified spores that stun and disrupt foes within its radius. The explosion’s thunderous shockwave can be felt for miles around, making it a devastating tool on the battlefield or in the slime-infested swamps of Mushroom Kingdom. Beware, for those caught in the blast are not only stunned but also risk catching a minor fungal infection that reduces their healing effectiveness.",
     "category": "consumables",
-    "price": 600,
+    "price": 1000,
     "icon": "💥",
     "stock": 35,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "deals 1d6 thunder damage to enemies in a 5ft radius",
-      "stuns target on hit for 1 round",
-      "chance to inflict minor fungal infection (reduces healing by 1)",
-      "small chance of exploding on impact"
+      "Area of Effect Stun",
+      "Thunder Damage and Fungal Infection"
     ],
     "vendor": "toad_town_market",
-    "shippedBy": "mushroom_cart",
-    "levelRequirement": 4
+    "shippedBy": "mushroom_spore_carrier",
+    "levelRequirement": 4,
+    "effectDetails": [
+      {
+        "title": "Area of Effect Stun",
+        "rules": "When activated, the Sparking Spore Bomb detonates in a 10-foot radius centered on its point of impact. All creatures within this area must make a DC 15 Dexterity saving throw or be stunned for 1 minute. The save is made once per creature and not at the start of each turn."
+      },
+      {
+        "title": "Thunder Damage and Fungal Infection",
+        "rules": "The explosion deals 2d6 thunder damage to all creatures in the area, along with a 30% chance that those hit will contract a minor fungal infection. The infection reduces their healing ability by half for 1 hour. There is no saving throw against this effect."
+      }
+    ],
+    "levelRequirementReason": "The Sparking Spore Bomb requires a minimum level of 4 to ensure players are capable of handling its potent effects in combat.",
+    "vendorReason": "Toad Town Market, known for its vast array of magical and practical items, regularly stocks the Sparking Spore Bomb due to its popularity among adventurers seeking effective battlefield tools.",
+    "shippingDetail": "The mushroom spores are carefully packed in specialized containers to prevent premature detonation during transit. Delivery is typically within 3 days of order placement.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausted after one use",
+      "charges": "Unlimited, recharged by the player between short rests"
+    },
+    "priceReason": "The Sparking Spore Bomb's balanced price of 1000 XP reflects its potent effects and strategic importance on the battlefield.",
+    "priceOriginal": 600,
+    "priceReviewedAt": "2026-07-24T23:59:26.374585+00:00",
+    "aiReviewedAt": "2026-07-24T23:59:26.374585+00:00",
+    "aiReviewVersion": 1
   },
   "mushroom_kingdom_item_wario_boots": {
     "id": "mushroom_kingdom_item_wario_boots",
@@ -759,21 +781,44 @@ export const ITEMS_063 = {
   "animatopia_shadow_shard": {
     "id": "animatopia_shadow_shard",
     "name": "Whisperstone Fragment",
-    "description": "A jagged piece of solidified shadow, pulsing with a faint, unnerving energy. It's said to be harvested from the nightmares of the Animatopia elders – don’t stare at it for too long or you might start seeing things… and they won’t like what they see.",
+    "description": "A jagged fragment of solidified shadow, the Whisperstone Fragment pulses with a faint, unnerving energy that seems to hum with ancient secrets. Crafted from the nightmares of Animatopia's elders, it glows dimly in the dark, and those who gaze upon it too long risk losing sight or succumbing to madness. The fragment is said to have been harvested under strict rituals by the enigmatic Beast Bazaar, ensuring its potency remains intact.",
     "category": "forbidden",
-    "price": 25000,
+    "price": 1000,
     "icon": "🌑",
     "stock": 3,
     "rarity": "epic",
     "stockType": "limited_daily",
     "effects": [
-      "chance to inflict blindness on a single target",
-      "increases critical hit chance by 10%",
-      "causes temporary madness (random effect)"
+      "Shadow Gaze",
+      "Increased Critical Chance"
     ],
     "vendor": "beast_bazaar",
-    "shippedBy": "giant_beetle",
-    "levelRequirement": 12
+    "shippedBy": "giant beetle courier",
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Shadow Gaze",
+        "rules": "When a creature looks directly at the Whisperstone Fragment for more than one round, it must make a DC 15 Wisdom saving throw or be blinded until the end of its next turn. This effect can only occur once per target."
+      },
+      {
+        "title": "Increased Critical Chance",
+        "rules": "+10% to critical hit chance when using a weapon or spell. This effect lasts for one hour and cannot stack with other similar effects."
+      }
+    ],
+    "levelRequirementReason": "The fragment's power requires a minimum level of understanding and control.",
+    "vendorReason": "Only the Beast Bazaar, master of dark artifacts, could source such an item from Animatopia’s elder nightmares.",
+    "shippingDetail": "Ships via giant beetle courier; delivery may take up to a week due to the fragment's sensitivity.",
+    "usage": {
+      "activation": "Passive effect when held or worn.",
+      "duration": "Until expended or destroyed.",
+      "endsWhen": "The fragment is broken, consumed by fire, or subjected to intense light for more than one minute.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at a lower price due to its limited utility and the ease of acquiring similar effects through other means.",
+    "priceOriginal": 25000,
+    "priceReviewedAt": "2026-07-24T23:59:56.974913+00:00",
+    "aiReviewedAt": "2026-07-24T23:59:56.974913+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_godly_harmony_bell": {
     "id": "animatopia_godly_harmony_bell",
@@ -988,21 +1033,44 @@ export const ITEMS_063 = {
   "internet_viral_boost": {
     "id": "internet_viral_boost",
     "name": "Propagation Protocol",
-    "description": "This shimmering gel contains the concentrated essence of a thousand viral trends! Apply it to your avatar for a massive increase in popularity and social influence – prepare for likes, shares, and envious stares. Just try not to accidentally start an internet war.",
+    "description": "Propagation Protocol is a shimmering, gel-like substance that glows with an ethereal light, pulsating in time with the digital heartbeat of the internet. This concentrated essence of viral trends can be applied to your avatar or character for a massive boost in social influence and popularity – expect likes, shares, and waves of envy from your peers. However, misuse could inadvertently spark an internet war that might spiral out of control, leading to unwanted attention and backlash.",
     "category": "consumables",
-    "price": 850,
+    "price": 1000,
     "icon": "🔥",
     "stock": 72,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "increase_social_influence_by_50",
-      "chance to trigger a viral trend effect (temporary stat boost)",
-      "increased chance of attracting unwanted attention"
+      "increase_social_influence",
+      "chance_of_viral_spread"
     ],
     "vendor": "cyber_market",
     "shippedBy": "Packet Delivery",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Increase Social Influence",
+        "rules": "Apply the gel as a bonus action. The user's Charisma score is increased by +5 for 1 hour, and they gain advantage on Persuasion checks until the start of their next turn."
+      },
+      {
+        "title": "Chance of Viral Spread",
+        "rules": "Once per long rest, the user can trigger a temporary stat boost. The target gains a random temporary ability score increase (d4+1) for 30 minutes. This effect has a 25% chance to occur when used."
+      }
+    ],
+    "levelRequirementReason": "This item is designed for beginners and players who are just starting out, offering an easy way to enhance their character's influence without requiring high-level features.",
+    "vendorReason": "The cyber market specializes in cutting-edge digital and social media tools that help players thrive in the virtual world.",
+    "shippingDetail": "Ships within 24 hours with a tracking number provided for easy delivery confirmation.",
+    "usage": {
+      "activation": "Bonus action to apply to an avatar or character.",
+      "duration": "1 hour and 30 minutes, including the temporary stat boost effect.",
+      "endsWhen": "The effects expire at the end of the duration or if used again before the rest.",
+      "charges": "Unlimited uses; can be applied multiple times without recharging."
+    },
+    "priceReason": "This price reflects a balanced XP cost for an uncommon item that provides significant social advantage in gameplay.",
+    "priceOriginal": 850,
+    "priceReviewedAt": "2026-07-24T23:59:37.063841+00:00",
+    "aiReviewedAt": "2026-07-24T23:59:37.063841+00:00",
+    "aiReviewVersion": 1
   },
   "internet_forbidden_echo": {
     "id": "internet_forbidden_echo",
@@ -1259,21 +1327,44 @@ export const ITEMS_063 = {
   "kivotos_item_debate_scroll": {
     "id": "kivotos_item_debate_scroll",
     "name": "Scroll of Rhetorical Ruin",
-    "description": "Crafted by the prestigious Debate Club, this scroll contains carefully worded arguments designed to utterly dismantle your opponent’s logic. Use it wisely...or just confuse everyone.",
+    "description": "Crafted by the prestigious Debate Club, the Scroll of Rhetorical Ruin is a delicate parchment rolled tight and sealed with an emblematic wax stamp. When unrolled in the heat of debate, it unleashes a cascade of logically precise arguments that leave your opponent speechless. The scroll's ink glows faintly when activated, hinting at the potent words within. Use it wisely—its power is both a weapon and a tool for persuasion.",
     "category": "consumables",
-    "price": 850,
+    "price": 1000,
     "icon": "📜",
     "stock": 72,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "chance to automatically win a verbal challenge (50%)",
-      "increases persuasion by 1d6 for 3 turns",
-      "opponent has disadvantage on counter-argument checks"
+      "Masterful Persuasion",
+      "Opponent's Disadvantage"
     ],
     "vendor": "club_supply",
     "shippedBy": "Standard Mail",
-    "levelRequirement": 4
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Masterful Persuasion",
+        "rules": "When you read the scroll, it grants you advantage on your next Charisma (Persuasion) check and causes your opponent to have disadvantage on their next Charisma (Deception) or Charisma (Intimidation) check. This effect lasts for 1 minute."
+      },
+      {
+        "title": "Opponent's Disadvantage",
+        "rules": "For the duration of the Masterful Persuasion effect, your opponent has disadvantage on any Charisma (Deception) or Charisma (Intimidation) checks they attempt against you. This effect ends when it is countered by a successful counter-argument check."
+      }
+    ],
+    "levelRequirementReason": "The Scroll of Rhetorical Ruin requires at least second-level proficiency in Deception or Persuasion to effectively use its persuasive power.",
+    "vendorReason": "The Debate Club exclusively supplies scrolls that enhance their members' debating prowess.",
+    "shippingDetail": "Delivered within a week, with no special handling required for this delicate artifact.",
+    "usage": {
+      "activation": "Reading the scroll during a verbal challenge allows you to use its effects.",
+      "duration": "1 minute per activation.",
+      "endsWhen": "Disadvantage on counter-argument checks or when countered by an opponent's successful persuasion attempt.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "The Scroll of Rhetorical Ruin is priced at 1000 XP, reflecting its rare crafting and potent effects in the realm of verbal combat.",
+    "priceOriginal": 850,
+    "priceReviewedAt": "2026-07-24T23:59:59.738635+00:00",
+    "aiReviewedAt": "2026-07-24T23:59:59.738635+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_academy_crest": {
     "id": "kivotos_item_academy_crest",

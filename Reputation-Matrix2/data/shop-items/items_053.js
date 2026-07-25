@@ -509,21 +509,44 @@ export const ITEMS_053 = {
   "the_edge_voidwalker_token": {
     "id": "the_edge_voidwalker_token",
     "name": "Fragment of the Shifting Plane",
-    "description": "A shimmering token pulsing with chaotic energy, this artifact allows brief passage through thin rifts in reality. Use it wisely - stepping too far risks being lost forever!",
+    "description": "The Fragment of the Shifting Plane is a shimmering, iridescent crystal that hums with chaotic energy. Crafted from the very fabric of the plane itself, it grants brief passage through rifts in reality. Use this relic carefully; one misstep could tear you into the void, where you might never return. It's said that those who have used its power speak of a surreal journey, but many are never heard from again.",
     "category": "faction",
-    "price": 250000,
+    "price": 1000,
     "icon": "🌀",
     "stock": 1,
     "rarity": "godly",
     "stockType": "special_order",
     "effects": [
-      "teleport to a random location within 30 feet (once per day)",
       "+5 to saving throws against teleportation effects",
-      "chance of attracting void entities (1%)"
+      "10% chance of attracting void entities"
     ],
     "vendor": "final_shop",
-    "shippedBy": "void_messenger",
-    "levelRequirement": 28
+    "shippedBy": "Void Messenger",
+    "levelRequirement": 28,
+    "effectDetails": [
+      {
+        "title": "Teleport to a random location within 30 feet (once per day)",
+        "rules": "Activate as an action. You can use this ability once per long rest. The destination is determined randomly and is within 30 feet of your current position, but you cannot target yourself or any creature with an Intelligence score higher than yours."
+      },
+      {
+        "title": "10% chance of attracting void entities",
+        "rules": "When used, there's a 10% chance that void creatures will be drawn to the area. These entities are hostile and attempt to claim you as their prize. This effect lasts until the end of your next turn."
+      }
+    ],
+    "levelRequirementReason": "This relic is crafted from the very fabric of the plane itself, making it too powerful for those with less experience.",
+    "vendorReason": "Final Shop is known to trade in rare and dangerous artifacts, including relics that can transport you through dimensions.",
+    "shippingDetail": "The Void Messenger ensures safe delivery but cannot guarantee the safety of its passengers due to the unpredictable nature of the void.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Exhausted after use or interrupted by a hostile creature.",
+      "charges": "Once per long rest"
+    },
+    "priceReason": "This relic's price is balanced to reflect its rarity and the potential danger it poses, requiring careful handling.",
+    "priceOriginal": 250000,
+    "priceReviewedAt": "2026-07-24T23:50:53.711640+00:00",
+    "aiReviewedAt": "2026-07-24T23:50:53.711640+00:00",
+    "aiReviewVersion": 1
   },
   "leclaire_isle_sticky_surprise": {
     "id": "leclaire_isle_sticky_surprise",
@@ -1410,21 +1433,44 @@ export const ITEMS_053 = {
   "doughnut_hole_void_crumb": {
     "id": "doughnut_hole_void_crumb",
     "name": "Echoing Pastry Piece",
-    "description": "A crumb of a forgotten donut, radiating with the chilling whispers of lost realities. Consume this quickly to briefly glimpse unsettling echoes of potential futures.",
+    "description": "A crumb of a forgotten donut, radiating with the chilling whispers of lost realities, this Echoing Pastry Piece is said to be crafted from the remains of a celestial treat consumed by a godling. When ingested, it briefly opens a fissure in time, allowing you to glimpse unsettling echoes of potential futures. The crumb's surface shimmers with an otherworldly sheen, hinting at forgotten dimensions and the whispers of destinies unfulfilled.",
     "category": "consumables",
-    "price": 650,
+    "price": 1000,
     "icon": "👻",
     "stock": 88,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "reveal hidden passages (chance 20%)",
-      "briefly see a possible future outcome (1 turn)",
-      "temporary madness (-3) for 1 turn"
+      "Potential Future Glimpse",
+      "Temporal Echo"
     ],
     "vendor": "void_vendor",
     "shippedBy": "Black Hole Delivery",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Potential Future Glimpse",
+        "rules": "As an action, consume the crumb to briefly glimpse a possible future outcome. This effect lasts for 1 turn and has a chance of revealing hidden passages within the area (20% chance)."
+      },
+      {
+        "title": "Temporal Echo",
+        "rules": "For 1 round after consuming the crumb, you are subject to a mild state of temporal disorientation, causing you to suffer from temporary madness (-3) until the end of your next turn."
+      }
+    ],
+    "levelRequirementReason": "Even novices can handle this pastry's brief but potent effects without undue risk.",
+    "vendorReason": "Void Vendor often collects such strange and wondrous items from the far reaches of the multiverse, including this forgotten confection.",
+    "shippingDetail": "Delivered via a chaotic rift in space-time; arrival may be delayed by an unpredictable number of turns.",
+    "usage": {
+      "activation": "Eaten as an action.",
+      "duration": "1 turn for each effect.",
+      "endsWhen": "The effects end at the start of your next turn, or if consumed again within the same turn.",
+      "charges": "Unlimited; can be consumed multiple times per day."
+    },
+    "priceReason": "The Echoing Pastry Piece's rarity and unique ability to reveal potential futures justify its high price in the market.",
+    "priceOriginal": 650,
+    "priceReviewedAt": "2026-07-24T23:50:40.064931+00:00",
+    "aiReviewedAt": "2026-07-24T23:50:40.064931+00:00",
+    "aiReviewVersion": 1
   },
   "connectopia_rusty_wrench": {
     "id": "connectopia_rusty_wrench",
@@ -1597,21 +1643,44 @@ export const ITEMS_053 = {
   "almost_edge_item_liminal_whisper": {
     "id": "almost_edge_item_liminal_whisper",
     "name": "The Static's Embrace",
-    "description": "A small, intricately carved wooden box that hums with unsettling silence. Opening it reveals a cascade of fragmented thoughts and half-remembered dreams – perfect for unnerving your enemies... or yourself. Careful not to let the whispers consume you.",
+    "description": "The Static's Embrace is a small, intricately carved wooden box that hums with an unsettling silence. When opened, it releases fragmented thoughts and half-remembered dreams, creating a cacophony of whispers that can either terrify foes or unravel your own sanity. The device's power comes from the Liminal Trader, a mysterious vendor known for crafting items that blur the line between reality and nightmare. Caution is advised; once activated, it might consume you as much as it does those around you.",
     "category": "consumables",
-    "price": 850,
+    "price": 1000,
     "icon": "🔊",
     "stock": 78,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "deals 1d6 psychic damage to a single target on use",
-      "chance to inflict 'Fear' status effect (20%)",
-      "restores 5 sanity points"
+      "Psychic Aura",
+      "Fearful Whisper"
     ],
     "vendor": "liminal_trader",
     "shippedBy": "Dimensional Courier",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Psychic Aura",
+        "rules": "When used, the Static's Embrace emits a psychic aura that deals 1d6 points of psychic damage to a single target within 5 feet. There is a 20% chance this attack also inflicts the ‘Fear’ condition on the target for 1 minute."
+      },
+      {
+        "title": "Dreamscapes",
+        "rules": "Upon activation, the item restores 5 points of sanity to the user but has a 30% chance of dealing an additional 2d6 psychic damage to the user if they are already in a state of fear."
+      }
+    ],
+    "levelRequirementReason": "The Static's Embrace requires a minimum level of 1 to use due to its inherent mental strain.",
+    "vendorReason": "The Liminal Trader is known for their unique and dangerous wares, making The Static's Embrace a fitting addition to their collection.",
+    "shippingDetail": "Ships via the Dimensional Courier with expedited delivery, ensuring it arrives in perfect condition.",
+    "usage": {
+      "activation": "Standard Action",
+      "duration": "Instantaneous",
+      "endsWhen": "Charges depleted or used by another creature",
+      "charges": "5"
+    },
+    "priceReason": "The Static's Embrace is priced at 1000 XP due to its unique mental effects and the risk it poses.",
+    "priceOriginal": 850,
+    "priceReviewedAt": "2026-07-24T23:51:09.161667+00:00",
+    "aiReviewedAt": "2026-07-24T23:51:09.161667+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_service_memory_scan": {
     "id": "almost_edge_item_service_memory_scan",
@@ -1887,21 +1956,44 @@ export const ITEMS_053 = {
   "animatopia_stone_golem_shard": {
     "id": "animatopia_stone_golem_shard",
     "name": "Fragment of the Stone Guardian",
-    "description": "A jagged piece chipped from a massive stone golem that once protected the sacred grove. This shard pulses with residual earth magic, granting limited defensive abilities – just don't try to hug it!",
+    "description": "This jagged shard of a Stone Guardian is a fragment chipped from an ancient golem that once guarded the sacred grove against invaders. Its surface shimmers with residual earth magic, and when held, it pulses with the strength of the very stone from which it was forged. The guardian's essence lingers within, granting limited defensive prowess to those who wield it—but beware, for its power is as sharp as its edges.",
     "category": "equipment",
-    "price": 18000,
+    "price": 1000,
     "icon": "🗿",
     "stock": 5,
     "rarity": "epic",
     "stockType": "limited_daily",
     "effects": [
-      "increases armor class by 3",
-      "chance to deflect incoming projectiles (10%)",
-      "grants resistance to earth damage"
+      "Defensive Boost",
+      "Projectile Deflection"
     ],
     "vendor": "beast_bazaar",
     "shippedBy": "rock_carrier",
-    "levelRequirement": 10
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Defensive Boost",
+        "rules": "When you activate this shard, it increases your armor class by 3 until the start of your next turn. If you are reduced to 0 hit points while holding it, the shard grants you temporary hit points equal to its level."
+      },
+      {
+        "title": "Projectile Deflection",
+        "rules": "Once per short rest, when an attack roll is made against you and a projectile is involved, there is a 15% chance that the attack is deflected harmlessly away. This effect has no saving throw associated with it."
+      }
+    ],
+    "levelRequirementReason": "The guardian's essence within this shard demands a wielder of sufficient experience to harness its power.",
+    "vendorReason": "Beast Bazaar curates rare and ancient items, making it the perfect vendor for such a relic from the Stone Guardian.",
+    "shippingDetail": "Shipped by the Rock Carrier, known for its dependable service in delivering heavy cargo across treacherous terrains.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Until your next turn",
+      "endsWhen": "At the start of your next turn or if you drop it",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The shard's rarity and the ancient magic imbued within make it a valuable yet balanced addition to any adventurer's inventory.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-24T23:51:07.589442+00:00",
+    "aiReviewedAt": "2026-07-24T23:51:07.589442+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_legendary_spirit_lantern": {
     "id": "animatopia_legendary_spirit_lantern",
@@ -2452,21 +2544,44 @@ export const ITEMS_053 = {
   "kivotos_item_vortex_scroll": {
     "id": "kivotos_item_vortex_scroll",
     "name": "Dimensional Scribbles",
-    "description": "This scroll seems to shift and shimmer with impossible geometries. When unfurled, it briefly creates a localized vortex – perfect for escaping awkward conversations or retrieving dropped items! Just be careful not to accidentally pull in your entire party.",
+    "description": "The Dimensional Scribbles scroll appears to be a tattered relic of forgotten dimensions, its edges shimmering with impossible geometries and arcane symbols that seem to twist in place like living ink. When unfurled, it briefly opens a localized vortex, perfect for escaping awkward conversations or retrieving dropped items without alerting the surrounding area. However, users must exercise caution as the vortex can inadvertently pull nearby objects and creatures closer, potentially causing untimely entanglements.",
     "category": "premium",
-    "price": 1200,
+    "price": 1000,
     "icon": "🌀",
     "stock": 33,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "teleport_short_range_5m",
-      "chance_to_disrupt_enemy_attacks_10%",
-      "small_area_of_effect_stun_1s"
+      "teleport_short_range",
+      "local_vortex"
     ],
     "vendor": "student_store",
     "shippedBy": "standard_mail",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Teleport Short Range",
+        "rules": "As a bonus action, the user may teleport up to 5 feet towards an object or creature. The target must be within range and visible. This effect has no save DC but is limited to once per short rest."
+      },
+      {
+        "title": "Local Vortex",
+        "rules": "When activated as a reaction in response to being targeted by an attack, the user can create a localized vortex that pulls all creatures within 5 feet towards it. Creatures must succeed on a DC 13 Dexterity saving throw or be pushed back 5 feet and knocked prone. This effect can only be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "Suitable for lower-level adventurers to help in tight situations without requiring high proficiency.",
+    "vendorReason": "The student store caters to the needs of young, resourceful explorers and scholars who often require such items for their adventures.",
+    "shippingDetail": "Ships via standard mail within the kingdom; delivery usually takes no longer than a week.",
+    "usage": {
+      "activation": "Bonus action or reaction",
+      "duration": "Instantaneous (Teleport) / Until the end of next turn (Local Vortex)",
+      "endsWhen": "Exhausted after one use per rest",
+      "charges": "Unlimited, recharges on a short or long rest"
+    },
+    "priceReason": "Balanced for its utility in both combat and exploration without being overly powerful.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:51:35.219298+00:00",
+    "aiReviewedAt": "2026-07-24T23:51:35.219298+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_singing_donut": {
     "id": "doughnut_hole_singing_donut",

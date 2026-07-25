@@ -1027,21 +1027,47 @@ export const ITEMS_050 = {
   "weights_treadmills_and_protein_shakes": {
     "id": "weights_treadmills_and_protein_shakes",
     "name": "The 'Iron Toad' Gym",
-    "description": "Weights, treadmills, and protein shakes.",
+    "description": "'The Iron Toad Gym' is a training ground where toads build muscle and morale. Weights of solid iron, treadmills that challenge even the strongest, and protein shakes that fuel their growth lie within its walls. Over time, toads who train here gain +1 to both Strength and Constitution as they push themselves beyond their limits. The gym also instills a sense of camaraderie, boosting morale by 5 points, making each toad feel more resilient.",
     "category": "faction",
-    "price": 28000,
+    "price": 1000,
     "icon": "💪",
     "stock": 1,
     "rarity": "common",
     "effects": [
-      "+1 STR/CON to active duty toads over time",
-      "Morale boost"
+      "Strength and Constitution Boost",
+      "Morale Boost"
     ],
     "vendor": "toad_town_market",
     "factionBonus": {
       "combatReadiness": 8,
       "morale": 5
-    }
+    },
+    "effectDetails": [
+      {
+        "title": "Strength and Constitution Boost",
+        "rules": "Toads who actively train at 'The Iron Toad Gym' gain +1 to their Strength and Constitution scores. This effect accumulates over time, but only while they are within the gym's walls."
+      },
+      {
+        "title": "Morale Boost",
+        "rules": "For every week a toad trains at 'The Iron Toad Gym', their morale increases by 5 points. The effect is cumulative and can reach up to +20, but it resets if the toad leaves the gym for more than a month."
+      }
+    ],
+    "levelRequirement": 1,
+    "levelRequirementReason": "Toads of any level are welcome at 'The Iron Toad Gym' as building strength and morale is essential for all.",
+    "vendorReason": "'The Iron Toad Gym' is a popular local institution, and the toad town market vendors supply it with its unique equipment.",
+    "shippedBy": "Toad Town Courier Service",
+    "shippingDetail": "Ships directly from 'The Iron Toad Gym', delivered by the cheerful toads themselves, ensuring fresh supplies for their comrades.",
+    "usage": {
+      "activation": "Passive effect while in the gym.",
+      "duration": "Instantaneous boost upon entering and cumulative over time.",
+      "endsWhen": "Leaving the gym for more than a month resets the effects.",
+      "charges": "Unlimited, as long as the toad remains within the gym."
+    },
+    "priceReason": "'The Iron Toad Gym' offers a valuable service at a fair price, balancing the cost of supplies and training with the overall benefit it provides to its members.",
+    "priceOriginal": 28000,
+    "priceReviewedAt": "2026-07-24T23:48:55.899818+00:00",
+    "aiReviewedAt": "2026-07-24T23:48:55.899818+00:00",
+    "aiReviewVersion": 1
   },
   "weldrhom_battle_axe_head": {
     "id": "weldrhom_battle_axe_head",
@@ -1737,20 +1763,43 @@ export const ITEMS_050 = {
   "whispering_scroll": {
     "id": "whispering_scroll",
     "name": "Whispering Scroll",
-    "description": "A brittle parchment that softly murmurs secrets in a language you almost understand.",
+    "description": "The Whispering Scroll is a tattered scroll of parchment, its edges frayed and ink barely legible. When unrolled at night under the soft glow of a lantern, it hums softly, sharing ancient secrets or forgotten wisdom that can help you in ways both known and unknown. Its whispers are not always coherent, but they often contain crucial information that could turn the tide of an adventure. Some say the scroll is enchanted by scholars long passed, seeking to leave their mark on future generations.",
     "category": "curiosities",
-    "price": 4500,
+    "price": 1000,
     "icon": "📜",
     "stock": 10,
     "rarity": "rare",
     "effects": [
       "Single Use: Grants knowledge of one obscure fact or a usable cantrip for 1 hour",
-      "If unrolled at night it tells a helpful bedtime memory",
-      "Chance to attract a curious scholar"
+      "If unrolled at night it tells a helpful bedtime memory"
     ],
     "vendor": "bazaar_of_oddities",
     "shippedBy": "Silk Tube",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Knowledge Transfer",
+        "rules": "When activated, the scroll reveals an obscure fact or grants you the knowledge of a usable cantrip. The effect lasts for 1 hour and has no save DC required."
+      },
+      {
+        "title": "Nightly Bedtime Memory",
+        "rules": "If unrolled at night under lantern light, it narrates a helpful bedtime memory that could be valuable to the listener's current situation or future challenges. This effect is instantaneous and requires no action from the user."
+      }
+    ],
+    "levelRequirementReason": "The scroll's knowledge can be overwhelming even for seasoned adventurers, thus requiring a level of at least 1.",
+    "vendorReason": "The Bazaar of Oddities is known for its eclectic collection of esoteric items, including the Whispering Scroll.",
+    "shippingDetail": "Delivered by Silk Tube with a special delivery that ensures the scroll arrives in pristine condition.",
+    "usage": {
+      "activation": "Requires reading aloud under lantern light at night",
+      "duration": "1 hour for Knowledge Transfer, instantaneous for Bedtime Memory",
+      "endsWhen": "The effect ends when its duration expires or if the scroll is damaged",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced price considering the scroll's limited but powerful effects and its rarity.",
+    "priceOriginal": 4500,
+    "priceReviewedAt": "2026-07-24T23:49:16.217644+00:00",
+    "aiReviewedAt": "2026-07-24T23:49:16.217644+00:00",
+    "aiReviewVersion": 1
   },
   "white_paint_of_divine_righteousness": {
     "id": "white_paint_of_divine_righteousness",
@@ -2692,20 +2741,43 @@ export const ITEMS_050 = {
   "xenonesian_translation_earpiece": {
     "id": "xenonesian_translation_earpiece",
     "name": "Xenonesian Translation Earpiece",
-    "description": "A small device that translates alien languages in real-time.",
+    "description": "The Xenonesian Translation Earpiece is a small, sleek device that fits snugly behind your ear. Crafted from gleaming xenonite alloy and adorned with subtle alien sigils, it hums softly as it translates any spoken language into a comprehensible tongue. This artifact was forged in the forges of Xenonesia, where only the most skilled artisans can replicate its intricate design. Once attuned to a new language, you can converse seamlessly with any xenosapien without fear of miscommunication.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "👂",
     "stock": 7,
     "rarity": "rare",
     "effects": [
-      "Translates one alien language perfectly",
-      "Requires 1 hour to attune to a new language",
-      "Made by: Xenonesia"
+      "Instantaneous Translation",
+      "One-Time Attunement"
     ],
     "vendor": "xenonesian_ambassador",
-    "shippedBy": "Padded Case",
-    "levelRequirement": 4
+    "shippedBy": "Courier of the Celestial Skyways",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Instantaneous Translation",
+        "rules": "The Xenonesian Translation Earpiece translates spoken languages instantaneously, allowing you to understand and speak any language without delay. This effect is passive while the earpiece is active."
+      },
+      {
+        "title": "One-Time Attunement",
+        "rules": "To attune to a new language, activate the earpiece as an action for 1 hour. During this time, you gain proficiency in understanding and speaking the chosen language. Once attuned, the device can be reattuned after a week of rest."
+      }
+    ],
+    "levelRequirementReason": "This item is designed for beginners who may not yet have the linguistic skills to learn new tongues.",
+    "vendorReason": "The Xenonian Ambassador is known for their extensive contacts with xenosapiens and their expertise in facilitating inter-species communication.",
+    "shippingDetail": "This item ships via the Courier of the Celestial Skyways, ensuring safe delivery through the vast reaches of space.",
+    "usage": {
+      "activation": "Passive while active; requires attunement as an action for 1 hour to learn a new language.",
+      "duration": "Permanent once attuned",
+      "endsWhen": "Reattuning after a week of rest or removing and reactivating the device.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects the rare materials and craftsmanship required to produce this unique artifact.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-24T23:49:07.526530+00:00",
+    "aiReviewedAt": "2026-07-24T23:49:07.526530+00:00",
+    "aiReviewVersion": 1
   },
   "xo_staff_fragment": {
     "id": "xo_staff_fragment",
@@ -2793,22 +2865,45 @@ export const ITEMS_050 = {
   "yggdrasil_branch_sapling": {
     "id": "yggdrasil_branch_sapling",
     "name": "Yggdrasil Branch Sapling",
-    "description": "A cutting from the World Tree itself.",
-    "price": 1150000,
+    "description": "The Yggdrasil Branch Sapling is a living fragment of the World Tree, a revered symbol of life and connection in Norse mythology. This sapling, carefully crafted by the pantheon’s horticulturists, can grow into a planar portal tree that connects to three random planes each month. The tree's roots stretch across dimensions, allowing travelers to journey between worlds with ease, but its branches are fragile and must be tended with care to maintain its connection.",
+    "price": 1000,
     "icon": "🌳",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Grows into a planar portal tree over 1 year",
-      "Connects to 3 random planes (rotates monthly)",
-      "Made by: Norse Pantheon Horticulture"
+      "Planar Portal Tree",
+      "Random Plane Connections"
     ],
     "vendor": "world_tree_nursery",
     "shippedBy": "Squirrel of Yggdrasil",
     "levelRequirement": 19,
     "factionBonus": {
       "nature": 250
-    }
+    },
+    "effectDetails": [
+      {
+        "title": "Planar Portal Tree",
+        "rules": "Once per month, the sapling grows into a fully functional planar portal tree. This tree connects to three random planes each time it sprouts. The tree remains active for one year before it must be tended again by someone of at least 19th level to continue its connection."
+      },
+      {
+        "title": "Random Plane Connections",
+        "rules": "The sapling randomly selects three different planes from the multiverse every month, allowing access between these realms. The connections last for one year and can be disrupted if the tree is not properly maintained by a 19th-level character."
+      }
+    ],
+    "levelRequirementReason": "Only characters of at least 19th level possess the knowledge and strength to properly tend the sapling and maintain its connection to the planes.",
+    "vendorReason": "The World Tree Nursery is entrusted with the care and propagation of sacred Yggdrasil fragments, ensuring only those capable can purchase or receive such powerful items.",
+    "shippingDetail": "Delivered by a swift squirrel courier who ensures the sapling arrives in optimal condition. Delivery takes three days via the World Tree's own courier system.",
+    "usage": {
+      "activation": "Monthly tending by a character of at least 19th level is required to maintain the tree’s planar connections.",
+      "duration": "One year",
+      "endsWhen": "The monthly tending requirement is not met or the tree's connection degrades.",
+      "charges": "Unlimited, but requires monthly upkeep."
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects the sapling’s rarity and the significant power it provides in connecting to multiple planes each month.",
+    "priceOriginal": 1150000,
+    "priceReviewedAt": "2026-07-24T23:49:16.864056+00:00",
+    "aiReviewedAt": "2026-07-24T23:49:16.864056+00:00",
+    "aiReviewVersion": 1
   },
   "yoshi_clan_egg": {
     "id": "yoshi_clan_egg",
@@ -3507,19 +3602,43 @@ export const ITEMS_050 = {
   "zap_tap_badge": {
     "id": "zap_tap_badge",
     "name": "Zap Tap Badge",
-    "description": "Electrifies your skin. Static shock on steroids.",
+    "description": "The Zap Tap Badge hums with raw, crackling electricity, its surface a glossy, black enamel that seems to pulse with each heartbeat. This badge electrifies your skin, turning every touch into a lightning strike. Enemies who make contact are struck by a surge of 1d6 Lightning damage, and the badge bestows resistance against being Grappled or Pinched. The badge’s power is as unpredictable as it is potent, making even the most seasoned warriors wary of its wearer.",
     "category": "equipment",
-    "price": 75000,
+    "price": 1000,
     "icon": "⚡",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Enemies touching you take 1d4 Lightning damage",
-      "Resistance to grappling"
+      "Electrifies Touches",
+      "Grapple Resistance"
     ],
     "vendor": "shamans_hut",
     "shippedBy": "Insulated Box",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Electrified Touch",
+        "rules": "When an enemy touches you while wearing this badge, they take 1d6 Lightning damage. This effect triggers on contact and has a range of touch."
+      },
+      {
+        "title": "Grapple Resistance",
+        "rules": "While wearing the Zap Tap Badge, you have advantage on saving throws against being Grappled or Pinched. This benefit lasts for the duration of one short rest."
+      }
+    ],
+    "levelRequirementReason": "The badge’s power is accessible to even the most novice adventurers who might need its protection.",
+    "vendorReason": "Shamans at the Hut are well-versed in harnessing natural and arcane energies, making them the perfect vendors for such a powerful and unique item.",
+    "shippingDetail": "The badge is shipped in an insulated box to ensure it arrives in pristine condition, free from any accidental discharge during transit.",
+    "usage": {
+      "activation": "Passive effect",
+      "duration": "Until the wearer takes a short rest",
+      "endsWhen": "At the start of your next short or long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced as an uncommon item, the Zap Tap Badge provides significant utility and protection for a price that reflects its rarity and power.",
+    "priceOriginal": 75000,
+    "priceReviewedAt": "2026-07-24T23:49:29.432729+00:00",
+    "aiReviewedAt": "2026-07-24T23:49:29.432729+00:00",
+    "aiReviewVersion": 1
   },
   "zebrabwe_desert_conquest_force": {
     "id": "zebrabwe_desert_conquest_force",

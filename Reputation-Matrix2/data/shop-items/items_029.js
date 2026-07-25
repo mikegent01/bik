@@ -3783,19 +3783,42 @@ export const ITEMS_029 = {
   "midlands_souls_of_the_burned_mill": {
     "id": "midlands_souls_of_the_burned_mill",
     "name": "Souls of the Burned Mill",
-    "description": "A vial containing the essence of a mill that was crushed beneath the weight of a war machine. When consumed, it grants a temporary boost to industrial efficiency and grants the wearer a curse that drains enemy morale.",
-    "price": 1200,
+    "description": "The vial shimmers with an eerie, ethereal glow, its contents a swirling mass of indigo and crimson essence. Crafted from the remnants of a mill that was once ground beneath the weight of a war machine, it grants a fleeting surge in industrial efficiency. For ten seconds, you and your allies feel as if time itself has accelerated, while your enemies' morale plummets. The curse lingers, silently sapping their will to fight just long enough for victory to be secured.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "+20% production speed",
-      "-5% enemy morale for 10 seconds",
-      "Inflicts 10% debuff on enemy leadership"
+      "+20% Production Speed",
+      "-15% Enemy Morale"
     ],
     "vendor": "midlands",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 4
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Industrial Surge",
+        "rules": "When consumed, the vial grants you and your allies a +20% production speed bonus for 10 seconds. This effect is instantaneous upon consumption."
+      },
+      {
+        "title": "Morale Drain",
+        "rules": "For 10 seconds after consuming the vial, enemies within a 30-foot radius suffer a -15% morale penalty to attack rolls and saving throws. The effect ends when the duration expires or if you take any action."
+      }
+    ],
+    "levelRequirementReason": "This item requires at least second-level proficiency in industrial magic for its effects to be fully realized.",
+    "vendorReason": "The Midlands are well-known for their expertise in crafting items that blend history with magic, and the souls of the burned mill is a testament to this tradition.",
+    "shippingDetail": "Ships via Koopa Postal's express service, ensuring swift delivery. However, due to its fragile nature, it must be handled with care during transit.",
+    "usage": {
+      "activation": "Consumed as an action",
+      "duration": "10 seconds",
+      "endsWhen": "The duration expires or you take any action",
+      "charges": "Unlimited; the vial regenerates after a short rest"
+    },
+    "priceReason": "Crafted from rare and precious mill remains, this item offers significant industrial advantages in combat, making it a valuable yet balanced purchase.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:24:43.909054+00:00",
+    "aiReviewedAt": "2026-07-24T23:24:43.909054+00:00",
+    "aiReviewVersion": 1
   },
   "midlands_spectral_mech_anvil": {
     "id": "midlands_spectral_mech_anvil",

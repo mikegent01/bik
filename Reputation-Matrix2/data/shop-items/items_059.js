@@ -5,21 +5,44 @@ export const ITEMS_059 = {
   "middle_earth_ringwraith_shard": {
     "id": "middle_earth_ringwraith_shard",
     "name": "Shadowfell Fragment",
-    "description": "A pulsating shard of pure darkness, radiating a chilling aura. This fragment is said to have once been part of a Ringwraith's armor – don’t get too close or you might start craving shiny things and hoarding souls!",
+    "description": "A pulsating shard of pure darkness, radiating a chilling aura that makes nearby souls shiver and tremble. This fragment is said to have once been part of a Ringwraith's armor, imbued with the malevolent essence of the Shadowfell. Touching it feels like stepping into an endless nightmarish void; one might succumb to the allure of eternal darkness or find oneself compelled to gather lost souls for its master. This fragment is a relic of ancient evil, and those who dare wield it must walk carefully lest they be consumed by its malevolent influence.",
     "category": "curiosities",
-    "price": 50000,
+    "price": 1000,
     "icon": "🌑",
     "stock": 3,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "chance_to_fear:15%",
-      "absorb_shadow_energy:5",
-      "mana_regen:2"
+      "chill_touch",
+      "soul_gatherer"
     ],
     "vendor": "elven_market",
     "shippedBy": "dragon_airship",
-    "levelRequirement": 18
+    "levelRequirement": 18,
+    "effectDetails": [
+      {
+        "title": "Chill Touch",
+        "rules": "As an action, the user can touch another creature within reach. The target must make a DC 15 Constitution saving throw or be chilled for 1 minute, during which time it has disadvantage on attack rolls and ability checks."
+      },
+      {
+        "title": "Soul Gatherer",
+        "rules": "The user gains advantage on saving throws against being charmed or frightened. Additionally, once per short rest, the user can attempt to gather a soul by making a DC 15 Wisdom (Insight) check. On a success, it successfully gathers one willing creature's soul into itself."
+      }
+    ],
+    "levelRequirementReason": "Only those of great power and experience in the ways of darkness can wield this fragment without succumbing to its corrupting influence.",
+    "vendorReason": "The elves of Mirkwood have long traded with the forces of the Shadowfell, and they are privy to such dark artifacts.",
+    "shippingDetail": "Ships via a dragon airship, which can be delayed by up to one week due to the inherent risks of transporting such dangerous items.",
+    "usage": {
+      "activation": "Action or Reaction (to touch another creature)",
+      "duration": "Chill Touch: 1 minute; Soul Gatherer: Instantaneous",
+      "endsWhen": "Chill Touch ends when it is dispelled, and the target no longer has disadvantage on its rolls. Soul Gatherer ends after one use per short rest.",
+      "charges": "Unlimited (recharged by the next dawn)"
+    },
+    "priceReason": "The price reflects the rarity of such an artifact, requiring great skill and resources to acquire.",
+    "priceOriginal": 50000,
+    "priceReviewedAt": "2026-07-24T23:55:42.872448+00:00",
+    "aiReviewedAt": "2026-07-24T23:55:42.872448+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_shrieking_totem": {
     "id": "animatopia_shrieking_totem",
