@@ -206293,5 +206293,155 @@
       "charges": "Unlimited, but limited to one active quest at any time."
     },
     "aiReviewedAt": "2026-07-24T00:10:49.616866+00:00"
+  },
+  "grand_country_item_forbidden_vertical_hook_of_stasis": {
+    "id": "grand_country_item_forbidden_vertical_hook_of_stasis",
+    "name": "The Obsidian Stasis Hook Caller",
+    "effects": [
+      "gravity_nullification",
+      "fall_damage_resistance"
+    ],
+    "effectDetails": [
+      {
+        "title": "Gravity Nullification",
+        "rules": "As an action, you can activate the Obsidian Stasis Hook Caller to suspend yourself in a state of absolute vertical stasis for up to 1 minute. This effect nullifies any fall damage within its duration and prevents you from being knocked prone by gravity-related effects."
+      },
+      {
+        "title": "Karmic Debt",
+        "rules": "Using the Obsidian Stasis Hook Caller more than once per day incurs a karmic debt, which can only be repaid with a significant personal sacrifice. The DM will decide what constitutes an acceptable repayment of this debt."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 minute per day",
+      "endsWhen": "The duration ends when the effect is no longer needed or when the user activates another effect of the device.",
+      "charges": "Unlimited, but limited to once per day."
+    },
+    "aiReviewedAt": "2026-07-25T03:44:01.873760+00:00"
+  },
+  "name:the obsidian stasis hook caller": {
+    "id": "grand_country_item_forbidden_vertical_hook_of_stasis",
+    "name": "The Obsidian Stasis Hook Caller",
+    "effects": [
+      "gravity_nullification",
+      "fall_damage_resistance"
+    ],
+    "effectDetails": [
+      {
+        "title": "Gravity Nullification",
+        "rules": "As an action, you can activate the Obsidian Stasis Hook Caller to suspend yourself in a state of absolute vertical stasis for up to 1 minute. This effect nullifies any fall damage within its duration and prevents you from being knocked prone by gravity-related effects."
+      },
+      {
+        "title": "Karmic Debt",
+        "rules": "Using the Obsidian Stasis Hook Caller more than once per day incurs a karmic debt, which can only be repaid with a significant personal sacrifice. The DM will decide what constitutes an acceptable repayment of this debt."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 minute per day",
+      "endsWhen": "The duration ends when the effect is no longer needed or when the user activates another effect of the device.",
+      "charges": "Unlimited, but limited to once per day."
+    },
+    "aiReviewedAt": "2026-07-25T03:44:01.873760+00:00"
+  },
+  "equestrian_item_the_scorched_mane_guardian": {
+    "id": "equestrian_item_the_scorched_mane_guardian",
+    "name": "The Scorched Mane Guardian’s Bit",
+    "effects": [
+      "Fire Resistance",
+      "Hoof Flame"
+    ],
+    "effectDetails": [
+      {
+        "title": "Fire Resistance",
+        "rules": "The rider gains temporary resistance to cold damage equal to their proficiency bonus +10. This effect lasts for 1 minute."
+      },
+      {
+        "title": "Hoof Flame",
+        "rules": "For the duration of the fire resistance, a minor flame ignites around the rider's hooves, providing advantage on checks made with speed or agility while navigating icy terrain. The flame persists until it is extinguished by water, mud, or another similar obstacle."
+      }
+    ],
+    "usage": {
+      "activation": "Activates as a bonus action when the rider is in icy conditions or facing cold-based threats.",
+      "duration": "1 minute, or until expended in combat.",
+      "endsWhen": "Exhausted after one use per short rest.",
+      "charges": "One charge; recharges on completion of a long rest."
+    },
+    "aiReviewedAt": "2026-07-25T03:44:10.656912+00:00"
+  },
+  "name:the scorched mane guardian’s bit": {
+    "id": "equestrian_item_the_scorched_mane_guardian",
+    "name": "The Scorched Mane Guardian’s Bit",
+    "effects": [
+      "Fire Resistance",
+      "Hoof Flame"
+    ],
+    "effectDetails": [
+      {
+        "title": "Fire Resistance",
+        "rules": "The rider gains temporary resistance to cold damage equal to their proficiency bonus +10. This effect lasts for 1 minute."
+      },
+      {
+        "title": "Hoof Flame",
+        "rules": "For the duration of the fire resistance, a minor flame ignites around the rider's hooves, providing advantage on checks made with speed or agility while navigating icy terrain. The flame persists until it is extinguished by water, mud, or another similar obstacle."
+      }
+    ],
+    "usage": {
+      "activation": "Activates as a bonus action when the rider is in icy conditions or facing cold-based threats.",
+      "duration": "1 minute, or until expended in combat.",
+      "endsWhen": "Exhausted after one use per short rest.",
+      "charges": "One charge; recharges on completion of a long rest."
+    },
+    "aiReviewedAt": "2026-07-25T03:44:10.656912+00:00"
+  },
+  "equestrian_item_the_crystalline_echo_shard": {
+    "id": "equestrian_item_the_crystalline_echo_shard",
+    "name": "The Crystalline Echo Shard of Twilight’s Reverie",
+    "effects": [
+      "echo perception",
+      "intuition enhancement"
+    ],
+    "effectDetails": [
+      {
+        "title": "Echo Perception",
+        "rules": "By concentrating for 1 minute, the user can perceive echoes of past events within a location. This grants advantage on Wisdom (Insight) checks to recall information about the area and allows the user to detect hidden objects within 30 feet with no roll required."
+      },
+      {
+        "title": "Intuition Enhancement",
+        "rules": "For the duration of one short rest, the user gains a +2 bonus to Intelligence saving throws. The shard can only be used once per day and must be recharged after an extended rest."
+      }
+    ],
+    "usage": {
+      "activation": "Concentrate on echo perception for 1 minute; no activation required for intuition enhancement.",
+      "duration": "Echo Perception lasts until the end of your next turn. Intuition Enhancement lasts until after you complete a short rest.",
+      "endsWhen": "Echo Perception ends when concentration is interrupted or after one minute. Intuition Enhancement ends at the start of your next short rest.",
+      "charges": "One use per day, recharging after an extended rest."
+    },
+    "aiReviewedAt": "2026-07-25T03:44:21.974472+00:00"
+  },
+  "name:the crystalline echo shard of twilight’s reverie": {
+    "id": "equestrian_item_the_crystalline_echo_shard",
+    "name": "The Crystalline Echo Shard of Twilight’s Reverie",
+    "effects": [
+      "echo perception",
+      "intuition enhancement"
+    ],
+    "effectDetails": [
+      {
+        "title": "Echo Perception",
+        "rules": "By concentrating for 1 minute, the user can perceive echoes of past events within a location. This grants advantage on Wisdom (Insight) checks to recall information about the area and allows the user to detect hidden objects within 30 feet with no roll required."
+      },
+      {
+        "title": "Intuition Enhancement",
+        "rules": "For the duration of one short rest, the user gains a +2 bonus to Intelligence saving throws. The shard can only be used once per day and must be recharged after an extended rest."
+      }
+    ],
+    "usage": {
+      "activation": "Concentrate on echo perception for 1 minute; no activation required for intuition enhancement.",
+      "duration": "Echo Perception lasts until the end of your next turn. Intuition Enhancement lasts until after you complete a short rest.",
+      "endsWhen": "Echo Perception ends when concentration is interrupted or after one minute. Intuition Enhancement ends at the start of your next short rest.",
+      "charges": "One use per day, recharging after an extended rest."
+    },
+    "aiReviewedAt": "2026-07-25T03:44:21.974472+00:00"
   }
 }
