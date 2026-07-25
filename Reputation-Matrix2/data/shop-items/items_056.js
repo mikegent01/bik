@@ -257,21 +257,44 @@ export const ITEMS_056 = {
   "leclaire_isle_item_sugar_shock_berry": {
     "id": "leclaire_isle_item_sugar_shock_berry",
     "name": "Sugar Shock Berry",
-    "description": "These vibrant red berries explode with a burst of sugary energy! Consuming one grants a temporary speed boost and confusion, causing your enemies to stumble around in delightful disarray – Wario would LOVE this!",
+    "description": "The Sugar Shock Berry is a vibrant, almost neon red fruit that pulses with an ungodly amount of sugar. When consumed, it grants you a burst of energy and temporarily boosts your speed, leaving your enemies in a state of delightful confusion as they stumble around in disarray. The berry's sweet juice coats your mouth, making your tongue feel as if it's about to explode from the sheer volume of sugar racing through you.",
     "category": "consumables",
-    "price": 350,
+    "price": 1000,
     "icon": "🍬",
     "stock": 98,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "speed_boost:2",
-      "chance_to_confuse_target",
-      "temporary_increased_movement_speed"
+      "speed_boost",
+      "confusion"
     ],
     "vendor": "sweet_supplies",
     "shippedBy": "Honeybee Drone",
-    "levelRequirement": 1
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Speed Boost",
+        "rules": "You gain a +2 bonus to your speed until the start of your next turn. This effect ends if you take any damage or are incapacitated."
+      },
+      {
+        "title": "Confusion",
+        "rules": "For 1 minute, each creature that starts its turn within 5 feet of you must make a DC 13 Wisdom saving throw or be stunned until the start of your next turn. On a successful save, the target is instead frightened of you for 1 minute."
+      }
+    ],
+    "levelRequirementReason": "This item provides a significant combat advantage but does not require a high level to benefit from its effects.",
+    "vendorReason": "Sweet Supplies is known for carrying the most delightful and bizarre consumables, including this sugar-packed treat.",
+    "shippingDetail": "The Honeybee Drone delivers with a slight delay due to its need to collect nectar from various sources before delivering the berries.",
+    "usage": {
+      "activation": "Eating the berry as an action.",
+      "duration": "Until the start of your next turn for the speed boost, and until the end of your next turn for the confusion effect.",
+      "endsWhen": "If you take damage or are incapacitated.",
+      "charges": "Unlimited; can be consumed repeatedly."
+    },
+    "priceReason": "The price reflects its rare sugar content, complex flavor profile, and the difficulty of sourcing such a concentrated burst of sweetness in an item.",
+    "priceOriginal": 350,
+    "priceReviewedAt": "2026-07-24T23:54:05.228403+00:00",
+    "aiReviewedAt": "2026-07-24T23:54:05.228403+00:00",
+    "aiReviewVersion": 1
   },
   "leclaire_isle_sugar_sprout": {
     "id": "leclaire_isle_sugar_sprout",
@@ -1704,21 +1727,44 @@ export const ITEMS_056 = {
   "pokemon_item_phantom_echo": {
     "id": "pokemon_item_phantom_echo",
     "name": "Echoing Ghost Orb",
-    "description": "This shimmering orb pulses with the faintest traces of ghostly energy, remnants from battles long past. Wario would love to use this as a distraction for unsuspecting Pokémon! It briefly duplicates your attacks, offering a spooky surprise.",
+    "description": "The Echoing Ghost Orb pulses with an eerie, spectral glow that flickers like forgotten memories. Crafted from ancient ghostly energy and bound to the whims of a mischievous Pokémon, this orb temporarily duplicates your attacks in a haunting display. It's perfect for luring unsuspecting trainers into a phantasmal distraction, leaving them bewildered and confused. The orb’s spectral pulses can restore a little life when you need it most, but beware—its duplicating magic might just leave you as lost as the Pokémon who first discovered it.",
     "category": "consumables",
-    "price": 12000,
+    "price": 1000,
     "icon": "👻",
     "stock": 35,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "deals 15% bonus damage for 3 turns",
-      "chance to inflict 'Confused' on target",
-      "restores 20 HP"
+      "Duplicating Attacks",
+      "Confusion on Target"
     ],
     "vendor": "pokemart",
-    "shippedBy": "Pokémail",
-    "levelRequirement": 7
+    "shippedBy": "Pokémail Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Duplicating Attacks",
+        "rules": "Upon activation, the Echoing Ghost Orb duplicates your next attack. This duplicate attack occurs as an opportunity action and targets the same creature. If successful, it deals 15% bonus damage for 3 turns. The duplicate attack does not provoke attacks of opportunity."
+      },
+      {
+        "title": "Confusion on Target",
+        "rules": "There's a 20% chance that the target becomes confused as an immediate action until the start of its next turn, costing it any action it would take at that time. This effect has no save DC and can only occur once per round."
+      }
+    ],
+    "levelRequirementReason": "It's a simple yet effective tool for beginners to practice their attacks in a whimsical manner.",
+    "vendorReason": "The Pokémart stocks an array of items, including the Echoing Ghost Orb, which is perfect for both novice and experienced trainers seeking unique tools.",
+    "shippingDetail": "Delivered via Pokémail Express, ensuring that the orb arrives fresh and ready to use.",
+    "usage": {
+      "activation": "Opportunity action (requires being within reach of an opponent)",
+      "duration": "Instantaneous (single attack)",
+      "endsWhen": "The target makes an opportunity attack or the end of your next turn",
+      "charges": "Unlimited, but requires a short rest to duplicate another attack"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects its utility and the ghostly energy required for crafting.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-24T23:54:04.693028+00:00",
+    "aiReviewedAt": "2026-07-24T23:54:04.693028+00:00",
+    "aiReviewVersion": 1
   },
   "pokemon_item_trainer_badge": {
     "id": "pokemon_item_trainer_badge",

@@ -858,20 +858,43 @@ export const ITEMS_046 = {
   "valley_bowser_lava_core_pendant": {
     "id": "valley_bowser_lava_core_pendant",
     "name": "Lava Core Pendant",
-    "description": "A pulsating amulet forged from the heart of a dormant volcano. Grants heat-based buffs and regenerates HP after taking damage.",
+    "description": "The Lava Core Pendant is a molten amulet forged deep within the dormant heart of Mount Bowser, its surface crackling and pulsating with volcanic heat. This fiery charm grants the wearer a second skin of resistance to fire damage and regenerates hit points after taking harm, drawing upon the very essence of molten rock. When struck or damaged in combat, it releases a burst of searing heat that heals you, but beware—its power can only be wielded by those who have proven their mettle through trial.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "+15% HP regeneration per second",
-      "+10% fire damage",
-      "When damaged, emits a burst of heat to heal 20% HP"
+      "+20% HP regeneration after damage",
+      "Fire Resistance +15"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Regenerative Burst",
+        "rules": "When reduced to half your maximum hit points or less, the pendant emits a burst of heat that heals you for an amount equal to 20% of your current hit points. This effect can only occur once per long rest."
+      },
+      {
+        "title": "Fire Resistance",
+        "rules": "The wearer gains resistance to fire damage while wearing this pendant. This benefit is active as long as the pendant remains attached to you."
+      }
+    ],
+    "levelRequirementReason": "Even the simplest adventurer can feel the heat of the Lava Core Pendant, but only those who have faced its volcanic wrath can truly master it.",
+    "vendorReason": "Valley Bowser, a merchant with ties to the fiery underworld, ensures that only those who can handle the heat receive this molten treasure.",
+    "shippingDetail": "The Shy Guys deliver the Lava Core Pendant via a convoy of lava-tamed crocodiles, ensuring its safe arrival at your doorstep.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Permanent until destroyed or removed from the wearer.",
+      "endsWhen": "Destroyed by fire damage that reduces it to zero hit points or when removed from the wearer.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Lava Core Pendant is crafted from rare volcanic materials and imbued with potent magical properties, making it a valuable yet balanced addition to any adventurer's arsenal.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:45:41.932021+00:00",
+    "aiReviewedAt": "2026-07-24T23:45:41.932021+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_lava_core_potion": {
     "id": "valley_bowser_lava_core_potion",
@@ -1340,20 +1363,43 @@ export const ITEMS_046 = {
   "valley_bowser_lava_scorch_glove": {
     "id": "valley_bowser_lava_scorch_glove",
     "name": "Lava Scorch Glove",
-    "description": "Wears down enemy armor with molten heat. Perfect for battling Koopa Troop in the volcanic maelstrom. Grants temporary fire resistance while active.",
+    "description": "The Lava Scorch Glove, forged in Bowser's volcanic lair, channels molten heat directly into your grasp. This infernal gauntlet not only scorches enemies with its fiery touch but grants you a temporary barrier of fire resistance. Crafted from lava-hardened steel and imbued with the essence of magma, it is a masterwork of volcanic alchemy designed for those who dare to face the fiery legions of the Mushroom Kingdom.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Inflicts 30% fire damage on enemies hit",
-      "Grants 20% fire resistance for 30 seconds",
-      "Increases movement speed in lava terrain by 15%"
+      "Inflicts scorching flames upon enemies",
+      "Provides fire resistance in combat"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Molten Touch",
+        "rules": "As a bonus action, you can unleash the Lava Scorch Glove's power. This deals an additional 4d6 fire damage to one creature within reach and grants you a +2 bonus to AC against fire attacks until the end of your next turn."
+      },
+      {
+        "title": "Magma Shield",
+        "rules": "While wearing the Lava Scorch Glove, you gain temporary fire resistance equal to 10 + your Dexterity modifier for up to 30 minutes. This effect ends if you are no longer in a lava-filled environment or if you remove the glove."
+      }
+    ],
+    "levelRequirementReason": "The intense heat and arcane power required to wield this glove demand at least fifth-level proficiency.",
+    "vendorReason": "Bowser himself oversees the creation of these gloves, ensuring only those who truly face his volcanic battles can equip them.",
+    "shippingDetail": "The Shy Guys deliver the Lava Scorch Glove with a special heat-resistant package to ensure it arrives in pristine condition.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Until the end of your next turn, or until you attack an enemy (whichever comes first)",
+      "endsWhen": "You no longer wear the glove or if you attack a creature not within reach",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Lava Scorch Glove's unique properties and Bowser's personal touch make it a valuable yet balanced addition to any adventurer's arsenal.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:45:26.780362+00:00",
+    "aiReviewedAt": "2026-07-24T23:45:26.780362+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_lava_scythe": {
     "id": "valley_bowser_lava_scythe",
@@ -1822,37 +1868,83 @@ export const ITEMS_046 = {
   "valley_bowser_lava_torch": {
     "id": "valley_bowser_lava_torch",
     "name": "Lava Torch of the Burning Depths",
-    "description": "A molten torch forged from ancient volcanic core, radiates heat to melt enemies and ignite enemy armor. Its glow reveals hidden paths through volcanic terrain.",
-    "price": 1200,
+    "description": "The Lava Torch of the Burning Depths is a molten torch forged from an ancient volcanic core, its surface crackling with raw heat that can melt even the sturdiest metal. Held aloft, it casts a flickering glow that reveals hidden paths through the treacherous lava fields, guiding adventurers to safety or uncovering secrets. Its fiery embrace deals scalding damage and ignites enemy armor for a time, turning foes into walking furnaces.",
+    "price": 1000,
     "icon": "🔥",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Deals 300 fire damage on hit",
-      "Grants 20% chance to ignite enemy armor for 2 turns",
-      "Increases movement speed by 15% while active"
+      "Molten Might",
+      "Armor Ignition"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Molten Might",
+        "rules": "When the torch strikes an enemy, it deals 300 fire damage. This effect is a bonus action and can be used once per short or long rest."
+      },
+      {
+        "title": "Armor Ignition",
+        "rules": "There's a 20% chance to ignite enemy armor for two turns upon striking. The target must succeed on a DC 15 Dexterity saving throw or have its armor damaged, reducing movement speed by 30 feet until the effect ends."
+      }
+    ],
+    "levelRequirementReason": "The Lava Torch of the Burning Depths is accessible to low-level adventurers who need an edge in volcanic environments.",
+    "vendorReason": "Bowser, master of lava and fire, ensures that his subjects have the tools they need to survive in the fiery depths.",
+    "shippingDetail": "Ships via shadowy couriers who deliver the torch within a week, ensuring it arrives in pristine condition.",
+    "usage": {
+      "activation": "Bonus action to strike an enemy or use its glowing light.",
+      "duration": "Instantaneous effect; ends when expended or destroyed.",
+      "endsWhen": "Exhausted after one use per short/long rest or destroyed upon impact with water.",
+      "charges": "Unlimited, but only one charge can be active at a time."
+    },
+    "priceReason": "The Lava Torch's rarity and unique properties justify its fair value of 1000 XP.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:46:32.721143+00:00",
+    "aiReviewedAt": "2026-07-24T23:46:32.721143+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_lava_troop_mace": {
     "id": "valley_bowser_lava_troop_mace",
     "name": "Lava Troop War Mace of the Inferno",
-    "description": "A brutal mace forged in the heart of Volcano’s core. It strikes with volcanic rage, causing enemies to explode in a burst of molten lava. Perfect for clearing groups of enemies in a single strike.",
+    "description": "The Lava Troop War Mace of the Inferno is a molten mace forged in the heart of Volcan’s core, its surface etched with ancient runes that glow with volcanic fury. When swung, it releases a scalding burst of lava that engulfs nearby foes, leaving them trapped and burning. Its wielder gains a fiery step, leaping through ranks of enemies with ease, ensuring swift victory in the heat of battle.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deals 100% extra damage to enemies with lava resistance",
-      "Causes enemies to explode into lava for 3 seconds upon being hit",
-      "Increases attack speed by 25% while charged"
+      "Lava Burst",
+      "Increased Movement"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Lava Burst",
+        "rules": "When you hit an enemy with this mace on your turn, it deals an additional 10d6 fire damage and causes the target to be engulfed in a burst of lava for 3 seconds. The target takes 5 (1d10) fire damage at the start of its next turn until the effect ends."
+      },
+      {
+        "title": "Increased Movement",
+        "rules": "While wielding this mace, you gain a bonus to your walking speed equal to half your Strength modifier (rounded down). This effect lasts for the duration of one short or long rest and can be activated once per long rest."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum level of 5 due to its powerful fire-based abilities and unique mechanics.",
+    "vendorReason": "Valley Bowser, known for their expertise in volcanic artifacts, offers this fierce weapon with the understanding that only seasoned adventurers can handle such raw power.",
+    "shippingDetail": "Delivered by a Rakasha spirit courier who ensures the mace arrives safely within hours of order placement.",
+    "usage": {
+      "activation": "On your action or bonus action, swing this mace to trigger Lava Burst.",
+      "duration": "Instantaneous effect with duration and recharges at the start of your next short rest.",
+      "endsWhen": "The effect ends when you take damage from another source or are incapacitated.",
+      "charges": "Unlimited uses per long rest."
+    },
+    "priceReason": "Balanced to reflect its powerful fire abilities and unique effects, this mace is priced at 1000 XP.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:46:09.703166+00:00",
+    "aiReviewedAt": "2026-07-24T23:46:09.703166+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_magma_amber": {
     "id": "valley_bowser_magma_amber",
@@ -2020,20 +2112,43 @@ export const ITEMS_046 = {
   "valley_bowser_magma_bolt": {
     "id": "valley_bowser_magma_bolt",
     "name": "Magma Bolt Injector",
-    "description": "A volatile device that channels volcanic heat into your weapon, granting devastating fire damage. Perfect for piercing through lava-laced ruins.",
+    "description": "The Magma Bolt Injector is a compact, infernal device forged in the heart of Mount Bowser's fiery forge. Its core glows with an unholy red light, and the weapon it attaches to hums with volcanic energy as it channels molten rock into searing fire attacks. This relic requires no more than a simple flick of your wrist to unleash its fury, making it perfect for piercing through lava-laced ruins or any inferno-bound stronghold.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Inflicts 120% fire damage on hit",
-      "Reduces cooldown of fire attacks by 30%",
-      "Self-destructs after 30 seconds of activation"
+      "Infernal Heat",
+      "Fire Resilience"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Infernal Heat",
+        "rules": "When activated as a bonus action, the Magma Bolt Injector inflicts an additional 2d10 fire damage on melee weapon attacks. The effect lasts for 30 seconds and self-destructs if not reactivated within that time frame."
+      },
+      {
+        "title": "Fire Resilience",
+        "rules": "While wearing this device, the wielder gains resistance to fire damage for the duration of an extended rest. This benefit is gained upon activation and persists until the next dawn."
+      }
+    ],
+    "levelRequirementReason": "This device requires minimal magical energy to activate, making it accessible to lower-level adventurers.",
+    "vendorReason": "Bowser's domain is a natural forge of volcanic heat, and his minions are adept at crafting devices that harness this power.",
+    "shippingDetail": "Delivered swiftly by Lakitu drones, the Magma Bolt Injector arrives hot from its fiery origins, requiring immediate assembly before use.",
+    "usage": {
+      "activation": "Bonus action to activate; self-destructs after 30 seconds of continuous activation or if not reactivated within that time frame.",
+      "duration": "30 seconds",
+      "endsWhen": "Self-destructs or if the user ceases its activation.",
+      "charges": "Unlimited, requires a bonus action each use"
+    },
+    "priceReason": "The device's rarity and unique crafting process justify this price.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:46:29.941957+00:00",
+    "aiReviewedAt": "2026-07-24T23:46:29.941957+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_magma_brew": {
     "id": "valley_bowser_magma_brew",
@@ -2283,19 +2398,42 @@ export const ITEMS_046 = {
   "valley_bowser_magma_heart": {
     "id": "valley_bowser_magma_heart",
     "name": "Magma Heart Amulet",
-    "description": "A glowing relic forged from the heart of a dormant volcano. Wears the power of the earth’s core and grants powerful earth-shaking abilities.",
-    "price": 2500,
+    "description": "The Magma Heart Amulet is a glowing relic crafted from the molten core of an ancient dormant volcano, its surface still warm to the touch. This volcanic charm channels the earth's raw power, allowing you to summon tremors that can shatter stone and cripple foes with their force. Worn around your neck, it hums with the energy of a sleeping giant, ready to unleash its fury when called upon.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+30% earth damage",
-      "50% chance to summon a shockwave on use",
-      "Restores 15% HP after using a shockwave"
+      "+20% Earth Damage",
+      "50% Chance to Summon a Tremor"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Tremor",
+        "rules": "When you use this amulet, it channels an earthshaking tremor within a 15-foot radius. The tremor deals 2d6 + your level in earth damage to each creature on the ground and knocks them prone. This effect has a recharge time of one long rest."
+      },
+      {
+        "title": "Earth Damage Boost",
+        "rules": "While wearing this amulet, you gain a +20% bonus to all Earth-based weapon or spell damage rolls. This enhancement is permanent as long as the amulet remains on your person."
+      }
+    ],
+    "levelRequirementReason": "The Magma Heart Amulet requires a minimum level of 3 due to its volatile and earth-shaping power.",
+    "vendorReason": "King Bowser has acquired this relic through his conquests over ancient volcanic regions, integrating it into his vast mercantile empire.",
+    "shippingDetail": "Ships within three days; however, the amulet must be handled with care by Lakitu to ensure it doesn't inadvertently trigger a tremor during transit.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect ends when you use your action for another purpose or if the amulet is removed from your person.",
+      "charges": "Unlimited, recharging after a long rest."
+    },
+    "priceReason": "This amulet's price reflects its rarity and the volcanic origin of its materials, making it an expensive but powerful addition to any adventurer's arsenal.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:46:50.576409+00:00",
+    "aiReviewedAt": "2026-07-24T23:46:50.576409+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_magma_heart_pearl": {
     "id": "valley_bowser_magma_heart_pearl",
@@ -2503,20 +2641,43 @@ export const ITEMS_046 = {
   "valley_bowser_magma_soul_rod": {
     "id": "valley_bowser_magma_soul_rod",
     "name": "Magma Soul Rod",
-    "description": "A glowing staff forged from the heart of Bowser’s volcanic lair. When swung, it channels lava fury to blast enemies into molten slag. Its resonance with the earth’s core grants temporary fire resistance.",
+    "description": "The Magma Soul Rod is a glowing staff forged from the heart of Bowser’s volcanic lair, its surface crackling with molten lava. Crafted by the fire spirits who dwell in the very core of Mount Ebobo, this weapon channels raw earth and flame to incinerate enemies with searing heat. When swung, it unleashes an inferno capable of melting rock into slag. Its resonance grants temporary fire resistance, protecting you from the fiery wrath of volcanic deities.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Deal 200% damage to fire and lava-based enemies",
-      "Grants 30% fire resistance for 10 seconds after casting",
-      "Increases attack speed by 15% while charged with magma"
+      "Blast Fire Enemies",
+      "Fire Resistance"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Molten Blast",
+        "rules": "When swung as a bonus action, this staff channels lava fury to blast enemies within 15 feet. The target takes 2d6 fire damage plus an additional 30 fire damage for every 5 levels beyond 5th (to a maximum of 80 fire damage at level 20). This effect has no save DC and is usable once per short or long rest."
+      },
+      {
+        "title": "Core Resonance",
+        "rules": "Upon successful use of Molten Blast, the user gains temporary fire resistance equal to 30 + their proficiency bonus for 10 minutes. This benefit persists until expended by using another weapon attack or spell that deals fire damage."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 5th level to wield effectively, given the staff’s volcanic power.",
+    "vendorReason": "Valley Bowser is known for trading items forged in the lair of their namesake, making this staff a logical addition to their inventory.",
+    "shippingDetail": "Ships via Boo Spectral Mail, known for its speed and reliability. Expect delivery within three days.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous blast; temporary fire resistance lasts until expended or another attack is made.",
+      "endsWhen": "Expends when another weapon attack or spell deals fire damage, or at the end of a long rest.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Balanced price reflects the item’s rare origin and powerful effects.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:46:36.992531+00:00",
+    "aiReviewedAt": "2026-07-24T23:46:36.992531+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_magma_tide_ammunition": {
     "id": "valley_bowser_magma_tide_ammunition",
@@ -3256,19 +3417,42 @@ export const ITEMS_046 = {
   "valley_bowser_scorched_soul": {
     "id": "valley_bowser_scorched_soul",
     "name": "Scorched Soul Amulet",
-    "description": "Worn by ancient Koopa shamans, this amulet channels the spirit of defeated lava kings. It enhances morale and temporarily grants invisibility to allies during boss encounters.",
-    "price": 1500,
+    "description": "The Scorched Soul Amulet once belonged to ancient Koopa shamans who communed with the fiery spirits of defeated lava kings. Crafted from molten obsidian and imbued with their spectral essence, it grants its wearer a momentary shield of invisibility during perilous boss encounters. The amulet's power lies in its ability to restore 50% of the user's hit points after a brief period of rest, ensuring they are ready for the next challenge.",
+    "price": 1000,
     "icon": "🌋",
     "stock": 2,
     "rarity": "uncommon",
     "effects": [
-      "Restores 50% HP after 30 seconds of inactivity",
-      "Grants 20% invisibility to allies for 10 seconds",
-      "Increases critical hit chance by 15%"
+      "Invisible Shield",
+      "Hit Point Restoration"
     ],
     "vendor": "valley_bowser",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Invisible Shield",
+        "rules": "Activates as a bonus action. Grants all allies within a 10-foot radius temporary invisibility for 10 seconds. This effect ends if the wearer or an ally takes any damage."
+      },
+      {
+        "title": "Hit Point Restoration",
+        "rules": "After 30 seconds of inactivity, the amulet restores half of its wearer's maximum hit points. This effect can only be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The amulet's power is accessible to all adventurers who can harness its spectral energy.",
+    "vendorReason": "Valley Bowser, a merchant with deep roots in Koopa lore, stocks this relic from his vast collection of ancient artifacts.",
+    "shippingDetail": "Delivered through spectral means, ensuring the amulet arrives swiftly and intact.",
+    "usage": {
+      "activation": "Bonus action to grant invisibility; automatic after a period of inactivity for hit point restoration.",
+      "duration": "Invisibility lasts 10 seconds or until damaged.",
+      "endsWhen": "Wearer or an ally takes damage, or the effect expires naturally.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at this price to reflect its powerful yet manageable abilities within a standard adventuring party.",
+    "priceOriginal": 1500,
+    "priceReviewedAt": "2026-07-24T23:46:54.430257+00:00",
+    "aiReviewedAt": "2026-07-24T23:46:54.430257+00:00",
+    "aiReviewVersion": 1
   },
   "valley_bowser_scorched_soul_binder": {
     "id": "valley_bowser_scorched_soul_binder",

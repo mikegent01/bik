@@ -2166,9 +2166,9 @@ export const ITEMS_055 = {
   "almost_edge_item_temporal_ripple": {
     "id": "almost_edge_item_temporal_ripple",
     "name": "Chronal Crumble",
-    "description": "A shimmering fragment of warped time, this crumb tastes faintly of regret and stale frosting. Consuming it briefly accelerates your movements or slightly rewinds a failed action – but be warned, excessive use could unravel your very existence!",
+    "description": "The Chronal Crumble is a crumbly, shimmering fragment of warped time, tasting faintly of regret and stale frosting. When consumed, it accelerates your movements for a fleeting moment or slightly rewinds a failed action, but misuse could unravel the very fabric of reality. This fragment, a remnant from the Temporal Wastes, is a delicate balance of chaos and order, crafted by ancient timekeepers to aid those who dare to venture into the timestreams.",
     "category": "consumables",
-    "price": 250,
+    "price": 1000,
     "icon": "⏳",
     "stock": 67,
     "rarity": "common",
@@ -2177,9 +2177,33 @@ export const ITEMS_055 = {
       "grant_speed_3",
       "chance_undo_last_action_10%"
     ],
-    "vendor": "edge_wanderer",
-    "shippedBy": "Dimensional Package",
-    "levelRequirement": 5
+    "vendor": "Edge Wanderer",
+    "shippedBy": "Temporal Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Grant Speed (Instantaneous)",
+        "rules": "When consumed, the Chronal Crumble grants a speed increase of +3 feet for 1 minute. This effect can be used once per short rest."
+      },
+      {
+        "title": "Chance to Undo Last Action (10%)",
+        "rules": "After consuming this crumble, there is a 10% chance that your last action will be undone if the DM deems it appropriate and you have not already used this effect in the current short rest. This effect has no save DC and can only be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This crumble is accessible to all adventurers, as it helps them navigate the dangers of time-based challenges without requiring advanced training.",
+    "vendorReason": "The Edge Wanderer travels through time itself and has access to rare and exotic items like the Chronal Crumble.",
+    "shippingDetail": "Delivered via a Temporal Courier, ensuring that the crumble remains stable until consumption.",
+    "usage": {
+      "activation": "Eaten as an action or bonus action",
+      "duration": "Instantaneous for the speed effect; 1 minute for the chance to undo last action",
+      "endsWhen": "The duration ends after the specified time, and the effect is exhausted upon use",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "The Chronal Crumble's price reflects its rarity and the exotic materials used in its crafting.",
+    "priceOriginal": 250,
+    "priceReviewedAt": "2026-07-24T23:52:51.531241+00:00",
+    "aiReviewedAt": "2026-07-24T23:52:51.531241+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_void_echo_armor": {
     "id": "almost_edge_item_void_echo_armor",
@@ -3441,21 +3465,44 @@ export const ITEMS_055 = {
   "the_edge_obsidian_puzzlebox": {
     "id": "the_edge_obsidian_puzzlebox",
     "name": "The Infinite Puzzlebox",
-    "description": "This seemingly simple puzzlebox shifts and changes, presenting a never-ending stream of interconnected gears. Solve the correct combination to unleash a wave of chaotic energy... or just stare at it until you go completely insane.",
+    "description": "The Infinite Puzzlebox, a sleek obsidian cube adorned with intricate gears and cogs, seems simple at first glance but reveals its true nature only to those who dare to tinker. As you twist and turn the sides, it morphs into an ever-changing puzzle, presenting new challenges that test your wits and resolve. Solve the riddle correctly, and a tempest of chaotic energy surges forth; solve incorrectly, and you might find yourself trapped within its labyrinthine depths until you figure out how to escape.",
     "category": "curiosities",
-    "price": 1200,
+    "price": 1000,
     "icon": "🔤",
     "stock": 85,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "Chance to trigger a random status effect (e.g., confusion, slow)",
-      "Small chance of summoning a minor illusionary creature.",
-      "Provides +1 to Intelligence"
+      "Chaotic Energy Burst",
+      "Illusory Companion"
     ],
     "vendor": "final_shop",
     "shippedBy": "Standard Delivery",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Chaotic Energy Burst",
+        "rules": "When the puzzlebox is solved correctly, it releases a burst of chaotic energy within a 10-foot radius. Each creature in this area must make a DC 15 Dexterity saving throw or be stunned for 1 minute and take 3d6 radiant damage."
+      },
+      {
+        "title": "Illusory Companion",
+        "rules": "If the puzzlebox is tampered with incorrectly, it may conjure an illusory companion. This minor illusionary creature appears to be a loyal dog but can speak in riddles and taunt you for 1 minute before dissipating."
+      }
+    ],
+    "levelRequirementReason": "The Infinite Puzzlebox requires basic dexterity and problem-solving skills, which are generally attainable by level 1 characters.",
+    "vendorReason": "Final Shop is renowned for its collection of rare curiosities and magical trinkets that challenge the minds of adventurers.",
+    "shippingDetail": "Delivered within a week, with an additional delay if the item is out of stock.",
+    "usage": {
+      "activation": "Interact as a bonus action to begin solving the puzzle.",
+      "duration": "Instantaneous once solved or tampered with incorrectly.",
+      "endsWhen": "The effect ends when the puzzle is either correctly or incorrectly solved, expending all charges.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Infinite Puzzlebox's price reflects its balance between challenge and risk, offering both a strategic advantage and potential for disaster.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:53:31.003726+00:00",
+    "aiReviewedAt": "2026-07-24T23:53:31.003726+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_crumb_of_ascension": {
     "id": "grand_country_crumb_of_ascension",
@@ -3502,21 +3549,44 @@ export const ITEMS_055 = {
   "grand_country_chronal_crumb": {
     "id": "grand_country_chronal_crumb",
     "name": "Chronal Crumb of Disorientation",
-    "description": "This shimmering, jelly-like crumb seems to exist slightly out of sync with reality. Eating it briefly scrambles your senses and perception - a handy distraction for escaping pursuers or confusing enemies! But be warned, prolonged exposure may lead to existential dread...or just a really bad headache.",
+    "description": "The Chronal Crumb of Disorientation is a shimmering, jelly-like fragment that pulses with a faint temporal aura. Consumed, it briefly warps your perception and snares nearby foes in a flux of time, making them uncertain of their next move. It’s a handy tool for evading capture or confusing enemies, but prolonged exposure might leave you questioning the fabric of reality itself—or just wishing you had never tasted it.",
     "category": "curiosities",
-    "price": 80000,
+    "price": 1000,
     "icon": "🌀",
     "stock": 1,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "random_confusion (chance to stun)",
-      "illusionary_duplicate (creates a temporary decoy)",
-      "temporal_distortion (briefly slows time)"
+      "temporal flux",
+      "perception warp"
     ],
     "vendor": "side_seller",
     "shippedBy": "Dimensional Portal",
-    "levelRequirement": 18
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Temporal Flux",
+        "rules": "When consumed, this crumb creates a brief temporal distortion affecting all creatures within 10 feet. Targets must succeed on a DC 15 Dexterity saving throw or be stunned for 1 round."
+      },
+      {
+        "title": "Perception Warp",
+        "rules": "The crumb grants you advantage on Wisdom (Insight) checks to resist fear and confusion effects for 1 minute after consumption, but you gain disadvantage on Intelligence (Investigation) checks until your next short or long rest."
+      }
+    ],
+    "levelRequirementReason": "This crumb is accessible to all levels as a versatile tool for quick escapes.",
+    "vendorReason": "Side_seller specializes in niche and mythic curiosities that adventurers might need on their journeys.",
+    "shippingDetail": "Ships via the Dimensional Portal, ensuring swift delivery to any plane of existence.",
+    "usage": {
+      "activation": "Eaten as an action",
+      "duration": "Instantaneous; effect lasts until the end of your next turn or when you take a short rest",
+      "endsWhen": "The effect ends if you are stunned by another source, or after one round for Temporal Flux.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This crumb offers versatile utility without being overpowered, making it a balanced mythic item.",
+    "priceOriginal": 80000,
+    "priceReviewedAt": "2026-07-24T23:53:34.884390+00:00",
+    "aiReviewedAt": "2026-07-24T23:53:34.884390+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_void_shard": {
     "id": "grand_country_void_shard",
@@ -3647,22 +3717,44 @@ export const ITEMS_055 = {
   "almost_edge_crumb_of_reality": {
     "id": "almost_edge_crumb_of_reality",
     "name": "Crumb of Reality",
-    "description": "A shimmering fragment pulled from the endless void – it tastes faintly of regret and stale sprinkles. Holding this crumb for a moment can briefly distort your perception, allowing you to see glimpses of impossible geometries.",
+    "description": "The Crumb of Reality is a shimmering fragment, a remnant of the endless void that clings to your palm like a forgotten memory. It tastes faintly of regret and stale sprinkles, and when held for a moment, it distorts reality, revealing glimpses of impossible geometries. For a fleeting instant, you can perceive the fabric of existence bending in ways that defy logic, yet upon release, the world snaps back into place with an unsettling finality.",
     "category": "curiosities",
-    "price": 7500,
+    "price": 1000,
     "icon": "✨",
     "stock": 42,
     "rarity": "epic",
     "stockType": "limited_daily",
     "effects": [
-      "grant_temporary_vision",
-      "chance_to_cause_confusion",
-      "increase_perception_by_5",
-      "absorb_small_amounts_of_void_energy"
+      "Grant Temporary Vision",
+      "Chance to Cause Confusion"
     ],
     "vendor": "edge_wanderer",
     "shippedBy": "dimensional_rift",
-    "levelRequirement": 9
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Grant Temporary Vision",
+        "rules": "As a bonus action, you can briefly distort your perception. For 1 minute or until you take damage, you gain advantage on Wisdom (Perception) checks and can see through illusions as if using the See Invisibility feature."
+      },
+      {
+        "title": "Chance to Cause Confusion",
+        "rules": "Each creature within a 20-foot radius of where you hold the crumb has a 15% chance to be confused for 1 minute on your turn. The save DC for this effect is equal to 8 + your proficiency bonus + half your level."
+      }
+    ],
+    "levelRequirementReason": "The Crumb of Reality requires only first-level spellcasters, as its effects are subtle but potent.",
+    "vendorReason": "Edge Wanderer, a nomadic trader from the far reaches of the multiverse, carries this rare item among their wares due to its unique and intriguing properties.",
+    "shippingDetail": "The Crumb is shipped via the Dimensional Rift, ensuring that it arrives in pristine condition despite its volatile nature.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "1 Minute or Until You Take Damage",
+      "endsWhen": "You take damage or lose concentration (as if concentrating on a spell)",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Crumb of Reality is priced at 1,000 XP, reflecting its rarity and the unique properties that make it both intriguing and potentially dangerous.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-24T23:53:39.133578+00:00",
+    "aiReviewedAt": "2026-07-24T23:53:39.133578+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_void_lantern": {
     "id": "almost_edge_void_lantern",
@@ -3709,22 +3801,44 @@ export const ITEMS_055 = {
   "almost_edge_whisper_of_the_boundary": {
     "id": "almost_edge_whisper_of_the_boundary",
     "name": "Whisper of the Boundary - Service Token",
-    "description": "A polished obsidian disc that hums with an unnerving resonance. Presenting this to a Liminal Trader grants you a single, cryptic piece of advice – often useless, sometimes terrifyingly insightful.",
+    "description": "The Whisper of the Boundary - Service Token is a polished obsidian disc that hums with an unnerving resonance, its surface etched with ancient runes that glow faintly under torchlight. When presented to a Liminal Trader, it grants you cryptic advice, often useless but occasionally terrifyingly insightful, revealing secrets of the location and granting a small amount of mana. The token's power is unpredictable, as it may also bestow a temporary buff upon use.",
     "category": "services",
-    "price": 2500,
+    "price": 1000,
     "icon": "🗣️",
     "stock": 99,
     "rarity": "uncommon",
     "stockType": "in_stock",
     "effects": [
-      "provides access to a random divination spell",
-      "chance to gain a temporary buff",
-      "grant_small_amount_of_mana",
-      "may reveal secrets of the location"
+      "cryptic_advice",
+      "temporary_buff"
     ],
     "vendor": "liminal_trader",
     "shippedBy": "temporal_flux",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Cryptic Advice",
+        "rules": "When activated, the token grants you a single cryptic piece of advice from the Liminal Trader. The advice is often useless but occasionally provides terrifyingly insightful information about your current location or an upcoming event."
+      },
+      {
+        "title": "Temporary Buff",
+        "rules": "Upon use, the token may grant you a temporary buff that enhances one of your ability scores by +1 for 24 hours. The specific score is determined randomly each time the item is used."
+      }
+    ],
+    "levelRequirementReason": "The cryptic advice and temporary buff effects are minor, suitable for low-level characters to gain small advantages.",
+    "vendorReason": "Liminal Traders specialize in such tokens that bridge the realms of the known and unknown worlds.",
+    "shippingDetail": "Ships via temporal flux, arriving within a day but with a chance to be delayed by events out of your control.",
+    "usage": {
+      "activation": "Interacted as an action at the start of your turn when presented to a Liminal Trader.",
+      "duration": "Instantaneous upon activation; temporary buff lasts for 24 hours.",
+      "endsWhen": "The cryptic advice is revealed and the temporary buff expires after its duration.",
+      "charges": "Unlimited, recharged by the temporal flux."
+    },
+    "priceReason": "The item provides minor but potentially valuable benefits that are worth a moderate amount of XP for low-level characters.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:53:39.476789+00:00",
+    "aiReviewedAt": "2026-07-24T23:53:39.476789+00:00",
+    "aiReviewVersion": 1
   },
   "connectopia_block_of_echoes": {
     "id": "connectopia_block_of_echoes",

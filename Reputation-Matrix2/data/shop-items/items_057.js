@@ -509,21 +509,44 @@ export const ITEMS_057 = {
   "almost_edge_item_liminal_echo": {
     "id": "almost_edge_item_liminal_echo",
     "name": "Liminal Echo",
-    "description": "A perfectly smooth, obsidian sphere that hums with the whispers of lost realities. Holding this curious item allows you to briefly step into the spaces between moments, confusing enemies and revealing hidden pathways – but don’t get lost in the echoes!",
+    "description": "The Liminal Echo is a perfectly smooth obsidian sphere that hums with the whispers of forgotten dimensions, its surface etched with arcane runes that glow faintly in the dark. This enigmatic trinket allows you to briefly step into the spaces between moments, confusing foes and revealing hidden pathways within a small radius, but be wary—get lost too long, and the echoes might claim your mind entirely. The sphere's power is both seductive and perilous, making it an invaluable yet dangerous tool for those who dare to venture beyond the known.",
     "category": "curiosities",
-    "price": 12000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 18,
     "rarity": "mythic",
     "stockType": "night_only",
     "effects": [
-      "Chance to confuse enemy for 3 turns (25%)",
-      "Reveals hidden paths and traps within a small radius.",
-      "Reduces enemy accuracy by 10% during its effect."
+      "Confuses enemies temporarily",
+      "Reveals hidden paths"
     ],
-    "vendor": "liminal_trader",
+    "vendor": "Liminal Trader",
     "shippedBy": "Dimensional Rift Courier",
-    "levelRequirement": 18
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Confuse Enemys",
+        "rules": "When activated as a bonus action, the Liminal Echo creates an illusory disturbance that confuses nearby enemies for up to 3 rounds. The effect has a range of 15 feet and affects all creatures within the area. There is a 25% chance per round that any creature exposed to this confusion will be forced to make a Wisdom saving throw (DC 14) or be incapacitated by the echoes, unable to act for their next turn."
+      },
+      {
+        "title": "Reveal Hidden Paths",
+        "rules": "The Liminal Echo grants you insight into hidden pathways and traps within a 30-foot radius. This effect lasts for 1 minute upon activation as an action. You can use this ability once per long rest, but it cannot be used again until after completing another short or long rest."
+      }
+    ],
+    "levelRequirementReason": "Only those with sufficient experience and control over their surroundings should wield such a powerful and unpredictable item.",
+    "vendorReason": "The Liminal Trader is known for dealing in rare and otherworldly items, including the enigmatic Liminal Echo.",
+    "shippingDetail": "Due to its sensitive nature, the Liminal Echo must be shipped by the Dimensional Rift Courier within a specially sealed container.",
+    "usage": {
+      "activation": "Bonus action and action (for revealing hidden paths)",
+      "duration": "Up to 3 rounds for confusing enemies; 1 minute for revealing hidden paths",
+      "endsWhen": "The effect ends when its duration expires or the item is destroyed",
+      "charges": "Once per long rest"
+    },
+    "priceReason": "The balanced price reflects the item's mythic rarity and unpredictable nature, making it a valuable yet risky tool for adventurers.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-24T23:54:29.008393+00:00",
+    "aiReviewedAt": "2026-07-24T23:54:29.008393+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_wario_void_boots": {
     "id": "almost_edge_item_wario_void_boots",
@@ -738,21 +761,44 @@ export const ITEMS_057 = {
   "almost_edge_void_resonator": {
     "id": "almost_edge_void_resonator",
     "name": "Void Resonator",
-    "description": "A pulsating device crafted from solidified darkness. When activated, it emits a discordant frequency that disrupts the minds of nearby creatures – great for confusing spellcasters or causing chaos among your foes!",
+    "description": "The Void Resonator is a pulsating device forged from the very essence of forgotten voids, its surface etched with ancient runes that shimmer in a perpetual state of decay. When activated, it emits a discordant frequency capable of disrupting the minds of nearby creatures, causing confusion among spellcasters and chaos among foes. Its core glows with an eerie light, casting shadows that twist into abstract shapes. This rare artifact is known to be particularly effective against magic users.",
     "category": "equipment",
-    "price": 7800,
+    "price": 1000,
     "icon": "🌀",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "Deals 50 piercing damage on hit.",
-      "Chance to silence target for 1 turn (20%)",
-      "Reduces magic resistance by 30%"
+      "Disrupting Frequency",
+      "Silence Chance"
     ],
     "vendor": "void_merchant",
     "shippedBy": "Black Hole Courier",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Disrupting Frequency",
+        "rules": "When activated, the Resonator emits a frequency that has a 30% chance to silence a target creature for 1 minute. The target must succeed on a DC 15 Constitution saving throw or be silenced. This effect ends if the target is subjected to another silence effect."
+      },
+      {
+        "title": "Silence Chance",
+        "rules": "The Resonator also has a 20% chance (DC 14) to reduce the target's Intelligence by 2 for 1 minute on a failed saving throw. This effect ends if the Resonator is destroyed or if the target regains consciousness."
+      }
+    ],
+    "levelRequirementReason": "The Void Resonator requires at least 6th level to wield effectively, given its complex activation and the power of the frequency it emits.",
+    "vendorReason": "The Void Merchant is known for dealing in rare and powerful artifacts that can disrupt magical constructs and beings, making the Void Resonator a perfect fit for their inventory.",
+    "shippingDetail": "Due to its volatile nature, the Void Resonator requires special handling by the Black Hole Courier. It is delivered within 3 days with strict temperature controls.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect; ends if the target regains consciousness or the Resonator is destroyed",
+      "endsWhen": "The target regains consciousness, or the Resonator is destroyed",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Void Resonator's rarity and magical properties justify its fair value of 1000 XP.",
+    "priceOriginal": 7800,
+    "priceReviewedAt": "2026-07-24T23:54:27.609528+00:00",
+    "aiReviewedAt": "2026-07-24T23:54:27.609528+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_forbidden_echo_shard": {
     "id": "almost_edge_forbidden_echo_shard",
@@ -1723,21 +1769,44 @@ export const ITEMS_057 = {
   "earth_land_shadow_shard": {
     "id": "earth_land_shadow_shard",
     "name": "Fragment of Nullity",
-    "description": "A shard pulsing with absolute darkness, plucked from the heart of a void rift. Touching this item induces unsettling visions and whispers… be warned! It's rumored to grant limited control over shadows, but prolonged use can unravel your sanity.",
+    "description": "The Fragment of Nullity is a shard that hums with an otherworldly energy, its surface etched with cryptic symbols. Crafted from the very essence of shadow and void, it whispers secrets to those who hold it too long, tempting them with fleeting control over darkness but at the cost of their sanity. It can induce fear in foes and allow for a brief shadow step, teleporting you into the shadows for an instant.",
     "category": "forbidden",
-    "price": 8500,
+    "price": 1000,
     "icon": "⚫",
     "stock": 12,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "chance to inflict 'fear' status effect on target (20%)",
-      "shadow step - teleport a short distance into shadows",
-      "reduce enemy accuracy by 15%"
+      "induce 'fear' status",
+      "shadow step"
     ],
     "vendor": "earth_emporium",
     "shippedBy": "Night Hag Delivery",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Induce Fear",
+        "rules": "When activated as a bonus action, this shard has a 20% chance to induce the target enemy with the 'Frightened' condition for 1 minute. The save DC is equal to 8 + your proficiency bonus + your Charisma modifier."
+      },
+      {
+        "title": "Shadow Step",
+        "rules": "Activates as an action, allowing you to teleport up to 15 feet into a shadowy space. You cannot re-enter the same shadow for at least 1 minute after using this ability."
+      }
+    ],
+    "levelRequirementReason": "This item requires a level 7 character due to its complex nature and the risks associated with its use.",
+    "vendorReason": "The Earth Emporium specializes in rare artifacts and forbidden magic, making it suitable for selling items like the Fragment of Nullity.",
+    "shippingDetail": "Ships under cover of darkness to ensure its safe arrival.",
+    "usage": {
+      "activation": "Bonus Action or Reaction",
+      "duration": "Instantaneous and 1 minute for 'Induce Fear'",
+      "endsWhen": "'Induce Fear' ends when the target successfully saves, and 'Shadow Step' ends immediately after use.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Fragment of Nullity is priced at 1000 XP as it offers potent but risky abilities that require careful handling.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-24T23:54:20.005983+00:00",
+    "aiReviewedAt": "2026-07-24T23:54:20.005983+00:00",
+    "aiReviewVersion": 1
   },
   "animatopia_bonecrusher_skull": {
     "id": "animatopia_bonecrusher_skull",

@@ -425,21 +425,44 @@ export const ITEMS_065 = {
   "the_edge_forbidden_lantern": {
     "id": "the_edge_forbidden_lantern",
     "name": "Whisperlight Lantern",
-    "description": "This lantern burns with a sickly green flame, illuminating only the darkest corners of reality. It attracts unwanted attention from entities best left undisturbed and whispers secrets to those who listen too closely – usually bad ones.",
+    "description": "The Whisperlight Lantern casts a sickly green glow, illuminating only the deepest shadows of reality and attracting the attention of malevolent entities that lurk in the dark. Its flickering flame whispers secrets to those who listen too closely—secrets often marked by misfortune and danger. Those who venture into the night with this lantern must be prepared for an unsettling encounter, as it seems to know more than it should about the horrors hidden just out of sight.",
     "category": "forbidden",
-    "price": 7500,
+    "price": 1000,
     "icon": "🕯️",
     "stock": 3,
     "rarity": "legendary",
     "stockType": "night_only",
     "effects": [
-      "grants darkvision",
-      "+2 to stealth in darkness",
-      "chance to summon a minor shadow demon (low level)"
+      "Grants Darkvision",
+      "Attracts Shadow Entities"
     ],
     "vendor": "edge_outpost",
-    "shippedBy": "black raven",
-    "levelRequirement": 15
+    "shippedBy": "The Black Raven",
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Grants Darkvision",
+        "rules": "The user gains darkvision up to 60 feet while holding the lantern. This effect lasts until the end of their next turn after using it."
+      },
+      {
+        "title": "Attracts Shadow Entities",
+        "rules": "Once per short rest, the user can activate the lantern to summon a Minor Shadow Demon. The summoned creature has 1d4 hit points and is under the user's control for 1 minute before dissipating into shadow. A successful DC 15 Wisdom saving throw ends this effect early."
+      }
+    ],
+    "levelRequirementReason": "Requires a character of at least 10th level to handle the lantern's inherent risks and harness its power.",
+    "vendorReason": "Edge Outpost deals in items that push the boundaries, making the Whisperlight Lantern an appropriate addition to their forbidden wares.",
+    "shippingDetail": "Delivered under cover of night by The Black Raven, ensuring its arrival is discreet and safe.",
+    "usage": {
+      "activation": "Bonus Action to activate or extinguish the lantern's light.",
+      "duration": "Instantaneous summoning when activated; Darkvision lasts until end of next turn after activation.",
+      "endsWhen": "The effect ends if a successful Wisdom saving throw is made, or it is extinguished by hand.",
+      "charges": "Unlimited uses per long rest."
+    },
+    "priceReason": "Balanced as the item provides potent but manageable abilities at an appropriate cost for its level of power and rarity.",
+    "priceOriginal": 7500,
+    "priceReviewedAt": "2026-07-25T00:01:39.381850+00:00",
+    "aiReviewedAt": "2026-07-25T00:01:39.381850+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_wario_bomb_of_confusion": {
     "id": "the_edge_wario_bomb_of_confusion",
@@ -1074,7 +1097,7 @@ export const ITEMS_065 = {
   "godly_aegis_of_doom": {
     "id": "godly_aegis_of_doom",
     "name": "Aegis of Doom - The Harbinger's Shield",
-    "description": "This shield radiates an aura of despair, capable of deflecting even the most powerful blows. Wielding it feels like staring into the abyss – and the abyss is staring back with a vengeance!",
+    "description": "The Aegis of Doom - The Harbinger's Shield is a heavy, dark-banded shield that emanates an oppressive aura. Its surface appears etched with ancient runes, and when lifted, it feels as though the world itself grows darker around you. This shield not only provides formidable defense but also saps the willpower of foes, leaving them reeling in fear. It is a relic forged by the hand of fate in the heart of an eternal storm.",
     "category": "equipment",
     "price": 750000,
     "icon": "🛡️",
@@ -1082,14 +1105,36 @@ export const ITEMS_065 = {
     "rarity": "godly",
     "stockType": "special_order",
     "effects": [
-      "high armor value",
-      "chance to inflict fear on enemies",
-      "absorbs a portion of damage from undead and demonic creatures",
-      "small chance to summon a spectral wail"
+      "Deflects Blows",
+      "Fear Aura"
     ],
     "vendor": "fate_forge",
     "shippedBy": "Divine Messenger",
-    "levelRequirement": 35
+    "levelRequirement": 35,
+    "effectDetails": [
+      {
+        "title": "Deflects Blows",
+        "rules": "When you use your reaction to deflect or take damage, the Aegis absorbs a portion of that damage. This effect can only be used once per short rest."
+      },
+      {
+        "title": "Fear Aura",
+        "rules": "Once per long rest, as a bonus action, you can unleash a wave of fear from the shield. Each creature within 10 feet must succeed on a DC 20 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the save at the end of each of its turns, ending the effect on itself on a success."
+      }
+    ],
+    "levelRequirementReason": "This shield is designed to protect those who have reached a peak in their martial prowess and are ready for the most dangerous challenges.",
+    "vendorReason": "Fate Forge specializes in crafting items that bridge the gap between destiny and chaos, making it fitting for such an item of profound power.",
+    "shippingDetail": "Ships via Divine Messenger with a special delivery guarantee ensuring prompt and secure arrival.",
+    "usage": {
+      "activation": "Reaction to deflect or take damage; Bonus action to unleash fear aura",
+      "duration": "Instantaneous for deflection, 1 minute for fear aura (repeats on save)",
+      "endsWhen": "At the end of your next turn after using it or when you finish a short rest",
+      "charges": "One charge per use"
+    },
+    "priceReason": "This shield's price reflects its godly rarity, powerful effects, and the intense focus required to wield such an item.",
+    "priceOriginal": 750000,
+    "priceReviewedAt": "2026-07-25T00:01:14.219260+00:00",
+    "aiReviewedAt": "2026-07-25T00:01:14.219260+00:00",
+    "aiReviewVersion": 1
   },
   "earth_land_mudcrushers_giant_snail": {
     "id": "earth_land_mudcrushers_giant_snail",
@@ -3129,7 +3174,7 @@ export const ITEMS_065 = {
   "almost_edge_void_shard": {
     "id": "almost_edge_void_shard",
     "name": "Void Shard of the Unmade",
-    "description": "A pulsating fragment ripped from the fabric of nothingness. Touching this shard may grant glimpses into the true void, but prolonged exposure risks dissolving your very being – a truly delicious risk!",
+    "description": "The Void Shard of the Unmade is a jagged, pulsating fragment torn from the very fabric of nothingness. It hums with raw potential, and when held, it grants fleeting glimpses into the true void, where time and reality dissolve in an ephemeral dance. Touching this shard can grant +2 Dexterity, but prolonged exposure risks unraveling your essence, a truly delicious risk for those who dare to embrace the void’s allure.",
     "category": "equipment",
     "price": 65000,
     "icon": "🌌",
@@ -3137,13 +3182,36 @@ export const ITEMS_065 = {
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "Grants +2 to Dexterity",
-      "Chance to inflict Fear (5%) on enemies within range",
-      "Provides resistance to psychic damage"
+      "Grants +2 Dexterity",
+      "5% chance to inflict Fear (Enemies within 10 feet)"
     ],
     "vendor": "void_merchant",
     "shippedBy": "Gravity Well Courier",
-    "levelRequirement": 16
+    "levelRequirement": 16,
+    "effectDetails": [
+      {
+        "title": "Void Glimpse",
+        "rules": "When held, you gain a +2 bonus to Dexterity. This effect lasts for 1 minute and can be maintained by holding the shard continuously. If you stop holding it for more than 10 minutes, the effect ends."
+      },
+      {
+        "title": "Fear Infliction",
+        "rules": "While holding the shard, there is a 5% chance per round that an enemy within 10 feet will be frightened as long as they remain in range. This effect has no save DC and can occur multiple times on each turn."
+      }
+    ],
+    "levelRequirementReason": "The shard demands a significant level to wield, reflecting its volatile nature and the power it commands.",
+    "vendorReason": "Only the Void Merchant, who has traversed the void’s depths, can offer such a perilous yet powerful artifact.",
+    "shippingDetail": "The Gravity Well Courier ensures the shard is delivered safely but warns that it should be handled with care due to its unstable nature.",
+    "usage": {
+      "activation": "Holding the shard continuously",
+      "duration": "1 minute (renewable by holding)",
+      "endsWhen": "You stop holding the shard for more than 10 minutes or when you lose consciousness",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The Void Shard’s rarity and the risks it entails justify its high price, making it a significant investment for those who dare to wield it.",
+    "priceOriginal": 65000,
+    "priceReviewedAt": "2026-07-25T00:01:39.225186+00:00",
+    "aiReviewedAt": "2026-07-25T00:01:39.225186+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_forbidden_echo": {
     "id": "almost_edge_forbidden_echo",
@@ -3526,21 +3594,44 @@ export const ITEMS_065 = {
   "the_edge_quantum_burst": {
     "id": "the_edge_quantum_burst",
     "name": "Chaotic Pulse",
-    "description": "A shimmering orb of unstable energy – handle with extreme caution! This consumable unleashes a brief, devastating blast that can disrupt enemy spells and cause minor spatial distortions. Don’t say we didn't warn you when reality gets a little wonky.",
+    "description": "The Chaotic Pulse is a shimmering, unstable orb of chaotic energy that crackles with raw potential. Crafted from the remnants of quantum anomalies and twisted by the hands of mad alchemists, this volatile artifact unleashes a devastating pulse capable of disrupting enemy spells and creating a temporary area of spatial distortion. Handle it only when danger calls for it; the unpredictable nature of its effects can leave you in a world of your own making.",
     "category": "consumables",
-    "price": 850,
+    "price": 1000,
     "icon": "💥",
     "stock": 91,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "deals 15-25 force damage to target",
-      "chance to stun target for 1 turn",
-      "creates a small area of effect that slows movement speed by 50%"
+      "Disrupts Spells",
+      "Spatial Distortion"
     ],
     "vendor": "edge_outpost",
     "shippedBy": "express_delivery",
-    "levelRequirement": 2
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Spell Disruption",
+        "rules": "When activated, the Chaotic Pulse creates an unstable pulse that has a 50% chance to disrupt any spell cast by enemies within its area of effect. The spell fails and the creature must make a DC 14 Dexterity saving throw or be stunned for 1 turn."
+      },
+      {
+        "title": "Spatial Distortion",
+        "rules": "For 3 turns, the Chaotic Pulse creates an unstable field that reduces all creatures' movement speed to half within its area of effect. This effect can be ended early by a successful DC 14 Strength saving throw."
+      }
+    ],
+    "levelRequirementReason": "The unpredictable nature and potential for chaos make the Chaotic Pulse suitable only for those who have proven their mettle.",
+    "vendorReason": "Edge Outpost deals in exotic and volatile items, making it a natural fit for such a dangerous but potentially rewarding artifact.",
+    "shippingDetail": "Due to the inherent instability of the Chaotic Pulse, express delivery is required with a buffer zone of at least 5 feet around the item during transit.",
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous (3 turns duration for area effect)",
+      "endsWhen": "The spell fails or the spatial distortion ends early via save throw",
+      "charges": "Unlimited, but limited to one use per short rest"
+    },
+    "priceReason": "Balanced at 1000 XP, this price reflects the unpredictable nature of the Chaotic Pulse and its potential for both danger and reward.",
+    "priceOriginal": 850,
+    "priceReviewedAt": "2026-07-25T00:01:40.616568+00:00",
+    "aiReviewedAt": "2026-07-25T00:01:40.616568+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_starmetal_gauntlet": {
     "id": "middle_earth_starmetal_gauntlet",

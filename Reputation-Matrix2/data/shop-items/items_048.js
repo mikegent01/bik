@@ -615,21 +615,43 @@ export const ITEMS_048 = {
   "wario_cw_battlement_spyglass": {
     "id": "wario_cw_battlement_spyglass",
     "name": "Civil War Relic: Battlement Spyglass",
-    "description": "A dented spyglass once used to watch for incoming Lakitu squadrons.",
+    "description": "The Civil War Relic: Battlement Spyglass is a weathered, dented spyglass that once belonged to a Lakitu scout. Its aged wooden frame and brass lens reveal countless tales of battles past, marked by a tiny scratch shaped like a Lakitu cloud. This relic offers keen eyesight, granting advantage on Perception checks within its field of view (100 feet or more) and allowing you to mark an enemy for enhanced ranged attacks, but it struggles in adverse weather conditions where heavy rain or magical fog impose disadvantage on Perception checks.",
     "category": "equipment",
-    "price": 5800,
+    "price": 1000,
     "icon": "🔭",
     "stock": 4,
     "rarity": "uncommon",
     "effects": [
-      "Long Watch: Advantage on Perception checks to spot distant threats (100 ft or more).",
-      "Once per short rest: You can mark a visible enemy; the first ranged attack against that enemy before the end of your next turn has +2 to hit.",
-      "Foggy Lens: Disadvantage on Perception in heavy rain or magical fog.",
-      "There’s a tiny scratch shaped like a Lakitu cloud in the lens."
+      "Long Watch",
+      "Marked Shot"
     ],
     "vendor": "wario_land",
     "shippedBy": "Tower Top Trunk",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Long Watch",
+        "rules": "You gain advantage on Perception checks made to spot distant threats within the spyglass's field of view (100 feet or more). This effect lasts until you make another Perception check with this spyglass."
+      },
+      {
+        "title": "Marked Shot",
+        "rules": "Once per short rest, you can mark a visible enemy. The first ranged attack made against that target before the end of your next turn has advantage on the attack roll and +2 to hit. You must see both yourself and the marked target for this feature to function."
+      }
+    ],
+    "levelRequirementReason": "The spyglass's functionality requires a certain finesse that only comes with experience, hence the level requirement.",
+    "vendorReason": "Wario Land is known for his connections to historical artifacts and relics from various eras of Mushroom Kingdom history.",
+    "shippingDetail": "The spyglass must be delivered by Tower Top Trunk due to its fragile nature, ensuring safe handling through the Mushroom Kingdom's bustling landscapes.",
+    "usage": {
+      "activation": "Passive and once per short rest (Marked Shot)",
+      "duration": "Until another Perception check is made or until the next short rest (Marked Shot)",
+      "endsWhen": "After one use per short rest",
+      "charges": "Unlimited, but only usable once per short rest"
+    },
+    "priceReason": "Balanced at 1000 XP, this spyglass offers significant tactical advantage without overpowered mechanics.",
+    "priceOriginal": 5800,
+    "priceReviewedAt": "2026-07-24T23:48:26.525018+00:00",
+    "aiReviewedAt": "2026-07-24T23:48:26.525018+00:00",
+    "aiReviewVersion": 1
   },
   "wario_cw_blue_shell_shrapnel_band": {
     "id": "wario_cw_blue_shell_shrapnel_band",
@@ -1905,21 +1927,43 @@ export const ITEMS_048 = {
   "wario_cw_sky_bridge_rope_section": {
     "id": "wario_cw_sky_bridge_rope_section",
     "name": "Civil War Relic: Sky-Bridge Rope Section",
-    "description": "A frayed rope segment from a suspended bridge used in aerial assaults.",
+    "description": "This frayed rope segment, a relic from the Civil War era, is forged from hemp and seasoned by years of aerial assault. Its surface is marked with the scars of countless battles, each notch in its length telling a story of daring raids and desperate escapes. The rope retains the scent of clouds, smoke, and fear, a haunting reminder of the sky-bridges that once connected armies across chasms. With this section, you can set up quick riggings for crossing treacherous gaps with ease.",
     "category": "equipment",
-    "price": 5200,
+    "price": 1000,
     "icon": "🪢",
     "stock": 6,
     "rarity": "common",
     "effects": [
-      "Cliffhanger: You have advantage on checks and saves to avoid being knocked off ledges, ropes, or similar precarious positions.",
-      "Quick Rig: Once per day, you can set up a 20 ft rope for crossing in half the normal time.",
-      "Frayed Fibers: Any creature weighing more than 400 lbs has disadvantage on checks relying on it not snapping.",
-      "Smells of clouds, smoke, and fear."
+      "Sky-Bridge Stabilizer",
+      "Quick Rig"
     ],
     "vendor": "wario_land",
     "shippedBy": "Skyhook Delivery",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Sky-Bridge Stabilizer",
+        "rules": "When using this rope to create a bridge or support structure, you can stabilize the setup with a bonus action. This allows the structure to withstand additional weight and strain without snapping, providing crucial stability in precarious situations."
+      },
+      {
+        "title": "Quick Rig",
+        "rules": "Once per long rest, you can set up this rope as part of an improvised bridge or rigging in half the normal time, allowing for rapid deployment in emergency scenarios."
+      }
+    ],
+    "levelRequirementReason": "This relic is considered common and requires no specific class or background proficiency.",
+    "vendorReason": "Wario Land's extensive network includes scavengers who collect such historical artifacts from various battlefields for resale.",
+    "shippingDetail": "Delivered with Skyhook's signature speed, ensuring the relic arrives intact and ready to use.",
+    "usage": {
+      "activation": "Bonus action or as part of a long rest",
+      "duration": "Until destroyed or no longer stable",
+      "endsWhen": "Exhausted or destroyed by overloading the rope beyond its capacity",
+      "charges": "Unlimited; can be re-established after being destroyed"
+    },
+    "priceReason": "The price reflects the historical significance and utility of a relic used in crucial wartime operations.",
+    "priceOriginal": 5200,
+    "priceReviewedAt": "2026-07-24T23:48:32.144730+00:00",
+    "aiReviewedAt": "2026-07-24T23:48:32.144730+00:00",
+    "aiReviewVersion": 1
   },
   "wario_cw_spiny_trench_boots": {
     "id": "wario_cw_spiny_trench_boots",

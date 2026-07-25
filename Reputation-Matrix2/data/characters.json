@@ -23,7 +23,7 @@
     "title": "The Skeleton of Snowdin",
     "race": "Skeleton (Underground Monster)",
     "status": "Active — providing guidance and casseroles to surface visitors",
-    "affiliation": "Independent / Monster Underground",
+    "affiliation": "The Monster Underground — Snowdin Perimeter Watch",
     "summary": "Sans is a mysterious and surprisingly laid-back skeleton living in Snowdin Town. Clad in a blue hooded cloak and possessing eye sockets that radiate a quiet intensity, he is one of the few individuals in the underground civilization who appears completely unphased by the arrival of surface dwellers. He is observant, enjoys good food, and seems to hold a position of informal but significant authority in Snowdin. He provided initial hospitality to Dracule Mihawk and the Legionary Agent, even sharing a casserole with them. He is a central member of the Snowdin Bone-Line, an extended household documented in the Sans Family registry. He is a central member of the Snowdin Bone-Line, an extended household documented in the Sans Family registry.",
     "description": "Sans is a master of the non-sequitur and the casual observation. He greeted the expedition members not with alarms or weapons, but with a simple 'Hello there' and an assessment that they looked 'out of place.'\n\n## The Sentry of the Path\n\nWhile Sans claims to be just a 'civi,' he was the first to detect and approach the party when they began setting up survey equipment. He possesses a keen ability to read people, identifying that Mihawk and the agent were working together before they had even finished their conversation. He treats the agent's classified mission with a light mockery, noting that 'just data collection' sounds skeptical for a pair appearing at Snowdin's entrance with advanced tech.\n\n## Knowledge of the Underground\n\nSans has a deep understanding of Snowdin's history and its relationship with the Royal Family in the distant castle. He serves as an informal guide, explaining the enchanted sky and directing visitors to Bunny's inn. His voice is described as smooth like winter wind, and he carries himself with a lazy confidence that suggests he is far more dangerous—or at least more informed—than he lets on.\n\n## Assessment\n\nWaluigi finds Sans to be a suspicious character. Skeletons who are that relaxed while military survey machines beep in their faces are usually hiding something. He accepted a casserole from a stranger! Who does that?! Either he's the friendliest person in the core, or he's the one who's going to deliver the 'bad time' he keeps implying. Waluigi will keep a close eye on this pile of bones. WAH.\n\n## The Snowdin Bone-Line\n\nSans's guarded humor makes more sense in the context of his enormous household. Papyrus is his brother, but the family also includes practical cousins, young dependents, adopted guests, and unresolved figures from the old Underground science branch. Sans rarely calls himself responsible for anyone; nevertheless, his sentry routes, spare meals, and careful silences protect the entire Bone-Line.\n\n## The Weight of Shortcuts\n\nHe is known to appear at the end of a road before anyone saw him walk it, and to treat locked doors as scheduling disagreements. The registry lists these events as anomalies of timing rather than power, because Sans prefers it that way and because the alternative would require paperwork nobody in Snowdin is qualified to file. The household has learned that when Sans says he took a shortcut, the correct response is gratitude, not questions.\n\n## The Mount Ebott Season\n\nWhen Gamma Division's survey expedition arrived at the mountain, Sans handled it the way he handles everything: casually, completely, and without letting anyone see the work. He recognized the expedition's forbidden Iron Legion protocols before Snowdin's own guard understood what the beeping machines implied, and he said nothing about it publicly. Instead, he walked the survey team to Bunny's inn, answered every question they asked with a worse pun, and quietly redirected their instruments away from the routes that matter. The household's old maintenance map — the one showing the service tunnel to the sealed lower-Ebott relay — stayed where it has always been: with him. Visitors who asked too many directional questions found themselves enthusiastically toured in circles until they forgot what they were looking for.\n\n## Bad Time Doctrine\n\nSnowdin has a deterrent, and it wears a blue hood and tells bad jokes. Sans has cultivated, over years of careful implication, a reputation for delivering what he calls a bad time — a phrase he has never defined and no one has ever stayed to clarify. The doctrine works because it is unfalsifiable: the friendliest sentry in the Underground is also, somehow, the one person nobody wants to disappoint. He measures strangers in jokes, timing how long the laugh takes, watching which questions the stranger answers and which they redirect. By the end of a five-minute conversation he has usually counted the exits, the lies, and the exit lies. The household finds this comforting. Visitors are meant to find it funny.\n\n## Registry Standing\n\nThe archive lists Sans as generation two, active, and unclaimed by either cadet branch of the family. He has never corrected a single entry about himself, which Times New Roman finds either maddening or deeply suspicious, depending on the day. Both branches of the record agree on one point: when the Bone-Line is counted, the count begins with the sentry on the path — and no one has ever found a door Sans had not already counted first.\n\n## Open Questions in the Registry\n\nThree questions remain open in his file, and the household has agreed, unofficially, to let them stay that way. Where he learned the shortcut method, and whether it is a method at all. What he knows about the sealed Wing Gaster folder that he has never volunteered. And the matter of the warnings: relatives who received a casual, joke-shaped heads-down message from Sans within a day of trouble arriving. The chronicle has documented six such warnings. All six came true. Times New Roman has requested a footnote. Sans sent him a whoopee cushion instead, which the chronicle has archived, grimly, as a response.\n\n## The Hours Between Posts\n\nThe sentry routes are the only schedule Sans keeps, and he keeps them exactly, which is the detail visitors most consistently miss. He walks the same loops at the same hours — past the relay junction, past the lower-Ebott service access, past the stretch of road where the sky's enchantment wears thin — and the household reads his day by which loop he is on. Between posts he is at Bunny's inn, or napping at a station that is never, somehow, unwatched, or telling a joke so bad it functions as camouflage. The rhythm is the point: a sentry who is always where he is supposed to be has eyes everywhere he needs to be, and a town that knows where its sentry is can sleep. Papyrus calls it dedication. The registry calls it coverage. Sans calls it a walk. The three descriptions are, the household has noticed, exactly the same shape as the man himself: lazy on the surface, exact underneath, and impossible to tell apart from a joke until the joke has already saved you.",
     "keyEvents": [
@@ -60,7 +60,8 @@
       "starman",
       "speen_kind_of_down_lately",
       "pet_rock",
-      "dedan"
+      "dedan",
+      "undertale_monsters"
     ],
     "familyTreeSecrets": [
       {
@@ -72,7 +73,9 @@
         "text": "The Bone-Line has an old maintenance map showing a service tunnel that reaches a sealed lower-Ebott relay."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "faction": "undertale_monsters",
+    "membership": "Snowdin Perimeter Watch / Underground local guide"
   },
   {
     "id": "gamma_agent",
@@ -419,7 +422,8 @@
     "description": "Waluigi is documenting Byscilla Danos based on observations from Hargram's team and secondhand accounts of her operations. She is not someone Waluigi has encountered directly, and frankly Waluigi is grateful for this because Byscilla appears to be the kind of person who would grab Waluigi by the ear and drag him somewhere productive.\n\n## Command Style — Blunt Force Leadership\n\nByscilla leads through direct, unambiguous authority. There is no confusion about who is in charge when Byscilla is present. She gives orders. Others follow them. The mechanism between order and compliance is not fear exactly—it is the understanding that Byscilla has already calculated the optimal approach and arguing wastes everyone's time.\n\nHer treatment of Thornbury is illustrative. The Mages' Guild quartermaster was using generator-heated well water for a luxury bath—consuming resources allocated for operational purposes while soldiers outside suffered in the heat. Byscilla did not file a complaint. She did not send a memo. She grabbed Thornbury by his ear and PHYSICALLY DRAGGED HIM out of the bath.\n\n'Well, apologize, Thornbury, for doing this,' she said upon arriving at the next meeting.\n\n'I'm sorry, I'm sorry,' Thornbury whimpered.\n\n'I didn't hire you to drain our water supply. We need to focus on the main supply.'\n\nThis is leadership that does not wait for institutional processes. It grabs problems by the ear and removes them. Waluigi finds this simultaneously admirable and terrifying—admirable because it demonstrates zero tolerance for privilege abuse, terrifying because it demonstrates zero tolerance for ANYTHING.\n\n## The Archie Plan — Trap Disguised as Diplomacy\n\nByscilla's plan for Archie reveals sophisticated tactical thinking.\n\nShe did not order Archie captured or killed. She ordered him APPROACHED. The confrontation team—herself, Thornbury (who Archie already knows), and Aemenor Evenflight (chosen specifically because their appearance might put Archie at ease)—was designed to establish contact, not initiate violence.\n\nBut the contact has a purpose: 'All it takes is a single fireball. We will get him to use fireball—contain him.'\n\nByscilla WANTS Archie to cast. She wants him to demonstrate his magical instability so that she has justification—and the data—to bring him under Legion control. The confrontation is not a meeting. It is a PROVOCATION designed to generate evidence.\n\nThe field analyzer readings from the greenhouse—combustion echo at 98, containment risk at 77 CRIMSON ALERT—provide the institutional documentation. Archie's magic left measurable traces. The blast site 'still flinches from it.' This data gives Byscilla the bureaucratic ammunition she needs to justify containment.\n\nShe is weaponizing PAPERWORK against a man who weaponizes FIRE. Waluigi respects the symmetry even while finding it horrifying.\n\n## The Fae Restoration — Preservation Over Repair\n\nA detail from the briefing that Waluigi finds significant: Byscilla reported that fae magic had been used to restore the greenhouse to its original state—'No rust remains, no fire evidence.'\n\nBut she clarified the distinction: 'Not restore this place. PRESERVE it.'\n\nThe fae magic did not repair the damage. It PRESERVED the damage in a way that maintained evidence. The fire scoring is hidden under glamour. The rust memory clings to seams. The destruction is covered, not healed.\n\nThis is forensic preservation. Byscilla is maintaining the greenhouse as a CRIME SCENE. The evidence of Archie's fireball is being kept intact under magical concealment so that it can be presented when needed.\n\nThe woman is building a case. Not a military operation. A PROSECUTION.\n\n## The Team Assignments — Calculated Personnel\n\nByscilla's team assignments reveal her assessment of each person's utility:\n\n**Thornbury** — Assigned to the confrontation team because Archie already knows him. Familiarity lowers guard. Thornbury's bureaucratic manner is non-threatening. He is the friendly face that walks Archie into the trap.\n\n**Aemenor Evenflight** — Assigned to confrontation because Archie might respond better to them. Byscilla's reasoning: 'I think he might get easier time getting used to you.' Whether this is calculated empathy or cynical manipulation of Aemenor's appearance depends on how charitable you're feeling.\n\n**Hargram Fidger** — Assigned to greenhouse survey. Hargram wanted Rhak on his team to keep the orc managed. Byscilla allowed this—recognizing that Hargram's leadership of the physical operations team was more important than inserting Rhak into the confrontation.\n\n**Rhak the Lost** — Hargram argued Archie would be 'intimidated by his presence.' Byscilla overruled: 'You'll have your time to shine, Rhak.' The orc sobbed. Byscilla did not acknowledge the emotional display. Mission parameters do not accommodate feelings.\n\n**Manderaz the Mad** — Assigned to greenhouse survey. The career military hobgoblin is reliable in structured operations. He follows orders with precision—even when those orders involve fighting ghosts after accidentally hitting himself.\n\nThe split is intelligent: confrontation team has the social operators and the institutional authority. Greenhouse team has the combat muscle and the field documentation capability. Both teams serve the larger objective of containing Archie through evidence and contact.\n\n## The Legion Relationship — 'For the Legion'\n\nByscilla's briefing ended with 'For the Legion!' echoed by her team. This is institutional ritual—the verbal confirmation of loyalty that military organizations use to maintain cohesion.\n\nBut Byscilla's operations suggest she may be more independent than the slogan implies. She uses fae magic—not standard Legion methodology. She cooperates with the Mages' Guild through jointly developed equipment. She plans containment operations that prioritize evidence over violence.\n\nGeneral Ironhand would simply issue an order to seize Archie and process him. Byscilla is building a CASE. This suggests either higher sophistication than typical Legion operations or different objectives entirely.\n\nWaluigi suspects Byscilla may be operating with more autonomy than the Legion's command structure typically permits. Whether this autonomy is authorized or self-appointed, Waluigi cannot determine.\n\n## Waluigi's Assessment\n\nByscilla Danos is the most competent Iron Legion field commander Waluigi has documented. She combines tactical precision with institutional savvy in ways that make her dangerous to everyone she targets.\n\nArchie does not know he is being targeted. He thinks the Legion presence at Raventree is routine. He does not know that the greenhouse is being preserved as evidence. He does not know that the confrontation is designed to provoke a fireball. He does not know that the field analyzer readings are being compiled into a containment justification.\n\nByscilla is three steps ahead of a man who is usually two steps behind.\n\nWaluigi advises Archie—if Archie ever reads this—to not cast a single spell near Byscilla Danos. Every spark is evidence. Every flame is ammunition. The woman who drags people by their ears will drag Archie into a cell if he gives her the documentation to justify it.\n\nWAH.",
     "keyEvents": [
       "greenhouse_survey",
-      "archie_approach"
+      "archie_approach",
+      "thornwood_manor_silent_field_dossier"
     ],
     "relatedArticles": [
       "iron_legion",
@@ -430,7 +434,8 @@
       "rhak_the_lost",
       "manderaz_the_mad",
       "raventree_manor",
-      "mages_guild"
+      "mages_guild",
+      "thornwood_manor_silent_field_dossier"
     ]
   },
   {
@@ -503,14 +508,16 @@
     "summary": "Darno Spriggon appeared during the greenhouse survey, showed Hargram's team a keychain bearing an iron ring with Iron Legion military insignia, claimed to have personally dealt with the remaining rust monsters, handed Hargram an unsent letter from Archie to Dan, said 'Let's all head inside—Archie needs this back,' and then his torch went out and everything went dark. He possessed a Legion rank ring without apparent military bearing. He knew about Archie. He had Archie's personal correspondence. He appeared at precisely the right moment to insert himself into operations. Every detail about Darno Spriggon raises questions that the available evidence cannot answer. WAH.",
     "description": "Waluigi is documenting Darno Spriggon because the man appeared, distributed intelligence, and vanished into operational context in a way that demands examination even though the examination produces more confusion than clarity.\n\n## The Appearance — Convenient Timing\n\nDarno Spriggon appeared at the greenhouse after Hargram's team had completed their rust monster clearance and field analyzer documentation. His timing was precise—arriving after the danger was resolved but before the team departed.\n\nHe showed them a keychain. On the keychain: an iron ring bearing Iron Legion military insignia. A badge of rank and authority.\n\nWarol Creeton—a Legion guard present—reportedly thought to himself: 'How did he get that? Is he a general?'\n\nThe ring was clearly designed for someone who issues orders. Spriggon did not appear to BE someone who issues orders. His bearing did not match the rank the ring implied. Either the ring was stolen, given, found, or Spriggon is operating above his apparent station.\n\n## The Rust Monster Claim\n\nSpriggon claimed to have 'personally dealt with' the remaining rust monsters in the greenhouse.\n\nHargram could not determine if this was true. The man's torch went out at this precise moment, plunging them into darkness. When visibility issues prevent verification of claims, Waluigi assumes the claims are UNVERIFIED rather than confirmed.\n\nIf Spriggon DID clear the rust monsters, he did so alone, without the team's knowledge, using methods that left no observable evidence. This suggests either significant personal capability or significant dishonesty.\n\n## The Letter — Archie's Unsent Correspondence\n\nSpriggon handed Hargram a folded, water-stained letter addressed to Dan—Archie's personal correspondence, never delivered. 'Let's all head inside—Archie needs this back.'\n\nHOW did Spriggon have Archie's letter?\n\nPossibilities:\n\n**Found.** The letter was dropped by Archie during his passage through the area and Spriggon recovered it.\n\n**Given.** Someone—Archie, an intermediary, the Mages' Guild—gave Spriggon the letter for delivery.\n\n**Taken.** Spriggon acquired the letter from Archie's possessions without permission.\n\nEach possibility creates different implications about Spriggon's relationship to Archie, his access to personal effects, and his operational purpose.\n\nHargram refused to read the letter. He carried it without examining the contents. The letter apparently contained Archie's conflicted, hesitant attempt to communicate with Dan after the Parallel Dan revelations—a document of personal vulnerability that Hargram chose to respect rather than exploit.\n\n## The Ring — Institutional Questions\n\nThe Legion rank insignia ring is the most troubling detail.\n\nIron Legion rank rings are not casual accessories. They represent authority within a hierarchical military organization. They are tracked. They are assigned. They are not supposed to end up on the keychains of mysterious individuals who appear at greenhouse surveys.\n\nIf Spriggon is a LEGITIMATE Legion operative of significant rank, his appearance makes institutional sense—a senior officer monitoring field operations. But his demeanor and presentation did not match senior officer protocols.\n\nIf Spriggon ACQUIRED the ring through other means, those means are significant. Stolen from a dead officer? Given as payment or bribe? Found in circumstances that suggest the original owner is no longer operational?\n\nThe ring's presence on Spriggon's keychain suggests ACCESS to Iron Legion institutional power—whether authorized or unauthorized.\n\n## Waluigi's Assessment\n\nDarno Spriggon is a question mark with a keychain.\n\nHe appeared at a convenient time. He possessed items he should not have—a Legion rank ring, Archie's personal letter. He made claims that could not be verified. His torch went out at the exact moment when verification would have been possible.\n\nEverything about Spriggon suggests INTENTION. He did not stumble into the greenhouse by accident. He came with purposes—delivering the letter, establishing presence, demonstrating the ring—and departed after achieving them.\n\nWaluigi does not know what those purposes serve. But Waluigi knows that people who appear at precisely the right moment with precisely the right items are either allies, enemies, or forces that transcend both categories.\n\nSpriggon is filed under 'investigate further.' When Waluigi escapes the Feywild, this man's background goes to the top of the list.\n\nWAH.",
     "keyEvents": [
-      "greenhouse_survey"
+      "greenhouse_survey",
+      "thornwood_manor_silent_field_dossier"
     ],
     "relatedArticles": [
       "hargram_fidger",
       "iron_legion",
       "archie_miser",
       "dan",
-      "raventree_manor"
+      "raventree_manor",
+      "thornwood_manor_silent_field_dossier"
     ]
   },
   {
@@ -591,7 +598,8 @@
     "summary": "Luigi is the reluctant ghostbuster, the brother left behind by every heroic story that needed Mario in front, and the man whose history now carries the unresolved shadow of Mr. L, Guild contracts, haunted technology, medical testimony, and a disappearance mystery too large to fit inside the word sidekick. Waluigi finds Luigi infuriating, sympathetic, suspicious, brave, evasive, and extremely bad at choosing restful employment. The Poltergust is not just a vacuum; it is Luigi’s proof that fear can be weaponized into duty.",
     "description": "Waluigi finds writing this entry physically painful, but historical accuracy demands it. Luigi has spent most public history being treated as an appendix to Mario. That is lazy history. Waluigi enjoys insulting Luigi personally, but Waluigi refuses to let history insult him inaccurately.\n\n## The Brother Problem\n\nLuigi’s public identity was built in relation to Mario, which is unfair and historically dangerous. A person defined as the second brother can disappear in plain sight because institutions file him under support, not center. This is why Luigi’s records are uneven: sports appearances, ghost incidents, heroic support, then sudden gaps, Mr. L references, Guild contracts, and medical testimony. The shape of the record tells Waluigi that Luigi mattered more than the public was encouraged to understand. Mario is the heroic sun of the old Mushroom myth. Luigi is not simply the moon. He is the eclipse nobody wrote procedures for.\n\n## Fear as Method\n\nLuigi is afraid often. This is not a weakness in the usual sense; it is his operating environment. Many fighters rely on anger, duty, pride, or confidence. Luigi relies on fear processed into procedure. He shakes, complains, startles, and then points the Poltergust at the ghost anyway. Haunted places punish arrogance. Luigi’s fear makes him observant. He notices the wrong temperature, the hallway that feels longer on the way back, the portrait watching too calmly. Fear keeps the instrument panel lit. Waluigi hates how useful that is.\n\n## The Poltergust\n\nThe Poltergust is not just a vacuum. It is a technological interface between living fear and dead persistence. Professor E. Gadd’s paratechnology turns Luigi’s terror into steps: strobe, suction, containment, breathe, scream, continue. The device can capture spectral entities, disrupt supernatural threats, and carry ghosts no sane person would want on their back. This is why Waluigi classifies Poltergust use as Technique, not Arcane. Luigi is not casting spells every time the room is haunted. He is operating specialized equipment under pressure, which is more impressive and more embarrassing for everyone who laughed at him.\n\n## Mr. L\n\nThe Mr. L problem cannot be avoided. The official narrative says Luigi was corrupted into an alternate persona: confident where Luigi was anxious, aggressive where Luigi was hesitant, cruel where Luigi was compassionate. Waluigi does not fully trust a story that clean. It absolves the kingdom, isolates the blame in outside corruption, and lets everyone pretend the matter ended when Mario won. But Mr. L revealed capacities the public Luigi hid: piloting, engineering confidence, theatrical aggression, and the ability to stand against Mario. Whether these came from corruption alone or from something Luigi already carried, the record remains dangerous.\n\n## The Ruined Manor Contract\n\nLuigi arrived at the Ruined Manor under Guild contract. That should concern everyone because the Mages’ Guild does not hire people out of kindness; it identifies capabilities and assigns uses. Luigi’s job was to remove spectral anomalies with the Poltergust. The phrasing sounds simple until one remembers the manor was tied to dimensional fractures, aristocratic secrets, Archie Miser’s fire problems, Bones’s infiltration, and Guild containment logic. Luigi performed useful work: stunning ghosts, vacuuming threats, opening doors, and containing things he refused to discuss later. Waluigi dislikes admitting this, so Waluigi will say it once: Luigi was competent.\n\n## The Bubble Bath Incident\n\nWhile others were engaged in danger and espionage, Luigi took a luxurious bubble bath, claiming it helped expel ectoplasm. Waluigi remains offended. Waluigi also now understands that this may have been self-care, decontamination, avoidance, or the nervous system demanding one room where fear did not get to drive. The bath is ridiculous. It is also revealing. Luigi copes through rituals: clean the body, reset the breath, pretend the warm water makes the room safe. Waluigi reserves the right to mock him and the responsibility to file the coping mechanism accurately.\n\n## The Waiting Room Testimony\n\nThe Waiting Room testimony makes Luigi’s file much darker. It suggests medical intervention, containment protocols, possible Dr. Mario or Uncle Dario identity confusion, and a set of circumstances that threaten several assumptions about the Mario Brothers. In that testimony, Luigi is not the ghostbuster. He is the body being managed by systems larger than him. If even half of that account is true, Luigi has been handled, moved, treated, and remembered through channels the public heroic narrative does not admit. Waluigi does not yet know the whole truth. Waluigi knows the gaps are shaped like people hiding something.\n\n## Relationship to the Mages Guild\n\nLuigi’s relationship with the Mages’ Guild is useful and dangerous. Individual Guild operatives may respect him. The institution still sees a man with ghost technology as an asset. The Guild loves assets. It loves contracts, badges, containment, tracking, and the kind of consent that becomes complicated when the alternative is being left alone with the haunted problem. Every Guild-Luigi interaction should be read with one question: did Luigi choose this, or was the task placed where his conscience would have to pick it up?\n\n## Relationship to Disaster Inc.\n\nLuigi is not a core member of Disaster Inc., but his path crosses theirs in ways that matter. He intersects with Archie, Bones, Bowser, Agent L, ruined manor incidents, ghost technology, and the Mario mystery. His relationship with Archie is especially strange: fire and fear, improvisation and procedure, guilt and anxiety. They should not work well together. Sometimes they do because both understand what it means to be used by stories larger than themselves. Bowser complicates things further because Bowser may have been falsely blamed for Peach’s death. Luigi’s old heroic framework no longer fits cleanly. Waluigi suspects Luigi knows this and hates it.\n\n## Waluigi Assessment\n\nLuigi is annoying, brave, evasive, useful, wounded, and much more important than the word sidekick allows. The Poltergust makes him dangerous to ghosts. Mr. L makes him dangerous to simple narratives. The Waiting Room makes him dangerous to official records. His fear makes him human. His persistence makes him heroic in the least convenient way for Waluigi’s ego. Waluigi will continue investigating Luigi because the green plumber’s file touches too many locked doors. Waluigi will also continue mocking Luigi because truth without style is just paperwork. WAH.",
     "keyEvents": [
-      "planar_fracture"
+      "planar_fracture",
+      "thornwood_manor_silent_field_dossier"
     ],
     "relatedArticles": [
       "archie_miser",
@@ -602,7 +610,8 @@
       "the_waiting_room_testimony",
       "ruined_manor_convergence",
       "battle_of_the_brobot",
-      "thornburys_field_journal"
+      "thornburys_field_journal",
+      "thornwood_manor_silent_field_dossier"
     ]
   },
   {
@@ -1390,7 +1399,8 @@
     "summary": "Toad Lee continues to be the only reason Disaster Inc. hasn't been completely consumed by the Feywild. He reads the lore, manages the incredibly drunk Rakasha, and initiates combat when necessary. He recently survived being thrown out of a high-story window by a goblin guard, which Waluigi finds highly amusing but respects the commitment to the fight.",
     "description": "Toad Lee is proving to be a surprisingly aggressive diplomat. While he initially served as the quiet, observant foil to Waluigi's loud magnificence, the Feywild is wearing on him.\n\n**The Combat Pragmatist**\nWhen Remi's mechanical dog was stolen by goblin servants looking for scrap metal, Toad Lee didn't bother with fey riddles. He barged into the servant's quarters (interrupting a goblin on the toilet) and demanded the dog back. In the ensuing sword fight, Toad Lee's shield was stolen by the guard Gregory. Toad Lee attempted a heroic acrobatic maneuver, failed spectacularly, and fell out the window. He was only saved because Azure manifested a spectral hand to catch him.\n\n**The Lore Keeper**\nWhile Hjumpik is busy throwing axes at bombs, Toad Lee is actually paying attention to the environment. He uncovered Lady Aurelian's diary, reading critical lore about 'The Grafting' and the arrival of the Iron Legion. Toad Lee is the brain of the Feywild operation, even if his acrobatic skills need serious work. Waluigi will offer him tennis lessons if they survive this.\n\n## Expanded Waluipedia Notes\n\nToad Lee is the kind of character who becomes important because everyone else is too busy being dramatic. He listens. He reads. He notices the diary on the shelf while stronger people argue about which door to kick. In the Feywild operation, this is not a minor talent. The Feyward punishes people who treat lore as decoration. Toad Lee treats lore as equipment, which makes him more valuable than several people carrying actual equipment.\n\nHis failures are also instructive. The window incident proves he is not a flawless operative, but Waluigi does not require flawless operatives. Waluigi requires useful ones. Toad Lee's usefulness is quiet, cumulative, and easy to undervalue until the moment everyone realizes the only reason they understand the room is because he read the thing nobody else wanted to read. WAH.",
     "keyEvents": [
-      "rescue_of_steely"
+      "rescue_of_steely",
+      "thornwood_manor_silent_field_dossier"
     ],
     "relatedArticles": [
       "overgrown_manor",
@@ -1401,7 +1411,8 @@
       "teacher_t",
       "bully_t",
       "nerd_t",
-      "geek_t"
+      "geek_t",
+      "thornwood_manor_silent_field_dossier"
     ],
     "expandedFromMicro": true,
     "microArticleFlag": "expanded"
@@ -2169,7 +2180,8 @@
       "planar_fracture",
       "tea_party_incident",
       "shadow_estate_campaign",
-      "archies_return_to_shadow_estate"
+      "archies_return_to_shadow_estate",
+      "thornwood_manor_silent_field_dossier"
     ],
     "relatedArticles": [
       "the_oracle",
@@ -2196,7 +2208,8 @@
       "thornburys_field_journal",
       "shadow_estate_campaign",
       "archies_return_to_shadow_estate",
-      "the_midnight_audit_of_harvestide_28"
+      "the_midnight_audit_of_harvestide_28",
+      "thornwood_manor_silent_field_dossier"
     ]
   },
   {
@@ -3502,5 +3515,149 @@
     "powerLevel": 3,
     "fameScore": 34,
     "fameTier": "Local"
+  },
+  {
+    "id": "elder_mudcap",
+    "name": "Elder Mudcap",
+    "title": "Barrel Survivor Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "Barrel Survivors",
+    "summary": "The oldest named barrel survivor and the council’s first seat. Mudcap treats survivor testimony as law because the faction exists to ensure that nobody can call the barrels a rumor again.",
+    "description": "The oldest named barrel survivor and the council’s first seat. Mudcap treats survivor testimony as law because the faction exists to ensure that nobody can call the barrels a rumor again. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "captain_fernback",
+    "name": "Captain Fernback",
+    "title": "Pond Patrol Commander",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "Pond Patrol",
+    "summary": "Commands the named enforcement arm of the Liberated Toads. Fernback’s loyalty to Speaker L is intense, but the Raventree containment order places him under real council scrutiny rather than outside it.",
+    "description": "Commands the named enforcement arm of the Liberated Toads. Fernback’s loyalty to Speaker L is intense, but the Raventree containment order places him under real council scrutiny rather than outside it. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "scribe_dewdrop",
+    "name": "Scribe Dewdrop",
+    "title": "Chroniclers Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "The Chroniclers",
+    "summary": "Keeps the faction archive, compares testimony, and refuses to let emergency language erase inconvenient facts. Dewdrop is the named answer to every attempt to call a documented atrocity a misunderstanding.",
+    "description": "Keeps the faction archive, compares testimony, and refuses to let emergency language erase inconvenient facts. Dewdrop is the named answer to every attempt to call a documented atrocity a misunderstanding. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "forgemaster_ironspore",
+    "name": "Forgemaster Ironspore",
+    "title": "Crafters Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "The Crafters",
+    "summary": "Maintains the diaspora’s equipment and salvage routes. Ironspore is the council voice most likely to ask whether a heroic plan can actually be fed, repaired, and carried.",
+    "description": "Maintains the diaspora’s equipment and salvage routes. Ironspore is the council voice most likely to ask whether a heroic plan can actually be fed, repaired, and carried. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "warden_thornshell",
+    "name": "Warden Thornshell",
+    "title": "Wardens Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "The Wardens",
+    "summary": "Commands external defense and argues for direct action when the faction is threatened. Thornshell is distinct from Fernback: Wardens fight outward; Pond Patrol protects and polices inward.",
+    "description": "Commands external defense and argues for direct action when the faction is threatened. Thornshell is distinct from Fernback: Wardens fight outward; Pond Patrol protects and polices inward. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "healer_mistpetal",
+    "name": "Healer Mistpetal",
+    "title": "Menders Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "The Menders",
+    "summary": "Leads the Menders’ medical and trauma-care work. Mistpetal measures every proposed operation against the patients, wounded, and frightened survivors who will pay for it.",
+    "description": "Leads the Menders’ medical and trauma-care work. Mistpetal measures every proposed operation against the patients, wounded, and frightened survivors who will pay for it. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
   }
 ]

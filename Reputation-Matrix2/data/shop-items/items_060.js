@@ -2861,21 +2861,44 @@ export const ITEMS_060 = {
   "faerun_item_potion_of_froggy_fortitude": {
     "id": "faerun_item_potion_of_froggy_fortitude",
     "name": "Potion of Froggy Fortitude",
-    "description": "Brewed by a surprisingly enthusiastic swamp witch, this murky potion tastes vaguely of pond scum and desperation. Drink it quickly – it’ll temporarily boost your resilience… mostly to being splashed with mud.",
+    "description": "Brewed by a surprisingly enthusiastic swamp witch, this murky potion tastes vaguely of pond scum and desperation. The concoction is known to be potent when mixed in a specially crafted cauldron found only in the deepest parts of the Evermoors. Drink it quickly – it’ll temporarily boost your resilience… mostly to being splashed with mud, but also providing an unexpected burst of strength that allows you to leap over obstacles with ease for a short time.",
     "category": "consumables",
-    "price": 850,
+    "price": 1000,
     "icon": "🐸",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "restores 1d6 hit points",
-      "temporary resistance to poison damage (1 round)",
-      "increases movement speed by 10%"
+      "Temporary Strength Boost",
+      "Mud Resistance"
     ],
     "vendor": "waterdeep_market",
     "shippedBy": "winged messenger",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Temporary Strength Boost",
+        "rules": "Upon drinking, the drinker gains +2 to Strength (Strength check and saving throws) for 10 minutes. This effect is instantaneous upon activation."
+      },
+      {
+        "title": "Mud Resistance",
+        "rules": "For 1 round after drinking this potion, you have resistance to poison damage. The effect ends when the drinker takes any other form of damage."
+      }
+    ],
+    "levelRequirementReason": "The concoction is designed for adventurers just starting their journey.",
+    "vendorReason": "The market often deals in items from various locales, including the swamp witch's creations.",
+    "shippingDetail": "Shipped by a swift winged courier to ensure freshness.",
+    "usage": {
+      "activation": "Drink as an action.",
+      "duration": "10 minutes or until you take any other form of damage.",
+      "endsWhen": "You take other forms of damage or the duration expires.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The potion's rarity and the unique cauldron used in its creation justify this price.",
+    "priceOriginal": 850,
+    "priceReviewedAt": "2026-07-24T23:56:11.595392+00:00",
+    "aiReviewedAt": "2026-07-24T23:56:11.595392+00:00",
+    "aiReviewVersion": 1
   },
   "faerun_item_helm_of_the_stone_giant": {
     "id": "faerun_item_helm_of_the_stone_giant",
@@ -3636,21 +3659,44 @@ export const ITEMS_060 = {
   "internet_data_core": {
     "id": "internet_data_core",
     "name": "Quantum Compression Pylon",
-    "description": "This gleaming device is a miniature data center, capable of temporarily reducing your weight and boosting speed. Just be careful not to overload your system with too much… information!",
+    "description": "The Quantum Compression Pylon is a gleaming, cybernetic device crafted from polished obsidian and glowing neon circuits. It's said to have been forged in the heart of a quantum data temple during a rare alignment of digital stars. Placing it on your back allows you to reduce your weight by 50% and increase your movement speed by +10 feet per round, but beware—overloading its processing core with too much data triggers a chance for catastrophic system failure.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "⚙️",
     "stock": 12,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
       "reduce_weight",
-      "increase_movement_speed",
-      "chance_of_system_overload"
+      "increase_movement_speed"
     ],
     "vendor": "cyber_market",
     "shippedBy": "fiber_optic_cable",
-    "levelRequirement": 12
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Reduced Weight",
+        "rules": "When activated as an action, the device reduces your weight by 50%, allowing you to move more freely. This effect lasts for up to 1 minute and ends when you stop using it or are hit by a melee attack."
+      },
+      {
+        "title": "Increased Movement Speed",
+        "rules": "Activates as an action, granting you +10 feet of movement speed for the duration of your next short rest. This effect cannot be used more than once per day and ends if you fall unconscious or are hit by a critical hit."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 3rd level to handle the device's quantum processing without causing a system failure.",
+    "vendorReason": "The cyber_market specializes in cutting-edge tech and has the knowledge to safely sell such advanced devices.",
+    "shippingDetail": "Shipped via high-speed fiber optic cables, ensuring secure delivery even during night stock limits.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 minute or until interrupted",
+      "endsWhen": "Stop using it or hit by melee attack",
+      "charges": "Unlimited uses per short rest"
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its rare craftsmanship and quantum capabilities.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-24T23:56:11.186447+00:00",
+    "aiReviewedAt": "2026-07-24T23:56:11.186447+00:00",
+    "aiReviewVersion": 1
   },
   "internet_godly_cache": {
     "id": "internet_godly_cache",

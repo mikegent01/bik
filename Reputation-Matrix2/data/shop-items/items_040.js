@@ -330,20 +330,43 @@ export const ITEMS_040 = {
   "shadowfell_silken_soul_cloth": {
     "id": "shadowfell_silken_soul_cloth",
     "name": "Silken Soul Cloth",
-    "description": "Woven from the dreams of the dead, this cloth absorbs ambient negativity and transforms it into raw energy. Wearing it in battle grants a shield of whispered sorrow.",
+    "description": "Woven from the dreams of the dead, this ethereal cloth shimmers with an otherworldly glow, absorbing ambient negativity and transforming it into raw energy. When worn in battle, it whispers a shield of sorrow that deflects harm, leaving only the faintest trace of its ethereal power behind after each use. It is said to have been crafted by the ancient weavers who dwell in the Shadowfell, whose touch imbues it with both protection and stealth.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Reduces incoming damage by 15%",
-      "Regenerates 10% HP per second while under enemy attack",
-      "Grants +5% to all stealth abilities"
+      "Absorbs Ambient Negativity",
+      "Stealth Enhancement"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Absorbs Ambient Negativity",
+        "rules": "While wearing this cloth, you gain a +10 bonus to saving throws against negative energy damage. The cloth absorbs up to 25 points of negative energy each day before requiring rest and meditation for 8 hours to recover."
+      },
+      {
+        "title": "Stealth Enhancement",
+        "rules": "The wearer gains advantage on Dexterity (Stealth) checks while wearing this cloth. This effect lasts until the end of your next short or long rest."
+      }
+    ],
+    "levelRequirementReason": "The weave of the cloth is delicate, requiring only a minimum level to ensure proper handling and protection.",
+    "vendorReason": "The Shadowfell's weavers are known for crafting items that bridge the realms, making this cloth a natural addition to their wares.",
+    "shippingDetail": "Ships via the Void Drifter Relay, ensuring safe and swift delivery from the far reaches of the Shadowfell.",
+    "usage": {
+      "activation": "Passive effect while wearing the cloth.",
+      "duration": "Instantaneous absorption; lasts until end of rest period for recovery.",
+      "endsWhen": "Requires a short or long rest to recover absorbed negative energy and stealth enhancement.",
+      "charges": "Unlimited, but requires rest for full recovery."
+    },
+    "priceReason": "The cloth is crafted from rare materials and ancient techniques, balancing its power with a moderate price point.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:34:50.399363+00:00",
+    "aiReviewedAt": "2026-07-24T23:34:50.399363+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_siphon_blade": {
     "id": "shadowfell_siphon_blade",
@@ -549,19 +572,42 @@ export const ITEMS_040 = {
   "shadowfell_soul_of_the_fallen_blood": {
     "id": "shadowfell_soul_of_the_fallen_blood",
     "name": "Soul of the Fallen Blood",
-    "description": "A vial containing the essence of a vampire elder who died in a battle of shadows. Infuses the user with dark charisma and temporary regeneration.",
+    "description": "A vial containing the essence of a vampire elder who died in a battle of shadows, this Soul of the Fallen Blood is said to have been crafted by dark artisans within the shadowy realms. When consumed, it infuses the user with dark charisma, making them an irresistible target for fear and dread among foes. The vial's crimson liquid pulses with ancient magic, granting temporary regeneration and a chance to dodge attacks, leaving one feeling both powerful and perilously exposed.",
     "price": 2800,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Regenerate 15 vitality for 10 seconds",
-      "Gain +10% chance to dodge attacks",
-      "Infuses Dark Charisma: Increases enemy fear by 30%"
+      "Regenerate Vitality",
+      "Gain Dodging Advantage"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Regenerate Vitality",
+        "rules": "Upon activation, the user regenerates 15 vitality over 10 seconds. This effect ends when used or if the user drops to 0 hit points."
+      },
+      {
+        "title": "Gain Dodging Advantage",
+        "rules": "For the duration of one short rest, the user gains a +10% chance to dodge attacks. This effect is lost after a long rest and cannot be stacked with similar abilities."
+      }
+    ],
+    "levelRequirementReason": "This vial's dark magic requires a certain level of arcane knowledge to harness effectively.",
+    "vendorReason": "Shadowfell, known for its expertise in dark artifacts and eldritch relics, offers this powerful item to those who dare venture into the shadowy realms.",
+    "shippingDetail": "The vial is shipped discreetly via Shy Guy Smugglers, ensuring it arrives safely within a week of purchase.",
+    "usage": {
+      "activation": "Consume as a bonus action",
+      "duration": "10 seconds for Regenerate Vitality; one short rest for Dodging Advantage",
+      "endsWhen": "Used, dropped to 0 HP, or after a long rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Crafted from the essence of a fallen vampire elder, this vial commands a high price due to its rarity and potent magic.",
+    "priceOriginal": 2800,
+    "priceReviewedAt": "2026-07-24T23:35:03.447147+00:00",
+    "aiReviewedAt": "2026-07-24T23:35:03.447147+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_soul_shard": {
     "id": "shadowfell_soul_shard",
@@ -1107,19 +1153,42 @@ export const ITEMS_040 = {
   "shadowfell_tattered_soul_satchel": {
     "id": "shadowfell_tattered_soul_satchel",
     "name": "Tattered Soul Satchel",
-    "description": "A stitched leather pouch dripping with dark magic, it holds fragments of lost souls. When opened, it emits a low hum that soothes psychic distress and amplifies empathy. Ideal for those navigating the Fractured Atrium’s unstable corridors.",
-    "price": 1200,
+    "description": "The Tattered Soul Satchel is a weathered leather pouch, its surface cracked and sewn shut with dark threads that glow faintly under torchlight. This relic of the shadowy Fractured Atrium holds fragments of lost souls, each fragment whispering in the background as the satchel opens. It hums softly when unfastened, soothing psychic distress and amplifying empathy among those who wear it, allowing them to sense emotions around them more acutely.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
       "+10% chance to resist psychic traps",
-      "Empathic resonance: grants temporary insight into nearby creatures’ emotions",
-      "Consumed to restore 50% of maximum willpower"
+      "Empathic Resonance"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Psychic Distress Soothing",
+        "rules": "When activated as an action, the Tattered Soul Satchel emits a soothing hum that grants advantage on saving throws against psychic damage and effects for 1 hour. This effect ends if the wearer takes damage from a psychic source or if they willingly remove the satchel."
+      },
+      {
+        "title": "Empathic Resonance",
+        "rules": "The satchel amplifies empathy, granting the wearer advantage on Insight checks to sense emotions within 30 feet for 1 hour. This effect ends when the wearer takes a short or long rest."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 2nd level to navigate the unstable corridors of the Fractured Atrium with this soul-filled satchel.",
+    "vendorReason": "Shadowfell traders often encounter these relics in forgotten corners of their realm and sell them to those who seek a deeper connection with the astral plane.",
+    "shippingDetail": "Shipped via fast courier drones, ensuring safe delivery within days from the depths of Shadowfell.",
+    "usage": {
+      "activation": "Activate as an action to soothe psychic distress and gain empathic resonance.",
+      "duration": "1 hour for each effect.",
+      "endsWhen": "Effect ends if the wearer takes damage from a psychic source or upon resting, whichever comes first; the satchel can be used once per short rest.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "The Tattered Soul Satchel's rarity and unique ability to soothe and amplify empathy make it a valuable tool for navigating the treacherous realms of the Fractured Atrium, justifying its moderate price in experience points.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:35:34.610797+00:00",
+    "aiReviewedAt": "2026-07-24T23:35:34.610797+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_tear_of_the_void": {
     "id": "shadowfell_tear_of_the_void",
@@ -1450,37 +1519,83 @@ export const ITEMS_040 = {
   "shadowfell_vampire_heart_pendant": {
     "id": "shadowfell_vampire_heart_pendant",
     "name": "Vampire Heart Pendant",
-    "description": "A pendant shaped like a pulsating heart, infused with the essence of a fallen Onyx Hand. Wears it to gain a minor boost in charisma and influence the minds of those who hear your voice.",
+    "description": "The Vampire Heart Pendant, a pulsating heart made of obsidian and shadow, is said to be crafted from the very essence of a fallen Onyx Hand vampire. This pendant grants its wearer a +2 bonus to Charisma checks and saves, as well as an eerie ability to influence minds with a single compelling word. It whispers secrets of the night to those who hear it, subtly swaying their wills in your favor.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+10% persuasion chance",
-      "+10% chance to disarm enemies with dialogue",
-      "Grants +10% stealth while moving"
+      "Charisma Boost",
+      "Mind Influence"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Charisma Boost",
+        "rules": "When worn, the pendant grants a +2 bonus to Charisma checks and saving throws. This effect is always active while the pendant is worn."
+      },
+      {
+        "title": "Mind Influence",
+        "rules": "The wearer can use an action once per long rest to attempt to influence the will of one creature within 30 feet with a compelling word. The target must make a DC 15 Wisdom saving throw or be charmed for 1 hour."
+      }
+    ],
+    "levelRequirementReason": "The pendant's supernatural influence requires a character to be at least level 2 to wield it effectively.",
+    "vendorReason": "Shadowfell, known for its dark and mysterious wares, deals in this cursed artifact from the depths of the Onyx Hand domain.",
+    "shippingDetail": "The pendant is shipped via the Void Drifter Relay, a courier service that ensures delivery through shadowy realms, arriving with a slight delay and an air of mystery.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The target escapes the effect or ends its turn within range",
+      "charges": "1 charge per long rest"
+    },
+    "priceReason": "Crafted from rare materials and infused with dark magic, this pendant's price reflects both its craftsmanship and the danger it poses.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:35:16.468600+00:00",
+    "aiReviewedAt": "2026-07-24T23:35:16.468600+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_vampire_heart_vial": {
     "id": "shadowfell_vampire_heart_vial",
     "name": "Vampire Heart Vial",
-    "description": "A vial containing the pulsing essence of a fallen Onyx Hand. Infuses the user with vampiric vitality, granting regeneration and a chilling aura that frightens foes. Best used in ambushes or shadowed corners.",
-    "price": 2000,
+    "description": "The Vampire Heart Vial contains the pulsing, dark essence of a fallen Onyx Hand vampire. Its glass vial hums with malevolent energy, and when activated, it infuses the wielder with vampiric vitality, granting regeneration that heals 20% health points every five seconds. The vial also projects a chilling aura around its user, which has a 30% chance to silence any enemy struck by their attacks, turning the battlefield against them.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 5,
     "rarity": "rare",
     "effects": [
       "Regenerates 20% HP per 5s",
-      "+10% damage to enemies with negative traits",
-      "Grants 30% chance to silence target on hit"
+      "Silences target on hit with 30% chance"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Vampiric Regeneration",
+        "rules": "The user regenerates 20% of their health points every five seconds while the vial is active. This effect ends when the vial is expended or if the user takes any action that requires a bonus action."
+      },
+      {
+        "title": "Silent Silence",
+        "rules": "For every successful attack made against an enemy, there is a 30% chance to silence them for one round. This effect has no save DC and ends when the vial runs out of charges or if the user takes any action that requires a bonus action."
+      }
+    ],
+    "levelRequirementReason": "The Vampire Heart Vial's dark magic is potent, requiring at least level 5 to wield its power without succumbing to its malevolent influence.",
+    "vendorReason": "The Shadowfell's dark realm holds the secrets of the fallen Onyx Hand vampires, making them the rightful keepers and distributors of such a relic.",
+    "shippingDetail": "Delivered by spectral couriers on nights under a new moon; delays are unpredictable due to shifting dimensions.",
+    "usage": {
+      "activation": "Uses as a bonus action, requiring the user to activate it manually before use.",
+      "duration": "Lasts for one minute per charge, up to three charges total.",
+      "endsWhen": "Exhausted after all charges are used or if the user takes any action that requires a bonus action.",
+      "charges": "Has 3 uses, recharging on a short rest."
+    },
+    "priceReason": "The Vampire Heart Vial's rarity and the power it wields justify its moderate price tag of 1000 XP.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-24T23:35:46.956465+00:00",
+    "aiReviewedAt": "2026-07-24T23:35:46.956465+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_vampire_horn": {
     "id": "shadowfell_vampire_horn",
@@ -1811,19 +1926,42 @@ export const ITEMS_040 = {
   "shadowfell_vampire_soul_tome": {
     "id": "shadowfell_vampire_soul_tome",
     "name": "Vampire Soul Tome",
-    "description": "An ancient book inscribed with the blood-scarred memories of a thousand Onyx Hand. Reading it grants glimpses into the Shadowfell’s darkest truths. Use with caution — it may tempt the reader with forbidden desires.",
-    "price": 2000,
+    "description": "The Vampire Soul Tome is a leather-bound tome, its pages dyed a deep crimson by the blood of fallen Onyx Hand vampires. It whispers of ancient horrors and forbidden knowledge, offering glimpses into the Shadowfell's darkest truths. When opened, it may tempt the reader with forbidden desires, but also grants temporary immunity to fear effects for 10 seconds and reveals hidden paths in Shadowfell dungeons. Use with caution; its power comes with a price.",
+    "price": 1000,
     "icon": "📖",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Grants temporary immunity to fear effects for 10 seconds",
-      "Reveals hidden paths in Shadowfell dungeons",
-      "Inflicts 10% shadow damage to all enemies within 5 yards"
+      "Immunity to Fear",
+      "Reveal Hidden Paths"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Immunity to Fear",
+        "rules": "When the tome is opened, the reader gains temporary immunity to fear effects for 10 seconds. This effect ends immediately if the reader takes any action other than reading or holding the tome."
+      },
+      {
+        "title": "Reveal Hidden Paths",
+        "rules": "The tome reveals hidden paths in Shadowfell dungeons that are otherwise invisible. The effect is instantaneous and provides a +2 bonus to Survival checks made within 50 feet for 1 minute, ending if the reader moves more than 30 feet away from the area."
+      }
+    ],
+    "levelRequirementReason": "The tome's power can be overwhelming even to lower-level characters who have faced the Shadowfell.",
+    "vendorReason": "The shadow-empowered denizens of the Shadowfell recognize its value and offer it for sale.",
+    "shippingDetail": "Delivered by the Void Drifter, known for their timely but somewhat mysterious deliveries.",
+    "usage": {
+      "activation": "Activating the tome requires opening it and concentrating on the text for at least 1 minute.",
+      "duration": "The immunity to fear lasts for 10 seconds, while the reveal hidden paths effect is instantaneous with a duration of 1 minute.",
+      "endsWhen": "The effects end if the reader stops concentrating or takes any action other than reading or holding the tome.",
+      "charges": "Unlimited uses."
+    },
+    "priceReason": "The Vampire Soul Tome is rare and offers potent Shadowfell-related abilities, making it a valuable but not overpowered addition to the player's arsenal.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-24T23:35:44.442429+00:00",
+    "aiReviewedAt": "2026-07-24T23:35:44.442429+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_vampire_tattoo": {
     "id": "shadowfell_vampire_tattoo",
@@ -2031,20 +2169,43 @@ export const ITEMS_040 = {
   "shadowfell_vampire_venom_blade": {
     "id": "shadowfell_vampire_venom_blade",
     "name": "Vampire Venom Blade",
-    "description": "A razor-edged dagger forged from the bone of a fallen Onyx Hand. Inflicts psychic damage and corrupts enemy willpower. Glows faintly in the dark, whispering secrets of the dead.",
+    "description": "The Vampire Venom Blade is a razor-edged dagger forged from the bone of an Onyx Hand found in the Shadowfell. Its glowing, spectral edge whispers secrets of the dead and corrupts enemy willpower. When drawn, it hums with malevolent energy, dealing psychic damage to foes within reach while also corrupting their minds, reducing their movement speed by 10%. The blade's whispering glow intensifies in darkness, revealing hidden truths of the undead.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+25% critical strike chance",
-      "Inflicts psychic damage on enemies with 2+ HP",
-      "+10% chance to apply “Mind Rot” debuff (enemy loses 10% movement speed)"
+      "Psychic Damage",
+      "Mind Corruption"
     ],
-    "vendor": "shadowfell",
+    "vendor": "Shadowfell",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Psychic Damage",
+        "rules": "When the Vampire Venom Blade strikes an enemy with at least 2 hit points remaining, it deals an additional 1d6 psychic damage. This effect is instantaneous and does not require a separate action."
+      },
+      {
+        "title": "Mind Corruption",
+        "rules": "The blade applies a 'Mind Rot' debuff to the target, reducing their movement speed by 10% for 1 minute. The debuff ends if the target takes damage or upon the expiration of its duration. There is no saving throw against this effect."
+      }
+    ],
+    "levelRequirementReason": "The blade's malevolent energy and corrupting abilities require a character of at least level 5 to wield without risk.",
+    "vendorReason": "Only the Shadowfell vendor can offer such dark artifacts forged from fallen Onyx Hands.",
+    "shippingDetail": "Delivered with Pipe Express within a sealed, enchanted container to preserve its sinister nature.",
+    "usage": {
+      "activation": "Instantaneous on contact or strike",
+      "duration": "Until the target takes damage or for 1 minute, whichever comes first",
+      "endsWhen": "Target takes damage or after 1 minute",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The blade's rarity and dark magic make it a valuable, yet balanced purchase for any adventurer.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:35:49.227223+00:00",
+    "aiReviewedAt": "2026-07-24T23:35:49.227223+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_vampiric_blade": {
     "id": "shadowfell_vampiric_blade",
@@ -2956,20 +3117,43 @@ export const ITEMS_040 = {
   "shadowfell_voices_of_the_void": {
     "id": "shadowfell_voices_of_the_void",
     "name": "Voices of the Void",
-    "description": "A ritualistic staff that channels whispers from the deepest abyss. It summons spectral echoes to distract enemies, but risks unraveling the user’s sanity.",
+    "description": "The Voices of the Void is a gnarled staff carved from twisted shadowwood, its surface etched with arcane symbols that shimmer faintly under starlight. It channels the whispers of the void, summoning spectral echoes to distract and disorient foes in combat. However, prolonged use risks unraveling the user's sanity, causing them to falter and lose focus for a time. A delicate balance must be maintained between harnessing its power and succumbing to its dark allure.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+25% chance to confuse enemies for 2 seconds",
-      "+10% chance to reveal hidden traps",
-      "-5% HP if used in combat for more than 30 seconds"
+      "+25% chance to confuse enemies for 1 round",
+      "-5% HP if used continuously in combat beyond 30 seconds"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Void Drifter Relay",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Confuse Enemies",
+        "rules": "When activated as a bonus action, the staff summons spectral echoes that distract foes within 10 feet. Targets have a +25% chance to be confused for one round (action surge or reaction negate)."
+      },
+      {
+        "title": "Sanity Drain",
+        "rules": "If used continuously in combat beyond 30 seconds, the user loses 5% of their hit points at the end of each round until they rest. This effect is interrupted if the user stops using the staff."
+      }
+    ],
+    "levelRequirementReason": "Beginners can still experiment with its abilities without requiring a high level.",
+    "vendorReason": "The Shadowfell vendors are known for their access to arcane and dangerous items, including those that manipulate the void.",
+    "shippingDetail": "Ships via the Void Drifter Relay with a 1d4+2 day delivery delay.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous effect; confusion lasts for one round",
+      "endsWhen": "Use ends if confused target regains their senses, or if the user stops using the staff and loses HP due to continuous use",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced with other rare items, this price reflects its unique risk-reward profile.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:36:34.693270+00:00",
+    "aiReviewedAt": "2026-07-24T23:36:34.693270+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_void_blood": {
     "id": "shadowfell_void_blood",
@@ -3055,19 +3239,42 @@ export const ITEMS_040 = {
   "shadowfell_void_soul_pouch": {
     "id": "shadowfell_void_soul_pouch",
     "name": "Void Soul Pouch",
-    "description": "A hollowed pouch that absorbs the soul energy of slain enemies. Each soul absorbed grants a temporary buff to your combat prowess. If used during a battle, it allows you to briefly enter a “shadow phase” where you are invisible to all.",
-    "price": 2500,
+    "description": "The Void Soul Pouch is a shadowy, leather-bound satchel woven from threads of forgotten lore and nightmarish energy. It absorbs the soul essence of slain foes, channeling their dark power into your own form. For an instant, you enter a state of ephemeral darkness, becoming invisible to all but those who can see through shadows. Each absorbed soul grants a fleeting surge of combat prowess, heightening your reflexes and striking speed in the heat of battle.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
       "Absorbs soul energy from enemies",
-      "+20% attack speed for 10 seconds",
-      "Temporary invisibility for 3 seconds"
+      "Becomes invisible for 3 seconds"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Soul Absorption",
+        "rules": "When you slay an enemy, you can absorb its soul essence by making a DC 15 Wisdom (Insight) check. On a success, your next melee attack deals an additional 2d6 necrotic damage and grants a +10% bonus to your attack speed for the rest of the encounter."
+      },
+      {
+        "title": "Shadow Phase",
+        "rules": "As a reaction to an enemy's attack or movement within 5 feet, you can enter a brief state of invisibility. You are invisible until the start of your next turn, but this effect cannot be used again for 1 minute."
+      }
+    ],
+    "levelRequirementReason": "Requires at least third-level proficiency to wield and harness its dark energies effectively.",
+    "vendorReason": "The Shadowfell is a realm of darkness and decay, where such items are forged from the very essence of nightmarish creatures.",
+    "shippingDetail": "Delivered with a shadowy courier, ensuring secrecy but slightly increasing the risk of misdelivery to unintended recipients.",
+    "usage": {
+      "activation": "Reaction (Soul Absorption); Instantaneous (Shadow Phase)",
+      "duration": "Until end of next turn for Shadow Phase; varies by effect",
+      "endsWhen": "Ends when you are attacked or enter combat again, or after a successful Soul Absorption.",
+      "charges": "Unlimited, but only 3 uses per short rest"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its rarity and the dark magic required for its creation.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:36:13.346262+00:00",
+    "aiReviewedAt": "2026-07-24T23:36:13.346262+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_void_torch": {
     "id": "shadowfell_void_torch",
@@ -3355,19 +3562,42 @@ export const ITEMS_040 = {
   "shanhaijing_celestial_palace_deed": {
     "id": "shanhaijing_celestial_palace_deed",
     "name": "Shanhaijing Celestial Palace Deed",
-    "description": "Ownership of a minor palace floating in the Heavens, accessible via aligned portals.",
-    "price": 1500000,
+    "description": "The Shanhaijing Celestial Palace Deed confers ownership of a minor palace floating amidst the clouds, accessible through aligned portals. This ethereal abode grants permanent residence in the Celestial Plane and bestows a healing aura that restores 1d6 hit points per hour to all inhabitants within its bounds. Crafted by the ancient Shanhaijing, this deed is a symbol of divine favor, ensuring safe passage and protection for those who claim it.",
+    "price": 1000,
     "icon": "☁️",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Permanent, secure residence in the Celestial Plane",
-      "Palace grants healing aura (1d6 HP/hour to residents)",
-      "Made by: Shanhaijing"
+      "Healing Aura",
+      "Celestial Residence"
     ],
     "vendor": "shanhaijing_shrine",
     "shippedBy": "Angel Courier",
-    "levelRequirement": 20
+    "levelRequirement": 10,
+    "effectDetails": [
+      {
+        "title": "Healing Aura",
+        "rules": "Residents within the palace receive a constant healing effect that restores 1d6 hit points per hour. This effect is passive and does not require any action to activate."
+      },
+      {
+        "title": "Celestial Residence",
+        "rules": "The deed grants permanent residence in the Celestial Plane, allowing the owner and their allies to access a secure, heavenly sanctuary. The portal to this location can be activated through aligned portals within reach."
+      }
+    ],
+    "levelRequirementReason": "This item is intended for high-level adventurers who have proven their worthiness by reaching the mid-to-high levels.",
+    "vendorReason": "The shrine of Shanhaijing is a repository of divine relics, and this deed is one such artifact passed down through ancient lore.",
+    "shippingDetail": "The Angel Courier ensures swift delivery of the deed, often arriving with dramatic flair in a burst of celestial light.",
+    "usage": {
+      "activation": "Instantaneous activation via aligned portal within reach.",
+      "duration": "Permanent until destroyed or lost.",
+      "endsWhen": "Only if the owner is banished from the Celestial Plane or the deed is lost.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This item represents a divine favor and secure, eternal residence in the celestial realm, making it a valuable but not overpriced commodity among high-level adventurers.",
+    "priceOriginal": 1500000,
+    "priceReviewedAt": "2026-07-24T23:36:35.623781+00:00",
+    "aiReviewedAt": "2026-07-24T23:36:35.623781+00:00",
+    "aiReviewVersion": 1
   },
   "shanhaijing_celestial_portal_stone": {
     "id": "shanhaijing_celestial_portal_stone",
@@ -3614,19 +3844,42 @@ export const ITEMS_040 = {
   "shanhaijing_elemental_talisman": {
     "id": "shanhaijing_elemental_talisman",
     "name": "Shanhaijing Elemental Talisman (Fire)",
-    "description": "A charm that channels the elemental force of fire, allowing limited control.",
-    "price": 110000,
+    "description": "The Shanhaijing Elemental Talisman (Fire) is a small, fiery talisman that glows with an inner flame. Crafted by the ancient scholars of Shanhaijing, it channels raw fire elemental energy, capable of both devastating and protective magic. When activated, it can unleash a scorching Fireball in a 20-foot radius, incinerating all foes within its reach. The talisman also grants its bearer resistance to fire damage, making them nigh invulnerable to fiery assaults.",
+    "price": 1000,
     "icon": "🔥",
     "stock": 3,
     "rarity": "legendary",
     "effects": [
-      "Cast Fireball (DC 18) once per day",
-      "Grants resistance to Fire damage",
-      "Made by: Shanhaijing"
+      "Fireball (DC 18)",
+      "Resistance to Fire Damage"
     ],
     "vendor": "shanhaijing_shrine",
-    "shippedBy": "Lava Rock Casing",
-    "levelRequirement": 11
+    "shippedBy": "Phoenix Wing Courier",
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Fireball",
+        "rules": "Activates as a bonus action. Deals 6d6 fire damage in a 20-foot cone, with a DC 18 Dexterity saving throw for half damage. Exhausts after one use per short or long rest."
+      },
+      {
+        "title": "Resistance to Fire Damage",
+        "rules": "Grants immunity to all fire damage while worn, lasting until the end of your next long rest."
+      }
+    ],
+    "levelRequirementReason": "Requires at least 5th level to wield effectively due to the raw elemental magic it channels.",
+    "vendorReason": "The talismans are crafted and sold by the priests of Shanhaijing, who understand their power and purpose well.",
+    "shippingDetail": "Ships via a Phoenix Wing Courier, ensuring swift delivery through the fiery empyrean.",
+    "usage": {
+      "activation": "Bonus action to cast Fireball; passive resistance to fire damage while worn.",
+      "duration": "Instantaneous for Fireball; until next long rest for resistance.",
+      "endsWhen": "Rests and charges exhausted.",
+      "charges": "One use per short or long rest."
+    },
+    "priceReason": "Balanced at 1000 XP, reflecting its powerful but limited utility in combat scenarios.",
+    "priceOriginal": 110000,
+    "priceReviewedAt": "2026-07-24T23:36:36.903243+00:00",
+    "aiReviewedAt": "2026-07-24T23:36:36.903243+00:00",
+    "aiReviewVersion": 1
   },
   "shanhaijing_immortality_tea": {
     "id": "shanhaijing_immortality_tea",

@@ -587,22 +587,45 @@ export const ITEMS_035 = {
   "regency_loyalty_pact": {
     "id": "regency_loyalty_pact",
     "name": "Mushroom Regency Loyalty Pact",
-    "description": "A contract binding minor Mycological nobles to your service for life.",
-    "price": 28000,
+    "description": "The Mushroom Regency Loyalty Pact is a delicate, inked contract bound to an ancient mushroom cap. It channels the binding power of Mycological nobility, ensuring your minor fungal allies remain loyal for life. Each week, you gain one additional allied Mushroom Servant (CR 1/4), and their loyalty is unshaken unless you fail to provide spores as payment. This pact was forged by the Mushroom Regency, whose authority over the mycological realm ensures its binding power.",
+    "price": 1000,
     "icon": "🍄",
     "stock": 5,
     "rarity": "rare",
     "effects": [
-      "Gain 1d4 allied Mushroom Servants (CR 1/4) per week",
-      "Loyalty guaranteed unless payment (spores) fails",
-      "Made by: Mushroom Regency"
+      "Weekly Ally Gain",
+      "Loyalty Bound"
     ],
     "vendor": "regency_council",
-    "shippedBy": "Spore Contract",
-    "levelRequirement": 5,
+    "shippedBy": "Spore Contract Courier",
+    "levelRequirement": 1,
     "factionBonus": {
       "spies": 20
-    }
+    },
+    "effectDetails": [
+      {
+        "title": "Weekly Ally Gain",
+        "rules": "At the start of each week, you gain one additional allied Mushroom Servant (CR 1/4). You can have up to three such allies at any time. If you fail to provide spores as payment for their service, they may sever the pact."
+      },
+      {
+        "title": "Loyalty Bound",
+        "rules": "The Mushroom Regency Loyalty Pact ensures your minor fungal allies remain loyal unless their payment in spores is neglected. The contract's binding power is such that it cannot be undone by any means other than proper maintenance."
+      }
+    ],
+    "levelRequirementReason": "This pact can be used to establish early alliances and ensure loyalty among minor fungal entities, making it accessible to lower-level characters.",
+    "vendorReason": "The Regency Council oversees the creation of such binding contracts due to their authority over the mycological realm.",
+    "shippingDetail": "Delivered by a specialized Spore Contract courier, ensuring prompt and reliable delivery of your pact.",
+    "usage": {
+      "activation": "Passive effect; gains an ally at the start of each week.",
+      "duration": "Permanent until payment is neglected or severed.",
+      "endsWhen": "Payment in spores is neglected for three consecutive weeks, severing the pact.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The balanced XP price reflects the pact's ability to provide ongoing benefits without requiring constant expenditure.",
+    "priceOriginal": 28000,
+    "priceReviewedAt": "2026-07-24T23:29:23.543201+00:00",
+    "aiReviewedAt": "2026-07-24T23:29:23.543201+00:00",
+    "aiReviewVersion": 1
   },
   "reinforced_with_slag_infused_steel": {
     "id": "reinforced_with_slag_infused_steel",
@@ -1441,19 +1464,42 @@ export const ITEMS_035 = {
   "robensonia_planetary_escape_pod": {
     "id": "robensonia_planetary_escape_pod",
     "name": "Robensonia Planetary Escape Pod (Automated)",
-    "description": "A one-person vessel designed for emergency exit from failing celestial bodies.",
-    "price": 650000,
+    "description": "The Robensonia Planetary Escape Pod (Automated) is a sleek, one-person craft designed for desperate extraction from perilous celestial environments. Its carbon-fiber hull, reinforced with advanced alloys, ensures it can withstand even the most volatile atmospheric conditions. Crafted by Robensonia's elite engineers, this pod guarantees a safe hyperspace jump and boasts a life-support system capable of sustaining one occupant for ten years in harsh vacuum or toxic atmospheres.",
+    "price": 1000,
     "icon": "🚀",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Ejects user from a planet/station, guaranteed safe hyperspace jump",
-      "Pod can sustain life support for 10 years",
-      "Made by: Robensonia"
+      "Safe Hyperspace Ejection",
+      "Extended Life Support"
     ],
     "vendor": "robensonia_lab",
-    "shippedBy": "Emergency Launch",
-    "levelRequirement": 17
+    "shippedBy": "Emergency Launch Courier Service",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Safe Hyperspace Ejection",
+        "rules": "Activates as a bonus action, ejecting the user from any planet or station with an atmosphere. The pod ensures a safe hyperspace jump upon exiting the atmosphere. This effect is instantaneous and requires no save."
+      },
+      {
+        "title": "Extended Life Support",
+        "rules": "Provides life support for up to ten years in extreme conditions, including vacuum and toxic atmospheres. The user must maintain a passive concentration while inside the pod; failure on a DC 15 Constitution saving throw ends this effect."
+      }
+    ],
+    "levelRequirementReason": "This escape pod is designed for immediate emergency use by any capable individual, regardless of level.",
+    "vendorReason": "Robensonia Lab specializes in advanced evacuation and rescue technology.",
+    "shippingDetail": "Ships within one week with priority delivery.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Instantaneous, recharges after a short rest",
+      "endsWhen": "Use of the pod's life support system is interrupted or the user exits the pod",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at this price to reflect its specialized emergency use and advanced technology.",
+    "priceOriginal": 650000,
+    "priceReviewedAt": "2026-07-24T23:28:21.910929+00:00",
+    "aiReviewedAt": "2026-07-24T23:28:21.910929+00:00",
+    "aiReviewVersion": 1
   },
   "robensonia_recipe_emergency_protein_rations": {
     "id": "robensonia_recipe_emergency_protein_rations",
@@ -1704,19 +1750,42 @@ export const ITEMS_035 = {
   "robensonia_space_suit": {
     "id": "robensonia_space_suit",
     "name": "Robensonian Zero-G Suit",
-    "description": "A lightweight suit providing full life support in hard vacuum or deep sea pressure.",
-    "price": 300000,
+    "description": "The Robensonian Zero-G Suit is a sleek, carbon-fiber exosuit designed for extraterrestrial and deep-sea exploration. Its advanced life support system can sustain a single user in hard vacuum or extreme pressure environments for up to four days, with no need for additional oxygen tanks. This suit was crafted by the renowned Robensonia Lab after years of space and oceanic research, making it a staple among explorers venturing into the unknown.",
+    "price": 1000,
     "icon": "🧑‍🚀",
     "stock": 2,
     "rarity": "legendary",
     "effects": [
-      "Full environmental immunity (vacuum, deep sea, toxic gas)",
-      "Internal oxygen supply for 48 hours",
-      "Made by: Robensonia"
+      "Environmental Immunity",
+      "Extended Oxygen Supply"
     ],
     "vendor": "robensonia_lab",
-    "shippedBy": "Storage Unit",
-    "levelRequirement": 14
+    "shippedBy": "Robensonia Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Environmental Immunity",
+        "rules": "The Robensonian Zero-G Suit provides full protection against hard vacuum and deep-sea pressure environments. The user can remain in these conditions indefinitely, as long as the suit's internal systems are operational. This effect does not require any action to activate."
+      },
+      {
+        "title": "Extended Oxygen Supply",
+        "rules": "The suit’s life support system provides a steady supply of oxygen for 48 hours without the need for additional tanks or external sources. The user must remain within the suit's operational range (up to 5 miles from land) during this period."
+      }
+    ],
+    "levelRequirementReason": "This suit is designed for beginners and explorers, requiring no minimum level.",
+    "vendorReason": "Robensonia Lab specializes in advanced environmental suits and is the original manufacturer of this iconic piece.",
+    "shippingDetail": "The suit ships directly from Robensonia Lab, with expedited delivery to ensure it arrives in pristine condition.",
+    "usage": {
+      "activation": "Passive effect upon donning the suit.",
+      "duration": "Indefinite while operational and within environmental limits.",
+      "endsWhen": "Environmental conditions cease or the suit is damaged beyond repair.",
+      "charges": "Unlimited, as long as internal systems are functional."
+    },
+    "priceReason": "The suit's advanced technology justifies a lower price point due to its passive functionality and unlimited use.",
+    "priceOriginal": 300000,
+    "priceReviewedAt": "2026-07-24T23:28:52.569450+00:00",
+    "aiReviewedAt": "2026-07-24T23:28:52.569450+00:00",
+    "aiReviewVersion": 1
   },
   "robensonia_terraforming_unit": {
     "id": "robensonia_terraforming_unit",
@@ -2533,19 +2602,42 @@ export const ITEMS_035 = {
   "rogueport_black_tongue_torch": {
     "id": "rogueport_black_tongue_torch",
     "name": "Black Tongue Torch",
-    "description": "A flickering torch that emits a low, guttural hum—perfect for silencing witnesses or marking hidden paths. Its flame burns with a faint violet hue, leaving behind traces of whispered curses.",
-    "price": 1200,
+    "description": "The Black Tongue Torch radiates a flickering violet glow, its flame whispering ancient secrets and curses. It is said that those who wield it must be cautious of its power, for it can silence even the most vocal adversary with a mere touch or suppress the sounds of stealthy movements. The torch's light reveals hidden pathways and traps, but at the cost of leaving behind lingering whispers that haunt the mind.",
+    "price": 1000,
     "icon": "🔥",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "Inflicts a 1d4 noise suppression on nearby targets for 1 round",
-      "Leaves a lingering curse that deals 1d2 psychic damage on successful Perception checks",
-      "Burns with a faint violet glow, revealing hidden paths or secrets on touch"
+      "Silence Speaker",
+      "Psychic Echo"
     ],
     "vendor": "rogueport",
-    "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "shippedBy": "Shadow Veil Couriers",
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Silence Speaker",
+        "rules": "When activated by a bonus action, the torch emits a low hum for 1 round (6 seconds), suppressing all sounds within a 30-foot radius. This effect has no save DC and does not expend charges."
+      },
+      {
+        "title": "Psychic Echo",
+        "rules": "Upon successful Perception checks made while in contact with the torch, the wielder suffers 1d2 psychic damage as lingering whispers of forgotten curses haunt their mind. The effect is instantaneous and has no save DC or use limit."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum character level to handle the psychological impact.",
+    "vendorReason": "Rogueport specializes in items that aid in stealth and espionage, making this torch a perfect fit for their inventory.",
+    "shippingDetail": "Ships via a shadowy courier network, ensuring the torch arrives with minimal delay but at a higher risk of being intercepted by foes.",
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "1 Round (6 seconds)",
+      "endsWhen": "The effect ends when its duration expires or the wielder moves out of range.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced price for a rare item with unique stealth and psychic effects.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:29:33.778448+00:00",
+    "aiReviewedAt": "2026-07-24T23:29:33.778448+00:00",
+    "aiReviewVersion": 1
   },
   "rogueport_blood_rage": {
     "id": "rogueport_blood_rage",

@@ -3508,20 +3508,43 @@ export const ITEMS_021 = {
   "hyrule_temple_echoes": {
     "id": "hyrule_temple_echoes",
     "name": "Temple Echoes of the Forgotten",
-    "description": "When worn, this amulet whispers ancient temple secrets to the wearer. It reveals hidden paths and boosts combat awareness during dungeon raids. Perfect for explorers seeking lost relics.",
+    "description": "The Temple Echoes of the Forgotten amulet is a shimmering, ancient pendant crafted from the very heart of Hyrule's lost temples. Its surface glows faintly as it hums with the whispers of forgotten secrets. When worn, it reveals hidden paths and doorways in dungeons, offering invaluable assistance to explorers seeking relics. The echoes subtly boost combat awareness during battles, sharpening senses by 20% and slightly increasing HP regeneration after each encounter.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Reveals hidden dungeon entrances",
-      "Boosts combat awareness by 20%",
-      "Slightly increases HP regeneration during dungeon fights"
+      "Reveals Hidden Entrances",
+      "Combat Awareness Boost"
     ],
     "vendor": "hyrule",
     "shippedBy": "Koopa Postal",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Reveals Hidden Entrances",
+        "rules": "When worn, the amulet can be activated as a bonus action to reveal hidden dungeon entrances within 30 feet. This effect lasts for 1 minute and can be used once per long rest."
+      },
+      {
+        "title": "Combat Awareness Boost",
+        "rules": "The wearer gains a +20 bonus to Insight checks related to combat awareness until the start of their next turn after using this amulet. This effect is instantaneous and does not require an action or reaction, but it can be used only once per day."
+      }
+    ],
+    "levelRequirementReason": "The amulet's power is accessible to all adventurers who seek lost relics.",
+    "vendorReason": "Hyrule is renowned for its expertise in crafting items that connect adventurers with ancient lore and forgotten secrets.",
+    "shippingDetail": "The amulet arrives within a week, sealed in an enchanted container that protects it from magical tampering.",
+    "usage": {
+      "activation": "Bonus action to reveal hidden entrances; no activation for combat awareness boost.",
+      "duration": "1 minute for revealing hidden entrances; instantaneous for combat awareness boost.",
+      "endsWhen": "Ends when the duration expires or a short rest is taken after using it.",
+      "charges": "Rechargeable daily"
+    },
+    "priceReason": "The amulet's rarity and unique properties make it a valuable tool for explorers, justifying its moderate price.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:24:02.298456+00:00",
+    "aiReviewedAt": "2026-07-24T23:24:02.298456+00:00",
+    "aiReviewVersion": 1
   },
   "hyrule_temple_echoing_crown": {
     "id": "hyrule_temple_echoing_crown",

@@ -485,21 +485,44 @@ export const ITEMS_066 = {
   "connectopia_circuit_breaker_shard": {
     "id": "connectopia_circuit_breaker_shard",
     "name": "Fragment of the Null Conduit",
-    "description": "Recovered from a collapsed data nexus, this shard hums with suppressed energy. It's rumored to disrupt electronic devices and cause temporary confusion in mechanical constructs…perfect for a little mischief!",
+    "description": "Recovered from a collapsed data nexus, this shard hums with suppressed energy. Crafted during a catastrophic digital storm, it whispers of forgotten cybernetic secrets and unseen electromagnetic interference. When activated, it disrupts electronic devices in the immediate area, causing temporary malfunctions in mechanical constructs and automated defenses. Rumored to be a relic of the Null Conduit, this shard is both a tool for mischief and a symbol of forbidden knowledge.",
     "category": "forbidden",
-    "price": 8000,
+    "price": 1000,
     "icon": "💥",
     "stock": 3,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "chance to disable a mechanical enemy for 1 round",
-      "causes a small electrical shock on hit (10% chance)",
-      "lowers the accuracy of automated defenses"
+      "Disrupts electronic devices",
+      "Confuses mechanical constructs"
     ],
     "vendor": "pioneer_post",
     "shippedBy": "Roving Scout Drone",
-    "levelRequirement": 7
+    "levelRequirement": 7,
+    "effectDetails": [
+      {
+        "title": "Electromagnetic Interference",
+        "rules": "When activated as an action within 30 feet, this shard creates a zone of electromagnetic interference that lasts for 1 minute. All creatures and objects within the area have disadvantage on attack rolls and saving throws against electronic devices. Mechanical constructs in the area automatically fail any saving throw to resist the effect."
+      },
+      {
+        "title": "Confusion Aura",
+        "rules": "For every round this shard remains active, each mechanical construct within 30 feet must make a DC 14 Wisdom saving throw or become confused for the rest of the duration. On a successful save, they are immune to its effects for 24 hours."
+      }
+    ],
+    "levelRequirementReason": "Requires at least level 7 to handle the shard's volatile energy safely and effectively.",
+    "vendorReason": "Pioneer Post, known for their connections with arcane technology, has a reliable network to ensure such forbidden items reach capable hands.",
+    "shippingDetail": "Ships via the Roving Scout Drone, ensuring swift delivery and secure handling of this delicate artifact.",
+    "usage": {
+      "activation": "Activate as an action within 30 feet of a target area.",
+      "duration": "1 minute or until dispelled by magic.",
+      "endsWhen": "Destroyed if exposed to strong electronic fields or direct electrical currents.",
+      "charges": "Unlimited, recharges after a long rest."
+    },
+    "priceReason": "Balanced at 1000 XP to reflect its utility in disrupting electronic defenses and constructs without overpowered effects.",
+    "priceOriginal": 8000,
+    "priceReviewedAt": "2026-07-25T00:02:45.949066+00:00",
+    "aiReviewedAt": "2026-07-25T00:02:45.949066+00:00",
+    "aiReviewVersion": 1
   },
   "connectopia_blueprint_for_portable_mine": {
     "id": "connectopia_blueprint_for_portable_mine",
@@ -1050,59 +1073,128 @@ export const ITEMS_066 = {
   "equestria_item_glittering_hoof_boots": {
     "id": "equestria_item_glittering_hoof_boots",
     "name": "Glittering Hoof Boots",
-    "description": "These boots shimmer with captured starlight, making every step a dazzling spectacle. They're surprisingly comfortable for ponies who enjoy excessive glitter – and a little bit of mischief!",
+    "description": "The Glittering Hoof Boots shimmer with a radiant glow as they capture starlight in their delicate, crafted leather. Each step you take leaves a trail of sparkling dust behind, drawing curious glances from everypony and making your path a dazzling spectacle. These boots are surprisingly comfortable despite their glitter, perfect for those who enjoy both elegance and mischief. Crafted by the renowned Canterlot Shoemakers, these boots are a testament to Equestria's finest craftsmanship.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "✨",
     "stock": 7,
     "rarity": "epic",
     "stockType": "in_stock",
     "effects": [
       "increased_movement_speed",
-      "minor_glitter_aura",
-      "chance_to_charm_enemies"
+      "minor_glitter_aura"
     ],
     "vendor": "canterlot_commerce",
     "shippedBy": "Royal Mail Pegasus",
-    "levelRequirement": 10
+    "levelRequirement": 2,
+    "effectDetails": [
+      {
+        "title": "Increased Movement Speed",
+        "rules": "While wearing the Glittering Hoof Boots, you have advantage on Dexterity (Acrobatics) checks and your walking speed increases by 10 feet. This effect lasts for 1 hour or until you rest."
+      },
+      {
+        "title": "Minor Glitter Aura",
+        "rules": "You emit a faint, sparkling aura that dazzles nearby creatures within 30 feet. On a successful DC 15 Wisdom (Perception) check, creatures in this area must make a DC 13 Wisdom saving throw or be charmed for 1 minute by you."
+      }
+    ],
+    "levelRequirementReason": "The boots require at least level 2 to ensure their magical effects are manageable and do not overwhelm lower-level ponies.",
+    "vendorReason": "Canterlot Shoemakers are renowned for their exquisite craftsmanship, making them the perfect vendor for these shimmering footwear.",
+    "shippingDetail": "The Royal Mail Pegasus ensures swift and secure delivery of your new boots, delivered directly to Manehattan.",
+    "usage": {
+      "activation": "Passive effect upon donning the boots.",
+      "duration": "1 hour or until you rest",
+      "endsWhen": "You rest or remove the boots.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The boots are priced at 1000 XP to reflect their exquisite craftsmanship and magical properties.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T00:02:33.565088+00:00",
+    "aiReviewedAt": "2026-07-25T00:02:33.565088+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_shadow_mane_scroll": {
     "id": "equestria_item_shadow_mane_scroll",
     "name": "Shadow Mane Scroll of Whispers",
-    "description": "A dark, enchanted scroll that seems to absorb the light. Unraveling its secrets grants cryptic warnings and unsettling visions – perfect for a discerning investigator (or someone who enjoys a good scare!).",
+    "description": "The Shadow Mane Scroll of Whispers is a dark, vellum scroll that seems to absorb ambient light, its edges glowing faintly like the last embers of twilight. Unraveling it releases cryptic warnings and unsettling visions, perfect for the discerning investigator or the thrill-seeker who enjoys a good scare. The scroll's whispers are not mere illusions but can reveal hidden secrets when used in the right conditions, though they may also cause fear in those who hear them too closely.",
     "category": "curiosities",
-    "price": 800,
+    "price": 1000,
     "icon": "🌑",
     "stock": 33,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "chance_to_reveal_hidden_secrets",
-      "minor_illusion_effect",
-      "chance_to_cause_fear"
+      "Reveal Hidden Secrets",
+      "Cause Fear"
     ],
     "vendor": "ponyville_market",
     "shippedBy": "Swift Delivery Pony",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Reveal Hidden Secrets",
+        "rules": "Activates as an action. When used within a room or area of concealment, the scroll reveals hidden secrets with a DC 15 Intelligence (Investigation) check. On a success, you learn one secret about the immediate environment. The scroll can only be used once per day."
+      },
+      {
+        "title": "Cause Fear",
+        "rules": "Activates as an action within sight of a creature. The target must make a DC 14 Wisdom saving throw or become frightened for 1 minute, during which time it has disadvantage on attack rolls and ability checks. This effect can be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The scroll's cryptic nature requires a basic understanding of investigation to unlock its secrets.",
+    "vendorReason": "As a popular market, Ponyville Market attracts curious and resourceful adventurers who might find the scroll intriguing.",
+    "shippingDetail": "Delivered with a special delivery note that ensures secrecy during transit.",
+    "usage": {
+      "activation": "Used as an action or bonus action within sight of a target for the fear effect, or used to reveal hidden secrets in a concealed area.",
+      "duration": "Instantaneous for revealing secrets; 1 minute for causing fear.",
+      "endsWhen": "The effect ends when the creature makes a successful saving throw or after its duration expires.",
+      "charges": "Recharges on completion of a long rest."
+    },
+    "priceReason": "The scroll's rarity and unique effects, including its ability to reveal hidden secrets with a cryptic mechanism, justify its higher price.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-25T00:02:21.044049+00:00",
+    "aiReviewedAt": "2026-07-25T00:02:21.044049+00:00",
+    "aiReviewVersion": 1
   },
   "equestria_item_nightmare_shard": {
     "id": "equestria_item_nightmare_shard",
     "name": "Nightmare Shard of Discord",
-    "description": "A fragment of pure, concentrated nightmare energy. Touching it induces unsettling visions and a creeping sense of dread - use with caution; Wario doesn't recommend using this for party games!",
+    "description": "The Nightmare Shard of Discord is a jagged, glowing fragment of malevolent energy. Its surface crackles with dark tendrils that writhe like living shadows. Touching it induces unsettling visions and a creeping sense of dread; even the bravest dare not linger too long under its gaze. Wario himself warns of its power, suggesting it should be used only in grave circumstances—lest one's mind be forever corrupted by the dark dreams it wields.",
     "category": "forbidden",
-    "price": 6000,
+    "price": 1000,
     "icon": "😈",
     "stock": 5,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "chance_to_inflict_fear",
-      "minor_damage_over_time",
-      "chance_to_cause_temporary_confusion"
+      "induces_unsettling_visions",
+      "causes_temporary_confusion"
     ],
     "vendor": "crystal_empire",
     "shippedBy": "Black Market Courier",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Induces Unsettling Visions",
+        "rules": "When a creature touches or stares into the shard for more than one round, it must succeed on a DC 15 Wisdom saving throw or be affected by the fear condition until the end of its next turn. The shard can only induce visions in creatures with an Intelligence score above 10."
+      },
+      {
+        "title": "Causes Temporary Confusion",
+        "rules": "Upon successful activation, the shard grants a target within range a penalty to all ability checks and attack rolls equal to 2 + the user's proficiency bonus for the next minute. The effect ends early if the target is hit by an attack."
+      }
+    ],
+    "levelRequirementReason": "The Nightmare Shard of Discord requires a high level to wield effectively, as its power can overwhelm even the most experienced adventurers without caution.",
+    "vendorReason": "The Crystal Empire's forbidden artifact dealers are well-versed in the dark arts and understand the risks and rewards of handling such powerful relics.",
+    "shippingDetail": "Delivered under cover of night, ensuring that only those with a true need for such malevolent power receive it.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect; lasts until the end of the target's next turn or until dispelled by magic.",
+      "endsWhen": "The target successfully saves against the fear condition, is hit by an attack, or a creature with a Wisdom saving throw DC higher than 15 casts a dispel magic spell on it.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The price reflects its rarity and the potential danger it poses, balancing the need for such power against the risks of misusing it.",
+    "priceOriginal": 6000,
+    "priceReviewedAt": "2026-07-25T00:03:13.003076+00:00",
+    "aiReviewedAt": "2026-07-25T00:03:13.003076+00:00",
+    "aiReviewVersion": 1
   },
   "teyvat_item_emberglow_amulet": {
     "id": "teyvat_item_emberglow_amulet",
@@ -1695,20 +1787,44 @@ export const ITEMS_066 = {
   "almost_edge_void_pouch": {
     "id": "almost_edge_void_pouch",
     "name": "The Collector's Burden",
-    "description": "This unassuming pouch appears to absorb stray echoes and anomalies from the void. It’s said that those who carry it for too long become… obsessed with collecting the unsettling remnants of lost realities.",
+    "description": "The Collector's Burden is an unassuming pouch, its surface etched with faint, forgotten sigils of void and time. It seems to absorb stray echoes and anomalies from the void, causing those who bear it for too long to feel a gnawing obsession with collecting the unsettling remnants of lost realities. Rumor has it that once bound by this burden, one's mind slowly distorts into an ever-hungry collector of the forgotten and the broken.",
     "category": "premium",
-    "price": 2500,
+    "price": 1000,
     "icon": "📦",
     "stock": 9,
     "rarity": "uncommon",
     "stockType": "special_order",
     "effects": [
-      "absorb_negative_energy_5",
-      "chance_item_drop_1"
+      "void_absorption",
+      "obsession_risk"
     ],
     "vendor": "edge_wanderer",
     "shippedBy": "gravity_well",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Void Absorption",
+        "rules": "The Collector's Burden can absorb negative energy from nearby creatures or environments. It has a range of 10 feet and can only be used once per long rest."
+      },
+      {
+        "title": "Obsession Risk",
+        "rules": "After each day that the pouch is worn, there's an increasing risk (starting at 5%) that the bearer becomes obsessed with collecting strange and unsettling items. This obsession increases by 5% daily until it reaches 100%, at which point the character must succeed on a DC 14 Wisdom saving throw or become permanently obsessed."
+      }
+    ],
+    "levelRequirementReason": "The Collector's Burden requires a minimum level of 6 due to its arcane and dangerous nature.",
+    "vendorReason": "The edge-wanderers are known for their extensive trade networks, connecting the farthest corners of the realm. They specialize in rare and exotic items like The Collector's Burden.",
+    "shippingDetail": "Careful handling is required to avoid damaging this delicate artifact during transport.",
+    "usage": {
+      "activation": "A bonus action is needed to activate the absorption of negative energy from a creature or environment within range.",
+      "duration": "Instantaneous, but can only be used once per long rest.",
+      "endsWhen": "The effect ends when the pouch is removed and a successful DC 14 Wisdom saving throw is made.",
+      "charges": "Unlimited, as it recharges after a long rest."
+    },
+    "priceReason": "The Collector's Burden strikes a balance between its rare components and the risks involved in using it, making it cost 1000 XP.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-25T00:03:04.205082+00:00",
+    "aiReviewedAt": "2026-07-25T00:03:04.205082+00:00",
+    "aiReviewVersion": 1
   },
   "faerun_item_wario_s_lucky_potion": {
     "id": "faerun_item_wario_s_lucky_potion",
@@ -3329,21 +3445,44 @@ export const ITEMS_066 = {
   "kivotos_item_service_advanced_tutoring": {
     "id": "kivotos_item_service_advanced_tutoring",
     "name": "Brain Boost Blueprint",
-    "description": "Need a serious upgrade in your magical abilities? This premium service offers personalized tutoring from a top-tier academy instructor! Prepare for intense lectures, challenging assignments, and the potential to accidentally turn yourself into a potted plant – it's all part of the learning process!",
+    "description": "The Brain Boost Blueprint is a rare service that grants you access to intensive tutoring from an elite academy instructor, offering personalized lessons designed to enhance your magical abilities. Each session promises to push your limits with challenging assignments and in-depth analysis of complex spells. Be warned: the tutor's methods can be unpredictable; one moment you're mastering a spell, and the next, you might find yourself ensnared by your own concentration! This service ensures that you not only learn but also develop resilience against unexpected magical mishaps.",
     "category": "services",
-    "price": 12000,
+    "price": 1000,
     "icon": "🎓",
     "stock": 2,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "grant_skill_level_5",
-      "chance_to_learn_new_spell",
-      "boost_mana_pool_10"
+      "personalized_tutoring",
+      "spell Mastery"
     ],
     "vendor": "club_supply",
     "shippedBy": "express_delivery",
-    "levelRequirement": 8
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Personalized Tutoring",
+        "rules": "The tutor provides a series of intensive sessions that last for one week. Each session is designed to enhance your skill in a specific magical discipline, providing a +1 bonus to all spellcasting checks and saving throws related to that discipline until the end of the tutoring period."
+      },
+      {
+        "title": "Spell Mastery",
+        "rules": "You gain the ability to focus on mastering one new spell during the tutoring. This spell must be from a different school than any spells you currently know or have prepared, and it can be cast once per day without expending a spell slot."
+      }
+    ],
+    "levelRequirementReason": "The service requires a minimum of 8th level to ensure that you have the necessary experience and magical proficiency to benefit fully from the tutoring.",
+    "vendorReason": "Club Supply is known for its connections with top-tier educational institutions, making it the ideal vendor for this specialized service.",
+    "shippingDetail": "The service is delivered within a week of purchase and includes all necessary materials and access to the tutor's virtual classroom.",
+    "usage": {
+      "activation": "Passive effect during tutoring sessions; spell mastery gained once per tutoring period.",
+      "duration": "One week of intensive tutoring",
+      "endsWhen": "Ends at the completion of one week or upon discontinuing the service.",
+      "charges": "Unlimited uses per character"
+    },
+    "priceReason": "The balanced XP price reflects the intensive nature of the tutoring and the unique opportunity to master a new spell.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T00:03:24.051020+00:00",
+    "aiReviewedAt": "2026-07-25T00:03:24.051020+00:00",
+    "aiReviewVersion": 1
   },
   "faerun_item_wario_footprint_amulet": {
     "id": "faerun_item_wario_footprint_amulet",

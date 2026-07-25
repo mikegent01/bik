@@ -537,19 +537,42 @@ export const ITEMS_051 = {
   "zebrabwe_weather_vane": {
     "id": "zebrabwe_weather_vane",
     "name": "Zebrabwe Weather Vane",
-    "description": "A magically attuned vane that predicts meteorological hazards.",
-    "price": 16000,
+    "description": "The Zebrabwe Weather Vane is a hand-crafted weather vane forged from polished obsidian and adorned with silver runes that whisper ancient prophecies. It not only predicts severe meteorological hazards but can also temporarily divert light rain or wind away, providing a critical 24-hour warning to travelers across the plains. Crafted by Zebrabwe, the master forger of the Zebrowe Plains, this vane is a trusted companion for any adventurer venturing into unpredictable climes.",
+    "price": 1000,
     "icon": "📡",
     "stock": 7,
     "rarity": "rare",
     "effects": [
-      "Predicts severe weather (magical or mundane) 24 hours in advance",
-      "Can temporarily divert light rain/wind away from a camp",
-      "Made by: Zebrabwe"
+      "Meteorological Prediction",
+      "Minor Weather Diversion"
     ],
     "vendor": "zebrabwe_plains_trader",
     "shippedBy": "Wooden Post",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Meteorological Prediction",
+        "rules": "The Zebrabwe Weather Vane can predict severe meteorological hazards, both magical and mundane, up to 24 hours in advance. This effect is passive but requires the user to be aware of it for it to function effectively."
+      },
+      {
+        "title": "Minor Weather Diversion",
+        "rules": "The vane can temporarily divert light rain or wind away from a camp, creating a sheltered area approximately 10 feet in diameter. This effect lasts for 1 hour and may be used once per long rest."
+      }
+    ],
+    "levelRequirementReason": "This vane is suitable for beginners who require basic protection against unpredictable weather.",
+    "vendorReason": "The Zebrabwe Plains Trader proudly sells this local artisanal creation, offering essential tools to those navigating the harsh Zebrowe Plains.",
+    "shippingDetail": "Shipped via Wooden Post, ensuring safe and timely delivery through a network of trusted couriers.",
+    "usage": {
+      "activation": "Passive; awareness is required for prediction to take effect.",
+      "duration": "Instantaneous (prediction); 1 hour (weather diversion)",
+      "endsWhen": "At the end of each long rest (diversion); when the user becomes unaware or the vane breaks",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This price reflects the craftsmanship, materials used, and its essential utility for adventurers.",
+    "priceOriginal": 16000,
+    "priceReviewedAt": "2026-07-24T23:49:42.532053+00:00",
+    "aiReviewedAt": "2026-07-24T23:49:42.532053+00:00",
+    "aiReviewVersion": 1
   },
   "zelda_triforce_shard": {
     "id": "zelda_triforce_shard",

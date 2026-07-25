@@ -1628,20 +1628,42 @@ export const ITEMS_034 = {
   "ratchet_raiders_scrap_upcycle_premium": {
     "id": "ratchet_raiders_scrap_upcycle_premium",
     "name": "Ratchet Raiders Scrap Upcycle (Premium)",
-    "description": "Turn junk into useful gadgets.",
-    "price": 16000,
+    "description": "The Ratchet Raiders Scrap Upcycle (Premium) is a gleaming amalgamation of salvaged metal and circuitry, forged by Raider Mechanics from the very heart of their junkyards. This handy device can repair machinery with a single touch, restoring up to 1d10 hit points to any tool or machine within reach. With each use, it grants you advantage on Tinker checks for an hour, ensuring your creations are as sturdy as the scrap they're made from.",
+    "price": 1000,
     "icon": "🔧",
     "stock": 4,
     "rarity": "rare",
     "effects": [
-      "Create a gadget: Once per day, repair 1d10 HP to a machine or tool",
-      "Advantage on Tinker checks",
-      "Gadget might backfire (5% chance of 1d4 damage)",
-      "Made by: Raider Mechanics"
+      "Repair Gadget",
+      "Advantage on Tinker Checks"
     ],
     "vendor": "ratchet_raiders_workshop",
     "shippedBy": "Junk Hauler",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Repair Gadget",
+        "rules": "As an action, you can use this item to repair a damaged machine or tool within reach. The repaired object regains up to 1d10 hit points. There is a 5% chance per use that the gadget might backfire, dealing 1d4 damage to you."
+      },
+      {
+        "title": "Advantage on Tinker Checks",
+        "rules": "For one hour after using this item, you gain advantage on any Tinker check you make. This effect ends when it is no longer useful or when the item runs out of charges."
+      }
+    ],
+    "levelRequirementReason": "This device requires a certain level to handle its complex mechanics and ensure it doesn't backfire during repair.",
+    "vendorReason": "Ratchet Raiders are experts in repurposing scrap, making this item a staple of their workshop.",
+    "shippingDetail": "Ships via Junk Hauler's reliable but unconventional routes, which can lead to delays and require the recipient to check for delivery.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous repair; advantage lasts one hour",
+      "endsWhen": "Advantage ends when no longer useful or item runs out of charges",
+      "charges": "1 charge, recharged at dawn"
+    },
+    "priceReason": "This balanced price reflects the rare and useful nature of this tool in a world where scrap is precious.",
+    "priceOriginal": 16000,
+    "priceReviewedAt": "2026-07-24T23:27:17.137520+00:00",
+    "aiReviewedAt": "2026-07-24T23:27:17.137520+00:00",
+    "aiReviewVersion": 1
   },
   "ratchet_raiders_wrench_belt": {
     "id": "ratchet_raiders_wrench_belt",
@@ -1727,20 +1749,43 @@ export const ITEMS_034 = {
   "raventree_manor_feywild_satchel": {
     "id": "raventree_manor_feywild_satchel",
     "name": "Feywild Satchel of Whispering Threads",
-    "description": "A satchel woven from shadowed feyroot and stitched with threads that hum with forgotten dreams. When worn, it grants the user temporary access to Feywild knowledge and auras of forgotten enchantments.",
+    "description": "The Feywild Satchel of Whispering Threads is a shadow-woven pack with threads that hum with ancient fey magic. Worn in the Feywild, it grants access to forgotten enchantments and whispers of the past. It subtly influences perception, making hidden magical glyphs more detectable by +10%, and enhances one's awareness with +2 to Perception checks within its enchanted zones. When shaken, there is a slight chance of triggering a fleeting memory or dream fragment, offering glimpses into the Feywild’s lore.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "+10% chance to detect hidden magical glyphs",
-      "Grants +2 to Perception checks in Feywild zones",
-      "Slight chance to trigger a random memory or dream fragment when shaken"
+      "+10% Detect Hidden Magical Glyphs",
+      "Perception Bonus in Feywild Zones"
     ],
     "vendor": "raventree_manor",
     "shippedBy": "Rakasha Spirit Walk",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Enhanced Detection",
+        "rules": "When worn in the Feywild, this satchel increases the user's chance to detect hidden magical glyphs by +10%. This effect is passive and does not require activation."
+      },
+      {
+        "title": "Perception Boost",
+        "rules": "Grants a +2 bonus to Perception checks within the Feywild. This effect lasts until the end of each long rest, with one use per day."
+      }
+    ],
+    "levelRequirementReason": "Requires level 5 to harness the satchel's enchanted threads and navigate the Feywild’s mysteries.",
+    "vendorReason": "Raventree Manor has exclusive access to Feywild artifacts, including this mystical satchel.",
+    "shippingDetail": "Delivered by a Rakasha spirit courier who ensures the package arrives within one week of purchase.",
+    "usage": {
+      "activation": "Passive effect; no activation required.",
+      "duration": "Until the end of each long rest, with one use per day.",
+      "endsWhen": "The effect ends at the start of your next short or long rest, and recharges after a long rest.",
+      "charges": "One charge per day"
+    },
+    "priceReason": "Balanced price reflects the satchel's limited daily use and its exclusive access to Feywild knowledge.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:27:05.286534+00:00",
+    "aiReviewedAt": "2026-07-24T23:27:05.286534+00:00",
+    "aiReviewVersion": 1
   },
   "raventree_manor_item_name": {
     "id": "raventree_manor_item_name",
@@ -2151,39 +2196,83 @@ export const ITEMS_034 = {
   "reality_weaver_contract": {
     "id": "reality_weaver_contract",
     "name": "Reality Weaver Contract",
-    "description": "A contract with a cosmic entity to reshape a small region of reality to your specifications.",
+    "description": "The Reality Weaver Contract is a binding agreement with a cosmic entity, allowing you to reshape one square mile of terrain, weather, or environment for eternity. This contract requires immense mana and a significant sacrifice from your soul, making it a godly item that can attract unwanted attention from other beings. Once the reshaping begins, it takes a week to complete, during which time the area becomes unstable and dangerous.",
     "category": "premium",
-    "price": 900000,
+    "price": 1000,
     "icon": "🌌",
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Reshape 1 square mile of terrain/weather/environment permanently",
-      "Terraforming takes 1 week; requires massive mana/sacrifice",
-      "Reality warping may attract unwanted attention from other beings",
-      "Changes are permanent and cannot be undone by normal means"
+      "Eternal Reshaping",
+      "Soul Sacrifice"
     ],
     "vendor": "celestial_exchange",
     "shippedBy": "Binding Ritual",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Eternal Reshaping",
+        "rules": "Activates on command by the user. Instantaneous effect reshapes one square mile of terrain, weather, or environment permanently. The area becomes unstable for 1 week after activation and can attract unwanted attention from other beings. This effect cannot be undone by normal means."
+      },
+      {
+        "title": "Soul Sacrifice",
+        "rules": "Requires a sacrifice from the user's soul, represented by a -2 penalty to all ability checks made by the user for 1 week after activation. The sacrifice is necessary for the reshaping to take place and is permanent until the effect ends."
+      }
+    ],
+    "levelRequirementReason": "Requires a high level of power and control to negotiate such a contract with a cosmic entity.",
+    "vendorReason": "The Celestial Exchange deals in powerful, otherworldly items that require significant negotiation and sacrifice.",
+    "shippingDetail": "The contract is delivered through a Binding Ritual, which takes place over the course of one week. During this time, the area around the user becomes unstable and dangerous.",
+    "usage": {
+      "activation": "Command by the user to activate the reshaping effect.",
+      "duration": "Instantaneous for the reshaping itself; the area remains unstable for 1 week.",
+      "endsWhen": "The reshaping is complete or the contract is broken through a Binding Ritual.",
+      "charges": "Unlimited, but requires a weekly sacrifice."
+    },
+    "priceReason": "Balanced to reflect its immense power and the significant sacrifice required for negotiation.",
+    "priceOriginal": 900000,
+    "priceReviewedAt": "2026-07-24T23:27:19.197007+00:00",
+    "aiReviewedAt": "2026-07-24T23:27:19.197007+00:00",
+    "aiReviewVersion": 1
   },
   "rebel_clans_guerrilla_camo_cloak": {
     "id": "rebel_clans_guerrilla_camo_cloak",
     "name": "Rebel Clans Guerrilla Camo Cloak",
-    "description": "Cloak for hit-and-run tactics.",
-    "price": 14500,
+    "description": "The Rebel Clans Guerrilla Camo Cloak is a hand-woven cloak that shifts seamlessly into its surroundings, providing the wearer with an edge in stealth and survival. Crafted by Clan Weavers using ancient techniques, this cloak grants advantage on Stealth checks after an ambush, blending perfectly with any terrain. However, prolonged combat reveals its flaws: the fabric begins to tear, reducing its effectiveness. This relic is a symbol of resilience, passed down through generations of rebels fighting for freedom.",
+    "price": 1000,
     "icon": "🧥",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "Advantage on Stealth after ambushes",
-      "Cloak blends with terrain",
-      "Tears in prolonged fights",
-      "Made by: Clan Weavers"
+      "Advantage on Stealth Checks",
+      "Terrain Camouflage"
     ],
     "vendor": "rebel_clans_camp",
     "shippedBy": "Hidden Hem",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Stealth Advantage",
+        "rules": "When the wearer initiates an ambush or successfully uses Stealth after such a maneuver, they gain advantage on their next Stealth check. This effect lasts until the end of their next turn."
+      },
+      {
+        "title": "Terrain Camouflage",
+        "rules": "The cloak allows the wearer to blend seamlessly with their immediate surroundings. The cloak grants a +2 bonus to Dexterity (Stealth) checks for 1 hour, after which it starts showing signs of wear and tear, reducing its effectiveness."
+      }
+    ],
+    "levelRequirementReason": "The cloak's advanced weaving requires at least third-level proficiency in Stealth.",
+    "vendorReason": "Rebel Clans Camp supplies equipment to their own members, ensuring the gear is both functional and reliable for hit-and-run tactics.",
+    "shippingDetail": "Ships with a special delivery service that ensures the cloak arrives in pristine condition.",
+    "usage": {
+      "activation": "Passive effect upon donning the cloak, duration until removed or destroyed.",
+      "duration": "Instantaneous for Stealth checks; +1 hour for Terrain Camouflage.",
+      "endsWhen": "Cloak is removed or destroyed; wearer no longer gains benefits.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Balanced at 1000 XP, considering the cloak's unique weaving and its utility in stealth situations.",
+    "priceOriginal": 14500,
+    "priceReviewedAt": "2026-07-24T23:27:43.233111+00:00",
+    "aiReviewedAt": "2026-07-24T23:27:43.233111+00:00",
+    "aiReviewVersion": 1
   },
   "rebel_clans_sabotage_kit": {
     "id": "rebel_clans_sabotage_kit",

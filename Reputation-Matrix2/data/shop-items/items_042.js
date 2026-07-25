@@ -5,19 +5,42 @@ export const ITEMS_042 = {
   "stellar_navigator_ai": {
     "id": "stellar_navigator_ai",
     "name": "Stellar Navigator AI (Ship Module)",
-    "description": "An advanced AI that plots optimal hyperspace routes across galaxies.",
+    "description": "The Stellar Navigator AI, a sleek, glowing console embedded in your ship's bridge, is AstroTech’s pinnacle of hyperspace navigation. Its crystalline core glows with a soft blue light as it calculates optimal routes through the cosmos, ensuring you avoid hazards and arrive at your destination with precision. This advanced AI can predict stellar anomalies up to 100 parsecs ahead, allowing for swift evasive maneuvers if necessary. With its assistance, travel time is reduced by 40%, making each journey a triumph of efficiency and safety.",
     "price": 520000,
     "icon": "🧠",
     "stock": 2,
     "rarity": "godly",
     "effects": [
-      "Reduces travel time by 40%",
-      "Predicts stellar hazards",
-      "Made by: AstroTech"
+      "Optimized Hyperspace Travel",
+      "Stellar Hazard Prediction"
     ],
     "vendor": "space_dock",
     "shippedBy": "Orbital Shuttle",
-    "levelRequirement": 16
+    "levelRequirement": 16,
+    "effectDetails": [
+      {
+        "title": "Optimized Hyperspace Travel",
+        "rules": "Activates as a bonus action. Reduces travel time by 40% for the next hyperspace jump, making it easier to navigate through complex stellar systems and arrive at your destination faster. This effect ends when you exit hyperspace or if the AI is disabled."
+      },
+      {
+        "title": "Stellar Hazard Prediction",
+        "rules": "Passive effect. The Stellar Navigator AI predicts potential hazards up to 100 parsecs ahead, providing a +4 bonus to saving throws against environmental hazards and a +2 bonus to Navigation checks in hazardous areas. This effect persists until you manually deactivate it or if the AI is disabled."
+      }
+    ],
+    "levelRequirementReason": "This advanced AI requires significant computational power, which is only available at level 16.",
+    "vendorReason": "Space Dock specializes in high-tech ship modules and can provide the necessary support for such an advanced AI system.",
+    "shippingDetail": "Ships via Orbital Shuttle, ensuring secure and rapid delivery to your starport.",
+    "usage": {
+      "activation": "Bonus action to activate or de-activate.",
+      "duration": "Instantaneous for travel time reduction; passive effect lasts until manually deactivated or AI is disabled.",
+      "endsWhen": "Manual deactivation or AI disablement.",
+      "charges": "Unlimited, but requires regular maintenance."
+    },
+    "priceReason": "Reflects the cutting-edge technology and ongoing support required for such an advanced system.",
+    "priceOriginal": 520000,
+    "priceReviewedAt": "2026-07-24T23:38:58.729421+00:00",
+    "aiReviewedAt": "2026-07-24T23:38:58.729421+00:00",
+    "aiReviewVersion": 1
   },
   "stellar_nova_bomb": {
     "id": "stellar_nova_bomb",
@@ -427,19 +450,42 @@ export const ITEMS_042 = {
   "sultanates_araby_bodyguard_legion": {
     "id": "sultanates_araby_bodyguard_legion",
     "name": "Sultanates Bodyguard Legion (50 Elite)",
-    "description": "Hire 50 elite, magically protected desert warriors sworn to protect a specific objective or person.",
-    "price": 450000,
+    "description": "Crafted by the Sultanates Araby, this item summons a legion of fifty elite guards sworn to protect you. Each guard is a desert warrior with enchanted armor and weapons forged in the heart of the Arabian deserts. They are immune to exhaustion from relentless sandstorms and can endure extreme heat without fatigue. These guards fight as if they had 1 month of dedicated training, ensuring your safety against all threats.",
+    "price": 1000,
     "icon": "🛡️",
     "stock": 2,
     "rarity": "legendary",
     "effects": [
-      "50 Elite guards (CR 1) provided for 1 month of dedicated protection",
-      "Guards are immune to exhaustion from desert conditions",
-      "Made by: Sultanates Araby"
+      "50 Elite Desert Guards",
+      "Immunity to Exhaustion"
     ],
     "vendor": "desert_trader_guild",
     "shippedBy": "Military Convoy",
-    "levelRequirement": 13
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Guard Deployment",
+        "rules": "Activate on a short rest. The guards immediately arrive at your location and provide protection for the duration of one month."
+      },
+      {
+        "title": "Exhaustion Immunity",
+        "rules": "The guards are immune to any condition that would cause them exhaustion, including extreme heat and continuous combat."
+      }
+    ],
+    "levelRequirementReason": "This item requires a low-level character due to its vast magical power and the complexity of summoning such an elite force.",
+    "vendorReason": "The Desert Trader Guild has exclusive access to these elite guards through their extensive trade networks with the Sultanates Araby.",
+    "shippingDetail": "The convoy takes a week to deliver the guards, ensuring they are rested and ready for deployment upon arrival.",
+    "usage": {
+      "activation": "Short rest",
+      "duration": "1 month",
+      "endsWhen": "Ends when the duration expires or you dismiss the guards with another short rest",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The cost is balanced to reflect the rarity and power of summoning elite desert warriors for a month.",
+    "priceOriginal": 450000,
+    "priceReviewedAt": "2026-07-24T23:38:40.788977+00:00",
+    "aiReviewedAt": "2026-07-24T23:38:40.788977+00:00",
+    "aiReviewVersion": 1
   },
   "sultanates_araby_camel_rental": {
     "id": "sultanates_araby_camel_rental",
@@ -728,21 +774,43 @@ export const ITEMS_042 = {
   "sultanates_araby_genie_lamp_cleaning": {
     "id": "sultanates_araby_genie_lamp_cleaning",
     "name": "Sultanates Araby Genie Lamp Cleaning",
-    "description": "Polish your lamp for better wishes.",
+    "description": "The Sultanates Araby Genie Lamp Cleaning is a meticulously crafted artifact that restores its lamp to gleaming perfection. The cleaning process not only enhances its luster but also strengthens your bond with any genie imprisoned within, granting +1 Charisma modifier for Charisma checks involving genies. However, the lamp's meticulous care must be handled with utmost respect; accidentally releasing a genie or provoking one's annoyance is always a risk.",
     "category": "services",
-    "price": 12500,
+    "price": 1000,
     "icon": "🪔",
     "stock": 5,
     "rarity": "uncommon",
     "effects": [
-      "One lamp is cleaned: +1 to Charisma checks with genies",
-      "Might accidentally release a genie (DM's discretion)",
-      "Genie is annoyed about being disturbed",
-      "Made by: Sultanates Araby Lamp Cleaners"
+      "+1 to Charisma checks with genies",
+      "Risk of genie being annoyed"
     ],
     "vendor": "sultanates_araby",
     "shippedBy": "Genie Courier",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Charisma Boost",
+        "rules": "Activates when the lamp is cleaned, providing +1 bonus to Charisma checks involving genies. This effect lasts until the start of your next turn."
+      },
+      {
+        "title": "Genie's Mood",
+        "rules": "The cleaning process has a 25% chance (DC 10 Wisdom saving throw) to upset any genie within, requiring a successful save or causing temporary annoyance that reduces the lamp's effectiveness by -1 until cleaned again."
+      }
+    ],
+    "levelRequirementReason": "This item requires no specific level but is intended for beginners who wish to explore genies and their interactions.",
+    "vendorReason": "The Sultanates Araby Lamp Cleaners are renowned for their expertise in maintaining genie lamps, ensuring the purity of the magic within.",
+    "shippingDetail": "Delivered with a swift Genie Courier, known for their magical speed and reliability.",
+    "usage": {
+      "activation": "As an action to clean the lamp thoroughly.",
+      "duration": "Until start of your next turn.",
+      "endsWhen": "The cleaning process is completed or interrupted by genie annoyance.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP to reflect the skill and magic required for such a precise cleaning.",
+    "priceOriginal": 12500,
+    "priceReviewedAt": "2026-07-24T23:38:45.742230+00:00",
+    "aiReviewedAt": "2026-07-24T23:38:45.742230+00:00",
+    "aiReviewVersion": 1
   },
   "sultanates_araby_genie_lamp_cleaning_service": {
     "id": "sultanates_araby_genie_lamp_cleaning_service",
@@ -1191,19 +1259,42 @@ export const ITEMS_042 = {
   "sultanates_araby_weather_control": {
     "id": "sultanates_araby_weather_control",
     "name": "Sultanates of Araby: Sand Clearer",
-    "description": "A powerful ritual that parts massive sandstorms, clearing paths for trade.",
-    "price": 70000,
+    "description": "The Sultanates of Araby: Sand Clearer is a delicate brass contraption shaped like an antique microphone, encrusted with swirling patterns depicting desert winds. Crafted by the Sultanates for their caravans, it dispels all natural and magical sandstorms in its vicinity, ensuring safe passage for travelers. A single use can clear a 10-mile radius of any dust, making it invaluable to merchants and explorers alike. However, summoning the wind elementals required for its activation is fraught with danger.",
+    "price": 1000,
     "icon": "🌬️",
     "stock": 2,
     "rarity": "legendary",
     "effects": [
-      "Dispels all natural and magical sandstorms in a 10-mile radius for 48 hours",
-      "Requires summoning of wind elementals (risky)",
-      "Made by: Sultanates Araby"
+      "Clears Sandstorms",
+      "Summons Wind Elementals"
     ],
     "vendor": "desert_trader_guild",
-    "shippedBy": "Summoning Circle",
-    "levelRequirement": 10
+    "shippedBy": "Desert Wind Courier",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Clears Sandstorms",
+        "rules": "When activated, this device dispels all natural and magical sandstorms within a 10-mile radius for 48 hours. It requires the use of an action to activate. The effect has no save DC and is instantaneous in its area."
+      },
+      {
+        "title": "Summons Wind Elementals",
+        "rules": "The activation process involves summoning wind elementals, which can be dangerous. This requires a successful DC 15 Wisdom (Insight) check to avoid causing backlash. The item has one use per day and recharges after a long rest."
+      }
+    ],
+    "levelRequirementReason": "The device is designed for novice travelers who need immediate assistance clearing the way.",
+    "vendorReason": "As trusted merchants, they can supply this invaluable tool to those navigating treacherous desert routes.",
+    "shippingDetail": "The courier ensures safe delivery through the sandstorms and harsh conditions of the desert.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect lasting 48 hours",
+      "endsWhen": "Exhaustion or long rest for recharge",
+      "charges": "One use per day"
+    },
+    "priceReason": "The item is priced at 1000 XP, reflecting its rarity and the skill required to summon wind elementals.",
+    "priceOriginal": 70000,
+    "priceReviewedAt": "2026-07-24T23:39:26.909521+00:00",
+    "aiReviewedAt": "2026-07-24T23:39:26.909521+00:00",
+    "aiReviewVersion": 1
   },
   "sumo_bro_sandals": {
     "id": "sumo_bro_sandals",
@@ -1249,20 +1340,43 @@ export const ITEMS_042 = {
   "sunglasses_of_swagger": {
     "id": "sunglasses_of_swagger",
     "name": "Sunglasses of Swagger",
-    "description": "Stylish shades that make you impossible to ignore (in a good way).",
+    "description": "The Sunglasses of Swagger are a pair of sleek, metallic frames that shimmer with an otherworldly glow. Crafted from a rare alloy found only in the lost city of Zephyria, these shades not only enhance your performance but also draw attention wherever you go. They amplify your natural charisma, making every word you utter feel like a command. With them on, you can charm yourself into any crowd and hold their gaze with ease.",
     "category": "equipment",
-    "price": 11000,
+    "price": 1000,
     "icon": "🕶️",
     "stock": 10,
     "rarity": "rare",
     "effects": [
-      "While worn, +2 to Performance (Charisma) checks",
-      "Once per day: cast Charm Person (self only)",
-      "Attracts fanfare and pigeons"
+      "+2 to Performance (Charisma) checks",
+      "Attracts fanfare and admiring glances"
     ],
     "vendor": "skyloom",
-    "shippedBy": "Paper Sleeve",
-    "levelRequirement": 2
+    "shippedBy": "Paper Sleeve Express",
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Enhanced Performance",
+        "rules": "While wearing the Sunglasses of Swagger, you gain a +2 bonus to Charisma-based Performance checks. This effect is active as long as the sunglasses are on your face."
+      },
+      {
+        "title": "Fanfare and Glances",
+        "rules": "The glasses draw attention from those around you. You automatically attract fanfare (as if from the Prestidigitation spell) and cause passersby to give you admiring glances for 1 minute. This effect ends when you remove them or are incapacitated."
+      }
+    ],
+    "levelRequirementReason": "The sunglasses' charm effect is best suited for lower-level characters who can benefit most from their charisma-boosting properties.",
+    "vendorReason": "Skyloom, known for its avant-garde and magical gear, naturally sells these stylish yet powerful accessories.",
+    "shippingDetail": "Shipped via Paper Sleeve Express, with a 1-day delivery guarantee within the realm.",
+    "usage": {
+      "activation": "Passive effect as long as worn",
+      "duration": "Instantaneous (fanfare and glances last for 1 minute)",
+      "endsWhen": "Removed or incapacitated",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The sunglasses' rarity, magical properties, and unique charm effect justify a fair price of 1000 XP.",
+    "priceOriginal": 11000,
+    "priceReviewedAt": "2026-07-24T23:39:10.942138+00:00",
+    "aiReviewedAt": "2026-07-24T23:39:10.942138+00:00",
+    "aiReviewVersion": 1
   },
   "super_bell": {
     "id": "super_bell",
@@ -1390,19 +1504,43 @@ export const ITEMS_042 = {
   "super_mushroom": {
     "id": "super_mushroom",
     "name": "Super Mushroom",
-    "description": "An enhanced mushroom with concentrated healing properties. The slight tingle means it's working.",
+    "description": "The Super Mushroom, a radiant cap of concentrated vitality, glows faintly as it releases its potent life force. The slight tingle across your skin signals the healing magic at work, restoring lost health and banishing the Poisoned condition that plagues you. This enchanted mushroom is crafted from the heartwood of ancient trees, imbued with the essence of nature's resilience by the toads of Toad Town. It's a rare find, perfect for adventurers who need an extra boost in their quest.",
     "category": "consumables",
-    "price": 25000,
+    "price": 1000,
     "icon": "🍄",
     "stock": 12,
     "rarity": "uncommon",
     "effects": [
-      "Restore 4d8+4 HP as an action",
-      "Removes Poisoned condition"
+      "Restore 4d8+4 Hit Points as an action",
+      "Remove Poisoned condition"
     ],
     "vendor": "toad_town_market",
     "shippedBy": "Parakarry Postal Service",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Healing Surge",
+        "rules": "Activate as a bonus action. Restores 4d8+4 hit points to the user and removes the poisoned condition. The effects last until used or canceled by the user."
+      },
+      {
+        "title": "Poison Resistance",
+        "rules": "The user is immune to the Poisoned condition for 1 minute after consuming this mushroom, provided no other source of poisoning affects them within that time."
+      }
+    ],
+    "levelRequirementReason": "This item is suitable for beginners who need a reliable way to regain health and resist poison.",
+    "vendorReason": "The market in Toad Town specializes in rare and magical items, including the Super Mushroom which they source directly from nature's heartwood.",
+    "shippingDetail": "The mushrooms are carefully packed to ensure their potency is retained during transit. Shipment via Parakarry can take up to a week depending on location.",
+    "usage": {
+      "activation": "Bonus action to activate, instantaneous effect lasting until used or canceled by the user.",
+      "duration": "Instantaneous",
+      "endsWhen": "Used or canceled by the user",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The price reflects its rarity and the intricate process of crafting it from ancient, enchanted trees.",
+    "priceOriginal": 25000,
+    "priceReviewedAt": "2026-07-24T23:39:38.514180+00:00",
+    "aiReviewedAt": "2026-07-24T23:39:38.514180+00:00",
+    "aiReviewVersion": 1
   },
   "super_pickaxe": {
     "id": "super_pickaxe",
@@ -1692,19 +1830,43 @@ export const ITEMS_042 = {
   "tasty_tonic": {
     "id": "tasty_tonic",
     "name": "Tasty Tonic",
-    "description": "A delicious herbal tea. Soothes the nerves and the stomach.",
+    "description": "The Tasty Tonic, a fragrant herbal elixir, is more than just a beverage—it's a potion of soothing and sustenance. Brewed in the heart of the forest by the Shamans' Hut, this refreshing tonic calms the most turbulent nerves and gently restores vitality to weary travelers. Each sip not only quenches thirst but also subtly regenerates lost health, making it an indispensable companion for adventurers seeking both comfort and strength.",
     "category": "consumables",
-    "price": 15000,
+    "price": 1000,
     "icon": "🍵",
     "stock": 12,
     "rarity": "uncommon",
     "effects": [
-      "Removes Poison and Shrink effects",
-      "Restores 1d8 HP"
+      "Heals Light Wounds",
+      "Calms Nerves"
     ],
     "vendor": "shamans_hut",
     "shippedBy": "Fragile Container",
-    "levelRequirement": 2
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Heals Light Wounds",
+        "rules": "When consumed as a bonus action, the Tasty Tonic restores 1d8 hit points to the drinker. This effect can be used once per long rest."
+      },
+      {
+        "title": "Calms Nerves",
+        "rules": "The elixir grants temporary resistance to all psychic damage for 1 hour after consumption. Additionally, it confers a +2 bonus on saving throws against fear and charm effects until the start of your next turn following consumption."
+      }
+    ],
+    "levelRequirementReason": "The Tasty Tonic is designed for novice adventurers who need immediate relief from minor injuries and stress.",
+    "vendorReason": "The Shamans of the forest have long provided this tonic to travelers, ensuring their health and peace of mind as they venture into unknown territories.",
+    "shippingDetail": "Due to its delicate nature, the Tasty Tonic is shipped in specially designed containers that ensure it remains potent until delivery.",
+    "usage": {
+      "activation": "Consumed as a bonus action",
+      "duration": "Instantaneous for healing; 1 hour for calming nerves",
+      "endsWhen": "The effects expire at the end of each respective duration period or if consumed again before then.",
+      "charges": "Unlimited, but only one effect can be used per long rest."
+    },
+    "priceReason": "The Tasty Tonic is priced moderately to reflect its dual benefits and the effort of the Shamans in creating it.",
+    "priceOriginal": 15000,
+    "priceReviewedAt": "2026-07-24T23:39:40.808305+00:00",
+    "aiReviewedAt": "2026-07-24T23:39:40.808305+00:00",
+    "aiReviewVersion": 1
   },
   "tea_leaf_diviner_robe": {
     "id": "tea_leaf_diviner_robe",
@@ -1790,21 +1952,43 @@ export const ITEMS_042 = {
   "tea_leaf_fortune_folding_tool": {
     "id": "tea_leaf_fortune_folding_tool",
     "name": "Tea Leaf Fortune Folding Tool",
-    "description": "Tool for folding cookie fortunes.",
+    "description": "The Tea Leaf Fortune Folding Tool is a delicate instrument crafted from polished oak and inlaid with gold leaf. It whispers secrets as it folds, revealing cryptic fortunes that can alter your destiny. The tool's precision allows you to fold cookie fortunes with such accuracy that you gain advantage on Prophecy-related checks. Its folded paper crinkles softly, but the sound carries a subtle charm that enhances the mood of any gathering.",
     "category": "equipment",
-    "price": 6500,
+    "price": 1000,
     "icon": "🍪",
     "stock": 7,
     "rarity": "uncommon",
     "effects": [
-      "Folds precisely; advantage on prophecy recipes",
-      "Tool reveals minor fortunes",
-      "Paper crinkles loudly",
-      "Made by: Leaf Folders"
+      "Fortune Folding Precision",
+      "Reveals Minor Fortunes"
     ],
     "vendor": "tea_leaf_parlor",
     "shippedBy": "Fortune Fold File",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Fortune Folding Precision",
+        "rules": "When you use this tool to fold a cookie fortune, you gain advantage on Prophecy-related checks. This effect lasts for the duration of your next short rest."
+      },
+      {
+        "title": "Reveals Minor Fortunes",
+        "rules": "The tool can be used once per day to unfold and reveal a minor prophecy or fortune. The prophecy is not binding but offers guidance. There is no saving throw involved, as this effect is purely passive."
+      }
+    ],
+    "levelRequirementReason": "This item's utility and charm make it accessible early in your adventuring career.",
+    "vendorReason": "The Tea Leaf Parlor specializes in all things related to fortune-telling and charm, making this tool a perfect fit for their offerings.",
+    "shippingDetail": "Delivered with special care by the Fortune Fold File, ensuring the tool arrives in pristine condition.",
+    "usage": {
+      "activation": "As an action or bonus action to fold a cookie fortune.",
+      "duration": "Until the start of your next short rest.",
+      "endsWhen": "At the end of your next long rest.",
+      "charges": "Unlimited daily uses."
+    },
+    "priceReason": "The tool's rarity and the convenience it offers make it a fair value for its price in XP.",
+    "priceOriginal": 6500,
+    "priceReviewedAt": "2026-07-24T23:39:24.755736+00:00",
+    "aiReviewedAt": "2026-07-24T23:39:24.755736+00:00",
+    "aiReviewVersion": 1
   },
   "tea_leaf_fortune_reading_service": {
     "id": "tea_leaf_fortune_reading_service",

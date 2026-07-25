@@ -173,21 +173,44 @@ export const ITEMS_068 = {
   "doughnut_hole_graviton_ring": {
     "id": "doughnut_hole_graviton_ring",
     "name": "Gravitational Resonance Ring",
-    "description": "A bizarre ring crafted from solidified gravity. Wearing this allows you to subtly manipulate local gravitational forces – useful for leaping across gaps, pulling enemies closer, or accidentally crushing your own feet!",
+    "description": "The Gravitational Resonance Ring, forged from the very essence of warped space-time, is a bizarre and powerful artifact. Its surface shimmers with an ethereal glow as it subtly warps local gravitational fields. Wearers can leap across chasms with ease or pull nearby foes into their grasp, making it a versatile tool for survival and combat. However, its unpredictable nature means that users must be cautious to avoid accidentally crushing their own feet in the process.",
     "category": "equipment",
-    "price": 7800,
+    "price": 1000,
     "icon": "🌀",
     "stock": 12,
     "rarity": "rare",
     "stockType": "limited_daily",
     "effects": [
-      "increased_jump_height",
-      "chance_to_pull_enemies",
-      "minor_gravity_manipulation"
+      "Leap Across Gaps",
+      "Pull Enemies"
     ],
     "vendor": "center_seller",
     "shippedBy": "Void Courier",
-    "levelRequirement": 6
+    "levelRequirement": 6,
+    "effectDetails": [
+      {
+        "title": "Leap Across Gaps",
+        "rules": "As a bonus action, you can manipulate gravity to leap up to 15 feet higher than normal. This effect requires concentration and lasts until the start of your next turn."
+      },
+      {
+        "title": "Pull Enemies",
+        "rules": "Once per short rest, you can use an action to exert a gravitational pull on one creature within 30 feet that you can see. The target must succeed on a DC 14 Strength saving throw or be pulled toward you until the start of your next turn."
+      }
+    ],
+    "levelRequirementReason": "The ring's manipulation of gravitational forces requires a degree of finesse and control that is only possible for a 6th-level spellcaster.",
+    "vendorReason": "Center Seller specializes in rare and exotic items, including the Gravitational Resonance Ring, which they obtained from an ancient artifact dealer.",
+    "shippingDetail": "Ships via the Void Courier within a week of purchase.",
+    "usage": {
+      "activation": "Bonus action or action",
+      "duration": "Concentration (up to one minute) and Instantaneous",
+      "endsWhen": "The effect ends if you lose concentration, are incapacitated, or use it again.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "The ring's balanced price reflects its limited utility and the expertise required to master its effects.",
+    "priceOriginal": 7800,
+    "priceReviewedAt": "2026-07-25T00:04:58.480039+00:00",
+    "aiReviewedAt": "2026-07-25T00:04:58.480039+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_anomaly_core": {
     "id": "doughnut_hole_anomaly_core",
@@ -276,21 +299,44 @@ export const ITEMS_068 = {
   "doughnut_hole_gravitron_boots": {
     "id": "doughnut_hole_gravitron_boots",
     "name": "Voidstep Boots",
-    "description": "These boots were forged from solidified gravitational anomalies harvested near the Doughnut Hole. They allow you to briefly defy gravity, letting you leap incredible distances or momentarily float above dangerous terrain – just try not to fall into a black hole!",
+    "description": "The Voidstep Boots are forged from solidified gravitational anomalies harvested near the mysterious Doughnut Hole, a region where gravity bends and twists in unpredictable ways. These boots allow you to defy the laws of physics momentarily, leaping with such force that it seems you can touch the stars or float above the deepest chasms without fear of falling into the void – just be wary; even the slightest misstep could send you plummeting into the abyss.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "🚀",
     "stock": 5,
     "rarity": "epic",
     "stockType": "limited_daily",
     "effects": [
-      "increased jump height",
-      "temporary levitation (3 seconds)",
-      "resistance to gravity effects"
+      "defy gravity",
+      "aerial agility"
     ],
     "vendor": "hole_hawker",
     "shippedBy": "Dimensional Rift Courier",
-    "levelRequirement": 9
+    "levelRequirement": 9,
+    "effectDetails": [
+      {
+        "title": "Defy Gravity",
+        "rules": "As a bonus action, you can activate the boots to leap up to 15 feet higher than normal and float momentarily above the ground for 3 seconds. You gain resistance against falling damage but are vulnerable to being pushed or knocked prone. The effect ends if you make a melee attack while in midair."
+      },
+      {
+        "title": "Aerial Agility",
+        "rules": "While wearing these boots, your movement speed is increased by 10 feet for the duration of any short rest. You can also use an action to teleport up to 30 feet straight up or down without provoking opportunity attacks."
+      }
+    ],
+    "levelRequirementReason": "The Voidstep Boots require a high level of control and mastery over one's surroundings, making them suitable only for seasoned adventurers.",
+    "vendorReason": "Hole Hawker has the exclusive rights to sell these boots as they are known to have harvested the original gravitational anomalies used in their creation.",
+    "shippingDetail": "The boots are carefully packaged and shipped via Dimensional Rift Courier, ensuring safe delivery through the most perilous of planes.",
+    "usage": {
+      "activation": "Bonus action to leap or float; action to teleport up to 30 feet vertically or horizontally.",
+      "duration": "Instantaneous for leaping or floating; 10 feet movement speed increase during a short rest; teleportation effect is instantaneous.",
+      "endsWhen": "The effect ends if you make a melee attack while in midair, the duration of the short rest ends, or after one use per day.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "priceReason": "The Voidstep Boots are priced at 1000 XP due to their rarity and the specialized materials required for their forging.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T00:05:12.916453+00:00",
+    "aiReviewedAt": "2026-07-25T00:05:12.916453+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_singularity_berry": {
     "id": "doughnut_hole_singularity_berry",
@@ -421,21 +467,44 @@ export const ITEMS_068 = {
   "connectopia_chronos_fragment": {
     "id": "connectopia_chronos_fragment",
     "name": "Temporal Block Shard",
-    "description": "A fragment of a shattered time-block! Holding this shard briefly can slow down enemies or accelerate your own actions – just don't mess with the timeline too much, or Wario might be *really* mad.",
+    "description": "The Temporal Block Shard is a jagged, iridescent fragment of shattered time, its edges etched with faint chronal patterns. Holding this shard briefly can slow down enemies’ movements, making them clumsy and vulnerable to attack. Alternatively, it allows the wielder to accelerate their own actions, granting a burst of speed and agility. However, one must handle it carefully; any mishandling could ripple the timeline itself, drawing the wrath of ancient timekeepers.",
     "category": "curiosities",
-    "price": 18000,
+    "price": 1000,
     "icon": "⏳",
     "stock": 3,
     "rarity": "legendary",
     "stockType": "special_order",
     "effects": [
       "slow_enemy_speed",
-      "increase_action_speed",
-      "chance_to_create_temporal_distortion"
+      "increase_action_speed"
     ],
     "vendor": "pioneer_post",
-    "shippedBy": "zeppelin",
-    "levelRequirement": 15
+    "shippedBy": "airship courier",
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Slow Enemy Speed",
+        "rules": "When activated as a bonus action, this shard slows an enemy's speed by half for 1 minute. The target must succeed on a DC 15 Dexterity saving throw or be incapacitated until the end of its next turn."
+      },
+      {
+        "title": "Increase Action Speed",
+        "rules": "Activating as a reaction allows you to increase your movement speed by 30 feet for 1 round. You can use this feature only once per short rest."
+      }
+    ],
+    "levelRequirementReason": "This shard requires significant control over time magic, which is why it demands at least a 15th level to wield.",
+    "vendorReason": "The Pioneer Post has a special arrangement with the temporal guardians who oversee this fragment's distribution.",
+    "shippingDetail": "Ships via an airship courier, arriving within 1 week of order placement.",
+    "usage": {
+      "activation": "Bonus action or reaction",
+      "duration": "Instantaneous (slow enemy) and 1 round (increase speed)",
+      "endsWhen": "The effect ends when the duration expires or the user is incapacitated.",
+      "charges": "Unlimited, but can only be used once per short rest."
+    },
+    "priceReason": "This shard's price reflects its rarity and utility, balancing its powerful effects with a reasonable cost for players of appropriate level.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-25T00:05:10.298917+00:00",
+    "aiReviewedAt": "2026-07-25T00:05:10.298917+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_echoing_dust": {
     "id": "almost_edge_echoing_dust",
@@ -566,22 +635,44 @@ export const ITEMS_068 = {
   "warhammer_shadowstrike": {
     "id": "warhammer_shadowstrike",
     "name": "Shadowstrike Warhammer",
-    "description": "A dark and ominous warhammer, rumored to have been crafted by the shadows themselves. It deals damage infused with chilling darkness. Wario says it’s perfect for smashing things...and scaring people!",
+    "description": "The Shadowstrike Warhammer exudes an oppressive aura, its darkened surface etched with runes that whisper of ancient shadows and forgotten horrors. This weapon can deal chilling damage to foes, and with every strike, a wave of fear sweeps through the battlefield, causing allies' enemies to falter. Crafted in the darkest forges by the hands of night's artisans, it is both a tool of destruction and a harbinger of dread.",
     "category": "equipment",
-    "price": 18000,
+    "price": 1000,
     "icon": "🌑",
     "stock": 12,
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "damage: bludgeoning 1d10 + strength modifier",
-      "chance to inflict fear: 15%",
-      "shadow damage: deals 1d6 necrotic damage on hit",
-      "increased critical hit chance: 10%"
+      "Fearful Strike",
+      "Shadow Damage"
     ],
     "vendor": "fate_forge",
     "shippedBy": "dark_horse",
-    "levelRequirement": 9
+    "levelRequirement": 9,
+    "effectDetails": [
+      {
+        "title": "Fearful Strike",
+        "rules": "When you hit an enemy with the warhammer, there's a 15% chance that they are frightened for 1 round. This effect has no save DC and can occur once per short rest."
+      },
+      {
+        "title": "Shadow Damage",
+        "rules": "The warhammer deals 1d6 necrotic damage on hit, which stacks with other damage types. The weapon must make a successful hit to deal this damage, and it regains one charge after a long rest."
+      }
+    ],
+    "levelRequirementReason": "Crafted for those who can command the shadows, this warhammer requires a level 9 character to wield effectively.",
+    "vendorReason": "Wario, the master of forge and shadow, ensures that only those with the right skills and courage receive this weapon.",
+    "shippingDetail": "The dark horse delivers the Shadowstrike Warhammer through a shadowy courier service, ensuring it arrives at its destination just before nightfall.",
+    "usage": {
+      "activation": "On hit with the warhammer.",
+      "duration": "Instantaneous; the fear effect lasts for one round.",
+      "endsWhen": "The weapon's charge is expended or after a long rest.",
+      "charges": "10 charges, recharged after a long rest."
+    },
+    "priceReason": "Crafted with rare materials and ancient craftsmanship, the Shadowstrike Warhammer justifies its moderate price in game currency.",
+    "priceOriginal": 18000,
+    "priceReviewedAt": "2026-07-25T00:05:10.198361+00:00",
+    "aiReviewedAt": "2026-07-25T00:05:10.198361+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_chronometric_orb": {
     "id": "almost_edge_item_chronometric_orb",
@@ -628,21 +719,44 @@ export const ITEMS_068 = {
   "earth_land_potion_of_wario_gust": {
     "id": "earth_land_potion_of_wario_gust",
     "name": "Wario's Guaranteed Gust Potion!",
-    "description": "This shimmering purple potion tastes suspiciously like strawberry and regret. Drink it to unleash a miniature whirlwind – perfect for knocking enemies off cliffs, stealing snacks, or just generally causing chaos!  Wario isn’t responsible if you accidentally blow yourself away.",
+    "description": "Wario's Guaranteed Gust Potion! A shimmering, suspiciously fruity purple elixir that tastes like a mix of strawberry and the regret you feel after overeating. Drink it to unleash a miniature whirlwind capable of pushing back enemies, knocking them off cliffs, or simply causing chaos. The potent gust can be felt for 3 rounds as it blows in a 1.5-meter radius around you, making it perfect for quick escapes or strategic mischief.",
     "category": "consumables",
-    "price": 800,
+    "price": 1000,
     "icon": "💨",
     "stock": 45,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "movement speed: +10% (3 rounds)",
-      "chance to push target (20%)",
-      "small explosion radius (1.5m)"
+      "Wind Push",
+      "Area Control"
     ],
     "vendor": "magic_shop",
     "shippedBy": "Delivery Drone",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Wind Push",
+        "rules": "When activated, Wario's Guaranteed Gust Potion creates a gust of wind that pushes back any creature within the 1.5-meter radius. The gust has a 20% chance to knock targets prone if they fail a DC 13 Strength saving throw."
+      },
+      {
+        "title": "Area Control",
+        "rules": "The gust's effect lasts for 3 rounds, during which it can be used up to three times per short or long rest. The wind is strong enough to disrupt the balance of creatures within its range, making it useful in tight spaces."
+      }
+    ],
+    "levelRequirementReason": "This potion is accessible early on for players who wish to experiment with area control and strategic gusts.",
+    "vendorReason": "Magic Shop stocks a variety of potions that can be used by adventurers of all levels, making it the perfect place for Wario's Guaranteed Gust Potion!",
+    "shippingDetail": "Shipped via fast Delivery Drone, this potion is usually delivered within an hour.",
+    "usage": {
+      "activation": "Action",
+      "duration": "3 rounds",
+      "endsWhen": "After 3 rounds or when the user takes a short rest, long rest, or uses it again (up to three times per day)",
+      "charges": "Recharge after each short or long rest"
+    },
+    "priceReason": "The potion's unique gust effect and limited daily usage justify its price of 1000 XP.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-25T00:05:24.616532+00:00",
+    "aiReviewedAt": "2026-07-25T00:05:24.616532+00:00",
+    "aiReviewVersion": 1
   },
   "earth_land_godly_amulet_of_wario_luck": {
     "id": "earth_land_godly_amulet_of_wario_luck",

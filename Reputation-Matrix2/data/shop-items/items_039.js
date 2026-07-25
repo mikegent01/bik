@@ -1430,19 +1430,42 @@ export const ITEMS_039 = {
   "shadowfell_night_blood_blood": {
     "id": "shadowfell_night_blood_blood",
     "name": "Night Blood Blood",
-    "description": "A vial of ancient Onyx Hand blood that amplifies vampiric regeneration. Sip to restore 100 HP and gain 20% damage resistance for 5 minutes.",
-    "price": 1200,
+    "description": "Night Blood Blood is a vial of ancient Onyx Hand blood, collected from the very heart of Shadowfell's twilight. When consumed, it grants a fleeting moment of vampiric prowess, restoring 100 hit points and bestowing upon you 20% damage resistance for five minutes. The blood’s power is as ephemeral as it is potent, but only those who have faced its depths can truly appreciate the balance between life and death it offers.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 2,
     "rarity": "rare",
     "effects": [
-      "Restores 100 HP",
-      "Grants 20% damage resistance for 5 minutes",
-      "Cannot be used while unconscious"
+      "Restores Hit Points",
+      "Grants Damage Resistance"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Hit Point Restoration",
+        "rules": "Consume the vial to restore 100 hit points. The effect is instantaneous, but you cannot use this vial while unconscious. This effect can only be used once per long rest."
+      },
+      {
+        "title": "Damage Resistance",
+        "rules": "For five minutes after consumption, you gain a +2 bonus to your AC and resistances to all damage types. The effect ends if you are incapacitated or if the vial is consumed before its duration expires."
+      }
+    ],
+    "levelRequirementReason": "This item’s potent effects make it accessible for lower-level characters who may not yet have access to more powerful restorative magic.",
+    "vendorReason": "The shadowy depths of the Shadowfell yield such rare and wondrous items, and the vendors who traverse these realms are privy to their secrets.",
+    "shippingDetail": "Delivered by spectral couriers who themselves walk the twilight between worlds, ensuring that Night Blood Blood arrives in its prime condition.",
+    "usage": {
+      "activation": "Consume the vial as an action.",
+      "duration": "5 minutes or until you are incapacitated.",
+      "endsWhen": "The effect ends if you consume it before five minutes have passed or if you become unconscious.",
+      "charges": "One use per long rest."
+    },
+    "priceReason": "Given its rarity and the potent effects it offers, this vial is priced at a premium but remains accessible to those who can afford its cost in XP.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:34:32.286404+00:00",
+    "aiReviewedAt": "2026-07-24T23:34:32.286404+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_night_blood_essence": {
     "id": "shadowfell_night_blood_essence",
@@ -2382,20 +2405,43 @@ export const ITEMS_039 = {
   "shadowfell_onyx_hand_glove": {
     "id": "shadowfell_onyx_hand_glove",
     "name": "Onyx Hand Glove",
-    "description": "A gauntlet forged from the shadowed bones of a fallen vampire, it pulses with cold energy. Grants the wearer the ability to absorb ambient darkness and convert it into temporary strength. Perfect for stealth and survival in the Shadowfell’s gloom.",
+    "description": "The Onyx Hand Glove is a gauntlet forged from the petrified bones of a fallen vampire, pulsing with cold energy. Crafted in the dim light of the Shadowfell, its surface shimmers with an eerie luminescence that seems to absorb darkness itself. Wearers can harness this ambient darkness, converting it into temporary strength and enhancing their movement speed within shadowy environs. This relic offers immunity to light-based attacks, making it invaluable for those navigating through the gloom of the Shadowfell.",
     "category": "equipment",
-    "price": 3000,
+    "price": 1000,
     "icon": "🔮",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "+25% damage in dark environments",
-      "Absorbs 10% of ambient darkness for 30 seconds, boosting movement speed",
-      "Grants immunity to light-based attacks"
+      "Absorbs darkness",
+      "Enhances stealth"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Dark Absorption",
+        "rules": "When in a dark environment, the wearer can absorb ambient darkness for up to 30 minutes. This absorption grants a +1 bonus to Strength checks and provides advantage on Stealth checks."
+      },
+      {
+        "title": "Shadow Boost",
+        "rules": "Activating Shadow Boost allows the wearer to move at double their normal speed for 1 minute, but they must remain in darkness for its duration or lose this effect. The activation is a bonus action."
+      }
+    ],
+    "levelRequirementReason": "The complexity of the glove's enchantments requires a proficient user familiar with the Shadowfell’s challenges.",
+    "vendorReason": "Shadowfell merchants trade in relics from their realm, and this gauntlet is a prime example of their craftsmanship.",
+    "shippingDetail": "Ships within one week with delivery confirmation.",
+    "usage": {
+      "activation": "Bonus action for Shadow Boost; passive effect during dark absorption.",
+      "duration": "30 minutes for absorption, 1 minute for boost.",
+      "endsWhen": "Ends when the environment changes or the wearer steps into light.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at a price to reflect its rarity and the difficulty in crafting such an artifact.",
+    "priceOriginal": 3000,
+    "priceReviewedAt": "2026-07-24T23:34:17.663644+00:00",
+    "aiReviewedAt": "2026-07-24T23:34:17.663644+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_onyx_hand_sword_of_silence": {
     "id": "shadowfell_onyx_hand_sword_of_silence",
@@ -3827,20 +3873,43 @@ export const ITEMS_039 = {
   "shadowfell_shadow_soul_core": {
     "id": "shadowfell_shadow_soul_core",
     "name": "Shadow Soul Core",
-    "description": "A pulsating orb of corrupted void energy that drains light and amplifies darkness. Wields the power to shatter illusions and bend shadows to obey.",
+    "description": "The Shadow Soul Core hums with malevolent energy, a pulsating orb of corrupted void that drains light and amplifies darkness. Crafted from the very essence of the Shadowfell, this core shatters illusions and bends shadows to its will. When active, it grants +150% damage against shadow-based attacks and reduces enemy resistance to darkness effects by 30%. Restores 7% hit points per second while active, but if exposed to bright light or direct sunlight, the core is destroyed.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Grants +100% damage to shadow based attacks",
-      "Reduces enemy resistance to darkness effects",
-      "Restores 5% HP per second while active"
+      "Shadow Damage Amplification",
+      "Darkness Resistance Reduction"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Lakitu Drones",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Shadow Damage Amplification",
+        "rules": "Activates as a bonus action. While active, all attacks that deal shadow damage are increased by +150%. The effect lasts until the end of your next turn and is destroyed if exposed to bright light or direct sunlight."
+      },
+      {
+        "title": "Darkness Resistance Reduction",
+        "rules": "Reduces enemy resistance to darkness effects by 30% for the duration of one short rest. The effect ends when the core is destroyed, exposed to bright light, or its uses are exhausted."
+      }
+    ],
+    "levelRequirementReason": "This item requires a minimum level of 5 due to its potent and dangerous nature.",
+    "vendorReason": "The Shadowfell is the only place where such dark artifacts can be crafted, making it the sole vendor for this item.",
+    "shippingDetail": "Ships via Lakitu Drones with expedited delivery within 3 days of purchase.",
+    "usage": {
+      "activation": "Bonus action to activate; can be used once per short rest.",
+      "duration": "One minute, or until destroyed by bright light or direct sunlight.",
+      "endsWhen": "Exposure to bright light, direct sunlight, or the end of a short rest.",
+      "charges": "Unlimited uses within 24 hours."
+    },
+    "priceReason": "The price is adjusted to 1000 XP due to its rare nature and potent effects in combat.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:34:32.732283+00:00",
+    "aiReviewedAt": "2026-07-24T23:34:32.732283+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_shadow_sunderer": {
     "id": "shadowfell_shadow_sunderer",

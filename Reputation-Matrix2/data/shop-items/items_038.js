@@ -286,21 +286,42 @@ export const ITEMS_038 = {
   "sarasaland_sunken_archives_parchment": {
     "id": "sarasaland_sunken_archives_parchment",
     "name": "Sunken Archives Parchment",
-    "description": "A single page from the lost pre-Peach texts, unearthed beneath the waves of Isle Delfino. It glows faintly with ancient glyphs that shift when read aloud, revealing forgotten treaties and forbidden rituals of the old world.",
-    "price": 1200,
+    "description": "The Sunken Archives Parchment is a brittle, water-stained page recovered from the sunken ruins of the Isle Delfino's ancient libraries. When held aloft and read aloud, it glows with faint, shifting runes that illuminate forgotten lore and rituals of the pre-Peach era. The parchment itself hums with residual magic, enhancing spellcasting speed for those who study its secrets, though overuse can cause a fleeting but disorienting memory overload.",
+    "price": 1000,
     "icon": "📜",
     "stock": 1,
     "rarity": "rare",
     "effects": [
-      "Reveals one hidden lore fact when read",
-      "Causes temporary memory overload if read twice",
-      "Can be used to decode ancient runes in scrolls",
-      "Slightly increases spellcasting speed for spellcasters",
-      "Crafted by: Land Mordor"
+      "Unveils ancient lore",
+      "Enhances spellcasting speed"
     ],
     "vendor": "sarasaland",
     "shippedBy": "Pipe Express",
-    "levelRequirement": 4
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Reveal Forgotten Lore",
+        "rules": "When read aloud, the parchment reveals one hidden fact about pre-Peach era magic or history. This effect can only be used once per day."
+      },
+      {
+        "title": "Spellcasting Speed Boost",
+        "rules": "Increases spellcaster's effective casting speed by 1 action during a short rest. This benefit lasts for 24 hours, but cannot be extended beyond one use per week."
+      }
+    ],
+    "levelRequirementReason": "Beginners can access the parchment's initial revelations without needing extensive study.",
+    "vendorReason": "Sarasaland specializes in historical and arcane artifacts uncovered from Delfino's sunken treasures.",
+    "shippingDetail": "Delivered by Pipe Express, the parchment requires special handling to prevent further degradation of its ancient magic.",
+    "usage": {
+      "activation": "Read aloud during a short rest or an action when casting spells.",
+      "duration": "Instantaneous effect; lore revealed and spellcasting speed boost last for their respective durations.",
+      "endsWhen": "The parchment's effects end upon completion, and it can be read again the next day.",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "Balanced at 1000 XP due to its rare historical value and limited daily use.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-24T23:33:58.049799+00:00",
+    "aiReviewedAt": "2026-07-24T23:33:58.049799+00:00",
+    "aiReviewVersion": 1
   },
   "sarasaland_teyvat_linker": {
     "id": "sarasaland_teyvat_linker",
@@ -3769,37 +3790,83 @@ export const ITEMS_038 = {
   "shadowfell_echo_of_the_cursed": {
     "id": "shadowfell_echo_of_the_cursed",
     "name": "Echo of the Cursed",
-    "description": "A pendant that resonates with the voices of the forgotten. When worn, it grants the wearer insight into hidden paths and echoes of past horrors.",
-    "price": 2000,
+    "description": "The Echo of the Cursed is a pendant made from twisted onyx and silver, said to be crafted in the depths of the Shadowfell. When worn, it hums with malevolent whispers that guide its wearer through hidden passages. It grants insight into secret locations and reveals the presence of Onyx Hand nests nearby. Consuming this item temporarily bestows 'Shadow Sight,' allowing you to see through shadows and detect invisible foes.",
+    "price": 1000,
     "icon": "🔮",
     "stock": 5,
     "rarity": "rare",
     "effects": [
-      "+10% chance to find hidden doors or traps",
-      "Reveals the location of nearby Onyx Hand nests (100% accuracy)",
-      "Consuming this item grants a temporary “Shadow Sight” ability: see through walls and detect hidden enemies"
+      "+10% chance to find secret doors or traps",
+      "Reveals nearby Onyx Hand nests with 95% accuracy"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Shy Guy Smugglers",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Shadow Insight",
+        "rules": "Passive effect. The wearer gains a +10% chance on Perception checks to detect secret doors and traps."
+      },
+      {
+        "title": "Onyx Nest Detection",
+        "rules": "Active use. Reveals the location of nearby Onyx Hand nests within 60 feet with a successful Wisdom (Perception) check, DC 15. This effect has a daily limit of three uses."
+      }
+    ],
+    "levelRequirementReason": "Requires at least third level to handle the cursed energies effectively.",
+    "vendorReason": "The Shadowfell's dark magic is well-suited for creating and managing such powerful artifacts.",
+    "shippingDetail": "Special handling required due to its dangerous nature; arrival time may vary.",
+    "usage": {
+      "activation": "Passive effect. No activation needed, always active while worn.",
+      "duration": "Instantaneous for Onyx Nest Detection when used.",
+      "endsWhen": "Onyx Nest Detection ends immediately after use if not reactivated within the daily limit.",
+      "charges": "Unlimited uses per day up to three activations."
+    },
+    "priceReason": "Balanced pricing for a rare artifact that offers significant but not overpowered abilities.",
+    "priceOriginal": 2000,
+    "priceReviewedAt": "2026-07-24T23:33:51.406812+00:00",
+    "aiReviewedAt": "2026-07-24T23:33:51.406812+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_echo_of_the_fallen_mirror": {
     "id": "shadowfell_echo_of_the_fallen_mirror",
     "name": "Echo of the Fallen Mirror",
-    "description": "A shattered mirror fragment that whispers the secrets of the past. Wearing it lets the user briefly see the true form of enemies — and hear their deepest fears.",
+    "description": "The Echo of the Fallen Mirror is a fractured glass relic, its surface etched with ancient runes that shimmer in shades of shadow and light. This mirror fragment allows you to glimpse into the past, revealing an enemy's true form for brief moments—mere seconds, but enough to see through their illusions and tactics. As the shards catch the light, they whisper the deepest fears of your foes, providing a perception bonus in combat. This mirror is a relic of the Shadowfell, crafted by ancient beings who sought to understand the nature of fear and deception.",
     "category": "equipment",
-    "price": 2500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 3,
     "rarity": "rare",
     "effects": [
-      "Reveals enemy hidden abilities for 5 seconds",
-      "Deals 10% extra damage to illusions",
-      "Grants +1 to perception checks"
+      "Reveals True Form",
+      "Whispers Fears"
     ],
     "vendor": "shadowfell",
     "shippedBy": "Boo Spectral Mail",
-    "levelRequirement": 5
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Reveals True Form",
+        "rules": "When activated as a bonus action, this mirror allows you to briefly see an enemy's true form for up to 5 seconds. This effect grants disadvantage on saving throws against illusions and gives you advantage on Perception checks related to the target. The effect ends when you use another action or your concentration is broken."
+      },
+      {
+        "title": "Whispers Fears",
+        "rules": "For every round this mirror's effect is active, you gain +1 bonus to Perception checks made against the targeted enemy. This bonus increases by 1 for each additional round the effect remains active but cannot exceed +3. The bonus ends when you lose concentration or the duration expires."
+      }
+    ],
+    "levelRequirementReason": "This relic requires a higher level to wield, as understanding and controlling its power demands significant experience.",
+    "vendorReason": "The Shadowfell is home to many ancient relics, including this mirror's origin story.",
+    "shippingDetail": "Delivered by spectral messengers who ensure the package arrives safely and on time.",
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Up to 5 seconds per activation, with a maximum duration of 10 rounds",
+      "endsWhen": "Concentration is broken or when another action is taken",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "The mirror's price reflects its rare nature and the significant XP it grants for its unique utility in combat.",
+    "priceOriginal": 2500,
+    "priceReviewedAt": "2026-07-24T23:34:05.808463+00:00",
+    "aiReviewedAt": "2026-07-24T23:34:05.808463+00:00",
+    "aiReviewVersion": 1
   },
   "shadowfell_echo_silence_crown": {
     "id": "shadowfell_echo_silence_crown",

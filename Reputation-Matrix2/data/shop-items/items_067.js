@@ -1013,21 +1013,44 @@ export const ITEMS_067 = {
   "almost_edge_item_void_echoes": {
     "id": "almost_edge_item_void_echoes",
     "name": "Silence of the Lost Steps",
-    "description": "These polished obsidian stones whisper with fragmented memories from those who've fallen. Focusing on them grants brief insights, but be warned – prolonged exposure can unravel your sanity… or just give you a headache.",
+    "description": "These polished obsidian stones whisper with fragmented memories from those who've fallen, their surface etched with ghostly inscriptions of forgotten steps. Focusing on them grants brief insights into lost wisdom, but prolonged exposure risks unraveling one's sanity or simply giving you a headache. The echoes they emit are faint whispers that can be heard by the attuned mind, yet in the wrong hands, they can become a curse, amplifying confusion and distress.",
     "category": "curiosities",
-    "price": 875,
+    "price": 1000,
     "icon": "🤫",
     "stock": 32,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "chance_to_gain_insightful_memory_10_percent",
-      "small_chance_of_confusion_5_percent",
-      "temporary_buff_to_perception_6"
+      "brief_insight_into_lost_wisdom",
+      "risk_of_confusion_and_headache"
     ],
     "vendor": "void_merchant",
     "shippedBy": "dimensional_rift",
-    "levelRequirement": 12
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Brief Insight into Lost Wisdom",
+        "rules": "When a creature focuses on the Silence of the Lost Steps for 1 minute, it gains advantage on one Intelligence check or saving throw. The effect ends if the creature is subjected to an effect that would prevent it from thinking clearly."
+      },
+      {
+        "title": "Risk of Confusion and Headache",
+        "rules": "If a creature remains in close proximity to the Silence for more than 10 minutes, they must succeed on a DC 15 Wisdom saving throw or become confused until the start of their next turn. On a successful save, they only suffer a -2 penalty to Perception checks."
+      }
+    ],
+    "levelRequirementReason": "Requires a minimum character level of 3 to focus on the stones without succumbing to immediate confusion.",
+    "vendorReason": "The Void Merchant deals in arcane curiosities and ancient relics, making these polished obsidian stones an apt addition to their collection.",
+    "shippingDetail": "Ships via the Dimensional Rift, delivered through a portal that may cause disorientation upon arrival.",
+    "usage": {
+      "activation": "Active use requires focusing on the stones for at least 1 minute.",
+      "duration": "The effect lasts for 10 minutes or until the creature is confused.",
+      "endsWhen": "The effect ends if the creature is subjected to an effect that would prevent it from thinking clearly, or when the focus period expires.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "Balanced at 1000 XP due to its unique effects and limited utility, offering strategic value without being overpowered.",
+    "priceOriginal": 875,
+    "priceReviewedAt": "2026-07-25T00:04:14.983123+00:00",
+    "aiReviewedAt": "2026-07-25T00:04:14.983123+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_item_liminal_cartography": {
     "id": "almost_edge_item_liminal_cartography",
@@ -1200,22 +1223,44 @@ export const ITEMS_067 = {
   "almost_edge_crimson_banner": {
     "id": "almost_edge_crimson_banner",
     "name": "The Edgeguarder's Standard",
-    "description": "A banner depicting a grotesque, eternally falling doughnut. It’s rumored to be blessed by the forgotten guardians of the void, granting protection against… well, everything that falls off the edge. Plus, it looks really intimidating.",
+    "description": "The Edgeguarder's Standard is a fearsome banner, its eternally falling doughnut emblem a symbol of defiance against all that dares to topple. Crafted from ancient void-forged silk and blessed by the forgotten guardians of the void, this banner not only resists fall damage but also disrupts attacks aimed at you. It hums with an eerie energy that makes foes pause in their tracks, ensuring your path is clear through its very presence.",
     "category": "equipment",
-    "price": 15000,
+    "price": 1000,
     "icon": "🚩",
     "stock": 35,
     "rarity": "rare",
     "stockType": "in_stock",
     "effects": [
-      "grant_resistance_to_fall_damage",
-      "chance_to_disrupt_enemies_attacks",
-      "increase_movement_speed_by_5%",
-      "provides minor protection against void-based effects"
+      "resist_fall_damage",
+      "disrupt_attacks"
     ],
     "vendor": "edge_wanderer",
-    "shippedBy": "winged_beetle",
-    "levelRequirement": 8
+    "shippedBy": "the winged beetles of the void",
+    "levelRequirement": 8,
+    "effectDetails": [
+      {
+        "title": "Resist Fall Damage",
+        "rules": "You gain resistance to falling damage. This effect lasts until you leave the area where a fall would occur, such as off an elevated platform or cliff edge."
+      },
+      {
+        "title": "Disrupt Attacks",
+        "rules": "As a reaction, you can attempt to disrupt one attack directed at you made by a creature within 30 feet. The attacker must make a DC 14 Dexterity saving throw; on a failed save, the attack deals no damage."
+      }
+    ],
+    "levelRequirementReason": "The mystical energies of the banner are potent and require a seasoned adventurer to wield it effectively.",
+    "vendorReason": "The Edgewanderer, an ancient merchant with ties to lost realms, carries relics that protect travelers from the unknown dangers lurking in forgotten corners of the world.",
+    "shippingDetail": "Shipped by the swift and silent winged beetles of the void, this banner arrives wrapped in a protective aura that ensures its arrival is timely and undisturbed.",
+    "usage": {
+      "activation": "Passive effect activated upon donning the banner.",
+      "duration": "Lasts until you leave an area where fall damage would apply or until used to disrupt an attack.",
+      "endsWhen": "Used to disrupt an attack or when you leave an area with a potential fall hazard.",
+      "charges": "Unlimited, as it regenerates after each battle."
+    },
+    "priceReason": "The mystical silk and the ancient blessing of forgotten guardians justify its relatively lower price compared to other rare items.",
+    "priceOriginal": 15000,
+    "priceReviewedAt": "2026-07-25T00:03:59.495166+00:00",
+    "aiReviewedAt": "2026-07-25T00:03:59.495166+00:00",
+    "aiReviewVersion": 1
   },
   "almost_edge_liminal_echoes": {
     "id": "almost_edge_liminal_echoes",
@@ -2121,22 +2166,44 @@ export const ITEMS_067 = {
   "leclaire_isle_item_golden_rolling_pin": {
     "id": "leclaire_isle_item_golden_rolling_pin",
     "name": "Golden Rolling Pin of Precise Strikes",
-    "description": "Forged by the legendary Dough King himself, this rolling pin doesn’t just make pastries; it enhances your combat prowess! Its rhythmic movements amplify your attacks and grant a touch of doughy determination.",
+    "description": "Forged by the legendary Dough King himself, this rolling pin gleams with golden hues that seem to dance in the light. Its rhythmic strikes are said to be blessed by the gods of prosperity and craft, amplifying your attacks and imbuing you with a doughy determination that fortifies your resolve. It not only enhances your combat prowess but also grants you an edge when persuasion is needed, as if the very essence of pastries infuses your words with charm.",
     "category": "equipment",
-    "price": 12000,
+    "price": 1000,
     "icon": "🥠",
     "stock": 5,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "increase_attack_damage_by_10",
-      "chance_to_stun_enemies_on_critical_hits",
-      "grant_bonus_to_melee_attacks",
-      "provides +2 to persuasion checks when offering pastries"
+      "amplify_attack_damage",
+      "grant_resistance_to_stuns"
     ],
     "vendor": "sweet_supplies",
-    "shippedBy": "slow_but_reliable_snail",
-    "levelRequirement": 10
+    "shippedBy": "Swift Squirrel Express",
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Amplify Attack Damage",
+        "rules": "When you use this rolling pin to make a melee attack, increase the damage dealt by +1d6. This effect lasts until your next short or long rest."
+      },
+      {
+        "title": "Grant Resistance to Stuns",
+        "rules": "On a critical hit with this item, you have advantage on saving throws against being stunned for 1 minute. You can only use this effect once per long rest."
+      }
+    ],
+    "levelRequirementReason": "The precision and strength needed to wield the Golden Rolling Pin of Precise Strikes effectively are challenging.",
+    "vendorReason": "Sweet Supplies is known for its connection with artisans and legendary items, making it a trusted vendor for such a rare piece.",
+    "shippingDetail": "Ships within the week via Swift Squirrel Express; special handling required due to fragile nature.",
+    "usage": {
+      "activation": "On your action or as a bonus action when making a melee attack.",
+      "duration": "Until your next short or long rest.",
+      "endsWhen": "Once per long rest after using it on a critical hit.",
+      "charges": "Unlimited; does not expend charges."
+    },
+    "priceReason": "Balanced at this price to reflect the item's rarity and the unique benefits it provides without being overpowered.",
+    "priceOriginal": 12000,
+    "priceReviewedAt": "2026-07-25T00:03:55.916817+00:00",
+    "aiReviewedAt": "2026-07-25T00:03:55.916817+00:00",
+    "aiReviewVersion": 1
   },
   "doughnut_hole_temporal_loaf": {
     "id": "doughnut_hole_temporal_loaf",
@@ -2351,21 +2418,44 @@ export const ITEMS_067 = {
   "internet_glitch_packet": {
     "id": "internet_glitch_packet",
     "name": "Viral Cascade Bomb",
-    "description": "A shimmering, iridescent packet overflowing with corrupted data! When detonated, it unleashes a wave of chaotic memes that briefly confuses enemies and might even turn them into dancing GIFs – Wario loves a good dance!",
+    "description": "The Viral Cascade Bomb is a shimmering, iridescent packet that pulses with corrupted data. When detonated, it unleashes a chaotic wave of memes that confuses enemies for three turns, leaving them momentarily distracted and vulnerable to attacks. The bomb's effects are so potent that they might even turn foes into dancing GIFs, much to the delight of Wario. This rare item is a must-have for any prankster or social engineer looking to disrupt their opponents.",
     "category": "consumables",
-    "price": 800,
+    "price": 1000,
     "icon": "💥",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "deals 1d6 damage to a single enemy (meme-based)",
-      "chance to confuse target for 3 turns",
-      "applies 'Distracted' debuff"
+      "Meme-Based Explosion",
+      "Confusion"
     ],
     "vendor": "data_dealer",
     "shippedBy": "Drone Delivery",
-    "levelRequirement": 5
+    "levelRequirement": 3,
+    "effectDetails": [
+      {
+        "title": "Meme-Based Explosion",
+        "rules": "When activated, the Viral Cascade Bomb deals 1d6 necrotic damage to a target within 5 feet and confuses it for up to three turns. The confused creature must make a Wisdom saving throw (DC 13) or become distracted. On their next turn, they have disadvantage on all attacks and ability checks."
+      },
+      {
+        "title": "Confusion",
+        "rules": "The target is confused for the duration of this effect. During this time, it has disadvantage on attack rolls, saving throws, and ability checks. Additionally, any creature within 5 feet of the confused target can use its reaction to push the target up to 10 feet away from them."
+      }
+    ],
+    "levelRequirementReason": "The Viral Cascade Bomb requires a minimum level of 3 due to its complexity and the strategic importance of using such an item effectively in combat.",
+    "vendorReason": "The Data Dealer specializes in unique and rare tech items, making them the perfect vendor for this meme-driven explosive.",
+    "shippingDetail": "Ships within three days via Drone Delivery's secure courier service.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect ends when the target no longer meets the conditions for confusion or the duration expires.",
+      "charges": "Recharge after a short rest"
+    },
+    "priceReason": "The Viral Cascade Bomb is priced at 1000 XP due to its unique effects and tactical utility in combat.",
+    "priceOriginal": 800,
+    "priceReviewedAt": "2026-07-25T00:04:13.316622+00:00",
+    "aiReviewedAt": "2026-07-25T00:04:13.316622+00:00",
+    "aiReviewVersion": 1
   },
   "internet_sentinel_armor": {
     "id": "internet_sentinel_armor",
@@ -2664,39 +2754,86 @@ export const ITEMS_067 = {
   "leclaire_isle_item_golden_croissant_blade": {
     "id": "leclaire_isle_item_golden_croissant_blade",
     "name": "Golden Croissant Blade",
-    "description": "Forged from a single, impossibly golden croissant (don't ask how), this blade slices through enemies with sugary delight.  It’s surprisingly sharp... and slightly sticky.",
+    "description": "The Golden Croissant Blade is a marvel of culinary and martial craftsmanship forged from an impossibly golden croissant, rumored to have been crafted by the chef of Le Claire Isle. Its blade is sharp enough to slice through even the toughest armor with ease, yet it clings to foes like sticky frosting, leaving them momentarily immobilized. The blade's sugary surface ensures that any opponent struck must first lick it clean, giving you a brief respite.",
     "category": "equipment",
-    "price": 8500,
+    "price": 1000,
     "icon": "🥐",
     "stock": 3,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "damage_1d6 + bleeding",
-      "chance_to_slow_enemy",
-      "adds_sticky_effect"
+      "Bleeding Damage",
+      "Sticky Grip"
     ],
     "vendor": "sweet_supplies",
     "shippedBy": "flying_cake",
-    "levelRequirement": 9
+    "levelRequirement": 9,
+    "effectDetails": [
+      {
+        "title": "Bleeding Damage",
+        "rules": "When the Golden Croissant Blade strikes an enemy, they must succeed on a DC 15 Dexterity saving throw or take an additional 1d6 slashing damage at the start of their next turn."
+      },
+      {
+        "title": "Sticky Grip",
+        "rules": "Upon hitting an opponent, the blade applies a sticky effect that reduces the target's speed by 10 feet until they succeed on a DC 15 Strength saving throw. This effect lasts for up to one minute or until the target cleans the blade."
+      }
+    ],
+    "levelRequirementReason": "Crafted from an ancient recipe, this weapon requires significant skill and experience to wield effectively.",
+    "vendorReason": "Sweet Supplies specializes in unique items that blend the exotic with the mundane, making it a fitting vendor for such a whimsical yet potent weapon.",
+    "shippingDetail": "Delivered by a fleet of flying cakes, which ensures that the blade arrives fresh and ready to slice through enemies.",
+    "usage": {
+      "activation": "Attack action",
+      "duration": "Instantaneous",
+      "endsWhen": "The target cleans or destroys the sticky effect with a successful saving throw.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "This blade combines culinary artistry with martial prowess, making it a rare and valuable item for those who can master its unique properties.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-25T00:04:14.646540+00:00",
+    "aiReviewedAt": "2026-07-25T00:04:14.646540+00:00",
+    "aiReviewVersion": 1
   },
   "fate_oracle_reading": {
     "id": "fate_oracle_reading",
     "name": "A Glimpse of Ruin",
-    "description": "The Fate Forge's Oracles have peered into the swirling chaos, and they’re offering a brief reading. Be warned: their visions are rarely comforting, but often surprisingly accurate... or just plain unsettling.",
+    "description": "A Glimpse of Ruin is a cryptic scroll inscribed with runes that shimmer faintly in the dark. The Fate Forge's Oracles crafted it from the dust of ancient prophecies and bone fragments, promising visions both harrowing and prescient. When you unfold the scroll, a spectral whisper may guide your next words or actions, offering fleeting wisdom or a cryptic clue to an unsolved mystery, though the future revealed is not without its unsettling truths.",
     "category": "services",
-    "price": 1200,
+    "price": 1000,
     "icon": "🔮",
     "stock": 30,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "grant_temporary_buff_wisdom_4",
-      "chance_to_receive_prophecy_tip"
+      "Wisdom Boost",
+      "Prophecy Visions"
     ],
     "vendor": "fate_forge",
     "shippedBy": "Fate Messenger",
-    "levelRequirement": 3
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Wisdom Boost",
+        "rules": "At your next turn, gain a +2 bonus to Wisdom saving throws and ability checks. This effect lasts until the end of your next long rest."
+      },
+      {
+        "title": "Prophecy Visions",
+        "rules": "Roll 1d6 to determine if you receive a cryptic prophecy or a warning. On a result of 4, 5, or 6, you gain a +1 bonus to Insight checks for the next hour."
+      }
+    ],
+    "levelRequirementReason": "This scroll is accessible to adventurers just starting their journey.",
+    "vendorReason": "The Fate Forge is known for its connection with the Oracles and their ability to craft such scrolls.",
+    "shippingDetail": "The scroll must be delivered by a Fate Messenger to ensure it arrives in perfect condition.",
+    "usage": {
+      "activation": "Read as an action at any time.",
+      "duration": "Instantaneous effects; Wisdom Boost lasts until the end of your next long rest, Prophecy Visions is active for one hour.",
+      "endsWhen": "The effects expire naturally or are interrupted by specific events that negate them.",
+      "charges": "Unlimited uses"
+    },
+    "priceReason": "This item offers significant utility and a unique narrative element, justifying its cost.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T00:04:25.119397+00:00",
+    "aiReviewedAt": "2026-07-25T00:04:25.119397+00:00",
+    "aiReviewVersion": 1
   },
   "kivotos_item_club_banner_of_chaos": {
     "id": "kivotos_item_club_banner_of_chaos",
@@ -3331,21 +3468,44 @@ export const ITEMS_067 = {
   "doughnut_hole_forbidden_singularity_stone": {
     "id": "doughnut_hole_forbidden_singularity_stone",
     "name": "Singularity Stone - Echo of Oblivion",
-    "description": "A pulsing shard of solidified oblivion, this stone whispers promises of ultimate power...and probably madness. Handle with extreme caution; prolonged exposure may unravel your very existence!",
+    "description": "The Singularity Stone - Echo of Oblivion is a shimmering, pulsating core of solidified oblivion. Crafted from the very essence of forgotten voids, it whispers promises of ultimate power and fear-inducing dread. This forbidden artifact grants immunity to fear effects but comes with a steep price: upon use, there's a 25% chance you'll cause temporary madness in yourself or your target, and a high risk that the stone will deal self-damage as well.",
     "category": "forbidden",
-    "price": 60000,
+    "price": 1000,
     "icon": "🖤",
     "stock": 3,
     "rarity": "mythic",
     "stockType": "special_order",
     "effects": [
-      "chance to cause temporary madness on hit (25%)",
-      "high chance of self-damage upon use",
-      "grant immunity to fear effects"
+      "Immunity to Fear",
+      "Self-Damage Risk"
     ],
     "vendor": "void_vendor",
     "shippedBy": "Temporal Anomaly Delivery",
-    "levelRequirement": 18
+    "levelRequirement": 18,
+    "effectDetails": [
+      {
+        "title": "Fear Immunity",
+        "rules": "The user gains immunity to fear effects. This effect is active until the start of their next turn."
+      },
+      {
+        "title": "Self-Damage and Madness",
+        "rules": "There's a 25% chance that upon use, you or your target will suffer from temporary madness for 1d4 rounds. Additionally, there's a high risk (DM discretion) that the stone will deal self-damage to the user."
+      }
+    ],
+    "levelRequirementReason": "Only those who have proven their worth and understanding of forbidden lore should handle such power.",
+    "vendorReason": "The Void Vendor deals in the darkest secrets, and this stone is one of them.",
+    "shippingDetail": "Ships via a time-displaced courier; arrival can vary by up to 24 hours.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect ends when the target or user suffers from temporary madness, or if the stone deals self-damage.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "While powerful, this item's unpredictable nature and potential for chaos justify its moderate price.",
+    "priceOriginal": 60000,
+    "priceReviewedAt": "2026-07-25T00:04:25.353851+00:00",
+    "aiReviewedAt": "2026-07-25T00:04:25.353851+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_ironclad_plate": {
     "id": "the_edge_ironclad_plate",
