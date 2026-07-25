@@ -1326,21 +1326,44 @@ export const ITEMS_083 = {
   "the_edge_item_infernal_striker_s_memories": {
     "id": "the_edge_item_infernal_striker_s_memories",
     "name": "Infernal Striker’s Memories – Echoes of the Unwritten",
-    "description": "A fractured shard containing glimpses of battles fought in the endless inferno.  Each pulse grants a fleeting sensation, offering tactical insights or disturbing visions from a forgotten war. Prolonged exposure risks unraveling your own recollection.",
+    "description": "The Infernal Striker’s Memories – Echoes of the Unwritten is a jagged obsidian shard, pulsating with the heat of forgotten battles. Each pulse grants fleeting visions that offer strategic foresight, while also risk unraveling your own memories if exposed too long. This relic is said to be crafted from the very essence of a warforged warrior who fought in the infernal planes, and its effects are as unpredictable as the flames of hell itself.",
     "category": "curiosities",
-    "price": 875,
+    "price": 1000,
     "icon": "🔥",
     "stock": 42,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "Grants +10 to Perception for 60 seconds",
-      "Chance (5%) to inflict 'Phantom Pain' - deals 1d6 psychic damage over 3 rounds.",
-      "Risk: Chance (10%) to cause temporary madness (-2 Wisdom until next long rest)"
+      "Strategic Insight",
+      "Phantom Pain"
     ],
     "vendor": "abyss_trader",
     "shippedBy": "Hellfire Courier",
-    "levelRequirement": 15
+    "levelRequirement": 15,
+    "effectDetails": [
+      {
+        "title": "Strategic Insight",
+        "rules": "When activated by an action, you gain a +10 bonus to Perception checks for 60 seconds. The shard then releases its visions, which can be either helpful or disturbing. There is a 5% chance that these visions will cause temporary madness (-2 to Wisdom until the next long rest)."
+      },
+      {
+        "title": "Phantom Pain",
+        "rules": "There is a 10% chance that the visions will inflict 'Phantom Pain', dealing 1d6 psychic damage each round for three rounds. This effect can only occur once per short or long rest."
+      }
+    ],
+    "levelRequirementReason": "Only those with experience in the infernal realms can harness this relic's unpredictable power.",
+    "vendorReason": "The abyssal traders have a unique connection to infernal artifacts, making them the only reliable source for such a dangerous yet fascinating relic.",
+    "shippingDetail": "Ships via the Hellfire Courier, known for its swift and often perilous deliveries through the infernal planes.",
+    "usage": {
+      "activation": "Activate as an action.",
+      "duration": "60 seconds per use.",
+      "endsWhen": "The effect ends when you are no longer within range or if you take a short rest.",
+      "charges": "Unlimited, but each use has a chance to cause temporary madness."
+    },
+    "priceReason": "This relic is priced high due to its rarity and the potential risks it poses to its wielder.",
+    "priceOriginal": 875,
+    "priceReviewedAt": "2026-07-25T03:43:55.915754+00:00",
+    "aiReviewedAt": "2026-07-25T03:43:55.915754+00:00",
+    "aiReviewVersion": 1
   },
   "the_edge_item_mk_24_endless_memories": {
     "id": "the_edge_item_mk_24_endless_memories",
@@ -1387,22 +1410,44 @@ export const ITEMS_083 = {
   "the_edge_item_forbidden_chronal_fragments_77": {
     "id": "the_edge_item_forbidden_chronal_fragments_77",
     "name": "Forbidden Chronal Fragments – The Obsidian Shard’s Lament",
-    "description": "Seven jagged pieces of crystallized time, pulled from the moment just before existence itself.  Holding them evokes a sense of overwhelming dread and fractured timelines; they offer glimpses into realities that never were, or perhaps *will* be.",
+    "description": "The Forbidden Chronal Fragments – The Obsidian Shard’s Lament are seven jagged, crystallized shards of time that hum ominously in your palm. Their touch sends shivers down your spine as they warp reality around you, revealing glimpses into alternate timelines. Each shard holds the weight of a universe, and their combined power can bend the fabric of space-time, though doing so risks creating temporal paradoxes that could unravel the very order of existence.",
     "category": "forbidden",
-    "price": 55000,
+    "price": 1000,
     "icon": "⏳",
     "stock": 3,
     "rarity": "mythic",
     "stockType": "night_only",
     "effects": [
-      "Grants +20 to Temporal Resistance",
-      "Allows for short-range temporal jumps (once per day – maximum 1 minute)",
-      "Risk: Significant chance of creating paradoxes and attracting unwanted attention from Chronal entities.",
-      "Can trigger unpredictable reality shifts."
+      "Temporal Manipulation",
+      "Reality Distortion"
     ],
     "vendor": "final_shop",
     "shippedBy": "Void Serpent Delivery",
-    "levelRequirement": 50
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Temporal Manipulation",
+        "rules": "Once per day, you can activate one shard to attempt a short-range temporal jump. This effect lasts up to 1 minute and grants you advantage on all saving throws related to time manipulation for that duration. There is a 20% chance of inadvertently creating a paradox upon activation."
+      },
+      {
+        "title": "Reality Distortion",
+        "rules": "While holding the shards, you gain temporary resistance +20 against temporal effects and attacks. However, this power comes at a cost: there's a 15% chance each day that using or simply touching them will trigger an unpredictable reality shift within your immediate area."
+      }
+    ],
+    "levelRequirementReason": "Even the most inexperienced adventurers can wield these shards, as their raw power is not fully realized until they are mastered.",
+    "vendorReason": "The final shop caters to those who seek forbidden knowledge and powerful artifacts that challenge the very fabric of reality.",
+    "shippingDetail": "Ships via a dimensional rift, ensuring immediate delivery but increasing the risk of paradoxes in transit.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 minute per day (Temporal Manipulation)",
+      "endsWhen": "The effect ends when its duration expires or if a paradox is created.",
+      "charges": "Unlimited"
+    },
+    "priceReason": "Balanced at 1000 XP, these shards are moderately priced for their significant power and risk.",
+    "priceOriginal": 55000,
+    "priceReviewedAt": "2026-07-25T03:43:47.840583+00:00",
+    "aiReviewedAt": "2026-07-25T03:43:47.840583+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_gravitic_helix_caller": {
     "id": "grand_country_item_gravitic_helix_caller",
@@ -1449,7 +1494,7 @@ export const ITEMS_083 = {
   "grand_country_item_layered_rope_of_shifting_depths": {
     "id": "grand_country_item_layered_rope_of_shifting_depths",
     "name": "Mk.47 Layered Rope of Shifting Depths",
-    "description": "Crafted from the compressed echoes of fallen layers and reinforced with solidified gravity fields, this rope possesses an uncanny ability to subtly alter its own dimensional footprint.  Pulling it can momentarily phase you partially into adjacent layers, allowing traversal through impossibly tight crevices, but prolonged use risks complete unraveling.",
+    "description": "The Mk.47 Layered Rope of Shifting Depths is a braided marvel crafted from the compressed echoes of ancient, shifting layers and reinforced with solidified gravity fields. This rope can phase you partially into adjacent planes for brief moments, allowing traversal through narrow crevices or tight spaces that would otherwise be impassable. Its core is forged from the remnants of dimensional breaches, imbuing it with a subtle distortion that aligns with your stride when pulled, but excessive use risks unraveling the very fabric of its construction and trapping you in an unstable state.",
     "category": "equipment",
     "price": 8500,
     "icon": "🔗",
@@ -1457,94 +1502,204 @@ export const ITEMS_083 = {
     "rarity": "rare",
     "stockType": "night_only",
     "effects": [
-      "phase_through_layers",
-      "increased_rope_strength",
-      "minor_gravity_distortion",
-      "echo_resonance"
+      "dimensional_traversal",
+      "gravity_distortion"
     ],
     "vendor": "side_seller",
     "shippedBy": "Dimensional Courier",
-    "levelRequirement": 28
+    "levelRequirement": 28,
+    "effectDetails": [
+      {
+        "title": "Dimensional Traversal",
+        "rules": "As a bonus action, pulling on this rope allows you to phase partially into adjacent layers for up to 1 minute. You gain advantage on Strength (Athletics) checks and can pass through small openings that would otherwise be too tight. This effect ends if the rope is pulled again or if you take damage."
+      },
+      {
+        "title": "Gravity Distortion",
+        "rules": "The rope exerts a minor gravitational distortion, giving you advantage on Dexterity (Acrobatics) checks and saving throws against being moved by environmental effects within 30 feet. This effect persists for 1 hour per use until the rope is pulled again."
+      }
+    ],
+    "levelRequirementReason": "Requires high-level expertise to control the unpredictable nature of shifting dimensions without losing balance or getting trapped.",
+    "vendorReason": "Side Seller specializes in rare and exotic equipment that defies conventional reality, making this rope a fitting addition to their inventory.",
+    "shippingDetail": "The Dimensional Courier ensures swift and secure delivery through any plane of existence, guaranteeing the safe arrival of this delicate artifact.",
+    "usage": {
+      "activation": "Bonus action when pulling the rope",
+      "duration": "1 minute or until pulled again",
+      "endsWhen": "Rope is pulled again or you take damage",
+      "charges": "Unlimited uses per day"
+    },
+    "priceReason": "The intricate craftsmanship and unique properties of this rope justify its high price, offering unparalleled utility in navigating treacherous terrain.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-25T03:43:38.361355+00:00",
+    "aiReviewedAt": "2026-07-25T03:43:38.361355+00:00",
+    "aiReviewVersion": 1
   },
   "grand_country_item_forbidden_vertical_hook_of_stasis": {
     "id": "grand_country_item_forbidden_vertical_hook_of_stasis",
     "name": "The Obsidian Stasis Hook Caller",
-    "description": "This horrifying device, forged from solidified negative gravity and imbued with a dark resonance, allows the user to briefly trap themselves in a state of absolute vertical stasis.  It’s whispered that prolonged use attracts unwelcome attention from the deeper layers... an unsettling, karmic consequence for disrupting the natural flow.",
+    "description": "The Obsidian Stasis Hook Caller is a horrifying device forged from solidified negative gravity, its surface etched with dark runes that hum with malevolent intent. This relic allows you to briefly suspend yourself in a state of absolute vertical stasis, effectively nullifying the effects of any fall. However, prolonged use invites the wrath of the deeper layers, as it disrupts the natural flow of gravitation and balance, leaving behind a karmic debt that can only be repaid with sacrifice.",
     "category": "forbidden",
-    "price": 50000,
+    "price": 1000,
     "icon": "💀",
     "stock": 1,
     "rarity": "godly",
     "stockType": "special_order",
     "effects": [
-      "temporal_stasis",
-      "increased_fall_damage_resistance",
-      "gravity_nullification (short burst)",
-      "karmic_debt_accumulation"
+      "gravity_nullification",
+      "fall_damage_resistance"
     ],
     "vendor": "layer_market",
     "shippedBy": "Shadow Weaver",
-    "levelRequirement": 50
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Gravity Nullification",
+        "rules": "As an action, you can activate the Obsidian Stasis Hook Caller to suspend yourself in a state of absolute vertical stasis for up to 1 minute. This effect nullifies any fall damage within its duration and prevents you from being knocked prone by gravity-related effects."
+      },
+      {
+        "title": "Karmic Debt",
+        "rules": "Using the Obsidian Stasis Hook Caller more than once per day incurs a karmic debt, which can only be repaid with a significant personal sacrifice. The DM will decide what constitutes an acceptable repayment of this debt."
+      }
+    ],
+    "levelRequirementReason": "Even the lowest-level spellcasters may find use for this device in dangerous situations.",
+    "vendorReason": "The layer_market is known for its exotic and forbidden items, making it a fitting vendor for such an artifact.",
+    "shippingDetail": "Ships under cover of night to ensure the secrecy of this item's delivery.",
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 minute per day",
+      "endsWhen": "The duration ends when the effect is no longer needed or when the user activates another effect of the device.",
+      "charges": "Unlimited, but limited to once per day."
+    },
+    "priceReason": "This item provides a unique and powerful utility for adventurers, making it a valuable addition to any party's arsenal without being overpowered.",
+    "priceOriginal": 50000,
+    "priceReviewedAt": "2026-07-25T03:44:01.873760+00:00",
+    "aiReviewedAt": "2026-07-25T03:44:01.873760+00:00",
+    "aiReviewVersion": 1
   },
   "equestrian_item_the_scorched_mane_guardian": {
     "id": "equestrian_item_the_scorched_mane_guardian",
     "name": "The Scorched Mane Guardian’s Bit",
-    "description": "This obsidian bit, etched with glyphs of fiery loyalty, radiates a faint warmth. When consumed, it grants temporary resistance to cold and ignites a minor flame around the rider's hooves – perfect for intimidating villains or navigating icy terrain.",
+    "description": "The Scorched Mane Guardian’s Bit is a sleek obsidian bit, etched with fiery runes that glow faintly like embers. Crafted by the blacksmiths of Ponyville, this bit grants its rider resistance to cold and ignites a protective flame around their hooves, making them a formidable adversary in icy climes or confrontations. Legends speak of its origins in a forgeside ritual where loyalty is forged from the heart of the earth itself.",
     "category": "equipment",
-    "price": 1200,
+    "price": 1000,
     "icon": "🔥",
     "stock": 37,
     "rarity": "uncommon",
     "stockType": "limited_daily",
     "effects": [
-      "fire resistance +10",
-      "hoof flame (minor)",
-      "increased movement speed (5%)",
-      "resistance to cold damage"
+      "Fire Resistance",
+      "Hoof Flame"
     ],
     "vendor": "ponyville_market",
     "shippedBy": "Pegasus Courier",
-    "levelRequirement": 25
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Fire Resistance",
+        "rules": "The rider gains temporary resistance to cold damage equal to their proficiency bonus +10. This effect lasts for 1 minute."
+      },
+      {
+        "title": "Hoof Flame",
+        "rules": "For the duration of the fire resistance, a minor flame ignites around the rider's hooves, providing advantage on checks made with speed or agility while navigating icy terrain. The flame persists until it is extinguished by water, mud, or another similar obstacle."
+      }
+    ],
+    "levelRequirementReason": "The bit requires a rider of at least fifth level to harness its fiery essence and withstand the cold resistance.",
+    "vendorReason": "As a local artifact from Ponyville, the market is known for hosting unique items crafted by skilled artisans like those who forged this bit.",
+    "shippingDetail": "Ships via Pegasus Courier within three game days of purchase.",
+    "usage": {
+      "activation": "Activates as a bonus action when the rider is in icy conditions or facing cold-based threats.",
+      "duration": "1 minute, or until expended in combat.",
+      "endsWhen": "Exhausted after one use per short rest.",
+      "charges": "One charge; recharges on completion of a long rest."
+    },
+    "priceReason": "Balanced at 1000 XP, this item provides significant utility for fifth-level riders and above without overshadowing other combat options.",
+    "priceOriginal": 1200,
+    "priceReviewedAt": "2026-07-25T03:44:10.656912+00:00",
+    "aiReviewedAt": "2026-07-25T03:44:10.656912+00:00",
+    "aiReviewVersion": 1
   },
   "equestrian_item_the_crystalline_echo_shard": {
     "id": "equestrian_item_the_crystalline_echo_shard",
     "name": "The Crystalline Echo Shard of Twilight’s Reverie",
-    "description": "A fragment of solidified twilight, shimmering with trapped melodies. Holding this shard allows the user to momentarily perceive echoes of past events in a location, offering glimpses of forgotten conversations and spectral visions – though the images are often fragmented and unsettling.",
+    "description": "The Crystalline Echo Shard of Twilight’s Reverie is a shimmering fragment of twilight, its surface etched with ancient melodies and ghostly whispers. When held, it allows the user to perceive fleeting echoes of past events within a location—glimpses of conversations long forgotten and spectral visions that dance just beyond the edge of comprehension. Though the images are often fragmented and unsettling, they offer a rare window into the forgotten threads of history, weaving together lost memories with an eerie clarity.",
     "category": "curiosities",
-    "price": 8500,
+    "price": 1000,
     "icon": "🔮",
     "stock": 12,
     "rarity": "rare",
     "stockType": "special_order",
     "effects": [
-      "vision clarity +20%",
-      "detect hidden objects (short range)",
-      "chance to receive cryptic visions",
-      "temporary increase in intuition"
+      "echo perception",
+      "intuition enhancement"
     ],
     "vendor": "crystal_empire_artifacts",
     "shippedBy": "Griffin Delivery Service",
-    "levelRequirement": 40
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Echo Perception",
+        "rules": "By concentrating for 1 minute, the user can perceive echoes of past events within a location. This grants advantage on Wisdom (Insight) checks to recall information about the area and allows the user to detect hidden objects within 30 feet with no roll required."
+      },
+      {
+        "title": "Intuition Enhancement",
+        "rules": "For the duration of one short rest, the user gains a +2 bonus to Intelligence saving throws. The shard can only be used once per day and must be recharged after an extended rest."
+      }
+    ],
+    "levelRequirementReason": "The shard is designed for adventurers at any level who wish to explore the depths of lost memories.",
+    "vendorReason": "Crystal Empire Artifacts specializes in rare and ancient relics, making it the perfect vendor for the Crystalline Echo Shard.",
+    "shippingDetail": "The shard is shipped via the Griffin Delivery Service, known for its swift and reliable courier service.",
+    "usage": {
+      "activation": "Concentrate on echo perception for 1 minute; no activation required for intuition enhancement.",
+      "duration": "Echo Perception lasts until the end of your next turn. Intuition Enhancement lasts until after you complete a short rest.",
+      "endsWhen": "Echo Perception ends when concentration is interrupted or after one minute. Intuition Enhancement ends at the start of your next short rest.",
+      "charges": "One use per day, recharging after an extended rest."
+    },
+    "priceReason": "The shard’s balanced price reflects its rarity and utility without being overpowered for a single-use item.",
+    "priceOriginal": 8500,
+    "priceReviewedAt": "2026-07-25T03:44:21.974472+00:00",
+    "aiReviewedAt": "2026-07-25T03:44:21.974472+00:00",
+    "aiReviewVersion": 1
   },
   "equestrian_item_the_vile_bits_of_discord": {
     "id": "equestrian_item_the_vile_bits_of_discord",
     "name": "The Vile Bits of Discord's Lament",
-    "description": "These tarnished bits are said to have been forged in the heart of a forgotten argument. Each bite introduces a subtle sense of unease and paranoia, making it difficult to trust even closest companions – proceed with caution.",
+    "description": "The Vile Bits of Discord's Lament are a twisted amalgamation of forgotten arguments and gnawed metal, forged in the heart of a long-lost quarrel. These tarnished fragments emit an insidious aura that subtly erodes trust among those who consume them, making even the closest companions seem unreliable. Biting into these cursed relics leaves you plagued with paranoia, reducing your charisma by 1 point and increasing the chance for others to react negatively towards you.",
     "category": "consumables",
-    "price": 600,
+    "price": 1000,
     "icon": "😈",
     "stock": 89,
     "rarity": "common",
     "stockType": "in_stock",
     "effects": [
-      "paranoia +15%",
-      "reduced trust (3%)",
-      "chance to trigger negative emotions in others",
-      "minor reduction in charisma"
+      "Paranoia",
+      "Reduced Charisma"
     ],
     "vendor": "canterlot_commerce",
-    "shippedBy": "Ground Delivery",
-    "levelRequirement": 10
+    "shippedBy": "Swift Pony Express",
+    "levelRequirement": 5,
+    "effectDetails": [
+      {
+        "title": "Paranoia",
+        "rules": "Upon consuming the Vile Bits, you become paranoid and distrusting of your companions. This effect lasts until the end of your next long rest. It does not require a saving throw but reduces your charisma by 1 point."
+      },
+      {
+        "title": "Reduced Charisma",
+        "rules": "Your charisma score is reduced by 1 point while you are under the effects of these bits, and this reduction persists until the end of your next long rest. This effect does not allow saving throws to negate its impact."
+      }
+    ],
+    "levelRequirementReason": "A lower-level character might find it difficult to cope with the paranoia and reduced charisma effects.",
+    "vendorReason": "Canterlot Commerce, known for their eclectic range of goods, includes these items in their stock due to their unique and controversial nature.",
+    "shippingDetail": "Ships via the Swift Pony Express, delivered within three days of purchase.",
+    "usage": {
+      "activation": "Eaten as a consumable item.",
+      "duration": "Lasts until the end of your next long rest.",
+      "endsWhen": "The effects end at the conclusion of your next long rest.",
+      "charges": "Unlimited, but one cannot consume more than three in a week."
+    },
+    "priceReason": "The price reflects the unique and potentially destabilizing nature of these items, balancing their utility with the risk they pose.",
+    "priceOriginal": 600,
+    "priceReviewedAt": "2026-07-25T03:44:41.043786+00:00",
+    "aiReviewedAt": "2026-07-25T03:44:41.043786+00:00",
+    "aiReviewVersion": 1
   },
   "middle_earth_item_obsidian_whisperer_of_mirkwood": {
     "id": "middle_earth_item_obsidian_whisperer_of_mirkwood",
@@ -1587,21 +1742,44 @@ export const ITEMS_083 = {
   "middle_earth_item_service_of_the_greywatchers": {
     "id": "middle_earth_item_service_of_the_greywatchers",
     "name": "The Greywatcher’s Vigilance Offering",
-    "description": "A shimmering, ethereal sphere created by the ancient Greywatchers, this object projects a calming aura around its user. It can momentarily bolster courage and offer protection from overwhelming despair – a valuable service for those facing daunting trials or battling inner demons.",
+    "description": "The Greywatcher’s Vigilance Offering is a shimmering, ethereal sphere that pulses with the ancient wisdom of the Greywatchers. Crafted from the essence of the Misty Mountains and imbued with the protective spirit of the Watchers, this glowing orb provides its bearer with unshakable courage in times of trial. When wielded in combat or meditation, it emits a soft glow that can dispel minor curses and bolster one’s resolve against overwhelming despair.",
     "category": "services",
-    "price": 5500,
+    "price": 1000,
     "icon": "🛡️",
     "stock": 33,
     "rarity": "godly",
     "stockType": "delivery_only",
     "effects": [
-      "restores courage",
-      "provides temporary protection from despair",
-      "chance to dispel minor curses"
+      "dispels minor curses",
+      "bolsters courage"
     ],
     "vendor": "shire_shop",
     "shippedBy": "swift_horse",
-    "levelRequirement": 30
+    "levelRequirement": 1,
+    "effectDetails": [
+      {
+        "title": "Minor Curse Dispelling",
+        "rules": "When activated as an action, this offering grants advantage on saving throws against minor curses. The effect lasts until the start of your next turn and can be used once per long rest."
+      },
+      {
+        "title": "Bolstering Courage",
+        "rules": "This item provides a +1 bonus to all Charisma (Intimidation) checks for 1 hour after activation as an action. The effect ends early if you are incapacitated or fall unconscious."
+      }
+    ],
+    "levelRequirementReason": "Even the simplest heroes may need this offering when facing overwhelming despair.",
+    "vendorReason": "The Shire Shop stocks essential items for all travelers, including this rare gift from the Greywatchers.",
+    "shippingDetail": "Delivered by swift horse courier within one week of purchase.",
+    "usage": {
+      "activation": "Action or Bonus Action to activate and use in combat or meditation.",
+      "duration": "Instantaneous effect with ongoing benefits for the specified duration.",
+      "endsWhen": "The effect ends if you are incapacitated, fall unconscious, or do not use it within a long rest period.",
+      "charges": "Unlimited uses per day."
+    },
+    "priceReason": "Balanced to reflect its divine origin and rare utility for adventurers of all levels.",
+    "priceOriginal": 5500,
+    "priceReviewedAt": "2026-07-25T03:44:48.030418+00:00",
+    "aiReviewedAt": "2026-07-25T03:44:48.030418+00:00",
+    "aiReviewVersion": 1
   },
   "dohut_hole_item_forsaken_walker_tears": {
     "id": "dohut_hole_item_forsaken_walker_tears",
