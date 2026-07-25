@@ -3515,5 +3515,149 @@
     "powerLevel": 3,
     "fameScore": 34,
     "fameTier": "Local"
+  },
+  {
+    "id": "elder_mudcap",
+    "name": "Elder Mudcap",
+    "title": "Barrel Survivor Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "Barrel Survivors",
+    "summary": "The oldest named barrel survivor and the council’s first seat. Mudcap treats survivor testimony as law because the faction exists to ensure that nobody can call the barrels a rumor again.",
+    "description": "The oldest named barrel survivor and the council’s first seat. Mudcap treats survivor testimony as law because the faction exists to ensure that nobody can call the barrels a rumor again. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "captain_fernback",
+    "name": "Captain Fernback",
+    "title": "Pond Patrol Commander",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "Pond Patrol",
+    "summary": "Commands the named enforcement arm of the Liberated Toads. Fernback’s loyalty to Speaker L is intense, but the Raventree containment order places him under real council scrutiny rather than outside it.",
+    "description": "Commands the named enforcement arm of the Liberated Toads. Fernback’s loyalty to Speaker L is intense, but the Raventree containment order places him under real council scrutiny rather than outside it. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "scribe_dewdrop",
+    "name": "Scribe Dewdrop",
+    "title": "Chroniclers Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "The Chroniclers",
+    "summary": "Keeps the faction archive, compares testimony, and refuses to let emergency language erase inconvenient facts. Dewdrop is the named answer to every attempt to call a documented atrocity a misunderstanding.",
+    "description": "Keeps the faction archive, compares testimony, and refuses to let emergency language erase inconvenient facts. Dewdrop is the named answer to every attempt to call a documented atrocity a misunderstanding. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "forgemaster_ironspore",
+    "name": "Forgemaster Ironspore",
+    "title": "Crafters Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "The Crafters",
+    "summary": "Maintains the diaspora’s equipment and salvage routes. Ironspore is the council voice most likely to ask whether a heroic plan can actually be fed, repaired, and carried.",
+    "description": "Maintains the diaspora’s equipment and salvage routes. Ironspore is the council voice most likely to ask whether a heroic plan can actually be fed, repaired, and carried. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "warden_thornshell",
+    "name": "Warden Thornshell",
+    "title": "Wardens Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "The Wardens",
+    "summary": "Commands external defense and argues for direct action when the faction is threatened. Thornshell is distinct from Fernback: Wardens fight outward; Pond Patrol protects and polices inward.",
+    "description": "Commands external defense and argues for direct action when the faction is threatened. Thornshell is distinct from Fernback: Wardens fight outward; Pond Patrol protects and polices inward. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "healer_mistpetal",
+    "name": "Healer Mistpetal",
+    "title": "Menders Councilor",
+    "type": "Character / Liberated Toads Docket",
+    "race": "Toad",
+    "status": "Active — Liberated Toads council record",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "The Menders",
+    "summary": "Leads the Menders’ medical and trauma-care work. Mistpetal measures every proposed operation against the patients, wounded, and frightened survivors who will pay for it.",
+    "description": "Leads the Menders’ medical and trauma-care work. Mistpetal measures every proposed operation against the patients, wounded, and frightened survivors who will pay for it. Waluigi created this canonical character anchor so council authority is not hidden inside a terminal-only roster or replaced by generic labels in later records.",
+    "keyEvents": [
+      "vigilance_crisis",
+      "siege_raventree"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "vigilance",
+      "raventree_manor"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
   }
 ]
