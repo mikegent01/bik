@@ -40,6 +40,8 @@ function currentUserId() {
   );
 }
 
+function walletConnected() { return !!currentWallet(); }
+
 function currentWallet() {
   const uid = currentUserId();
   return uid ? wallets[uid] || wallets[normalizeUserId(uid.replace('_miser', ''))] || null : null;
@@ -338,7 +340,9 @@ function relabelGoldTextNodes(scope, displayId = selected) {
     if (node.parentElement?.closest('#playerWalletBridge,#shopExchangeQuote')) return;
     const text = node.nodeValue;
     let next = text;
-    if (text === 'Your Gold') next = 'Spendable wallet value (after exchange fees)';
+    if (text === 'Your Gold') next = walletConnected()
+      ? 'Spendable wallet value (after exchange fees)'
+      : 'No operator connected — wallet is empty';
     else if (text === 'Remaining Gold') next = 'Remaining Buying Power';
     else if (text === '❌ NOT ENOUGH GOLD!') next = `❌ NOT ENOUGH ${label.toUpperCase()}!`;
     else if (text === 'NOT ENOUGH GOLD!') next = `NOT ENOUGH ${label.toUpperCase()}!`;
@@ -472,7 +476,14 @@ function applyActualWalletToCart() {
   const cart = window.WarioCart;
   if (!cart || typeof cart.setPlayerGold !== 'function') return;
   const wallet = currentWallet();
-  if (!wallet) return;
+
+  // No operator connected => no money. Previously this returned early and left
+  // the bundle's hardcoded 50,000 gold in place, which made every wallet
+  // figure (and the "hide unaffordable" filter) silently fictional.
+  if (!wallet) {
+    if (Number(cart.playerGold) !== 0) { lastAppliedCartGold = 0; cart.setPlayerGold(0); }
+    return;
+  }
 
   const plan = checkoutPaymentPlan();
   const goldValue = plan.effectiveGold || selectedHoldingGoldValue();
