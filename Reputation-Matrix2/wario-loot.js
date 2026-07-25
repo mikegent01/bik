@@ -65,7 +65,13 @@
     entries.forEach(e => {
       const cur = local.find(x => x.id === e.id);
       if (cur) { cur.qty += e.qty || 1; cur.at = now; }
-      else local.push({ id: e.id, name: e.name, price: e.price || 0, qty: e.qty || 1, at: now, rarity: e.rarity });
+      else local.push({
+        id: e.id, name: e.name, price: e.price || 0, qty: e.qty || 1, at: now, rarity: e.rarity,
+        // Mirrors the shop-purchases.json record shape so these can be promoted
+        // into the DM ledger verbatim (see WarioLoot.exportLedger()).
+        orderId: 'WW-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random() * 90 + 10),
+        approvedBy: 'Wario', playerKey: (window.__warioPlayerKey || 'player')
+      });
     });
     persist(local);
     document.dispatchEvent(new CustomEvent('wario-loot-changed', { detail: { count: count() } }));
@@ -107,6 +113,7 @@
         <div><b>${list.length}</b><span>items owned</span></div>
         <div><b>${spent.toLocaleString()}</b><span>gold spent</span></div>
         <div><b>${linked}</b><span>with story appearances</span></div>
+        <button class="wl-mini" data-wl-export title="Copy your purchases as shop-purchases.json records">Copy ledger JSON</button>
         <button class="wl-mini" data-wl-clear>Clear local purchases</button>
       </div>
       <div class="wl-list">${list.map(r => {
@@ -121,6 +128,7 @@
                 ${meta.rarity ? `<span class="wl-rar">${esc(String(meta.rarity).replace(/_/g, ' '))}</span>` : ''}
                 ${r.qty > 1 ? `<span>×${r.qty}</span>` : ''}
                 <span class="wl-origin">${esc(r.origin)}</span>
+                ${r.player ? `<span class="wl-owner">owner: ${esc(r.player)}</span>` : ''}
                 ${r.at ? `<span>${esc(String(r.at).slice(0, 10))}</span>` : ''}
               </div>
             </div>
@@ -159,6 +167,13 @@
     document.body.appendChild(el);
     el.addEventListener('click', e => {
       if (e.target.id === 'warioLoot' || e.target.closest('[data-wl-close]')) return close();
+      if (e.target.closest('[data-wl-export]')) {
+        const json = JSON.stringify(exportLedger(), null, 4);
+        navigator.clipboard?.writeText(json).then(
+          () => { const b = e.target.closest('[data-wl-export]'); const t = b.textContent; b.textContent = 'Copied!'; setTimeout(() => b.textContent = t, 1400); },
+          () => console.log(json));
+        return;
+      }
       if (e.target.closest('[data-wl-clear]')) {
         local = []; persist(local);
         document.dispatchEvent(new CustomEvent('wario-loot-changed', { detail: { count: count() } }));
@@ -177,5 +192,19 @@
     if (d.id) record([{ id: d.id, name: d.name || d.id, price: d.price || 0, qty: d.qty || 1, rarity: d.rarity }]);
   });
 
-  window.WarioLoot = { __v1: true, open, close, record, rows, count, ready: ensure, get lore() { return lore; } };
+  /** Local purchases as shop-purchases.json records, ready to paste into the ledger. */
+  function exportLedger() {
+    return local.map(p => ({
+      orderId: p.orderId || ('WW-LOCAL-' + p.id),
+      itemId: p.id,
+      itemName: p.name,
+      price: p.price || 0,
+      isFaction: false,
+      approvedAt: p.at,
+      approvedBy: p.approvedBy || 'Wario',
+      playerKey: p.playerKey || 'player'
+    }));
+  }
+  window.WarioLoot = { __v1: true, open, close, record, rows, count, ready: ensure,
+    exportLedger, get lore() { return lore; } };
 })();

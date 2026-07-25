@@ -1,0 +1,145 @@
+/* ============================================================================
+   WARIO'S WAREHOUSE 3.0 — CARD SYSTEM
+   Rebuilt from the ground up. The old cards all shared one amber gradient and
+   one pulsing glow animation, so 7,722 items looked identical and the grid read
+   as a wall of noise. This gives every rarity its own colour, surface, border
+   treatment and motion, and puts the actual mechanical rules on the card.
+   Loaded AFTER the bundle's inline <style>, so these rules win.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- 1. SHELL */
+.w3card{
+  position:relative;
+  background:
+    linear-gradient(180deg, var(--rb, rgba(255,255,255,.04)) 0%, rgba(10,4,20,.96) 46%),
+    radial-gradient(120% 60% at 50% -10%, var(--rg, transparent) 0%, transparent 62%);
+  border:1px solid color-mix(in srgb, var(--rc,#9ca3af) 42%, transparent);
+  border-top:3px solid var(--rc,#9ca3af);
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+  /* No infinite pulse. Motion happens on hover only, so a screen of 20 cards
+     isn't 20 things throbbing out of sync. */
+  transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+  box-shadow:0 2px 10px rgba(0,0,0,.5);
+}
+.w3card:hover{
+  transform:translateY(-4px);
+  border-color:var(--rc,#9ca3af);
+  box-shadow:0 14px 34px rgba(0,0,0,.62), 0 0 26px var(--rg, transparent);
+  z-index:5;
+}
+.w3card::after{                    /* corner rarity wedge — silent identifier */
+  content:'';position:absolute;top:0;right:0;width:34px;height:34px;
+  background:linear-gradient(225deg, var(--rc,#9ca3af) 0%, transparent 62%);
+  opacity:.5;pointer-events:none;
+}
+
+/* ------------------------------------------------- 2. PER-RARITY IDENTITIES */
+/* Each tier gets a distinct surface treatment, not just a hue shift, so a
+   screen of all-commons and a screen of all-godlies look different. */
+.w3-r-junk       { --rc:#6b7280; --rg:rgba(107,114,128,.20); --rb:rgba(107,114,128,.05); opacity:.86; }
+.w3-r-junk::after{ opacity:.25; }
+.w3-r-common     { --rc:#9ca3af; --rg:rgba(156,163,175,.20); --rb:rgba(156,163,175,.05); }
+.w3-r-uncommon   { --rc:#22c55e; --rg:rgba(34,197,94,.24);   --rb:rgba(34,197,94,.07); }
+.w3-r-rare       { --rc:#3b82f6; --rg:rgba(59,130,246,.28);  --rb:rgba(59,130,246,.08); }
+.w3-r-very_rare  { --rc:#60a5fa; --rg:rgba(96,165,250,.28);  --rb:rgba(96,165,250,.08); }
+.w3-r-epic       { --rc:#a855f7; --rg:rgba(168,85,247,.32);  --rb:rgba(168,85,247,.10); }
+.w3-r-legendary  { --rc:#f59e0b; --rg:rgba(245,158,11,.34);  --rb:rgba(245,158,11,.10); }
+.w3-r-mythic     { --rc:#f43f5e; --rg:rgba(244,63,94,.34);   --rb:rgba(244,63,94,.10); }
+.w3-r-unique     { --rc:#fb7185; --rg:rgba(251,113,133,.32); --rb:rgba(251,113,133,.09); }
+.w3-r-cosmic     { --rc:#22d3ee; --rg:rgba(34,211,238,.34);  --rb:rgba(34,211,238,.10); }
+.w3-r-forbidden  { --rc:#dc2626; --rg:rgba(220,38,38,.36);   --rb:rgba(220,38,38,.11); }
+.w3-r-godly      { --rc:#ec4899; --rg:rgba(236,72,153,.36);  --rb:rgba(236,72,153,.11); }
+.w3-r-wario_tier { --rc:#fbbf24; --rg:rgba(251,191,36,.40);  --rb:rgba(251,191,36,.12); }
+
+/* Top tiers earn extra treatment — a moving sheen, not a size pulse. */
+.w3-r-legendary, .w3-r-mythic, .w3-r-cosmic,
+.w3-r-forbidden, .w3-r-godly, .w3-r-wario_tier{ border-width:1px; border-top-width:4px; }
+.w3-r-godly::before, .w3-r-wario_tier::before, .w3-r-cosmic::before{
+  content:'';position:absolute;inset:0;pointer-events:none;border-radius:14px;
+  background:linear-gradient(115deg, transparent 38%, color-mix(in srgb, var(--rc) 16%, transparent) 50%, transparent 62%);
+  background-size:280% 100%;
+  animation:w3sheen 5.5s linear infinite;
+}
+@keyframes w3sheen{ 0%{background-position:180% 0} 100%{background-position:-80% 0} }
+@media (prefers-reduced-motion:reduce){
+  .w3-r-godly::before,.w3-r-wario_tier::before,.w3-r-cosmic::before{animation:none}
+  .w3card{transition:none}
+}
+/* Forbidden reads as hazard tape. */
+.w3-r-forbidden{
+  background:
+    repeating-linear-gradient(135deg, rgba(220,38,38,.07) 0 10px, transparent 10px 20px),
+    linear-gradient(180deg, rgba(220,38,38,.11), rgba(10,4,20,.96));
+}
+
+/* ------------------------------------------------------------ 3. TEXT BODY */
+.w3desc{
+  font-size:11.5px;line-height:1.5;color:rgba(255,255,255,.56);
+  margin:0 0 10px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* --------------------------------------------- 4. EFFECTS (the real payload) */
+/* 7,718 items ship full D&D rules text in effectDetails. It was never shown.
+   This surfaces title + rules per effect, readable at a glance. */
+.w3fx{
+  margin:0 0 10px;padding:9px 10px;
+  background:rgba(0,0,0,.34);
+  border:1px solid color-mix(in srgb, var(--rc,#9ca3af) 22%, transparent);
+  border-left:3px solid var(--rc,#9ca3af);
+  border-radius:9px;
+}
+.w3fx-h{
+  display:flex;align-items:center;gap:6px;
+  font-family:Bungee,system-ui,sans-serif;font-size:8.5px;letter-spacing:.9px;
+  color:var(--rc,#9ca3af);text-transform:uppercase;margin-bottom:6px;
+}
+.w3fx-n{
+  background:color-mix(in srgb, var(--rc,#9ca3af) 22%, transparent);
+  border-radius:999px;padding:0 6px;font-size:8px;
+}
+.w3fx-list{display:flex;flex-direction:column;gap:6px}
+.w3fx-row{display:flex;flex-direction:column;gap:1px}
+.w3fx-t{
+  font-size:11px;font-weight:700;color:#fff;line-height:1.3;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
+}
+.w3fx-r{
+  font-size:10.5px;line-height:1.45;color:rgba(255,255,255,.52);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.w3fx-more{
+  margin-top:7px;font-size:9.5px;color:var(--rc,#9ca3af);opacity:.8;
+  font-style:italic;letter-spacing:.2px;
+}
+
+/* --------------------------------------------------- 5. DENSITY / READABILITY */
+.w3card .p-4{padding:13px}
+.w3card h3{
+  font-size:12.5px !important;line-height:1.28 !important;
+  color:#fff !important;letter-spacing:.2px;
+}
+.w3card .vendor-badge{
+  font-size:10px;opacity:.62;margin-bottom:8px;
+  display:flex;align-items:center;gap:5px;
+}
+.w3card .effect-tag{                /* legacy tag styling, kept for other views */
+  background:color-mix(in srgb, var(--rc,#9ca3af) 14%, transparent);
+  border:1px solid color-mix(in srgb, var(--rc,#9ca3af) 30%, transparent);
+  color:rgba(255,255,255,.75);
+  border-radius:999px;padding:2px 8px;font-size:9.5px;
+}
+
+/* ------------------------------------------------------------- 6. THE GRID */
+/* Wider min so the rules block has somewhere to live. */
+.w3card{ height:100%; }
+
+/* --------------------------------------------------- 7. CART BUTTON MOVE */
+/* Was bottom-right, overlapping the site dock and the item grid's last column. */
+.cart-float-btn{
+  bottom:auto !important; top:84px !important;
+  right:18px !important;
+  z-index:2147482200 !important;
+}

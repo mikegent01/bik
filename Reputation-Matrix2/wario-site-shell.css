@@ -125,3 +125,10 @@ body.wl-locked{overflow:hidden}
 @media(max-width:640px){
   .wl-shell{width:calc(100vw - 8px);height:calc(100vh - 8px);margin:4px auto}
 }
+
+/* loot: owner tag + export button (added with the ledger-shape purchase record) */
+.wl-owner{
+  font-size:9.5px;letter-spacing:.3px;color:#4ade80;
+  border:1px solid rgba(74,222,128,.35);border-radius:999px;padding:1px 7px;
+}
+.wl-stats .wl-mini + .wl-mini{margin-left:6px}

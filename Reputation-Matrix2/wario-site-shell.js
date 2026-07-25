@@ -10,13 +10,13 @@
 (() => {
   if (window.WarioSiteShell?.__v1) return;
 
+  // Pond Docket and XP removed at request — they aren't commerce, and the
+  // crafting index is now a first-class panel inside the shop rather than a
+  // link that throws you out to the wiki.
   const LINKS = [
-    { href: '../index.html#/home',              icon: '🏠', label: 'Waluipedia' },
-    { href: '../index.html#/items',             icon: '🎒', label: 'Item Index' },
-    { href: '../index.html#/crafting',          icon: '⚒️', label: 'Crafting' },
-    { href: 'currency.html',                    icon: '🏦', label: 'Bank' },
-    { href: '../index.html#/pond-docket',       icon: '⚖️', label: 'Pond Docket' },
-    { href: 'xp.html',                          icon: '✦',  label: 'XP' }
+    { href: '../index.html#/home',  icon: '🏠', label: 'Waluipedia' },
+    { href: '../index.html#/items', icon: '🎒', label: 'Item Index' },
+    { href: 'currency.html',        icon: '🏦', label: 'Bank' }
   ];
 
   function build() {
@@ -32,6 +32,9 @@
       <nav class="ws-nav">${LINKS.map(l =>
         `<a class="ws-link" href="${l.href}"><span>${l.icon}</span><em>${l.label}</em></a>`).join('')}</nav>
       <div class="ws-right">
+        <button class="ws-btn" id="wsCraft" title="Crafting index — recipes, materials and schools">
+          ⚒️ <em>Crafting</em>
+        </button>
         <button class="ws-btn" id="wsLoot" title="Your loot — what you own and where it appears in the story">
           🎒 <em>Loot</em> <i id="wsLootN"></i>
         </button>
@@ -45,6 +48,7 @@
       paintMusic(on);
     });
     document.getElementById('wsLoot').addEventListener('click', () => window.WarioLoot?.open());
+    document.getElementById('wsCraft').addEventListener('click', () => window.WarioCrafting?.open());
     paintMusic(!!window.WarioAudioBridge?.musicOn);
     document.addEventListener('wario-music-changed', e => paintMusic(e.detail.on));
     document.addEventListener('wario-loot-changed', paintLoot);
