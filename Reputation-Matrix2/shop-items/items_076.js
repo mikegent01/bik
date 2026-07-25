@@ -1138,7 +1138,29 @@ export const ITEMS_076 = {
         ],
         vendor: 'fate_forge',
         shippedBy: 'Hellhound Courier',
-        levelRequirement: 35
+        levelRequirement: 35,
+        effectDetails: [
+          {
+            "title": "Chaos-Forged Impact",
+            "rules": "The Breaker is a maul dealing 2d6 bludgeoning damage. Your damage rolls with it are increased by 25% (round down). It counts as magical for the purpose of overcoming resistance and immunity to nonmagical attacks."
+          },
+          {
+            "title": "Chaos Wound",
+            "rules": "On a hit, the target must succeed on a DC 16 Constitution saving throw or suffer a Chaos Wound: 2d6 necrotic damage at the start of each of its turns for 1 minute. The target may repeat the save at the end of each of its turns, ending the effect on a success. Chaos Wounds do not stack."
+          },
+          {
+            "title": "Sunder Plate",
+            "rules": "A creature struck by the Breaker has its AC reduced by 2 (to a minimum of 10) until the end of your next turn. Against constructs and creatures wearing heavy armour the reduction is 3 instead."
+          },
+          {
+            "title": "Unquiet Ground",
+            "rules": "The weapon never stops shaking. You have disadvantage on Dexterity (Stealth) checks while carrying it, and difficult terrain forms in a 5-foot radius around you when you land a critical hit."
+          }
+        ],
+        usage: "Martial weapon (maul). Requires attunement by a creature of level 35 or a Chaos-touched wielder.",
+        priceReason: "Legendary chaos weaponry with armour shred and a damage-over-time rider. 18,000 is cheap for what it does, which should worry the buyer more than it does.",
+        aiReviewedAt: "2026-07-25T00:00:00.000Z",
+        aiReviewVersion: "manual-1"
     },
 
     'warhammer_item_twilight-sentinel-medallion': {

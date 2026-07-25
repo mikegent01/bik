@@ -22,6 +22,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
   <script src="Reputation-Matrix2/data/books-data.js"></script>
+  <script src="Reputation-Matrix2/wario-audio-bridge.js"></script>
   <script defer src="Reputation-Matrix2/wario-site-sounds.js"></script>
   <script defer src="Reputation-Matrix2/waluipedia-ambient.js"></script>
 <style>.waluigi-dynasty-note{margin:16px 0;padding:12px 14px;border:1px solid #b55cff;border-left:4px solid #e35cff;border-radius:8px;background:linear-gradient(135deg,#5a167044,#1a052e99);color:#f3d5ff;line-height:1.55}.waluigi-dynasty-note b{color:#f5a9ff}
@@ -5263,7 +5264,8 @@ function renderSidebar(active){
     emoji:s.emoji,label:s.name,go:`Router.go('${s.route}')`,
     active:active===s.id||active===(s.route||'').replace('#/',''),system:true,title:s.tagline
   }));
-  sysLinks.push(navLink({emoji:'🎓',label:'Ability Shop',go:`location.href='${abilityShopUrl()}'`,system:true,title:"Wario's training wing — opens in the shop"}));
+  sysLinks.push(navLink({emoji:'🏬',label:"Wario's Warehouse",go:`location.href='shop.html#warehouse'`,system:true,title:"Warehouse 3.0 — items, materials, abilities and your loot in one search"}));
+  sysLinks.push(navLink({emoji:'🎓',label:'Ability Shop',go:`location.href='${abilityShopUrl()}'`,system:true,title:"Wario's training wing — opens inside the warehouse"}));
   h+=navSection('nav-systems','⚡ Faction Systems',sysLinks,{alwaysOpen:true});
 
   h+=navSection('nav-world','World',[
@@ -6664,6 +6666,7 @@ function abilityByName(name,cls){
 }
 /* Deep link into Wario's shop overlay rather than a Waluipedia page. */
 function abilityShopUrl(id){ return 'shop.html#ability-shop'+(id?'/'+encodeURIComponent(id):''); }
+function warehouseUrl(tab){ return 'shop.html#warehouse'+(tab?'/'+encodeURIComponent(tab):''); }
 
 
 /* =============== IRON LEGION FULL DOSSIER (ported into the Imperial Pressure Network) ====== */

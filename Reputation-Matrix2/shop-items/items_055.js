@@ -397,7 +397,25 @@ export const ITEMS_055 = {
     ],
     "vendor": "cyber_market",
     "shippedBy": "encrypted_drone",
-    "levelRequirement": 18
+    "levelRequirement": 18,
+    "effectDetails": [
+      {
+        "title": "Nullspace Suppression",
+        "rules": "As an action, activate the shard to project a 20-foot-radius suppression field centred on you for 1 minute. Magical damage dealt by creatures other than you inside the field is halved. The field moves with you and requires no concentration."
+      },
+      {
+        "title": "Signal Jam",
+        "rules": "When a creature inside the suppression field casts a spell of 5th level or lower, it must succeed on a DC 17 Constitution saving throw or the spell fails and the slot is wasted. A creature that fails this save cannot be affected by Signal Jam again until the start of its next turn."
+      },
+      {
+        "title": "Data Corruption",
+        "rules": "The shard feeds on its bearer. Each round the field is active you lose 1 unexpended spell slot of your lowest available level, or 1d6 psychic damage if you have none. After the effect ends you have disadvantage on Intelligence checks until you finish a short rest."
+      }
+    ],
+    "usage": "Action to activate; the suppression field lasts 1 minute. Recharges on a long rest.",
+    "priceReason": "Mythic-tier arcane suppression is a war-winning tool, and the Nullspace Fragment does it without concentration. Wario prices it at 75,000 because anyone who needs it needs it badly.",
+    "aiReviewedAt": "2026-07-25T00:00:00.000Z",
+    "aiReviewVersion": "manual-1"
   },
   "internet_meme_amplifier": {
     "id": "internet_meme_amplifier",
@@ -1544,7 +1562,25 @@ export const ITEMS_055 = {
     ],
     "vendor": "void_merchant",
     "shippedBy": "Black Hole Delivery Service",
-    "levelRequirement": 9
+    "levelRequirement": 9,
+    "effectDetails": [
+      {
+        "title": "Disruptive Resonance",
+        "rules": "When a creature within 30 feet of you casts a spell, roll a d100. On a 30 or lower the resonator pulses and the caster must succeed on a DC 14 Constitution saving throw or lose the spell. This triggers at most once per round."
+      },
+      {
+        "title": "Targeting Scramble",
+        "rules": "Creatures within 15 feet of you take a -3 penalty to attack rolls made against you or any ally you can see. A creature immune to being blinded ignores this effect."
+      },
+      {
+        "title": "Steadied Mind",
+        "rules": "While attuned to the resonator you gain a +2 bonus to Wisdom saving throws, and you have advantage on saves against being charmed by an effect originating from the void or the Almost Edge."
+      }
+    ],
+    "usage": "Passive while attuned; the disruption pulse triggers automatically on a hit against you.",
+    "priceReason": "An epic-tier defensive item that degrades enemy casters without requiring an action. 35,000 reflects that it protects the whole party's back line by existing.",
+    "aiReviewedAt": "2026-07-25T00:00:00.000Z",
+    "aiReviewVersion": "manual-1"
   },
   "almost_edge_mythic_echo_of_the_fall": {
     "id": "almost_edge_mythic_echo_of_the_fall",

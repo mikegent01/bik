@@ -211,7 +211,29 @@ export const ITEMS_078 = {
         ],
         vendor: 'center_seller',
         shippedBy: 'Delivery Drone 7',
-        levelRequirement: 15
+        levelRequirement: 15,
+        effectDetails: [
+          {
+            "title": "Void Decay",
+            "rules": "Throw a fragment at a point within 30 feet as an action. Each creature in a 10-foot radius takes 1d4 necrotic damage, and takes another 1d4 necrotic damage at the start of its next turn. Objects and undead are unaffected."
+          },
+          {
+            "title": "Nullification",
+            "rules": "Creatures caught in the burst gain resistance to void and necrotic damage from other sources until the end of their next turn. This is deliberate: the fragments cancel their own kind."
+          },
+          {
+            "title": "Temporal Stasis",
+            "rules": "A creature that fails a DC 12 Constitution saving throw against the burst has its speed halved and cannot take reactions until the end of its next turn."
+          },
+          {
+            "title": "Fragmented Resonance",
+            "rules": "Roll a d20 for each creature that failed the save. On a 19 or 20 that creature is Confused (as the confusion spell) until the end of its next turn."
+          }
+        ],
+        usage: "Consumable. One pouch contains 4 fragments; each fragment is thrown as an action.",
+        priceReason: "Cheap, common and disposable - but the Temporal Stasis rider makes a 650-coin pouch punch well above its rarity. Wario has not noticed this yet.",
+        aiReviewedAt: "2026-07-25T00:00:00.000Z",
+        aiReviewVersion: "manual-1"
     },
 
     'kivotos_item_the_spectral_ward_of_resonance': {
