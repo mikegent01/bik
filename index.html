@@ -33,9 +33,34 @@
     <div><b>Waluipedia</b><small>The Objective Encyclopedia</small></div>
   </div>
   <div class="searchwrap">
-    <span class="ico">🔍</span>
-    <input id="search" type="text" autocomplete="off" placeholder="Search everything — articles, trials, battles, congress votes…">
-    <span class="kbd">/</span>
+    <div class="searchline">
+      <span class="ico">🔍</span>
+      <input id="search" type="text" autocomplete="off" placeholder="Search Waluipedia — try “Hjumpik”, “mirror”, or @events feyward…">
+      <select id="searchCategory" class="search-select" title="Search category">
+        <option value="all">All</option>
+        <option value="articles">Articles</option>
+        <option value="characters">Characters</option>
+        <option value="factions">Factions</option>
+        <option value="events">Events</option>
+        <option value="locations">Locations</option>
+        <option value="items">Items</option>
+        <option value="currencies">Currencies</option>
+        <option value="battles">Battles</option>
+        <option value="congress">Congress</option>
+        <option value="books">Books</option>
+        <option value="chronicles">Chronicles</option>
+        <option value="dynasties">Dynasties</option>
+        <option value="vendors">Vendors</option>
+        <option value="holidays">Holidays</option>
+      </select>
+      <select id="searchMode" class="search-select search-mode" title="Search matching mode">
+        <option value="smart">Smart</option>
+        <option value="all">All words</option>
+        <option value="any">Any word</option>
+        <option value="exact">Exact phrase</option>
+      </select>
+      <span class="kbd">/</span>
+    </div>
     <div class="results" id="results"></div>
   </div>
   <div class="topbtns">
@@ -3941,14 +3966,16 @@ function buildIndexes(){
   const A=DATA.artifacts||{};
   (A.main_artifacts||[]).forEach(a=>{ if(!a) return; SEARCH_DOCS.push({kind:'artifact',id:a.id,typeKey:'artifacts',name:a.name,summary:a.description||'',hay:[a.name,a.description,a.lore,(a.abilities||[]).join(' '),a.locations].filter(Boolean).join(' ').toLowerCase()}); });
   Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(!it || iid==='hidden_item_slot') return; SEARCH_DOCS.push({kind:'invitem',id:iid,typeKey:'items',name:it.name,summary:it.summary||it.description||'',hay:[it.name,it.type,it.rarity,it.summary,it.description,(it.relatedArticles||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
+  ((DATA.crafting&&DATA.crafting.recipes)||[]).forEach(r=>{ if(!r) return; SEARCH_DOCS.push({kind:'craftingrecipe',id:r.id,typeKey:'crafting',name:r.name,summary:r.description||r.effect||'',hay:[r.id,r.name,r.category,r.type,r.description,r.effect,r.rarity,r.school,(r.materials||[]).map(m=>m.id).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
+  ((DATA.crafting&&DATA.crafting.materials)||[]).forEach(m=>{ if(!m) return; SEARCH_DOCS.push({kind:'craftingmaterial',id:m.id,typeKey:'crafting',name:m.name,summary:m.description||'',hay:[m.id,m.name,m.category,m.rarity,m.description,(m.properties||[]).join(' '),(m.effects||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
   const allBearers=(A.star_bearers||[]).concat(A.god_toad?[A.god_toad]:[]);
   allBearers.forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'bearer',id:b.id,typeKey:'artifacts',name:(b.name||'')+(b.title?(' — '+b.title):''),summary:b.powers||'',hay:[b.name,b.title,b.species,b.element,b.powers,b.history,b.fragment_name].filter(Boolean).join(' ').toLowerCase()}); });
   Object.entries(LORE_FACTIONS||{}).forEach(([id,f])=>SEARCH_DOCS.push({kind:'faction',id,typeKey:'factions',name:f.name||prettyId(id),summary:f.description||'',hay:[id,f.name,f.description,f.region,f.leader,(f.relations?.allies||[]).join(' '),(f.relations?.enemies||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
   Object.entries(DYNASTY_SYSTEM.houses||{}).forEach(([id,h])=>SEARCH_DOCS.push({kind:'dynasty',id,typeKey:'dynasties',name:h.name||prettyId(id),summary:h.motto||h.status||'',hay:[id,h.name,h.motto,h.founder,h.seat,h.status,(h.members||[]).map(x=>x.name).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
   Object.entries(window.WIKI_VENDORS||{}).forEach(([id,v])=>SEARCH_DOCS.push({kind:'vendor',id,typeKey:'vendors',name:v.name||prettyId(id),summary:v.description||'',hay:[id,v.name,v.location,v.description,(v.acceptedCurrencies||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()}));
-  Object.entries(DATA.calendarHolidays?.holidays||{}).forEach(([calendarId,items])=>(items||[]).forEach(h=>{const id=String(h.id||h.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'holiday',id,typeKey:'holidays',name:h.name||id,summary:h.description||'',hay:[id,h.name,h.description,h.type,calendarId].filter(Boolean).join(' ').toLowerCase()});}));
+  Object.entries(DATA.calendarHolidays?.holidays||{}).forEach(([calendarId,items])=>(items||[]).forEach(h=>{const id=String(h.id||h.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'holiday',id,typeKey:'holidays',name:h.name||id,summary:h.description||h.longDescription||'',hay:[id,h.name,h.description,h.longDescription,(h.observancePractices||[]).join(' '),(h.adventureHooks||[]).join(' '),h.type,calendarId].filter(Boolean).join(' ').toLowerCase()});}));
   const _currList = ((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]);
-  (Array.isArray(_currList)?_currList:[]).forEach(c=>{ if(!c) return; const id=String(c.id||c.key||c.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'currency',id,typeKey:'currencies',name:c.name||prettyId(id),summary:c.short||c.description||'',hay:[id,c.name,c.short,c.description,c.type,c.category,c.issuer,c.home_faction].filter(Boolean).join(' ').toLowerCase()}); });
+  (Array.isArray(_currList)?_currList:[]).forEach(c=>{ if(!c) return; const id=String(c.id||c.key||c.name).toLowerCase().replace(/[^a-z0-9]+/g,'_');SEARCH_DOCS.push({kind:'currency',id,typeKey:'currencies',name:c.name||prettyId(id),summary:c.short||c.description||'',hay:[id,c.name,c.short,c.description,c.expandedDescription,c.type,c.category,c.issuer,c.home_faction].filter(Boolean).join(' ').toLowerCase()}); });
   // Books search entries
   const _books = ((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]);
   _books.forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'book',id:b.id,typeKey:'books',name:b.title||prettyId(b.id),summary:b.subtitle||b.description||'',hay:[b.id,b.title,b.subtitle,b.author,b.category,b.description].filter(Boolean).join(' ').toLowerCase()}); });
@@ -4246,7 +4273,90 @@ function locationThumb(i,mode){
   const h=artHash(i.id||i.name); const x=24+(h%52), y=34+((h>>6)%42), small=mode==='tile';
   return `<figure class="auto-art ${small?'tile':'full'}"><svg class="auto-art-svg" viewBox="0 0 640 300"><defs><linearGradient id="lg${h}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2fae8a"/><stop offset=".55" stop-color="#15324a"/><stop offset="1" stop-color="#8a4bff"/></linearGradient></defs><rect width="640" height="300" fill="url(#lg${h})"/><path d="M60 240 C120 120 250 110 330 165 S520 95 600 210 L600 300 L60 300Z" fill="rgba(0,0,0,.24)"/><path d="M75 210 C170 170 205 235 290 188 S430 152 565 205" stroke="rgba(255,255,255,.30)" stroke-width="5" fill="none"/><circle cx="${x*6.4}" cy="${y*3}" r="18" fill="#e0b400" stroke="rgba(0,0,0,.45)" stroke-width="5"/><path d="M${x*6.4} ${y*3+18} L${x*6.4-13} ${y*3+50} L${x*6.4+13} ${y*3+50}Z" fill="#e0b400"/><text x="42" y="70" fill="rgba(255,255,255,.88)" font-size="14" font-weight="900" letter-spacing="2">LOCATION MAP</text><text x="42" y="172" fill="white" font-size="${small?'24':'32'}" font-weight="900">${esc((displayName(i).length>34?displayName(i).slice(0,32)+'…':displayName(i)))}</text>${small?'':`<text x="44" y="210" fill="rgba(255,255,255,.74)" font-size="16">${esc(i.region||i.type||'Mapped location')}</text>`}</svg></figure>`;
 }
-function cardVisual(i,key){ if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(['events','trials','factions','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
+const CHARACTER_VISUAL_OVERRIDES={
+  waluigi:{primary:'🎾',badges:['❄️','📚','💜'],theme:'arcane',label:'Ice magic / archive ego'},
+  wario:{primary:'💰',badges:['💣','🟡','📈'],theme:'coin',label:'Greed economy hazard'},
+  bowser:{primary:'🐢',badges:['🔥','👑','🛡️'],theme:'fire',label:'Koopa sovereign'},
+  archie_miser:{primary:'🔥',badges:['👁️','🧨','💸'],theme:'fire',label:'Entropy pyromancer'},
+  markop:{primary:'🐴',badges:['🛡️','🪓','⬆️'],theme:'iron',label:'Centaur shield / titan'},
+  remi_akamatsu_full_backstory:{primary:'🔧',badges:['🎴','🤖','💠'],theme:'tech',label:'Engineer / card bearer'},
+  hjumpik:{primary:'⛏️',badges:['🔔','🗝️','🪞'],theme:'iron',label:'Asset Orange / Anvil'},
+  mystic_morel:{primary:'🍄',badges:['🔮','🗝️','🎭'],theme:'arcane',label:'Fortune thief'},
+  the_oracle:{primary:'🔮',badges:['🧵','🌀','👁️'],theme:'arcane',label:'Metaphysical custodian'},
+  luigi:{primary:'👻',badges:['🟢','🔦','🏚️'],theme:'shadow',label:'Reluctant ghostbuster'},
+  mario:{primary:'⭐',badges:['🍄','🟥','❓'],theme:'royal',label:'Vanished hero'},
+  princess_peach:{primary:'🍑',badges:['👑','🕯️','⚰️'],theme:'royal',label:'Fallen monarch'},
+  princess_daisy:{primary:'🌼',badges:['👑','⚡','🏜️'],theme:'royal',label:'Competent royal'},
+  kamek:{primary:'🪄',badges:['🐢','📜','🐉'],theme:'arcane',label:'Fallen regent'},
+  king_boo:{primary:'👻',badges:['👑','🪞','🌑'],theme:'shadow',label:'Mirror-side monarch'},
+  fawful:{primary:'🫘',badges:['🟩','🌀','😂'],theme:'nature',label:'Cackling conqueror'},
+  sans:{primary:'💀',badges:['🧥','🕳️','🧠'],theme:'undead',label:'Snowdin skeleton'},
+  papyrus:{primary:'💀',badges:['🧣','⭐','🍝'],theme:'undead',label:'Great brother'},
+  flowey:{primary:'🌻',badges:['🤖','🧪','⚠️'],theme:'nature',label:'Machine-tampering flower'},
+  koffin_k:{primary:'🎩',badges:['☠️','⚙️','🏅'],theme:'iron',label:'Accidental recruit'},
+  crossbones:{primary:'☠️',badges:['📚','🦸','⚔️'],theme:'undead',label:'Hero-comic rival'},
+  toriel:{primary:'🐐',badges:['👑','🕯️','🚪'],theme:'royal',label:'Royal approval authority'},
+  asgore:{primary:'👑',badges:['🌻','🕯️','⚔️'],theme:'royal',label:'Underground king'},
+  captain_syrup:{primary:'🏴‍☠️',badges:['🌊','💰','⚓'],theme:'sea',label:'Pirate queen'},
+  king_k_rool:{primary:'🐊',badges:['👑','🏴‍☠️','💣'],theme:'sea',label:'Kremling king'},
+  kirby:{primary:'🌟',badges:['💗','🌌','🍽️'],theme:'arcane',label:'Pink apocalypse'},
+  king_dedede:{primary:'🐧',badges:['👑','🔨','⭐'],theme:'royal',label:'Penguin incident'},
+  meta_knight:{primary:'🦇',badges:['⚔️','🌌','🎭'],theme:'shadow',label:'Masked adult'},
+  dracule_mihawk:{primary:'🗡️',badges:['🦅','⚫','⚔️'],theme:'iron',label:'Hawk of Blackfen'},
+  gamma_agent:{primary:'⚙️',badges:['📡','🪖','🕳️'],theme:'iron',label:'Legion surveyor'},
+  captain_toadette:{primary:'🍄',badges:['🎒','⚔️','👑'],theme:'royal',label:'Ruthless restorer'},
+  green_t:{primary:'🍄',badges:['⬆️','🛡️','👶'],theme:'nature',label:'Giant from the table'},
+  toad_lee:{primary:'🍄',badges:['🪟','🤝','📜'],theme:'nature',label:'Defenestrated diplomat'},
+  toadburt:{primary:'🍄',badges:['💍','⚙️','📚'],theme:'iron',label:'Former leashed agent'},
+  tanukiburt:{primary:'🦝',badges:['🍄','🚪','⚠️'],theme:'shadow',label:'Portal impostor'},
+  rakasha:{primary:'🐾',badges:['🌲','🔥','🧬'],theme:'nature',label:'Forest people'},
+  chief_thornpaw:{primary:'🐾',badges:['👑','🌹','🌲'],theme:'nature',label:'Rakasha chief'},
+  azure_rakasha:{primary:'🐾',badges:['🍷','✨','🌿'],theme:'nature',label:'Intoxicated mystic'},
+  bones:{primary:'🕵️',badges:['💀','⚙️','🔓'],theme:'shadow',label:'Infiltrator'},
+  rattles:{primary:'💀',badges:['🦴','🧍','↩️'],theme:'undead',label:'Body-seeking skeleton'},
+  mossy:{primary:'🤖',badges:['🐕','🔧','🧠'],theme:'tech',label:'Stolen construct'},
+  professor_e_gadd:{primary:'🔬',badges:['👻','💡','🏚️'],theme:'tech',label:'Ghost researcher'},
+  miles_edgeworth:{primary:'⚖️',badges:['📄','🔴','🏛️'],theme:'royal',label:'Prosecutor'},
+  general_ironhand:{primary:'⚙️',badges:['🩸','📋','🪖'],theme:'iron',label:'Atrocity administrator'},
+  lyranth:{primary:'🐍',badges:['🗿','🔨','🌑'],theme:'shadow',label:'Stone artist'},
+  vivian_corvinarus:{primary:'🩸',badges:['🎭','🐉','🌑'],theme:'shadow',label:'Impostor heir'},
+  orangus_cornelius:{primary:'🦇',badges:['👑','🪟','🩸'],theme:'shadow',label:'Defenestrated lord'},
+  lady_aurelian:{primary:'🧚',badges:['🧵','🐉','🌿'],theme:'nature',label:'Thread-weaver'},
+  tymnas:{primary:'🐐',badges:['🌿','🛠️','⏳'],theme:'nature',label:'Lost groundskeeper'},
+  thornbury:{primary:'📓',badges:['🪖','📦','🕵️'],theme:'iron',label:'Quartermaster spy'},
+  bryan:{primary:'🍄',badges:['⚖️','🙏','🌑'],theme:'royal',label:'Toad god instrument'}
+};
+const CHARACTER_THEME_COLORS={
+  fire:['#c3282d','#ff9f1c'], royal:['#8a4bff','#e0b400'], shadow:['#151022','#8a4bff'],
+  tech:['#2088d8','#39ff88'], nature:['#2fae8a','#7acb58'], undead:['#77768a','#b7a7ff'],
+  sea:['#0f5f9e','#2dd4bf'], coin:['#8a5a12','#ffd36b'], iron:['#4b5563','#e5484d'], arcane:['#5b3a8e','#e0b400'], neutral:['#3b3454','#8a4bff']
+};
+function pushUnique(arr,v){ if(v&&!arr.includes(v)) arr.push(v); }
+function characterVisualProfile(i){
+  const id=i.id||'';
+  const override=CHARACTER_VISUAL_OVERRIDES[id];
+  const hay=[id,i.name,i.title,i.race,i.affiliation,i.status,i.summary].filter(Boolean).join(' ').toLowerCase();
+  let primary=override?.primary||'';
+  const badges=[...(override?.badges||[])];
+  let theme=override?.theme||'neutral';
+  let label=override?.label||'';
+  const speciesRules=[[/skeleton|bone-line|bones?\b/,'💀','undead','Skeleton'],[/toad|mushroom/,'🍄','nature','Toad'],[/koopa|magikoopa/,'🐢','fire','Koopa'],[/rakasha|cat/,'🐾','nature','Rakasha'],[/dwarf/,'⛏️','iron','Dwarf'],[/centaur|horse/,'🐴','iron','Centaur'],[/fey|satyr|dryad/,'🧚','nature','Fey'],[/vampire|boo|ghost|shadow/,'👻','shadow','Shadow entity'],[/medusa/,'🐍','shadow','Medusa'],[/construct|machine|robot/,'🤖','tech','Construct'],[/human/,'👤','neutral','Human'],[/kremling|crocodile/,'🐊','sea','Kremling'],[/penguin/,'🐧','royal','Penguin'],[/beanish/,'🫘','nature','Beanish'],[/orc/,'🪓','iron','Orc'],[/goblin|hobgoblin/,'🗡️','iron','Goblin'],[/elf/,'🧝','nature','Elf'],[/sheep/,'🐑','nature','Sheep'],[/flower/,'🌻','nature','Flower entity'],[/underground/,'🕳️','undead','Underground entity']];
+  speciesRules.forEach(([re,emo,th,lab])=>{ if(re.test(hay)){ if(!primary)primary=emo; pushUnique(badges,emo); if(theme==='neutral')theme=th; if(!label)label=lab; }});
+  const roleRules=[[/king|queen|princess|emperor|monarch|royal|lord|lady|regent/,'👑','royal'],[/fire|pyro|burn|flame|explosive|bomb/,'🔥','fire'],[/ice|frost|snowdin/,'❄️','arcane'],[/mage|magic|arcane|oracle|prophet|fortune|ritual/,'🔮','arcane'],[/engineer|machine|survey|construct|tech|data/,'🔧','tech'],[/legion|agent|commander|military|quartermaster|iron/,'⚙️','iron'],[/pirate|ship|sea|captain|harbor/,'🏴‍☠️','sea'],[/money|coin|wallet|accountant|debt|merchant/,'💰','coin'],[/trial|prosecutor|law|judge|barrister|court/,'⚖️','royal'],[/infiltrat|spy|assassin|secret|steal|thief/,'🕵️','shadow'],[/mirror|shadow|vampire|ghost|boo|night/,'🌑','shadow'],[/dragon|wyrm/,'🐉','fire'],[/star|cosmic|apocalypse/,'⭐','arcane'],[/journal|archive|record|book|field/,'📚','arcane'],[/flower|forest|grove|fey|tree|garden/,'🌿','nature']];
+  roleRules.forEach(([re,emo,th])=>{ if(re.test(hay)){ pushUnique(badges,emo); if(!primary)primary=emo; if(theme==='neutral')theme=th; }});
+  if(!primary) primary=badges[0]||'👤';
+  const finalBadges=badges.filter(x=>x!==primary).slice(0,4);
+  while(finalBadges.length<3) pushUnique(finalBadges,['📄','🧭','◇','✦'][finalBadges.length]);
+  if(!label) label=(i.race||i.affiliation||i.type||'Character dossier');
+  const colors=CHARACTER_THEME_COLORS[theme]||CHARACTER_THEME_COLORS.neutral;
+  return {primary,badges:finalBadges.slice(0,4),theme,label:String(label).split('/')[0].split('—')[0].trim(),colors};
+}
+function characterVisual(i){
+  const v=characterVisualProfile(i);
+  const status=(i.status||'Active file').split('—')[0].trim();
+  return `<div class="character-card-visual theme-${esc(v.theme)}" style="--char-a:${v.colors[0]};--char-b:${v.colors[1]}"><div class="char-bg-emoji">${esc(v.primary)}${esc(v.badges[0]||'')}</div><div class="char-avatar"><span class="char-primary">${esc(v.primary)}</span></div><div class="char-visual-text"><span>${esc(v.label).slice(0,42)}</span><b>${esc(status).slice(0,32)}</b><div class="char-badge-row">${v.badges.map(b=>`<i>${esc(b)}</i>`).join('')}</div></div></div>`;
+}
+function cardVisual(i,key){ if(key==='characters')return characterVisual(i); if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(['events','trials','factions','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
 function decodeEntitiesBasic(s){return String(s||'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'");}
 function htmlishToMarkdown(s){
   s=decodeEntitiesBasic(s);
@@ -4296,19 +4406,41 @@ function battleParticipants(ids){
 
 function eventPeopleAndXpPanel(item){
   if(!item||!item.id) return '';
-  const ids=[];
-  const add=id=>{ if(id&&INDEX[id]&&INDEX[id].typeKey==='characters'&&!ids.includes(id)) ids.push(id); };
-  [].concat(item.participants||[],item.participatingCharacters||[]).forEach(p=>add(typeof p==='string'?p:(p&&p.id)));
-  (item.relatedArticles||[]).forEach(add);
-  xpAwardsForEvent(item.id).forEach(a=>add(a.articleId));
-  const people=ids.map(id=>`<span class="rel-chip" onclick="openId('${esc(id)}')"><span class="rt">Character</span>${esc(displayName(INDEX[id].item))}</span>`).join('');
+  const participantMap=new Map();
+  const normalizeParticipant=p=>{
+    if(!p) return null;
+    if(typeof p==='string') return {id:p,name:INDEX[p]?displayName(INDEX[p].item):prettyId(p),role:''};
+    const id=p.id||p.articleId||p.key||'';
+    const name=p.name||(id?(INDEX[id]?displayName(INDEX[id].item):prettyId(id)):'Unknown Participant');
+    return {id,name,role:p.role||p.description||p.title||p.note||p.summary||'',kind:p.kind||p.type||''};
+  };
+  const addParticipant=(p,roleHint)=>{
+    const rec=normalizeParticipant(p); if(!rec||(!rec.id&&!rec.name)) return;
+    const key=rec.id||String(rec.name).toLowerCase();
+    const existing=participantMap.get(key)||{};
+    participantMap.set(key,Object.assign({},existing,rec,{role:existing.role||rec.role||roleHint||''}));
+  };
+  [].concat(item.participants||[],item.participatingCharacters||[]).forEach(p=>addParticipant(p));
+  (item.relatedArticles||[]).forEach(id=>{ if(id&&INDEX[id]&&INDEX[id].typeKey==='characters') addParticipant({id},'Related character'); });
+  xpAwardsForEvent(item.id).forEach(a=>addParticipant({id:a.articleId,name:a.name},'XP recipient'));
+  const participantCards=[...participantMap.values()].map(p=>{
+    const linked=p.id&&INDEX[p.id];
+    const route=linked?`onclick="openId('${esc(p.id)}')"`:'';
+    const type=linked?TYPE_BY_KEY[INDEX[p.id].typeKey].singular:(p.kind||'Participant');
+    const initials=String(p.name||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?';
+    return `<div class="event-participant-card ${linked?'linked':'unlinked'}" ${route}>
+      <div class="event-participant-avatar">${esc(initials)}</div>
+      <div class="event-participant-body"><div class="event-participant-name">${esc(p.name||prettyId(p.id))}</div>${p.role?`<div class="event-participant-role">${esc(p.role)}</div>`:''}<div class="event-participant-meta">${esc(type)}${linked?' · Open dossier →':' · no dossier yet'}</div></div>
+    </div>`;
+  }).join('');
+  const people=participantCards?`<div class="event-participants"><div class="event-participant-grid">${participantCards}</div></div>`:'';
   const awards=xpAwardsForEvent(item.id).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
   const effectsPanel = renderReputationImpactPanel(item);
   if(!people && !awards && !effectsPanel) return '';
   if(!awards && !people) return effectsPanel;
-  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div></div></div>${effectsPanel}`;
+  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 Participants</h3>${people}</div></div></div>${effectsPanel}`;
   if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
-  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 People Involved</h3><div class="related-list">${people}</div></div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
+  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 Participants</h3>${people}</div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
 function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const rec=(DATA?.events||[]).find(e=>e&&e.id===eventId);if(Array.isArray(rec?.xpAwards))base.push(...rec.xpAwards);const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
@@ -4435,12 +4567,14 @@ function routeForKind(kind,id){
     case 'chronicle':return '#/chronicle/'+encodeURIComponent(id);
     case 'annotation':return '#/annotations';
     case 'collection':return '#/collection/'+encodeURIComponent(id);
+    case 'craftingrecipe':return '#/crafting/recipe/'+encodeURIComponent(id);
+    case 'craftingmaterial':return '#/crafting/material/'+encodeURIComponent(id);
     case 'system':return id;
     default:return '#/article/'+encodeURIComponent(id);
   }
 }
 function kindEmoji(kind,typeKey){
-  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚',chronicle:'📜',annotation:'💬',collection:'🗂️'};
+  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',chronicle:'📜',annotation:'💬',collection:'🗂️'};
   if(m[kind])return m[kind];
   return TYPE_BY_KEY[typeKey]?TYPE_BY_KEY[typeKey].emoji:'📄';
 }
@@ -4514,7 +4648,7 @@ function safeAliases(name,kind,rawObj){
 function buildLinkRegistry(){
   LINK_ENTRIES=[]; LINK_PREVIEW={};
   // Priority: when several entities claim the same alias, the higher-priority one wins the link.
-  const PRI={ article:100, nation:95, artifact:80, bearer:78, invitem:76, currency:75, vendor:74, dynasty:72, conflict:70, majorbattle:68, holiday:50, member:40, session:38, crisis:36, vote:30, system:20 };
+  const PRI={ article:100, nation:95, artifact:80, bearer:78, invitem:76, craftingrecipe:75, craftingmaterial:74, currency:75, vendor:74, dynasty:72, conflict:70, majorbattle:68, holiday:50, member:40, session:38, crisis:36, vote:30, system:20 };
   const claims={}; // aliasLower -> [{id,kind,name,exact,pri}]
   const add=(name,id,kind,typeKey,summary,sub,rawObj)=>{
     if(!name||!id)return;
@@ -4534,6 +4668,8 @@ function buildLinkRegistry(){
   (DATA.congress_votes||[]).forEach(v=>{ if(!v) return; add(v.title,v.id,'vote',null,v.description,('Vote #'+v.number),v); });
   // public inventory items
   Object.entries((INVENTORY_SYSTEM&&INVENTORY_SYSTEM.items)||{}).forEach(([iid,it])=>{ if(!it || iid==='hidden_item_slot') return; add(it.name,iid,'invitem',null,it.summary||it.description,it.rarity||it.type,it); });
+  ((DATA.crafting&&DATA.crafting.recipes)||[]).forEach(r=>{ if(!r) return; add(r.name,r.id,'craftingrecipe',null,r.description||r.effect,`Recipe · ${r.category||r.type||'crafting'}`,r); });
+  ((DATA.crafting&&DATA.crafting.materials)||[]).forEach(m=>{ if(!m) return; add(m.name,m.id,'craftingmaterial',null,m.description,`Material · ${m.rarity||m.category||'component'}`,m); });
   // books & codices
   const allBooks = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
   allBooks.forEach(b => {
@@ -4598,6 +4734,7 @@ function buildLinkRegistry(){
   // world systems
   add('Reputation Matrix','#/reputation','system',null,'100+ Faction Standings & Infamy Heat Watch','World System');
   add('Currency Exchange','currency.html','system',null,'Universal Currency Converter & Multi-Tender Settlement','World System');
+  add('Crafting Codex','#/crafting','system',null,'Scrolls, potions, enchantments, smithing recipes, and crafting materials integrated into Waluipedia','Crafting System');
   add('Wario Warehouse Shop','shop.html','system',null,'7,880+ Marketplace Items Listed for Sale','Commerce Hub');
   add('Unified Calendar','#/calendar','system',null,'Imperial Dates, Timelines & Holidays','World System');
   add('Grand Library Archive','books/library.html','system',null,'40+ Historic Codices, Text Collections & Library Stock','Lore System');
@@ -4752,53 +4889,162 @@ function mdToHtml(md,linkCtx){
 function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
-const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:()=>'🏛️',conflict:()=>'💥',majorbattle:()=>'🗡️',artifact:()=>'⭐',invitem:()=>'🎒',bearer:()=>'✴️',member:()=>'🏳️',session:()=>'📋',crisis:()=>'⚠️',faction:()=>'⚔️',dynasty:()=>'👑',vendor:()=>'🏪',holiday:()=>'🎉'};
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey].singular; if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; return ''; }
-function search(q){
-  q=q.trim().toLowerCase(); if(!q)return[];
-  const cleanQ = q.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ');
-  const terms = cleanQ.split(/\s+/).filter(Boolean);
-  if (!terms.length) return [];
-  const out=[];
-  for(const d of SEARCH_DOCS){let score=0,ok=true;
-    const normName = d.name.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ').replace(/\s+/g, ' ').trim();
-    const normHay = d.hay.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ').replace(/\s+/g, ' ').trim();
-    for(const t of terms){const inName=normName.includes(t),inHay=normHay.includes(t);
-      if(!inName&&!inHay){ok=false;break;}
-      if(normName===t)score+=120;if(normName.startsWith(t))score+=40;if(inName)score+=30;if(inHay)score+=6;}
-    if(ok){
-      const normCleanQ = cleanQ.replace(/\s+/g, ' ').trim();
-      if(normName===normCleanQ)score+=200;
-      if(normName.includes(normCleanQ))score+=150;
-      if(normHay.includes(normCleanQ))score+=120;
-      out.push({...d,score});
-    }
+const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪'};
+const SEARCH_CATEGORIES=[
+  ['all','All'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays']
+];
+const SEARCH_CATEGORY_ALIASES={all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays'};
+function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; return prettyId(d.kind||'record'); }
+function docCategory(d){
+  if(d.kind==='article'){
+    if(d.typeKey==='characters')return 'characters';
+    if(d.typeKey==='factions')return 'factions';
+    if(d.typeKey==='events'||d.typeKey==='trials')return 'events';
+    if(d.typeKey==='locations'||d.typeKey==='nations'||d.typeKey==='races'||d.typeKey==='cultures')return 'locations';
+    if(d.typeKey==='battles'||d.typeKey==='majorBattles'||d.typeKey==='conflicts')return 'battles';
+    if(d.typeKey==='collections')return 'articles';
+    return 'articles';
   }
-  out.sort((a,b)=>b.score-a.score);return out.slice(0,40);
+  if(['artifact','invitem','bearer','craftingrecipe','craftingmaterial'].includes(d.kind))return 'items';
+  if(['vote','member','session','crisis'].includes(d.kind))return 'congress';
+  if(['conflict','majorbattle'].includes(d.kind))return 'battles';
+  if(d.kind==='currency')return 'currencies';
+  if(d.kind==='book')return 'books';
+  if(d.kind==='chronicle')return 'chronicles';
+  if(d.kind==='dynasty')return 'dynasties';
+  if(d.kind==='vendor')return 'vendors';
+  if(d.kind==='holiday')return 'holidays';
+  if(d.kind==='collection')return 'articles';
+  if(d.kind==='faction')return 'factions';
+  return 'articles';
+}
+function categoryMatches(d,cat){
+  if(!cat||cat==='all')return true;
+  if(cat==='articles')return d.kind==='article'||d.kind==='collection';
+  return docCategory(d)===cat;
+}
+function normalizeSearchText(s){return String(s||'').toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘\[\]<>]/g,' ').replace(/\s+/g,' ').trim();}
+function parseSearchQuery(raw,opts){
+  let q=String(raw||'').trim();
+  const categorySelect=el('searchCategory'),modeSelect=el('searchMode');
+  let category=(opts&&opts.category)||categorySelect?.value||'all';
+  let mode=(opts&&opts.mode)||modeSelect?.value||'smart';
+  q=q.replace(/(?:^|\s)(?:@|(?:cat(?:egory)?|type|in):)([a-z0-9_-]+)/ig,(m,c)=>{const mapped=SEARCH_CATEGORY_ALIASES[String(c).toLowerCase()]||category;if(!(opts&&opts.keepPrefixCategory))category=mapped;return ' ';}).trim();
+  const quoted=[]; q=q.replace(/"([^"]+)"|'([^']+)'/g,(m,a,b)=>{const val=(a||b||'').trim();if(val)quoted.push(normalizeSearchText(val));return ' ';}).trim();
+  const clean=normalizeSearchText(q);
+  const terms=clean.split(/\s+/).filter(t=>t.length>0);
+  return {raw:String(raw||''),q,clean,terms,quoted,category,mode};
+}
+function scoreDoc(d,parsed,mode){
+  if(!categoryMatches(d,parsed.category))return null;
+  const label=searchTypeLabel(d);
+  const name=normalizeSearchText(d.name);
+  const id=normalizeSearchText(d.id);
+  const summary=normalizeSearchText(d.summary||'');
+  const hay=normalizeSearchText([d.id,d.name,label,d.typeKey,d.summary,d.hay].filter(Boolean).join(' '));
+  const query=parsed.clean;
+  const terms=parsed.terms;
+  let score=0,matched=0;
+  if(mode==='exact'){
+    const phrases=parsed.quoted.length?parsed.quoted:(query?[query]:[]);
+    if(!phrases.length)return null;
+    for(const ph of phrases){
+      if(name===ph)score+=420;
+      else if(name.includes(ph))score+=260;
+      else if(summary.includes(ph))score+=150;
+      else if(hay.includes(ph))score+=100;
+      else return null;
+    }
+    matched=phrases.length;
+  }else{
+    if(!terms.length&&!parsed.quoted.length)return null;
+    for(const ph of parsed.quoted){
+      if(name.includes(ph)){score+=230;matched++;}
+      else if(hay.includes(ph)){score+=115;matched++;}
+      else if(mode!=='any')return null;
+    }
+    for(const t of terms){
+      if(!t)continue;
+      const wordBoundary=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+      const inId=id.includes(t), starts=name.startsWith(t), inName=name.includes(t), boundary=wordBoundary.test(name), inSummary=summary.includes(t), inHay=hay.includes(t);
+      if(inId||starts||inName||inSummary||inHay){
+        matched++;
+        if(id===t)score+=180;
+        if(name===t)score+=260;
+        if(starts)score+=100;
+        if(boundary)score+=70;
+        if(inName)score+=55;
+        if(inSummary)score+=22;
+        if(inHay)score+=8;
+      }else if(mode!=='any')return null;
+    }
+    if(mode==='any' && matched===0)return null;
+    if((mode==='all'||mode==='smart') && matched < (terms.length+parsed.quoted.length))return null;
+  }
+  if(query){
+    if(name===query)score+=380;
+    else if(name.startsWith(query))score+=220;
+    else if(name.includes(query))score+=160;
+    if(hay.includes(query))score+=70;
+  }
+  if(d.kind==='article')score+=12;
+  if(docCategory(d)===parsed.category&&parsed.category!=='all')score+=35;
+  return score;
+}
+function search(q,opts={}){
+  const parsed=parseSearchQuery(q,opts);
+  if(!parsed.clean&&!parsed.quoted.length)return[];
+  const run=(mode)=>{
+    const out=[];
+    for(const d of SEARCH_DOCS){const score=scoreDoc(d,parsed,mode);if(score!=null)out.push({...d,score,cat:docCategory(d)});}
+    out.sort((a,b)=>b.score-a.score||String(a.name).localeCompare(String(b.name)));
+    return out;
+  };
+  let out=run(parsed.mode==='smart'?'all':parsed.mode);
+  if(parsed.mode==='smart'&&!out.length&&parsed.terms.length>1)out=run('any').map(r=>Object.assign(r,{score:Math.max(1,r.score-40)}));
+  return out.slice(0,opts.limit||60);
 }
 function highlight(text,q){
   if(!q)return esc(text);
-  const cleanQ = q.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘]/g, ' ');
-  const terms=cleanQ.trim().split(/\s+/).filter(Boolean).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  const parsed=parseSearchQuery(q,{category:'all'});
+  const terms=[...parsed.quoted,...parsed.terms].filter(Boolean).sort((a,b)=>b.length-a.length).slice(0,8).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
   let o=esc(text);
-  terms.forEach(t=>{o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
+  terms.forEach(t=>{if(t.length>1)o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
   return o;
 }
-function openSearchResult(d){ if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
+function openSearchResult(d){ if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
 
-const searchInput=el('search'),resultsBox=el('results');let activeIdx=-1,currentResults=[];
+const searchInput=el('search'),resultsBox=el('results'),searchCategory=el('searchCategory'),searchMode=el('searchMode');let activeIdx=-1,currentResults=[];
+function searchCounts(q){const all=search(q,{category:'all',limit:600});const counts={all:all.length};all.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});return counts;}
+function renderSearchHelp(){
+  currentResults=[];activeIdx=-1;
+  const chips=['characters','events','items','currencies','battles','books'].map(cat=>`<span class="search-chip" data-search-cat="${cat}">${SEARCH_CATEGORIES.find(x=>x[0]===cat)?.[1]||prettyId(cat)}</span>`).join('');
+  resultsBox.innerHTML=`<div class="search-panel-head"><div class="search-panel-title"><b>Waluipedia Search Console</b><span>/ or Ctrl+K focuses · ↑↓ selects · Enter opens</span></div><div class="search-chipbar">${chips}</div></div><div class="search-help"><b>Tips:</b> choose a category, switch Smart/Exact/Any matching, use quotes for a phrase like <b>"Mirror of True Reflection"</b>, or type quick filters like <b>@characters bowser</b>, <b>@events feyward</b>, <b>type:currency gold</b>. Waluigi has made the search less embarrassing. You are welcome.</div>`;
+  resultsBox.classList.add('show');
+  bindSearchChips();
+}
+function bindSearchChips(){resultsBox.querySelectorAll('[data-search-cat]').forEach(ch=>ch.addEventListener('click',e=>{e.stopPropagation();if(searchCategory)searchCategory.value=ch.dataset.searchCat;runSearch(true);}));}
 function renderResults(list,q){
   currentResults=list;activeIdx=-1;
-  if(!q){resultsBox.classList.remove('show');resultsBox.innerHTML='';return;}
-  if(!list.length){resultsBox.innerHTML='<div class="res-empty">No results. Waluigi finds your query disappointing.</div>';resultsBox.classList.add('show');return;}
-  const headerHtml = `<div style="padding:10px 14px 4px 14px; font-size:11px; text-transform:uppercase; letter-spacing:.8px; color:var(--accent2); border-bottom:1px solid var(--border); background:rgba(138,75,255,.05)">Waluigi begrudgingly found ${list.length} matches. You better be grateful! WAH!</div>`;
-  resultsBox.innerHTML=headerHtml + list.map((r,i)=>`<div class="res-item" data-i="${i}"><span style="font-size:18px">${SEARCH_META[r.kind](r.typeKey)}</span><div style="min-width:0"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span>${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'').slice(0,140),q)}</div></div></div>`).join('');
+  if(!q){renderSearchHelp();return;}
+  const parsed=parseSearchQuery(q);
+  const counts=searchCounts(q);
+  const total=counts.all||0;
+  const chipHtml=SEARCH_CATEGORIES.filter(([cat])=>cat==='all'||counts[cat]||cat===parsed.category).map(([cat,label])=>`<span class="search-chip ${cat===parsed.category?'active':''}" data-search-cat="${cat}">${esc(label)}${counts[cat]?` ${counts[cat]}`:''}</span>`).join('');
+  const headerHtml=`<div class="search-panel-head"><div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b><span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
+  if(!list.length){resultsBox.innerHTML=headerHtml+'<div class="res-empty">No matches in this filter. Try All, Any word, or fewer words. Waluigi refuses to blame the index this time.</div>';resultsBox.classList.add('show');bindSearchChips();return;}
+  resultsBox.innerHTML=headerHtml + list.map((r,i)=>`<div class="res-item" data-i="${i}"><span class="res-icon">${esc(searchIcon(r))}</span><div style="min-width:0;flex:1"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span><span class="rscore">${esc(SEARCH_CATEGORIES.find(x=>x[0]===r.cat)?.[1]||prettyId(r.cat))}</span>${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'No summary filed.').slice(0,190),q)}</div></div></div>`).join('');
   resultsBox.classList.add('show');
+  bindSearchChips();
   resultsBox.querySelectorAll('.res-item').forEach((n,i)=>n.addEventListener('click',()=>{openSearchResult(currentResults[i]);closeSearch();}));
 }
+function runSearch(showHelp){const q=searchInput.value;if(!q.trim()){if(showHelp)renderSearchHelp();else closeSearch();return;}renderResults(search(q),q);}
 function closeSearch(){resultsBox.classList.remove('show');}
-searchInput.addEventListener('input',()=>renderResults(search(searchInput.value),searchInput.value));
-searchInput.addEventListener('focus',()=>{if(searchInput.value)renderResults(search(searchInput.value),searchInput.value);});
+searchInput.addEventListener('input',()=>runSearch(false));
+searchInput.addEventListener('focus',()=>runSearch(true));
+if(searchCategory)searchCategory.addEventListener('change',()=>runSearch(true));
+if(searchMode)searchMode.addEventListener('change',()=>runSearch(true));
 searchInput.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown'){e.preventDefault();activeIdx=Math.min(activeIdx+1,currentResults.length-1);paintActive();}
   else if(e.key==='ArrowUp'){e.preventDefault();activeIdx=Math.max(activeIdx-1,0);paintActive();}
@@ -4816,10 +5062,11 @@ function renderSidebar(active){
   h+=`<div class="navlink ${active==='list:cultures'?'active':''}" onclick="Router.go('#/cultures')"><span><span class="emoji">⚖️</span> Cultures & Laws</span><span class="cnt">${(DATA.cultures||[]).length}</span></div>`;
   h+=`<div class="navlink ${active==='power'?'active':''}" onclick="Router.go('#/power')"><span><span class="emoji">⚡</span> Power Projection</span></div>`;
   h+=`<div class="navlink ${active==='imperial-network'?'active':''}" onclick="Router.go('#/imperial-network')"><span><span class="emoji">🕸️</span> Imperial Pressure Network</span></div>`;
-  const isJournalActive = (active==='journal' || h1.includes('thornburys_field_journal'));
-  h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/article/thornburys_field_journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
+  const isJournalActive = (active==='journal' || h1.includes('field-journal') || h1.includes('thornburys_field_journal'));
+  h+=`<div class="navlink ${isJournalActive?'active':''}" onclick="Router.go('#/field-journal')"><span><span class="emoji">📓</span> Thornbury's Journal</span></div>`;
   h+=`<div class="navlink ${active==='dynasties'?'active':''}" onclick="Router.go('#/dynasties')"><span><span class="emoji">👑</span> Dynasties</span><span class="cnt">${Object.keys(DYNASTY_SYSTEM.houses||{}).length}</span></div>`;
   h+=`<div class="navlink ${active==='items'?'active':''}" onclick="Router.go('#/items')"><span><span class="emoji">🎒</span> Items</span><span class="cnt">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1}+shop</span></div>`;
+  h+=`<div class="navlink ${active==='crafting'?'active':''}" onclick="Router.go('#/crafting')"><span><span class="emoji">⚒️</span> Crafting</span><span class="cnt">${((DATA.crafting&&DATA.crafting.recipes)||[]).length||0}</span></div>`;
   h+=`<div class="navlink ${active==='books'?'active':''}" onclick="Router.go('#/books')"><span><span class="emoji">📚</span> Library & Books</span><span class="cnt">${((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}</span></div>`;
   h+=`</div><div class="navsec"><div class="navhead">Encyclopedia</div>`;
   TYPES.filter(t=>!['locations','nations'].includes(t.key)).forEach(t=>{h+=`<div class="navlink ${active==='list:'+t.key?'active':''}" onclick="Router.go('#/list/${t.key}')"><span><span class="emoji">${t.emoji}</span> ${t.label}</span><span class="cnt">${(DATA[t.key]||[]).length}</span></div>`;});
@@ -5092,42 +5339,60 @@ function speciesSystemPanel(){
 function view_list(key){
   const t=TYPE_BY_KEY[key];if(!t){view_home();return;}
   renderSidebar('list:'+key);
-  const items=(DATA[key]||[]).slice();const field=typeFilterField(key);
-  // build grouped, counted filter values from the normalizer
+  const items=(DATA[key]||[]).slice();
   const counts={};
-  items.forEach(i=>{const g=filterGroup(key,i);if(g){counts[g]=(counts[g]||0)+1;}});
-  // sort groups by count desc, then alphabetically
-  const allGroups=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
-  // show the top groups as chips; roll the long tail of rare groups into "Other"
-  const MAX_CHIPS=14;
-  let topGroups=allGroups, otherGroups=[];
-  if(allGroups.length>MAX_CHIPS+1){
-    topGroups=allGroups.slice(0,MAX_CHIPS);
-    otherGroups=allGroups.slice(MAX_CHIPS);
-  }
-  const otherSet=new Set(otherGroups);
-  const otherCount=otherGroups.reduce((s,g)=>s+counts[g],0);
-  const values=topGroups;
-  const st=listState[key]||(listState[key]={filter:'All',sort:'az'});
-  const matchesFilter=(i)=>{ if(st.filter==='All') return true; if(st.filter==='__other__') return otherSet.has(filterGroup(key,i)); return filterGroup(key,i)===st.filter; };
+  items.forEach(i=>{const g=filterGroup(key,i)||'Ungrouped';counts[g]=(counts[g]||0)+1;});
+  const groups=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
+  const filterGroups=groups.filter(g=>(counts[g]||0)>1);
+  const st=listState[key]||(listState[key]={filter:'All',sort:'az',query:''});
+  const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const recordText=i=>clean([i.id,displayName(i),i.title,i.type,i.status,i.affiliation,i.race,i.region,i.era,i.location,i.summary,i.description,(i.tags||[]).join(' ')].filter(Boolean).join(' '));
+  const wordCount=i=>words([i.description,i.summary].filter(Boolean).join(' '));
+  const recordYear=i=>parseYear(i.date)||parseYear(i.era)||parseYear(i.status)||0;
+  const matchesFilter=i=>st.filter==='All'||(filterGroup(key,i)||'Ungrouped')===st.filter;
+  const matchesQuery=i=>{
+    const q=clean(st.query||''); if(!q) return true;
+    const hay=recordText(i); return q.split(/\s+/).filter(Boolean).every(term=>hay.includes(term));
+  };
+  const sorters={
+    az:(a,b)=>displayName(a).localeCompare(displayName(b)),
+    za:(a,b)=>displayName(b).localeCompare(displayName(a)),
+    group:(a,b)=>String(filterGroup(key,a)||'Ungrouped').localeCompare(String(filterGroup(key,b)||'Ungrouped'))||displayName(a).localeCompare(displayName(b)),
+    status:(a,b)=>String(a.status||'').localeCompare(String(b.status||''))||displayName(a).localeCompare(displayName(b)),
+    newest:(a,b)=>recordYear(b)-recordYear(a)||displayName(a).localeCompare(displayName(b)),
+    longest:(a,b)=>wordCount(b)-wordCount(a)||displayName(a).localeCompare(displayName(b)),
+    shortest:(a,b)=>wordCount(a)-wordCount(b)||displayName(a).localeCompare(displayName(b))
+  };
+  const sortLabels={az:'Name A→Z',za:'Name Z→A',group:'Group / Category',status:'Status',newest:'Newest / latest BF',longest:'Most detailed',shortest:'Briefest'};
+  const groupLabel=()=>({characters:'Affiliation',factions:'Type',events:'Era',battles:'Type',locations:'Region',races:'Type',nations:'Type',collections:'Type',trials:'Status'}[key]||'Group');
   const draw=()=>{
-    let arr=items.slice().filter(matchesFilter);
-    arr.sort((a,b)=>st.sort==='az'?displayName(a).localeCompare(displayName(b)):displayName(b).localeCompare(displayName(a)));
-    let chipArr=[`<span class="chip ${st.filter==='All'?'active':''}" data-v="All">All <span class="opacity-6">${items.length}</span></span>`]
-      .concat(values.map(v=>`<span class="chip ${st.filter===v?'active':''}" data-v="${esc(v)}">${esc(v)} <span class="opacity-6">${counts[v]}</span></span>`));
-    if(otherGroups.length) chipArr.push(`<span class="chip ${st.filter==='__other__'?'active':''}" data-v="__other__" title="${esc(otherGroups.join(', '))}">Other <span class="opacity-6">${otherCount}</span></span>`);
-    const chips=chipArr.join('');
+    if(st.filter!=='All' && (counts[st.filter]||0)<=1) st.filter='All';
+    let arr=items.slice().filter(i=>matchesFilter(i)&&matchesQuery(i));
+    arr.sort(sorters[st.sort]||sorters.az);
+    const showGroupFilter=filterGroups.length>0;
+    const groupOptions=['All'].concat(filterGroups).map(g=>`<option value="${esc(g)}" ${st.filter===g?'selected':''}>${esc(g)}${g==='All'?` (${items.length})`:` (${counts[g]||0})`}</option>`).join('');
+    const groupControl=showGroupFilter?`<label><span>${esc(groupLabel())}</span><select id="listGroup_${key}">${groupOptions}</select></label>`:'';
+    const sortOptions=Object.entries(sortLabels).map(([k,l])=>`<option value="${k}" ${st.sort===k?'selected':''}>${esc(l)}</option>`).join('');
     const tiles=arr.map(i=>{
       const sub=i.title||i.type||'';const meta=[];
       if(i.status)meta.push(`<span class="pill">${esc(String(i.status).split('—')[0].trim())}</span>`);
       const g=filterGroup(key,i);
       if(g&&g!==sub)meta.push(`<span class="pill">${esc(g)}</span>`);
+      const wc=wordCount(i); if(wc>600)meta.push(`<span class="pill">${wc.toLocaleString()} words</span>`);
       const visual=cardVisual(i,key);
-      return `<div class="arttile" onclick="openId('${esc(i.id)}')">${visual}<div class="tt">${esc(displayName(i))}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${sub?`<div class="tsub">${esc(sub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
+      return `<div class="arttile ${key==='characters'?'character-tile':''}" onclick="openId('${esc(i.id)}')">${visual}<div class="tt">${esc(displayName(i))}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${sub?`<div class="tsub">${esc(sub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
     }).join('');
-    el('content').innerHTML=`<div class="card animate-fade-in"><div class="listhead"><h2>${t.emoji} ${t.label} <span style="color:var(--muted);font-size:15px">(${arr.length})</span></h2><div class="chip" id="sortBtn">Sort: ${st.sort==='az'?'A→Z':'Z→A'}</div></div>${key==='battles'?battleHubPanel():''}${key==='races'?speciesSystemPanel():''}${values.length>1?`<div class="chips" id="filterChips" class="mb-14">${chips}</div>`:''}<div class="artgrid">${tiles||'<p class="text-muted">No articles.</p>'}</div></div>`;
-    const fc=el('filterChips');if(fc)fc.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{st.filter=c.dataset.v;draw();}));
-    const sb=el('sortBtn');if(sb)sb.addEventListener('click',()=>{st.sort=st.sort==='az'?'za':'az';draw();});
+    const qid=`listSearch_${key}`, gid=`listGroup_${key}`, sid=`listSort_${key}`;
+    const activeBits=[];
+    if(st.filter!=='All')activeBits.push(`${groupLabel()}: ${st.filter}`);
+    if(st.query)activeBits.push(`Search: “${st.query}”`);
+    activeBits.push(`Sort: ${sortLabels[st.sort]||sortLabels.az}`);
+    el('content').innerHTML=`<div class="card animate-fade-in"><div class="listhead"><h2>${t.emoji} ${t.label} <span style="color:var(--muted);font-size:15px">(${arr.length}/${items.length})</span></h2></div>${key==='battles'?battleHubPanel():''}${key==='races'?speciesSystemPanel():''}<div class="list-toolbar"><label><span>Search</span><input id="${qid}" value="${esc(st.query||'')}" placeholder="Filter ${esc(t.label.toLowerCase())} by name, title, status, text…"></label>${groupControl}<label><span>Sort</span><select id="${sid}">${sortOptions}</select></label><button class="list-clear-btn" id="listClear_${key}" type="button">Clear</button></div><div class="list-active-line">${activeBits.map(x=>`<span>${esc(x)}</span>`).join('')}</div><div class="artgrid">${tiles||'<p class="text-muted">No matching articles. Waluigi suggests fewer filters.</p>'}</div></div>`;
+    const q=el(qid), g=el(gid), so=el(sid), clear=el(`listClear_${key}`);
+    if(q)q.addEventListener('input',()=>{st.query=q.value;draw();setTimeout(()=>{const nq=el(qid);if(nq){nq.focus();nq.setSelectionRange(nq.value.length,nq.value.length);}},0);});
+    if(g)g.addEventListener('change',()=>{st.filter=g.value;draw();});
+    if(so)so.addEventListener('change',()=>{st.sort=so.value;draw();});
+    if(clear)clear.addEventListener('click',()=>{st.filter='All';st.query='';st.sort='az';draw();});
   };
   draw();window.scrollTo(0,0);
 }
@@ -5211,6 +5476,7 @@ function atlasChips(arr,kind){
   return (arr||[]).slice(0,80).map(o=>{const rec=INDEX[o.id]; const route= rec?`#/article/${encodeURIComponent(o.id)}`:(kind==='battle'&&o.conflict?`#/mbattle/${encodeURIComponent(o.id)}`:'#/home'); return `<span class="rel-chip" onclick="Router.go('${route}')"><span class="rt">${esc(kind)}</span>${esc(displayName(o)||o.name||o.id)}</span>`;}).join('')||'<p class="text-muted">No linked records yet.</p>';
 }
 function view_atlasNation(id){
+  document.body.classList.add('hide-walu-ambient');
   id=atlasCanonical(id);
   renderSidebar('atlas'); buildAtlasIndex(); const x=ATLAS_INDEX[id]; if(!x){view_atlas();return;} const n=x.nation;
   const stats=atlasStatCard('Locations',x.locations.length)+atlasStatCard('Events',x.events.length)+atlasStatCard('Battles',x.battles.length)+atlasStatCard('Trials',x.trials.length)+atlasStatCard('Factions',x.factions.length)+atlasStatCard('Species',x.species.length);
@@ -5219,15 +5485,17 @@ function view_atlasNation(id){
   const cfg=NATION_ATLAS_CONFIG[id]||{};
   const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
   const mapFile = cfg.mapFile ? pathPrefix + cfg.mapFile : '';
+  const mapEmbedFile = mapFile ? mapFile + (mapFile.includes('?')?'&':'?') + 'embed=1' : '';
+  const mapFrameId = `atlasMapFrame_${String(id).replace(/[^a-z0-9_]/gi,'_')}`;
   const mapIframe = mapFile 
-    ? `<div class="card" style="padding:0; overflow:hidden; border:1px solid var(--border); border-radius:var(--radius); margin-top: 20px;">
-         <div style="background:var(--panel2); padding:10px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-           <h3 style="margin:0; font-family:var(--font-display); font-size:14px; color:var(--accent2); display:flex; align-items:center; gap:8px;">🗺️ ${esc(cfg.label || displayName(n))} Tactical Map</h3>
-           <span class="pill" style="font-size:10px; text-transform:uppercase; letter-spacing:0.5px; background:rgba(138,75,255,0.1); border-color:rgba(138,75,255,0.3); color:#a78bfa;">Interactive D3 Satellite Monitor</span>
+    ? `<div class="card atlas-map-applet">
+         <div class="atlas-map-toolbar">
+           <div><h3>🗺️ ${esc(cfg.label || displayName(n))} Tactical Map Applet</h3><p>${esc(cfg.status||'Embedded interactive regional map with POIs, modes, search, and detail panel.')}</p></div>
+           <div class="chips"><span class="chip active" onclick="document.getElementById('${esc(mapFrameId)}').src='${esc(mapEmbedFile)}'">Reset applet</span><a class="chip" href="${esc(mapFile)}">Open full screen →</a></div>
          </div>
-         <iframe src="${esc(mapFile)}" style="width:100%; height:620px; border:none; background:#0b0f19;"></iframe>
+         <iframe id="${esc(mapFrameId)}" src="${esc(mapEmbedFile)}" title="${esc(cfg.label || displayName(n))} Tactical Map"></iframe>
        </div>`
-    : '';
+    : `<div class="card atlas-map-empty"><h3>🗺️ No live map applet filed yet</h3><p class="text-muted">This realm has atlas records, but Waluigi has not connected a tactical map file. Locations and event records below remain available.</p></div>`;
 
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${flagArt(n)}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${mapFile?`<span class="chip" onclick="location.href='${esc(mapFile)}'">Open Full Screen</span>`:''}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${mapIframe}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
   window.scrollTo(0,0);
@@ -5694,17 +5962,75 @@ function view_dynasty(id){
 
 function invForChar(id){return (INVENTORY_SYSTEM.inventories&&INVENTORY_SYSTEM.inventories[id])||[];}
 function itemDef(id){return (INVENTORY_SYSTEM.items&&INVENTORY_SYSTEM.items[id])||INVENTORY_SYSTEM.items.hidden_item_slot;}
+function walletSource(){
+  const src=(DATA&&DATA.wallets)||INVENTORY_SYSTEM.wallets||{};
+  return Object.fromEntries(Object.entries(src).filter(([k,v])=>v&&typeof v==='object'&&!String(k).startsWith('_')));
+}
+const MAIN_WALLET_ALIASES={archie_miser:'archie',remi_akamatsu_full_backstory:'remi'};
 function walletForChar(id,item){
+  const entries=Object.entries(walletSource());
+  const alias=MAIN_WALLET_ALIASES[id];
+  if(alias){const aliased=entries.find(([k])=>k.toLowerCase()===alias); if(aliased) return aliased[1];}
   const names=[id, displayName(item||{}), (item&&item.name)||''].map(x=>String(x||'').toLowerCase());
-  const entries=Object.entries(INVENTORY_SYSTEM.wallets||{});
   return entries.find(([k,w])=>names.includes(k.toLowerCase())||names.includes(String(w.name||'').toLowerCase()))?.[1]||null;
 }
-function bankRecordsForName(name){name=String(name||'').toLowerCase();const b=INVENTORY_SYSTEM.banking||{};return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name),loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name),debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name||String(x.creditor||'').toLowerCase()===name)};}
-function currencyName(k){return (INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k]&&INVENTORY_SYSTEM.currencies[k].name)||prettyId(k);}
+function bankingSource(){return (DATA&&DATA.banking)||INVENTORY_SYSTEM.banking||{};}
+function bankRecordsForName(name){name=String(name||'').toLowerCase();const b=bankingSource();return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name),loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name),debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name||String(x.creditor||'').toLowerCase()===name)};}
+function currencyListSource(){
+  const src=(DATA&&DATA.currencies)||null;
+  if(Array.isArray(src)) return src;
+  if(src&&Array.isArray(src.currencies)) return src.currencies;
+  return [];
+}
+function normCurrencyKey(v){return String(v||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');}
+const CURRENCY_BUILTIN_DEFS={
+  platinum:{id:'platinum',name:'Platinum Piece',icon:'💎',base_value:10,tier:1,category:'core',type:'Metal'},
+  electrum:{id:'electrum',name:'Electrum Piece',icon:'⚪',base_value:0.5,tier:1,category:'core',type:'Metal'},
+  bronze:{id:'bronze',name:'Bronze Piece',icon:'🟫',base_value:0.01,tier:1,category:'core',type:'Metal'}
+};
+function currencyDef(k){
+  const key=normCurrencyKey(k);
+  const modern=currencyListSource().find(c=>normCurrencyKey(c.id||c.key||c.name)===key || normCurrencyKey(c.name)===key);
+  if(modern) return modern;
+  const legacy=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k])||null;
+  if(legacy) return Object.assign({id:k},legacy);
+  return CURRENCY_BUILTIN_DEFS[key]||null;
+}
+const CURRENCY_ICON_FALLBACKS={
+  gold:'💰', silver:'🪙', copper:'🟤', bronze:'🟫', platinum:'💎', electrum:'⚪',
+  midland_ducat:'🦁', imperial_crown:'👑', archive_writ:'📜', dwarf_oathgold:'⛏️', mora:'🪨', rupee:'💚', poke_dollar:'₽',
+  mushroom_coin:'🍄', peach_crown:'🍑', toad_bond:'🤝', relief_stamp:'🎟️', decree_strip:'📜', beanbean_bean:'🫘', toad_whistle:'📯',
+  wario_coin:'🟡', wario_points:'⭐', bowser_bux:'🐢', shell_credit:'🐚', banana_medallion:'🏅', coconut_bar:'🥥', kremling_koin:'🐊',
+  doubloon:'🏴‍☠️', cargo_share:'📦', arcane_shard:'💎', guild_seal:'🔮', transit_stamp:'🌀', astral_pearl:'🫧',
+  kivotos_credit:'💠', data_chit:'💾', credstick:'💳', soul_coin:'😈', blood_vial:'🩸', shadow_obol:'⚫', vampire_marker:'🦇', index_token:'🗂️',
+  warpstone:'☢️', warpstone_token:'☢️', broker_mark:'🕶️', tea_chit:'🍵', spirit_bead:'📿', fey_acorn:'🌰', court_leaf:'🍂', autumn_leaf:'🍃',
+  icon_gold_png:'💰', icon_silver_png:'🪙', icon_copper_png:'🟤', icon_midland_ducat_png:'🦁', icon_currency_png:'🪙', icon_magic_png:'🔮',
+  icon_mushroom_coin_png:'🍄', icon_dk_banana_png:'🍌', icon_kremling_koin_png:'🐊', icon_quests_png:'⭐', icon_rupee_png:'💚', icon_pokedollar_png:'₽', icon_mora_png:'🪨',
+  factions_empire_png:'👑', factions_dwarfs_png:'⛏️', factions_dwarves_png:'⛏️', factions_skaven_png:'☢️', faction_wario_png:'🟡', faction_koopa_troop_png:'🐢', faction_onyx_hand_png:'🦇'
+};
+function displayIcon(raw,key){
+  const fallback=CURRENCY_ICON_FALLBACKS[normCurrencyKey(key)]||'🪙';
+  const val=String(raw||'').trim();
+  if(!val) return fallback;
+  const norm=normCurrencyKey(val);
+  if(CURRENCY_ICON_FALLBACKS[norm]) return CURRENCY_ICON_FALLBACKS[norm];
+  if(/\.(png|jpe?g|gif|webp|svg)$/i.test(val)||val.includes('/')){
+    if(/dwarf/i.test(val)) return '⛏️';
+    if(/skaven|rat/i.test(val)) return '🐀';
+    if(/empire|crown/i.test(val)) return '👑';
+    if(/gold/i.test(val)) return '💰';
+    if(/silver/i.test(val)) return '🪙';
+    if(/copper|bronze/i.test(val)) return '🟤';
+    if(/ducat|regal|lion/i.test(val)) return '🦁';
+    return fallback;
+  }
+  return val;
+}
+function currencyName(k){const c=currencyDef(k);return (c&&c.name)||prettyId(k);}
 function currencyMeta(k){
-  const c=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[k])||null;
+  const c=currencyDef(k);
   if(!c) return {base:1,icon:'🪙',tier:2,cat:'unknown'};
-  return {base:c.base_value||c.value||1, icon:c.iconFallback||c.icon||'🪙', tier:c.tier||2, cat:c.category||c.type||'?', type:c.type||'?'};
+  return {base:c.base_value||c.value||1, icon:displayIcon(c.iconFallback||c.emoji||c.icon,k), tier:c.tier||2, cat:c.category||c.type||'?', type:c.type||'?'};
 }
 function currencyGold(k,amt){const m=currencyMeta(k);return (m.base||1)*amt;}
 function inventoryPanel(articleId,item){
@@ -5723,7 +6049,7 @@ function inventoryPanel(articleId,item){
       const meta=currencyMeta(k); const gv=currencyGold(k,v); totalGold+=gv;
       if(meta.tier===1) core+=gv; else if(meta.tier===2) reg+=gv; else if(meta.tier===3) spec+=gv; else blk+=gv;
       const col=meta.tier===1?'var(--green)':meta.tier===2?'var(--accent2)':meta.tier===3?'var(--accent)':'var(--danger)';
-      return `<span class="coin-chip" style="border-left:3px solid ${col}"><span style="font-size:14px">${meta.icon}</span> <b>${Number(v).toLocaleString()}</b> ${esc(currencyName(k))} <span class="text-muted">· ${gv.toFixed(2)}g</span></span>`;
+      return `<span class="coin-chip" style="border-left:3px solid ${col}"><span style="font-size:14px">${esc(meta.icon)}</span> <b>${Number(v).toLocaleString()}</b> ${esc(currencyName(k))} <span class="text-muted">· ${gv.toFixed(2)}g</span></span>`;
     }).join('');
     walletHtml=`<h3 class="mt-14">💱 Wallet — ${Number(totalGold).toLocaleString()} gold equiv (intuitive)</h3>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0"><span class="pill border-green">Core ${Number(core).toLocaleString()}g</span><span class="pill border-accent2">Regional ${Number(reg).toLocaleString()}g</span><span class="pill border-accent">Special ${Number(spec).toLocaleString()}g</span>${blk?`<span class="pill border-danger">Black ${Number(blk).toLocaleString()}g</span>`:''}<span class="pill">1g=10s=100c</span></div>
@@ -5733,7 +6059,7 @@ function inventoryPanel(articleId,item){
   let bankHtml=''; let bankGold=0;
   if(bank.accounts.length||bank.loans.length||bank.debts.length){
     const rows=[];
-    bank.accounts.forEach(a=>{const meta=currencyMeta(a.currencyKey); const gv=currencyGold(a.currencyKey,a.balance); bankGold+=gv; rows.push(`<div class="bank-row border-left-green"><b>🏦 ${esc(a.bankId)}</b> — ${meta.icon} ${esc(a.balance.toLocaleString())} ${esc(currencyName(a.currencyKey))} <span class="text-muted">· ${gv.toFixed(2)}g equiv</span><br><span class="text-muted">${esc((a.note||'').slice(0,110))}</span></div>`);});
+    bank.accounts.forEach(a=>{const meta=currencyMeta(a.currencyKey); const gv=currencyGold(a.currencyKey,a.balance); bankGold+=gv; rows.push(`<div class="bank-row border-left-green"><b>🏦 ${esc(a.bankId)}</b> — ${esc(meta.icon)} ${esc(a.balance.toLocaleString())} ${esc(currencyName(a.currencyKey))} <span class="text-muted">· ${gv.toFixed(2)}g equiv</span><br><span class="text-muted">${esc((a.note||'').slice(0,110))}</span></div>`);});
     bank.loans.forEach(l=>{rows.push(`<div class="bank-row border-left-danger"><b>📉 Loan ${esc(l.bankId)}</b> — ${Number(l.principal).toLocaleString()} ${esc(currencyName(l.currencyKey))} · ${esc(l.status)} — paid ${Number(l.paid||0).toLocaleString()}/${Number(l.principal).toLocaleString()}<br><span class="text-muted">${esc((l.note||'').slice(0,100))}</span></div>`);});
     bank.debts.forEach(d=>{rows.push(`<div class="bank-row border-left-accent2"><b>💸 Debt → ${esc(d.creditor)}</b> — ${Number(d.amountOwed).toLocaleString()} ${esc(currencyName(d.currencyKey))} · ${esc(d.status)}<br><span class="text-muted">${esc((d.note||'').slice(0,100))}</span></div>`);});
     bankHtml=`<h3 class="mt-14">🏦 Banking — ${Number(bankGold).toLocaleString()}g in accounts</h3>${rows.join('')}<a class="map-link" href="currency.html">Open full exchange → tiers, instant convert, acceptance</a>`;
@@ -6215,8 +6541,32 @@ async function renderFactionPowerProjection(factionId) {
   `;
 }
 
+function view_fieldJournal(){
+  document.body.classList.add('hide-walu-ambient');
+  renderSidebar('journal');
+  const journalSrc=pathPrefix+'Field_Journal.html';
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Thornbury's Field Journal</div>
+    <div class="card animate-fade-in journal-viewer-hero">
+      <div>
+        <h1>📓 Thornbury's Field Journal</h1>
+        <p class="text-muted">The actual interactive field journal is now the primary view. Waluigi is not summarizing Thornbury's paranoia when the source document can incriminate itself.</p>
+      </div>
+      <div class="chips">
+        <a class="chip active" href="${esc(journalSrc)}">Open full journal →</a>
+        <span class="chip" onclick="document.getElementById('fieldJournalFrame').src='${esc(journalSrc)}'">Reload viewer</span>
+        <span class="chip" onclick="openId('thornbury')">Open Thornbury dossier</span>
+      </div>
+    </div>
+    <div class="card journal-viewer-card">
+      <iframe id="fieldJournalFrame" src="${esc(journalSrc)}" title="Thornbury's Field Journal"></iframe>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
 function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
+  if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
   let rec=INDEX[id];
   if(!rec && XP_SUMMARY){
     const alias=Object.keys(XP_SUMMARY).find(k=>XP_SUMMARY[k]&&XP_SUMMARY[k].xpKey===id);
@@ -6272,7 +6622,7 @@ function view_article(id){
       listBlocks.push(`<p><strong>${esc(label)}:</strong> ${rendered.join(', ')}</p>`);
     }
   };
-  af('distinctiveTraits','Distinctive Traits');af('notableFeatures','Notable Features');af('notableMembers','Notable Members',{linkable:true});af('regions','Regions');af('allies','Allies',{linkable:true});af('enemies','Enemies',{linkable:true});af('belligerents','Belligerents');af('participants','Participants',{linkable:true});af('members','Members',{linkable:true});
+  af('distinctiveTraits','Distinctive Traits');af('notableFeatures','Notable Features');af('notableMembers','Notable Members',{linkable:true});af('regions','Regions');af('allies','Allies',{linkable:true});af('enemies','Enemies',{linkable:true});af('belligerents','Belligerents');if(typeKey!=='events')af('participants','Participants',{linkable:true});af('members','Members',{linkable:true});
   // Race pages: reverse-index characters whose `race` field mentions this race.
   if(typeKey==='races' && item && item.name){
     const raceName=String(item.name).toLowerCase();
@@ -8936,6 +9286,9 @@ function view_holiday(id){
     </a>`).join('');
 
   const relEventHtml=relatedEvents.length?relatedEvents.map(ev=>`<a class="chip" onclick="openId('${esc(ev.id)}')">📜 ${esc(ev.title||prettyId(ev.id))}</a>`).join(''):'<span class="text-muted" style="font-size:12px">No events currently reference this holiday.</span>';
+  const practicesHtml=Array.isArray(h.observancePractices)&&h.observancePractices.length?`<div class="holiday-lore-grid"><div><h3>🎭 Common Practices</h3><ul>${h.observancePractices.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h3>🧭 Adventure Hooks</h3><ul>${(h.adventureHooks||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div>`:'';
+  const moodHtml=h.publicMood?`<div class="wnote"><b>Public Mood:</b> ${esc(h.publicMood)}</div>`:'';
+  const wNote=h.waluigiNote?`<div class="wnote"><b>Waluigi's Note:</b> ${esc(h.waluigiNote)}</div>`:'';
 
   el('content').innerHTML=`
     <div class="card holiday-record animate-fade-in" style="border-top:5px solid ${h.color||'var(--accent)'};background:linear-gradient(135deg,${h.color?h.color+'22':'rgba(138,75,255,.14)'},rgba(0,0,0,.05)),var(--panel)">
@@ -8947,10 +9300,8 @@ function view_holiday(id){
           <div style="color:var(--accent2);font-style:italic;font-size:14px">${esc(h.type||'Observance')} — ${esc(calName)} calendar</div>
           <div class="chips mt-10">
             <span class="pill">📆 ${esc(monthLabel)} ${esc(String(h.day))}</span>
-            <span class="pill">Month ${esc(String(h.month))}, Day ${esc(String(h.day))}</span>
-            <span class="pill">${esc(h.type||'observance')}</span>
             ${h.isWeird?'<span class="pill" style="background:rgba(224,80,80,.18);border-color:rgba(224,80,80,.4);color:#ffb0b0">⚠️ Intercalary / Weird Day</span>':''}
-            ${h.color?`<span class="pill" style="background:${h.color}33;border-color:${h.color};color:${h.color}">🎨 ${esc(h.color)}</span>`:''}
+            ${h.color?`<span class="pill" style="background:${h.color}33;border-color:${h.color};color:${h.color}">🎨 Theme color</span>`:''}
           </div>
         </div>
       </div>
@@ -8958,7 +9309,8 @@ function view_holiday(id){
 
     <div class="card">
       <h2 style="margin-top:0">📖 Observance Record</h2>
-      <p class="prose" style="font-size:15px;line-height:1.7">${linkedDesc||'<span class="text-muted">No description has been filed yet by Master Scribe Inkwell.</span>'}</p>
+      <div class="prose" style="font-size:15px;line-height:1.7;white-space:pre-wrap">${linkedDesc||'<span class="text-muted">No description has been filed yet by Master Scribe Inkwell.</span>'}</div>
+      ${moodHtml}${practicesHtml}${wNote}
       <div class="chips mt-10">
         <a class="chip active" href="#/calendar/${h.calendarId}/month/${CUR?CUR.year:1040}/${Number(h.month)-1}/${h.day}">📅 Open on calendar →</a>
         <a class="chip" href="#/calendar">Full Imperial Calendar</a>
@@ -8980,6 +9332,74 @@ function view_holiday(id){
   window.scrollTo(0,0);
 }
 
+
+/* ================= CRAFTING CODEX ================= */
+function craftingData(){return DATA.crafting||{recipes:[],materials:[],schools:{}};}
+function craftingRecipe(id){return (craftingData().recipes||[]).find(r=>r.id===id);}
+function craftingMaterial(id){return (craftingData().materials||[]).find(m=>m.id===id);}
+function craftingCategoryLabel(c){return String(c||'crafting').replace(/_/g,' ').replace(/\b\w/g,m=>m.toUpperCase());}
+function craftingMaterialLink(m){
+  const id=typeof m==='string'?m:(m&&m.id); const qty=(m&&m.quantity)?` ×${esc(String(m.quantity))}`:'';
+  const mat=craftingMaterial(id); const label=mat?mat.name:prettyId(id);
+  return `<a class="crafting-mat-chip" href="#/crafting/material/${encodeURIComponent(id||'')}">${esc(mat?.icon||'🧪')} ${esc(label)}${qty}</a>`;
+}
+function craftingRecipeCard(r){
+  const mats=(r.materials||[]).slice(0,4).map(craftingMaterialLink).join('');
+  const desc=r.description||r.effect||'Crafting recipe filed without a detailed effect.';
+  return `<div class="crafting-card" onclick="Router.go('#/crafting/recipe/${encodeURIComponent(r.id)}')" style="--craft-accent:${esc(craftingAccent(r.category||r.type))}">
+    <div class="crafting-card-head"><span class="craft-icon">${esc(r.icon||'⚒️')}</span><div><h3>${esc(r.name||prettyId(r.id))}</h3><div class="craft-sub">${esc(craftingCategoryLabel(r.category||r.type))}${r.rarity?` · ${esc(r.rarity)}`:''}${r.school?` · ${esc(r.school)}`:''}</div></div></div>
+    <p>${esc(desc).slice(0,180)}${desc.length>180?'…':''}</p>
+    <div class="craft-meta"><span>Lvl ${esc(String(r.levelRequirement||'?'))}</span><span>${esc(String(r.craftTime||'?'))}h</span><span>${esc(String(r.successChance||'?'))}%</span>${r.goldCost!=null?`<span>${esc(String(r.goldCost))}g</span>`:''}</div>
+    ${mats?`<div class="craft-mats-mini">${mats}</div>`:''}
+  </div>`;
+}
+function craftingMaterialGold(m,qty=1){return Math.max(0.01,((Number(m?.cost)||5)/10)*Number(qty||1));}
+function craftingMarketMarkup(m){return ({common:1,uncommon:1.2,rare:1.65,very_rare:2.25,legendary:3.5}[String(m?.rarity||'').toLowerCase()]||1.15);}
+function craftingMarketGold(m,qty=1){return craftingMaterialGold(m,qty)*craftingMarketMarkup(m);}
+function craftingCurrencyQuote(gold,key){const meta=currencyMeta(key);const amt=(Number(gold)||0)/(meta.base||1);return `${esc(meta.icon)} ${amt<10?amt.toFixed(2):Math.ceil(amt).toLocaleString()} ${esc(currencyName(key))}`;}
+function craftingPriceChips(m,qty=1){const gold=craftingMarketGold(m,qty);return `<div class="craft-price-row"><span title="Wario material market price">💰 ${gold.toFixed(2)}g</span><span>${craftingCurrencyQuote(gold,'midland_ducat')}</span><span>${craftingCurrencyQuote(gold,'wario_coin')}</span></div>`;}
+function craftingShopLink(id){return `shop.html#crafting-materials/${encodeURIComponent(id||'')}`;}
+function craftingMaterialCard(m){
+  return `<div class="crafting-card material" onclick="Router.go('#/crafting/material/${encodeURIComponent(m.id)}')" style="--craft-accent:${esc(materialRarityColor(m.rarity))}">
+    <div class="crafting-card-head"><span class="craft-icon">${esc(m.icon||'🧪')}</span><div><h3>${esc(m.name||prettyId(m.id))}</h3><div class="craft-sub">${esc(craftingCategoryLabel(m.category||'material'))}${m.rarity?` · ${esc(m.rarity)}`:''}</div></div></div>
+    <p>${esc(m.description||'Crafting material.')}</p>
+    ${craftingPriceChips(m,1)}
+    <a class="craft-buy-mini" onclick="event.stopPropagation()" href="${craftingShopLink(m.id)}">Buy in Wario Shop</a>
+  </div>`;
+}
+function craftingAccent(cat){const m={scrolls:'#a855f7',potions:'#22c55e',enchanting:'#f472b6',smithing:'#94a3b8',alchemy:'#eab308',runecarving:'#60a5fa'};return m[cat]||'#8a4bff';}
+function materialRarityColor(r){return {common:'#94a3b8',uncommon:'#22c55e',rare:'#38bdf8',legendary:'#eab308',very_rare:'#a855f7'}[String(r||'').toLowerCase()]||'#8a4bff';}
+function view_crafting(arg){
+  renderSidebar('crafting');
+  const parts=String(arg||'').split('/').filter(Boolean);
+  if(parts[0]==='recipe'&&parts[1]) return view_craftingRecipe(parts[1]);
+  if(parts[0]==='material'&&parts[1]) return view_craftingMaterial(parts[1]);
+  const data=craftingData(), recipes=data.recipes||[], materials=data.materials||[];
+  const cats=[...new Set(recipes.map(r=>r.category||r.type||'crafting'))].sort();
+  const cards=cats.map(cat=>{
+    const list=recipes.filter(r=>(r.category||r.type)===cat).slice(0,12);
+    return `<div class="card crafting-section" style="--craft-accent:${esc(craftingAccent(cat))}"><div class="crafting-section-head"><h2>${esc(craftingCategoryIcon(cat))} ${esc(craftingCategoryLabel(cat))}</h2><span class="pill">${recipes.filter(r=>(r.category||r.type)===cat).length} recipes</span></div><div class="crafting-grid">${list.map(craftingRecipeCard).join('')}</div>${recipes.filter(r=>(r.category||r.type)===cat).length>12?`<p class="text-muted text-sm">Showing first 12. Use search below for the full recipe list.</p>`:''}</div>`;
+  }).join('');
+  const materialPreview=materials.slice(0,24).map(craftingMaterialCard).join('');
+  el('content').innerHTML=`<div class="card animate-fade-in crafting-hero"><div><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Crafting Codex</div><h1>⚒️ Waluipedia Crafting Codex</h1><p class="text-muted">Scrolls, potions, enchantments, smithing plans, and materials are first-class Waluipedia records. Buying and checkout now happen in Wario's Warehouse material market, where receipts and the basket live.</p></div><div class="species-stats"><div class="species-stat"><b>${recipes.length}</b>Recipes</div><div class="species-stat"><b>${materials.length}</b>Materials</div><div class="species-stat"><b>${cats.length}</b>Craft types</div></div><div class="chips mt-10"><a class="chip active" href="shop.html#crafting-materials">Open Wario material market →</a><a class="chip" href="crafting.html">Old crafting console →</a><span class="chip" onclick="document.getElementById('craftSearch')?.focus()">Search recipes ↓</span></div></div><div class="card crafting-market-note"><h2>💰 Wario Material Market</h2><p class="text-muted">Waluipedia explains recipes and links materials. Wario's Shop handles the purchasable basket, checkout, and generated receipts. Formula: old material XP ÷ 10 = base gold, then Wario applies rarity markup because Wario is Wario.</p><div class="chips"><a class="chip active" href="shop.html#crafting-materials">Open material checkout →</a></div></div><div class="card"><div class="list-toolbar"><label><span>Search crafting</span><input id="craftSearch" placeholder="Potion of Healing, arcane dust, fireball scroll…"></label><label><span>Type</span><select id="craftType"><option value="all">All types</option>${cats.map(c=>`<option value="${esc(c)}">${esc(craftingCategoryLabel(c))}</option>`).join('')}<option value="materials">Materials</option></select></label></div><div id="craftResults" class="crafting-grid"></div></div>${cards}<div class="card crafting-section"><div class="crafting-section-head"><h2>🧪 Materials Index</h2><span class="pill">${materials.length} components</span></div><div class="crafting-grid">${materialPreview}</div></div>`;
+  const render=()=>{const q=String(el('craftSearch')?.value||'').toLowerCase();const type=el('craftType')?.value||'all';let rows=[];if(type==='materials'){rows=materials.filter(m=>[m.name,m.id,m.description,m.category,m.rarity].join(' ').toLowerCase().includes(q)).slice(0,60).map(craftingMaterialCard);}else{rows=recipes.filter(r=>(type==='all'||(r.category||r.type)===type)&&[r.name,r.id,r.description,r.effect,r.category,r.type,r.school,(r.materials||[]).map(m=>m.id).join(' ')].join(' ').toLowerCase().includes(q)).slice(0,60).map(craftingRecipeCard);}el('craftResults').innerHTML=rows.join('')||'<p class="text-muted">No crafting records match.</p>';};
+  el('craftSearch')?.addEventListener('input',render);el('craftType')?.addEventListener('change',render);render();window.scrollTo(0,0);
+}
+function craftingCategoryIcon(cat){return {scrolls:'📜',potions:'🧪',enchanting:'✨',smithing:'⚒️',alchemy:'⚗️',runecarving:'ᚱ'}[cat]||'⚒️';}
+function view_craftingRecipe(id){
+  const r=craftingRecipe(id); if(!r){view_crafting();return;}
+  const mats=(r.materials||[]).map(craftingMaterialLink).join('');
+  const materialGold=(r.materials||[]).reduce((sum,row)=>sum+craftingMarketGold(craftingMaterial(row.id),row.quantity||1),0);
+  const related=(DATA.crafting.recipes||[]).filter(x=>x.id!==r.id&&(x.category===r.category||x.school&&x.school===r.school)).slice(0,8).map(x=>`<a class="chip" href="#/crafting/recipe/${encodeURIComponent(x.id)}">${esc(x.icon||'⚒️')} ${esc(x.name)}</a>`).join('');
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/crafting')">Crafting</a> › ${esc(r.name)}</div><div class="article-layout"><div><div class="card animate-fade-in crafting-detail" style="--craft-accent:${esc(craftingAccent(r.category||r.type))}"><h1>${esc(r.icon||'⚒️')} ${esc(r.name)}</h1><div class="metabar"><span class="pill">${esc(craftingCategoryLabel(r.category||r.type))}</span>${r.rarity?`<span class="pill">${esc(r.rarity)}</span>`:''}${r.school?`<span class="pill">${esc(r.school)}</span>`:''}</div><blockquote>${esc(r.description||r.effect||'No description filed.')}</blockquote><h2>Materials</h2><div class="craft-mats-list">${mats||'<span class="text-muted">No materials listed.</span>'}</div><div class="craft-market-note mini"><b>Wario material quote:</b> 💰 ${materialGold.toFixed(2)}g · ${craftingCurrencyQuote(materialGold,'midland_ducat')} · ${craftingCurrencyQuote(materialGold,'wario_coin')}</div><h2>Crafting Check</h2><div class="species-stats"><div class="species-stat"><b>${esc(String(r.levelRequirement||'?'))}</b>Level</div><div class="species-stat"><b>${esc(String(r.craftTime||'?'))}h</b>Time</div><div class="species-stat"><b>${esc(String(r.successChance||'?'))}%</b>Success</div><div class="species-stat"><b>${esc(String(r.goldCost||0))}g</b>Cost</div></div>${related?`<h2>Related Recipes</h2><div class="chips">${related}</div>`:''}</div></div><div><div class="infobox"><h4>Recipe File</h4><div class="row"><span class="k">ID</span><span class="v">${esc(r.id)}</span></div><div class="row"><span class="k">Type</span><span class="v">${esc(r.category||r.type||'')}</span></div></div></div></div>`;window.scrollTo(0,0);
+}
+function view_craftingMaterial(id){
+  const m=craftingMaterial(id); if(!m){view_crafting();return;}
+  const used=(DATA.crafting.recipes||[]).filter(r=>(r.materials||[]).some(x=>x.id===id)).slice(0,30);
+  const gold=craftingMarketGold(m,1);
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/crafting')">Crafting</a> › ${esc(m.name)}</div><div class="article-layout"><div><div class="card animate-fade-in crafting-detail material" style="--craft-accent:${esc(materialRarityColor(m.rarity))}"><h1>${esc(m.icon||'🧪')} ${esc(m.name)}</h1><div class="metabar"><span class="pill">${esc(craftingCategoryLabel(m.category||'material'))}</span>${m.rarity?`<span class="pill">${esc(m.rarity)}</span>`:''}${m.cost!=null?`<span class="pill">Old console: ${esc(String(m.cost))} XP</span>`:''}</div><blockquote>${esc(m.description||'No material description filed.')}</blockquote><div class="craft-market-note"><h2>💰 Wario Material Market Listing</h2><p>This component is now priced as a purchasable material instead of only as abstract XP.</p>${craftingPriceChips(m,1)}<div class="chips mt-10"><a class="chip active" href="${craftingShopLink(m.id)}">Buy in Wario material market →</a><a class="chip" href="shop.html#crafting-materials">Open material checkout</a></div></div>${m.properties?.length?`<h2>Properties</h2><ul>${m.properties.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${m.effects?.length?`<h2>Effects</h2><ul>${m.effects.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}<h2>Used In Recipes</h2><div class="chips">${used.map(r=>`<a class="chip" href="#/crafting/recipe/${encodeURIComponent(r.id)}">${esc(r.icon||'⚒️')} ${esc(r.name)}</a>`).join('')||'<span class="text-muted">No linked recipes currently use this material.</span>'}</div></div></div><div><div class="infobox"><h4>Material File</h4><div class="row"><span class="k">ID</span><span class="v">${esc(m.id)}</span></div><div class="row"><span class="k">Category</span><span class="v">${esc(m.category||'')}</span></div><div class="row"><span class="k">Gold Price</span><span class="v">${gold.toFixed(2)}g</span></div></div></div></div>`;window.scrollTo(0,0);
+}
+
 /* ================= CURRENCY DEDICATED PAGES ================= */
 function currencySlug(c){ return String((c&&(c.id||c.key))||c||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
 function getCurrenciesList(){
@@ -8990,9 +9410,7 @@ function getCurrencyMeta(id){
   const list=getCurrenciesList();
   const c=list.find(x=>x.id===id||x.key===id||currencySlug(x)===id);
   if(c) return c;
-  const legacy=(INVENTORY_SYSTEM.currencies&&INVENTORY_SYSTEM.currencies[id])||null;
-  if(legacy) return Object.assign({id},legacy);
-  return null;
+  return currencyDef(id);
 }
 function view_currencies(){
   renderSidebar('currencies');
@@ -9003,7 +9421,7 @@ function view_currencies(){
   const sections=Object.entries(byCat).sort().map(([cat,items])=>{
     const cards=items.sort((a,b)=>((b.base_value||0)-(a.base_value||0))||String(a.name).localeCompare(String(b.name))).map(c=>`
       <a class="card holiday-directory-card" href="#/currency/${encodeURIComponent(currencySlug(c))}" style="border-left:4px solid ${c.color||'var(--accent2)'}">
-        <h2 style="margin:0 0 6px;font-size:16px">${esc(c.icon||'🪙')} ${esc(c.name||prettyId(c.id))}</h2>
+        <h2 style="margin:0 0 6px;font-size:16px">${esc(displayIcon(c.icon,c.id||c.key||c.name))} ${esc(c.name||prettyId(c.id))}</h2>
         <p style="color:var(--muted);font-size:12.5px;line-height:1.45;margin:0 0 8px">${esc((c.short||c.description||'Regional tender.').slice(0,150))}</p>
         <div class="chips">
           <span class="pill">≈ ${Number(c.base_value||0).toLocaleString()}g</span>
@@ -9042,17 +9460,18 @@ function view_currency(id){
   const acceptingVendors=Object.values(vendors).filter(v=>(v.acceptedCurrencies||[]).includes(c.id)).slice(0,10);
 
   // Wallets holding this currency
-  const wallets=(INVENTORY_SYSTEM.wallets||{});
+  const wallets=walletSource();
   const holders=Object.entries(wallets).filter(([k,w])=>w && w.currencies && (w.currencies[c.id]||w.currencies[currencySlug(c)])).slice(0,8);
 
   const goldEquiv=(n)=>Number(n*(c.base_value||1)).toLocaleString(undefined,{maximumFractionDigits:2});
 
+  const cIcon=displayIcon(c.iconFallback||c.emoji||c.icon,c.id||c.key||c.name);
   const accentColor=c.color||'var(--accent2)';
   el('content').innerHTML=`
     <div class="card animate-fade-in" style="border-top:5px solid ${accentColor};background:linear-gradient(135deg,${c.color?c.color+'22':'rgba(224,180,0,.14)'},rgba(0,0,0,.05)),var(--panel)">
       <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/currencies')">Currencies</a> › ${esc(c.name||prettyId(c.id))}</div>
       <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-top:8px">
-        <div style="font-size:56px;line-height:1">${esc(c.icon||'🪙')}</div>
+        <div style="font-size:56px;line-height:1">${esc(cIcon)}</div>
         <div style="flex:1;min-width:220px">
           <h1 style="margin:0 0 6px;font-size:30px">${esc(c.name||prettyId(c.id))}</h1>
           <div style="color:var(--accent2);font-style:italic;font-size:14px">${esc(c.short||c.type||'Regional tender')}</div>
@@ -9071,7 +9490,7 @@ function view_currency(id){
 
     <div class="card">
       <h2 style="margin-top:0">📖 Codex Entry</h2>
-      <p class="prose" style="font-size:15px;line-height:1.7">${linkify?linkify(esc(c.description||c.short||'No description filed.')):esc(c.description||c.short||'No description filed.')}</p>
+      <div class="prose" style="font-size:15px;line-height:1.7;white-space:pre-wrap">${linkify?linkify(esc(c.expandedDescription||c.description||c.short||'No description filed.')):esc(c.expandedDescription||c.description||c.short||'No description filed.')}</div>
       ${c.player_tip?`<div style="margin-top:12px;background:rgba(224,180,0,.08);border-left:3px solid var(--accent2);padding:10px 14px;border-radius:6px;font-size:13px"><b>💡 Player Tip:</b> ${esc(c.player_tip)}</div>`:''}
       ${c.issuer?`<p style="margin-top:10px;font-size:13px"><b>Issuer:</b> ${esc(c.issuer)}</p>`:''}
     </div>
@@ -9081,7 +9500,7 @@ function view_currency(id){
       <table style="width:100%;border-collapse:collapse;font-size:13.5px">
         <thead><tr style="border-bottom:1px solid var(--border);color:var(--muted)"><th style="text-align:left;padding:6px">Amount</th><th style="text-align:right;padding:6px">Gold Equivalent</th></tr></thead>
         <tbody>
-          ${[1,5,10,25,100,500,1000,5000].map(n=>`<tr style="border-bottom:1px dashed var(--border)"><td style="padding:6px">${n.toLocaleString()} ${esc(c.icon||'🪙')} ${esc(c.name||prettyId(c.id))}</td><td style="text-align:right;padding:6px;color:var(--accent2)"><b>${goldEquiv(n)}g</b></td></tr>`).join('')}
+          ${[1,5,10,25,100,500,1000,5000].map(n=>`<tr style="border-bottom:1px dashed var(--border)"><td style="padding:6px">${n.toLocaleString()} ${esc(cIcon)} ${esc(c.name||prettyId(c.id))}</td><td style="text-align:right;padding:6px;color:var(--accent2)"><b>${goldEquiv(n)}g</b></td></tr>`).join('')}
         </tbody>
       </table>
       <div class="chips mt-10">
@@ -9107,14 +9526,14 @@ function view_currency(id){
 
     ${holders.length?`<div class="card">
       <h2 style="margin-top:0">👛 Notable Wallet Holdings</h2>
-      <div class="chips">${holders.map(([k,w])=>{const amt=(w.currencies[c.id]||w.currencies[currencySlug(c)]||0); return `<a class="chip" onclick="openId('${esc(k)}')">${esc(prettyId(k))} — ${Number(amt).toLocaleString()} ${esc(c.icon||'🪙')}</a>`;}).join('')}</div>
+      <div class="chips">${holders.map(([k,w])=>{const amt=(w.currencies[c.id]||w.currencies[currencySlug(c)]||0); return `<a class="chip" onclick="openId('${esc(k)}')">${esc(prettyId(k))} — ${Number(amt).toLocaleString()} ${esc(cIcon)}</a>`;}).join('')}</div>
     </div>`:''}
 
     ${factionCurrencies.length||sameCategory.length?`<div class="card">
       ${factionCurrencies.length?`<h3 style="margin-top:0">🏳️ Other Currencies from ${esc(prettyId(c.home_faction))}</h3>
-      <div class="chips" style="margin-bottom:12px">${factionCurrencies.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(x.icon||'🪙')} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
+      <div class="chips" style="margin-bottom:12px">${factionCurrencies.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(displayIcon(x.icon,x.id||x.key||x.name))} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
       ${sameCategory.length?`<h3 style="margin-top:0">🔗 Related ${esc(prettyId(c.category||'other'))} Tenders</h3>
-      <div class="chips">${sameCategory.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(x.icon||'🪙')} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
+      <div class="chips">${sameCategory.map(x=>`<a class="chip" href="#/currency/${encodeURIComponent(currencySlug(x))}">${esc(displayIcon(x.icon,x.id||x.key||x.name))} ${esc(x.name||prettyId(x.id))}</a>`).join('')}</div>`:''}
     </div>`:''}
   `;
   window.scrollTo(0,0);
@@ -9608,13 +10027,15 @@ function openBookReader(bookId) {
 const Router={
   go(hash){if(location.hash===hash)Router.render();else location.hash=hash;},
   render(){
-    const h=location.hash||'#/home';const m=h.match(/^#\/([\w]+)\/?(.*)$/);
+    const h=location.hash||'#/home';const m=h.match(/^#\/([^\/]+)\/?(.*)$/);
     if(!m){view_home();return;}
     const route=m[1],arg=decodeURIComponent(m[2]||'');
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
     LINK_TOTAL_COUNT=0;  // fresh per page view for low-link mode
+    document.body.classList.remove('hide-walu-ambient');
     if(route==='home')view_home();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
+    else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='article')view_article(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
@@ -9642,6 +10063,7 @@ const Router={
     else if(route==='atlas'){ if(arg)view_atlasNation(arg); else view_atlas(); }
     else if(route==='dynasties')view_dynasties();
     else if(route==='dynasty')view_dynasty(arg);
+    else if(route==='crafting')view_crafting(arg);
     else if(route==='items')view_items();
     else if(route==='item')view_item(arg);
     else if(route==='books'||route==='library'||route==='codex')view_books(arg);
@@ -9667,7 +10089,7 @@ setTheme((()=>{try{return localStorage.getItem('waluipedia-theme')||'dark';}catc
 themeBtn.addEventListener('click',()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
 el('randomBtn').addEventListener('click',()=>Nav.random());
 document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(document.activeElement.tagName);
-  if(e.key==='/'&&!typing){e.preventDefault();searchInput.focus();}
+  if((e.key==='/'&&!typing)||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();searchInput.focus();runSearch(true);}
   else if(e.key==='t'&&!typing)setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
   else if(e.key==='r'&&!typing)Nav.random();
   else if(e.key.toLowerCase()==='h'&&!typing)cycleLinkLevel();
@@ -9679,7 +10101,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','cultures'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
