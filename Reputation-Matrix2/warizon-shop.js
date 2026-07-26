@@ -474,9 +474,11 @@ function ensureLoreData() {
       entries.sort((a, b) => b.name.length - a.name.length);
       LORE = { entries: entries.slice(0, 800), itemRefs: itemRefs || {} };
       loreLoading = false;
-      const openId = document.getElementById('wzModal')?._wzItemId;
-      if (openId && ITEM_BY_ID.has(openId)) { closeModal(); openPdp(openId); }
-      else if (['results', 'home', 'wahprime'].includes(S.view)) render();
+      /* Do NOT re-open an already-open PDP here — chained render errors used
+         to make the whole page appear to "crash". If the modal is open when
+         the lore lands, the user just misses cross-links on that view; they'll
+         appear next time they open something. */
+      if (!document.getElementById('wzModal') && ['results', 'home', 'wahprime'].includes(S.view)) render();
     })
     .catch(() => { loreLoading = false; });
 }
@@ -518,11 +520,10 @@ function ensureEffectCatalog() {
     .then(r => (r.ok ? r.json() : null))
     .then(j => {
       effectCatalog = j || {};
-      /* catalog landed while a PDP is open → re-open it so rules upgrade */
-      const openId = document.getElementById('wzModal')?._wzItemId;
-      if (openId && ITEM_BY_ID.has(openId)) { closeModal(); openPdp(openId); }
+      effectCatalogLoading = false;
+      /* Same reason as ensureLoreData: no re-open cascade. */
     })
-    .catch(() => { effectCatalog = {}; });
+    .catch(() => { effectCatalog = {}; effectCatalogLoading = false; });
   return effectCatalog;
 }
 
@@ -1978,15 +1979,51 @@ function glancePanelHtml(it) {
 }
 
 function openPdp(id, useCur = null) {
+  try {
+    return _openPdpUnsafe(id, useCur);
+  } catch (err) {
+    /* Any render-time failure used to nuke the whole page silently. Surface it
+       loudly instead so the user (and console) can see WHAT broke and which
+       item triggered it. */
+    console.error('[Warizon] openPdp failed for item:', id, err);
+    try { closeModal(); } catch (_) {}
+    const scrim = document.createElement('div');
+    scrim.className = 'modal-scrim';
+    scrim.id = 'wzModal';
+    scrim.innerHTML = `
+      <div class="modal pdp-modal" role="dialog" aria-modal="true" style="max-width:640px">
+        <button class="modal-x" data-close="1" aria-label="Close">✕</button>
+        <div style="padding:24px 28px">
+          <h2 style="color:#b12704;margin:0 0 8px">😵 Warizon hiccup</h2>
+          <p style="margin:0 0 12px;color:#333">Wario's warehouse robot dropped a crate opening <b>${esc(id)}</b>. The listing didn't render, but the rest of the site should keep working.</p>
+          <details style="background:#f7f7f7;border:1px solid #ddd;border-radius:6px;padding:10px 12px;font-size:12px">
+            <summary style="cursor:pointer;font-weight:700">Technical details (share this if reporting)</summary>
+            <pre style="white-space:pre-wrap;word-wrap:break-word;margin:8px 0 0;font-size:11px;color:#555">${esc(String(err && err.message || err))}\n\n${esc(String((err && err.stack || '').slice(0, 1400)))}</pre>
+          </details>
+          <button class="btn-add" data-close="1" style="margin-top:14px">Close</button>
+        </div>
+      </div>`;
+    document.body.appendChild(scrim);
+    scrim.addEventListener('click', e => {
+      if (e.target === scrim || e.target.closest('[data-close]')) closeModal();
+    });
+  }
+}
+
+function _openPdpUnsafe(id, useCur = null) {
   const it = ITEM_BY_ID.get(id);
   if (!it) return;
   ensureEffectCatalog();   // warm the supplement catalog
   ensureLoreData();        // warm Waluipedia cross-links
-  const cur = (useCur && it.accepted.includes(useCur)) ? useCur : it.nativeCur;
-  const vendorName = it.vendorLabel;
-  const out = it.stock <= 0;
-  const maxQty = Math.min(Math.max(it.stock, 0), 10);
+  const accepted = Array.isArray(it.accepted) && it.accepted.length ? it.accepted : ['gold'];
+  const nativeCur = it.nativeCur || 'gold';
+  const cur = (useCur && accepted.includes(useCur)) ? useCur : nativeCur;
+  const vendorName = it.vendorLabel || 'Wario\'s Warehouse Direct';
+  const out = (it.stock || 0) <= 0;
+  const maxQty = Math.min(Math.max(it.stock || 0, 0), 10);
   const qtyOpts = Array.from({ length: maxQty }, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join('');
+  const rarity = String(it.rarity || 'common');
+  const dept = DEPARTMENTS[it.cat] || { label: 'Warizon', icon: '📦' };
 
   closeModal();
   const scrim = document.createElement('div');
@@ -1994,14 +2031,14 @@ function openPdp(id, useCur = null) {
   scrim.id = 'wzModal';
   scrim._wzItemId = id;
 
-  const curOptions = it.accepted.map(c =>
-    `<option value="${esc(c)}" ${c === cur ? 'selected' : ''}>${coinIcon(c)} ${esc(currencyName(c))}${c === it.nativeCur ? ' (vendor’s own)' : ''}</option>`).join('');
-  const pdpRows = effectRowsFor(it);
+  const curOptions = accepted.map(c =>
+    `<option value="${esc(c)}" ${c === cur ? 'selected' : ''}>${coinIcon(c)} ${esc(currencyName(c))}${c === nativeCur ? ' (vendor’s own)' : ''}</option>`).join('');
+  const pdpRows = effectRowsFor(it) || [];
   const pdpPrimary = pdpRows.find(r => r.rules) || null;
   const pdpUsage = usageFor(it);
   const pdpStatCards = [
     ['📜 Rules', `${pdpRows.length} effect${pdpRows.length === 1 ? '' : 's'}`],
-    ['💱 Native coin', currencyName(it.nativeCur)],
+    ['💱 Native coin', currencyName(nativeCur)],
     ['🚚 Delivery', it.prime ? 'WahPrime eligible' : 'Economy delivery'],
     ['📦 Stock', out ? 'Unavailable' : `${it.stock} left`]
   ];
@@ -2022,18 +2059,18 @@ function openPdp(id, useCur = null) {
     <div class="pdp">
       <div class="pdp-crumb">
         <a data-crumb-goto="1">Everything</a> ›
-        <a data-crumb-dept="${esc(it.cat)}">${esc(DEPARTMENTS[it.cat].icon)} ${esc(DEPARTMENTS[it.cat].label)}</a> ›
+        <a data-crumb-dept="${esc(it.cat)}">${esc(dept.icon)} ${esc(dept.label)}</a> ›
         <span>${esc(it.name)}</span>
       </div>
 
-      <div class="pdp-img"><span class="rarity-chip rarity-${esc(it.rarity)}">${esc(it.rarity.replace('_', ' '))}</span>${esc(it.icon)}</div>
+      <div class="pdp-img"><span class="rarity-chip rarity-${esc(rarity)}">${esc(rarity.replace('_', ' '))}</span>${esc(it.icon || '📦')}</div>
 
       <div class="pdp-mid">
-        <h1>${esc(it.name)}</h1>
-        <div class="pdp-store">Visit the <a data-vendor-search="${esc(vendorName)}">${esc(vendorName)} Store</a>${it.nativeVia !== 'default' ? ` · prices set in <b>${esc(currencyName(it.nativeCur))}</b>` : ''}</div>
-        <div class="p-rating">${starsHtml(it.rating)} <span style="color:#de7921">▾</span> <a class="r-count">${it.rating} · ${fmt(it.reviews)} ratings</a></div>
+        <h1>${esc(it.name || 'Unnamed item')}</h1>
+        <div class="pdp-store">Visit the <a data-vendor-search="${esc(vendorName)}">${esc(vendorName)} Store</a>${it.nativeVia !== 'default' ? ` · prices set in <b>${esc(currencyName(nativeCur))}</b>` : ''}</div>
+        <div class="p-rating">${starsHtml(it.rating || 0)} <span style="color:#de7921">▾</span> <a class="r-count">${it.rating || 0} · ${fmt(it.reviews || 0)} ratings</a></div>
         <div class="pdp-quick-read">
-          <div class="qr-head"><span>✨ Quick read</span><b>${esc(DEPARTMENTS[it.cat].label)}</b></div>
+          <div class="qr-head"><span>✨ Quick read</span><b>${esc(dept.label)}</b></div>
           ${it.desc ? `<p>${loreLinkText(it.desc, 6)}</p>` : '<p>Wario forgot to write a description, which is legally distinct from suspicious.</p>'}
           ${pdpPrimary ? `<div class="qr-rule"><span>Primary table rule</span><b>${esc(pdpPrimary.title)}</b><em>${loreLinkText(pdpPrimary.rules, 4)}</em></div>` : `<div class="qr-rule muted"><span>Rules status</span><b>Needs DM clarification</b><em>No reviewed rules text is attached to this item yet.</em></div>`}
           ${pdpUsage ? `<div class="qr-use">${[['⚡ Activation','activation'],['⏳ Duration','duration'],['🔢 Charges','charges']].filter(([,k]) => pdpUsage[k]).map(([label,k]) => `<span><b>${label}</b>${esc(pdpUsage[k])}</span>`).join('')}</div>` : ''}
@@ -2043,18 +2080,18 @@ function openPdp(id, useCur = null) {
           <div class="pdp-cur-row">
             ${priceWidget(it, cur)}
           </div>
-          ${it.accepted.length > 1 ? `<div class="pdp-cur-pick" title="This vendor accepts multiple currencies">
+          ${accepted.length > 1 ? `<div class="pdp-cur-pick" title="This vendor accepts multiple currencies">
             <span style="font-size:12px;color:var(--wz-muted)">💱 Pay with:</span>
-            <div class="pdp-cur-pills">${it.accepted.map(c => {
-              const isNat = c === it.nativeCur;
+            <div class="pdp-cur-pills">${accepted.map(c => {
+              const isNat = c === nativeCur;
               const disc = isNat ? nativeDiscount(it) : 0;
               const dLabel = disc > 0 ? ' <span style="color:#067d17;font-weight:700">-' + disc + '%</span>' : '';
               return '<button class="cur-pill ' + (c === cur ? 'active' : '') + '" data-pdp-cur="' + esc(c) + '" title="' + (isNat ? "Vendor's own currency" + (disc > 0 ? ' — ' + disc + '% discount!' : '') : '') + '">' + coinIcon(c) + ' ' + esc(currencyName(c)) + (isNat ? ' *' : '') + dLabel + '</button>';
             }).join('')}</div>
           </div>` : ''}
-          ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(Math.round(it.price))} gold at Waluipedia exchange rates (1 ${esc(it.nativeCur)} = ${currencyBase(it.nativeCur)} gold)</div>` : ''}
-          ${cur === it.nativeCur && nativeDiscount(it) > 0 ? `<div class="p-native-discount">🎉 <b>${esc(currencyName(it.nativeCur))} discount: -${nativeDiscount(it)}%</b> — paying in the vendor's preferred currency saves you coin!</div>` : ''}
-          ${it.accepted.length > 1 ? `<div class="p-accepts-row">This vendor also accepts: ${it.accepted.filter(c => c !== cur).map(c => `${coinIcon(c)} ${esc(currencyName(c))}`).join(' · ')}</div>` : ''}
+          ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(Math.round(it.price || 0))} gold at Waluipedia exchange rates (1 ${esc(nativeCur)} = ${currencyBase(nativeCur)} gold)</div>` : ''}
+          ${cur === nativeCur && nativeDiscount(it) > 0 ? `<div class="p-native-discount">🎉 <b>${esc(currencyName(nativeCur))} discount: -${nativeDiscount(it)}%</b> — paying in the vendor's preferred currency saves you coin!</div>` : ''}
+          ${accepted.length > 1 ? `<div class="p-accepts-row">This vendor also accepts: ${accepted.filter(c => c !== cur).map(c => `${coinIcon(c)} ${esc(currencyName(c))}`).join(' · ')}</div>` : ''}
         </div>
         ${shipLine(it)}
         <hr class="pdp-hr">
@@ -2066,11 +2103,11 @@ function openPdp(id, useCur = null) {
           <div class="pdp-desc">${loreLinkText(it.desc, 8)}</div>
           ${it.warning ? `<div class="pdp-warning">⚠ ${esc(it.warning)}</div>` : ''}
           <table class="pdp-table">
-            <tr><td>Department</td><td>${esc(DEPARTMENTS[it.cat].icon)} ${esc(DEPARTMENTS[it.cat].label)}</td></tr>
-            <tr><td>Rarity</td><td><span class="rarity-chip rarity-${esc(it.rarity)}">${esc(it.rarity.replace('_', ' '))}</span></td></tr>
+            <tr><td>Department</td><td>${esc(dept.icon)} ${esc(dept.label)}</td></tr>
+            <tr><td>Rarity</td><td><span class="rarity-chip rarity-${esc(rarity)}">${esc(rarity.replace('_', ' '))}</span></td></tr>
             <tr><td>Sold by</td><td>${esc(vendorName)}${it.vendor?.location ? ' — ' + esc(it.vendor.location) : ''}</td></tr>
             ${it.vendorReason ? `<tr><td>Why this vendor</td><td>${esc(it.vendorReason)}</td></tr>` : ''}
-            <tr><td>Accepted payment</td><td>${it.accepted.map(c => `${coinIcon(c)} ${esc(currencyName(c))}`).join(' · ')}</td></tr>
+            <tr><td>Accepted payment</td><td>${accepted.map(c => `${coinIcon(c)} ${esc(currencyName(c))}`).join(' · ')}</td></tr>
             ${it.priceReason ? `<tr><td>Why this price</td><td>${esc(it.priceReason)}</td></tr>` : ''}
             <tr><td>Item model</td><td><code>${esc(it.id)}</code></td></tr>
             <tr><td>Return policy</td><td><b>No returns. No refunds.</b> All sales benefit the Wario Retirement &amp; Garlic Fund.</td></tr>
@@ -2079,9 +2116,9 @@ function openPdp(id, useCur = null) {
       </div>
 
       <aside class="pdp-buybox">
-        <div class="bb-price"><span class="sym">${coinIcon(cur)}</span><span class="whole">${fmt(amtIn(cur === it.nativeCur && cur !== 'gold' ? nativeDiscountedPrice(it) : Math.round(it.price), cur))}</span><span class="frac">${cur === 'gold' ? '' : esc(currencyName(cur))}</span></div>
-        ${cur === it.nativeCur && cur !== 'gold' && nativeDiscount(it) > 0 ? `<div class="p-was" style="color:#067d17">Was: <s>${coinIcon(cur)}${fmt(amtIn(Math.round(it.price), cur))}</s> <span style="font-weight:700">-${nativeDiscount(it)}% native</span></div>` : ''}
-        ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(cur === it.nativeCur ? nativeDiscountedPrice(it) : Math.round(it.price))} gold</div>` : ''}
+        <div class="bb-price"><span class="sym">${coinIcon(cur)}</span><span class="whole">${fmt(amtIn(cur === nativeCur && cur !== 'gold' ? nativeDiscountedPrice(it) : Math.round(it.price || 0), cur))}</span><span class="frac">${cur === 'gold' ? '' : esc(currencyName(cur))}</span></div>
+        ${cur === nativeCur && cur !== 'gold' && nativeDiscount(it) > 0 ? `<div class="p-was" style="color:#067d17">Was: <s>${coinIcon(cur)}${fmt(amtIn(Math.round(it.price || 0), cur))}</s> <span style="font-weight:700">-${nativeDiscount(it)}% native</span></div>` : ''}
+        ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(cur === nativeCur ? nativeDiscountedPrice(it) : Math.round(it.price || 0))} gold</div>` : ''}
         ${it.deal ? `<div class="p-was">List: <s>${coinIcon(cur)}${fmt(amtIn(it.deal.was, cur))}</s> <span style="color:var(--wz-deal-red);font-weight:700">-${it.deal.off}%</span></div>` : ''}
         <div style="margin-top:6px">${it.prime ? '<span class="wahprime">wahprime</span> FREE delivery' : 'Economy delivery'} <b>${deliveryLabel(it.id)}</b></div>
         ${out ? '<div class="bb-stock low">Currently unavailable</div>' : it.stock <= 3 ? `<div class="bb-stock low">Only ${it.stock} left in stock - order soon.</div>` : '<div class="bb-stock">In Stock</div>'}
@@ -2799,6 +2836,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- GLOBAL CLICK DELEGATION (store) --- */
   document.body.addEventListener('click', e => {
+    try { _handleStoreClick(e); }
+    catch (err) { console.error('[Warizon] click handler failed:', err); toast('Warizon hit a bug — check the browser console for details.'); }
+  });
+  function _handleStoreClick(e) {
     const t = e.target;
     const open = t.closest('[data-open]');
     if (open) { openPdp(open.dataset.open); return; }
@@ -2995,7 +3036,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo(0, 0);
       return;
     }
-  });
+  }
 
   /* --- filter checkbox changes --- */
   document.body.addEventListener('change', e => {
